@@ -32,6 +32,13 @@ private val rxBR = "<br> ".toRegex()
 val rxQuoteInline = "<p class=\"quote-inline\".*?</p>\\s*".toRegex()
 
 /**
+ * Remove `p` elements with a single `quote-inline` class.
+ */
+fun CharSequence.removeQuoteInline(): String {
+    return this.replace(rxQuoteInline, "")
+}
+
+/**
  * parse a String containing html from the Mastodon api to Spanned
  */
 @JvmOverloads
@@ -40,8 +47,6 @@ fun CharSequence.parseAsMastodonHtml(tagHandler: TagHandler? = null): Spanned {
         .replace("<br /> ", "<br />&nbsp;")
         .replace("<br/> ", "<br/>&nbsp;")
         .replace("  ", "&nbsp;&nbsp;")
-        // Remove the quote-inline paragraph, as quoted statuses are displayed.
-        .replace(rxQuoteInline, "")
         .parseAsHtml(tagHandler = tagHandler)
         // Html.fromHtml returns trailing whitespace if the html ends in a </p> tag, which
         // most status contents do, so it should be trimmed.

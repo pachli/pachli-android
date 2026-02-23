@@ -27,7 +27,7 @@ import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.TimelineAccount
-import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.core.ui.emojify
 import app.pachli.databinding.ItemStatusBinding
@@ -36,9 +36,9 @@ import com.bumptech.glide.RequestManager
 open class StatusViewHolder<T : IStatusViewData>(
     private val binding: ItemStatusBinding,
     glide: RequestManager,
-    setStatusContent: SetStatusContent,
+    setContent: SetContent,
     root: View? = null,
-) : StatusBaseViewHolder<T>(root ?: binding.root, glide, setStatusContent) {
+) : StatusBaseViewHolder<T>(root ?: binding.root, glide, setContent) {
 
     override fun setupWithStatus(
         viewData: T,

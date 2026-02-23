@@ -94,7 +94,7 @@ jobs:
           echo "exitcode=$?" >> $GITHUB_OUTPUT
 
       - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@45cbd0c69e560cd9e7cd7f8c32362050c9b7ded2 # v4
+        uses: github/codeql-action/upload-sarif@9e907b5e64f6b83e7804b09294d44122997950d6 # v4
         with:
           sarif_file: app/build/reports/lint-results-${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}.sarif
           category: lint-${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}

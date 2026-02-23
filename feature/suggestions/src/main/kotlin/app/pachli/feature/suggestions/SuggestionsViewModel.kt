@@ -63,6 +63,7 @@ internal data class UiState(
     val animateAvatars: Boolean = false,
     val showBotOverlay: Boolean = false,
     val showPronouns: Boolean = false,
+    val renderMarkdown: Boolean = false,
 ) {
     companion object {
         fun from(statusDisplayOptions: StatusDisplayOptions) = UiState(
@@ -70,6 +71,7 @@ internal data class UiState(
             animateAvatars = statusDisplayOptions.animateAvatars,
             showBotOverlay = statusDisplayOptions.showBotOverlay,
             showPronouns = statusDisplayOptions.pronounDisplay == PronounDisplay.EVERYWHERE,
+            renderMarkdown = statusDisplayOptions.renderMarkdown,
         )
     }
 }

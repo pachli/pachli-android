@@ -168,7 +168,7 @@ suspend fun Iterable<Status>.asTimelineStatusWithQuote(pachliAccountId: Long, st
                 viewData = viewDataCache[status.actionableId],
                 translatedStatus = translationCache[status.actionableId],
             ),
-            quotedStatus = (status.quote as? Status.Quote.FullQuote)?.status?.let { q ->
+            quotedStatus = (status.actionableStatus.quote as? Status.Quote.FullQuote)?.status?.let { q ->
                 TimelineStatusWithAccount(
                     status = q.asEntity(pachliAccountId),
                     account = q.account.asEntity(pachliAccountId),

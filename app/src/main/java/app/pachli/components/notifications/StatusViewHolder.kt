@@ -21,7 +21,7 @@ import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusViewHolder
 import app.pachli.core.data.model.NotificationViewData.WithStatus
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.databinding.ItemStatusBinding
 import app.pachli.databinding.ItemStatusWrapperBinding
@@ -34,9 +34,9 @@ import com.bumptech.glide.RequestManager
 internal class StatusViewHolder(
     binding: ItemStatusBinding,
     glide: RequestManager,
-    setStatusContent: SetStatusContent,
+    setContent: SetContent,
     private val statusActionListener: NotificationActionListener,
-) : NotificationsPagingAdapter.ViewHolder<WithStatus>, StatusViewHolder<WithStatus>(binding, glide, setStatusContent) {
+) : NotificationsPagingAdapter.ViewHolder<WithStatus>, StatusViewHolder<WithStatus>(binding, glide, setContent) {
 
     override fun bind(
         viewData: WithStatus,
@@ -63,9 +63,9 @@ internal class StatusViewHolder(
 class FilterableStatusViewHolder(
     binding: ItemStatusWrapperBinding,
     glide: RequestManager,
-    setStatusContent: SetStatusContent,
+    setContent: SetContent,
     private val statusActionListener: StatusActionListener,
-) : NotificationsPagingAdapter.ViewHolder<WithStatus>, FilterableStatusViewHolder<WithStatus>(binding, glide, setStatusContent) {
+) : NotificationsPagingAdapter.ViewHolder<WithStatus>, FilterableStatusViewHolder<WithStatus>(binding, glide, setContent) {
     // Note: Identical to bind() in StatusViewHolder above
     override fun bind(
         viewData: WithStatus,

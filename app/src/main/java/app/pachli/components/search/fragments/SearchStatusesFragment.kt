@@ -61,8 +61,8 @@ import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.navigation.ReportActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.ui.ClipboardUseCase
-import app.pachli.core.ui.SetMarkdownContent
-import app.pachli.core.ui.SetMastodonHtmlContent
+import app.pachli.core.ui.SetContentAsMarkdown
+import app.pachli.core.ui.SetContentAsMastodonHtml
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.usecase.TimelineCases
 import app.pachli.view.showMuteAccountDialog
@@ -122,17 +122,17 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
     override fun createAdapter(): PagingDataAdapter<StatusItemViewData, *> {
         val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
 
-        val setStatusContent = if (statusDisplayOptions.renderMarkdown) {
-            SetMarkdownContent(requireContext())
+        val setContent = if (statusDisplayOptions.renderMarkdown) {
+            SetContentAsMarkdown(requireContext())
         } else {
-            SetMastodonHtmlContent
+            SetContentAsMastodonHtml
         }
 
         binding.searchRecyclerView.addItemDecoration(
             MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
         )
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(binding.searchRecyclerView.context)
-        return SearchStatusesAdapter(Glide.with(this), setStatusContent, statusDisplayOptions, this)
+        return SearchStatusesAdapter(Glide.with(this), setContent, statusDisplayOptions, this)
     }
 
     override fun onAttachmentDisplayActionChange(viewData: IStatusViewData, newAction: AttachmentDisplayAction) {

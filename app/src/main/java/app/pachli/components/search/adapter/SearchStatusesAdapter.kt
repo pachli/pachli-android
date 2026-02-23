@@ -24,14 +24,14 @@ import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.adapter.StatusViewHolder
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusItemViewData
-import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.databinding.ItemStatusBinding
 import com.bumptech.glide.RequestManager
 
 class SearchStatusesAdapter(
     private val glide: RequestManager,
-    private val setStatusContent: SetStatusContent,
+    private val setContent: SetContent,
     private val statusDisplayOptions: StatusDisplayOptions,
     private val statusListener: StatusActionListener,
 ) : PagingDataAdapter<StatusItemViewData, StatusViewHolder<StatusItemViewData>>(STATUS_COMPARATOR) {
@@ -40,7 +40,7 @@ class SearchStatusesAdapter(
         return StatusViewHolder(
             ItemStatusBinding.inflate(LayoutInflater.from(parent.context), parent, false),
             glide,
-            setStatusContent,
+            setContent,
         )
     }
 

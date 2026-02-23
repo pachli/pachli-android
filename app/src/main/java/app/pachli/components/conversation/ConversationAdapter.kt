@@ -30,7 +30,7 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountFilterReason
 import app.pachli.core.model.FilterAction
-import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.databinding.ItemConversationBinding
 import app.pachli.databinding.ItemConversationFilteredBinding
@@ -40,7 +40,7 @@ import com.bumptech.glide.RequestManager
 internal class ConversationAdapter(
     private val glide: RequestManager,
     private var statusDisplayOptions: StatusDisplayOptions,
-    private val setStatusContent: SetStatusContent,
+    private val setContent: SetContent,
     private val listener: StatusActionListener,
     private val accept: (UiAction) -> Unit,
 ) : PagingDataAdapter<ConversationViewData, RecyclerView.ViewHolder>(CONVERSATION_COMPARATOR) {
@@ -84,14 +84,14 @@ internal class ConversationAdapter(
                 ConversationViewHolder(
                     ItemConversationBinding.inflate(inflater, parent, false),
                     glide,
-                    setStatusContent,
+                    setContent,
                     listener,
                 )
             ConversationViewKind.STATUS_FILTERED ->
                 FilterableConversationStatusViewHolder(
                     ItemStatusWrapperBinding.inflate(inflater, parent, false),
                     glide,
-                    setStatusContent,
+                    setContent,
                     listener,
                 )
             ConversationViewKind.ACCOUNT_FILTERED ->
@@ -163,9 +163,9 @@ enum class ConversationViewKind {
 class FilterableConversationStatusViewHolder internal constructor(
     binding: ItemStatusWrapperBinding,
     glide: RequestManager,
-    setStatusContent: SetStatusContent,
+    setContent: SetContent,
     private val listener: StatusActionListener,
-) : ConversationAdapter.ViewHolder, FilterableStatusViewHolder<ConversationViewData>(binding, glide, setStatusContent) {
+) : ConversationAdapter.ViewHolder, FilterableStatusViewHolder<ConversationViewData>(binding, glide, setContent) {
     override fun bind(viewData: ConversationViewData, payloads: List<List<Any?>>?, statusDisplayOptions: StatusDisplayOptions) {
         if (payloads.isNullOrEmpty()) {
             showStatusContent(true)

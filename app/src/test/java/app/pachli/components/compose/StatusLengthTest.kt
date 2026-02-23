@@ -34,22 +34,22 @@ class StatusLengthTest(
         @JvmStatic
         fun data(): Iterable<Any> {
             return listOf(
-                arrayOf("", 0),
-                arrayOf(" ", 1),
-                arrayOf("123", 3),
+                arrayOf<Any>("", 0),
+                arrayOf<Any>(" ", 1),
+                arrayOf<Any>("123", 3),
                 // "@user@server" should be treated as "@user"
-                arrayOf("123 @example@example.org", 12),
+                arrayOf<Any>("123 @example@example.org", 12),
                 // URLs under 23 chars are treated as 23 chars
-                arrayOf("123 http://example.org", 27),
+                arrayOf<Any>("123 http://example.org", 27),
                 // URLs over 23 chars are treated as 23 chars
-                arrayOf("123 http://urlthatislongerthan23characters.example.org", 27),
+                arrayOf<Any>("123 http://urlthatislongerthan23characters.example.org", 27),
                 // URLs end when they should (the ")." should be part of the status
                 // length, not considered to be part of the URL)
-                arrayOf("test (https://example.com). test", 36),
+                arrayOf<Any>("test (https://example.com). test", 36),
                 // Short hashtags are treated as is
-                arrayOf("123 #basictag", 13),
+                arrayOf<Any>("123 #basictag", 13),
                 // Long hashtags are *also* treated as is (not treated as 23, like URLs)
-                arrayOf("123 #atagthatislongerthan23characters", 37),
+                arrayOf<Any>("123 #atagthatislongerthan23characters", 37),
             )
         }
     }

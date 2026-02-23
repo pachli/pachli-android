@@ -750,4 +750,11 @@
     <string name="compose_task_description_writing_post">Koostan postitust</string>
     <string name="compose_task_description_replying_fmt">Koostan vastust: %1$s</string>
     <string name="compose_task_description_quoting_fmt">Tsiteerin: %1$s</string>
+    <string name="search_operator_quote_all">Tsiteerimised ▾</string>
+    <string name="search_operator_quote_only">Vaid tsiteerimised</string>
+    <string name="search_operator_quote_no_quotes">Ilma tsiteerimisteta</string>
+    <string name="search_operator_quote_dialog_title">Kas soovid näha postitusi, kus on teisi postitusi tsiteeritud?</string>
+    <string name="search_operator_quote_dialog_all">Tsiteerimistega või ilma</string>
+    <string name="search_operator_quote_dialog_only">Vaid tsiteerimisega postitused</string>
+    <string name="search_operator_quote_dialog_no_quotes">Vaid tsiteerimisteta postitused</string>
 </resources>

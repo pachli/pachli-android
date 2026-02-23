@@ -64,8 +64,8 @@ class ReportStatusView @JvmOverloads constructor(
         setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
     }
 
-    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: StatusItemViewData, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
-        super.setupWithStatus(setStatusContent, glide, viewData, listener, statusDisplayOptions)
+    override fun setupWithStatus(setContent: SetContent, glide: RequestManager, viewData: StatusItemViewData, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
+        super.setupWithStatus(setContent, glide, viewData, listener, statusDisplayOptions)
 
         // Can't vote while reporting statuses.
         binding.statusPoll.isEnabled = false
@@ -77,7 +77,7 @@ class ReportStatusView @JvmOverloads constructor(
         }
 
         val quotedViewData = viewData.asQuotedStatusViewData()
-        binding.statusQuote.setupWithStatus(setStatusContent, glide, quote.state, quotedViewData, listener, statusDisplayOptions)
+        binding.statusQuote.setupWithStatus(setContent, glide, quote.state, quotedViewData, listener, statusDisplayOptions)
         binding.statusQuote.show()
     }
 }

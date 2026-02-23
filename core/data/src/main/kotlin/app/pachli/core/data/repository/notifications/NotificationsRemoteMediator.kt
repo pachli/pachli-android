@@ -294,7 +294,7 @@ fun NotificationData.Companion.from(pachliAccountId: Long, notification: Notific
                 status = status.asEntity(pachliAccountId),
                 account = status.account.asEntity(pachliAccountId),
             ),
-            quotedStatus = (status.quote?.asModel() as? Status.Quote.FullQuote)?.let {
+            quotedStatus = (status.actionableStatus.quote?.asModel() as? Status.Quote.FullQuote)?.let {
                 TimelineStatusWithAccount(
                     status = it.status.asEntity(pachliAccountId),
                     account = it.status.account.asEntity(pachliAccountId),

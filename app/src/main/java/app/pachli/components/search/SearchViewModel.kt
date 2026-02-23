@@ -245,7 +245,7 @@ class SearchViewModel @Inject constructor(
                         viewData = statusRepository.getStatusViewData(pachliAccount.id, status.actionableId),
                         translatedStatus = statusRepository.getTranslation(pachliAccount.id, status.actionableId),
                     ),
-                    quotedStatus = (status.quote as? Status.Quote.FullQuote)?.status?.let { q ->
+                    quotedStatus = (status.actionableStatus.quote as? Status.Quote.FullQuote)?.status?.let { q ->
                         TimelineStatusWithAccount(
                             status = q.asEntity(pachliAccount.id),
                             account = q.account.asEntity(pachliAccount.id),

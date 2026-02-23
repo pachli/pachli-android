@@ -256,6 +256,14 @@ class ViewVideoFragment : ViewMediaFragment() {
                         transitionComplete?.let {
                             viewLifecycleOwner.lifecycleScope.launch {
                                 it.await()
+
+                                // Only need to listen for the transition completion once, so null it
+                                // out now. If you don't do this then other actions that trigger
+                                // STATE_READY (e.g., a start-scrub/end-scrub pair) will also run
+                                // here, causing playback to resume even if the player was already
+                                // paused.
+                                transitionComplete = null
+
                                 // Work-around visual glitch by only setting useController here instead
                                 // of in the layout.  Otherwise a "blank" controller (just playback
                                 // buttons) is displayed while media is loading / preparing, and is then

@@ -1,0 +1,20 @@
+Pachli 2.11.0
+
+Mida on uut:
+
+- Tõlgete tugi kõikjal rakenduses
+- Sisufiltrid vaikimisi käivad kõikide kontekstide pihta
+- Katseline Markdowni tugi
+
+Parandused:
+
+- Veateavituse vaade ei jookse enam kokku
+- Postita nupu kirjeldus
+- Erinevat kokkujooksmiste parandused
+- Filtrite loomise sisutüübi vead
+- Filteerimine jutulõngades ja otsesõnumites
+- Üleslaaditud piltide pealkirjade sisestuse tugi
+
+Tõlked:
+
+- soome, indoneesia, iiri, läti, uusnorra, poola, slovaki ja hispaania keeled

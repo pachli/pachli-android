@@ -32,12 +32,11 @@ import app.pachli.core.data.model.NotificationViewData.FollowRequestNotification
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.TimelineAccount
-import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.loadAvatar
-import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemFollowRequestBinding
 import app.pachli.interfaces.AccountActionListener
 import com.bumptech.glide.RequestManager
@@ -45,6 +44,7 @@ import com.bumptech.glide.RequestManager
 class FollowRequestViewHolder(
     private val binding: ItemFollowRequestBinding,
     private val glide: RequestManager,
+    private val setContent: SetContent,
     private val accountActionListener: AccountActionListener,
     private val linkListener: LinkListener,
     private val showHeader: Boolean,
@@ -111,14 +111,20 @@ class FollowRequestViewHolder(
 
         val formattedUsername = itemView.context.getString(DR.string.post_username_format, account.username)
         binding.usernameTextView.text = formattedUsername
-        if (account.note.isEmpty()) {
+        if (account.note.isBlank()) {
             binding.accountNote.hide()
         } else {
-            binding.accountNote.show()
+            setContent(
+                glide = glide,
+                textView = binding.accountNote,
+                content = account.note,
+                emojis = account.emojis.orEmpty(),
+                animateEmojis = animateEmojis,
+                removeQuoteInline = false,
+                linkListener = linkListener,
+            )
 
-            val emojifiedNote = account.note.parseAsMastodonHtml()
-                .emojify(glide, account.emojis, binding.accountNote, animateEmojis)
-            setClickableText(binding.accountNote, emojifiedNote, emptyList(), null, linkListener)
+            binding.accountNote.show()
         }
         val avatarRadius = binding.avatar.context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
         loadAvatar(glide, account.avatar, binding.avatar, avatarRadius, animateAvatar)

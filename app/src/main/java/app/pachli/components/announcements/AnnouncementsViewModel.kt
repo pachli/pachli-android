@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.InstanceInfoRepository
+import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.model.Announcement
 import app.pachli.core.model.Emoji
 import app.pachli.core.network.model.asModel
@@ -44,6 +45,7 @@ class AnnouncementsViewModel @Inject constructor(
     private val instanceInfoRepo: InstanceInfoRepository,
     private val mastodonApi: MastodonApi,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
+    statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
 ) : ViewModel() {
 
     private val announcementsMutable = MutableLiveData<Resource<List<Announcement>>>()
@@ -54,6 +56,8 @@ class AnnouncementsViewModel @Inject constructor(
 
     val animateEmojis: Boolean
         get() = sharedPreferencesRepository.animateEmojis
+
+    val statusDisplayOptions = statusDisplayOptionsRepository.flow
 
     fun load() {
         viewModelScope.launch {

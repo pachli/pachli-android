@@ -84,7 +84,7 @@ class DetailedStatusView @JvmOverloads constructor(
         setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
     }
 
-    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: StatusItemViewData, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
+    override fun setupWithStatus(setContent: SetContent, glide: RequestManager, viewData: StatusItemViewData, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
         // We never collapse statuses in the detail view
         val uncollapsedViewdata = if (viewData.isCollapsible && viewData.isCollapsed) {
             viewData.copy(statusViewData = viewData.statusViewData.copy(isCollapsed = false))
@@ -92,7 +92,7 @@ class DetailedStatusView @JvmOverloads constructor(
             viewData
         }
 
-        super.setupWithStatus(setStatusContent, glide, uncollapsedViewdata, listener, statusDisplayOptions)
+        super.setupWithStatus(setContent, glide, uncollapsedViewdata, listener, statusDisplayOptions)
 
         if (!statusDisplayOptions.hideStatsInDetailedView) {
             setStatCounters(uncollapsedViewdata, listener)
@@ -107,7 +107,7 @@ class DetailedStatusView @JvmOverloads constructor(
         }
 
         val quotedViewData = (viewData as? IStatusItemViewData)?.asQuotedStatusViewData()
-        binding.statusQuote.setupWithStatus(setStatusContent, glide, quote.state, quotedViewData, listener, statusDisplayOptions)
+        binding.statusQuote.setupWithStatus(setContent, glide, quote.state, quotedViewData, listener, statusDisplayOptions)
         binding.statusQuote.show()
     }
 

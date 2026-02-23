@@ -758,4 +758,8 @@
     <string name="compose_task_description_writing_post">Písanie príspevku</string>
     <string name="compose_task_description_replying_fmt">Odpoveď pre %1$s</string>
     <string name="compose_task_description_quoting_fmt">Cituje sa %1$s</string>
+    <string name="search_operator_quote_all">Citáty ▾</string>
+    <string name="search_operator_quote_only">Len citáty</string>
+    <string name="search_operator_quote_no_quotes">Bez citovaní</string>
+    <string name="search_operator_quote_dialog_title">Zobraziť príspevky citujúce iné príspevky?</string>
 </resources>
