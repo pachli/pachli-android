@@ -842,66 +842,66 @@ interface MastodonApi {
     // is converted to also return ApiResult.
     @POST("api/v1/accounts/{id}/follow")
     suspend fun followSuggestedAccount(@Path("id") accountId: String): ApiResult<Relationship>
+}
 
-    /**
-     * Resolves any shallow quotes in [statuses] to full quotes by
-     * fetching the quoted statuses by calling [MastodonApi.statuses]
-     *
-     * Does not recurse -- i.e., if a quoted status contains a shallow quote of
-     * another status it is not fetched.
-     *
-     * May not resolve all quotes; for example, if the shallow-quoted status
-     * has been deleted, or the server does not support the [MastodonApi.statuses]
-     * call.
-     */
-    suspend fun resolveShallowQuotes(response: ApiResponse<List<Status>>): ApiResponse<List<Status>> {
-        return response.copy(body = resolveShallowQuotes(response.body))
-    }
+/**
+ * Resolves any shallow quotes in [response] to full quotes by
+ * fetching the quoted statuses by calling [MastodonApi.statuses]
+ *
+ * Does not recurse -- i.e., if a quoted status contains a shallow quote of
+ * another status it is not fetched.
+ *
+ * May not resolve all quotes; for example, if the shallow-quoted status
+ * has been deleted, or the server does not support the [MastodonApi.statuses]
+ * call.
+ */
+suspend fun MastodonApi.resolveShallowQuotes(response: ApiResponse<List<Status>>): ApiResponse<List<Status>> {
+    return response.copy(body = resolveShallowQuotes(response.body))
+}
 
-    suspend fun resolveShallowQuotes(statuses: List<Status>): List<Status> {
-        // Find all the status ID in statuses that have shallow quotes, and map to
-        // the ID of the shallow quote.
-        val statusIdToShallowQuoteId = buildMap {
-            statuses.forEach { status ->
-                (status.quote?.shallowQuoteStatusId())?.let { quoteStatusID ->
-                    put(status.id, quoteStatusID)
-                }
+suspend fun MastodonApi.resolveShallowQuotes(statuses: List<Status>): List<Status> {
+    // Find all the status ID in statuses that have shallow quotes, and map to
+    // the ID of the shallow quote.
+    val statusIdToShallowQuoteId = buildMap {
+        statuses.forEach { status ->
+            (status.quote?.shallowQuoteStatusId())?.let { quoteStatusID ->
+                put(status.id, quoteStatusID)
             }
         }
+    }
 
-        if (statusIdToShallowQuoteId.isEmpty()) return statuses
+    if (statusIdToShallowQuoteId.isEmpty()) return statuses
 
-        // Fetch all the missing statuses. Try and do this using the `statuses`
-        // call to fetch all missing statuses at once, but if that call fails
-        // then fall back to the `status` call and fetch them one by one.
-        val quoteIdsToFetch = statusIdToShallowQuoteId.values
-        val missingQuotes = buildMap {
-            statuses(quoteIdsToFetch).get()?.let {
-                it.body.forEach { status -> put(status.id, status) }
-            } ?: quoteIdsToFetch.forEach {
-                status(it).get()?.let { status ->
-                    put(status.body.id, status.body)
-                }
+    // Fetch all the missing statuses. Try and do this using the `statuses`
+    // call to fetch all missing statuses at once, but if that call fails
+    // then fall back to the `status` call and fetch them one by one.
+    val quoteIdsToFetch = statusIdToShallowQuoteId.values
+    val missingQuotes = buildMap {
+        statuses(quoteIdsToFetch).get()?.let {
+            it.body.forEach { status -> put(status.id, status) }
+        } ?: quoteIdsToFetch.forEach {
+            status(it).get()?.let { status ->
+                put(status.body.id, status.body)
             }
         }
-
-        if (missingQuotes.isEmpty()) return statuses
-
-        // Return an updated copy of `statuses` with the shallow quotes resolved.
-        return statuses.map { status ->
-            val quoteId = statusIdToShallowQuoteId[status.id] ?: return@map status
-            val quote = missingQuotes[quoteId] ?: return@map status
-
-            status.copy(quote = Status.Quote(state = status.quote?.state, quotedStatus = quote))
-        }
     }
 
-    /**
-     * Resolves any shallow quotes in [status] to full quotes.
-     */
-    suspend fun resolveShallowQuotes(status: Status): Status {
-        val shallowQuoteId = status.quote?.shallowQuoteStatusId() ?: return status
-        val quote = status(shallowQuoteId).get()?.body ?: return status
-        return status.copy(quote = status.quote.copy(quotedStatus = quote))
+    if (missingQuotes.isEmpty()) return statuses
+
+    // Return an updated copy of `statuses` with the shallow quotes resolved.
+    return statuses.map { status ->
+        val quoteId = statusIdToShallowQuoteId[status.id] ?: return@map status
+        val quote = missingQuotes[quoteId] ?: return@map status
+
+        status.copy(quote = Status.Quote(state = status.quote?.state, quotedStatus = quote))
     }
+}
+
+/**
+ * Resolves any shallow quotes in [status] to full quotes.
+ */
+suspend fun MastodonApi.resolveShallowQuotes(status: Status): Status {
+    val shallowQuoteId = status.quote?.shallowQuoteStatusId() ?: return status
+    val quote = status(shallowQuoteId).get()?.body ?: return status
+    return status.copy(quote = status.quote.copy(quotedStatus = quote))
 }

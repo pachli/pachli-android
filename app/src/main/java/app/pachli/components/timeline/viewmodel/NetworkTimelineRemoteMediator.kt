@@ -33,6 +33,7 @@ import app.pachli.core.network.model.Status as NetworkStatus
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiResponse
 import app.pachli.core.network.retrofit.apiresult.ApiResult
+import app.pachli.core.network.retrofit.resolveShallowQuotes
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.get
