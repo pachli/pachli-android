@@ -22,7 +22,7 @@
     <string name="notification_log_title">Log</string>
     <string name="notification_log_filter">Filter</string>
     <string name="notification_log_sort">Zoradiť od najnovších</string>
-    <string name="notification_log_previous_attempts">Predchádzajúce pokusy: %1$d</string>
+    <string name="notification_log_previous_attempts">Počet pokusov: %1$d</string>
     <string name="notification_log_scheduled_in">Naplánované na %1$s @ %2$s</string>
     <string name="notification_log_method_pull">Upozornenia sa sťahujú pravidelne, približne každých 15 minút</string>
     <string name="notification_log_method_unknown">Mechanizmus upozornení nebol nastavený</string>
@@ -76,4 +76,8 @@
     <string name="database_prune_cache_complete">Vyčistenie vyrovnávacej pamäte dokončené</string>
     <string name="database_vacuum_complete">Optimalizácia vyrovnávacej pamäte dokončená</string>
     <string name="database_clear_cache_complete">Vymazanie vyrovnávacej pamäte dokončené</string>
+    <string name="about_workers">Procesy</string>
+    <string name="workers_prune_cached_media_help">Zoznam procesov na čistenie vyrovnávacej pamäte médií. Systém vyžaduje jeden proces v stave RUNNING alebo ENQUEUED s plánovaným spustením v najbližších 12 hodinách.</string>
+    <string name="workers_prune_cache_help">Zoznam procesov na čistenie vyrovnávacej pamäte príspevkov a autorov. Systém vyžaduje jeden proces v stave RUNNING alebo ENQUEUED s plánovaným spustením v najbližších 12 hodinách.</string>
+    <string name="workers_prune_log_entry_entity_help">Zoznam procesov na čistenie debug logu. Systém vyžaduje jeden proces v stave RUNNING alebo ENQUEUED s plánovaným spustením v najbližších 12 hodinách.</string>
 </resources>
