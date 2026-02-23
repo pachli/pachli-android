@@ -402,7 +402,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                 // Process changes to the account's profile picture.
                 launch {
                     account.distinctUntilChangedBy { it.entity.profilePictureUrl }.collectLatest {
-                        bindDrawerAvatar(it.entity.profilePictureUrl, false)
+                        bindDrawerAvatar(it.entity.profilePictureUrl, true)
                     }
                 }
 
