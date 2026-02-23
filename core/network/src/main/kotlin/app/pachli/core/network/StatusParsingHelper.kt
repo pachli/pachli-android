@@ -26,13 +26,14 @@ import app.pachli.core.common.string.trimTrailingWhitespace
 private val rxBR = "<br> ".toRegex()
 
 /**
- * Matches the fallback "<p class="quote-inline">...</p>" added to statuses
- * with an embedded quote for clients that don't display quotes.
+ * Matches the fallback "<X class="quote-inline">...</X>" added to statuses
+ * with an embedded quote for clients that don't display quotes (X may be any
+ * element, not just `p`. For example, Akkoma inserts a `span` element).
  */
-val rxQuoteInline = "<p class=\"quote-inline\".*?</p>\\s*".toRegex()
+val rxQuoteInline = "<(.+) class=\"quote-inline\".*?</\\1>\\s*".toRegex()
 
 /**
- * Remove `p` elements with a single `quote-inline` class.
+ * Remove elements with a single `quote-inline` class.
  */
 fun CharSequence.removeQuoteInline(): String {
     return this.replace(rxQuoteInline, "")
