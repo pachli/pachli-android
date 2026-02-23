@@ -25,11 +25,12 @@ class ComposeTokenizer : MultiAutoCompleteTextView.Tokenizer {
 
     private fun isMentionOrHashtagAllowedCharacter(character: Char): Boolean {
         return Character.isLetterOrDigit(character) ||
-            character == '_' ||
             // simple usernames
-            character == '-' ||
+            character == '_' ||
             // extended usernames
-            character == '.' // domain dot
+            character == '-' ||
+            // domain dot
+            character == '.'
     }
 
     override fun findTokenStart(text: CharSequence, cursor: Int): Int {
