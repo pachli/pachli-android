@@ -39,6 +39,8 @@ ktlint_standard_blank-line-between-when-conditions = disabled
 
 max_line_length = off
 
+ktlint_standard_function-signature = disabled
+
 [*.{yml,yaml}]
 indent_size = 2
 
