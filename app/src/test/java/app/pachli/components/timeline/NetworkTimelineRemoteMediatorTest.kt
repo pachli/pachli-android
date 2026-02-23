@@ -40,14 +40,12 @@ import app.pachli.core.model.Timeline
 import app.pachli.core.network.di.test.DEFAULT_INSTANCE_V2
 import app.pachli.core.network.model.AccountSource
 import app.pachli.core.network.model.CredentialAccount
-import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.asModel
 import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
 import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
-import app.pachli.core.network.retrofit.apiresult.ApiResponse
 import app.pachli.core.network.retrofit.apiresult.ServerError
 import app.pachli.core.testing.failure
 import app.pachli.core.testing.fakes.fakeStatus
@@ -70,7 +68,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.any
 import org.mockito.kotlin.anyOrNull
-import org.mockito.kotlin.doCallRealMethod
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.reset
@@ -137,9 +134,6 @@ class NetworkTimelineRemoteMediatorTest {
             onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
             onBlocking { getContentFiltersV1() } doReturn success(emptyList())
             onBlocking { accountFollowing(any(), anyOrNull(), any()) } doReturn success(emptyList())
-            onBlocking { resolveShallowQuotes(any<ApiResponse<List<Status>>>()) }.doCallRealMethod()
-            onBlocking { resolveShallowQuotes(any<List<Status>>()) }.doCallRealMethod()
-            onBlocking { resolveShallowQuotes(any<Status>()) }.doCallRealMethod()
         }
 
         reset(nodeInfoApi)
