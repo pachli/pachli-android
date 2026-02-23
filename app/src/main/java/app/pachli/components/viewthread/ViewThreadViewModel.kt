@@ -59,6 +59,7 @@ import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getOrElse
+import com.github.michaelbull.result.map
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -165,10 +166,13 @@ class ViewThreadViewModel @Inject constructor(
                 val existingViewData = repository.getStatusViewData(account.id, id)
                 val existingTranslation = repository.getTranslation(account.id, id)
 
-                val status = statusCall.await().getOrElse { error ->
-                    _uiResult.value = Err(ThreadError.Api(error))
-                    return@launch
-                }.body.asModel()
+                val status = statusCall.await()
+                    .map { api.resolveShallowQuotes(it.body) }
+                    .getOrElse { error ->
+                        _uiResult.value = Err(ThreadError.Api(error))
+                        return@launch
+                    }
+                    .asModel()
 
                 status.asStatusViewDataQ(
                     account,
@@ -212,7 +216,7 @@ class ViewThreadViewModel @Inject constructor(
                 }
                 val cachedViewData = repository.getStatusViewData(account.id, ids)
                 val cachedTranslations = repository.getStatusTranslations(account.id, ids)
-                val ancestors = statusContext.ancestors.asModel()
+                val ancestors = api.resolveShallowQuotes(statusContext.ancestors).asModel()
                     .map { Pair(it, shouldFilterStatus(it)) }
                     .filter { it.second != FilterAction.HIDE }
                     .map { (status, contentFilterAction) ->
@@ -225,7 +229,7 @@ class ViewThreadViewModel @Inject constructor(
                             contentFilterAction,
                         )
                     }
-                val descendants = statusContext.descendants.asModel()
+                val descendants = api.resolveShallowQuotes(statusContext.descendants).asModel()
                     .map { Pair(it, shouldFilterStatus(it)) }
                     .filter { it.second != FilterAction.HIDE }
                     .map { (status, contentFilterAction) ->

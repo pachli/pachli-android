@@ -85,7 +85,7 @@ class QuotedStatusView @JvmOverloads constructor(
      */
     fun setupWithStatus(setContent: SetContent, glide: RequestManager, quoteState: Status.QuoteState, viewData: QuotedStatusViewData?, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
         val blockedRes = when (quoteState) {
-            Status.QuoteState.ACCEPTED -> -1
+            Status.QuoteState.ACCEPTED, Status.QuoteState.ASSUMED_ACCEPTED -> -1
             Status.QuoteState.UNKNOWN -> R.string.label_quote_state_unknown
             Status.QuoteState.PENDING -> R.string.label_quote_state_pending
             Status.QuoteState.REJECTED -> R.string.label_quote_state_rejected

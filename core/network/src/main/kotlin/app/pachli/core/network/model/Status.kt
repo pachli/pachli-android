@@ -20,6 +20,16 @@ package app.pachli.core.network.model
 import app.pachli.core.network.json.Default
 import app.pachli.core.network.json.DefaultIfNull
 import app.pachli.core.network.json.HasDefault
+import app.pachli.core.network.model.Status.QuoteState.ACCEPTED
+import app.pachli.core.network.model.Status.QuoteState.BLOCKED_ACCOUNT
+import app.pachli.core.network.model.Status.QuoteState.BLOCKED_DOMAIN
+import app.pachli.core.network.model.Status.QuoteState.DELETED
+import app.pachli.core.network.model.Status.QuoteState.MUTED_ACCOUNT
+import app.pachli.core.network.model.Status.QuoteState.PENDING
+import app.pachli.core.network.model.Status.QuoteState.REJECTED
+import app.pachli.core.network.model.Status.QuoteState.REVOKED
+import app.pachli.core.network.model.Status.QuoteState.UNAUTHORIZED
+import app.pachli.core.network.model.Status.QuoteState.UNKNOWN
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.util.Date
@@ -232,10 +242,77 @@ data class Status(
          */
         @Json(name = "muted_account")
         MUTED_ACCOUNT,
+    }
 
-        ;
+    /**
+     * @property state Expected on Mastodon. On non-Mastodon servers may be missing
+     * or null, and the quote is [app.pachli.core.model.Status.QuoteState.ASSUMED_ACCEPTED].
+     * @property quotedStatus On Mastodon servers this is non-null if this is a
+     * full quote.
+     * @property quotedStatusId On Mastodon servers this is non-null if this is
+     * a shallow quote.
+     * @property id On Akkoma servers this is the equivalent of [quotedStatusId].
+     */
+    @JsonClass(generateAdapter = true)
+    data class Quote(
+        val state: QuoteState? = null,
+        @Json(name = "quoted_status") val quotedStatus: Status? = null,
+        @Json(name = "quoted_status_id") val quotedStatusId: String? = null,
 
-        fun asModel() = when (this) {
+        val id: String? = null,
+    ) {
+        fun asModel(): app.pachli.core.model.Status.Quote {
+            return tryAsMastodonModel()
+                ?: tryAsAkkomaModel()
+                ?: app.pachli.core.model.Status.Quote.HiddenQuote(state = state.asModel())
+        }
+
+        /**
+         * @return the ID of the quoted status, if this is a shallow quote, or should be
+         * treated as one. Null if this is not a shallow quote.
+         */
+        fun shallowQuoteStatusId(): String? {
+            return quotedStatusId ?: id
+        }
+
+        /**
+         * Try and convert to a [Status.Quote][app.pachli.core.model.Status.Quote]
+         * assuming the incoming JSON is Mastodon-shaped.
+         *
+         * @return The quote, or null if the data was not Mastodon-shaped.
+         */
+        private fun tryAsMastodonModel(): app.pachli.core.model.Status.Quote? {
+            quotedStatus?.let {
+                return app.pachli.core.model.Status.Quote.FullQuote(
+                    state = state.asModel(),
+                    status = quotedStatus.asModel(),
+                )
+            }
+
+            return quotedStatusId?.let {
+                return app.pachli.core.model.Status.Quote.ShallowQuote(
+                    state = state.asModel(),
+                    statusId = quotedStatusId,
+                )
+            }
+        }
+
+        /**
+         * Try and convert to a [Status.Quote][app.pachli.core.model.Status.Quote]
+         * assuming the incoming JSON is Akkoma-shaped.
+         *
+         * @return The quote, or null if the data was not Akkoma-shaped.
+         */
+        private fun tryAsAkkomaModel(): app.pachli.core.model.Status.Quote? {
+            return id?.let {
+                app.pachli.core.model.Status.Quote.ShallowQuote(
+                    state = app.pachli.core.model.Status.QuoteState.ASSUMED_ACCEPTED,
+                    statusId = id,
+                )
+            }
+        }
+
+        private fun QuoteState?.asModel() = when (this) {
             UNKNOWN -> app.pachli.core.model.Status.QuoteState.UNKNOWN
             PENDING -> app.pachli.core.model.Status.QuoteState.PENDING
             ACCEPTED -> app.pachli.core.model.Status.QuoteState.ACCEPTED
@@ -246,31 +323,7 @@ data class Status(
             BLOCKED_ACCOUNT -> app.pachli.core.model.Status.QuoteState.BLOCKED_ACCOUNT
             BLOCKED_DOMAIN -> app.pachli.core.model.Status.QuoteState.BLOCKED_DOMAIN
             MUTED_ACCOUNT -> app.pachli.core.model.Status.QuoteState.MUTED_ACCOUNT
-        }
-    }
-
-    @JsonClass(generateAdapter = true)
-    data class Quote(
-        val state: QuoteState,
-        @Json(name = "quoted_status") val quotedStatus: Status? = null,
-        @Json(name = "quoted_status_id") val quotedStatusId: String? = null,
-    ) {
-        fun asModel(): app.pachli.core.model.Status.Quote {
-            if (quotedStatus != null) {
-                return app.pachli.core.model.Status.Quote.FullQuote(
-                    state = state.asModel(),
-                    status = quotedStatus.asModel(),
-                )
-            }
-
-            if (quotedStatusId != null) {
-                return app.pachli.core.model.Status.Quote.ShallowQuote(
-                    state = state.asModel(),
-                    statusId = quotedStatusId,
-                )
-            }
-
-            return app.pachli.core.model.Status.Quote.HiddenQuote(state = state.asModel())
+            null -> app.pachli.core.model.Status.QuoteState.ASSUMED_ACCEPTED
         }
     }
 

@@ -29,6 +29,7 @@ import app.pachli.core.model.Emoji
 import app.pachli.core.model.HashTag
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
+import app.pachli.core.model.Status.Quote.HiddenQuote
 import app.pachli.core.model.Status.Quote.ShallowQuote
 import java.util.Date
 
@@ -195,21 +196,7 @@ data class TimelineStatusWithAccount(
                 muted = status.muted,
                 poll = poll,
                 card = card,
-                quote = when (status.quoteState) {
-                    Status.QuoteState.ACCEPTED -> ShallowQuote(status.quoteState, status.quoteServerId!!)
-                    Status.QuoteState.UNKNOWN,
-                    Status.QuoteState.PENDING,
-                    Status.QuoteState.REJECTED,
-                    Status.QuoteState.REVOKED,
-                    Status.QuoteState.DELETED,
-                    Status.QuoteState.UNAUTHORIZED,
-                    Status.QuoteState.BLOCKED_ACCOUNT,
-                    Status.QuoteState.BLOCKED_DOMAIN,
-                    Status.QuoteState.MUTED_ACCOUNT,
-                    -> Status.Quote.HiddenQuote(state = status.quoteState)
-
-                    null -> null
-                },
+                quote = reconstructQuote(status),
                 quoteApproval = status.quoteApproval,
                 repliesCount = status.repliesCount,
                 language = status.language,
@@ -247,21 +234,7 @@ data class TimelineStatusWithAccount(
                 muted = status.muted,
                 poll = null,
                 card = null,
-                quote = when (status.quoteState) {
-                    Status.QuoteState.ACCEPTED -> ShallowQuote(status.quoteState, status.quoteServerId!!)
-                    Status.QuoteState.UNKNOWN,
-                    Status.QuoteState.PENDING,
-                    Status.QuoteState.REJECTED,
-                    Status.QuoteState.REVOKED,
-                    Status.QuoteState.DELETED,
-                    Status.QuoteState.UNAUTHORIZED,
-                    Status.QuoteState.BLOCKED_ACCOUNT,
-                    Status.QuoteState.BLOCKED_DOMAIN,
-                    Status.QuoteState.MUTED_ACCOUNT,
-                    -> Status.Quote.HiddenQuote(state = status.quoteState)
-
-                    null -> null
-                },
+                quote = reconstructQuote(status),
                 quoteApproval = status.quoteApproval,
                 repliesCount = status.repliesCount,
                 language = status.language,
@@ -296,26 +269,44 @@ data class TimelineStatusWithAccount(
                 muted = status.muted,
                 poll = poll,
                 card = card,
-                quote = when (status.quoteState) {
-                    Status.QuoteState.ACCEPTED -> ShallowQuote(status.quoteState, status.quoteServerId!!)
-                    Status.QuoteState.UNKNOWN,
-                    Status.QuoteState.PENDING,
-                    Status.QuoteState.REJECTED,
-                    Status.QuoteState.REVOKED,
-                    Status.QuoteState.DELETED,
-                    Status.QuoteState.UNAUTHORIZED,
-                    Status.QuoteState.BLOCKED_ACCOUNT,
-                    Status.QuoteState.BLOCKED_DOMAIN,
-                    Status.QuoteState.MUTED_ACCOUNT,
-                    -> Status.Quote.HiddenQuote(state = status.quoteState)
-
-                    null -> null
-                },
+                quote = reconstructQuote(status),
                 quoteApproval = status.quoteApproval,
                 repliesCount = status.repliesCount,
                 language = status.language,
                 filtered = status.filtered,
             )
+        }
+    }
+
+    /**
+     * Reconstruct the quote from [status.quoteState][StatusEntity.quoteState] and
+     * [status.quoteServerId][StatusEntity.quoteServerId].
+     *
+     * @return The quote, or null if no status was quoted.
+     */
+    private fun reconstructQuote(status: StatusEntity): Status.Quote? {
+        status.quoteState ?: return null
+
+        return when (status.quoteState) {
+            // (Assumed) accepted quotes must have a server ID. If they don't (server bug
+            // or incompatibility) fall back to the UNKNOWN.
+            Status.QuoteState.ACCEPTED if status.quoteServerId != null -> ShallowQuote(status.quoteState, status.quoteServerId)
+            Status.QuoteState.ASSUMED_ACCEPTED if status.quoteServerId != null -> ShallowQuote(Status.QuoteState.ACCEPTED, status.quoteServerId)
+            Status.QuoteState.ACCEPTED,
+            Status.QuoteState.ASSUMED_ACCEPTED,
+            -> HiddenQuote(state = Status.QuoteState.UNKNOWN)
+
+            // Every other state is hidden.
+            Status.QuoteState.UNKNOWN,
+            Status.QuoteState.PENDING,
+            Status.QuoteState.REJECTED,
+            Status.QuoteState.REVOKED,
+            Status.QuoteState.DELETED,
+            Status.QuoteState.UNAUTHORIZED,
+            Status.QuoteState.BLOCKED_ACCOUNT,
+            Status.QuoteState.BLOCKED_DOMAIN,
+            Status.QuoteState.MUTED_ACCOUNT,
+            -> HiddenQuote(state = status.quoteState)
         }
     }
 }

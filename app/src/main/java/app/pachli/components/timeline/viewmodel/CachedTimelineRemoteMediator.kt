@@ -203,13 +203,29 @@ class CachedTimelineRemoteMediator(
      * then adds references to them in the Home timeline.
      *
      * Must be called inside an existing database transaction.
+     *
+     * @param pachliAccountId
+     * @param statusesForTimeline The list of statuses to add to the timeline.
      */
-    private suspend fun insertStatuses(pachliAccountId: Long, statuses: List<Status>) {
+    private suspend fun insertStatuses(pachliAccountId: Long, statusesForTimeline: List<Status>) {
         check(transactionProvider.inTransaction())
+
+        // Fetch statuses that were only referenced as a shallow quote.
+        val statusIdsToFetch = statusesForTimeline.mapNotNull {
+            (it.quote?.asModel() as? app.pachli.core.model.Status.Quote.ShallowQuote)?.statusId
+        }
+
+        val missingStatuses = if (statusIdsToFetch.isNotEmpty()) {
+            mastodonApi.statuses(statusIdsToFetch).get()?.body.orEmpty()
+        } else {
+            emptyList()
+        }
+
+        val allStatuses = (statusesForTimeline + missingStatuses).toSet()
 
         /** Unique accounts referenced in this batch of statuses. */
         val accounts = buildSet {
-            statuses.forEach { status ->
+            allStatuses.forEach { status ->
                 // TODO: Provide a status.accounts property that lists all
                 // the accounts embedded in the status
                 add(status.account)
@@ -226,9 +242,9 @@ class CachedTimelineRemoteMediator(
         }
 
         timelineDao.upsertAccounts(accounts.map { it.asEntity(pachliAccountId) })
-        statusDao.upsertStatuses(statuses.flatMap { it.asEntities(pachliAccountId) })
+        statusDao.upsertStatuses(allStatuses.flatMap { it.asEntities(pachliAccountId) })
         timelineDao.upsertStatuses(
-            statuses.map {
+            statusesForTimeline.map {
                 TimelineStatusEntity(
                     kind = TimelineStatusEntity.Kind.Home,
                     pachliAccountId = pachliAccountId,
