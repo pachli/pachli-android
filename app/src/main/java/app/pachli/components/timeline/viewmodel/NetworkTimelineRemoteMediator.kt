@@ -95,21 +95,21 @@ class NetworkTimelineRemoteMediator(
                     Timber.d("timeline: $timeline, itemKey: $itemKey")
 
                     getInitialPage(itemKey, state.config.initialLoadSize).map {
-                        Page.from(it.headers, api.resolveShallowQuotes(it.body))
+                        Page.from(it.headers, api.resolveShallowQuotes(it).body)
                     }
                 }
 
                 LoadType.APPEND -> {
                     val key = pageCache.lastPage?.nextKey ?: return MediatorResult.Success(endOfPaginationReached = true)
                     fetchStatusPageByKind(loadType, key, state.config.pageSize).map {
-                        Page.from(it.headers, api.resolveShallowQuotes(it.body))
+                        Page.from(it.headers, api.resolveShallowQuotes(it).body)
                     }
                 }
 
                 LoadType.PREPEND -> {
                     val key = pageCache.firstPage?.prevKey ?: return MediatorResult.Success(endOfPaginationReached = true)
                     fetchStatusPageByKind(loadType, key, state.config.pageSize).map {
-                        Page.from(it.headers, api.resolveShallowQuotes(it.body))
+                        Page.from(it.headers, api.resolveShallowQuotes(it).body)
                     }
                 }
             }.getOrElse { return MediatorResult.Error(it.asThrowable(context)) }

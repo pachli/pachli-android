@@ -54,6 +54,7 @@ import app.pachli.core.network.model.Translation
 import app.pachli.core.network.model.TrendingTag
 import app.pachli.core.network.model.TrendsLink
 import app.pachli.core.network.model.UserListRepliesPolicy
+import app.pachli.core.network.retrofit.apiresult.ApiResponse
 import app.pachli.core.network.retrofit.apiresult.ApiResult
 import com.github.michaelbull.result.get
 import okhttp3.MultipartBody
@@ -853,6 +854,10 @@ interface MastodonApi {
      * has been deleted, or the server does not support the [MastodonApi.statuses]
      * call.
      */
+    suspend fun resolveShallowQuotes(response: ApiResponse<List<Status>>): ApiResponse<List<Status>> {
+        return response.copy(body = resolveShallowQuotes(response.body))
+    }
+
     suspend fun resolveShallowQuotes(statuses: List<Status>): List<Status> {
         // Find all the status ID in statuses that have shallow quotes, and map to
         // the ID of the shallow quote.

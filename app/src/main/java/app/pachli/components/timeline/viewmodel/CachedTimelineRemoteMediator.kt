@@ -42,6 +42,7 @@ import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getOrElse
+import com.github.michaelbull.result.map
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import okhttp3.Headers
@@ -75,7 +76,9 @@ class CachedTimelineRemoteMediator(
                         RemoteKeyKind.REFRESH,
                     )?.key
                     Timber.d("Refresh from item: %s", statusId)
-                    getInitialPage(statusId, state.config.initialLoadSize)
+                    getInitialPage(statusId, state.config.initialLoadSize).map {
+                        mastodonApi.resolveShallowQuotes(it)
+                    }
                 }
 
                 LoadType.PREPEND -> {
@@ -85,7 +88,9 @@ class CachedTimelineRemoteMediator(
                         RemoteKeyKind.PREV,
                     ) ?: return@transactionProvider MediatorResult.Success(endOfPaginationReached = true)
                     Timber.d("Prepend from remoteKey: %s", rke)
-                    mastodonApi.homeTimeline(minId = rke.key, limit = state.config.pageSize)
+                    mastodonApi.homeTimeline(minId = rke.key, limit = state.config.pageSize).map {
+                        mastodonApi.resolveShallowQuotes(it)
+                    }
                 }
 
                 LoadType.APPEND -> {
@@ -95,7 +100,9 @@ class CachedTimelineRemoteMediator(
                         RemoteKeyKind.NEXT,
                     ) ?: return@transactionProvider MediatorResult.Success(endOfPaginationReached = true)
                     Timber.d("Append from remoteKey: %s", rke)
-                    mastodonApi.homeTimeline(maxId = rke.key, limit = state.config.pageSize)
+                    mastodonApi.homeTimeline(maxId = rke.key, limit = state.config.pageSize).map {
+                        mastodonApi.resolveShallowQuotes(it)
+                    }
                 }
             }.getOrElse { return@transactionProvider MediatorResult.Error(it.asThrowable(context)) }
 
@@ -205,27 +212,14 @@ class CachedTimelineRemoteMediator(
      * Must be called inside an existing database transaction.
      *
      * @param pachliAccountId
-     * @param statusesForTimeline The list of statuses to add to the timeline.
+     * @param statuses The list of statuses to add to the timeline.
      */
-    private suspend fun insertStatuses(pachliAccountId: Long, statusesForTimeline: List<Status>) {
+    private suspend fun insertStatuses(pachliAccountId: Long, statuses: List<Status>) {
         check(transactionProvider.inTransaction())
-
-        // Fetch statuses that were only referenced as a shallow quote.
-        val statusIdsToFetch = statusesForTimeline.mapNotNull {
-            (it.quote?.asModel() as? app.pachli.core.model.Status.Quote.ShallowQuote)?.statusId
-        }
-
-        val missingStatuses = if (statusIdsToFetch.isNotEmpty()) {
-            mastodonApi.statuses(statusIdsToFetch).get()?.body.orEmpty()
-        } else {
-            emptyList()
-        }
-
-        val allStatuses = (statusesForTimeline + missingStatuses).toSet()
 
         /** Unique accounts referenced in this batch of statuses. */
         val accounts = buildSet {
-            allStatuses.forEach { status ->
+            statuses.forEach { status ->
                 // TODO: Provide a status.accounts property that lists all
                 // the accounts embedded in the status
                 add(status.account)
@@ -242,9 +236,9 @@ class CachedTimelineRemoteMediator(
         }
 
         timelineDao.upsertAccounts(accounts.map { it.asEntity(pachliAccountId) })
-        statusDao.upsertStatuses(allStatuses.flatMap { it.asEntities(pachliAccountId) })
+        statusDao.upsertStatuses(statuses.flatMap { it.asEntities(pachliAccountId) })
         timelineDao.upsertStatuses(
-            statusesForTimeline.map {
+            statuses.map {
                 TimelineStatusEntity(
                     kind = TimelineStatusEntity.Kind.Home,
                     pachliAccountId = pachliAccountId,
