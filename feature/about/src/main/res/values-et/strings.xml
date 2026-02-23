@@ -24,7 +24,7 @@
     <string name="notification_log_download_content_description">Laadi logid alla</string>
     <string name="notification_log_download">Laadi alla</string>
     <string name="notification_log_sort">Järjesta uuemad eespool</string>
-    <string name="notification_log_previous_attempts">Varasemad katsed: %1$d</string>
+    <string name="notification_log_previous_attempts">Käivituskordi: %1$d</string>
     <string name="notification_log_scheduled_in">Ajastatud: %1$s @ %2$s</string>
     <string name="notification_log_method_push">Kasutusel on UnifiedPushi tõuketeavitused ning see peaks toimime ühe hetkega</string>
     <string name="notification_log_method_pull">Teavituste olemasolu kontrollitakse päringuga umbes iga 15 minuti järel</string>
@@ -76,4 +76,8 @@
     <string name="database_prune_cache">Kärbi puhverdatud andmete mahtu</string>
     <string name="action_prune_cache">Kärbi puhverdatud andmete mahtu</string>
     <string name="database_prune_cache_complete">Puhverdatud andmete mahu kärpimine õnnestus</string>
+    <string name="about_workers">Taustaprotsessid</string>
+    <string name="workers_prune_cached_media_help">See on taustaprotsesside loend, mis peaks kustutama vanu meediafaile. Neid peaks olema üks ning tema olek võiks olla „RUNNING“ või „ENQUEUED“ ning olema ajastatud käivituma kuni järgmise 12 tunni jooksul.</string>
+    <string name="workers_prune_cache_help">See on taustaprotsesside loend, mis peaks kustutama postituste ja autorite puhverdatud andmeid. Neid peaks olema üks ning tema olek võiks olla „RUNNING“ või „ENQUEUED“ ning olema ajastatud käivituma kuni järgmise 12 tunni jooksul.</string>
+    <string name="workers_prune_log_entry_entity_help">See on taustaprotsesside loend, mis on mõeldud vealogide halduseks. Neid peaks olema üks ning tema olek võiks olla „RUNNING“ või „ENQUEUED“ ning olema ajastatud käivituma kuni järgmise 12 tunni jooksul.</string>
 </resources>
