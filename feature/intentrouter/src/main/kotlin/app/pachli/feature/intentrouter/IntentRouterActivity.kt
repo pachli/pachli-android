@@ -104,6 +104,11 @@ class IntentRouterActivity : BaseActivity() {
         )
 
         lifecycleScope.launch {
+            // Work around devices that can't reliably run WorkManager jobs (see
+            // https://github.com/pachli/pachli-android/issues/2114). For the moment
+            // prune the cache at startup if needed.
+            viewModel.pruneCacheIfNeeded()
+
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 launch {
                     // Get the first set of loaded accounts (as AccountEntity).

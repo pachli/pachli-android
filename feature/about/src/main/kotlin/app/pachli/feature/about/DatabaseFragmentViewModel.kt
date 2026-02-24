@@ -24,6 +24,7 @@ import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.dao.DebugDao
+import app.pachli.core.database.dao.LogEntryDao
 import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.TimelineDao
 import com.github.michaelbull.result.Ok
@@ -34,6 +35,7 @@ import java.time.Duration
 import java.time.Instant
 import javax.inject.Inject
 import kotlin.math.min
+import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -106,6 +108,7 @@ class DatabaseFragmentViewModel @Inject constructor(
     private val timelineDao: TimelineDao,
     private val notificationDao: NotificationDao,
     private val conversationsDao: ConversationsDao,
+    private val logEntryDao: LogEntryDao,
     private val accountManager: AccountManager,
 ) : ViewModel() {
     private val reload = MutableSharedFlow<Unit>(replay = 1).apply { tryEmit(Unit) }
@@ -256,10 +259,9 @@ class DatabaseFragmentViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.update { it?.copy(pruneCacheResult = Ok(null)) }
             val result = runSuspendCatching {
-                accountManager.accounts.forEach {
-                    timelineDao.cleanup(it.id)
-                }
+                accountManager.accounts.forEach { timelineDao.cleanup(it.id) }
             }
+            logEntryDao.prune(Instant.now().minusMillis(48.hours.inWholeMilliseconds))
             _uiState.update {
                 it?.copy(
                     tableRowCounts = getTableRowCounts(),
