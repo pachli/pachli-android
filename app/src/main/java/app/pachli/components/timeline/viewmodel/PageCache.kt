@@ -22,12 +22,9 @@ import app.pachli.BuildConfig
 import app.pachli.core.model.Status
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.asModel
-import app.pachli.core.network.retrofit.apiresult.ApiError
-import app.pachli.core.network.retrofit.apiresult.ApiResult
-import com.github.michaelbull.result.Result
-import com.github.michaelbull.result.map
 import java.util.LinkedList
 import kotlinx.coroutines.sync.Mutex
+import okhttp3.Headers
 import timber.log.Timber
 
 /** A page of data from the Mastodon API */
@@ -49,13 +46,13 @@ data class Page(
     override fun toString() = "size: ${"%2d".format(data.size)}, range: ${data.firstOrNull()?.statusId}..${data.lastOrNull()?.statusId}, prevKey: $prevKey, nextKey: $nextKey"
 
     companion object {
-        fun tryFrom(response: ApiResult<List<app.pachli.core.network.model.Status>>): Result<Page, ApiError> = response.map {
-            val links = Links.from(it.headers["link"])
+        fun from(headers: Headers, statuses: List<app.pachli.core.network.model.Status>): Page {
+            val links = Links.from(headers["link"])
             Timber.d("  link: %s", links)
-            Timber.d("  %d - # statuses loaded", it.body.size)
+            Timber.d("  %d - # statuses loaded", statuses.size)
 
-            Page(
-                data = it.body.asModel().toMutableList(),
+            return Page(
+                data = statuses.asModel().toMutableList(),
                 nextKey = links.next,
                 prevKey = links.prev,
             )

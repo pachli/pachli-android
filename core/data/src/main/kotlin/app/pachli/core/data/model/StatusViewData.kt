@@ -255,7 +255,7 @@ data class StatusViewData(
 
     private val _content: CharSequence
 
-    @Suppress("ktlint:standard:property-naming")
+    @Suppress("ktlint:standard:backing-property-naming")
     private val _translatedContent: CharSequence
 
     override val content: CharSequence
@@ -263,7 +263,7 @@ data class StatusViewData(
 
     private val _spoilerText: String
 
-    @Suppress("ktlint:standard:property-naming")
+    @Suppress("ktlint:standard:backing-property-naming")
     private val _translatedSpoilerText: String
 
     override val spoilerText: String

@@ -26,10 +26,18 @@ import app.pachli.core.common.string.trimTrailingWhitespace
 private val rxBR = "<br> ".toRegex()
 
 /**
- * Matches the fallback "<p class="quote-inline">...</p>" added to statuses
- * with an embedded quote for clients that don't display quotes.
+ * Matches the fallback "<X class="quote-inline">...</X>" added to statuses
+ * with an embedded quote for clients that don't display quotes (X may be any
+ * element, not just `p`. For example, Akkoma inserts a `span` element).
  */
-val rxQuoteInline = "<p class=\"quote-inline\".*?</p>\\s*".toRegex()
+val rxQuoteInline = "<(.+) class=\"quote-inline\".*?</\\1>\\s*".toRegex()
+
+/**
+ * Remove elements with a single `quote-inline` class.
+ */
+fun CharSequence.removeQuoteInline(): String {
+    return this.replace(rxQuoteInline, "")
+}
 
 /**
  * parse a String containing html from the Mastodon api to Spanned
@@ -40,8 +48,6 @@ fun CharSequence.parseAsMastodonHtml(tagHandler: TagHandler? = null): Spanned {
         .replace("<br /> ", "<br />&nbsp;")
         .replace("<br/> ", "<br/>&nbsp;")
         .replace("  ", "&nbsp;&nbsp;")
-        // Remove the quote-inline paragraph, as quoted statuses are displayed.
-        .replace(rxQuoteInline, "")
         .parseAsHtml(tagHandler = tagHandler)
         // Html.fromHtml returns trailing whitespace if the html ends in a </p> tag, which
         // most status contents do, so it should be trimmed.

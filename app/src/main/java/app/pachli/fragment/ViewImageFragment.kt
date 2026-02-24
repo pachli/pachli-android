@@ -323,7 +323,9 @@ class ViewImageFragment : ViewMediaFragment() {
             isFirstResource: Boolean,
         ): Boolean {
             // If cache for full image failed complete transition
-            if (isCacheRequest && !isThumbnailRequest && shouldCallMediaReady &&
+            if (isCacheRequest &&
+                !isThumbnailRequest &&
+                shouldCallMediaReady &&
                 !startedTransition
             ) {
                 mediaActionsListener.onMediaReady()

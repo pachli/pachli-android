@@ -202,17 +202,20 @@ class NetworkTimelineRemoteMediatorTest {
     fun `should do initial loading`() = runTest {
         // Given
         val pages = PageCache()
+
+        mastodonApi.stub {
+            onBlocking { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), limit = anyOrNull(), sinceId = anyOrNull()) } doReturn success(
+                listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")),
+                headers = arrayOf(
+                    "Link",
+                    "<https://mastodon.example/api/v1/timelines/home?max_id=5>; rel=\"next\", <https://mastodon.example/api/v1/timelines/homefavourites?min_id=7>; rel=\"prev\"",
+                ),
+            )
+        }
+
         val remoteMediator = NetworkTimelineRemoteMediator(
             context = context,
-            mastodonApi.stub {
-                onBlocking { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), limit = anyOrNull(), sinceId = anyOrNull()) } doReturn success(
-                    listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")),
-                    headers = arrayOf(
-                        "Link",
-                        "<https://mastodon.example/api/v1/timelines/home?max_id=5>; rel=\"next\", <https://mastodon.example/api/v1/timelines/homefavourites?min_id=7>; rel=\"prev\"",
-                    ),
-                )
-            },
+            api = mastodonApi,
             pachliAccountId = activeAccount.id,
             factory = pagingSourceFactory,
             pageCache = pages,
@@ -270,17 +273,19 @@ class NetworkTimelineRemoteMediatorTest {
             }
         }
 
+        mastodonApi.stub {
+            onBlocking { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), limit = anyOrNull(), sinceId = anyOrNull()) } doReturn success(
+                listOf(fakeStatus("10"), fakeStatus("9"), fakeStatus("8")),
+                headers = arrayOf(
+                    "Link",
+                    "<https://mastodon.example/api/v1/timelines/home?max_id=8>; rel=\"next\", <https://mastodon.example/api/v1/timelines/homefavourites?min_id=10>; rel=\"prev\"",
+                ),
+            )
+        }
+
         val remoteMediator = NetworkTimelineRemoteMediator(
             context = context,
-            mastodonApi.stub {
-                onBlocking { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), limit = anyOrNull(), sinceId = anyOrNull()) } doReturn success(
-                    listOf(fakeStatus("10"), fakeStatus("9"), fakeStatus("8")),
-                    headers = arrayOf(
-                        "Link",
-                        "<https://mastodon.example/api/v1/timelines/home?max_id=8>; rel=\"next\", <https://mastodon.example/api/v1/timelines/homefavourites?min_id=10>; rel=\"prev\"",
-                    ),
-                )
-            },
+            api = mastodonApi,
             pachliAccountId = activeAccount.id,
             factory = pagingSourceFactory,
             pageCache = pages,
@@ -346,17 +351,19 @@ class NetworkTimelineRemoteMediatorTest {
             }
         }
 
+        mastodonApi.stub {
+            onBlocking { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), limit = anyOrNull(), sinceId = anyOrNull()) } doReturn success(
+                listOf(fakeStatus("4"), fakeStatus("3"), fakeStatus("2")),
+                headers = arrayOf(
+                    "Link",
+                    "<https://mastodon.example/api/v1/timelines/home?max_id=2>; rel=\"next\", <https://mastodon.example/api/v1/timelines/homefavourites?min_id=4>; rel=\"prev\"",
+                ),
+            )
+        }
+
         val remoteMediator = NetworkTimelineRemoteMediator(
             context = context,
-            mastodonApi.stub {
-                onBlocking { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), limit = anyOrNull(), sinceId = anyOrNull()) } doReturn success(
-                    listOf(fakeStatus("4"), fakeStatus("3"), fakeStatus("2")),
-                    headers = arrayOf(
-                        "Link",
-                        "<https://mastodon.example/api/v1/timelines/home?max_id=2>; rel=\"next\", <https://mastodon.example/api/v1/timelines/homefavourites?min_id=4>; rel=\"prev\"",
-                    ),
-                )
-            },
+            api = mastodonApi,
             pachliAccountId = activeAccount.id,
             factory = pagingSourceFactory,
             pageCache = pages,

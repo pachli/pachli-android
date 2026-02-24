@@ -270,6 +270,13 @@ data class Status(
          * the few cases where status is non-null.
          */
         MUTED_ACCOUNT,
+
+        /**
+         * The quote is from a server that supports quotes with automatic
+         * approval, but does not provide an explicit quote state in the API.
+         * The quote is assumed to be accepted.
+         */
+        ASSUMED_ACCEPTED,
     }
 
     sealed interface Quote {

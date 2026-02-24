@@ -27,7 +27,7 @@ import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.model.StatusViewData
-import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.core.ui.StatusControlView
 import app.pachli.core.ui.StatusView
@@ -36,7 +36,7 @@ import com.bumptech.glide.RequestManager
 abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     itemView: View,
     protected val glide: RequestManager,
-    protected val setStatusContent: SetStatusContent,
+    protected val setContent: SetContent,
 ) : RecyclerView.ViewHolder(itemView) {
     protected val context: Context = itemView.context
 
@@ -59,7 +59,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
 
             // Set the status
             statusView.setupWithStatus(
-                setStatusContent,
+                setContent,
                 glide,
                 viewData,
                 listener,
@@ -109,7 +109,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                 if (item == StatusViewDataDiffCallback.Payload.STATUS_VIEW_DATA) {
                     val actionable = viewData.actionable
                     statusView.setupWithStatus(
-                        setStatusContent,
+                        setContent,
                         glide,
                         viewData,
                         listener,

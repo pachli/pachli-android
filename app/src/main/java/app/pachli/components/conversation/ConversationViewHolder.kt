@@ -23,7 +23,7 @@ import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.core.data.model.ConversationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.ConversationAccount
-import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.databinding.ItemConversationBinding
 import com.bumptech.glide.RequestManager
@@ -31,15 +31,15 @@ import com.bumptech.glide.RequestManager
 class ConversationViewHolder internal constructor(
     private val binding: ItemConversationBinding,
     glide: RequestManager,
-    setStatusContent: SetStatusContent,
+    setContent: SetContent,
     private val listener: StatusActionListener,
-) : ConversationAdapter.ViewHolder, StatusBaseViewHolder<ConversationViewData>(binding.root, glide, setStatusContent) {
+) : ConversationAdapter.ViewHolder, StatusBaseViewHolder<ConversationViewData>(binding.root, glide, setContent) {
 
     override fun bind(viewData: ConversationViewData, payloads: List<List<Any?>>?, statusDisplayOptions: StatusDisplayOptions) {
         if (payloads.isNullOrEmpty()) {
             val actionable = viewData.actionable
 
-            binding.statusView.setupWithStatus(setStatusContent, glide, viewData, listener, statusDisplayOptions)
+            binding.statusView.setupWithStatus(setContent, glide, viewData, listener, statusDisplayOptions)
 
             statusControls.bind(
                 status = actionable,

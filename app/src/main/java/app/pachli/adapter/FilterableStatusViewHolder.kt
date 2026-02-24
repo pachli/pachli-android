@@ -23,7 +23,7 @@ import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.FilterAction
-import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.databinding.ItemStatusWrapperBinding
 import com.bumptech.glide.RequestManager
@@ -31,8 +31,8 @@ import com.bumptech.glide.RequestManager
 open class FilterableStatusViewHolder<T : IStatusViewData>(
     private val binding: ItemStatusWrapperBinding,
     glide: RequestManager,
-    setStatusContent: SetStatusContent,
-) : StatusViewHolder<T>(binding.statusContainer, glide, setStatusContent, binding.root) {
+    setContent: SetContent,
+) : StatusViewHolder<T>(binding.statusContainer, glide, setContent, binding.root) {
     /** The filter that matched the status, null if the status is not being filtered. */
     var matchedFilter: ContentFilter? = null
 

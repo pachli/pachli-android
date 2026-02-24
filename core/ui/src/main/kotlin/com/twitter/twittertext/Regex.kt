@@ -245,7 +245,7 @@ object Regex {
     // they can be preceded by e.g., Hirigana characters without an intervening space.
     // See HASHTAG_RE in https://github.com/mastodon/mastodon/blob/main/app/models/tag.rb
     // (which is VALID_HASHTAG in this file).
-    private const val HASHTAG_SEPARATORS = "_\u00B7\u30FB\u200c"
+    const val HASHTAG_SEPARATORS = "_\u00B7\u30FB\u200c"
     private const val HASHTAG_FIRST_SEQUENCE_CHUNK_ONE = """[\w_][\w$HASHTAG_SEPARATORS]*[\p{Alpha}$HASHTAG_SEPARATORS]"""
     private const val HASHTAG_FIRST_SEQUENCE_CHUNK_TWO = """[\w$HASHTAG_SEPARATORS]*[\w_]"""
     private const val HASHTAG_FIRST_SEQUENCE = "($HASHTAG_FIRST_SEQUENCE_CHUNK_ONE$HASHTAG_FIRST_SEQUENCE_CHUNK_TWO)"

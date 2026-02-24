@@ -38,13 +38,11 @@ class RickRollTest {
 
     @Test
     fun testShouldRickRoll() {
-        listOf("gab.Com", "social.gab.ai", "whatever.GAB.com").forEach {
-                rollableDomain ->
+        listOf("gab.Com", "social.gab.ai", "whatever.GAB.com").forEach { rollableDomain ->
             assertTrue(shouldRickRoll(activity, rollableDomain))
         }
 
-        listOf("chaos.social", "notgab.com").forEach {
-                notRollableDomain ->
+        listOf("chaos.social", "notgab.com").forEach { notRollableDomain ->
             assertFalse(shouldRickRoll(activity, notRollableDomain))
         }
     }

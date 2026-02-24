@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.model.Status
-import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.databinding.ItemReportStatusBinding
 import com.bumptech.glide.RequestManager
@@ -36,7 +36,7 @@ interface ReportStatusActionListener : StatusActionListener {
 
 class ReportStatusesAdapter(
     private val glide: RequestManager,
-    private val setStatusContent: SetStatusContent,
+    private val setContent: SetContent,
     private val statusDisplayOptions: StatusDisplayOptions,
     private val reportStatusActionListener: ReportStatusActionListener,
 ) : PagingDataAdapter<StatusItemViewData, ReportStatusViewHolder>(STATUS_COMPARATOR) {
@@ -50,7 +50,7 @@ class ReportStatusesAdapter(
         return ReportStatusViewHolder(
             binding,
             glide,
-            setStatusContent,
+            setContent,
             statusDisplayOptions,
             reportStatusActionListener,
             statusForPosition,

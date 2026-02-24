@@ -53,8 +53,8 @@ import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
-import app.pachli.core.ui.SetMarkdownContent
-import app.pachli.core.ui.SetMastodonHtmlContent
+import app.pachli.core.ui.SetContentAsMarkdown
+import app.pachli.core.ui.SetContentAsMastodonHtml
 import app.pachli.databinding.FragmentReportStatusesBinding
 import app.pachli.fragment.SFragment
 import app.pachli.util.ListStatusAccessibilityDelegate
@@ -99,15 +99,15 @@ class ReportStatusesFragment :
         super.onCreate(savedInstanceState)
         pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
 
-        val setStatusContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
-            SetMarkdownContent(requireContext())
+        val setContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
+            SetContentAsMarkdown(requireContext())
         } else {
-            SetMastodonHtmlContent
+            SetContentAsMastodonHtml
         }
 
         adapter = ReportStatusesAdapter(
             Glide.with(this),
-            setStatusContent,
+            setContent,
             viewModel.statusDisplayOptions.value,
             this@ReportStatusesFragment,
         )

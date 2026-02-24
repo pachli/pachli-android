@@ -78,6 +78,9 @@ class AboutActivity : ViewUrlActivity(), MenuProvider {
         addMenuProvider(this)
 
         val adapter = AboutFragmentAdapter(this)
+        // Ensure privacy policy table displays correctly, possibly due to
+        // https://issuetracker.google.com/issues/432664597.
+        binding.pager.offscreenPageLimit = 1
         binding.pager.adapter = adapter
         binding.pager.reduceSwipeSensitivity()
 
