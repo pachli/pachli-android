@@ -40,4 +40,7 @@ dependencies {
         ?.because("Payload.Notification relies on the network type")
     implementation(projects.core.ui)
     implementation(libs.bundles.androidx)
+
+    implementation(libs.bundles.room)
+        ?.because("Possible cache pruning on startup")
 }

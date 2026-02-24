@@ -46,9 +46,7 @@ class PruneLogEntryEntityWorker @AssistedInject constructor(
         Timber.d("Started")
 
         return try {
-            val now = Instant.now()
-            val oldest = now.minusMillis(OLDEST_ENTRY.inWholeMilliseconds)
-            val count = logEntryDao.prune(oldest)
+            val count = logEntryDao.prune(Instant.now().minusMillis(OLDEST_ENTRY.inWholeMilliseconds))
             Timber.d("Pruned LogEntryEntity, deleted %d", count)
             Result.success()
         } catch (e: Exception) {
