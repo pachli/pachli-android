@@ -23,6 +23,8 @@
             <certificates src="@raw/isrg_root_x2" />
             <certificates src="@raw/isrg_root_x2_cross_signed" />
             <certificates src="@raw/isrgrootx1" />
+            <certificates src="@raw/sectigo_root_e46" />
+            <certificates src="@raw/sectigo_root_r46" />
             <certificates src="system" />
             <certificates src="user" tools:ignore="AcceptsUserCertificates" />
         </trust-anchors>

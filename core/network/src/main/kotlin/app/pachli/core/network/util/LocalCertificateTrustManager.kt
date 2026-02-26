@@ -24,13 +24,15 @@ import java.security.cert.X509Certificate
 import javax.net.ssl.X509TrustManager
 import okhttp3.tls.HandshakeCertificates
 
-// Devices running Android 7 (API 23) do not trust the Let's Encrypt certificate and
-// will refuse to connect. These functions provide certificates and a trust manager
-// that contain the Let's Encrypt certificates and are used when configuring OkHttp
-// and handling LoginWebViewActivity SSL errors.
+// Devices running Android 7 (API 23) have expired certificates with no mechanism
+// for updating them, and will refuse to connect.
 //
-// See https://github.com/pachli/pachli-android/issues/638#issuecomment-2071935438
-// for the background.
+// These functions provide certificates and a trust manager  that contain the
+// certificates and are used when configuring OkHttp and handling
+// LoginWebViewActivity SSL errors.
+//
+// - Let's Encrypt - https://github.com/pachli/pachli-android/issues/638#issuecomment-2071935438
+// - Sectigo - https://github.com/pachli/pachli-android/issues/2141
 
 /**
  * @return [HandshakeCertificates] containing the platform's trusted certificates and
@@ -44,6 +46,8 @@ fun localHandshakeCertificates(context: Context): HandshakeCertificates {
         .addTrustedCertificate(certFactory.generateCertificate(context.resources.openRawResource(R.raw.isrg_root_x2)) as X509Certificate)
         .addTrustedCertificate(certFactory.generateCertificate(context.resources.openRawResource(R.raw.isrg_root_x2_cross_signed)) as X509Certificate)
         .addTrustedCertificate(certFactory.generateCertificate(context.resources.openRawResource(R.raw.isrgrootx1)) as X509Certificate)
+        .addTrustedCertificate(certFactory.generateCertificate(context.resources.openRawResource(R.raw.sectigo_root_e46)) as X509Certificate)
+        .addTrustedCertificate(certFactory.generateCertificate(context.resources.openRawResource(R.raw.sectigo_root_r46)) as X509Certificate)
         .build()
 }
 
