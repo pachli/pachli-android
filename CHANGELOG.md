@@ -2,7 +2,6 @@
 
 ## v3.4.0
 
-
 ### New features and other improvements
 
 - Trust new intermediate certificates from Sectigo (#[2142](https://github.com/pachli/pachli-android/pull/2142), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
