@@ -1,5 +1,49 @@
 # Pachli changelog
 
+## v3.4.0
+
+
+### New features and other improvements
+
+- Trust new intermediate certificates from Sectigo (#[2142](https://github.com/pachli/pachli-android/pull/2142), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show a placeholder avatar, in case it fails to load (#[2136](https://github.com/pachli/pachli-android/pull/2136), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show out-of-band-hashtags at the end of the content (#[2130](https://github.com/pachli/pachli-android/pull/2130), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show a count of active filters in the search filter badge (#[2097](https://github.com/pachli/pachli-android/pull/2097), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Support searching for posts that quote others (#[2096](https://github.com/pachli/pachli-android/pull/2096), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Add "About > Workers" tab (#[2083](https://github.com/pachli/pachli-android/pull/2083), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Set appropriate attributes for audio and video attachments ([Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Prune cache at startup if needed, prevent crashes and OOMs (#[2139](https://github.com/pachli/pachli-android/pull/2139), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't crash with "HTTP method annotation required" in Retrofit (#[2138](https://github.com/pachli/pachli-android/pull/2138), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Look for quote-inline classes on all elements, not just p (#[2137](https://github.com/pachli/pachli-android/pull/2137), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Handle quotes on Friendica/Akkoma servers (#[2133](https://github.com/pachli/pachli-android/pull/2133), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Ensure database migrations work when upgrading from very old versions (#[2129](https://github.com/pachli/pachli-android/pull/2129), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show data types table in the privacy policy (#[2127](https://github.com/pachli/pachli-android/pull/2127), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Only remove `quote-inline` p elements if the status contains a quote (#[2126](https://github.com/pachli/pachli-android/pull/2126), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't auto-resume playback if the user scrubs media (#[2118](https://github.com/pachli/pachli-android/pull/2118), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Allow a poll option's `votesCount` to be null in JSON (#[2117](https://github.com/pachli/pachli-android/pull/2117), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Render quotes on boosts (#[2113](https://github.com/pachli/pachli-android/pull/2113), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't crash if quote viewdata is missing (#[2107](https://github.com/pachli/pachli-android/pull/2107), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show placeholder for blocked quotes (#[2102](https://github.com/pachli/pachli-android/pull/2102), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't show quotes if the quoting post has a closed content warning (#[2098](https://github.com/pachli/pachli-android/pull/2098), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Ensure media playback starts if there was no preview image (#[2072](https://github.com/pachli/pachli-android/pull/2072), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Ensure "active search filter" badge is displayed (#[2065](https://github.com/pachli/pachli-android/pull/2065), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Chinese (Traditional Han script) translations ([黃冠霖](https://github.com/pachli/pachli-android/commits?author=hc520520520@gmail.com))
+- Update Estonian translations ([Priit Jõerüüt](https://github.com/pachli/pachli-android/commits?author=jrthwlate@users.noreply.hosted.weblate.org))
+- Update French translations ([Terry L](https://github.com/pachli/pachli-android/commits?author=terrylaire@gmail.com))
+- Update German translations ([Kachelkaiser](https://github.com/pachli/pachli-android/commits?author=kachelkaiser@htpst.de))
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+- Update Kabyle translations ([ButterflyOfFire](https://github.com/pachli/pachli-android/commits?author=boffire@users.noreply.hosted.weblate.org))
+- Update Latvian translations ([Edgars Andersons](https://github.com/pachli/pachli-android/commits?author=Edgars+Weblate@gaitenis.id.lv))
+- Update Polish translations ([Łukasz Horodecki](https://github.com/pachli/pachli-android/commits?author=lukasz@horodecki.net))
+- Update Slovak translations ([Russssty](https://github.com/pachli/pachli-android/commits?author=russssty@users.noreply.hosted.weblate.org))
+- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+
 ## v3.3.1
 
 ### Translations
