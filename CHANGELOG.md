@@ -16,7 +16,6 @@
 ### Significant bug fixes
 
 - Prune cache at startup if needed, prevent crashes and OOMs (#[2139](https://github.com/pachli/pachli-android/pull/2139), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
-- Don't crash with "HTTP method annotation required" in Retrofit (#[2138](https://github.com/pachli/pachli-android/pull/2138), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
 - Look for quote-inline classes on all elements, not just p (#[2137](https://github.com/pachli/pachli-android/pull/2137), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
 - Handle quotes on Friendica/Akkoma servers (#[2133](https://github.com/pachli/pachli-android/pull/2133), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
 - Ensure database migrations work when upgrading from very old versions (#[2129](https://github.com/pachli/pachli-android/pull/2129), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
