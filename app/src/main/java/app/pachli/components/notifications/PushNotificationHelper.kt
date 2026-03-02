@@ -26,23 +26,8 @@ import app.pachli.core.domain.notifications.AppNotificationMethod
 import app.pachli.core.domain.notifications.hasPushScope
 import app.pachli.core.domain.notifications.notificationMethod
 import app.pachli.core.ui.extensions.awaitSingleChoiceItem
-import org.unifiedpush.android.connector.PREF_MASTER
 import org.unifiedpush.android.connector.UnifiedPush
 import timber.log.Timber
-
-/**
- * Logs the current state of UnifiedPush preferences for debugging.
- *
- * @param context
- * @param msg Optional message to log before the preferences.
- */
-fun logUnifiedPushPreferences(context: Context, msg: String? = null) {
-    msg?.let { Timber.d(it) }
-
-    context.getSharedPreferences(PREF_MASTER, Context.MODE_PRIVATE).all.entries.forEach {
-        Timber.d("  ${it.key} -> ${it.value}")
-    }
-}
 
 /** @return The app level [app.pachli.core.domain.notifications.AppNotificationMethod]. */
 fun notificationMethod(context: Context, accountManager: AccountManager): AppNotificationMethod {
@@ -92,6 +77,7 @@ suspend fun chooseUnifiedPushDistributor(context: Context, usePreviousDistributo
         1 -> distributors.first()
         else -> {
             val distributor = UnifiedPush.getSavedDistributor(context)
+            Timber.d("savedDistributor: $distributor")
             if (usePreviousDistributor && distributors.contains(distributor)) {
                 Timber.d("Re-using user's previous distributor choice, %s", distributor)
                 return distributor
@@ -129,7 +115,7 @@ fun getApplicationLabel(context: Context, packageName: String): String? {
             context.packageManager.getApplicationInfo(packageName, 0)
         }
         context.packageManager.getApplicationLabel(info)
-    } catch (e: PackageManager.NameNotFoundException) {
+    } catch (_: PackageManager.NameNotFoundException) {
         null
     } as String?
 }

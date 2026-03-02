@@ -275,7 +275,9 @@ class SharedPreferencesRepository @Inject constructor(
     var usePreviousUnifiedPushDistributor: Boolean
         get() = getBoolean(PrefKeys.USE_PREVIOUS_UNIFIED_PUSH_DISTRIBUTOR, true)
         set(value) {
-            edit { putBoolean(PrefKeys.USE_PREVIOUS_UNIFIED_PUSH_DISTRIBUTOR, value) }
+            // Commit to ensure the value is persisted before the app restarts in
+            // PreferencesFragment.
+            edit(commit = true) { putBoolean(PrefKeys.USE_PREVIOUS_UNIFIED_PUSH_DISTRIBUTOR, value) }
         }
 
     val pronounDisplay: PronounDisplay

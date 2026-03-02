@@ -31,6 +31,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.unifiedpush.android.connector.data.PushEndpoint
 import timber.log.Timber
 
 class RegisterUnifiedPushEndpointUseCase @Inject constructor(
@@ -43,7 +44,7 @@ class RegisterUnifiedPushEndpointUseCase @Inject constructor(
      * Subscription data. Fetches all user visible
      * notifications.
      */
-    val subscriptionData = buildMap {
+    private val subscriptionData = buildMap {
         Notification.Type.visibleTypes.forEach {
             put("data[alerts][${it.presentation}]", true)
         }
@@ -52,12 +53,12 @@ class RegisterUnifiedPushEndpointUseCase @Inject constructor(
     /**
      * Finishes Unified Push distributor registration
      *
-     * Called from [app.pachli.receiver.UnifiedPushBroadcastReceiver.onNewEndpoint] after
+     * Called from [app.pachli.service.UnifiedPushService.onNewEndpoint] after
      * the distributor has set the endpoint.
      */
     suspend operator fun invoke(
         account: AccountEntity,
-        endpoint: String,
+        endpoint: PushEndpoint,
     ) = withContext(Dispatchers.IO) {
         // Generate a prime256v1 key pair for WebPush
         // Decryption is unimplemented for now, since Mastodon uses an old WebPush
@@ -70,7 +71,7 @@ class RegisterUnifiedPushEndpointUseCase @Inject constructor(
         api.subscribePushNotifications(
             account.authHeader,
             account.domain,
-            endpoint,
+            endpoint.url,
             keyPair.pubkey,
             auth,
             subscriptionData,
@@ -83,7 +84,7 @@ class RegisterUnifiedPushEndpointUseCase @Inject constructor(
 
             accountManager.setPushNotificationData(
                 account.id,
-                unifiedPushUrl = endpoint,
+                unifiedPushUrl = endpoint.url,
                 pushServerKey = it.body.serverKey,
                 pushAuth = auth,
                 pushPrivKey = keyPair.privKey,
