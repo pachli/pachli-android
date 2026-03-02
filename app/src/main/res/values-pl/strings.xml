@@ -778,7 +778,7 @@
     <string name="search_operator_quote_all">Cytaty ▾</string>
     <string name="search_operator_quote_only">Tylko cytaty</string>
     <string name="search_operator_quote_no_quotes">Bez cytatów</string>
-    <string name="search_operator_quote_dialog_title">Pokazać wpisy cytujące inne wpisy?</string>
+    <string name="search_operator_quote_dialog_title">Pokazać wpisy, które cytują inne wpisy?</string>
     <string name="search_operator_quote_dialog_all">Z cytatami lub bez</string>
     <string name="search_operator_quote_dialog_only">Tylko wpisy z cytatami</string>
     <string name="search_operator_quote_dialog_no_quotes">Tylko wpisy bez cytatów</string>
