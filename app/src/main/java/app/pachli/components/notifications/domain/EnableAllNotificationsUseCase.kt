@@ -69,12 +69,11 @@ class EnableAllNotificationsUseCase @Inject constructor(
         if (!usePreviousDistributor) {
             sharedPreferencesRepository.usePreviousUnifiedPushDistributor = true
         }
+        Timber.d("usePreviousDistributor: $usePreviousDistributor")
 
         val distributor = chooseUnifiedPushDistributor(context, usePreviousDistributor)
         if (distributor == null) {
             Timber.d("No UnifiedPush distributor installed, skipping UnifiedPush reconfiguration")
-
-            UnifiedPush.safeRemoveDistributor(context)
             return@withContext
         }
         Timber.d("Chose %s as UnifiedPush distributor", distributor)
@@ -83,7 +82,7 @@ class EnableAllNotificationsUseCase @Inject constructor(
         UnifiedPush.saveDistributor(context, distributor)
         accountsWithPushScope.forEach {
             Timber.d("Registering instance %s, %s with %s", it.unifiedPushInstance, it.fullName, distributor)
-            UnifiedPush.registerApp(context, it.unifiedPushInstance, messageForDistributor = it.fullName)
+            UnifiedPush.register(context, it.unifiedPushInstance, messageForDistributor = it.fullName)
         }
     }
 

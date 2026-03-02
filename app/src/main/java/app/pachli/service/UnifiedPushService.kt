@@ -1,4 +1,5 @@
-/* Copyright 2022 Tusky contributors
+/*
+ * Copyright (c) 2026 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -14,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.receiver
+package app.pachli.service
 
 import android.content.Context
 import androidx.work.Constraints
@@ -27,15 +28,18 @@ import app.pachli.core.domain.RegisterUnifiedPushEndpointUseCase
 import app.pachli.core.domain.notifications.DisablePushNotificationsForAccountUseCase
 import app.pachli.worker.NotificationWorker
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.unifiedpush.android.connector.MessagingReceiver
+import org.unifiedpush.android.connector.FailedReason
+import org.unifiedpush.android.connector.PushService
+import org.unifiedpush.android.connector.data.PushEndpoint
+import org.unifiedpush.android.connector.data.PushMessage
 import timber.log.Timber
 
 @AndroidEntryPoint
-class UnifiedPushBroadcastReceiver : MessagingReceiver() {
+class UnifiedPushService : PushService() {
     @Inject
     lateinit var accountManager: AccountManager
 
@@ -45,7 +49,11 @@ class UnifiedPushBroadcastReceiver : MessagingReceiver() {
     @Inject
     lateinit var disablePushNotificationsForAccount: DisablePushNotificationsForAccountUseCase
 
-    override fun onMessage(context: Context, message: ByteArray, instance: String) {
+    @Inject
+    @ApplicationContext
+    lateinit var context: Context
+
+    override fun onMessage(message: PushMessage, instance: String) {
         Timber.d("onMessage")
         Timber.d("New message received for account %s", instance)
         val workManager = WorkManager.getInstance(context)
@@ -58,8 +66,7 @@ class UnifiedPushBroadcastReceiver : MessagingReceiver() {
         workManager.enqueue(request)
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
-    override fun onNewEndpoint(context: Context, endpoint: String, instance: String) {
+    override fun onNewEndpoint(endpoint: PushEndpoint, instance: String) {
         Timber.d("onNewEndpoint for instance $instance")
         accountManager.getAccountById(instance.toLong())?.let { account ->
             Timber.d("Endpoint available for account %s: %s", account, instance)
@@ -69,14 +76,14 @@ class UnifiedPushBroadcastReceiver : MessagingReceiver() {
         }
     }
 
-    override fun onRegistrationFailed(context: Context, instance: String) {
+    override fun onRegistrationFailed(reason: FailedReason, instance: String) {
         Timber.d("onRegistrationFailed")
         accountManager.getAccountById(instance.toLong())?.let { account ->
             Timber.d("Could not register ${account.displayName}")
         }
     }
 
-    override fun onUnregistered(context: Context, instance: String) {
+    override fun onUnregistered(instance: String) {
         Timber.d("onUnregistered with instance $instance")
         accountManager.getAccountById(instance.toLong())?.let { account ->
             GlobalScope.launch {

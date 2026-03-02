@@ -18,20 +18,15 @@
 package app.pachli.core.domain.notifications
 
 import android.content.Context
-import androidx.core.content.edit
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
-import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
-import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.map
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
-import org.unifiedpush.android.connector.PREF_MASTER
-import org.unifiedpush.android.connector.PREF_MASTER_DISTRIBUTOR
-import org.unifiedpush.android.connector.PREF_MASTER_DISTRIBUTOR_ACK
 import org.unifiedpush.android.connector.UnifiedPush
 
 class DisablePushNotificationsForAccountUseCase @Inject constructor(
@@ -54,11 +49,9 @@ class DisablePushNotificationsForAccountUseCase @Inject constructor(
     suspend operator fun invoke(account: AccountEntity): Result<Unit, ApiError> {
         if (account.notificationMethod != AccountNotificationMethod.PUSH) return Ok(Unit)
 
-        var result: Result<Unit, ApiError> = Ok(Unit)
-
         // Try and unregister the endpoint from the server.
-        api.unsubscribePushNotifications("Bearer ${account.accessToken}", account.domain)
-            .onFailure { result = Err(it) }
+        val result = api.unsubscribePushNotifications("Bearer ${account.accessToken}", account.domain)
+            .map { }
 
         // Clear the push notification from the account.
         accountManager.clearPushNotificationData(account.id)
@@ -66,19 +59,12 @@ class DisablePushNotificationsForAccountUseCase @Inject constructor(
 
         // Unregister from the UnifiedPush provider.
         //
-        // UnifiedPush.unregisterApp will try and remove the user's distributor choice (including
+        // UnifiedPush.unregister() will try and remove the user's distributor choice (including
         // whether or not instances had acked it). Work around this bug by saving the values, and
         // restoring them afterwards.
-        val prefs = context.getSharedPreferences(PREF_MASTER, Context.MODE_PRIVATE)
         val savedDistributor = UnifiedPush.getSavedDistributor(context)
-        val savedDistributorAck = prefs.getBoolean(PREF_MASTER_DISTRIBUTOR_ACK, false)
-
-        UnifiedPush.unregisterApp(context, account.unifiedPushInstance)
-
-        prefs.edit {
-            putString(PREF_MASTER_DISTRIBUTOR, savedDistributor)
-            putBoolean(PREF_MASTER_DISTRIBUTOR_ACK, savedDistributorAck)
-        }
+        UnifiedPush.unregister(context, account.unifiedPushInstance)
+        savedDistributor?.let { UnifiedPush.saveDistributor(context, savedDistributor) }
 
         return result
     }
