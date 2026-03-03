@@ -95,6 +95,7 @@
     <string name="description_visibility_direct">
         Direct
     </string>
+    <string name="description_quoted_post_prefix">Quoted post:</string>
     <!-- Can't use 'plurals' here because e.g. English doesn't distinguish between
          "two" and "other", resulting in "other" being used even if the quantity is
          only two. -->
