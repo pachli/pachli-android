@@ -87,27 +87,29 @@ class ListStatusAccessibilityDelegate<T : IStatusItemViewData>(
             if (controlActions.contains(bookmarkAction.id)) info.addAction(if (actionable.bookmarked) unbookmarkAction else bookmarkAction)
 
             val attachmentDisplayAction = status.attachmentDisplayAction
-            when (attachmentDisplayAction) {
-                is AttachmentDisplayAction.Show -> {
-                    val mediaActions = intArrayOf(
-                        app.pachli.core.ui.R.id.action_open_media_1,
-                        app.pachli.core.ui.R.id.action_open_media_2,
-                        app.pachli.core.ui.R.id.action_open_media_3,
-                        app.pachli.core.ui.R.id.action_open_media_4,
-                    )
-                    val attachmentCount = min(actionable.attachments.size, MAX_MEDIA_ATTACHMENTS)
-                    for (i in 0 until attachmentCount) {
-                        info.addAction(
-                            AccessibilityActionCompat(
-                                mediaActions[i],
-                                context.getString(R.string.action_open_media_n, i + 1),
-                            ),
+            if (actionable.attachments.isNotEmpty()) {
+                when (attachmentDisplayAction) {
+                    is AttachmentDisplayAction.Show -> {
+                        val mediaActions = intArrayOf(
+                            app.pachli.core.ui.R.id.action_open_media_1,
+                            app.pachli.core.ui.R.id.action_open_media_2,
+                            app.pachli.core.ui.R.id.action_open_media_3,
+                            app.pachli.core.ui.R.id.action_open_media_4,
                         )
-                        info.addAction(hideAttachmentsAction)
+                        val attachmentCount = min(actionable.attachments.size, MAX_MEDIA_ATTACHMENTS)
+                        for (i in 0 until attachmentCount) {
+                            info.addAction(
+                                AccessibilityActionCompat(
+                                    mediaActions[i],
+                                    context.getString(R.string.action_open_media_n, i + 1),
+                                ),
+                            )
+                            info.addAction(hideAttachmentsAction)
+                        }
                     }
-                }
 
-                is AttachmentDisplayAction.Hide -> info.addAction(showAttachmentsAction)
+                    is AttachmentDisplayAction.Hide -> info.addAction(showAttachmentsAction)
+                }
             }
 
             val parsedContent = status.content.parseAsMastodonHtml()
