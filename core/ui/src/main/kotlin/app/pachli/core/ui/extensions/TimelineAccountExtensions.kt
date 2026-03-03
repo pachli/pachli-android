@@ -20,6 +20,7 @@ package app.pachli.core.ui.extensions
 import android.content.Context
 import app.pachli.core.model.TimelineAccount
 import app.pachli.core.ui.R
+import kotlin.text.Regex.Companion.escape
 
 /**
  * Returns a content description for this account.
@@ -76,10 +77,13 @@ internal fun nameContentDescription(context: Context, name: String): String {
  *
  * Work around for https://issuetracker.google.com/issues/447792953.
  */
-val talkbackTlds = mapOf(".xyz" to ".x y z")
+val talkbackTlds = mapOf(
+    ".la" to ".l a",
+    ".xyz" to ".x y z",
+)
 
 /** Regex that matches and groups each domain suffix in [talkbackTlds]. */
-val rxTalkbackTlds = "(${talkbackTlds.keys.joinToString("|")}$)".toRegex()
+val rxTalkbackTlds = "(${talkbackTlds.keys.map { escape(it) }.joinToString("|")}$)".toRegex()
 
 /**
  * @return A content description for the account's handle. If the handle
