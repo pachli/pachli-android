@@ -35,6 +35,7 @@ import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.common.util.SmartLengthInputFilter
+import app.pachli.core.data.model.IStatusItemViewData
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
@@ -44,6 +45,7 @@ import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.PreviewCardKind
 import app.pachli.core.network.parseAsMastodonHtml
+import app.pachli.core.network.removeQuoteInline
 import app.pachli.core.preferences.CardViewMode
 import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.ui.PollViewData.Companion.from
@@ -601,7 +603,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
     }
 
     /** Creates the content description for the status. */
-    fun getContentDescription(viewData: T, statusDisplayOptions: StatusDisplayOptions): CharSequence {
+    fun getContentDescription(viewData: IStatusViewData, statusDisplayOptions: StatusDisplayOptions): CharSequence {
         val account = viewData.actionable.account
         val createdAt = viewData.actionable.createdAt
         val editedAt = viewData.actionable.editedAt
@@ -623,8 +625,10 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         // (; "Roles: " account.roles)
         // (. contentWarning)
         // ; (content)
-        // (, poll)
-        // , relativeDate
+        // (\n\n media)
+        // (\n\n poll)
+        // \n\n
+        // relativeDate
         // (, editedAt)
         // (, reblogDescription)
         // , username
@@ -646,19 +650,23 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
             // marked sensitive, and it has not been expanded.
             if (TextUtils.isEmpty(spoilerText) || !sensitive || viewData.isExpanded) {
                 append(viewData.content.parseAsMastodonHtml(), ", ")
+
+                getMediaDescription(context, viewData)?.let { append("\n\n", it) }
+
+                viewData.actionable.poll?.let {
+                    append(
+                        "\n\n",
+                        pollView.getPollDescription(
+                            from(it),
+                            statusDisplayOptions,
+                            NUMBER_FORMATTER,
+                            TIME_FORMATTER,
+                        ),
+                    )
+                }
             }
 
-            viewData.actionable.poll?.let {
-                append(
-                    pollView.getPollDescription(
-                        from(it),
-                        statusDisplayOptions,
-                        NUMBER_FORMATTER,
-                        TIME_FORMATTER,
-                    ),
-                    ", ",
-                )
-            }
+            append("\n\n")
 
             append(getCreatedAtDescription(createdAt, statusDisplayOptions))
 
@@ -676,7 +684,6 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
             if (bookmarked) {
                 append(", ", context.getString(R.string.description_post_bookmarked))
             }
-            getMediaDescription(context, viewData)?.let { append(", ", it) }
 
             append("; ")
 
