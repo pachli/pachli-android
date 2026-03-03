@@ -148,18 +148,18 @@ class ListStatusAccessibilityDelegate<T : IStatusItemViewData>(
             val pos = recyclerView.getChildAdapterPosition(host)
             val status = statusProvider.getStatus(pos) ?: return false
             when (action) {
-                app.pachli.core.ui.R.id.action_reply -> {
+                replyAction.id -> {
                     interrupt()
                     statusActionListener.onReply(status)
                 }
 
-                app.pachli.core.ui.R.id.action_favourite -> statusActionListener.onFavourite(status, true)
-                app.pachli.core.ui.R.id.action_unfavourite -> statusActionListener.onFavourite(status, false)
-                app.pachli.core.ui.R.id.action_bookmark -> statusActionListener.onBookmark(status, true)
-                app.pachli.core.ui.R.id.action_unbookmark -> statusActionListener.onBookmark(status, false)
-                app.pachli.core.ui.R.id.action_reblog -> statusActionListener.onReblog(status, true)
-                app.pachli.core.ui.R.id.action_unreblog -> statusActionListener.onReblog(status, false)
-                app.pachli.core.ui.R.id.action_open_profile -> {
+                favouriteAction.id -> statusActionListener.onFavourite(status, true)
+                unfavouriteAction.id -> statusActionListener.onFavourite(status, false)
+                bookmarkAction.id -> statusActionListener.onBookmark(status, true)
+                unbookmarkAction.id -> statusActionListener.onBookmark(status, false)
+                reblogAction.id -> statusActionListener.onReblog(status, true)
+                unreblogAction.id -> statusActionListener.onReblog(status, false)
+                openProfileAction.id -> {
                     interrupt()
                     statusActionListener.onViewAccount(status.actionable.account.id)
                 }
@@ -184,7 +184,7 @@ class ListStatusAccessibilityDelegate<T : IStatusItemViewData>(
                     statusActionListener.onViewAttachment(null, status, 3)
                 }
 
-                app.pachli.core.ui.R.id.action_expand_cw -> {
+                expandCwAction.id -> {
                     // Toggling it directly to avoid animations
                     // which cannot be disabled for detailed status for some reason
                     val holder = recyclerView.getChildViewHolder(host) as StatusBaseViewHolder<IStatusViewData>
@@ -195,12 +195,12 @@ class ListStatusAccessibilityDelegate<T : IStatusItemViewData>(
                     forceFocus(host)
                 }
 
-                app.pachli.core.ui.R.id.action_collapse_cw -> {
+                collapseCwAction.id -> {
                     statusActionListener.onExpandedChange(status, false)
                     interrupt()
                 }
 
-                app.pachli.core.ui.R.id.action_links -> {
+                linksAction.id -> {
                     val links = status.content.parseAsMastodonHtml().getLinks()
                     showA11yDialogWithCopyButton(
                         app.pachli.core.ui.R.string.title_links_dialog,
@@ -208,7 +208,7 @@ class ListStatusAccessibilityDelegate<T : IStatusItemViewData>(
                     ) { openUrl(links[it].url) }
                 }
 
-                app.pachli.core.ui.R.id.action_mentions -> {
+                mentionsAction.id -> {
                     val mentions = status.actionable.mentions
                     showA11yDialogWithCopyButton(
                         app.pachli.core.ui.R.string.title_mentions_dialog,
@@ -216,7 +216,7 @@ class ListStatusAccessibilityDelegate<T : IStatusItemViewData>(
                     ) { statusActionListener.onViewAccount(mentions[it].id) }
                 }
 
-                app.pachli.core.ui.R.id.action_hashtags -> {
+                hashtagsAction.id -> {
                     val hashtags = status.content.parseAsMastodonHtml().getHashtags()
                     showA11yDialogWithCopyButton(
                         app.pachli.core.ui.R.string.title_hashtags_dialog,
@@ -224,49 +224,49 @@ class ListStatusAccessibilityDelegate<T : IStatusItemViewData>(
                     ) { statusActionListener.onViewTag(hashtags[it].toString()) }
                 }
 
-                app.pachli.core.ui.R.id.action_open_reblogger -> {
+                openRebloggerAction.id -> {
                     interrupt()
                     statusActionListener.onOpenReblog(status.status)
                 }
 
-                app.pachli.core.ui.R.id.action_open_reblogged_by -> {
+                openRebloggedByAction.id -> {
                     interrupt()
                     statusActionListener.onShowReblogs(status.actionableId)
                 }
 
-                app.pachli.core.ui.R.id.action_open_faved_by -> {
+                openFavsAction.id -> {
                     interrupt()
                     statusActionListener.onShowFavs(status.actionableId)
                 }
 
-                app.pachli.core.ui.R.id.action_open_byline_account -> {
+                openBylineAccountAction.id -> {
                     status.actionable.card?.authors?.firstOrNull()?.account?.let {
                         interrupt()
                         statusActionListener.onViewAccount(it.id)
                     }
                 }
 
-                app.pachli.core.ui.R.id.action_more -> {
+                moreAction.id -> {
                     statusActionListener.onMore(host, status)
                 }
 
-                app.pachli.core.ui.R.id.action_show_anyway -> statusActionListener.clearContentFilter(status)
+                showAnywayAction.id -> statusActionListener.clearContentFilter(status)
 
-                app.pachli.core.ui.R.id.action_edit_filter -> {
+                editFilterAction.id -> {
                     (recyclerView.findContainingViewHolder(host) as? FilterableStatusViewHolder<*>)?.matchedFilter?.let {
                         statusActionListener.onEditFilterById(pachliAccountId, it.id)
                         return@let true
                     } ?: false
                 }
 
-                app.pachli.core.ui.R.id.action_show_attachments -> {
+                showAttachmentsAction.id -> {
                     statusActionListener.onAttachmentDisplayActionChange(
                         status,
                         AttachmentDisplayAction.Show(status.attachmentDisplayAction as? AttachmentDisplayAction.Hide),
                     )
                 }
 
-                app.pachli.core.ui.R.id.action_hide_attachments -> {
+                hideAttachmentsAction.id -> {
                     // The user clicked to hide the attachment. Either they are:
                     //
                     // a. Re-hiding an attachment that was hidden that they decided to show, or
@@ -279,29 +279,29 @@ class ListStatusAccessibilityDelegate<T : IStatusItemViewData>(
                     statusActionListener.onAttachmentDisplayActionChange(status, newAction)
                 }
 
-                app.pachli.core.ui.R.id.action_select_status -> {
+                selectStatusAction.id -> {
                     (recyclerView.findContainingViewHolder(host) as? Checkable)?.isChecked = true
                 }
 
-                app.pachli.core.ui.R.id.action_unselect_status -> {
+                unselectStatusAction.id -> {
                     (recyclerView.findContainingViewHolder(host) as? Checkable)?.isChecked = false
                 }
 
-                app.pachli.core.ui.R.id.action_show_pronouns -> {
+                showPronounsAction.id -> {
                     val pronouns = status.actionable.account.pronouns?.trim()
                     if (pronouns.isNullOrBlank()) return true
                     val formatted = HtmlCompat.fromHtml(pronouns, FROM_HTML_MODE_LEGACY)
                     Toast.makeText(context, formatted, Toast.LENGTH_LONG).show()
                 }
 
-                app.pachli.core.ui.R.id.action_open_quoted_post -> {
+                openQuotedPostAction.id -> {
                     interrupt()
                     status.quotedViewData?.let {
                         statusActionListener.onViewThread(it.actionable)
                     }
                 }
 
-                app.pachli.core.ui.R.id.action_quote -> {
+                quoteAction.id -> {
                     interrupt()
                     statusActionListener.onQuote(status)
                 }
