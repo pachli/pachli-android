@@ -21,13 +21,16 @@ import android.graphics.Typeface
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.StyleSpan
-import androidx.recyclerview.widget.RecyclerView
+import android.widget.TextView
+import androidx.core.util.TypedValueCompat.dpToPx
 import app.pachli.R
 import app.pachli.adapter.StatusViewDataDiffCallback
+import app.pachli.adapter.StatusViewHolder
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.string.unicodeWrap
-import app.pachli.core.data.model.NotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus
 import app.pachli.core.data.model.NotificationViewData.WithStatus.FavouriteNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.MentionNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.QuoteNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.QuotedUpdateNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.ReblogNotificationViewData
@@ -35,8 +38,9 @@ import app.pachli.core.data.model.NotificationViewData.WithStatus.StatusNotifica
 import app.pachli.core.data.model.NotificationViewData.WithStatus.UpdateNotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.ui.SetContent
+import app.pachli.core.ui.StatusActionListener
 import app.pachli.core.ui.emojify
-import app.pachli.databinding.ItemStatusNotificationBinding
+import app.pachli.databinding.ItemStatusBinding
 import com.bumptech.glide.RequestManager
 
 /**
@@ -50,30 +54,21 @@ import com.bumptech.glide.RequestManager
  * status in context.
  */
 internal class StatusNotificationViewHolder(
-    private val binding: ItemStatusNotificationBinding,
-    private val glide: RequestManager,
-    private val setContent: SetContent,
+    private val binding: ItemStatusBinding,
+    glide: RequestManager,
+    setContent: SetContent,
     private val notificationActionListener: NotificationActionListener,
-) : NotificationsPagingAdapter.ViewHolder<NotificationViewData.WithStatus>, RecyclerView.ViewHolder(binding.root) {
+) : NotificationsPagingAdapter.ViewHolder<WithStatus>, StatusViewHolder<WithStatus>(binding, glide, setContent) {
     override fun bind(
-        viewData: NotificationViewData.WithStatus,
+        viewData: WithStatus,
         payloads: List<List<Any?>>?,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
         if (payloads.isNullOrEmpty()) {
-            binding.notificationTopText.setOnClickListener {
+            binding.statusInfo.setOnClickListener {
                 notificationActionListener.onViewAccount(viewData.account.id)
             }
-
-            binding.statusView.setupWithStatus(
-                setContent,
-                glide,
-                viewData,
-                notificationActionListener,
-                statusDisplayOptions,
-            )
-            itemView.show()
-            setMessage(viewData, statusDisplayOptions)
+            showStatusContent(true)
         } else {
             payloads.flatten().forEach { item ->
                 if (item == StatusViewDataDiffCallback.Payload.CREATED) {
@@ -81,14 +76,39 @@ internal class StatusNotificationViewHolder(
                 }
             }
         }
+        setupWithStatus(
+            viewData,
+            notificationActionListener,
+            statusDisplayOptions,
+            payloads,
+        )
+
+        val statusContentDescription = binding.statusView.getContentDescription(viewData, statusDisplayOptions)
+
+        val contentDescriptionPrefix = binding.statusInfo.text
+
+        // TODO: Should be a string reference.
+        binding.root.contentDescription = "$contentDescriptionPrefix.\n\n$statusContentDescription"
     }
 
-    fun setMessage(
-        viewData: NotificationViewData.WithStatus,
+    override fun setStatusInfo(
+        statusInfo: TextView,
+        viewData: WithStatus,
         statusDisplayOptions: StatusDisplayOptions,
+        listener: StatusActionListener,
     ) {
+        val context = binding.statusInfo.context
+        binding.statusInfo.compoundDrawablePadding = dpToPx(10f, context.resources.displayMetrics).toInt()
+        binding.statusInfo.setPaddingRelative(dpToPx(28f, context.resources.displayMetrics).toInt(), 0, 0, 0)
+
+        if (viewData is WithStatus.PollNotificationViewData) {
+            binding.statusInfo.setText(if (viewData.isAboutSelf) R.string.poll_ended_created else R.string.poll_ended_voted)
+            binding.statusInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_poll_24dp, 0, 0, 0)
+            binding.statusInfo.show()
+            return
+        }
+
         val displayName = viewData.account.name.unicodeWrap()
-        val context = binding.notificationTopText.context
         val icon = viewData.icon(context)
         val format = when (viewData) {
             is FavouriteNotificationViewData -> context.getString(R.string.notification_favourite_format)
@@ -97,9 +117,9 @@ internal class StatusNotificationViewHolder(
             is UpdateNotificationViewData -> context.getString(R.string.notification_update_format)
             is QuoteNotificationViewData -> context.getString(R.string.notification_quote_format)
             is QuotedUpdateNotificationViewData -> context.getString(R.string.notification_quoted_update_format)
-            else -> context.getString(R.string.notification_favourite_format)
+            is MentionNotificationViewData -> context.getString(R.string.notification_mention_format)
         }
-        binding.notificationTopText.setCompoundDrawablesWithIntrinsicBounds(
+        binding.statusInfo.setCompoundDrawablesWithIntrinsicBounds(
             icon,
             null,
             null,
@@ -117,9 +137,9 @@ internal class StatusNotificationViewHolder(
         val emojifiedText = str.emojify(
             glide,
             viewData.account.emojis,
-            binding.notificationTopText,
+            binding.statusInfo,
             statusDisplayOptions.animateEmojis,
         )
-        binding.notificationTopText.text = emojifiedText
+        binding.statusInfo.text = emojifiedText
     }
 }

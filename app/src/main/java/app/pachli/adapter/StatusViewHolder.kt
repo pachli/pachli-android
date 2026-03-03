@@ -17,8 +17,8 @@
 package app.pachli.adapter
 
 import android.view.View
+import android.widget.TextView
 import androidx.core.text.HtmlCompat
-import androidx.core.util.TypedValueCompat.dpToPx
 import app.pachli.R
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -46,19 +46,23 @@ open class StatusViewHolder<T : IStatusViewData>(
         statusDisplayOptions: StatusDisplayOptions,
         payloads: List<List<Any?>>?,
     ) {
-        with(binding) {
-            if (payloads.isNullOrEmpty()) {
-                setStatusInfo(viewData, statusDisplayOptions, listener)
-            }
-            super.setupWithStatus(viewData, listener, statusDisplayOptions, payloads)
+        if (payloads.isNullOrEmpty()) {
+            setStatusInfo(binding.statusInfo, viewData, statusDisplayOptions, listener)
         }
+        super.setupWithStatus(viewData, listener, statusDisplayOptions, payloads)
     }
 
     /**
      * Sets the (optional) content of the "status info" text that appears
      * above the status.
+     *
+     * @param statusInfo
+     * @param viewData
+     * @param statusDisplayOptions
+     * @param listener
      */
-    private fun ItemStatusBinding.setStatusInfo(
+    protected open fun setStatusInfo(
+        statusInfo: TextView,
         viewData: T,
         statusDisplayOptions: StatusDisplayOptions,
         listener: StatusActionListener,
@@ -71,12 +75,12 @@ open class StatusViewHolder<T : IStatusViewData>(
         val status = viewData.actionable
 
         viewData.rebloggingStatus?.let { reblogging ->
-            setStatusInfoAsReblog(viewData, reblogging.account, statusDisplayOptions, listener)
+            setStatusInfoAsReblog(statusInfo, viewData, reblogging.account, statusDisplayOptions, listener)
             return
         }
 
         if (status.inReplyToAccountId != null) {
-            setStatusInfoAsReply(viewData, statusDisplayOptions)
+            setStatusInfoAsReply(statusInfo, viewData, statusDisplayOptions)
             return
         }
 
@@ -87,10 +91,12 @@ open class StatusViewHolder<T : IStatusViewData>(
      * Sets [statusInfo] assuming [viewData] contains a status that is a reply
      * to another status.
      *
+     * @param statusInfo [TextView] to modify.
      * @param viewData
      * @param statusDisplayOptions
      */
-    private fun ItemStatusBinding.setStatusInfoAsReply(
+    private fun setStatusInfoAsReply(
+        statusInfo: TextView,
         viewData: T,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
@@ -137,7 +143,8 @@ open class StatusViewHolder<T : IStatusViewData>(
      * @param statusDisplayOptions
      * @param listener
      */
-    private fun ItemStatusBinding.setStatusInfoAsReblog(
+    private fun setStatusInfoAsReblog(
+        statusInfo: TextView,
         viewData: T,
         rebloggingAccount: TimelineAccount,
         statusDisplayOptions: StatusDisplayOptions,
@@ -158,15 +165,6 @@ open class StatusViewHolder<T : IStatusViewData>(
 
         statusInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_reblog_18dp, 0, 0, 0)
         statusInfo.setOnClickListener { listener.onOpenReblog(viewData.status) }
-        statusInfo.show()
-    }
-
-    // don't use this on the same ViewHolder as setRebloggedByDisplayName, will cause recycling issues as paddings are changed
-    protected fun setPollInfo(ownPoll: Boolean) = with(binding) {
-        statusInfo.setText(if (ownPoll) R.string.poll_ended_created else R.string.poll_ended_voted)
-        statusInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_poll_24dp, 0, 0, 0)
-        statusInfo.compoundDrawablePadding = dpToPx(10f, context.resources.displayMetrics).toInt()
-        statusInfo.setPaddingRelative(dpToPx(28f, context.resources.displayMetrics).toInt(), 0, 0, 0)
         statusInfo.show()
     }
 

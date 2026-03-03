@@ -85,7 +85,7 @@ fun NotificationViewData.icon(context: Context) = when (this) {
 
     is StatusNotificationViewData -> getIconWithColor(
         context,
-        R.drawable.ic_home_24dp,
+        R.drawable.ic_notifications_24dp,
         androidx.appcompat.R.attr.colorPrimary,
     )
 
