@@ -7,7 +7,7 @@
     <string name="content_description_loading_fmt">%1$s, lädt herunter</string>
     <string name="content_description_loaded_fmt">%1$s, heruntergeladen</string>
     <string name="content_description_available_fmt">%1$s, kann heruntergeladen werden</string>
-    <string name="pref_translation_require_wifi">Sprachpakete nur über WLAN herunterladen</string>
+    <string name="pref_translation_require_wifi">Zum Herunterladen von Sprachpaketen ist WLAN erforderlich</string>
     <string name="pref_translation_manage_languages">Sprachpakete verwalten</string>
     <string name="translation_model_manager_fragment_title">Sprachpakete</string>
     <string name="translation_model_manager_fragment_info">Sprachen zwischen denen Pachli mit Google Translate übersetzen kann. Das Herunterladen der Sprachpakete macht die Übersetzung schneller.</string>
