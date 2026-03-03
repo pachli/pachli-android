@@ -55,7 +55,7 @@
     <string name="notification_log_download_content_description">Logs herunterladen</string>
     <string name="notification_log_download">Herunterladen</string>
     <string name="notification_log_sort">Neueste zuerst</string>
-    <string name="notification_log_previous_attempts">Vorherige Versuche: %1$d</string>
+    <string name="notification_log_previous_attempts">Ausführungsversuche: %1$d</string>
     <string name="notification_log_scheduled_in">Geplant in %1$s @ %2$s</string>
     <string name="notification_log_method_push">Benachrichtigungen werden über UnifiedPush verteilt und sollten umgehend sein</string>
     <string name="notification_log_method_pull">Benachrichtigungen werden periodisch abgerufen, etwa alle 15 Minuten</string>
@@ -80,4 +80,8 @@
     <string name="about_database">Datenbank</string>
     <string name="about_notifications">Benachrichtigungen</string>
     <string name="database_vacuum_complete">Datenbank-Leerung abgeschlossen</string>
+    <string name="about_workers">Worker</string>
+    <string name="workers_prune_cached_media_help">Dies ist die Liste der Worker, die zwischengespeicherte Medien bereinigen. Es sollte einen geben, der Status sollte RUNNING oder ENQUEUED lauten und die Ausführung sollte in weniger als 12 Stunden geplant sein.</string>
+    <string name="workers_prune_cache_help">Dies ist die Liste der Worker, die zwischengespeicherte Informationen zu Beiträgen und Autoren bereinigen. Es sollte einen geben, der Status sollte RUNNING oder ENQUEUED lauten und die Ausführung sollte in weniger als 12 Stunden geplant sein.</string>
+    <string name="workers_prune_log_entry_entity_help">Dies ist die Liste der Worker, die Protokolleinträge debuggen. Es sollte einen geben, der Status sollte RUNNING oder ENQUEUED lauten und die Ausführung sollte in weniger als 12 Stunden geplant sein.</string>
 </resources>
