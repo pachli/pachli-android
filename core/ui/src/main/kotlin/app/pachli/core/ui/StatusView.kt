@@ -35,6 +35,7 @@ import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.common.util.SmartLengthInputFilter
+import app.pachli.core.data.model.IStatusItemViewData
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
@@ -626,6 +627,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         // ; (content)
         // (\n\n media)
         // (\n\n poll)
+        // (\n\n quote)
         // \n\n
         // relativeDate
         // (, editedAt)
@@ -668,6 +670,12 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
                             TIME_FORMATTER,
                         ),
                     )
+                }
+
+                val quotedViewData = (viewData as? IStatusItemViewData)?.asQuotedStatusViewData()?.statusViewData
+                quotedViewData?.let {
+                    append("\n\n", context.getString(R.string.description_quoted_post_prefix), "\n")
+                    append(getContentDescription(it, statusDisplayOptions))
                 }
             }
 
