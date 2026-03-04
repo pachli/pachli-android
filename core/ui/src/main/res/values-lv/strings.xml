@@ -168,5 +168,4 @@
     <string name="label_quote_state_blocked_account">Citētais ieraksts ir no konta, kuru liedzi</string>
     <string name="label_quote_state_blocked_domain">Citētais ieraksts ir no servera, kuru liedzi</string>
     <string name="label_quote_state_muted_account">Citētais ieraksts ir no konta, kuru apklusināji</string>
-    <string name="description_quoted_post_prefix">Citētais ieraksts:</string>
 </resources>
