@@ -1,0 +1,17 @@
+Pachli 2.2.0
+
+Nouveautés :
+
+- Désactive la fonction filtrage si le serveur ne la supporte pas
+
+Changements :
+
+- Vérifie que les actions arrivent dans le bon ordre
+- Plus de fuite de MainActivity dans DrawerImageLoader
+- Bonne valeur des tags tendance à la fin des graphiques 
+- Traduction en suédois (màj)
+- Traduction en indonésien (màj)
+- Traduction en néerlandais (màj)
+- Traduction en portugais (màj)
+- Traduction en finnois (màj)
+- Traduction en arabe (màj)
