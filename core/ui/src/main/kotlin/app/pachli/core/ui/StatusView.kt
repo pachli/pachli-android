@@ -35,7 +35,6 @@ import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.common.util.SmartLengthInputFilter
-import app.pachli.core.data.model.IStatusItemViewData
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
@@ -45,7 +44,6 @@ import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.PreviewCardKind
 import app.pachli.core.network.parseAsMastodonHtml
-import app.pachli.core.network.removeQuoteInline
 import app.pachli.core.preferences.CardViewMode
 import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.ui.PollViewData.Companion.from
