@@ -177,5 +177,4 @@
     <string name="label_quote_state_muted_account">Cytowany wpis pochodzi od wyciszonego przez ciebie konta</string>
     <string name="post_replied">Odpowiedź</string>
     <string name="post_continued_thread">Ciąg dalszy wątku</string>
-    <string name="description_quoted_post_prefix">Cytowany wpis:</string>
 </resources>

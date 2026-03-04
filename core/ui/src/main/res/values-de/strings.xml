@@ -158,5 +158,4 @@
     <string name="label_quote_state_blocked_account">Zitierter Beitrag stammt von einem Konto, das du blockiert hast</string>
     <string name="label_quote_state_blocked_domain">Zitierter Beitrag stammt von einem Server, den du blockiert hast</string>
     <string name="label_quote_state_muted_account">Zitierter Beitrag stammt von einem Konto, das du stummgeschaltet hast</string>
-    <string name="description_quoted_post_prefix">Zitierter Beitrag:</string>
 </resources>
