@@ -1,0 +1,16 @@
+Pachli 2.4.0
+
+Nouveautés :
+
+- Notification de relation endommagée
+- Voir votes des sondages, politique de la liste
+- "Notifications", "Hashtags suivis" et listes dans la navigation gauche
+- Cache la barre d'outils de visualisation d'image
+
+Corrections :
+
+- Extraction d'URL à la rédaction
+- Mise à jour des onglets en modification de liste
+- Déconnexion complète
+- Téléchargement des fichiers avant partage
+- Mise à jour de traductions en finnois, kabyle et espagnol

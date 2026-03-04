@@ -1,0 +1,15 @@
+Pachli 2.3.0
+
+Nouveautés :
+
+- Médias non-retouchés sur les pages médias de comptes
+- L'utilisateur-ice peutvérifier les mises à jour
+- Prévisualisation des audios
+- Infos sur la récupération de notification
+
+Corrections :
+
+- Gare l'écran allumé pendant la lecture média
+- Meilleure lisibilité des statistiques
+- Correction du compte et de la timeline lors de l'écriture depuis les notifications
+- Mise à jour des traductions en arabe, néerlandais, finnois, français, indonésien, espagnol et suédois
