@@ -28,10 +28,12 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.service.notification.StatusBarNotification
+import android.text.Spanned
 import android.text.TextUtils
 import androidx.core.app.NotificationCompat
 import androidx.core.app.RemoteInput
 import androidx.core.app.TaskStackBuilder
+import androidx.core.text.HtmlCompat
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
@@ -784,9 +786,9 @@ private fun titleForType(
     context: Context,
     notification: Notification,
     account: AccountEntity,
-): String? {
+): Spanned {
     val accountName = notification.account.name.unicodeWrap()
-    return when (notification.type) {
+    val htmlTitle = when (notification.type) {
         Notification.Type.MENTION -> {
             context.getString(R.string.notification_mention_format, accountName)
         }
@@ -851,8 +853,10 @@ private fun titleForType(
             context.getString(R.string.notification_quoted_update_format)
         }
 
-        Notification.Type.UNKNOWN -> null
+        Notification.Type.UNKNOWN -> context.getString(R.string.notification_unknown)
     }
+
+    return HtmlCompat.fromHtml(htmlTitle, HtmlCompat.FROM_HTML_MODE_LEGACY)
 }
 
 private fun bodyForType(
