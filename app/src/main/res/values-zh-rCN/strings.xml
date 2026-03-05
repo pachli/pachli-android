@@ -30,8 +30,8 @@
     <string name="title_drafts">草稿</string>
     <string name="post_sensitive_media_directions">点击查看</string>
     <string name="footer_empty">还没有内容，向下拉动即可刷新！</string>
-    <string name="notification_reblog_format">%s 转嘟了你的嘟文</string>
-    <string name="notification_favourite_format">%s 喜欢了你的嘟文</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; 转嘟了你的嘟文</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; 喜欢了你的嘟文</string>
     <string name="notification_follow_format">%s 关注了你</string>
     <string name="report_username_format">举报 @%s</string>
     <string name="report_comment_hint">报告更多信息？</string>
@@ -164,7 +164,7 @@
     <string name="notification_favourite_description">当有用户喜欢了我的嘟文时</string>
     <string name="notification_poll_name">投票</string>
     <string name="notification_poll_description">当我参与的投票结束时</string>
-    <string name="notification_mention_format">%s 提及了你</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; 提及了你</string>
     <string name="notification_summary_large">%1$s，%2$s，%3$s 和 %4$d 等人</string>
     <string name="notification_summary_medium">%1$s，%2$s 和 %3$s</string>
     <string name="notification_summary_small">%1$s 和 %2$s</string>
@@ -335,7 +335,7 @@
     <string name="notification_subscription_name">新嘟文</string>
     <string name="pref_title_animate_custom_emojis">显示动态自定义Emoji</string>
     <string name="pref_title_notification_filter_subscriptions">关注的人发布了新嘟文</string>
-    <string name="notification_subscription_format">%s 刚刚发送了新嘟文</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; 刚刚发送了新嘟文</string>
     <string name="follow_requests_info">即使你的账号未上锁，但 %1$s 的管理员认为你可能需要手动处理这些账号的关注请求。</string>
     <string name="dialog_delete_conversation_warning">删除此对话吗？</string>
     <string name="action_delete_conversation">删除对话</string>
@@ -352,7 +352,7 @@
     <string name="pref_title_notification_filter_sign_ups">某人进行了注册</string>
     <string name="notification_sign_up_description">新用户通知</string>
     <string name="notification_sign_up_name">注册</string>
-    <string name="notification_update_format">%s 编辑了他们的嘟文</string>
+    <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; 编辑了他们的嘟文</string>
     <string name="pref_title_notification_filter_updates">我进行过互动的嘟文被编辑了</string>
     <string name="notification_update_name">嘟文编辑</string>
     <string name="notification_update_description">当你进行过互动的嘟文被编辑时发出通知</string>

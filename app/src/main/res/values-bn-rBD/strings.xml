@@ -283,11 +283,11 @@
     <string name="error_no_web_browser_found">ব্যবহার করার জন্য একটি ওয়েব ব্রাউজার খুঁজে পাওয়া যায়নি।</string>
     <string name="error_empty">এই জায়গা খালি হতে পারে না।</string>
     <string name="confirmation_domain_unmuted">%s দৃশ্যমান</string>
-    <string name="notification_subscription_format">%s পোস্ট করেছে</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; পোস্ট করেছে</string>
     <string name="notification_follow_request_format">%s তোমাকে ফলো করতে চায়</string>
     <string name="notification_follow_format">%s তোমাকে ফলো করেছে</string>
-    <string name="notification_favourite_format">%s তোমার টুট বুস্ট করেছে</string>
-    <string name="notification_reblog_format">%s তোমার টুট বুস্ট করেছে</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; তোমার টুট বুস্ট করেছে</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; তোমার টুট বুস্ট করেছে</string>
     <string name="title_announcements">ঘোষণা</string>
     <string name="notification_summary_large">%1$s,%2$s,%3$s এবং %4$d অন্যরা</string>
     <string name="notification_subscription_description">যখন আমার সদস্যতা নেওয়া কেউ টুট দেয় তখন বিজ্ঞপ্তি দিবে</string>
@@ -330,5 +330,5 @@
     </plurals>
     <string name="notification_summary_small">%1$s আর %2$s</string>
     <string name="notification_summary_medium">%1$s, %2$s, আর %3$s</string>
-    <string name="notification_mention_format">%s তোমাকে উল্লেখ করেছে</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; তোমাকে উল্লেখ করেছে</string>
 </resources>

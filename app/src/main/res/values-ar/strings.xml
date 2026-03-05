@@ -30,8 +30,8 @@
     <string name="title_drafts">المسودات</string>
     <string name="post_sensitive_media_directions">اضغط للعرض</string>
     <string name="footer_empty">لا يوجد شيء هنا. إسحب إلى أسفل للإنعاش!</string>
-    <string name="notification_reblog_format">شارك %s منشورك</string>
-    <string name="notification_favourite_format">أعجِب %s بمنشورك</string>
+    <string name="notification_reblog_format">شارك &lt;b&gt;%1$s&lt;/b&gt; منشورك</string>
+    <string name="notification_favourite_format">أعجِب &lt;b&gt;%1$s&lt;/b&gt; بمنشورك</string>
     <string name="notification_follow_format">%s يتبعك</string>
     <string name="report_username_format">أبلغ عن @%s</string>
     <string name="report_comment_hint">تعليقات إضافية؟</string>
@@ -155,7 +155,7 @@
     <string name="notification_boost_description">إشعاري عندما يقوم أحدهم بمشاركة منشوراتي</string>
     <string name="notification_favourite_name">المفضلة</string>
     <string name="notification_favourite_description">الإشعار عندما يقوم أحدهم بإضافة منشوراتك إلى مفضلاته</string>
-    <string name="notification_mention_format">%s أشار إليك</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; أشار إليك</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s و %4$d آخرون</string>
     <string name="notification_summary_medium">%1$s, %2$s, و %3$s</string>
     <string name="notification_summary_small">%1$s و %2$s</string>
@@ -315,7 +315,7 @@
     <string name="draft_deleted">حُذفَت المسودة</string>
     <string name="action_subscribe_account">اشترك</string>
     <string name="action_unsubscribe_account">إلغاء الإشتراك</string>
-    <string name="notification_subscription_format">نشر %s للتوّ</string>
+    <string name="notification_subscription_format">نشر &lt;b&gt;%1$s&lt;/b&gt; للتوّ</string>
     <string name="action_delete_conversation">احذف المحادثة</string>
     <string name="dialog_delete_conversation_warning">هل تريد حذف هذه المحادثة؟</string>
     <string name="notification_subscription_name">منشورات جديدة</string>
@@ -343,7 +343,7 @@
     <string name="notification_sign_up_format">قام %s بإنشاء حساب</string>
     <string name="pref_title_notification_filter_sign_ups">أحدهم أنشأ حسابا جديدا</string>
     <string name="notification_update_name">منشورات تم تعديلها</string>
-    <string name="notification_update_format">قام %s بتعديل منشوره</string>
+    <string name="notification_update_format">قام &lt;b&gt;%1$s&lt;/b&gt; بتعديل منشوره</string>
     <string name="a11y_label_loading_thread">تحميل خيط المحادثة</string>
     <string name="hint_media_description_missing">يجب أن تضع وصفًا للوسائط.</string>
     <string name="error_image_edit_failed">لا يمكن تحرير الصورة.</string>

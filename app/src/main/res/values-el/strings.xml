@@ -35,8 +35,8 @@
     <string name="action_undo">Αναίρεση</string>
     <string name="notification_follow_request_format">ο/η %s ζήτησε να σας ακολουθήσει</string>
     <string name="title_tab_preferences">Καρτέλες</string>
-    <string name="notification_reblog_format">ο/η %s προώθησε τη δημοσίευσή σας</string>
-    <string name="notification_favourite_format">στον/στην %s άρεσε η δημοσίευσή σας</string>
+    <string name="notification_reblog_format">ο/η &lt;b&gt;%1$s&lt;/b&gt; προώθησε τη δημοσίευσή σας</string>
+    <string name="notification_favourite_format">στον/στην &lt;b&gt;%1$s&lt;/b&gt; άρεσε η δημοσίευσή σας</string>
     <string name="action_follow">Ακολουθήστε</string>
     <string name="action_report">Αναφορά</string>
     <string name="action_mute">Σίγαση</string>
@@ -51,7 +51,7 @@
     <string name="action_search">Αναζήτηση</string>
     <string name="action_delete_conversation">Διαγραφή συζήτησης</string>
     <string name="action_delete">Διαγραφή</string>
-    <string name="notification_subscription_format">ο/η %s μόλις δημοσίευσε</string>
+    <string name="notification_subscription_format">ο/η &lt;b&gt;%1$s&lt;/b&gt; μόλις δημοσίευσε</string>
     <string name="action_save">Αποθήκευση</string>
     <string name="action_quick_reply">Γρήγορη Απάντηση</string>
     <string name="title_mutes">Χρήστες σε σίγαση</string>
@@ -76,7 +76,7 @@
     <string name="title_posts_pinned">Καρφιτσωμένο</string>
     <string name="title_posts_with_replies">Με απαντήσεις</string>
     <string name="post_sensitive_media_directions">Κλικ για να δείτε</string>
-    <string name="notification_update_format">ο/η %s επεξεργάστηκε τη δημοσίευσή του/της</string>
+    <string name="notification_update_format">ο/η &lt;b&gt;%1$s&lt;/b&gt; επεξεργάστηκε τη δημοσίευσή του/της</string>
     <string name="dialog_redraft_post_warning">Διαγραφή και αναδιατύπωση αυτής της δημοσίευσης;</string>
     <string name="error_following_hashtag_format">Σφάλμα ακολουθίας #%s</string>
     <string name="error_unfollowing_hashtag_format">Σφάλμα μη-ακολουθίας #%s</string>

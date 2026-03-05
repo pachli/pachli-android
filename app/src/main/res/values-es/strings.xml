@@ -30,8 +30,8 @@
     <string name="title_drafts">Borradores</string>
     <string name="post_sensitive_media_directions">Pulsa para ver</string>
     <string name="footer_empty">Nada por aquí. ¡Arrastra hacia abajo para recargar!</string>
-    <string name="notification_reblog_format">%s impulsó tu publicación</string>
-    <string name="notification_favourite_format">%s marcó como favorita tu publicación</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; impulsó tu publicación</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; marcó como favorita tu publicación</string>
     <string name="notification_follow_format">%s te siguió</string>
     <string name="report_username_format">Reportar @%s</string>
     <string name="report_comment_hint">¿Información adicional?</string>
@@ -150,7 +150,7 @@
     <string name="notification_boost_description">Notificaciones cuando impulsan tus publicaciones</string>
     <string name="notification_favourite_name">Favoritos</string>
     <string name="notification_favourite_description">Notificaciones cuando tus publicaciones son marcadas como favoritas</string>
-    <string name="notification_mention_format">%s te mencionó</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; te mencionó</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s y %4$d otros</string>
     <string name="notification_summary_medium">%1$s, %2$s, y %3$s</string>
     <string name="notification_summary_small">%1$s y %2$s</string>
@@ -310,7 +310,7 @@
     <string name="account_note_hint">Tu nota privada acerca de esta cuenta</string>
     <string name="no_announcements">No hay anuncios.</string>
     <string name="title_announcements">Anuncios</string>
-    <string name="notification_subscription_format">%s recién publicado</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; recién publicado</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">No puedes cargar más de %1$d archivo multimedia adjunto.</item>
         <item quantity="many">No puedes cargar más de %1$d archivos multimedia adjuntos.</item>
@@ -351,7 +351,7 @@
     <string name="error_unfollowing_hashtag_format">Error dejando de seguir #%s</string>
     <string name="title_migration_relogin">Reingresa para activar notificaciones push</string>
     <string name="notification_sign_up_format">%s se registró</string>
-    <string name="notification_update_format">%s editó su publicación</string>
+    <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; editó su publicación</string>
     <string name="delete_scheduled_post_warning">¿Eliminar publicación programada\?</string>
     <string name="set_focus_description">Toca o arrastra el círculo para centrar el foco de la imagen, que será visible en las miniaturas.</string>
     <string name="compose_save_draft_loses_media">Los adjuntos se subirán de nuevo cuando vuelvas al borrador.</string>
@@ -750,8 +750,8 @@
     <string name="filter_description_blur">Mostrar contenido, ocultar adjuntos con una advertencia</string>
     <string name="action_move_up">Mover arriba</string>
     <string name="action_move_down">Mover abajo</string>
-    <string name="notification_quote_format">%s citó tu publicación</string>
-    <string name="notification_quoted_update_format">%s actualizó la publicación que citaste</string>
+    <string name="notification_quote_format">&lt;b&gt;%1$s&lt;/b&gt; citó tu publicación</string>
+    <string name="notification_quoted_update_format">&lt;b&gt;%1$s&lt;/b&gt; actualizó la publicación que citaste</string>
     <string name="drafts_load_reply_failed_fmt">No se pudo cargar la publicación a la cual estás respondiendo: %1$s</string>
     <string name="drafts_load_quote_failed_fmt">No se pudo cargar la publicación que estás citando: %1$s</string>
     <string name="drafts_post_quote_removed">La publicación que citaste ha sido quitada</string>

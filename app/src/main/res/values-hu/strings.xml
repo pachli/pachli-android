@@ -30,8 +30,8 @@
     <string name="title_drafts">Piszkozatok</string>
     <string name="post_sensitive_media_directions">Kattints a megtekintéshez</string>
     <string name="footer_empty">Üres tartalom. Húzd le a frissítéshez!</string>
-    <string name="notification_reblog_format">%s megtolta a bejegyzésedet</string>
-    <string name="notification_favourite_format">%s kedvencnek jelölte a bejegyzésedet</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; megtolta a bejegyzésedet</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; kedvencnek jelölte a bejegyzésedet</string>
     <string name="notification_follow_format">%s bekövetett</string>
     <string name="report_username_format">\@%s jelentése</string>
     <string name="report_comment_hint">Egyéb megjegyzés?</string>
@@ -149,7 +149,7 @@
     <string name="notification_boost_description">Értesítések bejegyzéseid megtolása esetén</string>
     <string name="notification_favourite_name">Kedvencek</string>
     <string name="notification_favourite_description">Értesítések amikor a bejegyzéseidet kedvencnek jelölik</string>
-    <string name="notification_mention_format">%s megemlített téged</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; megemlített téged</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s és még %4$d</string>
     <string name="notification_summary_medium">%1$s, %2$s meg %3$s</string>
     <string name="notification_summary_small">%1$s és %2$s</string>
@@ -332,7 +332,7 @@
     <string name="notification_subscription_description">Értesítések általam követett személy új bejegyzéseiről</string>
     <string name="notification_subscription_name">Új bejegyzések</string>
     <string name="pref_title_notification_filter_subscriptions">valaki, akit követek új bejegyzést tett közzé</string>
-    <string name="notification_subscription_format">%s épp bejegyzést írt</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; épp bejegyzést írt</string>
     <string name="pref_title_wellbeing_mode">Jóllét</string>
     <string name="pref_title_animate_custom_emojis">Egyedi emojik animálása</string>
     <string name="action_unsubscribe_account">Leiratkozás</string>
@@ -342,7 +342,7 @@
     <string name="action_delete_conversation">Beszélgetés törlése</string>
     <string name="action_unbookmark">Könyvjelző törlése</string>
     <string name="pref_title_confirm_favourites">Jóváhagyás mutatása kedvencnek jelölés előtt</string>
-    <string name="notification_update_format">%s szerkesztette a bejegyzését</string>
+    <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; szerkesztette a bejegyzését</string>
     <string name="pref_title_notification_filter_updates">szerkesztették a bejegyzést, mellyel dolgod volt</string>
     <string name="notification_sign_up_format">%s regisztrált</string>
     <string name="pref_title_notification_filter_sign_ups">valaki regisztrált</string>

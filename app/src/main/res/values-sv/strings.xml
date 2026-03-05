@@ -30,8 +30,8 @@
     <string name="title_drafts">Utkast</string>
     <string name="post_sensitive_media_directions">Tryck för att visa</string>
     <string name="footer_empty">Inget här. Dra ner för att uppdatera!</string>
-    <string name="notification_reblog_format">%s puffade ditt inlägg</string>
-    <string name="notification_favourite_format">%s favoritmarkerade ditt inlägg</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; puffade ditt inlägg</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; favoritmarkerade ditt inlägg</string>
     <string name="notification_follow_format">%s följer dig</string>
     <string name="report_username_format">Rapportera @%s</string>
     <string name="report_comment_hint">Ytterligare kommentarer?</string>
@@ -157,7 +157,7 @@
     <string name="notification_boost_description">Aviseringar när dina inlägg blir puffade</string>
     <string name="notification_favourite_name">Favoriter</string>
     <string name="notification_favourite_description">Aviseringar när dina inlägg blir favoritmarkerade</string>
-    <string name="notification_mention_format">%s omnämnde dig</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; omnämnde dig</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s och %4$d andra</string>
     <string name="notification_summary_medium">%1$s, %2$s, och %3$s</string>
     <string name="notification_summary_small">%1$s och %2$s</string>
@@ -313,7 +313,7 @@
     <string name="notification_subscription_description">Aviseringar när någon du följer skrivit ett nytt inlägg</string>
     <string name="notification_subscription_name">Nya inlägg</string>
     <string name="pref_title_notification_filter_subscriptions">någon jag följer har skrivit ett nytt inlägg</string>
-    <string name="notification_subscription_format">%s skrev precis</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; skrev precis</string>
     <string name="wellbeing_hide_stats_profile">Dölj kvantitativ information på profiler</string>
     <string name="wellbeing_hide_stats_posts">Dölj kvantitativ information på inlägg</string>
     <string name="review_notifications">Revidera aviseringar</string>
@@ -364,7 +364,7 @@
     <string name="action_set_focus">Sätt fokuspunkt</string>
     <string name="error_following_hashtag_format">Kunde inte följa #%s</string>
     <string name="notification_sign_up_format">%s registrerade sig</string>
-    <string name="notification_update_format">%s redigerade sitt inlägg</string>
+    <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; redigerade sitt inlägg</string>
     <string name="action_unbookmark">Ta bort bokmärke</string>
     <string name="action_delete_conversation">Radera konversation</string>
     <string name="pref_title_notification_filter_sign_ups">någon registrerade sig</string>

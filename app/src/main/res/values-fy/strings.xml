@@ -146,10 +146,10 @@
     <string name="action_quick_reply">Flugge Reaksje</string>
     <string name="report_comment_hint">Oanfoljende opmerkingen\?</string>
     <string name="report_username_format">Jou @%s oan</string>
-    <string name="notification_subscription_format">%s hat krekt in berjocht pleatst</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; hat krekt in berjocht pleatst</string>
     <string name="notification_follow_request_format">%s fersiket jo te folgjen</string>
     <string name="notification_follow_format">%s folget jo</string>
-    <string name="notification_favourite_format">%s hat jo toot as favoryt oanmurken</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; hat jo toot as favoryt oanmurken</string>
     <string name="footer_empty">Hjir is neat. Lûk nei ûnderen om te ferfarskjen!</string>
     <string name="post_sensitive_media_directions">Klik om te besjen</string>
     <string name="title_scheduled_posts">Ynplanne toots</string>
@@ -189,6 +189,6 @@
     <string name="action_reset_schedule">Nei standert ynstelling weromsette</string>
     <string name="action_show_reblogs">Boosts sjen litte</string>
     <string name="action_hide_reblogs">Boosts ferburgje</string>
-    <string name="notification_reblog_format">%s hat dyn toot boost</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; hat dyn toot boost</string>
     <string name="title_announcements">Oankundigingen</string>
 </resources>

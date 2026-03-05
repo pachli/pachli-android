@@ -27,8 +27,8 @@
     <string name="title_drafts">Zirriborroak</string>
     <string name="post_sensitive_media_directions">Sakatu ikusteko</string>
     <string name="footer_empty">Edukirik ez. Arrastatu behera birkargatzeko!</string>
-    <string name="notification_reblog_format">%s-(e)k zure tuta bultzatu du</string>
-    <string name="notification_favourite_format">%s-(e)k zure tuta gogoko du</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt;-(e)k zure tuta bultzatu du</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt;-(e)k zure tuta gogoko du</string>
     <string name="notification_follow_format">%s-(e)k jarraitu zaitu</string>
     <string name="report_username_format">\@%s salatu</string>
     <string name="report_comment_hint">Informazio gehigarria?</string>
@@ -147,7 +147,7 @@
     <string name="notification_boost_description">Bultzatutako tuten jakinarazpenak</string>
     <string name="notification_favourite_name">Gogokoak</string>
     <string name="notification_favourite_description">Zure tutak gogoko bezala ezartzerakoan jakinarazpenak</string>
-    <string name="notification_mention_format">%s-(e)k aipatu zaitu</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt;-(e)k aipatu zaitu</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s eta beste %4$d</string>
     <string name="notification_summary_medium">%1$s, %2$s eta %3$s</string>
     <string name="notification_summary_small">%1$s eta %2$s</string>
@@ -326,7 +326,7 @@
     <string name="action_unsubscribe_account">Harpidetza kendu</string>
     <string name="action_delete_conversation">Elkarrizketa ezabatu</string>
     <string name="no_announcements">Ez daude iragarkirik.</string>
-    <string name="notification_subscription_format">%s argitaratu berri du</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; argitaratu berri du</string>
     <string name="account_note_saved">Gordeta!</string>
     <string name="notification_subscription_name">Tut berriak</string>
     <string name="title_announcements">Iragarpenak</string>
@@ -355,7 +355,7 @@
         <item quantity="other">%1$s · %2$d tutak finkatuak</item>
     </plurals>
     <string name="title_followed_hashtags">Jarraitutako traolak</string>
-    <string name="notification_update_format">%s-(e)k bere tuta editatu du</string>
+    <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt;-(e)k bere tuta editatu du</string>
     <string name="title_migration_relogin">Berriro saioa hasi push motako jakinarazpenak gaitzeko</string>
     <string name="action_post_failed">Igoerak huts egin du</string>
     <string name="action_post_failed_detail">Akatsa zure tuta bidaltzean, beraz, zirriborroetara bidali da.

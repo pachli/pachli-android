@@ -94,8 +94,8 @@
     <string name="action_send">ПОШИРИТИ</string>
     <string name="action_show_reblogs">Показати поширення</string>
     <string name="action_hide_reblogs">Сховати поширення</string>
-    <string name="notification_favourite_format">%s вподобує ваш допис</string>
-    <string name="notification_reblog_format">%s поширює ваш допис</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; вподобує ваш допис</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; поширює ваш допис</string>
     <string name="title_domain_mutes">Приховані домени</string>
     <string name="title_mutes">Приховувані користувачі</string>
     <string name="title_posts">Дописи</string>
@@ -118,7 +118,7 @@
     <string name="notification_favourite_description">Сповіщати про вподобання кимось дописів</string>
     <string name="pref_title_notification_filter_favourites">мої дописи вподобано</string>
     <string name="action_hide_media">Сховати медіа</string>
-    <string name="notification_subscription_format">%s щойно опубліковано</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; щойно опубліковано</string>
     <string name="title_announcements">Оголошення</string>
     <string name="action_open_drawer">Відкрити меню</string>
     <string name="download_fonts">Спочатку потрібно буде завантажити ці набори емодзі</string>
@@ -194,7 +194,7 @@
     <string name="notification_summary_small">%1$s та %2$s</string>
     <string name="notification_summary_medium">%1$s, %2$s, та %3$s</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s та %4$d інших</string>
-    <string name="notification_mention_format">%s згадує вас</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; згадує вас</string>
     <string name="notification_subscription_description">Сповіщати про нові дописи осіб, на яких ви підписалися</string>
     <string name="notification_subscription_name">Нові дописи</string>
     <string name="notification_poll_description">Сповіщати про завершення опитувань</string>
@@ -350,7 +350,7 @@
     <string name="pref_title_notification_filter_sign_ups">хтось реєструється</string>
     <string name="notification_sign_up_name">Реєстрації</string>
     <string name="notification_sign_up_description">Сповіщення про нових користувачів</string>
-    <string name="notification_update_format">%s редагує свій допис</string>
+    <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; редагує свій допис</string>
     <string name="pref_title_notification_filter_updates">допис, з яким у мене була взаємодія, відредаговано</string>
     <string name="notification_update_description">Сповіщення, коли редагується повідомлення, з яким ви взаємодіяли</string>
     <string name="notification_update_name">Редакції допису</string>

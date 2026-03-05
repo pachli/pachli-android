@@ -55,7 +55,7 @@
     <string name="failed_report">වාර්තා කිරීමට අසමත් විය</string>
     <string name="action_open_faved_by">ප්‍රියතමයන් පෙන්වන්න</string>
     <string name="action_view_bookmarks">පොත්යොමු</string>
-    <string name="notification_mention_format">%s ඔබව සඳහන් කළා</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; ඔබව සඳහන් කළා</string>
     <string name="compose_active_account_description">%1$s ගිණුම සමඟ පළකරන්න</string>
     <string name="hint_additional_info">අතිරේක අදහස්</string>
     <string name="notification_favourite_name">ප්‍රියතමයන්</string>

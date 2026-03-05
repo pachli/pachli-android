@@ -76,7 +76,7 @@
     <string name="notification_subscription_description">Brathan nuair a dh’fhoillsich cuideigin air a rinn mi fo-sgrìobhadh post ùr</string>
     <string name="notification_subscription_name">Postaichean ùra</string>
     <string name="pref_title_notification_filter_subscriptions">dh’fhoillsich cuideigin air a rinn mi fo-sgrìobhadh post ùr</string>
-    <string name="notification_subscription_format">Phostaich %s rud</string>
+    <string name="notification_subscription_format">Phostaich &lt;b&gt;%1$s&lt;/b&gt; rud</string>
     <string name="no_announcements">Chan eil brath-fios ann.</string>
     <string name="title_announcements">Brathan-fios</string>
     <string name="account_note_saved">Chaidh a shàbhaladh!</string>
@@ -165,8 +165,8 @@
     <string name="action_schedule_post">Cuir post air an sgeideal</string>
     <string name="action_toggle_visibility">Faicsinneachd a’ phuist</string>
     <string name="action_access_scheduled_posts">Postaichean air an sgeideal</string>
-    <string name="notification_favourite_format">Is annsa le %s am post agad</string>
-    <string name="notification_reblog_format">Bhrosnaich %s am post agad</string>
+    <string name="notification_favourite_format">Is annsa le &lt;b&gt;%1$s&lt;/b&gt; am post agad</string>
+    <string name="notification_reblog_format">Bhrosnaich &lt;b&gt;%1$s&lt;/b&gt; am post agad</string>
     <string name="title_scheduled_posts">Postaichean air an sgeideal</string>
     <string name="title_view_thread">Snàithlean</string>
     <string name="error_sender_account_gone">Mearachd a’ cur a’ phuist.</string>
@@ -194,7 +194,7 @@
     <string name="notification_summary_small">%1$s ’s %2$s</string>
     <string name="notification_summary_medium">%1$s, %2$s ’s %3$s</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s ’s %4$d eile</string>
-    <string name="notification_mention_format">Thug %s iomradh ort</string>
+    <string name="notification_mention_format">Thug &lt;b&gt;%1$s&lt;/b&gt; iomradh ort</string>
     <string name="notification_poll_description">Brathan mu chunntasan-bheachd a thàinig gu crìoch</string>
     <string name="notification_poll_name">Cunntasan-bheachd</string>
     <string name="notification_boost_name">Brosnachaidhean</string>
@@ -350,7 +350,7 @@
     <string name="notification_sign_up_name">Clàraidhean</string>
     <string name="notification_sign_up_description">Brathan mu cleachdaichean ùra</string>
     <string name="pref_title_notification_filter_sign_ups">chlàraich cuideigin</string>
-    <string name="notification_update_format">Dheasaich %s am post aca</string>
+    <string name="notification_update_format">Dheasaich &lt;b&gt;%1$s&lt;/b&gt; am post aca</string>
     <string name="notification_update_name">Deasachadh puist</string>
     <string name="notification_update_description">Brathan nuair a thèid postaichean a rinn thu conaltradh leotha a dheasachadh</string>
     <string name="pref_title_notification_filter_updates">chaidh post a rinn mi conaltradh leis a deasachadh</string>

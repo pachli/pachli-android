@@ -51,13 +51,13 @@
     <string name="title_scheduled_posts">Toots agendados</string>
     <string name="title_announcements">Anúncios</string>
     <string name="footer_empty">Nada para ver aqui. Arraste para baixo para atualizar!</string>
-    <string name="notification_reblog_format">%s deu boost ao seu toot</string>
-    <string name="notification_favourite_format">%s adicionou o seu toot aos favoritos</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; deu boost ao seu toot</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; adicionou o seu toot aos favoritos</string>
     <string name="notification_follow_format">%s está a seguir-te</string>
     <string name="notification_follow_request_format">%s pediu para te seguir</string>
     <string name="notification_sign_up_format">%s criou conta</string>
-    <string name="notification_subscription_format">%s acabou de publicar um toot</string>
-    <string name="notification_update_format">%s editou um toot</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; acabou de publicar um toot</string>
+    <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; editou um toot</string>
     <string name="report_username_format">Denunciar @%s</string>
     <string name="report_comment_hint">Comentários adicionais\?</string>
     <string name="action_quick_reply">Resposta Rápida</string>
@@ -218,7 +218,7 @@
     <string name="notification_favourite_name">Favoritos</string>
     <string name="notification_favourite_description">Notificações quando os seus toots são adicionados aos favoritos</string>
     <string name="notification_update_description">Notificações quando toots com os quais interagiu forem editados</string>
-    <string name="notification_mention_format">%s mencionou-te</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; mencionou-te</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s e %4$d outros</string>
     <string name="notification_summary_medium">%1$s, %2$s e %3$s</string>
     <string name="description_account_locked">Perfil Privado</string>

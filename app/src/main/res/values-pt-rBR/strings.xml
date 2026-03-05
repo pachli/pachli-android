@@ -29,8 +29,8 @@
     <string name="title_drafts">Rascunhos</string>
     <string name="post_sensitive_media_directions">Toque para ver</string>
     <string name="footer_empty">Nada aqui. Arraste para atualizar!</string>
-    <string name="notification_reblog_format">%s deu Boost no teu Toot</string>
-    <string name="notification_favourite_format">%s favoritou teu Toot</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; deu Boost no teu Toot</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; favoritou teu Toot</string>
     <string name="notification_follow_format">%s te seguiu</string>
     <string name="report_username_format">Denunciar @%s</string>
     <string name="report_comment_hint">Comentários adicionais?</string>
@@ -150,7 +150,7 @@
     <string name="notification_boost_description">Notificações quando derem Boost em meus Toots</string>
     <string name="notification_favourite_name">Favoritos</string>
     <string name="notification_favourite_description">Notificações quando os meus Toots forem marcados como favoritos</string>
-    <string name="notification_mention_format">%s te mencionou</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; te mencionou</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s e %4$d outros</string>
     <string name="notification_summary_medium">%1$s, %2$s, e %3$s</string>
     <string name="notification_summary_small">%1$s e %2$s</string>
@@ -334,7 +334,7 @@
     <string name="duration_indefinite">Indefinido</string>
     <string name="label_duration">Duração</string>
     <string name="notification_subscription_name">Novos Toots</string>
-    <string name="notification_subscription_format">%s recém postou</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; recém postou</string>
     <string name="title_announcements">Comunicados</string>
     <string name="follow_requests_info">Embora tua conta não esteja bloqueada, a equipe de %1$s acredita que queira revisar manualmente os pedidos destes perfis para te seguir.</string>
     <string name="action_unsubscribe_account">Cancelar</string>
@@ -391,7 +391,7 @@
     <string name="action_share_account_link">Compartilhar URL da conta</string>
     <string name="action_share_account_username">Compartilhar nome de usuário da conta</string>
     <string name="language_display_name_format">%s (%s)</string>
-    <string name="notification_update_format">%s editou teu Toot</string>
+    <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; editou teu Toot</string>
     <string name="error_following_hashtags_unsupported">Esta instância não oferece o recurso de seguir Hashtags.</string>
     <string name="pref_title_notification_filter_updates">um Toot que eu interagi foi editado</string>
     <string name="notification_sign_up_description">Notificações sobre novos usuários</string>

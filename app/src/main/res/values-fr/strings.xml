@@ -30,8 +30,8 @@
     <string name="title_drafts">Brouillons</string>
     <string name="post_sensitive_media_directions">Appuyer pour voir</string>
     <string name="footer_empty">Il n’y a aucun pouet ici pour l’instant. Glissez vers le bas pour actualiser !</string>
-    <string name="notification_reblog_format">%s a partagé votre message</string>
-    <string name="notification_favourite_format">%s a ajouté votre message à ses favoris</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; a partagé votre message</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; a ajouté votre message à ses favoris</string>
     <string name="notification_follow_format">%s vous suit</string>
     <string name="report_username_format">Signaler @%s</string>
     <string name="report_comment_hint">Commentaires additionnels \?</string>
@@ -159,7 +159,7 @@
     <string name="notification_boost_description">Notifications quand vos messages sont partagés</string>
     <string name="notification_favourite_name">Favoris</string>
     <string name="notification_favourite_description">Notifications quand vos messages sont mis en favoris</string>
-    <string name="notification_mention_format">%s vous a mentionné</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; vous a mentionné</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s et %4$d autres</string>
     <string name="notification_summary_medium">%1$s, %2$s et %3$s</string>
     <string name="notification_summary_small">%1$s et %2$s</string>
@@ -319,7 +319,7 @@
 \n
 \n Les notifications « push » ne seront pas affectées, mais vous pouvez revoir vos préférences de notification manuellement.</string>
     <string name="pref_title_notification_filter_subscriptions">Un compte auquel je suis abonné·e a publié un nouveau message</string>
-    <string name="notification_subscription_format">%s vient de publier</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; vient de publier</string>
     <string name="review_notifications">Examiner les notifications</string>
     <string name="notification_subscription_name">Nouveaux messages</string>
     <plurals name="error_upload_max_media_reached">
@@ -355,7 +355,7 @@
     <string name="notification_sign_up_name">Nouveaux comptes</string>
     <string name="notification_sign_up_description">Notifications quand quelqu’un crée un nouveau compte</string>
     <string name="pref_title_notification_filter_sign_ups">Un nouveau compte a été créé</string>
-    <string name="notification_update_format">%s a modifié son message</string>
+    <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; a modifié son message</string>
     <string name="pref_title_notification_filter_updates">Un message avec lequel j’ai interagi est modifié</string>
     <string name="notification_update_name">Messages modifiés</string>
     <string name="notification_update_description">Notifications quand un message avec lequel vous avez interagi est modifié</string>
@@ -531,8 +531,8 @@
     <string name="notification_moderation_warning_body_suspend_fmt">Votre compte a été suspendu : %1$s</string>
     <string name="notification_moderation_warning_body_unknown_fmt">Vous avez reçu un avertissement de modération : %1$s</string>
     <string name="notification_moderation_warning_tap_for_more">Appuyez pour voir plus de détails sur votre serveur.</string>
-    <string name="notification_quote_format">%s a cité votre message</string>
-    <string name="notification_quoted_update_format">%s a modifié le message que vous avez cité</string>
+    <string name="notification_quote_format">&lt;b&gt;%1$s&lt;/b&gt; a cité votre message</string>
+    <string name="notification_quoted_update_format">&lt;b&gt;%1$s&lt;/b&gt; a modifié le message que vous avez cité</string>
     <string name="notification_unknown">Type de notification inconnu</string>
     <string name="pref_title_show_self_boosts">Montrer les auto-partages</string>
     <string name="pref_title_show_self_boosts_description">Quelqu\'un qui partage son propre message</string>

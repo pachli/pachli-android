@@ -121,11 +121,11 @@
     <string name="title_migration_relogin">Login ulang untuk notifikasi push</string>
     <string name="title_follow_requests">Permintaan mengikuti</string>
     <string name="footer_empty">Tidak ada apapun di sini. Tarik ke bawah untuk menyegarkan!</string>
-    <string name="notification_reblog_format">%s telah meng-boost post mu</string>
-    <string name="notification_favourite_format">%s memfavoritkan post mu</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; telah meng-boost post mu</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; memfavoritkan post mu</string>
     <string name="notification_sign_up_format">%s mendaftar</string>
-    <string name="notification_subscription_format">%s baru saja memosting</string>
-    <string name="notification_update_format">%s mengedit post mereka</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; baru saja memosting</string>
+    <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; mengedit post mereka</string>
     <string name="report_comment_hint">Komentar tambahan\?</string>
     <string name="action_quick_reply">Balas Cepat</string>
     <string name="action_unbookmark">Hapus bookmark</string>
@@ -331,7 +331,7 @@
     <string name="notification_subscription_name">Postingan baru</string>
     <string name="notification_subscription_description">Pemberitahuan ketika seseorang yang Anda berlangganan menerbitkan postingan baru</string>
     <string name="notification_sign_up_description">Pemberitahuan tentang pengguna baru</string>
-    <string name="notification_mention_format">%s menyebut kamu</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; menyebut kamu</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s dan %4$d lainnya</string>
     <string name="notification_summary_small">%1$s dan %2$s</string>
     <string name="notification_notification_worker">Mengambil notifikasi…</string>

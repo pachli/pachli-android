@@ -27,8 +27,8 @@
     <string name="title_drafts">Drafftiau</string>
     <string name="post_sensitive_media_directions">Cliciwch i weld</string>
     <string name="footer_empty">Dim byd yma. Tynnwch lawr i adnewyddu!</string>
-    <string name="notification_reblog_format">Hybodd %s eich neges</string>
-    <string name="notification_favourite_format">Hoffodd %s eich neges</string>
+    <string name="notification_reblog_format">Hybodd &lt;b&gt;%1$s&lt;/b&gt; eich neges</string>
+    <string name="notification_favourite_format">Hoffodd &lt;b&gt;%1$s&lt;/b&gt; eich neges</string>
     <string name="notification_follow_format">Dilynodd %s chi</string>
     <string name="report_username_format">Adrodd @%s</string>
     <string name="report_comment_hint">Sylwadau ychwanegol?</string>
@@ -143,7 +143,7 @@
     <string name="notification_boost_description">Hysbysiadau pan gaiff eich negeseuon eu hybu</string>
     <string name="notification_favourite_name">Ffefrynnau</string>
     <string name="notification_favourite_description">Hysbysiadau pan gaiff eich negeseuon eu marcio fel ffefryn</string>
-    <string name="notification_mention_format">Crybwyllodd %s chi</string>
+    <string name="notification_mention_format">Crybwyllodd &lt;b&gt;%1$s&lt;/b&gt; chi</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s a %4$d eraill</string>
     <string name="notification_summary_medium">%1$s, %2$s, a %3$s</string>
     <string name="notification_summary_small">%1$s a %2$s</string>
@@ -228,7 +228,7 @@
     <string name="error_following_hashtag_format">Gwall wrth ddilyn #%s</string>
     <string name="error_unfollowing_hashtag_format">Gwall wrth ddad-ddilyn #%s</string>
     <string name="action_unmute_domain">Dad-dewi %s</string>
-    <string name="notification_subscription_format">Postiodd %s</string>
+    <string name="notification_subscription_format">Postiodd &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="action_delete_conversation">Dileu\'r sgwrs</string>
     <string name="action_view_bookmarks">Tudalnodau</string>
     <string name="action_add_poll">Ychwanegu pôl</string>
@@ -248,7 +248,7 @@
     <string name="filter_addition_title">Ychwanegu hidlydd</string>
     <string name="filter_dialog_update_button">Diweddaru</string>
     <string name="pref_title_notification_filter_updates">golygwyd neges rwy wedi rhyngweithio ag ef</string>
-    <string name="notification_update_format">Golygodd %s ei neges</string>
+    <string name="notification_update_format">Golygodd &lt;b&gt;%1$s&lt;/b&gt; ei neges</string>
     <string name="filter_apply">Hidlo</string>
     <string name="pref_title_notification_filter_follow_requests">dilyn y ceisiwyd amdani/o</string>
     <string name="notifications_clear">Clirio</string>

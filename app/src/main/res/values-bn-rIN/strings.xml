@@ -30,8 +30,8 @@
     <string name="title_drafts">খসড়াগুলো</string>
     <string name="post_sensitive_media_directions">দেখার জন্য ক্লিক করুন</string>
     <string name="footer_empty">এখানে কিছু নেই. রিফ্রেশ করতে নিচে টানুন!</string>
-    <string name="notification_reblog_format">%s সমর্থন দিয়েছে</string>
-    <string name="notification_favourite_format">%s আপনার টুট পছন্দ করেছে</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; সমর্থন দিয়েছে</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; আপনার টুট পছন্দ করেছে</string>
     <string name="notification_follow_format">%s আপনাকে অনুসরণ করেছেন</string>
     <string name="report_username_format">রিপোর্ট @%s</string>
     <string name="report_comment_hint">অতিরিক্ত মন্তব্যগুলি\?</string>
@@ -166,7 +166,7 @@
     <string name="notification_favourite_description">আপনার টুটগুলি প্রিয় হিসাবে চিহ্নিত পেতে বিজ্ঞপ্তি</string>
     <string name="notification_poll_name">নির্বাচনগুলি</string>
     <string name="notification_poll_description">শেষ হয়েছে যে নির্বাচনগুলির সম্পর্কে বিজ্ঞপ্তি</string>
-    <string name="notification_mention_format">%s আপনাকে উল্লিখিত করেছে</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; আপনাকে উল্লিখিত করেছে</string>
     <string name="notification_summary_large">%1$s,%2$s,%3$s এবং %4$d আরো অন্য জন</string>
     <string name="notification_summary_medium">%1$s, %2$s, আর %3$s</string>
     <string name="notification_summary_small">%1$s আর %2$s</string>

@@ -71,11 +71,11 @@
     <string name="action_quick_reply">وەڵامدانەوەی خێرا</string>
     <string name="report_comment_hint">سەرنجەکانی تر؟</string>
     <string name="report_username_format">گوزارشت @%s</string>
-    <string name="notification_subscription_format">%s تەنها بڵاوکرایەوە</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; تەنها بڵاوکرایەوە</string>
     <string name="notification_follow_request_format">%s داواکراوە کە شوێنت بکەوێت</string>
     <string name="notification_follow_format">%s بەدواتا کەوت</string>
-    <string name="notification_favourite_format">%s خۆشترین توتەکەت</string>
-    <string name="notification_reblog_format">%s توتەکەتی بەرزکردەوە</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; خۆشترین توتەکەت</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; توتەکەتی بەرزکردەوە</string>
     <string name="footer_empty">هیچ شتێک لێرە نیە ڕاکە خوارەوە بۆ نوێکردنەوە!</string>
     <string name="post_sensitive_media_directions">کرتە بکە بۆ بینین</string>
     <string name="title_announcements">ڕاگه یه نراوەکان</string>
@@ -284,7 +284,7 @@
     <string name="notification_summary_small">%1$s و %2$s</string>
     <string name="notification_summary_medium">%1$s و %2$s و %3$s</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s و %4$d ئەوانی تر</string>
-    <string name="notification_mention_format">%s ئاماژەی بە تۆ کرد</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; ئاماژەی بە تۆ کرد</string>
     <string name="notification_subscription_description">ئاگانامەکان کاتێک کەسێک کە تۆ بەشداریت کردووە لە بڵاوکردنەوەی توتێکی نوێ</string>
     <string name="notification_subscription_name">توتی نوێ</string>
     <string name="notification_poll_description">ئاگادارییەکان دەربارەی ڕاپرسییەکان کە کۆتایی هاتووە</string>

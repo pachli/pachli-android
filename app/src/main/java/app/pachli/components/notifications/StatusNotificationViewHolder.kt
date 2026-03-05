@@ -17,16 +17,12 @@
 
 package app.pachli.components.notifications
 
-import android.graphics.Typeface
-import android.text.SpannableStringBuilder
-import android.text.Spanned
-import android.text.style.StyleSpan
 import android.widget.TextView
+import androidx.core.text.HtmlCompat
 import androidx.core.util.TypedValueCompat.dpToPx
 import app.pachli.R
 import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.adapter.StatusViewHolder
-import app.pachli.core.common.extensions.show
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.model.NotificationViewData.WithStatus
 import app.pachli.core.data.model.NotificationViewData.WithStatus.FavouriteNotificationViewData
@@ -99,43 +95,24 @@ internal class StatusNotificationViewHolder(
         statusDisplayOptions: StatusDisplayOptions,
         listener: StatusActionListener,
     ) {
-        // The poll notification info doesn't interpolate an account name, so handle
-        // this separately.
-        if (viewData is WithStatus.PollNotificationViewData) {
-            statusInfo.setText(if (viewData.isAboutSelf) R.string.poll_ended_created else R.string.poll_ended_voted)
-            statusInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_poll_24dp, 0, 0, 0)
-            statusInfo.compoundDrawablePadding = compoundDrawablePadding
-            statusInfo.setPaddingRelative(relativePadding, 0, 0, 0)
-            statusInfo.show()
-            return
-        }
-
         val displayName = viewData.account.name.unicodeWrap()
-        val icon = viewData.icon(context)
-        val format = when (viewData) {
-            is FavouriteNotificationViewData -> context.getString(R.string.notification_favourite_format)
-            is ReblogNotificationViewData -> context.getString(R.string.notification_reblog_format)
-            is StatusNotificationViewData -> context.getString(R.string.notification_subscription_format)
-            is UpdateNotificationViewData -> context.getString(R.string.notification_update_format)
-            is QuoteNotificationViewData -> context.getString(R.string.notification_quote_format)
-            is QuotedUpdateNotificationViewData -> context.getString(R.string.notification_quoted_update_format)
-            is MentionNotificationViewData -> context.getString(R.string.notification_mention_format)
+        val msg = when (viewData) {
+            is FavouriteNotificationViewData -> context.getString(R.string.notification_favourite_format, displayName)
+            is ReblogNotificationViewData -> context.getString(R.string.notification_reblog_format, displayName)
+            is StatusNotificationViewData -> context.getString(R.string.notification_subscription_format, displayName)
+            is UpdateNotificationViewData -> context.getString(R.string.notification_update_format, displayName)
+            is QuoteNotificationViewData -> context.getString(R.string.notification_quote_format, displayName)
+            is QuotedUpdateNotificationViewData -> context.getString(R.string.notification_quoted_update_format, displayName)
+            is MentionNotificationViewData -> context.getString(R.string.notification_mention_format, displayName)
+            is WithStatus.PollNotificationViewData -> if (viewData.isAboutSelf) context.getString(R.string.poll_ended_created) else context.getString(R.string.poll_ended_voted)
         }
 
-        statusInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
+        statusInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(viewData.icon(context), null, null, null)
         statusInfo.compoundDrawablePadding = compoundDrawablePadding
         statusInfo.setPaddingRelative(relativePadding, 0, 0, 0)
 
-        val wholeMessage = String.format(format, displayName)
-        val str = SpannableStringBuilder(wholeMessage)
-        val displayNameIndex = format.indexOf("%s")
-        str.setSpan(
-            StyleSpan(Typeface.BOLD),
-            displayNameIndex,
-            displayNameIndex + displayName.length,
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
-        )
-        val emojifiedText = str.emojify(
+        val wholeMessage = HtmlCompat.fromHtml(msg, HtmlCompat.FROM_HTML_MODE_LEGACY)
+        val emojifiedText = wholeMessage.emojify(
             glide,
             viewData.account.emojis,
             statusInfo,

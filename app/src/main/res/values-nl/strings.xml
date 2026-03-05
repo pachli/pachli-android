@@ -30,8 +30,8 @@
     <string name="title_drafts">Concepten</string>
     <string name="post_sensitive_media_directions">Klik om te bekijken</string>
     <string name="footer_empty">Niets te zien. Swipe naar beneden om te verversen!</string>
-    <string name="notification_reblog_format">%s boostte jouw bericht</string>
-    <string name="notification_favourite_format">%s markeerde jouw bericht als favoriet</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; boostte jouw bericht</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; markeerde jouw bericht als favoriet</string>
     <string name="notification_follow_format">%s volgt jou</string>
     <string name="report_username_format">Rapporteer @%s</string>
     <string name="report_comment_hint">Extra opmerkingen\?</string>
@@ -156,7 +156,7 @@
     <string name="notification_boost_description">Meldingen wanneer jouw berichten worden geboost</string>
     <string name="notification_favourite_name">Favorieten</string>
     <string name="notification_favourite_description">Meldingen wanneer jouw berichten als favoriet worden gemarkeerd</string>
-    <string name="notification_mention_format">%s vermeldde jou</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; vermeldde jou</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s en %4$d anderen</string>
     <string name="notification_summary_medium">%1$s, %2$s en %3$s</string>
     <string name="notification_summary_small">%1$s en %2$s</string>
@@ -322,7 +322,7 @@
     <string name="action_mute_conversation">Gesprek negeren</string>
     <string name="action_unmute_domain">%s niet meer negeren</string>
     <string name="action_unmute_desc">%s niet meer negeren</string>
-    <string name="notification_subscription_format">%s heeft zojuist een bericht geplaatst</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; heeft zojuist een bericht geplaatst</string>
     <string name="notification_follow_request_format">%s verzoekt u te volgen</string>
     <string name="title_announcements">Aankondigingen</string>
     <string name="review_notifications">Meldingen beoordelen</string>
@@ -343,7 +343,7 @@
     <string name="notification_sign_up_format">%s heeft zich geregistreerd</string>
     <string name="error_image_edit_failed">Deze afbeelding kon niet worden bewerkt.</string>
     <string name="title_migration_relogin">Opnieuw inloggen i.v.m. pushmeldingen</string>
-    <string name="notification_update_format">%s heeft diens bericht bewerkt</string>
+    <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; heeft diens bericht bewerkt</string>
     <string name="action_unbookmark">Bladwijzer verwijderen</string>
     <string name="pref_title_notification_filter_sign_ups">iemand heeft zich geregistreerd</string>
     <string name="pref_title_notification_filter_updates">een bericht waarmee ik interactie had is bewerkt</string>
