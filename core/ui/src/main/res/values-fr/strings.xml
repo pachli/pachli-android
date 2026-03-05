@@ -169,4 +169,5 @@
     <string name="label_quote_state_blocked_account">Le message cité vient d\'un compte que vous avez bloqué</string>
     <string name="label_quote_state_blocked_domain">Le message cité vient d\'un serveur que vous avez bloqué</string>
     <string name="label_quote_state_muted_account">Le message cité vient d\'un compte que vous avez masqué</string>
+    <string name="description_quoted_post_prefix">Message cité :</string>
 </resources>
