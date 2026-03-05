@@ -764,4 +764,11 @@
     <string name="compose_task_description_quoting_fmt">Lainataan %1$s</string>
     <string name="compose_task_description_replying_fmt">Vastataan käyttäjälle %1$s</string>
     <string name="compose_task_description_writing_post">Kirjoitetaan julkaisua</string>
+    <string name="search_operator_quote_dialog_no_quotes">Vain julkaisut ilman lainauksia</string>
+    <string name="search_operator_quote_dialog_only">Vain julkaisut joissa on lainauksia</string>
+    <string name="search_operator_quote_dialog_all">Lainausten kanssa tai ilman</string>
+    <string name="search_operator_quote_dialog_title">Näytetäänkö julkaisut joissa lainataan toisia julkaisuja?</string>
+    <string name="search_operator_quote_no_quotes">Ilman lainauksia</string>
+    <string name="search_operator_quote_only">Vain lainaukset</string>
+    <string name="search_operator_quote_all">Lainaukset ▾</string>
 </resources>
