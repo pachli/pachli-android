@@ -59,8 +59,8 @@ internal class StatusNotificationViewHolder(
     setContent: SetContent,
     private val notificationActionListener: NotificationActionListener,
 ) : NotificationsPagingAdapter.ViewHolder<WithStatus>, StatusViewHolder<WithStatus>(binding, glide, setContent) {
-    val compoundDrawablePadding = dpToPx(10f, context.resources.displayMetrics).toInt()
-    val relativePadding = dpToPx(28f, context.resources.displayMetrics).toInt()
+    private val compoundDrawablePadding = dpToPx(10f, context.resources.displayMetrics).toInt()
+    private val relativePadding = dpToPx(28f, context.resources.displayMetrics).toInt()
 
     override fun bind(
         viewData: WithStatus,
