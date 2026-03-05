@@ -59,6 +59,9 @@ internal class StatusNotificationViewHolder(
     setContent: SetContent,
     private val notificationActionListener: NotificationActionListener,
 ) : NotificationsPagingAdapter.ViewHolder<WithStatus>, StatusViewHolder<WithStatus>(binding, glide, setContent) {
+    val compoundDrawablePadding = dpToPx(10f, context.resources.displayMetrics).toInt()
+    val relativePadding = dpToPx(28f, context.resources.displayMetrics).toInt()
+
     override fun bind(
         viewData: WithStatus,
         payloads: List<List<Any?>>?,
@@ -87,7 +90,6 @@ internal class StatusNotificationViewHolder(
 
         val contentDescriptionPrefix = binding.statusInfo.text
 
-        // TODO: Should be a string reference.
         binding.root.contentDescription = "$contentDescriptionPrefix.\n\n$statusContentDescription"
     }
 
@@ -97,14 +99,14 @@ internal class StatusNotificationViewHolder(
         statusDisplayOptions: StatusDisplayOptions,
         listener: StatusActionListener,
     ) {
-        val context = binding.statusInfo.context
-        binding.statusInfo.compoundDrawablePadding = dpToPx(10f, context.resources.displayMetrics).toInt()
-        binding.statusInfo.setPaddingRelative(dpToPx(28f, context.resources.displayMetrics).toInt(), 0, 0, 0)
-
+        // The poll notification info doesn't interpolate an account name, so handle
+        // this separately.
         if (viewData is WithStatus.PollNotificationViewData) {
-            binding.statusInfo.setText(if (viewData.isAboutSelf) R.string.poll_ended_created else R.string.poll_ended_voted)
-            binding.statusInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_poll_24dp, 0, 0, 0)
-            binding.statusInfo.show()
+            statusInfo.setText(if (viewData.isAboutSelf) R.string.poll_ended_created else R.string.poll_ended_voted)
+            statusInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_poll_24dp, 0, 0, 0)
+            statusInfo.compoundDrawablePadding = compoundDrawablePadding
+            statusInfo.setPaddingRelative(relativePadding, 0, 0, 0)
+            statusInfo.show()
             return
         }
 
@@ -119,12 +121,11 @@ internal class StatusNotificationViewHolder(
             is QuotedUpdateNotificationViewData -> context.getString(R.string.notification_quoted_update_format)
             is MentionNotificationViewData -> context.getString(R.string.notification_mention_format)
         }
-        binding.statusInfo.setCompoundDrawablesWithIntrinsicBounds(
-            icon,
-            null,
-            null,
-            null,
-        )
+
+        statusInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
+        statusInfo.compoundDrawablePadding = compoundDrawablePadding
+        statusInfo.setPaddingRelative(relativePadding, 0, 0, 0)
+
         val wholeMessage = String.format(format, displayName)
         val str = SpannableStringBuilder(wholeMessage)
         val displayNameIndex = format.indexOf("%s")
@@ -137,9 +138,9 @@ internal class StatusNotificationViewHolder(
         val emojifiedText = str.emojify(
             glide,
             viewData.account.emojis,
-            binding.statusInfo,
+            statusInfo,
             statusDisplayOptions.animateEmojis,
         )
-        binding.statusInfo.text = emojifiedText
+        statusInfo.text = emojifiedText
     }
 }
