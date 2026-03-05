@@ -8,6 +8,11 @@
     <string name="action_view_profile">Profile</string>
     <string name="action_more">More</string>
     <string name="action_refresh">Refresh</string>
+    <string name="action_follow_request_accept">Accept follow request</string>
+    <string name="action_follow_request_reject">Reject follow request</string>
+    <string name="action_moderation_warning_view">View moderation warning</string>
+    <string name="action_open_reportee_profile">Open reportee profile</string>
+    <string name="action_open_report">Open report</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="action_links">Links</string>
     <string name="action_mentions">Mentions</string>

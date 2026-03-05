@@ -75,7 +75,6 @@ import app.pachli.databinding.FragmentTimelineNotificationsBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.ActionButtonActivity
-import app.pachli.util.ListStatusAccessibilityDelegate
 import com.bumptech.glide.Glide
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
@@ -214,9 +213,15 @@ class NotificationsFragment :
             false
 
         binding.recyclerView.setAccessibilityDelegateCompat(
-            ListStatusAccessibilityDelegate(pachliAccountId, binding.recyclerView, this@NotificationsFragment, openUrl) { pos: Int ->
+            NotificationAccessibilityDelegate(
+                pachliAccountId = pachliAccountId,
+                recyclerView = binding.recyclerView,
+                notificationActionListener = this@NotificationsFragment,
+                accountActionListener = this@NotificationsFragment,
+                openUrl = openUrl,
+            ) { pos: Int ->
                 if (pos in 0 until adapter.itemCount) {
-                    adapter.peek(pos) as? NotificationViewData.WithStatus
+                    adapter.peek(pos)
                 } else {
                     null
                 }

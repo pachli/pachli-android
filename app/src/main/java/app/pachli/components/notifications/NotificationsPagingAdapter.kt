@@ -53,7 +53,6 @@ import app.pachli.databinding.ItemNotificationFilteredBinding
 import app.pachli.databinding.ItemReportNotificationBinding
 import app.pachli.databinding.ItemSeveredRelationshipsBinding
 import app.pachli.databinding.ItemStatusBinding
-import app.pachli.databinding.ItemStatusNotificationBinding
 import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.databinding.ItemUnknownNotificationBinding
 import app.pachli.interfaces.AccountActionListener
@@ -61,7 +60,7 @@ import com.bumptech.glide.RequestManager
 
 /** How to present the notification in the UI */
 enum class NotificationViewKind {
-    /** View as the original status */
+    /** View as the original status, with the interaction type above. */
     STATUS,
 
     /**
@@ -76,8 +75,6 @@ enum class NotificationViewKind {
      */
     ACCOUNT_FILTERED,
 
-    /** View as the original status, with the interaction type above */
-    NOTIFICATION,
     FOLLOW,
     FOLLOW_REQUEST,
     REPORT,
@@ -96,15 +93,13 @@ enum class NotificationViewKind {
             return when (viewData) {
                 is MentionNotificationViewData,
                 is PollNotificationViewData,
-                -> STATUS
-
+                is UpdateNotificationViewData,
+                is StatusNotificationViewData,
                 is FavouriteNotificationViewData,
                 is ReblogNotificationViewData,
-                is StatusNotificationViewData,
-                is UpdateNotificationViewData,
                 is QuoteNotificationViewData,
                 is QuotedUpdateNotificationViewData,
-                -> NOTIFICATION
+                -> STATUS
 
                 is FollowNotificationViewData,
                 is SignupNotificationViewData,
@@ -202,15 +197,16 @@ class NotificationsPagingAdapter(
 
         return when (NotificationViewKind.entries[viewType]) {
             NotificationViewKind.STATUS -> {
-                StatusViewHolder(
+                StatusNotificationViewHolder(
                     ItemStatusBinding.inflate(inflater, parent, false),
                     glide,
                     setContent,
                     notificationActionListener,
                 )
             }
+
             NotificationViewKind.STATUS_FILTERED -> {
-                FilterableStatusViewHolder(
+                FilterableStatusNotificationViewHolder(
                     ItemStatusWrapperBinding.inflate(inflater, parent, false),
                     glide,
                     setContent,
@@ -224,14 +220,6 @@ class NotificationsPagingAdapter(
                 )
             }
 
-            NotificationViewKind.NOTIFICATION -> {
-                StatusNotificationViewHolder(
-                    ItemStatusNotificationBinding.inflate(inflater, parent, false),
-                    glide,
-                    setContent,
-                    notificationActionListener,
-                )
-            }
             NotificationViewKind.FOLLOW -> {
                 FollowViewHolder(
                     ItemFollowBinding.inflate(inflater, parent, false),

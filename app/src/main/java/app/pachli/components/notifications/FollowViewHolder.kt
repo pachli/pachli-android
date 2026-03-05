@@ -29,6 +29,7 @@ import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.TimelineAccount
+import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.SetContent
@@ -126,5 +127,7 @@ class FollowViewHolder(
 
         binding.notificationAccountNote.setOnClickListener { linkListener.onViewAccount(account.id) }
         itemView.setOnClickListener { linkListener.onViewAccount(account.id) }
+
+        binding.root.contentDescription = "$emojifiedMessage.\n\n${account.handleContentDescription(context)}.\n\n${account.note.parseAsMastodonHtml()}"
     }
 }

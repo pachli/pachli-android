@@ -73,4 +73,22 @@
     <item name="action_show_pronouns" type="id" />
     <!-- Open the quoted post. -->
     <item name="action_open_quoted_post" type="id" />
+
+    <!--
+     Show a notification hidden by a notification filter
+     (not content filter, use action_show_anyway for that).
+     -->
+    <item name="action_show_notification_anyway" type="id" />
+    <!-- Edit the user's notification filters. -->
+    <item name="action_edit_notification_filter" type="id" />
+    <!-- Accept a follow request. -->
+    <item name="action_follow_request_accept" type="id" />
+    <!-- Reject a follow request. -->
+    <item name="action_follow_request_reject" type="id" />
+    <!-- View a moderation warning. -->
+    <item name="action_moderation_warning_view" type="id" />
+    <!-- Open the profile of the reportee in a ReportNotification. -->
+    <item name="action_open_reportee_profile" type="id" />
+    <!-- Open a report about an account in a ReportNotification. -->
+    <item name="action_open_report" type="id" />
 </resources>
