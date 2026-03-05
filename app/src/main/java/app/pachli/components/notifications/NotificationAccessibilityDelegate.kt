@@ -33,6 +33,13 @@ fun interface NotificationProvider<T : NotificationViewData> {
     fun getNotification(pos: Int): T?
 }
 
+/**
+ * Delegate for actions on different notification types.
+ *
+ * Notifications with a status delegate to a [ListStatusAccessibilityDelegate].
+ *
+ * Other notification types are handled here.
+ */
 class NotificationAccessibilityDelegate<T : NotificationViewData>(
     pachliAccountId: Long,
     private val recyclerView: RecyclerView,
@@ -41,7 +48,7 @@ class NotificationAccessibilityDelegate<T : NotificationViewData>(
     openUrl: OpenUrlUseCase,
     private val notificationProvider: NotificationProvider<T>,
 ) : PachliRecyclerViewAccessibilityDelegate(recyclerView) {
-
+    /** Delegate for actions on notifications with a status. */
     private val statusAccessibilityDelegate = ListStatusAccessibilityDelegate(
         pachliAccountId = pachliAccountId,
         recyclerView = recyclerView,
