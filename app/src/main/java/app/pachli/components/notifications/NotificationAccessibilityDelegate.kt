@@ -108,34 +108,52 @@ class NotificationAccessibilityDelegate<T : NotificationViewData>(
 
             when (action) {
                 showNotificationAnywayAction.id -> {
+                    interrupt()
                     notificationActionListener.clearAccountFilter(notification)
                 }
 
                 editNotificationFilterAction.id -> {
+                    interrupt()
                     notificationActionListener.editAccountNotificationFilter()
                 }
 
-                openProfileAction.id -> notificationActionListener.onViewAccount(notification.account.id)
+                openProfileAction.id -> {
+                    interrupt()
+                    notificationActionListener.onViewAccount(notification.account.id)
+                }
 
-                acceptFollowRequestAction.id -> accountActionListener.onRespondToFollowRequest(
-                    true,
-                    notification.account.id,
-                    pos,
-                )
+                acceptFollowRequestAction.id -> {
+                    interrupt()
+                    accountActionListener.onRespondToFollowRequest(
+                        true,
+                        notification.account.id,
+                        pos,
+                    )
+                }
 
-                rejectFollowRequestAction.id -> accountActionListener.onRespondToFollowRequest(
-                    false,
-                    notification.account.id,
-                    pos,
-                )
+                rejectFollowRequestAction.id -> {
+                    interrupt()
+                    accountActionListener.onRespondToFollowRequest(
+                        false,
+                        notification.account.id,
+                        pos,
+                    )
+                }
 
-                viewModerationWarningAction.id -> host.performClick()
+                viewModerationWarningAction.id -> {
+                    interrupt()
+                    host.performClick()
+                }
 
-                openReport.id -> (notification as? NotificationViewData.ReportNotificationViewData)?.let {
-                    notificationActionListener.onViewReport(notification.report.reportId)
+                openReport.id -> {
+                    interrupt()
+                    (notification as? NotificationViewData.ReportNotificationViewData)?.let {
+                        notificationActionListener.onViewReport(notification.report.reportId)
+                    }
                 }
 
                 openReporteeProfile.id -> (notification as? NotificationViewData.ReportNotificationViewData)?.let {
+                    interrupt()
                     notificationActionListener.onViewAccount(
                         notification.report.targetAccount.serverId,
                     )
