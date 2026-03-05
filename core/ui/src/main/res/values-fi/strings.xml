@@ -156,4 +156,10 @@
     <string name="label_author_denied_quote">Tekijä on estänyt lainaamisen</string>
     <string name="action_request_quote">Lainauspyyntö</string>
     <string name="action_quote">Lainaa</string>
+    <string name="action_open_report">Avaa raportti</string>
+    <string name="action_open_reportee_profile">Avaa raportoijan profiili</string>
+    <string name="action_moderation_warning_view">Katso moderointivaroitus</string>
+    <string name="action_follow_request_reject">Hylkää seuraamispyyntö</string>
+    <string name="action_follow_request_accept">Hyväksy seuraamispyyntö</string>
+    <string name="description_quoted_post_prefix">Lainattu julkaisu:</string>
 </resources>
