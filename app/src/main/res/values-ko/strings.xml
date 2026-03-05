@@ -31,8 +31,8 @@
     <string name="title_drafts">임시 저장</string>
     <string name="post_sensitive_media_directions">클릭하여 보기</string>
     <string name="footer_empty">게시물이 없습니다. 아래로 당겨서 새로고침하세요!</string>
-    <string name="notification_reblog_format">%s님이 부스트 했습니다</string>
-    <string name="notification_favourite_format">%s님이 당신의 게시물을 좋아합니다</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt;님이 부스트 했습니다</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt;님이 당신의 게시물을 좋아합니다</string>
     <string name="notification_follow_format">%s님이 나를 팔로우 했습니다</string>
     <string name="report_username_format">\@%s 신고</string>
     <string name="report_comment_hint">코멘트</string>
@@ -172,7 +172,7 @@
     <string name="notification_favourite_description">누군가 내 게시물을 좋아요 했을 때 알림</string>
     <string name="notification_poll_name">투표</string>
     <string name="notification_poll_description">투표가 종료되었을 때 알림</string>
-    <string name="notification_mention_format">%s님이 당신을 멘션했습니다</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt;님이 당신을 멘션했습니다</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s, 그 외 %4$d개</string>
     <string name="notification_summary_medium">%1$s님, %2$s님, %3$s님</string>
     <string name="notification_summary_small">%1$s와 %2$s</string>

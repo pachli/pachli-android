@@ -30,8 +30,8 @@
     <string name="title_drafts">草稿</string>
     <string name="post_sensitive_media_directions">點一下顯示</string>
     <string name="footer_empty">還沒有內容，向下拉動即可重新整理！</string>
-    <string name="notification_reblog_format">%s 轉嘟了你的嘟文</string>
-    <string name="notification_favourite_format">%s 收藏了你的嘟文</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; 轉嘟了你的嘟文</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; 收藏了你的嘟文</string>
     <string name="notification_follow_format">%s 關注了你</string>
     <string name="report_username_format">檢舉使用者 @%s 的濫用行為</string>
     <string name="report_comment_hint">更多評論？</string>
@@ -164,7 +164,7 @@
     <string name="notification_favourite_description">當有使用者收藏了我的嘟文時</string>
     <string name="notification_poll_name">投票</string>
     <string name="notification_poll_description">當我參與的投票結束時</string>
-    <string name="notification_mention_format">%s 提及了你</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; 提及了你</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s 和 %4$d 人</string>
     <string name="notification_summary_medium">%1$s, %2$s, 和 %3$s</string>
     <string name="notification_summary_small">%1$s 和 %2$s</string>

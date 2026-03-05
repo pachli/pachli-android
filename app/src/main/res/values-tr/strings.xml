@@ -30,8 +30,8 @@
     <string name="title_drafts">Taslaklar</string>
     <string name="post_sensitive_media_directions">Görüntülemek için dokunun</string>
     <string name="footer_empty">Burada henüz hiç birşey yok. Yenilemek için aşağıya çekin!</string>
-    <string name="notification_reblog_format">%s gönderinizi paylaştı</string>
-    <string name="notification_favourite_format">%s gönderinizi gözdelerilerine ekledi</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; gönderinizi paylaştı</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; gönderinizi gözdelerilerine ekledi</string>
     <string name="notification_follow_format">%s seni takip etti</string>
     <string name="report_username_format">\@%s Bildir</string>
     <string name="report_comment_hint">Daha fazla yorum?</string>
@@ -151,7 +151,7 @@
     <string name="notification_boost_description">Yayınların paylaşıldığında bildirimler</string>
     <string name="notification_favourite_name">Gözdeler</string>
     <string name="notification_favourite_description">Yayınların gözde olarak işaretlendiğinde</string>
-    <string name="notification_mention_format">%s senden bahsetti</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; senden bahsetti</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s ve %4$d diğer</string>
     <string name="notification_summary_medium">%1$s, %2$s ve %3$s</string>
     <string name="notification_summary_small">%1$s ve %2$s</string>
@@ -390,8 +390,8 @@
     <string name="duration_indefinite">Tanımsız</string>
     <string name="action_unsubscribe_account">Abonelikten Çık</string>
     <string name="error_following_hashtags_unsupported">Bu sunucu aşağıdaki etiketleri desteklemez.</string>
-    <string name="notification_subscription_format">%s az önce paylaşım yaptı</string>
-    <string name="notification_update_format">%s gönderilerini düzenledi</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; az önce paylaşım yaptı</string>
+    <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; gönderilerini düzenledi</string>
     <string name="draft_deleted">Taslak Silindi</string>
     <string name="error_unfollowing_hashtag_format">Takip etmeyi bırakırken Hata #%s</string>
     <string name="label_duration">Süre</string>

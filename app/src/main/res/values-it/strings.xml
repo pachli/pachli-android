@@ -34,8 +34,8 @@
     <string name="title_drafts">Bozze</string>
     <string name="post_sensitive_media_directions">Clicca per visualizzare</string>
     <string name="footer_empty">Qui non c\'è nulla. Trascina verso il basso per aggiornare!</string>
-    <string name="notification_reblog_format">%s ha condiviso il tuo post</string>
-    <string name="notification_favourite_format">%s ha apprezzato il tuo post</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; ha condiviso il tuo post</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; ha apprezzato il tuo post</string>
     <string name="notification_follow_format">%s ti segue</string>
     <string name="report_username_format">Segnala @%s</string>
     <string name="report_comment_hint">Commenti aggiuntivi?</string>
@@ -168,7 +168,7 @@
     <string name="notification_boost_description">Notifiche sui tuoi messaggi che vengono condivisi</string>
     <string name="notification_favourite_name">Apprezzati</string>
     <string name="notification_favourite_description">Notifiche sui tuoi messaggi che vengono segnati come apprezzati</string>
-    <string name="notification_mention_format">%s ti ha menzionato</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; ti ha menzionato</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s e %4$d altri</string>
     <string name="notification_summary_medium">%1$s, %2$s e %3$s</string>
     <string name="notification_summary_small">%1$s e %2$s</string>
@@ -331,7 +331,7 @@
     <string name="notification_subscription_name">Nuovi messaggi</string>
     <string name="pref_title_notification_filter_poll">Dei sondaggi si sono conclusi</string>
     <string name="pref_title_notification_filter_subscriptions">Qualcuno che seguo ha pubblicato un nuovo messaggio</string>
-    <string name="notification_subscription_format">%s ha appena pubblicato</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; ha appena pubblicato</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Non puoi caricare più di %1$d allegato multimediale.</item>
         <item quantity="many">Non puoi caricare più di %1$d allegati multimediali.</item>
@@ -365,7 +365,7 @@
     <string name="follow_requests_info">Anche se il tuo account non è bloccato, lo staff di %1$s ha pensato che potresti voler verificare le richieste di seguirti da parte di questi utenti manualmente.</string>
     <string name="notification_sign_up_format">%s si è registrato</string>
     <string name="pref_title_notification_filter_sign_ups">Qualcuno si è registrato</string>
-    <string name="notification_update_format">%s ha modificato il suo messaggio</string>
+    <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; ha modificato il suo messaggio</string>
     <string name="pref_title_notification_filter_updates">Un messaggio con cui ho interagito è stato modificato</string>
     <string name="pachli_compose_post_quicksetting_label">Componi messaggio</string>
     <string name="notification_sign_up_name">Registrazioni</string>

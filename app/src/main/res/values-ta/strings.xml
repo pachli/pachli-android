@@ -25,8 +25,8 @@
     <string name="title_drafts">வரைவுகள்</string>
     <string name="post_sensitive_media_directions">பார்வையிட சொடுக்கவும்</string>
     <string name="footer_empty">இங்கு எதுவுமில்லை. புதுப்பிக்க கீழே இழுக்கவும்!</string>
-    <string name="notification_reblog_format">%s தங்களின் toot உயர்த்தப்பட்டுள்ளது</string>
-    <string name="notification_favourite_format">%s தங்களின் toot பிடித்தவையானது</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; தங்களின் toot உயர்த்தப்பட்டுள்ளது</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; தங்களின் toot பிடித்தவையானது</string>
     <string name="notification_follow_format">%s தங்களை பின்பற்றுகிறார்</string>
     <string name="report_username_format">புகார் @%s</string>
     <string name="report_comment_hint">கூடுதல் கருத்துரைகள்?</string>
@@ -132,7 +132,7 @@
     <string name="notification_boost_description">எமது அறிவிப்பு மேலேற்றும்போது தெரிவி</string>
     <string name="notification_favourite_name">பிடித்தவைகள்</string>
     <string name="notification_favourite_description">எமது அறிவிப்பு பிடித்தவையானால் தெரிவி</string>
-    <string name="notification_mention_format">%s தங்களை குறிபிட்டுள்ளார்</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; தங்களை குறிபிட்டுள்ளார்</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s மற்றும் %4$d மற்றவர்கள்</string>
     <string name="notification_summary_medium">%1$s, %2$s, மற்றும் %3$s</string>
     <string name="notification_summary_small">%1$s மற்றும் %2$s</string>
@@ -274,7 +274,7 @@
     <string name="error_muting_hashtag_format">பிழை #%s</string>
     <string name="error_unmuting_hashtag_format">#%s ஐ மாற்றியமைக்கும் பிழை</string>
     <string name="dialog_follow_hashtag_title">ஏச்டேக்கைப் பின்தொடரவும்</string>
-    <string name="notification_update_format">%s தங்கள் இடுகையைத் திருத்தியுள்ளன</string>
+    <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; தங்கள் இடுகையைத் திருத்தியுள்ளன</string>
     <string name="notification_header_report_format">%s %s</string>
     <plurals name="notification_summary_report_format">
         <item quantity="one">%1$s · %2$d இடுகை இணைக்கப்பட்டுள்ளது</item>
@@ -561,7 +561,7 @@
     <string name="search_operator_link_dialog_title">இணைப்புகளுடன் இடுகைகளைக் காட்டவா?</string>
     <string name="dialog_delete_filter_positive_action">நீக்கு</string>
     <string name="reaction_name_and_count">%1$s %2$d</string>
-    <string name="notification_subscription_format">%s இப்போது இடுகையிடப்பட்டது</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; இப்போது இடுகையிடப்பட்டது</string>
     <string name="notification_severed_relationships_user_domain_block_body">நீங்கள் டொமைனைத் தடுத்தீர்கள்</string>
     <string name="action_view_domain_mutes">மறைக்கப்பட்ட களங்கள்</string>
     <string name="send_account_link_to">கணக்கு முகவரி ஐப் பகிரவும்…</string>

@@ -30,8 +30,8 @@
     <string name="title_drafts">Черновики</string>
     <string name="post_sensitive_media_directions">Нажмите для просмотра</string>
     <string name="footer_empty">Ничего нет. Потяните вниз, чтобы обновить!</string>
-    <string name="notification_reblog_format">%s продвинул(а) вашу запись</string>
-    <string name="notification_favourite_format">%s понравился ваша запись</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; продвинул(а) вашу запись</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; понравился ваша запись</string>
     <string name="notification_follow_format">%s подписался(-лась) на вас</string>
     <string name="report_username_format">Пожаловаться на @%s</string>
     <string name="report_comment_hint">Дополнительные комментарии?</string>
@@ -163,7 +163,7 @@
     <string name="notification_favourite_description">Уведомлять, когда ваши сообщения добавляют в «избранное»</string>
     <string name="notification_poll_name">Опросы</string>
     <string name="notification_poll_description">Уведомлять о завершившихся опросах</string>
-    <string name="notification_mention_format">%s упомянул(а) вас</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; упомянул(а) вас</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s и %4$d других</string>
     <string name="notification_summary_medium">%1$s, %2$s, и %3$s</string>
     <string name="notification_summary_small">%1$s и %2$s</string>
@@ -318,7 +318,7 @@
     <string name="pref_title_wellbeing_mode">Самочувствие</string>
     <string name="duration_indefinite">Неопределённая</string>
     <string name="label_duration">Продолжительность</string>
-    <string name="notification_subscription_format">%s только что опубликовал(а)</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; только что опубликовал(а)</string>
     <string name="follow_requests_info">Несмотря на то, что ваша профиль не закрыт, наши сотрудники %1$s решили, что вы, возможно, захотите просмотреть запросы на отслеживание от этих профилей вручную.</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Вы не можете загрузить более %1$d мультимедийного вложения.</item>
@@ -368,7 +368,7 @@
     <string name="dialog_follow_hashtag_title">Подписаться на метки</string>
     <string name="dialog_follow_hashtag_hint">#метка</string>
     <string name="notification_sign_up_format">%s зарегистрировался</string>
-    <string name="notification_update_format">%s изменил свою запись</string>
+    <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; изменил свою запись</string>
     <string name="notification_report_format">Новая жалоба на %s</string>
     <string name="notification_severed_relationships_format">Отношения с &lt;b>%1$s&lt;/b> разорваны</string>
     <string name="notification_severed_relationships_domain_block_body">Модератор заблокировал домен</string>

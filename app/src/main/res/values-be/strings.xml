@@ -44,13 +44,13 @@
     <string name="report_comment_hint">Дадатковыя каментарыі\?</string>
     <string name="post_sensitive_media_directions">Націсніце для прагляду</string>
     <string name="footer_empty">Тут нічога няма. Пацягніце ўніз, каб абнавіць!</string>
-    <string name="notification_reblog_format">%s пашырыў(-ла) ваш допіс</string>
-    <string name="notification_favourite_format">%s падабаўся ваш допіс</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; пашырыў(-ла) ваш допіс</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; падабаўся ваш допіс</string>
     <string name="notification_follow_format">%s падпісаўся(-лася) на вас</string>
     <string name="notification_follow_request_format">%s запытаў(-ла) падпіску на вас</string>
     <string name="notification_sign_up_format">%s зарэгістраваўся(-лася)</string>
-    <string name="notification_subscription_format">Новы допіс ад %s</string>
-    <string name="notification_update_format">%s адрэдагаваў(-ла) свой допіс</string>
+    <string name="notification_subscription_format">Новы допіс ад &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; адрэдагаваў(-ла) свой допіс</string>
     <string name="notification_report_format">Новая скарга на %s</string>
     <string name="notification_header_report_format">%s скардзіцца на %s</string>
     <string name="report_username_format">Паскардзіцца на @%s</string>
@@ -236,7 +236,7 @@
     <string name="notification_poll_description">Апавяшчаць аб заканчэнні апытанняў</string>
     <string name="notification_subscription_name">Новыя допісы</string>
     <string name="notification_subscription_description">Апавяшчаць аб новых допісах карыстальнікаў, на якіх Вы падпісаны</string>
-    <string name="notification_mention_format">%s узгадаў(-ла) Вас</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; узгадаў(-ла) Вас</string>
     <string name="notification_summary_medium">%1$s, %2$s ды %3$s</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s ды %4$d іншых</string>
     <string name="notification_summary_small">%1$s ды %2$s</string>

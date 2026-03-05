@@ -108,7 +108,7 @@
     <string name="pref_title_http_proxy_server">Tansa n upṛuksi HTTP</string>
     <string name="notification_follow_name">Imeḍfaṛen imaynuten</string>
     <string name="notification_poll_name">Adɣaren</string>
-    <string name="notification_mention_format">Yuder-ik-id %s</string>
+    <string name="notification_mention_format">Yuder-ik-id &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="description_account_locked">Yettwargel umiḍan</string>
     <string name="pref_title_thread_filter_keywords">Idewenniyen</string>
     <string name="lock_account_label">Rgel amiḍan</string>
@@ -148,8 +148,8 @@
     <string name="error_media_upload_sending">Asali ur yeddi ara.</string>
     <string name="error_sender_account_gone">Tuccḍa deg tuzna n tijewwiqt.</string>
     <string name="title_public_local">Adigan</string>
-    <string name="notification_reblog_format">%s yebḍa izen-ik·im</string>
-    <string name="notification_favourite_format">%s yerna izen-ik·im ɣer ismenyafen-is</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; yebḍa izen-ik·im</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; yerna izen-ik·im ɣer ismenyafen-is</string>
     <string name="action_quick_reply">Tiririt taruradt</string>
     <string name="action_hide_reblogs">Ffer beṭuyat</string>
     <string name="action_show_reblogs">Sken-d beṭuyat</string>

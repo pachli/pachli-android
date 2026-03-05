@@ -84,13 +84,13 @@
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
     <string name="post_sensitive_media_directions">Click to view</string>
     <string name="footer_empty">Nothing here. Pull down to refresh!</string>
-    <string name="notification_reblog_format">%s boosted your post</string>
-    <string name="notification_favourite_format">%s favorited your post</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; boosted your post</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; favorited your post</string>
     <string name="notification_follow_format">%s followed you</string>
     <string name="notification_follow_request_format">%s requested to follow you</string>
     <string name="notification_sign_up_format">%s signed up</string>
-    <string name="notification_subscription_format">%s just posted</string>
-    <string name="notification_update_format">%s edited their post</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; just posted</string>
+    <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; edited their post</string>
     <string name="notification_report_format">New report on %s</string>
     <string name="notification_severed_relationships_format">Relationship with &lt;b>%1$s&lt;/b> severed</string>
     <string name="notification_severed_relationships_domain_block_body">A moderator suspended the domain</string>
@@ -118,8 +118,8 @@
     <string name="notification_moderation_warning_body_suspend_fmt">Your account has been suspended: %1$s</string>
     <string name="notification_moderation_warning_body_unknown_fmt">You have received a moderation warning: %1$s</string>
     <string name="notification_moderation_warning_tap_for_more">Tap to see more details on your server.</string>
-    <string name="notification_quote_format">%s quoted your post</string>
-    <string name="notification_quoted_update_format">%s updated the post you quoted</string>
+    <string name="notification_quote_format">&lt;b&gt;%1$s&lt;/b&gt; quoted your post</string>
+    <string name="notification_quoted_update_format">&lt;b&gt;%1$s&lt;/b&gt; updated the post you quoted</string>
     <string name="notification_unknown">Unknown notification type</string>
     <string name="notification_header_report_format">%s reported %s</string>
     <plurals name="notification_summary_report_format">
@@ -359,7 +359,7 @@
     <string name="notification_quoted_update_name">Quoted post edits</string>
     <string name="notification_quoted_update_description">Notifications when posts you\'ve quoted are edited</string>
     <string name="notification_unknown_name">Unknown</string>
-    <string name="notification_mention_format">%s mentioned you</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; mentioned you</string>
     <string name="notification_summary_large" tools:ignore="PluralsCandidate">%1$s, %2$s, %3$s and %4$d others</string>
     <string name="notification_summary_medium">%1$s, %2$s, and %3$s</string>
     <string name="notification_summary_small">%1$s and %2$s</string>

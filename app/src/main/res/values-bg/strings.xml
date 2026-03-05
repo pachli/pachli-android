@@ -94,7 +94,7 @@
     <string name="notification_summary_small">%1$s и %2$s</string>
     <string name="notification_summary_medium">%1$s, %2$s, и %3$s</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s и %4$d други</string>
-    <string name="notification_mention_format">%s ви спомена</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; ви спомена</string>
     <string name="notification_subscription_description">Известия, когато някой, за когото сте абонирани, публикува</string>
     <string name="notification_subscription_name">Нови публикации</string>
     <string name="notification_poll_description">Известия за приключили анкети</string>
@@ -226,11 +226,11 @@
     <string name="action_quick_reply">Бърз отговор</string>
     <string name="report_comment_hint">Допълнителни коментари\?</string>
     <string name="report_username_format">Докладване на @%s</string>
-    <string name="notification_subscription_format">%s току-що публикува</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; току-що публикува</string>
     <string name="notification_follow_request_format">%s поиска да ви последва</string>
     <string name="notification_follow_format">%s ви последва</string>
-    <string name="notification_favourite_format">%s постави вашата публикация в любими</string>
-    <string name="notification_reblog_format">%s сподели вашата публикация</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; постави вашата публикация в любими</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; сподели вашата публикация</string>
     <string name="footer_empty">Нищо тук. Дръпнете надолу, за да опресните!</string>
     <string name="post_sensitive_media_directions">Щракнете за преглед</string>
     <string name="title_announcements">Оповестявания</string>

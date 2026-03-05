@@ -30,8 +30,8 @@
     <string name="title_drafts">Koncepty</string>
     <string name="post_sensitive_media_directions">Klikněte pro zobrazení</string>
     <string name="footer_empty">Tady nic není. Obnovte přetažením dolů!</string>
-    <string name="notification_reblog_format">%s boostnul/a váš příspěvek</string>
-    <string name="notification_favourite_format">%s si oblíbil/a váš příspěvek</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; boostnul/a váš příspěvek</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; si oblíbil/a váš příspěvek</string>
     <string name="notification_follow_format">%s vás nyní sleduje</string>
     <string name="report_username_format">Nahlásit uživatele @%s</string>
     <string name="report_comment_hint">Další komentáře\?</string>
@@ -159,7 +159,7 @@
     <string name="notification_boost_description">Oznámení, když jsou vaše příspěvky boostnuty</string>
     <string name="notification_favourite_name">Oblíbení</string>
     <string name="notification_favourite_description">Oznámení, když jsou vaše příspěvky označeny jako oblíbené</string>
-    <string name="notification_mention_format">%s vás zmínil/a</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; vás zmínil/a</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s a dalších %4$d</string>
     <string name="notification_summary_medium">%1$s, %2$s a %3$s</string>
     <string name="notification_summary_small">%1$s a %2$s</string>
@@ -305,7 +305,7 @@
     <string name="dialog_mute_warning">Skrýt @%s\?</string>
     <string name="notification_follow_request_format">%s požádal/a aby vás mohl/a sledovat</string>
     <string name="pref_title_confirm_reblogs">Zobrazit dialogové okno s potvrzením při boostování</string>
-    <string name="notification_subscription_format">%s právě zveřejnil/a příspěvek</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; právě zveřejnil/a příspěvek</string>
     <string name="title_announcements">Oznámení</string>
     <string name="notification_sign_up_format">%s se zaregistroval/a</string>
     <string name="title_migration_relogin">Přihlaste se znovu pro push oznámení</string>
@@ -371,7 +371,7 @@
     <string name="saving_draft">Koncept se ukládá…</string>
     <string name="error_following_hashtag_format">Chyba při sledování #%s</string>
     <string name="error_unfollowing_hashtag_format">Chyba při rušení sledování #%s</string>
-    <string name="notification_update_format">%s upravil/a svůj příspěvek</string>
+    <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; upravil/a svůj příspěvek</string>
     <string name="action_unbookmark">Odebrat záložku</string>
     <string name="action_delete_conversation">Smazat konverzaci</string>
     <string name="dialog_delete_conversation_warning">Smazat tuto konverzaci\?</string>

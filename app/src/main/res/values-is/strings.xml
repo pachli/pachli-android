@@ -37,8 +37,8 @@
     <string name="title_scheduled_posts">Áætlaðar færslur</string>
     <string name="post_sensitive_media_directions">Ýttu til að skoða</string>
     <string name="footer_empty">Ekkert hér. Togaðu niður til að endurhlaða!</string>
-    <string name="notification_reblog_format">%s endurbirti færsluna þína</string>
-    <string name="notification_favourite_format">%s setti færslu frá þér í eftirlæti</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; endurbirti færsluna þína</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; setti færslu frá þér í eftirlæti</string>
     <string name="notification_follow_format">%s fylgist núna með þér</string>
     <string name="report_username_format">Kæra @%s</string>
     <string name="report_comment_hint">Aðrar athugasemdir\?</string>
@@ -180,7 +180,7 @@
     <string name="notification_favourite_description">Tilkynningar þegar færslurnar þínar eru settar í eftirlæti</string>
     <string name="notification_poll_name">Kannanir</string>
     <string name="notification_poll_description">Tilkynningar um kannanir sem er lokið</string>
-    <string name="notification_mention_format">%s minntist á þig</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; minntist á þig</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s og %4$d til viðbótar</string>
     <string name="notification_summary_medium">%1$s, %2$s og %3$s</string>
     <string name="notification_summary_small">%1$s og %2$s</string>
@@ -329,7 +329,7 @@
     <string name="notification_subscription_description">Tilkynningar þegar einhver sem þú ert áskrifandi að hefur birt nýja færslu</string>
     <string name="notification_subscription_name">Nýjar færslur</string>
     <string name="pref_title_notification_filter_subscriptions">einhver sem ég er áskrifandi að birti nýja færslu</string>
-    <string name="notification_subscription_format">%s sendi inn rétt í þessu</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; sendi inn rétt í þessu</string>
     <string name="follow_requests_info">Jafnvel þótt aðgangurinn þinn sé ekki læstur, fannst starfsfólki %1$s að þú gætir viljað yfirfara handvirkt fylgjendabeiðnir frá þessum aðgöngum.</string>
     <string name="action_unbookmark">Fjarlægja bókamerki</string>
     <string name="pref_title_confirm_favourites">Birta staðfestingu áður en sett er í eftirlæti</string>
@@ -344,7 +344,7 @@
     <string name="pachli_compose_post_quicksetting_label">Semja færslu</string>
     <string name="notification_sign_up_format">%s skráði sig</string>
     <string name="pref_title_notification_filter_sign_ups">einhver skráði sig</string>
-    <string name="notification_update_format">%s breytti færslunni sinni</string>
+    <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; breytti færslunni sinni</string>
     <string name="pref_title_notification_filter_updates">færsla sem ég hef átt við er breytt</string>
     <string name="notification_sign_up_name">Nýskráningar</string>
     <string name="notification_sign_up_description">Tilkynningar um nýja notendur</string>

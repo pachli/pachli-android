@@ -34,8 +34,8 @@
     <string name="title_direct_messages">प्रत्यक्षसन्देशाः</string>
     <string name="title_public_federated">सङ्घीयाः</string>
     <string name="notification_follow_format">%s त्वामन्वसरत्</string>
-    <string name="notification_favourite_format">%s भवदीयदौत्याय रुचिमददात्</string>
-    <string name="notification_reblog_format">%s भवदीयं दौत्यं प्राकाशयत्</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; भवदीयदौत्याय रुचिमददात्</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; भवदीयं दौत्यं प्राकाशयत्</string>
     <string name="action_send_public">प्रेष्यताम् !</string>
     <string name="action_send">प्रेष्यताम्</string>
     <string name="action_delete_and_redraft">विनश्य पुनश्च लिख्यताम्</string>
@@ -164,7 +164,7 @@
     <string name="notification_summary_small">%1$s च %2$s च</string>
     <string name="notification_summary_medium">%1$s, %2$s, तथैव %3$s</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s तथा च %4$d अन्येऽपि</string>
-    <string name="notification_mention_format">%s मित्रेण भवन्नामोल्लिखितम्</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; मित्रेण भवन्नामोल्लिखितम्</string>
     <string name="notification_poll_description">मतदाने समाप्ते सति सूचनाः</string>
     <string name="notification_poll_name">मतदानानि</string>
     <string name="notification_favourite_description">प्रीतिः इत्यङ्किते सति ज्ञापनसूचनाः</string>
@@ -346,12 +346,12 @@
     <string name="notification_header_report_format">%s-व्यक्तिः %s-व्यक्तिं प्रति आवेदनमकरोत्</string>
     <string name="action_discard">परिवर्तनानि निष्कासयतु</string>
     <string name="action_continue_edit">सम्पादनम् अनुवर्तताम्</string>
-    <string name="notification_subscription_format">%s सद्यः प्रसारितम्</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; सद्यः प्रसारितम्</string>
     <string name="notification_sign_up_format">%s पञ्जीकरणम् अकरोत्</string>
     <string name="action_delete_conversation">सम्भाषणं निष्कास्यताम्</string>
     <string name="duration_90_days">९० दिनानि</string>
     <string name="action_unbookmark">पुटचिह्नं निस्कास्यताम्</string>
-    <string name="notification_update_format">%s स्वस्य दौत्यं समपादयत्</string>
+    <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; स्वस्य दौत्यं समपादयत्</string>
     <string name="pachli_compose_post_quicksetting_label">दौत्यं संस्कुरुताम्</string>
     <string name="saving_draft">लेखविकर्षं रक्षामि…</string>
     <string name="account_date_joined">%1$s सदस्यः अभवत्</string>
