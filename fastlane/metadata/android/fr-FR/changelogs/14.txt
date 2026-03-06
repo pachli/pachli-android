@@ -1,0 +1,16 @@
+Pachli 2.5.0
+
+Nouveautés :
+
+- Transitions douces
+- Certificats embarqués
+- Rapatrie plus de messages, liens et tags tendance
+- Simplification d'ajout/suppression de timelines depuis les onglets
+- Màj des traductions en finnois, kabyle et espagnol
+
+Corrections :
+
+- Active Talkback dans les notifications et conversations
+- Meilleures transitions vers et en sortie de vidéos
+- Mise à jour de PageCache pour gérer un ordre non-chronologique
+- Autorise une expiration indéfinie des filtres
