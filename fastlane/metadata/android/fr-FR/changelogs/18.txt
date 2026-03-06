@@ -1,0 +1,18 @@
+Pachli 2.7.0
+
+Nouveautés :
+
+- Interface des opérateurs de recherche
+- Alerte de mauvaise langue du message
+- Signature d'auteur-ice
+- Modification de filtre depuis la timeline
+- Hashtags autocomplétés avec nombre d'utilisations
+
+Corrections :
+
+- Nom du tag tendance visible
+- Filtrage de serveurs GoToSocial 0.16+
+- Clavier caché après la recherche
+- Bon décompte de caractères
+- Ponctuation des descriptions
+- Màj des traductions en chinois, finnnois, irlandais, espagnol, norvégien
