@@ -188,4 +188,10 @@
     <string name="label_quote_state_blocked_account">Is ó chuntas a chuir tú bac air atá an post luaite</string>
     <string name="label_quote_state_blocked_domain">Is ó fhreastalaí a chuir tú bac air atá an post luaite</string>
     <string name="label_quote_state_muted_account">Is ó chuntas a chuir tú ar an mbrú an post luaite</string>
+    <string name="action_follow_request_accept">Glac leis an iarratas leantach</string>
+    <string name="action_follow_request_reject">Diúltaigh iarratas leantach</string>
+    <string name="action_moderation_warning_view">Rabhadh maidir le modhnóireacht a fheiceáil</string>
+    <string name="action_open_reportee_profile">Oscail próifíl an tuairisceora</string>
+    <string name="action_open_report">Oscail an tuarascáil</string>
+    <string name="description_quoted_post_prefix">Post luaite:</string>
 </resources>
