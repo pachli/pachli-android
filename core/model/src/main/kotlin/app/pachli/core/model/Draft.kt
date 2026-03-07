@@ -41,6 +41,7 @@ data class Draft(
     val inReplyToId: String? = null,
     val quotedStatusId: String? = null,
     val statusId: String? = null,
+    val cursorPosition: Int = 0,
 ) : Parcelable {
     companion object
 }

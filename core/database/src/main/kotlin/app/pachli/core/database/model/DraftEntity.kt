@@ -17,6 +17,7 @@
 
 package app.pachli.core.database.model
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
@@ -47,6 +48,8 @@ import java.util.Date
  * @property quotePolicy The quote policy the user set while editing the draft.
  * @property quotedStatusId If non-null, the ID of the status the user was
  * quoting while editing the draft.
+ * @property cursorPosition The cursor position when the draft was saved / the
+ * intended cursor position when the draft is opened.
  */
 @Entity(
     foreignKeys = [
@@ -78,6 +81,8 @@ data class DraftEntity(
     val statusId: String?,
     val quotePolicy: AccountSource.QuotePolicy?,
     val quotedStatusId: String?,
+    @ColumnInfo(defaultValue = "0")
+    val cursorPosition: Int = 0,
 )
 
 fun DraftEntity.asModel(): Draft {
@@ -97,5 +102,6 @@ fun DraftEntity.asModel(): Draft {
         quotePolicy = quotePolicy,
         inReplyToId = inReplyToId,
         quotedStatusId = quotedStatusId,
+        cursorPosition = cursorPosition,
     )
 }

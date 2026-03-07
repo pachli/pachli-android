@@ -99,7 +99,6 @@ import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_MEDIA_ATTACHMENT
 import app.pachli.core.model.Status
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
-import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InitialCursorPosition
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ReferencingStatus
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.preferences.AppTheme
@@ -721,12 +720,8 @@ class ComposeActivity :
         startingText?.let {
             binding.composeEditField.setText(it)
 
-            when (composeOptions.initialCursorPosition) {
-                InitialCursorPosition.START -> binding.composeEditField.setSelection(0)
-                InitialCursorPosition.END -> binding.composeEditField.setSelection(
-                    binding.composeEditField.length(),
-                )
-            }
+            val cursorPosition = min(max(0, composeOptions.draft.cursorPosition), it.length)
+            binding.composeEditField.setSelection(cursorPosition)
         }
 
         // work around Android platform bug -> https://issuetracker.google.com/issues/67102093

@@ -155,6 +155,7 @@ fun Status.asDraft(source: StatusSource): Draft {
         statusId = actionable.statusId,
         inReplyToId = actionable.inReplyToId,
         quotedStatusId = (actionable.quote as? Status.Quote.WithStatusId)?.statusId,
+        cursorPosition = source.text.length,
     )
 }
 
@@ -172,6 +173,7 @@ fun ScheduledStatus.asDraft(): Draft {
         statusId = id,
         inReplyToId = params.inReplyToId,
         quotedStatusId = params.quotedStatusId,
+        cursorPosition = params.text.length,
     )
 }
 
@@ -195,27 +197,32 @@ fun Draft.Companion.createDraft(context: Context, pachliAccountEntity: AccountEn
 
     val quotePolicy = pachliAccountEntity.defaultQuotePolicy.clampToVisibility(visibility)
 
+    val content = when (timeline) {
+        is Timeline.Hashtags -> {
+            val tag = timeline.tags.first()
+            getString(context, R.string.title_tag_with_initial_position).format(tag)
+        }
+
+        else -> ""
+    }
+
     val draft = Draft(
         contentWarning = "",
-        content = when (timeline) {
-            is Timeline.Hashtags -> {
-                val tag = timeline.tags.first()
-                getString(context, R.string.title_tag_with_initial_position).format(tag)
-            }
-
-            else -> ""
-        },
+        content = content,
         visibility = visibility,
         sensitive = pachliAccountEntity.defaultMediaSensitivity,
         language = pachliAccountEntity.defaultPostLanguage,
         quotePolicy = quotePolicy,
+        cursorPosition = if (timeline is Timeline.Hashtags) 0 else content.length,
     )
-
-    // TODO: Need to record the cursor position
 
     return draft
 }
 
+/**
+ *
+ * @param status Status being replied to.
+ */
 fun Draft.Companion.createDraftReply(pachliAccountEntity: AccountEntity, status: Status): Draft {
     val actionable = status.actionableStatus
     val account = actionable.account
@@ -241,9 +248,9 @@ fun Draft.Companion.createDraftReply(pachliAccountEntity: AccountEntity, status:
         language = actionable.language ?: pachliAccountEntity.defaultPostLanguage,
         quotePolicy = quotePolicy,
         inReplyToId = actionable.statusId,
+        cursorPosition = content.length,
     )
 
-    // TODO: Need to record the cursor position
     return draft
 }
 
@@ -252,22 +259,27 @@ fun Draft.Companion.createDraftQuote(pachliAccountEntity: AccountEntity, status:
 
     val quotePolicy = pachliAccountEntity.defaultQuotePolicy.clampToVisibility(actionable.visibility)
 
+    val content = ""
+
     val draft = Draft(
         contentWarning = actionable.spoilerText,
-        content = "",
+        content = content,
         sensitive = actionable.sensitive || pachliAccountEntity.defaultMediaSensitivity,
         visibility = actionable.visibility,
         language = actionable.language ?: pachliAccountEntity.defaultPostLanguage,
         quotePolicy = quotePolicy,
         quotedStatusId = actionable.statusId,
+        cursorPosition = content.length,
     )
 
-    // TODO: Need to record the cursor position
     return draft
 }
 
 fun Draft.Companion.createDraftMention(context: Context, pachliAccountEntity: AccountEntity, timeline: Timeline, username: String): Draft {
+    val content = "@$username "
+
     return Draft.createDraft(context, pachliAccountEntity, timeline).copy(
-        content = "@$username ",
+        content = content,
+        cursorPosition = content.length,
     )
 }
