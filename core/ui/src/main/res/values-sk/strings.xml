@@ -154,10 +154,10 @@
     <string name="action_request_quote">Požiadať o povolenie citovať</string>
     <string name="label_author_denied_quote">Citovanie bolo autorom zakázané</string>
     <plurals name="quotes">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Citát</item>
-        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; Citáty</item>
-        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; Citátov</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Citátov</item>
+        <item quantity="one"><b>%1$s</b> Citovanie</item>
+        <item quantity="few"><b>%1$s</b> Citovania</item>
+        <item quantity="many"><b>%1$s</b> Citovaní</item>
+        <item quantity="other"><b>%1$s</b> Citovaní</item>
     </plurals>
     <string name="detach_quote">Odstrániť citát</string>
     <string name="label_quote_state_unknown">Citovaný príspevok nie je možné zobraziť</string>
@@ -169,4 +169,10 @@
     <string name="label_quote_state_blocked_account">Citovaný príspevok je zo zablokovaného účtu</string>
     <string name="label_quote_state_blocked_domain">Citovaný príspevok je zo zablokovaného servera</string>
     <string name="label_quote_state_muted_account">Citovaný príspevok je od stlmeného účtu</string>
+    <string name="action_follow_request_accept">Prijať žiadosť o sledovanie</string>
+    <string name="action_follow_request_reject">Odmietnuť žiadosť o sledovanie</string>
+    <string name="action_moderation_warning_view">Zobraziť varovanie moderátora</string>
+    <string name="action_open_reportee_profile">Otvoriť profil nahláseného</string>
+    <string name="action_open_report">Otvoriť nahlásenie</string>
+    <string name="description_quoted_post_prefix">Citovaný príspevok:</string>
 </resources>
