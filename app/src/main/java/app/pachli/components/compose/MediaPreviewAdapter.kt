@@ -296,9 +296,16 @@ class AttachmentViewHolder(
 
     private lateinit var item: QueuedMedia
 
+    private val missingDescriptionError = context.getString(R.string.hint_media_description_missing)
+
     init {
         binding.descriptionLayout.counterMaxLength = descriptionLimit
-        binding.description.doAfterTextChanged { it?.let { onDescriptionChanged(item, it.toString()) } }
+        binding.description.doAfterTextChanged {
+            it?.let {
+                binding.descriptionLayout.error = if (it.isBlank()) missingDescriptionError else null
+                onDescriptionChanged(item, it.toString())
+            }
+        }
 
         binding.media.setOnClickListener { onMediaClick(item, binding.media) }
 
@@ -350,7 +357,17 @@ class AttachmentViewHolder(
         payloads.forEach { payload ->
             when (payload) {
                 Payload.URI -> bindUri(item)
-                Payload.DESCRIPTION -> bindDescription(item.description)
+                Payload.DESCRIPTION -> {
+                    // Nothing to do.
+                    //
+                    // The `doAfterTextChanged` handler ensures the error message is
+                    // shown if necessary, and bindAll() will have been called to set
+                    // the initial text.
+                    //
+                    // Trying to set the text triggers a race condition where the user
+                    // might have entered new text by the time this is called, and it
+                    // is mangled, or the cursor position is reset.
+                }
                 Payload.FOCUS -> bindFocus(item.focus)
                 Payload.UPLOAD_STATE -> bindUploadState(item.uploadState)
                 Payload.LIST_SIZE -> bindDragHandle()
@@ -393,27 +410,9 @@ class AttachmentViewHolder(
         request.into(this)
     }
 
-    /**
-     * Binds [description] to the UI.
-     *
-     * A null/blank description shows the warning message.
-     */
+    /** Binds [description] to the UI. */
     private fun bindDescription(description: String?) = with(binding.description) {
-        binding.descriptionLayout.error = if (description.isNullOrBlank()) {
-            context.getString(R.string.hint_media_description_missing)
-        } else {
-            null
-        }
-
-        // Only update the description in the UI if it has changed outside the
-        // UI. Do nothing if the new description is the same as the text currently
-        // in the view.
-        //
-        // Otherwise this will loop; setText -> .doAfterTextChanged -> save
-        // description in viewmodel -> adapter list updates -> bindDescription.
-        val prevDescription = text?.toString()?.ifBlank { "" } ?: ""
-        val newDescription = description?.toString()?.ifBlank { "" } ?: ""
-        if (newDescription != prevDescription) setText(description)
+        setText(description)
     }
 
     /** Binds [focus] to the UI. */
