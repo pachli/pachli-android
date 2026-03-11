@@ -27,8 +27,8 @@
     <string name="title_drafts">Szkice</string>
     <string name="post_sensitive_media_directions">Naciśnij, aby wyświetlić</string>
     <string name="footer_empty">Pusto tutaj. Pociągnij, aby odświeżyć!</string>
-    <string name="notification_reblog_format">Podbicie twojego wpisu przez &lt;b&gt;%1$s&lt;/b&gt;</string>
-    <string name="notification_favourite_format">Polubienie twojego wpisu przez &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="notification_reblog_format">Podbicie twojego wpisu przez <b>%1$s</b></string>
+    <string name="notification_favourite_format">Polubienie twojego wpisu przez <b>%1$s</b></string>
     <string name="notification_follow_format">%s cię obserwuje</string>
     <string name="report_username_format">Zgłoś @%s</string>
     <string name="report_comment_hint">Dodatkowe komentarze?</string>
@@ -140,7 +140,7 @@
     <string name="notification_boost_description">Powiadomienia o podbiciu twoich wpisów</string>
     <string name="notification_favourite_name">Polubione</string>
     <string name="notification_favourite_description">Powiadomienia o polubieniu twoich wpisów</string>
-    <string name="notification_mention_format">wzmianka od &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="notification_mention_format">wzmianka od <b>%1$s</b></string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s i %4$d innych</string>
     <string name="notification_summary_medium">%1$s, %2$s, i %3$s</string>
     <string name="notification_summary_small">%1$s i %2$s</string>
@@ -336,7 +336,7 @@
     <string name="pref_title_animate_custom_emojis">Animuj niestandardowe emoji</string>
     <string name="dialog_delete_conversation_warning">Usunąć tę rozmowę?</string>
     <string name="action_delete_conversation">Usuń rozmowę</string>
-    <string name="notification_subscription_format">Nowy wpis konta &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="notification_subscription_format">Nowy wpis konta <b>%1$s</b></string>
     <string name="notification_follow_request_format">%s prosi o możliwość obserwowania ciebie</string>
     <string name="action_unbookmark">Usuń z zakładek</string>
     <string name="pref_title_confirm_favourites">Pytaj o potwierdzenie przed polubieniem</string>
@@ -353,7 +353,7 @@
     <string name="notification_update_description">Powiadomienia o edycji wpisów z wcześniejszymi interakcjami</string>
     <string name="pref_title_notification_filter_sign_ups">Ktoś się zarejestrował</string>
     <string name="pref_title_notification_filter_updates">Wpis z wcześniejszą interakcją został zmieniony</string>
-    <string name="notification_update_format">Edycja wpisu przez &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="notification_update_format">Edycja wpisu przez <b>%1$s</b></string>
     <string name="notification_update_name">Edycje wpisów</string>
     <string name="saving_draft">Zapisywanie szkicu…</string>
     <string name="account_date_joined">Data dołączenia: %1$s</string>
@@ -751,8 +751,8 @@
     <string name="filter_action_blur">Ukryj załączniki</string>
     <string name="filter_description_blur">Pokaż zawartość, ukryj załączniki z ostrzeżeniem</string>
     <string name="title_quotes">Cytaty</string>
-    <string name="notification_quote_format">Osoba &lt;b&gt;%1$s&lt;/b&gt; zacytowała twój wpis</string>
-    <string name="notification_quoted_update_format">Osoba &lt;b&gt;%1$s&lt;/b&gt; zaktualizowała zacytowany przez ciebie wpis</string>
+    <string name="notification_quote_format">Osoba <b>%1$s</b> zacytowała twój wpis</string>
+    <string name="notification_quoted_update_format">Osoba <b>%1$s</b> zaktualizowała zacytowany przez ciebie wpis</string>
     <string name="action_toggle_quote_policy">Zmień ustawienia cytowania</string>
     <string name="pref_title_notification_filter_quote">Moje wpisy są cytowane</string>
     <string name="pref_title_notification_filter_quoted_update">Zacytowany przeze mnie wpis został zmieniony</string>
