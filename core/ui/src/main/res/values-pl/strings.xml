@@ -178,4 +178,9 @@
     <string name="post_replied">Odpowiedź</string>
     <string name="post_continued_thread">Ciąg dalszy wątku</string>
     <string name="description_quoted_post_prefix">Cytowany wpis:</string>
+    <string name="action_follow_request_accept">Zaakceptuj prośbę o obserwowanie</string>
+    <string name="action_follow_request_reject">Odrzuć prośbę o obserwowanie</string>
+    <string name="action_moderation_warning_view">Pokaż ostrzeżenie moderacji</string>
+    <string name="action_open_reportee_profile">Otwórz profil osoby zgłaszającej</string>
+    <string name="action_open_report">Otwórz raport</string>
 </resources>
