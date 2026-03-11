@@ -107,7 +107,7 @@
     <string name="action_favourite">Favorisieren</string>
     <string name="action_bookmark">Lesezeichen</string>
     <string name="status_count_one_plus">1+</string>
-    <string name="action_unreblog">Teilen rückgängig machen</string>
+    <string name="action_unreblog">Nicht mehr teilen</string>
     <string name="action_unfavourite">Aus Favoriten entfernen</string>
     <string name="post_content_warning_show_less">Weniger anzeigen</string>
     <string name="post_content_warning_show_more">Mehr anzeigen</string>
