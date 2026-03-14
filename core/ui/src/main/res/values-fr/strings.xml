@@ -169,4 +169,10 @@
     <string name="label_quote_state_blocked_account">Le message cité vient d\'un compte que vous avez bloqué</string>
     <string name="label_quote_state_blocked_domain">Le message cité vient d\'un serveur que vous avez bloqué</string>
     <string name="label_quote_state_muted_account">Le message cité vient d\'un compte que vous avez masqué</string>
+    <string name="description_quoted_post_prefix">Message cité :</string>
+    <string name="action_follow_request_accept">Accepter la demande d\'abonnement</string>
+    <string name="action_follow_request_reject">Refuser la demande d\'abonnement</string>
+    <string name="action_moderation_warning_view">Voir l\'avertissement de modération</string>
+    <string name="action_open_reportee_profile">Ouvrir le profil de la personne dénoncée</string>
+    <string name="action_open_report">Ouvrir le rapport</string>
 </resources>

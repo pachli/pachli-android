@@ -143,8 +143,8 @@
     <string name="label_quoted_status_hidden">Postituse tsitaat, mis on mõne sinu filtri poolt peidetud</string>
     <string name="detach_quote">Eemalda tsitaat</string>
     <plurals name="quotes">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; tsitaat</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; tsitaati</item>
+        <item quantity="one"><b>%1$s</b> tsitaat</item>
+        <item quantity="other"><b>%1$s</b> tsitaati</item>
     </plurals>
     <string name="action_quote">Tsiteeri</string>
     <string name="action_request_quote">Küsi võimalust tsiteerida</string>
@@ -158,4 +158,9 @@
     <string name="label_quote_state_blocked_account">Tsiteeritud postituse on koostanud sinu poolt blokeeritud kasutaja</string>
     <string name="label_quote_state_blocked_domain">Tsiteeritud postituse kasutaja on sinu poolt blokeeritud serverist</string>
     <string name="label_quote_state_muted_account">Tsiteeritud postituse on koostanud sinu poolt summutatud kasutaja</string>
+    <string name="description_quoted_post_prefix">Tsiteeritud postitus:</string>
+    <string name="action_follow_request_accept">Nõustu jälgimispäringuga</string>
+    <string name="action_follow_request_reject">Lükka jälgimispäring tagasi</string>
+    <string name="action_moderation_warning_view">Vaata modereerimishoiatust</string>
+    <string name="action_open_reportee_profile">Ava teataja profiil</string>
 </resources>

@@ -1,0 +1,11 @@
+Pachli 1.1
+
+Corrections:
+
+-  Bonne couleur de contraste sur l'onglet de hashtags 
+-  Bonne taille de l'icône monochrome 
+-  Retrouve la position de la timeline 
+-  Rafraîchissement sans saut dans la timeline 
+-  FAB suivant les préférences de l'utilisateur-ice 
+-  Barre d'outils clignotante au défilement 
+-  Crash à l'entrée dans MainActivity sur les appareils Pixel C

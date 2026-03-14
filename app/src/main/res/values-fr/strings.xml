@@ -773,4 +773,10 @@
     <string name="account_filter_placeholder_type_conversation">Une personne @&lt;b&gt;%1$s&lt;/b&gt; a lancé une conversation</string>
     <string name="compose_task_description_replying_fmt">En réponse à %1$s</string>
     <string name="compose_task_description_quoting_fmt">Citation de %1$s</string>
+    <string name="search_operator_quote_dialog_no_quotes">Messages sans citations seulement</string>
+    <string name="search_operator_quote_dialog_only">Messages avec citations seulement</string>
+    <string name="search_operator_quote_dialog_all">Avec ou sans citations</string>
+    <string name="search_operator_quote_dialog_title">Montrer les messages qui en citent d\'autres ?</string>
+    <string name="search_operator_quote_no_quotes">Pas de citations</string>
+    <string name="search_operator_quote_only">Avec citations</string>
 </resources>

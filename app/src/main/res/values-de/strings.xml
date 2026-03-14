@@ -30,8 +30,8 @@
     <string name="title_drafts">Entwürfe</string>
     <string name="post_sensitive_media_directions">Zum Anzeigen tippen</string>
     <string name="footer_empty">Noch keine Beiträge. Ziehe zum Aktualisieren nach unten!</string>
-    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; teilte deinen Beitrag</string>
-    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; favorisierte deinen Beitrag</string>
+    <string name="notification_reblog_format"><b>%1$s</b> teilte deinen Beitrag</string>
+    <string name="notification_favourite_format"><b>%1$s</b> favorisierte deinen Beitrag</string>
     <string name="notification_follow_format">%s folgt dir</string>
     <string name="report_username_format">\@%s melden</string>
     <string name="report_comment_hint">Zusätzliche Anmerkungen\?</string>
@@ -158,7 +158,7 @@
     <string name="notification_boost_description">Benachrichtigungen, wenn deine Beiträge geteilt werden</string>
     <string name="notification_favourite_name">Favorisierte Beiträge</string>
     <string name="notification_favourite_description">Benachrichtigungen, wenn deine Beiträge favorisiert werden</string>
-    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; hat dich erwähnt</string>
+    <string name="notification_mention_format"><b>%1$s</b> hat dich erwähnt</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s und %4$d andere</string>
     <string name="notification_summary_medium">%1$s, %2$s, und %3$s</string>
     <string name="notification_summary_small">%1$s und %2$s</string>
@@ -328,7 +328,7 @@
     <string name="notification_subscription_name">Neue Beiträge</string>
     <string name="pref_title_animate_custom_emojis">GIF-Emojis animieren</string>
     <string name="pref_title_notification_filter_subscriptions">jemand, den ich abonniert habe, etwas Neues veröffentlicht</string>
-    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; hat gerade etwas veröffentlicht</string>
+    <string name="notification_subscription_format"><b>%1$s</b> hat gerade etwas veröffentlicht</string>
     <string name="review_notifications">Benachrichtigungen überprüfen</string>
     <string name="wellbeing_mode_notice">Informationen, die dein geistiges Wohlbefinden beeinflussen könnten, werden ausgeblendet. Dazu gehören:
 \n
@@ -353,7 +353,7 @@
     <string name="duration_14_days">14 Tage</string>
     <string name="duration_180_days">180 Tage</string>
     <string name="pachli_compose_post_quicksetting_label">Beitrag erstellen</string>
-    <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; hat den Beitrag bearbeitet</string>
+    <string name="notification_update_format"><b>%1$s</b> hat den Beitrag bearbeitet</string>
     <string name="pref_title_notification_filter_updates">ein Beitrag, mit dem ich interagiert habe, bearbeitet wurde</string>
     <string name="notification_sign_up_name">Registrierungen</string>
     <string name="notification_sign_up_description">Benachrichtigungen über neue Profile</string>
@@ -755,9 +755,9 @@
     <string name="notification_quote_name">Jemand hat dich zitiert</string>
     <string name="pref_title_notification_filter_quoted_update">Ein von mir zitierter Beitrag wird bearbeitet</string>
     <string name="pref_title_notification_filter_quote">Meine Beiträge werden zitiert</string>
-    <string name="notification_quote_format">&lt;b&gt;%1$s&lt;/b&gt; hat deinen Beitrag zitiert</string>
+    <string name="notification_quote_format"><b>%1$s</b> hat deinen Beitrag zitiert</string>
     <string name="title_quotes">Zitate</string>
-    <string name="notification_quoted_update_format">&lt;b&gt;%1$s&lt;/b&gt; hat den von dir zitierten Beitrag aktualisiert</string>
+    <string name="notification_quoted_update_format"><b>%1$s</b> hat den von dir zitierten Beitrag aktualisiert</string>
     <string name="action_toggle_quote_policy">Zitat-Richtlinie ändern</string>
     <string name="drafts_load_reply_failed_fmt">Konnte Beitrag nicht laden, auf den du antwortest: %1$s</string>
     <string name="drafts_load_quote_failed_fmt">Konnte von dir zitierten Beitrag nicht laden: %1$s</string>
