@@ -163,4 +163,5 @@
     <string name="action_follow_request_reject">Lükka jälgimispäring tagasi</string>
     <string name="action_moderation_warning_view">Vaata modereerimishoiatust</string>
     <string name="action_open_reportee_profile">Ava teataja profiil</string>
+    <string name="action_open_report">Ava teatis</string>
 </resources>
