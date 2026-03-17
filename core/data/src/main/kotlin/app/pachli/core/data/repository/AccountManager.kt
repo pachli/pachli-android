@@ -188,7 +188,7 @@ class AccountManager @Inject constructor(
     /** The active account, or null if there is no active account. */
     @Deprecated("Caller should use getPachliAccountFlow with a specific account ID")
     val activeAccount: AccountEntity?
-        get() = activeAccountFlow.value.get()
+        get() = activeAccountFlow.value.getOrNull()
 
     /** All logged in accounts. */
     val accountsFlow = accountDao.loadAllFlow().stateIn(externalScope, SharingStarted.Eagerly, emptyList())

@@ -39,7 +39,7 @@ import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.data.repository.SetActiveAccountError
-import app.pachli.core.data.repository.get
+import app.pachli.core.data.repository.getOrNull
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.domain.LogoutUseCase
 import app.pachli.core.navigation.ComposeActivityIntent
@@ -113,7 +113,7 @@ class IntentRouterActivity : BaseActivity() {
                 launch {
                     // Get the first set of loaded accounts (as AccountEntity).
                     viewModel.accounts
-                        .map { it.get() }
+                        .map { it.getOrNull() }
                         .filterNotNull()
                         .map { it.map { it.entity } }
                         .take(1)
@@ -352,7 +352,7 @@ class IntentRouterActivity : BaseActivity() {
                         // Special case invalid tokens. The user can be prompted to relogin.
                         // Cancelling chooses from other accounts, or finishes if there are none.
                         is ClientError.Unauthorized -> {
-                            val accountCount = viewModel.accounts.value.get().orEmpty().size
+                            val accountCount = viewModel.accounts.value.getOrNull().orEmpty().size
 
                             val message = if (accountCount > 1) {
                                 getString(
@@ -446,7 +446,7 @@ class IntentRouterActivity : BaseActivity() {
             is UiError.RefreshAccount -> {
                 // Whether or not to describe "Cancel" as "Choose another account" depends
                 // on how many accounts exist.
-                val accountCount = viewModel.accounts.value.get().orEmpty().size
+                val accountCount = viewModel.accounts.value.getOrNull().orEmpty().size
 
                 val button = AlertSuspendDialogFragment.newInstance(
                     uiError.cause.wantedAccount.fullName,

@@ -37,11 +37,15 @@ sealed interface Loadable<out T> {
     data class Loaded<T>(val data: T) : Loadable<T>
 }
 
+/**
+ * @return The value in this [Loadable] if is [Loadable.Loaded],
+ * otherwise `null`.
+ */
 @OptIn(ExperimentalContracts::class)
-fun <T> Loadable<T>.get(): T? {
+fun <T> Loadable<T>.getOrNull(): T? {
     contract {
-        returnsNotNull() implies (this@get is Loaded<T>)
-        returns(null) implies (this@get is Loading)
+        returnsNotNull() implies (this@getOrNull is Loaded<T>)
+        returns(null) implies (this@getOrNull is Loading)
     }
 
     return when (this) {
