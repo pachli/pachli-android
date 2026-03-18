@@ -16,4 +16,8 @@
     <string name="fragment_confirm_download_language_dialog_title_fmt">Vai lejupielādēt %1$s, izmantojot mobilos datus?</string>
     <string name="fragment_confirm_download_language_dialog_msg">Tas parasti patērē 30–60MB mobilo datu.</string>
     <string name="fragment_confirm_delete_language_dialog_title_fmt">Vai tiešām vēlaties dzēst %1$s?</string>
+    <string name="fragment_confirm_delete_language_dialog_msg">Ja izdzēsīsiet šo valodu, tā tiks lejupielādēta nākamreiz, kad tā būs nepieciešama.</string>
+    <string name="fragment_google_disclaimer_dialog_title">Tulkojuma atruna</string>
+    <string name="action_translate_mlkit">Tulkot, izmantojot Google</string>
+    <string name="label_translated_mlkit">Tulkoja Google</string>
 </resources>
