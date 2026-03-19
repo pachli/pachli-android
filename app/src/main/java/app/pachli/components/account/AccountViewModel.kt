@@ -38,6 +38,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
@@ -103,21 +104,21 @@ class AccountViewModel @AssistedInject constructor(
             accountRepository.getAccount(accountId)
                 .onSuccess { account ->
                     domain = getDomain(account.url)
-                    isRefreshing.postValue(false)
                     isFromOwnDomain = domain == pachliAccount.entity.domain
                     val isSelf = pachliAccount.entity.accountId == accountId
                     if (!isSelf) obtainRelationship(accountId)
                 }
                 .onFailure {
                     Timber.w("failed obtaining account: %s", it)
-                    isRefreshing.postValue(false)
                 }
                 .map { Loadable.Loaded(it) }
         }
 
-        // ... and merge them together. Practically, the first emission will be the data
-        // from the API, subsequent emissions will be from profileUpdates
-        merge(profileUpdates, remoteAccount).flowWhileShared(SharingStarted.WhileSubscribed(5000))
+        // ... and merge them together. Include the `reload` flow, to ensure the
+        // content transitions to a `Loadable.Loading` state before each load.
+        // Practically, the first emission will be the data from the API, subsequent
+        // emissions will be from profileUpdates
+        merge(reload.map { Ok(Loadable.Loading) }, profileUpdates, remoteAccount).flowWhileShared(SharingStarted.WhileSubscribed(5000))
     }
 
     /** True if the laoded account in [accountData] is the user's account. */
