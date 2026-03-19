@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Pachli Association
+ * Copyright (c) 2024 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -17,8 +17,10 @@
 
 package app.pachli.core.data.di
 
+import app.pachli.core.data.repository.AccountRepository
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.ListsRepository
+import app.pachli.core.data.repository.NetworkAccountRepository
 import app.pachli.core.data.repository.NetworkSuggestionsRepository
 import app.pachli.core.data.repository.OfflineFirstContentFiltersRepository
 import app.pachli.core.data.repository.OfflineFirstListRepository
@@ -31,6 +33,11 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 @Module
 abstract class DataModule {
+    @Binds
+    internal abstract fun bindsAccountRepository(
+        accountRepository: NetworkAccountRepository,
+    ): AccountRepository
+
     @Binds
     internal abstract fun bindsContentFiltersRepository(
         contentFiltersRepository: OfflineFirstContentFiltersRepository,
