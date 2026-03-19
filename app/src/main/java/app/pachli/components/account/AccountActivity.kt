@@ -475,10 +475,14 @@ class AccountActivity :
                 launch {
                     viewModel.accountData.collect { result ->
                         result.onSuccess { loadable ->
-                            loadable.getOrNull()?.let { onAccountChanged(it) }
+                            loadable.getOrNull()?.let {
+                                binding.swipeRefreshLayout.isRefreshing = false
+                                onAccountChanged(it)
+                            }
                         }
 
                         result.onFailure {
+                            binding.swipeRefreshLayout.isRefreshing = false
                             Snackbar.make(binding.accountCoordinatorLayout, it.fmt(this@AccountActivity), Snackbar.LENGTH_LONG)
                                 .setAction(app.pachli.core.ui.R.string.action_retry) { viewModel.refresh() }
                                 .show()
@@ -529,11 +533,6 @@ class AccountActivity :
      */
     private fun setupRefreshLayout() {
         binding.swipeRefreshLayout.setOnRefreshListener { onRefresh() }
-        viewModel.isRefreshing.observe(
-            this,
-        ) { isRefreshing ->
-            binding.swipeRefreshLayout.isRefreshing = isRefreshing == true
-        }
         binding.swipeRefreshLayout.setColorSchemeColors(MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimary))
     }
 
