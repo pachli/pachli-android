@@ -23,7 +23,7 @@ import app.pachli.core.common.PachliError
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.data.repository.get
+import app.pachli.core.data.repository.getOrNull
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.Relationship
 import app.pachli.core.model.Status
@@ -218,7 +218,7 @@ class ReportViewModel @AssistedInject constructor(
     }
 
     fun toggleMute() {
-        val alreadyMuted = muting.value.get()?.get() == true
+        val alreadyMuted = muting.value.get()?.getOrNull() == true
 
         val pachliAccountId = pachliAccountId.replayCache.lastOrNull() ?: return
 
@@ -235,7 +235,7 @@ class ReportViewModel @AssistedInject constructor(
     }
 
     fun toggleBlock() {
-        val alreadyBlocked = blocking.value.get()?.get() == true
+        val alreadyBlocked = blocking.value.get()?.getOrNull() == true
 
         val pachliAccountId = pachliAccountId.replayCache.lastOrNull() ?: return
 

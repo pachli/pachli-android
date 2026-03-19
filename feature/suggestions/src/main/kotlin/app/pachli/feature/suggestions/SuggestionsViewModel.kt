@@ -22,6 +22,7 @@ import androidx.lifecycle.viewModelScope
 import app.pachli.core.common.extensions.mapIfInstance
 import app.pachli.core.common.extensions.stateFlow
 import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.SuggestionsError.DeleteSuggestionError
 import app.pachli.core.data.repository.SuggestionsError.FollowAccountError
@@ -85,13 +86,7 @@ internal data class SuggestionViewData(
 )
 
 /** States for the list of suggestions. */
-internal sealed interface Suggestions {
-    /** Suggestions are being loaded. */
-    data object Loading : Suggestions
-
-    /** Loaded suggestions, in [suggestions] */
-    data class Loaded(val suggestions: List<SuggestionViewData>) : Suggestions
-}
+internal typealias Suggestions = Loadable<List<SuggestionViewData>>
 
 /** Public interface for [SuggestionsViewModel]. */
 internal interface ISuggestionsViewModel {
@@ -139,13 +134,13 @@ internal class SuggestionsViewModel @Inject constructor(
 
     private var disabledSuggestions = MutableStateFlow<Set<String>>(setOf()) // mutableSetOf<String>()
 
-    private var _suggestions = MutableStateFlow<Result<Suggestions, GetSuggestionsError>>(Ok(Suggestions.Loading))
-    override val suggestions = stateFlow(viewModelScope, Ok(Suggestions.Loading)) {
+    private var _suggestions = MutableStateFlow<Result<Suggestions, GetSuggestionsError>>(Ok(Loadable.Loading))
+    override val suggestions = stateFlow(viewModelScope, Ok(Loadable.Loading)) {
         disabledSuggestions.combine(_suggestions) { disabled, suggestions ->
             // Mark any disabled suggestions.
-            suggestions.mapIfInstance<_, _, Suggestions.Loaded> {
+            suggestions.mapIfInstance<_, _, Loadable.Loaded<List<SuggestionViewData>>> {
                 it.copy(
-                    suggestions = it.suggestions.map {
+                    data = it.data.map {
                         it.copy(isEnabled = !disabled.contains(it.suggestion.account.id))
                     },
                 )
@@ -167,7 +162,7 @@ internal class SuggestionsViewModel @Inject constructor(
 
         viewModelScope.launch {
             reload.collect {
-                _suggestions.emit(Ok(Suggestions.Loading))
+                _suggestions.emit(Ok(Loadable.Loading))
                 _suggestions.emit(getSuggestions())
             }
         }
@@ -197,9 +192,9 @@ internal class SuggestionsViewModel @Inject constructor(
             {
                 // Remove this suggestion from the list.
                 _suggestions.update { suggestions ->
-                    suggestions.mapIfInstance<_, _, Suggestions.Loaded> {
+                    suggestions.mapIfInstance<_, _, Loadable.Loaded<List<SuggestionViewData>>> {
                         it.copy(
-                            suggestions = it.suggestions.filterNot {
+                            data = it.data.filterNot {
                                 it.suggestion.account.id == suggestionAction.suggestion.account.id
                             },
                         )
@@ -216,14 +211,14 @@ internal class SuggestionsViewModel @Inject constructor(
     }
 
     /** Get fresh suggestions from the repository. */
-    private suspend fun getSuggestions(): Result<Suggestions.Loaded, GetSuggestionsError> = operationCounter {
+    private suspend fun getSuggestions(): Result<Loadable.Loaded<List<SuggestionViewData>>, GetSuggestionsError> = operationCounter {
         // Note: disabledSuggestions is *not* cleared here. Suppose the user has
         // dismissed a suggestion and the network operation has not completed yet.
         // They reload, and get a list of suggestions that includes the suggestion
         // they have just dismissed. In that case the suggestion should still be
         // disabled.
         suggestionsRepository.getSuggestions().mapEither(
-            { Suggestions.Loaded(it.map { SuggestionViewData(suggestion = it) }) },
+            { Loadable.Loaded(it.map { SuggestionViewData(suggestion = it) }) },
             { GetSuggestionsError(it) },
         )
     }

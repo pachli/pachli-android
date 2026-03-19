@@ -44,6 +44,7 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
+import app.pachli.core.data.repository.getOrNull
 import app.pachli.core.model.SuggestionSources
 import app.pachli.core.model.SuggestionSources.FEATURED
 import app.pachli.core.model.SuggestionSources.FRIENDS_OF_FRIENDS
@@ -229,17 +230,14 @@ class SuggestionsFragment :
         }
 
         result.onSuccess {
-            when (it) {
-                Suggestions.Loading -> { /* nothing to do */ }
-                is Suggestions.Loaded -> {
-                    if (it.suggestions.isEmpty()) {
-                        binding.messageView.show()
-                        binding.messageView.setup(BackgroundMessage.Empty())
-                    } else {
-                        suggestionsAdapter.submitList(it.suggestions)
-                        binding.messageView.hide()
-                        binding.recyclerView.show()
-                    }
+            it.getOrNull()?.let { suggestions ->
+                if (suggestions.isEmpty()) {
+                    binding.messageView.show()
+                    binding.messageView.setup(BackgroundMessage.Empty())
+                } else {
+                    suggestionsAdapter.submitList(suggestions)
+                    binding.messageView.hide()
+                    binding.recyclerView.show()
                 }
             }
         }
