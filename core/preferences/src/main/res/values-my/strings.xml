@@ -11,4 +11,7 @@
     <string name="pref_update_notification_frequency_never">Never</string>
     <string name="pref_update_notification_frequency_always">အမြဲတမ်း</string>
     <string name="pref_default_audio_playback_option_unmuted">မကန့်သတ်တော့</string>
+    <string name="app_theme_black">နောက်သို့</string>
+    <string name="pref_default_audio_playback_option_muted">ကန့်သတ်မည်</string>
+    <string name="pref_summary_quote_policy_disabled">သင့်ဆာဗာသည် အကြောင်းအရာစစ်ထုတ်မှုကိုမထောက်ပံ့ပါ</string>
 </resources>
