@@ -15,4 +15,6 @@
     <string name="pref_update_notification_frequency_always">সবসময়</string>
     <string name="pref_default_audio_playback_option_unmuted">সশব্দ</string>
     <string name="pref_title_translation">অনুবাদ</string>
+    <string name="pref_tab_contents_text_only">পরীক্ষামূলক</string>
+    <string name="pref_default_audio_playback_option_muted">শব্দ বন্ধ</string>
 </resources>
