@@ -38,4 +38,5 @@
     <string name="pref_default_audio_playback_option_muted">Forstummet</string>
     <string name="pref_title_translation">Oversettelse</string>
     <string name="pref_pronoun_display_everywhere">Overalt</string>
+    <string name="pref_summary_quote_policy_disabled">Serveren din støtter ikke filtere</string>
 </resources>
