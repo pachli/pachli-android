@@ -41,4 +41,5 @@
     <string name="pref_title_translation">மொழிபெயர்ப்பு</string>
     <string name="pref_pronoun_display_everywhere">எல்லா இடங்களிலும்</string>
     <string name="pref_quote_policy_followers">உங்களைப் பின்தொடர்பவர்களில் ஒருவர்</string>
+    <string name="pref_summary_quote_policy_disabled">உங்கள் சேவையகம் உள்ளடக்க வடிப்பான்களை ஆதரிக்காது</string>
 </resources>
