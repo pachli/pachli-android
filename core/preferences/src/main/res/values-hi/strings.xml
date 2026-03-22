@@ -34,4 +34,6 @@
     <string name="pref_default_audio_playback_option_unmuted">अनम्यूट</string>
     <string name="pref_default_audio_playback_option_muted">मौन</string>
     <string name="pref_title_translation">अनुवाद</string>
+    <string name="pref_title_export_settings">निर्यात सेटिंग्स</string>
+    <string name="pref_title_import_settings">सेटिंग्स आयात करें</string>
 </resources>
