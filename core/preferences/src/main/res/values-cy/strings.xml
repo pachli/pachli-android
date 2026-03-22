@@ -17,4 +17,6 @@
     <string name="pref_update_notification_frequency_always">Bob tro</string>
     <string name="pref_default_audio_playback_option_unmuted">Dad-dewi</string>
     <string name="pref_title_translation">Cyfieithiad</string>
+    <string name="pref_title_downloads">Detholiad Llwytho i Lawr</string>
+    <string name="pref_default_audio_playback_option_muted">Tewi</string>
 </resources>
