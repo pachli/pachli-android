@@ -20,4 +20,5 @@
     <string name="pref_default_audio_playback_option_muted">Utišan</string>
     <string name="pref_title_translation">Prevod</string>
     <string name="pref_pronoun_display_everywhere">Povsod</string>
+    <string name="download_location_downloads">Mapa za prenose: %1</string>
 </resources>
