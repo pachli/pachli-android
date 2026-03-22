@@ -23,4 +23,5 @@
     <string name="pref_default_audio_playback_option_muted">Изключен микрофон</string>
     <string name="pref_title_translation">Превод</string>
     <string name="pref_pronoun_display_everywhere">Навсякъде</string>
+    <string name="tab_tap_behaviour_jump_to_next_page">Отиване на следващата песен</string>
 </resources>
