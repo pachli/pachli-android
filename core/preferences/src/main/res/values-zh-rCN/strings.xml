@@ -41,4 +41,5 @@
     <string name="pref_title_translation">翻译</string>
     <string name="pref_pronoun_display_everywhere">到处</string>
     <string name="pref_quote_policy_followers">你的其中的一个关注者</string>
+    <string name="pref_summary_quote_policy_disabled">您的服务器不支持内容过滤器</string>
 </resources>
