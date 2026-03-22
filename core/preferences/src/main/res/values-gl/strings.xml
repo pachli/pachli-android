@@ -25,4 +25,6 @@
     <string name="pref_default_audio_playback_option_unmuted">Desacalar</string>
     <string name="pref_default_audio_playback_option_muted">Silenciado</string>
     <string name="pref_title_translation">Tradución</string>
+    <string name="tab_tap_behaviour_jump_to_next_page">Ir á páxina seguinte</string>
+    <string name="pref_summary_quote_policy_disabled">O servidor non é compatible cos filtros</string>
 </resources>
