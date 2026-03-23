@@ -146,7 +146,6 @@
         <item quantity="other">avec les rôles :</item>
     </plurals>
     <string name="handle_contentdescription_fmt">Gérer, @%1$s</string>
-    <string name="account_contentdescription_fmt">%1$s, %2$s ; %3$s</string>
     <string name="action_quote">Citer</string>
     <string name="action_request_quote">Demander à citer</string>
     <string name="label_author_denied_quote">Citation interdite par la personne</string>

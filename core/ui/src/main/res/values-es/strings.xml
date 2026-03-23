@@ -115,7 +115,6 @@
     <string name="dot_in_name">punto</string>
     <string name="role_content_description_fmt">%1$s, en %2$s</string>
     <string name="handle_contentdescription_fmt">Identificador, @%1$s</string>
-    <string name="account_contentdescription_fmt">%1$s, %2$s; %3$s</string>
     <string name="post_content_warning_show_less">Mostrar menos</string>
     <string name="post_content_warning_show_more">Mostrar más</string>
     <string name="post_content_show_less">Ocultar</string>
