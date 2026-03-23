@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_network">네트워크 오류가 발생했습니다! 인터넷 연결을 확인하고 다시 시도하십시오!</string>
     <string name="error_generic">오류가 발생했습니다.</string>
