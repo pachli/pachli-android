@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_network">Bir ağ hatası oluştu. Lütfen bağlantını kontrol et ve tekrar dene.</string>
     <string name="error_generic">Bir hata oluştu.</string>
