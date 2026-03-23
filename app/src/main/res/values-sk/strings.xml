@@ -48,7 +48,7 @@
     <string name="error_media_upload_type">Tento typ súboru nemôže byť nahraný.</string>
     <string name="error_sender_account_gone">Chyba pri odosielaní príspevku.</string>
     <string name="title_view_thread">Vlákno</string>
-    <string name="notification_favourite_format"><b>%1$s</b> si obľúbil/a tvoj príspevok</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; si obľúbil/a tvoj príspevok</string>
     <string name="action_send">TOOT</string>
     <string name="action_send_public">TOOT!</string>
     <string name="action_toggle_visibility">Viditeľnosť príspevku</string>
@@ -145,7 +145,7 @@
     <string name="title_edit_profile">Upraviť tvoj profil</string>
     <string name="title_announcements">Oznámenia</string>
     <string name="title_followed_hashtags">Sledované hastagy</string>
-    <string name="notification_reblog_format"><b>%1$s</b> zdieľal/a tvoj príspevok</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; zdieľal/a tvoj príspevok</string>
     <string name="notification_follow_format">%s ťa sleduje</string>
     <string name="notification_follow_request_format">%s ťa požiadal o sledovanie</string>
     <string name="notification_severed_relationships_format">Vzťah s &lt;b&gt;%1$s&lt;/b&gt; bol prerušený</string>
@@ -270,8 +270,8 @@
     <string name="dialog_follow_hashtag_title">Sledovať hashtag</string>
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
     <string name="notification_sign_up_format">%s sa zaregistroval/a</string>
-    <string name="notification_subscription_format"><b>%1$s</b> práve uverejnil/a príspevok</string>
-    <string name="notification_update_format"><b>%1$s</b> upravil/a svoj príspevok</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; práve uverejnil/a príspevok</string>
+    <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; upravil/a svoj príspevok</string>
     <string name="pref_title_notification_filter_mentions">Zmienky</string>
     <string name="pref_title_notification_filter_reblogs">Moje príspevky sú zdieľané</string>
     <string name="pref_title_notification_filter_poll">Ankety skončili</string>
@@ -387,7 +387,7 @@
     <string name="notification_update_name">Úpravy príspevkov</string>
     <string name="notification_report_name">Hlásenia</string>
     <string name="notification_unknown_name">Neznáme</string>
-    <string name="notification_mention_format"><b>%1$s</b> ťa zmienil/a</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; ťa zmienil/a</string>
     <string name="notification_summary_medium">%1$s, %2$s a %3$s</string>
     <string name="filter_dialog_whole_word">Celé slovo</string>
     <string name="add_account_description">Pridať nový účet Mastodon</string>
@@ -710,7 +710,7 @@
     <string name="notification_severed_relationships_domain_block_fmt">Správca %1$s zablokoval doménu &lt;b&gt;%2$s&lt;/b&gt;</string>
     <string name="notification_severed_relationships_account_suspension_fmt">Správca %1$s zablokoval účet &lt;b&gt;%2$s&lt;/b&gt;</string>
     <string name="manage_accounts_name">Spravovať účty</string>
-    <string name="notification_severed_relationships_user_domain_block_fmt">Zablokoval/a si <b>%1$s</b></string>
+    <string name="notification_severed_relationships_user_domain_block_fmt">Zablokoval/a si &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="notification_severed_relationships_unknown_fmt">&lt;b&gt;%1$s&lt;/b&gt; je zablokovaný (neznámy dôvod)</string>
     <string name="pref_default_audio_playback">Predvolené prehrávanie zvuku</string>
     <string name="notification_moderation_warning_title">Správa od tvojich moderátorov</string>
@@ -736,8 +736,8 @@
     <string name="action_move_up">Posunúť vyššie</string>
     <string name="action_move_down">Posunúť nižšie</string>
     <string name="title_quotes">Citovania</string>
-    <string name="notification_quote_format"><b>%1$s</b> citoval/a tvoj príspevok</string>
-    <string name="notification_quoted_update_format"><b>%1$s</b> aktualizoval/a tebou citovaný príspevok</string>
+    <string name="notification_quote_format">&lt;b&gt;%1$s&lt;/b&gt; citoval/a tvoj príspevok</string>
+    <string name="notification_quoted_update_format">&lt;b&gt;%1$s&lt;/b&gt; aktualizoval/a tebou citovaný príspevok</string>
     <string name="action_toggle_quote_policy">Zmeniť pravidlá citovania</string>
     <string name="pref_title_notification_filter_quote">Moje príspevky boli citované</string>
     <string name="pref_title_notification_filter_quoted_update">Citovaný príspevok bol upravený</string>
