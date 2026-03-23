@@ -67,9 +67,7 @@ private typealias TranslationModelDownloadState = Result<Loadable<ModelStats>?, 
  *
  * @property sizeOnDisk The size of the model's files on disk (bytes).
  */
-data class ModelStats(
-    val sizeOnDisk: Long,
-) {
+data class ModelStats(val sizeOnDisk: Long) {
     companion object {
         /**
          * @return A [ModelStats] initialised for [languageTags] with translation
@@ -82,9 +80,9 @@ data class ModelStats(
             //
             // See the comment at the calling location for why multiple language tags
             // are passed in.
-            val sizeOnDisk = languageTags.filterNotNull().distinct().map { listOf(root / "${it}_en", root / "en_$it") }.flatten().sumOf { path ->
-                path.walk().map { it.fileSize() }.sum()
-            }
+            val sizeOnDisk = languageTags.filterNotNull().distinct()
+                .flatMap { listOf(root / "${it}_en", root / "en_$it") }
+                .sumOf { path -> path.walk().sumOf { it.fileSize() } }
 
             return@withContext ModelStats(
                 sizeOnDisk = sizeOnDisk,
