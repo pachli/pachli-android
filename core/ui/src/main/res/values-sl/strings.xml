@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_network">Prišlo je do omrežne napake! Preverite povezavo in poskusite znova!</string>
     <string name="error_generic">Pojavila se je napaka.</string>
