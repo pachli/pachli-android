@@ -149,7 +149,7 @@ class TranslationModelManagerViewModel @Inject constructor(
      * Flow containing a sorted list (see [compare]) of [TranslationModelViewData] suitable
      * for display.
      */
-    val flowViewData = states.onSubscription {
+    val translationModelViewData = states.onSubscription {
         val models = TranslateLanguage.getAllLanguages().map {
             TranslateRemoteModel.Builder(it).build()
         }
@@ -193,7 +193,7 @@ class TranslationModelManagerViewModel @Inject constructor(
     }.shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 1)
 
     /**
-     * Downloads [language], with updates appearing in [flowViewData].
+     * Downloads [language], with updates appearing in [translationModelViewData].
      *
      * Always downloads, irrespective of the network type. It is the caller's responsibility
      * to check.
@@ -206,7 +206,7 @@ class TranslationModelManagerViewModel @Inject constructor(
     }
 
     /**
-     * Downloads [model], with updates appearing in [flowViewData].
+     * Downloads [model], with updates appearing in [translationModelViewData].
      */
     private fun downloadModel(model: TranslateRemoteModel) {
         viewModelScope.launch {
@@ -227,7 +227,7 @@ class TranslationModelManagerViewModel @Inject constructor(
     }
 
     /**
-     * Deletes [language], with updates appearing in [flowViewData].
+     * Deletes [language], with updates appearing in [translationModelViewData].
      *
      * @param language Language code to download.
      */
@@ -237,7 +237,7 @@ class TranslationModelManagerViewModel @Inject constructor(
     }
 
     /**
-     * Deletes [model], with updates appearing in [flowViewData].
+     * Deletes [model], with updates appearing in [translationModelViewData].
      */
     private fun deleteModel(model: TranslateRemoteModel) {
         viewModelScope.launch {
