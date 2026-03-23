@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_network">Възникна грешка в мрежата! Моля, проверете връзката си и опитайте отново!</string>
     <string name="error_generic">Възникна грешка.</string>
