@@ -18,11 +18,14 @@
 package app.pachli.translation
 
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.core.common.PachliError
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.network.R
+import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.util.getLocaleList
 import app.pachli.util.modernLanguageCode
 import com.github.michaelbull.result.Err
@@ -118,6 +121,8 @@ data class MlKitError(val throwable: Throwable) : PachliError {
 @HiltViewModel
 class TranslationModelManagerViewModel @Inject constructor(
     @ApplicationContext context: Context,
+    private val connectivityManager: ConnectivityManager,
+    private val sharedPreferencesRepository: SharedPreferencesRepository,
 ) : ViewModel() {
     private val remoteModelManager = RemoteModelManager.getInstance()
 
@@ -189,6 +194,20 @@ class TranslationModelManagerViewModel @Inject constructor(
             }
         }.sortedWith(compare)
     }.shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 1)
+
+    /**
+     * @return True if languages can be downloaded based on the user's download
+     * preference and current connectivity.
+     */
+    fun canDownloadNow(): Boolean {
+        if (!sharedPreferencesRepository.translationDownloadRequireWiFi) return true
+
+        connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)?.let { capabilities ->
+            return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+        }
+
+        return false
+    }
 
     /**
      * Downloads [language], with updates appearing in [translationModelViewData].

@@ -18,12 +18,9 @@
 package app.pachli.translation
 
 import android.app.Dialog
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.getSystemService
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -35,14 +32,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.R
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.data.repository.Loadable
-import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentModelManagerBinding
 import app.pachli.translation.ConfirmDeleteLanguageDialogFragment.Companion.newInstance
 import app.pachli.translation.ConfirmDownloadLanguageDialogFragment.Companion.newInstance
 import com.github.michaelbull.result.get
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -55,14 +50,9 @@ import kotlinx.coroutines.launch
  */
 @AndroidEntryPoint
 class TranslationModelManagerFragment : Fragment(R.layout.fragment_model_manager) {
-    @Inject
-    lateinit var sharedPreferencesRepository: SharedPreferencesRepository
-
     private val viewModel: TranslationModelManagerViewModel by activityViewModels()
 
     private val binding by viewBinding(FragmentModelManagerBinding::bind)
-
-    private val connectivityManager by lazy { requireContext().getSystemService<ConnectivityManager>()!! }
 
     /** Adapter for a list of translation models already downloaded. */
     private val downloadedModelAdapter by lazy {
@@ -132,16 +122,9 @@ class TranslationModelManagerFragment : Fragment(R.layout.fragment_model_manager
      * the download can proceed with mobile data.
      */
     private fun confirmDownloadLanguage(viewData: TranslationModelViewData) {
-        if (!sharedPreferencesRepository.translationDownloadRequireWiFi) {
+        if (viewModel.canDownloadNow()) {
             viewModel.downloadLanguage(viewData.remoteModel.language)
             return
-        }
-
-        connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)?.let { capabilities ->
-            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                viewModel.downloadLanguage(viewData.remoteModel.language)
-                return
-            }
         }
 
         val dialog = ConfirmDownloadLanguageDialogFragment.newInstance(

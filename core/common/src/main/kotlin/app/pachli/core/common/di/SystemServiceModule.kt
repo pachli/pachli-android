@@ -20,6 +20,7 @@ package app.pachli.core.common.di
 import android.app.Application
 import android.app.usage.UsageStatsManager
 import android.content.Context
+import android.net.ConnectivityManager
 import android.os.PowerManager
 import dagger.Module
 import dagger.Provides
@@ -37,4 +38,8 @@ object SystemServiceModule {
     @Provides
     @Singleton
     fun providesUsageStatsManager(application: Application) = application.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
+
+    @Provides
+    @Singleton
+    fun providesConnectivityManager(application: Application) = application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 }
