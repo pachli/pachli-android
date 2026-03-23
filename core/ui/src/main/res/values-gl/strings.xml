@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_network">Houbo un fallo na rede. Comproba a conexión e inténtao outra vez.</string>
     <string name="error_generic">Algo fallou.</string>
