@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_network">Ocorreu um erro de conetividade! Por favor, verifique a sua ligação e tente novamente!</string>
     <string name="error_generic">Ocorreu um erro.</string>
