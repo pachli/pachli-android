@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_network">Rớt mạng! Xin kiểm tra kết nối và thử lại!</string>
     <string name="error_generic">Đã có lỗi xảy ra.</string>
