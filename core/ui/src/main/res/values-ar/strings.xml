@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_network">حدث خطأ في الشبكة! يرجى التحقق من اتصالك ثم أعد المحاولة!</string>
     <string name="error_generic">وقع هناك خطأ.</string>
@@ -107,7 +107,7 @@
     <string name="translating">الترجمة جارية…</string>
     <string name="translation_provider_fmt">%1$s</string>
     <string name="description_post_edited">تم تعديله</string>
-    <string name="description_post_reblogged">أعاد تدوينه    </string>
+    <string name="description_post_reblogged">أعاد تدوينه</string>
     <string name="description_post_favourited">تم تفضيله</string>
     <string name="description_post_bookmarked">أضيف إلى الفواصل المرجعية</string>
     <string name="description_post_media">الوسائط: %s    </string>
