@@ -31,7 +31,7 @@
     <string name="post_sensitive_media_directions">Zum Anzeigen tippen</string>
     <string name="footer_empty">Noch keine Beiträge. Ziehe zum Aktualisieren nach unten!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; teilte deinen Beitrag</string>
-    <string name="notification_favourite_format"><b>%1$s</b> favorisierte deinen Beitrag</string>
+    <string name="notification_favourite_format">&lt;b>%1$s&lt;/b> favorisierte deinen Beitrag</string>
     <string name="notification_follow_format">%s folgt dir</string>
     <string name="report_username_format">\@%s melden</string>
     <string name="report_comment_hint">Zusätzliche Anmerkungen\?</string>

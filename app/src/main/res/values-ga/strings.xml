@@ -312,7 +312,7 @@
     <string name="account_note_hint">Do nóta príobháideach faoin cuntas seo</string>
     <string name="account_date_joined">Anseo ó %1$s</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; díreach tar éis postáil</string>
-    <string name="notification_update_format"><b>%1$s</b> chuir a bpost in eagar</string>
+    <string name="notification_update_format">&lt;b>%1$s&lt;/b> chuir a bpost in eagar</string>
     <string name="notification_sign_up_format">Chláraigh %s</string>
     <string name="action_unbookmark">Bain leabharmharc</string>
     <string name="action_delete_conversation">Scrios comhrá</string>
@@ -757,8 +757,8 @@
     <string name="filter_description_blur">Taispeáin ábhar, folaigh ceangaltáin le rabhadh</string>
     <string name="action_move_up">Bog suas</string>
     <string name="action_move_down">Bog síos</string>
-    <string name="notification_quote_format"><b>%1$s</b> luaigh tú do phost</string>
-    <string name="notification_quoted_update_format">Nuashonraigh <b>%1$s</b> an post a luaigh tú</string>
+    <string name="notification_quote_format">&lt;b>%1$s&lt;/b> luaigh tú do phost</string>
+    <string name="notification_quoted_update_format">Nuashonraigh &lt;b>%1$s&lt;/b> an post a luaigh tú</string>
     <string name="pref_title_notification_filter_quote">Tá mo phoist luaite</string>
     <string name="pref_title_notification_filter_quoted_update">Tá post a luaigh mé curtha in eagar</string>
     <string name="notification_quote_name">Luaigh duine éigin thú</string>
