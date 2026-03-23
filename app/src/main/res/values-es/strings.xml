@@ -43,7 +43,7 @@
     <string name="action_unblock">Desbloquear</string>
     <string name="action_hide_reblogs">Ocultar impulsos</string>
     <string name="action_show_reblogs">Mostrar impulsos</string>
-    <string name="action_report">Reportar</string>
+    <string name="action_report">Denunciar</string>
     <string name="action_delete">Eliminar</string>
     <string name="action_send">PUBLICAR</string>
     <string name="action_send_public">¡PUBLICAR!</string>
@@ -252,13 +252,13 @@
     <string name="filter_dialog_whole_word">Toda palabra</string>
     <string name="filter_dialog_whole_word_description">Cuando la palabra o frase sea solo alfanumérica, solo se aplicará si coincide con toda la palabra</string>
     <string name="button_back">Atrás</string>
-    <string name="report_sent_success">\@%s reportado satisfactoriamente</string>
+    <string name="report_sent_success">\@%s denunciado con éxito</string>
     <string name="hint_additional_info">Comentarios adicionales</string>
     <string name="report_remote_instance">Reenviar a %s</string>
-    <string name="failed_report">Fallo al reportar</string>
+    <string name="failed_report">Fallo al denunciar</string>
     <string name="failed_fetch_posts">Fallo al obtener publicaciones</string>
-    <string name="report_description_1">El reporte será enviado a un moderador de tu servidor. Puedes añadir una explicación de por qué estás reportando esta cuenta a continuación:</string>
-    <string name="report_description_remote_instance">La cuenta es de otro servidor. ¿Enviar una copia anónima del reporte\?</string>
+    <string name="report_description_1">La denuncia será enviada a un moderador de tu servidor. Puedes añadir una explicación de por qué estás denunciando esta cuenta a continuación:</string>
+    <string name="report_description_remote_instance">La cuenta es de otro servidor. ¿Enviar también una copia anónima de la denuncia?</string>
     <string name="pref_title_alway_open_spoiler">Mostrar siempre publicaciones marcadas con avisos de contenido</string>
     <string name="title_accounts">Cuentas</string>
     <string name="failed_search">Error al buscar</string>
@@ -310,7 +310,7 @@
     <string name="account_note_hint">Tu nota privada acerca de esta cuenta</string>
     <string name="no_announcements">No hay anuncios.</string>
     <string name="title_announcements">Anuncios</string>
-    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; recién publicado</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; acaba de publicar</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">No puedes cargar más de %1$d archivo multimedia adjunto.</item>
         <item quantity="many">No puedes cargar más de %1$d archivos multimedia adjuntos.</item>
