@@ -337,7 +337,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
 
         // Initialise the tab adapter and set to viewpager. Fragments appear to be leaked if the
         // adapter changes over the life of the viewPager (the adapter, not its contents), so set
-        // the initial list of tabs to empty, and set the full list later in setupTabs(). See
+        // the initial list of tabs to empty, and set the full list later in bindTabs(). See
         // https://github.com/tuskyapp/Tusky/issues/3251 for details.
         tabAdapter = MainPagerAdapter(emptyList(), this)
         binding.viewPager.adapter = tabAdapter
