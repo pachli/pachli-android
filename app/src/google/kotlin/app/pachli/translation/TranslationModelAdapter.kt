@@ -52,7 +52,7 @@ internal class TranslationModelAdapter(
     private val onDelete: (TranslationModelViewData) -> Unit,
     private val onDownload: (TranslationModelViewData) -> Unit,
 ) : ListAdapter<TranslationModelViewData, TranslationModelViewHolder>(RemoteModelViewDataDiffer) {
-    override fun getItemViewType(position: Int) = when (currentList[position].state.get()) {
+    override fun getItemViewType(position: Int) = when (currentList[position].translationModelDownloadState.get()) {
         is Loadable.Loaded<*> -> R.layout.item_remote_model_downloaded
         else -> R.layout.item_remote_model
     }
@@ -132,7 +132,7 @@ internal class DownloadedTranslationModelViewHolder(
         )
         binding.actionButton.setImageResource(app.pachli.core.ui.R.drawable.outline_delete_24)
 
-        (viewData.state.get() as? Loadable.Loaded<ModelStats>)?.let { state ->
+        (viewData.translationModelDownloadState.get() as? Loadable.Loaded<ModelStats>)?.let { state ->
             if (state.data.sizeOnDisk == 0L) {
                 binding.text2.hide()
             } else {
@@ -173,7 +173,7 @@ internal class DownloadableTranslationModelViewHolder(
 
         binding.text1.text = displayLanguage
 
-        val state = viewData.state.get()
+        val state = viewData.translationModelDownloadState.get()
         binding.progress.isVisible = state is Loadable.Loading
         binding.actionButton.isVisible = !binding.progress.isVisible
 
@@ -193,7 +193,7 @@ internal class DownloadableTranslationModelViewHolder(
             }
         }
 
-        val error = viewData.state.getError()
+        val error = viewData.translationModelDownloadState.getError()
         error?.let { binding.errorMsg.text = error.fmt(binding.errorMsg.context) }
         binding.errorMsg.isVisible = error != null
     }
@@ -224,7 +224,7 @@ internal class RemoteModelAccessibilityDelegate(
             viewHolder.viewData?.let { viewData ->
                 if (viewData.remoteModel.language == "en") return
 
-                viewData.state.onSuccess {
+                viewData.translationModelDownloadState.onSuccess {
                     when (it) {
                         null -> info.addAction(
                             AccessibilityNodeInfoCompat.AccessibilityActionCompat(
