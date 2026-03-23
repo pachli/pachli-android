@@ -154,10 +154,10 @@
     <string name="action_request_quote">Požiadať o povolenie citovať</string>
     <string name="label_author_denied_quote">Citovanie bolo autorom zakázané</string>
     <plurals name="quotes">
-        <item quantity="one"><b>%1$s</b> Citovanie</item>
-        <item quantity="few"><b>%1$s</b> Citovania</item>
-        <item quantity="many"><b>%1$s</b> Citovaní</item>
-        <item quantity="other"><b>%1$s</b> Citovaní</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Citovanie</item>
+        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; Citovania</item>
+        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; Citovaní</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Citovaní</item>
     </plurals>
     <string name="detach_quote">Odstrániť citát</string>
     <string name="label_quote_state_unknown">Citovaný príspevok nie je možné zobraziť</string>
