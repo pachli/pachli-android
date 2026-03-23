@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_network">Ocorreu um erro de rede. Por favor, verifique tua Internet e tente novamente.</string>
     <string name="error_generic">Um erro ocorreu.</string>
