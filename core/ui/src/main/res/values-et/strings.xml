@@ -114,7 +114,7 @@
     <string name="translating">Sisu on tõlkimisel…</string>
     <string name="translation_provider_fmt">%1$s</string>
     <string name="description_post_edited">Muudetud</string>
-    <string name="description_post_reblogged">Korduspostitus</string>
+    <string name="description_post_reblogged">Hoogu lisatud</string>
     <string name="description_post_favourited">Lemmikuks märgitud</string>
     <string name="description_post_bookmarked">Lisatud järjehoidjaks</string>
     <string name="description_post_media">Meedia: %s</string>
@@ -142,8 +142,8 @@
     <string name="label_quoted_status_hidden">Postituse tsitaat, mis on mõne sinu filtri poolt peidetud</string>
     <string name="detach_quote">Eemalda tsitaat</string>
     <plurals name="quotes">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; tsitaat</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; tsitaati</item>
+        <item quantity="one"><b>%1$s</b> tsitaat</item>
+        <item quantity="other"><b>%1$s</b> tsitaati</item>
     </plurals>
     <string name="action_quote">Tsiteeri</string>
     <string name="action_request_quote">Küsi võimalust tsiteerida</string>
