@@ -89,8 +89,7 @@
     <string name="translating">Översätter…</string>
     <string name="translation_provider_fmt">%1$s</string>
     <string name="description_post_edited">Redigerade</string>
-    <string name="description_post_reblogged">        Knuffad
-    </string>
+    <string name="description_post_reblogged">Knuffad</string>
     <string name="description_post_favourited">Favoritmarkerat</string>
     <string name="description_post_bookmarked">Bokmärkt</string>
     <string name="description_post_media">Media: %s</string>
