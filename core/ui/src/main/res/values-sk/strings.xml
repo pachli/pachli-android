@@ -108,7 +108,6 @@
     <string name="dot_in_name">bodka</string>
     <string name="role_content_description_fmt">%1$s, na %2$s</string>
     <string name="handle_contentdescription_fmt">Účet, @%1$s</string>
-    <string name="account_contentdescription_fmt">%1$s, %2$s; %3$s</string>
     <string name="action_reply">Odpovedať</string>
     <string name="action_reblog">Zdieľať</string>
     <string name="action_favourite">Obľúbiť</string>

@@ -126,7 +126,6 @@
         <item quantity="other">with roles: </item>
     </plurals>
     <string name="handle_contentdescription_fmt">Handle, @%1$s</string>
-    <string name="account_contentdescription_fmt">%1$s, %2$s; %3$s</string>
     <string name="action_reply">Reply</string>
     <string name="action_reblog">Boost</string>
     <string name="action_quote">Quote</string>
@@ -146,7 +145,7 @@
         Edited
     </string>
     <string name="description_post_reblogged">
-        Reblogged
+        Boosted
     </string>
     <string name="description_post_favourited">
         Favorited

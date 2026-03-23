@@ -53,6 +53,7 @@ import app.pachli.core.ui.extensions.contentDescription
 import app.pachli.core.ui.extensions.description
 import app.pachli.core.ui.extensions.getContentDescription
 import app.pachli.core.ui.extensions.getFormattedDescription
+import app.pachli.core.ui.extensions.handleContentDescription
 import com.bumptech.glide.RequestManager
 import com.google.android.material.color.MaterialColors
 import java.text.NumberFormat
@@ -622,9 +623,9 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         // The full string will look like (content in parentheses is optional),
         //
         // account.name
-        // (; "Roles: " account.roles)
-        // (. contentWarning)
-        // ; (content)
+        // (";", "Roles: " account.roles)
+        // (";", contentWarning)
+        // ";" (content)
         // (\n\n media)
         // (\n\n poll)
         // (\n\n quote)
@@ -632,6 +633,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         // relativeDate
         // (, editedAt)
         // (, reblogDescription)
+        // (, "X boosted"
         // , username
         // (, "Reblogged")
         // (, "Favourited")
@@ -640,8 +642,6 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         // (, "n Boost")
         return StringBuilder().apply {
             append(account.contentDescription(context))
-
-            append(".")
 
             getContentWarningDescription(context, viewData)?.let { append("; ", it) }
 
@@ -686,6 +686,8 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
             editedAt?.let { append(", ", context.getString(R.string.description_post_edited)) }
 
             getReblogDescription(context, viewData)?.let { append(", ", it) }
+
+            append(", ", account.handleContentDescription(context))
 
             if (reblogged) {
                 append(", ", context.getString(R.string.description_post_reblogged))

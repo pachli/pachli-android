@@ -101,7 +101,6 @@
     <string name="dot_in_name">punktum</string>
     <string name="role_content_description_fmt">%1$s på %2$s</string>
     <string name="handle_contentdescription_fmt">Brukarnamn: @%1$s</string>
-    <string name="account_contentdescription_fmt">%1$s, %2$s: %3$s</string>
     <string name="action_reply">Svar</string>
     <string name="action_reblog">Del</string>
     <string name="action_favourite">Favorittmerk</string>

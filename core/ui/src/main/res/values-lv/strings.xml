@@ -108,7 +108,6 @@
     <string name="dot_in_name">punkts</string>
     <string name="role_content_description_fmt">%1$s, %2$s</string>
     <string name="handle_contentdescription_fmt">Turis, @%1$s</string>
-    <string name="account_contentdescription_fmt">%1$s, %2$s; %3$s</string>
     <string name="action_reply">Atbildēt</string>
     <string name="action_reblog">Pastiprināt</string>
     <string name="action_favourite">Pievienot izlasei</string>
