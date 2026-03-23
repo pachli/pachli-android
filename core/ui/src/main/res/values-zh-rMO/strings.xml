@@ -68,9 +68,7 @@
     <string name="post_content_warning_show_less">摺疊內容</string>
     <string name="post_content_warning_show_more">顯示更多</string>
     <string name="post_content_show_less">摺疊</string>
-    <string name="description_post_reblogged">
-        被轉嘟
-    </string>
+    <string name="description_post_reblogged">被轉嘟</string>
     <string name="description_post_favourited">
         被收藏
     </string>
