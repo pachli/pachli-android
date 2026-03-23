@@ -58,9 +58,9 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 /**
- * The local state of a translation model. See [TranslationModelViewData.state].
+ * The local state of a translation model. See [TranslationModelViewData.translationModelDownloadState].
  */
-private typealias State = Result<Loadable<ModelStats>?, PachliError>
+private typealias TranslationModelDownloadState = Result<Loadable<ModelStats>?, PachliError>
 
 /**
  * Statistics about each model.
@@ -97,7 +97,7 @@ data class ModelStats(
  * View data for a translation model.
  *
  * @param remoteModel MlKit's [TranslateRemoteModel] for this model.
- * @param state The model's download state. Possible values are:
+ * @param translationModelDownloadState The model's download state. Possible values are:
  * - OK(null) - The model is not downloaded.
  * - Ok(Loadable.Loading) - The model is being downloaded.
  * - Ok(Loadable.Loaded) - The model has been downloaded.
@@ -106,7 +106,7 @@ data class ModelStats(
  */
 data class TranslationModelViewData(
     val remoteModel: TranslateRemoteModel,
-    val state: State,
+    val translationModelDownloadState: TranslationModelDownloadState,
     val locale: Locale,
 )
 
@@ -129,8 +129,8 @@ class TranslationModelManagerViewModel @Inject constructor(
      */
     private val localeMap = getLocaleList(emptyList()).associateBy { it.modernLanguageCode }
 
-    /** Map from each [TranslateRemoteModel] to its [State]. */
-    private val states = MutableStateFlow(emptyMap<TranslateRemoteModel, State>())
+    /** Map from each [TranslateRemoteModel] to its [TranslationModelDownloadState]. */
+    private val states = MutableStateFlow(emptyMap<TranslateRemoteModel, TranslationModelDownloadState>())
 
     /** Empty [DownloadConditions], to always download. */
     private val downloadConditions = DownloadConditions.Builder().build()
@@ -139,7 +139,7 @@ class TranslationModelManagerViewModel @Inject constructor(
      * Comparator for [TranslationModelViewData], grouping into downloaded and not downloaded,
      * sorting by displayLanguage within each group. English is always listed first.
      */
-    private val compare: Comparator<TranslationModelViewData> = compareBy({ it.remoteModel.language != "en" }, { it.state.get() !is Loadable.Loaded<*> }, { it.locale.displayLanguage })
+    private val compare: Comparator<TranslationModelViewData> = compareBy({ it.remoteModel.language != "en" }, { it.translationModelDownloadState.get() !is Loadable.Loaded<*> }, { it.locale.displayLanguage })
 
     /** Path MlKit downloads models to. */
     // Note: This is not a public part of the MlKit API and may change at any time.
@@ -185,7 +185,7 @@ class TranslationModelManagerViewModel @Inject constructor(
             localeMap[remoteModel.language]?.let { locale ->
                 TranslationModelViewData(
                     remoteModel = remoteModel,
-                    state = state,
+                    translationModelDownloadState = state,
                     locale = locale,
                 )
             }

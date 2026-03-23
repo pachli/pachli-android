@@ -113,7 +113,7 @@ class TranslationModelManagerFragment : Fragment(R.layout.fragment_model_manager
                     // Split the list of models in two, depending on whether the model has
                     // been downloaded. Send each part to the correct adapter.
                     viewModel.flowViewData.collectLatest { models ->
-                        val (loaded, remote) = models.partition { it.state.get() is Loadable.Loaded }
+                        val (loaded, remote) = models.partition { it.translationModelDownloadState.get() is Loadable.Loaded }
                         downloadedModelAdapter.submitList(loaded)
                         remoteModelAdapter.submitList(remote)
                     }
