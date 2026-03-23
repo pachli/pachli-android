@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_network">网络请求出错，请检查互联网连接并重试</string>
     <string name="error_generic">应用程序出现异常</string>
@@ -68,9 +68,7 @@
     <string name="post_content_warning_show_less">折叠内容</string>
     <string name="post_content_warning_show_more">显示更多</string>
     <string name="post_content_show_less">折叠</string>
-    <string name="description_post_reblogged">
-        被转嘟
-    </string>
+    <string name="description_post_reblogged">被转嘟</string>
     <string name="description_post_favourited">被喜欢</string>
     <string name="description_post_media">
         媒体: %s
