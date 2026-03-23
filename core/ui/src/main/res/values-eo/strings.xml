@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_network">Reta eraro okazis! Bonvolu kontroli vian konekton kaj klopodi denove!</string>
     <string name="error_generic">Eraro okazis.</string>
@@ -80,8 +80,7 @@
     <string name="post_content_warning_show_less">Montri malpli</string>
     <string name="post_content_warning_show_more">Montri pli</string>
     <string name="post_content_show_less">Malgrandigi</string>
-    <string name="description_post_reblogged">        Diskonigita
-    </string>
+    <string name="description_post_reblogged">Diskonigita</string>
     <string name="description_post_favourited">        Stelumita
     </string>
     <string name="description_post_bookmarked">Aldonita al la legosignoj</string>
