@@ -77,13 +77,13 @@
     <string name="title_drafts">Kavandid</string>
     <string name="title_scheduled_posts">Ajastatud postitused</string>
     <string name="footer_empty">Siin ei leidu midagi. Andmete uuendamiseks viipa ülevalt alla!</string>
-    <string name="notification_reblog_format"><b>%1$s</b> lisas sinu postitusele hoogu</string>
-    <string name="notification_favourite_format"><b>%1$s</b> märkis sinu postituse lemmikuks</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; lisas sinu postitusele hoogu</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; märkis sinu postituse lemmikuks</string>
     <string name="notification_follow_format">%s hakkas sind jälgima</string>
     <string name="notification_follow_request_format">%s soovib võimalust sind jälgida</string>
     <string name="notification_sign_up_format">%s registreerus</string>
-    <string name="notification_subscription_format"><b>%1$s</b> just postitas midagi</string>
-    <string name="notification_update_format"><b>%1$s</b> muutis oma postitust</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; just postitas midagi</string>
+    <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; muutis oma postitust</string>
     <string name="error_following_hashtag_format">Viga #%s teemaviite jälgimisel</string>
     <string name="error_unfollowing_hashtag_format">Viga #%s teemaviite jälgimise lõpetamisel</string>
     <string name="error_following_hashtags_unsupported">See koduserver ei võimalda teemaviidete jälgimist.</string>
@@ -413,7 +413,7 @@
     <string name="notification_severed_relationships_name">Katkenud võrgustik</string>
     <string name="notification_severed_relationships_description">Anna teada jälgijate/jälgitavate võrgustiku katkemisest</string>
     <string name="notification_unknown_name">Tundmatu</string>
-    <string name="notification_mention_format"><b>%1$s</b> mainis sind</string>
+    <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; mainis sind</string>
     <string name="notification_summary_large" tools:ignore="PluralsCandidate">%1$s, %2$s, %3$s ja %4$d muud kasutajat</string>
     <string name="notification_summary_medium">%1$s, %2$s ja %3$s</string>
     <string name="notification_summary_small">%1$s ja %2$s</string>
@@ -727,8 +727,8 @@
     <string name="filter_description_blur">Näita sisu, peida manused hoiatuse taha</string>
     <string name="action_move_up">Liiguta ülespoole</string>
     <string name="action_move_down">Liiguta allapoole</string>
-    <string name="notification_quote_format"><b>%1$s</b> tsiteeris sinu postitust</string>
-    <string name="notification_quoted_update_format"><b>%1$s</b> uuendas seda postitust, mida sa tsiteerisid</string>
+    <string name="notification_quote_format">&lt;b&gt;%1$s&lt;/b&gt; tsiteeris sinu postitust</string>
+    <string name="notification_quoted_update_format">&lt;b&gt;%1$s&lt;/b&gt; uuendas seda postitust, mida sa tsiteerisid</string>
     <string name="pref_title_notification_filter_quote">Minu postitusi on tsiteeritud</string>
     <string name="pref_title_notification_filter_quoted_update">Minu tsiteeritud postitus on muudetud</string>
     <string name="notification_quote_name">Keegi tsiteeris sind</string>
