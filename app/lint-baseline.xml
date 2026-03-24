@@ -121,7 +121,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="813"
+            line="822"
             column="17"/>
     </issue>
 
@@ -132,7 +132,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="816"
+            line="825"
             column="17"/>
     </issue>
 
@@ -143,7 +143,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="821"
+            line="830"
             column="13"/>
     </issue>
 
@@ -275,7 +275,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/notifications/NotificationsFragment.kt"
-            line="199"
+            line="198"
             column="13"/>
     </issue>
 
@@ -286,7 +286,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/notifications/NotificationsFragment.kt"
-            line="379"
+            line="384"
             column="13"/>
     </issue>
 
@@ -297,7 +297,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/notifications/NotificationsFragment.kt"
-            line="396"
+            line="401"
             column="17"/>
     </issue>
 
@@ -308,7 +308,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/notifications/NotificationsFragment.kt"
-            line="403"
+            line="408"
             column="21"/>
     </issue>
 
@@ -319,7 +319,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/core/ui/StatusView.kt"
-            line="330"
+            line="333"
             column="18"/>
     </issue>
 
@@ -330,7 +330,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/core/ui/StatusView.kt"
-            line="332"
+            line="335"
             column="13"/>
     </issue>
 
@@ -341,7 +341,7 @@
         errorLine2="                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/feature/suggestions/SuggestionsFragment.kt"
-            line="174"
+            line="175"
             column="38"/>
     </issue>
 
@@ -352,7 +352,7 @@
         errorLine2="                                                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/feature/suggestions/SuggestionsFragment.kt"
-            line="174"
+            line="175"
             column="76"/>
     </issue>
 
@@ -836,8 +836,8 @@
     <issue
         id="PluralsCandidate"
         message="Formatting %d followed by words (&quot;and&quot;): This should probably be a plural rather than a string"
-        errorLine1="    &lt;string name=&quot;pref_title_http_proxy_port_message&quot;>Port should be between %d and %d&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="    &lt;string name=&quot;pref_title_http_proxy_port_message&quot;>Port should be between %1$d and %2$d&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
             line="312"
@@ -873,7 +873,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="555"
+            line="569"
             column="9"/>
     </issue>
 
@@ -3641,7 +3641,7 @@
     <issue
         id="UnusedResources"
         message="The resource `R.string.error_no_custom_emojis` appears to be unused"
-        errorLine1="    &lt;string name=&quot;error_no_custom_emojis&quot;>Your instance %s does not have any custom emojis&lt;/string>"
+        errorLine1="    &lt;string name=&quot;error_no_custom_emojis&quot;>Your instance %1$s does not have any custom emojis&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
@@ -3784,7 +3784,7 @@
     <issue
         id="UnusedResources"
         message="The resource `R.string.compose_preview_image_description` appears to be unused"
-        errorLine1="    &lt;string name=&quot;compose_preview_image_description&quot;>Actions for image %s&lt;/string>"
+        errorLine1="    &lt;string name=&quot;compose_preview_image_description&quot;>Actions for image %1$s&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
@@ -3828,7 +3828,7 @@
     <issue
         id="UnusedResources"
         message="The resource `R.string.action_unfollow_hashtag_format` appears to be unused"
-        errorLine1="    &lt;string name=&quot;action_unfollow_hashtag_format&quot;>Unfollow #%s?&lt;/string>"
+        errorLine1="    &lt;string name=&quot;action_unfollow_hashtag_format&quot;>Unfollow #%1$s?&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
@@ -4180,7 +4180,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_follow.xml"
-            line="53"
+            line="55"
             column="6"/>
     </issue>
 
