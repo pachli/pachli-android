@@ -57,10 +57,13 @@ class AndroidComposeConventionPlugin : Plugin<Project> {
                 add("androidTestImplementation", composeBom)
                 add("testImplementation", composeBom)
 
-                add("implementation", libs.findLibrary("androidx.ui.tooling.preview").get())
-                add("debugImplementation", libs.findLibrary("androidx.ui.tooling").get())
-                add("testImplementation", libs.findLibrary("androidx.ui.test.junit4").get())
-                add("debugImplementation", libs.findLibrary("androidx.ui.test.manifest").get())
+                // UI previews (@Preview, etc), https://developer.android.com/develop/ui/compose/tooling/previews
+                add("debugImplementation", libs.findLibrary("androidx.compose.ui.tooling").get())
+                add("implementation", libs.findLibrary("androidx.compose.ui.tooling.preview").get())
+
+                // Dependencies for testing: https://developer.android.com/develop/ui/compose/testing
+                add("androidTestImplementation", libs.findLibrary("androidx.compose.ui.test.junit4").get())
+                add("debugImplementation", libs.findLibrary("androidx.compose.ui.test.manifest").get())
                 add("debugImplementation", libs.findLibrary("androidx.runtime.tracing").get())
 
                 add("androidTestImplementation", libs.findLibrary("espresso.core").get())
@@ -68,7 +71,7 @@ class AndroidComposeConventionPlugin : Plugin<Project> {
                 add("androidTestImplementation", libs.findLibrary("truth").get())
 
                 add("screenshotTestImplementation", libs.findLibrary("screenshot.validation.api").get())
-                add("screenshotTestImplementation", libs.findLibrary("androidx.ui.tooling").get())
+                add("screenshotTestImplementation", libs.findLibrary("androidx.compose.ui.tooling").get())
             }
         }
     }

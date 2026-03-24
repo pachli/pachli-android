@@ -76,7 +76,6 @@ play-services-base = "18.10.0"
 prism4j = "2.0.0"
 quadrant = "1.9.1"
 retrofit = "3.0.0"
-ripple-indication = "1.0.0"
 robolectric = "4.16.1"
 semver = "3.0.0"
 sparkbutton = "4.2.0"
@@ -185,9 +184,6 @@ app-update = { module = "com.google.android.play:app-update", version.ref = "app
 app-update-ktx = { module = "com.google.android.play:app-update-ktx", version.ref = "app-update" }
 apollo-runtime = { module = "com.apollographql.apollo3:apollo-runtime", version.ref = "apollographql" }
 composeunstyled = { module = "com.composables:composeunstyled", version.ref = "composeunstyled" }
-composeunstyled-theming = { module = "com.composables:composeunstyled-theming", version.ref = "composeunstyled" }
-composeunstyled-primitives = { module = "com.composables:composeunstyled-primitives", version.ref = "composeunstyled" }
-composeunstyled-platformtheme = { module = "com.composables:composeunstyled-platformtheme", version.ref = "composeunstyled" }
 conscrypt-android = { module = "org.conscrypt:conscrypt-android", version.ref = "conscrypt" }
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 diffx = { module = "org.pageseeder.diffx:pso-diffx", version.ref = "diffx" }
@@ -254,7 +250,6 @@ play-services-base = { module = "com.google.android.gms:play-services-base", ver
 prism4j = { module = "io.noties:prism4j-bundler", version.ref = "prism4j" }
 retrofit-converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
 retrofit-core = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
-ripple-indication = { module = "com.composables:ripple-indication", version.ref = "ripple-indication" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 semver = { module = "io.github.z4kn4fein:semver", version.ref = "semver" }
 sparkbutton = { module = "at.connyduck.sparkbutton:sparkbutton", version.ref = "sparkbutton" }
@@ -265,10 +260,10 @@ turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 unified-push = { module = "com.github.UnifiedPush:android-connector", version.ref = "unified-push" }
 xmlwriter = { module = "org.pageseeder.xmlwriter:pso-xmlwriter", version.ref = "xmlwriter" }
 screenshot-validation-api = { group = "com.android.tools.screenshot", name = "screenshot-validation-api", version.ref = "compose-screenshot" }
-androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
-androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
-androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 
 # Tool libraries
 betterparse = { module = "com.github.h0tk3y.betterParse:better-parse", version.ref = "betterparse" }

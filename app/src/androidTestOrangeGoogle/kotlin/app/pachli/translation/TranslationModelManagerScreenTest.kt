@@ -17,7 +17,6 @@
 
 package app.pachli.translation
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.ExperimentalTestApi
@@ -102,7 +101,7 @@ class TranslationModelManagerScreenTest {
         // Given: List of languages, with Germany downloaded.
         setContent {
             TranslationModelManagerScreen(
-                translationModels = mutableStateOf(defaultTranslationModels),
+                translationModels = { defaultTranslationModels },
                 onDelete = {},
                 onDownload = {},
                 canDownload = { true },
@@ -143,7 +142,7 @@ class TranslationModelManagerScreenTest {
 
         setContent {
             TranslationModelManagerScreen(
-                translationModels = mutableStateOf(defaultTranslationModels),
+                translationModels = { defaultTranslationModels },
                 onDelete = { onDeleteCalled = true },
                 onDownload = {},
                 canDownload = { true },
@@ -172,7 +171,7 @@ class TranslationModelManagerScreenTest {
 
         setContent {
             TranslationModelManagerScreen(
-                translationModels = mutableStateOf(defaultTranslationModels),
+                translationModels = { defaultTranslationModels },
                 onDelete = { },
                 onDownload = { onDownloadCalled = true },
                 canDownload = { true },
@@ -202,7 +201,7 @@ class TranslationModelManagerScreenTest {
 
         setContent {
             TranslationModelManagerScreen(
-                translationModels = mutableStateOf(defaultTranslationModels),
+                translationModels = { defaultTranslationModels },
                 onDelete = { },
                 onDownload = { onDownloadCalled = true },
                 canDownload = { false },
@@ -240,7 +239,7 @@ class TranslationModelManagerScreenTest {
 
         setContent {
             TranslationModelManagerScreen(
-                translationModels = mutableStateOf(defaultTranslationModels),
+                translationModels = { defaultTranslationModels },
                 onDelete = { },
                 onDownload = { onDownloadCalled = true },
                 canDownload = { false },
