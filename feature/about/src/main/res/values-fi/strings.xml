@@ -2,8 +2,8 @@
 <resources>
     <string name="about_title_activity">Tietoja</string>
     <string name="about_device_info_title">Laitteesi</string>
-    <string name="about_account_info">\@%s@%s
-\nVersio: %s</string>
+    <string name="about_account_info">\@%1$s@%2$s
+\nVersio: %3$s</string>
     <string name="about_copied">Tiedot versiosta ja laitteesta kopioitu</string>
     <string name="about_account_info_title">Tilisi</string>
     <string name="about_copy">Kopio tiedot versiosta ja laitteesta</string>
@@ -15,9 +15,9 @@
     <string name="about_privacy_policy">Yksityisyyden suoja</string>
     <string name="about_pachli_account">Pachlin profiili</string>
     <string name="title_licenses">Lisenssit</string>
-    <string name="about_device_info">%s %s
-\nAndroidversio: %s
-\nSDK-taso: %d</string>
+    <string name="about_device_info">%1$s %2$s
+\nAndroidversio: %3$s
+\nSDK-taso: %4$d</string>
     <string name="license_description">Pachlissa on koodia ja osioita näistä vapaan lähdekoodin projekteista:</string>
     <string name="notification_details_title">Yksityiskohdat</string>
     <string name="notification_details_android_notifications_enabled">Androidin ilmoitukset sallittu?</string>

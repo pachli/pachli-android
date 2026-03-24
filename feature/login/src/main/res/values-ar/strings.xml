@@ -21,6 +21,6 @@
     <string name="login_connection">الإتصال جارٍ…</string>
     <string name="title_login">تسجيل الدخول</string>
     <string name="error_could_not_load_login_page">فشل الوصول الى صفحة تسجيل الدخول.</string>
-    <string name="instance_rule_info">بتسجيل الدخول، أنت توافق على %s.</string>
-    <string name="instance_rule_title">%s شروط</string>
+    <string name="instance_rule_info">بتسجيل الدخول، أنت توافق على %1$s.</string>
+    <string name="instance_rule_title">%1$s شروط</string>
 </resources>

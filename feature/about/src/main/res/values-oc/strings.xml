@@ -13,10 +13,10 @@
     </string>
     <string name="about_pachli_account">Perfil de Pachli</string>
     <string name="title_licenses">Licéncias</string>
-    <string name="about_device_info">%s %s
-\nversion d’Android : %s
-\nversion del SDK : %d</string>
-    <string name="about_account_info">\@%s@%s
-\nVersion : %s</string>
+    <string name="about_device_info">%1$s %2$s
+\nversion d’Android : %3$s
+\nversion del SDK : %4$d</string>
+    <string name="about_account_info">\@%1$s@%2$s
+\nVersion : %3$s</string>
     <string name="license_description">Pachli content de còdis e compausants dels projèctes liures seguents :</string>
 </resources>

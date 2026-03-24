@@ -12,11 +12,11 @@
 \nhttps://github.com/pachli/pachli-android/issues</string>
     <string name="about_pachli_account">Perfil de Pachli</string>
     <string name="title_licenses">Licenzas</string>
-    <string name="about_device_info">%s %s
-\nVersión de Android: %s
-\nVersión SDK: %d</string>
-    <string name="about_account_info">\@%s@%s
-\nVersión: %s</string>
+    <string name="about_device_info">%1$s %2$s
+\nVersión de Android: %3$s
+\nVersión SDK: %4$d</string>
+    <string name="about_account_info">\@%1$s@%2$s
+\nVersión: %3$s</string>
     <string name="license_description">Pachli ten código e ferramentas dos seguintes proxectos de código aberto:</string>
     <string name="notification_details_title">Detalles</string>
     <string name="notification_details_android_notifications_enabled">Están activadas as notificacións android?</string>

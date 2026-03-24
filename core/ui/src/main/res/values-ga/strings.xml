@@ -13,7 +13,7 @@
     <string name="title_links_dialog">Naisc Ghréasáin</string>
     <string name="title_hashtags_dialog">Haischlibeanna</string>
     <string name="action_refresh">Athnuaigh</string>
-    <string name="url_domain_notifier">" (🔗 %s)"</string>
+    <string name="url_domain_notifier">" (🔗 %1$s)"</string>
     <string name="item_copied">Cóipeáladh téacs</string>
     <string name="action_copy_item">Cóipeáil mír</string>
     <string name="title_mentions_dialog">Tráchtanna</string>
@@ -67,21 +67,21 @@
         <item quantity="other">%d laethanta</item>
     </plurals>
     <plurals name="poll_info_votes">
-        <item quantity="one">%s vóta</item>
-        <item quantity="two">%s vótaí</item>
-        <item quantity="few">%s vótaí</item>
-        <item quantity="many">%s vótaí</item>
-        <item quantity="other">%s vótaí</item>
+        <item quantity="one">%1$s vóta</item>
+        <item quantity="two">%1$s vótaí</item>
+        <item quantity="few">%1$s vótaí</item>
+        <item quantity="many">%1$s vótaí</item>
+        <item quantity="other">%1$s vótaí</item>
     </plurals>
     <plurals name="poll_info_people">
-        <item quantity="one">%s duine</item>
-        <item quantity="two">%s daoine</item>
-        <item quantity="few">%s daoine</item>
-        <item quantity="many">%s daoine</item>
-        <item quantity="other">%s daoine</item>
+        <item quantity="one">%1$s duine</item>
+        <item quantity="two">%1$s daoine</item>
+        <item quantity="few">%1$s daoine</item>
+        <item quantity="many">%1$s daoine</item>
+        <item quantity="other">%1$s daoine</item>
     </plurals>
     <string name="poll_info_closed">dúnta</string>
-    <string name="poll_info_time_absolute">foircinn ag %s</string>
+    <string name="poll_info_time_absolute">foircinn ag %1$s</string>
     <string name="poll_info_format"><!-- 15 vóta • 1 uair fágtha -->%1$s •%2$s</string>
     <string name="description_poll">Vótaíocht le roghanna: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="post_media_alt">SEAN</string>
@@ -138,14 +138,14 @@
     <string name="description_post_reblogged">Ath-bhlagáilte</string>
     <string name="description_post_favourited">Tofa</string>
     <string name="description_post_bookmarked">Leabharmharcáilte</string>
-    <string name="description_post_media">Meáin: %s</string>
-    <string name="description_post_cw">Rabhadh ábhair: %s</string>
+    <string name="description_post_media">Meáin: %1$s</string>
+    <string name="description_post_cw">Rabhadh ábhair: %1$s</string>
     <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; athchraoladh</item>
-        <item quantity="two">&lt;b&gt;%s&lt;/b&gt; athchraolta</item>
-        <item quantity="few">&lt;b&gt;%s&lt;/b&gt; athchraolta</item>
-        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; athchraolta</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; athchraolta</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; athchraoladh</item>
+        <item quantity="two">&lt;b&gt;%1$s&lt;/b&gt; athchraolta</item>
+        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; athchraolta</item>
+        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; athchraolta</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; athchraolta</item>
     </plurals>
     <plurals name="favs">
         <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Togha</item>
@@ -155,7 +155,7 @@
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Toghanna</item>
     </plurals>
     <string name="post_boosted_fmt">D\'athchraol &lt;b&gt;%1$s&lt;/b&gt;</string>
-    <string name="post_edited">Curtha in eagar %s</string>
+    <string name="post_edited">Curtha in eagar %1$s</string>
     <string name="action_select_status">Roghnaigh post</string>
     <string name="action_unselect_status">Díroghnaigh post</string>
     <string name="post_replied">D’fhreagair</string>

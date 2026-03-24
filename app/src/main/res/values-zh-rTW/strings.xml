@@ -32,8 +32,8 @@
     <string name="footer_empty">還沒有內容，向下拉動即可重新整理！</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; 轉嘟了你的嘟文</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; 最愛了你的嘟文</string>
-    <string name="notification_follow_format">%s 關注了你</string>
-    <string name="report_username_format">檢舉使用者 @%s 的濫用行為</string>
+    <string name="notification_follow_format">%1$s 關注了你</string>
+    <string name="report_username_format">檢舉使用者 @%1$s 的濫用行為</string>
     <string name="report_comment_hint">更多評論？</string>
     <string name="action_quick_reply">快速回覆</string>
     <string name="action_compose">撰寫嘟文</string>
@@ -78,7 +78,7 @@
     <string name="action_open_reblogger">打開轉嘟用戶主頁</string>
     <string name="action_open_reblogged_by">顯示轉嘟</string>
     <string name="action_open_faved_by">顯示最愛</string>
-    <string name="action_open_media_n">打開媒體 #%d</string>
+    <string name="action_open_media_n">打開媒體 #%1$d</string>
     <string name="download_image">正在下載 %1$s</string>
     <string name="action_copy_link">複製連結</string>
     <string name="download_media">下載媒體</string>
@@ -169,7 +169,7 @@
     <string name="notification_summary_medium">%1$s, %2$s, 和 %3$s</string>
     <string name="notification_summary_small">%1$s 和 %2$s</string>
     <plurals name="notification_title_summary">
-        <item quantity="other">%d 個新互動</item>
+        <item quantity="other">%1$d 個新互動</item>
     </plurals>
     <string name="description_account_locked">鎖嘟用戶</string>
     <!-- note to translators:
@@ -203,7 +203,7 @@
     <string name="send_post_notification_cancel_title">發送已被取消</string>
     <string name="send_post_notification_saved_content">嘟文已儲存為草稿</string>
     <string name="action_compose_shortcut">發表新嘟文</string>
-    <string name="error_no_custom_emojis">當前站點 %s 沒有自訂表情符號</string>
+    <string name="error_no_custom_emojis">當前站點 %1$s 沒有自訂表情符號</string>
     <string name="emoji_style">表情符號風格</string>
     <string name="system_default">系統預設</string>
     <string name="download_fonts">你需要先下載這些表情符號包</string>
@@ -243,18 +243,18 @@
     <!--These are for timestamps on polls -->
     <string name="title_domain_mutes">隱藏域名</string>
     <string name="action_view_domain_mutes">隱藏域名</string>
-    <string name="action_mute_domain">靜音 %s</string>
-    <string name="confirmation_domain_unmuted">%s 已解除靜音</string>
-    <string name="mute_domain_warning">你確定要封鎖 %s 域名嗎？您將不會在任何聯邦時間軸或通知中看到該域名中的內容，且來自該域名的關注者將被移除。</string>
+    <string name="action_mute_domain">靜音 %1$s</string>
+    <string name="confirmation_domain_unmuted">%1$s 已解除靜音</string>
+    <string name="mute_domain_warning">你確定要封鎖 %1$s 域名嗎？您將不會在任何聯邦時間軸或通知中看到該域名中的內容，且來自該域名的關注者將被移除。</string>
     <string name="mute_domain_warning_dialog_ok">隱藏整個域名</string>
     <string name="pref_title_animate_gif_avatars">GIF 動畫大頭貼</string>
     <string name="filter_dialog_whole_word">整個單詞</string>
     <string name="filter_dialog_whole_word_description">如果關鍵字或短語僅為字母或數字，則只有在匹配整個單詞時才會應用</string>
-    <string name="compose_preview_image_description">圖片 %s 的動作</string>
+    <string name="compose_preview_image_description">圖片 %1$s 的動作</string>
     <string name="button_back">返回</string>
-    <string name="report_sent_success">成功回報 @%s</string>
+    <string name="report_sent_success">成功回報 @%1$s</string>
     <string name="hint_additional_info">附加留言</string>
-    <string name="report_remote_instance">轉發到 %s</string>
+    <string name="report_remote_instance">轉發到 %1$s</string>
     <string name="failed_report">回報失敗</string>
     <string name="failed_fetch_posts">無法獲取狀態</string>
     <string name="report_description_1">該報告將發送給您的伺服器管理員。 您可以在下面提供有關回報此帳戶的原因的說明：</string>
@@ -276,7 +276,7 @@
 \n推播通知不會受到影響，但你可以手動檢查你的通知設定。</string>
     <string name="pref_title_wellbeing_mode">數位健康</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; 剛剛發了新嘟文</string>
-    <string name="notification_follow_request_format">%s 請求關注你</string>
+    <string name="notification_follow_request_format">%1$s 請求關注你</string>
     <string name="pref_title_animate_custom_emojis">動態自訂表情符號</string>
     <string name="drafts_post_reply_removed">你的草稿欲回覆的原嘟文已被刪除</string>
     <string name="draft_deleted">草稿已刪除</string>
@@ -302,8 +302,8 @@
     <string name="account_note_hint">你對此帳號的個人註記</string>
     <string name="pref_title_hide_top_toolbar">隱藏頂端工具列的標題</string>
     <string name="dialog_mute_hide_notifications">隱藏通知</string>
-    <string name="action_unmute_desc">取消靜音 %s</string>
-    <string name="action_unmute_domain">取消靜音 %s</string>
+    <string name="action_unmute_desc">取消靜音 %1$s</string>
+    <string name="action_unmute_domain">取消靜音 %1$s</string>
     <string name="pref_main_nav_position">主要導覽列的位置</string>
     <string name="pref_title_gradient_for_media">在隱藏的媒體上使用漸變色彩</string>
     <string name="add_hashtag_title">加上話題標籤</string>
@@ -312,8 +312,8 @@
     <string name="pref_title_enable_swipe_for_tabs">啟用在分頁間切換的滑動手勢</string>
     <string name="notification_follow_request_description">關注請求的通知</string>
     <string name="pref_title_notification_filter_follow_requests">已送出關注請求</string>
-    <string name="dialog_mute_warning">靜音 @%s？</string>
-    <string name="dialog_block_warning">封鎖 @%s？</string>
+    <string name="dialog_mute_warning">靜音 @%1$s？</string>
+    <string name="dialog_block_warning">封鎖 @%1$s？</string>
     <string name="action_unmute_conversation">取消靜音對話</string>
     <string name="action_mute_conversation">靜音對話</string>
     <string name="warning_scheduling_interval">Mastodon 的最短發文間隔限制為 5 分鐘。</string>
@@ -326,7 +326,7 @@
     <string name="action_schedule_post">排程嘟文</string>
     <string name="action_access_scheduled_posts">排程的嘟文</string>
     <string name="title_scheduled_posts">已排程的嘟文</string>
-    <string name="poll_new_choice_hint">選項 %d</string>
+    <string name="poll_new_choice_hint">選項 %1$d</string>
     <string name="poll_allow_multiple_choices">多個選項</string>
     <string name="add_poll_choice">新增選項</string>
     <string name="create_poll_title">投票</string>
@@ -336,7 +336,7 @@
     <string name="title_accounts">帳號</string>
     <string name="delete_scheduled_post_warning">確定要刪除這則排程嘟文嗎？</string>
     <string name="dialog_delete_conversation_warning">確認要刪除此對話嗎？</string>
-    <string name="filter_expiration_format">%s (%s)</string>
+    <string name="filter_expiration_format">%1$s (%2$s)</string>
     <string name="set_focus_description">輕按或拖動圓圈來選擇總是在縮圖中可視的關注點。</string>
     <string name="description_post_language">嘟文語言</string>
     <string name="compose_save_draft_loses_media">是否要儲存草稿？（當你重開草稿時附檔將會被再次上傳。）</string>
@@ -365,13 +365,13 @@
     <string name="duration_180_days">180 天</string>
     <string name="duration_365_days">365 天</string>
     <string name="duration_no_change">(無更改)</string>
-    <string name="error_following_hashtag_format">追蹤 #%s 時發生錯誤</string>
-    <string name="error_unfollowing_hashtag_format">取消追蹤 #%s 時發生錯誤</string>
+    <string name="error_following_hashtag_format">追蹤 #%1$s 時發生錯誤</string>
+    <string name="error_unfollowing_hashtag_format">取消追蹤 #%1$s 時發生錯誤</string>
     <string name="action_unbookmark">移除書籤</string>
     <string name="action_delete_conversation">刪除對話</string>
     <string name="pref_title_notification_filter_updates">我互動過的嘟文被編輯了</string>
     <string name="duration_14_days">14 天</string>
-    <string name="notification_sign_up_format">%s 已註冊</string>
+    <string name="notification_sign_up_format">%1$s 已註冊</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; 編輯了他們的嘟文</string>
     <string name="error_image_edit_failed">這張圖片不能編輯。</string>
 </resources>

@@ -29,12 +29,12 @@
     <string name="about_account_info_title">Kontoen din</string>
     <string name="about_copied">Kopierte versjon og enhetsinformasjon</string>
     <string name="about_copy">Kopiér versjon og enhetsinformasjon</string>
-    <string name="about_device_info">%s %s
-\nAndroid-versjon: %s
-\nSDK-nivå: %d</string>
+    <string name="about_device_info">%1$s %2$s
+\nAndroid-versjon: %3$s
+\nSDK-nivå: %4$d</string>
     <string name="about_privacy_policy">Personvernserklæring</string>
-    <string name="about_account_info">\@%s@%s
-\nVersjon: %s</string>
+    <string name="about_account_info">\@%1$s@%2$s
+\nVersjon: %3$s</string>
     <string name="notification_details_title">Detaljer</string>
     <string name="notification_details_android_notifications_enabled">Er Android-varslinger påslått?</string>
     <string name="notification_details_push_notifications_with_unifiedpush">Varslinger ved bruk av UnifiedPush</string>

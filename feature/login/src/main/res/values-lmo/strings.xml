@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="instance_rule_title">%s regul</string>
+    <string name="instance_rule_title">%1$s regul</string>
     <string name="action_login">Accedi cun Pachli</string>
     <string name="error_invalid_domain">Dumini minga valid inseriu</string>
     <string name="action_close">Sarad</string>
