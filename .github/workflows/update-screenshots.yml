@@ -1,0 +1,27 @@
+name: Update screenshots
+on:
+  pull_request:
+
+jobs:
+  update:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          fetch-depth: 0
+      - uses: ./.github/actions/setup-build-env
+        with:
+          gradle-cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+      - name: Delete existing screenshots, in case a test has been deleted
+        run: find . -path "*/screenshotTest*/reference/*.png" -execdir git rm --ignore-unmatch '{}' ';'
+      - name: Run screenshot tests
+        run: ./gradlew updateScreenshotTest
+      - name: Commit and push updated screenshots
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: 'Update screenshots'
