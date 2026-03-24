@@ -135,7 +135,7 @@
     <string name="translating">Ag aistriú…</string>
     <string name="translation_provider_fmt">%1$s</string>
     <string name="description_post_edited">Curtha in eagar</string>
-    <string name="description_post_reblogged">Ath-bhlagáilte</string>
+    <string name="description_post_reblogged">Treisithe</string>
     <string name="description_post_favourited">Tofa</string>
     <string name="description_post_bookmarked">Leabharmharcáilte</string>
     <string name="description_post_media">Meáin: %s</string>
@@ -169,11 +169,11 @@
     <string name="label_quoted_status_hidden">Sleachta ó phost atá i bhfolach ag ceann de do scagairí</string>
     <string name="detach_quote">Bain an luachan</string>
     <plurals name="quotes">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Sleachta</item>
-        <item quantity="two">&lt;b&gt;%1$s&lt;/b&gt; Sleachta</item>
-        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; Sleachta</item>
-        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; Sleachta</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Sleachta</item>
+        <item quantity="one"><b>%1$s</b> Sliocht</item>
+        <item quantity="two"><b>%1$s</b> Sleachta</item>
+        <item quantity="few"><b>%1$s</b> Sleachta</item>
+        <item quantity="many"><b>%1$s</b> Sleachta</item>
+        <item quantity="other"><b>%1$s</b> Sleachta</item>
     </plurals>
     <string name="action_quote">Luachan</string>
     <string name="action_request_quote">Iarratas ar luachan</string>
