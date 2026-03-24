@@ -2,8 +2,8 @@
 <resources>
     <string name="about_title_activity">Sobre</string>
     <string name="about_device_info_title">Meu dispositivo</string>
-    <string name="about_account_info">\@%s@%s
-\nVersão: %s</string>
+    <string name="about_account_info">\@%1$s@%2$s
+\nVersão: %3$s</string>
     <string name="about_copied">Versão e informações do dispositivo copiadas</string>
     <string name="about_account_info_title">Minha conta</string>
     <string name="about_copy">Copiar a versão e as informações do dispositivo</string>
@@ -15,8 +15,8 @@
     <string name="about_privacy_policy">Política de privacidade</string>
     <string name="about_pachli_account">Perfil do Pachli</string>
     <string name="title_licenses">Licenças</string>
-    <string name="about_device_info">%s %s
-\nVersão do Android: %s
-\nNível SDK: %d</string>
+    <string name="about_device_info">%1$s %2$s
+\nVersão do Android: %3$s
+\nNível SDK: %4$d</string>
     <string name="license_description">O Pachli contém código e recursos dos seguintes projetos de código aberto:</string>
 </resources>

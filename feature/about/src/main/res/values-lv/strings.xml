@@ -13,8 +13,8 @@
     <string name="about_account_info_title">Tavs konts</string>
     <string name="about_copied">Starpliktuvē ievietota informācija par versiju un ierīci</string>
     <string name="about_copy">Ievietot starpliktuvē informāciju par versiju un ierīci</string>
-    <string name="about_device_info">%s %s\nAndroid versija: %s\nSDK līmenis: %d</string>
-    <string name="about_account_info">\@%s@%s\nVersija: %s</string>
+    <string name="about_device_info">%1$s %2$s\nAndroid versija: %3$s\nSDK līmenis: %4$d</string>
+    <string name="about_account_info">\@%1$s@%2$s\nVersija: %3$s</string>
     <string name="notification_details_title">Informācija</string>
     <string name="notification_details_notifications_enabled_help"><![CDATA[Paziņojumi nav iespējoti nevienam kontam. To var nomainīt Konta iestatījumi > Paziņojumi. Līdz tam visi paziņojumi būs atspējoti.]]></string>
     <string name="notification_details_push_notifications_with_unifiedpush">Pašpiegādes paziņojumi ar UnifiedPush</string>

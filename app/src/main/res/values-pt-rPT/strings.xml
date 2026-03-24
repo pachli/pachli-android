@@ -5,9 +5,9 @@
     <string name="notification_sign_up_name">Criação de contas</string>
     <string name="notification_summary_small">%1$s e %2$s</string>
     <plurals name="notification_title_summary">
-        <item quantity="one">%d nova interação</item>
-        <item quantity="many">%d novas interações</item>
-        <item quantity="other">%d novas interações</item>
+        <item quantity="one">%1$d nova interação</item>
+        <item quantity="many">%1$d novas interações</item>
+        <item quantity="other">%1$d novas interações</item>
     </plurals>
     <string name="lock_account_label_description">Necessita de aprovar manualmente os seguidores</string>
     <string name="compose_save_draft">Guardar rascunho\?</string>
@@ -53,12 +53,12 @@
     <string name="footer_empty">Nada para ver aqui. Arraste para baixo para atualizar!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; deu boost ao seu toot</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; adicionou o seu toot aos favoritos</string>
-    <string name="notification_follow_format">%s está a seguir-te</string>
-    <string name="notification_follow_request_format">%s pediu para te seguir</string>
-    <string name="notification_sign_up_format">%s criou conta</string>
+    <string name="notification_follow_format">%1$s está a seguir-te</string>
+    <string name="notification_follow_request_format">%1$s pediu para te seguir</string>
+    <string name="notification_sign_up_format">%1$s criou conta</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; acabou de publicar um toot</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; editou um toot</string>
-    <string name="report_username_format">Denunciar @%s</string>
+    <string name="report_username_format">Denunciar @%1$s</string>
     <string name="report_comment_hint">Comentários adicionais\?</string>
     <string name="action_quick_reply">Resposta Rápida</string>
     <string name="action_unbookmark">Remover dos itens guardados</string>
@@ -91,9 +91,9 @@
     <string name="action_share">Partilhar</string>
     <string name="action_mute">Silenciar</string>
     <string name="action_unmute">Remover silêncio</string>
-    <string name="action_unmute_desc">Remover %s do silêncio</string>
-    <string name="action_mute_domain">Silenciar %s</string>
-    <string name="action_unmute_domain">Remover %s do silêncio</string>
+    <string name="action_unmute_desc">Remover %1$s do silêncio</string>
+    <string name="action_mute_domain">Silenciar %1$s</string>
+    <string name="action_unmute_domain">Remover %1$s do silêncio</string>
     <string name="action_mute_conversation">Silenciar conversa</string>
     <string name="action_unmute_conversation">Remover conversa do silêncio</string>
     <string name="action_mention">Mencionar</string>
@@ -111,7 +111,7 @@
     <string name="action_open_reblogger">Ver autor do boost</string>
     <string name="action_open_reblogged_by">Mostrar boosts</string>
     <string name="action_open_faved_by">Mostrar favoritos</string>
-    <string name="action_open_media_n">Abrir conteúdo multimédia #%d</string>
+    <string name="action_open_media_n">Abrir conteúdo multimédia #%1$d</string>
     <string name="download_image">A descarregar %1$s</string>
     <string name="action_copy_link">Copiar a hiperligação</string>
     <string name="download_media">Descarregar conteúdo multimédia</string>
@@ -122,7 +122,7 @@
     <string name="confirmation_reported">Enviado!</string>
     <string name="confirmation_unblocked">Utilizador desbloqueado</string>
     <string name="confirmation_unmuted">Utilizador removido do silêncio</string>
-    <string name="confirmation_domain_unmuted">%s desbloqueada</string>
+    <string name="confirmation_domain_unmuted">%1$s desbloqueada</string>
     <string name="post_sent">Enviado!</string>
     <string name="post_sent_long">Resposta enviada com sucesso.</string>
     <string name="hint_compose">Em que está a pensar\?</string>
@@ -142,10 +142,10 @@
     <string name="dialog_delete_post_warning">Apagar este toot\?</string>
     <string name="dialog_redraft_post_warning">Apagar e rescrever este toot\?</string>
     <string name="dialog_delete_conversation_warning">Apagar esta conversa\?</string>
-    <string name="mute_domain_warning">Tem a certeza que pretende bloquear a instância %s\? Deixará de poder ver quaisquer conteúdos dessa instância em qualquer timeline pública ou nas suas notificações. Os seus seguidores dessa instância serão removidos.</string>
+    <string name="mute_domain_warning">Tem a certeza que pretende bloquear a instância %1$s\? Deixará de poder ver quaisquer conteúdos dessa instância em qualquer timeline pública ou nas suas notificações. Os seus seguidores dessa instância serão removidos.</string>
     <string name="mute_domain_warning_dialog_ok">Bloquear instância</string>
-    <string name="dialog_block_warning">Bloquear @%s\?</string>
-    <string name="dialog_mute_warning">Silenciar @%s\?</string>
+    <string name="dialog_block_warning">Bloquear @%1$s\?</string>
+    <string name="dialog_mute_warning">Silenciar @%1$s\?</string>
     <string name="dialog_mute_hide_notifications">Esconder notificações</string>
     <string name="visibility_public">Público: Publicar em timelines públicas</string>
     <string name="visibility_unlisted">Não listado: Não publicar em timelines públicas</string>
@@ -247,7 +247,7 @@
     <string name="send_post_notification_cancel_title">Envio cancelado</string>
     <string name="send_post_notification_saved_content">Uma cópia do toot foi guardada nos seus rascunhos</string>
     <string name="action_compose_shortcut">Escrever</string>
-    <string name="error_no_custom_emojis">A sua instância, %s, não tem emojis personalizados</string>
+    <string name="error_no_custom_emojis">A sua instância, %1$s, não tem emojis personalizados</string>
     <string name="emoji_style">Estilo dos emojis</string>
     <string name="system_default">Padrão do sistema</string>
     <string name="download_fonts">É necessário descarregar estes pacotes de emojis primeiro</string>
@@ -282,13 +282,13 @@
     <string name="compose_shortcut_long_label">Escrever toot</string>
     <string name="compose_shortcut_short_label">Escrever</string>
     <string name="notification_clear_text">Tem certeza que pretende limpar permanentemente todas as suas notificações\?</string>
-    <string name="compose_preview_image_description">Opções para imagem %s</string>
+    <string name="compose_preview_image_description">Opções para imagem %1$s</string>
     <string name="poll_ended_voted">Uma votação em que votou terminou</string>
     <string name="poll_ended_created">A sua votação terminou</string>
     <string name="button_back">Retroceder</string>
-    <string name="report_sent_success">\@%s denunciado com sucesso</string>
+    <string name="report_sent_success">\@%1$s denunciado com sucesso</string>
     <string name="hint_additional_info">Comentários adicionais</string>
-    <string name="report_remote_instance">Encaminhar para %s</string>
+    <string name="report_remote_instance">Encaminhar para %1$s</string>
     <string name="failed_report">Erro ao denunciar</string>
     <string name="failed_fetch_posts">Erro ao carregar toots</string>
     <string name="report_description_1">A denúncia será enviada aos moderadores da instância. Pode adicionar abaixo uma explicação para a sua denúncia:</string>
@@ -314,7 +314,7 @@
     <string name="duration_365_days">365 dias</string>
     <string name="add_poll_choice">Adicionar opção</string>
     <string name="poll_allow_multiple_choices">Escolha múltipla</string>
-    <string name="poll_new_choice_hint">Opção %d</string>
+    <string name="poll_new_choice_hint">Opção %1$d</string>
     <string name="edit_poll">Editar</string>
     <string name="no_drafts">Não tem rascunhos.</string>
     <string name="no_scheduled_posts">Não tem toots agendados.</string>
@@ -359,13 +359,13 @@
     <string name="title_migration_relogin">Faz novamente login para as notificações push</string>
     <string name="delete_scheduled_post_warning">Apagar esta publicação agendada\?</string>
     <string name="set_focus_description">Toca ou arrasta o círculo para escolher o ponto de focagem que estará sempre visível nas pré-visualizações.</string>
-    <string name="filter_expiration_format">%s(%s)</string>
+    <string name="filter_expiration_format">%1$s(%2$s)</string>
     <string name="duration_no_change">(Sem alteração)</string>
     <string name="description_post_language">Idioma da publicação</string>
     <string name="pref_title_show_self_username">Mostrar o nome de utilizador nas barras de ferramentas</string>
     <string name="action_set_focus">Define o ponto de focagem</string>
-    <string name="error_following_hashtag_format">Erro ao seguir #%s</string>
-    <string name="error_unfollowing_hashtag_format">Erro ao deixar de seguir #%s</string>
+    <string name="error_following_hashtag_format">Erro ao seguir #%1$s</string>
+    <string name="error_unfollowing_hashtag_format">Erro ao deixar de seguir #%1$s</string>
     <string name="action_add_reaction">adicionar reação</string>
     <string name="dialog_follow_hashtag_title">Seguir hashtag</string>
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
@@ -375,7 +375,7 @@
     <string name="pref_title_notification_filter_reports">existe um novo relatório</string>
     <string name="hint_media_description_missing">Imagem/Vídeo precisa de uma descrição.</string>
     <string name="hint_description">Descrição</string>
-    <string name="pref_title_http_proxy_port_message">Porta deve ser entre %d e %d</string>
+    <string name="pref_title_http_proxy_port_message">Porta deve ser entre %1$d e %2$d</string>
     <string name="action_post_failed">Falha ao fazer upload</string>
     <string name="action_post_failed_detail">A tua publicação não conseguiu ser enviada e foi salva nos rascunhos.
 \n
@@ -385,8 +385,8 @@
 \nO servidor não pode ser contactado, ou rejeitou as publicações.</string>
     <string name="action_post_failed_show_drafts">Mostrar rascunhos</string>
     <string name="action_post_failed_do_nothing">Descartar</string>
-    <string name="error_muting_hashtag_format">Erro a silenciar #%s</string>
-    <string name="notification_header_report_format">%s reportou %s</string>
+    <string name="error_muting_hashtag_format">Erro a silenciar #%1$s</string>
+    <string name="notification_header_report_format">%1$s reportou %2$s</string>
     <string name="action_discard">Descartar alterações</string>
     <string name="action_continue_edit">Continuar a editar</string>
     <string name="action_share_account_link">Partilhar ligação para a conta</string>
@@ -394,7 +394,7 @@
     <string name="send_account_link_to">Partilhar URL da conta para…</string>
     <string name="send_account_username_to">Partilhar nome de utilizador da conta para…</string>
     <string name="account_username_copied">Nome de utilizador copiado</string>
-    <string name="confirmation_hashtag_unfollowed">Parou de seguir #%s</string>
+    <string name="confirmation_hashtag_unfollowed">Parou de seguir #%1$s</string>
     <string name="title_followed_hashtags">Hashtags seguidas</string>
     <string name="title_public_trending_hashtags">Hashtags populares</string>
 </resources>

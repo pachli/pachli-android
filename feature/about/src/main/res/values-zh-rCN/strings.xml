@@ -11,11 +11,11 @@
     <string name="about_bug_feature_request_site">问题反馈及功能请求：\nhttps://github.com/pachli/pachli-android/issues</string>
     <string name="about_pachli_account">Pachli 官方账号</string>
     <string name="title_licenses">开源协议</string>
-    <string name="about_device_info">%s %s
-\nAndroid 系统版本: %s
-\nSDK 版本: %d</string>
-    <string name="about_account_info">\@%s@%s
-\n版本: %s</string>
+    <string name="about_device_info">%1$s %2$s
+\nAndroid 系统版本: %3$s
+\nSDK 版本: %4$d</string>
+    <string name="about_account_info">\@%1$s@%2$s
+\n版本: %3$s</string>
     <string name="license_description">Pachli 使用了以下开源项目的源码：</string>
     <string name="notification_details_title">详细信息</string>
     <string name="notification_details_android_notifications_enabled">Android 通知是否启用？</string>

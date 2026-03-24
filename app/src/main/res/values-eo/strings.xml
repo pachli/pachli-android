@@ -32,8 +32,8 @@
     <string name="footer_empty">Nenio tie ĉi. Tiru malsupren por aktualigi!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; diskonigis vian mesaĝon</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; stelumis vian mesaĝon</string>
-    <string name="notification_follow_format">%s eksekvis vin</string>
-    <string name="report_username_format">Signali @%s</string>
+    <string name="notification_follow_format">%1$s eksekvis vin</string>
+    <string name="report_username_format">Signali @%1$s</string>
     <string name="report_comment_hint">Ĉu pliaj komentoj\?</string>
     <string name="action_quick_reply">Rapida respondo</string>
     <string name="action_compose">Verki</string>
@@ -77,7 +77,7 @@
     <string name="action_open_reblogger">Montri la aŭtoron de la diskonigo</string>
     <string name="action_open_reblogged_by">Montri diskonigojn</string>
     <string name="action_open_faved_by">Montri stelumojn</string>
-    <string name="action_open_media_n">Malfermi aŭdovidaĵon #%d</string>
+    <string name="action_open_media_n">Malfermi aŭdovidaĵon #%1$d</string>
     <string name="download_image">Elŝutado de %1$s</string>
     <string name="action_copy_link">Kopii la ligilon</string>
     <string name="download_media">Elŝuti aŭdovidaĵon</string>
@@ -164,8 +164,8 @@
     <string name="notification_summary_medium">%1$s, %2$s kaj %3$s</string>
     <string name="notification_summary_small">%1$s kaj %2$s</string>
     <plurals name="notification_title_summary">
-        <item quantity="one">%d nova interago</item>
-        <item quantity="other">%d novaj interagoj</item>
+        <item quantity="one">%1$d nova interago</item>
+        <item quantity="other">%1$d novaj interagoj</item>
     </plurals>
     <string name="description_account_locked">Ŝlosita konto</string>
     <!-- note to translators:
@@ -199,7 +199,7 @@
     <string name="send_post_notification_cancel_title">Sendo nuligita</string>
     <string name="send_post_notification_saved_content">Kopio de la mesaĝo estis konservita en viaj malnetoj</string>
     <string name="action_compose_shortcut">Verki</string>
-    <string name="error_no_custom_emojis">Via nodo %s ne havas proprajn emoĝiojn</string>
+    <string name="error_no_custom_emojis">Via nodo %1$s ne havas proprajn emoĝiojn</string>
     <string name="emoji_style">Stilo de emoĝioj</string>
     <string name="system_default">El la sistemo</string>
     <string name="download_fonts">Vi unue devos elŝuti ĉi tiun emoĝiaron</string>
@@ -240,19 +240,19 @@
     <string name="compose_shortcut_long_label">Verki mesaĝon</string>
     <string name="compose_shortcut_short_label">Verki</string>
     <string name="notification_clear_text">Ĉu vi certas, ke vi volas porĉiame viŝi ĉiujn viajn sciigojn\?</string>
-    <string name="compose_preview_image_description">Agoj por bildo %s</string>
+    <string name="compose_preview_image_description">Agoj por bildo %1$s</string>
     <string name="poll_ended_voted">Enketo, al kiu vi voĉdonis, finiĝis</string>
     <string name="poll_ended_created">Enketo, kiun vi kreis, finiĝis</string>
     <string name="title_domain_mutes">Kaŝitaj domajnoj</string>
     <string name="action_view_domain_mutes">Kaŝitaj domajnoj</string>
-    <string name="action_mute_domain">Silentigi %s</string>
-    <string name="confirmation_domain_unmuted">%s malsilentigita</string>
-    <string name="mute_domain_warning">Ĉu vi certas ke vi volas tute bloki %s\? Vi ne vidos enhavon de tiu domajno en publika tempolinio aŭ en viaj sciigoj. Viaj sekvantoj el tiu domajno estos forigitaj.</string>
+    <string name="action_mute_domain">Silentigi %1$s</string>
+    <string name="confirmation_domain_unmuted">%1$s malsilentigita</string>
+    <string name="mute_domain_warning">Ĉu vi certas ke vi volas tute bloki %1$s\? Vi ne vidos enhavon de tiu domajno en publika tempolinio aŭ en viaj sciigoj. Viaj sekvantoj el tiu domajno estos forigitaj.</string>
     <string name="mute_domain_warning_dialog_ok">Kaŝi la tutan domajnon</string>
     <string name="button_back">Reveni</string>
-    <string name="report_sent_success">\@%s sukcese signalita</string>
+    <string name="report_sent_success">\@%1$s sukcese signalita</string>
     <string name="hint_additional_info">Pliaj komentoj</string>
-    <string name="report_remote_instance">Plusendi al %s</string>
+    <string name="report_remote_instance">Plusendi al %1$s</string>
     <string name="failed_report">Signalo malsukcesis</string>
     <string name="failed_fetch_posts">Venigo de statusoj malsukcesis</string>
     <string name="report_description_1">La signalo estos sendita al la kontrolantoj de via servilo. Vi povas doni klarigon pri kial vi signalas ĉi tiun konton sube:</string>
@@ -273,7 +273,7 @@
     <string name="duration_7_days">7 tagoj</string>
     <string name="add_poll_choice">Aldoni elekton</string>
     <string name="poll_allow_multiple_choices">Multaj elektoj</string>
-    <string name="poll_new_choice_hint">Elekton %d</string>
+    <string name="poll_new_choice_hint">Elekton %1$d</string>
     <string name="edit_poll">Redakti</string>
     <string name="title_bookmarks">Legosignoj</string>
     <string name="title_scheduled_posts">Planitaj mesaĝoj</string>
@@ -292,13 +292,13 @@
     <string name="notification_follow_request_description">Sciigoj pri petoj de sekvado</string>
     <string name="pref_title_gradient_for_media">Montri buntajn transirojn por kaŝitaj aŭdovidaĵoj</string>
     <string name="dialog_mute_hide_notifications">Kaŝi la sciigojn</string>
-    <string name="dialog_mute_warning">Ĉu silentigi @%s\?</string>
-    <string name="dialog_block_warning">Ĉu bloki @%s\?</string>
+    <string name="dialog_mute_warning">Ĉu silentigi @%1$s\?</string>
+    <string name="dialog_block_warning">Ĉu bloki @%1$s\?</string>
     <string name="action_unmute_conversation">Malsilentigi la konversacion</string>
     <string name="action_mute_conversation">Silentigi la konversacion</string>
-    <string name="action_unmute_domain">Malsilentigi %s</string>
-    <string name="action_unmute_desc">Malsilentigi %s</string>
-    <string name="notification_follow_request_format">%s petis sekvi vin</string>
+    <string name="action_unmute_domain">Malsilentigi %1$s</string>
+    <string name="action_unmute_desc">Malsilentigi %1$s</string>
+    <string name="notification_follow_request_format">%1$s petis sekvi vin</string>
     <string name="title_announcements">Anoncoj</string>
     <string name="pref_main_nav_position">Pozicio de la ĉefa naviga breto</string>
     <string name="pref_title_notification_filter_follow_requests">iu petas sekvi min</string>
@@ -341,15 +341,15 @@
 \n Sciigoj ne estos influitaj, sed vi povas kontroli viajn agordojn pri sciigojn permane.</string>
     <string name="review_notifications">Kontroli la sciigojn</string>
     <string name="drafts_post_reply_removed">La mesaĝo, al kiu tiu ĉi malneto respondas, estis forigita</string>
-    <string name="notification_sign_up_format">%s registriĝis</string>
+    <string name="notification_sign_up_format">%1$s registriĝis</string>
     <string name="pref_title_notification_filter_sign_ups">iu registriĝis</string>
     <string name="pref_title_notification_filter_updates">mesaĝo, kun kiu mi interagis, estas redaktita</string>
     <string name="notification_sign_up_name">Novaj kontoj</string>
     <string name="notification_sign_up_description">Sciigoj pri novaj uzantoj</string>
     <string name="follow_requests_info">Kvankam via konto ne estas ŝlosita, la teamo de %1$s pensas, ke vi eble volus permane validigi la sekvopetojn de tiuj ĉi kontoj.</string>
     <string name="error_image_edit_failed">La bildo ne povis esti redaktita.</string>
-    <string name="error_following_hashtag_format">Okazis eraro dum la sekvado de #%s</string>
-    <string name="error_unfollowing_hashtag_format">Okazos eraro dum la malsekvado de #%s</string>
+    <string name="error_following_hashtag_format">Okazis eraro dum la sekvado de #%1$s</string>
+    <string name="error_unfollowing_hashtag_format">Okazos eraro dum la malsekvado de #%1$s</string>
     <string name="title_migration_relogin">Ensaluti denove por ricevi sciigojn</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; redaktis sian mesaĝon</string>
     <string name="notification_update_name">Redaktitaj mesaĝoj</string>
@@ -366,7 +366,7 @@
     <string name="saving_draft">Konservado de la malneto…</string>
     <string name="delete_scheduled_post_warning">Ĉu forigi tiun planitan mesaĝon\?</string>
     <string name="duration_no_change">(Neniu ŝanĝo)</string>
-    <string name="filter_expiration_format">%s (%s)</string>
+    <string name="filter_expiration_format">%1$s (%2$s)</string>
     <string name="pref_title_show_self_username">Montri uzantnomon en ilobreto</string>
     <string name="description_post_language">Mesaĝolingvo</string>
 </resources>

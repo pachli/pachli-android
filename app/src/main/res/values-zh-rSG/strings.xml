@@ -32,8 +32,8 @@
     <string name="footer_empty">还没有内容，向下拉动即可刷新</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; 转嘟了你的嘟文</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; 喜欢了你的嘟文</string>
-    <string name="notification_follow_format">%s 关注了你</string>
-    <string name="report_username_format">报告用户 @%s 的滥用行为</string>
+    <string name="notification_follow_format">%1$s 关注了你</string>
+    <string name="report_username_format">报告用户 @%1$s 的滥用行为</string>
     <string name="report_comment_hint">报告更多信息</string>
     <string name="action_quick_reply">快速回复</string>
     <string name="action_compose">新嘟文</string>
@@ -78,7 +78,7 @@
     <string name="action_open_reblogger">打开转嘟用户主页</string>
     <string name="action_open_reblogged_by">显示转嘟</string>
     <string name="action_open_faved_by">显示喜欢</string>
-    <string name="action_open_media_n">打开媒体文件 #%d</string>
+    <string name="action_open_media_n">打开媒体文件 #%1$d</string>
     <string name="download_image">正在下载 %1$s…</string>
     <string name="action_copy_link">复制链接</string>
     <string name="download_media">下载媒体文件</string>
@@ -169,7 +169,7 @@
     <string name="notification_summary_medium">%1$s, %2$s, 和 %3$s</string>
     <string name="notification_summary_small">%1$s 和 %2$s</string>
     <plurals name="notification_title_summary">
-        <item quantity="other">%d 个新互动</item>
+        <item quantity="other">%1$d 个新互动</item>
     </plurals>
     <string name="description_account_locked">锁嘟用户</string>
     <!-- note to translators:
@@ -203,7 +203,7 @@
     <string name="send_post_notification_cancel_title">发送已被取消</string>
     <string name="send_post_notification_saved_content">嘟文已保存为草稿</string>
     <string name="action_compose_shortcut">新嘟文</string>
-    <string name="error_no_custom_emojis">当前实例 %s 没有自定义表情符号</string>
+    <string name="error_no_custom_emojis">当前实例 %1$s 没有自定义表情符号</string>
     <string name="emoji_style">表情符号风格</string>
     <string name="system_default">系统默认</string>
     <string name="download_fonts">需要下载表情符号数据</string>

@@ -32,8 +32,8 @@
     <string name="footer_empty">還沒有內容，向下拉動即可重新整理！</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; 轉嘟了你的嘟文</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; 收藏了你的嘟文</string>
-    <string name="notification_follow_format">%s 關注了你</string>
-    <string name="report_username_format">檢舉使用者 @%s 的濫用行為</string>
+    <string name="notification_follow_format">%1$s 關注了你</string>
+    <string name="report_username_format">檢舉使用者 @%1$s 的濫用行為</string>
     <string name="report_comment_hint">更多評論？</string>
     <string name="action_quick_reply">快速回覆</string>
     <string name="action_compose">新嘟文</string>
@@ -78,7 +78,7 @@
     <string name="action_open_reblogger">打開轉嘟用戶主頁</string>
     <string name="action_open_reblogged_by">顯示轉嘟</string>
     <string name="action_open_faved_by">顯示收藏</string>
-    <string name="action_open_media_n">打開媒體 #%d</string>
+    <string name="action_open_media_n">打開媒體 #%1$d</string>
     <string name="download_image">正在下載 %1$s</string>
     <string name="action_copy_link">複製連結</string>
     <string name="download_media">下載媒體</string>
@@ -169,7 +169,7 @@
     <string name="notification_summary_medium">%1$s, %2$s, 和 %3$s</string>
     <string name="notification_summary_small">%1$s 和 %2$s</string>
     <plurals name="notification_title_summary">
-        <item quantity="other">%d 個新互動</item>
+        <item quantity="other">%1$d 個新互動</item>
     </plurals>
     <string name="description_account_locked">鎖嘟用戶</string>
     <!-- note to translators:
@@ -203,7 +203,7 @@
     <string name="send_post_notification_cancel_title">發送已被取消</string>
     <string name="send_post_notification_saved_content">嘟文已儲存為草稿</string>
     <string name="action_compose_shortcut">發表新嘟文</string>
-    <string name="error_no_custom_emojis">當前站點 %s 沒有自訂表情符號</string>
+    <string name="error_no_custom_emojis">當前站點 %1$s 沒有自訂表情符號</string>
     <string name="emoji_style">表情符號風格</string>
     <string name="system_default">系統預設</string>
     <string name="download_fonts">你需要先下載這些表情符號包</string>

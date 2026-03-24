@@ -29,8 +29,8 @@
     <string name="footer_empty">Edukirik ez. Arrastatu behera birkargatzeko!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt;-(e)k zure tuta bultzatu du</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt;-(e)k zure tuta gogoko du</string>
-    <string name="notification_follow_format">%s-(e)k jarraitu zaitu</string>
-    <string name="report_username_format">\@%s salatu</string>
+    <string name="notification_follow_format">%1$s-(e)k jarraitu zaitu</string>
+    <string name="report_username_format">\@%1$s salatu</string>
     <string name="report_comment_hint">Informazio gehigarria?</string>
     <string name="action_quick_reply">Erantzun azkarra</string>
     <string name="action_compose">Idatzi</string>
@@ -152,8 +152,8 @@
     <string name="notification_summary_medium">%1$s, %2$s eta %3$s</string>
     <string name="notification_summary_small">%1$s eta %2$s</string>
     <plurals name="notification_title_summary">
-        <item quantity="one">interakzio berri %d</item>
-        <item quantity="other">%d interakzio berri</item>
+        <item quantity="one">interakzio berri %1$d</item>
+        <item quantity="other">%1$d interakzio berri</item>
     </plurals>
     <string name="description_account_locked">Kontu babestua</string>
     <!-- note to translators:
@@ -181,7 +181,7 @@
     <string name="send_post_notification_cancel_title">Bidalketa bertan behera utzita</string>
     <string name="send_post_notification_saved_content">Tutaren kopia bat zure zirriborroetan gorde da</string>
     <string name="action_compose_shortcut">Idatzi</string>
-    <string name="error_no_custom_emojis">%s instantziak ez ditu emoji pertsonalizatuak eskaintzen</string>
+    <string name="error_no_custom_emojis">%1$s instantziak ez ditu emoji pertsonalizatuak eskaintzen</string>
     <string name="emoji_style">Emojien estiloa</string>
     <string name="system_default">Sistema</string>
     <string name="download_fonts">Lehenago jaitsi beharko dituzu</string>
@@ -212,19 +212,19 @@
     <string name="action_delete_and_redraft">Ezabatu eta zirriborroa berriro egin</string>
     <string name="action_view_domain_mutes">Ezkutuko domeinuak</string>
     <string name="action_add_poll">Galdeketa gehitu</string>
-    <string name="action_mute_domain">Mututu %s</string>
+    <string name="action_mute_domain">Mututu %1$s</string>
     <string name="action_access_scheduled_posts">Programatutako tutak</string>
     <string name="action_schedule_post">Tuta programatu</string>
     <string name="action_reset_schedule">Berrezarri</string>
     <string name="action_add_tab">Kategoria gehitu</string>
     <string name="action_open_reblogged_by">Bultzadak erakutsi</string>
     <string name="action_open_faved_by">Gogokoak erakutsi</string>
-    <string name="action_open_media_n">Ireki media #%d</string>
+    <string name="action_open_media_n">Ireki media #%1$d</string>
     <string name="download_media">Media jaisten</string>
     <string name="downloading_media">Media jaisten</string>
-    <string name="confirmation_domain_unmuted">%s ez dago ezkutatua</string>
+    <string name="confirmation_domain_unmuted">%1$s ez dago ezkutatua</string>
     <string name="dialog_redraft_post_warning">Tut hau ezabatu eta zirriborro berria egin\?</string>
-    <string name="mute_domain_warning">Ziur al zaude %s-(r)en eduki guztia ezabatu nahi duzula\? Domeinu horretatik datorren edukia ez duzu denbora-lerro publikoetan edo jakinarazpenetan ikusiko. Domeinu horretan dituzun jarraitzaileak ezabatuko dira.</string>
+    <string name="mute_domain_warning">Ziur al zaude %1$s-(r)en eduki guztia ezabatu nahi duzula\? Domeinu horretatik datorren edukia ez duzu denbora-lerro publikoetan edo jakinarazpenetan ikusiko. Domeinu horretan dituzun jarraitzaileak ezabatuko dira.</string>
     <string name="mute_domain_warning_dialog_ok">Domeinu osoa ezkutatu</string>
     <string name="pref_title_notification_filter_poll">Galdeketak bukatu dira</string>
     <string name="pref_title_timeline_filters">Iragazkiak</string>
@@ -253,13 +253,13 @@
     <string name="compose_shortcut_long_label">Idatzi tuta</string>
     <string name="compose_shortcut_short_label">Idatzi</string>
     <string name="notification_clear_text">Ziur zaude jakinarazpen guztiak betirako garbitu nahi dituzula\?</string>
-    <string name="compose_preview_image_description">%s irudiarentzako ekintzak</string>
+    <string name="compose_preview_image_description">%1$s irudiarentzako ekintzak</string>
     <string name="poll_ended_voted">Botoa eman duzun galdeketa amaitu da</string>
     <string name="poll_ended_created">Sortu duzun galdeketa amaitu da</string>
     <string name="button_back">Itzuli</string>
-    <string name="report_sent_success">\@%s jakinarazi duzu arrakastaz</string>
+    <string name="report_sent_success">\@%1$s jakinarazi duzu arrakastaz</string>
     <string name="hint_additional_info">Iruzkin gehigarriak</string>
-    <string name="report_remote_instance">%s(r)i birbidali</string>
+    <string name="report_remote_instance">%1$s(r)i birbidali</string>
     <string name="failed_report">Txostena huts egin du</string>
     <string name="failed_fetch_posts">Akatsa tutak eskuratzean</string>
     <string name="report_description_1">Txostena zure zerbitzariaren moderatzaileari bidaliko zaio. Jarraian, kontu honen zergatia salatzen duzun azalpena eman dezakezu:</string>
@@ -276,7 +276,7 @@
     <string name="duration_7_days">7 egun</string>
     <string name="add_poll_choice">Gehitu aukera</string>
     <string name="poll_allow_multiple_choices">Aukera anitzak</string>
-    <string name="poll_new_choice_hint">%d. aukera</string>
+    <string name="poll_new_choice_hint">%1$d. aukera</string>
     <string name="edit_poll">Editatu</string>
     <string name="title_bookmarks">Laster-markak</string>
     <string name="action_view_bookmarks">Laster-markak</string>
@@ -289,13 +289,13 @@
     <string name="warning_scheduling_interval">Mastodonek gutxienez 5 minutuko programazio-tartea du.</string>
     <string name="notification_follow_request_name">Eskakizunak</string>
     <string name="notification_follow_request_description">Jarraitzeko eskaereri buruzko jakinarazpenak</string>
-    <string name="dialog_mute_warning">\@%s isildu\?</string>
-    <string name="dialog_block_warning">\@%s blokeatu\?</string>
+    <string name="dialog_mute_warning">\@%1$s isildu\?</string>
+    <string name="dialog_block_warning">\@%1$s blokeatu\?</string>
     <string name="action_mute_conversation">Elkarrizketa mututu</string>
-    <string name="notification_follow_request_format">%s-(e)k zu jarraitzeko eskatu zaitu</string>
+    <string name="notification_follow_request_format">%1$s-(e)k zu jarraitzeko eskatu zaitu</string>
     <string name="hashtags">Traolak</string>
     <string name="dialog_mute_hide_notifications">Jakinarazpenak ezkutatu</string>
-    <string name="action_unmute_desc">Desmututu %s</string>
+    <string name="action_unmute_desc">Desmututu %1$s</string>
     <string name="pref_title_hide_top_toolbar">Goiko tresna-barraren izenburua ezkutatu</string>
     <string name="pref_title_confirm_reblogs">Tuta bultzatu aurretik berresteko galdetu</string>
     <string name="pref_title_show_cards_in_timelines">Esteken aurrebista denbora-lerroetan erakutsi</string>
@@ -305,7 +305,7 @@
     <string name="pref_title_gradient_for_media">Gradiente koloretsuak erakutsi ezkutuko mediaren lekuan</string>
     <string name="pref_title_notification_filter_follow_requests">jarraitzeko eskaera jasotzean</string>
     <string name="action_unmute_conversation">Elkarrizketa desmututu</string>
-    <string name="action_unmute_domain">Desmututu %s</string>
+    <string name="action_unmute_domain">Desmututu %1$s</string>
     <string name="review_notifications">Jakinarazpenak berrikusi</string>
     <string name="pref_title_confirm_favourites">Erakutsi baieztapen elkarrizketa-koadroa gogokoenetara gehitu aurretik</string>
     <string name="follow_requests_info">Zure kontua blokeatuta ez badago ere, %1$s-ko langileek kontu hauetako eskaerak eskuz berrikusi nahi dituzula pentsatu dute.</string>
@@ -343,14 +343,14 @@
     <string name="wellbeing_hide_stats_posts">Mezuetan estatistika kuantitatiboak ezkutatu</string>
     <string name="action_unbookmark">Laster-marka kendu</string>
     <string name="error_image_edit_failed">Ezin izan da irudia editatu.</string>
-    <string name="error_muting_hashtag_format">Akatsa #%s mututzerakoan</string>
-    <string name="error_unmuting_hashtag_format">Errorea #%s desmututzerakoan</string>
+    <string name="error_muting_hashtag_format">Akatsa #%1$s mututzerakoan</string>
+    <string name="error_unmuting_hashtag_format">Errorea #%1$s desmututzerakoan</string>
     <string name="error_following_hashtags_unsupported">Instantzia honek traolak jarraitzeko funtzioarekin bateragarritasuna ez dauka.</string>
-    <string name="error_following_hashtag_format">Akatsa #%s jarraitzerakoan</string>
-    <string name="error_unfollowing_hashtag_format">Akatsa #%s jarraitzerakoan</string>
+    <string name="error_following_hashtag_format">Akatsa #%1$s jarraitzerakoan</string>
+    <string name="error_unfollowing_hashtag_format">Akatsa #%1$s jarraitzerakoan</string>
     <string name="title_edits">Aldaketak</string>
-    <string name="notification_report_format">Salaketa berria %s-(r)i</string>
-    <string name="notification_header_report_format">%s-(e)k %s salatu du</string>
+    <string name="notification_report_format">Salaketa berria %1$s-(r)i</string>
+    <string name="notification_header_report_format">%1$s-(e)k %2$s salatu du</string>
     <plurals name="notification_summary_report_format">
         <item quantity="other">%1$s · %2$d tutak finkatuak</item>
     </plurals>
@@ -366,6 +366,6 @@
 \nZerbitzariarekin ezin izan da komunikatu edo zure tutak baztertuak izan dira.</string>
     <string name="action_post_failed_show_drafts">Zirriborroak erakutsi</string>
     <string name="action_post_failed_do_nothing">Baztertu</string>
-    <string name="notification_sign_up_format">%s-(e)k izena eman du</string>
+    <string name="notification_sign_up_format">%1$s-(e)k izena eman du</string>
     <string name="error_status_source_load">Akatsa zerbitzaritik egoeraren iturria kargatzean.</string>
 </resources>

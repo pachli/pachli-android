@@ -32,8 +32,8 @@
     <string name="footer_empty">Burada henüz hiç birşey yok. Yenilemek için aşağıya çekin!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; gönderinizi paylaştı</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; gönderinizi gözdelerilerine ekledi</string>
-    <string name="notification_follow_format">%s seni takip etti</string>
-    <string name="report_username_format">\@%s Bildir</string>
+    <string name="notification_follow_format">%1$s seni takip etti</string>
+    <string name="report_username_format">\@%1$s Bildir</string>
     <string name="report_comment_hint">Daha fazla yorum?</string>
     <string name="action_quick_reply">Hızlı yanıt</string>
     <string name="action_compose">Oluştur</string>
@@ -156,8 +156,8 @@
     <string name="notification_summary_medium">%1$s, %2$s ve %3$s</string>
     <string name="notification_summary_small">%1$s ve %2$s</string>
     <plurals name="notification_title_summary">
-        <item quantity="one">%d yeni etkileşim</item>
-        <item quantity="other">%d yeni etkileşimler</item>
+        <item quantity="one">%1$d yeni etkileşim</item>
+        <item quantity="other">%1$d yeni etkileşimler</item>
     </plurals>
     <string name="description_account_locked">Kilitli Hesap</string>
     <!-- note to translators:
@@ -185,7 +185,7 @@
     <string name="send_post_notification_cancel_title">Gönderme iptal edildi</string>
     <string name="send_post_notification_saved_content">Gönderinin bir kopyası taslaklara kaydedildi</string>
     <string name="action_compose_shortcut">Oluştur</string>
-    <string name="error_no_custom_emojis">%s örneğinizin herhangi bir özel ifadesi yok</string>
+    <string name="error_no_custom_emojis">%1$s örneğinizin herhangi bir özel ifadesi yok</string>
     <string name="emoji_style">İfade stili</string>
     <string name="system_default">Sistem varsayılanı</string>
     <string name="download_fonts">Önce bu ifade paketini indirmeniz gerekecek</string>
@@ -213,11 +213,11 @@
     <string name="conversation_more_recipients">%1$s, %2$s ve %3$d dahası</string>
     <string name="title_domain_mutes">Gizli alan adları</string>
     <string name="action_view_domain_mutes">Gizli alan adları</string>
-    <string name="action_mute_domain">%s alan adını sessize al</string>
+    <string name="action_mute_domain">%1$s alan adını sessize al</string>
     <string name="action_open_faved_by">Gözdeleri göster</string>
     <string name="download_media">Medya indir</string>
     <string name="downloading_media">Medya indiriliyor</string>
-    <string name="mute_domain_warning">%s\? alan adından gelen her şeyi engellemek istediğinden emin misin\? Bu alan adından gelen içeriği herhangi bir genel zaman tünelinde veya bildirimlerinde göremezsiniz. Bu alan adındaki takipçilerin de kaldırılacak.</string>
+    <string name="mute_domain_warning">%1$s\? alan adından gelen her şeyi engellemek istediğinden emin misin\? Bu alan adından gelen içeriği herhangi bir genel zaman tünelinde veya bildirimlerinde göremezsiniz. Bu alan adındaki takipçilerin de kaldırılacak.</string>
     <string name="pref_title_notification_filter_poll">anketler sona erdiğinde</string>
     <string name="pref_title_timeline_filters">Süzgeçler</string>
     <string name="pref_title_language">Dil</string>
@@ -239,19 +239,19 @@
     <string name="compose_shortcut_long_label">Yayın Oluştur</string>
     <string name="compose_shortcut_short_label">Oluştur</string>
     <string name="notification_clear_text">Tüm bildirimleri kalıcı olarak silmek istediğinizden emin misiniz\?</string>
-    <string name="compose_preview_image_description">%s görüntüsü için eylemler</string>
+    <string name="compose_preview_image_description">%1$s görüntüsü için eylemler</string>
     <string name="poll_ended_voted">Oy verdiğin bir anket sona erdi</string>
     <string name="poll_ended_created">Oluşturduğun bir anket sona erdi</string>
     <string name="button_back">Geri</string>
-    <string name="report_sent_success">\@%s başarıyla bildirildi</string>
+    <string name="report_sent_success">\@%1$s başarıyla bildirildi</string>
     <string name="hint_additional_info">Ek Yorumlar</string>
-    <string name="report_remote_instance">%s adresine ilet</string>
+    <string name="report_remote_instance">%1$s adresine ilet</string>
     <string name="failed_fetch_posts">Yayınlar getirilemedi</string>
     <string name="report_description_1">Bildirim sunucu yöneticinize gönderilecektir. Bu hesabı neden bildirdiğinizle ilgili açıklama yapabilirsiniz:</string>
     <string name="report_description_remote_instance">Hesap başka bir sunucudan. Raporun anonim bir kopyasını da oraya gönderilsin mi\?</string>
     <string name="action_open_reblogger">Gönderi yazanını aç</string>
     <string name="action_open_reblogged_by">Yeniden paylaşımları göster</string>
-    <string name="action_open_media_n">#%d medyayı aç</string>
+    <string name="action_open_media_n">#%1$d medyayı aç</string>
     <string name="title_bookmarks">Yer imleri</string>
     <string name="title_scheduled_posts">Zamanlanmış yayınlar</string>
     <string name="action_edit">Düzenle</string>
@@ -278,11 +278,11 @@
     <string name="add_poll_choice">Seçenek ekle</string>
     <string name="poll_allow_multiple_choices">Çoklu seçim</string>
     <string name="edit_poll">Düzenle</string>
-    <string name="confirmation_domain_unmuted">%s alan adını gizleme</string>
+    <string name="confirmation_domain_unmuted">%1$s alan adını gizleme</string>
     <string name="mute_domain_warning_dialog_ok">Alan adından her şeyi gizle</string>
     <string name="pref_title_alway_open_spoiler">Her zaman içerik uyarılarıyla işaretlenmiş alanları genişlet</string>
     <string name="failed_report">Bildirilemedi</string>
-    <string name="poll_new_choice_hint">Seçenek %d</string>
+    <string name="poll_new_choice_hint">Seçenek %1$d</string>
     <string name="no_drafts">Hiç taslağın yok.</string>
     <string name="no_scheduled_posts">Zamanlanmış yayınınız yok.</string>
     <string name="reblog_private">Kendi kitlenizle yeniden paylaşın</string>
@@ -294,11 +294,11 @@
     <string name="notification_follow_request_description">Takip istekleri ile ilgili bildirimler</string>
     <string name="notification_follow_request_name">Takip istekleri</string>
     <string name="dialog_mute_hide_notifications">Bildirimleri gizle</string>
-    <string name="dialog_mute_warning">\@%s sessize al\?</string>
-    <string name="dialog_block_warning">\@%s engellensin mi\?</string>
-    <string name="action_unmute_domain">%s alan adının sesini aç</string>
-    <string name="action_unmute_desc">%s sesini aç</string>
-    <string name="notification_follow_request_format">%s seni takip etmek istiyor</string>
+    <string name="dialog_mute_warning">\@%1$s sessize al\?</string>
+    <string name="dialog_block_warning">\@%1$s engellensin mi\?</string>
+    <string name="action_unmute_domain">%1$s alan adının sesini aç</string>
+    <string name="action_unmute_desc">%1$s sesini aç</string>
+    <string name="notification_follow_request_format">%1$s seni takip etmek istiyor</string>
     <string name="action_unmute_conversation">Sohbetin sesini aç</string>
     <string name="pref_title_notification_filter_follow_requests">takip isteklerinde</string>
     <string name="action_mute_conversation">Sohbeti sessize al</string>
@@ -309,25 +309,25 @@
     <string name="action_delete_conversation">Konuşmayı sil</string>
     <string name="title_announcements">Duyurular</string>
     <string name="error_image_edit_failed">Görsel düzenlemedi.</string>
-    <string name="error_following_hashtag_format">#%s\'i izleyen hata</string>
-    <string name="error_muting_hashtag_format">Sessize alma hatası #%s</string>
-    <string name="action_unfollow_hashtag_format">Takibi bırak #%s\?</string>
+    <string name="error_following_hashtag_format">#%1$s\'i izleyen hata</string>
+    <string name="error_muting_hashtag_format">Sessize alma hatası #%1$s</string>
+    <string name="action_unfollow_hashtag_format">Takibi bırak #%1$s\?</string>
     <string name="pref_title_wellbeing_mode">Huzur</string>
     <string name="account_note_saved">Kaydedildi!</string>
     <string name="report_category_spam">İstenmeyen</string>
     <string name="report_category_other">Diğer</string>
     <string name="pref_title_confirm_favourites">Gözdelere eklemeden önce onay kutusunu göster</string>
-    <string name="error_unmuting_hashtag_format">Susturmayı kaldırma hatası #%s</string>
+    <string name="error_unmuting_hashtag_format">Susturmayı kaldırma hatası #%1$s</string>
     <string name="pref_title_notification_filter_reports">yeni bir rapor olduğunda</string>
     <string name="pref_title_animate_custom_emojis">Özel ayarlanmış emojileri oynat</string>
-    <string name="notification_header_report_format">%s rapor edilmiş %s</string>
+    <string name="notification_header_report_format">%1$s rapor edilmiş %2$s</string>
     <plurals name="notification_summary_report_format">
         <item quantity="other">%1$s · %2$d ekli gönderiler</item>
     </plurals>
     <string name="account_note_hint">Bu hesap hakkındaki özel notun</string>
     <string name="title_migration_relogin">Bildirim beslemesi için yeniden giriş yapın</string>
     <string name="title_followed_hashtags">Takip edilen etiketler</string>
-    <string name="notification_sign_up_format">%s kaydol</string>
+    <string name="notification_sign_up_format">%1$s kaydol</string>
     <string name="action_unbookmark">Yerimini kaldır</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">adetten fazla %1$d medya eki yükleyemezsiniz.</item>
@@ -367,19 +367,19 @@
     <string name="dialog_delete_conversation_warning">Bu görüşmeyi sil\?</string>
     <string name="pref_title_notification_filter_subscriptions">abone olduğum birisi yeni bir gönderi yayınladı</string>
     <string name="pref_title_notification_filter_sign_ups">birisi kaydolmuş</string>
-    <string name="filter_expiration_format">%s (%s)</string>
+    <string name="filter_expiration_format">%1$s (%2$s)</string>
     <string name="failed_to_pin">Sabitleme Başarısız</string>
     <string name="failed_to_unpin">Açılamadı</string>
     <string name="drafts_post_failed_to_send">Bu yayın gönderilemedi!</string>
     <string name="wellbeing_hide_stats_posts">Yayınların niceliksel istatistikleri gizle</string>
     <string name="drafts_post_reply_removed">Yanıt yazdığınız yayın kaldırıldı</string>
-    <string name="language_display_name_format">%s (%s)</string>
+    <string name="language_display_name_format">%1$s (%2$s)</string>
     <string name="report_category_violation">Kural ihlali</string>
     <string name="description_post_language">Gönderi dili</string>
-    <string name="confirmation_hashtag_unfollowed">#%s takip edilmeyenler</string>
+    <string name="confirmation_hashtag_unfollowed">#%1$s takip edilmeyenler</string>
     <string name="action_subscribe_account">Abone Ol</string>
     <string name="follow_requests_info">Hesabınız kilitli olmasa da, %1$s kadro bu hesaplardan gelen takip isteklerini elle gözden geçirmek isteyebileceğinizi düşündü.</string>
-    <string name="notification_report_format">Hakkında yeni rapor %s</string>
+    <string name="notification_report_format">Hakkında yeni rapor %1$s</string>
     <string name="action_add_reaction">tepki ekle</string>
     <string name="notification_subscription_name">Yeni yayınlar</string>
     <string name="notification_subscription_description">abone olduğunuz birisi yeni gönderi yayınladığında gelen bildirimler</string>
@@ -393,10 +393,10 @@
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; az önce paylaşım yaptı</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; gönderilerini düzenledi</string>
     <string name="draft_deleted">Taslak Silindi</string>
-    <string name="error_unfollowing_hashtag_format">Takip etmeyi bırakırken Hata #%s</string>
+    <string name="error_unfollowing_hashtag_format">Takip etmeyi bırakırken Hata #%1$s</string>
     <string name="label_duration">Süre</string>
     <string name="error_status_source_load">Sunucudan kaynak durumu yüklenemedi.</string>
-    <string name="pref_title_http_proxy_port_message">Bağlantı noktası %d ile %d arasında olmalıdır</string>
+    <string name="pref_title_http_proxy_port_message">Bağlantı noktası %1$d ile %2$d arasında olmalıdır</string>
     <string name="a11y_label_loading_thread">Konu yükleniyor</string>
     <string name="help_empty_home">Bu senin <b>ana ağ akışın</b>. Takip ettiğin hesapların son gönderileri burada yer alacak. \n \nTakip edebileceğin hesapları diğer zaman tünellerinden keşfedebilirsin, örneğin kendi sunucunun yerel zaman tünelinden [iconics gmd_group]. Veya hesapları adlarıyla arayabilirsin [iconics gmd_search], örneğin Mastodon hesabımızı bulmak için Pachli adıyla araman yeterli.</string>
     <string name="pref_summary_http_proxy_missing">&lt;ayarlanmadı&gt;</string>
@@ -414,7 +414,7 @@
     <string name="label_filter_context">Süzgeçleme bağlamları</string>
     <string name="filter_keyword_addition_title">Anahtar kelime ekle</string>
     <string name="label_filter_keywords">Süzgeçlenecek anahtar kelimeler veya kelime öbekleri</string>
-    <string name="filter_keyword_display_format">%s (tüm dünya)</string>
+    <string name="filter_keyword_display_format">%1$s (tüm dünya)</string>
     <string name="action_post_failed">Yükleme başarısız</string>
     <string name="action_post_failed_detail">Gönderin yüklenemedi ve taslaklara kaydedildi.
 \n
@@ -428,10 +428,10 @@
     <string name="socket_timeout_exception">Sunucuyla bağlantı kurmak çok uzun sürdü</string>
     <string name="ui_error_bookmark_fmt">Yer imi gönderisi başarısız oldu: %1$s</string>
     <string name="ui_error_vote_fmt">Ankete oy gönderilemedi: %1$s</string>
-    <string name="ui_error_clear_notifications">Bildirimler temizlenemedi: %s</string>
+    <string name="ui_error_clear_notifications">Bildirimler temizlenemedi: %1$s</string>
     <string name="ui_error_favourite_fmt">Gönderi gözdelere eklenemedi: %1$s</string>
-    <string name="ui_error_accept_follow_request">Takip isteği kabul edilemedi: %s</string>
-    <string name="ui_error_reject_follow_request">Takip isteği reddedilemedi: %s</string>
+    <string name="ui_error_accept_follow_request">Takip isteği kabul edilemedi: %1$s</string>
+    <string name="ui_error_reject_follow_request">Takip isteği reddedilemedi: %1$s</string>
     <string name="ui_error_reblog_fmt">Gönderi yeniden paylaşılamadı: %1$s</string>
     <string name="ui_success_accepted_follow_request">Takip isteği kabul edildi</string>
     <string name="ui_success_rejected_follow_request">Takip isteği engellendi</string>
@@ -455,7 +455,7 @@
     <string name="filter_action_hide">Gizle</string>
     <string name="filter_description_warn">Bir uyarı ile gizle</string>
     <string name="filter_edit_keyword_title">Anahtar kelimeyi düzenle</string>
-    <string name="filter_description_format">%s: %s</string>
+    <string name="filter_description_format">%1$s: %2$s</string>
     <string name="pref_title_show_stat_inline">Gönderi istatistiklerini sğ akışında göster</string>
     <string name="title_public_trending_hashtags">Öne çıkan etiketler</string>
     <string name="total_usage">Toplam kullanım</string>
@@ -468,5 +468,5 @@
     <string name="error_missing_edits">Sunucunuz bu gönderinin düzenlendiğini bilir, ancak düzenlemelerin bir kopyası yoktur, bu nedenle bunlar size gösterilemez.
 \n
 \nBu <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon sorununu #25398</a>.</string>
-    <string name="error_media_playback">Oynatma başarısız oldu: %s</string>
+    <string name="error_media_playback">Oynatma başarısız oldu: %1$s</string>
 </resources>

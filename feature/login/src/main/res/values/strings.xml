@@ -22,6 +22,6 @@
     <string name="login_connection">Connecting…</string>
     <string name="title_login">Login</string>
     <string name="error_could_not_load_login_page">Could not load the login page.</string>
-    <string name="instance_rule_info">By logging in you agree to the rules of %s.</string>
-    <string name="instance_rule_title">%s rules</string>
+    <string name="instance_rule_info">By logging in you agree to the rules of %1$s.</string>
+    <string name="instance_rule_title">%1$s rules</string>
 </resources>

@@ -16,13 +16,13 @@
     <string name="report_description_1">รายงานจะถูกส่งไปยังผู้ดูแลเซิร์ฟเวอร์ของคุณ สามารถให้คำอธิบายว่าทำไมจึงรายงานบัญชีนี้ด้านล่าง:</string>
     <string name="failed_fetch_posts">ดึงข้อมูลสถานะล้มเหลว</string>
     <string name="failed_report">รายงานล้มเหลว</string>
-    <string name="report_remote_instance">ส่งต่อไปยัง %s</string>
+    <string name="report_remote_instance">ส่งต่อไปยัง %1$s</string>
     <string name="hint_additional_info">ความคิดเห็นเพิ่มเติม</string>
-    <string name="report_sent_success">รายงาน @%s เรียบร้อยแล้ว</string>
+    <string name="report_sent_success">รายงาน @%1$s เรียบร้อยแล้ว</string>
     <string name="button_back">ย้อนกลับ</string>
     <string name="poll_ended_created">โพลที่คุณสร้างสิ้นสุดลงแล้ว</string>
     <string name="poll_ended_voted">โพลที่คุณโหวตสิ้นสุดลงแล้ว</string>
-    <string name="compose_preview_image_description">การกระทำสำหรับภาพ %s</string>
+    <string name="compose_preview_image_description">การกระทำสำหรับภาพ %1$s</string>
     <string name="notification_clear_text">ต้องการลบการแจ้งเตือนทั้งหมดอย่างสมบูรณ์\?</string>
     <string name="compose_shortcut_short_label">เขียน</string>
     <string name="compose_shortcut_long_label">เขียน Toot</string>
@@ -60,7 +60,7 @@
     <string name="download_fonts">ต้องดาวน์โหลดชุดเอโมจิเหล่านี้ก่อน</string>
     <string name="system_default">ค่าปริยายของระบบ</string>
     <string name="emoji_style">รูปแบบเอโมจิ</string>
-    <string name="error_no_custom_emojis">Instance %s ไม่มีเอโมจิแบบกำหนดเอง</string>
+    <string name="error_no_custom_emojis">Instance %1$s ไม่มีเอโมจิแบบกำหนดเอง</string>
     <string name="action_compose_shortcut">เขียน</string>
     <string name="send_post_notification_saved_content">สำเนา Toot บันทึกเป็นฉบับร่างแล้ว</string>
     <string name="send_post_notification_cancel_title">การส่งถูกยกเลิก</string>
@@ -90,7 +90,7 @@
     <string name="post_share_content">แบ่งปันเนื้อหา Toot</string>
     <string name="description_account_locked">บัญชีไม่สาธารณะ</string>
     <plurals name="notification_title_summary">
-        <item quantity="other">การโต้ตอบใหม่จำนวน %d</item>
+        <item quantity="other">การโต้ตอบใหม่จำนวน %1$d</item>
     </plurals>
     <string name="notification_summary_small">%1$s และ %2$s</string>
     <string name="notification_summary_medium">%1$s, %2$s, และ %3$s</string>
@@ -158,10 +158,10 @@
     <string name="visibility_private">เฉพาะผู้ติดตาม:โพสต์ให้เฉพาะผู้ติดตามเห็น</string>
     <string name="visibility_unlisted">ไม่อยู่ในรายการ:ไม่แสดงในไทม์ไลน์สาธารณะ</string>
     <string name="visibility_public">สาธารณะ:โพสต์ในไทม์ไลน์สาธารณะ</string>
-    <string name="dialog_mute_warning">ปิดเสียง @%s\?</string>
-    <string name="dialog_block_warning">บล็อก @%s\?</string>
+    <string name="dialog_mute_warning">ปิดเสียง @%1$s\?</string>
+    <string name="dialog_block_warning">บล็อก @%1$s\?</string>
     <string name="mute_domain_warning_dialog_ok">ซ่อนทั้งโดเมน</string>
-    <string name="mute_domain_warning">ต้องการบล็อกทุกอย่างจาก %s \? คุณจะไม่เห็นเนื้อหาจากโดเมนนั้นในไทม์ไลน์สาธารณะหรือในการแจ้งเตือน ผู้ติดตามของคุณจากโดเมนนั้นจะถูกลบออก</string>
+    <string name="mute_domain_warning">ต้องการบล็อกทุกอย่างจาก %1$s \? คุณจะไม่เห็นเนื้อหาจากโดเมนนั้นในไทม์ไลน์สาธารณะหรือในการแจ้งเตือน ผู้ติดตามของคุณจากโดเมนนั้นจะถูกลบออก</string>
     <string name="dialog_redraft_post_warning">ลบ แล้ว ร่าง Toot นี้ใหม่\?</string>
     <string name="dialog_delete_post_warning">ลบ Toot นี้\?</string>
     <string name="dialog_unfollow_warning">เลิกติดตามผู้ใช้นี้\?</string>
@@ -180,7 +180,7 @@
     <string name="hint_compose">เกิดอะไรขึ้นเอย\?</string>
     <string name="post_sent_long">ตอบกลับสำเร็จ</string>
     <string name="post_sent">ส่งแล้ว!</string>
-    <string name="confirmation_domain_unmuted">เลิกซ่อน %s แล้ว</string>
+    <string name="confirmation_domain_unmuted">เลิกซ่อน %1$s แล้ว</string>
     <string name="confirmation_unblocked">เลิกบล็อกผู้ใช้แล้ว</string>
     <string name="confirmation_unmuted">เลิกปิดเสียงผู้ใช้นี้แล้ว</string>
     <string name="confirmation_reported">ส่งแล้ว!</string>
@@ -191,7 +191,7 @@
     <string name="download_media">ดาวน์โหลดสื่อ</string>
     <string name="action_copy_link">คัดลอกลิงก์</string>
     <string name="download_image">กำลังดาวน์โหลด %1$s</string>
-    <string name="action_open_media_n">เปิดสื่อ #%d</string>
+    <string name="action_open_media_n">เปิดสื่อ #%1$d</string>
     <string name="action_open_faved_by">ดูชื่นชอบ</string>
     <string name="action_open_reblogged_by">ดูบสต์</string>
     <string name="action_open_reblogger">ดูต้นตอบูสต์</string>
@@ -212,7 +212,7 @@
     <string name="action_mention">กล่าวถึง</string>
     <string name="action_unmute_conversation">เลิกปิดเสียงการสนทนา</string>
     <string name="action_mute_conversation">ปิดเสียงการสนทนานี้</string>
-    <string name="action_mute_domain">ปิดเสียง %s</string>
+    <string name="action_mute_domain">ปิดเสียง %1$s</string>
     <string name="action_unmute">เลิกปิดเสียง</string>
     <string name="action_mute">ปิดเสียง</string>
     <string name="action_share">แบ่งปัน</string>
@@ -241,9 +241,9 @@
     <string name="action_compose">เขียนโพสต์ใหม่</string>
     <string name="action_quick_reply">ตอบกลับด่วน</string>
     <string name="report_comment_hint">ความคิดเห็นเพิ่มเติม</string>
-    <string name="report_username_format">รายงาน @%s</string>
-    <string name="notification_follow_request_format">%s ต้องการติดตามคุณ</string>
-    <string name="notification_follow_format">%s ได้ติดตามคุณ</string>
+    <string name="report_username_format">รายงาน @%1$s</string>
+    <string name="notification_follow_request_format">%1$s ต้องการติดตามคุณ</string>
+    <string name="notification_follow_format">%1$s ได้ติดตามคุณ</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; ได้ชื่นชอบโพสต์ของคุณ</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; ได้ดันโพสต์ของคุณ</string>
     <string name="footer_empty">ไม่มีอะไรที่นี่ ลากลงเพื่อรีเฟรช!</string>
@@ -291,11 +291,11 @@
     <string name="no_scheduled_posts">ไม่มีสถานะแบบตั้งเวลาใด ๆ</string>
     <string name="no_drafts">ไม่มีฉบับร่างใด ๆ</string>
     <string name="edit_poll">แก้ไข</string>
-    <string name="poll_new_choice_hint">ตัวเลือกที่ %d</string>
+    <string name="poll_new_choice_hint">ตัวเลือกที่ %1$d</string>
     <string name="pref_main_nav_position">ตำแหน่งการนำทางหลัก</string>
     <string name="pref_title_gradient_for_media">แสดงการไล่ระดับสีสันสำหรับสื่อที่ถูกซ่อนไว้</string>
-    <string name="action_unmute_domain">เลิกปิดเสียง %s</string>
-    <string name="action_unmute_desc">เลิกปิดเสียง %s</string>
+    <string name="action_unmute_domain">เลิกปิดเสียง %1$s</string>
+    <string name="action_unmute_desc">เลิกปิดเสียง %1$s</string>
     <string name="dialog_mute_hide_notifications">ซ่อนการแจ้งเตือน</string>
     <string name="pref_title_hide_top_toolbar">ซ่อนหัวข้อของแถบเครื่องมือด้านบน</string>
     <string name="drafts_post_failed_to_send">ล้มเหลวในการส่งโพสต์นี้!</string>
