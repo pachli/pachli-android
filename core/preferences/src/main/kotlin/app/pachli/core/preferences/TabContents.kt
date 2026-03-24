@@ -17,12 +17,25 @@
 
 package app.pachli.core.preferences
 
+/**
+ * How to display the tab in the tab strip.
+ */
 enum class TabContents(
     override val displayResource: Int,
     override val value: String? = null,
 ) : PreferenceEnum {
+    /** Display the tab with the icon only. */
     ICON_ONLY(R.string.pref_tab_contents_icon_only),
+
+    /** Display the tab with the descriptive text. */
     TEXT_ONLY(R.string.pref_tab_contents_text_only),
+
+    /** Display the tab with the icon first, then the descriptive text. */
     ICON_TEXT_INLINE(R.string.pref_tab_contents_icon_text_inline),
+
+    /**
+     * Display the tab as two lines, the icon on the first line, the
+     * descriptive text on the second line.
+     */
     ICON_TEXT_BELOW(R.string.pref_tab_contents_icon_text_below),
 }
