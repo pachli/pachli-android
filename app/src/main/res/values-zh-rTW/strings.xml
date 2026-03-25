@@ -32,7 +32,7 @@
     <string name="footer_empty">還沒有內容，向下拉動即可重新整理！</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; 轉嘟了你的嘟文</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; 最愛了你的嘟文</string>
-    <string name="notification_follow_format">%s 關注了你</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; 關注了你</string>
     <string name="report_username_format">檢舉使用者 @%s 的濫用行為</string>
     <string name="report_comment_hint">更多評論？</string>
     <string name="action_quick_reply">快速回覆</string>
@@ -276,7 +276,7 @@
 \n推播通知不會受到影響，但你可以手動檢查你的通知設定。</string>
     <string name="pref_title_wellbeing_mode">數位健康</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; 剛剛發了新嘟文</string>
-    <string name="notification_follow_request_format">%s 請求關注你</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; 請求關注你</string>
     <string name="pref_title_animate_custom_emojis">動態自訂表情符號</string>
     <string name="drafts_post_reply_removed">你的草稿欲回覆的原嘟文已被刪除</string>
     <string name="draft_deleted">草稿已刪除</string>
@@ -371,7 +371,7 @@
     <string name="action_delete_conversation">刪除對話</string>
     <string name="pref_title_notification_filter_updates">我互動過的嘟文被編輯了</string>
     <string name="duration_14_days">14 天</string>
-    <string name="notification_sign_up_format">%s 已註冊</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; 已註冊</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; 編輯了他們的嘟文</string>
     <string name="error_image_edit_failed">這張圖片不能編輯。</string>
 </resources>

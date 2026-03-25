@@ -32,7 +32,7 @@
     <string name="footer_empty">Üres tartalom. Húzd le a frissítéshez!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; megtolta a bejegyzésedet</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; kedvencnek jelölte a bejegyzésedet</string>
-    <string name="notification_follow_format">%s bekövetett</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; bekövetett</string>
     <string name="report_username_format">\@%s jelentése</string>
     <string name="report_comment_hint">Egyéb megjegyzés?</string>
     <string name="action_quick_reply">Gyors válasz</string>
@@ -304,7 +304,7 @@
     <string name="action_mute_conversation">Beszélgetés némítása</string>
     <string name="action_unmute_domain">%s némításának feloldása</string>
     <string name="action_unmute_desc">%s némításának feloldása</string>
-    <string name="notification_follow_request_format">%s kéri, hogy követhessen</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; kéri, hogy követhessen</string>
     <string name="pref_title_hide_top_toolbar">Felső eszköztár címének elrejtése</string>
     <string name="account_note_saved">Elmentve!</string>
     <string name="account_note_hint">Saját, mások számára nem látható megjegyzés erről a fiókról</string>
@@ -344,7 +344,7 @@
     <string name="pref_title_confirm_favourites">Jóváhagyás mutatása kedvencnek jelölés előtt</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; szerkesztette a bejegyzését</string>
     <string name="pref_title_notification_filter_updates">szerkesztették a bejegyzést, mellyel dolgod volt</string>
-    <string name="notification_sign_up_format">%s regisztrált</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; regisztrált</string>
     <string name="pref_title_notification_filter_sign_ups">valaki regisztrált</string>
     <string name="notification_sign_up_name">Regisztrációk</string>
     <string name="notification_sign_up_description">Értesítések új felhasználókról</string>

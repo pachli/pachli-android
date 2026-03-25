@@ -29,7 +29,7 @@
     <string name="footer_empty">این‌جا هیچ‌چیز نیست. برای تازه‌سازی، به پایین بکشید!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; فرسته‌تان را تقویت کرد</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; فرسته‌تان را برگزید</string>
-    <string name="notification_follow_format">%s پی‌گیرتان شد</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; پی‌گیرتان شد</string>
     <string name="report_username_format">گزارش @%s</string>
     <string name="report_comment_hint">نظرهای اضافی؟</string>
     <string name="action_quick_reply">پاسخ سریع</string>
@@ -298,7 +298,7 @@
     <string name="dialog_block_warning">انسداد @%s؟</string>
     <string name="action_unmute_conversation">ناخموشی گفت‌وگو</string>
     <string name="action_mute_conversation">خموشی گفت‌وگو</string>
-    <string name="notification_follow_request_format">%s می‌خواهد پی‌گیرتان شود</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; می‌خواهد پی‌گیرتان شود</string>
     <string name="pref_main_nav_position">موقعیت ناوبری اصلی</string>
     <string name="pref_title_gradient_for_media">نمایش گرادیان‌های رنگی برای رسانه‌های نهفته</string>
     <string name="dialog_mute_hide_notifications">نهفتن آگاهی‌ها</string>
@@ -341,7 +341,7 @@
     <string name="dialog_delete_conversation_warning">حذف این گفت‌وگو؟</string>
     <string name="action_delete_conversation">حذف گفت‌وگو</string>
     <string name="account_date_joined">%1$s در پیوست</string>
-    <string name="notification_sign_up_format">%1$s ثبت‌نام کرد</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; ثبت‌نام کرد</string>
     <string name="pref_title_confirm_favourites">نمایش تأیید پیش از برگزیدن</string>
     <string name="pachli_compose_post_quicksetting_label">ایجاد فرسته</string>
     <string name="notification_update_description">آگاهی‌ها هنگام ویرایش فرسته‌هایی که با آن‌ها تعامل داشته‌اید</string>

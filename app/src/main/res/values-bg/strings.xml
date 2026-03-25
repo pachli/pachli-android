@@ -227,8 +227,8 @@
     <string name="report_comment_hint">Допълнителни коментари\?</string>
     <string name="report_username_format">Докладване на @%s</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; току-що публикува</string>
-    <string name="notification_follow_request_format">%s поиска да ви последва</string>
-    <string name="notification_follow_format">%s ви последва</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; поиска да ви последва</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; ви последва</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; постави вашата публикация в любими</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; сподели вашата публикация</string>
     <string name="footer_empty">Нищо тук. Дръпнете надолу, за да опресните!</string>

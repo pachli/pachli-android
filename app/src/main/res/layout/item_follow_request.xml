@@ -19,7 +19,7 @@
         android:maxLines="1"
         android:paddingStart="28dp"
         android:textColor="?android:textColorSecondary"
-        android:textSize="?attr/status_text_medium"
+        android:textSize="?attr/status_text_small"
         app:drawableStartCompat="@drawable/ic_person_add_24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

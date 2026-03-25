@@ -72,8 +72,8 @@
     <string name="report_comment_hint">سەرنجەکانی تر؟</string>
     <string name="report_username_format">گوزارشت @%s</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; تەنها بڵاوکرایەوە</string>
-    <string name="notification_follow_request_format">%s داواکراوە کە شوێنت بکەوێت</string>
-    <string name="notification_follow_format">%s بەدواتا کەوت</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; داواکراوە کە شوێنت بکەوێت</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; بەدواتا کەوت</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; خۆشترین توتەکەت</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; توتەکەتی بەرزکردەوە</string>
     <string name="footer_empty">هیچ شتێک لێرە نیە ڕاکە خوارەوە بۆ نوێکردنەوە!</string>

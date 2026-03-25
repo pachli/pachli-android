@@ -61,7 +61,7 @@
     <string name="action_quick_reply">പെട്ടന്നുള്ള മറുപടി</string>
     <string name="report_comment_hint">കൂടുതൽ പറയാൻ ഉണ്ടോ\?</string>
     <string name="report_username_format">അറിയിക്കുക @%s</string>
-    <string name="notification_follow_format">%s നിങ്ങളെ പിന്തുടരുന്നു</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; നിങ്ങളെ പിന്തുടരുന്നു</string>
     <string name="notification_favourite_name">പ്രിയപ്പെട്ടവ</string>
     <string name="title_media">മാധ്യമം</string>
     <string name="action_open_reblogged_by">ബൂട്ട്‌സ് കാണിക്കുക</string>

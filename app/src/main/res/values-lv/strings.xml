@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="error_empty">Šis nevar būt tukšs.</string>
     <string name="error_no_web_browser_found">Nevarēja atrast tīmekļa pārlūku, ko izmantot.</string>
     <string name="error_compose_character_limit">Ieraksts ir pārāk garš!</string>
@@ -21,8 +21,8 @@
     <string name="title_follow_requests">Sekošanas pieprasījumi</string>
     <string name="title_scheduled_posts">Ieplānotie ieraksti</string>
     <string name="title_announcements">Paziņojumi</string>
-    <string name="notification_follow_format">%s uzsāka Tev sekot</string>
-    <string name="notification_sign_up_format">%s reģistrējās</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; uzsāka Tev sekot</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; reģistrējās</string>
     <string name="footer_empty">Šeit nekā nav. Pavilkt uz leju, lai atsvaidzinātu.</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; laboja savu ierakstu</string>
     <string name="action_quick_reply">Ātrā atbilde</string>
@@ -247,7 +247,7 @@
     <string name="error_unmuting_hashtag_format">Radās kļūda, atceļot #%s apklusināšanu</string>
     <string name="title_direct_messages">Tiešās ziņas</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; pastiprināja Tavu ierakstu</string>
-    <string name="notification_follow_request_format">%s lūdza atļauju sekot Tev</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; lūdza atļauju sekot Tev</string>
     <plurals name="notification_summary_report_format">
         <item quantity="zero">%1$s · pievienoti %2$d ierakstu</item>
         <item quantity="one">%1$s · pievienots %2$d ieraksts</item>

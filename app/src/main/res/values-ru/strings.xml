@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="error_empty">Не может быть пустым.</string>
     <string name="error_no_web_browser_found">Не удается найти веб-браузер.</string>
     <string name="error_compose_character_limit">Статус слишком длинный!</string>
@@ -32,7 +32,7 @@
     <string name="footer_empty">Ничего нет. Потяните вниз, чтобы обновить!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; продвинул(а) вашу запись</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; понравился ваша запись</string>
-    <string name="notification_follow_format">%s подписался(-лась) на вас</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; подписался(-лась) на вас</string>
     <string name="report_username_format">Пожаловаться на @%s</string>
     <string name="report_comment_hint">Дополнительные комментарии?</string>
     <string name="action_quick_reply">Быстрый ответ</string>
@@ -295,7 +295,7 @@
     <string name="dialog_block_warning">Заблокировать @%s\?</string>
     <string name="action_unmute_conversation">Показать обсуждение</string>
     <string name="action_mute_conversation">Заглушить обсуждение</string>
-    <string name="notification_follow_request_format">запрос на подписку от %s</string>
+    <string name="notification_follow_request_format">запрос на подписку от &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="hashtags">Хэштеги</string>
     <string name="add_hashtag_title">Добавить хэштэг</string>
     <string name="pref_title_gradient_for_media">Отображать цветные градиенты для скрытых изображений</string>
@@ -367,7 +367,7 @@
     <string name="followed_hashtags_summary_fmt">%1$s из %2$s (последние %3$s)</string>
     <string name="dialog_follow_hashtag_title">Подписаться на метки</string>
     <string name="dialog_follow_hashtag_hint">#метка</string>
-    <string name="notification_sign_up_format">%s зарегистрировался</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; зарегистрировался</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; изменил свою запись</string>
     <string name="notification_report_format">Новая жалоба на %s</string>
     <string name="notification_severed_relationships_format">Отношения с &lt;b>%1$s&lt;/b> разорваны</string>

@@ -32,7 +32,7 @@
     <string name="footer_empty">Tady nic není. Obnovte přetažením dolů!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; boostnul/a váš příspěvek</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; si oblíbil/a váš příspěvek</string>
-    <string name="notification_follow_format">%s vás nyní sleduje</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; vás nyní sleduje</string>
     <string name="report_username_format">Nahlásit uživatele @%s</string>
     <string name="report_comment_hint">Další komentáře\?</string>
     <string name="action_quick_reply">Rychlá odpověď</string>
@@ -303,11 +303,11 @@
     <string name="action_unmute_domain">Zrušit skrytí domény %s</string>
     <string name="action_unmute_desc">Zrušit skrytí %s</string>
     <string name="dialog_mute_warning">Skrýt @%s\?</string>
-    <string name="notification_follow_request_format">%s požádal/a aby vás mohl/a sledovat</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; požádal/a aby vás mohl/a sledovat</string>
     <string name="pref_title_confirm_reblogs">Zobrazit dialogové okno s potvrzením při boostování</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; právě zveřejnil/a příspěvek</string>
     <string name="title_announcements">Oznámení</string>
-    <string name="notification_sign_up_format">%s se zaregistroval/a</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; se zaregistroval/a</string>
     <string name="title_migration_relogin">Přihlaste se znovu pro push oznámení</string>
     <string name="drafts_post_failed_to_send">Tento příspěvek se nepodařilo odeslat!</string>
     <string name="error_image_edit_failed">Obrázek se nepodařilo upravit.</string>

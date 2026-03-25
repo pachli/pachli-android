@@ -284,8 +284,8 @@
     <string name="error_empty">এই জায়গা খালি হতে পারে না।</string>
     <string name="confirmation_domain_unmuted">%s দৃশ্যমান</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; পোস্ট করেছে</string>
-    <string name="notification_follow_request_format">%s তোমাকে ফলো করতে চায়</string>
-    <string name="notification_follow_format">%s তোমাকে ফলো করেছে</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; তোমাকে ফলো করতে চায়</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; তোমাকে ফলো করেছে</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; তোমার টুট বুস্ট করেছে</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; তোমার টুট বুস্ট করেছে</string>
     <string name="title_announcements">ঘোষণা</string>

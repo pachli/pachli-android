@@ -147,8 +147,8 @@
     <string name="report_comment_hint">Oanfoljende opmerkingen\?</string>
     <string name="report_username_format">Jou @%s oan</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; hat krekt in berjocht pleatst</string>
-    <string name="notification_follow_request_format">%s fersiket jo te folgjen</string>
-    <string name="notification_follow_format">%s folget jo</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; fersiket jo te folgjen</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; folget jo</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; hat jo toot as favoryt oanmurken</string>
     <string name="footer_empty">Hjir is neat. Lûk nei ûnderen om te ferfarskjen!</string>
     <string name="post_sensitive_media_directions">Klik om te besjen</string>

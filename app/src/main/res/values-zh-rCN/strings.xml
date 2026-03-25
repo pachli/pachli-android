@@ -32,7 +32,7 @@
     <string name="footer_empty">还没有内容，向下拉动即可刷新！</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; 转嘟了你的嘟文</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; 喜欢了你的嘟文</string>
-    <string name="notification_follow_format">%s 关注了你</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; 关注了你</string>
     <string name="report_username_format">举报 @%s</string>
     <string name="report_comment_hint">报告更多信息？</string>
     <string name="action_quick_reply">快速回复</string>
@@ -303,7 +303,7 @@
     <string name="action_unmute_domain">取消隐藏 %s</string>
     <string name="action_mute_domain">隐藏 %s</string>
     <string name="action_unmute_desc">取消隐藏 %s</string>
-    <string name="notification_follow_request_format">%s 请求关注你</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; 请求关注你</string>
     <string name="pref_main_nav_position">导航栏位置</string>
     <string name="pref_title_hide_top_toolbar">隐藏顶部工具栏标题</string>
     <string name="no_announcements">本站暂无公告。</string>
@@ -348,7 +348,7 @@
     <string name="duration_14_days">14 天</string>
     <string name="duration_365_days">365 天</string>
     <string name="pachli_compose_post_quicksetting_label">撰写嘟文</string>
-    <string name="notification_sign_up_format">%s 已注册</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; 已注册</string>
     <string name="pref_title_notification_filter_sign_ups">某人进行了注册</string>
     <string name="notification_sign_up_description">新用户通知</string>
     <string name="notification_sign_up_name">注册</string>

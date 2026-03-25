@@ -86,9 +86,9 @@
     <string name="footer_empty">Nothing here. Pull down to refresh!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; boosted your post</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; favorited your post</string>
-    <string name="notification_follow_format">%s followed you</string>
-    <string name="notification_follow_request_format">%s requested to follow you</string>
-    <string name="notification_sign_up_format">%s signed up</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; followed you</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; requested to follow you</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; signed up</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; just posted</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; edited their post</string>
     <string name="notification_report_format">New report on %s</string>

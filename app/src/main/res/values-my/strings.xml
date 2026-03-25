@@ -28,7 +28,7 @@
     <string name="dialog_follow_hashtag_title">Hashtag ကိုစောင့်ကြည့်မည်</string>
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
     <string name="post_sensitive_media_directions">ကြည့်ရန်နှိပ်ပါ</string>
-    <string name="notification_follow_request_format">%s မှသင့်အားစောင့်ကြည့်ခွင့်တောင်းခံထားသည်</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; မှသင့်အားစောင့်ကြည့်ခွင့်တောင်းခံထားသည်</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; ပိုစ့်တင်သည်</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; သည်၎င်းတို့၌ပိုစ့်ကိုပြုပြင်ခဲ့သည်</string>
     <string name="notification_report_format">%s သို့တိုင်ကြားမှုများ</string>
@@ -75,7 +75,7 @@
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; မှသင့်ပိုစ့်ကိုတစ်ဆင့်မျှဝေသည်</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; မှသင့်ပိုစ့်ကိုကြိုက်နှစ်သက်သည်</string>
     <string name="footer_empty">ဘာမှမရှိ။ ရီဖလက်ရှ်လုပ်ရန်အောက်သို့ဆွဲပါ!</string>
-    <string name="notification_follow_format">%s မှသင့်အားစောင့်ကြည့်ခြင်းစတင်သည်</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; မှသင့်အားစောင့်ကြည့်ခြင်းစတင်သည်</string>
     <string name="notification_severed_relationships_user_domain_block_body">သင် ဒိုမိန်းအားဘလော့ခ်ထားသည်</string>
     <string name="notification_severed_relationships_domain_block_body">မော်ဒရေတာတစ်ဦးမှ ဒိုမိန်းအားကန့်သတ်ထားသည်</string>
     <string name="notification_severed_relationships_account_suspension_body">မော်ဒရေတာတစ်ဦးမှ အကောင့်အား ကန့်သတ်ထားသည်</string>
@@ -218,7 +218,7 @@
     <string name="pref_title_show_self_boosts_description">တစ်စုံတစ်ဦး ကိုယ်ပိုင်ပိုစ့်အားမျှဝေနေသည်</string>
     <string name="pref_title_notification_filter_subscriptions">စောင့်ကြည့်ထားသူတစ်ဦးမှပိုစ့်တင်ထားသည်</string>
     <string name="action_edit">ပြင်ဆင်</string>
-    <string name="notification_sign_up_format">%s အကောင့်ဖွင့်သည်</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; အကောင့်ဖွင့်သည်</string>
     <string name="action_open_reblogger">မျှဝေသူအားကြည့်မည်</string>
     <string name="pref_title_notification_filter_updates">ထိတွေ့ခဲ့သော ပိုစ့်တစ်ခုတွင်ပြင်ဆင်မှုများရှိသည်</string>
     <string name="action_open_reblogged_by">မျှဝေမှုများကြည့်မည်</string>

@@ -242,8 +242,8 @@
     <string name="action_quick_reply">ตอบกลับด่วน</string>
     <string name="report_comment_hint">ความคิดเห็นเพิ่มเติม</string>
     <string name="report_username_format">รายงาน @%s</string>
-    <string name="notification_follow_request_format">%s ต้องการติดตามคุณ</string>
-    <string name="notification_follow_format">%s ได้ติดตามคุณ</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; ต้องการติดตามคุณ</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; ได้ติดตามคุณ</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; ได้ชื่นชอบโพสต์ของคุณ</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; ได้ดันโพสต์ของคุณ</string>
     <string name="footer_empty">ไม่มีอะไรที่นี่ ลากลงเพื่อรีเฟรช!</string>

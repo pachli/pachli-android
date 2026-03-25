@@ -31,7 +31,7 @@
     <string name="footer_empty">Nada aqui. Arraste para atualizar!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; deu Boost no teu Toot</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; favoritou teu Toot</string>
-    <string name="notification_follow_format">%s te seguiu</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; te seguiu</string>
     <string name="report_username_format">Denunciar @%s</string>
     <string name="report_comment_hint">Comentários adicionais?</string>
     <string name="action_quick_reply">Resposta rápida</string>
@@ -289,7 +289,7 @@
     <string name="no_drafts">Sem rascunho.</string>
     <string name="warning_scheduling_interval">Mastodon possui um intervalo mínimo de 5 minutos para agendar.</string>
     <string name="notification_follow_request_name">Pedidos para me seguir</string>
-    <string name="notification_follow_request_format">%s quer te seguir</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; quer te seguir</string>
     <string name="action_mute_conversation">Silenciar conversa</string>
     <string name="action_unmute_conversation">Dessilenciar conversa</string>
     <string name="dialog_block_warning">Bloquear @%s\?</string>
@@ -477,7 +477,7 @@
     <string name="notification_update_description">Notificações quando Toots com os quais interagiu são editados</string>
     <string name="ui_error_accept_follow_request">Falha ao aceitar a solicitação de seguir: %s</string>
     <string name="ui_success_rejected_follow_request">Pedido para seguir bloqueado</string>
-    <string name="notification_sign_up_format">%s se inscreveu</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; se inscreveu</string>
     <string name="action_translate">Traduzir</string>
     <string name="error_missing_edits">Teu servidor sabe que esta postagem foi editada, mas não possui uma cópia das edições, portanto elas não podem ser mostradas.
 \n

@@ -27,7 +27,7 @@
     <string name="footer_empty">இங்கு எதுவுமில்லை. புதுப்பிக்க கீழே இழுக்கவும்!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; தங்களின் toot உயர்த்தப்பட்டுள்ளது</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; தங்களின் toot பிடித்தவையானது</string>
-    <string name="notification_follow_format">%s தங்களை பின்பற்றுகிறார்</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; தங்களை பின்பற்றுகிறார்</string>
     <string name="report_username_format">புகார் @%s</string>
     <string name="report_comment_hint">கூடுதல் கருத்துரைகள்?</string>
     <string name="action_quick_reply">உடனடி பதிலளி</string>
@@ -205,7 +205,7 @@
     <string name="conversation_2_recipients">%1$s மற்றும் %2$s</string>
     <string name="compose_shortcut_short_label">எழுது</string>
     <string name="title_edits">திருத்தங்கள்</string>
-    <string name="notification_follow_request_format">%s உங்களைப் பின்தொடருமாறு கேட்டுக்கொண்டது</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; உங்களைப் பின்தொடருமாறு கேட்டுக்கொண்டது</string>
     <string name="notification_report_format">%s பற்றிய புதிய அறிக்கை</string>
     <string name="action_post_failed">பதிவேற்றம் தோல்வியடைந்தது</string>
     <string name="action_share_account_username">கணக்கின் பயனர்பெயரைப் பகிரவும்</string>
@@ -384,7 +384,7 @@
     <string name="title_announcements">அறிவிப்புகள்</string>
     <string name="title_followed_hashtags">ஏச்டேக்குகளைத் தொடர்ந்து</string>
     <string name="dialog_follow_hashtag_hint">#ஆச்டாக்</string>
-    <string name="notification_sign_up_format">%s கையெழுத்திட்டன</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; கையெழுத்திட்டன</string>
     <string name="action_unbookmark">புத்தகக்குறியை அகற்று</string>
     <string name="action_share_account_link">கணக்கிற்கான இணைப்பைப் பகிரவும்</string>
     <string name="action_delete_conversation">உரையாடலை நீக்கு</string>

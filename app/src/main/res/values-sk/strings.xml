@@ -146,8 +146,8 @@
     <string name="title_announcements">Oznámenia</string>
     <string name="title_followed_hashtags">Sledované hastagy</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; zdieľal/a tvoj príspevok</string>
-    <string name="notification_follow_format">%s ťa sleduje</string>
-    <string name="notification_follow_request_format">%s ťa požiadal o sledovanie</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; ťa sleduje</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; ťa požiadal o sledovanie</string>
     <string name="notification_severed_relationships_format">Vzťah s &lt;b&gt;%1$s&lt;/b&gt; bol prerušený</string>
     <string name="notification_severed_relationships_domain_block_body">Moderátor pozastavil doménu</string>
     <string name="notification_severed_relationships_user_domain_block_body">Zablokoval/a si doménu</string>
@@ -269,7 +269,7 @@
     <string name="title_domain_mutes">Skryté domény</string>
     <string name="dialog_follow_hashtag_title">Sledovať hashtag</string>
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
-    <string name="notification_sign_up_format">%s sa zaregistroval/a</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; sa zaregistroval/a</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; práve uverejnil/a príspevok</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; upravil/a svoj príspevok</string>
     <string name="pref_title_notification_filter_mentions">Zmienky</string>
