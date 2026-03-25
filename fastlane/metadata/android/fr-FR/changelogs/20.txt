@@ -1,0 +1,14 @@
+Pachli 2.8.0
+
+Nouveautés :
+
+- Préférence expérimentale d'inverser la timeline d'accueil
+- Meilleure fiabilité des notifications push et pull
+
+Corrections :
+
+- Nom de l'application d'envoi si le lien manque
+- Accepte les status vides sur veganism.social
+- Hashtags, mentions et ellipses en écriture droite à gauche
+- Bonnes couleurs de filtres en mode sombre
+- Mise à jour de traductions en finnois, galicien, irlandais, norvégien et espagnol
