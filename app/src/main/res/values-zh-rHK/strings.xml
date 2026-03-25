@@ -32,7 +32,7 @@
     <string name="footer_empty">還沒有內容，向下拉動即可重新整理！</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; 轉嘟了你的嘟文</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; 把你的嘟文加入了最愛</string>
-    <string name="notification_follow_format">%s 關注了你</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; 關注了你</string>
     <string name="report_username_format">檢舉使用者 @%s 的濫用行為</string>
     <string name="report_comment_hint">更多評論？</string>
     <string name="action_quick_reply">快速回覆</string>
@@ -269,7 +269,7 @@
     <string name="action_view_bookmarks">我的書籤</string>
     <string name="title_bookmarks">我的書籤</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; 剛剛發了新嘟文</string>
-    <string name="notification_follow_request_format">%s 希望可以關注你</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; 希望可以關注你</string>
     <string name="title_announcements">公告</string>
     <string name="title_scheduled_posts">已排程的嘟文</string>
     <string name="title_domain_mutes">被隱藏的網域</string>

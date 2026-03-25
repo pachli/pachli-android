@@ -30,7 +30,7 @@
     <string name="error_media_upload_permission">Izin untuk membaca media diperlukan.</string>
     <string name="error_media_download_permission">Izin untuk menyimpan media diperlukan.</string>
     <string name="post_sensitive_media_directions">Klik untuk melihat</string>
-    <string name="notification_follow_format">%s mengikuti Anda</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; mengikuti Anda</string>
     <string name="report_username_format">Laporkan @%s</string>
     <string name="action_follow">Ikuti</string>
     <string name="action_unfollow">Berhenti Mengikuti</string>
@@ -100,7 +100,7 @@
     <string name="error_sender_account_gone">Gagal mengirim postingan.</string>
     <string name="title_mutes">Pengguna dibisukan</string>
     <string name="title_announcements">Pengumuman</string>
-    <string name="notification_follow_request_format">%s meminta untuk mengikuti anda</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; meminta untuk mengikuti anda</string>
     <string name="action_edit">Ubah</string>
     <string name="action_delete_conversation">Hapus percakapan</string>
     <string name="action_unmute">Jangan bisukan</string>
@@ -123,7 +123,7 @@
     <string name="footer_empty">Tidak ada apapun di sini. Tarik ke bawah untuk menyegarkan!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; telah meng-boost post mu</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; memfavoritkan post mu</string>
-    <string name="notification_sign_up_format">%s mendaftar</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; mendaftar</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; baru saja memosting</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; mengedit post mereka</string>
     <string name="report_comment_hint">Komentar tambahan\?</string>

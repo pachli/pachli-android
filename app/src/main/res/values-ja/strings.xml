@@ -32,7 +32,7 @@
     <string name="footer_empty">現在投稿はありません。更新するにはプルダウンしてください！</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt;さんが投稿をブーストしました</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt;さんが投稿をお気に入りに登録しました</string>
-    <string name="notification_follow_format">%sさんにフォローされました</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt;さんにフォローされました</string>
     <string name="report_username_format">\@%sさんを通報</string>
     <string name="report_comment_hint">コメント</string>
     <string name="action_quick_reply">クイック返信</string>
@@ -258,7 +258,7 @@
     <string name="conversation_2_recipients">%1$sさん、%2$sさん</string>
     <string name="notification_follow_request_name">フォローリクエスト</string>
     <string name="action_unmute_desc">%sさんのミュートを解除</string>
-    <string name="notification_follow_request_format">%sさんがあなたにフォローリクエストしました</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt;さんがあなたにフォローリクエストしました</string>
     <string name="report_sent_success">\@%sさんを通報しました</string>
     <string name="no_scheduled_posts">予約した投稿はありません。</string>
     <string name="no_drafts">下書きはありません。</string>
@@ -306,7 +306,7 @@
     <string name="delete_scheduled_post_warning">この予約投稿を削除しますか？</string>
     <string name="action_unbookmark">ブックマークを削除</string>
     <string name="action_delete_conversation">会話を削除</string>
-    <string name="notification_sign_up_format">%sさんがサインアップしました</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt;さんがサインアップしました</string>
     <string name="description_post_language">投稿言語</string>
     <string name="label_duration">期間</string>
     <string name="duration_indefinite">無期限</string>

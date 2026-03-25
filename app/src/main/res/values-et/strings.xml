@@ -79,9 +79,9 @@
     <string name="footer_empty">Siin ei leidu midagi. Andmete uuendamiseks viipa ülevalt alla!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; lisas sinu postitusele hoogu</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; märkis sinu postituse lemmikuks</string>
-    <string name="notification_follow_format">%s hakkas sind jälgima</string>
-    <string name="notification_follow_request_format">%s soovib võimalust sind jälgida</string>
-    <string name="notification_sign_up_format">%s registreerus</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; hakkas sind jälgima</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; soovib võimalust sind jälgida</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; registreerus</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; just postitas midagi</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; muutis oma postitust</string>
     <string name="error_following_hashtag_format">Viga #%s teemaviite jälgimisel</string>

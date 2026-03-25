@@ -32,7 +32,7 @@
     <string name="footer_empty">Burada henüz hiç birşey yok. Yenilemek için aşağıya çekin!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; gönderinizi paylaştı</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; gönderinizi gözdelerilerine ekledi</string>
-    <string name="notification_follow_format">%s seni takip etti</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; seni takip etti</string>
     <string name="report_username_format">\@%s Bildir</string>
     <string name="report_comment_hint">Daha fazla yorum?</string>
     <string name="action_quick_reply">Hızlı yanıt</string>
@@ -298,7 +298,7 @@
     <string name="dialog_block_warning">\@%s engellensin mi\?</string>
     <string name="action_unmute_domain">%s alan adının sesini aç</string>
     <string name="action_unmute_desc">%s sesini aç</string>
-    <string name="notification_follow_request_format">%s seni takip etmek istiyor</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; seni takip etmek istiyor</string>
     <string name="action_unmute_conversation">Sohbetin sesini aç</string>
     <string name="pref_title_notification_filter_follow_requests">takip isteklerinde</string>
     <string name="action_mute_conversation">Sohbeti sessize al</string>
@@ -327,7 +327,7 @@
     <string name="account_note_hint">Bu hesap hakkındaki özel notun</string>
     <string name="title_migration_relogin">Bildirim beslemesi için yeniden giriş yapın</string>
     <string name="title_followed_hashtags">Takip edilen etiketler</string>
-    <string name="notification_sign_up_format">%s kaydol</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; kaydol</string>
     <string name="action_unbookmark">Yerimini kaldır</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">adetten fazla %1$d medya eki yükleyemezsiniz.</item>

@@ -39,7 +39,7 @@
     <string name="footer_empty">Ekkert hér. Togaðu niður til að endurhlaða!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; endurbirti færsluna þína</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; setti færslu frá þér í eftirlæti</string>
-    <string name="notification_follow_format">%s fylgist núna með þér</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; fylgist núna með þér</string>
     <string name="report_username_format">Kæra @%s</string>
     <string name="report_comment_hint">Aðrar athugasemdir\?</string>
     <string name="action_quick_reply">Snöggt svar</string>
@@ -301,7 +301,7 @@
     <string name="action_mute_conversation">Þagga niður í samtali</string>
     <string name="action_unmute_domain">Afþagga %s</string>
     <string name="action_unmute_desc">Afþagga %s</string>
-    <string name="notification_follow_request_format">%s bað um að fylgjast með þér</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; bað um að fylgjast með þér</string>
     <string name="title_announcements">Tilkynningar</string>
     <string name="wellbeing_mode_notice">Sumar upplýsingar sem gætu haft áhrif á andlega vellíðan þína verða faldar. Þetta hefur áhrif á:
 \n
@@ -342,7 +342,7 @@
     <string name="duration_365_days">365 dagar</string>
     <string name="duration_14_days">14 dagar</string>
     <string name="pachli_compose_post_quicksetting_label">Semja færslu</string>
-    <string name="notification_sign_up_format">%s skráði sig</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; skráði sig</string>
     <string name="pref_title_notification_filter_sign_ups">einhver skráði sig</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; breytti færslunni sinni</string>
     <string name="pref_title_notification_filter_updates">færsla sem ég hef átt við er breytt</string>

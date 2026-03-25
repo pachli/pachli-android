@@ -32,7 +32,7 @@
     <string name="footer_empty">Inget här. Dra ner för att uppdatera!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; puffade ditt inlägg</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; favoritmarkerade ditt inlägg</string>
-    <string name="notification_follow_format">%s följer dig</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; följer dig</string>
     <string name="report_username_format">Rapportera @%s</string>
     <string name="report_comment_hint">Ytterligare kommentarer?</string>
     <string name="action_quick_reply">Snabbsvar</string>
@@ -297,7 +297,7 @@
     <string name="dialog_mute_warning">Tysta @%s\?</string>
     <string name="dialog_block_warning">Blockera @%s\?</string>
     <string name="action_unmute_conversation">Aktivera ljud på konversation</string>
-    <string name="notification_follow_request_format">%s vill följa dig</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; vill följa dig</string>
     <string name="add_hashtag_title">Lägg till hashtag</string>
     <string name="hashtags">Hashtaggar</string>
     <string name="pref_main_nav_position">Standard navigationsposition</string>
@@ -363,7 +363,7 @@
     <string name="duration_180_days">180 dagar</string>
     <string name="action_set_focus">Sätt fokuspunkt</string>
     <string name="error_following_hashtag_format">Kunde inte följa #%s</string>
-    <string name="notification_sign_up_format">%s registrerade sig</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; registrerade sig</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; redigerade sitt inlägg</string>
     <string name="action_unbookmark">Ta bort bokmärke</string>
     <string name="action_delete_conversation">Radera konversation</string>

@@ -27,7 +27,7 @@
     <string name="footer_empty">No hi res aquí. Llisca avall per a actualitzar!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; ha impulsat la teva publicació</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; ha marcat com a preferida la teva publicació</string>
-    <string name="notification_follow_format">%s et segueix</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; et segueix</string>
     <string name="report_username_format">Denuncia @%s</string>
     <string name="report_comment_hint">Cap comentari addicional?</string>
     <string name="action_compose">Escriure</string>
@@ -294,7 +294,7 @@
     <string name="dialog_block_warning">Bloquejar @%s\?</string>
     <string name="action_unmute_conversation">No silenciar la conversació</string>
     <string name="action_mute_conversation">Silencia la conversa</string>
-    <string name="notification_follow_request_format">%s ha sol·licitat seguir-te</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; ha sol·licitat seguir-te</string>
     <string name="pref_main_nav_position">Posició de navegació principal</string>
     <string name="pref_title_gradient_for_media">Mostra els degradats de colors per als mitjans ocults</string>
     <string name="dialog_mute_hide_notifications">Amagar notificacions</string>
@@ -333,7 +333,7 @@
     <string name="pref_summary_http_proxy_missing">&lt;no definit&gt;</string>
     <string name="pref_summary_http_proxy_invalid">&lt;no vàlid&gt;</string>
     <string name="error_following_hashtags_unsupported">Aquesta instància no admet seguir hashtags.</string>
-    <string name="notification_sign_up_format">%s s\'ha registrat</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; s\'ha registrat</string>
     <string name="error_unmuting_hashtag_format">S\'ha produït un error en activar #%s</string>
     <string name="error_muting_hashtag_format">S\'ha produït un error en silenciar #%s</string>
     <string name="notification_update_name">Edicions de publicacions</string>

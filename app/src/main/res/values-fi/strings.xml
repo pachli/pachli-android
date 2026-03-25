@@ -128,7 +128,7 @@
     <string name="action_open_reblogger">Avaa jakajan tili</string>
     <string name="action_edit_image">Muokkaa kuvaa</string>
     <string name="action_view_mutes">Mykistetyt tilit</string>
-    <string name="notification_follow_format">%s seurasi sinua</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; seurasi sinua</string>
     <plurals name="notification_title_summary">
         <item quantity="one">%d uusi kannsakäyminen</item>
         <item quantity="other">%d uutta kanssakäymistä</item>
@@ -137,7 +137,7 @@
     <string name="error_media_upload_image_or_video">samaan julkaisuun ei voi liittää sekä kuvia että videoita.</string>
     <string name="notification_summary_medium">%1$s, %2$s, ja %3$s</string>
     <string name="error_media_upload_type">Tällaista tiedostoa ei voida ladata ylös.</string>
-    <string name="notification_follow_request_format">%s haluaa seurata sinua</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; haluaa seurata sinua</string>
     <string name="title_public_federated">Verkostoitu</string>
     <string name="error_media_upload_sending">Lähettäminen epäonnistui.</string>
     <string name="report_username_format">Ilmianna @%s</string>
@@ -174,7 +174,7 @@
     <string name="notification_summary_small">%1$s ja %2$s</string>
     <string name="action_unmute_desc">Poista mykistys tililtä %s</string>
     <string name="action_compose">Kirjoita</string>
-    <string name="notification_sign_up_format">%s rekisteröityi</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; rekisteröityi</string>
     <string name="notification_sign_up_name">Rekisteröitymiset</string>
     <string name="notification_sign_up_description">Ilmoitukset uusista käyttäkistä</string>
     <string name="action_unbookmark">Poista kirjanmerkki</string>

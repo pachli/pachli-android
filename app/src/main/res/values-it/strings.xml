@@ -36,7 +36,7 @@
     <string name="footer_empty">Qui non c\'è nulla. Trascina verso il basso per aggiornare!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; ha condiviso il tuo post</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; ha apprezzato il tuo post</string>
-    <string name="notification_follow_format">%s ti segue</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; ti segue</string>
     <string name="report_username_format">Segnala @%s</string>
     <string name="report_comment_hint">Commenti aggiuntivi?</string>
     <string name="action_quick_reply">Risposta veloce</string>
@@ -305,7 +305,7 @@
     <string name="action_unmute_domain">Smetti di silenziare %s</string>
     <string name="action_unmute_conversation">Smetti di silenziare la conversazione</string>
     <string name="action_mute_conversation">Silenzia conversazione</string>
-    <string name="notification_follow_request_format">%s ha chiesto di seguirti</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; ha chiesto di seguirti</string>
     <string name="action_unmute_desc">Smetti di silenziare %s</string>
     <string name="notification_follow_request_name">Richieste di seguirti</string>
     <string name="account_note_saved">Salvato!</string>
@@ -363,7 +363,7 @@
     <string name="duration_180_days">180 giorni</string>
     <string name="duration_365_days">365 giorni</string>
     <string name="follow_requests_info">Anche se il tuo account non è bloccato, lo staff di %1$s ha pensato che potresti voler verificare le richieste di seguirti da parte di questi utenti manualmente.</string>
-    <string name="notification_sign_up_format">%s si è registrato</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; si è registrato</string>
     <string name="pref_title_notification_filter_sign_ups">Qualcuno si è registrato</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; ha modificato il suo messaggio</string>
     <string name="pref_title_notification_filter_updates">Un messaggio con cui ho interagito è stato modificato</string>

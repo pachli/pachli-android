@@ -264,8 +264,8 @@
     <string name="dialog_unfollow_warning">इस खाते को अनफ़ॉलो करें\?</string>
     <string name="dialog_message_cancel_follow_request">फ़ॉलो अनुरोध को रद्द करें\?</string>
     <string name="action_view_follow_requests">फ़ॉलो अनुरोध</string>
-    <string name="notification_follow_request_format">%s ने आपको फ़ॉलो करने का अनुरोध किया</string>
-    <string name="notification_follow_format">%s ने आपको फ़ॉलो किया</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; ने आपको फ़ॉलो करने का अनुरोध किया</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; ने आपको फ़ॉलो किया</string>
     <string name="pref_title_show_boosts">बूस्ट दिखाएं</string>
     <string name="action_open_reblogged_by">बूस्ट दिखाएं</string>
     <string name="error_compose_character_limit">पोस्ट बहुत लंबा है!</string>

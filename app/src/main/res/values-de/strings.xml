@@ -30,9 +30,9 @@
     <string name="title_drafts">Entwürfe</string>
     <string name="post_sensitive_media_directions">Zum Anzeigen tippen</string>
     <string name="footer_empty">Noch keine Beiträge. Ziehe zum Aktualisieren nach unten!</string>
-    <string name="notification_reblog_format"><b>%1$s</b> teilte deinen Beitrag</string>
-    <string name="notification_favourite_format"><b>%1$s</b> favorisierte deinen Beitrag</string>
-    <string name="notification_follow_format">%s folgt dir</string>
+    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; teilte deinen Beitrag</string>
+    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; favorisierte deinen Beitrag</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; folgt dir</string>
     <string name="report_username_format">\@%s melden</string>
     <string name="report_comment_hint">Zusätzliche Anmerkungen\?</string>
     <string name="action_quick_reply">Schnell antworten</string>
@@ -298,7 +298,7 @@
     <string name="dialog_block_warning">\@%s blockieren\?</string>
     <string name="action_unmute_conversation">Stummschaltung der Unterhaltung aufheben</string>
     <string name="action_mute_conversation">Unterhaltung stummschalten</string>
-    <string name="notification_follow_request_format">%s möchte dir folgen</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; möchte dir folgen</string>
     <string name="hashtags">Hashtags</string>
     <string name="add_hashtag_title">Hashtag hinzufügen</string>
     <string name="pref_title_confirm_reblogs">Vor dem Teilen bestätigen</string>
@@ -357,7 +357,7 @@
     <string name="pref_title_notification_filter_updates">ein Beitrag, mit dem ich interagiert habe, bearbeitet wurde</string>
     <string name="notification_sign_up_name">Registrierungen</string>
     <string name="notification_sign_up_description">Benachrichtigungen über neue Profile</string>
-    <string name="notification_sign_up_format">%s hat sich registriert</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; hat sich registriert</string>
     <string name="pref_title_notification_filter_sign_ups">jemand sich registriert</string>
     <string name="notification_update_description">Benachrichtigungen, wenn Beiträge bearbeitet werden, mit denen du interagiert hast</string>
     <string name="notification_update_name">Beitragsbearbeitungen</string>

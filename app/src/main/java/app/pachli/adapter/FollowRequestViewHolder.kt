@@ -17,10 +17,7 @@
 
 package app.pachli.adapter
 
-import android.graphics.Typeface
-import android.text.SpannableStringBuilder
-import android.text.Spanned
-import android.text.style.StyleSpan
+import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.components.notifications.NotificationsPagingAdapter
@@ -32,10 +29,12 @@ import app.pachli.core.data.model.NotificationViewData.FollowRequestNotification
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.TimelineAccount
+import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.emojify
+import app.pachli.core.ui.extensions.handleContentDescription
 import app.pachli.core.ui.loadAvatar
 import app.pachli.databinding.ItemFollowRequestBinding
 import app.pachli.interfaces.AccountActionListener
@@ -82,8 +81,8 @@ class FollowRequestViewHolder(
         showBotOverlay: Boolean,
         showPronouns: Boolean,
     ) {
-        val wrappedName = account.name.unicodeWrap()
-        val emojifiedName: CharSequence = wrappedName.emojify(
+        val displayName = account.name.unicodeWrap()
+        val emojifiedName: CharSequence = displayName.emojify(
             glide,
             account.emojis,
             binding.displayNameTextView,
@@ -91,18 +90,25 @@ class FollowRequestViewHolder(
         )
         binding.displayNameTextView.text = emojifiedName
         if (showHeader) {
-            val wholeMessage: String = itemView.context.getString(
-                R.string.notification_follow_request_format,
-                wrappedName,
+            val wholeMessage = HtmlCompat.fromHtml(
+                itemView.context.getString(
+                    R.string.notification_follow_request_format,
+                    displayName,
+                ),
+                HtmlCompat.FROM_HTML_MODE_LEGACY,
             )
-            binding.notificationTextView.text = SpannableStringBuilder(wholeMessage).apply {
-                setSpan(
-                    StyleSpan(Typeface.BOLD),
-                    0,
-                    wrappedName.length,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
-                )
-            }.emojify(glide, account.emojis, binding.notificationTextView, animateEmojis)
+            val emojifiedMessage = wholeMessage.emojify(
+                glide,
+                account.emojis,
+                binding.notificationTextView,
+                animateEmojis,
+            )
+
+            binding.notificationTextView.text = emojifiedMessage
+
+            binding.root.contentDescription = "$emojifiedMessage.\n\n${account.handleContentDescription(itemView.context)}.\n\n${account.note.parseAsMastodonHtml()}"
+        } else {
+            binding.root.contentDescription = "${account.handleContentDescription(itemView.context)}.\n\n${account.note.parseAsMastodonHtml()}"
         }
         binding.notificationTextView.visible(showHeader)
 

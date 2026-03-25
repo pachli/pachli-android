@@ -32,7 +32,7 @@
     <string name="footer_empty">Ingenting her. Dra ned for å oppdatere!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; delte innlegget ditt</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; favoriserte innlegget ditt</string>
-    <string name="notification_follow_format">%s fulgte deg</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; fulgte deg</string>
     <string name="report_username_format">Rapporter @%s</string>
     <string name="report_comment_hint">Ytterligere kommentarer\?</string>
     <string name="action_quick_reply">Hurtigsvar</string>
@@ -292,7 +292,7 @@
     <string name="action_mute_conversation">Demp samtale</string>
     <string name="hashtags">Stikkord</string>
     <string name="add_hashtag_title">Legg til stikkord</string>
-    <string name="notification_follow_request_format">%s ønsker å følge deg</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; ønsker å følge deg</string>
     <string name="pref_title_gradient_for_media">Vis fargerike gradienter for skjult media</string>
     <string name="pref_main_nav_position">Plassering av hovednavigasjon</string>
     <string name="action_unmute_domain">Fjern demping av %s</string>
@@ -342,7 +342,7 @@
     <string name="duration_365_days">365 dager</string>
     <string name="duration_14_days">14 dager</string>
     <string name="pachli_compose_post_quicksetting_label">Skriv innlegg</string>
-    <string name="notification_sign_up_format">%s registrerte seg</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; registrerte seg</string>
     <string name="pref_title_notification_filter_sign_ups">noen registrerte seg</string>
     <string name="notification_sign_up_name">Registreringer</string>
     <string name="notification_sign_up_description">Varslinger om nye brukere</string>

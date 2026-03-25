@@ -29,7 +29,7 @@
     <string name="footer_empty">Dim byd yma. Tynnwch lawr i adnewyddu!</string>
     <string name="notification_reblog_format">Hybodd &lt;b&gt;%1$s&lt;/b&gt; eich neges</string>
     <string name="notification_favourite_format">Hoffodd &lt;b&gt;%1$s&lt;/b&gt; eich neges</string>
-    <string name="notification_follow_format">Dilynodd %s chi</string>
+    <string name="notification_follow_format">Dilynodd &lt;b&gt;%1$s&lt;/b&gt; chi</string>
     <string name="report_username_format">Adrodd @%s</string>
     <string name="report_comment_hint">Sylwadau ychwanegol?</string>
     <string name="action_quick_reply">Ymateb yn gyflym</string>
@@ -258,8 +258,8 @@
     <string name="filter_add_description">Ymadrodd i\'w hidlo</string>
     <string name="action_reset_schedule">Ailosod</string>
     <string name="title_bookmarks">Tudalnodau</string>
-    <string name="notification_follow_request_format">Ceisiodd %s i\'ch dilyn chi</string>
-    <string name="notification_sign_up_format">Cofrestrodd %s</string>
+    <string name="notification_follow_request_format">Ceisiodd &lt;b&gt;%1$s&lt;/b&gt; i\'ch dilyn chi</string>
+    <string name="notification_sign_up_format">Cofrestrodd &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="action_unbookmark">Tynnu\'r tudalnod</string>
     <string name="action_unmute_desc">Dad-dewi %s</string>
     <string name="title_migration_relogin">Mewngofnodwch eto i gael hysbysiadau gwthio</string>

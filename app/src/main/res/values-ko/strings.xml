@@ -33,7 +33,7 @@
     <string name="footer_empty">게시물이 없습니다. 아래로 당겨서 새로고침하세요!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt;님이 부스트 했습니다</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt;님이 당신의 게시물을 좋아합니다</string>
-    <string name="notification_follow_format">%s님이 나를 팔로우 했습니다</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt;님이 나를 팔로우 했습니다</string>
     <string name="report_username_format">\@%s 신고</string>
     <string name="report_comment_hint">코멘트</string>
     <string name="action_quick_reply">빠른 답장</string>

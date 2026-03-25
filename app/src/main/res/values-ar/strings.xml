@@ -32,7 +32,7 @@
     <string name="footer_empty">لا يوجد شيء هنا. إسحب إلى أسفل للإنعاش!</string>
     <string name="notification_reblog_format">شارك &lt;b&gt;%1$s&lt;/b&gt; منشورك</string>
     <string name="notification_favourite_format">أعجِب &lt;b&gt;%1$s&lt;/b&gt; بمنشورك</string>
-    <string name="notification_follow_format">%s يتبعك</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; يتبعك</string>
     <string name="report_username_format">أبلغ عن @%s</string>
     <string name="report_comment_hint">تعليقات إضافية؟</string>
     <string name="action_quick_reply">رد سريع</string>
@@ -301,7 +301,7 @@
     <string name="dialog_block_warning">حجب @%s؟</string>
     <string name="action_unmute_conversation">ألغِ كتم المحادثة</string>
     <string name="action_mute_conversation">اكتم المحادثة</string>
-    <string name="notification_follow_request_format">%s طلبَ متابعتك</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; طلبَ متابعتك</string>
     <string name="hashtags">الوسوم</string>
     <string name="add_hashtag_title">إضافة وسم</string>
     <string name="pref_title_gradient_for_media">اظهر ألوانا متدرّجة للوسائط المخفية</string>
@@ -340,7 +340,7 @@
     <string name="duration_365_days">365 يومًا</string>
     <string name="pachli_compose_post_quicksetting_label">تحرير منشور</string>
     <string name="notification_sign_up_name">حسابات جديدة</string>
-    <string name="notification_sign_up_format">قام %s بإنشاء حساب</string>
+    <string name="notification_sign_up_format">قام &lt;b&gt;%1$s&lt;/b&gt; بإنشاء حساب</string>
     <string name="pref_title_notification_filter_sign_ups">أحدهم أنشأ حسابا جديدا</string>
     <string name="notification_update_name">منشورات تم تعديلها</string>
     <string name="notification_update_format">قام &lt;b&gt;%1$s&lt;/b&gt; بتعديل منشوره</string>
