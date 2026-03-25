@@ -2,7 +2,7 @@
 <resources>
     <string name="action_share_as">Partager comme …</string>
     <string name="error_set_active_account">La connexion a échoué avec l\'erreur suivante : %1$s</string>
-    <string name="error_refresh_account">Le rafraîchissement de compte a échofé avec l\'erreu suivante : %1$s\n\nVous pouvez continuer, mais vos listes et filtres pourraient être incomplets.</string>
+    <string name="error_refresh_account">Le rafraîchissement de compte a échoué avec l\'erreur suivante : %1$s\n\nVous pouvez continuer, mais vos listes et filtres pourraient être incomplets.</string>
     <string name="action_relogin">Se reconnecter</string>
     <string name="title_choose_account_dialog">Choisir un compte</string>
     <string name="title_error_dialog">Connexion échouée</string>
