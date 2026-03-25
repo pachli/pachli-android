@@ -46,9 +46,9 @@
     <string name="footer_empty">Тут нічога няма. Пацягніце ўніз, каб абнавіць!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; пашырыў(-ла) ваш допіс</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; падабаўся ваш допіс</string>
-    <string name="notification_follow_format">%s падпісаўся(-лася) на вас</string>
-    <string name="notification_follow_request_format">%s запытаў(-ла) падпіску на вас</string>
-    <string name="notification_sign_up_format">%s зарэгістраваўся(-лася)</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; падпісаўся(-лася) на вас</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; запытаў(-ла) падпіску на вас</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; зарэгістраваўся(-лася)</string>
     <string name="notification_subscription_format">Новы допіс ад &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; адрэдагаваў(-ла) свой допіс</string>
     <string name="notification_report_format">Новая скарга на %s</string>

@@ -32,7 +32,7 @@
     <string name="footer_empty">还没有内容，向下拉动即可刷新</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; 转嘟了你的嘟文</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; 喜欢了你的嘟文</string>
-    <string name="notification_follow_format">%s 关注了你</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; 关注了你</string>
     <string name="report_username_format">报告用户 @%s 的滥用行为</string>
     <string name="report_comment_hint">报告更多信息</string>
     <string name="action_quick_reply">快速回复</string>

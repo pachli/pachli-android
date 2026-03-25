@@ -29,7 +29,7 @@
     <string name="footer_empty">Edukirik ez. Arrastatu behera birkargatzeko!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt;-(e)k zure tuta bultzatu du</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt;-(e)k zure tuta gogoko du</string>
-    <string name="notification_follow_format">%s-(e)k jarraitu zaitu</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt;-(e)k jarraitu zaitu</string>
     <string name="report_username_format">\@%s salatu</string>
     <string name="report_comment_hint">Informazio gehigarria?</string>
     <string name="action_quick_reply">Erantzun azkarra</string>
@@ -292,7 +292,7 @@
     <string name="dialog_mute_warning">\@%s isildu\?</string>
     <string name="dialog_block_warning">\@%s blokeatu\?</string>
     <string name="action_mute_conversation">Elkarrizketa mututu</string>
-    <string name="notification_follow_request_format">%s-(e)k zu jarraitzeko eskatu zaitu</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt;-(e)k zu jarraitzeko eskatu zaitu</string>
     <string name="hashtags">Traolak</string>
     <string name="dialog_mute_hide_notifications">Jakinarazpenak ezkutatu</string>
     <string name="action_unmute_desc">Desmututu %s</string>
@@ -366,6 +366,6 @@
 \nZerbitzariarekin ezin izan da komunikatu edo zure tutak baztertuak izan dira.</string>
     <string name="action_post_failed_show_drafts">Zirriborroak erakutsi</string>
     <string name="action_post_failed_do_nothing">Baztertu</string>
-    <string name="notification_sign_up_format">%s-(e)k izena eman du</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt;-(e)k izena eman du</string>
     <string name="error_status_source_load">Akatsa zerbitzaritik egoeraren iturria kargatzean.</string>
 </resources>

@@ -17,10 +17,7 @@
 
 package app.pachli.components.notifications
 
-import android.graphics.Typeface
-import android.text.SpannableStringBuilder
-import android.text.Spanned
-import android.text.style.StyleSpan
+import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.core.common.extensions.visible
@@ -75,30 +72,22 @@ class FollowViewHolder(
         showPronouns: Boolean,
     ) {
         val context = binding.notificationText.context
-        val format =
-            context.getString(
-                if (isSignUp) {
-                    R.string.notification_sign_up_format
-                } else {
-                    R.string.notification_follow_format
-                },
-            )
-        val wrappedDisplayName = account.name.unicodeWrap()
-        val wholeMessage = SpannableStringBuilder(String.format(format, wrappedDisplayName))
-        val displayNameIndex = format.indexOf("%s")
-        wholeMessage.setSpan(
-            StyleSpan(Typeface.BOLD),
-            displayNameIndex,
-            displayNameIndex + wrappedDisplayName.length,
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
+        val displayName = account.name.unicodeWrap()
+        val msg = context.getString(
+            if (isSignUp) {
+                R.string.notification_sign_up_format
+            } else {
+                R.string.notification_follow_format
+            },
+            displayName,
         )
-        val emojifiedMessage =
-            wholeMessage.emojify(
-                glide,
-                account.emojis,
-                binding.notificationText,
-                animateEmojis,
-            )
+        val wholeMessage = HtmlCompat.fromHtml(msg, HtmlCompat.FROM_HTML_MODE_LEGACY)
+        val emojifiedMessage = wholeMessage.emojify(
+            glide,
+            account.emojis,
+            binding.notificationText,
+            animateEmojis,
+        )
         binding.notificationText.text = emojifiedMessage
         val username = context.getString(DR.string.post_username_format, account.username)
         binding.notificationUsername.text = username

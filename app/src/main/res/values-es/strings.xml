@@ -32,7 +32,7 @@
     <string name="footer_empty">Nada por aquí. ¡Arrastra hacia abajo para recargar!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; impulsó tu publicación</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; marcó como favorita tu publicación</string>
-    <string name="notification_follow_format">%s te siguió</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; te siguió</string>
     <string name="report_username_format">Reportar @%s</string>
     <string name="report_comment_hint">¿Información adicional?</string>
     <string name="action_quick_reply">Respuesta rápida</string>
@@ -299,7 +299,7 @@
     <string name="pref_title_enable_swipe_for_tabs">Habilitar gesto de deslizar para alternar entre pestañas</string>
     <string name="hashtags">Etiquetas</string>
     <string name="add_hashtag_title">Añadir etiqueta</string>
-    <string name="notification_follow_request_format">%s solicita seguirte</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; solicita seguirte</string>
     <string name="pref_main_nav_position">Posición de navegación principal</string>
     <string name="pref_title_gradient_for_media">Mostrar difuminados coloridos para la multimedia oculta</string>
     <string name="action_unmute_domain">Dejar de silenciar a %s</string>
@@ -350,7 +350,7 @@
     <string name="error_following_hashtag_format">Error al seguir #%s</string>
     <string name="error_unfollowing_hashtag_format">Error dejando de seguir #%s</string>
     <string name="title_migration_relogin">Reingresa para activar notificaciones push</string>
-    <string name="notification_sign_up_format">%s se registró</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; se registró</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; editó su publicación</string>
     <string name="delete_scheduled_post_warning">¿Eliminar publicación programada\?</string>
     <string name="set_focus_description">Toca o arrastra el círculo para centrar el foco de la imagen, que será visible en las miniaturas.</string>

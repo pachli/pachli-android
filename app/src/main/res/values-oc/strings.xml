@@ -28,7 +28,7 @@
     <string name="footer_empty">I a pas res aquí. Davalatz per actualizar !</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; a partejat vòstra publicacion</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; a aimat vòstra publicacion</string>
-    <string name="notification_follow_format">%s vos sèc</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; vos sèc</string>
     <string name="report_username_format">Denonciar @%s</string>
     <string name="report_comment_hint">Cap comentari addicional ?</string>
     <string name="action_quick_reply">Responsa rapida</string>
@@ -290,7 +290,7 @@
     <string name="notification_follow_request_name">Demandas d’abonament</string>
     <string name="hashtags">Etiquetas</string>
     <string name="action_unmute_desc">Amagar pas mai a %s</string>
-    <string name="notification_follow_request_format">%s a demandat a vos seguir</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; a demandat a vos seguir</string>
     <string name="pref_title_show_cards_in_timelines">Mostrar los apercebuts dels ligams</string>
     <string name="notification_subscription_description">Notificacions quand qualqu’un que seguissètz publica una publicacion novèla</string>
     <string name="dialog_delete_conversation_warning">Suprimir aquesta conversacion \?</string>
@@ -341,7 +341,7 @@
     <string name="duration_30_days">30 jorns</string>
     <string name="error_following_hashtag_format">Error en seguissent #%s</string>
     <string name="error_unfollowing_hashtag_format">Error en quitant de seguir #%s</string>
-    <string name="notification_sign_up_format">%s a creat un compte</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; a creat un compte</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; a modificat sa publicacion</string>
     <string name="action_edit_image">Modificar l’imatge</string>
     <string name="pachli_compose_post_quicksetting_label">Compausar una publicacion</string>

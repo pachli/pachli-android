@@ -193,8 +193,8 @@
     <string name="action_quick_reply">Freagra Tapa</string>
     <string name="report_comment_hint">Tuairimí Breise\?</string>
     <string name="report_username_format">Tuairiscigh @%s</string>
-    <string name="notification_follow_request_format">D’iarr %s tú a leanúint</string>
-    <string name="notification_follow_format">lean %s thú</string>
+    <string name="notification_follow_request_format">D’iarr &lt;b&gt;%1$s&lt;/b&gt; tú a leanúint</string>
+    <string name="notification_follow_format">lean &lt;b&gt;%1$s&lt;/b&gt; thú</string>
     <string name="notification_reblog_format">Chuir &lt;b&gt;%1$s&lt;/b&gt; borradh faoi do phost</string>
     <string name="footer_empty">Níl aon rud anseo. Tarraingt anuas chun athnuachan a dhéanamh!</string>
     <string name="filter_dialog_whole_word_description">Nuair atá an eochairfhocal nó an frása alfa-uimhriúil amháin, ní chuirfear i bhfeidhm é ach má oireann sé don fhocal iomlán</string>
@@ -313,7 +313,7 @@
     <string name="account_date_joined">Anseo ó %1$s</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; díreach tar éis postáil</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; chuir a bpost in eagar</string>
-    <string name="notification_sign_up_format">Chláraigh %s</string>
+    <string name="notification_sign_up_format">Chláraigh &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="action_unbookmark">Bain leabharmharc</string>
     <string name="action_delete_conversation">Scrios comhrá</string>
     <string name="dialog_delete_conversation_warning">Scrios an comhrá seo\?</string>

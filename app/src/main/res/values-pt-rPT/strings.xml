@@ -53,9 +53,9 @@
     <string name="footer_empty">Nada para ver aqui. Arraste para baixo para atualizar!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; deu boost ao seu toot</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; adicionou o seu toot aos favoritos</string>
-    <string name="notification_follow_format">%s está a seguir-te</string>
-    <string name="notification_follow_request_format">%s pediu para te seguir</string>
-    <string name="notification_sign_up_format">%s criou conta</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; está a seguir-te</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; pediu para te seguir</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; criou conta</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; acabou de publicar um toot</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; editou um toot</string>
     <string name="report_username_format">Denunciar @%s</string>

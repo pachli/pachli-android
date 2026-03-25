@@ -32,7 +32,7 @@
     <string name="footer_empty">Nenio tie ĉi. Tiru malsupren por aktualigi!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; diskonigis vian mesaĝon</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; stelumis vian mesaĝon</string>
-    <string name="notification_follow_format">%s eksekvis vin</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; eksekvis vin</string>
     <string name="report_username_format">Signali @%s</string>
     <string name="report_comment_hint">Ĉu pliaj komentoj\?</string>
     <string name="action_quick_reply">Rapida respondo</string>
@@ -298,7 +298,7 @@
     <string name="action_mute_conversation">Silentigi la konversacion</string>
     <string name="action_unmute_domain">Malsilentigi %s</string>
     <string name="action_unmute_desc">Malsilentigi %s</string>
-    <string name="notification_follow_request_format">%s petis sekvi vin</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; petis sekvi vin</string>
     <string name="title_announcements">Anoncoj</string>
     <string name="pref_main_nav_position">Pozicio de la ĉefa naviga breto</string>
     <string name="pref_title_notification_filter_follow_requests">iu petas sekvi min</string>
@@ -341,7 +341,7 @@
 \n Sciigoj ne estos influitaj, sed vi povas kontroli viajn agordojn pri sciigojn permane.</string>
     <string name="review_notifications">Kontroli la sciigojn</string>
     <string name="drafts_post_reply_removed">La mesaĝo, al kiu tiu ĉi malneto respondas, estis forigita</string>
-    <string name="notification_sign_up_format">%s registriĝis</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; registriĝis</string>
     <string name="pref_title_notification_filter_sign_ups">iu registriĝis</string>
     <string name="pref_title_notification_filter_updates">mesaĝo, kun kiu mi interagis, estas redaktita</string>
     <string name="notification_sign_up_name">Novaj kontoj</string>

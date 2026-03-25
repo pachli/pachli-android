@@ -13,7 +13,7 @@
     <string name="title_posts">Iznan</string>
     <string name="title_posts_with_replies">S tririyin</string>
     <string name="title_edit_profile">Ẓreg amaɣnu-ik</string>
-    <string name="notification_follow_format">%s yeṭṭafar-ik·ikem-id</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; yeṭṭafar-ik·ikem-id</string>
     <string name="action_compose">Azen</string>
     <string name="action_follow">Ḍfeṛ</string>
     <string name="action_unfollow">Ur ṭṭafar ara</string>

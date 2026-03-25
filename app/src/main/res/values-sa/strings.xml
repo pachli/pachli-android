@@ -33,7 +33,7 @@
     <string name="title_tab_preferences">पीठिकाः</string>
     <string name="title_direct_messages">प्रत्यक्षसन्देशाः</string>
     <string name="title_public_federated">सङ्घीयाः</string>
-    <string name="notification_follow_format">%s त्वामन्वसरत्</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; त्वामन्वसरत्</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; भवदीयदौत्याय रुचिमददात्</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; भवदीयं दौत्यं प्राकाशयत्</string>
     <string name="action_send_public">प्रेष्यताम् !</string>
@@ -52,7 +52,7 @@
     <string name="action_quick_reply">त्वरितप्रत्युत्तरं दीयताम्</string>
     <string name="report_comment_hint">अन्यटिप्पण्यः \?</string>
     <string name="report_username_format">आवेद्यताम् @%s</string>
-    <string name="notification_follow_request_format">%s तवाऽनुसरणार्थंं न्यवेदयत्</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; तवाऽनुसरणार्थंं न्यवेदयत्</string>
     <string name="action_add_media">सामग्र्यः युज्यन्ताम्</string>
     <string name="action_open_in_web">जालसञ्चारके उद्घाट्यताम्</string>
     <string name="action_view_follow_requests">अनुसरणार्थमनुरोधाः</string>
@@ -347,7 +347,7 @@
     <string name="action_discard">परिवर्तनानि निष्कासयतु</string>
     <string name="action_continue_edit">सम्पादनम् अनुवर्तताम्</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; सद्यः प्रसारितम्</string>
-    <string name="notification_sign_up_format">%s पञ्जीकरणम् अकरोत्</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; पञ्जीकरणम् अकरोत्</string>
     <string name="action_delete_conversation">सम्भाषणं निष्कास्यताम्</string>
     <string name="duration_90_days">९० दिनानि</string>
     <string name="action_unbookmark">पुटचिह्नं निस्कास्यताम्</string>

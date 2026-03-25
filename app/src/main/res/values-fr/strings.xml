@@ -32,7 +32,7 @@
     <string name="footer_empty">Il n’y a aucun pouet ici pour l’instant. Glissez vers le bas pour actualiser !</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; a partagé votre message</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; a ajouté votre message à ses favoris</string>
-    <string name="notification_follow_format">%s vous suit</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; vous suit</string>
     <string name="report_username_format">Signaler @%s</string>
     <string name="report_comment_hint">Commentaires additionnels \?</string>
     <string name="action_quick_reply">Réponse rapide</string>
@@ -292,7 +292,7 @@
     <string name="dialog_block_warning">Bloquer @%s \?</string>
     <string name="pref_title_confirm_reblogs">Demander confirmation avant de partager</string>
     <string name="pref_title_show_cards_in_timelines">Afficher les aperçus des liens dans les fils</string>
-    <string name="notification_follow_request_format">%s vous a envoyé une demande d’abonnement</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; vous a envoyé une demande d’abonnement</string>
     <string name="notification_follow_request_description">Notifications à propos des demandes d’abonnement</string>
     <string name="pref_title_notification_filter_follow_requests">On demande à me suivre</string>
     <string name="dialog_mute_warning">Mettre en sourdine @%s \?</string>
@@ -351,7 +351,7 @@
     <string name="duration_14_days">14 jours</string>
     <string name="duration_180_days">180 jours</string>
     <string name="pachli_compose_post_quicksetting_label">Rédiger un message</string>
-    <string name="notification_sign_up_format">%s a créé un compte</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; a créé un compte</string>
     <string name="notification_sign_up_name">Nouveaux comptes</string>
     <string name="notification_sign_up_description">Notifications quand quelqu’un crée un nouveau compte</string>
     <string name="pref_title_notification_filter_sign_ups">Un nouveau compte a été créé</string>

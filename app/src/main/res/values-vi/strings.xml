@@ -13,8 +13,8 @@
     <string name="notification_summary_large">%1$s, %2$s, %3$s và %4$d người</string>
     <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; nhắc tới bạn</string>
     <string name="notification_mention_name">Nhắc đến tôi</string>
-    <string name="notification_follow_request_format">%s yêu cầu theo dõi bạn</string>
-    <string name="notification_follow_format">%s theo dõi bạn</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; yêu cầu theo dõi bạn</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; theo dõi bạn</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; thích tút của bạn</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; đăng lại tút của bạn</string>
     <string name="error_no_custom_emojis">Máy chủ %s không có emoji tùy chỉnh</string>
@@ -341,7 +341,7 @@
     <string name="duration_365_days">365 ngày</string>
     <string name="pachli_compose_post_quicksetting_label">Soạn tút</string>
     <string name="pref_title_notification_filter_sign_ups">ai đó mới tham gia máy chủ</string>
-    <string name="notification_sign_up_format">%s tham gia máy chủ</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; tham gia máy chủ</string>
     <string name="notification_sign_up_name">Thành viên mới</string>
     <string name="notification_sign_up_description">Thông báo về người mới tham gia máy chủ</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; đã sửa tút của họ</string>

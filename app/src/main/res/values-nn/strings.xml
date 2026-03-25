@@ -49,9 +49,9 @@
     <string name="footer_empty">Ingenting her. Dra ned for å oppdatere!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; delte innlegget ditt</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; favorittmerkte innlegget ditt</string>
-    <string name="notification_follow_format">%s fylgde deg</string>
-    <string name="notification_follow_request_format">%s ynskjer å fylgje deg</string>
-    <string name="notification_sign_up_format">%s registrerte seg</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; fylgde deg</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; ynskjer å fylgje deg</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; registrerte seg</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; skreiv akkurat</string>
     <plurals name="notification_severed_relationships_summary_followers_fmt">
         <item quantity="one">%1$s fylgjar vart fjerna.</item>
