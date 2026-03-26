@@ -1,5 +1,38 @@
 # Pachli changelog
 
+## v3.5.0
+
+### Significant bug fixes
+
+- Move handle's content description close to end of status content description (#[2179](https://github.com/pachli/pachli-android/pull/2179), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Update tab contents when moved (#[2181](https://github.com/pachli/pachli-android/pull/2181), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Prevent crash in AccountViewModel.setAccountInfo (#[2175](https://github.com/pachli/pachli-android/pull/2175), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Prevent crash (maybe) when cropping images (#[2172](https://github.com/pachli/pachli-android/pull/2172), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Prevent cursor jumping around when editing alt text (#[2169](https://github.com/pachli/pachli-android/pull/2169), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Parse HTML in Talkback description for boosted posts (#[2168](https://github.com/pachli/pachli-android/pull/2168), [Aryan Choudhary](https://github.com/pachli/pachli-android/commits?author=126301257+aryanchoudharypro@users.noreply.github.com))
+- Parse HTML in format strings when creating notification titles ([Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Improve notification display and Talkback descriptions (#[2160](https://github.com/pachli/pachli-android/pull/2160), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Include description of quoted post in Talkback content (#[2158](https://github.com/pachli/pachli-android/pull/2158), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Remove `quote-inline` content where appropriate for Talkback (#[2157](https://github.com/pachli/pachli-android/pull/2157), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Only add attachment accessibility actions if attachments are present (#[2155](https://github.com/pachli/pachli-android/pull/2155), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't read out polls or media descriptions behind content warning (#[2154](https://github.com/pachli/pachli-android/pull/2154), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Dutch translations ([lwgph](https://github.com/pachli/pachli-android/commits?author=lwgph@hotmail.com))
+- Update Estonian translations ([Priit Jõerüüt](https://github.com/pachli/pachli-android/commits?author=jrthwlate@users.noreply.hosted.weblate.org))
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update French translations ([Terry L](https://github.com/pachli/pachli-android/commits?author=terrylaire@gmail.com))
+- Update German translations ([Kachelkaiser](https://github.com/pachli/pachli-android/commits?author=kachelkaiser@htpst.de))
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+- Update Kabyle translations ([ButterflyOfFire](https://github.com/pachli/pachli-android/commits?author=boffire@users.noreply.hosted.weblate.org))
+- Update Latvian translations ([ℂ𝕠𝕠𝕠𝕝 (𝕘𝕚𝕥𝕙𝕦𝕓.𝕔𝕠𝕞/ℂ𝕠𝕠𝕠𝕝)](https://github.com/pachli/pachli-android/commits?author=coool@mail.lv))
+- Update Latvian translations ([Edgars Andersons](https://github.com/pachli/pachli-android/commits?author=Edgars+Weblate@gaitenis.id.lv))
+- Update Polish translations ([Łukasz Horodecki](https://github.com/pachli/pachli-android/commits?author=lukasz@horodecki.net))
+- Update Slovak translations ([Russssty](https://github.com/pachli/pachli-android/commits?author=russssty@users.noreply.hosted.weblate.org))
+- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+- Update Tamil translations ([தமிழ்நேரம்](https://github.com/pachli/pachli-android/commits?author=tamilneram247@gmail.com))
+
 ## v3.4.0
 
 ### New features and other improvements
