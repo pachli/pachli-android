@@ -61,3 +61,34 @@ subprojects {
 tasks.register<Delete>("clean") {
     delete(layout.buildDirectory)
 }
+
+// Create a "precommit" lifecycle task that depends on other tasks that
+// give reasonable confidence the change will pass CI. The tasks are
+// limited to the "orangeGoogleDebug" flavour/variant. While problems
+// might affect other combinations (and CI will check all of them), this
+// combination passing gives high confidence for the amount of time it
+// takes to run.
+//
+// - :app:lintOrangeGoogleDebug
+// - *:testOrangeGoogleDebugUnitTest
+// - :app:assembleOrangeDebug
+// - *:pixel9api31orangegoogledebugAndroidTest
+tasks.register("precommit") {
+    group = "Verification"
+    description = "Runs the precommit tests."
+    dependsOn(":app:lintOrangeGoogleDebug")
+    allprojects
+        .flatMap { it.tasks }
+        .filter { it.name.equals("testOrangeGoogleDebugUnitTest", ignoreCase = true) }
+        .forEach {
+            dependsOn(it.path)
+        }
+    dependsOn(":app:assembleOrangeGoogleDebug")
+    allprojects
+        .flatMap { it.tasks }
+        .filter { it.name.equals("pixel9api31OrangeGoogleDebugAndroidTest", ignoreCase = true) }
+        .forEach {
+            println("dep: $it.name")
+            dependsOn(it.path)
+        }
+}
