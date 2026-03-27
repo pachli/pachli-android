@@ -62,7 +62,7 @@ class ContextCompatGetDrawableDetector : Detector(), SourceCodeScanner {
             issue = ISSUE,
             scope = node,
             location = context.getCallLocation(node, includeReceiver = true, includeArguments = true),
-            message = "Use AppCompatResources.getDrawable",
+            message = "Use `AppCompatResources`.getDrawable",
             quickfixData = fix,
         )
     }
@@ -75,7 +75,7 @@ class ContextCompatGetDrawableDetector : Detector(), SourceCodeScanner {
             id = "ContextCompatGetDrawableDetector",
             briefDescription = "Don't use `ContextCompat.getDrawable()`, use `AppCompatResources.getDrawable()`",
             explanation = """
-                AppCompatResources().getDrawable() backports features and bug fixes,
+                `AppCompatResources().getDrawable()` backports features and bug fixes,
                 ContextCompat.getDrawable() does not.
                 See https://medium.com/@crafty/yes-contextcompat-just-saves-you-the-api-level-check-it-doesnt-back-port-and-features-or-bug-9cd7d5f09be4
             """,
