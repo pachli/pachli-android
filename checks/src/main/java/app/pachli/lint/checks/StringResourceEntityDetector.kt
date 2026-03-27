@@ -315,7 +315,7 @@ class StringResourceEntityDetector : Detector(), SourceCodeScanner, OtherFileSca
         val ISSUE = Issue.create(
             id = "StringResourceEntityDetector",
             briefDescription = "`&lt;` and `&gt;` in string resources should use angle brackets",
-            explanation = "This string resource is passed to getText(), which expects HTML.",
+            explanation = "This string resource is passed to `getText()`, which expects HTML.",
             category = Category.CORRECTNESS,
             priority = 10,
             severity = Severity.WARNING,
