@@ -1,0 +1,38 @@
+name: Update screenshots
+on:
+  pull_request:
+
+jobs:
+  update-screenshots:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          persist-credentials: true
+      - name: Checkout PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh pr checkout ${{ github.event.pull_request.number }}
+      - uses: ./.github/actions/setup-build-env
+        with:
+          gradle-cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+      - name: Delete existing screenshots, in case a test has been deleted
+        run: find . -path "*/screenshotTest*/reference/*.png" -execdir git rm --ignore-unmatch '{}' ';'
+      - name: Run screenshot tests
+        uses: reactivecircus/android-emulator-runner@b530d96654c385303d652368551fb075bc2f0b6b # v2
+        with:
+          arch: x86_64
+          api-level: 31
+          force-avd-creation: false
+          emulator-options: -no-metrics -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          script: ./gradlew updateScreenshotTest
+      - name: Commit and push updated screenshots
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: 'Update screenshots'

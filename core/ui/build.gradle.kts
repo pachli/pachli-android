@@ -17,6 +17,7 @@
 
 plugins {
     alias(libs.plugins.pachli.android.library)
+    alias(libs.plugins.pachli.android.compose)
     alias(libs.plugins.pachli.android.hilt)
     kotlin("kapt")
 }
@@ -33,7 +34,7 @@ android {
 dependencies {
     implementation(projects.core.common)
     implementation(projects.core.data)
-    implementation(projects.core.designsystem)
+    api(projects.core.designsystem)
     implementation(projects.core.model)
     implementation(projects.core.preferences)
         ?.because("PreferenceEnum types in EnumListPreference")
@@ -71,4 +72,10 @@ dependencies {
     implementation(libs.jlatexmath.android)
 
     testImplementation(libs.bundles.mockito)
+
+    ktlintRuleset(libs.ktlint.compose.rules)
+
+    implementation(libs.composeunstyled)
+    implementation(libs.androidx.constraintlayout.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 }

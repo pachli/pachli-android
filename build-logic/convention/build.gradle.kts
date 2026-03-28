@@ -52,6 +52,10 @@ gradlePlugin {
             id = "pachli.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
+        register("androidCompose") {
+            id = "pachli.android.compose"
+            implementationClass = "AndroidComposeConventionPlugin"
+        }
         register("androidHilt") {
             id = "pachli.android.hilt"
             implementationClass = "AndroidHiltConventionPlugin"

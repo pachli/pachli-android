@@ -113,7 +113,7 @@ jobs:
         color: ["orange"]
         store: [ "Fdroid", "Github", "Google" ]
         type: [ "Debug", "Release" ]
-    name: Android Test
+    name: Android Unit Test
     runs-on: ubuntu-latest
 
     steps:
@@ -125,7 +125,7 @@ jobs:
           gradle-cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
       - name: test ${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
-        run: ./gradlew test${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
+        run: ./gradlew test${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}UnitTest
 
   # Android assemble is per variant
   assemble:

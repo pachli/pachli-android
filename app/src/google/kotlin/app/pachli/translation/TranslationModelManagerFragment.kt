@@ -17,29 +17,18 @@
 
 package app.pachli.translation
 
-import android.app.Dialog
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.DialogFragment
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.ConcatAdapter
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.pachli.R
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.data.repository.Loadable
-import app.pachli.core.ui.extensions.applyDefaultWindowInsets
+import app.pachli.core.ui.components.PachliTheme
 import app.pachli.databinding.FragmentModelManagerBinding
-import app.pachli.translation.ConfirmDeleteLanguageDialogFragment.Companion.newInstance
-import app.pachli.translation.ConfirmDownloadLanguageDialogFragment.Companion.newInstance
-import com.github.michaelbull.result.get
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
+import kotlinx.collections.immutable.persistentListOf
 
 /**
  * Displays a list of downloaded and available translation models, and UI controls to
@@ -54,173 +43,28 @@ class TranslationModelManagerFragment : Fragment(R.layout.fragment_model_manager
 
     private val binding by viewBinding(FragmentModelManagerBinding::bind)
 
-    /** Adapter for a list of translation models already downloaded. */
-    private val downloadedModelAdapter by lazy {
-        TranslationModelAdapter(
-            onDelete = ::confirmDeleteModel,
-            onDownload = ::confirmDownloadLanguage,
-        )
-    }
-
-    /** Adapter for a list of translation models that can be downloaded. */
-    private val remoteModelAdapter by lazy {
-        TranslationModelAdapter(
-            onDelete = ::confirmDeleteModel,
-            onDownload = ::confirmDownloadLanguage,
-        )
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recyclerView.applyDefaultWindowInsets()
 
-        with(binding.recyclerView) {
-            layoutManager = LinearLayoutManager(context)
+        binding.composeView.apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
 
-            adapter = ConcatAdapter(
-                HeadingAdapter(R.string.translation_model_manager_fragment_downloaded_heading),
-                downloadedModelAdapter,
-                HeadingAdapter(R.string.translation_model_manager_fragment_remote_heading),
-                remoteModelAdapter,
-            )
-            setHasFixedSize(true)
-            setAccessibilityDelegateCompat(
-                RemoteModelAccessibilityDelegate(
-                    this,
-                    ::confirmDeleteModel,
-                    ::confirmDownloadLanguage,
-                ),
-            )
-        }
+            setContent {
+                val translationModels = viewModel.translationModelViewData.collectAsStateWithLifecycle(persistentListOf())
 
-        bind()
-    }
-
-    private fun bind() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                launch {
-                    // Split the list of models in two, depending on whether the model has
-                    // been downloaded. Send each part to the correct adapter.
-                    viewModel.translationModelViewData.collectLatest { models ->
-                        val (loaded, remote) = models.partition { it.translationModelDownloadState.get() is Loadable.Loaded }
-                        downloadedModelAdapter.submitList(loaded)
-                        remoteModelAdapter.submitList(remote)
-                    }
+                PachliTheme {
+                    TranslationModelManagerScreen(
+                        translationModels = { translationModels.value },
+                        onDelete = { language -> viewModel.deleteLanguage(language) },
+                        onDownload = { language -> viewModel.downloadLanguage(language) },
+                    ) { viewModel.canDownloadNow() }
                 }
             }
         }
-    }
-
-    /**
-     * Downloads the [viewData.remoteModel.language][com.google.mlkit.nl.translate.TranslateRemoteModel.language].
-     *
-     * If the user allows downloads with mobile data, or the user is connected to a Wi-Fi
-     * network, then the download proceeds immediately.
-     *
-     * Otherwise, shows [ConfirmDownloadLanguageDialogFragment] for the user to confirm
-     * the download can proceed with mobile data.
-     */
-    private fun confirmDownloadLanguage(viewData: TranslationModelViewData) {
-        if (viewModel.canDownloadNow()) {
-            viewModel.downloadLanguage(viewData.remoteModel.language)
-            return
-        }
-
-        val dialog = ConfirmDownloadLanguageDialogFragment.newInstance(
-            viewData.remoteModel.language,
-            viewData.locale.displayLanguage,
-        )
-        dialog.show(parentFragmentManager, "confirmDownload")
-    }
-
-    /** Shows [ConfirmDeleteLanguageDialogFragment]. */
-    private fun confirmDeleteModel(viewData: TranslationModelViewData) {
-        val dialog = ConfirmDeleteLanguageDialogFragment.newInstance(
-            viewData.remoteModel.language,
-            viewData.locale.displayLanguage,
-        )
-        dialog.show(parentFragmentManager, "confirmDelete")
     }
 
     override fun onResume() {
         super.onResume()
         requireActivity().setTitle(R.string.translation_model_manager_fragment_title)
-    }
-}
-
-/** See [newInstance]. */
-class ConfirmDownloadLanguageDialogFragment : DialogFragment() {
-    private val viewModel: TranslationModelManagerViewModel by activityViewModels()
-
-    private val language by lazy { requireArguments().getString(KEY_LANGUAGE)!! }
-    private val displayLanguage by lazy { requireArguments().getString(KEY_DISPLAY_LANGUAGE)!! }
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val activity = requireActivity()
-        return AlertDialog.Builder(activity).apply {
-            setTitle(getString(R.string.fragment_confirm_download_language_dialog_title_fmt, displayLanguage))
-            setMessage(R.string.fragment_confirm_download_language_dialog_msg)
-            setPositiveButton(android.R.string.ok) { dialog, id -> viewModel.downloadLanguage(language) }
-            setNegativeButton(android.R.string.cancel) { _, _ -> Unit }
-        }.create()
-    }
-
-    companion object {
-        private const val KEY_LANGUAGE = "app.pachli.translation.KEY_LANGUAGE"
-        private const val KEY_DISPLAY_LANGUAGE = "app.pachli.translation.KEY_DISPLAY_LANGUAGE"
-
-        /**
-         * Displays a dialog for the user to confirm download a language model.
-         *
-         * @param language ISO code of the language to download.
-         * @param displayLanguage Name of the language, in the user's locale.
-         */
-        fun newInstance(language: String, displayLanguage: String): ConfirmDownloadLanguageDialogFragment {
-            return ConfirmDownloadLanguageDialogFragment().apply {
-                arguments = Bundle(2).apply {
-                    putString(KEY_LANGUAGE, language)
-                    putString(KEY_DISPLAY_LANGUAGE, displayLanguage)
-                }
-            }
-        }
-    }
-}
-
-/** See [newInstance]. */
-class ConfirmDeleteLanguageDialogFragment : DialogFragment() {
-    private val viewModel: TranslationModelManagerViewModel by activityViewModels()
-
-    private val language by lazy { requireArguments().getString(KEY_LANGUAGE)!! }
-    private val displayLanguage by lazy { requireArguments().getString(KEY_DISPLAY_LANGUAGE)!! }
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val activity = requireActivity()
-        return AlertDialog.Builder(activity).apply {
-            setTitle(getString(R.string.fragment_confirm_delete_language_dialog_title_fmt, displayLanguage))
-            setMessage(R.string.fragment_confirm_delete_language_dialog_msg)
-            setPositiveButton(android.R.string.ok) { dialog, id -> viewModel.deleteLanguage(language) }
-            setNegativeButton(android.R.string.cancel) { _, _ -> Unit }
-        }.create()
-    }
-
-    companion object {
-        private const val KEY_LANGUAGE = "app.pachli.translation.KEY_LANGUAGE"
-        private const val KEY_DISPLAY_LANGUAGE = "app.pachli.translation.KEY_DISPLAY_LANGUAGE"
-
-        /**
-         * Displays a dialog for the user to confirm deletion of a language model.
-         *
-         * @param language ISO code of the language to delete.
-         * @param displayLanguage Name of the language, in the user's locale.
-         */
-        fun newInstance(language: String, displayLanguage: String): ConfirmDeleteLanguageDialogFragment {
-            return ConfirmDeleteLanguageDialogFragment().apply {
-                arguments = Bundle(2).apply {
-                    putString(KEY_LANGUAGE, language)
-                    putString(KEY_DISPLAY_LANGUAGE, displayLanguage)
-                }
-            }
-        }
     }
 }
