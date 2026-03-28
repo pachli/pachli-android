@@ -92,8 +92,6 @@ android {
         }
     }
 
-    testBuildType = "release"
-
     applicationVariants.configureEach {
         tasks.register("printVersionInfo${name.replaceFirstChar { it.uppercaseChar() }}") {
             notCompatibleWithConfigurationCache("Should always print the version info")
