@@ -112,7 +112,7 @@ jobs:
       matrix:
         color: ["orange"]
         store: [ "Fdroid", "Github", "Google" ]
-        type: [ "Debug", "Release" ]
+        type: [ "Debug" ]
     name: Android Test
     runs-on: ubuntu-latest
 
@@ -127,13 +127,14 @@ jobs:
       - name: test ${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
         run: ./gradlew test${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
 
-  # Android assemble is per variant
+  # Android assemble is per variant. "Release" only in this job, "Debug" variants
+  # are assembled in the emulator tests.
   assemble:
     strategy:
       matrix:
         color: ["orange"]
         store: [ "Fdroid", "Github", "Google" ]
-        type: [ "Debug", "Release" ]
+        type: [ "Release" ]
     name: Android Assemble
     runs-on: ubuntu-latest
 
@@ -163,6 +164,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - uses: ./.github/actions/setup-build-env
+        with:
+          gradle-cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+
+      - name: assemble ${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
+        run: ./gradlew assemble${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
 
       - name: Enable KVM
         run: |
