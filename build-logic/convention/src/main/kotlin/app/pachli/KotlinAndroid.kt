@@ -21,6 +21,7 @@ import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -54,6 +55,17 @@ internal fun Project.configureKotlinAndroid(
                 // Without this Robolectric fails some tests with
                 // "Method myLooper in android.os.Looper not mocked"
                 isReturnDefaultValues = true
+            }
+
+            // https://developer.android.com/studio/test/managed-devices
+            managedDevices {
+                localDevices {
+                    create("pixel9api31") {
+                        device = "Pixel 9 Pro XL"
+                        apiLevel = 31
+                        systemImageSource = "aosp-atd"
+                    }
+                }
             }
         }
 
