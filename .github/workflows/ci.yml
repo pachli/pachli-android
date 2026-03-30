@@ -76,7 +76,7 @@ jobs:
         api-level: [ 31 ]
         target: [ default ]
     name: Full CI
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
 
     steps:
       - name: Checkout
@@ -92,7 +92,7 @@ jobs:
         id: runlint
         run: |
           set +e
-          ./gradlew app:lint${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
+          ./gradlew :app:lint${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
           echo "exitcode=$?" >> $GITHUB_OUTPUT
 
       - name: Upload SARIF file
