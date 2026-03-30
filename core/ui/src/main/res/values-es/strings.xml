@@ -121,7 +121,7 @@
     <string name="translating">Traduciendo…</string>
     <string name="translation_provider_fmt">%1$s</string>
     <string name="description_post_edited">Editado</string>
-    <string name="description_post_reblogged">Compartido</string>
+    <string name="description_post_reblogged">Impulsado</string>
     <string name="description_post_favourited">Marcado como favorito</string>
     <string name="description_post_bookmarked">Añadido a marcadores</string>
     <string name="description_post_media">Contenido: %s</string>
