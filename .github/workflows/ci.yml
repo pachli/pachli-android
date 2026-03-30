@@ -72,11 +72,11 @@ jobs:
       matrix:
         color: ["orange"]
         store: [ "Fdroid", "Github", "Google" ]
-        type: [ "Release" ]
+        type: [ "Debug" ]
         api-level: [ 31 ]
         target: [ default ]
     name: Full CI
-    runs-on: blacksmith-4vcpu-ubuntu-2404
+    runs-on: blacksmith-8vcpu-ubuntu-2404
 
     steps:
       - name: Checkout
@@ -88,11 +88,11 @@ jobs:
 
       # Run lint for the app module. This is configured to also lint the
       # dependent modules and produce a single report.
-      - name: Regular lint ${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
-        id: runlint
+      - name: Lint, test, build ${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
+        id: runbuild
         run: |
           set +e
-          ./gradlew :app:lint${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
+          ./gradlew :app:lint${{ matrix.color }}${{ matrix.store }}${{ matrix.type }} test${{ matrix.color }}${{ matrix.store }}${{ matrix.type }} assemble${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
           echo "exitcode=$?" >> $GITHUB_OUTPUT
 
       - name: Upload SARIF file
@@ -104,14 +104,8 @@ jobs:
       # Exit with whatever exit code the original lint run exited with, to
       # ensure this job fails if lint fails, *but* the lint reports are still
       # uploaded.
-      - name: Fail if lint failed
-        run: exit ${{ steps.runlint.outputs.exitcode }}
-
-      - name: test ${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
-        run: ./gradlew test${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
-
-      - name: assemble ${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
-        run: ./gradlew assemble${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
+      - name: Fail if build failed
+        run: exit ${{ steps.runbuild.outputs.exitcode }}
 
       - name: Enable KVM
         run: |
@@ -140,7 +134,7 @@ jobs:
           script: echo "Generated AVD snapshot for caching."
 
       # Connected tests only run on Debug variant (release variant task doesn't exist).
-      - name: Run tests
+      - name: Run emulator tests
         uses: reactivecircus/android-emulator-runner@e89f39f1abbbd05b1113a29cf4db69e7540cae5a # v2
         with:
           arch: x86_64
@@ -149,4 +143,4 @@ jobs:
           emulator-options: -no-metrics -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           target: ${{ matrix.target }}
-          script: ./gradlew connected${{ matrix.color }}${{ matrix.store }}DebugAndroidTest
+          script: ./gradlew connected${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}AndroidTest
