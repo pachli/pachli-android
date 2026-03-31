@@ -18,10 +18,11 @@ package app.pachli.viewmodel
 
 import android.app.Application
 import android.net.Uri
-import androidx.core.net.toUri
+import androidx.core.content.FileProvider
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.pachli.BuildConfig
 import app.pachli.core.common.string.randomAlphanumericString
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.InstanceInfoRepository
@@ -100,9 +101,17 @@ class EditProfileViewModel @Inject constructor(
         }
     }
 
-    fun getAvatarUri() = getCacheFileForName(AVATAR_FILE_NAME).toUri()
+    fun getAvatarUri(): Uri = FileProvider.getUriForFile(
+        application,
+        "${BuildConfig.APPLICATION_ID}.fileprovider",
+        getCacheFileForName(AVATAR_FILE_NAME),
+    )
 
-    fun getHeaderUri() = getCacheFileForName(HEADER_FILE_NAME).toUri()
+    fun getHeaderUri(): Uri = FileProvider.getUriForFile(
+        application,
+        "${BuildConfig.APPLICATION_ID}.fileprovider",
+        getCacheFileForName(HEADER_FILE_NAME),
+    )
 
     fun newAvatarPicked() {
         avatarData.value = getAvatarUri()
