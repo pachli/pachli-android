@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.android.lint) apply false
+    alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.google.ksp) apply false
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.jvm) apply false
@@ -10,6 +11,7 @@ plugins {
     alias(libs.plugins.aboutlibraries) apply false
     alias(libs.plugins.hilt) apply false
     alias(libs.plugins.quadrant) apply false
+    alias(libs.plugins.compose.screenshot) apply false
 }
 
 allprojects {
@@ -70,25 +72,25 @@ tasks.register<Delete>("clean") {
 // takes to run.
 //
 // - :app:lintOrangeGoogleDebug
-// - *:testOrangeGoogleDebugUnitTest
 // - :app:assembleOrangeDebug
 // - *:pixel9api31orangegoogledebugAndroidTest
+// - *:testOrangeGoogleDebugUnitTest
+// - *:validateOrangeGoogleDebugScreenshotTest
 tasks.register("precommit") {
     group = "Verification"
     description = "Runs the precommit tests."
     dependsOn(":app:lintOrangeGoogleDebug")
-    allprojects
-        .flatMap { it.tasks }
-        .filter { it.name.equals("testOrangeGoogleDebugUnitTest", ignoreCase = true) }
-        .forEach {
-            dependsOn(it.path)
-        }
     dependsOn(":app:assembleOrangeGoogleDebug")
+    val perModuleDeps =
+        listOf(
+            "testOrangeGoogleDebugUnitTest",
+            "pixel9api31OrangeGoogleDebugAndroidTest",
+            "validateOrangeGoogleDebugScreenshotTest",
+        )
     allprojects
         .flatMap { it.tasks }
-        .filter { it.name.equals("pixel9api31OrangeGoogleDebugAndroidTest", ignoreCase = true) }
+        .filter { task -> perModuleDeps.any { task.name.equals(it, ignoreCase = true) } }
         .forEach {
-            println("dep: $it.name")
             dependsOn(it.path)
         }
 }

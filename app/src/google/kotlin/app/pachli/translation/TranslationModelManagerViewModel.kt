@@ -20,6 +20,7 @@ package app.pachli.translation
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.core.common.PachliError
@@ -48,6 +49,7 @@ import kotlin.io.path.Path
 import kotlin.io.path.div
 import kotlin.io.path.fileSize
 import kotlin.io.path.walk
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -61,7 +63,15 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 /**
- * The local state of a translation model. See [TranslationModelViewData.translationModelDownloadState].
+ * The local download state of a translation model.
+ *
+ * Possible values are:
+ * - `OK(null)` - The model is not downloaded.
+ * - `Ok(Loadable.Loading)` - The model is being downloaded.
+ * - `Ok(Loadable.Loaded)` - The model has been downloaded.
+ * - `Err(ThrowableError)` - An error occurred during the download.
+ *
+ * See [TranslationModelViewData.translationModelDownloadState].
  */
 private typealias TranslationModelDownloadState = Result<Loadable<ModelStats>?, PachliError>
 
@@ -70,6 +80,7 @@ private typealias TranslationModelDownloadState = Result<Loadable<ModelStats>?, 
  *
  * @property sizeOnDisk The size of the model's files on disk (bytes).
  */
+@Immutable
 data class ModelStats(val sizeOnDisk: Long) {
     companion object {
         /**
@@ -98,13 +109,10 @@ data class ModelStats(val sizeOnDisk: Long) {
  * View data for a translation model.
  *
  * @param remoteModel MlKit's [TranslateRemoteModel] for this model.
- * @param translationModelDownloadState The model's download state. Possible values are:
- * - OK(null) - The model is not downloaded.
- * - Ok(Loadable.Loading) - The model is being downloaded.
- * - Ok(Loadable.Loaded) - The model has been downloaded.
- * - Err(ThrowableError) - An error occurred during the download.
+ * @param translationModelDownloadState The model's download state.
  * @param locale The locale corresponding to the model's language.
  */
+@Immutable
 data class TranslationModelViewData(
     val remoteModel: TranslateRemoteModel,
     val translationModelDownloadState: TranslationModelDownloadState,
@@ -177,7 +185,7 @@ class TranslationModelManagerViewModel @Inject constructor(
                     // uses the model tag ("id") in the directory name.
                     Timber.d("mod: ${it.language} ${localeMap[it.language]?.language}")
                     val language = localeMap[it.language]?.language ?: it.language
-                    Ok(Loadable.Loaded(ModelStats.from(downloadedModelsPath, it.language, localeMap[it.language]?.language)))
+                    Ok(Loadable.Loaded(ModelStats.from(downloadedModelsPath, it.language, language)))
                 } else {
                     Ok(null)
                 }
@@ -192,7 +200,7 @@ class TranslationModelManagerViewModel @Inject constructor(
                     locale = locale,
                 )
             }
-        }.sortedWith(compare)
+        }.sortedWith(compare).toImmutableList()
     }.shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 1)
 
     /**

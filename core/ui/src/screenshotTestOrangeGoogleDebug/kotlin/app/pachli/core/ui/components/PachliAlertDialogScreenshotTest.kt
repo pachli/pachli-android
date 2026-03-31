@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Pachli Association
+ * Copyright (c) 2026 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -15,25 +15,15 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-plugins {
-    alias(libs.plugins.pachli.android.library)
-    alias(libs.plugins.pachli.android.hilt)
-}
+package app.pachli.core.ui.components
 
-android {
-    namespace = "app.pachli.core.common"
+import androidx.compose.runtime.Composable
+import app.pachli.core.designsystem.theme.ThemePreviews
+import com.android.tools.screenshot.PreviewTest
 
-    defaultConfig {
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-}
-
-dependencies {
-    api(libs.kotlin.result)
-    api(libs.kotlin.result.coroutines)
-    api(libs.kotlinx.collections.immutable)
-        ?.because("Immutable collections for Compose stability")
-
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.exifinterface)
+@PreviewTest
+@ThemePreviews
+@Composable
+private fun PachliAlertDialogScreenshotTest() {
+    PreviewPachliAlertDialog()
 }
