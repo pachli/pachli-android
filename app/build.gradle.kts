@@ -19,6 +19,7 @@ import com.android.build.gradle.internal.api.ApkVariantOutputImpl
 
 plugins {
     alias(libs.plugins.pachli.android.application)
+    alias(libs.plugins.pachli.android.compose)
     alias(libs.plugins.pachli.android.hilt)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.moshixir)
@@ -124,6 +125,15 @@ configurations {
     }
 }
 
+configurations.configureEach {
+    resolutionStrategy {
+        // Fix Cannot find a version of 'androidx.test.espresso:espresso-core' that satisfies the version constraints:
+        // Fix Cannot find a version of 'androidx.test.ext:junit' that satisfies the version constraints:
+        force(libs.espresso.core)
+        force(libs.androidx.test.junit)
+    }
+}
+
 dependencies {
     // CachedTimelineRemoteMediator needs the @Transaction annotation from Room
     compileOnly(libs.bundles.room)
@@ -196,6 +206,7 @@ dependencies {
 
     // Translation
     googleImplementation(libs.mlkit.translation)
+    googleImplementation(libs.composeunstyled)
 
     implementation(libs.semver)
 
@@ -219,4 +230,5 @@ dependencies {
     androidTestImplementation(libs.androidx.test.core.ktx)
 
     lintChecks(projects.checks)
+    ktlintRuleset(libs.ktlint.compose.rules)
 }

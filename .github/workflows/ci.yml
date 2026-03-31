@@ -113,7 +113,7 @@ jobs:
         color: ["orange"]
         store: [ "Fdroid", "Github", "Google" ]
         type: [ "Debug", "Release" ]
-    name: Android Test
+    name: Android Unit Test
     runs-on: ubuntu-latest
 
     steps:
@@ -125,7 +125,7 @@ jobs:
           gradle-cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
       - name: test ${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
-        run: ./gradlew test${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
+        run: ./gradlew test${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}UnitTest
 
   # Android assemble is per variant
   assemble:
@@ -147,6 +147,23 @@ jobs:
 
       - name: assemble ${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
         run: ./gradlew assemble${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
+
+  # Screenshots are taken and validated on orangeGoogleDebug.
+  screenshots:
+    name: Validate screenshots
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          lfs: true
+
+      - uses: ./.github/actions/setup-build-env
+        with:
+          gradle-cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+
+      - name: Validate screenshots
+        run: ./gradlew validateOrangeGoogleDebugScreenshotTest
 
   # Connected tests are per-store-variant, debug builds only.
   connected:

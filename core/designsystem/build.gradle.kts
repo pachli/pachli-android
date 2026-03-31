@@ -17,6 +17,7 @@
 
 plugins {
     alias(libs.plugins.pachli.android.library)
+    alias(libs.plugins.pachli.android.compose)
 }
 
 android {
@@ -28,7 +29,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.android.material)
+    api(libs.android.material)
 
     // styles.xml contains overrides for this library
     // TODO: Move these in to MainActivity feature when that's created
@@ -43,4 +44,7 @@ dependencies {
 
     // Styling the swipe-refresh layout spinner
     implementation(libs.androidx.swiperefreshlayout)
+
+    api("androidx.compose.material3:material3")
+        ?.because("Material 3 themes, make available to other modules")
 }
