@@ -423,7 +423,7 @@
     <string name="title_tab_public_trending_hashtags">Tēmturi</string>
     <string name="notification_severed_relationships_domain_block_body">Satura pārraudzītājs apturēja domēnu</string>
     <string name="notification_severed_relationships_account_suspension_body">Satura pārraudzītājs apturēja kontu</string>
-    <string name="account_filter_placeholder_type_mention_fmt">Lietotājs @&lt;b&gt;%1s&lt;/b&gt; pieminēja Tevi</string>
+    <string name="account_filter_placeholder_type_mention_fmt">Lietotājs @&lt;b&gt;%1$s&lt;/b&gt; pieminēja Tevi</string>
     <string name="action_send_private_content_description">Nosūtīt tikai sekotājiem paredzētu ierakstu</string>
     <string name="action_send_direct_content_description">Nosūtīt tiešu ziņu</string>
     <string name="visibility_direct">Tiešs: iesūtīt tikai pieminētajiem lietotājiem</string>
@@ -645,11 +645,11 @@
     <string name="pref_account_conversation_filters_subtitle">Kam vajadzētu notikt ar sarunām, kuras uzsāka konti, …</string>
     <string name="pref_summary_account_conversation_filters">Tavs serveris neatbalsta sarunu atlasītājus</string>
     <string name="pref_account_conversation_filters_label_younger_30d">… kas ir izveidoti pēdējās 30 dienās</string>
-    <string name="account_filter_placeholder_type_favourite_fmt">Lietotājs @&lt;b&gt;%1s&lt;/b&gt; ievietoja izlasē Tavu ierakstu</string>
-    <string name="account_filter_placeholder_type_follow_fmt">Lietotājs @&lt;b&gt;%1s&lt;/b&gt; seko Tev</string>
-    <string name="account_filter_placeholder_type_follow_request_fmt">Sekošanas pieprasījums no lietotāja @&lt;b&gt;%1s&lt;/b&gt;</string>
-    <string name="account_filter_placeholder_type_reblog_fmt">Lietotājs @&lt;b&gt;%1s&lt;/b&gt; pastiprināja Tavu ierakstu</string>
-    <string name="account_filter_placeholder_label_domain">No lietotāja @&lt;b&gt;%1s&lt;/b&gt;</string>
+    <string name="account_filter_placeholder_type_favourite_fmt">Lietotājs @&lt;b&gt;%1$s&lt;/b&gt; ievietoja izlasē Tavu ierakstu</string>
+    <string name="account_filter_placeholder_type_follow_fmt">Lietotājs @&lt;b&gt;%1$s&lt;/b&gt; seko Tev</string>
+    <string name="account_filter_placeholder_type_follow_request_fmt">Sekošanas pieprasījums no lietotāja @&lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="account_filter_placeholder_type_reblog_fmt">Lietotājs @&lt;b&gt;%1$s&lt;/b&gt; pastiprināja Tavu ierakstu</string>
+    <string name="account_filter_placeholder_label_domain">No lietotāja @&lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="account_filter_placeholder_label_not_following">Atlasīts jo: &lt;b&gt;Tu neseko viņiem&lt;/b&gt;</string>
     <string name="account_filter_placeholder_label_younger_30d">Atlasīts jo: &lt;b&gt;izveidots pēdējās 30 dienās&lt;/b&gt;</string>
     <string name="account_filter_placeholder_type_conversation">Lietotājs @&lt;b&gt;%1$s&lt;/b&gt; uzsāka sarunu</string>
