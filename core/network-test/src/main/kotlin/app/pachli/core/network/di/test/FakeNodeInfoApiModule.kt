@@ -41,7 +41,7 @@ import org.mockito.kotlin.mock
  *
  *     reset(nodeInfoApi)
  *     nodeInfoApi.stub {
- *         onBlocking { someFunction() } doReturn SomeValue
+ *         on { someFunction() } doReturn SomeValue
  *         // ...
  *     }
  *

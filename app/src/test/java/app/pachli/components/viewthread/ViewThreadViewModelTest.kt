@@ -119,18 +119,18 @@ class ViewThreadViewModelTest {
 
         reset(mastodonApi)
         mastodonApi.stub {
-            onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
-            onBlocking { getInstanceV2(anyOrNull()) } doReturn success(DEFAULT_INSTANCE_V2)
-            onBlocking { getCustomEmojis() } doReturn failure()
-            onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
-            onBlocking { getLists() } doReturn success(emptyList())
-            onBlocking { getContentFilters() } doReturn success(emptyList())
-            onBlocking { accountFollowing(any(), anyOrNull(), any()) } doReturn success(emptyList())
+            on { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
+            on { getInstanceV2(anyOrNull()) } doReturn success(DEFAULT_INSTANCE_V2)
+            on { getCustomEmojis() } doReturn failure()
+            on { listAnnouncements(any()) } doReturn success(emptyList())
+            on { getLists() } doReturn success(emptyList())
+            on { getContentFilters() } doReturn success(emptyList())
+            on { accountFollowing(any(), anyOrNull(), any()) } doReturn success(emptyList())
         }
 
         reset(nodeInfoApi)
         nodeInfoApi.stub {
-            onBlocking { nodeInfoJrd() } doReturn success(
+            on { nodeInfoJrd() } doReturn success(
                 UnvalidatedJrd(
                     listOf(
                         UnvalidatedJrd.Link(
@@ -140,7 +140,7 @@ class ViewThreadViewModelTest {
                     ),
                 ),
             )
-            onBlocking { nodeInfo(any()) } doReturn success(
+            on { nodeInfo(any()) } doReturn success(
                 UnvalidatedNodeInfo(UnvalidatedNodeInfo.Software("mastodon", "4.2.0")),
             )
         }
@@ -156,8 +156,8 @@ class ViewThreadViewModelTest {
             .onSuccess { accountManager.refresh(it) }
 
         val cachedTimelineRepository: CachedTimelineRepository = mock {
-            onBlocking { getStatusViewData(anyLong(), any<List<String>>()) } doReturn emptyMap()
-            onBlocking { getStatusTranslations(anyLong(), any()) } doReturn emptyMap()
+            on { getStatusViewData(anyLong(), any<List<String>>()) } doReturn emptyMap()
+            on { getStatusTranslations(anyLong(), any()) } doReturn emptyMap()
         }
 
         viewModel = ViewThreadViewModel(
@@ -212,8 +212,8 @@ class ViewThreadViewModelTest {
     @Test
     fun `should emit status even if context fails to load`() = runTest {
         mastodonApi.stub {
-            onBlocking { status(threadId) } doReturn success(fakeStatus(id = "2", inReplyToId = "1", inReplyToAccountId = "1"))
-            onBlocking { statusContext(threadId) } doReturn failure()
+            on { status(threadId) } doReturn success(fakeStatus(id = "2", inReplyToId = "1", inReplyToAccountId = "1"))
+            on { statusContext(threadId) } doReturn failure()
         }
 
         viewModel.uiResult.test {
@@ -245,8 +245,8 @@ class ViewThreadViewModelTest {
     @Test
     fun `should emit error when status and context fail to load`() = runTest {
         mastodonApi.stub {
-            onBlocking { status(threadId) } doReturn failure()
-            onBlocking { statusContext(threadId) } doReturn failure()
+            on { status(threadId) } doReturn failure()
+            on { statusContext(threadId) } doReturn failure()
         }
 
         viewModel.uiResult.test {
@@ -267,8 +267,8 @@ class ViewThreadViewModelTest {
     @Test
     fun `should emit error when status fails to load`() = runTest {
         mastodonApi.stub {
-            onBlocking { status(threadId) } doReturn failure()
-            onBlocking { statusContext(threadId) } doReturn success(
+            on { status(threadId) } doReturn failure()
+            on { statusContext(threadId) } doReturn success(
                 StatusContext(
                     ancestors = listOf(fakeStatus(id = "1")),
                     descendants = listOf(fakeStatus(id = "3", inReplyToId = "2", inReplyToAccountId = "1")),
@@ -591,8 +591,8 @@ class ViewThreadViewModelTest {
 
     private fun mockSuccessResponses() {
         mastodonApi.stub {
-            onBlocking { status(threadId) } doReturn success(fakeStatus(id = "2", inReplyToId = "1", inReplyToAccountId = "1", spoilerText = "Test"))
-            onBlocking { statusContext(threadId) } doReturn success(
+            on { status(threadId) } doReturn success(fakeStatus(id = "2", inReplyToId = "1", inReplyToAccountId = "1", spoilerText = "Test"))
+            on { statusContext(threadId) } doReturn success(
                 StatusContext(
                     ancestors = listOf(fakeStatus(id = "1", spoilerText = "Test")),
                     descendants = listOf(fakeStatus(id = "3", inReplyToId = "2", inReplyToAccountId = "1", spoilerText = "Test")),

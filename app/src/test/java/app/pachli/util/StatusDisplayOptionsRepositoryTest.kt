@@ -114,18 +114,18 @@ class StatusDisplayOptionsRepositoryTest {
 
         reset(mastodonApi)
         mastodonApi.stub {
-            onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
-            onBlocking { getInstanceV2(anyOrNull()) } doReturn success(DEFAULT_INSTANCE_V2)
-            onBlocking { getLists() } doReturn success(emptyList())
-            onBlocking { getCustomEmojis() } doReturn failure()
-            onBlocking { getContentFilters() } doReturn success(emptyList())
-            onBlocking { listAnnouncements(anyOrNull()) } doReturn success(emptyList())
-            onBlocking { accountFollowing(any(), anyOrNull(), any()) } doReturn success(emptyList())
+            on { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
+            on { getInstanceV2(anyOrNull()) } doReturn success(DEFAULT_INSTANCE_V2)
+            on { getLists() } doReturn success(emptyList())
+            on { getCustomEmojis() } doReturn failure()
+            on { getContentFilters() } doReturn success(emptyList())
+            on { listAnnouncements(anyOrNull()) } doReturn success(emptyList())
+            on { accountFollowing(any(), anyOrNull(), any()) } doReturn success(emptyList())
         }
 
         reset(nodeInfoApi)
         nodeInfoApi.stub {
-            onBlocking { nodeInfoJrd() } doReturn success(
+            on { nodeInfoJrd() } doReturn success(
                 UnvalidatedJrd(
                     listOf(
                         UnvalidatedJrd.Link(
@@ -135,7 +135,7 @@ class StatusDisplayOptionsRepositoryTest {
                     ),
                 ),
             )
-            onBlocking { nodeInfo(any()) } doReturn success(
+            on { nodeInfo(any()) } doReturn success(
                 UnvalidatedNodeInfo(UnvalidatedNodeInfo.Software("mastodon", "4.2.0")),
             )
         }
@@ -208,7 +208,7 @@ class StatusDisplayOptionsRepositoryTest {
         )
 
         mastodonApi.stub {
-            onBlocking { accountVerifyCredentials() } doReturn success(account)
+            on { accountVerifyCredentials() } doReturn success(account)
         }
 
         // When -- addAccount changes the active account

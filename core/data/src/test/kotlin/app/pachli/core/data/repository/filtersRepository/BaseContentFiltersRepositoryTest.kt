@@ -134,20 +134,20 @@ abstract class V2Test : BaseContentFiltersRepositoryTest() {
         reset(mastodonApi)
         mastodonApi.stub {
             // API calls when registering an account
-            onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
-            onBlocking { getInstanceV2() } doReturn success(DEFAULT_INSTANCE_V2)
-            onBlocking { getLists() } doReturn success(emptyList())
-            onBlocking { getCustomEmojis() } doReturn success(emptyList())
-            onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
-            onBlocking { getContentFilters() } doReturn success(networkFilters)
-            onBlocking { accountFollowing(any(), anyOrNull(), any()) } doReturn success(emptyList())
+            on { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
+            on { getInstanceV2() } doReturn success(DEFAULT_INSTANCE_V2)
+            on { getLists() } doReturn success(emptyList())
+            on { getCustomEmojis() } doReturn success(emptyList())
+            on { listAnnouncements(any()) } doReturn success(emptyList())
+            on { getContentFilters() } doReturn success(networkFilters)
+            on { accountFollowing(any(), anyOrNull(), any()) } doReturn success(emptyList())
         }
 
         networkFilters.clear()
 
         reset(nodeInfoApi)
         nodeInfoApi.stub {
-            onBlocking { nodeInfoJrd() } doReturn success(
+            on { nodeInfoJrd() } doReturn success(
                 UnvalidatedJrd(
                     listOf(
                         UnvalidatedJrd.Link(
@@ -157,7 +157,7 @@ abstract class V2Test : BaseContentFiltersRepositoryTest() {
                     ),
                 ),
             )
-            onBlocking { nodeInfo(any()) } doReturn success(
+            on { nodeInfo(any()) } doReturn success(
                 UnvalidatedNodeInfo(UnvalidatedNodeInfo.Software("mastodon", "4.2.0")),
             )
         }
@@ -197,19 +197,19 @@ abstract class V1Test : BaseContentFiltersRepositoryTest() {
         reset(mastodonApi)
         mastodonApi.stub {
             // API calls when registering an account
-            onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
-            onBlocking { getInstanceV2() } doReturn failure()
-            onBlocking { getInstanceV1() } doReturn success(instanceV1)
-            onBlocking { getLists() } doReturn success(emptyList())
-            onBlocking { getCustomEmojis() } doReturn success(emptyList())
-            onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
-            onBlocking { getContentFiltersV1() } doReturn success(networkFiltersV1)
-            onBlocking { accountFollowing(any(), anyOrNull(), any()) } doReturn success(emptyList())
+            on { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
+            on { getInstanceV2() } doReturn failure()
+            on { getInstanceV1() } doReturn success(instanceV1)
+            on { getLists() } doReturn success(emptyList())
+            on { getCustomEmojis() } doReturn success(emptyList())
+            on { listAnnouncements(any()) } doReturn success(emptyList())
+            on { getContentFiltersV1() } doReturn success(networkFiltersV1)
+            on { accountFollowing(any(), anyOrNull(), any()) } doReturn success(emptyList())
         }
 
         reset(nodeInfoApi)
         nodeInfoApi.stub {
-            onBlocking { nodeInfoJrd() } doReturn success(
+            on { nodeInfoJrd() } doReturn success(
                 UnvalidatedJrd(
                     listOf(
                         UnvalidatedJrd.Link(
@@ -219,7 +219,7 @@ abstract class V1Test : BaseContentFiltersRepositoryTest() {
                     ),
                 ),
             )
-            onBlocking { nodeInfo(any()) } doReturn success(
+            on { nodeInfo(any()) } doReturn success(
                 UnvalidatedNodeInfo(UnvalidatedNodeInfo.Software("mastodon", "3.9.0")),
             )
         }

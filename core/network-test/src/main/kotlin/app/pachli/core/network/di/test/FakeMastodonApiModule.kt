@@ -53,7 +53,7 @@ import org.mockito.stubbing.Answer
  *
  *     reset(mastodonApi)
  *     mastodonApi.stub {
- *         onBlocking { someFunction() } doReturn SomeValue
+ *         on { someFunction() } doReturn SomeValue
  *         // ...
  *     }
  *
@@ -89,7 +89,7 @@ object ThrowingAnswer : Answer<Any> {
         // like:
         //
         // mastodonApi.stub {
-        //   onBlocking { someFunction() } doReturn success(emptyList())
+        //   on { someFunction() } doReturn success(emptyList())
         // }
         //
         // then `someFunction()` will be called.
@@ -98,12 +98,15 @@ object ThrowingAnswer : Answer<Any> {
         // as part of the stubbing process.
         //
         // To determine whether this call is during the stubbing process get the
-        // current call stack and look for a call to org.mockito.kotlin.KStubbing.onBlocking.
+        // current call stack and look for a call to org.mockito.kotlin.KStubbing.onBlocking
+        // or org.mockito.kotlin.KStubbing.on.
+        //
         // If that's somewhere in the call stack then this is a call during the stubbing
         // process and Unit should be returned.
         val callstack = Thread.currentThread().getStackTrace()
         val isDuringStubbing = callstack.firstOrNull {
-            it.className == "org.mockito.kotlin.KStubbing" && it.methodName == "onBlocking"
+            it.className == "org.mockito.kotlin.KStubbing" &&
+                (it.methodName == "onBlocking" || it.methodName == "on")
         } != null
         if (isDuringStubbing) return Unit
 

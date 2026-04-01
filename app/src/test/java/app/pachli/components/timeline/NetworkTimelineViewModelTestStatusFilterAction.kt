@@ -93,7 +93,7 @@ class NetworkTimelineViewModelTestStatusFilterAction : NetworkTimelineViewModelT
     @Test
     fun `bookmark succeeds && emits Ok uiResult`() = runTest {
         // Given
-        mastodonApi.stub { onBlocking { bookmarkStatus(any()) } doReturn success(fakeStatus) }
+        mastodonApi.stub { on { bookmarkStatus(any()) } doReturn success(fakeStatus) }
 
         viewModel.uiResult.test {
             // When
@@ -108,7 +108,7 @@ class NetworkTimelineViewModelTestStatusFilterAction : NetworkTimelineViewModelT
     @Test
     fun `bookmark fails && emits Err uiResult`() = runTest {
         // Given
-        mastodonApi.stub { onBlocking { bookmarkStatus(any()) } doReturn failure() }
+        mastodonApi.stub { on { bookmarkStatus(any()) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When
@@ -123,7 +123,7 @@ class NetworkTimelineViewModelTestStatusFilterAction : NetworkTimelineViewModelT
     @Test
     fun `favourite succeeds && emits Ok uiResult`() = runTest {
         // Given
-        mastodonApi.stub { onBlocking { favouriteStatus(any()) } doReturn success(fakeStatus) }
+        mastodonApi.stub { on { favouriteStatus(any()) } doReturn success(fakeStatus) }
 
         viewModel.uiResult.test {
             // When
@@ -138,7 +138,7 @@ class NetworkTimelineViewModelTestStatusFilterAction : NetworkTimelineViewModelT
     @Test
     fun `favourite fails && emits Err uiResult`() = runTest {
         // Given
-        mastodonApi.stub { onBlocking { favouriteStatus(any()) } doReturn failure() }
+        mastodonApi.stub { on { favouriteStatus(any()) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When
@@ -153,7 +153,7 @@ class NetworkTimelineViewModelTestStatusFilterAction : NetworkTimelineViewModelT
     @Test
     fun `reblog succeeds && emits Ok uiResult`() = runTest {
         // Given
-        mastodonApi.stub { onBlocking { reblogStatus(any()) } doReturn success(fakeStatus) }
+        mastodonApi.stub { on { reblogStatus(any()) } doReturn success(fakeStatus) }
 
         viewModel.uiResult.test {
             // When
@@ -168,7 +168,7 @@ class NetworkTimelineViewModelTestStatusFilterAction : NetworkTimelineViewModelT
     @Test
     fun `reblog fails && emits Err uiResult`() = runTest {
         // Given
-        mastodonApi.stub { onBlocking { reblogStatus(any()) } doReturn failure() }
+        mastodonApi.stub { on { reblogStatus(any()) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When
@@ -183,7 +183,7 @@ class NetworkTimelineViewModelTestStatusFilterAction : NetworkTimelineViewModelT
     @Test
     fun `voteinpoll succeeds && emits Ok uiResult`() = runTest {
         // Given
-        mastodonApi.stub { onBlocking { voteInPoll(any(), any()) } doReturn success(fakeStatus.poll!!) }
+        mastodonApi.stub { on { voteInPoll(any(), any()) } doReturn success(fakeStatus.poll!!) }
 
         viewModel.uiResult.test {
             // When
@@ -198,7 +198,7 @@ class NetworkTimelineViewModelTestStatusFilterAction : NetworkTimelineViewModelT
     @Test
     fun `voteinpoll fails && emits Err uiResult`() = runTest {
         // Given
-        mastodonApi.stub { onBlocking { voteInPoll(any(), any()) } doReturn failure() }
+        mastodonApi.stub { on { voteInPoll(any(), any()) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When

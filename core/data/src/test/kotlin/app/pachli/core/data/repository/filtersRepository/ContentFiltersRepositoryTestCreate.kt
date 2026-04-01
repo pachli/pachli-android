@@ -70,7 +70,7 @@ class ContentFiltersRepositoryTestCreate : V2Test() {
         var expiresAt = Date()
 
         mastodonApi.stub {
-            onBlocking { createFilter(any<NewContentFilter>()) } doAnswer { call ->
+            on { createFilter(any<NewContentFilter>()) } doAnswer { call ->
                 val newContentFilter = call.getArgument<NewContentFilter>(0)
                 val expiresIn = newContentFilter.expiresIn
                 expiresAt = Date(System.currentTimeMillis() + (expiresIn * 1000))
@@ -164,7 +164,7 @@ class ContentFiltersRepositoryTestCreateV1 : V1Test() {
 
         // Initialise with no existing filters, and API stubs for creating V1 filters.
         mastodonApi.stub {
-            onBlocking { createFilterV1(any(), any(), any(), any(), any()) } doAnswer { call ->
+            on { createFilterV1(any(), any(), any(), any(), any()) } doAnswer { call ->
                 val expiresIn = call.getArgument<String>(4).toInt()
                 expiresAt = Date(System.currentTimeMillis() + (expiresIn * 1000))
 

@@ -88,7 +88,7 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
     fun `bookmark succeeds && emits UiSuccess`() = runTest {
         // Given
         mastodonApi.stub {
-            onBlocking { bookmarkStatus(any()) } doReturn
+            on { bookmarkStatus(any()) } doReturn
                 success(this@NotificationsViewModelTestStatusFilterAction.fakeStatus)
         }
 
@@ -105,7 +105,7 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
     @Test
     fun `bookmark fails && emits UiError`() = runTest {
         // Given
-        mastodonApi.stub { onBlocking { bookmarkStatus(any()) } doReturn failure() }
+        mastodonApi.stub { on { bookmarkStatus(any()) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When
@@ -121,7 +121,7 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
     fun `favourite succeeds && emits UiSuccess`() = runTest {
         // Given
         mastodonApi.stub {
-            onBlocking { favouriteStatus(any()) } doReturn
+            on { favouriteStatus(any()) } doReturn
                 success(this@NotificationsViewModelTestStatusFilterAction.fakeStatus)
         }
 
@@ -138,7 +138,7 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
     @Test
     fun `favourite fails && emits UiError`() = runTest {
         // Given
-        mastodonApi.stub { onBlocking { favouriteStatus(any()) } doReturn failure() }
+        mastodonApi.stub { on { favouriteStatus(any()) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When
@@ -153,7 +153,7 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
     @Test
     fun `reblog succeeds && emits UiSuccess`() = runTest {
         // Given
-        mastodonApi.stub { onBlocking { reblogStatus(any()) } doReturn success(fakeStatus) }
+        mastodonApi.stub { on { reblogStatus(any()) } doReturn success(fakeStatus) }
 
         viewModel.uiResult.test {
             // When
@@ -168,7 +168,7 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
     @Test
     fun `reblog fails && emits UiError`() = runTest {
         // Given
-        mastodonApi.stub { onBlocking { reblogStatus(any()) } doReturn failure() }
+        mastodonApi.stub { on { reblogStatus(any()) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When
@@ -183,7 +183,7 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
     @Test
     fun `voteinpoll succeeds && emits UiSuccess`() = runTest {
         // Given
-        mastodonApi.stub { onBlocking { voteInPoll(any(), any()) } doReturn success(fakeStatus.poll!!) }
+        mastodonApi.stub { on { voteInPoll(any(), any()) } doReturn success(fakeStatus.poll!!) }
 
         viewModel.uiResult.test {
             // When
@@ -198,7 +198,7 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
     @Test
     fun `voteinpoll fails && emits UiError`() = runTest {
         // Given
-        mastodonApi.stub { onBlocking { voteInPoll(any(), any()) } doReturn failure() }
+        mastodonApi.stub { on { voteInPoll(any(), any()) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When
