@@ -26,6 +26,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager.VERTICAL
@@ -37,6 +38,7 @@ import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Attachment
 import app.pachli.core.navigation.AttachmentViewData
@@ -52,7 +54,6 @@ import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -75,13 +76,9 @@ class AccountMediaFragment :
 
     private lateinit var adapter: AccountMediaGridAdapter
 
-    private var pachliAccountId by Delegates.notNull<Long>()
+    private val pachliAccountId by unsafeLazy { requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID) }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
-        viewModel.accountId = arguments?.getString(ARG_ACCOUNT_ID)!!
-    }
+    private val accountId by unsafeLazy { requireArguments().getString(ARG_ACCOUNT_ID)!! }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.recyclerView.applyDefaultWindowInsets()
@@ -108,8 +105,10 @@ class AccountMediaFragment :
         binding.statusView.visibility = View.GONE
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.media.collectLatest { pagingData ->
-                adapter.submitData(pagingData)
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.getMedia(pachliAccountId, accountId).collectLatest { pagingData ->
+                    adapter.submitData(pagingData)
+                }
             }
         }
 
