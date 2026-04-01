@@ -664,15 +664,15 @@
     <string name="pref_account_notification_filters_label_not_followed">…du ikke følger</string>
     <string name="pref_account_notification_filters_label_younger_30d">…ble opprettet på de siste 30 dagene</string>
     <string name="pref_account_notification_filters_label_limited_by_server">…er begrenset av moderatorene dine</string>
-    <string name="account_filter_placeholder_type_favourite_fmt">En bruker (@&lt;b&gt;%1s&lt;/b&gt;) favoriserte innlegget ditt</string>
+    <string name="account_filter_placeholder_type_favourite_fmt">En bruker (@&lt;b&gt;%1$s&lt;/b&gt;) favoriserte innlegget ditt</string>
     <string name="account_filter_placeholder_label_younger_30d">Filtrert fordi: &lt;b&gt;kontoen ble opprettet på de siste 30 dagene&lt;/b&gt;</string>
     <string name="account_filter_placeholder_label_limited_by_server">Filtrert fordi: &lt;b&gt;kontoen er begrenset av moderatorene dine&lt;/b&gt;</string>
     <string name="notification_unknown">Ukjent varseltype</string>
     <string name="account_filter_placeholder_label_not_following">Filtrert fordi: &lt;b&gt;du følger hen ikke&lt;/b&gt;</string>
-    <string name="account_filter_placeholder_type_mention_fmt">En bruker (@&lt;b&gt;%1s&lt;/b&gt;) nevnte deg</string>
-    <string name="account_filter_placeholder_type_reblog_fmt">En bruker (@&lt;b&gt;%1s&lt;/b&gt;) delte innlegget ditt</string>
-    <string name="account_filter_placeholder_label_domain">Fra en bruker (@&lt;b&gt;%1s&lt;/b&gt;)</string>
-    <string name="account_filter_placeholder_type_follow_fmt">En bruker (@&lt;b&gt;%1s&lt;/b&gt;) fulgte deg</string>
-    <string name="account_filter_placeholder_type_follow_request_fmt">Følgeforespørsel fra en bruker (@&lt;b&gt;%1s&lt;/b&gt;)</string>
+    <string name="account_filter_placeholder_type_mention_fmt">En bruker (@&lt;b&gt;%1$s&lt;/b&gt;) nevnte deg</string>
+    <string name="account_filter_placeholder_type_reblog_fmt">En bruker (@&lt;b&gt;%1$s&lt;/b&gt;) delte innlegget ditt</string>
+    <string name="account_filter_placeholder_label_domain">Fra en bruker (@&lt;b&gt;%1$s&lt;/b&gt;)</string>
+    <string name="account_filter_placeholder_type_follow_fmt">En bruker (@&lt;b&gt;%1$s&lt;/b&gt;) fulgte deg</string>
+    <string name="account_filter_placeholder_type_follow_request_fmt">Følgeforespørsel fra en bruker (@&lt;b&gt;%1$s&lt;/b&gt;)</string>
     <string name="action_timeline_link">Innlegg om denne lenken</string>
 </resources>
