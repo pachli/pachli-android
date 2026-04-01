@@ -21,16 +21,24 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.getOrElse
 
+/**
+ * @param context
+ * @param api
+ * @param alwaysShowSensitiveMedia The user's preference for showing
+ * sensitive media.
+ * @param accountId Server ID of the account we're fetching media from.
+ * @param viewModel
+ */
 @OptIn(ExperimentalPagingApi::class)
 class AccountMediaRemoteMediator(
     private val context: Context,
     private val api: MastodonApi,
-    private val activeAccount: AccountEntity,
+    private val alwaysShowSensitiveMedia: Boolean,
+    private val accountId: String,
     private val viewModel: AccountMediaViewModel,
 ) : RemoteMediator<String, AttachmentViewData>() {
     override suspend fun load(
@@ -39,7 +47,7 @@ class AccountMediaRemoteMediator(
     ): MediatorResult {
         val statusResponse = when (loadType) {
             LoadType.REFRESH -> {
-                api.accountStatuses(viewModel.accountId, onlyMedia = true)
+                api.accountStatuses(accountId, onlyMedia = true)
             }
 
             LoadType.PREPEND -> {
@@ -49,7 +57,7 @@ class AccountMediaRemoteMediator(
             LoadType.APPEND -> {
                 val maxId = state.lastItemOrNull()?.statusId
                 if (maxId != null) {
-                    api.accountStatuses(viewModel.accountId, maxId = maxId, onlyMedia = true)
+                    api.accountStatuses(accountId, maxId = maxId, onlyMedia = true)
                 } else {
                     return MediatorResult.Success(endOfPaginationReached = false)
                 }
@@ -58,7 +66,7 @@ class AccountMediaRemoteMediator(
 
         val statuses = statusResponse.body
         val attachments = statuses.flatMap { status ->
-            AttachmentViewData.list(status.asModel(), activeAccount.alwaysShowSensitiveMedia)
+            AttachmentViewData.list(status.asModel(), alwaysShowSensitiveMedia)
         }
 
         if (loadType == LoadType.REFRESH) {
