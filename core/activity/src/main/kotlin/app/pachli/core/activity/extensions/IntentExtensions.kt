@@ -72,4 +72,4 @@ fun Intent.getTransitionKind(): TransitionKind? {
 
 /** True if [Intent] is for a Pachli component, false otherwise. */
 val Intent.forPachliComponent: Boolean
-    get() = this.component?.className?.startsWith("app.pachli") == true
+    get() = this.component?.className?.startsWith("app.pachli.") == true
