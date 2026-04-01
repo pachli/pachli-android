@@ -19,6 +19,6 @@
     <string name="login_connection">A’ dèanamh ceangal…</string>
     <string name="title_login">Clàraich a-steach</string>
     <string name="error_could_not_load_login_page">Cha b’ urrainn dhuinn duilleag a’ chlàraidh a-steach fhosgladh.</string>
-    <string name="instance_rule_info">Le clàradh a-steach, bidh tu ag aontachadh ri riaghailtean %s.</string>
-    <string name="instance_rule_title">riaghailtean %s</string>
+    <string name="instance_rule_info">Le clàradh a-steach, bidh tu ag aontachadh ri riaghailtean %1$s.</string>
+    <string name="instance_rule_title">riaghailtean %1$s</string>
 </resources>

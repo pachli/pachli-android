@@ -7,7 +7,7 @@
     <string name="error_rename_list_fmt">Не удалось переименовать список \"%1$s\": %2$s</string>
     <string name="action_rename_list">Переименовать список</string>
     <string name="action_create_list">Создать список</string>
-    <string name="dialog_delete_list_warning">Удалить список «%s»?</string>
+    <string name="dialog_delete_list_warning">Удалить список «%1$s»?</string>
     <string name="action_remove_from_list">Удалить аккаунт из списка</string>
     <string name="action_add_to_list">Добавить аккаунт в список</string>
     <string name="action_delete_list">Удалить список</string>

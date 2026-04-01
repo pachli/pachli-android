@@ -2,7 +2,7 @@
 <resources>
     <string name="error_generic_fmt">Erreur %1$s</string>
     <string name="error_404_not_found_fmt">votre serveur ne prend pas en charge cette fonctionnalité: %1$s</string>
-    <string name="error_network_fmt">Une erreur réseau s\'est produite : %s</string>
+    <string name="error_network_fmt">Une erreur réseau s\'est produite : %1$s</string>
     <string name="node_info_error_no_software">ne contenait pas de bloc logiciel</string>
     <string name="node_info_error_no_software_name">le nom du logiciel est manquant, vide ou blanc</string>
     <string name="node_info_error_no_software_version">la version du logiciel est manquante, vide ou blanche</string>

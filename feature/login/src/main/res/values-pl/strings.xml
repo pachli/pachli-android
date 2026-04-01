@@ -15,6 +15,6 @@
     <string name="login_connection">Łączenie…</string>
     <string name="title_login">Login</string>
     <string name="error_could_not_load_login_page">Nie można załadować strony logowania.</string>
-    <string name="instance_rule_info">Logując się akceptujesz regulamin %s.</string>
-    <string name="instance_rule_title">regulamin %s</string>
+    <string name="instance_rule_info">Logując się akceptujesz regulamin %1$s.</string>
+    <string name="instance_rule_title">regulamin %1$s</string>
 </resources>

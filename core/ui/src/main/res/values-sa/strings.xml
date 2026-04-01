@@ -7,7 +7,7 @@
     <string name="button_done">कृतम्</string>
     <string name="action_view_profile">व्यक्तिविवरणम्</string>
     <string name="action_more">अधिकम्</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="url_domain_notifier">\u0020(🔗 %1$s)</string>
     <string name="action_links">जालस्थलानि</string>
     <string name="action_mentions">उल्लेखाः</string>
     <string name="action_hashtags">निश्रेणिचिह्नशीर्षकाः</string>
@@ -44,21 +44,21 @@
         <item quantity="other">%s जनौ</item>
     </plurals>
     <string name="poll_info_closed">पिहितम्</string>
-    <string name="poll_info_time_absolute">समापनं यावत् %s</string>
+    <string name="poll_info_time_absolute">समापनं यावत् %1$s</string>
     <string name="poll_info_format"><!-- 15 मतानि • 1 शेषघटिकाः -->%1$s • %2$s</string>
     <string name="description_poll">मतदाने मतानि- %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="post_media_alt">आल्ट्</string>
     <string name="status_created_at_now">अधुना</string>
-    <string name="abbreviated_in_seconds">%ds क्ष</string>
-    <string name="abbreviated_seconds_ago">%ds क्ष</string>
-    <string name="abbreviated_in_minutes">%dm नि</string>
-    <string name="abbreviated_minutes_ago">%dm नि</string>
-    <string name="abbreviated_in_hours">%dh घ</string>
-    <string name="abbreviated_hours_ago">%dh घ</string>
-    <string name="abbreviated_in_days">%dd दि</string>
-    <string name="abbreviated_days_ago">%dd दि</string>
-    <string name="abbreviated_in_years">%dy वर्ष</string>
-    <string name="abbreviated_years_ago">%dy वर्ष</string>
+    <string name="abbreviated_in_seconds">%1$ds क्ष</string>
+    <string name="abbreviated_seconds_ago">%1$ds क्ष</string>
+    <string name="abbreviated_in_minutes">%1$dm नि</string>
+    <string name="abbreviated_minutes_ago">%1$dm नि</string>
+    <string name="abbreviated_in_hours">%1$dh घ</string>
+    <string name="abbreviated_hours_ago">%1$dh घ</string>
+    <string name="abbreviated_in_days">%1$dd दि</string>
+    <string name="abbreviated_days_ago">%1$dd दि</string>
+    <string name="abbreviated_in_years">%1$dy वर्ष</string>
+    <string name="abbreviated_years_ago">%1$dy वर्ष</string>
     <string name="description_post_media_no_description_placeholder">विवरणं नास्ति</string>
     <string name="description_visibility_public">सार्वजनिकम्</string>
     <string name="description_visibility_unlisted">अनिर्दिष्टम्</string>
@@ -83,8 +83,8 @@
     <string name="description_post_reblogged">पुनर्लिखितम्</string>
     <string name="description_post_favourited">प्रीतिर्दत्ता</string>
     <string name="description_post_bookmarked">पुटचिह्नं कृतम्</string>
-    <string name="description_post_media">सामग्र्यः %s</string>
-    <string name="description_post_cw">विषयपूर्वसतर्कता: %s</string>
+    <string name="description_post_media">सामग्र्यः %1$s</string>
+    <string name="description_post_cw">विषयपूर्वसतर्कता: %1$s</string>
     <plurals name="reblogs">
         <item quantity="one">&lt;b&gt;%s&lt;/b&gt; प्रकाशनम्</item>
         <item quantity="other">&lt;b&gt;%s&lt;/b&gt; प्रकाशने</item>
@@ -94,6 +94,6 @@
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; प्रिये</item>
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; अप्रकाशयत्</string>
-    <string name="post_edited">%s सम्पादितम्</string>
+    <string name="post_edited">%1$s सम्पादितम्</string>
     <string name="filter_edit_title">शोधकं सम्पाद्यताम्</string>
 </resources>

@@ -12,8 +12,8 @@
     <string name="error_media_upload_sending">Gagal mengunggah.</string>
     <string name="title_tab_preferences">Tab</string>
     <string name="title_view_thread">Utas</string>
-    <string name="error_following_hashtag_format">Terjadi kesalahan saat mengikuti #%s</string>
-    <string name="error_unfollowing_hashtag_format">Terjadi kesalahan saat berhenti mengikuti #%s</string>
+    <string name="error_following_hashtag_format">Terjadi kesalahan saat mengikuti #%1$s</string>
+    <string name="error_unfollowing_hashtag_format">Terjadi kesalahan saat berhenti mengikuti #%1$s</string>
     <string name="title_posts">Postingan</string>
     <string name="title_posts_with_replies">Dengan balasan</string>
     <string name="title_posts_pinned">Disematkan</string>
@@ -31,7 +31,7 @@
     <string name="error_media_download_permission">Izin untuk menyimpan media diperlukan.</string>
     <string name="post_sensitive_media_directions">Klik untuk melihat</string>
     <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; mengikuti Anda</string>
-    <string name="report_username_format">Laporkan @%s</string>
+    <string name="report_username_format">Laporkan @%1$s</string>
     <string name="action_follow">Ikuti</string>
     <string name="action_unfollow">Berhenti Mengikuti</string>
     <string name="action_block">Blokir</string>
@@ -49,9 +49,9 @@
     <string name="action_photo_take">Ambil gambar</string>
     <string name="action_share">Bagikan</string>
     <string name="action_mute">Bisukan</string>
-    <string name="action_unmute_desc">Jangan bisukan %s</string>
-    <string name="action_mute_domain">Bisukan %s</string>
-    <string name="action_unmute_domain">Jangan bisukan %s</string>
+    <string name="action_unmute_desc">Jangan bisukan %1$s</string>
+    <string name="action_mute_domain">Bisukan %1$s</string>
+    <string name="action_unmute_domain">Jangan bisukan %1$s</string>
     <string name="action_unmute_conversation">Jangan bisukan percakapan</string>
     <string name="action_save">Simpan</string>
     <string name="action_edit_profile">Ubah profil</string>
@@ -72,8 +72,8 @@
     <string name="hint_compose">Apa yang terjadi\?</string>
     <string name="hint_search">Cari…</string>
     <string name="dialog_title_finishing_media_upload">Menyelesaikan Pengunggahan Media</string>
-    <string name="dialog_block_warning">Blokir @%s\?</string>
-    <string name="dialog_mute_warning">Bisukan @%s\?</string>
+    <string name="dialog_block_warning">Blokir @%1$s\?</string>
+    <string name="dialog_mute_warning">Bisukan @%1$s\?</string>
     <string name="dialog_delete_conversation_warning">Hapus percakapan ini\?</string>
     <string name="pref_title_notification_alert_sound">Beri tahu dengan suara</string>
     <string name="pref_title_notification_alert_vibrate">Beri tahu dengan getaran</string>
@@ -150,7 +150,7 @@
     <string name="action_open_reblogger">Buka penulis boost</string>
     <string name="action_open_reblogged_by">Tampilkan boost</string>
     <string name="action_open_faved_by">Tampilkan favorit</string>
-    <string name="action_open_media_n">Buka media #%d</string>
+    <string name="action_open_media_n">Buka media #%1$d</string>
     <string name="send_media_to">Bagikan media kepada…</string>
     <string name="confirmation_unblocked">Pengguna ter-unblock</string>
     <string name="hint_note">Bio</string>
@@ -178,8 +178,8 @@
     <string name="pref_title_notification_filter_subscriptions">seseorang yang saya langganani menerbitkan sebuah post baru</string>
     <string name="pref_title_notification_filter_sign_ups">seseorang mendaftar</string>
     <string name="error_following_hashtags_unsupported">Instance ini tidak mendukung hashtag berikut.</string>
-    <string name="error_muting_hashtag_format">Kesalahan menonaktifkan #%s</string>
-    <string name="error_unmuting_hashtag_format">Kesalahan mengaktifkan #%s</string>
+    <string name="error_muting_hashtag_format">Kesalahan menonaktifkan #%1$s</string>
+    <string name="error_unmuting_hashtag_format">Kesalahan mengaktifkan #%1$s</string>
     <string name="error_status_source_load">Gagal memuat sumber status dari server.</string>
     <string name="title_public_trending_hashtags">Hashtag yang sedang tren</string>
     <string name="title_public_trending_links">Tautan Trending</string>
@@ -190,10 +190,10 @@
     <string name="title_followed_hashtags">Tagar yang diikuti</string>
     <string name="title_tab_public_trending_statuses">Postingan</string>
     <string name="title_tab_public_trending_hashtags">Tagar</string>
-    <string name="notification_header_report_format">%s dilaporkan %s</string>
+    <string name="notification_header_report_format">%1$s dilaporkan %2$s</string>
     <string name="dialog_follow_hashtag_title">Ikuti tagar</string>
     <string name="dialog_follow_hashtag_hint">#tagar</string>
-    <string name="notification_report_format">Laporan baru tentang %s</string>
+    <string name="notification_report_format">Laporan baru tentang %1$s</string>
     <plurals name="notification_summary_report_format">
         <item quantity="other">%1$s - %2$d posting terlampir</item>
     </plurals>
@@ -225,11 +225,11 @@
     <string name="label_header">Header</string>
     <string name="confirmation_unmuted">Pengguna tidak dibisukan</string>
     <string name="account_username_copied">Nama pengguna disalin</string>
-    <string name="confirmation_domain_unmuted">%s tidak tersembunyi</string>
-    <string name="confirmation_hashtag_muted">#%s tersembunyi</string>
-    <string name="confirmation_hashtag_unmuted">#%s tidak tersembunyi</string>
-    <string name="confirmation_hashtag_unfollowed">#%s berhenti mengikuti</string>
-    <string name="pref_title_http_proxy_port_message">Port harus berada di antara %d dan %d</string>
+    <string name="confirmation_domain_unmuted">%1$s tidak tersembunyi</string>
+    <string name="confirmation_hashtag_muted">#%1$s tersembunyi</string>
+    <string name="confirmation_hashtag_unmuted">#%1$s tidak tersembunyi</string>
+    <string name="confirmation_hashtag_unfollowed">#%1$s berhenti mengikuti</string>
+    <string name="pref_title_http_proxy_port_message">Port harus berada di antara %1$d dan %2$d</string>
     <string name="pref_summary_http_proxy_disabled">Dilepaskan</string>
     <string name="pref_title_notification_filter_updates">postingan yang berinteraksi dengan saya diedit</string>
     <plurals name="notification_severed_relationships_summary_followers_fmt">
@@ -252,7 +252,7 @@
     <string name="notification_severed_relationships_account_suspension_body">Moderator menangguhkan akun tersebut</string>
     <string name="notification_severed_relationships_unknown_body">Alasan yang tidak diketahui</string>
     <string name="action_refresh_account">Refresh akun</string>
-    <string name="mute_domain_warning">Apakah Anda yakin ingin memblokir semua %s? Anda tidak akan melihat konten dari domain tersebut di timeline publik atau notifikasi Anda. Pengikut Anda dari domain tersebut akan dihapus.</string>
+    <string name="mute_domain_warning">Apakah Anda yakin ingin memblokir semua %1$s? Anda tidak akan melihat konten dari domain tersebut di timeline publik atau notifikasi Anda. Pengikut Anda dari domain tersebut akan dihapus.</string>
     <string name="pref_title_timeline_filters">Filter</string>
     <string name="pref_title_alway_open_spoiler">Selalu perluas postingan yg ditandai dengan peringatan konten</string>
     <string name="action_set_focus">Menetapkan titik fokus</string>
@@ -273,7 +273,7 @@
     <string name="title_media">Media</string>
     <string name="pref_title_alway_show_sensitive_media">Selalu tampilkan konten sensitif</string>
     <string name="pref_title_public_filter_home_and_lists">Beranda dan list</string>
-    <string name="filter_expiration_format">%s %s</string>
+    <string name="filter_expiration_format">%1$s %2$s</string>
     <string name="filter_dialog_remove_button">Buang</string>
     <string name="lock_account_label_description">Mengharuskan Anda untuk menyetujui pengikut secara manual</string>
     <string name="compose_delete_draft">Hapus Draft?</string>
@@ -301,7 +301,7 @@
     <string name="unpin_action">Lepaskan pin</string>
     <string name="notification_follow_request_description">Pemberitahuan tentang permintaan mengikuti</string>
     <string name="compose_active_account_description">Memposting sebagai %1$s</string>
-    <string name="error_no_custom_emojis">Instance %s Anda tidak memiliki emoji khusus apa pun</string>
+    <string name="error_no_custom_emojis">Instance %1$s Anda tidak memiliki emoji khusus apa pun</string>
     <string name="action_open_post">Buka pos</string>
     <string name="restart_required">Perlu memulai ulang aplikasi</string>
     <string name="restart_emoji">Anda harus memulai ulang Pachli untuk menerapkan perubahan ini</string>
@@ -356,7 +356,7 @@
     <string name="drafts_post_reply_removed">Postingan yang Anda buat sebagai balasan telah dihapus</string>
     <string name="announcement_date_updated">(Diperbarui: %1$s)</string>
     <string name="delete_scheduled_post_warning">Menghapus pos terjadwal ini?</string>
-    <string name="language_display_name_format">%s %s</string>
+    <string name="language_display_name_format">%1$s %2$s</string>
     <string name="draft_deleted">Draf dihapus</string>
     <string name="ui_success_rejected_follow_request">Permintaan ikuti ditolak</string>
     <string name="filter_action_warn">Memperingatkan</string>
@@ -367,7 +367,7 @@
     <string name="filter_description_none">Tampilkan seperti biasa</string>
     <string name="label_filter_title">Judul</string>
     <string name="filter_description_warn">Bersembunyi dengan peringatan</string>
-    <string name="ui_error_reject_follow_request">Menolak permintaan mengikuti gagal: %s</string>
+    <string name="ui_error_reject_follow_request">Menolak permintaan mengikuti gagal: %1$s</string>
     <string name="label_filter_keywords">Kata kunci atau frasa untuk difilter</string>
     <string name="filter_description_hide">Sembunyikan sepenuhnya</string>
     <string name="label_filter_action">Tindakan filter</string>

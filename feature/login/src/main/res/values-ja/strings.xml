@@ -21,6 +21,6 @@
     <string name="login_connection">接続中…</string>
     <string name="title_login">ログイン</string>
     <string name="error_could_not_load_login_page">ログインページが読み込めませんでした。</string>
-    <string name="instance_rule_info">ログインにより %s のルールに同意することになります。</string>
-    <string name="instance_rule_title">%s のルール</string>
+    <string name="instance_rule_info">ログインにより %1$s のルールに同意することになります。</string>
+    <string name="instance_rule_title">%1$s のルール</string>
 </resources>

@@ -7,7 +7,7 @@
     <string name="button_done">Farita</string>
     <string name="action_view_profile">Profilo</string>
     <string name="action_more">Pli</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="url_domain_notifier">\u0020(🔗 %1$s)</string>
     <string name="action_links">Ligiloj</string>
     <string name="action_mentions">Mencioj</string>
     <string name="action_hashtags">Kradvortoj</string>
@@ -44,19 +44,19 @@
         <item quantity="other">%s homoj</item>
     </plurals>
     <string name="poll_info_closed">finita</string>
-    <string name="poll_info_time_absolute">finiĝos je %s</string>
+    <string name="poll_info_time_absolute">finiĝos je %1$s</string>
     <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
     <string name="description_poll">Balotenketo kun elektoj: %1$s, %2$s, %3$s, %4$s, %5$s</string>
-    <string name="abbreviated_in_seconds">post %ds</string>
-    <string name="abbreviated_seconds_ago">%ds</string>
-    <string name="abbreviated_in_minutes">post %dm</string>
-    <string name="abbreviated_minutes_ago">%dm</string>
-    <string name="abbreviated_in_hours">post %dh</string>
-    <string name="abbreviated_hours_ago">%dh</string>
-    <string name="abbreviated_in_days">post %dt</string>
-    <string name="abbreviated_days_ago">%dt</string>
-    <string name="abbreviated_in_years">post %dj</string>
-    <string name="abbreviated_years_ago">%dj</string>
+    <string name="abbreviated_in_seconds">post %1$ds</string>
+    <string name="abbreviated_seconds_ago">%1$ds</string>
+    <string name="abbreviated_in_minutes">post %1$dm</string>
+    <string name="abbreviated_minutes_ago">%1$dm</string>
+    <string name="abbreviated_in_hours">post %1$dh</string>
+    <string name="abbreviated_hours_ago">%1$dh</string>
+    <string name="abbreviated_in_days">post %1$dt</string>
+    <string name="abbreviated_days_ago">%1$dt</string>
+    <string name="abbreviated_in_years">post %1$dj</string>
+    <string name="abbreviated_years_ago">%1$dj</string>
     <string name="description_post_media_no_description_placeholder">        Neniu priskribo
     </string>
     <string name="description_visibility_public">        Publika
@@ -84,9 +84,9 @@
     <string name="description_post_favourited">        Stelumita
     </string>
     <string name="description_post_bookmarked">Aldonita al la legosignoj</string>
-    <string name="description_post_media">        Aŭdovidaĵo: %s
+    <string name="description_post_media">        Aŭdovidaĵo: %1$s
     </string>
-    <string name="description_post_cw">        Enhava averto: %s
+    <string name="description_post_cw">        Enhava averto: %1$s
     </string>
     <plurals name="reblogs">
         <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Diskonigo</item>

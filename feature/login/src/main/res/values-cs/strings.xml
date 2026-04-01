@@ -20,6 +20,6 @@
     <string name="login_connection">Připojuji se…</string>
     <string name="title_login">Přihlášení</string>
     <string name="error_could_not_load_login_page">Nepodařilo se načíst přihlášovací stránku.</string>
-    <string name="instance_rule_info">Přihlášením souhlasíte s pravidly serveru %s.</string>
-    <string name="instance_rule_title">Pravidla serveru %s</string>
+    <string name="instance_rule_info">Přihlášením souhlasíte s pravidly serveru %1$s.</string>
+    <string name="instance_rule_title">Pravidla serveru %1$s</string>
 </resources>

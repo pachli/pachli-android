@@ -15,8 +15,8 @@
     <string name="about_powered_by_pachli">பச்லியால் இயக்கப்படுகிறது</string>
     <string name="about_privacy_policy">தனியுரிமைக் கொள்கை</string>
     <string name="title_licenses">உரிமங்கள்</string>
-    <string name="about_device_info">%s %s \nAndroid பதிப்பு: %s \nஎச்.டி.கே நிலை: %d</string>
-    <string name="about_account_info">\@%s@%s \nபதிப்பு: %s</string>
+    <string name="about_device_info">%1$s %2$s \nAndroid பதிப்பு: %3$s \nஎச்.டி.கே நிலை: %4$d</string>
+    <string name="about_account_info">\@%1$s@%2$s \nபதிப்பு: %3$s</string>
     <string name="notification_details_title">விவரங்கள்</string>
     <string name="notification_details_android_notifications_enabled">ஆண்ட்ராய்டு அறிவிப்புகள் இயக்கப்பட்டதா?</string>
     <string name="notification_details_notifications_enabled_help"><![CDATA[உங்கள் எந்தவொரு கணக்குக்கும் அறிவிப்புகள் இயக்கப்படவில்லை. கணக்கு விருப்பத்தேர்வுகள்> அறிவிப்புகளில் இதை மாற்றவும். அதுவரை அனைத்து அறிவிப்புகளும் முடக்கப்பட்டுள்ளன.]]></string>

@@ -15,6 +15,6 @@
     <string name="login_connection">正在连接…</string>
     <string name="title_login">登录</string>
     <string name="error_could_not_load_login_page">无法加载登录页。</string>
-    <string name="instance_rule_info">登录即表示您同意 %s 的规定。</string>
-    <string name="instance_rule_title">%s 的规定</string>
+    <string name="instance_rule_info">登录即表示您同意 %1$s 的规定。</string>
+    <string name="instance_rule_title">%1$s 的规定</string>
 </resources>

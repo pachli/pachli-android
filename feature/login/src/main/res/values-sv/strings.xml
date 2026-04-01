@@ -15,6 +15,6 @@
     <string name="login_connection">Ansluter…</string>
     <string name="title_login">Logga in</string>
     <string name="error_could_not_load_login_page">Kunde inte ladda inloggningssidan.</string>
-    <string name="instance_rule_info">Genom att logga in accepterar du reglerna på %s.</string>
-    <string name="instance_rule_title">%s regler</string>
+    <string name="instance_rule_info">Genom att logga in accepterar du reglerna på %1$s.</string>
+    <string name="instance_rule_title">%1$s regler</string>
 </resources>

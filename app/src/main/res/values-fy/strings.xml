@@ -63,8 +63,8 @@
     <string name="pref_title_notifications_enabled">Notifikaasjes</string>
     <string name="pref_title_edit_notification_settings">Notifikaasjes</string>
     <string name="dialog_mute_hide_notifications">Notifikaasjes ferbergje</string>
-    <string name="dialog_mute_warning">\@%s negearje\?</string>
-    <string name="dialog_block_warning">\@%s blokkearje\?</string>
+    <string name="dialog_mute_warning">\@%1$s negearje\?</string>
+    <string name="dialog_block_warning">\@%1$s blokkearje\?</string>
     <string name="mute_domain_warning_dialog_ok">Folsleine domein ferbergje</string>
     <string name="dialog_delete_conversation_warning">Dit petear fuortsmite\?</string>
     <string name="dialog_redraft_post_warning">Dizze toot fuortsmite en opnij opstelle\?</string>
@@ -81,7 +81,7 @@
     <string name="hint_compose">Wat bard der\?</string>
     <string name="post_sent_long">Reaksje mei sukses ferstjoerd.</string>
     <string name="post_sent">Ferstjoerd!</string>
-    <string name="confirmation_domain_unmuted">%s net mear ferburgen</string>
+    <string name="confirmation_domain_unmuted">%1$s net mear ferburgen</string>
     <string name="confirmation_unmuted">Brûker net mear negearre</string>
     <string name="confirmation_unblocked">Brûker net mear blokkearre</string>
     <string name="confirmation_reported">Ferstjoerd!</string>
@@ -92,7 +92,7 @@
     <string name="download_media">Media delhelje</string>
     <string name="action_copy_link">Keppeling kopiearje</string>
     <string name="download_image">Oan it delheljen fan %1$s</string>
-    <string name="action_open_media_n">Media #%d iepenje</string>
+    <string name="action_open_media_n">Media #%1$d iepenje</string>
     <string name="action_open_faved_by">Favoriten besjen</string>
     <string name="action_add_tab">Ljepblêd Tafoegje</string>
     <string name="action_schedule_post">Toot ynplanne</string>
@@ -113,9 +113,9 @@
     <string name="action_mention">Beneame</string>
     <string name="action_unmute_conversation">Petear net mear negearre</string>
     <string name="action_mute_conversation">Petear negearre</string>
-    <string name="action_unmute_domain">%s net mear negearre</string>
-    <string name="action_mute_domain">%s negearre</string>
-    <string name="action_unmute_desc">%s net mear negearre</string>
+    <string name="action_unmute_domain">%1$s net mear negearre</string>
+    <string name="action_mute_domain">%1$s negearre</string>
+    <string name="action_unmute_desc">%1$s net mear negearre</string>
     <string name="action_unmute">Net mear negearre</string>
     <string name="action_mute">Negearre</string>
     <string name="action_share">Diele</string>
@@ -145,7 +145,7 @@
     <string name="action_compose">Gearstelle</string>
     <string name="action_quick_reply">Flugge Reaksje</string>
     <string name="report_comment_hint">Oanfoljende opmerkingen\?</string>
-    <string name="report_username_format">Jou @%s oan</string>
+    <string name="report_username_format">Jou @%1$s oan</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; hat krekt in berjocht pleatst</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; fersiket jo te folgjen</string>
     <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; folget jo</string>

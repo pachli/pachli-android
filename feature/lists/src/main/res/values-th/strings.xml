@@ -7,7 +7,7 @@
     <string name="error_rename_list_fmt">ไม่สามารถเปลี่ยนชื่อรายการได้ \"%1$s\": %2$s</string>
     <string name="action_rename_list">เปลี่ยนชื่อรายการ</string>
     <string name="action_create_list">สร้างรายการ</string>
-    <string name="dialog_delete_list_warning">คุณต้องการลบลิสต์ %s ใช่ไหม\?</string>
+    <string name="dialog_delete_list_warning">คุณต้องการลบลิสต์ %1$s ใช่ไหม\?</string>
     <string name="action_remove_from_list">ลบบัญชีออกจากรายการ</string>
     <string name="action_add_to_list">เพิ่มบัญชีไปใส่รายการ</string>
     <string name="action_delete_list">ลบรายการ</string>

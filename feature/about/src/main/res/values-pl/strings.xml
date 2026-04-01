@@ -27,8 +27,8 @@
     <string name="notitication_log_filter_dialog_title">Pokaż priorytety dziennika</string>
     <string name="about_copied">Skopiowano numer wersji i informacje o urządzeniu</string>
     <string name="about_copy">Skopiuj numer wersji i informacje o urządzeniu</string>
-    <string name="about_device_info">%s %s\nWersja Androida: %s\nPoziom SDK: %d</string>
-    <string name="about_account_info">\@%s@%s\nWersja: %s</string>
+    <string name="about_device_info">%1$s %2$s\nWersja Androida: %3$s\nPoziom SDK: %4$d</string>
+    <string name="about_account_info">\@%1$s@%2$s\nWersja: %3$s</string>
     <string name="notification_details_last_fetch_help">Niezależnie od sposobu powiadomień, to pokazuje dla każdego konta, kiedy wystąpiło ostatnie pobranie, czy było udane i komunikat o błędzie jeżeli nie było.</string>
     <string name="notification_details_standby_bucket_frequent">Częsty. Ograniczony do 10 minut co 8 godzin</string>
     <string name="notification_details_accounts_unified_push_url">Czy wszystkie konta mają URL UnifiedPush?</string>

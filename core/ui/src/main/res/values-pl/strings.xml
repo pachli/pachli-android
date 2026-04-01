@@ -8,7 +8,7 @@
     <string name="action_view_profile">Profil</string>
     <string name="action_more">Więcej</string>
     <string name="action_refresh">Odśwież</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="url_domain_notifier">\u0020(🔗 %1$s)</string>
     <string name="action_links">Odnośniki</string>
     <string name="action_mentions">Wzmianki</string>
     <string name="action_hashtags">Hasztagi</string>
@@ -75,21 +75,21 @@
         <item quantity="other">%s osób</item>
     </plurals>
     <string name="poll_info_closed">zakończona</string>
-    <string name="poll_info_time_absolute">kończy się %s</string>
+    <string name="poll_info_time_absolute">kończy się %1$s</string>
     <string name="poll_info_format"><!-- 15 głosów • 1 godzina pozostała -->%1$s • %2$s</string>
     <string name="description_poll">Ankieta z opcjami: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="post_media_alt">ALT</string>
     <string name="status_created_at_now">teraz</string>
-    <string name="abbreviated_in_seconds">za %d s</string>
-    <string name="abbreviated_seconds_ago">%d s temu</string>
-    <string name="abbreviated_in_minutes">za %d min</string>
-    <string name="abbreviated_minutes_ago">%d min temu</string>
-    <string name="abbreviated_in_hours">za %d godz</string>
-    <string name="abbreviated_hours_ago">%d godz. temu</string>
-    <string name="abbreviated_in_days">za %d dni</string>
-    <string name="abbreviated_days_ago">%d dni temu</string>
-    <string name="abbreviated_in_years">za %d lata</string>
-    <string name="abbreviated_years_ago">%d lat temu</string>
+    <string name="abbreviated_in_seconds">za %1$d s</string>
+    <string name="abbreviated_seconds_ago">%1$d s temu</string>
+    <string name="abbreviated_in_minutes">za %1$d min</string>
+    <string name="abbreviated_minutes_ago">%1$d min temu</string>
+    <string name="abbreviated_in_hours">za %1$d godz</string>
+    <string name="abbreviated_hours_ago">%1$d godz. temu</string>
+    <string name="abbreviated_in_days">za %1$d dni</string>
+    <string name="abbreviated_days_ago">%1$d dni temu</string>
+    <string name="abbreviated_in_years">za %1$d lata</string>
+    <string name="abbreviated_years_ago">%1$d lat temu</string>
     <string name="description_post_media_no_description_placeholder">Brak opisu</string>
     <string name="description_visibility_public">Publiczny</string>
     <string name="description_visibility_unlisted">Niewidoczny</string>
@@ -131,8 +131,8 @@
     <string name="description_post_reblogged">Podbity</string>
     <string name="description_post_favourited">Polubiony</string>
     <string name="description_post_bookmarked">Dodany do zakładek</string>
-    <string name="description_post_media">Media: %s</string>
-    <string name="description_post_cw">Ostrzeżenie o zawartości: %s</string>
+    <string name="description_post_media">Media: %1$s</string>
+    <string name="description_post_cw">Ostrzeżenie o zawartości: %1$s</string>
     <plurals name="reblogs">
         <item quantity="one">&lt;b&gt;%s&lt;/b&gt; podbicie</item>
         <item quantity="few">&lt;b&gt;%s&lt;/b&gt; podbicia</item>
@@ -145,7 +145,7 @@
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; polubień</item>
     </plurals>
     <string name="post_boosted_fmt">Podbicie od &lt;b&gt;%1$s&lt;/b&gt;</string>
-    <string name="post_edited">Edytowano %s</string>
+    <string name="post_edited">Edytowano %1$s</string>
     <string name="filter_edit_title">Edytuj filtr</string>
     <string name="status_filtered_show_anyway">Pokaż mimo to</string>
     <string name="status_filter_placeholder_label_format">Zastosowano filtr: &lt;b&gt;%1$s&lt;/b&gt;</string>

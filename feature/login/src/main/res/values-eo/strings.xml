@@ -20,6 +20,6 @@
     <string name="login_connection">Konektado…</string>
     <string name="title_login">Ensaluti</string>
     <string name="error_could_not_load_login_page">La salutpaĝo ne povis esti ŝargita.</string>
-    <string name="instance_rule_info">Si vi ensalutas, vi konsentas je la regulo de %s.</string>
-    <string name="instance_rule_title">Regulo de %s</string>
+    <string name="instance_rule_info">Si vi ensalutas, vi konsentas je la regulo de %1$s.</string>
+    <string name="instance_rule_title">Regulo de %1$s</string>
 </resources>

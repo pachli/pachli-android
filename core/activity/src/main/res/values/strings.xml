@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <string name="post_lookup_error_format">Error looking up %s</string>
-    <string name="action_open_as">Open as %s</string>
+    <string name="post_lookup_error_format">Error looking up %1$s</string>
+    <string name="action_open_as">Open as %1$s</string>
     <string name="action_open_as_ellipsis">Open as…</string>
     <string name="action_open_quoted_post">Open quoted post</string>
     <string name="performing_lookup_title">Performing lookup…</string>

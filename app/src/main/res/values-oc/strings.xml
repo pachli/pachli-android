@@ -29,7 +29,7 @@
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; a partejat vòstra publicacion</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; a aimat vòstra publicacion</string>
     <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; vos sèc</string>
-    <string name="report_username_format">Denonciar @%s</string>
+    <string name="report_username_format">Denonciar @%1$s</string>
     <string name="report_comment_hint">Cap comentari addicional ?</string>
     <string name="action_quick_reply">Responsa rapida</string>
     <string name="action_compose">Redactar</string>
@@ -174,7 +174,7 @@
     <string name="send_post_notification_cancel_title">Mandadís anullat</string>
     <string name="send_post_notification_saved_content">Una còpia del tut es estat salvat dins los borrolhons</string>
     <string name="action_compose_shortcut">Redactar</string>
-    <string name="error_no_custom_emojis">L’instància %s es pas compatibla amb los emoji personalizats</string>
+    <string name="error_no_custom_emojis">L’instància %1$s es pas compatibla amb los emoji personalizats</string>
     <string name="emoji_style">Estil dels Emoji</string>
     <string name="system_default">Çò del sistèma</string>
     <string name="download_fonts">D’en primièr vos cal telecargar los emojis seguents</string>
@@ -205,7 +205,7 @@
     <string name="action_open_reblogger">Dobrir l’autor del partatge</string>
     <string name="action_open_reblogged_by">Mostrar los retuts</string>
     <string name="action_open_faved_by">Mostrar los favorits</string>
-    <string name="action_open_media_n">Dobrir lo mèdia #%d</string>
+    <string name="action_open_media_n">Dobrir lo mèdia #%1$d</string>
     <string name="download_media">Telecargar lo mèdia</string>
     <string name="downloading_media">Telecargament del mèdia</string>
     <string name="label_avatar">Avatar</string>
@@ -241,21 +241,21 @@
     <string name="notification_poll_description">Notificacion de sondatges tampats</string>
     <string name="poll_ended_voted">Un sondatge ont avètz votat es acabat</string>
     <string name="poll_ended_created">Un sondatge qu’avètz creat es acabat</string>
-    <string name="compose_preview_image_description">Accions per l’imatge %s</string>
+    <string name="compose_preview_image_description">Accions per l’imatge %1$s</string>
     <string name="pref_title_animate_gif_avatars">Activar l’animacion dels avatars</string>
     <string name="button_back">Tornar</string>
-    <string name="report_sent_success">\@%s corrèctament senhalat</string>
+    <string name="report_sent_success">\@%1$s corrèctament senhalat</string>
     <string name="hint_additional_info">Comentaris suplementaris</string>
-    <string name="report_remote_instance">Transferir a %s</string>
+    <string name="report_remote_instance">Transferir a %1$s</string>
     <string name="failed_report">Fracàs del senhalament</string>
     <string name="failed_fetch_posts">Recuperacion dels estatuts impossibla</string>
     <string name="report_description_1">Lo senhalament serà enviat a vòstre moderator de servidor. Podètz fornir una explicacion de perque senhalatz lo compte çai-jos :</string>
     <string name="report_description_remote_instance">Aqueste compte es en un autre servidor. Enviar una còpia anonimizada del senhalament \?</string>
     <string name="title_domain_mutes">Domenis resconduts</string>
     <string name="action_view_domain_mutes">Domenis resconduts</string>
-    <string name="action_mute_domain">Rescondre %s</string>
-    <string name="confirmation_domain_unmuted">%s es pas mai rescondut</string>
-    <string name="mute_domain_warning">Volètz vertadièrament blocar complètament %s \? Veiretz pas mai de contengut venent d’aqueste domeni, nimai los flux d’actualitat o las notificacion. Vòstres seguidors d’aqueste domeni seràn tirats.</string>
+    <string name="action_mute_domain">Rescondre %1$s</string>
+    <string name="confirmation_domain_unmuted">%1$s es pas mai rescondut</string>
+    <string name="mute_domain_warning">Volètz vertadièrament blocar complètament %1$s \? Veiretz pas mai de contengut venent d’aqueste domeni, nimai los flux d’actualitat o las notificacion. Vòstres seguidors d’aqueste domeni seràn tirats.</string>
     <string name="mute_domain_warning_dialog_ok">Rescondre tot lo domeni</string>
     <string name="filter_dialog_whole_word">Mot complèt</string>
     <string name="filter_dialog_whole_word_description">Quand un mot clau o una frasa es solament alfanumeric, serà pas qu’aplicat se correspond al mot complèt</string>
@@ -273,7 +273,7 @@
     <string name="duration_7_days">7 jorns</string>
     <string name="add_poll_choice">Ajustar d’opcions</string>
     <string name="poll_allow_multiple_choices">Opcions multiplas</string>
-    <string name="poll_new_choice_hint">Opcion %d</string>
+    <string name="poll_new_choice_hint">Opcion %1$d</string>
     <string name="edit_poll">Modificar</string>
     <string name="title_scheduled_posts">Tuts planificats</string>
     <string name="action_edit">Modificar</string>
@@ -289,7 +289,7 @@
     <string name="warning_scheduling_interval">L’interval minimum de planificacion sus Mastodon e de 5 minutas.</string>
     <string name="notification_follow_request_name">Demandas d’abonament</string>
     <string name="hashtags">Etiquetas</string>
-    <string name="action_unmute_desc">Amagar pas mai a %s</string>
+    <string name="action_unmute_desc">Amagar pas mai a %1$s</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; a demandat a vos seguir</string>
     <string name="pref_title_show_cards_in_timelines">Mostrar los apercebuts dels ligams</string>
     <string name="notification_subscription_description">Notificacions quand qualqu’un que seguissètz publica una publicacion novèla</string>
@@ -313,12 +313,12 @@
     <string name="pref_title_gradient_for_media">Afichar un degradat colorat pels mèdias amagats</string>
     <string name="pref_title_notification_filter_subscriptions">qualqu’un que seguissi a publicat una publicacion novèla</string>
     <string name="pref_title_notification_filter_follow_requests">abonament demandat</string>
-    <string name="dialog_mute_warning">Amagar @%s \?</string>
-    <string name="dialog_block_warning">Blocar @%s \?</string>
+    <string name="dialog_mute_warning">Amagar @%1$s \?</string>
+    <string name="dialog_block_warning">Blocar @%1$s \?</string>
     <string name="dialog_mute_hide_notifications">Amagar las notificacions</string>
     <string name="action_unmute_conversation">Amagar pas mai la conversacion</string>
     <string name="action_mute_conversation">Amagar la conversacion</string>
-    <string name="action_unmute_domain">Amagar pas mai a %s</string>
+    <string name="action_unmute_domain">Amagar pas mai a %1$s</string>
     <string name="action_delete_conversation">Suprimir la conversacion</string>
     <string name="title_announcements">Anóncias</string>
     <plurals name="error_upload_max_media_reached">
@@ -332,15 +332,15 @@
     <string name="action_unbookmark">Tirar dels marcapaginas</string>
     <string name="action_add_reaction">apondre una reaccion</string>
     <string name="notification_sign_up_name">Comptes novèls</string>
-    <string name="filter_expiration_format">%s (%s)</string>
+    <string name="filter_expiration_format">%1$s (%2$s)</string>
     <string name="failed_to_pin">Fracàs en penjant</string>
     <string name="failed_to_unpin">Fracàs en despenjant</string>
     <string name="description_post_language">Lenga de la publicacion</string>
     <string name="notification_update_name">Publicacions modificadas</string>
     <string name="duration_14_days">14 jorns</string>
     <string name="duration_30_days">30 jorns</string>
-    <string name="error_following_hashtag_format">Error en seguissent #%s</string>
-    <string name="error_unfollowing_hashtag_format">Error en quitant de seguir #%s</string>
+    <string name="error_following_hashtag_format">Error en seguissent #%1$s</string>
+    <string name="error_unfollowing_hashtag_format">Error en quitant de seguir #%1$s</string>
     <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; a creat un compte</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; a modificat sa publicacion</string>
     <string name="action_edit_image">Modificar l’imatge</string>
@@ -361,14 +361,14 @@
     <string name="pref_title_confirm_favourites">Demandar confirmacion abans d’apondre en favorit</string>
     <string name="error_following_hashtags_unsupported">Aquesta instància pren pas en carga l’abonament a las etiquetas.</string>
     <string name="title_followed_hashtags">Etiquetas seguidas</string>
-    <string name="confirmation_hashtag_unfollowed">#%s pas mai seguit</string>
+    <string name="confirmation_hashtag_unfollowed">#%1$s pas mai seguit</string>
     <string name="pref_title_notification_filter_sign_ups">un compte novèl creat</string>
     <string name="pref_title_notification_filter_updates">una publicacion ont ai agut una reaccion es modificada</string>
     <string name="delete_scheduled_post_warning">Suprimir la publicacion programada \?</string>
     <string name="drafts_post_reply_removed">La publicacion a la quala respondiá lo borrolhon foguèt suprimida</string>
-    <string name="action_unfollow_hashtag_format">Quitar de seguir #%s \?</string>
-    <string name="notification_report_format">Senhalament novèl sus %s</string>
-    <string name="notification_header_report_format">%s a senhalat %s</string>
+    <string name="action_unfollow_hashtag_format">Quitar de seguir #%1$s \?</string>
+    <string name="notification_report_format">Senhalament novèl sus %1$s</string>
+    <string name="notification_header_report_format">%1$s a senhalat %2$s</string>
     <string name="pref_title_notification_filter_reports">i a un senhalament novèl</string>
     <string name="notification_report_name">Senhalaments</string>
     <string name="report_category_violation">Violacion de las règlas</string>
@@ -381,7 +381,7 @@
     <string name="compose_save_draft_loses_media">Enregistrar lo borrolhon ? (Las pèças juntas seràn enviadas tornamai quand restauretz lo borrolhon.)</string>
     <string name="pref_default_post_language">Lenga de publicacion per defaut</string>
     <string name="report_category_spam">Messatge indesirable</string>
-    <string name="language_display_name_format">%s (%s)</string>
+    <string name="language_display_name_format">%1$s (%2$s)</string>
     <string name="wellbeing_mode_notice">D\'unas informacions susceptiblas d\'afectar vòstre benestar mental seràn amagadas. S\'agís :
 \n
 \n - de notificacions de favorits, de partatge e de seguiment
@@ -390,9 +390,9 @@
 \n
 \n Las notificacions « push » seràn pas afectadas, mas podètz reveire vòstras preferéncias de notificacion manualament.</string>
     <string name="hint_media_description_missing">Los mèdias devon aver una descripcion.</string>
-    <string name="pref_title_http_proxy_port_message">Lo pòrt deu èsser entre %d e %d</string>
-    <string name="error_muting_hashtag_format">Fracàs en silenciant #%s</string>
-    <string name="error_unmuting_hashtag_format">Fracàs en quitant de silenciar #%s</string>
+    <string name="pref_title_http_proxy_port_message">Lo pòrt deu èsser entre %1$d e %2$d</string>
+    <string name="error_muting_hashtag_format">Fracàs en silenciant #%1$s</string>
+    <string name="error_unmuting_hashtag_format">Fracàs en quitant de silenciar #%1$s</string>
     <plurals name="notification_summary_report_format">
         <item quantity="other">%1$s · %2$d publicacions juntadas</item>
     </plurals>
@@ -433,7 +433,7 @@
     <string name="notification_unknown_name">Desconegut</string>
     <string name="socket_timeout_exception">La connexion al vòstre servidor a pres tròp de temps</string>
     <string name="ui_error_bookmark_fmt">Marcatge impossibla de la publicacion : %1$s</string>
-    <string name="ui_error_clear_notifications">Netejatge de las notificacions fracassat : %s</string>
+    <string name="ui_error_clear_notifications">Netejatge de las notificacions fracassat : %1$s</string>
     <string name="ui_success_accepted_follow_request">Demanda d’abonament acceptada</string>
     <string name="ui_success_rejected_follow_request">Demanda d’abonament blocada</string>
     <string name="pref_title_account_filter_keywords">Perfils</string>
@@ -446,10 +446,10 @@
     <string name="label_filter_action">Accion del filtre</string>
     <string name="label_filter_context">Contèxts del filtre</string>
     <string name="action_add">Ajustar</string>
-    <string name="filter_keyword_display_format">%s (mot entièr)</string>
+    <string name="filter_keyword_display_format">%1$s (mot entièr)</string>
     <string name="filter_keyword_addition_title">Ajustrar mot clau</string>
     <string name="filter_edit_keyword_title">Modificar mot clau</string>
-    <string name="filter_description_format">%s : %s</string>
+    <string name="filter_description_format">%1$s : %2$s</string>
     <string name="label_filter_keywords">Mots clau o frasas de filtrar</string>
     <string name="hint_description">Descripcion</string>
     <string name="select_list_empty">Avètz pas encara de lista</string>
@@ -457,8 +457,8 @@
     <string name="ui_error_favourite_fmt">Fracàs de la mes en favorit : %1$s</string>
     <string name="ui_error_reblog_fmt">Fracàs en partejant : %1$s</string>
     <string name="ui_error_vote_fmt">Fracàs del vòt : %1$s</string>
-    <string name="ui_error_accept_follow_request">Fracàs de l’acceptacion de la demanda : %s</string>
-    <string name="ui_error_reject_follow_request">Fracàs del refús de la demanda : %s</string>
+    <string name="ui_error_accept_follow_request">Fracàs de l’acceptacion de la demanda : %1$s</string>
+    <string name="ui_error_reject_follow_request">Fracàs del refús de la demanda : %1$s</string>
     <string name="pref_title_show_stat_inline">Mostrar las estatisticas dins la cronologia</string>
     <string name="help_empty_home">Aquò es vòstra <b>cronologia</b>. Mòstra las publicacions recentas dels comptes que seguissètz. \n \nPer explorar mai de compte podètz siá los descobrir dins d’autres fils, per exemple lo fil local de vòstra instància [iconics gmd_group], siá los trapar per lor nom [iconics gmd_search], per exemple « Pachli » per trobar nòstre compte Mastodon.</string>
     <string name="error_missing_edits">Vòstre servidor sap qu’aquesta publicacion foguèt modificada mas ten pas cap de còpia de las modificacions doncas vos las pòt afichar.

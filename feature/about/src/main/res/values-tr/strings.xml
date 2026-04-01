@@ -12,10 +12,10 @@
 \nhttps://github.com/pachli/pachli-android/issues"</string>
     <string name="about_pachli_account">Pachli\'nin Profili</string>
     <string name="title_licenses">Lisanslar</string>
-    <string name="about_device_info">%s %s
-\nAndroid sürüm: %s
-\nSDK sürüm: %d</string>
-    <string name="about_account_info">\@%s@%s
-\nSürüm: %s</string>
+    <string name="about_device_info">%1$s %2$s
+\nAndroid sürüm: %3$s
+\nSDK sürüm: %4$d</string>
+    <string name="about_account_info">\@%1$s@%2$s
+\nSürüm: %3$s</string>
     <string name="license_description">Pachli aşağıdakı açık kaynaklı projelerden kod ve materyal içeriyor:</string>
 </resources>

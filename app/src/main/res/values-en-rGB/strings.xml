@@ -42,7 +42,7 @@
     <string name="title_public_trending_links">Trending links</string>
     <string name="title_tab_public_trending_links">Links</string>
     <string name="title_public_trending_hashtags">Trending hashtags</string>
-    <string name="error_unmuting_hashtag_format">Error unmuting #%s</string>
+    <string name="error_unmuting_hashtag_format">Error unmuting #%1$s</string>
     <string name="error_image_edit_failed">The image could not be edited.</string>
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
     <string name="title_public_trending">Trending</string>
@@ -54,10 +54,10 @@
     <string name="title_migration_relogin">Re-login for push notifications</string>
     <string name="title_drafts">Drafts</string>
     <string name="title_tab_public_trending_statuses">Posts</string>
-    <string name="error_unfollowing_hashtag_format">Error unfollowing #%s</string>
-    <string name="error_following_hashtag_format">Error following #%s</string>
+    <string name="error_unfollowing_hashtag_format">Error unfollowing #%1$s</string>
+    <string name="error_following_hashtag_format">Error following #%1$s</string>
     <string name="title_announcements">Announcements</string>
     <string name="title_tab_public_trending_hashtags">Hashtags</string>
-    <string name="error_muting_hashtag_format">Error muting #%s</string>
+    <string name="error_muting_hashtag_format">Error muting #%1$s</string>
     <string name="title_scheduled_posts">Scheduled posts</string>
 </resources>

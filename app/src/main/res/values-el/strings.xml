@@ -11,7 +11,7 @@
     <string name="notification_follow_format">ο/η &lt;b&gt;%1$s&lt;/b&gt; σας ακολούθησε</string>
     <string name="action_view_mutes">Χρήστες σε σίγαση</string>
     <string name="action_unfollow">Μην ακολουθείτε</string>
-    <string name="action_unmute_domain">Άρση σίγασης του %s</string>
+    <string name="action_unmute_domain">Άρση σίγασης του %1$s</string>
     <string name="action_delete_and_redraft">Διαγραφή και αναδιατύπωση</string>
     <string name="action_edit_profile">Επεξεργασία προφίλ</string>
     <string name="action_share">Κοινοποίηση</string>
@@ -30,7 +30,7 @@
     <string name="action_reject">Απόρριψη</string>
     <string name="title_blocks">Αποκλεισμένοι χρήστες</string>
     <string name="action_edit">Επεξεργασία</string>
-    <string name="action_mute_domain">Σίγαση του %s</string>
+    <string name="action_mute_domain">Σίγαση του %1$s</string>
     <string name="action_block">Αποκλεισμός</string>
     <string name="action_undo">Αναίρεση</string>
     <string name="notification_follow_request_format">ο/η &lt;b&gt;%1$s&lt;/b&gt; ζήτησε να σας ακολουθήσει</string>
@@ -40,7 +40,7 @@
     <string name="action_follow">Ακολουθήστε</string>
     <string name="action_report">Αναφορά</string>
     <string name="action_mute">Σίγαση</string>
-    <string name="report_username_format">Αναφορά του/της %s</string>
+    <string name="report_username_format">Αναφορά του/της %1$s</string>
     <string name="action_view_account_preferences">Προτιμήσεις Λογαριασμού</string>
     <string name="action_add_tab">Προσθήκη καρτέλας</string>
     <string name="action_copy_link">Αντιγραφή συνδέσμου</string>
@@ -78,8 +78,8 @@
     <string name="post_sensitive_media_directions">Κλικ για να δείτε</string>
     <string name="notification_update_format">ο/η &lt;b&gt;%1$s&lt;/b&gt; επεξεργάστηκε τη δημοσίευσή του/της</string>
     <string name="dialog_redraft_post_warning">Διαγραφή και αναδιατύπωση αυτής της δημοσίευσης;</string>
-    <string name="error_following_hashtag_format">Σφάλμα ακολουθίας #%s</string>
-    <string name="error_unfollowing_hashtag_format">Σφάλμα μη-ακολουθίας #%s</string>
+    <string name="error_following_hashtag_format">Σφάλμα ακολουθίας #%1$s</string>
+    <string name="error_unfollowing_hashtag_format">Σφάλμα μη-ακολουθίας #%1$s</string>
     <string name="error_media_upload_sending">Το ανέβασμα αρχείου απέτυχε.</string>
     <string name="title_home">Αρχική Σελίδα</string>
     <string name="error_sender_account_gone">Σφάλμα αποστολής ανάρτησης.</string>

@@ -7,7 +7,7 @@
     <string name="button_done">Feito</string>
     <string name="action_view_profile">Perfil</string>
     <string name="action_more">Mais</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="url_domain_notifier">\u0020(🔗 %1$s)</string>
     <string name="action_links">Hiperligações</string>
     <string name="action_mentions">Menções</string>
     <string name="action_hashtags">Hashtags</string>
@@ -50,20 +50,20 @@
         <item quantity="other">%s pessoas</item>
     </plurals>
     <string name="poll_info_closed">terminada</string>
-    <string name="poll_info_time_absolute">termina em %s</string>
+    <string name="poll_info_time_absolute">termina em %1$s</string>
     <string name="poll_info_format"><!-- 15 votos • 1 hora restante -->%1$s • %2$s</string>
     <string name="description_poll">Votação com as opções: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="post_media_alt">ALT</string>
-    <string name="abbreviated_in_seconds">em %ds</string>
-    <string name="abbreviated_seconds_ago">%ds</string>
-    <string name="abbreviated_in_minutes">em %dm</string>
-    <string name="abbreviated_minutes_ago">%dm</string>
-    <string name="abbreviated_in_hours">em %dh</string>
-    <string name="abbreviated_hours_ago">%dh</string>
-    <string name="abbreviated_in_days">em %dd</string>
-    <string name="abbreviated_days_ago">%dd</string>
-    <string name="abbreviated_in_years">em %dy</string>
-    <string name="abbreviated_years_ago">%dy</string>
+    <string name="abbreviated_in_seconds">em %1$ds</string>
+    <string name="abbreviated_seconds_ago">%1$ds</string>
+    <string name="abbreviated_in_minutes">em %1$dm</string>
+    <string name="abbreviated_minutes_ago">%1$dm</string>
+    <string name="abbreviated_in_hours">em %1$dh</string>
+    <string name="abbreviated_hours_ago">%1$dh</string>
+    <string name="abbreviated_in_days">em %1$dd</string>
+    <string name="abbreviated_days_ago">%1$dd</string>
+    <string name="abbreviated_in_years">em %1$dy</string>
+    <string name="abbreviated_years_ago">%1$dy</string>
     <string name="description_post_media_no_description_placeholder">Sem descrição</string>
     <string name="description_visibility_public">Público</string>
     <string name="description_visibility_unlisted">Não-listado</string>
@@ -87,8 +87,8 @@
     <string name="description_post_reblogged">Replicado</string>
     <string name="description_post_favourited">Adicionado aos favoritos</string>
     <string name="description_post_bookmarked">Guardado</string>
-    <string name="description_post_media">Conteúdo multimédia: %s</string>
-    <string name="description_post_cw">Aviso de Conteúdo: %s</string>
+    <string name="description_post_media">Conteúdo multimédia: %1$s</string>
+    <string name="description_post_cw">Aviso de Conteúdo: %1$s</string>
     <plurals name="reblogs">
         <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Boost</item>
         <item quantity="many">&lt;b&gt;%s&lt;/b&gt; Boosts</item>
@@ -100,6 +100,6 @@
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favoritos</item>
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; deu boost</string>
-    <string name="post_edited">Editado %s</string>
+    <string name="post_edited">Editado %1$s</string>
     <string name="filter_edit_title">Editar filtro</string>
 </resources>

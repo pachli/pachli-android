@@ -21,6 +21,6 @@
     <string name="login_connection">Tengist…</string>
     <string name="title_login">Skrá inn</string>
     <string name="error_could_not_load_login_page">Gat ekki lesið innskráningarsíðuna.</string>
-    <string name="instance_rule_info">Með því að skrá þig inn samþykkir þú reglurnar á %s.</string>
-    <string name="instance_rule_title">Reglur %s</string>
+    <string name="instance_rule_info">Með því að skrá þig inn samþykkir þú reglurnar á %1$s.</string>
+    <string name="instance_rule_title">Reglur %1$s</string>
 </resources>

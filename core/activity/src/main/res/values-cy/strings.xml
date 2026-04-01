@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_open_as">Agor fel %s</string>
-    <string name="post_lookup_error_format">Gwall wrth chwilio am y neges %s</string>
+    <string name="action_open_as">Agor fel %1$s</string>
+    <string name="post_lookup_error_format">Gwall wrth chwilio am y neges %1$s</string>
     <string name="performing_lookup_title">Wrthi\'n chwilio…</string>
 </resources>

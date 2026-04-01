@@ -12,11 +12,11 @@
     <string name="title_hashtags_dialog">Hashtags</string>
     <string name="add_account_name">Account Tafoegje</string>
     <string name="action_logout">Útlogge</string>
-    <string name="abbreviated_in_seconds">oer %ds</string>
-    <string name="abbreviated_in_minutes">oer %dm</string>
-    <string name="abbreviated_in_hours">oer %dh</string>
-    <string name="abbreviated_in_days">oer %dd</string>
-    <string name="abbreviated_years_ago">%dy</string>
+    <string name="abbreviated_in_seconds">oer %1$ds</string>
+    <string name="abbreviated_in_minutes">oer %1$dm</string>
+    <string name="abbreviated_in_hours">oer %1$dh</string>
+    <string name="abbreviated_in_days">oer %1$dd</string>
+    <string name="abbreviated_years_ago">%1$dy</string>
     <string name="post_sensitive_media_title">Gefoelige ynhâld</string>
     <string name="post_media_images">Ôfbyldingen</string>
     <string name="post_media_audio">Lûd</string>

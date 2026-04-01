@@ -14,8 +14,8 @@
     <string name="about_privacy_policy">Privacy policy</string>
     <string name="about_pachli_account">Pachli\'s Profile</string>
     <string name="title_licenses">Licenses</string>
-    <string name="about_device_info">%s %s\nAndroid version: %s\nSDK level: %d</string>
-    <string name="about_account_info">\@%s\@%s\nVersion: %s</string>
+    <string name="about_device_info">%1$s %2$s\nAndroid version: %3$s\nSDK level: %4$d</string>
+    <string name="about_account_info">\@%1$s\@%2$s\nVersion: %3$s</string>
     <string name="license_description">Pachli contains code and assets from the following open source projects:</string>
     <string name="notification_details_title">Details</string>
     <string name="notification_details_android_notifications_enabled">Android notifications are enabled?</string>

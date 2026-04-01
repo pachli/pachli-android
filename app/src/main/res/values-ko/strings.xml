@@ -34,7 +34,7 @@
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt;님이 부스트 했습니다</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt;님이 당신의 게시물을 좋아합니다</string>
     <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt;님이 나를 팔로우 했습니다</string>
-    <string name="report_username_format">\@%s 신고</string>
+    <string name="report_username_format">\@%1$s 신고</string>
     <string name="report_comment_hint">코멘트</string>
     <string name="action_quick_reply">빠른 답장</string>
     <string name="action_compose">작성</string>
@@ -62,7 +62,7 @@
     <string name="action_share">공유</string>
     <string name="action_mute">뮤트</string>
     <string name="action_unmute">뮤트 해제</string>
-    <string name="action_mute_domain">%s 전체를 숨김</string>
+    <string name="action_mute_domain">%1$s 전체를 숨김</string>
     <string name="action_mention">멘션</string>
     <string name="action_hide_media">미디어 숨기기</string>
     <string name="action_open_drawer">메뉴 열기</string>
@@ -81,7 +81,7 @@
     <string name="action_open_reblogger">부스트한 유저의 프로필로 이동</string>
     <string name="action_open_reblogged_by">부스트 보이기</string>
     <string name="action_open_faved_by">좋아요한 유저 보이기</string>
-    <string name="action_open_media_n">미디어 #%d 열기</string>
+    <string name="action_open_media_n">미디어 #%1$d 열기</string>
     <string name="download_image">%1$s 다운로드 중</string>
     <string name="action_copy_link">링크 복사</string>
     <string name="download_media">다운로드</string>
@@ -92,7 +92,7 @@
     <string name="confirmation_reported">신고를 보냈습니다!</string>
     <string name="confirmation_unblocked">차단이 해제됨</string>
     <string name="confirmation_unmuted">뮤트가 해제됨</string>
-    <string name="confirmation_domain_unmuted">%s 숨김 해제됨</string>
+    <string name="confirmation_domain_unmuted">%1$s 숨김 해제됨</string>
     <string name="post_sent">보냈습니다!</string>
     <string name="post_sent_long">답장을 보냈습니다.</string>
     <string name="hint_compose">지금 무엇을 하고 있나요\?</string>
@@ -111,7 +111,7 @@
     <string name="dialog_unfollow_warning">이 계정을 팔로우 해제하시겠습니까\?</string>
     <string name="dialog_delete_post_warning">이 툿을 삭제하시겠습니까\?</string>
     <string name="dialog_redraft_post_warning">이 툿을 지우고 다시 작성하시겠습니까\?</string>
-    <string name="mute_domain_warning">정말로 %s 전체를 숨기시겠습니까\? 모든 공개 타임라인과 알림에서 해당 도메인에서 작성된 컨텐츠를 보지 못합니다. 해당 도메인 팔로워와의 관계가 사라집니다.</string>
+    <string name="mute_domain_warning">정말로 %1$s 전체를 숨기시겠습니까\? 모든 공개 타임라인과 알림에서 해당 도메인에서 작성된 컨텐츠를 보지 못합니다. 해당 도메인 팔로워와의 관계가 사라집니다.</string>
     <string name="mute_domain_warning_dialog_ok">도메인 전체를 숨기기</string>
     <string name="visibility_public">공개: 공개 타임라인에 표시</string>
     <string name="visibility_unlisted">비표시: 공개 타임라인에 표시하지 않음</string>
@@ -213,7 +213,7 @@
     <string name="send_post_notification_cancel_title">보내기 취소됨</string>
     <string name="send_post_notification_saved_content">복사본이 임시 저장에 저장되었습니다</string>
     <string name="action_compose_shortcut">글쓰기</string>
-    <string name="error_no_custom_emojis">이 인스턴스 %s 은(는) 커스텀 이모지가 없습니다.</string>
+    <string name="error_no_custom_emojis">이 인스턴스 %1$s 은(는) 커스텀 이모지가 없습니다.</string>
     <string name="emoji_style">이모지 스타일</string>
     <string name="system_default">시스템 기본</string>
     <string name="download_fonts">시스템 기본 외의 이모지를 설정하시려면 우선 다운로드해야 합니다</string>
@@ -247,14 +247,14 @@
     <string name="compose_shortcut_long_label">툿 작성하기</string>
     <string name="compose_shortcut_short_label">작성</string>
     <string name="notification_clear_text">모든 알림을 영구적으로 지우시겠습니까\?</string>
-    <string name="compose_preview_image_description">이미지 %s를…</string>
+    <string name="compose_preview_image_description">이미지 %1$s를…</string>
     <string name="poll_ended_voted">당신이 참여한 투표가 종료되었습니다</string>
     <string name="poll_ended_created">당신이 시작한 투표가 종료되었습니다</string>
     <!--These are for timestamps on polls -->
     <string name="button_back">이전</string>
-    <string name="report_sent_success">\@%s를 신고하였습니다</string>
+    <string name="report_sent_success">\@%1$s를 신고하였습니다</string>
     <string name="hint_additional_info">부가 설명</string>
-    <string name="report_remote_instance">%s에 포워딩</string>
+    <string name="report_remote_instance">%1$s에 포워딩</string>
     <string name="failed_report">신고하지 못했습니다</string>
     <string name="failed_fetch_posts">게시물을 불러오지 못했습니다</string>
     <string name="report_description_1">인스턴스 관리자에게 신고합니다. 이 계정을 신고하려는 이유를 작성하실 수 있습니다:</string>
@@ -273,7 +273,7 @@
     <string name="duration_7_days">7일</string>
     <string name="add_poll_choice">항목 추가</string>
     <string name="poll_allow_multiple_choices">여러 항목 선택 가능</string>
-    <string name="poll_new_choice_hint">%d번 항목</string>
+    <string name="poll_new_choice_hint">%1$d번 항목</string>
     <string name="edit_poll">수정</string>
     <string name="action_edit">수정</string>
     <string name="hashtags">해시태그</string>

@@ -34,19 +34,19 @@
         <item quantity="other">%s 명 참여</item>
     </plurals>
     <string name="poll_info_closed">마감됨</string>
-    <string name="poll_info_time_absolute">%s에 종료</string>
+    <string name="poll_info_time_absolute">%1$s에 종료</string>
     <string name="poll_info_format"><!-- 15 명 참여 • 1 시간 남음 -->%1$s • %2$s</string>
     <string name="description_poll">투표 선택지: %1$s, %2$s, %3$s, %4$s, %5$s</string>
-    <string name="abbreviated_in_seconds">%d초 후</string>
-    <string name="abbreviated_seconds_ago">%d초</string>
-    <string name="abbreviated_in_minutes">%d분 후</string>
-    <string name="abbreviated_minutes_ago">%d분</string>
-    <string name="abbreviated_in_hours">%d시간 후</string>
-    <string name="abbreviated_hours_ago">%d시간</string>
-    <string name="abbreviated_in_days">%d일 후</string>
-    <string name="abbreviated_days_ago">%d일</string>
-    <string name="abbreviated_in_years">%d년 후</string>
-    <string name="abbreviated_years_ago">%d년</string>
+    <string name="abbreviated_in_seconds">%1$d초 후</string>
+    <string name="abbreviated_seconds_ago">%1$d초</string>
+    <string name="abbreviated_in_minutes">%1$d분 후</string>
+    <string name="abbreviated_minutes_ago">%1$d분</string>
+    <string name="abbreviated_in_hours">%1$d시간 후</string>
+    <string name="abbreviated_hours_ago">%1$d시간</string>
+    <string name="abbreviated_in_days">%1$d일 후</string>
+    <string name="abbreviated_days_ago">%1$d일</string>
+    <string name="abbreviated_in_years">%1$d년 후</string>
+    <string name="abbreviated_years_ago">%1$d년</string>
     <string name="description_post_media_no_description_placeholder">설명 없음</string>
     <string name="description_visibility_public">공개</string>
     <string name="description_visibility_unlisted">타임라인에 비표시</string>
@@ -65,8 +65,8 @@
     <string name="post_content_show_less">줄이기</string>
     <string name="description_post_reblogged">부스트함</string>
     <string name="description_post_favourited">좋아요함</string>
-    <string name="description_post_media">미디어: %s</string>
-    <string name="description_post_cw">열람주의: %s</string>
+    <string name="description_post_media">미디어: %1$s</string>
+    <string name="description_post_cw">열람주의: %1$s</string>
     <plurals name="reblogs">
         <item quantity="other">&lt;b&gt;%s&lt;/b&gt; 부스트</item>
     </plurals>

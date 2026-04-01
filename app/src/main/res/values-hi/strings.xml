@@ -79,7 +79,7 @@
     <string name="visibility_private">केवल फ़ॉलोअर के लिए : केवल फ़ॉलोअर के लिए पोस्ट करें</string>
     <string name="visibility_unlisted">असूचीबद्ध: सार्वजनिक टाइमलाइन में न दिखाएं</string>
     <string name="visibility_public">सार्वजनिक: सार्वजनिक टाइमलाइन पर पोस्ट करें</string>
-    <string name="dialog_mute_warning">म्यूट @%s\?</string>
+    <string name="dialog_mute_warning">म्यूट @%1$s\?</string>
     <string name="mute_domain_warning_dialog_ok">संपूर्ण डोमेन छिपाएं</string>
     <string name="dialog_download_image">डाउनलोड</string>
     <string name="dialog_message_uploading_media">अपलोड हो रहा है…</string>
@@ -98,7 +98,7 @@
     <string name="downloading_media">मीडिया डाउनलोड हो रहा है</string>
     <string name="download_media">मीडिया डाउनलोड करें</string>
     <string name="action_copy_link">लिंक कॉपी करें</string>
-    <string name="action_open_media_n">मीडिया खोलें #%d</string>
+    <string name="action_open_media_n">मीडिया खोलें #%1$d</string>
     <string name="action_open_faved_by">पसंदीदा दिखाएँ</string>
     <string name="action_add_tab">ऐड टैब</string>
     <string name="action_schedule_post">अनुसूची टूट</string>
@@ -115,10 +115,10 @@
     <string name="action_hide_media">मीडिया छिपाओ</string>
     <string name="action_mention">ज़िक्र</string>
     <string name="action_unmute_conversation">बातचीत को अनम्यूट करें</string>
-    <string name="action_unmute_domain">अनम्यूट %s</string>
+    <string name="action_unmute_domain">अनम्यूट %1$s</string>
     <string name="action_unmute">अनम्यूट</string>
     <string name="action_mute">म्यूट</string>
-    <string name="action_mute_domain">म्यूट %s</string>
+    <string name="action_mute_domain">म्यूट %1$s</string>
     <string name="action_mute_conversation">बातचीत को म्यूट करें</string>
     <string name="action_share">शेयर</string>
     <string name="action_photo_take">फोटो खींचिए</string>
@@ -127,7 +127,7 @@
     <string name="error_sender_account_gone">टोट भेजने में त्रुटि।</string>
     <string name="action_quick_reply">तुरंत जवाब</string>
     <string name="report_comment_hint">अतिरिक्त टिप्पणियां\?</string>
-    <string name="report_username_format">रिपोर्ट @%s</string>
+    <string name="report_username_format">रिपोर्ट @%1$s</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; ने आपके टूट को पसंद किया</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; ने आपके टूट को बढावा दिया</string>
     <string name="footer_empty">यहाँ कुछ नहीं। ताज़ा करने के लिए नीचे खींचो!</string>
@@ -143,7 +143,7 @@
     <string name="title_public_local">स्थानीय</string>
     <string name="title_notifications">सूचनाएं</string>
     <string name="add_poll_choice">विकल्प जोड़ें</string>
-    <string name="poll_new_choice_hint">विकल्प %d</string>
+    <string name="poll_new_choice_hint">विकल्प %1$d</string>
     <string name="poll_allow_multiple_choices">कई विकल्प</string>
     <string name="duration_7_days">7 दिन</string>
     <string name="duration_3_days">3 दिन</string>
@@ -178,10 +178,10 @@
     <string name="report_description_remote_instance">खाता किसी अन्य सर्वर से है। रिपोर्ट की अनाम प्रति वहां भी भेजें\?</string>
     <string name="report_description_1">रिपोर्ट आपके सर्वर मॉडरेटर को भेजी जाएगी। आप इस बारे में स्पष्टीकरण दे सकते हैं कि आप इस खाते को रिपोर्ट क्यों कर रहे हैं:</string>
     <string name="failed_report">रिपोर्ट करने में विफल</string>
-    <string name="report_remote_instance">%s को आगे भेजें</string>
+    <string name="report_remote_instance">%1$s को आगे भेजें</string>
     <string name="hint_additional_info">अतिरिक्त टिप्पणियां</string>
-    <string name="report_sent_success">\@%s सफलतापूर्वक रिपोर्ट किए गए</string>
-    <string name="compose_preview_image_description">तस्वीरों के लिए क्रिया %s</string>
+    <string name="report_sent_success">\@%1$s सफलतापूर्वक रिपोर्ट किए गए</string>
+    <string name="compose_preview_image_description">तस्वीरों के लिए क्रिया %1$s</string>
     <string name="notification_clear_text">क्या आप अपनी सभी सूचनाओं को स्थायी रूप से साफ़ करना चाहते हैं\?</string>
     <string name="compose_shortcut_long_label">टूट लिखें</string>
     <string name="filter_apply">लागू करें</string>
@@ -240,7 +240,7 @@
     <string name="pref_title_notification_filter_favourites">मेरे पोस्ट पसंद किए गए</string>
     <string name="pref_title_notification_alerts">सूचनाएं</string>
     <string name="dialog_mute_hide_notifications">सूचनाएं छिपाएं</string>
-    <string name="dialog_block_warning">ब्लॉक @%s\?</string>
+    <string name="dialog_block_warning">ब्लॉक @%1$s\?</string>
     <string name="dialog_title_finishing_media_upload">मीडिया अपलोड समाप्त हो रहा</string>
     <string name="confirmation_unmuted">उपयोगकर्ता अनम्यूट किए गए</string>
     <string name="confirmation_unblocked">उपयोगकर्ता अनब्लॉक किए गए</string>
@@ -248,7 +248,7 @@
     <string name="send_post_content_to">टूट को साझा करें …</string>
     <string name="send_post_link_to">टूट यूआरएल को साझा करें …</string>
     <string name="download_image">%1$s डाउनलोड हो रहा है</string>
-    <string name="action_unmute_desc">अनम्यूट %s</string>
+    <string name="action_unmute_desc">अनम्यूट %1$s</string>
     <string name="action_view_domain_mutes">छिपे हुए डोमेन</string>
     <string name="action_view_blocks">रोके गए उपयोगकर्ता</string>
     <string name="action_view_mutes">म्यूट किए गए उपयोगकर्ता</string>

@@ -21,6 +21,6 @@
     <string name="login_connection">Aan het verbinden…</string>
     <string name="title_login">Inloggen</string>
     <string name="error_could_not_load_login_page">De inlogpagina kon niet worden geladen.</string>
-    <string name="instance_rule_info">Door in te loggen ben je het eens met de regels van %s.</string>
-    <string name="instance_rule_title">%s regels</string>
+    <string name="instance_rule_info">Door in te loggen ben je het eens met de regels van %1$s.</string>
+    <string name="instance_rule_title">%1$s regels</string>
 </resources>

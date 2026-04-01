@@ -2,8 +2,8 @@
 <resources>
     <string name="about_title_activity">このアプリについて</string>
     <string name="about_device_info_title">あなたのデバイス</string>
-    <string name="about_account_info">\@%s@%s
-\nバージョン: %s</string>
+    <string name="about_account_info">\@%1$s@%2$s
+\nバージョン: %3$s</string>
     <string name="about_copied">バージョンとデバイス情報をコピーしました</string>
     <string name="about_account_info_title">あなたのアカウント</string>
     <string name="about_copy">バージョンとデバイス情報をコピーする</string>
@@ -20,8 +20,8 @@
     <string name="about_privacy_policy">プライバシーポリシー</string>
     <string name="about_pachli_account">Pachli公式アカウント</string>
     <string name="title_licenses">ライセンス</string>
-    <string name="about_device_info">%s %s
-\nAndroid バージョン: %s
-\nSDK レベル: %d</string>
+    <string name="about_device_info">%1$s %2$s
+\nAndroid バージョン: %3$s
+\nSDK レベル: %4$d</string>
     <string name="license_description">Pachliは、以下のオープンソース プロジェクトからのコードとアセットを含んでいます:</string>
 </resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_open_as">Als %s öffnen</string>
-    <string name="post_lookup_error_format">Fehler beim Nachschlagen von %s</string>
+    <string name="action_open_as">Als %1$s öffnen</string>
+    <string name="post_lookup_error_format">Fehler beim Nachschlagen von %1$s</string>
     <string name="performing_lookup_title">Wird nachgeschlagen …</string>
     <string name="send_error_report">Fehlerbericht senden</string>
     <string name="action_open_as_ellipsis">Öffnen als…</string>

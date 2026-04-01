@@ -15,6 +15,6 @@
     <string name="login_connection">Savienojas…</string>
     <string name="title_login">Pieteikties</string>
     <string name="error_could_not_load_login_page">Nevarēja ielādēt pieteikšanās lapu.</string>
-    <string name="instance_rule_info">Piesakoties Tu piekrīti %s noteikumiem.</string>
-    <string name="instance_rule_title">%s noteikumi</string>
+    <string name="instance_rule_info">Piesakoties Tu piekrīti %1$s noteikumiem.</string>
+    <string name="instance_rule_title">%1$s noteikumi</string>
 </resources>

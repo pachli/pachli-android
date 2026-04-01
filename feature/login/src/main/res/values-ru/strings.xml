@@ -15,6 +15,6 @@
     <string name="title_login">Войти</string>
     <string name="error_loading_account_details_fmt">Не удалось загрузить данные профиля: %1$s</string>
     <string name="error_could_not_load_login_page">Не удалось загрузить страницу входа.</string>
-    <string name="instance_rule_info">Входя сюда, вы соглашаетесь с правилами %s.</string>
-    <string name="instance_rule_title">Правила %s</string>
+    <string name="instance_rule_info">Входя сюда, вы соглашаетесь с правилами %1$s.</string>
+    <string name="instance_rule_title">Правила %1$s</string>
 </resources>

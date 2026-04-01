@@ -8,7 +8,7 @@
     <string name="error_rename_list_fmt">Kan lijst niet updaten \"%1$s\": %2$s</string>
     <string name="action_rename_list">Lijst updaten</string>
     <string name="action_create_list">Lijst aanmaken</string>
-    <string name="dialog_delete_list_warning">Weet je zeker dat je de lijst %s wilt verwijderen\?</string>
+    <string name="dialog_delete_list_warning">Weet je zeker dat je de lijst %1$s wilt verwijderen\?</string>
     <string name="action_remove_from_list">Account uit de lijst verwijderen</string>
     <string name="action_add_to_list">Account aan de lijst toevoegen</string>
     <string name="action_delete_list">Lijst verwijderen</string>

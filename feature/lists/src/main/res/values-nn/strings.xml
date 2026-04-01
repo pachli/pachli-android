@@ -17,7 +17,7 @@
     <string name="no_lists">Du har ingen lister.</string>
     <string name="hint_search_people_list">Søk etter folk som du fylgjer</string>
     <string name="action_add_or_remove_from_list">Legg til eller fjern frå liste</string>
-    <string name="dialog_delete_list_warning">Slett lista «%s»?</string>
+    <string name="dialog_delete_list_warning">Slett lista «%1$s»?</string>
     <string name="replies_policy_name_none">Ingen</string>
     <string name="error_create_list_fmt">Kunne ikkje opprette liste «%1$s»: %2$s</string>
     <string name="action_add_to_list">Legg til konto i lista</string>

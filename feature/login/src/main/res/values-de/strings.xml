@@ -15,6 +15,6 @@
     <string name="login_connection">Wird verbunden …</string>
     <string name="title_login">Anmelden</string>
     <string name="error_could_not_load_login_page">Die Anmeldeseite konnte nicht geladen werden.</string>
-    <string name="instance_rule_info">Mit dem Anmelden stimmst du den Regeln von %s zu.</string>
-    <string name="instance_rule_title">%s-Regeln</string>
+    <string name="instance_rule_info">Mit dem Anmelden stimmst du den Regeln von %1$s zu.</string>
+    <string name="instance_rule_title">%1$s-Regeln</string>
 </resources>

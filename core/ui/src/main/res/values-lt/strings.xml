@@ -7,7 +7,7 @@
     <string name="error_generic">Įvyko klaida.</string>
     <string name="message_empty">Nieko čia nėra.</string>
     <string name="action_retry">Kartoti</string>
-    <string name="url_domain_notifier">" (🔗 %s)"</string>
+    <string name="url_domain_notifier">" (🔗 %1$s)"</string>
     <string name="action_view_profile">Profilis</string>
     <string name="action_refresh">Atnaujinti</string>
     <string name="title_hashtags_dialog">Saitažodžiai</string>

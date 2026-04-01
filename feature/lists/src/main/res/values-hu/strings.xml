@@ -7,7 +7,7 @@
     <string name="error_rename_list_fmt">Nem sikerült a lista átnevezése \"%1$s\": %2$s</string>
     <string name="action_rename_list">Lista átnevezése</string>
     <string name="action_create_list">Lista létrehozása</string>
-    <string name="dialog_delete_list_warning">Tényleg le akarod törölni a %s listát\?</string>
+    <string name="dialog_delete_list_warning">Tényleg le akarod törölni a %1$s listát\?</string>
     <string name="action_remove_from_list">Fiók eltávolítása a listából</string>
     <string name="action_add_to_list">Fiók hozzáadása a listához</string>
     <string name="action_delete_list">Lista törlése</string>

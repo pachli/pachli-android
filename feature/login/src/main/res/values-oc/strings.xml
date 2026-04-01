@@ -21,6 +21,6 @@
     <string name="login_connection">Connexion…</string>
     <string name="title_login">Se desconnectar</string>
     <string name="error_could_not_load_login_page">Cargament impossible de la pagina de connexion.</string>
-    <string name="instance_rule_info">En vos connectant acceptatz las règlas de %s.</string>
-    <string name="instance_rule_title">%s règlas</string>
+    <string name="instance_rule_info">En vos connectant acceptatz las règlas de %1$s.</string>
+    <string name="instance_rule_title">%1$s règlas</string>
 </resources>
