@@ -70,7 +70,7 @@ class NotificationsViewModelTestNotificationFilterAction : NotificationsViewMode
     fun `accepting follow request succeeds && emits UiSuccess`() = runTest {
         // Given
         timelineCases.stub {
-            onBlocking { acceptFollowRequest(any()) } doReturn success(relationship)
+            on { acceptFollowRequest(any()) } doReturn success(relationship)
         }
 
         viewModel.uiResult.test {
@@ -92,7 +92,7 @@ class NotificationsViewModelTestNotificationFilterAction : NotificationsViewMode
     @Test
     fun `accepting follow request fails && emits UiError`() = runTest {
         // Given
-        timelineCases.stub { onBlocking { acceptFollowRequest(any()) } doReturn failure() }
+        timelineCases.stub { on { acceptFollowRequest(any()) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When
@@ -107,7 +107,7 @@ class NotificationsViewModelTestNotificationFilterAction : NotificationsViewMode
     @Test
     fun `rejecting follow request succeeds && emits UiSuccess`() = runTest {
         // Given
-        timelineCases.stub { onBlocking { rejectFollowRequest(any()) } doReturn success(relationship) }
+        timelineCases.stub { on { rejectFollowRequest(any()) } doReturn success(relationship) }
 
         viewModel.uiResult.test {
             // When
@@ -128,7 +128,7 @@ class NotificationsViewModelTestNotificationFilterAction : NotificationsViewMode
     @Test
     fun `rejecting follow request fails && emits UiError`() = runTest {
         // Given
-        timelineCases.stub { onBlocking { rejectFollowRequest(any()) } doReturn failure() }
+        timelineCases.stub { on { rejectFollowRequest(any()) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When

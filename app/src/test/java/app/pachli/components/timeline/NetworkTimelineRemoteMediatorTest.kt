@@ -126,19 +126,19 @@ class NetworkTimelineRemoteMediatorTest {
 
         reset(mastodonApi)
         mastodonApi.stub {
-            onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
-            onBlocking { getInstanceV2() } doReturn success(DEFAULT_INSTANCE_V2)
-            onBlocking { getLists() } doReturn success(emptyList())
-            onBlocking { getCustomEmojis() } doReturn failure()
-            onBlocking { getContentFilters() } doReturn success(emptyList())
-            onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
-            onBlocking { getContentFiltersV1() } doReturn success(emptyList())
-            onBlocking { accountFollowing(any(), anyOrNull(), any()) } doReturn success(emptyList())
+            on { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
+            on { getInstanceV2() } doReturn success(DEFAULT_INSTANCE_V2)
+            on { getLists() } doReturn success(emptyList())
+            on { getCustomEmojis() } doReturn failure()
+            on { getContentFilters() } doReturn success(emptyList())
+            on { listAnnouncements(any()) } doReturn success(emptyList())
+            on { getContentFiltersV1() } doReturn success(emptyList())
+            on { accountFollowing(any(), anyOrNull(), any()) } doReturn success(emptyList())
         }
 
         reset(nodeInfoApi)
         nodeInfoApi.stub {
-            onBlocking { nodeInfoJrd() } doReturn success(
+            on { nodeInfoJrd() } doReturn success(
                 UnvalidatedJrd(
                     listOf(
                         UnvalidatedJrd.Link(
@@ -148,7 +148,7 @@ class NetworkTimelineRemoteMediatorTest {
                     ),
                 ),
             )
-            onBlocking { nodeInfo(any()) } doReturn success(
+            on { nodeInfo(any()) } doReturn success(
                 UnvalidatedNodeInfo(UnvalidatedNodeInfo.Software("mastodon", "4.2.0")),
             )
         }
@@ -204,7 +204,7 @@ class NetworkTimelineRemoteMediatorTest {
         val pages = PageCache()
 
         mastodonApi.stub {
-            onBlocking { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), limit = anyOrNull(), sinceId = anyOrNull()) } doReturn success(
+            on { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), limit = anyOrNull(), sinceId = anyOrNull()) } doReturn success(
                 listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")),
                 headers = arrayOf(
                     "Link",
@@ -274,7 +274,7 @@ class NetworkTimelineRemoteMediatorTest {
         }
 
         mastodonApi.stub {
-            onBlocking { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), limit = anyOrNull(), sinceId = anyOrNull()) } doReturn success(
+            on { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), limit = anyOrNull(), sinceId = anyOrNull()) } doReturn success(
                 listOf(fakeStatus("10"), fakeStatus("9"), fakeStatus("8")),
                 headers = arrayOf(
                     "Link",
@@ -352,7 +352,7 @@ class NetworkTimelineRemoteMediatorTest {
         }
 
         mastodonApi.stub {
-            onBlocking { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), limit = anyOrNull(), sinceId = anyOrNull()) } doReturn success(
+            on { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), limit = anyOrNull(), sinceId = anyOrNull()) } doReturn success(
                 listOf(fakeStatus("4"), fakeStatus("3"), fakeStatus("2")),
                 headers = arrayOf(
                     "Link",

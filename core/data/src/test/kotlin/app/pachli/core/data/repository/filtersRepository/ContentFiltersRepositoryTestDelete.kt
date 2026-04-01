@@ -38,7 +38,7 @@ class ContentFiltersRepositoryTestV2Delete : V2Test() {
     @Test
     fun `delete on v2 server should call delete`() = runTest {
         mastodonApi.stub {
-            onBlocking { deleteFilter(anyString()) } doReturn success(Unit)
+            on { deleteFilter(anyString()) } doReturn success(Unit)
         }
 
         // Configure API with a single filter.
@@ -76,7 +76,7 @@ class ContentFiltersRepositoryTestV1Delete : V1Test() {
     @Test
     fun `delete on v1 server should call deleteFilterV1`() = runTest {
         mastodonApi.stub {
-            onBlocking { deleteFilterV1(anyString()) } doReturn success(Unit)
+            on { deleteFilterV1(anyString()) } doReturn success(Unit)
         }
 
         // Configure API with a single filter.

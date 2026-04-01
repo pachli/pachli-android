@@ -51,7 +51,7 @@ class UpdateCheckTest {
     @Test
     fun `remoteFetchLatestVersionCode returns null on network error`() = runTest {
         fdroidService.stub {
-            onBlocking { getPackage(any()) } doReturn failure()
+            on { getPackage(any()) } doReturn failure()
         }
 
         assertThat(updateCheck.remoteFetchLatestVersionCode()).isNull()
@@ -60,7 +60,7 @@ class UpdateCheckTest {
     @Test
     fun `remoteFetchLatestVersionCode returns suggestedVersionCode if in packages`() = runTest {
         fdroidService.stub {
-            onBlocking { getPackage(any()) } doReturn success(
+            on { getPackage(any()) } doReturn success(
                 FdroidPackage(
                     packageName = "app.pachli",
                     suggestedVersionCode = 3,
@@ -80,7 +80,7 @@ class UpdateCheckTest {
     @Test
     fun `remoteFetchLatestVersionCode returns greatest code if suggestedVersionCode is missing`() = runTest {
         fdroidService.stub {
-            onBlocking { getPackage(any()) } doReturn success(
+            on { getPackage(any()) } doReturn success(
                 FdroidPackage(
                     packageName = "app.pachli",
                     suggestedVersionCode = 3,

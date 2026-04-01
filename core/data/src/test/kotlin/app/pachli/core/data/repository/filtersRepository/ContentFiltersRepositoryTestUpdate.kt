@@ -60,7 +60,7 @@ class ContentFiltersRepositoryTestUpdate : V2Test() {
         mastodonApi.stub {
             // Takes the original network filter and applies the update, returning the updated
             // filter.
-            onBlocking { updateFilter(any(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doAnswer { call ->
+            on { updateFilter(any(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doAnswer { call ->
                 val id = call.getArgument<String>(0)
                 val originalNetworkFilter = networkFilters.find { it.id == id }!!
 
@@ -79,7 +79,7 @@ class ContentFiltersRepositoryTestUpdate : V2Test() {
                 )
             }
             // Returns a copy of the filter with the modified title.
-            onBlocking { getFilter(anyString()) } doAnswer { call ->
+            on { getFilter(anyString()) } doAnswer { call ->
                 val id = call.getArgument<String>(0)
                 success(networkFilters.first { it.id == id }.copy(title = updatedTitle))
             }
@@ -136,16 +136,16 @@ class ContentFiltersRepositoryTestUpdate : V2Test() {
         contentFiltersRepository.refresh(pachliAccountId)
 
         mastodonApi.stub {
-            onBlocking { deleteFilterKeyword(any()) } doReturn success(Unit)
-            onBlocking { updateFilterKeyword(any(), any(), any()) } doAnswer { call ->
+            on { deleteFilterKeyword(any()) } doReturn success(Unit)
+            on { updateFilterKeyword(any(), any(), any()) } doAnswer { call ->
                 success(NetworkFilterKeyword(call.getArgument(0), call.getArgument(1), call.getArgument(2)))
             }
-            onBlocking { addFilterKeyword(any(), any(), any()) } doAnswer { call ->
+            on { addFilterKeyword(any(), any(), any()) } doAnswer { call ->
                 success(NetworkFilterKeyword("x", call.getArgument(1), call.getArgument(2)))
             }
             // Return the unmodified filter. The actual network calls are checked, so this
             // simplifies the test by not needing to recreate the modified filter.
-            onBlocking { getFilter(any()) } doReturn success(networkFilters.first())
+            on { getFilter(any()) } doReturn success(networkFilters.first())
         }
 
         contentFiltersRepository.getContentFiltersFlow(pachliAccountId).test {

@@ -113,18 +113,18 @@ class CachedTimelineRemoteMediatorTest {
 
         reset(mastodonApi)
         mastodonApi.stub {
-            onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
-            onBlocking { getInstanceV2(anyOrNull()) } doReturn success(DEFAULT_INSTANCE_V2)
-            onBlocking { getLists() } doReturn success(emptyList())
-            onBlocking { getCustomEmojis() } doReturn failure()
-            onBlocking { getContentFilters() } doReturn success(emptyList())
-            onBlocking { listAnnouncements(anyOrNull()) } doReturn success(emptyList())
-            onBlocking { accountFollowing(any(), anyOrNull(), any()) } doReturn success(emptyList())
+            on { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
+            on { getInstanceV2(anyOrNull()) } doReturn success(DEFAULT_INSTANCE_V2)
+            on { getLists() } doReturn success(emptyList())
+            on { getCustomEmojis() } doReturn failure()
+            on { getContentFilters() } doReturn success(emptyList())
+            on { listAnnouncements(anyOrNull()) } doReturn success(emptyList())
+            on { accountFollowing(any(), anyOrNull(), any()) } doReturn success(emptyList())
         }
 
         reset(nodeInfoApi)
         nodeInfoApi.stub {
-            onBlocking { nodeInfoJrd() } doReturn success(
+            on { nodeInfoJrd() } doReturn success(
                 UnvalidatedJrd(
                     listOf(
                         UnvalidatedJrd.Link(
@@ -134,7 +134,7 @@ class CachedTimelineRemoteMediatorTest {
                     ),
                 ),
             )
-            onBlocking { nodeInfo(any()) } doReturn success(
+            on { nodeInfo(any()) } doReturn success(
                 UnvalidatedNodeInfo(UnvalidatedNodeInfo.Software("mastodon", "4.2.0")),
             )
         }
@@ -161,7 +161,7 @@ class CachedTimelineRemoteMediatorTest {
         val remoteMediator = CachedTimelineRemoteMediator(
             context = context,
             mastodonApi = mock {
-                onBlocking { homeTimeline(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn failure(code = 500)
+                on { homeTimeline(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn failure(code = 500)
             },
             pachliAccountId = activeAccount.id,
             transactionProvider = transactionProvider,
@@ -187,7 +187,7 @@ class CachedTimelineRemoteMediatorTest {
         val remoteMediator = CachedTimelineRemoteMediator(
             context = context,
             mastodonApi = mock {
-                onBlocking { homeTimeline(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn failure()
+                on { homeTimeline(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn failure()
             },
             pachliAccountId = activeAccount.id,
             transactionProvider = transactionProvider,
@@ -241,7 +241,7 @@ class CachedTimelineRemoteMediatorTest {
     @ExperimentalPagingApi
     fun `should not try to refresh already cached statuses when db is empty`() {
         mastodonApi.stub {
-            onBlocking { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), sinceId = anyOrNull(), limit = any()) } doReturn success(
+            on { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), sinceId = anyOrNull(), limit = any()) } doReturn success(
                 listOf(
                     fakeStatus("5"),
                     fakeStatus("4"),
@@ -297,7 +297,7 @@ class CachedTimelineRemoteMediatorTest {
         db.insertTimelineStatusWithQuote(statusesAlreadyInDb)
 
         mastodonApi.stub {
-            onBlocking { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), sinceId = anyOrNull(), limit = any()) } doReturn success(
+            on { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), sinceId = anyOrNull(), limit = any()) } doReturn success(
                 listOf(
                     fakeStatus("3"),
                     fakeStatus("1"),
@@ -355,7 +355,7 @@ class CachedTimelineRemoteMediatorTest {
         db.remoteKeyDao().upsert(RemoteKeyEntity(1, Timeline.Home.remoteKeyTimelineId, RemoteKeyKind.NEXT, "5"))
 
         mastodonApi.stub {
-            onBlocking { homeTimeline(maxId = "5", limit = 20) } doReturn success(
+            on { homeTimeline(maxId = "5", limit = 20) } doReturn success(
                 listOf(
                     fakeStatus("3"),
                     fakeStatus("2"),

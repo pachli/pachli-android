@@ -120,8 +120,8 @@ class MainActivityTest {
 
         reset(mastodonApi)
         mastodonApi.stub {
-            onBlocking { accountVerifyCredentials() } doReturn success(account)
-            onBlocking { listAnnouncements(false) } doReturn success(emptyList())
+            on { accountVerifyCredentials() } doReturn success(account)
+            on { listAnnouncements(false) } doReturn success(emptyList())
         }
 
         accountManager.verifyAndAddAccount(

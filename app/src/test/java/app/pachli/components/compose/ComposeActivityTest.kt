@@ -140,10 +140,10 @@ class ComposeActivityTest {
         getInstanceCallback = null
         reset(mastodonApi)
         mastodonApi.stub {
-            onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
-            onBlocking { getCustomEmojis() } doReturn success(emptyList())
-            onBlocking { getInstanceV2() } doReturn failure()
-            onBlocking { getInstanceV1() } doAnswer {
+            on { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
+            on { getCustomEmojis() } doReturn success(emptyList())
+            on { getInstanceV2() } doReturn failure()
+            on { getInstanceV1() } doAnswer {
                 getInstanceCallback?.invoke().let { instance ->
                     if (instance == null) {
                         failure()
@@ -152,18 +152,18 @@ class ComposeActivityTest {
                     }
                 }
             }
-            onBlocking { search(any(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn success(
+            on { search(any(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn success(
                 SearchResult(emptyList(), emptyList(), emptyList()),
             )
-            onBlocking { getLists() } doReturn success(emptyList())
-            onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
-            onBlocking { getContentFiltersV1() } doReturn success(emptyList())
-            onBlocking { accountFollowing(any(), anyOrNull(), any()) } doReturn success(emptyList())
+            on { getLists() } doReturn success(emptyList())
+            on { listAnnouncements(any()) } doReturn success(emptyList())
+            on { getContentFiltersV1() } doReturn success(emptyList())
+            on { accountFollowing(any(), anyOrNull(), any()) } doReturn success(emptyList())
         }
 
         reset(nodeInfoApi)
         nodeInfoApi.stub {
-            onBlocking { nodeInfoJrd() } doReturn success(
+            on { nodeInfoJrd() } doReturn success(
                 UnvalidatedJrd(
                     listOf(
                         UnvalidatedJrd.Link(
@@ -173,7 +173,7 @@ class ComposeActivityTest {
                     ),
                 ),
             )
-            onBlocking { nodeInfo(any()) } doReturn success(
+            on { nodeInfo(any()) } doReturn success(
                 UnvalidatedNodeInfo(UnvalidatedNodeInfo.Software("mastodon", "4.2.0")),
             )
         }

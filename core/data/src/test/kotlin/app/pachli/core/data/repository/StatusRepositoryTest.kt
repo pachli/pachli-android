@@ -121,10 +121,10 @@ class StatusRepositoryTest {
 
         reset(mastodonApi)
         mastodonApi.stub {
-            onBlocking { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
-            onBlocking { getCustomEmojis() } doReturn success(emptyList())
-            onBlocking { getInstanceV2() } doReturn failure()
-            onBlocking { getInstanceV1(anyOrNull()) } doReturn success(
+            on { accountVerifyCredentials(anyOrNull(), anyOrNull()) } doReturn success(account)
+            on { getCustomEmojis() } doReturn success(emptyList())
+            on { getInstanceV2() } doReturn failure()
+            on { getInstanceV1(anyOrNull()) } doReturn success(
                 InstanceV1(
                     uri = "https://example.token",
                     version = "2.6.3",
@@ -136,16 +136,16 @@ class StatusRepositoryTest {
                     rules = emptyList(),
                 ),
             )
-            onBlocking { getLists() } doReturn success(emptyList())
-            onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
-            onBlocking { getContentFilters() } doReturn success(emptyList())
-            onBlocking { getContentFiltersV1() } doReturn success(emptyList())
-            onBlocking { accountFollowing(any(), anyOrNull(), any()) } doReturn success(emptyList())
+            on { getLists() } doReturn success(emptyList())
+            on { listAnnouncements(any()) } doReturn success(emptyList())
+            on { getContentFilters() } doReturn success(emptyList())
+            on { getContentFiltersV1() } doReturn success(emptyList())
+            on { accountFollowing(any(), anyOrNull(), any()) } doReturn success(emptyList())
         }
 
         reset(nodeInfoApi)
         nodeInfoApi.stub {
-            onBlocking { nodeInfoJrd() } doReturn success(
+            on { nodeInfoJrd() } doReturn success(
                 UnvalidatedJrd(
                     listOf(
                         UnvalidatedJrd.Link(
@@ -155,7 +155,7 @@ class StatusRepositoryTest {
                     ),
                 ),
             )
-            onBlocking { nodeInfo(any()) } doReturn success(
+            on { nodeInfo(any()) } doReturn success(
                 UnvalidatedNodeInfo(UnvalidatedNodeInfo.Software("mastodon", "4.2.0")),
             )
         }
@@ -188,7 +188,7 @@ class StatusRepositoryTest {
         appDatabase.insertTimelineStatusWithQuote(listOf(fakeStatusEntityWithAccount))
 
         mastodonApi.stub {
-            onBlocking { pinStatus(statusId) } doReturn success(fakeStatus)
+            on { pinStatus(statusId) } doReturn success(fakeStatus)
         }
 
         eventHub.events.test {
@@ -207,7 +207,7 @@ class StatusRepositoryTest {
         )
 
         mastodonApi.stub {
-            onBlocking { pinStatus(statusId) } doReturn apiResult
+            on { pinStatus(statusId) } doReturn apiResult
         }
 
         runBlocking {

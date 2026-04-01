@@ -40,8 +40,8 @@ import org.mockito.kotlin.mock
 @RunWith(AndroidJUnit4::class)
 class NetworkTimelinePagingSourceTest {
     private val statusRepository: StatusRepository = mock {
-        onBlocking { getStatusViewData(any<Long>(), any<Collection<String>>()) } doReturn emptyMap()
-        onBlocking { getTranslations(any(), any()) } doReturn emptyMap()
+        on { getStatusViewData(any<Long>(), any<Collection<String>>()) } doReturn emptyMap()
+        on { getTranslations(any(), any()) } doReturn emptyMap()
     }
 
     @Test

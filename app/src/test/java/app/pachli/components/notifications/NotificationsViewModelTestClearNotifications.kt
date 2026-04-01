@@ -42,7 +42,7 @@ class NotificationsViewModelTestClearNotifications : NotificationsViewModelTestB
     @Test
     fun `clearing notifications succeeds`() = runTest {
         // Given
-        mastodonApi.stub { onBlocking { clearNotifications() } doReturn success(Unit) }
+        mastodonApi.stub { on { clearNotifications() } doReturn success(Unit) }
 
         // When
         viewModel.accept(FallibleUiAction.ClearNotifications(pachliAccountId))
@@ -54,7 +54,7 @@ class NotificationsViewModelTestClearNotifications : NotificationsViewModelTestB
     @Test
     fun `clearing notifications fails && emits UiError`() = runTest {
         // Given
-        notificationsRepository.stub { onBlocking { clearNotifications(pachliAccountId) } doReturn failure() }
+        notificationsRepository.stub { on { clearNotifications(pachliAccountId) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When
