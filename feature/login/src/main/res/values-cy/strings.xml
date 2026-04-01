@@ -21,6 +21,6 @@
     <string name="login_connection">Yn cysylltu…</string>
     <string name="title_login">Mewngofnodi</string>
     <string name="error_could_not_load_login_page">Methu llwytho\'r dudalen mewngofnodi.</string>
-    <string name="instance_rule_info">Drwy fewngofnodi rydych yn cytuno i reolau %s.</string>
-    <string name="instance_rule_title">Rheolau %s</string>
+    <string name="instance_rule_info">Drwy fewngofnodi rydych yn cytuno i reolau %1$s.</string>
+    <string name="instance_rule_title">Rheolau %1$s</string>
 </resources>

@@ -8,7 +8,7 @@
     <string name="error_rename_list_fmt">%2$s: \"%1$s\" لا يمكن إعادة تسمية القائمة</string>
     <string name="action_rename_list">إعادة تسمية القائمة</string>
     <string name="action_create_list">إنشاء قائمة</string>
-    <string name="dialog_delete_list_warning">أتريد حقا حذف القائمة %s؟</string>
+    <string name="dialog_delete_list_warning">أتريد حقا حذف القائمة %1$s؟</string>
     <string name="action_remove_from_list">إزالة الحساب مِن القائمة</string>
     <string name="action_add_to_list">إضافة الحساب إلى القائمة</string>
     <string name="action_delete_list">حذف القائمة</string>

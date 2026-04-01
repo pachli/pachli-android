@@ -8,7 +8,7 @@
     <string name="error_rename_list_fmt">Cha b’ urrainn dhuinn an liosta ùrachadh \"%1$s\": %2$s</string>
     <string name="action_rename_list">Ùraich an liosta</string>
     <string name="action_create_list">Cruthaich liosta</string>
-    <string name="dialog_delete_list_warning">A bheil thu cinnteach gu bheil thu airson an liosta %s a sguabadh às\?</string>
+    <string name="dialog_delete_list_warning">A bheil thu cinnteach gu bheil thu airson an liosta %1$s a sguabadh às\?</string>
     <string name="action_remove_from_list">Thoir an cunntas air falbh on liosta</string>
     <string name="action_add_to_list">Cuir cunntas ris an liosta</string>
     <string name="action_delete_list">Sguab às an liosta</string>

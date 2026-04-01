@@ -15,6 +15,6 @@
     <string name="login_connection">Pripájam sa…</string>
     <string name="title_login">Prihlásenie</string>
     <string name="error_could_not_load_login_page">Nepodarilo sa načítať prihlasovaciu stránku.</string>
-    <string name="instance_rule_info">Prihlásením súhlasíš s pravidlami inštancie %s.</string>
-    <string name="instance_rule_title">Pravidlá inštancie %s</string>
+    <string name="instance_rule_info">Prihlásením súhlasíš s pravidlami inštancie %1$s.</string>
+    <string name="instance_rule_title">Pravidlá inštancie %1$s</string>
 </resources>

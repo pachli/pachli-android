@@ -2,7 +2,7 @@
 <resources>
     <string name="error_429_rate_limit_fmt">tvoj server obmedzuje počet požiadaviek: %1$s</string>
     <string name="error_json_data_fmt">tvoj server vrátil neplatnú odpoveď: %1$s</string>
-    <string name="error_network_fmt">Vyskytla sa chyba siete: %s</string>
+    <string name="error_network_fmt">Vyskytla sa chyba siete: %1$s</string>
     <string name="error_missing_content_type_fmt">tvoj server je nesprávne nakonfigurovaný, odpoveď neobsahuje informáciu o type obsahu: %1$s</string>
     <string name="error_wrong_content_type_fmt">tvoj server je nesprávne nakonfigurovaný a vrátil \'%2$s\' s nesprávnym typom obsahu: \'%1$s\'</string>
     <string name="node_info_error_no_software_version">verzia softvéru chýba, je prázdna alebo nevyplnená</string>

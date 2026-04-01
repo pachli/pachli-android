@@ -12,8 +12,8 @@
     <string name="login_connection">Ühendan…</string>
     <string name="title_login">Sisselogimine</string>
     <string name="error_could_not_load_login_page">Sisselogimislehe laadimine ei õnnestunud.</string>
-    <string name="instance_rule_info">Sisselogimisel nõustud %s koduserveri reeglitega.</string>
-    <string name="instance_rule_title">Koduserveri reeglid: %s</string>
+    <string name="instance_rule_info">Sisselogimisel nõustud %1$s koduserveri reeglitega.</string>
+    <string name="instance_rule_title">Koduserveri reeglid: %1$s</string>
     <string name="error_authorization_unknown">Loa andmisel tekkis määratlemata viga. Kui viga kestab, siis proovi vastavast menüüvalikust sisse logida veebibrauseriga.</string>
     <string name="error_authorization_denied">Server keeldus loa andmisest. Kui oled kindel, et salasõna ja kasutajanimi olud õiged, siis proovi vastavast menüüvalikust sisse logida veebibrauseriga.</string>
     <string name="error_retrieving_oauth_token_fmt">Sisselogimise tunnusloa laadimine ei õnnestunud. Kui viga kestab, siis proovi vastavast menüüvalikust sisse logida veebibrauseriga: %1$s</string>

@@ -15,6 +15,6 @@
     <string name="login_connection">Kobler til…</string>
     <string name="title_login">Logg inn</string>
     <string name="error_could_not_load_login_page">Klarte ikke å laste innloggingssiden.</string>
-    <string name="instance_rule_info">Ved å logge inn godtar du reglene på %s.</string>
-    <string name="instance_rule_title">Regler på %s</string>
+    <string name="instance_rule_info">Ved å logge inn godtar du reglene på %1$s.</string>
+    <string name="instance_rule_title">Regler på %1$s</string>
 </resources>

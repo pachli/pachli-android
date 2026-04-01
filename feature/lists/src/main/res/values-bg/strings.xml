@@ -7,7 +7,7 @@
     <string name="error_rename_list_fmt">Списъкът не можа да се преименува \"%1$s\": %2$s</string>
     <string name="action_rename_list">Преименуване на списъка</string>
     <string name="action_create_list">Създаване на списък</string>
-    <string name="dialog_delete_list_warning">Наистина ли искате да изтриете списъка %s\?</string>
+    <string name="dialog_delete_list_warning">Наистина ли искате да изтриете списъка %1$s\?</string>
     <string name="action_remove_from_list">Премахване на акаунт от списъка</string>
     <string name="action_add_to_list">Добавяне на акаунт към списъка</string>
     <string name="action_delete_list">Изтриване на списъка</string>

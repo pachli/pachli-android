@@ -2,8 +2,8 @@
 <resources>
     <string name="about_title_activity">Om</string>
     <string name="about_device_info_title">Din enhet</string>
-    <string name="about_account_info">\@%s@%s
-\nVersion: %s</string>
+    <string name="about_account_info">\@%1$s@%2$s
+\nVersion: %3$s</string>
     <string name="about_copied">Kopierade version- och enhetsinformation</string>
     <string name="about_account_info_title">Ditt konto</string>
     <string name="about_copy">Kopiera version- och enhetsinformation</string>
@@ -16,9 +16,9 @@
     <string name="about_privacy_policy">Integritetspolicy</string>
     <string name="about_pachli_account">Pachlis Profil</string>
     <string name="title_licenses">Licenser</string>
-    <string name="about_device_info">%s %s
-\nAndroid-version: %s
-\nSDK-nivå: %d</string>
+    <string name="about_device_info">%1$s %2$s
+\nAndroid-version: %3$s
+\nSDK-nivå: %4$d</string>
     <string name="license_description">Pachli innehåller kod och tillgångar från följande öppen källkodsprojekt:</string>
     <string name="notification_details_title">Detaljer</string>
     <string name="notification_details_android_notifications_enabled">Är Android aviseringar påslagna?</string>

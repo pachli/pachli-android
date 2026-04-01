@@ -21,6 +21,6 @@
     <string name="login_connection">Connessione…</string>
     <string name="title_login">Accesso</string>
     <string name="error_could_not_load_login_page">Non è stato possibile caricare la pagina di accesso.</string>
-    <string name="instance_rule_info">Facendo il login accetti le regole di %s.</string>
-    <string name="instance_rule_title">Regole di %s</string>
+    <string name="instance_rule_info">Facendo il login accetti le regole di %1$s.</string>
+    <string name="instance_rule_title">Regole di %1$s</string>
 </resources>

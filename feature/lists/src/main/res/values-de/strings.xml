@@ -8,7 +8,7 @@
     <string name="error_rename_list_fmt">Liste konnte nicht aktualisiert werden \"%1$s\": %2$s</string>
     <string name="action_rename_list">Liste aktualisieren</string>
     <string name="action_create_list">Liste erstellen</string>
-    <string name="dialog_delete_list_warning">Liste „%s“ löschen?</string>
+    <string name="dialog_delete_list_warning">Liste „%1$s“ löschen?</string>
     <string name="action_remove_from_list">Profil aus der Liste entfernen</string>
     <string name="action_add_to_list">Profil zur Liste hinzufügen</string>
     <string name="action_delete_list">Liste löschen</string>

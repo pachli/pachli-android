@@ -12,7 +12,7 @@
     <string name="action_rename_list">Premenovať zoznam</string>
     <string name="error_rename_list_fmt">Nepodarilo sa premenovať zoznam \"%1$s\": %2$s</string>
     <string name="action_create_list">Vytvoriť zoznam</string>
-    <string name="dialog_delete_list_warning">Vymazať zoznam \"%s\"?</string>
+    <string name="dialog_delete_list_warning">Vymazať zoznam \"%1$s\"?</string>
     <string name="action_remove_from_list">Odstraniť účet zo zoznamu</string>
     <string name="action_add_to_list">Pridať účet do zoznamu</string>
     <string name="action_delete_list">Vymazať zoznam</string>

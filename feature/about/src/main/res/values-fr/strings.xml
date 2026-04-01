@@ -19,8 +19,8 @@
     <string name="about_copied">Informations de version et d\'appareil copiées</string>
     <string name="about_copy">Copier les informations de version et d\'appareil</string>
     <string name="about_privacy_policy">Politique de vie privée</string>
-    <string name="about_device_info">%s%s\nVersion d\'Android : %s\nNiveau du SDK : %d</string>
-    <string name="about_account_info">\@%s@%s\nVersion : %s</string>
+    <string name="about_device_info">%1$s%2$s\nVersion d\'Android : %3$s\nNiveau du SDK : %4$d</string>
+    <string name="about_account_info">\@%1$s@%2$s\nVersion : %3$s</string>
     <string name="notification_details_title">Détails</string>
     <string name="notification_details_android_notifications_enabled">Les notifications Android sont activées ?</string>
     <string name="notification_details_notifications_enabled_help">&lt;![CDATA[Les notifications ne sont activées pour aucun de vos comptes. Modifiez cela dans Paramètres de compte &gt; Notifications. En attendant, toutes les notifications sont désactivées.]&gt;</string>

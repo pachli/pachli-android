@@ -47,7 +47,7 @@
     <string name="title_public_federated">ඒකාබද්ධ</string>
     <string name="dialog_message_uploading_media">උඩුගත වෙමින්…</string>
     <string name="label_header">ශීර්ෂය</string>
-    <string name="report_username_format">\@%s වාර්තා කරන්න</string>
+    <string name="report_username_format">\@%1$s වාර්තා කරන්න</string>
     <string name="report_comment_hint">අතිරේක අදහස්\?</string>
     <string name="pref_title_notification_filter_mentions">සඳහන් කළ</string>
     <string name="send_post_link_to">වෙත ටූට් ඒ.ස.නි. බෙදාගන්න…</string>
@@ -63,7 +63,7 @@
     <string name="hint_search">සොයන්න…</string>
     <string name="pref_title_app_theme">යෙදුමේ තේමාව</string>
     <string name="title_bookmarks">පොත්යොමු</string>
-    <string name="dialog_mute_warning">\@%s නිහඬ\?</string>
+    <string name="dialog_mute_warning">\@%1$s නිහඬ\?</string>
     <string name="compose_shortcut_short_label">රචනා කරන්න</string>
     <string name="poll_ended_voted">ඔබ ජන්දය දුන් මත විමසුව නිම වී ඇත</string>
     <string name="mute_domain_warning_dialog_ok">සමස්ථ වසම සඟවන්න</string>
@@ -102,7 +102,7 @@
     <string name="pref_title_post_filter">කාලරේඛාව පෙරීම</string>
     <string name="conversation_more_recipients">%1$s, %2$s සහ තවත් %3$d</string>
     <string name="pref_title_timelines">කාලරේඛා</string>
-    <string name="action_mute_domain">%s නිහඬ කරන්න</string>
+    <string name="action_mute_domain">%1$s නිහඬ කරන්න</string>
     <string name="action_block">අවහිර</string>
     <string name="download_media">මාධ්‍ය බාගන්න</string>
     <string name="action_view_domain_mutes">සැඟවුනු වසම්</string>
@@ -129,14 +129,14 @@
     <string name="no_drafts">ඔබ සතුව කටුපිටපත් නැත.</string>
     <string name="title_view_thread">ටූට්</string>
     <string name="pref_title_timeline_filters">පෙරහන්</string>
-    <string name="report_sent_success">\@%s වෙත සාර්ථකව වාර්තා කෙරිණි</string>
+    <string name="report_sent_success">\@%1$s වෙත සාර්ථකව වාර්තා කෙරිණි</string>
     <string name="download_failed">බාගැනීමට අසමත් විය</string>
     <string name="pref_title_language">භාෂාව</string>
     <string name="account_note_saved">සුරැකිණි!</string>
     <string name="post_share_content">ටූට්හි අන්තර්ගතය බෙදාගන්න</string>
     <string name="profile_metadata_content_label">අන්තර්ගතය</string>
     <string name="notification_subscription_name">නව ටූට්ස්</string>
-    <string name="action_open_media_n">#%d මාධ්‍ය විවෘත කරන්න</string>
+    <string name="action_open_media_n">#%1$d මාධ්‍ය විවෘත කරන්න</string>
     <string name="send_media_to">වෙත මාධ්‍ය බෙදාගන්න…</string>
     <string name="pref_title_public_filter_keywords">ප්‍රසිද්ධ කාලරේඛා</string>
     <string name="post_text_size_smallest">කුඩාම</string>
@@ -151,7 +151,7 @@
     <string name="filter_dialog_update_button">යාවත්කාල</string>
     <string name="notification_summary_small">%1$s සහ %2$s</string>
     <string name="title_media">මාධ්‍ය</string>
-    <string name="dialog_block_warning">\@%s අවහිර\?</string>
+    <string name="dialog_block_warning">\@%1$s අවහිර\?</string>
     <string name="pref_title_notification_alert_light">ආලෝකය සමඟ දන්වන්න</string>
     <string name="account_note_hint">මෙම ගිණුම පිළිබඳව ඔබගේ පෞද්ගලික සටහන</string>
     <string name="title_notifications">දැනුම්දීම්</string>

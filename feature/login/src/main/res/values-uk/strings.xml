@@ -21,6 +21,6 @@
     <string name="login_connection">Зʼєднання…</string>
     <string name="title_login">Вхід</string>
     <string name="error_could_not_load_login_page">Не вдалося завантажити сторінку входу.</string>
-    <string name="instance_rule_info">Увійшовши, ви погоджуєтесь з правилами %s.</string>
-    <string name="instance_rule_title">Правила %s</string>
+    <string name="instance_rule_info">Увійшовши, ви погоджуєтесь з правилами %1$s.</string>
+    <string name="instance_rule_title">Правила %1$s</string>
 </resources>

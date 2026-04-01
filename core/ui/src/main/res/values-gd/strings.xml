@@ -8,7 +8,7 @@
     <string name="action_view_profile">Pròifil</string>
     <string name="action_more">Barrachd</string>
     <string name="action_refresh">Ath-nuadhaich</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="url_domain_notifier">\u0020(🔗 %1$s)</string>
     <string name="action_links">Ceanglaichean</string>
     <string name="action_mentions">Iomraidhean</string>
     <string name="action_hashtags">Tagaichean hais</string>
@@ -57,21 +57,21 @@
         <item quantity="other">%s duine</item>
     </plurals>
     <string name="poll_info_closed">air a dhùnadh</string>
-    <string name="poll_info_time_absolute">thig e gu crìoch %s</string>
+    <string name="poll_info_time_absolute">thig e gu crìoch %1$s</string>
     <string name="poll_info_format"><!-- 15 bhòtaichean • 1 uair a thìde air fhàgail -->%1$s • %2$s</string>
     <string name="description_poll">Cunntas-bheachd le roghainnean: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="post_media_alt">ALT</string>
     <string name="status_created_at_now">an-dràsta</string>
-    <string name="abbreviated_in_seconds">an ceann %dd</string>
-    <string name="abbreviated_seconds_ago">%dd</string>
-    <string name="abbreviated_in_minutes">an ceann %dm</string>
-    <string name="abbreviated_minutes_ago">%dm</string>
-    <string name="abbreviated_in_hours">an ceann %du</string>
-    <string name="abbreviated_hours_ago">%du</string>
-    <string name="abbreviated_in_days">an ceann %dl</string>
-    <string name="abbreviated_days_ago">%dl</string>
-    <string name="abbreviated_in_years">an ceann %db</string>
-    <string name="abbreviated_years_ago">%db</string>
+    <string name="abbreviated_in_seconds">an ceann %1$dd</string>
+    <string name="abbreviated_seconds_ago">%1$dd</string>
+    <string name="abbreviated_in_minutes">an ceann %1$dm</string>
+    <string name="abbreviated_minutes_ago">%1$dm</string>
+    <string name="abbreviated_in_hours">an ceann %1$du</string>
+    <string name="abbreviated_hours_ago">%1$du</string>
+    <string name="abbreviated_in_days">an ceann %1$dl</string>
+    <string name="abbreviated_days_ago">%1$dl</string>
+    <string name="abbreviated_in_years">an ceann %1$db</string>
+    <string name="abbreviated_years_ago">%1$db</string>
     <string name="description_post_media_no_description_placeholder">Gun tuairisgeul</string>
     <string name="description_visibility_public">Poblach</string>
     <string name="description_visibility_unlisted">Falaichte o liostaichean</string>
@@ -96,8 +96,8 @@
     <string name="description_post_reblogged">Air ath-bhlogadh</string>
     <string name="description_post_favourited">’Na annsachd</string>
     <string name="description_post_bookmarked">’Na chomharra-lìn</string>
-    <string name="description_post_media">Meadhan: %s</string>
-    <string name="description_post_cw">Rabhadh susbainte: %s</string>
+    <string name="description_post_media">Meadhan: %1$s</string>
+    <string name="description_post_cw">Rabhadh susbainte: %1$s</string>
     <plurals name="reblogs">
         <item quantity="one">&lt;b&gt;%s&lt;/b&gt; bhrosnachadh</item>
         <item quantity="two">&lt;b&gt;%s&lt;/b&gt; bhrosnachadh</item>
@@ -111,7 +111,7 @@
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; annsachd</item>
     </plurals>
     <string name="post_boosted_fmt">’Ga bhrosnachadh le &lt;b&gt;%1$s&lt;/b&gt;</string>
-    <string name="post_edited">Air a dheasachadh %s</string>
+    <string name="post_edited">Air a dheasachadh %1$s</string>
     <string name="filter_edit_title">Deasaich a’ chriathrag</string>
     <string name="status_filtered_show_anyway">Seall e co-dhiù</string>
     <string name="status_filter_placeholder_label_format">Criathraichte: &lt;b&gt;%1$s&lt;/b&gt;</string>

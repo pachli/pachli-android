@@ -21,6 +21,6 @@
     <string name="login_connection">Bağlantı kuruluyor…</string>
     <string name="title_login">Giriş</string>
     <string name="error_could_not_load_login_page">Giriş ekranı yüklenemedi.</string>
-    <string name="instance_rule_info">Giriş yaparak aşağıdaki kuralları kabul etmiş sayılırsınız %s.</string>
-    <string name="instance_rule_title">%s kural</string>
+    <string name="instance_rule_info">Giriş yaparak aşağıdaki kuralları kabul etmiş sayılırsınız %1$s.</string>
+    <string name="instance_rule_title">%1$s kural</string>
 </resources>

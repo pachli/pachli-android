@@ -7,7 +7,7 @@
     <string name="error_rename_list_fmt">Impossible de renomenar la lista \"%1$s\": %2$s</string>
     <string name="action_rename_list">Renomenar la lista</string>
     <string name="action_create_list">Crear una lista</string>
-    <string name="dialog_delete_list_warning">Volètz vertadièrament suprimir la lista %s \?</string>
+    <string name="dialog_delete_list_warning">Volètz vertadièrament suprimir la lista %1$s \?</string>
     <string name="action_remove_from_list">Suprimir aqueste compte de la lista</string>
     <string name="action_add_to_list">Ajustar un compte a la lista</string>
     <string name="action_delete_list">Suprimir la lista</string>

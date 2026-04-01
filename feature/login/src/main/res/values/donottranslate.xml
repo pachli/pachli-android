@@ -18,9 +18,7 @@
 <resources>
     <string name="pachli_website" translatable="false">https://pachli.app</string>
     <string name="oauth_scheme" translatable="false">oauth2redirect</string>
-
     <string name="preferences_file_key" translatable="false">app.pachli.PREFERENCES</string>
-
     <string-array name="rick_roll_domains" translatable="false">
         <item>gab.com</item>
         <item>gab.ai</item>

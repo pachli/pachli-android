@@ -21,6 +21,6 @@
     <string name="login_connection">S\'està connectant…</string>
     <string name="title_login">Iniciar Sessió</string>
     <string name="error_could_not_load_login_page">No s\'ha pogut carregar la pàgina d\'inici de sessió.</string>
-    <string name="instance_rule_info">En iniciar sessió, accepteu les regles de %s.</string>
-    <string name="instance_rule_title">%s regles</string>
+    <string name="instance_rule_info">En iniciar sessió, accepteu les regles de %1$s.</string>
+    <string name="instance_rule_title">%1$s regles</string>
 </resources>

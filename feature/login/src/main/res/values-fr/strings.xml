@@ -21,6 +21,6 @@
     <string name="login_connection">Connexion en cours…</string>
     <string name="title_login">Se connecter</string>
     <string name="error_could_not_load_login_page">La page de connexion ne peut être chargée.</string>
-    <string name="instance_rule_info">En vous connectant vous acceptez de vous tenir aux règles de %s.</string>
-    <string name="instance_rule_title">%s règles</string>
+    <string name="instance_rule_info">En vous connectant vous acceptez de vous tenir aux règles de %1$s.</string>
+    <string name="instance_rule_title">%1$s règles</string>
 </resources>

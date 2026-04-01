@@ -8,7 +8,7 @@
     <string name="action_view_profile">Profil</string>
     <string name="action_more">Meir</string>
     <string name="action_refresh">Oppdater</string>
-    <string name="url_domain_notifier">" (🔗 %s)"</string>
+    <string name="url_domain_notifier">" (🔗 %1$s)"</string>
     <string name="action_links">Lenkjer</string>
     <string name="action_mentions">Nemningar</string>
     <string name="action_hashtags">Emneknaggar</string>
@@ -61,21 +61,21 @@
         <item quantity="other">%s personar</item>
     </plurals>
     <string name="poll_info_closed">stengd</string>
-    <string name="poll_info_time_absolute">avsluttar %s</string>
+    <string name="poll_info_time_absolute">avsluttar %1$s</string>
     <string name="poll_info_format"><!-- 15 røyster • 1 time atter -->%1$s • %2$s</string>
     <string name="description_poll">Avstemming med vala %1$s, %2$s, %3$s, og %4$s; %5$s</string>
     <string name="post_media_alt">ALT</string>
     <string name="status_created_at_now">no</string>
-    <string name="abbreviated_in_seconds">om %ds</string>
-    <string name="abbreviated_seconds_ago">%ds</string>
-    <string name="abbreviated_in_minutes">om %dm</string>
-    <string name="abbreviated_minutes_ago">%dm</string>
-    <string name="abbreviated_in_hours">om %dt</string>
-    <string name="abbreviated_hours_ago">%dt</string>
-    <string name="abbreviated_in_days">om %dd</string>
-    <string name="abbreviated_days_ago">%dd</string>
-    <string name="abbreviated_in_years">om %då</string>
-    <string name="abbreviated_years_ago">%då</string>
+    <string name="abbreviated_in_seconds">om %1$ds</string>
+    <string name="abbreviated_seconds_ago">%1$ds</string>
+    <string name="abbreviated_in_minutes">om %1$dm</string>
+    <string name="abbreviated_minutes_ago">%1$dm</string>
+    <string name="abbreviated_in_hours">om %1$dt</string>
+    <string name="abbreviated_hours_ago">%1$dt</string>
+    <string name="abbreviated_in_days">om %1$dd</string>
+    <string name="abbreviated_days_ago">%1$dd</string>
+    <string name="abbreviated_in_years">om %1$då</string>
+    <string name="abbreviated_years_ago">%1$då</string>
     <string name="description_post_media_no_description_placeholder">Inga skildring</string>
     <string name="description_visibility_public">Offentleg</string>
     <string name="description_visibility_unlisted">Ulista</string>
@@ -117,8 +117,8 @@
     <string name="description_post_reblogged">Delt</string>
     <string name="description_post_favourited">Favorittmerkt</string>
     <string name="description_post_bookmarked">Bokmerkt</string>
-    <string name="description_post_media">Media: %s</string>
-    <string name="description_post_cw">Innhaldsåtvaring: %s</string>
+    <string name="description_post_media">Media: %1$s</string>
+    <string name="description_post_cw">Innhaldsåtvaring: %1$s</string>
     <plurals name="reblogs">
         <item quantity="one">&lt;b&gt;%s&lt;/b&gt; deling</item>
         <item quantity="other">&lt;b&gt;%s&lt;/b&gt; delingar</item>
@@ -128,7 +128,7 @@
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; favorittmerke</item>
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; delte</string>
-    <string name="post_edited">Brigda %s</string>
+    <string name="post_edited">Brigda %1$s</string>
     <string name="action_select_status">Vel innlegg</string>
     <string name="action_unselect_status">Vel av innlegg</string>
     <string name="post_replied">Svara</string>

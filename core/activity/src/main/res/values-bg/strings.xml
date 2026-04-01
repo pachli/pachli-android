@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_open_as">Отваряне като %s</string>
-    <string name="post_lookup_error_format">Грешка при търсенето на публикация %s</string>
+    <string name="action_open_as">Отваряне като %1$s</string>
+    <string name="post_lookup_error_format">Грешка при търсенето на публикация %1$s</string>
     <string name="performing_lookup_title">Извършва се търсене…</string>
 </resources>

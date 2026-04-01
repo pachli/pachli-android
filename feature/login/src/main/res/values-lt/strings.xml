@@ -15,6 +15,6 @@
     <string name="login_connection">Prisijungiama…</string>
     <string name="title_login">Prisijungimas</string>
     <string name="error_could_not_load_login_page">Nepavyko įkelti prisijungimo puslapio.</string>
-    <string name="instance_rule_info">Prisijungiant, sutinkate su %s taisyklėmis.</string>
-    <string name="instance_rule_title">%s taisyklės</string>
+    <string name="instance_rule_info">Prisijungiant, sutinkate su %1$s taisyklėmis.</string>
+    <string name="instance_rule_title">%1$s taisyklės</string>
 </resources>

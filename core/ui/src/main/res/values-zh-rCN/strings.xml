@@ -8,7 +8,7 @@
     <string name="action_view_profile">个人资料</string>
     <string name="action_more">更多</string>
     <string name="action_refresh">刷新</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="url_domain_notifier">\u0020(🔗 %1$s)</string>
     <string name="action_links">链接</string>
     <string name="action_mentions">提及</string>
     <string name="action_hashtags">话题</string>
@@ -43,21 +43,21 @@
         <item quantity="other">%s 人</item>
     </plurals>
     <string name="poll_info_closed">已结束</string>
-    <string name="poll_info_time_absolute">%s 结束</string>
+    <string name="poll_info_time_absolute">%1$s 结束</string>
     <string name="poll_info_format"><!-- 15 票 • 1 小时剩余 -->%1$s • %2$s</string>
     <string name="description_poll">使用以下选项创建投票：%1$s，%2$s，%3$s，%4$s；%5$s</string>
     <string name="post_media_alt">ALT</string>
     <string name="status_created_at_now">立即</string>
-    <string name="abbreviated_in_seconds">%d 秒内</string>
-    <string name="abbreviated_seconds_ago">%d 秒前</string>
-    <string name="abbreviated_in_minutes">%d 分钟内</string>
-    <string name="abbreviated_minutes_ago">%d 分钟前</string>
-    <string name="abbreviated_in_hours">%d 小时内</string>
-    <string name="abbreviated_hours_ago">%d 小时前</string>
-    <string name="abbreviated_in_days">%d 天内</string>
-    <string name="abbreviated_days_ago">%d 天前</string>
-    <string name="abbreviated_in_years">%d 年内</string>
-    <string name="abbreviated_years_ago">%d 年前</string>
+    <string name="abbreviated_in_seconds">%1$d 秒内</string>
+    <string name="abbreviated_seconds_ago">%1$d 秒前</string>
+    <string name="abbreviated_in_minutes">%1$d 分钟内</string>
+    <string name="abbreviated_minutes_ago">%1$d 分钟前</string>
+    <string name="abbreviated_in_hours">%1$d 小时内</string>
+    <string name="abbreviated_hours_ago">%1$d 小时前</string>
+    <string name="abbreviated_in_days">%1$d 天内</string>
+    <string name="abbreviated_days_ago">%1$d 天前</string>
+    <string name="abbreviated_in_years">%1$d 年内</string>
+    <string name="abbreviated_years_ago">%1$d 年前</string>
     <string name="description_post_media_no_description_placeholder">没有描述信息</string>
     <string name="description_visibility_public">
         公开
@@ -93,8 +93,8 @@
     <string name="description_post_reblogged">被转嘟</string>
     <string name="description_post_favourited">被喜欢</string>
     <string name="description_post_bookmarked">被加入书签</string>
-    <string name="description_post_media">媒体：%s</string>
-    <string name="description_post_cw">内容警告：%s</string>
+    <string name="description_post_media">媒体：%1$s</string>
+    <string name="description_post_cw">内容警告：%1$s</string>
     <plurals name="reblogs">
         <item quantity="other">&lt;b&gt;%s&lt;/b&gt; 次转嘟</item>
     </plurals>
@@ -102,7 +102,7 @@
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; 次喜欢</item>
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; 转嘟了</string>
-    <string name="post_edited">编辑了 %s</string>
+    <string name="post_edited">编辑了 %1$s</string>
     <string name="filter_edit_title">编辑过滤器</string>
     <string name="status_filtered_show_anyway">仍要显示</string>
     <string name="status_filter_placeholder_label_format">已过滤：&lt;b&gt;%1$s&lt;/b&gt;</string>

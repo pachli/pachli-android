@@ -14,7 +14,7 @@
     <string name="about_privacy_policy">سياسة الخصوصية</string>
     <string name="about_pachli_account">الملف الشخصي لتوسكي</string>
     <string name="title_licenses">الرّخص</string>
-    <string name="about_account_info">\@%s@%s
-\nالإصدار: %s</string>
+    <string name="about_account_info">\@%1$s@%2$s
+\nالإصدار: %3$s</string>
     <string name="license_description">يحتوي توسكي على شيفرة وأوصول صادرة مِن المشاريع المفتوحة التالية :</string>
 </resources>

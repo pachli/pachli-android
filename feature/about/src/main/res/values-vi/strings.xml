@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="about_title_activity">Thông tin</string>
-    <string name="about_device_info">%s %s
-\nAndroid %s
-\nSDK %d</string>
+    <string name="about_device_info">%1$s %2$s
+\nAndroid %3$s
+\nSDK %4$d</string>
     <string name="about_account_info_title">Tài khoản của bạn</string>
     <string name="about_copied">Đã sao chép phiên bản và thông tin thiết bị</string>
     <string name="about_device_info_title">Thiết bị của bạn</string>
@@ -15,7 +15,7 @@
 \nhttps://github.com/pachli/pachli-android/issues</string>
     <string name="about_pachli_account">Trang hồ sơ Pachli</string>
     <string name="title_licenses">Giấy phép</string>
-    <string name="about_account_info">\@%s@%s
-\nPhiên bản: %s</string>
+    <string name="about_account_info">\@%1$s@%2$s
+\nPhiên bản: %3$s</string>
     <string name="license_description">Pachli có sử dụng mã nguồn từ những dự án mã nguồn mở sau:</string>
 </resources>

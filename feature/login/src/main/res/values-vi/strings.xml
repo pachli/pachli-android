@@ -21,6 +21,6 @@
     <string name="login_connection">Đang kết nối…</string>
     <string name="title_login">Đăng nhập</string>
     <string name="error_could_not_load_login_page">Không thể tải trang đăng nhập.</string>
-    <string name="instance_rule_info">Đăng nhập nghĩa là bạn đồng ý với nội quy của %s.</string>
-    <string name="instance_rule_title">Nội quy của %s</string>
+    <string name="instance_rule_info">Đăng nhập nghĩa là bạn đồng ý với nội quy của %1$s.</string>
+    <string name="instance_rule_title">Nội quy của %1$s</string>
 </resources>

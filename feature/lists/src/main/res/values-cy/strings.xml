@@ -8,7 +8,7 @@
     <string name="error_rename_list_fmt">Methu diweddaru\'r rhestr \"%1$s\": %2$s</string>
     <string name="action_rename_list">Diweddaru\'r rhestr</string>
     <string name="action_create_list">Creu rhestr</string>
-    <string name="dialog_delete_list_warning">Ydych chi wir eisiau dileu rhestr %s\?</string>
+    <string name="dialog_delete_list_warning">Ydych chi wir eisiau dileu rhestr %1$s\?</string>
     <string name="action_remove_from_list">Tynnu cyfrif o\'r rhestr</string>
     <string name="action_add_to_list">Ychwanegwch gyfrif at y rhestr</string>
     <string name="action_delete_list">Dileu\'r rhestr</string>

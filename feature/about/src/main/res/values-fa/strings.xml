@@ -12,10 +12,10 @@
 \nhttps://github.com/pachli/pachli-android/issues</string>
     <string name="about_pachli_account">نمایهٔ تاسکی</string>
     <string name="title_licenses">پروانه‌ها</string>
-    <string name="about_device_info">%s %s
-\nنگارش اندروید: %s
-\nنگارش SDK‏: %d</string>
-    <string name="about_account_info">‎@%s@%s
-\nنگارش: %s</string>
+    <string name="about_device_info">%1$s %2$s
+\nنگارش اندروید: %3$s
+\nنگارش SDK‏: %4$d</string>
+    <string name="about_account_info">‎@%1$s@%2$s
+\nنگارش: %3$s</string>
     <string name="license_description">تاسکی کد و دارایی‌هایی از پروژه‌های نرم‌افزار آزاد زیر دارد:</string>
 </resources>

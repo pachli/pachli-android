@@ -8,7 +8,7 @@
     <string name="action_view_profile">Profils</string>
     <string name="action_more">Vairāk</string>
     <string name="action_refresh">Atsvaidzināt</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="url_domain_notifier">\u0020(🔗 %1$s)</string>
     <string name="action_links">Saites</string>
     <string name="action_mentions">Pieminējumi</string>
     <string name="action_hashtags">Tēmturi</string>
@@ -69,21 +69,21 @@
         <item quantity="other">%s cilvēki</item>
     </plurals>
     <string name="poll_info_closed">noslēgusies</string>
-    <string name="poll_info_time_absolute">beigsies %s</string>
+    <string name="poll_info_time_absolute">beigsies %1$s</string>
     <string name="poll_info_format"><!-- 15 balsis • atlikusi 1 stunda -->%1$s • %2$s</string>
     <string name="description_poll">Aptauja ar izvēlēm: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="post_media_alt">ALT</string>
     <string name="status_created_at_now">tikko</string>
-    <string name="abbreviated_in_seconds">pēc %ds</string>
-    <string name="abbreviated_seconds_ago">%ds</string>
-    <string name="abbreviated_in_minutes">pēc %dm</string>
-    <string name="abbreviated_minutes_ago">%dm</string>
-    <string name="abbreviated_in_hours">pēc %dh</string>
-    <string name="abbreviated_hours_ago">%dh</string>
-    <string name="abbreviated_in_days">pēc %dd</string>
-    <string name="abbreviated_days_ago">%dd</string>
-    <string name="abbreviated_in_years">pēc %dg</string>
-    <string name="abbreviated_years_ago">%dg</string>
+    <string name="abbreviated_in_seconds">pēc %1$ds</string>
+    <string name="abbreviated_seconds_ago">%1$ds</string>
+    <string name="abbreviated_in_minutes">pēc %1$dm</string>
+    <string name="abbreviated_minutes_ago">%1$dm</string>
+    <string name="abbreviated_in_hours">pēc %1$dh</string>
+    <string name="abbreviated_hours_ago">%1$dh</string>
+    <string name="abbreviated_in_days">pēc %1$dd</string>
+    <string name="abbreviated_days_ago">%1$dd</string>
+    <string name="abbreviated_in_years">pēc %1$dg</string>
+    <string name="abbreviated_years_ago">%1$dg</string>
     <string name="description_post_media_no_description_placeholder">Nav apraksta</string>
     <string name="description_visibility_public">Publisks</string>
     <string name="description_visibility_unlisted">Neiekļauts</string>
@@ -124,8 +124,8 @@
     <string name="description_post_reblogged">Pastiprināts</string>
     <string name="description_post_favourited">Pievienots izlasei</string>
     <string name="description_post_bookmarked">Pievienots grāmatzīmēm</string>
-    <string name="description_post_media">Informācijas nesēji: %s</string>
-    <string name="description_post_cw">Satura brīdinājums: %s</string>
+    <string name="description_post_media">Informācijas nesēji: %1$s</string>
+    <string name="description_post_cw">Satura brīdinājums: %1$s</string>
     <plurals name="reblogs">
         <item quantity="zero">&lt;b&gt;%s&lt;/b&gt; pastiprinājumu</item>
         <item quantity="one">&lt;b&gt;%s&lt;/b&gt; pastiprinājums</item>
@@ -137,7 +137,7 @@
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; ieraksti izlasē</item>
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; pastiprināja</string>
-    <string name="post_edited">Labots %s</string>
+    <string name="post_edited">Labots %1$s</string>
     <string name="action_select_status">Atlasīt ierakstu</string>
     <string name="action_unselect_status">Atcelt ieraksta atlasīšanu</string>
     <string name="post_replied">Atbildēts</string>

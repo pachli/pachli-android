@@ -21,6 +21,6 @@
     <string name="login_connection">Злучэнне…</string>
     <string name="title_login">Уваход</string>
     <string name="error_could_not_load_login_page">Немагчыма загрузіць старонку ўваходу.</string>
-    <string name="instance_rule_info">Увайшоўшы, Вы пагаджаецеся з правіламі %s.</string>
-    <string name="instance_rule_title">Правілы %s</string>
+    <string name="instance_rule_info">Увайшоўшы, Вы пагаджаецеся з правіламі %1$s.</string>
+    <string name="instance_rule_title">Правілы %1$s</string>
 </resources>

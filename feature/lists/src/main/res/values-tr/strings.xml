@@ -8,7 +8,7 @@
     <string name="error_rename_list_fmt">Liste oluşturulamadı \"%1$s\": %2$s</string>
     <string name="action_rename_list">Listeyi güncelle</string>
     <string name="action_create_list">Liste oluştur</string>
-    <string name="dialog_delete_list_warning">%s listesini gerçekten silmek istiyor musunuz\?</string>
+    <string name="dialog_delete_list_warning">%1$s listesini gerçekten silmek istiyor musunuz\?</string>
     <string name="action_remove_from_list">Hesabı listeden kaldır</string>
     <string name="action_add_to_list">Listeye hesap ekle</string>
     <string name="action_delete_list">Listeyi sil</string>

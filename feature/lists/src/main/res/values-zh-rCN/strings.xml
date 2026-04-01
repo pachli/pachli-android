@@ -8,7 +8,7 @@
     <string name="error_rename_list_fmt">无法更新列表 \"%1$s\": %2$s</string>
     <string name="action_rename_list">更新列表</string>
     <string name="action_create_list">新建列表</string>
-    <string name="dialog_delete_list_warning">确认删除列表 %s？</string>
+    <string name="dialog_delete_list_warning">确认删除列表 %1$s？</string>
     <string name="action_remove_from_list">从列表中移除用户</string>
     <string name="action_add_to_list">添加用户到列表</string>
     <string name="action_delete_list">删除列表</string>

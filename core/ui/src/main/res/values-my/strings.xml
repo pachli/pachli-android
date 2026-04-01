@@ -14,5 +14,5 @@
     <string name="post_content_warning_show_more">ပို၍</string>
     <string name="post_content_show_less">ဖြန့်မည်</string>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; တစ်ဆင့်မျှဝေပြီး</string>
-    <string name="post_edited">ပြုပြင်ထား %s</string>
+    <string name="post_edited">ပြုပြင်ထား %1$s</string>
 </resources>

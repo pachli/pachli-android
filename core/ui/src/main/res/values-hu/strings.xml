@@ -8,7 +8,7 @@
     <string name="action_view_profile">Profil</string>
     <string name="action_more">Több</string>
     <string name="action_refresh">Frissítés</string>
-    <string name="url_domain_notifier">\u0020(🔗 %s)</string>
+    <string name="url_domain_notifier">\u0020(🔗 %1$s)</string>
     <string name="action_links">Linkek</string>
     <string name="action_mentions">Említések</string>
     <string name="action_hashtags">Hashtagek</string>
@@ -45,21 +45,21 @@
         <item quantity="other">%s személy</item>
     </plurals>
     <string name="poll_info_closed">véget ért</string>
-    <string name="poll_info_time_absolute">vége %s</string>
+    <string name="poll_info_time_absolute">vége %1$s</string>
     <string name="poll_info_format"><!-- 15 szavazat • 1 óra maradt -->%1$s • %2$s</string>
     <string name="description_poll">Szavazás válaszokkal: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="post_media_alt">ALT</string>
     <string name="status_created_at_now">most</string>
-    <string name="abbreviated_in_seconds">%dmp múlva</string>
-    <string name="abbreviated_seconds_ago">%dmp</string>
-    <string name="abbreviated_in_minutes">%dp múlva</string>
-    <string name="abbreviated_minutes_ago">%dp</string>
-    <string name="abbreviated_in_hours">%dó múlva</string>
-    <string name="abbreviated_hours_ago">%dó</string>
-    <string name="abbreviated_in_days">%dn múlva</string>
-    <string name="abbreviated_days_ago">%dn</string>
-    <string name="abbreviated_in_years">%dé múlva</string>
-    <string name="abbreviated_years_ago">%dé</string>
+    <string name="abbreviated_in_seconds">%1$dmp múlva</string>
+    <string name="abbreviated_seconds_ago">%1$dmp</string>
+    <string name="abbreviated_in_minutes">%1$dp múlva</string>
+    <string name="abbreviated_minutes_ago">%1$dp</string>
+    <string name="abbreviated_in_hours">%1$dó múlva</string>
+    <string name="abbreviated_hours_ago">%1$dó</string>
+    <string name="abbreviated_in_days">%1$dn múlva</string>
+    <string name="abbreviated_days_ago">%1$dn</string>
+    <string name="abbreviated_in_years">%1$dé múlva</string>
+    <string name="abbreviated_years_ago">%1$dé</string>
     <string name="description_post_media_no_description_placeholder">Nincs leírás</string>
     <string name="description_visibility_public">Nyilvános</string>
     <string name="description_visibility_unlisted">Listázatlan</string>
@@ -84,8 +84,8 @@
     <string name="description_post_reblogged">Megtolt</string>
     <string name="description_post_favourited">Kedvelt</string>
     <string name="description_post_bookmarked">Könyvjelzőzve</string>
-    <string name="description_post_media">Média: %s</string>
-    <string name="description_post_cw">Tartalomfigyelmeztetés: %s</string>
+    <string name="description_post_media">Média: %1$s</string>
+    <string name="description_post_cw">Tartalomfigyelmeztetés: %1$s</string>
     <plurals name="reblogs">
         <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Megtolás</item>
         <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Megtolás</item>
@@ -95,7 +95,7 @@
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Kedvenc</item>
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; megtolta</string>
-    <string name="post_edited">%s szerkesztve</string>
+    <string name="post_edited">%1$s szerkesztve</string>
     <string name="filter_edit_title">Szűrő szerkesztése</string>
     <string name="status_filtered_show_anyway">Mutatás mindenképpen</string>
     <string name="status_filter_placeholder_label_format">Szűrve: &lt;b&gt;%1$s&lt;/b&gt;</string>

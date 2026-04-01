@@ -21,6 +21,6 @@
     <string name="login_connection">Csatlakozás…</string>
     <string name="title_login">Bejelentkezés</string>
     <string name="error_could_not_load_login_page">Nem tudtuk betölteni a bejelentkező oldalt.</string>
-    <string name="instance_rule_info">A bejelentkezéssel elfogadod a %s szabályait.</string>
-    <string name="instance_rule_title">%s szabályai</string>
+    <string name="instance_rule_info">A bejelentkezéssel elfogadod a %1$s szabályait.</string>
+    <string name="instance_rule_title">%1$s szabályai</string>
 </resources>

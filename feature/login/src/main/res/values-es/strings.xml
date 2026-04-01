@@ -15,6 +15,6 @@
     <string name="login_connection">Conectando…</string>
     <string name="title_login">Iniciar sesión</string>
     <string name="error_could_not_load_login_page">Fallo al cargar la página de ingreso.</string>
-    <string name="instance_rule_info">Al iniciar sesión aceptas las normas de %s.</string>
-    <string name="instance_rule_title">Normas de %s</string>
+    <string name="instance_rule_info">Al iniciar sesión aceptas las normas de %1$s.</string>
+    <string name="instance_rule_title">Normas de %1$s</string>
 </resources>

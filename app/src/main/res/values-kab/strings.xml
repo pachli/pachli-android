@@ -33,7 +33,7 @@
     <string name="title_notifications">Tilɣa</string>
     <string name="title_bookmarks">Ticraḍ</string>
     <string name="action_view_bookmarks">Ticraḍ</string>
-    <string name="action_mute_domain">Sgugem %s</string>
+    <string name="action_mute_domain">Sgugem %1$s</string>
     <string name="action_mention">Bder</string>
     <string name="action_save">Sekles</string>
     <string name="action_edit_own_profile">Ẓreg</string>
@@ -62,7 +62,7 @@
     <string name="filter_dialog_update_button">Lqem</string>
     <string name="add_account_description">Rnu yiwen umiḍan amaynut n Maṣṭudun</string>
     <string name="action_compose_shortcut">Aru</string>
-    <string name="error_no_custom_emojis">Tummant-ik·im %s ur tesɛi ara imujiyen udmawanen</string>
+    <string name="error_no_custom_emojis">Tummant-ik·im %1$s ur tesɛi ara imujiyen udmawanen</string>
     <string name="action_open_post">Ldi tijewwiqt</string>
     <string name="pin_action">Senṭeḍ</string>
     <string name="action_view_mutes">Imiḍanen yettwasgugmen</string>
@@ -94,7 +94,7 @@
     <string name="notifications_apply_filter">Sizdeg</string>
     <string name="title_accounts">Imiḍanen</string>
     <string name="add_poll_choice">Rnu yiwen wefran</string>
-    <string name="report_username_format">Cetki ɣef @%s</string>
+    <string name="report_username_format">Cetki ɣef @%1$s</string>
     <string name="action_report">Cetki fell-as</string>
     <string name="action_reject">Ggami</string>
     <string name="download_image">Yessidired %1$s</string>
@@ -133,7 +133,7 @@
     <string name="duration_1_day">1 n wass</string>
     <string name="duration_3_days">3 n wussan</string>
     <string name="duration_7_days">7 n wussan</string>
-    <string name="poll_new_choice_hint">Tafrant %d</string>
+    <string name="poll_new_choice_hint">Tafrant %1$d</string>
     <string name="title_follows">Ig ṭṭafar</string>
     <string name="title_followers">Imeḍfaṛen</string>
     <string name="confirmation_reported">Yettwaceyyeɛ!</string>
@@ -157,14 +157,14 @@
     <string name="action_accept">Ddeg</string>
     <string name="action_open_reblogged_by">Sken-d beṭuyat</string>
     <string name="confirmation_unmuted">Aseqdac nni ur yettwasgugem ara tura</string>
-    <string name="confirmation_domain_unmuted">%s ur yettwaffer ara</string>
+    <string name="confirmation_domain_unmuted">%1$s ur yettwaffer ara</string>
     <string name="hint_note">Assisen</string>
     <string name="label_header">Tugna n yiɣef n umaɣnu</string>
     <string name="error_empty">Ur ilaq ara ad yili d ilem.</string>
     <string name="action_block">Cekkel</string>
     <string name="action_unblock">Kkes tacekkalt</string>
     <string name="confirmation_unblocked">Tettwakkes tacekkalt ɣef umiḍan-nni</string>
-    <string name="report_remote_instance">Bren-it ɣer %s</string>
+    <string name="report_remote_instance">Bren-it ɣer %1$s</string>
     <string name="pref_title_app_theme">Asentel n wesnas</string>
     <string name="no_scheduled_posts">Ulac ɣur-k·m ula d yiwet n tjewwiqt yettwasɣawsen.</string>
     <string name="action_access_scheduled_posts">Tijewwiqin yettwasɣawsen</string>

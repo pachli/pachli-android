@@ -21,6 +21,6 @@
     <string name="login_connection">در حال وصل شدن…</string>
     <string name="title_login">ورود</string>
     <string name="error_could_not_load_login_page">نتوانست صفحهٔ ورود را بار کند.</string>
-    <string name="instance_rule_info">با ورودتان، قواعد %s را می‌پذیرید.</string>
-    <string name="instance_rule_title">قواعد %s</string>
+    <string name="instance_rule_info">با ورودتان، قواعد %1$s را می‌پذیرید.</string>
+    <string name="instance_rule_title">قواعد %1$s</string>
 </resources>

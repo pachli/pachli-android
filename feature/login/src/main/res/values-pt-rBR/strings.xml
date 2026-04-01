@@ -15,6 +15,6 @@
     <string name="login_connection">Conectando…</string>
     <string name="title_login">Entrar</string>
     <string name="error_could_not_load_login_page">Não foi possível carregar a página de login.</string>
-    <string name="instance_rule_info">Ao entrar, você concorda com as regras de %s.</string>
-    <string name="instance_rule_title">%s regras</string>
+    <string name="instance_rule_info">Ao entrar, você concorda com as regras de %1$s.</string>
+    <string name="instance_rule_title">%1$s regras</string>
 </resources>
