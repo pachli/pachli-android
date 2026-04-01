@@ -1029,7 +1029,9 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         tabLayoutMediator?.detach()
 
         tabAdapter.tabs = tabs
-        tabAdapter.notifyItemRangeChanged(0, tabs.size)
+        // Tabs may have been removed, so notifyDataSetChanged is OK here.
+        @SuppressLint("NotifyDataSetChanged")
+        tabAdapter.notifyDataSetChanged()
 
         tabLayoutMediator = TabLayoutMediator(
             activeTabLayout,
@@ -1080,9 +1082,10 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 onBackPressedCallback.isEnabled = tab.position > 0 || binding.mainDrawerLayout.isOpen
 
-                supportActionBar?.title = tabs[tab.position].title(this@MainActivity)
-
-                refreshComposeButtonState(tabs[tab.position])
+                tabAdapter.tabs.getOrNull(tab.position)?.let {
+                    supportActionBar?.title = it.title(this@MainActivity)
+                    refreshComposeButtonState(it)
+                }
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {}
@@ -1091,7 +1094,9 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                 val fragment = tabAdapter.getFragment(tab.position)
                 (fragment as? ReselectableFragment)?.onReselect()
 
-                refreshComposeButtonState(tabs[tab.position])
+                tabAdapter.tabs.getOrNull(tab.position)?.let {
+                    refreshComposeButtonState(it)
+                }
             }
         }.also {
             activeTabLayout.addOnTabSelectedListener(it)
