@@ -991,11 +991,11 @@ class AccountActivity :
 
     private fun mention(account: Account) {
         val activeAccount = accountManager.activeAccount!!
+        // Create a draft that mentions the user. Uses `Timeline.Home` to get
+        // generic draft creation behaviour.
         val draft = if (viewModel.isSelf.value) {
-            // TODO: Timeline.Home here is wrong
             Draft.createDraft(this@AccountActivity, activeAccount, Timeline.Home)
         } else {
-            // TODO: Timeline.Home here is wrong
             Draft.createDraftMention(this@AccountActivity, activeAccount, Timeline.Home, account.username)
         }
         val composeOptions = ComposeOptions(draft = draft)
