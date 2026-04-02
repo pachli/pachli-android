@@ -30,7 +30,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.androidx.work.runtime)
 
     // @HiltWorker annotation
     implementation(libs.androidx.hilt.common)
