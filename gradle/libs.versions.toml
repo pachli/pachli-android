@@ -2,7 +2,6 @@
 aboutlibraries = "13.2.1"
 acra = "5.13.1"
 agp = "8.13.2"
-androidx-activity = "1.12.4"
 androidx-appcompat = "1.7.1"
 androidx-browser = "1.9.0"
 androidx-cardview = "1.0.0"
@@ -129,7 +128,6 @@ aboutlibraries-legacy-ui = { module = "com.mikepenz:aboutlibraries", version.ref
 acra-dialog = { module = "ch.acra:acra-dialog", version.ref = "acra" }
 acra-mail = { module = "ch.acra:acra-mail", version.ref = "acra" }
 android-material = { module = "com.google.android.material:material", version.ref = "material" }
-androidx-activity = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 androidx-browser = { module = "androidx.browser:browser", version.ref = "androidx-browser" }
 androidx-cardview = { module = "androidx.cardview:cardview", version.ref = "androidx-cardview" }
@@ -149,17 +147,14 @@ androidx-hilt-common = { module = "androidx.hilt:hilt-common", version.ref = "an
 androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }
 androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "androidx-hilt" }
 androidx-lifecycle-common-java8 = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "androidx-lifecycle" }
-androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "androidx-lifecycle" }
-androidx-lifecycle-reactivestreams-ktx = { module = "androidx.lifecycle:lifecycle-reactivestreams-ktx", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
-androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
 androidx-media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "androidx-media3" }
 androidx-media3-exoplayer-dash = { module = "androidx.media3:media3-exoplayer-dash", version.ref = "androidx-media3" }
 androidx-media3-exoplayer-hls = { module = "androidx.media3:media3-exoplayer-hls", version.ref = "androidx-media3" }
 androidx-media3-exoplayer-rtsp = { module = "androidx.media3:media3-exoplayer-rtsp", version.ref = "androidx-media3" }
 androidx-media3-datasource-okhttp = { module = "androidx.media3:media3-datasource-okhttp", version.ref = "androidx-media3" }
 androidx-media3-ui = { module = "androidx.media3:media3-ui", version.ref = "androidx-media3" }
-androidx-paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", version.ref = "androidx-paging" }
+androidx-paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "androidx-paging" }
 androidx-preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "androidx-preference" }
 androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "androidx-room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
@@ -178,7 +173,7 @@ androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-
 androidx-transition = { module = "androidx.transition:transition-ktx", version.ref = "androidx-transition" }
 androidx-viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "androidx-viewpager2" }
 androidx-webkit = { module = "androidx.webkit:webkit", version.ref = "androidx-webkit" }
-androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "androidx-work" }
+androidx-work-runtime = { module = "androidx.work:work-runtime", version.ref = "androidx-work" }
 androidx-work-testing = { module = "androidx.work:work-testing", version.ref = "androidx-work" }
 app-update = { module = "com.google.android.play:app-update", version.ref = "app-update" }
 app-update-ktx = { module = "com.google.android.play:app-update-ktx", version.ref = "app-update" }
@@ -282,10 +277,10 @@ aboutlibraries = ["aboutlibraries-core", "aboutlibraries-legacy-ui"]
 acra = ["acra-dialog", "acra-mail"]
 androidx = ["androidx-core-ktx", "androidx-appcompat", "androidx-fragment-ktx", "androidx-browser", "androidx-swiperefreshlayout",
     "androidx-recyclerview", "androidx-exifinterface", "androidx-cardview", "androidx-preference-ktx", "androidx-sharetarget",
-    "androidx-emoji2-core", "androidx-emoji2-views-core", "androidx-emoji2-view-helper", "androidx-lifecycle-viewmodel-ktx",
-    "androidx-lifecycle-livedata-ktx", "androidx-lifecycle-common-java8", "androidx-lifecycle-reactivestreams-ktx",
-    "androidx-constraintlayout", "androidx-paging-runtime-ktx", "androidx-viewpager2", "androidx-work-runtime-ktx",
-    "androidx-core-splashscreen", "androidx-activity", "androidx-media3-exoplayer", "androidx-media3-exoplayer-dash",
+    "androidx-emoji2-core", "androidx-emoji2-views-core", "androidx-emoji2-view-helper",
+    "androidx-lifecycle-common-java8",
+    "androidx-constraintlayout", "androidx-paging-runtime", "androidx-viewpager2", "androidx-work-runtime",
+    "androidx-core-splashscreen", "androidx-media3-exoplayer", "androidx-media3-exoplayer-dash",
     "androidx-media3-exoplayer-hls", "androidx-media3-exoplayer-rtsp", "androidx-media3-datasource-okhttp", "androidx-media3-ui",
     "androidx-transition",
     "android-material"]
