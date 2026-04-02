@@ -42,7 +42,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
@@ -110,11 +109,11 @@ class DraftRepository @Inject constructor(
         }
     }
 
-    fun saveDraft(pachliAccountId: Long, draft: Draft): Deferred<Draft> = externalScope.async {
+    suspend fun saveDraft(pachliAccountId: Long, draft: Draft): Draft = externalScope.async {
         val entity = draft.asEntity(pachliAccountId)
         val id = draftDao.upsert(entity)
         return@async entity.copy(id = id).asModel()
-    }
+    }.await()
 
     fun updateFailureState(pachliAccountId: Long, draftId: Long, failedToSend: Boolean, failedToSendNew: Boolean) = externalScope.async {
         draftDao.updateFailureState(draftId, failedToSend, failedToSendNew)
@@ -138,6 +137,7 @@ private fun Draft.asEntity(pachliAccountId: Long) = DraftEntity(
     statusId = statusId,
     quotePolicy = quotePolicy,
     quotedStatusId = quotedStatusId,
+    cursorPosition = cursorPosition,
 )
 
 // Note: Caller must still set attachments on ComposeOptions
@@ -187,6 +187,7 @@ fun DeletedStatus.asDraft() = Draft(
     quotePolicy = quoteApproval?.asQuotePolicy() ?: AccountSource.QuotePolicy.NOBODY,
     inReplyToId = inReplyToId,
     quotedStatusId = (quote as? Status.Quote.WithStatusId)?.statusId,
+    cursorPosition = text?.length ?: 0,
 )
 
 fun Draft.Companion.createDraft(context: Context, pachliAccountEntity: AccountEntity, timeline: Timeline): Draft {
@@ -213,7 +214,7 @@ fun Draft.Companion.createDraft(context: Context, pachliAccountEntity: AccountEn
         sensitive = pachliAccountEntity.defaultMediaSensitivity,
         language = pachliAccountEntity.defaultPostLanguage,
         quotePolicy = quotePolicy,
-        cursorPosition = if (timeline is Timeline.Hashtags) 0 else content.length,
+        cursorPosition = 0,
     )
 
     return draft
@@ -269,7 +270,7 @@ fun Draft.Companion.createDraftQuote(pachliAccountEntity: AccountEntity, status:
         language = actionable.language ?: pachliAccountEntity.defaultPostLanguage,
         quotePolicy = quotePolicy,
         quotedStatusId = actionable.statusId,
-        cursorPosition = content.length,
+        cursorPosition = 0,
     )
 
     return draft

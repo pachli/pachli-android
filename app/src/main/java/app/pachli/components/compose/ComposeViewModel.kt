@@ -561,7 +561,14 @@ class ComposeViewModel @AssistedInject constructor(
         }
     }
 
-    suspend fun saveDraft(): Result<Draft, DraftError> {
+    /**
+     * Saves the draft to local storage.
+     *
+     * The data to save (except [cursorPosition]) is taken from the data in [this][ComposeViewModel].
+     *
+     * @param cursorPosition The cursor position to save.
+     */
+    suspend fun saveDraft(cursorPosition: Int): Result<Draft, DraftError> {
         val inReplyToId = (composeOptions.referencingStatus as? ReferencingStatus.ReplyingTo)?.statusId
             ?: (composeOptions.referencingStatus as? ReferencingStatus.ReplyId)?.statusId
 
@@ -587,9 +594,10 @@ class ComposeViewModel @AssistedInject constructor(
             statusId = originalStatusId,
             inReplyToId = inReplyToId,
             quotedStatusId = quotedStatusId,
+            cursorPosition = cursorPosition,
         )
 
-        val updatedDraft = draftRepository.saveDraft(pachliAccountId, draftToSave).await()
+        val updatedDraft = draftRepository.saveDraft(pachliAccountId, draftToSave)
         return Ok(updatedDraft)
     }
 
@@ -597,8 +605,8 @@ class ComposeViewModel @AssistedInject constructor(
      * Send status to the server.
      * Uses current state plus provided arguments.
      */
-    suspend fun sendStatus(pachliAccountId: Long) {
-        val draft = saveDraft().getOrElse {
+    suspend fun sendStatus(pachliAccountId: Long, cursorPosition: Int) {
+        val draft = saveDraft(cursorPosition).getOrElse {
             // TODO: Handle error
             return
         }.copy(

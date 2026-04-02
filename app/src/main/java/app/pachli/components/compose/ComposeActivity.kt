@@ -1541,7 +1541,7 @@ class ComposeActivity :
             enableButtons(true, viewModel.editing)
         } else if (statusLength <= maximumTootCharacters) {
             lifecycleScope.launch {
-                viewModel.sendStatus(pachliAccountId)
+                viewModel.sendStatus(pachliAccountId, binding.composeEditField.selectionStart)
                 finish()
             }
         } else {
@@ -1816,7 +1816,7 @@ class ComposeActivity :
             } else {
                 null
             }
-            viewModel.saveDraft()
+            viewModel.saveDraft(binding.composeEditField.selectionStart)
             dialog?.cancel()
             finish()
         }
