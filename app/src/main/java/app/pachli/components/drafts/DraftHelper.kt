@@ -63,7 +63,7 @@ sealed interface DraftError : PachliError {
     data class ThrowableError(val throwable: Throwable) : DraftError {
         override val resourceId: Int
             get() = TODO("Not yet implemented")
-        override val formatArgs: Array<out Any>?
+        override val formatArgs: Array<out Any>
             get() = TODO("Not yet implemented")
         override val cause: PachliError? = null
     }
