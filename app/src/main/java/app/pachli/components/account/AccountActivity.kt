@@ -61,6 +61,7 @@ import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.createDraft
 import app.pachli.core.data.repository.createDraftMention
+import app.pachli.core.data.repository.getOrNull
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Account
 import app.pachli.core.model.Draft
@@ -989,22 +990,16 @@ class AccountActivity :
     }
 
     private fun mention(account: Account) {
-        lifecycleScope.launch {
-            loadedAccount?.let {
-                //val activeAccount = accountManager.activeAccount!!
-                val draft = if (viewModel.isSelf) {
-                    // TODO: Timeline.Home here is wrong
-                    Draft.createDraft(this@AccountActivity, account /*activeAccount*/, Timeline.Home)
-                } else {
-                    // TODO: Timeline.Home here is wrong
-                    Draft.createDraftMention(this@AccountActivity, account /*activeAccount*/, Timeline.Home, it.username)
-                }
-                val composeOptions = ComposeOptions(draft = draft)
-                val intent = ComposeActivityIntent(this@AccountActivity, intent.pachliAccountId, composeOptions)
-                startActivity(intent)
-            }
+        val activeAccount = accountManager.activeAccount!!
+        val draft = if (viewModel.isSelf.value) {
+            // TODO: Timeline.Home here is wrong
+            Draft.createDraft(this@AccountActivity, activeAccount, Timeline.Home)
+        } else {
+            // TODO: Timeline.Home here is wrong
+            Draft.createDraftMention(this@AccountActivity, activeAccount, Timeline.Home, account.username)
         }
-        val intent = ComposeActivityIntent(this, intent.pachliAccountId, options)
+        val composeOptions = ComposeOptions(draft = draft)
+        val intent = ComposeActivityIntent(this@AccountActivity, intent.pachliAccountId, composeOptions)
         startActivity(intent)
     }
 

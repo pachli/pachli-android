@@ -429,7 +429,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                 launch {
                     account.collect { a ->
                         binding.composeButton.setOnClickListener {
-                            val timeline = tabAdapter.tabs[binding.viewPager.currentItem].timeline
+                            val timeline = tabAdapter.tabs.getOrNull(binding.viewPager.currentItem)?.timeline ?: return@setOnClickListener
                             val draft = Draft.createDraft(this@MainActivity, a.entity, timeline)
                             val composeOptions = ComposeOptions(draft = draft)
                             val intent = ComposeActivityIntent(this@MainActivity, pachliAccountId, composeOptions)
@@ -1112,7 +1112,6 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
 
                 tabAdapter.tabs.getOrNull(tab.position)?.let {
                     supportActionBar?.title = it.title(this@MainActivity)
-                    refreshComposeButtonState(it)
                 }
             }
 
@@ -1121,10 +1120,6 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
             override fun onTabReselected(tab: TabLayout.Tab) {
                 val fragment = tabAdapter.getFragment(tab.position)
                 (fragment as? ReselectableFragment)?.onReselect()
-
-                tabAdapter.tabs.getOrNull(tab.position)?.let {
-                    refreshComposeButtonState(it)
-                }
             }
         }.also {
             activeTabLayout.addOnTabSelectedListener(it)

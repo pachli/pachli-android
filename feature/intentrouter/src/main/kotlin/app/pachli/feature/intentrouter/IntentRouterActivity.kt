@@ -40,7 +40,6 @@ import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.data.repository.SetActiveAccountError
 import app.pachli.core.data.repository.createDraft
-import app.pachli.core.data.repository.get
 import app.pachli.core.data.repository.getOrNull
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.domain.LogoutUseCase
