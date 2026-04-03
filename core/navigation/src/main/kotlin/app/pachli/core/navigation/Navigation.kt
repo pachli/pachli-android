@@ -363,7 +363,6 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
      * @property mediaAttachments
      * @property modifiedInitialState
      * @property kind
-     * @property initialCursorPosition
      */
     @Parcelize
     data class ComposeOptions(
@@ -373,7 +372,6 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
         val mediaAttachments: List<Attachment>? = null,
         val modifiedInitialState: Boolean? = null,
         val kind: ComposeKind? = null,
-        val initialCursorPosition: InitialCursorPosition = InitialCursorPosition.END,
     ) : Parcelable {
         /**
          * Status' kind. This particularly affects how the status is handled if the user
@@ -391,18 +389,6 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
 
             /** Editing an existing scheduled status */
             EDIT_SCHEDULED,
-        }
-
-        /**
-         * Initial position of the cursor in EditText when the compose button is clicked
-         * in a hashtag timeline
-         */
-        enum class InitialCursorPosition {
-            /** Position the cursor at the start of the line */
-            START,
-
-            /** Position the cursor at the end of the line */
-            END,
         }
 
         /**
