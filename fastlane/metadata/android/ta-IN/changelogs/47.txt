@@ -1,3 +1,3 @@
-Pachli 3.5.0
+பச்லி 3.5.0
 
-பார்க்கவும் https://github.com/pachli/pachli-android/releases/tag/v3.5.0
+https://github.com/pachli/pachli-android/releases/tag/v3.5.0 பார்
