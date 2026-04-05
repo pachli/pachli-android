@@ -15,14 +15,14 @@
     <string name="about_powered_by_pachli">பச்லியால் இயக்கப்படுகிறது</string>
     <string name="about_privacy_policy">தனியுரிமைக் கொள்கை</string>
     <string name="title_licenses">உரிமங்கள்</string>
-    <string name="about_device_info">%1$s %2$s \nAndroid பதிப்பு: %3$s \nஎச்.டி.கே நிலை: %4$d</string>
+    <string name="about_device_info">%1$s %2$s \nAndroid பதிப்பு: %3$s \nSDK நிலை: %4$d</string>
     <string name="about_account_info">\@%1$s@%2$s \nபதிப்பு: %3$s</string>
     <string name="notification_details_title">விவரங்கள்</string>
     <string name="notification_details_android_notifications_enabled">ஆண்ட்ராய்டு அறிவிப்புகள் இயக்கப்பட்டதா?</string>
     <string name="notification_details_notifications_enabled_help"><![CDATA[உங்கள் எந்தவொரு கணக்குக்கும் அறிவிப்புகள் இயக்கப்படவில்லை. கணக்கு விருப்பத்தேர்வுகள்> அறிவிப்புகளில் இதை மாற்றவும். அதுவரை அனைத்து அறிவிப்புகளும் முடக்கப்பட்டுள்ளன.]]></string>
     <string name="notification_details_push_notifications_with_unifiedpush">ஒருங்கிணைந்த புசுடன் அறிவிப்புகளை அழுத்தவும்</string>
     <string name="notification_details_unifiedpush_available">யுனிஃபைட் புச் கிடைக்குமா?</string>
-    <string name="notification_details_unifiedpush_available_help">UNIFIDEPUSH (ntfy.sh) கிடைக்கவில்லை, அறிவிப்புகள் அவ்வப்போது இழுக்கப்படும். இந்த பிரிவின் மீதமுள்ளவை ஏன் யுனிஃபைட் புச் பயன்படுத்தப்படவில்லை என்பதை விளக்குகிறது, ஆனால் தற்போது அறிவிப்புகள் எவ்வாறு இழுக்கப்படுகின்றன என்பதற்கு பொருந்தாது.</string>
+    <string name="notification_details_unifiedpush_available_help">யுனிஃபைட்புச் (ntfy.sh) கிடைக்கவில்லை, அறிவிப்புகள் அவ்வப்போது இழுக்கப்படும். இந்தப் பிரிவின் மீதமுள்ளவை ஏன் யுனிஃபைட்புச் பயன்படுத்தப்படவில்லை என்பதை விளக்குகிறது, ஆனால் தற்போது அறிவிப்புகள் எவ்வாறு இழுக்கப்படுகின்றன என்பதற்கு பொருந்தாது.</string>
     <string name="notification_details_any_account_needs_migration">எல்லா கணக்குகளிலும் \'புச்\' oauth நோக்கம் உள்ளதா?</string>
     <string name="notification_details_any_account_needs_migration_help">ஒன்று அல்லது அதற்கு மேற்பட்ட கணக்குகளில் \'புச்\' OAUTH நோக்கம் இல்லை, புச் அறிவிப்புகள் முடக்கப்பட்டுள்ளன.</string>
     <string name="notification_details_accounts_unified_push_url">எல்லா கணக்குகளிலும் ஒருங்கிணைந்த புச் முகவரி உள்ளதா?</string>
@@ -53,13 +53,33 @@
     <string name="notification_log_download_content_description">பதிவுகள் பதிவிறக்கவும்</string>
     <string name="notification_log_download">பதிவிறக்கம்</string>
     <string name="notification_log_sort">முதலில் புதியதை வரிசைப்படுத்துங்கள்</string>
-    <string name="notification_log_previous_attempts">முந்தைய முயற்சிகள்: %1$d</string>
+    <string name="notification_log_previous_attempts">இயக்க முயற்சிகள்: %1$d</string>
     <string name="notification_log_scheduled_in">%1$s @ %2$s இல் திட்டமிடப்பட்டுள்ளது</string>
     <string name="notification_log_method_push">யுனிஃபைட் புசைப் பயன்படுத்தி அறிவிப்புகள் தள்ளப்படுகின்றன, உடனடியாக இருக்க வேண்டும்</string>
     <string name="notification_log_method_pull">அறிவிப்புகள் அவ்வப்போது, ஏறக்குறைய ஒவ்வொரு 15 நிமிடங்களுக்கும் இழுக்கப்படுகின்றன</string>
     <string name="notification_log_method_unknown">அறிவிப்பு வழிமுறை தீர்மானிக்கப்படவில்லை</string>
-    <string name="notification_log_method_pusherror">UNIFIDEPUSH இயக்கப்பட்டது ஆனால் பிழை இருந்தது: %1$s</string>
+    <string name="notification_log_method_pusherror">யுனிஃபைட்புச் இயக்கப்பட்டது ஆனால் பிழை இருந்தது: %1$s</string>
     <string name="notification_log_download_failed">பதிவிறக்கம் தோல்வியுற்றது: %1$s</string>
     <string name="notitication_log_filter_dialog_title">பதிவு முன்னுரிமைகளைக் காட்டு</string>
-    <string name="about_nivenly_foundation">பச்ச்லி ஒரு <a href="https://nivenly.org"> நிவேனி அறக்கட்டளை </a> திட்டமாகும்.</string>
+    <string name="about_nivenly_foundation">பச்ச்லி ஒரு <a href="https://nivenly.org">நிவேனி அறக்கட்டளை</a> திட்டமாகும்.</string>
+    <string name="about_notifications">அறிவிப்புகள்</string>
+    <string name="about_database">தரவுத்தளம்</string>
+    <string name="about_workers">தொழிலாளர்கள்</string>
+    <string name="database_table_sizes">அட்டவணை அளவுகள்</string>
+    <string name="database_integrity_check">நேர்மை சோதனை</string>
+    <string name="database_query_timings">வினவல் நேரங்கள்</string>
+    <string name="database_prune_cache">ப்ரூன் கேச்</string>
+    <string name="database_vacuum">வெற்றிடம்</string>
+    <string name="database_clear_cache">தேக்ககத்தை அழிக்கவும்</string>
+    <string name="action_run_integrity_check">நேர்மை சரிபார்ப்பை இயக்கவும்</string>
+    <string name="action_run_query_timings">வினவல் நேரங்களை இயக்கவும்</string>
+    <string name="action_prune_cache">ப்ரூன் கேச்</string>
+    <string name="action_vacuum">வெற்றிடம்</string>
+    <string name="action_clear_cache">தேக்ககத்தை அழிக்கவும்</string>
+    <string name="database_prune_cache_complete">ப்ரூன் கேச் முடிந்தது</string>
+    <string name="database_vacuum_complete">வெற்றிடம் முடிந்தது</string>
+    <string name="database_clear_cache_complete">தேக்ககத்தை அழிக்கவும் முடிந்தது</string>
+    <string name="workers_prune_cached_media_help">தற்காலிகச் சேமிப்பு மீடியாவை ப்ரூன் செய்யும் தொழிலாளர்களின் பட்டியல் இது. ஒன்று இருக்க வேண்டும், மாநிலம் இயங்கிக்கொண்டிருக்க வேண்டும் அல்லது வரிசைப்படுத்தப்பட வேண்டும், மேலும் இது 12 மணி நேரத்திற்குள் இயங்கத் திட்டமிடப்பட வேண்டும்.</string>
+    <string name="workers_prune_cache_help">இடுகைகள் மற்றும் ஆசிரியர்களைப் பற்றிய தற்காலிகச் சேமிப்புத் தகவலைத் திருத்தும் தொழிலாளர்களின் பட்டியல் இதுவாகும். ஒன்று இருக்க வேண்டும், மாநிலம் இயங்கிக்கொண்டிருக்க வேண்டும் அல்லது வரிசைப்படுத்தப்பட வேண்டும், மேலும் இது 12 மணி நேரத்திற்குள் இயங்கத் திட்டமிடப்பட வேண்டும்.</string>
+    <string name="workers_prune_log_entry_entity_help">பதிவு உள்ளீடுகளை பிழைத்திருத்தம் செய்யும் தொழிலாளர்களின் பட்டியல் இது. ஒன்று இருக்க வேண்டும், மாநிலம் இயங்கிக்கொண்டிருக்க வேண்டும் அல்லது வரிசைப்படுத்தப்பட வேண்டும், மேலும் இது 12 மணி நேரத்திற்குள் இயங்கத் திட்டமிடப்பட வேண்டும்.</string>
 </resources>
