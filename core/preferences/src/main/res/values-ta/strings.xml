@@ -42,4 +42,18 @@
     <string name="pref_pronoun_display_everywhere">எல்லா இடங்களிலும்</string>
     <string name="pref_quote_policy_followers">உங்களைப் பின்தொடர்பவர்களில் ஒருவர்</string>
     <string name="pref_summary_quote_policy_disabled">உங்கள் சேவையகம் உள்ளடக்க வடிப்பான்களை ஆதரிக்காது</string>
+    <string name="pref_translation_backend">எப்படி மொழிபெயர்க்க வேண்டும்</string>
+    <string name="pref_translation_backend_option_server_only">சர்வர் மட்டும்</string>
+    <string name="pref_translation_backend_option_server_only_help">உங்கள் சர்வரைப் பயன்படுத்தி இடுகைகளை மொழிபெயர்க்கிறது. உங்கள் சேவையகம் மொழிபெயர்ப்பை ஆதரிக்கவில்லை என்றால் அல்லது இடுகையின் மொழி தவறாக இருந்தால் வேலை செய்யாது.</string>
+    <string name="pref_translation_backend_option_server_first">முதலில் சர்வர்</string>
+    <string name="pref_translation_backend_option_server_first_help">உங்கள் சர்வரைப் பயன்படுத்தி இடுகைகளை மொழிபெயர்க்கிறது. அது தோல்வியுற்றால், உங்கள் சாதனத்தில் Google மொழிபெயர்த்திடு ஐப் பயன்படுத்தி மொழிபெயர்க்கும்.</string>
+    <string name="pref_translation_backend_option_local_only">சாதனத்தில் மட்டும்</string>
+    <string name="pref_translation_backend_option_local_only_help">கூகுள் டிரான்ச்லேட்டைப் பயன்படுத்தி உங்கள் சாதனத்தில் உள்ள இடுகைகளை மொழிபெயர்க்கும்.</string>
+    <string name="pref_translation_backend_requires_play_label">சாதனத்தில் மொழிபெயர்ப்பு ஆதரவுக்காக Google Play இலிருந்து நிறுவவும்</string>
+    <string name="pref_title_pronoun_display">கணக்கு பிரதிபெயர்களைக் காட்டு</string>
+    <string name="pref_pronoun_display_when_composing">ஒரு இடுகை எழுதும் போது</string>
+    <string name="pref_pronoun_display_hide">எங்கும் இல்லை</string>
+    <string name="pref_title_quote_policy">உங்கள் இடுகைகளை யார் மேற்கோள் காட்டலாம்?</string>
+    <string name="pref_quote_policy_public">எவரும் (தடுக்கப்பட்ட கணக்குகள் தவிர)</string>
+    <string name="pref_quote_policy_nobody">நீங்கள் மட்டும்</string>
 </resources>
