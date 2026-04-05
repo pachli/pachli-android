@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="account_manager_error_account_does_not_exist">உள்ளக தரவுத்தளத்தில் கணக்கு இல்லை. இது ஒருபோதும் நடக்கக்கூடாது. இந்த செய்தியை நீங்கள் கண்டால் பிழை அறிக்கையை அனுப்பவும்.</string>
+    <string name="account_manager_error_account_does_not_exist">உள்ளக தரவுத்தளத்தில் கணக்கு இல்லை. இது ஒருபோதும் நடக்கக்கூடாது. இந்தச் செய்தியைப் பார்த்தால், team@pachli.app க்கு புகாரளிக்கவும்.</string>
     <string name="account_manager_error_no_active_account">எந்த கணக்கும் செயலில் குறிக்கப்படவில்லை</string>
     <string name="account_manager_error_unexpected">எதிர்பாராத பிழை: %1$s</string>
     <string name="server_repository_error_capabilities">பாகுபடுத்தும் சேவையக திறன்கள் தோல்வியடைந்தன: %1$s</string>
@@ -9,6 +9,9 @@
     <string name="server_repository_error_unsupported_schema">/</string>
     <string name="server_repository_error_get_node_info">நோடின்ஃபோ %1$s தோல்வியுற்றன: %2$s</string>
     <string name="server_repository_error_validate_node_info">Nodeinfo %1$s ஐ சரிபார்க்கவும் தோல்வியுற்றது: %2$s</string>
-    <string name="server_repository_error_get_instance_info">பெறுதல்/API/V1/நிகழ்வு தோல்வியுற்றது: %1$s</string>
+    <string name="server_repository_error_get_instance_info">பெறுதல் /api/v1/instance தோல்வியுற்றது: %1$s</string>
     <string name="account_manager_error_dao">தரவுத்தளப் பிழை, தயவுசெய்து இதைப் புகாரளிக்கவும் team@pachli.app: %1$s</string>
+    <string name="error_preference_importer_null_on_import">இறக்குமதி கோப்பு பூச்யமாக திரும்பியது</string>
+    <string name="error_preference_importer_missing_schema_version">கோப்பில் ச்கீமா பதிப்பு இல்லை</string>
+    <string name="error_preference_importer_wrong_version_fmt">கோப்பு அறியப்படாத பதிப்பு: %1$s</string>
 </resources>
