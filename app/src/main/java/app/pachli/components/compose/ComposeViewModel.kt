@@ -17,6 +17,7 @@
 package app.pachli.components.compose
 
 import android.content.ContentResolver
+import android.content.Context
 import android.net.Uri
 import android.text.Editable
 import android.text.Spanned
@@ -29,9 +30,8 @@ import androidx.lifecycle.viewModelScope
 import app.pachli.R
 import app.pachli.components.compose.ComposeActivity.QueuedMedia
 import app.pachli.components.compose.ComposeAutoCompleteAdapter.AutocompleteResult
+import app.pachli.components.compose.UiError.SaveAttachmentError
 import app.pachli.components.compose.UploadState.Uploaded
-import app.pachli.components.drafts.DraftHelper
-import app.pachli.components.drafts.SaveAttachmentError
 import app.pachli.components.search.SearchType
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.stateFlow
@@ -48,6 +48,7 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.AccountSource
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.Draft
+import app.pachli.core.model.DraftAttachment
 import app.pachli.core.model.NewPoll
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Status
@@ -61,6 +62,9 @@ import app.pachli.core.ui.MentionSpan
 import app.pachli.service.MediaToSend
 import app.pachli.service.ServiceClient
 import app.pachli.service.StatusToSend
+import app.pachli.util.SaveUriError
+import app.pachli.util.isInDirectory
+import app.pachli.util.saveToDirectory
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
@@ -73,9 +77,13 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.github.z4kn4fein.semver.constraints.toConstraint
+import java.io.File
+import java.text.SimpleDateFormat
 import java.util.Collections
 import java.util.Date
+import java.util.Locale
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -91,6 +99,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.OkHttpClient
 import timber.log.Timber
 
 internal sealed class UiError(
@@ -107,17 +116,52 @@ internal sealed class UiError(
     data class LoadQuoteError(override val cause: PachliError) : UiError(
         R.string.ui_error_reload_reply_fmt,
     )
+
+    sealed interface SaveAttachmentError : PachliError {
+        /** Call to getExternalFilesDir() failed, or the directory does not exist. */
+        data object NoExternalFilesDir : SaveAttachmentError {
+            override val resourceId = R.string.err_draft_error_no_external_files_dir
+            override val formatArgs = null
+            override val cause = null
+        }
+
+        /**
+         * Call to create the "Drafts" directory failed.
+         *
+         * @property throwable [Throwable] thrown by [mkdir][File.mkdir].
+         */
+        data class MkdirDrafts(val throwable: Throwable) : SaveAttachmentError {
+            override val resourceId = R.string.err_draft_error_mkdir_drafts_fmt
+            override val formatArgs = arrayOf(throwable.localizedMessage ?: "")
+            override val cause = null
+        }
+
+        /**
+         * Attachment has an unrecognised MIME type.
+         *
+         * @property mimeType The attachment's MIME type.
+         */
+        data class UnknownMimeType(private val mimeType: String?) : SaveAttachmentError {
+            override val resourceId = R.string.err_draft_error_unknown_mime_type
+            override val formatArgs = arrayOf(mimeType ?: "(null)")
+            override val cause = null
+        }
+
+        @JvmInline
+        value class SaveUri(val error: SaveUriError) : SaveAttachmentError, PachliError by error
+    }
 }
 
 @HiltViewModel(assistedFactory = ComposeViewModel.Factory::class)
 class ComposeViewModel @AssistedInject constructor(
     @Assisted private val pachliAccountId: Long,
     @Assisted private val composeOptions: ComposeOptions,
+    @ApplicationContext val context: Context,
+    private val okHttpClient: OkHttpClient,
     private val api: MastodonApi,
     private val accountManager: AccountManager,
     private val mediaUploader: MediaUploader,
     private val serviceClient: ServiceClient,
-    private val draftHelper: DraftHelper,
     instanceInfoRepo: InstanceInfoRepository,
     serverRepository: ServerRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
@@ -568,7 +612,7 @@ class ComposeViewModel @AssistedInject constructor(
      *
      * @param cursorPosition The cursor position to save.
      */
-    suspend fun saveDraft(cursorPosition: Int): Result<Draft, SaveAttachmentError> {
+    internal suspend fun saveDraft(cursorPosition: Int): Result<Draft, SaveAttachmentError> {
         val inReplyToId = (composeOptions.referencingStatus as? ReferencingStatus.ReplyingTo)?.statusId
             ?: (composeOptions.referencingStatus as? ReferencingStatus.ReplyId)?.statusId
 
@@ -576,7 +620,7 @@ class ComposeViewModel @AssistedInject constructor(
             ?: (composeOptions.referencingStatus as? ReferencingStatus.QuoteId)?.statusId
 
         // Convert media to a list of DraftAttachments
-        val draftAttachments = draftHelper.saveAttachments(media.value).getOrElse {
+        val draftAttachments = saveAttachments(media.value).getOrElse {
             return Err(it)
         }
 
@@ -599,6 +643,63 @@ class ComposeViewModel @AssistedInject constructor(
 
         val updatedDraft = draftRepository.upsertDraft(pachliAccountId, draftToSave)
         return Ok(updatedDraft)
+    }
+
+    /**
+     * Saves [media] to the local "Drafts" directory, creating the directory
+     * if necessary.
+     *
+     * A [media] item that already exists in the directory is left unchanged,
+     * missing items are downloaded to the directory.
+     *
+     * @param media The list of [QueuedMedia] items to process.
+     * @return On success, a list of [DraftAttachment], one for each item in
+     * [media]. On any failure a [SaveAttachmentError]. Failures may still have
+     * downloaded some of the attachments.
+     */
+    private suspend fun saveAttachments(media: List<QueuedMedia>): Result<List<DraftAttachment>, SaveAttachmentError> {
+        if (media.isEmpty()) return Ok(emptyList())
+
+        val externalFilesDir = context.getExternalFilesDir("Pachli")
+        if (externalFilesDir == null || !(externalFilesDir.exists())) {
+            return Err(SaveAttachmentError.NoExternalFilesDir)
+        }
+
+        val draftDirectory = File(externalFilesDir, "Drafts")
+
+        runCatching { draftDirectory.mkdir() }
+            .getOrElse { return Err(SaveAttachmentError.MkdirDrafts(it)) }
+
+        val sdf = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US)
+
+        val draftAttachments = media.mapIndexed { index, item ->
+            val timestamp = sdf.format(Date())
+            val basename = "Pachli_Draft_Media_${timestamp}_$index"
+            val uri = if (item.uri.isInDirectory(draftDirectory)) {
+                item.uri
+            } else {
+                item.uri.saveToDirectory(context, okHttpClient, draftDirectory, basename)
+                    .mapError { SaveAttachmentError.SaveUri(it) }
+                    .getOrElse { return Err(it) }
+            }
+
+            val mimeType = context.contentResolver.getType(uri)
+            val attachmentType = when (mimeType?.substring(0, mimeType.indexOf('/'))) {
+                "video" -> Attachment.Type.VIDEO
+                "image" -> Attachment.Type.IMAGE
+                "audio" -> Attachment.Type.AUDIO
+                else -> return Err(SaveAttachmentError.UnknownMimeType(mimeType))
+            }
+
+            DraftAttachment(
+                uri = uri,
+                description = item.description,
+                type = attachmentType,
+                focus = item.focus,
+            )
+        }
+
+        return Ok(draftAttachments)
     }
 
     /**

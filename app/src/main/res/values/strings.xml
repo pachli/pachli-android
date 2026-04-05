@@ -529,6 +529,11 @@
         <item quantity="one">You cannot upload more than %1$d media attachment.</item>
         <item quantity="other">You cannot upload more than %1$d media attachments.</item>
     </plurals>
+    <string name="err_draft_error_no_external_files_dir">shared storage is not available</string>
+    <string name="err_draft_error_mkdir_drafts_fmt">could not create Drafts folder: %1$s</string>
+    <string name="err_draft_error_unknown_mime_type">attachment has unknown MIME typeL %1$s</string>
+    <string name="err_draft_error_content_provider_crash">content provider recently crashed</string>
+    <string name="err_draft_error_io_fmt">saving failed: %1$s</string>
     <string name="drafts_post_failed_to_send">This post failed to send!</string>
     <string name="drafts_load_reply_failed_fmt">Could not load the post you\'re replying to: %1$s</string>
     <string name="drafts_load_quote_failed_fmt">Could not load the post you\'re quoting: %1$s</string>
