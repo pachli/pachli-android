@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="title_suggestions">பரிந்துரைக்கப்பட்ட கணக்குகள்</string>
+    <string name="source_unknown">(சேவையகம் அங்கீகரிக்கப்படாத மூலத்தைத் திருப்பி அனுப்பியது)</string>
+    <string name="sources_featured">உங்கள் சர்வர் குழுவால் தேர்ந்தெடுக்கப்பட்டது</string>
+    <string name="sources_most_followed">உங்கள் சர்வரில் அதிகம் பின்தொடரும் ஒன்று</string>
+    <string name="sources_most_interactions">உங்கள் சர்வரில் அதிக கவனத்தை ஈர்க்கிறது</string>
+    <string name="sources_similar_to_recently_followed">நீங்கள் அண்மைக் காலத்தில் பின்தொடர்ந்த கணக்குகளைப் போன்றது</string>
+    <string name="sources_friends_of_friends">நீங்கள் பின்தொடரும் நபர்களிடையே பிரபலமானது</string>
+    <string name="sources_unknown">(சேவையகம் அங்கீகரிக்கப்படாத ஆதாரங்களைத் திருப்பி அனுப்பியது)</string>
+    <string name="action_follow_account">பின்பற்றவும்</string>
+    <string name="action_dismiss_follow_suggestion">நிராகரி</string>
+    <string name="ui_error_delete_suggestion_fmt">%1$sக்கான பரிந்துரையை நிராகரிக்க முடியவில்லை: %2$s</string>
+    <string name="ui_error_follow_account_fmt">பின்வரும் %1$s தோல்வியடைந்தது: %2$s</string>
+    <string name="follower_count_fmt"><b>%1$s</b> பின்தொடர்பவர்கள்</string>
+    <string name="follows_count_fmt"><b>%1$s</b> பின்தொடர்கிறது</string>
+    <string name="statuses_count_fmt"><b>%1$s</b> இடுகைகள்</string>
+    <string name="statuses_count_per_week_fmt"><b>%1$s</b> இடுகைகள் (வாரத்திற்கு <b>%2$d</b>)</string>
+    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> இடுகைகள் (வாரத்திற்கு <b>%2$d</b>, கடந்த <b>%3$s</b>)</string>
+</resources>
