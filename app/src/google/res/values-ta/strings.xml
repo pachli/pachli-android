@@ -2,4 +2,22 @@
 <resources>
     <string name="update_dialog_message">விவரங்களைக் காண கூகிள் விளையாட்டைத் திறக்கவா?</string>
     <string name="update_dialog_positive">கூகிள் விளையாட்டைத் திற</string>
+    <string name="action_delete_remote_model_fmt">%1$sஐ நீக்கு</string>
+    <string name="action_download_remote_model_fmt">%1$sஐப் பதிவிறக்கவும்</string>
+    <string name="content_description_loading_fmt">%1$s, பதிவிறக்குகிறது</string>
+    <string name="content_description_loaded_fmt">%1$s, பதிவிறக்கப்பட்டது</string>
+    <string name="content_description_available_fmt">%1$s, பதிவிறக்கம் செய்யக் கிடைக்கிறது</string>
+    <string name="pref_translation_require_wifi">மொழிப் பொதிகளைப் பதிவிறக்க வைஃபை தேவை</string>
+    <string name="pref_translation_manage_languages">மொழி தொகுப்புகளை நிர்வகிக்கவும்</string>
+    <string name="translation_model_manager_fragment_title">மொழி தொகுப்புகள்</string>
+    <string name="translation_model_manager_fragment_info">கூகுள் டிரான்ச்லேட்டைப் பயன்படுத்தி பச்லி மொழிகள் மொழிபெயர்க்கலாம். மொழிப் பொதிகளை நேரத்திற்கு முன்பே பதிவிறக்கம் செய்வதன் மூலம் மொழிபெயர்ப்பை வேகமாக்கும்.</string>
+    <string name="translation_model_manager_fragment_downloaded_heading">பதிவிறக்கம் செய்யப்பட்டது</string>
+    <string name="translation_model_manager_fragment_remote_heading">பதிவிறக்க, தட்டவும்</string>
+    <string name="fragment_confirm_download_language_dialog_title_fmt">மொபைல் டேட்டா மூலம் %1$s ஐப் பதிவிறக்கவா?</string>
+    <string name="fragment_confirm_download_language_dialog_msg">இது பொதுவாக 30-60MB மொபைல் டேட்டாவைப் பயன்படுத்தும்.</string>
+    <string name="fragment_confirm_delete_language_dialog_title_fmt">%1$sஐ நீக்கவா?</string>
+    <string name="fragment_confirm_delete_language_dialog_msg">நீங்கள் இந்த மொழியை நீக்கினால், அடுத்த முறை தேவைப்படும்போது பதிவிறக்கம் செய்யப்படும்.</string>
+    <string name="fragment_google_disclaimer_dialog_title">மொழிபெயர்ப்பு மறுப்பு</string>
+    <string name="action_translate_mlkit">Google மூலம் மொழிபெயர்க்கவும்</string>
+    <string name="label_translated_mlkit">கூகுளால் மொழிபெயர்க்கப்பட்டது</string>
 </resources>
