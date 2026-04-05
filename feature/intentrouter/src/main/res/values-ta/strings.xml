@@ -1,7 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_set_active_account">உள்நுழைய முயற்சிப்பது பின்வரும் பிழையுடன் தோல்வியுற்றது:\n\n %1$s</string>
-    <string name="error_refresh_account">புத்துணர்ச்சியூட்டும் கணக்கு பின்வரும் பிழையுடன் தோல்வியடைந்தது:\n\n %1$s\n\n நீங்கள் தொடரலாம், ஆனால் உங்கள் பட்டியல்கள் மற்றும் வடிப்பான்கள் முழுமையடையாது.</string>
+    <string name="error_set_active_account">உள்நுழைய முயற்சிப்பது பின்வரும் பிழையுடன் தோல்வியுற்றது:%1$s</string>
+    <string name="error_refresh_account">புத்துணர்ச்சியூட்டும் கணக்கு பின்வரும் பிழையுடன் தோல்வியடைந்தது:%1$s\n\nநீங்கள் தொடரலாம், ஆனால் உங்கள் பட்டியல்கள் மற்றும் வடிப்பான்கள் முழுமையடையாது.</string>
     <string name="action_relogin">மறு உள்நுழைவு</string>
     <string name="action_share_as">பகிர்ந்து கொள்ளுங்கள்…</string>
+    <string name="title_choose_account_dialog">கணக்கைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="title_error_dialog">உள்நுழைவு தோல்வியடைந்தது</string>
+    <string name="error_login_failed_hint">மீண்டும் முயற்சிக்க கணக்கைத் தட்டவும்.</string>
+    <string name="error_login_failed_hint_multiple">மீண்டும் முயற்சிக்க அதே கணக்கைத் தட்டவும் அல்லது அந்தக் கணக்கில் உள்நுழைய வேறு கணக்கைத் தட்டவும்.</string>
+    <string name="client_error_unauthorized_multiple_fmt">%1$s \n\nமீண்டும் முயற்சிக்க \"%2$s\" அல்லது வேறு கணக்கைத் தேர்வுசெய்ய \"%3$s\" என்பதைத் தட்டவும்.</string>
+    <string name="client_error_unauthorized_fmt">%1$s \n\nமீண்டும் முயற்சிக்க, \"%2$s\" என்பதைத் தட்டவும்.</string>
+    <string name="error_refresh_account_fmt">சில கணக்கு விவரங்களைப் பெறுவதில் தோல்வி: \n\n%1$s \n\nதொடர \"%2$s\" என்பதைத் தட்டவும், ஆனால் சில தகவல்கள் தவறாக இருக்கலாம் (எ.கா. வடிப்பான்கள் மற்றும் பட்டியல்கள்). \n\nமீண்டும் முயற்சிக்க \"%3$s\" என்பதைத் தட்டவும். \n\nமற்றொரு கணக்கைத் தேர்வுசெய்ய \"%4$s\" என்பதைத் தட்டவும்.</string>
+    <string name="action_choose_another_account">மற்றொரு கணக்கைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="title_error_mime_type">அங்கீகரிக்கப்படாத வகை</string>
+    <string name="error_mime_type_fmt">\"%1$s\" வகையுடன் உள்ளடக்கத்தைப் பகிர பச்லி திறக்கப்பட்டது, ஆனால் பச்லி அந்த வகையைக் கையாளவில்லை.</string>
 </resources>
