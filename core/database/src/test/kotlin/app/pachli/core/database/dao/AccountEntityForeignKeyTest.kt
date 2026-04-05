@@ -239,7 +239,7 @@ class AccountEntityForeignKeyTest {
     fun `deleting account deletes DraftEntity`() = runTest {
         val draft = DraftEntity(
             id = 1,
-            accountId = pachliAccountId,
+            pachliAccountId = pachliAccountId,
             inReplyToId = null,
             content = null,
             contentWarning = null,

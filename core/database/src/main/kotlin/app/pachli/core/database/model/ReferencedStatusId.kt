@@ -62,7 +62,7 @@ conversationStatusId(pachliAccountId, statusId) AS (
 
 draftStatusId(pachliAccountId, statusId) AS (
     SELECT
-        accountId AS pachliAccountId,
+        pachliAccountId AS pachliAccountId,
         inReplyToId AS statusId
     FROM DraftEntity
     WHERE inReplyToId IS NOT NULL

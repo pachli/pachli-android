@@ -158,7 +158,7 @@ import java.util.TimeZone
         AutoMigration(from = 35, to = 36),
         AutoMigration(from = 36, to = 37, spec = AppDatabase.MIGRATE_36_37::class),
         // Record cursor position in DraftEntity
-        AutoMigration(from = 37, to = 38),
+        AutoMigration(from = 37, to = 38, spec = AppDatabase.MIGRATE_37_38::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -352,6 +352,11 @@ abstract class AppDatabase : RoomDatabase() {
             connection.execSQL("DELETE FROM TranslatedStatusEntity")
         }
     }
+
+    @DeleteColumn("DraftEntity", "failedToSend")
+    @DeleteColumn("DraftEntity", "failedToSendNew")
+    @RenameColumn("DraftEntity", "accountId", "pachliAccountId")
+    class MIGRATE_37_38 : AutoMigrationSpec
 }
 
 val MIGRATE_8_9 = object : Migration(8, 9) {

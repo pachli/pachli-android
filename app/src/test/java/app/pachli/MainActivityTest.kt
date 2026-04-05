@@ -41,8 +41,6 @@ import app.pachli.core.network.model.CredentialAccount
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.testing.rules.lazyActivityScenarioRule
 import app.pachli.core.testing.success
-import app.pachli.db.DraftsAlert
-import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -58,7 +56,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.mock
 import org.mockito.kotlin.reset
 import org.mockito.kotlin.stub
 import org.robolectric.Shadows.shadowOf
@@ -109,10 +106,6 @@ class MainActivityTest {
 
     @Inject
     lateinit var accountManager: AccountManager
-
-    @BindValue
-    @JvmField
-    val draftsAlert: DraftsAlert = mock()
 
     @Before
     fun setup() = runTest {

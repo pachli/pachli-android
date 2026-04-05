@@ -83,7 +83,7 @@ class DraftRepository @Inject constructor(
     }
 
     fun deleteDraftAndAttachments(pachliAccountId: Long, draftId: Long) = externalScope.launch {
-        val draft = draftDao.find(draftId) ?: return@launch
+        val draft = draftDao.find(pachliAccountId, draftId) ?: return@launch
         draft.attachments.forEach { attachment ->
             if (context.contentResolver.delete(attachment.uri, null, null) == 0) {
                 Timber.e("Did not delete file %s", attachment.uri)
@@ -109,19 +109,37 @@ class DraftRepository @Inject constructor(
         }
     }
 
-    suspend fun saveDraft(pachliAccountId: Long, draft: Draft): Draft = externalScope.async {
+    /**
+     * Upserts [draft] to the local database.
+     *
+     * If [draft.id][Draft.id] is `0` the draft is saved as a new draft with a new
+     * ID, otherwise the draft with that ID is overwritten.
+     *
+     * @return The saved draft. If [draft.id][Draft.id] was 0 the returned draft
+     * contains the new ID, otherwise the draft is returned unchanged.
+     */
+    suspend fun upsertDraft(pachliAccountId: Long, draft: Draft): Draft = externalScope.async {
         val entity = draft.asEntity(pachliAccountId)
+        // TODO: Should saving the draft clear the failure state?
+        // Pro: The new version of the draft hasn't been sent before, so the failure message
+        // might be obsolete.
+        // Con: The user might still need the failure message (e.g., troubleshooting,
+        // forwarding to their server admins, etc...)
         val id = draftDao.upsert(entity)
-        return@async entity.copy(id = id).asModel()
+
+        // If this was an insert Room returns the ID, which must be used in a copy
+        // of the draft. Otherwise, Room returns -1L, and the original draft can be
+        // returned.
+        return@async if (id != -1L) draft.copy(id = id) else draft
     }.await()
 
-    fun updateFailureState(pachliAccountId: Long, draftId: Long, failedToSend: Boolean, failedToSendNew: Boolean) = externalScope.async {
-        draftDao.updateFailureState(draftId, failedToSend, failedToSendNew)
-    }
+    suspend fun updateFailureState(pachliAccountId: Long, draftId: Long, failureMessage: String?) = externalScope.async {
+        draftDao.updateFailureState(pachliAccountId, draftId, failureMessage)
+    }.await()
 }
 
 private fun Draft.asEntity(pachliAccountId: Long) = DraftEntity(
-    accountId = pachliAccountId,
+    pachliAccountId = pachliAccountId,
     id = id,
     contentWarning = contentWarning,
     content = content,
@@ -130,8 +148,7 @@ private fun Draft.asEntity(pachliAccountId: Long) = DraftEntity(
     visibility = visibility,
     attachments = attachments,
     poll = poll,
-    failedToSend = failedToSend,
-    failedToSendNew = failedToSendNew,
+    failureMessage = failureMessage,
     scheduledAt = scheduledAt,
     language = language,
     statusId = statusId,

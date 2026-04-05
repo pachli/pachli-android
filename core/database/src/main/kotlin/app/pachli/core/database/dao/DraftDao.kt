@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Tusky Contributors
+ * Copyright (c) 2026 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -17,7 +17,6 @@
 
 package app.pachli.core.database.dao
 
-import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Query
@@ -36,45 +35,26 @@ interface DraftDao {
         """
 SELECT *
 FROM DraftEntity
-WHERE accountId = :accountId
+WHERE pachliAccountId = :pachliAccountId
 ORDER BY id ASC
 """,
     )
-    fun draftsPagingSource(accountId: Long): PagingSource<Int, DraftEntity>
-
-    @Query(
-        """
-SELECT COUNT(*)
-FROM DraftEntity
-WHERE accountId = :accountId AND failedToSendNew = 1
-""",
-    )
-    fun draftsNeedUserAlert(accountId: Long): LiveData<Int>
-
-    @Query(
-        """
-UPDATE DraftEntity
-SET
-    failedToSendNew = 0
-WHERE accountId = :accountId AND failedToSendNew = 1
-""",
-    )
-    suspend fun draftsClearNeedUserAlert(accountId: Long)
+    fun draftsPagingSource(pachliAccountId: Long): PagingSource<Int, DraftEntity>
 
     @Query(
         """
 SELECT *
 FROM DraftEntity
-WHERE accountId = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun loadDrafts(accountId: Long): List<DraftEntity>
+    suspend fun loadDrafts(pachliAccountId: Long): List<DraftEntity>
 
     @Query(
         """
 DELETE
 FROM DraftEntity
-WHERE accountId = :pachliAccountId AND id = :id
+WHERE pachliAccountId = :pachliAccountId AND id = :id
 """,
     )
     suspend fun delete(pachliAccountId: Long, id: Long)
@@ -83,19 +63,18 @@ WHERE accountId = :pachliAccountId AND id = :id
         """
 SELECT *
 FROM DraftEntity
-WHERE id = :id
+WHERE pachliAccountId = :pachliAccountId AND id = :id
 """,
     )
-    suspend fun find(id: Long): DraftEntity?
+    suspend fun find(pachliAccountId: Long, id: Long): DraftEntity?
 
     @Query(
         """
 UPDATE DraftEntity
 SET
-    failedToSend = :failedToSend,
-    failedToSendNew = :failedToSendNew
-WHERE id = :draftId
+    failureMessage = :failureMessage
+WHERE pachliAccountId = :pachliAccountId AND id = :draftId
         """,
     )
-    suspend fun updateFailureState(draftId: Long, failedToSend: Boolean, failedToSendNew: Boolean)
+    suspend fun updateFailureState(pachliAccountId: Long, draftId: Long, failureMessage: String?)
 }

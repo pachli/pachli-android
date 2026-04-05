@@ -415,6 +415,9 @@
     <string name="send_post_notification_channel_name">Sending Posts</string>
     <string name="send_post_notification_cancel_title">Sending cancelled</string>
     <string name="send_post_notification_saved_content">A copy of the post has been saved to your drafts</string>
+    <string name="send_post_failure_message_prefix">Sending failed: %1$s</string>
+    <string name="send_post_failure_message_cancel">You cancelled sending this post</string>
+    <string name="send_post_failure_message_timeout">Android timed-out sending this post</string>
     <string name="action_compose_shortcut">Compose</string>
     <string name="error_no_custom_emojis">Your instance %1$s does not have any custom emojis</string>
     <string name="emoji_style">Emoji style</string>

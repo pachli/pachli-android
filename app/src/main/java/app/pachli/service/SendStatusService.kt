@@ -20,7 +20,6 @@ import androidx.core.app.ServiceCompat
 import androidx.core.content.IntentCompat
 import app.pachli.R
 import app.pachli.components.compose.MediaUploader
-import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.notifications.pendingIntentFlags
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountManager
@@ -37,6 +36,7 @@ import app.pachli.core.model.NewStatus
 import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.network.model.asNetworkModel
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -67,9 +67,6 @@ class SendStatusService : Service() {
 
     @Inject
     lateinit var eventHub: EventHub
-
-    @Inject
-    lateinit var draftHelper: DraftHelper
 
     @Inject
     lateinit var mediaUploader: MediaUploader
@@ -127,8 +124,12 @@ class SendStatusService : Service() {
     }
 
     private fun sendStatus(statusId: Int) {
-        // when statusToSend == null, sending has been canceled
-        val statusToSend = statusesToSend[statusId] ?: return
+        // when statusToSend == null, sending has been cancelled
+        val statusToSend = statusesToSend[statusId]
+        if (statusToSend == null) {
+            notificationManager.cancel(statusId)
+            return
+        }
 
         // when account == null, user has logged out, cancel sending
         val account = accountManager.getAccountById(statusToSend.pachliAccountId)
@@ -149,7 +150,7 @@ class SendStatusService : Service() {
                     val uploadState = mediaUploader.waitForUploadToFinish(mediaItem.localId)
                     val media = uploadState.getOrElse {
                         Timber.w("failed uploading media: %s", it.fmt(this@SendStatusService))
-                        failSending(statusId)
+                        failSending(statusId, it.fmt(this@SendStatusService))
                         stopSelfWhenDone()
                         return@launch
                     }
@@ -168,7 +169,7 @@ class SendStatusService : Service() {
                         mastodonApi.getMedia(mediaItem.id!!)
                             .onSuccess { mediaItem.processed = it.code == 200 }
                             .onFailure {
-                                failSending(statusId)
+                                failSending(statusId, it.fmt(this@SendStatusService))
                                 stopSelfWhenDone()
                                 return@launch
                             }
@@ -185,7 +186,7 @@ class SendStatusService : Service() {
                         mastodonApi.updateMedia(mediaItem.id!!, mediaItem.description, mediaItem.focus?.toMastodonApiString())
                             .onFailure { error ->
                                 Timber.w("failed to update media on status send: %s", error)
-                                failOrRetry(error.throwable, statusId)
+                                failOrRetry(error, statusId)
                                 return@launch
                             }
                     }
@@ -273,24 +274,25 @@ class SendStatusService : Service() {
                 notificationManager.cancel(statusId)
             }
                 .onFailure {
-                    Timber.w("failed sending status: %s", it)
-                    failOrRetry(it.throwable, statusId)
+                    Timber.w("failed sending status: %s", it.fmt(this@SendStatusService))
+                    failOrRetry(it, statusId)
                 }
 
             stopSelfWhenDone()
         }
     }
 
-    private suspend fun failOrRetry(throwable: Throwable, statusId: Int) {
-        when (throwable) {
+    private suspend fun failOrRetry(apiError: ApiError, statusId: Int) {
+        // TODO: This should look at the ApiError subclasses, not the throwable.
+        when (apiError.throwable) {
             // the server refused to accept, save status & show error message
-            is HttpException -> failSending(statusId)
+            is HttpException -> failSending(statusId, apiError.fmt(this))
 
             // a network problem occurred, let's retry sending the status
             is IOException -> retrySending(statusId)
 
             // Some other problem, fail
-            else -> failSending(statusId)
+            else -> failSending(statusId, apiError.fmt(this))
         }
     }
 
@@ -318,18 +320,19 @@ class SendStatusService : Service() {
         // Android wants the service to shut down. Fail any statuses that still need to be sent
         // and shut down. See https://developer.android.com/about/versions/14/changes/fgs-types-required
         runBlocking {
+            // Will stop the service when there are no more statuses
             statusesToSend.forEach { (i, _) ->
-                failSending(i) // Will stop the service when there are no more statuses
+                failSending(i, getString(R.string.send_post_failure_message_timeout))
             }
         }
     }
 
-    private fun failSending(statusId: Int) {
+    private suspend fun failSending(statusId: Int, failureMessage: String) {
         val failedStatus = statusesToSend.remove(statusId)
         if (failedStatus != null) {
             mediaUploader.cancelUploadScope(*failedStatus.media.map { it.localId }.toIntArray())
 
-            saveStatusToDrafts(failedStatus, failedToSendAlert = true)
+            saveStatusToDrafts(failedStatus, failureMessage = failureMessage)
 
             val notification = buildDraftNotification(
                 R.string.send_post_notification_error_title,
@@ -339,7 +342,7 @@ class SendStatusService : Service() {
             )
 
             notificationManager.cancel(statusId)
-            notificationManager.notify(errorNotificationId++, notification)
+            notificationManager.notify(TAG_SAVED_TO_DRAFTS, errorNotificationId++, notification)
         }
 
         // NOTE only this removes the "Sending..." notification (added with startForeground() above)
@@ -354,7 +357,7 @@ class SendStatusService : Service() {
             val sendJob = sendJobs.remove(statusId)
             sendJob?.cancel()
 
-            saveStatusToDrafts(statusToCancel, failedToSendAlert = false)
+            saveStatusToDrafts(statusToCancel, failureMessage = getString(R.string.send_post_failure_message_cancel))
 
             val notification = buildDraftNotification(
                 R.string.send_post_notification_cancel_title,
@@ -363,7 +366,8 @@ class SendStatusService : Service() {
                 statusId,
             )
 
-            notificationManager.notify(statusId, notification)
+            notificationManager.cancel(statusId)
+            notificationManager.notify(TAG_SAVED_TO_DRAFTS, statusId, notification)
 
             delay(5000)
 
@@ -371,12 +375,11 @@ class SendStatusService : Service() {
         }
     }
 
-    private fun saveStatusToDrafts(status: StatusToSend, failedToSendAlert: Boolean) {
+    private suspend fun saveStatusToDrafts(status: StatusToSend, failureMessage: String?) {
         draftRepository.updateFailureState(
             status.pachliAccountId,
             status.draft.id,
-            failedToSend = true,
-            failedToSendNew = failedToSendAlert,
+            failureMessage = failureMessage,
         )
     }
 
@@ -428,6 +431,11 @@ class SendStatusService : Service() {
         private const val KEY_STATUS = "status"
         private const val KEY_CANCEL = "cancel_id"
         private const val CHANNEL_ID = "send_toots"
+
+        /** Tag assigned to notifications about status saved to drafts. */
+        // Assigned to notifications in this code, used in `DraftActivity` to
+        // clear notifications, because the user can see the drafts with errors.
+        const val TAG_SAVED_TO_DRAFTS = "app.pachli.service.SendStatusService.SAVED_TO_DRAFTS"
 
         private val MAX_RETRY_INTERVAL = TimeUnit.MINUTES.toMillis(1)
 

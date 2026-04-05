@@ -32,7 +32,7 @@ import app.pachli.core.model.Status
 import java.util.Date
 
 /**
- * @property accountId Pachli Account ID
+ * @property pachliAccountId Pachli Account ID
  * @property inReplyToId
  * @property content
  * @property contentWarning
@@ -40,8 +40,9 @@ import java.util.Date
  * @property visibility
  * @property attachments
  * @property poll
- * @property failedToSend
- * @property failedToSendNew
+ * @property failureMessage If non-null, the most recent user-facing error
+ * message explaining why this status couldn't be sent. If null then there
+ * have been no unsuccessful attempts to send this status.
  * @property scheduledAt
  * @property language
  * @property statusId
@@ -56,17 +57,17 @@ import java.util.Date
         ForeignKey(
             entity = AccountEntity::class,
             parentColumns = arrayOf("id"),
-            childColumns = arrayOf("accountId"),
+            childColumns = arrayOf("pachliAccountId"),
             onDelete = ForeignKey.CASCADE,
             deferred = true,
         ),
     ],
-    indices = [Index(value = ["accountId"])],
+    indices = [Index(value = ["pachliAccountId"])],
 )
 @TypeConverters(Converters::class)
 data class DraftEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val accountId: Long,
+    val pachliAccountId: Long,
     val inReplyToId: String?,
     val content: String?,
     val contentWarning: String?,
@@ -74,8 +75,7 @@ data class DraftEntity(
     val visibility: Status.Visibility,
     val attachments: List<DraftAttachment>,
     val poll: NewPoll?,
-    val failedToSend: Boolean,
-    val failedToSendNew: Boolean,
+    val failureMessage: String?,
     val scheduledAt: Date?,
     val language: String?,
     val statusId: String?,
@@ -94,8 +94,7 @@ fun DraftEntity.asModel(): Draft {
         visibility = visibility,
         attachments = attachments,
         poll = poll,
-        failedToSend = failedToSend,
-        failedToSendNew = failedToSendNew,
+        failureMessage = failureMessage,
         scheduledAt = scheduledAt,
         language = language,
         statusId = statusId,

@@ -16,6 +16,7 @@
 
 package app.pachli.components.drafts
 
+import android.app.NotificationManager
 import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
@@ -39,23 +40,18 @@ import app.pachli.core.ui.appbar.FadeChildScrollEffect
 import app.pachli.core.ui.extensions.addScrollEffect
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.ActivityDraftsBinding
-import app.pachli.db.DraftsAlert
+import app.pachli.service.SendStatusService
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
 class DraftsActivity : BaseActivity(), DraftActionListener {
-
-    @Inject
-    lateinit var draftsAlert: DraftsAlert
-
     private val viewModel: DraftsViewModel by viewModels()
 
     private val binding by viewBinding(ActivityDraftsBinding::inflate)
@@ -90,7 +86,25 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
         )
 
         lifecycleScope.launch {
+            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             viewModel.drafts.collectLatest { draftData ->
+                // Cancel any notifications about statuses saved to drafts so the user
+                // doesn't have to cancel them manually.
+                //
+                // Do this here to resolve a race condition.
+                //
+                // 1. DraftsActivity starts, shows the user a failed draft.
+                // 2. User taps draft to re-open, then re-sends.
+                // 3. DraftsActivity resumes.
+                // 4. SendStatusService tries to send the status, fails, updates the draft
+                // and posts a notification.
+                //
+                // If we don't cancel the notification here the user sees a notification for
+                // a draft they are already looking at.
+                notificationManager.activeNotifications.forEach {
+                    if (it.tag == SendStatusService.TAG_SAVED_TO_DRAFTS) notificationManager.cancel(SendStatusService.TAG_SAVED_TO_DRAFTS, it.id)
+                }
+
                 adapter.submitData(draftData)
             }
         }
@@ -98,9 +112,6 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
         adapter.addLoadStateListener {
             binding.draftsErrorMessageView.visible(adapter.itemCount == 0)
         }
-
-        // If a failed post is saved to drafts while this activity is up, do nothing; the user is already in the drafts view.
-        draftsAlert.observeInContext(this, false)
     }
 
     override fun onOpenDraft(draft: Draft) {

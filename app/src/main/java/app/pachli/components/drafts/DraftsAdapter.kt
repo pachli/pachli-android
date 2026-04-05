@@ -22,6 +22,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import app.pachli.R
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
@@ -73,7 +74,6 @@ class DraftsAdapter(
             holder.binding.deleteButton.setOnClickListener {
                 listener.onDeleteDraft(draft)
             }
-            holder.binding.draftSendingInfo.visible(draft.failedToSend)
 
             holder.binding.contentWarning.visible(!draft.contentWarning.isNullOrEmpty())
             holder.binding.contentWarning.text = draft.contentWarning
@@ -86,6 +86,18 @@ class DraftsAdapter(
                 holder.binding.draftPoll.show()
                 holder.binding.draftPoll.setPoll(this)
             } ?: holder.binding.draftPoll.hide()
+
+            if (draft.failureMessage.isNullOrEmpty()) {
+                holder.binding.dividerFailure.hide()
+                holder.binding.draftFailure.hide()
+            } else {
+                holder.binding.dividerFailure.show()
+                holder.binding.draftFailure.show()
+                holder.binding.draftFailure.text = holder.binding.root.context.getString(
+                    R.string.send_post_failure_message_prefix,
+                    draft.failureMessage,
+                )
+            }
         }
     }
 }

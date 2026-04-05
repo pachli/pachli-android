@@ -122,7 +122,6 @@ import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.ActivityMainBinding
-import app.pachli.db.DraftsAlert
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.pager.MainPagerAdapter
 import app.pachli.updatecheck.UpdateCheck
@@ -196,9 +195,6 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
 
     @Inject
     lateinit var cacheUpdater: CacheUpdater
-
-    @Inject
-    lateinit var draftsAlert: DraftsAlert
 
     @Inject
     lateinit var updateCheck: UpdateCheck
@@ -447,9 +443,6 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         if (Build.VERSION.SDK_INT >= TIRAMISU && ActivityCompat.checkSelfPermission(this, POST_NOTIFICATIONS) != PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(POST_NOTIFICATIONS), 1)
         }
-
-        // "Post failed" dialog should display in this activity
-        draftsAlert.observeInContext(this, true)
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {

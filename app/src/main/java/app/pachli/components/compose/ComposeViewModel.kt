@@ -30,8 +30,8 @@ import app.pachli.R
 import app.pachli.components.compose.ComposeActivity.QueuedMedia
 import app.pachli.components.compose.ComposeAutoCompleteAdapter.AutocompleteResult
 import app.pachli.components.compose.UploadState.Uploaded
-import app.pachli.components.drafts.DraftError
 import app.pachli.components.drafts.DraftHelper
+import app.pachli.components.drafts.SaveAttachmentError
 import app.pachli.components.search.SearchType
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.stateFlow
@@ -568,7 +568,7 @@ class ComposeViewModel @AssistedInject constructor(
      *
      * @param cursorPosition The cursor position to save.
      */
-    suspend fun saveDraft(cursorPosition: Int): Result<Draft, DraftError> {
+    suspend fun saveDraft(cursorPosition: Int): Result<Draft, SaveAttachmentError> {
         val inReplyToId = (composeOptions.referencingStatus as? ReferencingStatus.ReplyingTo)?.statusId
             ?: (composeOptions.referencingStatus as? ReferencingStatus.ReplyId)?.statusId
 
@@ -597,7 +597,7 @@ class ComposeViewModel @AssistedInject constructor(
             cursorPosition = cursorPosition,
         )
 
-        val updatedDraft = draftRepository.saveDraft(pachliAccountId, draftToSave)
+        val updatedDraft = draftRepository.upsertDraft(pachliAccountId, draftToSave)
         return Ok(updatedDraft)
     }
 

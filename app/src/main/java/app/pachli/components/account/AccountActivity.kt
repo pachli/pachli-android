@@ -91,7 +91,6 @@ import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.core.ui.getDomain
 import app.pachli.core.ui.loadAvatar
 import app.pachli.databinding.ActivityAccountBinding
-import app.pachli.db.DraftsAlert
 import app.pachli.feature.lists.ListsForAccountFragment
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.util.Error
@@ -130,9 +129,6 @@ class AccountActivity :
     ActionButtonActivity,
     MenuProvider,
     LinkListener {
-    @Inject
-    lateinit var draftsAlert: DraftsAlert
-
     @Inject
     lateinit var clipboard: ClipboardUseCase
 
@@ -522,9 +518,6 @@ class AccountActivity :
         viewModel.noteSaved.observe(this) {
             binding.saveNoteInfo.visible(it, View.INVISIBLE)
         }
-
-        // "Post failed" dialog should display in this activity
-        draftsAlert.observeInContext(this, true)
     }
 
     private fun onRefresh() {
