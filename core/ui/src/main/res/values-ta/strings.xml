@@ -32,14 +32,14 @@
     <string name="title_mentions_dialog">குறிப்பிடுகிறது</string>
     <string name="title_logout_fmt">வெளியேறு %1$s</string>
     <string name="notification_details_last_fetch_label">கடைசி/ஏபிஐ/வி 1/அறிவிப்புகள் கோரிக்கை</string>
-    <string name="preview_card_byline_fediverse_account_fmt">மூலம் &lt;b&gt;%1$s &lt;/b&gt;. மேலும் இடுகைகளைக் காண்க</string>
-    <string name="preview_card_byline_name_only_fmt">மூலம் &lt;b&gt;%1$s &lt;/b&gt;</string>
-    <string name="preview_card_timeline_link_fmt">இந்த இணைப்பைப் பற்றிய &lt;b&gt;%1$s &lt;/b&gt; இடுகைகளைப் பார்க்கவும்</string>
+    <string name="preview_card_byline_fediverse_account_fmt"><b>%1$s</b> மூலம். மேலும் இடுகைகளைக் காண்க</string>
+    <string name="preview_card_byline_name_only_fmt">மூலம் <b>%1$s</b></string>
+    <string name="preview_card_timeline_link_fmt">இந்த இணைப்பைப் பற்றிய <b>%1$s</b> இடுகைகளைப் பார்க்கவும்</string>
     <string name="poll_vote">வாக்களிக்கவும்</string>
     <string name="poll_show_votes">வாக்குகளைக் காட்டு</string>
     <plurals name="poll_timespan_seconds">
-        <item quantity="one">%d இரண்டாவது இடது</item>
-        <item quantity="other">%d விநாடிகள் எஞ்சியுள்ளன</item>
+        <item quantity="one">%d நொடி மீதமுள்ளது</item>
+        <item quantity="other">%d வினாடிகள் உள்ளன</item>
     </plurals>
     <plurals name="poll_timespan_minutes">
         <item quantity="one">%d மணித்துளி மீதமுள்ளது</item>
@@ -47,11 +47,11 @@
     </plurals>
     <plurals name="poll_timespan_hours">
         <item quantity="one">%d மணிநேரம் மீதமுள்ளது</item>
-        <item quantity="other">%d மணிநேரங்கள் மீதமுள்ளது</item>
+        <item quantity="other">%d மணிநேரங்கள் மீதமுள்ளன</item>
     </plurals>
     <plurals name="poll_timespan_days">
         <item quantity="one">%d நாள் மீதமுள்ளது</item>
-        <item quantity="other">%d நாட்கள் உள்ளன</item>
+        <item quantity="other">இன்னும் %d நாட்கள் உள்ளன</item>
     </plurals>
     <plurals name="poll_info_votes">
         <item quantity="one">%s வாக்கு</item>
@@ -59,30 +59,30 @@
     </plurals>
     <plurals name="poll_info_people">
         <item quantity="one">%s நபர்</item>
-        <item quantity="other">%s நபர்கள்</item>
+        <item quantity="other">%s பேர்</item>
     </plurals>
     <string name="poll_info_closed">மூடப்பட்டது</string>
-    <string name="poll_info_time_absolute">%1$s இல் முடிகிறது</string>
+    <string name="poll_info_time_absolute">%1$s இல் முடிவடைகிறது</string>
     <string name="poll_info_format"><!-- 15 வாக்குகள் • 1 மணிநேரம் மீதமுள்ளது--> %1$s • %2$s</string>
     <string name="description_poll">தேர்வுகளுடன் வாக்கெடுப்பு: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="post_media_alt">மாற்று</string>
     <string name="status_created_at_now">இப்போது</string>
-    <string name="abbreviated_in_seconds">%1$dவி-முன்</string>
-    <string name="abbreviated_seconds_ago">%1$dவி</string>
-    <string name="abbreviated_in_minutes">%1$dநி-முன்</string>
-    <string name="abbreviated_minutes_ago">%1$dநி</string>
-    <string name="abbreviated_in_hours">%1$dம.நே-முன்</string>
-    <string name="abbreviated_hours_ago">%1$dம.நே</string>
-    <string name="abbreviated_in_days">%1$dநா-முன்</string>
-    <string name="abbreviated_days_ago">%1$dநா</string>
-    <string name="abbreviated_in_years">%1$dஆ-முன்</string>
-    <string name="abbreviated_years_ago">%1$dஆ</string>
+    <string name="abbreviated_in_seconds">%1$ds இல்</string>
+    <string name="abbreviated_seconds_ago">%1$ds</string>
+    <string name="abbreviated_in_minutes">%1$dm இல்</string>
+    <string name="abbreviated_minutes_ago">%1$dm</string>
+    <string name="abbreviated_in_hours">%1$dh இல்</string>
+    <string name="abbreviated_hours_ago">%1$dh</string>
+    <string name="abbreviated_in_days">%1$dd இல்</string>
+    <string name="abbreviated_days_ago">%1$dd</string>
+    <string name="abbreviated_in_years">%1$d ஆண்டில்</string>
+    <string name="abbreviated_years_ago">%1$dy</string>
     <string name="description_post_media_no_description_placeholder">விளக்கம் இல்லை</string>
     <string name="description_visibility_public">அனைவருக்கும்</string>
     <string name="description_visibility_unlisted">பட்டியலிடப்படாதவர்களுக்கு</string>
     <string name="description_visibility_private">பின்பற்றுபவர்கள்</string>
     <string name="description_visibility_direct">நேரடி</string>
-    <string name="post_sensitive_media_title">உணர்ச்சிகரமான உள்ளடக்கம்</string>
+    <string name="post_sensitive_media_title">உணர்ச்சிகரமான உள்ளடக்கம். காட்ட தட்டவும்.</string>
     <string name="post_media_images">படங்கள்</string>
     <string name="post_media_audio">ஆடியோ</string>
     <string name="post_media_video">காணொளி</string>
@@ -100,22 +100,67 @@
     <string name="translating">மொழிபெயர்க்கிறது…</string>
     <string name="translation_provider_fmt">%1$s</string>
     <string name="description_post_edited">திருத்தப்பட்டது</string>
-    <string name="description_post_reblogged">மறுபிரசுரம் செய்யப்பட்டது</string>
+    <string name="description_post_reblogged">உயர்த்தப்பட்டது</string>
     <string name="description_post_favourited">பிடித்தது</string>
     <string name="description_post_bookmarked">புக்மார்க்கு செய்யப்பட்டது</string>
     <string name="description_post_media">மீடியா: %1$s</string>
     <string name="description_post_cw">உள்ளடக்க எச்சரிக்கை: %1$s</string>
     <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s &lt;/b&gt; பூச்ட்</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; ஊக்கங்கள்</item>
+        <item quantity="one"><b>%s</b> பூச்ட்</item>
+        <item quantity="other"><b>%s</b> பூச்ட்கள்</item>
     </plurals>
     <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s &lt;/b&gt; பிடித்தது</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; பிடித்தவை</item>
+        <item quantity="one"><b>%1$s</b> பிடித்தமானது</item>
+        <item quantity="other"><b>%1$s</b> பிடித்தவை</item>
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; மேலேற்றப்பட்டது</string>
-    <string name="post_edited">திருத்தப்பட்ட %1$s</string>
+    <string name="post_edited">%1$s திருத்தப்பட்டது</string>
     <string name="filter_edit_title">வடிகட்டியைத் திருத்து</string>
     <string name="status_filtered_show_anyway">எப்படியும் காட்டு</string>
-    <string name="status_filter_placeholder_label_format">வடிகட்டப்பட்டது: &lt;b&gt;%1$s &lt;/b&gt;</string>
+    <string name="status_filter_placeholder_label_format">வடிகட்டப்பட்டது: <b>%1$s</b></string>
+    <string name="action_follow_request_accept">பின்பற்ற கோரிக்கையை ஏற்கவும்</string>
+    <string name="action_follow_request_reject">பின்வரும் கோரிக்கையை நிராகரிக்கவும்</string>
+    <string name="action_moderation_warning_view">மிதமான எச்சரிக்கையைக் காண்க</string>
+    <string name="action_open_reportee_profile">நிருபர் சுயவிவரத்தைத் திறக்கவும்</string>
+    <string name="action_open_report">அறிக்கையைத் திறக்கவும்</string>
+    <string name="emoji_picker_show_detail">விவரம் காட்டு</string>
+    <string name="description_quoted_post_prefix">மேற்கோள் இடுகை:</string>
+    <string name="attachment_matches_filter_one_fmt">பொருந்தும் வடிப்பான்: \"%1$s\". காட்ட தட்டவும்.</string>
+    <string name="attachment_matches_filter_two_fmt">வடிப்பான்களுடன் பொருந்துகிறது: \"%1$s\" மற்றும் \"%2$s\". காட்ட தட்டவும்.</string>
+    <string name="attachment_matches_filter_other_fmt">வடிப்பான்களுடன் பொருந்துகிறது: \"%1$s\", \"%2$s\" மற்றும் பல. காட்ட தட்டவும்.</string>
+    <string name="attachment_hidden_user_action">இதை மறைத்து விட்டீர்கள். காட்ட தட்டவும்.</string>
+    <string name="action_show_attachments">இணைப்புகளைக் காட்டு</string>
+    <string name="action_hide_attachments">இணைப்புகளை மறை</string>
+    <string name="action_select_status">இடுகையைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="action_unselect_status">இடுகையைத் தேர்வுநீக்கு</string>
+    <string name="action_show_pronouns">பிரதிபெயர்களைக் காட்டு</string>
+    <string name="action_open_quoted_post">மேற்கோள் இடுகையைத் திறக்கவும்</string>
+    <string name="dot_in_name">புள்ளி</string>
+    <string name="role_content_description_fmt">%1$s, %2$s இல்</string>
+    <plurals name="description_post_roles">
+        <item quantity="one">பாத்திரத்துடன்:</item>
+        <item quantity="other">பாத்திரங்களுடன்:</item>
+    </plurals>
+    <string name="handle_contentdescription_fmt">கைப்பிடி, @%1$s</string>
+    <string name="action_quote">மேற்கோள்</string>
+    <string name="action_request_quote">மேற்கோள் காட்ட கோரிக்கை</string>
+    <string name="label_author_denied_quote">மேற்கோள் எழுத்தாளரால் முடக்கப்பட்டது</string>
+    <plurals name="quotes">
+        <item quantity="one"><b>%1$s</b> மேற்கோள்</item>
+        <item quantity="other"><b>%1$s</b> மேற்கோள்கள்</item>
+    </plurals>
+    <string name="post_replied">பதிலளித்தார்</string>
+    <string name="post_continued_thread">தொடரும் நூல்</string>
+    <string name="post_replied_to_fmt"><b>%1$s</b>க்குப் பதிலளித்தார்</string>
+    <string name="label_quoted_status_hidden">உங்கள் வடிப்பான்களில் ஒன்றால் மறைக்கப்பட்ட இடுகையின் மேற்கோள்</string>
+    <string name="detach_quote">மேற்கோளை அகற்று</string>
+    <string name="label_quote_state_unknown">மேற்கோள் காட்டப்பட்ட இடுகையைக் காட்ட முடியாது</string>
+    <string name="label_quote_state_pending">மேற்கோள் ஒப்புதல் பெற காத்திருக்கிறது</string>
+    <string name="label_quote_state_rejected">மேற்கோள் காட்டப்பட்ட கணக்கு இந்த மேற்கோளைக் காட்டுவதைத் தடுத்தது</string>
+    <string name="label_quote_state_revoked">மேற்கோள் காட்டப்பட்ட கணக்கு இந்த மேற்கோளைக் காட்டுவதைத் தடுத்தது</string>
+    <string name="label_quote_state_deleted">மேற்கோள் இடுகை நீக்கப்பட்டது</string>
+    <string name="label_quote_state_unauthorized">மேற்கோள் காட்டப்பட்ட இடுகை உங்களுக்குத் தெரியவில்லை</string>
+    <string name="label_quote_state_blocked_account">நீங்கள் தடுத்த கணக்கிலிருந்து மேற்கோள் காட்டப்பட்ட இடுகை</string>
+    <string name="label_quote_state_blocked_domain">மேற்கோள் இடுகை நீங்கள் தடுத்த சர்வரில் இருந்து வந்தது</string>
+    <string name="label_quote_state_muted_account">நீங்கள் முடக்கிய கணக்கிலிருந்து மேற்கோள் காட்டப்பட்ட இடுகை</string>
 </resources>
