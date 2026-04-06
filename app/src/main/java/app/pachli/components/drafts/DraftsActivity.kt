@@ -16,12 +16,14 @@
 
 package app.pachli.components.drafts
 
+import android.app.ActivityManager
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.core.content.getSystemService
 import androidx.core.view.ViewGroupCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -121,7 +123,8 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
         )
 
         if (draft.inReplyToId == null && draft.quotedStatusId == null) {
-            startActivity(ComposeActivityIntent(this, intent.pachliAccountId, composeOptions))
+            val intent = ComposeActivityIntent(this, intent.pachliAccountId, composeOptions)
+            resumeOrStartComposeActivity(ComposeActivityIntent(this, intent.pachliAccountId, composeOptions))
             return
         }
 
@@ -131,7 +134,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
             lifecycleScope.launch {
                 viewModel.getStatus(inReplyToId)
                     .onSuccess {
-                        startActivity(
+                        resumeOrStartComposeActivity(
                             ComposeActivityIntent(
                                 this@DraftsActivity,
                                 pachliAccountId,
@@ -148,7 +151,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
                             // the original status to which a reply was drafted has been deleted
                             // let's open the ComposeActivity without reply information
                             Toast.makeText(context, getString(R.string.drafts_post_reply_removed), Toast.LENGTH_LONG).show()
-                            startActivity(ComposeActivityIntent(context, pachliAccountId, composeOptions))
+                            resumeOrStartComposeActivity(ComposeActivityIntent(context, pachliAccountId, composeOptions))
                         } else {
                             Snackbar.make(
                                 binding.root,
@@ -168,7 +171,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
             lifecycleScope.launch {
                 viewModel.getStatus(quotedStatusId)
                     .onSuccess {
-                        startActivity(
+                        resumeOrStartComposeActivity(
                             ComposeActivityIntent(
                                 this@DraftsActivity,
                                 pachliAccountId,
@@ -185,7 +188,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
                             // the original status being quoted has been deleted
                             // let's open the ComposeActivity without quote information
                             Toast.makeText(context, getString(R.string.drafts_post_quote_removed), Toast.LENGTH_LONG).show()
-                            startActivity(ComposeActivityIntent(context, pachliAccountId, composeOptions))
+                            resumeOrStartComposeActivity(ComposeActivityIntent(context, pachliAccountId, composeOptions))
                         } else {
                             Snackbar.make(
                                 binding.root,
@@ -199,6 +202,29 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
                     }
             }
         }
+    }
+
+    /**
+     * Show a [ComposeActivity][app.pachli.components.compose.ComposeActivity] for [intent].
+     *
+     * If an existing activity exists for the draft in [intent] it is moved to the front, as
+     * a draft can only be edited by one activity at a time.
+     *
+     * If no existing activity exists then a new activity is started.
+     *
+     * @param intent The intent containing the [ComposeOptions] and draft information.
+     */
+    private fun resumeOrStartComposeActivity(intent: ComposeActivityIntent) {
+        val draftId = ComposeActivityIntent.getComposeOptions(intent).draft.id
+
+        getSystemService<ActivityManager>()?.appTasks?.forEach {
+            val launchedComposeOptions = ComposeActivityIntent.getComposeOptionsOrNull(it.taskInfo.baseIntent) ?: return@forEach
+            if (launchedComposeOptions.draft.id == draftId) {
+                it.moveToFront()
+                return
+            }
+        }
+        startActivity(intent)
     }
 
     override fun onDeleteDraft(draft: Draft) {

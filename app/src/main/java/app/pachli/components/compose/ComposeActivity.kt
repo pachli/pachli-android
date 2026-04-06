@@ -1707,6 +1707,7 @@ class ComposeActivity :
         when (viewModel.closeConfirmationKind.value) {
             ConfirmationKind.NONE -> {
                 viewModel.stopUploads()
+                viewModel.closeDraft()
                 finish()
             }
 
@@ -1760,6 +1761,7 @@ class ComposeActivity :
             }
             .setNegativeButton(R.string.action_discard) { _, _ ->
                 viewModel.stopUploads()
+                viewModel.closeDraft()
                 finish()
             }
 
@@ -1782,6 +1784,7 @@ class ComposeActivity :
             }
             .setNegativeButton(R.string.action_discard) { _, _ ->
                 viewModel.stopUploads()
+                viewModel.closeDraft()
                 finish()
             }
     }
@@ -1817,6 +1820,7 @@ class ComposeActivity :
                 null
             }
             viewModel.saveDraft(binding.composeEditField.selectionStart)
+            viewModel.closeDraft()
             dialog?.cancel()
             finish()
         }

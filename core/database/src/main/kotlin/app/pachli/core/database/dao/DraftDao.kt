@@ -24,6 +24,7 @@ import androidx.room.TypeConverters
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.DraftEntity
+import app.pachli.core.model.Draft
 
 @Dao
 @TypeConverters(Converters::class)
@@ -72,9 +73,38 @@ WHERE pachliAccountId = :pachliAccountId AND id = :id
         """
 UPDATE DraftEntity
 SET
-    failureMessage = :failureMessage
+    failureMessage = :failureMessage,
+    state = :state
 WHERE pachliAccountId = :pachliAccountId AND id = :draftId
         """,
     )
-    suspend fun updateFailureState(pachliAccountId: Long, draftId: Long, failureMessage: String?)
+    suspend fun updateFailureState(
+        pachliAccountId: Long,
+        draftId: Long,
+        failureMessage: String?,
+        state: Draft.State,
+    )
+
+    @Query(
+        """
+UPDATE DraftEntity
+SET
+    state = :state
+WHERE pachliAccountId = :pachliAccountId AND id = :draftId
+        """,
+    )
+    suspend fun updateState(pachliAccountId: Long, draftId: Long, state: Draft.State)
+
+    /**
+     * Resets the state of any drafts in [Draft.State.EDITING] state to [Draft.State.DEFAULT].
+     */
+    @Query(
+        """
+UPDATE DraftEntity
+SET
+    state = "DEFAULT"
+WHERE state = "EDITING"
+        """,
+    )
+    suspend fun resetEditingState()
 }

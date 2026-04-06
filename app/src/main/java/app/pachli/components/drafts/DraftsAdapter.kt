@@ -18,6 +18,7 @@ package app.pachli.components.drafts
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -68,11 +69,39 @@ class DraftsAdapter(
 
     override fun onBindViewHolder(holder: BindingHolder<ItemDraftBinding>, position: Int) {
         getItem(position)?.let { draft ->
-            holder.binding.root.setOnClickListener {
-                listener.onOpenDraft(draft)
-            }
-            holder.binding.deleteButton.setOnClickListener {
-                listener.onDeleteDraft(draft)
+            when (draft.state) {
+                Draft.State.DEFAULT -> {
+                    holder.binding.root.setOnClickListener {
+                        listener.onOpenDraft(draft)
+                    }
+                    holder.binding.deleteButton.setOnClickListener {
+                        listener.onDeleteDraft(draft)
+                    }
+                    holder.binding.deleteButton.show()
+                    holder.binding.sendingIndicator.hide()
+                }
+
+                Draft.State.EDITING -> {
+                    // TODO: Need to mark that it's being edited.
+                    holder.binding.deleteButton.show()
+                    holder.binding.sendingIndicator.hide()
+
+                    holder.binding.deleteButton.setImageDrawable(
+                        AppCompatResources.getDrawable(
+                            holder.binding.deleteButton.context,
+                            R.drawable.ic_edit_24dp,
+                        ),
+                    )
+                    holder.binding.deleteButton.setOnClickListener {
+                        listener.onOpenDraft(draft)
+                    }
+//                    holder.binding.sendingIndicator.show()
+                }
+
+                Draft.State.SENDING -> {
+                    holder.binding.deleteButton.hide()
+                    holder.binding.sendingIndicator.show()
+                }
             }
 
             holder.binding.contentWarning.visible(!draft.contentWarning.isNullOrEmpty())

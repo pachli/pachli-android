@@ -133,9 +133,17 @@ class DraftRepository @Inject constructor(
         return@async if (id != -1L) draft.copy(id = id) else draft
     }.await()
 
-    suspend fun updateFailureState(pachliAccountId: Long, draftId: Long, failureMessage: String?) = externalScope.async {
-        draftDao.updateFailureState(pachliAccountId, draftId, failureMessage)
+    suspend fun updateFailureState(pachliAccountId: Long, draftId: Long, failureMessage: String?, state: Draft.State) = externalScope.async {
+        draftDao.updateFailureState(pachliAccountId, draftId, failureMessage, state)
     }.await()
+
+    suspend fun updateDraftState(pachliAccountId: Long, draftId: Long, state: Draft.State) = externalScope.async {
+        draftDao.updateState(pachliAccountId, draftId, state)
+    }.await()
+
+    fun resetEditingState() = externalScope.launch {
+        draftDao.resetEditingState()
+    }
 }
 
 private fun Draft.asEntity(pachliAccountId: Long) = DraftEntity(
@@ -155,6 +163,7 @@ private fun Draft.asEntity(pachliAccountId: Long) = DraftEntity(
     quotePolicy = quotePolicy,
     quotedStatusId = quotedStatusId,
     cursorPosition = cursorPosition,
+    state = state,
 )
 
 // Note: Caller must still set attachments on ComposeOptions
@@ -173,6 +182,7 @@ fun Status.asDraft(source: StatusSource): Draft {
         inReplyToId = actionable.inReplyToId,
         quotedStatusId = (actionable.quote as? Status.Quote.WithStatusId)?.statusId,
         cursorPosition = source.text.length,
+        state = Draft.State.DEFAULT,
     )
 }
 
@@ -191,6 +201,7 @@ fun ScheduledStatus.asDraft(): Draft {
         inReplyToId = params.inReplyToId,
         quotedStatusId = params.quotedStatusId,
         cursorPosition = params.text.length,
+        state = Draft.State.DEFAULT,
     )
 }
 
@@ -205,6 +216,7 @@ fun DeletedStatus.asDraft() = Draft(
     inReplyToId = inReplyToId,
     quotedStatusId = (quote as? Status.Quote.WithStatusId)?.statusId,
     cursorPosition = text?.length ?: 0,
+    state = Draft.State.DEFAULT,
 )
 
 /**
@@ -244,6 +256,7 @@ fun Draft.Companion.createDraft(context: Context, pachliAccountEntity: AccountEn
         language = pachliAccountEntity.defaultPostLanguage,
         quotePolicy = quotePolicy,
         cursorPosition = 0,
+        state = Draft.State.DEFAULT,
     )
 
     return draft
@@ -292,6 +305,7 @@ fun Draft.Companion.createDraftReply(pachliAccountEntity: AccountEntity, status:
         quotePolicy = quotePolicy,
         inReplyToId = actionable.statusId,
         cursorPosition = content.length,
+        state = Draft.State.DEFAULT,
     )
 
     return draft
@@ -322,6 +336,7 @@ fun Draft.Companion.createDraftQuote(pachliAccountEntity: AccountEntity, status:
         quotePolicy = quotePolicy,
         quotedStatusId = actionable.statusId,
         cursorPosition = 0,
+        state = Draft.State.DEFAULT,
     )
 
     return draft

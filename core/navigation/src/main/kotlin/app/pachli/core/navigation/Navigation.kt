@@ -521,6 +521,13 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
 
         /** @return the [ComposeOptions] passed in this intent. */
         fun getComposeOptions(intent: Intent) = IntentCompat.getParcelableExtra(intent, EXTRA_COMPOSE_OPTIONS, ComposeOptions::class.java)!!
+
+        fun getComposeOptionsOrNull(intent: Intent): ComposeOptions? {
+            // Fix for crash:
+            // Class not found when unmarshalling: app.pachli.core.navigation.ComposeActivityIntent$ComposeOptions
+            intent.setExtrasClassLoader(ComposeOptions::class.java.classLoader)
+            return IntentCompat.getParcelableExtra(intent, EXTRA_COMPOSE_OPTIONS, ComposeOptions::class.java)
+        }
     }
 }
 

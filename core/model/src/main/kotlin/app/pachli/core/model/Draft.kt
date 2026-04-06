@@ -24,6 +24,26 @@ import com.squareup.moshi.JsonClass
 import java.util.Date
 import kotlinx.parcelize.Parcelize
 
+/**
+ * Represents a status draft that.
+ *
+ * @property id
+ * @property contentWarning
+ * @property content
+ * @property sensitive
+ * @property visibility
+ * @property attachments
+ * @property poll
+ * @property failureMessage
+ * @property scheduledAt
+ * @property language
+ * @property quotePolicy
+ * @property inReplyToId
+ * @property quotedStatusId
+ * @property statusId
+ * @property cursorPosition
+ * @property state See [Draft.State]
+ */
 @Parcelize
 data class Draft(
     val id: Long = 0,
@@ -41,7 +61,26 @@ data class Draft(
     val quotedStatusId: String? = null,
     val statusId: String? = null,
     val cursorPosition: Int = 0,
+    val state: State,
 ) : Parcelable {
+    /** Draft's state. */
+    enum class State {
+        /** Draft is available for editing or sending. */
+        DEFAULT,
+
+        /**
+         * User is actively editing this draft. Simultaneous attempts to
+         * edit the same draft should be prevented.
+         */
+        EDITING,
+
+        /**
+         * Draft is being sent to the server. Editing should be prevented,
+         * as should simultaneous attempts to send the same draft.
+         */
+        SENDING,
+    }
+
     companion object
 }
 

@@ -45,6 +45,7 @@ import java.io.IOException
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -144,6 +145,8 @@ class SendStatusService : Service() {
         statusToSend.retries++
 
         sendJobs[statusId] = serviceScope.launch {
+            draftRepository.updateDraftState(statusToSend.pachliAccountId, statusToSend.draft.id, Draft.State.SENDING)
+
             // first, wait for media uploads to finish
             val media = statusToSend.media.map { mediaItem ->
                 if (mediaItem.id == null) {
@@ -380,6 +383,7 @@ class SendStatusService : Service() {
             status.pachliAccountId,
             status.draft.id,
             failureMessage = failureMessage,
+            state = Draft.State.DEFAULT,
         )
     }
 

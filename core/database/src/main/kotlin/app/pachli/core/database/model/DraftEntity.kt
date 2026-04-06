@@ -83,6 +83,8 @@ data class DraftEntity(
     val quotedStatusId: String?,
     @ColumnInfo(defaultValue = "0")
     val cursorPosition: Int = 0,
+    @ColumnInfo(defaultValue = "DEFAULT")
+    val state: Draft.State,
 )
 
 fun DraftEntity.asModel(): Draft {
@@ -102,5 +104,6 @@ fun DraftEntity.asModel(): Draft {
         inReplyToId = inReplyToId,
         quotedStatusId = quotedStatusId,
         cursorPosition = cursorPosition,
+        state = state,
     )
 }

@@ -639,10 +639,17 @@ class ComposeViewModel @AssistedInject constructor(
             inReplyToId = inReplyToId,
             quotedStatusId = quotedStatusId,
             cursorPosition = cursorPosition,
+            state = Draft.State.EDITING,
         )
 
         val updatedDraft = draftRepository.upsertDraft(pachliAccountId, draftToSave)
         return Ok(updatedDraft)
+    }
+
+    internal fun closeDraft() {
+        viewModelScope.launch {
+            draftRepository.updateDraftState(pachliAccountId, composeOptions.draft.id, Draft.State.DEFAULT)
+        }
     }
 
     /**
@@ -708,6 +715,7 @@ class ComposeViewModel @AssistedInject constructor(
      */
     suspend fun sendStatus(pachliAccountId: Long, cursorPosition: Int) {
         val draft = saveDraft(cursorPosition).getOrElse {
+            draftRepository.updateDraftState(pachliAccountId, composeOptions.draft.id, Draft.State.DEFAULT)
             // TODO: Handle error
             return
         }.copy(
@@ -803,12 +811,18 @@ class ComposeViewModel @AssistedInject constructor(
         }
     }
 
-    fun setup(account: PachliAccount) {
+    suspend fun setup(account: PachliAccount) {
         if (setupComplete) {
             return
         }
 
         pachliAccount = account
+
+        draftRepository.updateDraftState(
+            pachliAccount.id,
+            composeOptions.draft.id,
+            Draft.State.EDITING,
+        )
 
         val preferredVisibility = account.entity.defaultPostPrivacy
 
@@ -865,6 +879,13 @@ class ComposeViewModel @AssistedInject constructor(
 
     val editing: Boolean
         get() = !originalStatusId.isNullOrEmpty()
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelScope.launch {
+            closeDraft()
+        }
+    }
 
     enum class ConfirmationKind {
         /** No confirmation, finish */

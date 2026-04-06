@@ -52,6 +52,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/outline_delete_24" />
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/sendingIndicator"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="4dp"
+        android:indeterminate="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/draftMediaPreview"
         android:layout_width="wrap_content"
@@ -78,7 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="contentWarning,content,deleteButton,draftMediaPreview,draftPoll" />
+        app:constraint_referenced_ids="contentWarning,content,deleteButton,sendingIndicator,draftMediaPreview,draftPoll" />
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/dividerFailure"

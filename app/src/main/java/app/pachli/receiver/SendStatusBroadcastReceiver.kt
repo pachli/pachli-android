@@ -106,6 +106,7 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
                     inReplyToId = citedStatusId,
                     language = null,
                     quotePolicy = null,
+                    state = Draft.State.DEFAULT,
                 )
 
                 val sendIntent = SendStatusService.sendStatusIntent(
