@@ -2,8 +2,7 @@
 <resources>
     <string name="about_title_activity">Acerca de</string>
     <string name="about_device_info_title">Tu dispositivo</string>
-    <string name="about_account_info">\@%1$s@%2$s
-\nVersión: %3$s</string>
+    <string name="about_account_info">\@%1$s@%2$s \nVersión: %3$s</string>
     <string name="about_copied">Informaciones de versión y dispositivo copiadas</string>
     <string name="about_account_info_title">Tu cuenta</string>
     <string name="about_copy">Copiar las informaciones de versión y dispositivo</string>
@@ -15,9 +14,7 @@
     <string name="about_privacy_policy">Política de privacidad</string>
     <string name="about_pachli_account">Perfil de Pachli</string>
     <string name="title_licenses">Licencias</string>
-    <string name="about_device_info">%1$s %2$s
-\nVersión de Android: %3$s
-\nSDK nivel: %4$d</string>
+    <string name="about_device_info">%1$s %2$s \nVersión de Android: %3$s \nNivel de SDK: %4$d</string>
     <string name="license_description">Pachli contiene código y recursos de los siguientes proyectos:</string>
     <string name="notification_details_push_notifications_with_unifiedpush">Notificaciones push con UnifiedPush</string>
     <string name="notification_details_any_account_needs_migration">¿Todas las cuentas tienen alcance \'push\' de OAuth?</string>
