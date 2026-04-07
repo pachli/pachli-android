@@ -279,7 +279,6 @@
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; 請求關注你</string>
     <string name="pref_title_animate_custom_emojis">動態自訂表情符號</string>
     <string name="drafts_post_reply_removed">你的草稿欲回覆的原嘟文已被刪除</string>
-    <string name="draft_deleted">草稿已刪除</string>
     <string name="drafts_post_failed_to_send">這條嘟文發送失敗！</string>
     <string name="duration_7_days">7 天</string>
     <string name="duration_3_days">3 天</string>

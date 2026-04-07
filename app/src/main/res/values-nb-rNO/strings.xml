@@ -325,7 +325,6 @@
     <string name="duration_indefinite">Uendelig</string>
     <string name="label_duration">Varighet</string>
     <string name="drafts_post_reply_removed">Innlegget du hadde opprettet et utkast som svar på har blitt fjernet</string>
-    <string name="draft_deleted">Utkast slettet</string>
     <string name="drafts_post_failed_to_send">Sending av innlegg feilet!</string>
     <string name="pref_title_animate_custom_emojis">Animer egendefinerte emojis</string>
     <string name="action_unsubscribe_account">Avslutt abonnementet</string>
@@ -408,12 +407,6 @@
     <string name="filter_edit_keyword_title">Rediger nøkkelord</string>
     <string name="filter_description_format">%1$s: %2$s</string>
     <string name="pref_title_http_proxy_port_message">Portnummer burde være mellom %1$d og %2$d</string>
-    <string name="action_post_failed">Opplastningen mislyktes</string>
-    <string name="action_post_failed_detail_plural">Opplasting av innleggene dine mislyktes og innleggene har blitt lagret som utkast.
-\n
-\nDette skjedde fordi serveren kunne ikke bli nådd, eller fordi serveren nektet å ta imot innleggene.</string>
-    <string name="action_post_failed_show_drafts">Vis utkast</string>
-    <string name="action_post_failed_do_nothing">Lukk</string>
     <string name="notification_unknown_name">Ukjent</string>
     <string name="socket_timeout_exception">Det tok for lang tid å kontaktere tjeneren din</string>
     <string name="ui_error_clear_notifications">Sletting av vasler feilet: %1$s</string>
@@ -423,9 +416,6 @@
     <string name="error_unmuting_hashtag_format">Klarte ikke å oppheve dempingen av #%1$s</string>
     <string name="description_browser_login">Kan støtte flere autentiseringsmetoder, men trenger en støttet nettleser.</string>
     <string name="description_login">Virker som oftest. Ingen informasjon deles med andre apper.</string>
-    <string name="action_post_failed_detail">Opplasting av innlegget ditt mislyktes og innlegget ditt har blitt lagret som et utkast.
-\n
-\nDette skjedde fordi serveren kunne ikke bli nådd, eller fordi serveren har nektet å ta imot innlegget ditt.</string>
     <string name="ui_success_accepted_follow_request">Følgeforespørsel akseptert</string>
     <string name="action_discard">Forkast endringer</string>
     <string name="action_continue_edit">Fortsett å redigere</string>

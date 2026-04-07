@@ -312,7 +312,6 @@
     <string name="title_announcements">اعلامیه‌ها</string>
     <string name="action_unsubscribe_account">نااشتراک</string>
     <string name="action_subscribe_account">اشتراک</string>
-    <string name="draft_deleted">پیش‌نویس حذف شد</string>
     <string name="drafts_post_failed_to_send">فرستادن این فرسته شکست خورد!</string>
     <string name="wellbeing_hide_stats_profile">نهفتن آمار کمی روی نمایه‌ها</string>
     <string name="wellbeing_hide_stats_posts">نهفتن آمار کمی روی فرسته‌ها</string>
@@ -404,15 +403,6 @@
     <string name="pref_summary_http_proxy_invalid">&lt;نامعتبر&gt;</string>
     <string name="status_edit_info">%1$s :ویراسته</string>
     <string name="status_created_info">%1$s :ایجاد شده</string>
-    <string name="action_post_failed">بارگذاری شکست خورد</string>
-    <string name="action_post_failed_show_drafts">نمایش پیش‌نویس‌ها</string>
-    <string name="action_post_failed_do_nothing">رد کردن</string>
-    <string name="action_post_failed_detail">بارگذاری فرسته‌تان شکست خورد و در پیش‌نویس‌ها ذخیره شد.
-\n
-\nارتباط با کارساز برقرار نشد یا فرسته را رد کرد.</string>
-    <string name="action_post_failed_detail_plural">بارگذاری فرسته‌هایتان شکست خورد و در پیش‌نویس‌ها ذخیره شد.
-\n
-\nارتباط با کارساز برقرار نشد یا فرسته‌ها را رد کرد.</string>
     <string name="description_login">در بیش‌تر حالت‌ها کار می‌کند. هیچ داده‌ای به دیگر کاره‌ها نشت نمی‌کند.</string>
     <string name="description_browser_login">ممکن است از روش‌های تأیید خویت اضافی پشتیبانی کند؛ ولی نیازمند مرورگری پشتیبانی شده است.</string>
     <string name="action_discard">دور انداختن تغییرات</string>

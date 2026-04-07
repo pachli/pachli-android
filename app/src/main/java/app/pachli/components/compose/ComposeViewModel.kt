@@ -646,6 +646,12 @@ class ComposeViewModel @AssistedInject constructor(
         return Ok(updatedDraft)
     }
 
+    internal fun closeDraft(draftId: Long) {
+        viewModelScope.launch {
+            draftRepository.updateDraftState(pachliAccountId, draftId, Draft.State.DEFAULT)
+        }
+    }
+
     internal fun closeDraft() {
         viewModelScope.launch {
             draftRepository.updateDraftState(pachliAccountId, composeOptions.draft.id, Draft.State.DEFAULT)

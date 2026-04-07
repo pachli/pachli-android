@@ -297,7 +297,6 @@
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; ven de publicar</string>
     <string name="action_unsubscribe_account">Quitar de seguir</string>
     <string name="action_subscribe_account">Seguir</string>
-    <string name="draft_deleted">Borrolhon suprimit</string>
     <string name="drafts_post_failed_to_send">Fracàs de l’enviament !</string>
     <string name="review_notifications">Repassar las notificacions</string>
     <string name="account_note_saved">Enregistrat !</string>
@@ -413,15 +412,6 @@
     <string name="send_account_link_to">Partejar l’URL del compte amb…</string>
     <string name="send_account_username_to">Partejar lo nom d’utilizaire del compte amb…</string>
     <string name="account_username_copied">Nom d’utilizaire copiat</string>
-    <string name="action_post_failed">Mandadís fracassat</string>
-    <string name="action_post_failed_show_drafts">Afichar los borrolhons</string>
-    <string name="action_post_failed_do_nothing">Ignorar</string>
-    <string name="action_post_failed_detail">Vòstra publicacion a pas pogut s’enviar e es estada salvada als borrolhons.
-\n
-\nSiá se podiá pas contactar lo servidor, siá aquel a regetat la publicacion.</string>
-    <string name="action_post_failed_detail_plural">Vòstras publicacions an pas pogut s’enviar e son estadas salvadas als borrolhons.
-\n
-\nSiá se podiá pas contactar lo servidor, siá aquel a regetat las publicacions.</string>
     <string name="description_browser_login">Poiriá prendre en carga de metòdes d’autentificacions suplementaris, mas requerís un navigador compatible.</string>
     <string name="description_login">Fonciona los tres quarts del temps. Cap de donadas pèrdon pas per las autras aplicacions.</string>
     <string name="dialog_follow_hashtag_title">Seguir lo hashtag</string>

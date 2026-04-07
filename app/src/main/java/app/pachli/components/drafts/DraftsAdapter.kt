@@ -18,7 +18,8 @@ package app.pachli.components.drafts
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources
+import android.widget.Checkable
+import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,105 +29,111 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.model.Draft
-import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemDraftBinding
 import com.bumptech.glide.RequestManager
 
 interface DraftActionListener {
     fun onOpenDraft(draft: Draft)
-    fun onDeleteDraft(draft: Draft)
+    fun isDraftChecked(draft: Draft): Boolean
+    fun setDraftChecked(draft: Draft, isChecked: Boolean)
 }
 
 class DraftsAdapter(
     private val glide: RequestManager,
     private val listener: DraftActionListener,
-) : PagingDataAdapter<Draft, BindingHolder<ItemDraftBinding>>(
-    object : DiffUtil.ItemCallback<Draft>() {
-        override fun areItemsTheSame(oldItem: Draft, newItem: Draft): Boolean {
-            return oldItem.id == newItem.id
+) : PagingDataAdapter<DraftViewData, DraftViewHolder>(
+    object : DiffUtil.ItemCallback<DraftViewData>() {
+        override fun areItemsTheSame(oldItem: DraftViewData, newItem: DraftViewData): Boolean {
+            return oldItem.draft.id == newItem.draft.id
         }
 
-        override fun areContentsTheSame(oldItem: Draft, newItem: Draft): Boolean {
+        override fun areContentsTheSame(oldItem: DraftViewData, newItem: DraftViewData): Boolean {
             return oldItem == newItem
         }
     },
 ) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ItemDraftBinding> {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DraftViewHolder {
         val binding = ItemDraftBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        val viewHolder = BindingHolder(binding)
-
-        binding.draftMediaPreview.layoutManager = LinearLayoutManager(binding.root.context, RecyclerView.HORIZONTAL, false)
-        binding.draftMediaPreview.adapter = DraftMediaAdapter(glide) {
-            getItem(viewHolder.bindingAdapterPosition)?.let { draft ->
-                listener.onOpenDraft(draft)
-            }
-        }
-
-        return viewHolder
+        return DraftViewHolder(binding, glide, listener)
     }
 
-    override fun onBindViewHolder(holder: BindingHolder<ItemDraftBinding>, position: Int) {
-        getItem(position)?.let { draft ->
-            when (draft.state) {
-                Draft.State.DEFAULT -> {
-                    holder.binding.root.setOnClickListener {
-                        listener.onOpenDraft(draft)
-                    }
-                    holder.binding.deleteButton.setOnClickListener {
-                        listener.onDeleteDraft(draft)
-                    }
-                    holder.binding.deleteButton.show()
-                    holder.binding.sendingIndicator.hide()
-                }
+    override fun onBindViewHolder(holder: DraftViewHolder, position: Int) {
+        getItem(position)?.let { holder.bind(it) }
+    }
+}
 
-                Draft.State.EDITING -> {
-                    // TODO: Need to mark that it's being edited.
-                    holder.binding.deleteButton.show()
-                    holder.binding.sendingIndicator.hide()
+class DraftViewHolder(
+    private val binding: ItemDraftBinding,
+    glide: RequestManager,
+    private val listener: DraftActionListener,
 
-                    holder.binding.deleteButton.setImageDrawable(
-                        AppCompatResources.getDrawable(
-                            holder.binding.deleteButton.context,
-                            R.drawable.ic_edit_24dp,
-                        ),
-                    )
-                    holder.binding.deleteButton.setOnClickListener {
-                        listener.onOpenDraft(draft)
-                    }
-//                    holder.binding.sendingIndicator.show()
-                }
+) : RecyclerView.ViewHolder(binding.root), Checkable {
+    private var draft: Draft? = null
 
-                Draft.State.SENDING -> {
-                    holder.binding.deleteButton.hide()
-                    holder.binding.sendingIndicator.show()
+    init {
+        with(binding) {
+            draftMediaPreview.layoutManager = LinearLayoutManager(binding.root.context, RecyclerView.HORIZONTAL, false)
+            draftMediaPreview.adapter = DraftMediaAdapter(glide) {
+                draft?.let {
+                    listener.onOpenDraft(it)
                 }
             }
 
-            holder.binding.contentWarning.visible(!draft.contentWarning.isNullOrEmpty())
-            holder.binding.contentWarning.text = draft.contentWarning
-            holder.binding.content.text = draft.content
+            checkBox.setOnCheckedChangeListener { _, isChecked ->
+                draft?.let { listener.setDraftChecked(it, isChecked) }
+            }
 
-            holder.binding.draftMediaPreview.visible(draft.attachments.isNotEmpty())
-            (holder.binding.draftMediaPreview.adapter as DraftMediaAdapter).submitList(draft.attachments)
-
-            draft.poll?.apply {
-                holder.binding.draftPoll.show()
-                holder.binding.draftPoll.setPoll(this)
-            } ?: holder.binding.draftPoll.hide()
-
-            if (draft.failureMessage.isNullOrEmpty()) {
-                holder.binding.dividerFailure.hide()
-                holder.binding.draftFailure.hide()
-            } else {
-                holder.binding.dividerFailure.show()
-                holder.binding.draftFailure.show()
-                holder.binding.draftFailure.text = holder.binding.root.context.getString(
-                    R.string.send_post_failure_message_prefix,
-                    draft.failureMessage,
-                )
+            root.setOnClickListener {
+                draft?.let { listener.onOpenDraft(it) }
             }
         }
+    }
+
+    fun bind(draftViewData: DraftViewData) = with(binding) {
+        val draft = draftViewData.draft
+
+        this@DraftViewHolder.draft = draftViewData.draft
+
+        isChecked = draftViewData.isChecked
+
+        checkBox.isVisible = draft.state == Draft.State.DEFAULT
+        sendingIndicator.isVisible = draft.state == Draft.State.SENDING
+        editButton.isVisible = draft.state == Draft.State.EDITING
+
+        contentWarning.visible(!draft.contentWarning.isNullOrEmpty())
+        contentWarning.text = draft.contentWarning
+        content.text = draft.content
+
+        draftMediaPreview.visible(draft.attachments.isNotEmpty())
+        (draftMediaPreview.adapter as DraftMediaAdapter).submitList(draft.attachments)
+
+        draft.poll?.apply {
+            draftPoll.show()
+            draftPoll.setPoll(this)
+        } ?: draftPoll.hide()
+
+        if (draft.failureMessage.isNullOrEmpty()) {
+            dividerFailure.hide()
+            draftFailure.hide()
+        } else {
+            dividerFailure.show()
+            draftFailure.show()
+            draftFailure.text = binding.root.context.getString(
+                R.string.send_post_failure_message_prefix,
+                draft.failureMessage,
+            )
+        }
+    }
+
+    override fun isChecked() = binding.checkBox.isChecked
+
+    override fun setChecked(checked: Boolean) {
+        binding.checkBox.isChecked = checked
+    }
+
+    override fun toggle() {
+        isChecked = !binding.checkBox.isChecked
     }
 }

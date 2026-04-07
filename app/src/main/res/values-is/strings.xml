@@ -314,7 +314,6 @@
     <string name="action_subscribe_account">Gerast áskrifandi</string>
     <string name="pref_title_animate_custom_emojis">Hreyfa sérsniðin tjáningartákn</string>
     <string name="drafts_post_reply_removed">Færslan sem þú gerðir drög að svari við hefur verið fjarlægð</string>
-    <string name="draft_deleted">Eyddi drögum</string>
     <string name="drafts_post_failed_to_send">Mistókst að senda þessa færslu!</string>
     <string name="duration_indefinite">Ótiltekið</string>
     <string name="label_duration">Tímalengd</string>
@@ -408,15 +407,6 @@
     <string name="mute_notifications_switch">Þagga tilkynningar</string>
     <string name="title_public_trending_hashtags">Vinsæl myllumerki</string>
     <string name="accessibility_talking_about_tag">%1$d manns eru að tala um myllumerkið %2$s</string>
-    <string name="action_post_failed">Innsending mistókst</string>
-    <string name="action_post_failed_show_drafts">Birta drög</string>
-    <string name="action_post_failed_do_nothing">Afgreiða</string>
-    <string name="action_post_failed_detail">Ekki tókst að senda inn færsluna þína og hefur hún verið vistuð í Drög.
-\n
-\nAnnað hvort náðist ekki í netþjóninn, eða hann hafnaði færslunni.</string>
-    <string name="action_post_failed_detail_plural">Ekki tókst að senda inn færslurnar þína og hafa þær verið vistaðar í Drög.
-\n
-\nAnnað hvort náðist ekki í netþjóninn, eða hann hafnaði færslunum.</string>
     <string name="description_login">Virkar í flestum tilvikum. Engum gögnum er lekið til annarra forrita.</string>
     <string name="description_browser_login">Gæti stutt fleiri aðferðir til auðkenningar, en krefst studds vafra.</string>
     <string name="total_usage">Heildarnotkun</string>

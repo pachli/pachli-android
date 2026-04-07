@@ -25,8 +25,10 @@ import app.pachli.R
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.InstanceInfoRepository
 import app.pachli.core.database.AppDatabase
+import app.pachli.core.model.Draft
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_CHARACTERS_RESERVED_PER_URL
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
+import app.pachli.core.model.Status
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.network.model.AccountSource
@@ -129,6 +131,18 @@ class ComposeActivityTest {
         avatar = "",
         header = "",
         source = AccountSource(),
+    )
+
+    private val draft = Draft(
+        id = 1,
+        contentWarning = "",
+        content = "",
+        sensitive = false,
+        visibility = Status.Visibility.PUBLIC,
+        language = null,
+        quotePolicy = null,
+        cursorPosition = 0,
+        state = Draft.State.DEFAULT,
     )
 
     @Before
@@ -240,7 +254,14 @@ class ComposeActivityTest {
 
     @Test
     fun whenModifiedInitialState_andCloseButtonPressed_notFinish() = runTest {
-        rule.launch(intent(ComposeOptions(modifiedInitialState = true)))
+        rule.launch(
+            intent(
+                ComposeOptions(
+                    draft = draft,
+                    modifiedInitialState = true,
+                ),
+            ),
+        )
         dispatcher.scheduler.advanceUntilIdle()
         accountManager.getPachliAccountFlow(pachliAccountId).first()
         rule.scenario.onActivity {
@@ -261,7 +282,7 @@ class ComposeActivityTest {
 
     @Test
     fun whenBackButtonPressedNotEmpty_notFinish() = runTest {
-        rule.launch(intent())
+        rule.launch(intent(ComposeOptions(draft = draft)))
         dispatcher.scheduler.advanceUntilIdle()
         accountManager.getPachliAccountFlow(pachliAccountId).first()
 
@@ -275,7 +296,14 @@ class ComposeActivityTest {
 
     @Test
     fun whenModifiedInitialState_andBackButtonPressed_notFinish() = runTest {
-        rule.launch(intent(ComposeOptions(modifiedInitialState = true)))
+        rule.launch(
+            intent(
+                ComposeOptions(
+                    draft = draft,
+                    modifiedInitialState = true,
+                ),
+            ),
+        )
         dispatcher.scheduler.advanceUntilIdle()
         accountManager.getPachliAccountFlow(pachliAccountId).first()
         rule.scenario.onActivity {
@@ -746,7 +774,13 @@ class ComposeActivityTest {
 
     @Test
     fun languageGivenInComposeOptionsIsRespected() = runTest {
-        rule.launch(intent(ComposeOptions(language = "no")))
+        rule.launch(
+            intent(
+                ComposeOptions(
+                    draft = draft.copy(language = "no"),
+                ),
+            ),
+        )
         dispatcher.scheduler.advanceUntilIdle()
         accountManager.getPachliAccountFlow(pachliAccountId).first()
         rule.scenario.onActivity {
@@ -759,7 +793,13 @@ class ComposeActivityTest {
     fun modernLanguageCodeIsUsed() = runTest {
         // https://github.com/tuskyapp/Tusky/issues/2903
         // "ji" was deprecated in favor of "yi"
-        rule.launch(intent(ComposeOptions(language = "ji")))
+        rule.launch(
+            intent(
+                ComposeOptions(
+                    draft = draft.copy(language = "ji"),
+                ),
+            ),
+        )
         dispatcher.scheduler.advanceUntilIdle()
         accountManager.getPachliAccountFlow(pachliAccountId).first()
         rule.scenario.onActivity {
@@ -770,7 +810,13 @@ class ComposeActivityTest {
 
     @Test
     fun unknownLanguageGivenInComposeOptionsIsRespected() = runTest {
-        rule.launch(intent(ComposeOptions(language = "zzz")))
+        rule.launch(
+            intent(
+                ComposeOptions(
+                    draft = draft.copy(language = "zzz"),
+                ),
+            ),
+        )
         dispatcher.scheduler.advanceUntilIdle()
         accountManager.getPachliAccountFlow(pachliAccountId).first()
         rule.scenario.onActivity {
@@ -780,7 +826,7 @@ class ComposeActivityTest {
     }
 
     /** Returns an intent to launch [ComposeActivity] with the given options */
-    private fun intent(composeOptions: ComposeOptions? = null) = ComposeActivityIntent(
+    private fun intent(composeOptions: ComposeOptions) = ComposeActivityIntent(
         ApplicationProvider.getApplicationContext(),
         pachliAccountId,
         composeOptions,

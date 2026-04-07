@@ -342,7 +342,6 @@
         <item quantity="other">Não é possível enviar mais de %1$d arquivos de conteúdo multimédia.</item>
     </plurals>
     <string name="drafts_post_failed_to_send">Erro ao enviar o toot!</string>
-    <string name="draft_deleted">Rascunho apagado</string>
     <string name="drafts_post_reply_removed">O toot para o qual escreveu um rascunho foi apagado</string>
     <string name="error_empty">Isto não pode estar vazio.</string>
     <string name="error_no_web_browser_found">Não foi possível encontrar um navegador.</string>
@@ -376,15 +375,6 @@
     <string name="hint_media_description_missing">Imagem/Vídeo precisa de uma descrição.</string>
     <string name="hint_description">Descrição</string>
     <string name="pref_title_http_proxy_port_message">Porta deve ser entre %1$d e %2$d</string>
-    <string name="action_post_failed">Falha ao fazer upload</string>
-    <string name="action_post_failed_detail">A tua publicação não conseguiu ser enviada e foi salva nos rascunhos.
-\n
-\nO servidor não pode ser contactado, ou rejeitou a publicação.</string>
-    <string name="action_post_failed_detail_plural">As tuas publicações não conseguiram ser enviadas e foram salvas nos rascunhos.
-\n
-\nO servidor não pode ser contactado, ou rejeitou as publicações.</string>
-    <string name="action_post_failed_show_drafts">Mostrar rascunhos</string>
-    <string name="action_post_failed_do_nothing">Descartar</string>
     <string name="error_muting_hashtag_format">Erro a silenciar #%1$s</string>
     <string name="notification_header_report_format">%1$s reportou %2$s</string>
     <string name="action_discard">Descartar alterações</string>

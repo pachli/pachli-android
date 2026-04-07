@@ -1122,8 +1122,6 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         binding.mainToolbar.setOnClickListener {
             (tabAdapter.getFragment(activeTabLayout.selectedTabPosition) as? ReselectableFragment)?.onReselect()
         }
-
-        tabAdapter.tabs.getOrNull(binding.viewPager.currentItem)?.timeline
     }
 
     /**

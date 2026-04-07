@@ -319,7 +319,6 @@
     <string name="pref_title_wellbeing_mode">Llesiant</string>
     <string name="wellbeing_hide_stats_posts">Cuddio ystadegau meintiol negeseuon</string>
     <string name="wellbeing_hide_stats_profile">Cuddio ystadegau meintiol proffiliau</string>
-    <string name="draft_deleted">Drafft wedi\'i ddileu</string>
     <string name="drafts_post_reply_removed">Mae\'r neges y drafftioch ymateb iddi wedi cael ei dileu</string>
     <string name="description_post_language">Iaith y neges</string>
     <string name="hashtags">Hashnodau</string>
@@ -423,15 +422,6 @@
     <string name="pref_summary_http_proxy_invalid">&lt;annilys&gt;</string>
     <string name="description_login">Yn gweithio yn y rhan mwyaf o achosion. Nid oes unrhyw ddata yn cael ei ollwng i apiau eraill.</string>
     <string name="description_browser_login">Gall gefnogi dulliau dilysu ychwanegol, ond mae angen porwr a gefnogir.</string>
-    <string name="action_post_failed_detail">Methodd eich neges â lanlwytho a chafodd ei chadw i\'ch drafftiau.
-\n
-\nNaill ai nid oedd modd cysylltu â\'r gweinydd, neu fe wrthododd y neges.</string>
-    <string name="action_post_failed">Wedi methu lanlwytho</string>
-    <string name="action_post_failed_show_drafts">Dangos drafftiau</string>
-    <string name="action_post_failed_do_nothing">Diystyru</string>
-    <string name="action_post_failed_detail_plural">Methodd eich negeseuon â lanlwytho a chafodd ei chadw i\'ch ddrafftiau.
-\n
-\nNaill ai nid oedd modd cysylltu â\'r gweinydd, neu fe wrthododd y negeseuon.</string>
     <string name="title_public_trending_hashtags">Hashnodau tueddiadol</string>
     <string name="accessibility_talking_about_tag">Siarada %1$d o bobl am hashnod %2$s</string>
     <string name="total_usage">Defnydd cyfan</string>

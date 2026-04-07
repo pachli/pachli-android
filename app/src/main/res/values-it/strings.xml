@@ -338,7 +338,6 @@
         <item quantity="other">Non puoi caricare più di %1$d allegati multimediali.</item>
     </plurals>
     <string name="drafts_post_reply_removed">Il messaggio a cui hai scritto una bozza di risposta è stato rimosso</string>
-    <string name="draft_deleted">Bozza eliminata</string>
     <string name="drafts_post_failed_to_send">L\'invio di questo messaggio è fallito!</string>
     <string name="duration_indefinite">Indefinita</string>
     <string name="label_duration">Durata</string>
@@ -423,17 +422,10 @@
     <string name="status_created_info">%1$s ha creato</string>
     <string name="report_category_other">Altro</string>
     <string name="action_unfollow_hashtag_format">Smettere di seguire #%1$s?</string>
-    <string name="action_post_failed">Caricamento fallito</string>
     <string name="a11y_label_loading_thread">Carico il thread</string>
     <string name="pref_summary_http_proxy_disabled">Disattivato</string>
     <string name="pref_summary_http_proxy_missing">&lt;non impostato&gt;</string>
     <string name="pref_summary_http_proxy_invalid">&lt;non valido&gt;</string>
-    <string name="action_post_failed_detail">Non è stato possibile caricare il tuo post ed è stato salvato nelle bozze.
-\n
-\nNon è stato possibile contattare il server oppure il server ha rifiutato il post.</string>
-    <string name="action_post_failed_detail_plural">Non è stato possibile caricare i tuoi post e sono stati salvati nelle bozze.</string>
-    <string name="action_post_failed_show_drafts">Mostra bozze</string>
-    <string name="action_post_failed_do_nothing">Chiudi</string>
     <string name="send_account_username_to">Condividi nome utente dell\'account a…</string>
     <string name="description_login">Funziona nella maggior parte dei casi. Nessun dato è trasferito ad altre app.</string>
     <string name="description_browser_login">Potrebbe supportare differenti metodi di autenticazione, ma richiede un browser supportato.</string>

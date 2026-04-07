@@ -101,11 +101,6 @@
     <string name="action_quick_reply">Kiirvastus</string>
     <string name="action_unbookmark">Eemalda järjehoidja</string>
     <string name="action_compose">Koosta postitus</string>
-    <string name="action_post_failed">Üleslaadimine ei õnnestunud</string>
-    <string name="action_post_failed_detail">Sinu postituse üleslaadimine ei õnnestunud ja ta on nüüd salvestatud kavandina.\n\nServer kas polnud leitav või ta keeldus sellest postitusest.</string>
-    <string name="action_post_failed_detail_plural">Sinu postituste üleslaadimine ei õnnestunud ja nad on nüüd salvestatud kavanditena.\n\nServer kas polnud leitav või ta keeldus nendest postitustest.</string>
-    <string name="action_post_failed_show_drafts">Näita kavandeid</string>
-    <string name="action_post_failed_do_nothing">Loobu</string>
     <string name="action_follow">Jälgi</string>
     <string name="action_unfollow">Lõpeta jälgimine</string>
     <string name="action_block">Blokeeri</string>
@@ -486,7 +481,6 @@
     <string name="pref_title_confirm_reblogs">Küsi enne hoo lisamist kinnitust</string>
     <string name="pref_title_confirm_favourites">Küsi enne lemmikuks märkimist kinnitust</string>
     <string name="pref_title_confirm_status_language">Enne postitamist kontrolli postituse keelt</string>
-    <string name="draft_deleted">Kavand on kustutatud</string>
     <string name="drafts_post_reply_removed">See postitus on kustutatud, millele olid vastusekavandit koostamas</string>
     <string name="follow_requests_info">Kui sinu kasutajakonto pole lukustatud, siis arvas %1$s koduserveri tiim, et sa sooviksid nende kasutajakontode liitumispalveid käsitsi kinnitada.</string>
     <string name="action_subscribe_account">Telli</string>

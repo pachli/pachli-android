@@ -121,7 +121,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="822"
+            line="819"
             column="17"/>
     </issue>
 
@@ -132,7 +132,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="825"
+            line="822"
             column="17"/>
     </issue>
 
@@ -143,7 +143,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="830"
+            line="827"
             column="13"/>
     </issue>
 
@@ -237,34 +237,12 @@
 
     <issue
         id="MemberExtensionConflict"
-        message="`show` is defined both as a member in class `com.google.android.material.floatingactionbutton.FloatingActionButton` and an extension in package `app.pachli.core.common.extensions`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            binding.composeButton.show()"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/MainActivity.kt"
-            line="1118"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`hide` is defined both as a member in class `com.google.android.material.floatingactionbutton.FloatingActionButton` and an extension in package `app.pachli.core.common.extensions`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        } ?: binding.composeButton.hide()"
-        errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/MainActivity.kt"
-            line="1119"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
         message="`hide` is defined both as a member in class `com.google.android.material.floatingactionbutton.FloatingActionButton` and an extension in package `app.pachli.core.common.extensions`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
         errorLine1="                binding.composeButton.hide()"
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="1177"
+            line="1182"
             column="17"/>
     </issue>
 
@@ -528,7 +506,7 @@
         errorLine2="                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/styles.xml"
-            line="157"
+            line="160"
             column="42"/>
     </issue>
 
@@ -539,7 +517,7 @@
         errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/styles.xml"
-            line="158"
+            line="161"
             column="43"/>
     </issue>
 
@@ -785,7 +763,7 @@
         errorLine2="                                                  ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="407"
+            line="403"
             column="51"/>
     </issue>
 
@@ -796,7 +774,7 @@
         errorLine2="                                          ~~~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="517"
+            line="502"
             column="43"/>
     </issue>
 
@@ -807,7 +785,7 @@
         errorLine2="                                                  ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="602"
+            line="587"
             column="51"/>
     </issue>
 
@@ -818,7 +796,7 @@
         errorLine2="                                                                   ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="626"
+            line="611"
             column="68"/>
     </issue>
 
@@ -840,7 +818,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="313"
+            line="310"
             column="5"/>
     </issue>
 
@@ -851,7 +829,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="562"
+            line="563"
             column="5"/>
     </issue>
 
@@ -873,7 +851,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="569"
+            line="566"
             column="9"/>
     </issue>
 
@@ -1027,7 +1005,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/item_draft.xml"
-            line="8"
+            line="10"
             column="5"/>
     </issue>
 
@@ -3337,7 +3315,7 @@
         errorLine2="                  ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/donottranslate.xml"
-            line="44"
+            line="42"
             column="19"/>
     </issue>
 
@@ -3348,7 +3326,7 @@
         errorLine2="                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/donottranslate.xml"
-            line="266"
+            line="264"
             column="19"/>
     </issue>
 
@@ -3359,7 +3337,7 @@
         errorLine2="                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/donottranslate.xml"
-            line="271"
+            line="269"
             column="19"/>
     </issue>
 
@@ -3480,7 +3458,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="../feature/about/src/main/res/values/strings.xml"
-            line="20"
+            line="19"
             column="13"/>
     </issue>
 
@@ -3557,7 +3535,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="131"
+            line="130"
             column="13"/>
     </issue>
 
@@ -3568,7 +3546,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="133"
+            line="132"
             column="13"/>
     </issue>
 
@@ -3579,7 +3557,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="169"
+            line="166"
             column="13"/>
     </issue>
 
@@ -3590,7 +3568,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="227"
+            line="224"
             column="13"/>
     </issue>
 
@@ -3601,7 +3579,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="248"
+            line="245"
             column="13"/>
     </issue>
 
@@ -3612,7 +3590,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="249"
+            line="246"
             column="13"/>
     </issue>
 
@@ -3623,7 +3601,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="303"
+            line="300"
             column="13"/>
     </issue>
 
@@ -3634,7 +3612,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="393"
+            line="389"
             column="13"/>
     </issue>
 
@@ -3645,7 +3623,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="422"
+            line="420"
             column="13"/>
     </issue>
 
@@ -3656,7 +3634,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="425"
+            line="423"
             column="13"/>
     </issue>
 
@@ -3667,7 +3645,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="428"
+            line="426"
             column="13"/>
     </issue>
 
@@ -3678,7 +3656,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="429"
+            line="427"
             column="13"/>
     </issue>
 
@@ -3689,7 +3667,7 @@
         errorLine2="            ~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="430"
+            line="428"
             column="13"/>
     </issue>
 
@@ -3700,7 +3678,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="432"
+            line="430"
             column="13"/>
     </issue>
 
@@ -3711,7 +3689,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="444"
+            line="442"
             column="13"/>
     </issue>
 
@@ -3722,7 +3700,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="445"
+            line="443"
             column="13"/>
     </issue>
 
@@ -3733,7 +3711,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="453"
+            line="451"
             column="13"/>
     </issue>
 
@@ -3744,7 +3722,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="454"
+            line="452"
             column="13"/>
     </issue>
 
@@ -3755,7 +3733,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="464"
+            line="462"
             column="13"/>
     </issue>
 
@@ -3766,7 +3744,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="465"
+            line="463"
             column="13"/>
     </issue>
 
@@ -3777,7 +3755,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="466"
+            line="464"
             column="13"/>
     </issue>
 
@@ -3788,7 +3766,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="469"
+            line="467"
             column="13"/>
     </issue>
 
@@ -3799,7 +3777,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="477"
+            line="475"
             column="13"/>
     </issue>
 
@@ -3810,7 +3788,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="519"
+            line="517"
             column="13"/>
     </issue>
 
@@ -3821,7 +3799,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="525"
+            line="523"
             column="13"/>
     </issue>
 
@@ -3832,7 +3810,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="554"
+            line="555"
             column="13"/>
     </issue>
 
@@ -3843,7 +3821,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="580"
+            line="581"
             column="13"/>
     </issue>
 
@@ -3854,7 +3832,7 @@
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="../core/designsystem/src/main/res/values/styles.xml"
-            line="155"
+            line="158"
             column="12"/>
     </issue>
 
@@ -3865,7 +3843,7 @@
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="../core/designsystem/src/main/res/values/styles.xml"
-            line="277"
+            line="280"
             column="12"/>
     </issue>
 
@@ -4147,7 +4125,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_draft.xml"
-            line="31"
+            line="60"
             column="6"/>
     </issue>
 
@@ -4158,7 +4136,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_draft.xml"
-            line="45"
+            line="71"
             column="6"/>
     </issue>
 

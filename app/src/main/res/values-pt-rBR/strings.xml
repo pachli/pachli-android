@@ -311,7 +311,6 @@
     <string name="pref_title_notification_filter_subscriptions">alguém que eu sigo publicou um novo Toot</string>
     <string name="drafts_post_failed_to_send">Erro ao enviar o Toot!</string>
     <string name="drafts_post_reply_removed">O Toot onde rascunhou uma resposta foi excluído</string>
-    <string name="draft_deleted">Rascunho excluído</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Não é possível anexar mais de %1$d arquivo de mídia.</item>
         <item quantity="many">Não é possível anexar mais de %1$d arquivos de mídia.</item>
@@ -377,8 +376,6 @@
     <string name="report_category_spam">Spam</string>
     <string name="report_category_other">Outros</string>
     <string name="pref_title_http_proxy_port_message">A porta deve estar entre %1$d e %2$d</string>
-    <string name="action_post_failed">Falha ao enviar</string>
-    <string name="action_post_failed_show_drafts">Mostrar rascunhos</string>
     <string name="account_date_joined">Entrou em %1$s</string>
     <string name="mute_notifications_switch">Silenciar notificações</string>
     <string name="description_login">Funciona na maioria dos casos. Nenhum dado é vazado para outros aplicativos.</string>
@@ -401,7 +398,6 @@
     <string name="saving_draft">Salvando rascunho…</string>
     <string name="ui_error_translate_status_fmt">A tradução falhou: %1$s</string>
     <string name="update_dialog_negative">Nunca me lembre</string>
-    <string name="action_post_failed_do_nothing">Dispensar</string>
     <string name="dialog_delete_filter_positive_action">Excluir</string>
     <string name="ui_error_reblog_fmt">Falhou dar Boost: %1$s</string>
     <string name="error_status_source_load">Falha ao carregar a fonte do estado da instância.</string>
@@ -421,9 +417,6 @@
     <string name="dialog_delete_filter_text">Excluir filtro \'%1$s\'?</string>
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
     <string name="total_accounts">Total de contas</string>
-    <string name="action_post_failed_detail_plural">Não foi possível enviar teus Toots e eles foram salvos em Rascunhos.
-\n
-\nA instância não pôde ser contatada ou rejeitou os Toots.</string>
     <string name="hint_filter_title">Meu filtro</string>
     <string name="ui_success_accepted_follow_request">Pedido para seguir aceito</string>
     <string name="error_media_playback">Reprodução falhou: %1$s</string>
@@ -482,9 +475,6 @@
     <string name="error_missing_edits">Teu servidor sabe que esta postagem foi editada, mas não possui uma cópia das edições, portanto elas não podem ser mostradas.
 \n
 \nEste é o <a href="https://github.com/mastodon/mastodon/issues/25398">problema #25398 do Mastodon</a>.</string>
-    <string name="action_post_failed_detail">Não foi possível enviar tua postagem e ela foi salva em Rascunhos.
-\n
-\nA instância não pôde ser contatada ou rejeitou o Toot.</string>
     <string name="select_list_empty">Ainda não tens listas</string>
     <string name="label_filter_context">Contextos do filtro</string>
     <string name="pref_title_account_filter_keywords">Perfis</string>

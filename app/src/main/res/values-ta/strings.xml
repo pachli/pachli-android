@@ -207,7 +207,6 @@
     <string name="title_edits">திருத்தங்கள்</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; உங்களைப் பின்தொடருமாறு கேட்டுக்கொண்டது</string>
     <string name="notification_report_format">%1$s பற்றிய புதிய அறிக்கை</string>
-    <string name="action_post_failed">பதிவேற்றம் தோல்வியடைந்தது</string>
     <string name="action_share_account_username">கணக்கின் பயனர்பெயரைப் பகிரவும்</string>
     <string name="pref_title_show_self_boosts_description">யாரோ தங்கள் சொந்த இடுகையை உயர்த்துகிறார்கள்</string>
     <string name="action_continue_edit">திருத்துதல் தொடரவும்</string>
@@ -280,8 +279,6 @@
         <item quantity="one">%1$s · %2$d இடுகை இணைக்கப்பட்டுள்ளது</item>
         <item quantity="other">%1$s · %2$d பதிவுகள் இணைக்கப்பட்டுள்ளன</item>
     </plurals>
-    <string name="action_post_failed_detail_plural">உங்கள் பதிவுகள் பதிவேற்றத் தவறிவிட்டன, மேலும் அவை வரைவுகளுக்கு சேமிக்கப்பட்டுள்ளன.\n\n சேவையகத்தைத் தொடர்பு கொள்ள முடியவில்லை, அல்லது அது இடுகைகளை நிராகரித்தது.</string>
-    <string name="action_post_failed_do_nothing">தள்ளுபடி</string>
     <string name="action_send">டூட்</string>
     <string name="action_send_public">டூட்!</string>
     <string name="action_unmute_conversation">மாறாத உரையாடல்</string>
@@ -454,7 +451,6 @@
     <string name="search_operator_sensitive_sensitive_only">உணர்திறன் உள்ளடக்கம் மட்டுமே</string>
     <string name="search_operator_where_dialog_title">வரம்பு…</string>
     <string name="search_operator_where_dialog_public_hint">சேவையகத்தால் அறியப்பட்ட பொது, தேடக்கூடிய இடுகைகள்</string>
-    <string name="action_post_failed_detail">உங்கள் இடுகை பதிவேற்றத் தவறிவிட்டது மற்றும் வரைவுகளுக்கு சேமிக்கப்பட்டுள்ளது.\n\n சேவையகத்தைத் தொடர்பு கொள்ள முடியவில்லை, அல்லது அது இடுகையை நிராகரித்தது.</string>
     <string name="action_access_scheduled_posts">திட்டமிடப்பட்ட இடுகைகள்</string>
     <string name="action_open_reblogger">திறந்த பூச்ட் ஆசிரியர்</string>
     <string name="action_open_faved_by">பிடித்தவைகளைக் காட்டு</string>
@@ -586,14 +582,12 @@
     <string name="search_operator_poll_dialog_no_polls">வாக்கெடுப்புகள் இல்லாமல் மட்டுமே இடுகையிடுகிறது</string>
     <string name="search_operator_where_dialog_public">பொது பதவிகள்</string>
     <string name="title_domain_mutes">மறைக்கப்பட்ட களங்கள்</string>
-    <string name="action_post_failed_show_drafts">வரைவுகளைக் காட்டு</string>
     <string name="post_text_size_medium">சராசரி</string>
     <string name="post_text_size_large">பெரிய</string>
     <string name="list">பட்டியல்</string>
     <string name="notifications_clear">அறிவிப்புகளை நீக்கு</string>
     <string name="failed_search">தேடத் தவறிவிட்டது</string>
     <string name="duration_30_min">30 நிமிடங்கள்</string>
-    <string name="draft_deleted">வரைவு நீக்கப்பட்டது</string>
     <string name="drafts_post_reply_removed">நீங்கள் வரைவு செய்த இடுகை அகற்றப்பட்டது</string>
     <string name="action_unsubscribe_account">குழுவிலகவும்</string>
     <string name="report_category_violation">விதி மீறல்</string>

@@ -373,7 +373,6 @@
     <string name="pref_title_confirm_favourites">Патрабаваць пацвярджэнне перад упадабаннем</string>
     <string name="pref_title_confirm_reblogs">Патрабаваць пацвярджэнне перад пашырэннем</string>
     <string name="pref_title_wellbeing_mode">Дабрабыт</string>
-    <string name="draft_deleted">Чарнавік выдалены</string>
     <string name="report_category_spam">Спам</string>
     <string name="report_category_other">Іншае</string>
     <string name="action_unfollow_hashtag_format">Не сачыць за #%1$s\?</string>
@@ -409,15 +408,6 @@
     <string name="pref_summary_http_proxy_missing">&lt;не задана&gt;</string>
     <string name="dialog_follow_hashtag_title">Падпісацца на хэштэг</string>
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
-    <string name="action_post_failed">Не атрымалася запампаваць</string>
-    <string name="action_post_failed_detail">Не атрымалася запампаваць ваш допіс і ён быў захаваны ў чарнавік.
-\n
-\nАльбо не атрымалася злучыцца з серверам ці ён адхіліў допіс.</string>
-    <string name="action_post_failed_detail_plural">Не атрымалася запампаваць вашы допісы і яны былі захаваны ў чарнавікі.
-\n
-\nАльбо не атрымалася злучыцца з серверам ці ён адхіліў допісы.</string>
-    <string name="action_post_failed_show_drafts">Паказаць чарнавікі</string>
-    <string name="action_post_failed_do_nothing">Адмяніць</string>
     <string name="description_login">Працуе амаль заўсёды. Даныя не ўцякаюць у іншыя праграмы.</string>
     <string name="notification_unknown_name">Невядома</string>
     <string name="pref_title_account_filter_keywords">Профілі</string>

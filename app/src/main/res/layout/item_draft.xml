@@ -11,46 +11,14 @@
     android:paddingTop="4dp"
     android:paddingBottom="4dp">
 
-    <Space
-        android:id="@+id/topSpace"
-        android:layout_width="wrap_content"
-        android:layout_height="12dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/deleteButton" />
-
-    <TextView
-        android:id="@+id/contentWarning"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-medium"
-        android:textSize="?attr/status_text_medium"
-        app:layout_constraintEnd_toStartOf="@+id/deleteButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topSpace"
-        tools:text="Some content warning" />
-
-    <TextView
-        android:id="@+id/content"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textSize="?attr/status_text_medium"
-        app:layout_constraintTop_toBottomOf="@id/contentWarning"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/deleteButton"
-        tools:text="Some post content. May be very long." />
-
-    <ImageButton
-        android:id="@+id/deleteButton"
-        style="@style/AppImageButton"
+    <CheckBox
+        android:id="@+id/checkBox"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="center_vertical"
-        android:contentDescription="@string/action_delete"
-        android:padding="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/outline_delete_24" />
+        app:buttonTint="@color/compound_button_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/sendingIndicator"
@@ -58,8 +26,57 @@
         android:layout_height="48dp"
         android:padding="4dp"
         android:indeterminate="true"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/editButton"
+        style="@style/AppImageButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@string/action_edit"
+        android:padding="4dp"
+        android:clickable="false"
+        android:focusable="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_edit_24dp" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/horizontalBarrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="end"
+        app:constraint_referenced_ids="checkBox,sendingIndicator,editButton" />
+
+    <Space
+        android:id="@+id/topSpace"
+        android:layout_width="wrap_content"
+        android:layout_height="12dp"
+        app:layout_constraintStart_toEndOf="@id/horizontalBarrier"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/contentWarning"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="?attr/status_text_medium"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintStart_toEndOf="@+id/horizontalBarrier"
+        app:layout_constraintTop_toBottomOf="@id/topSpace"
+        tools:text="Some content warning" />
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="?attr/status_text_medium"
+        app:layout_constraintStart_toStartOf="@+id/contentWarning"
+        app:layout_constraintTop_toBottomOf="@id/contentWarning"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Some post content. May be very long." />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/draftMediaPreview"
@@ -69,7 +86,7 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/content"
         app:layout_constraintTop_toBottomOf="@id/content" />
 
     <app.pachli.components.compose.view.PollPreviewView
@@ -78,7 +95,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:minWidth="@dimen/poll_preview_min_width"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/draftMediaPreview"
         app:layout_constraintTop_toBottomOf="@id/draftMediaPreview"
         app:layout_goneMarginEnd="8dp" />
 
@@ -87,12 +104,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="contentWarning,content,deleteButton,sendingIndicator,draftMediaPreview,draftPoll" />
+        app:constraint_referenced_ids="contentWarning,content,editButton,sendingIndicator,draftMediaPreview,draftPoll" />
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/dividerFailure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="6dp"
         android:layout_marginBottom="6dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -105,10 +123,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:drawablePadding="8dp"
+        android:layout_marginStart="12dp"
         android:gravity="center_vertical"
         android:text="@string/drafts_post_failed_to_send"
         android:textColor="?colorError"
-        android:textSize="?attr/status_text_medium"
+        android:textSize="?attr/status_text_small"
         app:drawableStartCompat="@drawable/ic_alert_circle"
         app:drawableTint="?colorError"
         app:layout_constraintStart_toStartOf="parent"

@@ -32,7 +32,6 @@ import app.pachli.core.database.model.asModel
 import app.pachli.core.model.AccountSource
 import app.pachli.core.model.DeletedStatus
 import app.pachli.core.model.Draft
-import app.pachli.core.model.DraftAttachment
 import app.pachli.core.model.ScheduledStatus
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
@@ -78,10 +77,6 @@ class DraftRepository @Inject constructor(
         draftDao.upsert(draft.asEntity(pachliAccountId))
     }
 
-    fun deleteDraft(pachliAccountId: Long, draftId: Long) = externalScope.launch {
-        draftDao.delete(pachliAccountId, draftId)
-    }
-
     fun deleteDraftAndAttachments(pachliAccountId: Long, draftId: Long) = externalScope.launch {
         val draft = draftDao.find(pachliAccountId, draftId) ?: return@launch
         draft.attachments.forEach { attachment ->
@@ -89,7 +84,7 @@ class DraftRepository @Inject constructor(
                 Timber.e("Did not delete file %s", attachment.uri)
             }
         }
-        deleteDraft(pachliAccountId, draft.id)
+        draftDao.delete(pachliAccountId, draft.id)
     }
 
     fun deleteDraftAndAttachments(pachliAccountId: Long, draft: Draft) = externalScope.launch(Dispatchers.IO) {
@@ -98,15 +93,7 @@ class DraftRepository @Inject constructor(
                 Timber.e("Did not delete file %s", attachment.uri)
             }
         }
-        deleteDraft(pachliAccountId, draft.id)
-    }
-
-    fun deleteAttachments(attachments: List<DraftAttachment>) {
-        attachments.forEach { attachment ->
-            if (context.contentResolver.delete(attachment.uri, null, null) == 0) {
-                Timber.e("Did not delete file %s", attachment.uri)
-            }
-        }
+        draftDao.delete(pachliAccountId, draft.id)
     }
 
     /**

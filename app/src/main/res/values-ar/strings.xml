@@ -312,7 +312,6 @@
     <string name="pref_title_hide_top_toolbar">إخفاء عنوان شريط الأدوات العلوي</string>
     <string name="title_announcements">الاعلانات</string>
     <string name="drafts_post_failed_to_send">فشلت عملية إرسال التبويق!</string>
-    <string name="draft_deleted">حُذفَت المسودة</string>
     <string name="action_subscribe_account">اشترك</string>
     <string name="action_unsubscribe_account">إلغاء الإشتراك</string>
     <string name="notification_subscription_format">نشر &lt;b&gt;%1$s&lt;/b&gt; للتوّ</string>
@@ -418,9 +417,6 @@
     <string name="account_date_joined">%1$s انضم في</string>
     <string name="title_migration_relogin">أعد تسجيل الدخول لاستلام الاشعارات</string>
     <string name="pref_title_notification_filter_updates">المنشور الذي تفاعلت معه تم تعديله</string>
-    <string name="action_post_failed">فشل التحميل</string>
-    <string name="action_post_failed_show_drafts">إظهار المسودات</string>
-    <string name="action_post_failed_do_nothing">تخطي</string>
     <string name="pref_summary_http_proxy_disabled">مُعطَّل</string>
     <string name="title_public_trending_hashtags">الوسوم المتداولة</string>
     <string name="accessibility_talking_about_tag">هناك %1$d أشخاص يتحدثون عن الوسم %2$s</string>

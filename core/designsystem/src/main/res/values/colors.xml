@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!--
       Material base colors
       Generated with https://material-foundation.github.io/material-theme-builder/
@@ -323,4 +323,16 @@
     <!-- colors used in the app icon -->
     <color name="icon_background">#09497b</color>
     <color name="icon_highlight">#39acff</color>
+
+    <!--
+     Fix white status bar during Action Mode.
+
+     Overrides the colors used by the AppCompat DecorView to prevent a solid status bar guard.
+     Otherwise, selecting multiple items (e.g., selecting multiple Drafts in DraftsActivity)
+     makes the statusbar appear white.
+
+     Lint flags this as unused, which needs to be ignored.
+     -->
+    <color name="abc_decor_view_status_guard" tools:ignore="UnusedResources" tools:override="true">@android:color/transparent</color>
+    <color name="abc_decor_view_status_guard_light" tools:ignore="UnusedResources" tools:override="true">@android:color/transparent</color>
 </resources>

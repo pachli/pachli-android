@@ -315,7 +315,6 @@
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; acaba de fer una publicació</string>
     <string name="title_announcements">Avisos</string>
     <string name="drafts_post_reply_removed">S\'ha eliminat la publicació a la qual vau fer un esborrany de resposta</string>
-    <string name="draft_deleted">S\'ha eliminat l\'esborrany</string>
     <string name="drafts_post_failed_to_send">No s\'ha pogut publicar!</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">No podeu penjar més de %1$d fitxers adjunts multimèdia.</item>
@@ -337,15 +336,6 @@
     <string name="error_unmuting_hashtag_format">S\'ha produït un error en activar #%1$s</string>
     <string name="error_muting_hashtag_format">S\'ha produït un error en silenciar #%1$s</string>
     <string name="notification_update_name">Edicions de publicacions</string>
-    <string name="action_post_failed">La càrrega ha fallat</string>
-    <string name="action_post_failed_detail">La teva publicació no s\'ha pogut penjar i s\'ha desat als esborranys.
-\n
-\nNo s\'ha pogut contactar amb el servidor o bé ha rebutjat la publicació.</string>
-    <string name="action_post_failed_detail_plural">Les teves publicacions no s\'han pogut penjar i s\'han desat als esborranys.
-\n
-\nNo s\'ha pogut contactar amb el servidor o ha rebutjat les publicacions.</string>
-    <string name="action_post_failed_show_drafts">Mostra esborranys</string>
-    <string name="action_post_failed_do_nothing">Descartar</string>
     <string name="send_account_link_to">Comparteix l\'URL del compte a…</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; ha editat la seva publicació</string>
     <string name="notification_report_format">Nou informe sobre %1$s</string>

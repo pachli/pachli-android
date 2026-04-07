@@ -326,7 +326,6 @@
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; verzoekt u te volgen</string>
     <string name="title_announcements">Aankondigingen</string>
     <string name="review_notifications">Meldingen beoordelen</string>
-    <string name="draft_deleted">Concept verwijderd</string>
     <string name="wellbeing_hide_stats_posts">Kwantitatieve statistieken voor berichten verbergen</string>
     <string name="wellbeing_hide_stats_profile">Kwantitatieve statistieken in profielen verbergen</string>
     <string name="pref_main_nav_position">Hoofd navigatiepositie</string>
@@ -397,15 +396,6 @@
     <string name="dialog_follow_hashtag_title">Volg hashtag</string>
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
     <string name="hint_description">Beschrijving</string>
-    <string name="action_post_failed">Upload mislukt</string>
-    <string name="action_post_failed_detail">Je bericht kan niet worden geüpload en is opgeslagen in concepten.
-\n
-\nEr kon geen contact worden opgenomen met de server, of het bericht werd geweigerd.</string>
-    <string name="action_post_failed_detail_plural">Je berichten kunnen niet worden geüpload en zijn opgeslagen in concepten.
-\n
-\nEr kon geen contact worden opgenomen met de server of de berichten werden geweigerd.</string>
-    <string name="action_post_failed_do_nothing">Afwijzen</string>
-    <string name="action_post_failed_show_drafts">Concepten tonen</string>
     <string name="error_unmuting_hashtag_format">Fout bij unmuting #%1$s</string>
     <string name="action_add_reaction">reactie toevoegen</string>
     <string name="action_discard">Veranderingen ongedaan maken</string>

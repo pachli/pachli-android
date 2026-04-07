@@ -330,7 +330,6 @@
     <string name="action_unsubscribe_account">Отписаться</string>
     <string name="action_subscribe_account">Подписаться</string>
     <string name="drafts_post_reply_removed">Гудок который Вы записали в черновик был удален</string>
-    <string name="draft_deleted">Черновик удалён</string>
     <string name="drafts_post_failed_to_send">Этот гудок не удалось отправить!</string>
     <string name="wellbeing_hide_stats_profile">Скрыть количественную статистику по профилям пользователей</string>
     <string name="review_notifications">Просмотр уведомлений</string>
@@ -347,7 +346,6 @@
     <string name="status_edit_info">%1$s отредактировали</string>
     <string name="status_created_info">%1$s создали</string>
     <string name="help_empty_home">Это ваша <b>домашняя лента</b>. Она показывает последние публикации профилей, на которые вы подписаны.\n\nЧтобы найти профили, вы можете найти их в одной из других лент. Например, в местной ленте вашего сообщества [iconics gmd_group]. Или можете искать их по имени [iconics gmd_search]; например, введите Pachli, чтобы найти наш профиль Mastodon.</string>
-    <string name="action_post_failed_detail_plural">Ваши публикации не удалось закачать, и они были сохранены в черновиках.\n\nЛибо сервер недоступен, либо он отклонил публикации.</string>
     <string name="error_image_edit_failed">Не удалось отредактировать изображение.</string>
     <string name="error_following_hashtag_format">Ошибка подписки на #%1$s</string>
     <string name="error_unfollowing_hashtag_format">Ошибка отписки от #%1$s</string>
@@ -390,9 +388,6 @@
     <string name="notification_moderation_warning_tap_for_more">Нажмите, чтобы увидеть больше информации о вашем сервере.</string>
     <string name="notification_unknown">Неизвестный тип уведомления</string>
     <string name="notification_header_report_format">%1$s пожаловался на %2$s</string>
-    <string name="action_post_failed">Не удалось закачать</string>
-    <string name="action_post_failed_show_drafts">Показать черновики</string>
-    <string name="action_post_failed_do_nothing">Закрыть</string>
     <string name="action_share_account_link">Поделиться ссылкой на профиль</string>
     <string name="action_share_account_username">Поделиться именем пользователя профиля</string>
     <string name="pref_title_show_self_boosts">Показать самопродвижение</string>
@@ -739,7 +734,6 @@
         <item quantity="many">%1$s · %2$d прикреплённых записей</item>
         <item quantity="other">%1$s · %2$d прикреплённых записей</item>
     </plurals>
-    <string name="action_post_failed_detail">Ваша публикация не была закачана и сохранена в черновиках.\n\nЛибо сервер недоступен, либо он отклонил публикацию.</string>
     <string name="error_missing_edits">Ваш сервер знает, что это сообщение было отредактировано, но не сохраняет копию правок, поэтому не может их вам показать.\n\nЭто <a href="https://github.com/mastodon/mastodon/issues/25398">проблема в Mastodon #25398</a>.</string>
     <string name="pref_change_unified_push_distributor_msg">Это приведет к сбросу выбора распределителя UnifiedPush и перезапуску Pachli.\n\nЕсли установлено несколько распределителей UnifiedPush, то вам будет предложено выбрать один.</string>
     <string name="upload_failed_msg_fmt">Не удалось закачать вложение. Закачка будет повторена после отправки публикации. Если снова возникнет ошибка, публикация будет сохранена в черновиках.\n\nОшибка: %1$s</string>

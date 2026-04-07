@@ -331,7 +331,6 @@
 \n
 \nLas notificaciones Push no serán afectadas, pero puedes revisar manualmente tus preferencias.</string>
     <string name="drafts_post_reply_removed">La publicación a la que redactaste una respuesta ha sido eliminada</string>
-    <string name="draft_deleted">Borrador eliminado</string>
     <string name="drafts_post_failed_to_send">¡Esta publicación no se pudo enviar!</string>
     <string name="duration_indefinite">Indefinido</string>
     <string name="label_duration">Duración</string>
@@ -404,8 +403,6 @@
     <string name="action_continue_edit">Continuar editando</string>
     <string name="unsaved_changes">Tienes cambios sin guardar.</string>
     <string name="title_edits">Ediciones</string>
-    <string name="action_post_failed">La subida falló</string>
-    <string name="action_post_failed_do_nothing">Descartar</string>
     <string name="a11y_label_loading_thread">Cargando hilo</string>
     <string name="mute_notifications_switch">Silenciar notificaciones</string>
     <string name="status_edit_info">%1$s ha editado</string>
@@ -413,9 +410,6 @@
     <string name="pref_summary_http_proxy_disabled">Desactivado</string>
     <string name="pref_summary_http_proxy_missing">&lt;sin establecer&gt;</string>
     <string name="pref_summary_http_proxy_invalid">&lt;inválido&gt;</string>
-    <string name="action_post_failed_detail">No se ha podido subir tu publicación y se ha guardado en Borradores. \n \nO bien no se ha podido contactar con el servidor, o bien ha rechazado tu publicación.</string>
-    <string name="action_post_failed_detail_plural">Tus publicaciones no se han podido subir y se han guardado en Borradores. \n \nO bien no se ha podido contactar con el servidor, o bien ha rechazado tus publicaciones.</string>
-    <string name="action_post_failed_show_drafts">Mostrar borradores</string>
     <string name="send_account_username_to">Compartir identificador de la cuenta con…</string>
     <string name="account_username_copied">Identificador copiado</string>
     <string name="description_browser_login">Puede que permita métodos de autenticación adicionales, pero hace falta un navegador compatible.</string>

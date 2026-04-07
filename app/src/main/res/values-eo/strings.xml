@@ -312,7 +312,6 @@
     <string name="warning_scheduling_interval">Mastodon havas minimuman intervalon de planado de 5 minutoj.</string>
     <string name="pref_title_notification_filter_subscriptions">iu, kiun mi sekvas, afiŝis novan mesaĝon</string>
     <string name="action_subscribe_account">Aboni</string>
-    <string name="draft_deleted">Malneto forigita</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Vi ne povas elŝuti pli ol %1$d aŭdovida kunsendaĵo.</item>
         <item quantity="other">Vi ne povas elŝuti pli ol %1$d aŭdovidaj kunsendaĵoj.</item>

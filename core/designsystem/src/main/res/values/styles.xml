@@ -97,6 +97,9 @@
         <item name="pollViewStyle">@style/Pachli.Widget.PollView</item>
 
         <item name="previewCardViewStyle">@style/Pachli.Widget.PreviewCardView</item>
+
+        <!-- Prevent opening an action mode from pushing the content down. -->
+        <item name="windowActionModeOverlay">true</item>
     </style>
 
     <style name="Pachli.Widget.Material3.AppBarLayout" parent="Widget.Material3.AppBarLayout">

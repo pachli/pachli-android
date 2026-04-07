@@ -332,13 +332,9 @@
     <string name="duration_60_days">६० दिनानि</string>
     <string name="action_unsubscribe_account">ग्राहकता-समापनम्</string>
     <string name="language_display_name_format">%1$s (%2$s)</string>
-    <string name="action_post_failed">उपारोपनं विफलं जातम्</string>
-    <string name="action_post_failed_do_nothing">उत्सृज्यताम्</string>
-    <string name="action_post_failed_show_drafts">लेखविकर्षान् दर्शयतु</string>
     <string name="status_created_info">%1$s निर्मितम्</string>
     <string name="status_edit_info">%1$s सम्पादितम्</string>
     <string name="action_subscribe_account">ग्राहकता</string>
-    <string name="draft_deleted">प्रारूपं निष्कासितम्</string>
     <string name="report_category_violation">नियम-उल्लङ्घनम्</string>
     <string name="error_muting_hashtag_format">#%1$s-निश्रेणिचिह्नशीर्षकस्य निशब्दीकरणे दोषः</string>
     <string name="error_unmuting_hashtag_format">#%1$s-निश्रेणिचिह्नशीर्षकस्य सशब्दीकरणे दोषः</string>

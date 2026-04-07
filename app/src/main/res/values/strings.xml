@@ -131,11 +131,6 @@
     <string name="action_quick_reply">Quick Reply</string>
     <string name="action_unbookmark">Remove bookmark</string>
     <string name="action_compose">Compose</string>
-    <string name="action_post_failed">Upload failed</string>
-    <string name="action_post_failed_detail">Your post failed to upload and has been saved to drafts.\n\nEither the server could not be contacted, or it rejected the post.</string>
-    <string name="action_post_failed_detail_plural">Your posts failed to upload and have been saved to drafts.\n\nEither the server could not be contacted, or it rejected the posts.</string>
-    <string name="action_post_failed_show_drafts">Show drafts</string>
-    <string name="action_post_failed_do_nothing">Dismiss</string>
     <string name="action_follow">Follow</string>
     <string name="action_unfollow">Unfollow</string>
     <string name="action_block">Block</string>
@@ -150,6 +145,9 @@
     <string name="action_edit">Edit</string>
     <string name="action_delete">Delete</string>
     <string name="action_delete_conversation">Delete conversation</string>
+    <string name="action_delete_drafts">Delete selected drafts</string>
+    <string name="title_delete_drafts">Delete selected drafts?</string>
+    <string name="delete_drafts_msg">This will permanently delete the selected drafts.</string>
     <string name="action_delete_and_redraft">Delete and re-draft</string>
     <string name="action_discard">Discard changes</string>
     <string name="action_continue_edit">Continue editing</string>
@@ -537,7 +535,6 @@
     <string name="drafts_post_failed_to_send">This post failed to send!</string>
     <string name="drafts_load_reply_failed_fmt">Could not load the post you\'re replying to: %1$s</string>
     <string name="drafts_load_quote_failed_fmt">Could not load the post you\'re quoting: %1$s</string>
-    <string name="draft_deleted">Draft deleted</string>
     <string name="drafts_post_reply_removed">The post you drafted a reply to has been removed</string>
     <string name="drafts_post_quote_removed">The post you quoted has been removed</string>
     <string name="follow_requests_info">Even though your account is not locked, the %1$s staff thought you might want to review follow requests from these accounts manually.</string>
