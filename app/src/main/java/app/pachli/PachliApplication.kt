@@ -28,7 +28,7 @@ import app.pachli.core.activity.LogEntryTree
 import app.pachli.core.activity.TreeRing
 import app.pachli.core.activity.initCrashReporter
 import app.pachli.core.common.util.createWorkerNotificationChannel
-import app.pachli.core.data.repository.DraftRepository
+import app.pachli.core.data.repository.DraftsRepository
 import app.pachli.core.preferences.NEW_INSTALL_SCHEMA_VERSION
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SCHEMA_VERSION
@@ -62,7 +62,7 @@ class PachliApplication : Application() {
     lateinit var sharedPreferencesRepository: SharedPreferencesRepository
 
     @Inject
-    lateinit var draftRepository: DraftRepository
+    lateinit var draftsRepository: DraftsRepository
 
     @Inject
     lateinit var logEntryTree: LogEntryTree
@@ -152,6 +152,6 @@ class PachliApplication : Application() {
             pruneCachedMediaWorker,
         )
 
-        draftRepository.resetEditingState()
+        draftsRepository.resetEditingState()
     }
 }

@@ -1543,7 +1543,22 @@ class ComposeActivity :
         } else if (statusLength <= maximumTootCharacters) {
             lifecycleScope.launch {
                 viewModel.sendStatus(pachliAccountId, binding.composeEditField.selectionStart)
-                finish()
+                    .onSuccess { finish() }
+                    .onFailure {
+                        // Nothing useful to do here except show the error allow the user to
+                        // bail out.
+                        viewModel.closeDraft()
+                        Snackbar.make(
+                            binding.activityCompose,
+                            getString(R.string.ui_error_sending_post_fmt, it.fmt(this@ComposeActivity)),
+                            Snackbar.LENGTH_INDEFINITE,
+                        ).apply {
+                            setAction(android.R.string.ok) { finish() }
+                            // necessary so snackbar is shown over everything
+                            view.elevation = resources.getDimension(DR.dimen.compose_activity_snackbar_elevation)
+                            show()
+                        }
+                    }
             }
         } else {
             binding.composeEditField.error = getString(R.string.error_compose_character_limit)
@@ -1711,23 +1726,20 @@ class ComposeActivity :
                 viewModel.closeDraft()
                 finish()
             }
-
             ConfirmationKind.SAVE_OR_DISCARD ->
                 getSaveAsDraftOrDiscardDialog().show()
-
             ConfirmationKind.UPDATE_OR_DISCARD ->
                 getUpdateDraftOrDiscardDialog().show()
-
             ConfirmationKind.CONTINUE_EDITING_OR_DISCARD_CHANGES ->
                 getContinueEditingOrDiscardDialog().show()
-
             ConfirmationKind.CONTINUE_EDITING_OR_DISCARD_DRAFT ->
                 getDeleteEmptyDraftOrContinueEditing().show()
         }
     }
 
     /**
-     * User is editing a new post, and can either save the changes as a draft or discard them.
+     * User is editing a new post, and can either save the changes as a new
+     * draft or discard them.
      */
     private fun getSaveAsDraftOrDiscardDialog(): AlertDialog.Builder {
         val builder = AlertDialog.Builder(this)
@@ -1821,9 +1833,26 @@ class ComposeActivity :
                 null
             }
             viewModel.saveDraft(binding.composeEditField.selectionStart)
-                .onSuccess { viewModel.closeDraft(it.id) }
+                .onSuccess {
+                    viewModel.closeDraft(it.id)
+                    finish()
+                }
+                .onFailure {
+                    // Nothing useful to do here except show the error allow the user to
+                    // bail out.
+                    viewModel.closeDraft()
+                    Snackbar.make(
+                        binding.activityCompose,
+                        getString(R.string.ui_error_saving_post_fmt, it.fmt(this@ComposeActivity)),
+                        Snackbar.LENGTH_INDEFINITE,
+                    ).apply {
+                        setAction(android.R.string.ok) { finish() }
+                        // necessary so snackbar is shown over everything
+                        view.elevation = resources.getDimension(DR.dimen.compose_activity_snackbar_elevation)
+                        show()
+                    }
+                }
             dialog?.cancel()
-            finish()
         }
     }
 

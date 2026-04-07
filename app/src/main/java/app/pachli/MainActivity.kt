@@ -423,10 +423,10 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                 }
 
                 launch {
-                    account.collect { a ->
+                    account.collect { account ->
                         binding.composeButton.setOnClickListener {
                             val timeline = tabAdapter.tabs.getOrNull(binding.viewPager.currentItem)?.timeline ?: return@setOnClickListener
-                            val draft = Draft.createDraft(this@MainActivity, a.entity, timeline)
+                            val draft = Draft.createDraft(this@MainActivity, account.entity, timeline)
                             val composeOptions = ComposeOptions(draft = draft)
                             val intent = ComposeActivityIntent(this@MainActivity, pachliAccountId, composeOptions)
                             startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)

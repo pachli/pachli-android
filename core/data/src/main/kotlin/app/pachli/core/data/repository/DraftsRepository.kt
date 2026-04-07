@@ -48,20 +48,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-/*
-
-Drafts probably have a state, which controls whether or not they can be edited.
-
-States
-
-- DRAFTING -- user is editing the draft, it has not been sent
-- SENDING -- the draft is being sent, the user can't edit it
-- FAILED+error -- draft couldn't be sent
-
- */
-
 @Singleton
-class DraftRepository @Inject constructor(
+class DraftsRepository @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
     @ApplicationContext private val context: Context,
     private val draftDao: DraftDao,

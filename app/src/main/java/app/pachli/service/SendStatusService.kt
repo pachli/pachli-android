@@ -23,7 +23,7 @@ import app.pachli.components.compose.MediaUploader
 import app.pachli.components.notifications.pendingIntentFlags
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.data.repository.DraftRepository
+import app.pachli.core.data.repository.DraftsRepository
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.StatusComposedEvent
@@ -73,7 +73,7 @@ class SendStatusService : Service() {
     lateinit var mediaUploader: MediaUploader
 
     @Inject
-    lateinit var draftRepository: DraftRepository
+    lateinit var draftsRepository: DraftsRepository
 
     private val supervisorJob = SupervisorJob()
     private val serviceScope = CoroutineScope(Dispatchers.Main + supervisorJob)
@@ -145,7 +145,7 @@ class SendStatusService : Service() {
         statusToSend.retries++
 
         sendJobs[statusId] = serviceScope.launch {
-            draftRepository.updateDraftState(statusToSend.pachliAccountId, statusToSend.draft.id, Draft.State.SENDING)
+            draftsRepository.updateDraftState(statusToSend.pachliAccountId, statusToSend.draft.id, Draft.State.SENDING)
 
             // first, wait for media uploads to finish
             val media = statusToSend.media.map { mediaItem ->
@@ -250,7 +250,7 @@ class SendStatusService : Service() {
                 statusesToSend.remove(statusId)
                 // If the status was loaded from a draft, delete the draft and associated media files.
                 if (statusToSend.draft.id != 0L) {
-                    draftRepository.deleteDraftAndAttachments(account.id, statusToSend.draft.id)
+                    draftsRepository.deleteDraftAndAttachments(account.id, statusToSend.draft.id)
                 }
 
                 mediaUploader.cancelUploadScope(*statusToSend.media.map { it.localId }.toIntArray())
@@ -379,7 +379,7 @@ class SendStatusService : Service() {
     }
 
     private suspend fun saveStatusToDrafts(status: StatusToSend, failureMessage: String?) {
-        draftRepository.updateFailureState(
+        draftsRepository.updateFailureState(
             status.pachliAccountId,
             status.draft.id,
             failureMessage = failureMessage,

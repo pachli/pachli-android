@@ -21,7 +21,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import androidx.paging.map
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.data.repository.DraftRepository
+import app.pachli.core.data.repository.DraftsRepository
 import app.pachli.core.model.Draft
 import app.pachli.core.network.retrofit.MastodonApi
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -46,10 +46,10 @@ data class DraftViewData(
 class DraftsViewModel @Inject constructor(
     val accountManager: AccountManager,
     val api: MastodonApi,
-    private val draftRepository: DraftRepository,
+    private val draftsRepository: DraftsRepository,
 ) : ViewModel() {
 
-    val drafts = draftRepository.getDrafts(accountManager.activeAccount?.id!!)
+    val drafts = draftsRepository.getDrafts(accountManager.activeAccount?.id!!)
         .cachedIn(viewModelScope)
 
     private val checkedDrafts = MutableStateFlow<Set<Long>>(emptySet())
@@ -90,7 +90,7 @@ class DraftsViewModel @Inject constructor(
     fun deleteCheckedDrafts(pachliAccountId: Long) {
         viewModelScope.launch {
             checkedDrafts.value.forEach { draftId ->
-                draftRepository.deleteDraftAndAttachments(pachliAccountId, draftId)
+                draftsRepository.deleteDraftAndAttachments(pachliAccountId, draftId)
             }
             checkedDrafts.update { emptySet() }
         }

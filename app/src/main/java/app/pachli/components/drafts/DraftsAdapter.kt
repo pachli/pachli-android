@@ -68,7 +68,6 @@ class DraftViewHolder(
     private val binding: ItemDraftBinding,
     glide: RequestManager,
     private val listener: DraftActionListener,
-
 ) : RecyclerView.ViewHolder(binding.root), Checkable {
     private var draft: Draft? = null
 
@@ -76,9 +75,7 @@ class DraftViewHolder(
         with(binding) {
             draftMediaPreview.layoutManager = LinearLayoutManager(binding.root.context, RecyclerView.HORIZONTAL, false)
             draftMediaPreview.adapter = DraftMediaAdapter(glide) {
-                draft?.let {
-                    listener.onOpenDraft(it)
-                }
+                draft?.let { listener.onOpenDraft(it) }
             }
 
             checkBox.setOnCheckedChangeListener { _, isChecked ->

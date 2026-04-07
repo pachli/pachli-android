@@ -991,8 +991,12 @@ class AccountActivity :
         } else {
             Draft.createDraftMention(this@AccountActivity, activeAccount, Timeline.Home, account.username)
         }
-        val composeOptions = ComposeOptions(draft = draft)
-        val intent = ComposeActivityIntent(this@AccountActivity, intent.pachliAccountId, composeOptions)
+        val intent = ComposeActivityIntent(
+            this@AccountActivity,
+            intent.pachliAccountId,
+            ComposeOptions(draft = draft, kind = ComposeOptions.ComposeKind.NEW),
+        )
+
         startActivity(intent)
     }
 

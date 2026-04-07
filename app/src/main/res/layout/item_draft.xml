@@ -128,6 +128,7 @@
         android:text="@string/drafts_post_failed_to_send"
         android:textColor="?colorError"
         android:textSize="?attr/status_text_small"
+        android:textIsSelectable="true"
         app:drawableStartCompat="@drawable/ic_alert_circle"
         app:drawableTint="?colorError"
         app:layout_constraintStart_toStartOf="parent"
