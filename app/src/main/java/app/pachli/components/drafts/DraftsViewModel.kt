@@ -44,8 +44,8 @@ data class DraftViewData(
 
 @HiltViewModel
 class DraftsViewModel @Inject constructor(
-    val accountManager: AccountManager,
-    val api: MastodonApi,
+    accountManager: AccountManager,
+    private val api: MastodonApi,
     private val draftsRepository: DraftsRepository,
 ) : ViewModel() {
 
@@ -87,6 +87,7 @@ class DraftsViewModel @Inject constructor(
     /** @return The number of checked drafts. */
     fun countChecked() = checkedDrafts.value.size
 
+    /** Deletes all checked drafts owned by [pachliAccountId]. */
     fun deleteCheckedDrafts(pachliAccountId: Long) {
         viewModelScope.launch {
             checkedDrafts.value.forEach { draftId ->

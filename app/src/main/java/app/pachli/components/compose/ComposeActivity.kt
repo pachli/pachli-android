@@ -1545,7 +1545,7 @@ class ComposeActivity :
                 viewModel.sendStatus(pachliAccountId, binding.composeEditField.selectionStart)
                     .onSuccess { finish() }
                     .onFailure {
-                        // Nothing useful to do here except show the error allow the user to
+                        // Nothing useful to do here except show the error and allow the user to
                         // bail out.
                         viewModel.closeDraft()
                         Snackbar.make(
@@ -1838,7 +1838,7 @@ class ComposeActivity :
                     finish()
                 }
                 .onFailure {
-                    // Nothing useful to do here except show the error allow the user to
+                    // Nothing useful to do here except show the error and allow the user to
                     // bail out.
                     viewModel.closeDraft()
                     Snackbar.make(

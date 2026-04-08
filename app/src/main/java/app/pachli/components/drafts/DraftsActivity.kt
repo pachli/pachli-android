@@ -182,6 +182,13 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
         }
     }
 
+    /**
+     * Checks/unchecks [draft] according to [isChecked].
+     *
+     * If any draft is checked then [selectDraftsActionMode] is started (if
+     * necessary) and the title is updated to show the count of selected
+     * drafts.
+     */
     override fun setDraftChecked(draft: Draft, isChecked: Boolean) {
         viewModel.checkDraft(draft, isChecked)
         val countChecked = viewModel.countChecked()
@@ -195,8 +202,17 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
         selectDraftsActionMode?.title = resources.getQuantityString(R.plurals.selected_drafts, countChecked, countChecked)
     }
 
+    /** @return True if [draft] is checked. */
     override fun isDraftChecked(draft: Draft) = viewModel.isDraftChecked(draft)
 
+    /**
+     * Handles taps on [draft].
+     *
+     * If [selectDraftsActionMode] is active then tapping a draft is equivalent to
+     * toggling the [draft]'s checked state.
+     *
+     * Otherwise, prepare and launch [ComposeActivityIntent] to edit the draft.
+     */
     override fun onOpenDraft(draft: Draft) {
         // Don't open drafts while selecting drafts to delete. Instead, tapping on the draft also
         // selects it.

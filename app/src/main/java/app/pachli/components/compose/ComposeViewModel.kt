@@ -723,8 +723,11 @@ class ComposeViewModel @AssistedInject constructor(
     }
 
     /**
-     * Send status to the server.
-     * Uses current state plus provided arguments.
+     * Saves the current draft and sends it.
+     *
+     * @param cursorPosition Cursor position to save with the draft.
+     * @return The draft being sent, or any errors that occurred saving the draft (or
+     * deleting the status if it is scheduled).
      */
     internal suspend fun sendStatus(pachliAccountId: Long, cursorPosition: Int): Result<Draft, UiError> {
         val draft = saveDraft(cursorPosition).andThen { draft ->
@@ -902,6 +905,7 @@ class ComposeViewModel @AssistedInject constructor(
     val editing: Boolean
         get() = !originalStatusId.isNullOrEmpty()
 
+    /** Closes the open draft when the viewmodel is cleared. */
     override fun onCleared() {
         super.onCleared()
         viewModelScope.launch {

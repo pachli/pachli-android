@@ -33,8 +33,13 @@ import app.pachli.databinding.ItemDraftBinding
 import com.bumptech.glide.RequestManager
 
 interface DraftActionListener {
+    /** User has tapped on [draft]. */
     fun onOpenDraft(draft: Draft)
+
+    /** @return True if [draft] is checked. */
     fun isDraftChecked(draft: Draft): Boolean
+
+    /** Set the checked state of [draft] to [isChecked]. */
     fun setDraftChecked(draft: Draft, isChecked: Boolean)
 }
 
