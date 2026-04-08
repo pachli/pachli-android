@@ -68,12 +68,13 @@ import app.pachli.util.saveToDirectory
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.andThen
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getOrElse
+import com.github.michaelbull.result.map
 import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.mapError
-import com.github.michaelbull.result.onFailure
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -639,6 +640,7 @@ class ComposeViewModel @AssistedInject constructor(
             quotePolicy = quotePolicy.value,
             attachments = draftAttachments,
             poll = poll.value,
+            failureMessage = null,
             scheduledAt = scheduledAt.value,
             statusId = originalStatusId,
             inReplyToId = inReplyToId,
@@ -725,14 +727,23 @@ class ComposeViewModel @AssistedInject constructor(
      * Uses current state plus provided arguments.
      */
     internal suspend fun sendStatus(pachliAccountId: Long, cursorPosition: Int): Result<Draft, UiError> {
-        val draft = saveDraft(cursorPosition).getOrElse {
+        val draft = saveDraft(cursorPosition).andThen { draft ->
+            // Can't edit a scheduled status in place. It needs to be deleted so
+            // SendStatusService can create a new scheduled status.
+            if (draft.scheduledAt != null && draft.statusId != null) {
+                api.deleteScheduledStatus(draft.statusId!!)
+                    .mapError { UiError.DeleteScheduledStatus(it) }
+                    .map {
+                        // Successfully deleting the scheduled status means draft.statusId
+                        // is no longer valid, so clear it.
+                        draft.copy(statusId = null)
+                    }
+            } else {
+                Ok(draft)
+            }
+        }.getOrElse {
             draftsRepository.updateDraftState(pachliAccountId, composeOptions.draft.id, Draft.State.DEFAULT)
             return Err(it)
-        }
-
-        if (composeOptions.draft.scheduledAt != null && composeOptions.draft.statusId != null) {
-            api.deleteScheduledStatus(composeOptions.draft.statusId!!)
-                .onFailure { return Err(UiError.DeleteScheduledStatus(it)) }
         }
 
         val attachedMedia = media.value.map { item ->

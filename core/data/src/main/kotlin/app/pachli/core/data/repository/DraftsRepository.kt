@@ -146,11 +146,15 @@ fun Status.asDraft(source: StatusSource): Draft {
     val actionable = this.actionableStatus
 
     return Draft(
+        id = 0,
         contentWarning = source.spoilerText,
         content = source.text,
-        poll = actionable.poll?.toNewPoll(createdAt),
         sensitive = actionable.sensitive,
         visibility = actionable.visibility,
+        attachments = emptyList(),
+        poll = actionable.poll?.toNewPoll(createdAt),
+        failureMessage = null,
+        scheduledAt = null,
         language = actionable.language,
         quotePolicy = actionable.quoteApproval.asQuotePolicy(),
         statusId = actionable.statusId,
@@ -164,10 +168,13 @@ fun Status.asDraft(source: StatusSource): Draft {
 // Note: Caller must still set attachments on ComposeOptions
 fun ScheduledStatus.asDraft(): Draft {
     return Draft(
+        id = 0,
         contentWarning = params.spoilerText,
         content = params.text,
-        poll = params.poll,
         sensitive = params.sensitive == true,
+        attachments = emptyList(),
+        poll = params.poll,
+        failureMessage = null,
         visibility = params.visibility,
         language = params.language,
         quotePolicy = params.quotePolicy,
@@ -182,12 +189,18 @@ fun ScheduledStatus.asDraft(): Draft {
 
 // Note: Caller must still set attachments on ComposeOptions
 fun DeletedStatus.asDraft() = Draft(
+    id = 0,
     contentWarning = spoilerText,
     content = text.orEmpty(),
     sensitive = sensitive,
+    attachments = emptyList(),
+    poll = poll?.toNewPoll(createdAt),
+    failureMessage = null,
     visibility = visibility,
     language = language,
     quotePolicy = quoteApproval?.asQuotePolicy() ?: AccountSource.QuotePolicy.NOBODY,
+    scheduledAt = null,
+    statusId = id,
     inReplyToId = inReplyToId,
     quotedStatusId = (quote as? Status.Quote.WithStatusId)?.statusId,
     cursorPosition = text?.length ?: 0,
@@ -224,12 +237,20 @@ fun Draft.Companion.createDraft(context: Context, pachliAccountEntity: AccountEn
     }
 
     val draft = Draft(
+        id = 0,
         contentWarning = "",
         content = content,
-        visibility = visibility,
         sensitive = pachliAccountEntity.defaultMediaSensitivity,
+        attachments = emptyList(),
+        poll = null,
+        failureMessage = null,
+        visibility = visibility,
         language = pachliAccountEntity.defaultPostLanguage,
         quotePolicy = quotePolicy,
+        scheduledAt = null,
+        statusId = null,
+        inReplyToId = null,
+        quotedStatusId = null,
         cursorPosition = 0,
         state = Draft.State.DEFAULT,
     )
@@ -272,13 +293,20 @@ fun Draft.Companion.createDraftReply(pachliAccountEntity: AccountEntity, status:
     }
 
     val draft = Draft(
+        id = 0,
         contentWarning = actionable.spoilerText,
         content = content,
         sensitive = actionable.sensitive || pachliAccountEntity.defaultMediaSensitivity,
+        attachments = emptyList(),
+        poll = null,
+        failureMessage = null,
         visibility = actionable.visibility,
         language = actionable.language ?: pachliAccountEntity.defaultPostLanguage,
         quotePolicy = quotePolicy,
+        scheduledAt = null,
+        statusId = null,
         inReplyToId = actionable.statusId,
+        quotedStatusId = null,
         cursorPosition = content.length,
         state = Draft.State.DEFAULT,
     )
@@ -303,12 +331,19 @@ fun Draft.Companion.createDraftQuote(pachliAccountEntity: AccountEntity, status:
     val quotePolicy = pachliAccountEntity.defaultQuotePolicy.clampToVisibility(actionable.visibility)
 
     val draft = Draft(
+        id = 0,
         contentWarning = actionable.spoilerText,
         content = "",
         sensitive = actionable.sensitive || pachliAccountEntity.defaultMediaSensitivity,
+        attachments = emptyList(),
+        poll = null,
+        failureMessage = null,
         visibility = actionable.visibility,
         language = actionable.language ?: pachliAccountEntity.defaultPostLanguage,
         quotePolicy = quotePolicy,
+        scheduledAt = null,
+        statusId = null,
+        inReplyToId = null,
         quotedStatusId = actionable.statusId,
         cursorPosition = 0,
         state = Draft.State.DEFAULT,

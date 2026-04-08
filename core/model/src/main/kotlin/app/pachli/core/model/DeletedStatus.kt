@@ -20,6 +20,7 @@ package app.pachli.core.model
 import java.util.Date
 
 data class DeletedStatus(
+    val id: String,
     val text: String?,
     val inReplyToId: String?,
     val spoilerText: String,
