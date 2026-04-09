@@ -221,8 +221,6 @@ fun Draft.Companion.createDraft(context: Context, pachliAccountEntity: AccountEn
         else -> pachliAccountEntity.defaultPostPrivacy
     }
 
-    val quotePolicy = pachliAccountEntity.defaultQuotePolicy.clampToVisibility(visibility)
-
     val content = when (timeline) {
         is Timeline.Hashtags -> {
             val tag = timeline.tags.first()
@@ -242,7 +240,7 @@ fun Draft.Companion.createDraft(context: Context, pachliAccountEntity: AccountEn
         failureMessage = null,
         visibility = visibility,
         language = pachliAccountEntity.defaultPostLanguage,
-        quotePolicy = quotePolicy,
+        quotePolicy = pachliAccountEntity.defaultQuotePolicy.clampToVisibility(visibility),
         scheduledAt = null,
         statusId = null,
         inReplyToId = null,
@@ -274,7 +272,6 @@ fun Draft.Companion.createDraft(context: Context, pachliAccountEntity: AccountEn
 fun Draft.Companion.createDraftReply(pachliAccountEntity: AccountEntity, status: Status): Draft {
     val actionable = status.actionableStatus
     val account = actionable.account
-    val quotePolicy = pachliAccountEntity.defaultQuotePolicy.clampToVisibility(actionable.visibility)
 
     val content = buildString {
         LinkedHashSet(
@@ -298,7 +295,7 @@ fun Draft.Companion.createDraftReply(pachliAccountEntity: AccountEntity, status:
         failureMessage = null,
         visibility = actionable.visibility,
         language = actionable.language ?: pachliAccountEntity.defaultPostLanguage,
-        quotePolicy = quotePolicy,
+        quotePolicy = pachliAccountEntity.defaultQuotePolicy.clampToVisibility(actionable.visibility),
         scheduledAt = null,
         statusId = null,
         inReplyToId = actionable.statusId,
@@ -324,7 +321,6 @@ fun Draft.Companion.createDraftReply(pachliAccountEntity: AccountEntity, status:
  */
 fun Draft.Companion.createDraftQuote(pachliAccountEntity: AccountEntity, status: Status): Draft {
     val actionable = status.actionableStatus
-    val quotePolicy = pachliAccountEntity.defaultQuotePolicy.clampToVisibility(actionable.visibility)
 
     val draft = Draft(
         id = 0,
@@ -336,7 +332,7 @@ fun Draft.Companion.createDraftQuote(pachliAccountEntity: AccountEntity, status:
         failureMessage = null,
         visibility = actionable.visibility,
         language = actionable.language ?: pachliAccountEntity.defaultPostLanguage,
-        quotePolicy = quotePolicy,
+        quotePolicy = pachliAccountEntity.defaultQuotePolicy.clampToVisibility(actionable.visibility),
         scheduledAt = null,
         statusId = null,
         inReplyToId = null,
