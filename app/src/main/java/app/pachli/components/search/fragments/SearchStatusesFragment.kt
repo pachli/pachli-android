@@ -254,7 +254,6 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
             ComposeOptions(
                 draft = Draft.createDraftReply(viewModel.activeAccount!!, status.actionable),
                 referencingStatus = ReferencingStatus.ReplyingTo.from(status.actionable),
-                kind = ComposeOptions.ComposeKind.NEW,
             ),
         )
         startActivityWithDefaultTransition(intent)
@@ -269,7 +268,6 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         val composeOptions = ComposeOptions(
             draft = Draft.createDraftQuote(viewModel.activeAccount!!, status.actionableStatus),
             referencingStatus = ReferencingStatus.Quoting.from(actionableStatus),
-            kind = ComposeOptions.ComposeKind.NEW,
         )
 
         val intent = ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions)

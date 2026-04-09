@@ -258,13 +258,7 @@ class IntentRouterActivity : BaseActivity() {
         }
         launchComposeActivityAndExit(
             account.id,
-            ComposeOptions(
-                draft = Draft.createDraft(
-                    this,
-                    account,
-                    Timeline.Home,
-                ),
-            ),
+            ComposeOptions(Draft.createDraft(this, account, Timeline.Home)),
         )
     }
 
@@ -304,13 +298,7 @@ class IntentRouterActivity : BaseActivity() {
             forwardToComposeActivityAndExit(
                 account.id,
                 intent,
-                ComposeOptions(
-                    draft = Draft.createDraft(
-                        this,
-                        it,
-                        Timeline.Home,
-                    ),
-                ),
+                ComposeOptions(Draft.createDraft(this, it, Timeline.Home)),
             )
         }
         return
