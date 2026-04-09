@@ -86,11 +86,8 @@ const val KEY_REPLY = "KEY_REPLY"
 const val KEY_SENDER_ACCOUNT_ID = "KEY_SENDER_ACCOUNT_ID"
 const val KEY_SENDER_ACCOUNT_IDENTIFIER = "KEY_SENDER_ACCOUNT_IDENTIFIER"
 const val KEY_SENDER_ACCOUNT_FULL_NAME = "KEY_SENDER_ACCOUNT_FULL_NAME"
-const val KEY_NOTIFICATION_ID = "KEY_NOTIFICATION_ID"
-const val KEY_CITED_STATUS_ID = "KEY_CITED_STATUS_ID"
-const val KEY_VISIBILITY = "KEY_VISIBILITY"
-const val KEY_SPOILER = "KEY_SPOILER"
-const val KEY_MENTIONS = "KEY_MENTIONS"
+const val KEY_SERVER_NOTOFICATION_ID = "KEY_NOTIFICATION_ID"
+const val KEY_DRAFT = "KEY_DRAFT"
 
 /** notification channels used on Android O+ */
 const val CHANNEL_MENTION = "CHANNEL_MENTION"
@@ -394,32 +391,18 @@ private fun getStatusReplyIntent(
     account: AccountEntity,
 ): PendingIntent {
     val status = body.status!!
-    val inReplyToId = status.statusId
-    val account1 = status.actionableStatus.account
-    val contentWarning = status.actionableStatus.spoilerText
-    val replyVisibility = status.actionableStatus.visibility
-    val mentions = status.actionableStatus.mentions
 
-    var mentionedUsernames: MutableList<String?> = ArrayList()
-    mentionedUsernames.add(account1.username)
-    for ((_, _, username) in mentions) {
-        mentionedUsernames.add(username)
-    }
-    mentionedUsernames.removeAll(setOf(account.username))
-    mentionedUsernames = ArrayList(LinkedHashSet(mentionedUsernames))
+    val draft = Draft.createDraftReply(account, status.actionableStatus)
 
     // TODO: Revisit suppressing this when this file is moved
     @SuppressLint("IntentDetector")
     val replyIntent = Intent(context, SendStatusBroadcastReceiver::class.java)
         .setAction(REPLY_ACTION)
+        .putExtra(KEY_DRAFT, draft)
         .putExtra(KEY_SENDER_ACCOUNT_ID, account.id)
         .putExtra(KEY_SENDER_ACCOUNT_IDENTIFIER, account.identifier)
         .putExtra(KEY_SENDER_ACCOUNT_FULL_NAME, account.fullName)
-        .putExtra(KEY_NOTIFICATION_ID, notificationId)
-        .putExtra(KEY_CITED_STATUS_ID, inReplyToId)
-        .putExtra(KEY_VISIBILITY, replyVisibility)
-        .putExtra(KEY_SPOILER, contentWarning)
-        .putExtra(KEY_MENTIONS, mentionedUsernames.toTypedArray())
+        .putExtra(KEY_SERVER_NOTOFICATION_ID, body.id)
     return PendingIntent.getBroadcast(
         context.applicationContext,
         notificationId,

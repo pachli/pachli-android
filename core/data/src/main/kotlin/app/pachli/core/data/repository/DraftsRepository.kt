@@ -61,10 +61,6 @@ class DraftsRepository @Inject constructor(
         ).flow.map { it.map { it.asModel() } }
     }
 
-    fun upsert(pachliAccountId: Long, draft: Draft) = externalScope.launch {
-        draftDao.upsert(draft.asEntity(pachliAccountId))
-    }
-
     fun deleteDraftAndAttachments(pachliAccountId: Long, draftId: Long) = externalScope.launch {
         val draft = draftDao.find(pachliAccountId, draftId) ?: return@launch
         draft.attachments.forEach { attachment ->
