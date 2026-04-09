@@ -308,8 +308,6 @@
     <string name="duration_1_hour">1 hora</string>
     <string name="duration_30_min">30 minutos</string>
     <string name="duration_5_min">5 minutos</string>
-    <string name="post_sent_long">Resposta enviada correctamente.</string>
-    <string name="post_sent">Enviado!</string>
     <string name="confirmation_domain_unmuted">%1$s visible</string>
     <string name="confirmation_unmuted">Usuaria reactivada</string>
     <string name="confirmation_unblocked">Usuaria desbloqueada</string>

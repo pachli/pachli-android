@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hint_compose">چی خەریکه ڕوودەدات؟</string>
-    <string name="post_sent_long">وەڵام دانەوە کە بە سەرکەوتوویی نێردرا.</string>
-    <string name="post_sent">ناردن!</string>
     <string name="confirmation_domain_unmuted">%1$s نەشاراوە</string>
     <string name="confirmation_unmuted">بەکارهێنەر نەگۆڕاو</string>
     <string name="confirmation_unblocked">بەکارهێنەر بەربەست نەکراوە</string>

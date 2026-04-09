@@ -199,8 +199,6 @@
     <string name="notification_poll_description">Ilmoitukset päättyneistä äänestyksistä</string>
     <string name="action_add_reaction">lisää reaktio</string>
     <string name="confirmation_reported">Lähetetty!</string>
-    <string name="post_sent">Lähetetty!</string>
-    <string name="post_sent_long">Vastaus lähetetty onnistuneesti.</string>
     <string name="dialog_mute_warning">Hiljennä @%1$s\?</string>
     <string name="dialog_mute_hide_notifications">Piilota ilmoitukset</string>
     <string name="pref_title_appearance_settings">Ulkoasu</string>

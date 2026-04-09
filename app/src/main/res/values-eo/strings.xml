@@ -88,8 +88,6 @@
     <string name="confirmation_reported">Sendita!</string>
     <string name="confirmation_unblocked">Malblokita uzanto</string>
     <string name="confirmation_unmuted">Malsilentigita uzanto</string>
-    <string name="post_sent">Sendita!</string>
-    <string name="post_sent_long">Respondo sukcese sendita.</string>
     <string name="hint_compose">Kio nova\?</string>
     <string name="hint_content_warning">Enhava averto</string>
     <string name="hint_display_name">Publika nomo</string>

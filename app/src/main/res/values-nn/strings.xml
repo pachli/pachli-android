@@ -260,8 +260,6 @@
     <string name="confirmation_hashtag_muted">#%1$s skjult</string>
     <string name="confirmation_hashtag_unmuted">#%1$s avskjult</string>
     <string name="confirmation_hashtag_unfollowed">#%1$s avfylgt</string>
-    <string name="post_sent">Sendt!</string>
-    <string name="post_sent_long">Svaret vart sendt.</string>
     <string name="hint_compose">Kva har du på hjarta?</string>
     <string name="hint_content_warning">Innhaldsåtvaring</string>
     <string name="dialog_download_image">Lad ned</string>

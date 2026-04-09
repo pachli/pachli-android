@@ -43,7 +43,6 @@
     <string name="post_text_size_medium">මධ්‍යම</string>
     <string name="notification_summary_medium">%1$s, %2$s, සහ %3$s</string>
     <string name="lock_account_label">ගිණුම අගුළුලන්න</string>
-    <string name="post_sent_long">පිළිතුර සාර්ථකව යැවිණි.</string>
     <string name="title_public_federated">ඒකාබද්ධ</string>
     <string name="dialog_message_uploading_media">උඩුගත වෙමින්…</string>
     <string name="label_header">ශීර්ෂය</string>
@@ -155,7 +154,6 @@
     <string name="pref_title_notification_alert_light">ආලෝකය සමඟ දන්වන්න</string>
     <string name="account_note_hint">මෙම ගිණුම පිළිබඳව ඔබගේ පෞද්ගලික සටහන</string>
     <string name="title_notifications">දැනුම්දීම්</string>
-    <string name="post_sent">යැවිණි!</string>
     <string name="filter_dialog_whole_word">මුළු වචනය</string>
     <string name="drafts_post_failed_to_send">මෙම ටූට් යැවීමට අසමත් විය!</string>
     <string name="later">පසුව</string>

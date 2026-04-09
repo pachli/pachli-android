@@ -34,8 +34,6 @@
     <string name="action_copy_link">Kopírovať odkaz</string>
     <string name="confirmation_reported">Odoslané!</string>
     <string name="confirmation_unblocked">Účet bol odblokovaný</string>
-    <string name="post_sent">Odoslané!</string>
-    <string name="post_sent_long">Odpoveď bola úspešne odoslaná.</string>
     <string name="hint_display_name">Zobrazované meno</string>
     <string name="hint_note">O tebe</string>
     <string name="hint_search">Hľadať…</string>

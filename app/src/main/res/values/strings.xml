@@ -228,8 +228,6 @@
     <string name="confirmation_hashtag_muted">#%1$s hidden</string>
     <string name="confirmation_hashtag_unmuted">#%1$s unhidden</string>
     <string name="confirmation_hashtag_unfollowed">#%1$s unfollowed</string>
-    <string name="post_sent">Sent!</string>
-    <string name="post_sent_long">Reply sent successfully.</string>
     <string name="hint_compose">What\'s happening?</string>
     <string name="hint_content_warning">Content warning</string>
     <string name="hint_display_name">Display name</string>

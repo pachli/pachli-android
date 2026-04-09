@@ -59,10 +59,8 @@
     <string name="confirmation_reported">Nosūtīts!</string>
     <string name="action_copy_link">Nokopēt saiti</string>
     <string name="confirmation_unblocked">Lietotājs atbloķēts</string>
-    <string name="post_sent">Nosūtīts!</string>
     <string name="hint_note">Biogrāfija</string>
     <string name="hint_content_warning">Satura brīdinājums</string>
-    <string name="post_sent_long">Atbilde sekmīgi nosūtīta.</string>
     <string name="label_avatar">Avatars</string>
     <string name="search_no_results">Nekas netika atrasts</string>
     <string name="label_quick_reply">Atbildēt…</string>

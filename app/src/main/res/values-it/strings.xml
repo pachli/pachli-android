@@ -94,8 +94,6 @@
     <string name="confirmation_unmuted">Utente non più silenziato</string>
     <string name="confirmation_hashtag_muted">#%1$s silenziato</string>
     <string name="confirmation_hashtag_unmuted">#%1$s mostrato</string>
-    <string name="post_sent">Inviato!</string>
-    <string name="post_sent_long">Risposta inviata con successo.</string>
     <string name="hint_compose">Cosa succede?</string>
     <string name="hint_content_warning">Avviso di contenuto sensibile</string>
     <string name="hint_display_name">Mostra nome</string>

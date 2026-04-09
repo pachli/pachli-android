@@ -188,8 +188,6 @@
     <string name="action_filter_search">Filtreeri otsingut</string>
     <string name="confirmation_unblocked">Kasutaja blokeerimine on eemaldatud</string>
     <string name="hint_note">Elulugu</string>
-    <string name="post_sent">Saadetud!</string>
-    <string name="post_sent_long">Vastuse saatmine õnnestus.</string>
     <string name="hint_compose">Mis on toimumas?</string>
     <string name="hint_content_warning">Sisuhoiatus</string>
     <string name="hint_display_name">Kuvatav nimi</string>

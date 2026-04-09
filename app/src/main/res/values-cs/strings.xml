@@ -88,8 +88,6 @@
     <string name="confirmation_reported">Odesláno!</string>
     <string name="confirmation_unblocked">Uživatel byl odblokován</string>
     <string name="confirmation_unmuted">Skrytí uživatele bylo zrušeno</string>
-    <string name="post_sent">Odesláno!</string>
-    <string name="post_sent_long">Odpověď byla úspěšně odeslána.</string>
     <string name="hint_compose">Co se právě děje?</string>
     <string name="hint_content_warning">Varování o obsahu</string>
     <string name="hint_display_name">Zobrazované jméno</string>
