@@ -371,7 +371,7 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
         val referencingStatus: ReferencingStatus? = null,
         val mediaAttachments: List<Attachment>? = null,
         val modifiedInitialState: Boolean? = null,
-        val kind: ComposeKind? = null,
+        val kind: ComposeKind = ComposeKind.NEW,
     ) : Parcelable {
         /**
          * Status' kind. This particularly affects how the status is handled if the user

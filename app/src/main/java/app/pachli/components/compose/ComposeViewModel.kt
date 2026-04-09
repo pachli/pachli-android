@@ -305,7 +305,7 @@ class ComposeViewModel @AssistedInject constructor(
             sharedPreferencesRepository.confirmStatusLanguage = value
         }
 
-    private val composeKind = composeOptions.kind ?: ComposeKind.NEW
+    private val composeKind = composeOptions.kind
 
     // Used in ComposeActivity to pass state to result function when cropImage contract inflight
     var cropImageItemOld: QueuedMedia? = null
