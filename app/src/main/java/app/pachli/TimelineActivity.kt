@@ -76,6 +76,8 @@ class TimelineActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
 
     override val actionButton: FloatingActionButton? by unsafeLazy { binding.composeButton }
 
+    private val pachliAccountId by unsafeLazy { intent.pachliAccountId }
+
     /**
      * If showing statuses with a hashtag, the hashtag being used, without the
      * leading `#`.
@@ -105,7 +107,7 @@ class TimelineActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         timeline = TimelineActivityIntent.getTimeline(intent)
         hashtag = (timeline as? Timeline.Hashtags)?.tags?.firstOrNull()
 
-        val tabViewData = TabViewData.from(intent.pachliAccountId, timeline)
+        val tabViewData = TabViewData.from(pachliAccountId, timeline)
 
         supportActionBar?.run {
             title = tabViewData.title(this@TimelineActivity)
@@ -123,12 +125,7 @@ class TimelineActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
 
         tabViewData.composeIntent?.let { intent ->
             binding.composeButton.setOnClickListener {
-                startActivity(
-                    intent(
-                        this@TimelineActivity,
-                        this.intent.pachliAccountId,
-                    ),
-                )
+                startActivity(intent(this@TimelineActivity, this.pachliAccountId))
             }
             binding.composeButton.show()
         } ?: binding.composeButton.hide()
@@ -248,7 +245,7 @@ class TimelineActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         unmuteTagItem?.isVisible = false
 
         lifecycleScope.launch {
-            accountManager.getPachliAccountFlow(intent.pachliAccountId)
+            accountManager.getPachliAccountFlow(pachliAccountId)
                 .filterNotNull()
                 .distinctUntilChangedBy { it.contentFilters }
                 .collect { account ->
@@ -297,7 +294,7 @@ class TimelineActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                 ),
             )
 
-            contentFiltersRepository.createContentFilter(intent.pachliAccountId, newContentFilter)
+            contentFiltersRepository.createContentFilter(pachliAccountId, newContentFilter)
                 .onSuccess {
                     mutedContentFilter = it
                     updateTagMuteState(true)
@@ -317,9 +314,9 @@ class TimelineActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
             val result = mutedContentFilter?.let { filter ->
                 val newContexts = filter.contexts.filter { it != FilterContext.HOME }
                 if (newContexts.isEmpty()) {
-                    contentFiltersRepository.deleteContentFilter(intent.pachliAccountId, filter.id)
+                    contentFiltersRepository.deleteContentFilter(pachliAccountId, filter.id)
                 } else {
-                    contentFiltersRepository.updateContentFilter(intent.pachliAccountId, filter, ContentFilterEdit(filter.id, contexts = newContexts))
+                    contentFiltersRepository.updateContentFilter(pachliAccountId, filter, ContentFilterEdit(filter.id, contexts = newContexts))
                 }
             }
 
