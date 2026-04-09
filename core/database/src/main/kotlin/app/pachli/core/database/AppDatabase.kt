@@ -157,7 +157,7 @@ import java.util.TimeZone
         // DraftEntity properties when quoting a status.
         AutoMigration(from = 35, to = 36),
         AutoMigration(from = 36, to = 37, spec = AppDatabase.MIGRATE_36_37::class),
-        // Record cursor position in DraftEntity
+        // Record cursor position, failure message, etc in DraftEntity
         AutoMigration(from = 37, to = 38, spec = AppDatabase.MIGRATE_37_38::class),
     ],
 )

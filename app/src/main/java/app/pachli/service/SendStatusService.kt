@@ -144,7 +144,7 @@ class SendStatusService : Service() {
         statusToSend.retries++
 
         sendJobs[statusId] = serviceScope.launch {
-            draftsRepository.updateDraftState(statusToSend.pachliAccountId, statusToSend.draft.id, Draft.State.SENDING)
+            draftsRepository.updateDraftState(statusToSend.draft.id, Draft.State.SENDING)
 
             // first, wait for media uploads to finish
             val media = statusToSend.media.map { mediaItem ->
@@ -249,7 +249,7 @@ class SendStatusService : Service() {
                 statusesToSend.remove(statusId)
                 // If the status was loaded from a draft, delete the draft and associated media files.
                 if (statusToSend.draft.id != 0L) {
-                    draftsRepository.deleteDraftAndAttachments(account.id, statusToSend.draft.id)
+                    draftsRepository.deleteDraftAndAttachments(statusToSend.draft.id)
                 }
 
                 mediaUploader.cancelUploadScope(*statusToSend.media.map { it.localId }.toIntArray())
@@ -379,7 +379,6 @@ class SendStatusService : Service() {
 
     private suspend fun saveStatusToDrafts(status: StatusToSend, failureMessage: String?) {
         draftsRepository.updateFailureState(
-            status.pachliAccountId,
             status.draft.id,
             failureMessage = failureMessage,
             state = Draft.State.DEFAULT,

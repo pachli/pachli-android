@@ -596,7 +596,7 @@ class ComposeViewModel @AssistedInject constructor(
 
     fun deleteDraft() {
         viewModelScope.launch {
-            draftsRepository.deleteDraftAndAttachments(pachliAccountId, composeOptions.draft)
+            draftsRepository.deleteDraftAndAttachments(composeOptions.draft)
         }
     }
 
@@ -655,13 +655,13 @@ class ComposeViewModel @AssistedInject constructor(
 
     internal fun closeDraft(draftId: Long) {
         viewModelScope.launch {
-            draftsRepository.updateDraftState(pachliAccountId, draftId, Draft.State.DEFAULT)
+            draftsRepository.updateDraftState(draftId, Draft.State.DEFAULT)
         }
     }
 
     internal fun closeDraft() {
         viewModelScope.launch {
-            draftsRepository.updateDraftState(pachliAccountId, composeOptions.draft.id, Draft.State.DEFAULT)
+            draftsRepository.updateDraftState(composeOptions.draft.id, Draft.State.DEFAULT)
         }
     }
 
@@ -745,7 +745,7 @@ class ComposeViewModel @AssistedInject constructor(
                 Ok(draft)
             }
         }.getOrElse {
-            draftsRepository.updateDraftState(pachliAccountId, composeOptions.draft.id, Draft.State.DEFAULT)
+            draftsRepository.updateDraftState(composeOptions.draft.id, Draft.State.DEFAULT)
             return Err(it)
         }
 
@@ -844,7 +844,6 @@ class ComposeViewModel @AssistedInject constructor(
         pachliAccount = account
 
         draftsRepository.updateDraftState(
-            pachliAccount.id,
             composeOptions.draft.id,
             Draft.State.EDITING,
         )

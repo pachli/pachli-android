@@ -25,23 +25,34 @@ import java.util.Date
 import kotlinx.parcelize.Parcelize
 
 /**
- * Represents a status draft that.
+ * A draft status.
  *
- * @property id
- * @property contentWarning
- * @property content
- * @property sensitive
- * @property visibility
- * @property attachments
- * @property poll
- * @property failureMessage
- * @property scheduledAt
- * @property language
- * @property quotePolicy
- * @property inReplyToId
- * @property quotedStatusId
- * @property statusId
- * @property cursorPosition
+ * The status may or may not be saved to local storage, depending on [id].
+ *
+ * @property id Unique identifier for the draft. `0` means the draft has not
+ * yet been saved. Anything else means the draft has been saved at least once
+ * (but the current content of the class may be dirty).
+ * @property contentWarning The content warning (spoiler text).
+ * @property content The main text body.
+ * @property sensitive Whether the media in the draft should be marked as sensitive.
+ * @property visibility The visibility level of the draft.
+ * @property attachments Any attachments to the draft.
+ * @property poll If non-null, the poll to attach to the draft.
+ * @property failureMessage If non-null, the most recent attempt to send this
+ * draft failed and this is the error message.
+ * @property scheduledAt If non-null, the intended scheduled time for this draft.
+ * @property language The language the draft is written in. If null the user's
+ * default language is used.
+ * @property quotePolicy The draft's [AccountSource.QuotePolicy]. If null the user's
+ * default quote policy is used.
+ * @property inReplyToId If non-null this draft is a reply and this is the ID of the
+ * status being replied to.
+ * @property quotedStatusId If non-null this draft quotes another status and this is
+ * the ID of the status being quoted.
+ * @property statusId If non-null this draft represents an edit to an existing status,
+ * this is the ID of the status being edited.
+ * @property cursorPosition The position of the cursor, restored when the user starts
+ * editing the draft.
  * @property state See [Draft.State]
  */
 @Parcelize

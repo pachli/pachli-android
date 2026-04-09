@@ -54,6 +54,7 @@ class DraftsRepository @Inject constructor(
     @ApplicationContext private val context: Context,
     private val draftDao: DraftDao,
 ) {
+    /** @return Flow of all drafts for [pachliAccountId]. */
     fun getDrafts(pachliAccountId: Long): Flow<PagingData<Draft>> {
         return Pager(
             config = PagingConfig(pageSize = 20),
@@ -61,23 +62,28 @@ class DraftsRepository @Inject constructor(
         ).flow.map { it.map { it.asModel() } }
     }
 
-    fun deleteDraftAndAttachments(pachliAccountId: Long, draftId: Long) = externalScope.launch {
-        val draft = draftDao.find(pachliAccountId, draftId) ?: return@launch
+    /** Deletes the local copies of attachments on the draft identified by [draftId],
+     * and then deletes the draft. */
+    fun deleteDraftAndAttachments(draftId: Long) = externalScope.launch {
+        val draft = draftDao.find(draftId) ?: return@launch
         draft.attachments.forEach { attachment ->
             if (context.contentResolver.delete(attachment.uri, null, null) == 0) {
                 Timber.e("Did not delete file %s", attachment.uri)
             }
         }
-        draftDao.delete(pachliAccountId, draft.id)
+        draftDao.delete(draft.id)
     }
 
-    fun deleteDraftAndAttachments(pachliAccountId: Long, draft: Draft) = externalScope.launch(Dispatchers.IO) {
+    /**
+     * Deletes the local copies of attachments on [draft] and then deletes [draft].
+     */
+    fun deleteDraftAndAttachments(draft: Draft) = externalScope.launch(Dispatchers.IO) {
         draft.attachments.forEach { attachment ->
             if (context.contentResolver.delete(attachment.uri, null, null) == 0) {
                 Timber.e("Did not delete file %s", attachment.uri)
             }
         }
-        draftDao.delete(pachliAccountId, draft.id)
+        draftDao.delete(draft.id)
     }
 
     /**
@@ -104,14 +110,17 @@ class DraftsRepository @Inject constructor(
         return@async if (id != -1L) draft.copy(id = id) else draft
     }.await()
 
-    suspend fun updateFailureState(pachliAccountId: Long, draftId: Long, failureMessage: String?, state: Draft.State) = externalScope.async {
-        draftDao.updateFailureState(pachliAccountId, draftId, failureMessage, state)
+    /** @see [DraftDao.updateFailureState]. */
+    suspend fun updateFailureState(draftId: Long, failureMessage: String?, state: Draft.State) = externalScope.async {
+        draftDao.updateFailureState(draftId, failureMessage, state)
     }.await()
 
-    suspend fun updateDraftState(pachliAccountId: Long, draftId: Long, state: Draft.State) = externalScope.async {
-        draftDao.updateState(pachliAccountId, draftId, state)
+    /** @see [DraftDao.updateState]. */
+    suspend fun updateDraftState(draftId: Long, state: Draft.State) = externalScope.async {
+        draftDao.updateState(draftId, state)
     }.await()
 
+    /** @see [DraftDao.resetEditingState]. */
     fun resetEditingState() = externalScope.launch {
         draftDao.resetEditingState()
     }

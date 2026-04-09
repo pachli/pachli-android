@@ -91,7 +91,7 @@ class DraftsViewModel @Inject constructor(
     fun deleteCheckedDrafts(pachliAccountId: Long) {
         viewModelScope.launch {
             checkedDrafts.value.forEach { draftId ->
-                draftsRepository.deleteDraftAndAttachments(pachliAccountId, draftId)
+                draftsRepository.deleteDraftAndAttachments(draftId)
             }
             checkedDrafts.update { emptySet() }
         }

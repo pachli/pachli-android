@@ -261,14 +261,7 @@ class ComposeActivityTest {
 
     @Test
     fun whenModifiedInitialState_andCloseButtonPressed_notFinish() = runTest {
-        rule.launch(
-            intent(
-                ComposeOptions(
-                    draft = draft,
-                    modifiedInitialState = true,
-                ),
-            ),
-        )
+        rule.launch(intent(ComposeOptions(draft = draft, modifiedInitialState = true)))
         dispatcher.scheduler.advanceUntilIdle()
         accountManager.getPachliAccountFlow(pachliAccountId).first()
         rule.scenario.onActivity {
@@ -303,14 +296,7 @@ class ComposeActivityTest {
 
     @Test
     fun whenModifiedInitialState_andBackButtonPressed_notFinish() = runTest {
-        rule.launch(
-            intent(
-                ComposeOptions(
-                    draft = draft,
-                    modifiedInitialState = true,
-                ),
-            ),
-        )
+        rule.launch(intent(ComposeOptions(draft = draft, modifiedInitialState = true)))
         dispatcher.scheduler.advanceUntilIdle()
         accountManager.getPachliAccountFlow(pachliAccountId).first()
         rule.scenario.onActivity {
@@ -781,13 +767,7 @@ class ComposeActivityTest {
 
     @Test
     fun languageGivenInComposeOptionsIsRespected() = runTest {
-        rule.launch(
-            intent(
-                ComposeOptions(
-                    draft = draft.copy(language = "no"),
-                ),
-            ),
-        )
+        rule.launch(intent(ComposeOptions(draft = draft.copy(language = "no"))))
         dispatcher.scheduler.advanceUntilIdle()
         accountManager.getPachliAccountFlow(pachliAccountId).first()
         rule.scenario.onActivity {
@@ -800,13 +780,7 @@ class ComposeActivityTest {
     fun modernLanguageCodeIsUsed() = runTest {
         // https://github.com/tuskyapp/Tusky/issues/2903
         // "ji" was deprecated in favor of "yi"
-        rule.launch(
-            intent(
-                ComposeOptions(
-                    draft = draft.copy(language = "ji"),
-                ),
-            ),
-        )
+        rule.launch(intent(ComposeOptions(draft = draft.copy(language = "ji"))))
         dispatcher.scheduler.advanceUntilIdle()
         accountManager.getPachliAccountFlow(pachliAccountId).first()
         rule.scenario.onActivity {
@@ -817,13 +791,7 @@ class ComposeActivityTest {
 
     @Test
     fun unknownLanguageGivenInComposeOptionsIsRespected() = runTest {
-        rule.launch(
-            intent(
-                ComposeOptions(
-                    draft = draft.copy(language = "zzz"),
-                ),
-            ),
-        )
+        rule.launch(intent(ComposeOptions(draft = draft.copy(language = "zzz"))))
         dispatcher.scheduler.advanceUntilIdle()
         accountManager.getPachliAccountFlow(pachliAccountId).first()
         rule.scenario.onActivity {

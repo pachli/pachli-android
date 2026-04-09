@@ -55,45 +55,46 @@ WHERE pachliAccountId = :pachliAccountId
         """
 DELETE
 FROM DraftEntity
-WHERE pachliAccountId = :pachliAccountId AND id = :id
+WHERE id = :draftId
 """,
     )
-    suspend fun delete(pachliAccountId: Long, id: Long)
+    suspend fun delete(draftId: Long)
 
     @Query(
         """
 SELECT *
 FROM DraftEntity
-WHERE pachliAccountId = :pachliAccountId AND id = :id
+WHERE id = :draftId
 """,
     )
-    suspend fun find(pachliAccountId: Long, id: Long): DraftEntity?
+    suspend fun find(draftId: Long): DraftEntity?
 
+    /** Sets the [failureMessage] and [state] on [draftId]. */
     @Query(
         """
 UPDATE DraftEntity
 SET
     failureMessage = :failureMessage,
     state = :state
-WHERE pachliAccountId = :pachliAccountId AND id = :draftId
+WHERE id = :draftId
         """,
     )
     suspend fun updateFailureState(
-        pachliAccountId: Long,
         draftId: Long,
         failureMessage: String?,
         state: Draft.State,
     )
 
+    /** Sets the [state] on [draftId]. */
     @Query(
         """
 UPDATE DraftEntity
 SET
     state = :state
-WHERE pachliAccountId = :pachliAccountId AND id = :draftId
+WHERE id = :draftId
         """,
     )
-    suspend fun updateState(pachliAccountId: Long, draftId: Long, state: Draft.State)
+    suspend fun updateState(draftId: Long, state: Draft.State)
 
     /**
      * Resets the state of any drafts in [Draft.State.EDITING] state to [Draft.State.DEFAULT].
