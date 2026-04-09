@@ -38,8 +38,9 @@ import kotlinx.parcelize.Parcelize
  * @property visibility The visibility level of the draft.
  * @property attachments Any attachments to the draft.
  * @property poll If non-null, the poll to attach to the draft.
- * @property failureMessage If non-null, the most recent attempt to send this
- * draft failed and this is the error message.
+ * @property failureMessage If non-null, the most recent user-facing error
+ * message explaining why this status couldn't be sent. If null then there
+ * have been no unsuccessful attempts to send this status.
  * @property scheduledAt If non-null, the intended scheduled time for this draft.
  * @property language The language the draft is written in. If null the user's
  * default language is used.

@@ -32,25 +32,25 @@ import app.pachli.core.model.Status
 import java.util.Date
 
 /**
- * @property pachliAccountId Pachli Account ID
- * @property inReplyToId
- * @property content
- * @property contentWarning
- * @property sensitive
- * @property visibility
- * @property attachments
- * @property poll
- * @property failureMessage If non-null, the most recent user-facing error
- * message explaining why this status couldn't be sent. If null then there
- * have been no unsuccessful attempts to send this status.
- * @property scheduledAt
- * @property language
- * @property statusId
- * @property quotePolicy The quote policy the user set while editing the draft.
- * @property quotedStatusId If non-null, the ID of the status the user was
- * quoting while editing the draft.
- * @property cursorPosition The cursor position when the draft was saved / the
- * intended cursor position when the draft is opened.
+ * @property id Unique identifier for this draft (across all drafts, this is
+ * **not** part of a composite key with [pachliAccountId]). See
+ * [Draft.id].
+ * @property pachliAccountId Account that owns this draft.
+ * @property contentWarning [Draft.contentWarning].
+ * @property content [Draft.content].
+ * @property sensitive [Draft.sensitive].
+ * @property visibility [Draft.visibility].
+ * @property attachments [Draft.attachments].
+ * @property poll [Draft.poll].
+ * @property failureMessage [Draft.failureMessage].
+ * @property scheduledAt [Draft.scheduledAt].
+ * @property language [Draft.language].
+ * @property quotePolicy [Draft.quotePolicy].
+ * @property inReplyToId [Draft.inReplyToId].
+ * @property quotedStatusId [Draft.quotedStatusId].
+ * @property statusId [Draft.statusId].
+ * @property cursorPosition [Draft.cursorPosition].
+ * @property state [Draft.state].
  */
 @Entity(
     foreignKeys = [
