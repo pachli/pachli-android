@@ -99,6 +99,7 @@ class DraftViewHolder(
         this@DraftViewHolder.draft = draftViewData.draft
 
         isChecked = draftViewData.isChecked
+        binding.root.isActivated = isChecked
 
         checkBox.isVisible = draft.state == Draft.State.DEFAULT
         sendingIndicator.isVisible = draft.state == Draft.State.SENDING
