@@ -14,7 +14,7 @@
     <string name="translation_model_manager_fragment_downloaded_heading">பதிவிறக்கம் செய்யப்பட்டது</string>
     <string name="translation_model_manager_fragment_remote_heading">பதிவிறக்க, தட்டவும்</string>
     <string name="fragment_confirm_download_language_dialog_title_fmt">மொபைல் டேட்டா மூலம் %1$s ஐப் பதிவிறக்கவா?</string>
-    <string name="fragment_confirm_download_language_dialog_msg">இது பொதுவாக 30-60MB மொபைல் டேட்டாவைப் பயன்படுத்தும்.</string>
+    <string name="fragment_confirm_download_language_dialog_msg">இது பொதுவாக 30–60MB மொபைல் டேட்டாவைப் பயன்படுத்தும்.</string>
     <string name="fragment_confirm_delete_language_dialog_title_fmt">%1$sஐ நீக்கவா?</string>
     <string name="fragment_confirm_delete_language_dialog_msg">நீங்கள் இந்த மொழியை நீக்கினால், அடுத்த முறை தேவைப்படும்போது பதிவிறக்கம் செய்யப்படும்.</string>
     <string name="fragment_google_disclaimer_dialog_title">மொழிபெயர்ப்பு மறுப்பு</string>

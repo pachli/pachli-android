@@ -59,7 +59,7 @@
     <string name="action_view_preferences">Προτιμήσεις</string>
     <string name="title_announcements">Ανακοινώσεις</string>
     <string name="action_access_drafts">Προσχέδια</string>
-    <string name="notification_sign_up_format">ο/η %lt;b%gt;%1$s&lt;/b&gt; έκανε εγγραφή</string>
+    <string name="notification_sign_up_format">ο/η &lt;b&gt;%1$s&lt;/b&gt; έκανε εγγραφή</string>
     <string name="dialog_delete_post_warning">Διαγραφή αυτής της δημοσίευσης;</string>
     <string name="action_unmute">Άρση σίγασης</string>
     <string name="title_notifications">Ειδοποιήσεις</string>
