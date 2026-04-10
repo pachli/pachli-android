@@ -12,9 +12,9 @@
     <string name="action_dismiss_follow_suggestion">நிராகரி</string>
     <string name="ui_error_delete_suggestion_fmt">%1$sக்கான பரிந்துரையை நிராகரிக்க முடியவில்லை: %2$s</string>
     <string name="ui_error_follow_account_fmt">பின்வரும் %1$s தோல்வியடைந்தது: %2$s</string>
-    <string name="follower_count_fmt"><b>%1$s</b> பின்தொடர்பவர்கள்</string>
-    <string name="follows_count_fmt"><b>%1$s</b> பின்தொடர்கிறது</string>
-    <string name="statuses_count_fmt"><b>%1$s</b> இடுகைகள்</string>
-    <string name="statuses_count_per_week_fmt"><b>%1$s</b> இடுகைகள் (வாரத்திற்கு <b>%2$d</b>)</string>
-    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> இடுகைகள் (வாரத்திற்கு <b>%2$d</b>, கடந்த <b>%3$s</b>)</string>
+    <string name="follower_count_fmt">&lt;b&gt;%1$s&lt;/&gt; பின்தொடர்பவர்கள்</string>
+    <string name="follows_count_fmt">&lt;b&gt;%1$s&lt;/&gt; பின்தொடர்கிறது</string>
+    <string name="statuses_count_fmt">&lt;b&gt;%1$s&lt;/&gt; இடுகைகள்</string>
+    <string name="statuses_count_per_week_fmt">&lt;b&gt;%1$s&lt;/&gt; இடுகைகள் (வாரத்திற்கு &lt;b&gt;%2$d&lt;/&gt;)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b&gt;%1$s&lt;/&gt; இடுகைகள் (வாரத்திற்கு &lt;b&gt;%2$d&lt;/&gt;, கடந்த &lt;b&gt;%3$s&lt;/&gt;)</string>
 </resources>

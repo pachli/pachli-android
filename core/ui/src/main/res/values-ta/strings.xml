@@ -32,9 +32,9 @@
     <string name="title_mentions_dialog">குறிப்பிடுகிறது</string>
     <string name="title_logout_fmt">வெளியேறு %1$s</string>
     <string name="notification_details_last_fetch_label">கடைசி/ஏபிஐ/வி 1/அறிவிப்புகள் கோரிக்கை</string>
-    <string name="preview_card_byline_fediverse_account_fmt"><b>%1$s</b> மூலம். மேலும் இடுகைகளைக் காண்க</string>
-    <string name="preview_card_byline_name_only_fmt">மூலம் <b>%1$s</b></string>
-    <string name="preview_card_timeline_link_fmt">இந்த இணைப்பைப் பற்றிய <b>%1$s</b> இடுகைகளைப் பார்க்கவும்</string>
+    <string name="preview_card_byline_fediverse_account_fmt">&lt;b&gt;%1$s&lt;/&gt; மூலம். மேலும் இடுகைகளைக் காண்க</string>
+    <string name="preview_card_byline_name_only_fmt">மூலம் &lt;b&gt;%1$s&lt;/&gt;</string>
+    <string name="preview_card_timeline_link_fmt">இந்த இணைப்பைப் பற்றிய &lt;b&gt;%1$s&lt;/&gt; இடுகைகளைப் பார்க்கவும்</string>
     <string name="poll_vote">வாக்களிக்கவும்</string>
     <string name="poll_show_votes">வாக்குகளைக் காட்டு</string>
     <plurals name="poll_timespan_seconds">
@@ -106,18 +106,18 @@
     <string name="description_post_media">மீடியா: %1$s</string>
     <string name="description_post_cw">உள்ளடக்க எச்சரிக்கை: %1$s</string>
     <plurals name="reblogs">
-        <item quantity="one"><b>%s</b> பூச்ட்</item>
-        <item quantity="other"><b>%s</b> பூச்ட்கள்</item>
+        <item quantity="one">&lt;b&gt;%s&lt;/&gt; பூச்ட்</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/&gt; பூச்ட்கள்</item>
     </plurals>
     <plurals name="favs">
-        <item quantity="one"><b>%1$s</b> பிடித்தமானது</item>
-        <item quantity="other"><b>%1$s</b> பிடித்தவை</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/&gt; பிடித்தமானது</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/&gt; பிடித்தவை</item>
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; மேலேற்றப்பட்டது</string>
     <string name="post_edited">திருத்தப்பட்ட %1$s</string>
     <string name="filter_edit_title">வடிகட்டியைத் திருத்து</string>
     <string name="status_filtered_show_anyway">எப்படியும் காட்டு</string>
-    <string name="status_filter_placeholder_label_format">வடிகட்டப்பட்டது: <b>%1$s</b></string>
+    <string name="status_filter_placeholder_label_format">வடிகட்டப்பட்டது: &lt;b&gt;%1$s&lt;/&gt;</string>
     <string name="action_follow_request_accept">பின்பற்ற கோரிக்கையை ஏற்கவும்</string>
     <string name="action_follow_request_reject">பின்வரும் கோரிக்கையை நிராகரிக்கவும்</string>
     <string name="action_moderation_warning_view">மிதமான எச்சரிக்கையைக் காண்க</string>
@@ -146,12 +146,12 @@
     <string name="action_request_quote">மேற்கோள் காட்ட கோரிக்கை</string>
     <string name="label_author_denied_quote">மேற்கோள் எழுத்தாளரால் முடக்கப்பட்டது</string>
     <plurals name="quotes">
-        <item quantity="one"><b>%1$s</b> மேற்கோள்</item>
-        <item quantity="other"><b>%1$s</b> மேற்கோள்கள்</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/&gt; மேற்கோள்</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/&gt; மேற்கோள்கள்</item>
     </plurals>
     <string name="post_replied">பதிலளித்தார்</string>
     <string name="post_continued_thread">தொடரும் நூல்</string>
-    <string name="post_replied_to_fmt"><b>%1$s</b>க்குப் பதிலளித்தார்</string>
+    <string name="post_replied_to_fmt">&lt;b&gt;%1$s&lt;/&gt;க்குப் பதிலளித்தார்</string>
     <string name="label_quoted_status_hidden">உங்கள் வடிப்பான்களில் ஒன்றால் மறைக்கப்பட்ட இடுகையின் மேற்கோள்</string>
     <string name="detach_quote">மேற்கோளை அகற்று</string>
     <string name="label_quote_state_unknown">மேற்கோள் காட்டப்பட்ட இடுகையைக் காட்ட முடியாது</string>
