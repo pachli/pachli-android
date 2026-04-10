@@ -292,8 +292,8 @@
     <string name="notification_follow_request_name">Prośby o obserwację</string>
     <string name="pref_title_confirm_reblogs">Pytaj o potwierdzenie przed podbiciem</string>
     <string name="add_hashtag_title">Dodaj hasztag</string>
-    <string name="dialog_mute_warning">Wyciszyć @%1$s?</string>
-    <string name="dialog_block_warning">Zablokować @%1$s?</string>
+    <string name="dialog_mute_warning">Wyciszyć @%1$s\?</string>
+    <string name="dialog_block_warning">Zablokować @%1$s\?</string>
     <string name="action_unmute_conversation">Cofnij wyciszenie rozmowy</string>
     <string name="action_mute_conversation">Wycisz rozmowę</string>
     <string name="hashtags">Hasztagi</string>

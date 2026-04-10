@@ -32,7 +32,7 @@
     <string name="footer_empty">Noch keine Beiträge. Ziehe zum Aktualisieren nach unten!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; teilte deinen Beitrag</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; favorisierte deinen Beitrag</string>
-    <string name="notification_follow_format"><b>%1$s</b> folgt dir</string>
+    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; folgt dir</string>
     <string name="report_username_format">\@%1$s melden</string>
     <string name="report_comment_hint">Zusätzliche Anmerkungen\?</string>
     <string name="action_quick_reply">Schnell antworten</string>
@@ -196,7 +196,7 @@
     <string name="send_post_notification_cancel_title">Senden abgebrochen</string>
     <string name="send_post_notification_saved_content">Eine Kopie des Beitrags wurde in deine Entwürfe gespeichert</string>
     <string name="action_compose_shortcut">Beitrag erstellen</string>
-    <string name="error_no_custom_emojis">Ihre Instanz %1$s verfügt über keine benutzerdefinierten Emojis</string>
+    <string name="error_no_custom_emojis">Deine Instanz %1$s hat keine Emojis definiert</string>
     <string name="emoji_style">Emoji-Stil</string>
     <string name="system_default">Systemstandard</string>
     <string name="download_fonts">Du musst diese Emoji-Sets zunächst herunterladen</string>
@@ -247,7 +247,7 @@
     <string name="action_view_domain_mutes">Ausgeblendete Domains</string>
     <string name="action_mute_domain">%1$s stummschalten</string>
     <string name="confirmation_domain_unmuted">%1$s nicht mehr ausgeblendet</string>
-    <string name="mute_domain_warning">Bist du dir sicher, dass du alles von %1$s blockieren möchtest? Du wirst keine Inhalte dieser Domain in irgendwelchen öffentlichen Timelines oder in deinen Benachrichtigungen sehen. Deine Follower von dieser Domain werden entfernt.</string>
+    <string name="mute_domain_warning">Bist du dir sicher, dass du alles von %1$s blockieren möchtest\? Du wirst keine Inhalte dieser Domain in irgendwelchen öffentlichen Timelines oder in deinen Benachrichtigungen sehen. Deine Follower von dieser Domain werden entfernt.</string>
     <string name="mute_domain_warning_dialog_ok">Gesamte Domain ausblenden</string>
     <string name="pref_title_animate_gif_avatars">GIF-Profilbilder animieren</string>
     <string name="filter_dialog_whole_word">Ganzes Wort</string>
@@ -294,8 +294,8 @@
     <string name="notification_follow_request_description">Benachrichtigungen über neue Folgeanfragen</string>
     <string name="pref_title_notification_filter_follow_requests">Neue Folgeanfrage</string>
     <string name="notification_follow_request_name">Folgeanfragen</string>
-    <string name="dialog_mute_warning">\@%1$s stummschalten?</string>
-    <string name="dialog_block_warning">\@%1$s blockieren?</string>
+    <string name="dialog_mute_warning">\@%1$s stummschalten\?</string>
+    <string name="dialog_block_warning">\@%1$s blockieren\?</string>
     <string name="action_unmute_conversation">Stummschaltung der Unterhaltung aufheben</string>
     <string name="action_mute_conversation">Unterhaltung stummschalten</string>
     <string name="notification_follow_request_format"><b>%1$s</b> möchte dir folgen</string>
@@ -392,7 +392,7 @@
     <string name="report_category_other">Sonstiges</string>
     <string name="error_following_hashtags_unsupported">Diese Instanz unterstützt das Folgen von Hashtags nicht.</string>
     <string name="title_followed_hashtags">Gefolgte Hashtags</string>
-    <string name="action_unfollow_hashtag_format">#%1$s entfolgen?</string>
+    <string name="action_unfollow_hashtag_format">#%1$s entfolgen\?</string>
     <string name="a11y_label_loading_thread">Thread wird geladen</string>
     <string name="mute_notifications_switch">Benachrichtigungen stummschalten</string>
     <string name="title_edits">Bearbeitungen</string>

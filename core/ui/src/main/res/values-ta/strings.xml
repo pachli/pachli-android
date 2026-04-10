@@ -62,21 +62,21 @@
         <item quantity="other">%s பேர்</item>
     </plurals>
     <string name="poll_info_closed">மூடப்பட்டது</string>
-    <string name="poll_info_time_absolute">%1$s இல் முடிவடைகிறது</string>
+    <string name="poll_info_time_absolute">%1$s இல் முடிகிறது</string>
     <string name="poll_info_format"><!-- 15 வாக்குகள் • 1 மணிநேரம் மீதமுள்ளது--> %1$s • %2$s</string>
     <string name="description_poll">தேர்வுகளுடன் வாக்கெடுப்பு: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="post_media_alt">மாற்று</string>
     <string name="status_created_at_now">இப்போது</string>
-    <string name="abbreviated_in_seconds">%1$ds இல்</string>
-    <string name="abbreviated_seconds_ago">%1$ds</string>
-    <string name="abbreviated_in_minutes">%1$dm இல்</string>
-    <string name="abbreviated_minutes_ago">%1$dm</string>
-    <string name="abbreviated_in_hours">%1$dh இல்</string>
-    <string name="abbreviated_hours_ago">%1$dh</string>
-    <string name="abbreviated_in_days">%1$dd இல்</string>
-    <string name="abbreviated_days_ago">%1$dd</string>
-    <string name="abbreviated_in_years">%1$d ஆண்டில்</string>
-    <string name="abbreviated_years_ago">%1$dy</string>
+    <string name="abbreviated_in_seconds">%1$dவி-முன்</string>
+    <string name="abbreviated_seconds_ago">%1$dவி</string>
+    <string name="abbreviated_in_minutes">%1$dநி-முன்</string>
+    <string name="abbreviated_minutes_ago">%1$dநி</string>
+    <string name="abbreviated_in_hours">%1$dம.நே-முன்</string>
+    <string name="abbreviated_hours_ago">%1$dம.நே</string>
+    <string name="abbreviated_in_days">%1$dநா-முன்</string>
+    <string name="abbreviated_days_ago">%1$dநா</string>
+    <string name="abbreviated_in_years">%1$dஆ-முன்</string>
+    <string name="abbreviated_years_ago">%1$dஆ</string>
     <string name="description_post_media_no_description_placeholder">விளக்கம் இல்லை</string>
     <string name="description_visibility_public">அனைவருக்கும்</string>
     <string name="description_visibility_unlisted">பட்டியலிடப்படாதவர்களுக்கு</string>
@@ -114,7 +114,7 @@
         <item quantity="other"><b>%1$s</b> பிடித்தவை</item>
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; மேலேற்றப்பட்டது</string>
-    <string name="post_edited">%1$s திருத்தப்பட்டது</string>
+    <string name="post_edited">திருத்தப்பட்ட %1$s</string>
     <string name="filter_edit_title">வடிகட்டியைத் திருத்து</string>
     <string name="status_filtered_show_anyway">எப்படியும் காட்டு</string>
     <string name="status_filter_placeholder_label_format">வடிகட்டப்பட்டது: <b>%1$s</b></string>
