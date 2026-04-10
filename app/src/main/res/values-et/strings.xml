@@ -147,7 +147,7 @@
     <string name="notification_report_format">Uus teatis: %1$s</string>
     <string name="action_unmute_desc">Lõpeta kasutaja %1$s summutamine</string>
     <string name="action_mute_domain">Summuta %1$s</string>
-    <string name="action_unmute_domain">Lõpeta %1$s domeeni summutamine</string>
+    <string name="action_unmute_domain">Lõpeta kasutaja %1$s summutamine</string>
     <string name="action_mute_conversation">Summuta vestlus</string>
     <string name="action_unmute_conversation">Lõpeta vestluse summutamine</string>
     <string name="action_mention">Maini</string>
@@ -311,9 +311,9 @@
     <string name="notification_severed_relationships_account_suspension_fmt">%1$s serveri peakasutaja blokeeris &lt;b&gt;%2$s&lt;/b&gt; kasutajakonto</string>
     <string name="notification_severed_relationships_unknown_fmt">&lt;b&gt;%1$s&lt;/b&gt; on blokeeritud (teadmata põhjusel)</string>
     <string name="confirmation_unmuted">Kasutaja summutamine on lõpetatud</string>
-    <string name="confirmation_domain_unmuted">%1$s domeen on jälle nähtav</string>
+    <string name="confirmation_domain_unmuted">%1$s on jälle nähtav</string>
     <string name="confirmation_hashtag_muted">#%1$s on nüüdsest peidetud</string>
-    <string name="confirmation_hashtag_unmuted">#%1$s teemaviide on jälle nähtav</string>
+    <string name="confirmation_hashtag_unmuted">#%1$s on jälle nähtav</string>
     <string name="confirmation_hashtag_unfollowed">#%1$s teemaviite jälgimine on lõppenud</string>
     <string name="pref_title_appearance_settings">Välimus</string>
     <string name="pref_title_app_theme">Rakenduse kujundus</string>

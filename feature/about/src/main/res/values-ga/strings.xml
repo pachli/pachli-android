@@ -33,8 +33,11 @@
     <string name="about_account_info_title">Do chuntas</string>
     <string name="about_copy">Cóipeáil leagan agus faisnéis gléas</string>
     <string name="about_privacy_policy">Beartas Príobháideachais</string>
-    <string name="about_device_info">%1$s %2$s\nLeagan Android: %3$s\nLeibhéal SDK: %4$d</string>
-    <string name="about_account_info">\@%1$s@%2$s\nLeagan: %3$s</string>
+    <string name="about_device_info">%1$s %2$s
+\nLeagan Android: %3$s
+\nLeibhéal SDK: %4$d</string>
+    <string name="about_account_info">\@%1$s@%2$s
+\nLeagan: %3$s</string>
     <string name="about_nivenly_foundation">Is tionscadal <a href="https://nivenly.org">Fondúireacht Nivenly</a> é Pachli.</string>
     <string name="about_copied">Leagan cóipeáilte agus faisnéis gléas</string>
     <string name="notification_log_filter_content_description">Scag logs de réir clib</string>
