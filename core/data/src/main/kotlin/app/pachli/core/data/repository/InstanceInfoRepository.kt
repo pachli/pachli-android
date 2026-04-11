@@ -42,7 +42,7 @@ import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.launch
@@ -75,11 +75,11 @@ class InstanceInfoRepository @Inject constructor(
     accountManager: AccountManager,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
-    private val _instanceInfo = MutableStateFlow(InstanceInfo())
-    val instanceInfo = _instanceInfo.asStateFlow()
+    val instanceInfo: StateFlow<InstanceInfo>
+        field = MutableStateFlow(InstanceInfo())
 
-    private val _emojis = MutableStateFlow<List<Emoji>>(emptyList())
-    val emojis = _emojis.asStateFlow()
+    val emojis: StateFlow<List<Emoji>>
+        field = MutableStateFlow(emptyList())
 
     init {
         externalScope.launch {
@@ -99,15 +99,15 @@ class InstanceInfoRepository @Inject constructor(
     suspend fun reload(account: AccountEntity?) {
         if (account == null) {
             Timber.d("active account is null, using instance defaults")
-            _instanceInfo.value = InstanceInfo()
-            _emojis.value = emptyList()
+            instanceInfo.value = InstanceInfo()
+            emojis.value = emptyList()
             return
         }
 
         Timber.d("Fetching instance info for %s", account.domain)
 
-        _instanceInfo.value = getInstanceInfo(account.domain)
-        _emojis.value = getEmojis(account.id)
+        instanceInfo.value = getInstanceInfo(account.domain)
+        emojis.value = getEmojis(account.id)
     }
 
     /**

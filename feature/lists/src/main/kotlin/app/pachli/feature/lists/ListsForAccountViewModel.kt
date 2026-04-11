@@ -33,7 +33,7 @@ import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
@@ -60,8 +60,8 @@ class ListsForAccountViewModel @AssistedInject constructor(
     @Assisted val accountId: String,
     @Assisted val pachliAccountId: Long,
 ) : ViewModel() {
-    private val _listsWithMembership = MutableStateFlow<Result<ListsWithMembership, FlowError>>(Ok(ListsWithMembership.Loading))
-    val listsWithMembership = _listsWithMembership.asStateFlow()
+    val listsWithMembership: StateFlow<Result<ListsWithMembership, FlowError>>
+        field = MutableStateFlow<Result<ListsWithMembership, FlowError>>(Ok(ListsWithMembership.Loading))
 
     private val _errors = Channel<HasListId>()
     val errors = _errors.receiveAsFlow()
@@ -77,9 +77,9 @@ class ListsForAccountViewModel @AssistedInject constructor(
      * and merges them to produce a map of [ListWithMembership].
      */
     fun refresh() = viewModelScope.launch {
-        _listsWithMembership.value = Ok(ListsWithMembership.Loading)
+        listsWithMembership.value = Ok(ListsWithMembership.Loading)
         listsRepository.getLists(pachliAccountId).collect { lists ->
-            _listsWithMembership.value = with(listsWithMembershipMap) {
+            listsWithMembership.value = with(listsWithMembershipMap) {
                 listsRepository.getListsWithAccount(pachliAccountId, accountId).mapEither(
                     { memberLists ->
                         clear()
@@ -104,7 +104,7 @@ class ListsForAccountViewModel @AssistedInject constructor(
             listsWithMembershipMap[listId] = it.copy(isMember = true)
         }
 
-        _listsWithMembership.value = Ok(ListsWithMembership.Loaded(listsWithMembershipMap))
+        listsWithMembership.value = Ok(ListsWithMembership.Loaded(listsWithMembershipMap))
 
         listsRepository.addAccountsToList(pachliAccountId, listId, listOf(accountId)).onFailure { error ->
             // Undo the optimistic update
@@ -112,7 +112,7 @@ class ListsForAccountViewModel @AssistedInject constructor(
                 listsWithMembershipMap[listId] = it.copy(isMember = false)
             }
 
-            _listsWithMembership.value = Ok(ListsWithMembership.Loaded(listsWithMembershipMap))
+            listsWithMembership.value = Ok(ListsWithMembership.Loaded(listsWithMembershipMap))
 
             _errors.send(Error.AddAccounts(error))
         }
@@ -126,7 +126,7 @@ class ListsForAccountViewModel @AssistedInject constructor(
         listsWithMembershipMap[listId]?.let {
             listsWithMembershipMap[listId] = it.copy(isMember = false)
         }
-        _listsWithMembership.value = Ok(ListsWithMembership.Loaded(listsWithMembershipMap))
+        listsWithMembership.value = Ok(ListsWithMembership.Loaded(listsWithMembershipMap))
 
         listsRepository.deleteAccountsFromList(pachliAccountId, listId, listOf(accountId)).onFailure { error ->
             // Undo the optimistic update
@@ -134,7 +134,7 @@ class ListsForAccountViewModel @AssistedInject constructor(
                 listsWithMembershipMap[listId] = it.copy(isMember = true)
             }
 
-            _listsWithMembership.value = Ok(ListsWithMembership.Loaded(listsWithMembershipMap))
+            listsWithMembership.value = Ok(ListsWithMembership.Loaded(listsWithMembershipMap))
 
             _errors.send(Error.DeleteAccounts(error))
         }

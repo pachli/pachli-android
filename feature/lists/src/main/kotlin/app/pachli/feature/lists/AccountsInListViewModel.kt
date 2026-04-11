@@ -37,7 +37,7 @@ import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -66,13 +66,12 @@ class AccountsInListViewModel @AssistedInject constructor(
     @Assisted val listId: String,
 ) : ViewModel() {
 
-    private val _accountsInList = MutableStateFlow<Result<Accounts, FlowError.GetAccounts>>(Ok(Accounts.Loading))
-    val accountsInList = _accountsInList.asStateFlow()
-
-    private val _searchResults = MutableStateFlow<Result<SearchResults, ApiError>>(Ok(SearchResults.Empty))
+    val accountsInList: StateFlow<Result<Accounts, FlowError.GetAccounts>>
+        field = MutableStateFlow<Result<Accounts, FlowError.GetAccounts>>(Ok(Accounts.Loading))
 
     /** Flow of results after calling [search] */
-    val searchResults = _searchResults.asStateFlow()
+    val searchResults: StateFlow<Result<SearchResults, ApiError>>
+        field = MutableStateFlow<Result<SearchResults, ApiError>>(Ok(SearchResults.Empty))
 
     private val _errors = Channel<Error>()
     val errors = _errors.receiveAsFlow()
@@ -82,8 +81,8 @@ class AccountsInListViewModel @AssistedInject constructor(
     }
 
     fun refresh() = viewModelScope.launch {
-        _accountsInList.value = Ok(Accounts.Loading)
-        _accountsInList.value = listsRepository.getAccountsInList(pachliAccountId, listId)
+        accountsInList.value = Ok(Accounts.Loading)
+        accountsInList.value = listsRepository.getAccountsInList(pachliAccountId, listId)
             .mapEither(
                 { Accounts.Loaded(it) },
                 { FlowError.GetAccounts(it) },
@@ -118,10 +117,10 @@ class AccountsInListViewModel @AssistedInject constructor(
     /** Search for [query] and send results to [searchResults] */
     fun search(query: String) {
         when {
-            query.isEmpty() -> _searchResults.value = Ok(SearchResults.Empty)
-            query.isBlank() -> _searchResults.value = Ok(SearchResults.Loaded(emptyList()))
+            query.isEmpty() -> searchResults.value = Ok(SearchResults.Empty)
+            query.isBlank() -> searchResults.value = Ok(SearchResults.Loaded(emptyList()))
             else -> viewModelScope.launch {
-                _searchResults.value = api.searchAccounts(query, null, 10, true)
+                searchResults.value = api.searchAccounts(query, null, 10, true)
                     .map { SearchResults.Loaded(it.body.asModel()) }
             }
         }

@@ -31,7 +31,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.update
@@ -54,10 +54,9 @@ class StatusDisplayOptionsRepository @Inject constructor(
     /** Default status display options */
     private val default = StatusDisplayOptions()
 
-    private val _flow = MutableStateFlow(initialStatusDisplayOptions())
-
     /** Flow of [StatusDisplayOptions] over time */
-    val flow = _flow.asStateFlow()
+    val flow: StateFlow<StatusDisplayOptions>
+        field = MutableStateFlow(initialStatusDisplayOptions())
 
     /** Preference keys that, if changed, affect StatusDisplayOptions */
     private val prefKeys = setOf(
@@ -83,7 +82,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
         externalScope.launch {
             sharedPreferencesRepository.changes.filter { prefKeys.contains(it) }.collect { key ->
                 Timber.d("Updating because shared preference changed")
-                _flow.update { prev ->
+                flow.update { prev ->
                     when (key) {
                         PrefKeys.ANIMATE_GIF_AVATARS -> prev.copy(
                             animateAvatars = sharedPreferencesRepository.animateAvatars,
@@ -138,14 +137,14 @@ class StatusDisplayOptionsRepository @Inject constructor(
 
         externalScope.launch {
             accountManager.activePachliAccountFlow.distinctUntilChangedBy { it.id }.collect {
-                _flow.emit(initialStatusDisplayOptions(it))
+                flow.emit(initialStatusDisplayOptions(it))
             }
         }
 
         externalScope.launch {
             accountPreferenceDataStore.changes.collect { (key, value) ->
                 Timber.d("Updating because account preference changed")
-                _flow.update { prev ->
+                flow.update { prev ->
                     when (key) {
                         PrefKeys.MEDIA_PREVIEW_ENABLED -> prev.copy(mediaPreviewEnabled = value)
                         PrefKeys.ALWAYS_SHOW_SENSITIVE_MEDIA -> prev.copy(showSensitiveMedia = value)

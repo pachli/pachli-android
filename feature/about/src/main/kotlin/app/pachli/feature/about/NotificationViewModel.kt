@@ -173,8 +173,8 @@ class NotificationViewModel @Inject constructor(
             initialValue = emptyList(),
         )
 
-    private val _usageEventsFlow = MutableStateFlow<List<UsageEvents.Event>>(emptyList())
-    val usageEventsFlow = _usageEventsFlow.asStateFlow()
+    val usageEventsFlow: StateFlow<List<UsageEvents.Event>>
+        field = MutableStateFlow<List<UsageEvents.Event>>(emptyList())
 
     init {
         refresh()
@@ -196,7 +196,7 @@ class NotificationViewModel @Inject constructor(
                     event = UsageEvents.Event()
                 }
             }.sortedByDescending { it.timeStamp }
-            _usageEventsFlow.value = events
+            usageEventsFlow.value = events
         }
 
         _uiState.value = UiState.from(
