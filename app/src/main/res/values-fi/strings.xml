@@ -746,4 +746,18 @@
     <string name="search_operator_quote_no_quotes">Ilman lainauksia</string>
     <string name="search_operator_quote_only">Vain lainaukset</string>
     <string name="search_operator_quote_all">Lainaukset ▾</string>
+    <string name="ui_error_saving_post_fmt">Julkaisua ei voitu tallentaa: %1$s</string>
+    <string name="ui_error_sending_post_fmt">Julkaisua ei voitu lähettää: %1$s</string>
+    <string name="ui_error_delete_scheduled_status_fmt">ajastettua julkaisua ei voitu poistaa ja korvata: %1$s</string>
+    <string name="err_draft_error_io_fmt">tallentaminen epäonnistui: %1$s</string>
+    <string name="err_draft_error_content_provider_crash">sisällöntarjoaja kaatui äskettäin</string>
+    <string name="err_draft_error_unknown_mime_type">liitteen MIME-tyyppi on tuntematon: %1$s</string>
+    <string name="err_draft_error_mkdir_drafts_fmt">Luonnokset-kansoita ei voitu luoda: %1$s</string>
+    <string name="err_draft_error_no_external_files_dir">jaettu tallennustila ei ole käytettävissä</string>
+    <string name="send_post_failure_message_timeout">Android aikakatkaisi julkaisun lähettämisen</string>
+    <string name="send_post_failure_message_cancel">Peruit julkaisun lähettämisen</string>
+    <string name="send_post_failure_message_prefix">Lähettäminen epäonnistui: %1$s</string>
+    <string name="delete_drafts_msg">Tämä poistaa valitut luonnokset pysyvästi.</string>
+    <string name="title_delete_drafts">Poista valitut luonnokset?</string>
+    <string name="action_delete_drafts">Poista valitut luonnokset</string>
 </resources>
