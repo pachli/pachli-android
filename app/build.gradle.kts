@@ -80,6 +80,9 @@ android {
 
     lint {
         checkDependencies = true
+        // Disable lint for release builds, it's already checked as part of
+        // CI, and checking again unnecessarily slows down release builds.
+        checkReleaseBuilds = false
     }
 
     testOptions {
