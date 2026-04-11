@@ -22,6 +22,7 @@ import java.util.Date
 
 @JsonClass(generateAdapter = true)
 data class DeletedStatus(
+    val id: String,
     val text: String?,
     @Json(name = "in_reply_to_id") val inReplyToId: String?,
     @Json(name = "spoiler_text") val spoilerText: String,
@@ -40,6 +41,7 @@ data class DeletedStatus(
     }
 
     fun asModel() = app.pachli.core.model.DeletedStatus(
+        id = id,
         text = text,
         inReplyToId = inReplyToId,
         spoilerText = spoilerText,

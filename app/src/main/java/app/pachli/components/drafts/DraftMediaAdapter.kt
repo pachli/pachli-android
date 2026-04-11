@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.Attachment
 import app.pachli.core.model.DraftAttachment
 import app.pachli.core.ui.MediaPreviewImageView
 import com.bumptech.glide.RequestManager
@@ -50,7 +51,7 @@ class DraftMediaAdapter(
 
     override fun onBindViewHolder(holder: DraftMediaViewHolder, position: Int) {
         getItem(position)?.let { attachment ->
-            if (attachment.type == DraftAttachment.Type.AUDIO) {
+            if (attachment.type == Attachment.Type.AUDIO) {
                 holder.imageView.clearFocus()
                 holder.imageView.setImageResource(R.drawable.ic_music_box_preview_24dp)
             } else {

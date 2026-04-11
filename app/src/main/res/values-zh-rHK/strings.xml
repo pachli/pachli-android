@@ -89,8 +89,6 @@
     <string name="confirmation_reported">已檢舉！</string>
     <string name="confirmation_unblocked">已解除封鎖</string>
     <string name="confirmation_unmuted">已解除靜音</string>
-    <string name="post_sent">已檢舉！</string>
-    <string name="post_sent_long">成功送出回覆。</string>
     <string name="hint_compose">有什麼新鮮事？</string>
     <string name="hint_content_warning">敏感內容警告</string>
     <string name="hint_display_name">暱稱</string>
@@ -275,7 +273,6 @@
     <string name="title_domain_mutes">被隱藏的網域</string>
     <string name="filter_dialog_whole_word">完整字詞</string>
     <string name="drafts_post_reply_removed">你的草稿欲回覆的原嘟文已被刪除</string>
-    <string name="draft_deleted">草稿已刪除</string>
     <string name="drafts_post_failed_to_send">這條嘟文發送失敗！</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="other">你無法上傳超過 %1$d 媒體附件。</item>

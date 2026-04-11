@@ -32,7 +32,6 @@
     <string name="hint_search">Пошук…</string>
     <string name="hint_note">Про себе</string>
     <string name="hint_compose">Що відбувається\?</string>
-    <string name="post_sent">Надіслано!</string>
     <string name="confirmation_reported">Надіслано!</string>
     <string name="action_copy_link">Копіювати посилання</string>
     <string name="download_image">Завантаження %1$s</string>
@@ -271,7 +270,6 @@
     <string name="label_avatar">Аватар</string>
     <string name="label_quick_reply">Відповісти…</string>
     <string name="hint_display_name">Показуване ім\'я</string>
-    <string name="post_sent_long">Відповідь надіслано.</string>
     <string name="confirmation_domain_unmuted">%1$s показано</string>
     <string name="confirmation_unmuted">Приховування користувача скасовано</string>
     <string name="confirmation_unblocked">Користувача розблоковано</string>
@@ -287,7 +285,6 @@
     <string name="action_schedule_post">Запланувати допис</string>
     <string name="action_emoji_keyboard">Клавіотура емодзі</string>
     <string name="drafts_post_reply_removed">Допис, для якого ви створили чернетку відповіді, вилучено</string>
-    <string name="draft_deleted">Чернетку видалено</string>
     <string name="drafts_post_failed_to_send">Не вдалося надіслати цей допис!</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Ви не можете завантажити більше ніж %1$d медіавкладення.</item>
@@ -409,15 +406,6 @@
     <string name="pref_summary_http_proxy_invalid">&lt;недійсний&gt;</string>
     <string name="description_login">Працює в більшості випадків. Дані не витікають в інші застосунки.</string>
     <string name="description_browser_login">Може підтримувати додаткові методи автентифікації, але для цього потрібен підтримуваний браузер.</string>
-    <string name="action_post_failed">Не вдалося вивантажити</string>
-    <string name="action_post_failed_show_drafts">Показати чернетки</string>
-    <string name="action_post_failed_do_nothing">Відхилити</string>
-    <string name="action_post_failed_detail">Не вдалося вивантажити ваш допис і його було збережено в чернетках.
-\n
-\nАбо з не вдалося зв\'язатися з сервером, або він відхилив допис.</string>
-    <string name="action_post_failed_detail_plural">Не вдалося вивантажити ваш допис і його було збережено в чернетках.
-\n
-\nАбо з не вдалося зв\'язатися з сервером, або він відхилив допис.</string>
     <string name="accessibility_talking_about_tag">%1$d людей обговорюють хештеґ %2$s</string>
     <string name="title_public_trending_hashtags">Популярні хештеґи</string>
     <string name="total_usage">Усього використано</string>

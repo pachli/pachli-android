@@ -72,10 +72,6 @@
     <string name="report_comment_hint">Har du fleire kommentarar?</string>
     <string name="action_quick_reply">Hurtigsvar</string>
     <string name="action_unbookmark">Fjern bokmerke</string>
-    <string name="action_post_failed">Oppladinga mislukkast</string>
-    <string name="action_post_failed_detail">Opplading av innlegget ditt mislukkast og innlegget er vorte lagra som eit utkast.\n\nDette hende anten fordi tenaren ikkje kunne verta nådd, eller fordi tenaren har neitta å taka imot innlegget ditt.</string>
-    <string name="action_post_failed_show_drafts">Syn utkast</string>
-    <string name="action_post_failed_do_nothing">Lat atter</string>
     <string name="action_unfollow">Avfylg</string>
     <string name="action_block">Blokker</string>
     <string name="action_unblock">Fjern blokkering</string>
@@ -153,7 +149,6 @@
         <item quantity="other">%1$s kontoar du fylgjer, vart fjerna.</item>
     </plurals>
     <string name="action_compose">Skriv</string>
-    <string name="action_post_failed_detail_plural">Opplading av innlegga dine mislukkast og innlegga er vortne lagra som utkast.\n\nDette hende anten fordi tenaren ikkje kunne verta nådd, eller fordi tenaren har neitta å taka imot innlegga dine.</string>
     <string name="action_follow">Fylg</string>
     <string name="downloading_media">Lader ned medium</string>
     <string name="hint_display_name">Visningsnamn</string>
@@ -265,8 +260,6 @@
     <string name="confirmation_hashtag_muted">#%1$s skjult</string>
     <string name="confirmation_hashtag_unmuted">#%1$s avskjult</string>
     <string name="confirmation_hashtag_unfollowed">#%1$s avfylgt</string>
-    <string name="post_sent">Sendt!</string>
-    <string name="post_sent_long">Svaret vart sendt.</string>
     <string name="hint_compose">Kva har du på hjarta?</string>
     <string name="hint_content_warning">Innhaldsåtvaring</string>
     <string name="dialog_download_image">Lad ned</string>
@@ -375,7 +368,6 @@
     <string name="review_notifications">Sjå over varsel</string>
     <string name="drafts_post_failed_to_send">Dette innlegget kunne ikkje sendast!</string>
     <string name="drafts_post_reply_removed">Innlegget du skreiv et svar til, er vorte fjerna</string>
-    <string name="draft_deleted">Utkast sletta</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Du kan ikkje lada opp fleire en %1$d mediavedlegg.</item>
         <item quantity="other">Du kan ikkje lada opp fleire en %1$d mediavedlegg.</item>

@@ -155,8 +155,6 @@
     <string name="hint_display_name">Показвано име</string>
     <string name="hint_content_warning">Предупреждение за съдържание</string>
     <string name="hint_compose">Какво се случва\?</string>
-    <string name="post_sent_long">Отговорът е изпратен успешно.</string>
-    <string name="post_sent">Изпратено!</string>
     <string name="confirmation_domain_unmuted">%1$s е разкрит</string>
     <string name="confirmation_unmuted">Потребителят е раззаглушен</string>
     <string name="confirmation_unblocked">Потребителят е деблокиран</string>
@@ -263,7 +261,6 @@
     <string name="error_compose_character_limit">Състоянието е твърде дълго!</string>
     <string name="error_no_web_browser_found">Неуспешно намиране на уеб браузър, който да се използва.</string>
     <string name="error_empty">Това не може да бъде празно.</string>
-    <string name="draft_deleted">Черновата е изтрита</string>
     <string name="drafts_post_failed_to_send">Тази публикация не успя да се изпрати!</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="other">Не можете да качите повече от %1$d мултимедийни прикачени файлове.</item>

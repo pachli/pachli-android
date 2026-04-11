@@ -76,8 +76,6 @@
     <string name="confirmation_reported">Wyślij!</string>
     <string name="confirmation_unblocked">Odblokowano konto</string>
     <string name="confirmation_unmuted">Cofnięto wyciszenie konta</string>
-    <string name="post_sent">Wyślij!</string>
-    <string name="post_sent_long">Odpowiedź wysłano pomyślnie.</string>
     <string name="hint_compose">Co ci chodzi po głowie?</string>
     <string name="hint_content_warning">Ostrzeżenie o zawartości</string>
     <string name="hint_display_name">Nazwa wyświetlana</string>
@@ -324,7 +322,6 @@
     <string name="action_subscribe_account">Zasubskrybuj</string>
     <string name="follow_requests_info">Mimo tego, że twoje konto nie jest zablokowane, administracja %1$s uznała, że możesz chcieć ręcznie przejrzeć te prośby o obserwację od tych kont.</string>
     <string name="drafts_post_reply_removed">Wpis, dla którego napisano odpowiedź został usunięty</string>
-    <string name="draft_deleted">Usunięto szkic</string>
     <string name="wellbeing_hide_stats_profile">Ukryj ilościowe statystyki na profilach</string>
     <string name="wellbeing_hide_stats_posts">Ukryj ilościowe statystyki na postach</string>
     <string name="review_notifications">Przejrzyj powiadomienia</string>
@@ -384,9 +381,6 @@
     <string name="status_created_info">Stworzono: %1$s</string>
     <string name="title_edits">Edycje</string>
     <string name="unsaved_changes">Masz niezapisane zmiany.</string>
-    <string name="action_post_failed">Błąd wysyłania</string>
-    <string name="action_post_failed_show_drafts">Pokaż szkice</string>
-    <string name="action_post_failed_do_nothing">Odrzuć</string>
     <string name="action_continue_edit">Kontynuuj edycję</string>
     <string name="report_category_spam">Spam</string>
     <string name="send_account_link_to">Udostępnij odnośnik do konta…</string>
@@ -397,8 +391,6 @@
     <string name="pref_summary_http_proxy_missing">&lt;nieustawiony&gt;</string>
     <string name="pref_summary_http_proxy_invalid">&lt;niepoprawny&gt;</string>
     <string name="pref_title_http_proxy_port_message">Port powinien być pomiędzy %1$d a %2$d</string>
-    <string name="action_post_failed_detail">Nie udało się opublikować wpisu i został zapisany w szkicach.\n\nAlbo wystąpił problem z połączeniem z serwerem, albo serwer odrzucił wpis.</string>
-    <string name="action_post_failed_detail_plural">Nie udało się opublikować wpisów i zostały zapisane w szkicach.\n\nAlbo wystąpił problem z połączeniem z serwerem, albo serwer odrzucił wpisy.</string>
     <string name="error_muting_hashtag_format">Wystąpił błąd podczas wyciszania #%1$s</string>
     <string name="error_unmuting_hashtag_format">Wystąpił błąd podczas zdejmowania wyciszenia #%1$s</string>
     <string name="language_display_name_format">%1$s (%2$s)</string>

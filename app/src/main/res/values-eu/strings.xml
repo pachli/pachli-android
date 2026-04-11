@@ -78,8 +78,6 @@
     <string name="confirmation_reported">Bidalia!</string>
     <string name="confirmation_unblocked">Erabiltzailea desblokeatuta</string>
     <string name="confirmation_unmuted">Erabiltzailea isilgabetuta</string>
-    <string name="post_sent">Bidalia!</string>
-    <string name="post_sent_long">Erantzuna ongi bidali da.</string>
     <string name="hint_compose">Zer duzu buruan?</string>
     <string name="hint_content_warning">Edukiaren abisua</string>
     <string name="hint_display_name">Agertuko den izena</string>
@@ -314,7 +312,6 @@
     <string name="dialog_delete_conversation_warning">Elkarrizketa ezabatu nahi duzu\?</string>
     <string name="pref_title_animate_custom_emojis">Animatu emoji pertsonalizatuak</string>
     <string name="wellbeing_hide_stats_profile">Profiletan estatistika kuantitatiboak ezkutatu</string>
-    <string name="draft_deleted">Zirriborroa ezabatu da</string>
     <string name="drafts_post_reply_removed">Erantzun nahi zenuen tuta ezabatua izan da</string>
     <string name="pref_title_wellbeing_mode">Ongizatea</string>
     <plurals name="error_upload_max_media_reached">
@@ -357,15 +354,6 @@
     <string name="title_followed_hashtags">Jarraitutako traolak</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt;-(e)k bere tuta editatu du</string>
     <string name="title_migration_relogin">Berriro saioa hasi push motako jakinarazpenak gaitzeko</string>
-    <string name="action_post_failed">Igoerak huts egin du</string>
-    <string name="action_post_failed_detail">Akatsa zure tuta bidaltzean, beraz, zirriborroetara bidali da.
-\n
-\nZerbitzariarekin ezin izan da komunikatu edo tuta baztertu egin da.</string>
-    <string name="action_post_failed_detail_plural">Akatsa zure tutak bidaltzean, beraz, zirriborroetara bidali dira.
-\n
-\nZerbitzariarekin ezin izan da komunikatu edo zure tutak baztertuak izan dira.</string>
-    <string name="action_post_failed_show_drafts">Zirriborroak erakutsi</string>
-    <string name="action_post_failed_do_nothing">Baztertu</string>
     <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt;-(e)k izena eman du</string>
     <string name="error_status_source_load">Akatsa zerbitzaritik egoeraren iturria kargatzean.</string>
 </resources>

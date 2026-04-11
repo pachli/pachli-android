@@ -82,8 +82,6 @@
     <string name="confirmation_reported">Elküldve!</string>
     <string name="confirmation_unblocked">Felhasználó letiltása feloldva</string>
     <string name="confirmation_unmuted">Felhasználó némítása feloldva</string>
-    <string name="post_sent">Elküldve!</string>
-    <string name="post_sent_long">Válasz sikeresen elküldve.</string>
     <string name="hint_compose">Mi jár a fejedben\?</string>
     <string name="hint_content_warning">Tartalom figyelmeztetés</string>
     <string name="hint_display_name">Megjelenítési név</string>
@@ -311,7 +309,6 @@
     <string name="no_announcements">Nincsenek közlemények.</string>
     <string name="title_announcements">Közlemények</string>
     <string name="drafts_post_reply_removed">A bejegyzést, melyre válaszul piszkozatot készítettél törölték</string>
-    <string name="draft_deleted">Piszkozat törölve</string>
     <string name="drafts_post_failed_to_send">Ezt a bejegyzést nem tudtuk elküldeni!</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Nem tölthetsz fel %1$d médiacsatolmányból többet.</item>
@@ -413,15 +410,6 @@
     <string name="send_account_link_to">Fiók URL megosztása vele…</string>
     <string name="send_account_username_to">Fiók felhasználói nevének megosztása vele…</string>
     <string name="account_username_copied">Felhasználónév másolva</string>
-    <string name="action_post_failed">Feltöltés meghiúsult</string>
-    <string name="action_post_failed_detail">A bejegyzésed feltöltése meghiúsult, és a vázlatokba mentettük el.
-\n
-\nVagy a kiszolgálót nem lehetett elérni, vagy visszautasította a bejegyzést.</string>
-    <string name="action_post_failed_detail_plural">A bejegyzésed feltöltése meghiúsult, és a vázlatokba mentettük el.
-\n
-\nVagy a kiszolgálót nem lehetett elérni, vagy visszautasította a bejegyzést.</string>
-    <string name="action_post_failed_show_drafts">Vázlatok mutatása</string>
-    <string name="action_post_failed_do_nothing">Elvetés</string>
     <string name="description_login">A legtöbb esetben működik. Nem szivárog ki adat más alkalmazások számára.</string>
     <string name="description_browser_login">Támogathat más hitelesítési módozatokat is, de ehhez támogatott böngészőre van szükség.</string>
     <string name="title_public_trending_hashtags">Népszerű hashtagek</string>

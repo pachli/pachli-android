@@ -7,7 +7,6 @@
     <string name="action_copy_link">Kopioi linkki</string>
     <string name="action_open_in_web">Avaa selaimessa</string>
     <string name="title_edit_profile">Muokkaa profiilia</string>
-    <string name="draft_deleted">Luonnos poistettu</string>
     <string name="poll_new_choice_hint">Vaihtoehto %1$d</string>
     <string name="poll_allow_multiple_choices">Monivalinta</string>
     <string name="add_poll_choice">Lisää vaihtoehto</string>
@@ -200,8 +199,6 @@
     <string name="notification_poll_description">Ilmoitukset päättyneistä äänestyksistä</string>
     <string name="action_add_reaction">lisää reaktio</string>
     <string name="confirmation_reported">Lähetetty!</string>
-    <string name="post_sent">Lähetetty!</string>
-    <string name="post_sent_long">Vastaus lähetetty onnistuneesti.</string>
     <string name="dialog_mute_warning">Hiljennä @%1$s\?</string>
     <string name="dialog_mute_hide_notifications">Piilota ilmoitukset</string>
     <string name="pref_title_appearance_settings">Ulkoasu</string>
@@ -222,7 +219,6 @@
     <string name="pref_title_http_proxy_server">HTTP-välityspalvelin</string>
     <string name="restart">Käynnistä uudelleen</string>
     <string name="dialog_block_warning">Estä @%1$s\?</string>
-    <string name="action_post_failed_do_nothing">Hylkää</string>
     <string name="confirmation_unmuted">Käyttäjän mykistys poistettu</string>
     <string name="action_continue_edit">Jatka muokkausta</string>
     <string name="error_status_source_load">Tilan lähteen lataaminen palvelimelta epäonnistui.</string>
@@ -237,9 +233,6 @@
     <string name="error_unmuting_hashtag_format">Virhe tilin #%1$s mykistystä poistettaessa</string>
     <string name="visibility_unlisted">Listaamaton: Älä näytä julkisilla aikajanoilla</string>
     <string name="dialog_follow_hashtag_hint">#aihetunniste</string>
-    <string name="action_post_failed_detail_plural">Julkaisujesi lataaminen epäonnistui ja ne on tallennettu luonnoksiin.
-\n
-\nJoko palvelimeen ei saatu yhteyttä, tai se hylkäsi julkaisun.</string>
     <string name="dialog_message_uploading_media">Ladataan…</string>
     <string name="label_header">Otsikko</string>
     <string name="title_public_trending">Nousussa</string>
@@ -253,9 +246,7 @@
     <string name="compose_active_account_description">Julkaistaan käyttäjänä %1$s</string>
     <string name="dialog_redraft_post_warning">Julkaisu poistetaan ja kirjoitetaan uudestaan?</string>
     <string name="error_following_hashtags_unsupported">Tämä instanssi ei tue aihetunnisteita.</string>
-    <string name="action_post_failed_show_drafts">Näytä luonnokset</string>
     <string name="mute_domain_warning_dialog_ok">Mykistä koko verkkotunnus</string>
-    <string name="action_post_failed">Lataus epäonnistui</string>
     <string name="confirmation_unblocked">Käyttäjän esto poistettu</string>
     <string name="title_edits">Muokkaukset</string>
     <string name="title_followed_hashtags">Seuratut aihetunnisteet</string>
@@ -283,9 +274,6 @@
     <string name="action_share_account_username">Jaa tilin käyttäjänimi</string>
     <string name="action_translate">Käännä</string>
     <string name="error_following_hashtag_format">Virhe seurattaessa # %1$s</string>
-    <string name="action_post_failed_detail">Julkaisun lataaminen epäonnistui ja se on tallennettu luonnoksiin.
-\n
-\nJoko palvelimeen ei saatu yhteyttä, tai se hylkäsi julkaisun.</string>
     <string name="send_media_to">Jaa mediatiedosto…</string>
     <string name="mute_domain_warning">Oletko varma, että haluat estää koko instanssin %1$s? Et näe sisältöä kyseiseltä verkkotunnukselta julkisissa aikajanoissa tai ilmoituksissasi. Seuraajasi tällä verkkotunnuksella poistetaan.</string>
     <string name="pref_title_account_filter_keywords">Profiilit</string>

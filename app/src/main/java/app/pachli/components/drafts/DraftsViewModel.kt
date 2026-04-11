@@ -18,56 +18,84 @@ package app.pachli.components.drafts
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
+import androidx.paging.map
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.database.dao.DraftDao
-import app.pachli.core.database.model.DraftEntity
+import app.pachli.core.data.repository.DraftsRepository
+import app.pachli.core.model.Draft
 import app.pachli.core.network.retrofit.MastodonApi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+
+/**
+ * Data to show a draft in [DraftViewHolder].
+ *
+ * @property draft The [Draft].
+ * @property isChecked True if the draft is checked/selected.
+ */
+data class DraftViewData(
+    val draft: Draft,
+    val isChecked: Boolean,
+)
 
 @HiltViewModel
 class DraftsViewModel @Inject constructor(
-    private val draftDao: DraftDao,
-    val accountManager: AccountManager,
-    val api: MastodonApi,
-    private val draftHelper: DraftHelper,
+    accountManager: AccountManager,
+    private val api: MastodonApi,
+    private val draftsRepository: DraftsRepository,
 ) : ViewModel() {
 
-    val drafts = Pager(
-        config = PagingConfig(pageSize = 20),
-        pagingSourceFactory = { draftDao.draftsPagingSource(accountManager.activeAccount?.id!!) },
-    ).flow
+    val drafts = draftsRepository.getDrafts(accountManager.activeAccount?.id!!)
         .cachedIn(viewModelScope)
 
-    private val deletedDrafts: MutableList<DraftEntity> = mutableListOf()
+    private val checkedDrafts = MutableStateFlow<Set<Long>>(emptySet())
 
-    fun deleteDraft(draft: DraftEntity) {
-        // this does not immediately delete media files to avoid unnecessary file operations
-        // in case the user decides to restore the draft
-        viewModelScope.launch {
-            draftDao.delete(draft.id)
-            deletedDrafts.add(draft)
+    val draftViewData = combine(drafts, checkedDrafts) { drafts, checkedDrafts ->
+        drafts.map {
+            DraftViewData(
+                draft = it,
+                isChecked = checkedDrafts.contains(it.id),
+            )
+        }
+    }.cachedIn(viewModelScope)
+
+    /** Marks [draft] as checked or unchecked, per [isChecked]. */
+    fun checkDraft(draft: Draft, isChecked: Boolean) {
+        checkedDrafts.update {
+            if (isChecked) {
+                it + draft.id
+            } else {
+                it - draft.id
+            }
         }
     }
 
-    fun restoreDraft(draft: DraftEntity) {
+    /** Toggles the checked state of [draft]. */
+    fun toggleDraftChecked(draft: Draft) {
+        checkedDrafts.update {
+            if (it.contains(draft.id)) it - draft.id else it + draft.id
+        }
+    }
+
+    /** @return True if [draft] is checked. */
+    fun isDraftChecked(draft: Draft) = checkedDrafts.value.contains(draft.id)
+
+    /** @return The number of checked drafts. */
+    fun countChecked() = checkedDrafts.value.size
+
+    /** Deletes all checked drafts owned by [pachliAccountId]. */
+    fun deleteCheckedDrafts(pachliAccountId: Long) {
         viewModelScope.launch {
-            draftDao.upsert(draft)
-            deletedDrafts.remove(draft)
+            checkedDrafts.value.forEach { draftId ->
+                draftsRepository.deleteDraftAndAttachments(draftId)
+            }
+            checkedDrafts.update { emptySet() }
         }
     }
 
     suspend fun getStatus(statusId: String) = api.status(statusId)
-
-    override fun onCleared() {
-        viewModelScope.launch {
-            deletedDrafts.forEach {
-                draftHelper.deleteAttachments(it)
-            }
-        }
-    }
 }

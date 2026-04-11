@@ -283,6 +283,10 @@ data class Status(
         /** The quote's acceptance state. */
         val state: QuoteState
 
+        sealed interface WithStatusId : Quote {
+            val statusId: String
+        }
+
         /**
          * Full quote.
          *
@@ -292,8 +296,8 @@ data class Status(
         data class FullQuote(
             override val state: QuoteState,
             val status: Status,
-        ) : Quote {
-            val statusId: String
+        ) : WithStatusId {
+            override val statusId: String
                 get() = status.actionableId
         }
 
@@ -305,8 +309,8 @@ data class Status(
          */
         data class ShallowQuote(
             override val state: QuoteState,
-            val statusId: String,
-        ) : Quote
+            override val statusId: String,
+        ) : WithStatusId
 
         /**
          * Hidden quote; the existence is disclosed to the user, but they can't

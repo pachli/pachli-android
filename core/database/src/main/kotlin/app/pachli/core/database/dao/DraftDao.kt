@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Tusky Contributors
+ * Copyright (c) 2026 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -17,7 +17,6 @@
 
 package app.pachli.core.database.dao
 
-import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Query
@@ -25,66 +24,88 @@ import androidx.room.TypeConverters
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.DraftEntity
+import app.pachli.core.model.Draft
 
 @Dao
 @TypeConverters(Converters::class)
 interface DraftDao {
     @Upsert
-    suspend fun upsert(draft: DraftEntity)
+    suspend fun upsert(draft: DraftEntity): Long
 
     @Query(
         """
 SELECT *
 FROM DraftEntity
-WHERE accountId = :accountId
+WHERE pachliAccountId = :pachliAccountId
 ORDER BY id ASC
 """,
     )
-    fun draftsPagingSource(accountId: Long): PagingSource<Int, DraftEntity>
-
-    @Query(
-        """
-SELECT COUNT(*)
-FROM DraftEntity
-WHERE accountId = :accountId AND failedToSendNew = 1
-""",
-    )
-    fun draftsNeedUserAlert(accountId: Long): LiveData<Int>
-
-    @Query(
-        """
-UPDATE DraftEntity
-SET
-    failedToSendNew = 0
-WHERE accountId = :accountId AND failedToSendNew = 1
-""",
-    )
-    suspend fun draftsClearNeedUserAlert(accountId: Long)
+    fun draftsPagingSource(pachliAccountId: Long): PagingSource<Int, DraftEntity>
 
     @Query(
         """
 SELECT *
 FROM DraftEntity
-WHERE accountId = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun loadDrafts(accountId: Long): List<DraftEntity>
+    suspend fun loadDrafts(pachliAccountId: Long): List<DraftEntity>
 
     @Query(
         """
 DELETE
 FROM DraftEntity
-WHERE id = :id
+WHERE id = :draftId
 """,
     )
-    suspend fun delete(id: Int)
+    suspend fun delete(draftId: Long)
 
     @Query(
         """
 SELECT *
 FROM DraftEntity
-WHERE id = :id
+WHERE id = :draftId
 """,
     )
-    suspend fun find(id: Int): DraftEntity?
+    suspend fun find(draftId: Long): DraftEntity?
+
+    /** Sets the [failureMessage] and [state] on [draftId]. */
+    @Query(
+        """
+UPDATE DraftEntity
+SET
+    failureMessage = :failureMessage,
+    state = :state
+WHERE id = :draftId
+        """,
+    )
+    suspend fun updateFailureState(
+        draftId: Long,
+        failureMessage: String?,
+        state: Draft.State,
+    )
+
+    /** Sets the [state] on [draftId]. */
+    @Query(
+        """
+UPDATE DraftEntity
+SET
+    state = :state
+WHERE id = :draftId
+        """,
+    )
+    suspend fun updateState(draftId: Long, state: Draft.State)
+
+    /**
+     * Resets the state of any drafts in [Draft.State.EDITING] state to [Draft.State.DEFAULT].
+     */
+    @Query(
+        """
+UPDATE DraftEntity
+SET
+    state = "DEFAULT"
+WHERE state = "EDITING"
+        """,
+    )
+    suspend fun resetEditingState()
 }

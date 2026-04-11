@@ -82,8 +82,6 @@
     <string name="confirmation_reported">Gönderildi!</string>
     <string name="confirmation_unblocked">Kullanıcının engeli kaldırıldı</string>
     <string name="confirmation_unmuted">Kullanıcının sesi açıldı</string>
-    <string name="post_sent">İletildi!</string>
-    <string name="post_sent_long">Yanıt başarıyla gönderildi.</string>
     <string name="hint_compose">Neler oluyor?</string>
     <string name="hint_content_warning">İçerik uyarısı</string>
     <string name="hint_display_name">Görünen ad</string>
@@ -392,7 +390,6 @@
     <string name="error_following_hashtags_unsupported">Bu sunucu aşağıdaki etiketleri desteklemez.</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; az önce paylaşım yaptı</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; gönderilerini düzenledi</string>
-    <string name="draft_deleted">Taslak Silindi</string>
     <string name="error_unfollowing_hashtag_format">Takip etmeyi bırakırken Hata #%1$s</string>
     <string name="label_duration">Süre</string>
     <string name="error_status_source_load">Sunucudan kaynak durumu yüklenemedi.</string>
@@ -415,15 +412,6 @@
     <string name="filter_keyword_addition_title">Anahtar kelime ekle</string>
     <string name="label_filter_keywords">Süzgeçlenecek anahtar kelimeler veya kelime öbekleri</string>
     <string name="filter_keyword_display_format">%1$s (tüm dünya)</string>
-    <string name="action_post_failed">Yükleme başarısız</string>
-    <string name="action_post_failed_detail">Gönderin yüklenemedi ve taslaklara kaydedildi.
-\n
-\nSunucuya bağlanılamamış veya sunucu gönderiyi reddetmiş olabilir.</string>
-    <string name="action_post_failed_detail_plural">Gönderilerin yüklenemedi ve taslaklara kaydedildi.
-\n
-\nSunucuya bağlanılamamış veya sunucu gönderiyi reddetmiş olabilir.</string>
-    <string name="action_post_failed_show_drafts">Taslakları göster</string>
-    <string name="action_post_failed_do_nothing">Yoksay</string>
     <string name="notification_unknown_name">Bilinmeyen</string>
     <string name="socket_timeout_exception">Sunucuyla bağlantı kurmak çok uzun sürdü</string>
     <string name="ui_error_bookmark_fmt">Yer imi gönderisi başarısız oldu: %1$s</string>

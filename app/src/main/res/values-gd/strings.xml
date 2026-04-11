@@ -45,7 +45,6 @@
     <string name="action_subscribe_account">Fo-sgrìobh</string>
     <string name="pref_title_animate_custom_emojis">Beòthaich na h-Emojis gnàthaichte</string>
     <string name="drafts_post_reply_removed">Bha againn ris a’ phost a bha thu airson freagairt dha a thoirt air falbh</string>
-    <string name="draft_deleted">Chaidh an dreach a sguabadh às</string>
     <string name="drafts_post_failed_to_send">Cha b’ urrainn dhuinn am post a chur!</string>
     <string name="duration_7_days">7 làithean</string>
     <string name="duration_3_days">3 làithean</string>
@@ -265,8 +264,6 @@
     <string name="label_header">Bann-cinn</string>
     <string name="label_avatar">Avatar</string>
     <string name="search_no_results">Chan eil toradh ann</string>
-    <string name="post_sent_long">Chaidh an fhreagairt a chur.</string>
-    <string name="post_sent">Chaidh a chur!</string>
     <string name="confirmation_domain_unmuted">Chan eil %1$s falaichte tuilleadh</string>
     <string name="confirmation_unmuted">Chaidh an cleachdaiche dhì-mhùchadh</string>
     <string name="confirmation_unblocked">Chaidh an cleachdaiche a dhì-bhacadh</string>
@@ -394,12 +391,6 @@
     <string name="title_followed_hashtags">Tagaichean hais ’gan leantainn</string>
     <string name="notification_report_name">Gearanan</string>
     <string name="notification_report_description">Brathan mu ghearanan na maorsainneachd</string>
-    <string name="action_post_failed">Dh’fhàillig leis an luchdadh suas</string>
-    <string name="action_post_failed_detail_plural">Dh’fhàillig luchdadh suas nam postaichean agad is chaidh an sàbhaladh ’nan dreachdan.
-\n
-\nCha d’ fhuair sinn grèim air an fhrithealaiche no dhiùlt e na postaichean.</string>
-    <string name="action_post_failed_show_drafts">Seall na dreachdan</string>
-    <string name="action_post_failed_do_nothing">Leig seachad</string>
     <string name="confirmation_hashtag_unfollowed">Chan eil #%1$s a’ leantainn tuilleadh</string>
     <string name="pref_title_notification_filter_reports">bhios gearan ùr ann</string>
     <string name="description_login">Obraichidh seo mar as trice. Cha dèid dàta fhoillseachadh do dh’aplacaidean eile.</string>
@@ -415,9 +406,6 @@
     <string name="account_username_copied">Chaidh lethbhreac a dhèanamh dhen ainm-chleachdaiche</string>
     <string name="unsaved_changes">Tha atharraichean gun sàbhaladh agad.</string>
     <string name="error_status_source_load">Dh’fhàillig luchdadh bun-tùs a’ phuist on fhrithealaiche.</string>
-    <string name="action_post_failed_detail">Dh’fhàillig luchdadh suas a’ phuist agad is chaidh a shàbhaladh ’na dhreachd.
-\n
-\nCha d’ fhuair sinn grèim air an fhrithealaiche no dhiùlt e am post.</string>
     <string name="action_share_account_username">Co-roinn ainm-cleachdaiche a’ chunntais</string>
     <string name="send_account_link_to">Co-roinn URL a’ chunntais le…</string>
     <string name="send_account_username_to">Co-roinn ainm-cleachdaiche a’ chunntais le…</string>

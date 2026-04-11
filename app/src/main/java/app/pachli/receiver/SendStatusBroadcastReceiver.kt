@@ -27,127 +27,136 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.RemoteInput
 import app.pachli.R
 import app.pachli.components.notifications.CHANNEL_MENTION
-import app.pachli.components.notifications.KEY_CITED_STATUS_ID
-import app.pachli.components.notifications.KEY_MENTIONS
-import app.pachli.components.notifications.KEY_NOTIFICATION_ID
+import app.pachli.components.notifications.KEY_DRAFT
 import app.pachli.components.notifications.KEY_REPLY
 import app.pachli.components.notifications.KEY_SENDER_ACCOUNT_FULL_NAME
 import app.pachli.components.notifications.KEY_SENDER_ACCOUNT_ID
 import app.pachli.components.notifications.KEY_SENDER_ACCOUNT_IDENTIFIER
-import app.pachli.components.notifications.KEY_SPOILER
-import app.pachli.components.notifications.KEY_VISIBILITY
+import app.pachli.components.notifications.KEY_SERVER_NOTOFICATION_ID
 import app.pachli.components.notifications.REPLY_ACTION
+import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.common.string.randomAlphanumericString
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.DraftsRepository
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.model.Status
+import app.pachli.core.model.Draft
 import app.pachli.service.SendStatusService
 import app.pachli.service.StatusToSend
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
 class SendStatusBroadcastReceiver : BroadcastReceiver() {
+    @Inject
+    @ApplicationScope
+    lateinit var externalScope: CoroutineScope
 
     @Inject
     lateinit var accountManager: AccountManager
 
+    @Inject
+    lateinit var draftsRepository: DraftsRepository
+
     override fun onReceive(context: Context, intent: Intent) {
-        // The user has used the "quick reply" feature on a notification.
-        if (intent.action == REPLY_ACTION) {
-            val notificationId = intent.getIntExtra(KEY_NOTIFICATION_ID, -1)
-            val senderId = intent.getLongExtra(KEY_SENDER_ACCOUNT_ID, -1)
-            val senderIdentifier = intent.getStringExtra(KEY_SENDER_ACCOUNT_IDENTIFIER)
-            val senderFullName = intent.getStringExtra(KEY_SENDER_ACCOUNT_FULL_NAME)
-            val citedStatusId = intent.getStringExtra(KEY_CITED_STATUS_ID)
-            val visibility = intent.getSerializableExtra(KEY_VISIBILITY) as Status.Visibility
-            val spoiler = intent.getStringExtra(KEY_SPOILER).orEmpty()
-            val mentions = intent.getStringArrayExtra(KEY_MENTIONS).orEmpty()
+        // Bail unless the user used the "quick reply" feature on a notification.
+        if (intent.action != REPLY_ACTION) return
 
-            val account = accountManager.getAccountById(senderId)
+        val serverNotificationId = intent.getStringExtra(KEY_SERVER_NOTOFICATION_ID)
+        val senderId = intent.getLongExtra(KEY_SENDER_ACCOUNT_ID, -1)
+        val senderIdentifier = intent.getStringExtra(KEY_SENDER_ACCOUNT_IDENTIFIER)
+        val senderFullName = intent.getStringExtra(KEY_SENDER_ACCOUNT_FULL_NAME)
+        val draft = intent.getParcelableExtra<Draft>(KEY_DRAFT)
 
-            val notificationManager = NotificationManagerCompat.from(context)
+        val account = accountManager.getAccountById(senderId)
 
-            val message = getReplyMessage(intent)
+        val notificationManager = NotificationManagerCompat.from(context)
 
-            if (account == null) {
-                Timber.w("Account \"$senderId\" not found in database. Aborting quick reply!")
-
-                if (ActivityCompat.checkSelfPermission(context, POST_NOTIFICATIONS) != PERMISSION_GRANTED) {
-                    return
-                }
-
-                val builder = NotificationCompat.Builder(context, CHANNEL_MENTION + senderIdentifier)
-                    .setSmallIcon(app.pachli.core.common.R.drawable.ic_notify)
-                    .setColor(context.getColor(DR.color.tusky_blue))
-                    .setGroup(senderFullName)
-                    .setDefaults(0) // So it doesn't ring twice, notify only in Target callback
-
-                builder.setContentTitle(context.getString(app.pachli.core.ui.R.string.error_generic))
-                builder.setContentText(context.getString(R.string.error_sender_account_gone))
-
-                builder.setSubText(senderFullName)
-                builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                builder.setCategory(NotificationCompat.CATEGORY_SOCIAL)
-                builder.setOnlyAlertOnce(true)
-
-                notificationManager.notify(notificationId, builder.build())
-            } else {
-                val text = mentions.joinToString(" ", postfix = " ") { "@$it" } + message.toString()
-
-                val sendIntent = SendStatusService.sendStatusIntent(
-                    context,
-                    StatusToSend(
-                        text = text,
-                        warningText = spoiler,
-                        visibility = visibility.serverString(),
-                        sensitive = false,
-                        media = emptyList(),
-                        scheduledAt = null,
-                        inReplyToId = citedStatusId,
-                        poll = null,
-                        replyingStatusContent = null,
-                        replyingStatusAuthorUsername = null,
-                        pachliAccountId = account.id,
-                        draftId = -1,
-                        idempotencyKey = randomAlphanumericString(16),
-                        retries = 0,
-                        language = null,
-                        statusId = null,
-                        // Can't quote when quick replying.
-                        quotedStatusId = null,
-                        // Can't set approval policy when quick-replying, server should use
-                        // the user's default policy.
-                        quotePolicy = null,
-                    ),
-                )
-
-                context.startService(sendIntent)
-
-                val builder = NotificationCompat.Builder(context, CHANNEL_MENTION + senderIdentifier)
-                    .setSmallIcon(app.pachli.core.common.R.drawable.ic_notify)
-                    .setColor(context.getColor(DR.color.notification_color))
-                    .setGroup(senderFullName)
-                    .setDefaults(0) // So it doesn't ring twice, notify only in Target callback
-
-                builder.setContentTitle(context.getString(R.string.post_sent))
-                builder.setContentText(context.getString(R.string.post_sent_long))
-
-                builder.setSubText(senderFullName)
-                builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                builder.setCategory(NotificationCompat.CATEGORY_SOCIAL)
-                builder.setOnlyAlertOnce(true)
-
-                // There is a separate "I am sending" notification, so simply remove the handled one.
-                notificationManager.cancel(notificationId)
-            }
+        if (account == null) {
+            Timber.w("Account \"$senderId\" not found in database. Aborting quick reply!")
+            showQuickReplyErrorNotification(senderId, context, senderIdentifier, senderFullName, notificationManager, serverNotificationId)
+            return
         }
+
+        if (draft == null) {
+            Timber.w("Quick reply when `draft` == null. Aborting quick reply!")
+            showQuickReplyErrorNotification(senderId, context, senderIdentifier, senderFullName, notificationManager, serverNotificationId)
+            return
+        }
+
+        val pendingResult = goAsync()
+        externalScope.launch(Dispatchers.IO) {
+            val finalDraft = draftsRepository.upsertDraft(
+                account.id,
+                draft.copy(
+                    content = draft.content + (RemoteInput.getResultsFromIntent(intent)?.getCharSequence(KEY_REPLY, "") ?: ""),
+                ),
+            )
+
+            val sendIntent = SendStatusService.sendStatusIntent(
+                context,
+                StatusToSend(
+                    draft = finalDraft,
+                    media = emptyList(),
+                    pachliAccountId = account.id,
+                    idempotencyKey = randomAlphanumericString(16),
+                    retries = 0,
+                ),
+            )
+
+            context.startService(sendIntent)
+
+            if (ActivityCompat.checkSelfPermission(context, POST_NOTIFICATIONS) != PERMISSION_GRANTED) {
+                return@launch
+            }
+
+            // Can't cancel the QuickReply notification, replace it with one that
+            // auto-cancels.
+            val notification = NotificationCompat.Builder(context, CHANNEL_MENTION + senderIdentifier)
+                .setSmallIcon(app.pachli.core.common.R.drawable.ic_notify)
+                .setColor(context.getColor(DR.color.notification_color))
+                .setGroup(senderFullName)
+                .setDefaults(0) // So it doesn't ring twice, notify only in Target callback
+                .setOnlyAlertOnce(true)
+                .setContentTitle(context.getString(R.string.send_post_notification_title))
+                .setSubText(senderFullName)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                .setCategory(NotificationCompat.CATEGORY_SOCIAL)
+                .setTimeoutAfter(5000)
+                .build()
+
+            notificationManager.notify(serverNotificationId, senderId.toInt(), notification)
+        }.invokeOnCompletion { pendingResult.finish() }
     }
 
-    private fun getReplyMessage(intent: Intent): CharSequence {
-        val remoteInput = RemoteInput.getResultsFromIntent(intent)
+    private fun showQuickReplyErrorNotification(
+        senderId: Long,
+        context: Context,
+        senderIdentifier: String?,
+        senderFullName: String?,
+        notificationManager: NotificationManagerCompat,
+        serverNotificationId: String?,
+    ) {
+        if (ActivityCompat.checkSelfPermission(context, POST_NOTIFICATIONS) != PERMISSION_GRANTED) {
+            return
+        }
 
-        return remoteInput?.getCharSequence(KEY_REPLY, "") ?: ""
+        val notification = NotificationCompat.Builder(context, CHANNEL_MENTION + senderIdentifier)
+            .setSmallIcon(app.pachli.core.common.R.drawable.ic_notify)
+            .setColor(context.getColor(DR.color.notification_color))
+            .setGroup(senderFullName)
+            .setDefaults(0) // So it doesn't ring twice, notify only in Target callback
+            .setContentTitle(context.getString(app.pachli.core.ui.R.string.error_generic))
+            .setContentText(context.getString(R.string.error_sender_account_gone))
+            .setSubText(senderFullName)
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+            .setCategory(NotificationCompat.CATEGORY_SOCIAL)
+            .setOnlyAlertOnce(true)
+            .build()
+
+        notificationManager.notify(serverNotificationId, senderId.toInt(), notification)
     }
 }

@@ -89,8 +89,6 @@
     <string name="confirmation_reported">已發送！</string>
     <string name="confirmation_unblocked">已解除封鎖</string>
     <string name="confirmation_unmuted">已解除靜音</string>
-    <string name="post_sent">已發送！</string>
-    <string name="post_sent_long">成功送出回覆。</string>
     <string name="hint_compose">有什麼新鮮事？</string>
     <string name="hint_content_warning">敏感內容警告</string>
     <string name="hint_display_name">暱稱</string>
@@ -279,7 +277,6 @@
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; 請求關注你</string>
     <string name="pref_title_animate_custom_emojis">動態自訂表情符號</string>
     <string name="drafts_post_reply_removed">你的草稿欲回覆的原嘟文已被刪除</string>
-    <string name="draft_deleted">草稿已刪除</string>
     <string name="drafts_post_failed_to_send">這條嘟文發送失敗！</string>
     <string name="duration_7_days">7 天</string>
     <string name="duration_3_days">3 天</string>

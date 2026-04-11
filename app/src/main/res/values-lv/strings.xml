@@ -59,10 +59,8 @@
     <string name="confirmation_reported">Nosūtīts!</string>
     <string name="action_copy_link">Nokopēt saiti</string>
     <string name="confirmation_unblocked">Lietotājs atbloķēts</string>
-    <string name="post_sent">Nosūtīts!</string>
     <string name="hint_note">Biogrāfija</string>
     <string name="hint_content_warning">Satura brīdinājums</string>
-    <string name="post_sent_long">Atbilde sekmīgi nosūtīta.</string>
     <string name="label_avatar">Avatars</string>
     <string name="search_no_results">Nekas netika atrasts</string>
     <string name="label_quick_reply">Atbildēt…</string>
@@ -167,7 +165,6 @@
     <string name="download_failed">Lejupielāde neizdevās</string>
     <string name="duration_14_days">14 dienas</string>
     <string name="duration_90_days">90 dienas</string>
-    <string name="draft_deleted">Melnraksts dzēsts</string>
     <string name="saving_draft">Saglabā melnrakstu…</string>
     <string name="post_sensitive_media_directions">Klikšķināt, lai apskatītu</string>
     <string name="report_description_1">Ziņojums tiks nosūtīts Tava servera satura pārraudzītājam. Zemāk vari sniegt skaidrojumu, kāpēc Tu ziņo par šo kontu:</string>
@@ -369,9 +366,6 @@
     <string name="report_category_spam">Mēstule</string>
     <string name="action_set_focus">Iestatīt fokālo punktu</string>
     <string name="status_created_info">%1$s izveidoja</string>
-    <string name="action_post_failed">Augšupielāde neizdevās</string>
-    <string name="action_post_failed_show_drafts">Rādīt melnrakstus</string>
-    <string name="action_post_failed_do_nothing">Aizvākt</string>
     <string name="edit_hashtag_hint">Tēmturis bez #</string>
     <string name="status_edit_info">%1$s laboja</string>
     <string name="description_login">Darbojas vairumā gadījumu. Dati netiek nopludināti citām lietotnēm.</string>
@@ -379,8 +373,6 @@
     <string name="action_view_favourites">Izlases</string>
     <string name="pref_title_notification_filter_favourites">Mani ieraksti tiek pievienoti izlasei</string>
     <string name="pref_title_alway_open_spoiler">Vienmēr izvērst ziņas, kas atzīmētas ar satura brīdinājumiem</string>
-    <string name="action_post_failed_detail">Neizdevās augšupielādēt Tavu ierakstu, un tas tika saglabāts kā melnraksts. \n \nVai nu neizdevās sazināties ar serveri, vai arī tas noraidīja ierakstu.</string>
-    <string name="action_post_failed_detail_plural">Neizdevās augšupielādēt Tavus ierakstus, un tie tika saglabāti kā melnraksti. \n \nVai nu neizdevās sazināties ar serveri, vai arī tas noraidīja ierakstus.</string>
     <string name="notification_favourite_description">Paziņojumi par Tavu ierakstu pievienošanu izlasei</string>
     <string name="title_migration_relogin">Jāpiesakās vēlreiz, lai iespējotu pašpiegādes paziņojumus</string>
     <string name="wellbeing_mode_notice">Daļa informācijas, kas varētu ietekmēt Tavu garīgo labbūtību, tiks paslēpta. Tas ietver: \n \n - paziņojumus par pievienošanu izlasei / pastiprināšanu / sekošanu;\n - izlasēm pievienoto / pastiprināto ierakstu skaitu;\n - sekotāju/ierakstu skaitu profilos.\n \n Pašpiegādes paziņojumi netiks ietekmēti, bet paziņojumu iestatījumus var pārskatīt pašrocīgi.</string>

@@ -88,8 +88,6 @@
     <string name="confirmation_reported">Envoyé !</string>
     <string name="confirmation_unblocked">Le compte est débloqué</string>
     <string name="confirmation_unmuted">Le compte n’est plus masqué</string>
-    <string name="post_sent">Envoyé !</string>
-    <string name="post_sent_long">Réponse envoyée avec succès.</string>
     <string name="hint_compose">Quoi de neuf ?</string>
     <string name="hint_content_warning">Contenu sensible</string>
     <string name="hint_display_name">Nom public</string>
@@ -335,7 +333,6 @@
     <string name="action_subscribe_account">S’abonner</string>
     <string name="dialog_delete_conversation_warning">Supprimer cette conversation \?</string>
     <string name="pref_title_animate_custom_emojis">Animer les émojis personnalisés</string>
-    <string name="draft_deleted">Brouillon supprimé</string>
     <string name="label_duration">Durée</string>
     <string name="duration_indefinite">Indéfinie</string>
     <string name="action_unsubscribe_account">Se désabonner</string>
@@ -386,9 +383,6 @@
     <string name="pref_title_http_proxy_port_message">Le port doit être entre %1$d et %2$d</string>
     <string name="action_set_focus">Définir le point focal</string>
     <string name="hint_description">Description</string>
-    <string name="action_post_failed">Le téléversement a échoué</string>
-    <string name="action_post_failed_show_drafts">Afficher les brouillons</string>
-    <string name="action_post_failed_do_nothing">Ignorer</string>
     <string name="notification_report_format">Nouveau signalement sur %1$s</string>
     <string name="notification_header_report_format">%1$s a signalé %2$s</string>
     <plurals name="notification_summary_report_format">
@@ -419,12 +413,6 @@
     <string name="report_category_spam">Spam</string>
     <string name="report_category_other">Autre</string>
     <string name="total_accounts">comptes</string>
-    <string name="action_post_failed_detail">Le statut n\'a pas pu être publié, il a été sauvegardé dans les brouillons.
-\n
-\nLe serveur n\'est pas joignable, ou celui-ci a refusé la publication.</string>
-    <string name="action_post_failed_detail_plural">Les status n\'ont pas pu être publiés, ils ont été sauvegardés dans les brouillons.
-\n
-\nLe serveur n\'est pas joignable, ou celui-ci a refusé la publication.</string>
     <string name="failed_to_unpin">Échec du détachement</string>
     <string name="pref_title_show_self_username">Montrer le nom d\'utilisateur dans la barre d\'outils</string>
     <string name="socket_timeout_exception">La connexion à votre serveur a pris trop longtemps</string>

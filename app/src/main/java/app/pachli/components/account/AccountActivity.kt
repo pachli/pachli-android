@@ -59,10 +59,14 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.util.unsafeLazy
+import app.pachli.core.data.repository.createDraft
+import app.pachli.core.data.repository.createDraftMention
 import app.pachli.core.data.repository.getOrNull
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Account
+import app.pachli.core.model.Draft
 import app.pachli.core.model.Relationship
+import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent
@@ -87,7 +91,6 @@ import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.core.ui.getDomain
 import app.pachli.core.ui.loadAvatar
 import app.pachli.databinding.ActivityAccountBinding
-import app.pachli.db.DraftsAlert
 import app.pachli.feature.lists.ListsForAccountFragment
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.util.Error
@@ -126,9 +129,6 @@ class AccountActivity :
     ActionButtonActivity,
     MenuProvider,
     LinkListener {
-    @Inject
-    lateinit var draftsAlert: DraftsAlert
-
     @Inject
     lateinit var clipboard: ClipboardUseCase
 
@@ -518,9 +518,6 @@ class AccountActivity :
         viewModel.noteSaved.observe(this) {
             binding.saveNoteInfo.visible(it, View.INVISIBLE)
         }
-
-        // "Post failed" dialog should display in this activity
-        draftsAlert.observeInContext(this, true)
     }
 
     private fun onRefresh() {
@@ -986,15 +983,20 @@ class AccountActivity :
     }
 
     private fun mention(account: Account) {
-        val options = if (viewModel.isSelf.value) {
-            ComposeOptions(kind = ComposeOptions.ComposeKind.NEW)
+        val activeAccount = accountManager.activeAccount!!
+        // Create a draft that mentions the user. Uses `Timeline.Home` to get
+        // generic draft creation behaviour.
+        val draft = if (viewModel.isSelf.value) {
+            Draft.createDraft(this@AccountActivity, activeAccount, Timeline.Home)
         } else {
-            ComposeOptions(
-                mentionedUsernames = setOf(account.username),
-                kind = ComposeOptions.ComposeKind.NEW,
-            )
+            Draft.createDraftMention(this@AccountActivity, activeAccount, Timeline.Home, account.username)
         }
-        val intent = ComposeActivityIntent(this, intent.pachliAccountId, options)
+        val intent = ComposeActivityIntent(
+            this@AccountActivity,
+            intent.pachliAccountId,
+            ComposeOptions(draft = draft, kind = ComposeOptions.ComposeKind.NEW),
+        )
+
         startActivity(intent)
     }
 

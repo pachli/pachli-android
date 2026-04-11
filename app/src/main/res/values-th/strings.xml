@@ -178,8 +178,6 @@
     <string name="hint_display_name">ชื่อที่ใช้แสดง</string>
     <string name="hint_content_warning">คำเตือนเนื้อหา</string>
     <string name="hint_compose">เกิดอะไรขึ้นเอย\?</string>
-    <string name="post_sent_long">ตอบกลับสำเร็จ</string>
-    <string name="post_sent">ส่งแล้ว!</string>
     <string name="confirmation_domain_unmuted">เลิกซ่อน %1$s แล้ว</string>
     <string name="confirmation_unblocked">เลิกบล็อกผู้ใช้แล้ว</string>
     <string name="confirmation_unmuted">เลิกปิดเสียงผู้ใช้นี้แล้ว</string>
@@ -314,7 +312,6 @@
     <string name="account_note_hint">บันทึกส่วนตัวของคุณเกี่ยวกับบัญชีนี้</string>
     <string name="notification_subscription_description">แจ้งเตือน เมื่อคนที่คุณติดตาม ได้เผยแพร่โพสต์ใหม่</string>
     <string name="drafts_post_reply_removed">โพสต์ที่คุณได้ร่างตอบไว้ ถูกลบแลัว</string>
-    <string name="draft_deleted">ลบฉบับร่างแล้ว</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="other">คุณไม่สามารถอัปโหลดไฟล์แนบมากกว่า %1$d ได้</item>
     </plurals>

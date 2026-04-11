@@ -20,30 +20,28 @@ import androidx.core.app.ServiceCompat
 import androidx.core.content.IntentCompat
 import app.pachli.R
 import app.pachli.components.compose.MediaUploader
-import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.notifications.pendingIntentFlags
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.DraftsRepository
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.StatusComposedEvent
 import app.pachli.core.eventhub.StatusEditedEvent
 import app.pachli.core.eventhub.StatusScheduledEvent
-import app.pachli.core.model.AccountSource
 import app.pachli.core.model.Attachment
+import app.pachli.core.model.Draft
 import app.pachli.core.model.MediaAttribute
-import app.pachli.core.model.NewPoll
 import app.pachli.core.model.NewStatus
-import app.pachli.core.model.Status
 import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.network.model.asNetworkModel
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
-import java.util.Date
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -71,10 +69,10 @@ class SendStatusService : Service() {
     lateinit var eventHub: EventHub
 
     @Inject
-    lateinit var draftHelper: DraftHelper
+    lateinit var mediaUploader: MediaUploader
 
     @Inject
-    lateinit var mediaUploader: MediaUploader
+    lateinit var draftsRepository: DraftsRepository
 
     private val supervisorJob = SupervisorJob()
     private val serviceScope = CoroutineScope(Dispatchers.Main + supervisorJob)
@@ -96,10 +94,7 @@ class SendStatusService : Service() {
                 notificationManager.createNotificationChannel(channel)
             }
 
-            var notificationText = statusToSend.warningText
-            if (notificationText.isBlank()) {
-                notificationText = statusToSend.text
-            }
+            val notificationText = statusToSend.draft.contentWarning ?: statusToSend.draft.content
 
             val builder = NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(app.pachli.core.common.R.drawable.ic_notify)
@@ -129,8 +124,12 @@ class SendStatusService : Service() {
     }
 
     private fun sendStatus(statusId: Int) {
-        // when statusToSend == null, sending has been canceled
-        val statusToSend = statusesToSend[statusId] ?: return
+        // when statusToSend == null, sending has been cancelled
+        val statusToSend = statusesToSend[statusId]
+        if (statusToSend == null) {
+            notificationManager.cancel(statusId)
+            return
+        }
 
         // when account == null, user has logged out, cancel sending
         val account = accountManager.getAccountById(statusToSend.pachliAccountId)
@@ -145,13 +144,15 @@ class SendStatusService : Service() {
         statusToSend.retries++
 
         sendJobs[statusId] = serviceScope.launch {
+            draftsRepository.updateDraftState(statusToSend.draft.id, Draft.State.SENDING)
+
             // first, wait for media uploads to finish
             val media = statusToSend.media.map { mediaItem ->
                 if (mediaItem.id == null) {
                     val uploadState = mediaUploader.waitForUploadToFinish(mediaItem.localId)
                     val media = uploadState.getOrElse {
                         Timber.w("failed uploading media: %s", it.fmt(this@SendStatusService))
-                        failSending(statusId)
+                        failSending(statusId, it.fmt(this@SendStatusService))
                         stopSelfWhenDone()
                         return@launch
                     }
@@ -170,7 +171,7 @@ class SendStatusService : Service() {
                         mastodonApi.getMedia(mediaItem.id!!)
                             .onSuccess { mediaItem.processed = it.code == 200 }
                             .onFailure {
-                                failSending(statusId)
+                                failSending(statusId, it.fmt(this@SendStatusService))
                                 stopSelfWhenDone()
                                 return@launch
                             }
@@ -179,7 +180,7 @@ class SendStatusService : Service() {
                 mediaCheckRetries++
             }
 
-            val isNew = statusToSend.statusId == null
+            val isNew = statusToSend.draft.statusId == null
 
             if (isNew) {
                 media.forEach { mediaItem ->
@@ -187,7 +188,7 @@ class SendStatusService : Service() {
                         mastodonApi.updateMedia(mediaItem.id!!, mediaItem.description, mediaItem.focus?.toMastodonApiString())
                             .onFailure { error ->
                                 Timber.w("failed to update media on status send: %s", error)
-                                failOrRetry(error.throwable, statusId)
+                                failOrRetry(error, statusId)
                                 return@launch
                             }
                     }
@@ -196,15 +197,15 @@ class SendStatusService : Service() {
 
             // finally, send the new status
             val newStatus = NewStatus(
-                status = statusToSend.text,
-                warningText = statusToSend.warningText,
-                inReplyToId = statusToSend.inReplyToId,
-                visibility = statusToSend.visibility,
-                sensitive = statusToSend.sensitive,
+                status = statusToSend.draft.content.orEmpty(),
+                warningText = statusToSend.draft.contentWarning.orEmpty(),
+                inReplyToId = statusToSend.draft.inReplyToId,
+                visibility = statusToSend.draft.visibility.serverString(),
+                sensitive = statusToSend.draft.sensitive,
                 mediaIds = media.map { it.id!! },
-                scheduledAt = statusToSend.scheduledAt,
-                poll = statusToSend.poll,
-                language = statusToSend.language,
+                scheduledAt = statusToSend.draft.scheduledAt,
+                poll = statusToSend.draft.poll,
+                language = statusToSend.draft.language,
                 mediaAttributes = media.map { media ->
                     MediaAttribute(
                         id = media.id!!,
@@ -213,8 +214,8 @@ class SendStatusService : Service() {
                         thumbnail = null,
                     )
                 },
-                quotedStatusId = statusToSend.quotedStatusId,
-                quotePolicy = statusToSend.quotePolicy,
+                quotedStatusId = statusToSend.draft.quotedStatusId,
+                quotePolicy = statusToSend.draft.quotePolicy,
             )
 
             val sendResult = if (isNew) {
@@ -235,7 +236,7 @@ class SendStatusService : Service() {
                 }
             } else {
                 mastodonApi.editStatus(
-                    statusToSend.statusId,
+                    statusToSend.draft.statusId!!,
                     account.authHeader,
                     account.domain,
                     statusToSend.idempotencyKey,
@@ -247,20 +248,20 @@ class SendStatusService : Service() {
                 val sentStatus = it.body
                 statusesToSend.remove(statusId)
                 // If the status was loaded from a draft, delete the draft and associated media files.
-                if (statusToSend.draftId != 0) {
-                    draftHelper.deleteDraftAndAttachments(statusToSend.draftId)
+                if (statusToSend.draft.id != 0L) {
+                    draftsRepository.deleteDraftAndAttachments(statusToSend.draft.id)
                 }
 
                 mediaUploader.cancelUploadScope(*statusToSend.media.map { it.localId }.toIntArray())
 
-                val scheduled = statusToSend.scheduledAt != null
+                val scheduled = statusToSend.draft.scheduledAt != null
 
                 if (scheduled) {
                     eventHub.dispatch(StatusScheduledEvent)
                 } else if (!isNew) {
                     eventHub.dispatch(
                         StatusEditedEvent(
-                            statusToSend.statusId,
+                            statusToSend.draft.statusId!!,
                             (sentStatus as app.pachli.core.network.model.Status).asModel(),
                         ),
                     )
@@ -275,22 +276,25 @@ class SendStatusService : Service() {
                 notificationManager.cancel(statusId)
             }
                 .onFailure {
-                    Timber.w("failed sending status: %s", it)
-                    failOrRetry(it.throwable, statusId)
+                    Timber.w("failed sending status: %s", it.fmt(this@SendStatusService))
+                    failOrRetry(it, statusId)
                 }
 
             stopSelfWhenDone()
         }
     }
 
-    private suspend fun failOrRetry(throwable: Throwable, statusId: Int) {
-        when (throwable) {
+    private suspend fun failOrRetry(apiError: ApiError, statusId: Int) {
+        // TODO: This should look at the ApiError subclasses, not the throwable.
+        when (apiError.throwable) {
             // the server refused to accept, save status & show error message
-            is HttpException -> failSending(statusId)
+            is HttpException -> failSending(statusId, apiError.fmt(this))
+
             // a network problem occurred, let's retry sending the status
             is IOException -> retrySending(statusId)
+
             // Some other problem, fail
-            else -> failSending(statusId)
+            else -> failSending(statusId, apiError.fmt(this))
         }
     }
 
@@ -318,18 +322,19 @@ class SendStatusService : Service() {
         // Android wants the service to shut down. Fail any statuses that still need to be sent
         // and shut down. See https://developer.android.com/about/versions/14/changes/fgs-types-required
         runBlocking {
+            // Will stop the service when there are no more statuses
             statusesToSend.forEach { (i, _) ->
-                failSending(i) // Will stop the service when there are no more statuses
+                failSending(i, getString(R.string.send_post_failure_message_timeout))
             }
         }
     }
 
-    private suspend fun failSending(statusId: Int) {
+    private suspend fun failSending(statusId: Int, failureMessage: String) {
         val failedStatus = statusesToSend.remove(statusId)
         if (failedStatus != null) {
             mediaUploader.cancelUploadScope(*failedStatus.media.map { it.localId }.toIntArray())
 
-            saveStatusToDrafts(failedStatus, failedToSendAlert = true)
+            saveStatusToDrafts(failedStatus, failureMessage = failureMessage)
 
             val notification = buildDraftNotification(
                 R.string.send_post_notification_error_title,
@@ -339,7 +344,7 @@ class SendStatusService : Service() {
             )
 
             notificationManager.cancel(statusId)
-            notificationManager.notify(errorNotificationId++, notification)
+            notificationManager.notify(TAG_SAVED_TO_DRAFTS, errorNotificationId++, notification)
         }
 
         // NOTE only this removes the "Sending..." notification (added with startForeground() above)
@@ -354,7 +359,7 @@ class SendStatusService : Service() {
             val sendJob = sendJobs.remove(statusId)
             sendJob?.cancel()
 
-            saveStatusToDrafts(statusToCancel, failedToSendAlert = false)
+            saveStatusToDrafts(statusToCancel, failureMessage = getString(R.string.send_post_failure_message_cancel))
 
             val notification = buildDraftNotification(
                 R.string.send_post_notification_cancel_title,
@@ -363,7 +368,8 @@ class SendStatusService : Service() {
                 statusId,
             )
 
-            notificationManager.notify(statusId, notification)
+            notificationManager.cancel(statusId)
+            notificationManager.notify(TAG_SAVED_TO_DRAFTS, statusId, notification)
 
             delay(5000)
 
@@ -371,26 +377,11 @@ class SendStatusService : Service() {
         }
     }
 
-    private suspend fun saveStatusToDrafts(status: StatusToSend, failedToSendAlert: Boolean) {
-        draftHelper.saveDraft(
-            draftId = status.draftId,
-            pachliAccountId = status.pachliAccountId,
-            inReplyToId = status.inReplyToId,
-            content = status.text,
-            contentWarning = status.warningText,
-            sensitive = status.sensitive,
-            visibility = Status.Visibility.byString(status.visibility),
-            mediaUris = status.media.map { it.uri },
-            mediaDescriptions = status.media.map { it.description },
-            mediaFocus = status.media.map { it.focus },
-            poll = status.poll,
-            failedToSend = true,
-            failedToSendAlert = failedToSendAlert,
-            scheduledAt = status.scheduledAt,
-            language = status.language,
-            statusId = status.statusId,
-            quotePolicy = status.quotePolicy,
-            quotedStatusId = status.quotedStatusId,
+    private suspend fun saveStatusToDrafts(status: StatusToSend, failureMessage: String?) {
+        draftsRepository.updateFailureState(
+            status.draft.id,
+            failureMessage = failureMessage,
+            state = Draft.State.DEFAULT,
         )
     }
 
@@ -443,6 +434,11 @@ class SendStatusService : Service() {
         private const val KEY_CANCEL = "cancel_id"
         private const val CHANNEL_ID = "send_toots"
 
+        /** Tag assigned to notifications about status saved to drafts. */
+        // Assigned to notifications in this code, used in `DraftActivity` to
+        // clear notifications, because the user can see the drafts with errors.
+        const val TAG_SAVED_TO_DRAFTS = "app.pachli.service.SendStatusService.SAVED_TO_DRAFTS"
+
         private val MAX_RETRY_INTERVAL = TimeUnit.MINUTES.toMillis(1)
 
         private var sendingNotificationId = -1 // use negative ids to not clash with other notis
@@ -480,24 +476,11 @@ class SendStatusService : Service() {
 
 @Parcelize
 data class StatusToSend(
-    val text: String,
-    val warningText: String,
-    val visibility: String,
-    val sensitive: Boolean,
+    val draft: Draft,
     val media: List<MediaToSend>,
-    val scheduledAt: Date?,
-    val inReplyToId: String?,
-    val poll: NewPoll?,
-    val replyingStatusContent: String?,
-    val replyingStatusAuthorUsername: String?,
     val pachliAccountId: Long,
-    val draftId: Int,
     val idempotencyKey: String,
     var retries: Int,
-    val language: String?,
-    val statusId: String?,
-    val quotedStatusId: String?,
-    val quotePolicy: AccountSource.QuotePolicy?,
 ) : Parcelable
 
 @Parcelize

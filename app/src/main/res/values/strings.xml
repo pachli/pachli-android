@@ -131,11 +131,6 @@
     <string name="action_quick_reply">Quick Reply</string>
     <string name="action_unbookmark">Remove bookmark</string>
     <string name="action_compose">Compose</string>
-    <string name="action_post_failed">Upload failed</string>
-    <string name="action_post_failed_detail">Your post failed to upload and has been saved to drafts.\n\nEither the server could not be contacted, or it rejected the post.</string>
-    <string name="action_post_failed_detail_plural">Your posts failed to upload and have been saved to drafts.\n\nEither the server could not be contacted, or it rejected the posts.</string>
-    <string name="action_post_failed_show_drafts">Show drafts</string>
-    <string name="action_post_failed_do_nothing">Dismiss</string>
     <string name="action_follow">Follow</string>
     <string name="action_unfollow">Unfollow</string>
     <string name="action_block">Block</string>
@@ -150,6 +145,9 @@
     <string name="action_edit">Edit</string>
     <string name="action_delete">Delete</string>
     <string name="action_delete_conversation">Delete conversation</string>
+    <string name="action_delete_drafts">Delete selected drafts</string>
+    <string name="title_delete_drafts">Delete selected drafts?</string>
+    <string name="delete_drafts_msg">This will permanently delete the selected drafts.</string>
     <string name="action_delete_and_redraft">Delete and re-draft</string>
     <string name="action_discard">Discard changes</string>
     <string name="action_continue_edit">Continue editing</string>
@@ -230,8 +228,6 @@
     <string name="confirmation_hashtag_muted">#%1$s hidden</string>
     <string name="confirmation_hashtag_unmuted">#%1$s unhidden</string>
     <string name="confirmation_hashtag_unfollowed">#%1$s unfollowed</string>
-    <string name="post_sent">Sent!</string>
-    <string name="post_sent_long">Reply sent successfully.</string>
     <string name="hint_compose">What\'s happening?</string>
     <string name="hint_content_warning">Content warning</string>
     <string name="hint_display_name">Display name</string>
@@ -415,6 +411,9 @@
     <string name="send_post_notification_channel_name">Sending Posts</string>
     <string name="send_post_notification_cancel_title">Sending cancelled</string>
     <string name="send_post_notification_saved_content">A copy of the post has been saved to your drafts</string>
+    <string name="send_post_failure_message_prefix">Sending failed: %1$s</string>
+    <string name="send_post_failure_message_cancel">You cancelled sending this post</string>
+    <string name="send_post_failure_message_timeout">Android timed-out sending this post</string>
     <string name="action_compose_shortcut">Compose</string>
     <string name="error_no_custom_emojis">Your instance %1$s does not have any custom emojis</string>
     <string name="emoji_style">Emoji style</string>
@@ -526,10 +525,14 @@
         <item quantity="one">You cannot upload more than %1$d media attachment.</item>
         <item quantity="other">You cannot upload more than %1$d media attachments.</item>
     </plurals>
+    <string name="err_draft_error_no_external_files_dir">shared storage is not available</string>
+    <string name="err_draft_error_mkdir_drafts_fmt">could not create Drafts folder: %1$s</string>
+    <string name="err_draft_error_unknown_mime_type">attachment has unknown MIME type: %1$s</string>
+    <string name="err_draft_error_content_provider_crash">content provider recently crashed</string>
+    <string name="err_draft_error_io_fmt">saving failed: %1$s</string>
     <string name="drafts_post_failed_to_send">This post failed to send!</string>
     <string name="drafts_load_reply_failed_fmt">Could not load the post you\'re replying to: %1$s</string>
     <string name="drafts_load_quote_failed_fmt">Could not load the post you\'re quoting: %1$s</string>
-    <string name="draft_deleted">Draft deleted</string>
     <string name="drafts_post_reply_removed">The post you drafted a reply to has been removed</string>
     <string name="drafts_post_quote_removed">The post you quoted has been removed</string>
     <string name="follow_requests_info">Even though your account is not locked, the %1$s staff thought you might want to review follow requests from these accounts manually.</string>
@@ -816,6 +819,9 @@
 
     <string name="account_filter_placeholder_type_conversation">A user @&lt;b>%1$s&lt;/b> started a conversation</string>
     <string name="ui_error_reload_reply_fmt">Could not load post: %1$s</string>
+    <string name="ui_error_delete_scheduled_status_fmt">could not delete the scheduled post to replace it: %1$s</string>
+    <string name="ui_error_sending_post_fmt">Could not send post: %1$s</string>
+    <string name="ui_error_saving_post_fmt">Could not save post: %1$s</string>
 
     <string name="export_preferences_ok_fmt">Preferences exported to %1$s</string>
     <string name="error_export_preferences_fmt">Could not export preferences to %1$s: %2$s</string>

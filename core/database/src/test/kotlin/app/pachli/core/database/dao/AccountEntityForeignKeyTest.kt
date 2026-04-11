@@ -40,6 +40,7 @@ import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountFilterReason
 import app.pachli.core.model.Announcement
 import app.pachli.core.model.ContentFilterVersion
+import app.pachli.core.model.Draft
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.ServerKind
 import app.pachli.core.model.Status
@@ -239,7 +240,7 @@ class AccountEntityForeignKeyTest {
     fun `deleting account deletes DraftEntity`() = runTest {
         val draft = DraftEntity(
             id = 1,
-            accountId = pachliAccountId,
+            pachliAccountId = pachliAccountId,
             inReplyToId = null,
             content = null,
             contentWarning = null,
@@ -247,13 +248,14 @@ class AccountEntityForeignKeyTest {
             visibility = Status.Visibility.PUBLIC,
             attachments = emptyList(),
             poll = null,
-            failedToSend = false,
-            failedToSendNew = false,
             scheduledAt = null,
             language = null,
             statusId = null,
             quotePolicy = null,
             quotedStatusId = null,
+            failureMessage = null,
+            cursorPosition = 0,
+            state = Draft.State.DEFAULT,
         )
         draftDao.upsert(draft)
 

@@ -75,6 +75,20 @@ data class AccountSource(
 
         /** No one can quote. */
         NOBODY,
+
+        ;
+
+        /**
+         * @return A new quote policy, based on this quote policy, but
+         * clamped to the maximum policy allowed by [visibility].
+         */
+        fun clampToVisibility(visibility: Status.Visibility) = when (visibility) {
+            Status.Visibility.UNKNOWN -> NOBODY
+            Status.Visibility.PUBLIC -> this
+            Status.Visibility.UNLISTED -> this
+            Status.Visibility.PRIVATE -> NOBODY
+            Status.Visibility.DIRECT -> NOBODY
+        }
     }
 }
 

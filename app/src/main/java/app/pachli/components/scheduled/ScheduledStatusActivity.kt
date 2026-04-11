@@ -33,6 +33,7 @@ import app.pachli.core.activity.BaseActivity
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.data.repository.asDraft
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.StatusScheduledEvent
 import app.pachli.core.model.ScheduledStatus
@@ -168,22 +169,14 @@ class ScheduledStatusActivity :
             this,
             intent.pachliAccountId,
             ComposeOptions(
-                scheduledTootId = item.id,
-                content = item.params.text,
-                contentWarning = item.params.spoilerText,
+                draft = item.asDraft(),
                 mediaAttachments = item.mediaAttachments,
                 referencingStatus = item.params.inReplyToId?.let {
                     ReferencingStatus.ReplyId(it)
                 } ?: item.params.quotedStatusId?.let {
                     ReferencingStatus.QuoteId(it)
                 },
-                visibility = item.params.visibility,
-                scheduledAt = item.scheduledAt,
-                sensitive = item.params.sensitive,
                 kind = ComposeOptions.ComposeKind.EDIT_SCHEDULED,
-                poll = item.params.poll,
-                language = item.params.language,
-                quotePolicy = item.params.quotePolicy,
             ),
         )
         startActivity(intent)

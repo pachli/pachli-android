@@ -83,8 +83,6 @@
     <string name="confirmation_reported">送信しました！</string>
     <string name="confirmation_unblocked">ブロックを解除しました</string>
     <string name="confirmation_unmuted">ミュートを解除しました</string>
-    <string name="post_sent">送信しました！</string>
-    <string name="post_sent_long">返信しました。</string>
     <string name="hint_compose">今なにしてる？</string>
     <string name="hint_content_warning">注意書き</string>
     <string name="hint_display_name">表示名</string>
@@ -361,7 +359,6 @@
         <item quantity="other">%1$d 個以上のメディア添付ファイルはアップロードできません。</item>
     </plurals>
     <string name="drafts_post_failed_to_send">この投稿の送信に失敗しました！</string>
-    <string name="draft_deleted">下書きを削除しました</string>
     <string name="drafts_post_reply_removed">下書きの返信先の投稿が削除されました</string>
     <string name="action_subscribe_account">購読する</string>
     <string name="wellbeing_mode_notice">あなたのメンタルヘルスに影響を与える可能性のある情報は隠されます。例:
@@ -408,17 +405,8 @@
     <string name="pref_title_notification_filter_updates">やり取りした投稿が編集された時</string>
     <string name="notification_update_description">やり取りした投稿が編集されたときの通知</string>
     <string name="pref_title_http_proxy_port_message">ポートは %1$d から %2$d の間でなければなりません</string>
-    <string name="action_post_failed">アップロードに失敗しました</string>
-    <string name="action_post_failed_detail">アップロードに失敗した投稿は下書きに保存されました。
-\n
-\nサーバーと接続できなかったか、投稿が拒否されました。</string>
-    <string name="action_post_failed_show_drafts">下書きを表示</string>
-    <string name="action_post_failed_do_nothing">閉じる</string>
     <string name="description_login">ほとんどの場合に動作します。他のアプリにはデータが漏洩しません。</string>
     <string name="description_browser_login">追加の認証方法がサポートされる可能性がありますが、対応ブラウザが必要です。</string>
-    <string name="action_post_failed_detail_plural">アップロードに失敗した投稿は下書きに保存されました。
-\n
-\nサーバーと接続できなかったか、投稿が拒否されました。</string>
     <string name="dialog_follow_hashtag_title">ハッシュタグをフォロー</string>
     <string name="dialog_follow_hashtag_hint">#ハッシュタグ</string>
     <string name="hint_description">説明</string>

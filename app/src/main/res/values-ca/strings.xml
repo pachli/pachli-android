@@ -148,13 +148,11 @@
     <string name="action_open_faved_by">Mostra els favorits</string>
     <string name="download_media">Baixa el fitxer</string>
     <string name="send_media_to">Compartir la imatge a …</string>
-    <string name="post_sent">Enviat!</string>
     <string name="state_follow_requested">Petició enviada</string>
     <string name="title_posts_with_replies">Amb respostes</string>
     <string name="action_emoji_keyboard">Teclat d\'emojis</string>
     <string name="action_open_media_n">Obrir el media #%1$d</string>
     <string name="downloading_media">S\'està Descarregant media</string>
-    <string name="post_sent_long">Resposta enviada correctament.</string>
     <string name="label_quick_reply">Resposta …</string>
     <string name="dialog_message_cancel_follow_request">Revocar la petició de seguiment\?</string>
     <string name="dialog_delete_post_warning">Vols eliminar aquest toot\?</string>
@@ -315,7 +313,6 @@
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; acaba de fer una publicació</string>
     <string name="title_announcements">Avisos</string>
     <string name="drafts_post_reply_removed">S\'ha eliminat la publicació a la qual vau fer un esborrany de resposta</string>
-    <string name="draft_deleted">S\'ha eliminat l\'esborrany</string>
     <string name="drafts_post_failed_to_send">No s\'ha pogut publicar!</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">No podeu penjar més de %1$d fitxers adjunts multimèdia.</item>
@@ -337,15 +334,6 @@
     <string name="error_unmuting_hashtag_format">S\'ha produït un error en activar #%1$s</string>
     <string name="error_muting_hashtag_format">S\'ha produït un error en silenciar #%1$s</string>
     <string name="notification_update_name">Edicions de publicacions</string>
-    <string name="action_post_failed">La càrrega ha fallat</string>
-    <string name="action_post_failed_detail">La teva publicació no s\'ha pogut penjar i s\'ha desat als esborranys.
-\n
-\nNo s\'ha pogut contactar amb el servidor o bé ha rebutjat la publicació.</string>
-    <string name="action_post_failed_detail_plural">Les teves publicacions no s\'han pogut penjar i s\'han desat als esborranys.
-\n
-\nNo s\'ha pogut contactar amb el servidor o ha rebutjat les publicacions.</string>
-    <string name="action_post_failed_show_drafts">Mostra esborranys</string>
-    <string name="action_post_failed_do_nothing">Descartar</string>
     <string name="send_account_link_to">Comparteix l\'URL del compte a…</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; ha editat la seva publicació</string>
     <string name="notification_report_format">Nou informe sobre %1$s</string>

@@ -67,8 +67,6 @@
     <string name="download_media">Unduh media</string>
     <string name="downloading_media">Mengunduh media</string>
     <string name="confirmation_reported">Terkirim!</string>
-    <string name="post_sent">Terkirim!</string>
-    <string name="post_sent_long">Balasan berhasil dikirim.</string>
     <string name="hint_compose">Apa yang terjadi\?</string>
     <string name="hint_search">Cari…</string>
     <string name="dialog_title_finishing_media_upload">Menyelesaikan Pengunggahan Media</string>
@@ -197,15 +195,6 @@
     <plurals name="notification_summary_report_format">
         <item quantity="other">%1$s - %2$d posting terlampir</item>
     </plurals>
-    <string name="action_post_failed">Unggahan gagal</string>
-    <string name="action_post_failed_detail">Postingan Anda gagal diunggah dan telah disimpan ke draf.
-\n
-\nServer tidak dapat dihubungi, atau server menolak postingan Anda.</string>
-    <string name="action_post_failed_detail_plural">Tulisan Anda gagal diunggah dan telah disimpan ke draf.
-\n
-\nServer tidak dapat dihubungi, atau server menolak tulisan Anda.</string>
-    <string name="action_post_failed_show_drafts">Tampilkan draf</string>
-    <string name="action_post_failed_do_nothing">Abaikan</string>
     <string name="pref_title_show_self_boosts">Tampilkan self-boosts</string>
     <string name="pref_title_show_self_boosts_description">Seseorang memboosting pos mereka sendiri</string>
     <string name="action_send">TOOT</string>
@@ -357,7 +346,6 @@
     <string name="announcement_date_updated">(Diperbarui: %1$s)</string>
     <string name="delete_scheduled_post_warning">Menghapus pos terjadwal ini?</string>
     <string name="language_display_name_format">%1$s %2$s</string>
-    <string name="draft_deleted">Draf dihapus</string>
     <string name="ui_success_rejected_follow_request">Permintaan ikuti ditolak</string>
     <string name="filter_action_warn">Memperingatkan</string>
     <string name="filter_action_hide">Sembunyikan</string>

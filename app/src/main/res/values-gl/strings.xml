@@ -272,7 +272,6 @@
     <string name="hint_display_name">Nome público</string>
     <string name="hint_content_warning">Aviso sobre o contido</string>
     <string name="hint_compose">Que contas\?</string>
-    <string name="draft_deleted">Borrador eliminado</string>
     <string name="drafts_post_failed_to_send">Fallou o envío do toot!</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Non podes subir máis de %1$d anexo multimedia.</item>
@@ -309,8 +308,6 @@
     <string name="duration_1_hour">1 hora</string>
     <string name="duration_30_min">30 minutos</string>
     <string name="duration_5_min">5 minutos</string>
-    <string name="post_sent_long">Resposta enviada correctamente.</string>
-    <string name="post_sent">Enviado!</string>
     <string name="confirmation_domain_unmuted">%1$s visible</string>
     <string name="confirmation_unmuted">Usuaria reactivada</string>
     <string name="confirmation_unblocked">Usuaria desbloqueada</string>
@@ -406,15 +403,6 @@
     <string name="pref_summary_http_proxy_missing">&lt;non establecido&gt;</string>
     <string name="pref_summary_http_proxy_disabled">Desactivado</string>
     <string name="pref_summary_http_proxy_invalid">&lt;non válido&gt;</string>
-    <string name="action_post_failed">Fallou a subida</string>
-    <string name="action_post_failed_detail">Fallou a subida da publicación e gardouse non borradores.
-\n
-\nPode que o servidor non estive accesible ou que rexeitase a publicación.</string>
-    <string name="action_post_failed_detail_plural">Fallou a subida das túas publicacións e gardáronse nos borradores.
-\n
-\nPode que o servidor non estivese accesible ou que rexeitase as publicacións.</string>
-    <string name="action_post_failed_show_drafts">Mostrar borradores</string>
-    <string name="action_post_failed_do_nothing">Desbotar</string>
     <string name="description_browser_login">Pode ter soporte para métodos adicionais de autenticación, pero require un navegador soportado.</string>
     <string name="description_login">Funciona case sempre. Non se filtran datos a outras apps.</string>
     <string name="accessibility_talking_about_tag">%1$d persoas están falando acerca do cancelo %2$s</string>

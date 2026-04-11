@@ -34,8 +34,6 @@
     <string name="action_copy_link">Kopírovať odkaz</string>
     <string name="confirmation_reported">Odoslané!</string>
     <string name="confirmation_unblocked">Účet bol odblokovaný</string>
-    <string name="post_sent">Odoslané!</string>
-    <string name="post_sent_long">Odpoveď bola úspešne odoslaná.</string>
     <string name="hint_display_name">Zobrazované meno</string>
     <string name="hint_note">O tebe</string>
     <string name="hint_search">Hľadať…</string>
@@ -174,8 +172,6 @@
     <string name="pref_title_bot_overlay">Zobraziť indikátor botov</string>
     <string name="notification_severed_relationships_unknown_body">Neznámy dôvod</string>
     <string name="notification_severed_relationships_account_suspension_body">Moderátor pozastavil účet</string>
-    <string name="action_post_failed">Nahrávanie zlyhalo</string>
-    <string name="action_post_failed_show_drafts">Zobraziť koncepty</string>
     <string name="action_unmute">Zrušiť stlmenie</string>
     <string name="action_unmute_desc">Zrušiť stlmenie %1$s</string>
     <string name="action_mute_domain">Stlmiť %1$s</string>
@@ -204,8 +200,6 @@
     </plurals>
     <string name="report_comment_hint">Ďalšie komentáre?</string>
     <string name="action_unbookmark">Odstrániť záložku</string>
-    <string name="action_post_failed_detail">Tvoj príspevok sa nepodarilo odoslať a bol uložený medzi koncepty.\n\nServer sa buď nepodarilo kontaktovať, alebo príspevok odmietol.</string>
-    <string name="action_post_failed_detail_plural">Tvoje príspevky sa nepodarilo odoslať a boli uložené medzi koncepty.\n\nServer sa buď nepodarilo kontaktovať, alebo príspevky odmietol.</string>
     <string name="action_share_account_link">Zdieľať odkaz na účet</string>
     <string name="pref_title_show_self_boosts">Zobraziť vlastné zdieľania</string>
     <string name="pref_title_show_self_boosts_description">Niekto zdieľa svoj vlastný príspevok</string>
@@ -418,7 +412,6 @@
     <string name="duration_180_days">180 dní</string>
     <string name="pref_title_confirm_status_language">Skontroluj jazyk príspevku pred jeho uverejnením</string>
     <string name="account_note_saved">Uložené!</string>
-    <string name="draft_deleted">Koncept byl vymazaný</string>
     <string name="pref_title_confirm_reblogs">Zobraziť potvrdenie pred zdieľaním</string>
     <string name="duration_no_change">(Bez zmeny)</string>
     <string name="no_drafts">Nemáš žiadne koncepty.</string>
@@ -553,7 +546,6 @@
     <string name="search_operator_poll_dialog_title">Zobraziť príspevky s anketami?</string>
     <string name="search_operator_embed_no_embeds">Bez kariet s náhľadom</string>
     <string name="search_operator_embed_only">Iba karty s náhľadom</string>
-    <string name="action_post_failed_do_nothing">Zavrieť</string>
     <string name="search_operator_attachment_has_media_except_2_label_fmt">Všetky okrem %1$s, %2$s</string>
     <string name="search_operator_attachment_no_media_label">Žiadne médiá</string>
     <string name="error_media_download">Nepodarilo sa stiahnuť %1$s: %2$s</string>

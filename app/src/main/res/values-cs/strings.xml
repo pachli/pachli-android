@@ -88,8 +88,6 @@
     <string name="confirmation_reported">Odesláno!</string>
     <string name="confirmation_unblocked">Uživatel byl odblokován</string>
     <string name="confirmation_unmuted">Skrytí uživatele bylo zrušeno</string>
-    <string name="post_sent">Odesláno!</string>
-    <string name="post_sent_long">Odpověď byla úspěšně odeslána.</string>
     <string name="hint_compose">Co se právě děje?</string>
     <string name="hint_content_warning">Varování o obsahu</string>
     <string name="hint_display_name">Zobrazované jméno</string>
@@ -334,7 +332,6 @@
     <string name="action_subscribe_account">Odebírat</string>
     <string name="action_unsubscribe_account">Přestat odebírat</string>
     <string name="pachli_compose_post_quicksetting_label">Vytvořit příspěvek</string>
-    <string name="draft_deleted">Koncept byl smazán</string>
     <string name="failed_to_pin">Připnutí se nezdařilo</string>
     <string name="failed_to_unpin">Zrušení připnutí se nezdařilo</string>
     <string name="filter_expiration_format">%1$s (%2$s)</string>

@@ -17,11 +17,11 @@
 package app.pachli.components.compose
 
 import android.content.ContentResolver
+import android.content.Context
 import android.net.Uri
 import android.text.Editable
 import android.text.Spanned
 import android.text.style.URLSpan
-import androidx.annotation.StringRes
 import androidx.annotation.VisibleForTesting
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
@@ -29,14 +29,15 @@ import androidx.lifecycle.viewModelScope
 import app.pachli.R
 import app.pachli.components.compose.ComposeActivity.QueuedMedia
 import app.pachli.components.compose.ComposeAutoCompleteAdapter.AutocompleteResult
+import app.pachli.components.compose.UiError.SaveAttachmentError
 import app.pachli.components.compose.UploadState.Uploaded
-import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.search.SearchType
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.stateFlow
 import app.pachli.core.common.string.mastodonLength
 import app.pachli.core.common.string.randomAlphanumericString
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.DraftsRepository
 import app.pachli.core.data.repository.InstanceInfoRepository
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.PachliAccount
@@ -45,6 +46,8 @@ import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.AccountSource
 import app.pachli.core.model.Attachment
+import app.pachli.core.model.Draft
+import app.pachli.core.model.DraftAttachment
 import app.pachli.core.model.NewPoll
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Status
@@ -52,17 +55,23 @@ import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ComposeKind
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ReferencingStatus
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.ShowSelfUsername
 import app.pachli.core.ui.MentionSpan
 import app.pachli.service.MediaToSend
 import app.pachli.service.ServiceClient
 import app.pachli.service.StatusToSend
+import app.pachli.util.SaveUriError
+import app.pachli.util.isInDirectory
+import app.pachli.util.saveToDirectory
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.andThen
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getOrElse
+import com.github.michaelbull.result.map
 import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.mapError
@@ -70,9 +79,13 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.github.z4kn4fein.semver.constraints.toConstraint
+import java.io.File
+import java.text.SimpleDateFormat
 import java.util.Collections
 import java.util.Date
+import java.util.Locale
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -88,37 +101,78 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.OkHttpClient
 import timber.log.Timber
 
-internal sealed class UiError(
-    @StringRes override val resourceId: Int = -1,
-    override val formatArgs: Array<out String>? = null,
-    override val cause: PachliError? = null,
-) : PachliError {
+internal sealed interface UiError : PachliError {
     /** Error occurred loading the status this is a reply to. */
-    data class LoadInReplyToError(override val cause: PachliError) : UiError(
-        R.string.ui_error_reload_reply_fmt,
-    )
+    data class LoadInReplyToError(override val cause: PachliError) : UiError {
+        override val resourceId = R.string.ui_error_reload_reply_fmt
+        override val formatArgs = null
+    }
 
     /** Error occurred loading the status this is quoting. */
-    data class LoadQuoteError(override val cause: PachliError) : UiError(
-        R.string.ui_error_reload_reply_fmt,
-    )
+    data class LoadQuoteError(override val cause: PachliError) : UiError {
+        override val resourceId = R.string.ui_error_reload_reply_fmt
+        override val formatArgs = null
+    }
+
+    /** Error occurred deleting a scheduled status ahead of replacing it. */
+    data class DeleteScheduledStatus(override val cause: ApiError) : UiError {
+        override val resourceId = R.string.ui_error_delete_scheduled_status_fmt
+        override val formatArgs = null
+    }
+
+    sealed interface SaveAttachmentError : UiError {
+        /** Call to getExternalFilesDir() failed, or the directory does not exist. */
+        data object NoExternalFilesDir : SaveAttachmentError {
+            override val resourceId = R.string.err_draft_error_no_external_files_dir
+            override val formatArgs = null
+            override val cause = null
+        }
+
+        /**
+         * Call to create the "Drafts" directory failed.
+         *
+         * @property throwable [Throwable] thrown by [mkdir][File.mkdir].
+         */
+        data class MkdirDrafts(val throwable: Throwable) : SaveAttachmentError {
+            override val resourceId = R.string.err_draft_error_mkdir_drafts_fmt
+            override val formatArgs = arrayOf(throwable.localizedMessage ?: "")
+            override val cause = null
+        }
+
+        /**
+         * Attachment has an unrecognised MIME type.
+         *
+         * @property mimeType The attachment's MIME type.
+         */
+        data class UnknownMimeType(private val mimeType: String?) : SaveAttachmentError {
+            override val resourceId = R.string.err_draft_error_unknown_mime_type
+            override val formatArgs = arrayOf(mimeType ?: "(null)")
+            override val cause = null
+        }
+
+        @JvmInline
+        value class SaveUri(val error: SaveUriError) : SaveAttachmentError, PachliError by error
+    }
 }
 
 @HiltViewModel(assistedFactory = ComposeViewModel.Factory::class)
 class ComposeViewModel @AssistedInject constructor(
     @Assisted private val pachliAccountId: Long,
-    @Assisted private val composeOptions: ComposeOptions?,
+    @Assisted private val composeOptions: ComposeOptions,
+    @ApplicationContext val context: Context,
+    private val okHttpClient: OkHttpClient,
     private val api: MastodonApi,
     private val accountManager: AccountManager,
     private val mediaUploader: MediaUploader,
     private val serviceClient: ServiceClient,
-    private val draftHelper: DraftHelper,
     instanceInfoRepo: InstanceInfoRepository,
     serverRepository: ServerRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
+    private val draftsRepository: DraftsRepository,
 ) : ViewModel() {
     /** The account being used to compose the status. */
     val accountFlow = accountManager.getPachliAccountFlow(pachliAccountId)
@@ -150,7 +204,7 @@ class ComposeViewModel @AssistedInject constructor(
     internal val referencingStatus = stateFlow(viewModelScope, Ok(Loadable.Loaded(null))) {
         loadReferencedStatus.flatMapLatest {
             flow {
-                when (val i = composeOptions?.referencingStatus) {
+                when (val i = composeOptions.referencingStatus) {
                     is ReferencingStatus.ReplyId -> {
                         emit(Ok(Loadable.Loading))
                         api.status(i.statusId).mapEither(
@@ -179,35 +233,32 @@ class ComposeViewModel @AssistedInject constructor(
     internal fun reloadReferencedStatus() = viewModelScope.launch { loadReferencedStatus.emit(Unit) }
 
     /** The initial content for this status, before any edits */
-    internal var initialContent: String = composeOptions?.content.orEmpty()
+    internal var initialContent: String = composeOptions.draft.content.orEmpty()
 
     /** The initial content warning for this status, before any edits */
-    private val initialContentWarning: String = composeOptions?.contentWarning.orEmpty()
+    private val initialContentWarning: String = composeOptions.draft.contentWarning.orEmpty()
 
     /** The current content warning */
     private var contentWarning: String = initialContentWarning
 
     /** The initial language for this status, before any changes */
-    private val initialLanguage: String? = composeOptions?.language
+    private val initialLanguage: String? = composeOptions.draft.language
 
     /** The current language for this status. */
     internal var language: String? = initialLanguage
 
-    /** If editing a draft then the ID of the draft, otherwise 0 */
-    private val draftId = composeOptions?.draftId ?: 0
-    private val scheduledTootId: String? = composeOptions?.scheduledTootId
-    private val originalStatusId: String? = composeOptions?.statusId
+    private val originalStatusId: String? = composeOptions.draft.statusId
     private var startingVisibility: Status.Visibility = Status.Visibility.UNKNOWN
 
     private var contentWarningStateChanged: Boolean = false
-    private val modifiedInitialState: Boolean = composeOptions?.modifiedInitialState == true
+    private val modifiedInitialState: Boolean = composeOptions.modifiedInitialState == true
     private var scheduledTimeChanged: Boolean = false
 
     val instanceInfo = instanceInfoRepo.instanceInfo
 
     val emojis = instanceInfoRepo.emojis
 
-    private val _markMediaAsSensitive: MutableStateFlow<Boolean?> = MutableStateFlow(composeOptions?.sensitive)
+    private val _markMediaAsSensitive: MutableStateFlow<Boolean?> = MutableStateFlow(composeOptions.draft.sensitive)
     val markMediaAsSensitive = accountFlow.combine(_markMediaAsSensitive) { account, sens ->
         sens ?: account.entity.defaultMediaSensitivity
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
@@ -228,7 +279,7 @@ class ComposeViewModel @AssistedInject constructor(
     val showContentWarning = _showContentWarning.asStateFlow()
     private val _poll: MutableStateFlow<NewPoll?> = MutableStateFlow(null)
     val poll = _poll.asStateFlow()
-    private val _scheduledAt: MutableStateFlow<Date?> = MutableStateFlow(composeOptions?.scheduledAt)
+    private val _scheduledAt: MutableStateFlow<Date?> = MutableStateFlow(composeOptions.draft.scheduledAt)
     val scheduledAt = _scheduledAt.asStateFlow()
 
     private val _media: MutableStateFlow<List<QueuedMedia>> = MutableStateFlow(emptyList())
@@ -254,7 +305,7 @@ class ComposeViewModel @AssistedInject constructor(
             sharedPreferencesRepository.confirmStatusLanguage = value
         }
 
-    private val composeKind = composeOptions?.kind ?: ComposeKind.NEW
+    private val composeKind = composeOptions.kind
 
     // Used in ComposeActivity to pass state to result function when cropImage contract inflight
     var cropImageItemOld: QueuedMedia? = null
@@ -279,7 +330,7 @@ class ComposeViewModel @AssistedInject constructor(
      * In addition, multiple attachments can only be added if they are all images.
      */
     val canAttachMedia = combine(instanceInfo, media, poll) { instanceInfo, media, poll ->
-        composeOptions?.referencingStatus?.isQuoting() != true &&
+        composeOptions.referencingStatus?.isQuoting() != true &&
             poll == null &&
             media.size < instanceInfo.maxMediaAttachments &&
             (media.isEmpty() || media.first().type == QueuedMedia.Type.IMAGE)
@@ -295,7 +346,7 @@ class ComposeViewModel @AssistedInject constructor(
      * 3. There are no media attachments.
      */
     val canAttachPoll = combine(poll, media) { poll, media ->
-        composeOptions?.referencingStatus?.isQuoting() != true &&
+        composeOptions.referencingStatus?.isQuoting() != true &&
             poll == null &&
             media.isEmpty()
     }
@@ -321,8 +372,8 @@ class ComposeViewModel @AssistedInject constructor(
     val quotePolicy = accountFlow.combine(_quotePolicy) { account, qp ->
         when {
             qp != null -> qp
-            composeOptions?.quotePolicy != null -> composeOptions.quotePolicy
-            composeOptions?.visibility == Status.Visibility.DIRECT || composeOptions?.visibility == Status.Visibility.PRIVATE -> AccountSource.QuotePolicy.NOBODY
+            composeOptions.draft.quotePolicy != null -> composeOptions.draft.quotePolicy
+            composeOptions.draft.visibility == Status.Visibility.DIRECT || composeOptions.draft.visibility == Status.Visibility.PRIVATE -> AccountSource.QuotePolicy.NOBODY
             else -> account.entity.defaultQuotePolicy
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
@@ -545,9 +596,7 @@ class ComposeViewModel @AssistedInject constructor(
 
     fun deleteDraft() {
         viewModelScope.launch {
-            if (draftId != 0) {
-                draftHelper.deleteDraftAndAttachments(draftId)
-            }
+            draftsRepository.deleteDraftAndAttachments(composeOptions.draft)
         }
     }
 
@@ -562,55 +611,142 @@ class ComposeViewModel @AssistedInject constructor(
         }
     }
 
-    suspend fun saveDraft(content: String, contentWarning: String) {
-        val mediaUris: MutableList<String> = mutableListOf()
-        val mediaDescriptions: MutableList<String?> = mutableListOf()
-        val mediaFocus: MutableList<Attachment.Focus?> = mutableListOf()
-        media.value.forEach { item ->
-            mediaUris.add(item.uri.toString())
-            mediaDescriptions.add(item.description)
-            mediaFocus.add(item.focus)
+    /**
+     * Saves the draft to local storage.
+     *
+     * The data to save (except [cursorPosition]) is taken from the data in [this][ComposeViewModel].
+     *
+     * @param cursorPosition The cursor position to save.
+     */
+    internal suspend fun saveDraft(cursorPosition: Int): Result<Draft, SaveAttachmentError> {
+        val inReplyToId = (composeOptions.referencingStatus as? ReferencingStatus.ReplyingTo)?.statusId
+            ?: (composeOptions.referencingStatus as? ReferencingStatus.ReplyId)?.statusId
+
+        val quotedStatusId = (composeOptions.referencingStatus as? ReferencingStatus.Quoting)?.statusId
+            ?: (composeOptions.referencingStatus as? ReferencingStatus.QuoteId)?.statusId
+
+        // Convert media to a list of DraftAttachments
+        val draftAttachments = saveAttachments(media.value).getOrElse {
+            return Err(it)
         }
 
-        val inReplyToId = (composeOptions?.referencingStatus as? ReferencingStatus.ReplyingTo)?.statusId
-            ?: (composeOptions?.referencingStatus as? ReferencingStatus.ReplyId)?.statusId
-
-        val quotedStatusId = (composeOptions?.referencingStatus as? ReferencingStatus.Quoting)?.statusId
-            ?: (composeOptions?.referencingStatus as? ReferencingStatus.QuoteId)?.statusId
-
-        draftHelper.saveDraft(
-            draftId = draftId,
-            pachliAccountId = pachliAccountId,
-            inReplyToId = inReplyToId,
-            content = content,
-            contentWarning = contentWarning,
-            sensitive = markMediaAsSensitive.value,
+        val draftToSave = Draft(
+            id = composeOptions.draft.id,
+            contentWarning = if (showContentWarning.value) contentWarning else "",
+            content = content.toString(),
+            sensitive = draftAttachments.isNotEmpty() && (markMediaAsSensitive.value || showContentWarning.value),
             visibility = statusVisibility.value,
-            mediaUris = mediaUris,
-            mediaDescriptions = mediaDescriptions,
-            mediaFocus = mediaFocus,
-            poll = poll.value,
-            failedToSend = false,
-            failedToSendAlert = false,
-            scheduledAt = scheduledAt.value,
             language = language,
-            statusId = originalStatusId,
             quotePolicy = quotePolicy.value,
+            attachments = draftAttachments,
+            poll = poll.value,
+            failureMessage = null,
+            scheduledAt = scheduledAt.value,
+            statusId = originalStatusId,
+            inReplyToId = inReplyToId,
             quotedStatusId = quotedStatusId,
+            cursorPosition = cursorPosition,
+            state = Draft.State.EDITING,
         )
+
+        val updatedDraft = draftsRepository.upsertDraft(pachliAccountId, draftToSave)
+        return Ok(updatedDraft)
+    }
+
+    internal fun closeDraft(draftId: Long) {
+        viewModelScope.launch {
+            draftsRepository.updateDraftState(draftId, Draft.State.DEFAULT)
+        }
+    }
+
+    internal fun closeDraft() {
+        viewModelScope.launch {
+            draftsRepository.updateDraftState(composeOptions.draft.id, Draft.State.DEFAULT)
+        }
     }
 
     /**
-     * Send status to the server.
-     * Uses current state plus provided arguments.
+     * Saves [media] to the local "Drafts" directory, creating the directory
+     * if necessary.
+     *
+     * A [media] item that already exists in the directory is left unchanged,
+     * missing items are downloaded to the directory.
+     *
+     * @param media The list of [QueuedMedia] items to process.
+     * @return On success, a list of [DraftAttachment], one for each item in
+     * [media]. On any failure a [SaveAttachmentError]. Failures may still have
+     * downloaded some of the attachments.
      */
-    suspend fun sendStatus(
-        content: String,
-        spoilerText: String,
-        pachliAccountId: Long,
-    ) {
-        if (!scheduledTootId.isNullOrEmpty()) {
-            api.deleteScheduledStatus(scheduledTootId)
+    private suspend fun saveAttachments(media: List<QueuedMedia>): Result<List<DraftAttachment>, SaveAttachmentError> {
+        if (media.isEmpty()) return Ok(emptyList())
+
+        val externalFilesDir = context.getExternalFilesDir("Pachli")
+        if (externalFilesDir == null || !(externalFilesDir.exists())) {
+            return Err(SaveAttachmentError.NoExternalFilesDir)
+        }
+
+        val draftDirectory = File(externalFilesDir, "Drafts")
+
+        runCatching { draftDirectory.mkdir() }
+            .getOrElse { return Err(SaveAttachmentError.MkdirDrafts(it)) }
+
+        val sdf = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US)
+
+        val draftAttachments = media.mapIndexed { index, item ->
+            val timestamp = sdf.format(Date())
+            val basename = "Pachli_Draft_Media_${timestamp}_$index"
+            val uri = if (item.uri.isInDirectory(draftDirectory)) {
+                item.uri
+            } else {
+                item.uri.saveToDirectory(context, okHttpClient, draftDirectory, basename)
+                    .mapError { SaveAttachmentError.SaveUri(it) }
+                    .getOrElse { return Err(it) }
+            }
+
+            val mimeType = context.contentResolver.getType(uri)
+            val attachmentType = when (mimeType?.substring(0, mimeType.indexOf('/'))) {
+                "video" -> Attachment.Type.VIDEO
+                "image" -> Attachment.Type.IMAGE
+                "audio" -> Attachment.Type.AUDIO
+                else -> return Err(SaveAttachmentError.UnknownMimeType(mimeType))
+            }
+
+            DraftAttachment(
+                uri = uri,
+                description = item.description,
+                type = attachmentType,
+                focus = item.focus,
+            )
+        }
+
+        return Ok(draftAttachments)
+    }
+
+    /**
+     * Saves the current draft and sends it.
+     *
+     * @param cursorPosition Cursor position to save with the draft.
+     * @return The draft being sent, or any errors that occurred saving the draft (or
+     * deleting the status if it is scheduled).
+     */
+    internal suspend fun sendStatus(pachliAccountId: Long, cursorPosition: Int): Result<Draft, UiError> {
+        val draft = saveDraft(cursorPosition).andThen { draft ->
+            // Can't edit a scheduled status in place. It needs to be deleted so
+            // SendStatusService can create a new scheduled status.
+            if (draft.scheduledAt != null && draft.statusId != null) {
+                api.deleteScheduledStatus(draft.statusId!!)
+                    .mapError { UiError.DeleteScheduledStatus(it) }
+                    .map {
+                        // Successfully deleting the scheduled status means draft.statusId
+                        // is no longer valid, so clear it.
+                        draft.copy(statusId = null)
+                    }
+            } else {
+                Ok(draft)
+            }
+        }.getOrElse {
+            draftsRepository.updateDraftState(composeOptions.draft.id, Draft.State.DEFAULT)
+            return Err(it)
         }
 
         val attachedMedia = media.value.map { item ->
@@ -624,27 +760,16 @@ class ComposeViewModel @AssistedInject constructor(
             )
         }
         val tootToSend = StatusToSend(
-            text = content,
-            warningText = spoilerText,
-            visibility = statusVisibility.value.serverString(),
-            sensitive = attachedMedia.isNotEmpty() && (markMediaAsSensitive.value || showContentWarning.value),
+            draft = draft,
             media = attachedMedia,
-            scheduledAt = scheduledAt.value,
-            inReplyToId = (composeOptions?.referencingStatus as? ReferencingStatus.ReplyingTo)?.statusId,
-            poll = poll.value,
-            replyingStatusContent = null,
-            replyingStatusAuthorUsername = null,
             pachliAccountId = pachliAccountId,
-            draftId = draftId,
             idempotencyKey = randomAlphanumericString(16),
             retries = 0,
-            language = language,
-            statusId = originalStatusId,
-            quotedStatusId = (composeOptions?.referencingStatus as? ReferencingStatus.Quoting)?.statusId,
-            quotePolicy = quotePolicy.value,
         )
 
         serviceClient.sendToot(tootToSend)
+
+        return Ok(draft)
     }
 
     private fun updateMediaItem(localId: Int, mutator: (QueuedMedia) -> QueuedMedia) {
@@ -703,6 +828,7 @@ class ComposeViewModel @AssistedInject constructor(
                     AutocompleteResult.EmojiResult(emoji)
                 }
             }
+
             else -> {
                 Timber.w("Unexpected autocompletion token: %s", token)
                 return emptyList()
@@ -710,16 +836,21 @@ class ComposeViewModel @AssistedInject constructor(
         }
     }
 
-    fun setup(account: PachliAccount) {
+    suspend fun setup(account: PachliAccount) {
         if (setupComplete) {
             return
         }
 
         pachliAccount = account
 
+        draftsRepository.updateDraftState(
+            composeOptions.draft.id,
+            Draft.State.EDITING,
+        )
+
         val preferredVisibility = account.entity.defaultPostPrivacy
 
-        val replyVisibility = composeOptions?.replyVisibility ?: Status.Visibility.UNKNOWN
+        val replyVisibility = composeOptions.replyVisibility ?: Status.Visibility.UNKNOWN
         startingVisibility = Status.Visibility.getOrUnknown(
             preferredVisibility.ordinal.coerceAtLeast(replyVisibility.ordinal),
         )
@@ -729,43 +860,30 @@ class ComposeViewModel @AssistedInject constructor(
         }
 
         // recreate media list
-        val draftAttachments = composeOptions?.draftAttachments
-        if (draftAttachments != null) {
-            // when coming from DraftActivity
-            viewModelScope.launch {
-                draftAttachments.forEach { attachment ->
-                    pickMedia(attachment.uri, attachment.description, attachment.focus)
-                }
-            }
-        } else {
-            composeOptions?.mediaAttachments?.forEach { a ->
-                // when coming from redraft or ScheduledTootActivity
-                val mediaType = when (a.type) {
-                    Attachment.Type.VIDEO, Attachment.Type.GIFV -> QueuedMedia.Type.VIDEO
-                    Attachment.Type.UNKNOWN, Attachment.Type.IMAGE -> QueuedMedia.Type.IMAGE
-                    Attachment.Type.AUDIO -> QueuedMedia.Type.AUDIO
-                }
-                addUploadedMedia(account.entity, a.id, mediaType, a.url.toUri(), a.description, a.meta?.focus)
+        val draft = composeOptions.draft
+        viewModelScope.launch {
+            draft.attachments.forEach { attachment ->
+                pickMedia(attachment.uri, attachment.description, attachment.focus)
             }
         }
 
-        val tootVisibility = composeOptions?.visibility ?: Status.Visibility.UNKNOWN
+        composeOptions.mediaAttachments?.forEach { a ->
+            val mediaType = when (a.type) {
+                Attachment.Type.VIDEO, Attachment.Type.GIFV -> QueuedMedia.Type.VIDEO
+                Attachment.Type.UNKNOWN, Attachment.Type.IMAGE -> QueuedMedia.Type.IMAGE
+                Attachment.Type.AUDIO -> QueuedMedia.Type.AUDIO
+            }
+            addUploadedMedia(account.entity, a.id, mediaType, a.url.toUri(), a.description, a.meta?.focus)
+        }
+
+        val tootVisibility = draft.visibility
         if (tootVisibility != Status.Visibility.UNKNOWN) {
             startingVisibility = tootVisibility
         }
         _statusVisibility.value = startingVisibility
-        val mentionedUsernames = composeOptions?.mentionedUsernames
-        if (mentionedUsernames != null) {
-            val builder = StringBuilder()
-            for (name in mentionedUsernames) {
-                builder.append('@')
-                builder.append(name)
-                builder.append(' ')
-            }
-            initialContent = builder.toString()
-        }
+        initialContent = draft.content.orEmpty()
 
-        val poll = composeOptions?.poll
+        val poll = draft.poll
         if (poll != null && composeOptions.mediaAttachments.isNullOrEmpty()) {
             _poll.value = poll
         }
@@ -785,6 +903,14 @@ class ComposeViewModel @AssistedInject constructor(
 
     val editing: Boolean
         get() = !originalStatusId.isNullOrEmpty()
+
+    /** Closes the open draft when the viewmodel is cleared. */
+    override fun onCleared() {
+        super.onCleared()
+        viewModelScope.launch {
+            closeDraft()
+        }
+    }
 
     enum class ConfirmationKind {
         /** No confirmation, finish */
@@ -861,7 +987,7 @@ class ComposeViewModel @AssistedInject constructor(
          */
         fun create(
             pachliAccountId: Long,
-            composeOptions: ComposeOptions?,
+            composeOptions: ComposeOptions,
         ): ComposeViewModel
     }
 }

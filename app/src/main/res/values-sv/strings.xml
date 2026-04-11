@@ -86,8 +86,6 @@
     <string name="confirmation_reported">Skickat!</string>
     <string name="confirmation_unblocked">Användare avblockerad</string>
     <string name="confirmation_unmuted">Användaren är inte tystad längre</string>
-    <string name="post_sent">Skickat!</string>
-    <string name="post_sent_long">Svar skickades framgångsrikt.</string>
     <string name="hint_compose">Vad händer?</string>
     <string name="hint_content_warning">Innehållsvarning</string>
     <string name="hint_display_name">Visningsnamn</string>
@@ -351,7 +349,6 @@
     <string name="pref_title_show_self_username">Visa användarnamn i verktygsrader</string>
     <string name="pref_title_confirm_favourites">Visa bekräftelse före favoritmarkering</string>
     <string name="drafts_post_failed_to_send">Det här inlägget kunde inte skickas!</string>
-    <string name="draft_deleted">Utkast raderat</string>
     <string name="drafts_post_reply_removed">Inlägget du skrev ett utkast till svar på har raderats</string>
     <string name="follow_requests_info">Även om ditt konto inte är låst så tänker administratörerna på %1$s att du kanske ändå vill granska följförfrågan från dessa konton manuellt.</string>
     <string name="action_subscribe_account">Prenumerera</string>
@@ -410,18 +407,9 @@
     <string name="action_discard">Förkasta ändringar</string>
     <string name="action_continue_edit">Fortsätt redigera</string>
     <string name="unsaved_changes">Du har ändringar som inte sparats.</string>
-    <string name="action_post_failed">Uppladdning misslyckades</string>
-    <string name="action_post_failed_detail">Ett fel inträffade när inlägget skulle laddas upp och har sparats till utkast.
-\n
-\nAntingen kunde servern inte kontaktas, eller så nekades uppladdningen.</string>
-    <string name="action_post_failed_show_drafts">Visa utkast</string>
     <string name="pref_summary_http_proxy_disabled">Inaktiverad</string>
     <string name="pref_summary_http_proxy_missing">&lt;ej angiven&gt;</string>
     <string name="pref_summary_http_proxy_invalid">&lt;felaktig&gt;</string>
-    <string name="action_post_failed_detail_plural">Uppladdning av dina inlägg misslyckades och de har sparats i utkast.
-\n
-\nAntingen kunde inte servern nås eller så har uppladdningen nekats.</string>
-    <string name="action_post_failed_do_nothing">Stäng</string>
     <string name="description_login">Fungerar i de flesta fallen. Ingen information läcker till andra applikationer.</string>
     <string name="dialog_follow_hashtag_title">Följ hashtagg</string>
     <string name="dialog_follow_hashtag_hint">#hashtagg</string>
