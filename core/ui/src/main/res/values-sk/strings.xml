@@ -121,7 +121,7 @@
     <string name="translating">Prekladám…</string>
     <string name="translation_provider_fmt">%1$s</string>
     <string name="description_post_edited">Upravené</string>
-    <string name="description_post_reblogged">Zdielaný</string>
+    <string name="description_post_reblogged">Zdieľaný</string>
     <string name="description_post_favourited">Obľúbené</string>
     <string name="description_post_bookmarked">Pridané do záložiek</string>
     <string name="description_post_media">Média %1$s</string>
