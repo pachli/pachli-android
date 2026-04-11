@@ -130,7 +130,7 @@ internal class MainViewModel @Inject constructor(
     )
 
     /** Flow that emits whenever one of [watchedPrefs] changes. */
-    val prefChangesFlow = sharedPreferencesRepository.changes.filter { watchedPrefs.contains(it) }.onStart { emit(null) }
+    private val prefChangesFlow = sharedPreferencesRepository.changes.filter { watchedPrefs.contains(it) }.onStart { emit(null) }
 
     /** Flow that emits a count of drafts. */
     val draftsCount = pachliAccountId.flatMapLatest {
