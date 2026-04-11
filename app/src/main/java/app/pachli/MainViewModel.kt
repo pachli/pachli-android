@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.core.data.model.Server
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.DraftsRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Timeline
@@ -104,6 +105,7 @@ data class UiState(
 internal class MainViewModel @Inject constructor(
     private val accountManager: AccountManager,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
+    private val draftsRepository: DraftsRepository,
 ) : ViewModel() {
     val pachliAccountId = MutableSharedFlow<Long>(replay = 1)
 
@@ -129,6 +131,11 @@ internal class MainViewModel @Inject constructor(
 
     /** Flow that emits whenever one of [watchedPrefs] changes. */
     val prefChangesFlow = sharedPreferencesRepository.changes.filter { watchedPrefs.contains(it) }.onStart { emit(null) }
+
+    /** Flow that emits a count of drafts. */
+    val draftsCount = pachliAccountId.flatMapLatest {
+        draftsRepository.countDrafts(it)
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
 
     val uiState =
         combine(
