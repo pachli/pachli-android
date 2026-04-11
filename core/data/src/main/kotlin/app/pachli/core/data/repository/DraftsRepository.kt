@@ -124,6 +124,8 @@ class DraftsRepository @Inject constructor(
     fun resetEditingState() = externalScope.launch {
         draftDao.resetEditingState()
     }
+
+    fun countDrafts(pachliAccountId: Long) = draftDao.countDrafts(pachliAccountId)
 }
 
 private fun Draft.asEntity(pachliAccountId: Long) = DraftEntity(

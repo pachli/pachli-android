@@ -25,6 +25,7 @@ import androidx.room.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.DraftEntity
 import app.pachli.core.model.Draft
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 @TypeConverters(Converters::class)
@@ -108,4 +109,14 @@ WHERE state = "EDITING"
         """,
     )
     suspend fun resetEditingState()
+
+    /** Flow counting the number of drafts owned by [pachliAccountId]. */
+    @Query(
+        """
+SELECT COUNT(*)
+FROM DraftEntity
+WHERE pachliAccountId = :pachliAccountId
+        """,
+    )
+    fun countDrafts(pachliAccountId: Long): Flow<Int>
 }
