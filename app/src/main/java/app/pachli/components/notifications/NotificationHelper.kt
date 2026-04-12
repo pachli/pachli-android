@@ -62,6 +62,7 @@ import app.pachli.core.model.Notification
 import app.pachli.core.model.RelationshipSeveranceEvent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.IntentRouterActivityIntent
+import app.pachli.core.navigation.pendingIntentFlags
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.buildDescription
 import app.pachli.core.ui.calculatePercent
@@ -914,14 +915,6 @@ private fun bodyForType(
 
         Notification.Type.UNKNOWN -> return null
         Notification.Type.UPDATE -> return null
-    }
-}
-
-fun pendingIntentFlags(mutable: Boolean): Int {
-    return if (mutable) {
-        PendingIntent.FLAG_UPDATE_CURRENT or if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_MUTABLE else 0
-    } else {
-        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
     }
 }
 

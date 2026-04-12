@@ -34,12 +34,7 @@ import java.io.IOException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.Call
-import okhttp3.MediaType
 import okhttp3.Request
-import okhttp3.RequestBody
-import okio.Buffer
-import okio.BufferedSink
-import okio.FileNotFoundException
 import okio.buffer
 import okio.sink
 import okio.source
@@ -150,45 +145,5 @@ private suspend fun Uri.saveToFile(contentResolver: ContentResolver, file: File)
         } ?: Err(SaveUriError.ContentProviderCrash)
     } catch (ex: IOException) {
         return@withContext Err(SaveUriError.IO(ex))
-    }
-}
-
-// Aligned with okio.Segment.SIZE (internal) for better performance
-private const val DEFAULT_CHUNK_SIZE = 8192L
-
-fun interface UploadCallback {
-    fun onProgressUpdate(percentage: Int)
-}
-
-suspend fun Uri.asRequestBody(
-    contentResolver: ContentResolver,
-    contentType: MediaType? = null,
-    contentLength: Long = -1L,
-    uploadListener: UploadCallback? = null,
-): RequestBody = withContext(Dispatchers.IO) {
-    return@withContext object : RequestBody() {
-        override fun contentType(): MediaType? = contentType
-
-        override fun contentLength(): Long = contentLength
-
-        override fun writeTo(sink: BufferedSink) {
-            val buffer = Buffer()
-            var uploaded: Long = 0
-            val inputStream = contentResolver.openInputStream(this@asRequestBody)
-                ?: throw FileNotFoundException("Unavailable ContentProvider")
-
-            inputStream.source().use { source ->
-                while (true) {
-                    val read = source.read(buffer, DEFAULT_CHUNK_SIZE)
-                    if (read == -1L) {
-                        break
-                    }
-                    sink.write(buffer, read)
-                    uploaded += read
-                    uploadListener?.let { if (contentLength > 0L) it.onProgressUpdate((100L * uploaded / contentLength).toInt()) }
-                }
-                uploadListener?.onProgressUpdate(100)
-            }
-        }
     }
 }

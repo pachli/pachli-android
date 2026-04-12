@@ -1,4 +1,4 @@
-package app.pachli.service
+package app.pachli.core.sendstatus
 
 import android.annotation.SuppressLint
 import android.app.Notification
@@ -18,9 +18,6 @@ import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 import androidx.core.content.IntentCompat
-import app.pachli.R
-import app.pachli.components.compose.MediaUploader
-import app.pachli.components.notifications.pendingIntentFlags
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.DraftsRepository
@@ -34,6 +31,7 @@ import app.pachli.core.model.Draft
 import app.pachli.core.model.MediaAttribute
 import app.pachli.core.model.NewStatus
 import app.pachli.core.navigation.IntentRouterActivityIntent
+import app.pachli.core.navigation.pendingIntentFlags
 import app.pachli.core.network.model.asNetworkModel
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
@@ -437,7 +435,7 @@ class SendStatusService : Service() {
         /** Tag assigned to notifications about status saved to drafts. */
         // Assigned to notifications in this code, used in `DraftActivity` to
         // clear notifications, because the user can see the drafts with errors.
-        const val TAG_SAVED_TO_DRAFTS = "app.pachli.service.SendStatusService.SAVED_TO_DRAFTS"
+        const val TAG_SAVED_TO_DRAFTS = "app.pachli.core.sendstatus.SendStatusService.SAVED_TO_DRAFTS"
 
         private val MAX_RETRY_INTERVAL = TimeUnit.MINUTES.toMillis(1)
 

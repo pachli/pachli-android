@@ -158,6 +158,7 @@ dependencies {
     implementation(projects.core.navigation)
     implementation(projects.core.network)
     implementation(projects.core.preferences)
+    implementation(projects.core.sendstatus)
     implementation(projects.core.ui)
     implementation(projects.core.worker)
 

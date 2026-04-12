@@ -14,7 +14,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.components.compose
+package app.pachli.core.sendstatus
 
 import android.content.ContentResolver
 import android.content.Context
@@ -25,25 +25,26 @@ import android.os.Environment
 import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
-import app.pachli.BuildConfig
-import app.pachli.R
-import app.pachli.components.compose.ComposeActivity.QueuedMedia
-import app.pachli.components.compose.MediaUploaderError.PrepareMediaError
-import app.pachli.components.compose.UploadState.Uploaded
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.string.randomAlphanumericString
 import app.pachli.core.common.util.MEDIA_SIZE_UNKNOWN
 import app.pachli.core.common.util.formatNumber
 import app.pachli.core.common.util.getImageSquarePixels
 import app.pachli.core.common.util.getMediaSize
+import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.model.Attachment
 import app.pachli.core.model.InstanceInfo
+import app.pachli.core.network.extensions.asRequestBody
 import app.pachli.core.network.model.MediaUploadApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
-import app.pachli.util.asRequestBody
+import app.pachli.core.sendstatus.MediaUploaderError.PrepareMediaError
+import app.pachli.core.sendstatus.UploadState.Uploaded
+import app.pachli.core.sendstatus.UploadState.Uploading
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.get
+import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.runCatching
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -71,6 +72,59 @@ import okio.buffer
 import okio.sink
 import okio.source
 import timber.log.Timber
+
+/**
+ * Media queued for upload.
+ *
+ * @param account
+ * @param localId Pachli identifier for this media, while it's queued.
+ * @param uri Local URI for this media on device.
+ * @param type Media's [Type].
+ * @param mediaSize Media size in bytes, or [app.pachli.core.common.util.MEDIA_SIZE_UNKNOWN]. See [getMediaSize].
+ * @param description
+ * @param focus
+ * @param uploadState
+ */
+data class QueuedMedia(
+    val account: AccountEntity,
+    val localId: Int,
+    val uri: Uri,
+    val type: Type,
+    val mediaSize: Long,
+    val description: String? = null,
+    val focus: Attachment.Focus? = null,
+    val uploadState: Result<UploadState, MediaUploaderError>,
+) {
+    enum class Type {
+        IMAGE,
+        VIDEO,
+        AUDIO,
+    }
+
+    /**
+     * Server's ID for this attachment. May be null if the media is still
+     * being uploaded, or it was uploaded and there was an error that
+     * meant it couldn't be processed. Attachments that have an error
+     * *after* processing have a non-null `serverId`.
+     */
+    val serverId: String?
+        get() = uploadState.mapBoth(
+            { state ->
+                when (state) {
+                    is Uploading -> null
+                    is Uploaded.Processing -> state.serverId
+                    is Uploaded.Processed -> state.serverId
+                    is Uploaded.Published -> state.serverId
+                }
+            },
+            { error ->
+                when (error) {
+                    is MediaUploaderError.UpdateMediaError -> error.serverId
+                    else -> null
+                }
+            },
+        )
+}
 
 /**
  * Media that has been prepared for uploading.
@@ -320,7 +374,8 @@ class MediaUploader @Inject constructor(
                         file.absoluteFile.sink().buffer().use { it.writeAll(input) }
                         uri = FileProvider.getUriForFile(
                             context,
-                            BuildConfig.APPLICATION_ID + ".fileprovider",
+                            // Equivalent to BuildConfig.APPLICATION_ID
+                            context.packageName + ".fileprovider",
                             file,
                         )
                         mediaSize = getMediaSize(contentResolver, uri)
@@ -338,7 +393,8 @@ class MediaUploader @Inject constructor(
                     }
                     uri = FileProvider.getUriForFile(
                         context,
-                        BuildConfig.APPLICATION_ID + ".fileprovider",
+                        // Equivalent to BuildConfig.APPLICATION_ID
+                        context.packageName + ".fileprovider",
                         file,
                     )
                     mediaSize = getMediaSize(contentResolver, uri)
@@ -423,11 +479,11 @@ class MediaUploader @Inject constructor(
             var lastProgress = -1
             val fileBody = media.uri.asRequestBody(
                 contentResolver,
-                requireNotNull(mimeType!!.toMediaTypeOrNull()) { "Invalid Content Type" },
+                requireNotNull(mimeType.toMediaTypeOrNull()) { "Invalid Content Type" },
                 media.mediaSize,
             ) { percentage ->
                 if (percentage != lastProgress) {
-                    trySend(Ok(UploadState.Uploading(percentage)))
+                    trySend(Ok(Uploading(percentage)))
                 }
                 lastProgress = percentage
             }

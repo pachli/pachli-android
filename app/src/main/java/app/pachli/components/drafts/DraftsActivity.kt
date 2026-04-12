@@ -44,13 +44,13 @@ import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.retrofit.apiresult.ClientError
+import app.pachli.core.sendstatus.SendStatusService
 import app.pachli.core.ui.AlertSuspendDialogFragment
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.appbar.FadeChildScrollEffect
 import app.pachli.core.ui.extensions.addScrollEffect
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.ActivityDraftsBinding
-import app.pachli.service.SendStatusService
 import com.gaelmarhic.quadrant.QuadrantConstants
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess

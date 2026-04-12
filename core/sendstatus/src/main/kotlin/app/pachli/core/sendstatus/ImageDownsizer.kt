@@ -14,7 +14,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.components.compose
+package app.pachli.core.sendstatus
 
 import android.content.ContentResolver
 import android.graphics.Bitmap.CompressFormat
