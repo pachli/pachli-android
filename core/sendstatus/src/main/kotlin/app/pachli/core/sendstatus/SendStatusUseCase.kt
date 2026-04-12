@@ -30,4 +30,11 @@ class SendStatusUseCase @Inject constructor(
         val intent = SendStatusService.sendStatusIntent(context, statusToSend)
         ContextCompat.startForegroundService(context, intent)
     }
+
+    companion object {
+        /** Tag assigned to notifications about status saved to drafts. */
+        // Assigned to notifications in SendStatusService, used in `DraftActivity` to
+        // clear notifications, because the user can see the drafts with errors.
+        const val TAG_SAVED_TO_DRAFTS = "app.pachli.core.sendstatus.SendStatusService.SAVED_TO_DRAFTS"
+    }
 }

@@ -223,7 +223,7 @@ suspend fun createNewImageFile(context: Context, suffix: String = ".jpg"): File 
 }
 
 @Singleton
-internal class MediaUploader @Inject constructor(
+class MediaUploader @Inject constructor(
     @ApplicationContext private val context: Context,
     private val mediaUploadApi: MediaUploadApi,
 ) {

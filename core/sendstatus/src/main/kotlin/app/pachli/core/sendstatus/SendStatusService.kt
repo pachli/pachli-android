@@ -33,6 +33,7 @@ import app.pachli.core.navigation.pendingIntentFlags
 import app.pachli.core.network.model.asNetworkModel
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
+import app.pachli.core.sendstatus.SendStatusUseCase.Companion.TAG_SAVED_TO_DRAFTS
 import app.pachli.core.sendstatus.model.StatusToSend
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.onFailure
@@ -429,11 +430,6 @@ internal class SendStatusService : Service() {
         private const val KEY_STATUS = "status"
         private const val KEY_CANCEL = "cancel_id"
         private const val CHANNEL_ID = "send_toots"
-
-        /** Tag assigned to notifications about status saved to drafts. */
-        // Assigned to notifications in this code, used in `DraftActivity` to
-        // clear notifications, because the user can see the drafts with errors.
-        const val TAG_SAVED_TO_DRAFTS = "app.pachli.core.sendstatus.SendStatusService.SAVED_TO_DRAFTS"
 
         private val MAX_RETRY_INTERVAL = TimeUnit.MINUTES.toMillis(1)
 

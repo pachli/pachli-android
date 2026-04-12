@@ -40,7 +40,7 @@ import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.DraftsRepository
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Draft
-import app.pachli.core.sendstatus.SendStatusService
+import app.pachli.core.sendstatus.SendStatusUseCase
 import app.pachli.core.sendstatus.model.StatusToSend
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -60,6 +60,9 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
 
     @Inject
     lateinit var draftsRepository: DraftsRepository
+
+    @Inject
+    lateinit var sendStatus: SendStatusUseCase
 
     override fun onReceive(context: Context, intent: Intent) {
         // Bail unless the user used the "quick reply" feature on a notification.
@@ -96,8 +99,7 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
                 ),
             )
 
-            val sendIntent = SendStatusService.sendStatusIntent(
-                context,
+            sendStatus(
                 StatusToSend(
                     draft = finalDraft,
                     media = emptyList(),
@@ -106,8 +108,6 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
                     retries = 0,
                 ),
             )
-
-            context.startService(sendIntent)
 
             if (ActivityCompat.checkSelfPermission(context, POST_NOTIFICATIONS) != PERMISSION_GRANTED) {
                 return@launch
