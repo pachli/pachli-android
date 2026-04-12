@@ -18,6 +18,8 @@ package app.pachli.service
 
 import android.content.Context
 import androidx.core.content.ContextCompat
+import app.pachli.core.sendstatus.SendStatusService
+import app.pachli.core.sendstatus.StatusToSend
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 

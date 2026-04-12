@@ -26,8 +26,8 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import androidx.annotation.OptIn
 import androidx.core.util.TypedValueCompat.dpToPx
-import app.pachli.components.compose.MediaUploaderError
-import app.pachli.components.compose.UploadState
+import app.pachli.core.sendstatus.MediaUploaderError
+import app.pachli.core.sendstatus.UploadState
 import app.pachli.core.ui.MediaPreviewImageView
 import app.pachli.core.ui.makeIcon
 import com.github.michaelbull.result.Ok
