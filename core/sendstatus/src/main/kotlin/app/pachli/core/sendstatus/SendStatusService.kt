@@ -12,7 +12,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
-import android.os.Parcelable
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
@@ -26,7 +25,6 @@ import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.StatusComposedEvent
 import app.pachli.core.eventhub.StatusEditedEvent
 import app.pachli.core.eventhub.StatusScheduledEvent
-import app.pachli.core.model.Attachment
 import app.pachli.core.model.Draft
 import app.pachli.core.model.MediaAttribute
 import app.pachli.core.model.NewStatus
@@ -35,6 +33,7 @@ import app.pachli.core.navigation.pendingIntentFlags
 import app.pachli.core.network.model.asNetworkModel
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
+import app.pachli.core.sendstatus.model.StatusToSend
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -50,12 +49,11 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.parcelize.Parcelize
 import retrofit2.HttpException
 import timber.log.Timber
 
 @AndroidEntryPoint
-class SendStatusService : Service() {
+internal class SendStatusService : Service() {
 
     @Inject
     lateinit var mastodonApi: MastodonApi
@@ -471,23 +469,3 @@ class SendStatusService : Service() {
         }
     }
 }
-
-@Parcelize
-data class StatusToSend(
-    val draft: Draft,
-    val media: List<MediaToSend>,
-    val pachliAccountId: Long,
-    val idempotencyKey: String,
-    var retries: Int,
-) : Parcelable
-
-@Parcelize
-data class MediaToSend(
-    val localId: Int,
-    // null if media is not yet completely uploaded
-    val id: String?,
-    val uri: String,
-    val description: String?,
-    val focus: Attachment.Focus?,
-    var processed: Boolean,
-) : Parcelable

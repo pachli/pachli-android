@@ -15,19 +15,19 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.core.sendstatus
+package app.pachli.core.sendstatus.model
 
-import android.content.Context
-import androidx.core.content.ContextCompat
-import app.pachli.core.sendstatus.model.StatusToSend
-import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
+import android.os.Parcelable
+import app.pachli.core.model.Attachment
+import kotlinx.parcelize.Parcelize
 
-class SendStatusUseCase @Inject constructor(
-    @ApplicationContext private val context: Context,
-) {
-    operator fun invoke(statusToSend: StatusToSend) {
-        val intent = SendStatusService.sendStatusIntent(context, statusToSend)
-        ContextCompat.startForegroundService(context, intent)
-    }
-}
+@Parcelize
+data class MediaToSend(
+    val localId: Int,
+    // null if media is not yet completely uploaded
+    val id: String?,
+    val uri: String,
+    val description: String?,
+    val focus: Attachment.Focus?,
+    var processed: Boolean,
+) : Parcelable

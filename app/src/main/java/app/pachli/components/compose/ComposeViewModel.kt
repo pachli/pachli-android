@@ -56,14 +56,14 @@ import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.ShowSelfUsername
-import app.pachli.core.sendstatus.MediaToSend
 import app.pachli.core.sendstatus.MediaUploader
 import app.pachli.core.sendstatus.MediaUploaderError
-import app.pachli.core.sendstatus.QueuedMedia
 import app.pachli.core.sendstatus.SendStatusUseCase
-import app.pachli.core.sendstatus.StatusToSend
 import app.pachli.core.sendstatus.UploadState
 import app.pachli.core.sendstatus.UploadState.Uploaded
+import app.pachli.core.sendstatus.model.MediaToSend
+import app.pachli.core.sendstatus.model.QueuedMedia
+import app.pachli.core.sendstatus.model.StatusToSend
 import app.pachli.core.ui.MentionSpan
 import app.pachli.util.SaveUriError
 import app.pachli.util.isInDirectory

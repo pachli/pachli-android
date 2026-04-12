@@ -15,19 +15,15 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.core.sendstatus
+package app.pachli.core.sendstatus.model
 
-import android.content.Context
-import androidx.core.content.ContextCompat
-import app.pachli.core.sendstatus.model.StatusToSend
-import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
+import android.net.Uri
 
-class SendStatusUseCase @Inject constructor(
-    @ApplicationContext private val context: Context,
-) {
-    operator fun invoke(statusToSend: StatusToSend) {
-        val intent = SendStatusService.sendStatusIntent(context, statusToSend)
-        ContextCompat.startForegroundService(context, intent)
-    }
-}
+/**
+ * Media that has been prepared for uploading.
+ *
+ * @param type file's general type (image, video, etc)
+ * @param uri content URI for the prepared media file
+ * @param size size of the media file, in bytes
+ */
+data class PreparedMedia(val type: QueuedMedia.Type, val uri: Uri, val size: Long)

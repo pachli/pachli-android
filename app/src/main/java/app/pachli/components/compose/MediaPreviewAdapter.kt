@@ -45,9 +45,9 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.model.Attachment
 import app.pachli.core.sendstatus.MediaUploaderError
-import app.pachli.core.sendstatus.QueuedMedia
 import app.pachli.core.sendstatus.UploadState
 import app.pachli.core.sendstatus.UploadState.Uploaded
+import app.pachli.core.sendstatus.model.QueuedMedia
 import app.pachli.databinding.ItemComposeMediaAttachmentBinding
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy

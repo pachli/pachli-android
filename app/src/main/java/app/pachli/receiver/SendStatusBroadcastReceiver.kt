@@ -41,7 +41,7 @@ import app.pachli.core.data.repository.DraftsRepository
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Draft
 import app.pachli.core.sendstatus.SendStatusService
-import app.pachli.core.sendstatus.StatusToSend
+import app.pachli.core.sendstatus.model.StatusToSend
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope

@@ -31,8 +31,6 @@ import app.pachli.core.common.util.MEDIA_SIZE_UNKNOWN
 import app.pachli.core.common.util.formatNumber
 import app.pachli.core.common.util.getImageSquarePixels
 import app.pachli.core.common.util.getMediaSize
-import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.model.Attachment
 import app.pachli.core.model.InstanceInfo
 import app.pachli.core.network.extensions.asRequestBody
 import app.pachli.core.network.model.MediaUploadApi
@@ -40,11 +38,12 @@ import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.core.sendstatus.MediaUploaderError.PrepareMediaError
 import app.pachli.core.sendstatus.UploadState.Uploaded
 import app.pachli.core.sendstatus.UploadState.Uploading
+import app.pachli.core.sendstatus.model.PreparedMedia
+import app.pachli.core.sendstatus.model.QueuedMedia
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.get
-import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.runCatching
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -72,68 +71,6 @@ import okio.buffer
 import okio.sink
 import okio.source
 import timber.log.Timber
-
-/**
- * Media queued for upload.
- *
- * @param account
- * @param localId Pachli identifier for this media, while it's queued.
- * @param uri Local URI for this media on device.
- * @param type Media's [Type].
- * @param mediaSize Media size in bytes, or [app.pachli.core.common.util.MEDIA_SIZE_UNKNOWN]. See [getMediaSize].
- * @param description
- * @param focus
- * @param uploadState
- */
-data class QueuedMedia(
-    val account: AccountEntity,
-    val localId: Int,
-    val uri: Uri,
-    val type: Type,
-    val mediaSize: Long,
-    val description: String? = null,
-    val focus: Attachment.Focus? = null,
-    val uploadState: Result<UploadState, MediaUploaderError>,
-) {
-    enum class Type {
-        IMAGE,
-        VIDEO,
-        AUDIO,
-    }
-
-    /**
-     * Server's ID for this attachment. May be null if the media is still
-     * being uploaded, or it was uploaded and there was an error that
-     * meant it couldn't be processed. Attachments that have an error
-     * *after* processing have a non-null `serverId`.
-     */
-    val serverId: String?
-        get() = uploadState.mapBoth(
-            { state ->
-                when (state) {
-                    is Uploading -> null
-                    is Uploaded.Processing -> state.serverId
-                    is Uploaded.Processed -> state.serverId
-                    is Uploaded.Published -> state.serverId
-                }
-            },
-            { error ->
-                when (error) {
-                    is MediaUploaderError.UpdateMediaError -> error.serverId
-                    else -> null
-                }
-            },
-        )
-}
-
-/**
- * Media that has been prepared for uploading.
- *
- * @param type file's general type (image, video, etc)
- * @param uri content URI for the prepared media file
- * @param size size of the media file, in bytes
- */
-data class PreparedMedia(val type: QueuedMedia.Type, val uri: Uri, val size: Long)
 
 /* Errors that can be returned when uploading media. */
 sealed interface MediaUploaderError : PachliError {
@@ -286,7 +223,7 @@ suspend fun createNewImageFile(context: Context, suffix: String = ".jpg"): File 
 }
 
 @Singleton
-class MediaUploader @Inject constructor(
+internal class MediaUploader @Inject constructor(
     @ApplicationContext private val context: Context,
     private val mediaUploadApi: MediaUploadApi,
 ) {

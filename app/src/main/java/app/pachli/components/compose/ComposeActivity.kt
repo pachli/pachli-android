@@ -102,8 +102,8 @@ import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.Referenci
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.PronounDisplay
-import app.pachli.core.sendstatus.QueuedMedia
 import app.pachli.core.sendstatus.createNewImageFile
+import app.pachli.core.sendstatus.model.QueuedMedia
 import app.pachli.core.ui.EmojiSpan
 import app.pachli.core.ui.clearDragAnimator
 import app.pachli.core.ui.emojify
