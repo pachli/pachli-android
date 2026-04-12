@@ -1,4 +1,5 @@
-/* Copyright 2019 Tusky Contributors
+/*
+ * Copyright (c) 2026 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -14,19 +15,17 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.service
+package app.pachli.core.sendstatus
 
 import android.content.Context
 import androidx.core.content.ContextCompat
-import app.pachli.core.sendstatus.SendStatusService
-import app.pachli.core.sendstatus.StatusToSend
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class ServiceClient @Inject constructor(
+class SendStatusUseCase @Inject constructor(
     @ApplicationContext private val context: Context,
 ) {
-    fun sendToot(tootToSend: StatusToSend) {
+    operator fun invoke(tootToSend: StatusToSend) {
         val intent = SendStatusService.sendStatusIntent(context, tootToSend)
         ContextCompat.startForegroundService(context, intent)
     }

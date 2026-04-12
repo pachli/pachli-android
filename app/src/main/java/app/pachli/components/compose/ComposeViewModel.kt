@@ -60,11 +60,11 @@ import app.pachli.core.sendstatus.MediaToSend
 import app.pachli.core.sendstatus.MediaUploader
 import app.pachli.core.sendstatus.MediaUploaderError
 import app.pachli.core.sendstatus.QueuedMedia
+import app.pachli.core.sendstatus.SendStatusUseCase
 import app.pachli.core.sendstatus.StatusToSend
 import app.pachli.core.sendstatus.UploadState
 import app.pachli.core.sendstatus.UploadState.Uploaded
 import app.pachli.core.ui.MentionSpan
-import app.pachli.service.ServiceClient
 import app.pachli.util.SaveUriError
 import app.pachli.util.isInDirectory
 import app.pachli.util.saveToDirectory
@@ -170,7 +170,7 @@ class ComposeViewModel @AssistedInject constructor(
     private val api: MastodonApi,
     private val accountManager: AccountManager,
     private val mediaUploader: MediaUploader,
-    private val serviceClient: ServiceClient,
+    private val sendStatus: SendStatusUseCase,
     instanceInfoRepo: InstanceInfoRepository,
     serverRepository: ServerRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
@@ -770,7 +770,7 @@ class ComposeViewModel @AssistedInject constructor(
             retries = 0,
         )
 
-        serviceClient.sendToot(tootToSend)
+        sendStatus(tootToSend)
 
         return Ok(draft)
     }
