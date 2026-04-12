@@ -386,7 +386,7 @@ class ComposeViewModel @AssistedInject constructor(
     /** Errors preparing media for upload. */
     sealed interface PickMediaError : PachliError {
         @JvmInline
-        value class PrepareMediaError(val error: MediaUploaderError.PrepareMediaError) : PickMediaError, MediaUploaderError.PrepareMediaError by error
+        value class PrepareMediaError(val error: MediaUploaderError.PrepareMediaError) : PickMediaError, PachliError by error
 
         /**
          * User is trying to add an image to a post that already has a video
