@@ -148,11 +148,6 @@
     <string name="emoji_style">Estilo dos emoji</string>
     <string name="error_no_custom_emojis">A túa instancia %1$s non ten emojis personalizados</string>
     <string name="action_compose_shortcut">Redactar</string>
-    <string name="send_post_notification_saved_content">Gardouse unha copia do toot nos borradores</string>
-    <string name="send_post_notification_cancel_title">Envío cancelado</string>
-    <string name="send_post_notification_channel_name">Enviando Toots</string>
-    <string name="send_post_notification_error_title">Erro ao enviar o toot</string>
-    <string name="send_post_notification_title">Enviando Toot…</string>
     <string name="compose_save_draft">Gardar borrador\?</string>
     <string name="lock_account_label_description">Require que aprobes manualmente as seguidoras</string>
     <string name="lock_account_label">Bloquear conta</string>
@@ -501,14 +496,7 @@
     <string name="compose_warn_language_dialog_title">Comprobar idioma da publicación</string>
     <string name="compose_warn_language_dialog_fmt">O idioma da publicación estableceuse como %1$s pero podería estar escrito en %2$s.</string>
     <string name="compose_warn_language_dialog_change_language_fmt">Cambiar o idioma a %1$s e publicar</string>
-    <string name="error_media_uploader_upload_not_found_fmt">non se atopou o multimedia subido con ID %1$s</string>
     <string name="compose_warn_language_dialog_accept_language_fmt">Publicar tal como está (%1$s)</string>
-    <string name="error_prepare_media_content_resolver_missing_path_fmt">ao resolutor da URI do contido fáltalle unha ruta: %1$s</string>
-    <string name="error_prepare_media_io_fmt">%1$s</string>
-    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">o resolutor da URI do cotido non é compatible co esquema: %1$s</string>
-    <string name="error_prepare_media_file_is_too_large_fmt">tamaño do ficheiro %1$s, o máximo permitido é %2$s</string>
-    <string name="error_prepare_media_unknown_mime_type">tipo de ficheiro descoñecido</string>
-    <string name="error_prepare_media_unsupported_mime_type_fmt">o servidor non é compatible co tipo de ficheiro: %1$s</string>
     <string name="error_pick_media_fmt">Non se anexou o ficheiro á publicación: %1$s</string>
     <string name="error_save_filter_failed_fmt">Non se gardou o filtro: %1$s</string>
     <string name="search_operator_attachment_dialog_image_label">Imaxes</string>
@@ -567,7 +555,6 @@
     <string name="pref_update_next_scheduled_check">Próxima comprobación: %1$s</string>
     <string name="action_open_byline_account">Ver o perfil da autora do artigo</string>
     <string name="pref_title_update_check_now">Comprobar agora actualizacións</string>
-    <string name="error_prepare_media_unknown_file_size">non se puido calcular o tamaño</string>
     <string name="action_open_link">Abrir ligazón</string>
     <string name="search_operator_attachment_has_media_except_1_label_fmt">Calquera menos %1$s</string>
     <string name="search_operator_attachment_has_media_label">Polo menos un anexo</string>

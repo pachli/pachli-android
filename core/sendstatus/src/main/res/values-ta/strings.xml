@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_prepare_media_content_resolver_missing_path_fmt">உள்ளடக்க தீர்வி யூரி ஒரு பாதையை காணவில்லை: %1$s</string>
+    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">உள்ளடக்க தீர்வி யூரி ஆதரிக்கப்படாத திட்டத்தைக் கொண்டுள்ளது: %1$s</string>
+    <string name="error_prepare_media_io_fmt">%1$s</string>
+    <string name="error_prepare_media_file_is_too_large_fmt">கோப்பு அளவு %1$s, அதிகபட்சம் அனுமதிக்கப்பட்டுள்ளது %2$s</string>
+    <string name="error_prepare_media_unknown_file_size">கோப்பு அளவை தீர்மானிக்க முடியவில்லை</string>
+    <string name="error_prepare_media_unsupported_mime_type_fmt">சேவையகம் கோப்பு வகையை ஆதரிக்காது: %1$s</string>
+    <string name="error_prepare_media_unknown_mime_type">கோப்பின் வகை தெரியவில்லை</string>
+    <string name="error_media_uploader_upload_not_found_fmt">ஐடி %1$s உடன் மீடியா பதிவேற்றம் காணப்படவில்லை</string>
+    <string name="send_post_notification_channel_name">Toots அனுப்பபடுகிறது</string>
+    <string name="send_post_notification_title">Toot அனுப்பபடுகிறது…</string>
+    <string name="send_post_notification_error_title">Toot அனுப்புவதில் பிழை</string>
+    <string name="send_post_notification_saved_content">நகலெடுக்கபட்ட toot வரைவில் சேமிக்கபட்டது</string>
+    <string name="send_post_notification_cancel_title">Toot அனுப்பபல் நீக்கபட்டது</string>
+</resources>

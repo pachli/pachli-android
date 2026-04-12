@@ -192,11 +192,6 @@
     <string name="lock_account_label">Uzamknout účet</string>
     <string name="lock_account_label_description">Vyžaduje, abyste ručně schvaloval/a sledující</string>
     <string name="compose_save_draft">Uložit koncept?</string>
-    <string name="send_post_notification_title">Odesílám příspěvek…</string>
-    <string name="send_post_notification_error_title">Chyba při odesílání příspěvku</string>
-    <string name="send_post_notification_channel_name">Odesílám příspěvky</string>
-    <string name="send_post_notification_cancel_title">Odesílání bylo zrušeno</string>
-    <string name="send_post_notification_saved_content">Kopie vašeho příspěvku byla uložena do vašich konceptů</string>
     <string name="action_compose_shortcut">Napsat</string>
     <string name="error_no_custom_emojis">Vaše instance %1$s nemá žádná vlastní emoji</string>
     <string name="emoji_style">Styl emoji</string>

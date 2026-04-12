@@ -168,11 +168,6 @@
     <string name="lock_account_label">Zablokuj konto</string>
     <string name="lock_account_label_description">Wymaga od Ciebie ręcznej akceptacji próśb o obserwacje</string>
     <string name="compose_save_draft">Czy chcesz zapisać szkic?</string>
-    <string name="send_post_notification_title">Wysyłanie wpisu…</string>
-    <string name="send_post_notification_error_title">Wystąpił błąd podczas wysyłania wpisu</string>
-    <string name="send_post_notification_channel_name">Wysyłanie wpisów</string>
-    <string name="send_post_notification_cancel_title">Anulowano wysyłanie</string>
-    <string name="send_post_notification_saved_content">Kopia wpisu została zapisana jako szkic</string>
     <string name="action_compose_shortcut">Nowy wpis</string>
     <string name="error_no_custom_emojis">Twoja instancja %1$s nie używa żadnych niestandardowych emoji</string>
     <string name="emoji_style">Styl emoji</string>
@@ -482,11 +477,6 @@
     <string name="error_media_download">Nie udało się pobrać %1$s: %2$s</string>
     <string name="compose_warn_language_dialog_change_language_fmt">Zmień język na %1$s i opublikuj</string>
     <string name="compose_warn_language_dialog_accept_language_fmt">Wyślij bez zmiany (%1$s)</string>
-    <string name="error_media_uploader_upload_not_found_fmt">nie odnaleziono multimediów wgranych z ID %1$s</string>
-    <string name="error_prepare_media_io_fmt">%1$s</string>
-    <string name="error_prepare_media_file_is_too_large_fmt">rozmiar pliku to %1$s, maksymalny dozwolony to %2$s</string>
-    <string name="error_prepare_media_unknown_file_size">nie udało się ustalić rozmiaru pliku</string>
-    <string name="error_prepare_media_unknown_mime_type">nieznany typ pliku</string>
     <string name="error_pick_media_fmt">Nie udało się dołączenie pliku do wpisu: %1$s</string>
     <string name="action_add_to_tab">Dodaj do kart</string>
     <string name="error_filter_missing_context">Co najmniej jedno miejsce działania filtra jest wymagane</string>
@@ -525,7 +515,6 @@
     <string name="pref_notification_method_all_push">Wszystkie konta używają UnifiedPush. Dotknij po szczegóły.</string>
     <string name="pref_notification_battery_optimisation_is_disabled">Optymalizacja użycia baterii jest wyłączona.</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Wyślij bez zmiany (%1$s) i nie pytaj więcej</string>
-    <string name="error_prepare_media_content_resolver_missing_path_fmt">dostęp do danych się nie powiódł przez brak ścieżki: %1$s</string>
     <string name="action_open_byline_account">Pokaż profil osoby, która napisała artykuł</string>
     <string name="action_open_link">Otwórz odnośnik</string>
     <string name="search_operator_attachment_specific_media_include_1_fmt">Z %1$s</string>
@@ -666,8 +655,6 @@
     <string name="filter_keyword_display_format">%1$s (całe słowo)</string>
     <string name="search_operator_poll_dialog_only">Tylko wpisy z ankietami</string>
     <string name="pref_change_unified_push_distributor_msg">To wyczyści wybór dystrybutora UnifiedPush i zrestartuje Pachli.\n \nJeżeli jest zainstalowane kilka dystrybutorów UnifiedPush będzie trzeba wybrać jeden z nich.</string>
-    <string name="error_prepare_media_unsupported_mime_type_fmt">serwer nie wspiera plików typu: %1$s</string>
-    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">błąd w dostępie do danych przez nieobsługiwany schemat: %1$s</string>
     <string name="search_operator_embed_dialog_title">Pokazać wpisy z kartami podglądu?</string>
     <string name="search_operator_attachment_dialog_any_label">Jakiekolwiek</string>
     <string name="pref_title_public_filter_home_and_lists">Twoja oś czasu i listy</string>

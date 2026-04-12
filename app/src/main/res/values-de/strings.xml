@@ -188,11 +188,6 @@
     <string name="lock_account_label">Geschütztes Profil</string>
     <string name="lock_account_label_description">Follower müssen manuell genehmigt werden</string>
     <string name="compose_save_draft">Entwurf speichern?</string>
-    <string name="send_post_notification_title">Beitrag wird gesendet …</string>
-    <string name="send_post_notification_error_title">Fehler beim Senden</string>
-    <string name="send_post_notification_channel_name">Beiträge senden</string>
-    <string name="send_post_notification_cancel_title">Senden abgebrochen</string>
-    <string name="send_post_notification_saved_content">Eine Kopie des Beitrags wurde in deine Entwürfe gespeichert</string>
     <string name="action_compose_shortcut">Beitrag erstellen</string>
     <string name="error_no_custom_emojis">Deine Instanz %1$s hat keine Emojis definiert</string>
     <string name="emoji_style">Emoji-Stil</string>
@@ -580,14 +575,6 @@
     <string name="compose_warn_language_dialog_change_language_fmt">Sprache auf %1$s ändern und veröffentlichen</string>
     <string name="compose_warn_language_dialog_accept_language_fmt">In dieser Form veröffentlichen (%1$s)</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">In dieser Form veröffentlichen (%1$s) und nicht nochmal fragen</string>
-    <string name="error_media_uploader_upload_not_found_fmt">Medienupload mit der ID %1$s nicht gefunden</string>
-    <string name="error_prepare_media_content_resolver_missing_path_fmt">Der Inhaltsauflöser-URI fehlte ein Pfad: %1$s</string>
-    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">Die Inhaltsauflöser-URI hat ein nicht unterstütztes Schema: %1$s</string>
-    <string name="error_prepare_media_io_fmt">%1$s</string>
-    <string name="error_prepare_media_file_is_too_large_fmt">Dateigröße ist %1$s, maximal zulässig ist %2$s</string>
-    <string name="error_prepare_media_unknown_file_size">Dateigröße konnte nicht festgestellt werden</string>
-    <string name="error_prepare_media_unsupported_mime_type_fmt">Server unterstützt den Dateityp nicht: %1$s</string>
-    <string name="error_prepare_media_unknown_mime_type">Typ der Datei ist nicht bekannt</string>
     <string name="error_pick_media_fmt">Konnte die Datei nicht an den Beitrag anheften: %1$s</string>
     <string name="action_open_byline_account">Profil des Artikelautoren anzeigen</string>
     <string name="action_open_link">Link öffnen</string>

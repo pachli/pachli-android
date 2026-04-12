@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="send_post_notification_channel_name">ส่ง Toot</string>
+    <string name="send_post_notification_title">กำลังส่ง Toot…</string>
+    <string name="send_post_notification_error_title">การส่ง Toot เกิดข้อผิดผลาด</string>
+    <string name="send_post_notification_saved_content">สำเนา Toot บันทึกเป็นฉบับร่างแล้ว</string>
+    <string name="send_post_notification_cancel_title">การส่งถูกยกเลิก</string>
+</resources>

@@ -190,11 +190,6 @@
     <string name="lock_account_label">Protegir el compte</string>
     <string name="lock_account_label_description">S\'haurà d\'admetre els seguidors manualment</string>
     <string name="compose_save_draft">Guardar l\'esborrany\?</string>
-    <string name="send_post_notification_title">S\'està publicant…</string>
-    <string name="send_post_notification_error_title">Error en publicar</string>
-    <string name="send_post_notification_channel_name">S\'esatan enviant les publicacions</string>
-    <string name="send_post_notification_cancel_title">Envio anul·lat</string>
-    <string name="send_post_notification_saved_content">S\'ha guardat una còpia de la publicació als esborranys</string>
     <string name="action_compose_shortcut">Escriure</string>
     <string name="error_no_custom_emojis">La teva instància %1$s no te emojis personalitzats</string>
     <string name="emoji_style">Estil dels emojis</string>

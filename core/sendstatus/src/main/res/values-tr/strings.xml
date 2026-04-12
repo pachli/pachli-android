@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="send_post_notification_channel_name">Gönderiler Gönderiliyor</string>
+    <string name="send_post_notification_title">Gönderi gönderiliyor…</string>
+    <string name="send_post_notification_error_title">Gönderi gönderilirken hata oluştu</string>
+    <string name="send_post_notification_saved_content">Gönderinin bir kopyası taslaklara kaydedildi</string>
+    <string name="send_post_notification_cancel_title">Gönderme iptal edildi</string>
+</resources>

@@ -121,7 +121,7 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
                 .setGroup(senderFullName)
                 .setDefaults(0) // So it doesn't ring twice, notify only in Target callback
                 .setOnlyAlertOnce(true)
-                .setContentTitle(context.getString(R.string.send_post_notification_title))
+                .setContentTitle(context.getString(app.pachli.core.sendstatus.R.string.send_post_notification_title))
                 .setSubText(senderFullName)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setCategory(NotificationCompat.CATEGORY_SOCIAL)

@@ -202,11 +202,6 @@
     <string name="lock_account_label">Blocca account</string>
     <string name="lock_account_label_description">Richiede una tua approvazione manuale per seguirti</string>
     <string name="compose_save_draft">Salvare bozza?</string>
-    <string name="send_post_notification_title">Inviando il messaggio…</string>
-    <string name="send_post_notification_error_title">Errore durante l\'invio</string>
-    <string name="send_post_notification_channel_name">Invio messaggi</string>
-    <string name="send_post_notification_cancel_title">Invio annullato</string>
-    <string name="send_post_notification_saved_content">Una copia del messaggio è stata salvata nelle tue bozze</string>
     <string name="action_compose_shortcut">Componi</string>
     <string name="error_no_custom_emojis">La tua istanza %1$s non ha nessun emoji personalizzato</string>
     <string name="emoji_style">Stile delle emoji</string>
@@ -582,9 +577,6 @@
     <string name="action_manage_tabs">Gestisci schede</string>
     <string name="error_filter_missing_title">È richiesto il titolo</string>
     <string name="compose_warn_language_dialog_title">Controlla la lingua del post</string>
-    <string name="error_prepare_media_io_fmt">%1$s</string>
-    <string name="error_prepare_media_file_is_too_large_fmt">la dimensione del file è %1$s, il massimo consentito è di %2$s</string>
-    <string name="error_prepare_media_unsupported_mime_type_fmt">il server non supporta il tipo di file: %1$s</string>
     <string name="action_open_link">Apri link</string>
     <string name="search_operator_attachment_dialog_any_label">Qualsiasi tipo</string>
     <string name="search_operator_attachment_dialog_image_label">Immagini</string>

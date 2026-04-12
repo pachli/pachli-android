@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="send_post_notification_channel_name">Berichten worden verzonden</string>
+    <string name="send_post_notification_title">Bericht wordt verzonden…</string>
+    <string name="send_post_notification_error_title">Verzenden van het bericht is mislukt</string>
+    <string name="send_post_notification_saved_content">Een kopie van het bericht werd als concept opgeslagen</string>
+    <string name="send_post_notification_cancel_title">Verzenden geannuleerd</string>
+</resources>

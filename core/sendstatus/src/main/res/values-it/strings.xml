@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_prepare_media_io_fmt">%1$s</string>
+    <string name="error_prepare_media_file_is_too_large_fmt">la dimensione del file è %1$s, il massimo consentito è di %2$s</string>
+    <string name="error_prepare_media_unsupported_mime_type_fmt">il server non supporta il tipo di file: %1$s</string>
+    <string name="send_post_notification_channel_name">Invio messaggi</string>
+    <string name="send_post_notification_title">Inviando il messaggio…</string>
+    <string name="send_post_notification_error_title">Errore durante l\'invio</string>
+    <string name="send_post_notification_saved_content">Una copia del messaggio è stata salvata nelle tue bozze</string>
+    <string name="send_post_notification_cancel_title">Invio annullato</string>
+</resources>

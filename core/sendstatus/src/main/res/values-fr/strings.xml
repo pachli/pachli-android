@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_prepare_media_content_resolver_missing_path_fmt">Un chemin manquait à l\'URI du résolveur de contenu : %1$s</string>
+    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">L\'URI du résolveur de contenu a un schéma non supporté : %1$s</string>
+    <string name="error_prepare_media_io_fmt">%1$s</string>
+    <string name="error_prepare_media_file_is_too_large_fmt">le poids du fichier est de %1$s, mais la limite est de %2$s</string>
+    <string name="error_prepare_media_unknown_file_size">le poids du fichier n\'a pas pu être calculé</string>
+    <string name="error_prepare_media_unsupported_mime_type_fmt">le serveur ne supporte pas les fichiers de type %1$s</string>
+    <string name="error_prepare_media_unknown_mime_type">le type de fichier est inconnu</string>
+    <string name="error_media_uploader_upload_not_found_fmt">média envoyé avec l\'ID %1$s introuvable</string>
+    <string name="send_post_notification_channel_name">Envoi des messages</string>
+    <string name="send_post_notification_title">Envoi du message…</string>
+    <string name="send_post_notification_error_title">Erreur lors de l’envoi du message</string>
+    <string name="send_post_notification_saved_content">Une copie du message a été sauvegardée dans vos brouillons</string>
+    <string name="send_post_notification_cancel_title">Envoi annulé</string>
+</resources>

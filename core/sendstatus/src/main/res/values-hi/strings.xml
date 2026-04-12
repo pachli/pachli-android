@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="send_post_notification_channel_name">टूट भेज रहे</string>
+    <string name="send_post_notification_title">टूट भेज रहे…</string>
+    <string name="send_post_notification_error_title">टूट भेजने में त्रुटि</string>
+    <string name="send_post_notification_saved_content">टूट की एक प्रति आपके ड्राफ्ट में सहेज ली गई है</string>
+    <string name="send_post_notification_cancel_title">भेजना रद्द हो गया</string>
+</resources>

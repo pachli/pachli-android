@@ -173,11 +173,6 @@
     <string name="action_remove">Törlés</string>
     <string name="lock_account_label">Fiók zárolása</string>
     <string name="compose_save_draft">Elmented a piszkozatot\?</string>
-    <string name="send_post_notification_title">Bejegyzés küldése…</string>
-    <string name="send_post_notification_error_title">A bejegyzés elküldése sikertelen</string>
-    <string name="send_post_notification_channel_name">Bejegyzések elküldése</string>
-    <string name="send_post_notification_cancel_title">Küldés megszakítva</string>
-    <string name="send_post_notification_saved_content">A bejegyzés másolatát elmentettük a piszkozataid közé</string>
     <string name="action_compose_shortcut">Szerkesztés</string>
     <string name="error_no_custom_emojis">A %1$s példánynak nincsenek egyedi emoji-jai</string>
     <string name="emoji_style">Emoji stílus</string>

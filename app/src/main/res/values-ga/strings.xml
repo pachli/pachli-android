@@ -227,11 +227,6 @@
     <string name="lock_account_label">Cuntas glasála</string>
     <string name="lock_account_label_description">Éileofar ort leantóirí a cheadú de láimh</string>
     <string name="compose_save_draft">Sábháil dréacht\?</string>
-    <string name="send_post_notification_title">Postáil á sheoladh…</string>
-    <string name="send_post_notification_error_title">Earráid le postáil a sheoladh</string>
-    <string name="send_post_notification_channel_name">Postálacha a Sheoladh</string>
-    <string name="send_post_notification_cancel_title">Cealaíodh seoladh</string>
-    <string name="send_post_notification_saved_content">Sábháladh cóip den phostáil i do chuid dréachtaí</string>
     <string name="action_compose_shortcut">Cum</string>
     <string name="error_no_custom_emojis">Níl emoji-nna saincheaptha ag d\'ásc %1$s</string>
     <string name="emoji_style">Stíl Emoji</string>
@@ -434,11 +429,6 @@
     <string name="announcement_date">%1$s%2$s</string>
     <string name="saving_draft">Dréacht á shábháil…</string>
     <string name="accessibility_talking_about_tag">Tá daoine %1$d ag caint faoin haischlib %2$s</string>
-    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">tá scéim gan tacaíocht ag URI an réitíonn inneachair: %1$s</string>
-    <string name="error_prepare_media_io_fmt">%1$s</string>
-    <string name="error_prepare_media_file_is_too_large_fmt">méid an chomhaid %1$s, is é %2$s an t-uasmhéid a cheadaítear</string>
-    <string name="error_prepare_media_unsupported_mime_type_fmt">ní thacaíonn an freastalaí leis an gcineál comhaid: %1$s</string>
-    <string name="error_prepare_media_unknown_mime_type">níl cineál an chomhaid ar eolas</string>
     <string name="error_pick_media_fmt">Níorbh fhéidir comhad a cheangal leis an bpost: %1$s</string>
     <string name="ui_error_reblog_fmt">Theip ar threisiú an phoist: %1$s</string>
     <string name="ui_error_vote_fmt">Theip ar vótáil sa phobalbhreith: %1$s</string>
@@ -545,7 +535,6 @@
     <string name="error_media_playback">Theip ar athsheinm: %1$s</string>
     <string name="review_notifications">Fógraí Athbhreithnithe</string>
     <string name="a11y_label_loading_thread">Snáithe á luchtú</string>
-    <string name="error_prepare_media_unknown_file_size">níorbh fhéidir méid an chomhaid a chinneadh</string>
     <string name="pref_title_notification_filter_reports">Tá tuairisc nua ann</string>
     <string name="pref_title_wellbeing_mode">Folláine</string>
     <string name="drafts_post_reply_removed">Baineadh an post ar dhréachtaigh tú freagra air</string>
@@ -618,8 +607,6 @@
     <string name="filter_description_warn">Folaigh le rabhadh</string>
     <string name="label_filter_action">Scag gníomh</string>
     <string name="pref_title_change_unified_push_distributor">Athraigh dáileoir Brú Aontaithe</string>
-    <string name="error_media_uploader_upload_not_found_fmt">níor aimsíodh uaslódáil meán le haitheantas %1$s</string>
-    <string name="error_prepare_media_content_resolver_missing_path_fmt">bhí cosán in easnamh ar URI an réiteora inneachair: %1$s</string>
     <string name="pref_title_labs">Turgnaimh saotharlainne</string>
     <string name="pref_labs_warning">Is gnéithe turgnamhacha iad seo. Níl aon chinnteacht ann go n-oibríonn siad, nó go mbeidh siad san áireamh i leaganacha amach anseo. Bain úsáid as ar do phriacal féin.</string>
     <string name="pref_labs_reverse_home_timeline_title">Ordú amlíne droim ar ais</string>

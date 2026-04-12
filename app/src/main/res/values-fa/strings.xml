@@ -173,11 +173,6 @@
     <string name="lock_account_label">قفل حساب</string>
     <string name="lock_account_label_description">لازم است پی‌گیران را دستی تأیید کنید</string>
     <string name="compose_save_draft">ذخیرهٔ پیش‌نویس؟</string>
-    <string name="send_post_notification_title">فرستادن فرسته…</string>
-    <string name="send_post_notification_error_title">خطا در فرستادن فرسته</string>
-    <string name="send_post_notification_channel_name">فرستادن فرسته‌ها</string>
-    <string name="send_post_notification_cancel_title">فرستادن لغو شد</string>
-    <string name="send_post_notification_saved_content">رونوشتی از فرسته در پیش‌نویس‌هایتان ذخیره شد</string>
     <string name="action_compose_shortcut">ایجاد</string>
     <string name="error_no_custom_emojis">نمونه‌تان %1$s هیچ اموجی سفارشی‌ای ندارد</string>
     <string name="emoji_style">سبک اموجی</string>

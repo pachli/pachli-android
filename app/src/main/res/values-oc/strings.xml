@@ -166,11 +166,6 @@
     <string name="lock_account_label">Clavar lo compte</string>
     <string name="lock_account_label_description">Demanda que validetz manualament los seguidors</string>
     <string name="compose_save_draft">Salvar lo borrolhon ?</string>
-    <string name="send_post_notification_title">Mandadís del tut…</string>
-    <string name="send_post_notification_error_title">Error en enviar lo tut</string>
-    <string name="send_post_notification_channel_name">Mandadís dels tuts</string>
-    <string name="send_post_notification_cancel_title">Mandadís anullat</string>
-    <string name="send_post_notification_saved_content">Una còpia del tut es estat salvat dins los borrolhons</string>
     <string name="action_compose_shortcut">Redactar</string>
     <string name="error_no_custom_emojis">L’instància %1$s es pas compatibla amb los emoji personalizats</string>
     <string name="emoji_style">Estil dels Emoji</string>

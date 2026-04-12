@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="send_post_notification_channel_name">A Enviar os Toots</string>
+    <string name="send_post_notification_title">A enviar o toot…</string>
+    <string name="send_post_notification_error_title">Erro ao enviar o toot</string>
+    <string name="send_post_notification_saved_content">Uma cópia do toot foi guardada nos seus rascunhos</string>
+    <string name="send_post_notification_cancel_title">Envio cancelado</string>
+</resources>

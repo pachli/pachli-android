@@ -189,11 +189,6 @@
     <string name="lock_account_label">Lås konto</string>
     <string name="lock_account_label_description">Kräver att du manuellt godkänner följare</string>
     <string name="compose_save_draft">Spara utkast?</string>
-    <string name="send_post_notification_title">Skickar toot…</string>
-    <string name="send_post_notification_error_title">Kunde inte skicka toot</string>
-    <string name="send_post_notification_channel_name">Skickar toot</string>
-    <string name="send_post_notification_cancel_title">Sändning avbruten</string>
-    <string name="send_post_notification_saved_content">En kopia av tooten har sparats i dina utkast</string>
     <string name="action_compose_shortcut">Skriv</string>
     <string name="error_no_custom_emojis">Din instans %1$s har inga anpassade emojis</string>
     <string name="emoji_style">Emojis</string>
@@ -511,7 +506,6 @@
     <string name="search_operator_attachment_kind_video_label">video</string>
     <string name="notification_severed_relationships_account_suspension_body">En moderator blockerade kontot</string>
     <string name="notification_severed_relationships_unknown_body">Okänd anledning</string>
-    <string name="error_prepare_media_io_fmt">%1$s</string>
     <string name="search_operator_attachment_kind_audio_label">ljud</string>
     <string name="search_operator_language_checked_fmt">%1$s</string>
     <string name="notification_severed_relationships_description">Meddelanden om brutna relationer</string>

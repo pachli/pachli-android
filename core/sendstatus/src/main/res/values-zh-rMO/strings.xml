@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="send_post_notification_channel_name">嘟文發送中</string>
+    <string name="send_post_notification_title">正在發送…</string>
+    <string name="send_post_notification_error_title">發送失敗</string>
+    <string name="send_post_notification_saved_content">嘟文已儲存為草稿</string>
+    <string name="send_post_notification_cancel_title">發送已被取消</string>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_prepare_media_content_resolver_missing_path_fmt">dostęp do danych się nie powiódł przez brak ścieżki: %1$s</string>
+    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">błąd w dostępie do danych przez nieobsługiwany schemat: %1$s</string>
+    <string name="error_prepare_media_io_fmt">%1$s</string>
+    <string name="error_prepare_media_file_is_too_large_fmt">rozmiar pliku to %1$s, maksymalny dozwolony to %2$s</string>
+    <string name="error_prepare_media_unknown_file_size">nie udało się ustalić rozmiaru pliku</string>
+    <string name="error_prepare_media_unsupported_mime_type_fmt">serwer nie wspiera plików typu: %1$s</string>
+    <string name="error_prepare_media_unknown_mime_type">nieznany typ pliku</string>
+    <string name="error_media_uploader_upload_not_found_fmt">nie odnaleziono multimediów wgranych z ID %1$s</string>
+    <string name="send_post_notification_channel_name">Wysyłanie wpisów</string>
+    <string name="send_post_notification_title">Wysyłanie wpisu…</string>
+    <string name="send_post_notification_error_title">Wystąpił błąd podczas wysyłania wpisu</string>
+    <string name="send_post_notification_saved_content">Kopia wpisu została zapisana jako szkic</string>
+    <string name="send_post_notification_cancel_title">Anulowano wysyłanie</string>
+</resources>

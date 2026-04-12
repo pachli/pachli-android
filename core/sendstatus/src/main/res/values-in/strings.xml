@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="send_post_notification_channel_name">Mengirim Postingan</string>
+    <string name="send_post_notification_title">Mengirim kiriman…</string>
+    <string name="send_post_notification_error_title">Kesalahan pengiriman postingan</string>
+    <string name="send_post_notification_saved_content">Salinan postingan telah disimpan ke draf Anda</string>
+    <string name="send_post_notification_cancel_title">Mengirim dibatalkan</string>
+</resources>

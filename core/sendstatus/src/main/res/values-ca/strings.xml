@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="send_post_notification_channel_name">S\'esatan enviant les publicacions</string>
+    <string name="send_post_notification_title">S\'està publicant…</string>
+    <string name="send_post_notification_error_title">Error en publicar</string>
+    <string name="send_post_notification_saved_content">S\'ha guardat una còpia de la publicació als esborranys</string>
+    <string name="send_post_notification_cancel_title">Envio anul·lat</string>
+</resources>

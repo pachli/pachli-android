@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="send_post_notification_channel_name">Tuta bidaltzen</string>
+    <string name="send_post_notification_title">Tuta bidaltzen…</string>
+    <string name="send_post_notification_error_title">Errorea tuta bidaltzean</string>
+    <string name="send_post_notification_saved_content">Tutaren kopia bat zure zirriborroetan gorde da</string>
+    <string name="send_post_notification_cancel_title">Bidalketa bertan behera utzita</string>
+</resources>

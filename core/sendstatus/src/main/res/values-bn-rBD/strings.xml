@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="send_post_notification_channel_name">টুট পাঠানো হচ্ছে</string>
+    <string name="send_post_notification_title">টুট পাঠানো হচ্ছে …</string>
+    <string name="send_post_notification_error_title">টুট পাঠাতে গিয়ে একটি ত্রুটি ঘটেছে</string>
+    <string name="send_post_notification_saved_content">টুট এর একটি কপি আপনার ড্রাফটে সংরক্ষণ করা হয়েছে</string>
+    <string name="send_post_notification_cancel_title">পাঠানো বাতিল</string>
+</resources>

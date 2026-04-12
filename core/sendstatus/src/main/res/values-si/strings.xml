@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="send_post_notification_channel_name">ටූට්ස් යැවෙමින්</string>
+    <string name="send_post_notification_title">ටූට් යැවෙමින්…</string>
+    <string name="send_post_notification_error_title">ටූට් යැවීමේ දෝෂයකි</string>
+    <string name="send_post_notification_saved_content">ටූට් හි පිටපතක් ඔබගේ කටුපිටපත් තුළට සුරකින ලදි</string>
+    <string name="send_post_notification_cancel_title">යැවීම අවලංගු කෙරිණි</string>
+</resources>

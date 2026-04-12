@@ -61,11 +61,6 @@
     <string name="emoji_style">Стил на емоджи</string>
     <string name="error_no_custom_emojis">Инстанцията ви %1$s няма персонализирани емоджита</string>
     <string name="action_compose_shortcut">Композиране</string>
-    <string name="send_post_notification_saved_content">Копие от публикацията е запазено във вашите чернови</string>
-    <string name="send_post_notification_cancel_title">Изпращането е отменено</string>
-    <string name="send_post_notification_channel_name">Изпращане на публикации</string>
-    <string name="send_post_notification_error_title">Грешка при изпращане на публикация</string>
-    <string name="send_post_notification_title">Изпращане на публикация…</string>
     <string name="compose_save_draft">Запазване на чернова\?</string>
     <string name="lock_account_label_description">Изисква ръчно одобряване на последователи</string>
     <string name="lock_account_label">Заключване на акаунт</string>

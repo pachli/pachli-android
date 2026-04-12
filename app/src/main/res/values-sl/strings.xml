@@ -175,11 +175,6 @@
     <string name="lock_account_label">Zakleni račun</string>
     <string name="lock_account_label_description">Zahtevana je ročna potrditev sledilcev</string>
     <string name="compose_save_draft">Shrani osnutek\?</string>
-    <string name="send_post_notification_title">Pošiljanje tuta…</string>
-    <string name="send_post_notification_error_title">napaka pri pošiljanju tuta</string>
-    <string name="send_post_notification_channel_name">Pošiljanje tutov</string>
-    <string name="send_post_notification_cancel_title">Pošiljanje je preklicano</string>
-    <string name="send_post_notification_saved_content">Kopija tuta je bila shranjena v osnutke</string>
     <string name="action_compose_shortcut">Sestavi</string>
     <string name="error_no_custom_emojis">Vaše vozlišče %1$s nima emotikonov po meri</string>
     <string name="emoji_style">Slog emotikonov</string>

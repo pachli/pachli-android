@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_prepare_media_content_resolver_missing_path_fmt">sisällönselvittäjä-URI:ltä puuttui polku: %1$s</string>
+    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">sisältöselvittäjä-URI:n kaavaa ei tueta: %1$s</string>
+    <string name="error_prepare_media_io_fmt">%1$s</string>
+    <string name="error_prepare_media_file_is_too_large_fmt">tiedoston koko on %1$s, suurin sallittu on %2$s</string>
+    <string name="error_prepare_media_unknown_file_size">tiedoston kokoa ei voitu määrittää</string>
+    <string name="error_prepare_media_unsupported_mime_type_fmt">palvelin ei tue tidostomuotoa: %1$s</string>
+    <string name="error_prepare_media_unknown_mime_type">tuntematon tiedostotyyppi</string>
+    <string name="error_media_uploader_upload_not_found_fmt">medialatausta nimeltä %1$s ei löydy</string>
+    <string name="send_post_notification_channel_name">Julkaisuja lähetetään</string>
+    <string name="send_post_notification_title">Lähetetään tuuttausta…</string>
+    <string name="send_post_notification_error_title">Julkaisun lähettäminen epäonnistui</string>
+    <string name="send_post_notification_saved_content">Kopio julkaisusta on tallennettu luonnoksiisi</string>
+    <string name="send_post_notification_cancel_title">Lähettäminen peruutettu</string>
+</resources>

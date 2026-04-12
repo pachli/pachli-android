@@ -208,11 +208,6 @@
     <string name="lock_account_label">Læsa notandaaðgangi</string>
     <string name="lock_account_label_description">Krefst þess að þú samþykkir fylgjendur handvirkt</string>
     <string name="compose_save_draft">Vista drög\?</string>
-    <string name="send_post_notification_title">Sendi færslu…</string>
-    <string name="send_post_notification_error_title">Villa við að senda færslu</string>
-    <string name="send_post_notification_channel_name">Sendi færslur</string>
-    <string name="send_post_notification_cancel_title">Aflýsti sendingu</string>
-    <string name="send_post_notification_saved_content">Afrit af færslunni hefur verið vistað í drögunum þínum</string>
     <string name="action_compose_shortcut">Semja skilaboð</string>
     <string name="error_no_custom_emojis">Tilvikið þitt %1$s er ekki með nein sérsniðin tjáningartákn</string>
     <string name="emoji_style">Stíll tjáningartákna</string>

@@ -268,7 +268,6 @@
     <string name="set_focus_description">Націсніце або перацягніце кола каб абраць пункт фокусу, які будзе заўсёды бачны на паменшаных выявах.</string>
     <string name="action_set_focus">Задаць пункт фокуса</string>
     <string name="action_edit_image">Рэдагаваць выяву</string>
-    <string name="send_post_notification_channel_name">Дасыланне допісаў</string>
     <string name="later">Пазней</string>
     <string name="title_reblogged_by">Пашырылі</string>
     <string name="profile_metadata_label">Метазвесткі профілю</string>
@@ -278,12 +277,8 @@
     <string name="action_remove">Выдаліць</string>
     <string name="lock_account_label">Заблакаваць уліковы запіс</string>
     <string name="compose_save_draft">Захаваць чарнавік\?</string>
-    <string name="send_post_notification_title">Дасыланне допісу…</string>
-    <string name="send_post_notification_error_title">Памылка пры дасыланні допісу</string>
     <string name="lock_account_label_description">Вам прыйдзецца ўручную зацвярджаць падпісчыкаў</string>
     <string name="action_compose_shortcut">Напісаць</string>
-    <string name="send_post_notification_cancel_title">Дасыланне скасаванае</string>
-    <string name="send_post_notification_saved_content">Копія допісу захавана ў Вашых чарнавіках</string>
     <string name="error_no_custom_emojis">Ваш сервер %1$s не мае ўласных эмодзі</string>
     <string name="emoji_style">Стыль эмодзі</string>
     <string name="system_default">Сістэмнае значэнне па змаўчанні</string>

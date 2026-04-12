@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_prepare_media_content_resolver_missing_path_fmt">satura atrisinātāja URI trūkst ceļš: %1$s</string>
+    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">satura atrisinātāja URI ir neatbalstīta shēma: %1$s</string>
+    <string name="error_prepare_media_io_fmt">%1$s</string>
+    <string name="error_prepare_media_file_is_too_large_fmt">datnes izmērs ir %1$s, lielākais pieļaujamais lielums ir %2$s</string>
+    <string name="error_prepare_media_unknown_file_size">datnes lielumu nevarēja noteikt</string>
+    <string name="error_prepare_media_unsupported_mime_type_fmt">serveris neatbalsta datnes veidu: %1$s</string>
+    <string name="error_prepare_media_unknown_mime_type">datnes veids nav zināms</string>
+    <string name="error_media_uploader_upload_not_found_fmt">informācijas nesēju augšupielāde ar Id %1$s nav atrasta</string>
+    <string name="send_post_notification_channel_name">Sūta ierakstus</string>
+    <string name="send_post_notification_title">Sūta ierakstu…</string>
+    <string name="send_post_notification_error_title">Sūtot ziņu, radās kļūda</string>
+    <string name="send_post_notification_saved_content">Ieraksta kopija tika saglabāta Tavos melnrakstos</string>
+    <string name="send_post_notification_cancel_title">Sūtīšana atcelta</string>
+</resources>
