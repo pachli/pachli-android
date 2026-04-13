@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">Puedes ingresar la dirección o dominio de cualquier instancia, como mastodon.social, icosahedron.website, social.tchncs.de <a href="https://instances.social">¡y más!</a>\n\nUna instancia es un lugar único donde tu cuenta está alojada, pero puedes comunicarte y seguir usuarios de otras instancias como si estuvieran en el mismo sitio.\n\nPuedes consultar más información en <a href="https://joinmastodon.org">joinmastodon.org</a>.</string>
-    <string name="action_close">Cerrar</string>
-    <string name="action_browser_login">Iniciar sesión con el Navegador</string>
-    <string name="error_invalid_domain">Nombre de dominio incorrecto</string>
-    <string name="error_failed_app_registration_fmt">Fallo de autenticación con esta instancia: %1$s</string>
-    <string name="error_authorization_unknown">Ocurrió un error de autorización no identificado. Si esto persiste, prueba en el menú Iniciar sesión con el Navegador.</string>
-    <string name="error_authorization_denied">La autorización falló. Si tienes certeza de que has suministrado las credenciales correctas, prueba en el menú Iniciar sesión con el Navegador.</string>
-    <string name="error_retrieving_oauth_token_fmt">Fallo al obtener identificador de inicio de sesión. Si esto persiste, prueba en el menú Iniciar sesión con el Navegador: %1$s</string>
-    <string name="error_loading_account_details_fmt">Fallo al cargar los detalles de la cuenta: %1$s</string>
-    <string name="hint_domain">¿Qué instancia\?</string>
-    <string name="action_login">Iniciar sesión con Pachli</string>
-    <string name="link_whats_an_instance">¿Qué es una instancia?</string>
-    <string name="login_connection">Conectando…</string>
-    <string name="title_login">Iniciar sesión</string>
-    <string name="error_could_not_load_login_page">Fallo al cargar la página de ingreso.</string>
-    <string name="instance_rule_info">Al iniciar sesión aceptas las normas de %1$s.</string>
-    <string name="instance_rule_title">Normas de %1$s</string>
+    <string name="dialog_whats_an_instance">The address or domain of any instance can be entered
+        here, such as mastodon.social, icosahedron.website, social.tchncs.de, and
+        <a href="https://instances.social">more!</a>
+        \n\nAn instance is a single place where your account is
+        hosted, but you can easily communicate with and follow folks on other instances as though
+        you were on the same site.
+        \n\nMore info can be found at <a href="https://joinmastodon.org">joinmastodon.org</a>.
+    </string>
+    <string name="action_close">Close</string>
+    <string name="action_browser_login">Login with Browser</string>
+    <string name="error_invalid_domain">Invalid domain entered</string>
+    <string name="error_failed_app_registration_fmt">Failed authenticating with that instance: %1$s</string>
+    <string name="error_authorization_unknown">An unidentified authorization error occurred. If this persists, try \"Login in Browser\" from the menu.</string>
+    <string name="error_authorization_denied">Authorization was denied. If you\'re sure that you supplied the correct credentials, try \"Login in Browser\" from the menu.</string>
+    <string name="error_retrieving_oauth_token_fmt">Failed getting a login token. If this persists, try \"Login in Browser\" from the menu: %1$s</string>
+    <string name="error_loading_account_details_fmt">Failed loading account details: %1$s</string>
+    <string name="hint_domain">Which instance?</string>
+    <string name="action_login">Login with Pachli</string>
+    <string name="link_whats_an_instance">What\'s an instance?</string>
+    <string name="login_connection">Connecting…</string>
+    <string name="title_login">Login</string>
+    <string name="error_could_not_load_login_page">Could not load the login page.</string>
+    <string name="instance_rule_info">By logging in you agree to the rules of %1$s.</string>
+    <string name="instance_rule_title">%1$s rules</string>
 </resources>
