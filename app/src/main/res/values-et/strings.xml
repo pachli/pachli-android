@@ -449,11 +449,6 @@
     <string name="compose_delete_draft">Kas kustutame kavandi?</string>
     <string name="compose_save_draft">Kas salvestame kavandi?</string>
     <string name="unsaved_changes">Sul on salvestamata muudatusi.</string>
-    <string name="send_post_notification_title">Saadan postitust…</string>
-    <string name="send_post_notification_error_title">Viga postitamisel</string>
-    <string name="send_post_notification_channel_name">Postituste saatmine</string>
-    <string name="send_post_notification_cancel_title">Saatmine on katkestatud</string>
-    <string name="send_post_notification_saved_content">Postituse koopia on salvestatud sinu kavandite kausta</string>
     <string name="action_compose_shortcut">Koosta postitus</string>
     <string name="error_no_custom_emojis">Sinu koduserveris %1$s pole kasutusel kohendatud emojikomplekte</string>
     <string name="emoji_style">Emojide stiil</string>
@@ -577,7 +572,6 @@
     <string name="compose_warn_language_dialog_change_language_fmt">Muuda keeleks „%1$s“ ja avalda postitus</string>
     <string name="compose_warn_language_dialog_accept_language_fmt">Postita sellisena, nagu ta on (%1$s)</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Postita sellisena, nagu ta on (%1$s) ja ära enam küsi uuesti</string>
-    <string name="error_media_uploader_upload_not_found_fmt">üleslaaditud meediafaili tunnusega %1$s ei leidu</string>
     <string name="action_open_byline_account">Näita artikli autori profiili</string>
     <string name="action_open_link">Ava link</string>
     <string name="action_timeline_link">Postitused selle lingi kohta</string>
@@ -598,10 +592,6 @@
     <string name="search_operator_poll_dialog_all">Näita nii küsitlustega, kui ilma</string>
     <string name="search_operator_poll_dialog_only">Vaid küsitlustega postitused</string>
     <string name="search_operator_poll_dialog_no_polls">Vaid küsitlusteta postitused</string>
-    <string name="error_prepare_media_file_is_too_large_fmt">failisuurus on %1$s, aga suurim lubatud on %2$s</string>
-    <string name="error_prepare_media_unknown_file_size">failisuuruse tuvastamine ei õnnestunud</string>
-    <string name="error_prepare_media_unsupported_mime_type_fmt">server ei toeta failitüüpi: %1$s</string>
-    <string name="error_prepare_media_unknown_mime_type">failitüüp pole teada</string>
     <string name="error_pick_media_fmt">Faili lisamine postitusele ei õnnestunud: %1$s</string>
     <string name="error_share_media">pole kausta, kuhu salvestada ajutisi meediafaile</string>
     <string name="search_operator_where_all">Kõik postitused ▾</string>
@@ -712,9 +702,6 @@
     <string name="search_operator_attachment_dialog_image_label">Pilifailid</string>
     <string name="search_operator_attachment_dialog_any_label">Kõik tüübid</string>
     <string name="search_operator_attachment_dialog_title">Kas piidad postitusi lisatud meediumi alusel?</string>
-    <string name="error_prepare_media_content_resolver_missing_path_fmt">sisulahendaja URI asukoht on puudu: %1$s</string>
-    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">sisulahendaja URI skeem pole toetatud: %1$s</string>
-    <string name="error_prepare_media_io_fmt">%1$s</string>
     <string name="filter_action_blur">Peida manused</string>
     <string name="filter_description_blur">Näita sisu, peida manused hoiatuse taha</string>
     <string name="action_move_up">Liiguta ülespoole</string>

@@ -191,11 +191,6 @@
     <string name="lock_account_label">Ŝlosi konton</string>
     <string name="lock_account_label_description">Vi devas permane rajtigi sekvantojn</string>
     <string name="compose_save_draft">Ĉu konservi malneton\?</string>
-    <string name="send_post_notification_title">Sendado de la mesaĝo…</string>
-    <string name="send_post_notification_error_title">Eraro dum sendo de la mesaĝo</string>
-    <string name="send_post_notification_channel_name">Sendado de la mesaĝoj</string>
-    <string name="send_post_notification_cancel_title">Sendo nuligita</string>
-    <string name="send_post_notification_saved_content">Kopio de la mesaĝo estis konservita en viaj malnetoj</string>
     <string name="action_compose_shortcut">Verki</string>
     <string name="error_no_custom_emojis">Via nodo %1$s ne havas proprajn emoĝiojn</string>
     <string name="emoji_style">Stilo de emoĝioj</string>

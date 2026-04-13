@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="send_post_notification_channel_name">Đăng Tút</string>
+    <string name="send_post_notification_title">Đang đăng…</string>
+    <string name="send_post_notification_error_title">Lỗi đăng tút</string>
+    <string name="send_post_notification_saved_content">Đã lưu tút vào nháp</string>
+    <string name="send_post_notification_cancel_title">Hủy đăng</string>
+</resources>

@@ -177,11 +177,6 @@
     <string name="lock_account_label">Trancar perfil</string>
     <string name="lock_account_label_description">Requer aprovação manual de seguidores</string>
     <string name="compose_save_draft">Salvar rascunho?</string>
-    <string name="send_post_notification_title">Enviando Toot…</string>
-    <string name="send_post_notification_error_title">Erro ao enviar Toot</string>
-    <string name="send_post_notification_channel_name">Enviando Toots</string>
-    <string name="send_post_notification_cancel_title">Envio cancelado</string>
-    <string name="send_post_notification_saved_content">Uma cópia do Toot foi salva nos teus rascunhos</string>
     <string name="action_compose_shortcut">Compor</string>
     <string name="error_no_custom_emojis">A tua instância %1$s não possui qualquer emoji personalizado</string>
     <string name="emoji_style">Estilo de Emoji</string>

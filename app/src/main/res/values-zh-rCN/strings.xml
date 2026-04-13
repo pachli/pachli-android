@@ -195,11 +195,6 @@
     <string name="lock_account_label">保护你的账户（锁嘟）</string>
     <string name="lock_account_label_description">你需要手动审核所有关注请求</string>
     <string name="compose_save_draft">保存为草稿？</string>
-    <string name="send_post_notification_title">正在发送嘟文…</string>
-    <string name="send_post_notification_error_title">嘟文发送出错</string>
-    <string name="send_post_notification_channel_name">嘟文发送中</string>
-    <string name="send_post_notification_cancel_title">已取消发送</string>
-    <string name="send_post_notification_saved_content">嘟文副本已保存为草稿</string>
     <string name="action_compose_shortcut">发表嘟文</string>
     <string name="error_no_custom_emojis">当前实例 %1$s 没有自定义表情符号</string>
     <string name="emoji_style">表情符号风格</string>
@@ -486,13 +481,11 @@
     <string name="action_manage_tabs">管理标签页</string>
     <string name="action_add_to_tab_success">添加“%1$s”到标签页</string>
     <string name="compose_warn_language_dialog_fmt">该帖子的语言设置为 %1$s，但您可能使用 %2$s 编写了该帖子。</string>
-    <string name="error_prepare_media_io_fmt">%1$s</string>
     <string name="action_open_byline_account">显示嘟文作者的个人资料</string>
     <string name="action_open_link">打开链接</string>
     <string name="error_export_preferences_fmt">无法将首选项导出到%1$s:%2$s</string>
     <string name="title_public_trending_links">热门新闻</string>
     <string name="pref_custom_tabs_false">较慢，使用默认浏览器</string>
-    <string name="error_prepare_media_unknown_file_size">无法确定文件大小</string>
     <string name="error_pick_media_fmt">无法添加附件到嘟文：%1$s</string>
     <string name="filter_action_none">显示</string>
     <string name="pref_update_check_no_updates">没有可用的更新</string>
@@ -537,7 +530,6 @@
     <string name="action_remove_tab">删除标签页</string>
     <string name="search_operator_language_all">任何语言 ▾</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">按原样发布 (%1$s)，不再询问</string>
-    <string name="error_media_uploader_upload_not_found_fmt">未找到ID为 %1$s 的媒体上传</string>
     <string name="search_operator_date_dialog_all">任何时间</string>
     <string name="export_preferences_ok_fmt">首选项导出到%1$s</string>
     <string name="error_import_preferences_fmt">无法从%1$s导入首选项：%2$s</string>
@@ -562,7 +554,6 @@
     <string name="compose_warn_language_dialog_title">检查嘟文的语言</string>
     <string name="compose_warn_language_dialog_change_language_fmt">将语言更改为 %1$s 并发布</string>
     <string name="compose_warn_language_dialog_accept_language_fmt">按原样发布 (%1$s)</string>
-    <string name="error_prepare_media_file_is_too_large_fmt">文件大小为 %1$s，允许的最大值为 %2$s</string>
     <string name="search_operator_attachment_all">媒体</string>
     <string name="search_operator_attachment_no_media_label">无媒体</string>
     <string name="search_operator_attachment_kind_image_label">图像</string>
@@ -571,8 +562,6 @@
     <string name="search_operator_date_dialog_last_7_days">最近7天</string>
     <string name="pref_notification_method_all_push">所有账户都使用 UnifiedPush。点击查看详情。</string>
     <string name="action_refresh_account">刷新账号</string>
-    <string name="error_prepare_media_unsupported_mime_type_fmt">服务器不支持文件类型：%1$s</string>
-    <string name="error_prepare_media_unknown_mime_type">文件类型未知</string>
     <string name="load_newest_statuses">加载最新嘟文</string>
     <string name="followed_hashtags_summary_fmt">%1$s 来自 %2$s (最后 %3$s)</string>
     <string name="notification_severed_relationships_format">与 &lt;b>%1$s&lt;/b> 的关系已中断</string>
@@ -610,8 +599,6 @@
     <string name="pref_update_next_scheduled_check">下一次计划检查：%1$s</string>
     <string name="error_filter_missing_keyword">至少需要一个关键字或短语</string>
     <string name="error_filter_missing_context">至少需要一个过滤器上下文</string>
-    <string name="error_prepare_media_content_resolver_missing_path_fmt">内容解析器 URI 缺少路径: %1$s</string>
-    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">内容解析器 URI 的方案不受支持: %1$s</string>
     <string name="filter_description_none">显示为正常</string>
     <string name="action_timeline_link">关于此链接的帖文</string>
     <string name="error_save_filter_failed_fmt">保存过滤器失败：%1$s</string>

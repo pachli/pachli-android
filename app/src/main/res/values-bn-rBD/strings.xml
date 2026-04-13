@@ -25,11 +25,6 @@
     <string name="emoji_style">ইমোজি স্টাইল</string>
     <string name="error_no_custom_emojis">আপনার ইনস্ট্যান্স %1$s এর কোনো কাস্টম ইমোজিস নেই</string>
     <string name="action_compose_shortcut">রচনা</string>
-    <string name="send_post_notification_saved_content">টুট এর একটি কপি আপনার ড্রাফটে সংরক্ষণ করা হয়েছে</string>
-    <string name="send_post_notification_cancel_title">পাঠানো বাতিল</string>
-    <string name="send_post_notification_channel_name">টুট পাঠানো হচ্ছে</string>
-    <string name="send_post_notification_error_title">টুট পাঠাতে গিয়ে একটি ত্রুটি ঘটেছে</string>
-    <string name="send_post_notification_title">টুট পাঠানো হচ্ছে …</string>
     <string name="compose_save_draft">ড্রাফট সংরক্ষণ\?</string>
     <string name="lock_account_label_description">অনুসারী অনুমোদন করার জন্য আপনাকে প্রয়োজন</string>
     <string name="lock_account_label">অ্যাকাউন্ট লক করুন</string>

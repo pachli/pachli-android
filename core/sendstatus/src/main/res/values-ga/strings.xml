@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_prepare_media_content_resolver_missing_path_fmt">bhí cosán in easnamh ar URI an réiteora inneachair: %1$s</string>
+    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">tá scéim gan tacaíocht ag URI an réitíonn inneachair: %1$s</string>
+    <string name="error_prepare_media_io_fmt">%1$s</string>
+    <string name="error_prepare_media_file_is_too_large_fmt">méid an chomhaid %1$s, is é %2$s an t-uasmhéid a cheadaítear</string>
+    <string name="error_prepare_media_unknown_file_size">níorbh fhéidir méid an chomhaid a chinneadh</string>
+    <string name="error_prepare_media_unsupported_mime_type_fmt">ní thacaíonn an freastalaí leis an gcineál comhaid: %1$s</string>
+    <string name="error_prepare_media_unknown_mime_type">níl cineál an chomhaid ar eolas</string>
+    <string name="error_media_uploader_upload_not_found_fmt">níor aimsíodh uaslódáil meán le haitheantas %1$s</string>
+    <string name="send_post_notification_channel_name">Postálacha a Sheoladh</string>
+    <string name="send_post_notification_title">Postáil á sheoladh…</string>
+    <string name="send_post_notification_error_title">Earráid le postáil a sheoladh</string>
+    <string name="send_post_notification_saved_content">Sábháladh cóip den phostáil i do chuid dréachtaí</string>
+    <string name="send_post_notification_cancel_title">Cealaíodh seoladh</string>
+</resources>

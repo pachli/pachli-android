@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="send_post_notification_channel_name">Изпращане на публикации</string>
+    <string name="send_post_notification_title">Изпращане на публикация…</string>
+    <string name="send_post_notification_error_title">Грешка при изпращане на публикация</string>
+    <string name="send_post_notification_saved_content">Копие от публикацията е запазено във вашите чернови</string>
+    <string name="send_post_notification_cancel_title">Изпращането е отменено</string>
+</resources>

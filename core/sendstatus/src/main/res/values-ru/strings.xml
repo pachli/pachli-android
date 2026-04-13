@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_prepare_media_content_resolver_missing_path_fmt">в URI-адресе закачки отсутствует путь: %1$s</string>
+    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">в URI-адресе закачки неподдерживаемая схема: %1$s</string>
+    <string name="error_prepare_media_io_fmt">%1$s</string>
+    <string name="error_prepare_media_file_is_too_large_fmt">размер файла %1$s, максимально допустимый — %2$s</string>
+    <string name="error_prepare_media_unknown_file_size">не удалось определить размер файла</string>
+    <string name="error_prepare_media_unsupported_mime_type_fmt">сервер не поддерживает тип файла: %1$s</string>
+    <string name="error_prepare_media_unknown_mime_type">тип файла неизвестен</string>
+    <string name="error_media_uploader_upload_not_found_fmt">закачка медиафайла с идентификатором %1$s не найдена</string>
+    <string name="send_post_notification_channel_name">Отправка гудков</string>
+    <string name="send_post_notification_title">Отправка гудка…</string>
+    <string name="send_post_notification_error_title">Ошибка при отправке гудка</string>
+    <string name="send_post_notification_saved_content">Копия поста сохранена в ваши черновики</string>
+    <string name="send_post_notification_cancel_title">Отправка отменена</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="send_post_notification_channel_name">Дасыланне допісаў</string>
+    <string name="send_post_notification_title">Дасыланне допісу…</string>
+    <string name="send_post_notification_error_title">Памылка пры дасыланні допісу</string>
+    <string name="send_post_notification_saved_content">Копія допісу захавана ў Вашых чарнавіках</string>
+    <string name="send_post_notification_cancel_title">Дасыланне скасаванае</string>
+</resources>

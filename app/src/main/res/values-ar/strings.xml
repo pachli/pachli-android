@@ -191,11 +191,6 @@
     <string name="lock_account_label">تجميد الحساب</string>
     <string name="lock_account_label_description">يتطلب منك قبول طلبات المتابَعة يدويا</string>
     <string name="compose_save_draft">هل تود الإحتفاظ بالمسودة ؟</string>
-    <string name="send_post_notification_title">جارٍ إرسال التبويق…</string>
-    <string name="send_post_notification_error_title">خطأ أثناء عملية إرسال التبويق</string>
-    <string name="send_post_notification_channel_name">إرسال المنشورات</string>
-    <string name="send_post_notification_cancel_title">أُلغيَ الإرسال</string>
-    <string name="send_post_notification_saved_content">تم الاحتفاظ بنسخة مِن التبويق في مسوداتك</string>
     <string name="action_compose_shortcut">حرر</string>
     <string name="error_no_custom_emojis">لا يحتوي مثيل خادومكم %1$s على أية حزمة إيموجي مخصصة</string>
     <string name="emoji_style">نوع الإيموجي</string>

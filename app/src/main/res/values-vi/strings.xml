@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="notification_clear_text">Bạn có muốn xóa toàn bộ thông báo\?</string>
-    <string name="send_post_notification_saved_content">Đã lưu tút vào nháp</string>
-    <string name="send_post_notification_cancel_title">Hủy đăng</string>
-    <string name="send_post_notification_channel_name">Đăng Tút</string>
-    <string name="send_post_notification_title">Đang đăng…</string>
     <plurals name="notification_title_summary">
         <item quantity="other">%d thông báo mới</item>
     </plurals>
@@ -18,7 +14,6 @@
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; thích tút của bạn</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; đăng lại tút của bạn</string>
     <string name="error_no_custom_emojis">Máy chủ %1$s không có emoji tùy chỉnh</string>
-    <string name="send_post_notification_error_title">Lỗi đăng tút</string>
     <string name="error_sender_account_gone">Xảy ra lỗi khi đăng tút.</string>
     <string name="error_media_upload_sending">Tải lên không thành công.</string>
     <string name="error_media_upload_image_or_video">Không thể đính kèm ảnh và video cùng một lúc.</string>

@@ -1,4 +1,5 @@
-/* Copyright 2019 Tusky Contributors
+/*
+ * Copyright (c) 2026 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -14,18 +15,26 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.service
+package app.pachli.core.sendstatus
 
 import android.content.Context
 import androidx.core.content.ContextCompat
+import app.pachli.core.sendstatus.model.StatusToSend
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class ServiceClient @Inject constructor(
+class SendStatusUseCase @Inject constructor(
     @ApplicationContext private val context: Context,
 ) {
-    fun sendToot(tootToSend: StatusToSend) {
-        val intent = SendStatusService.sendStatusIntent(context, tootToSend)
+    operator fun invoke(statusToSend: StatusToSend) {
+        val intent = SendStatusService.sendStatusIntent(context, statusToSend)
         ContextCompat.startForegroundService(context, intent)
+    }
+
+    companion object {
+        /** Tag assigned to notifications about status saved to drafts. */
+        // Assigned to notifications in SendStatusService, used in `DraftActivity` to
+        // clear notifications, because the user can see the drafts with errors.
+        const val TAG_SAVED_TO_DRAFTS = "app.pachli.core.sendstatus.SendStatusService.SAVED_TO_DRAFTS"
     }
 }

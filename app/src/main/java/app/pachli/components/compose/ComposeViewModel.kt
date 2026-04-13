@@ -27,10 +27,8 @@ import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.R
-import app.pachli.components.compose.ComposeActivity.QueuedMedia
 import app.pachli.components.compose.ComposeAutoCompleteAdapter.AutocompleteResult
 import app.pachli.components.compose.UiError.SaveAttachmentError
-import app.pachli.components.compose.UploadState.Uploaded
 import app.pachli.components.search.SearchType
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.stateFlow
@@ -58,10 +56,15 @@ import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.ShowSelfUsername
+import app.pachli.core.sendstatus.MediaUploader
+import app.pachli.core.sendstatus.MediaUploaderError
+import app.pachli.core.sendstatus.SendStatusUseCase
+import app.pachli.core.sendstatus.UploadState
+import app.pachli.core.sendstatus.UploadState.Uploaded
+import app.pachli.core.sendstatus.model.MediaToSend
+import app.pachli.core.sendstatus.model.QueuedMedia
+import app.pachli.core.sendstatus.model.StatusToSend
 import app.pachli.core.ui.MentionSpan
-import app.pachli.service.MediaToSend
-import app.pachli.service.ServiceClient
-import app.pachli.service.StatusToSend
 import app.pachli.util.SaveUriError
 import app.pachli.util.isInDirectory
 import app.pachli.util.saveToDirectory
@@ -167,7 +170,7 @@ class ComposeViewModel @AssistedInject constructor(
     private val api: MastodonApi,
     private val accountManager: AccountManager,
     private val mediaUploader: MediaUploader,
-    private val serviceClient: ServiceClient,
+    private val sendStatus: SendStatusUseCase,
     instanceInfoRepo: InstanceInfoRepository,
     serverRepository: ServerRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
@@ -383,7 +386,7 @@ class ComposeViewModel @AssistedInject constructor(
     /** Errors preparing media for upload. */
     sealed interface PickMediaError : PachliError {
         @JvmInline
-        value class PrepareMediaError(val error: MediaUploaderError.PrepareMediaError) : PickMediaError, MediaUploaderError.PrepareMediaError by error
+        value class PrepareMediaError(val error: MediaUploaderError.PrepareMediaError) : PickMediaError, PachliError by error
 
         /**
          * User is trying to add an image to a post that already has a video
@@ -767,7 +770,7 @@ class ComposeViewModel @AssistedInject constructor(
             retries = 0,
         )
 
-        serviceClient.sendToot(tootToSend)
+        sendStatus(tootToSend)
 
         return Ok(draft)
     }

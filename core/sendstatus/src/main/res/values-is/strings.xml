@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="send_post_notification_channel_name">Sendi færslur</string>
+    <string name="send_post_notification_title">Sendi færslu…</string>
+    <string name="send_post_notification_error_title">Villa við að senda færslu</string>
+    <string name="send_post_notification_saved_content">Afrit af færslunni hefur verið vistað í drögunum þínum</string>
+    <string name="send_post_notification_cancel_title">Aflýsti sendingu</string>
+</resources>

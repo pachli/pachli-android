@@ -250,11 +250,6 @@
     <string name="emoji_style">شێوازی ئیمۆجی</string>
     <string name="error_no_custom_emojis">نموونەکەت %1$s هیچ ئیمۆجییەکی ئاسایی نییە</string>
     <string name="action_compose_shortcut">دروستکردن</string>
-    <string name="send_post_notification_saved_content">کۆپیەکی دەستنووسەکە خەزن کراوە بۆ ڕەشنووسەکانت</string>
-    <string name="send_post_notification_cancel_title">ناردنی هەڵوەشاوە</string>
-    <string name="send_post_notification_channel_name">ناردنی توتس</string>
-    <string name="send_post_notification_error_title">هەڵە لە ناردنی توت</string>
-    <string name="send_post_notification_title">(توت) دەنێرم…</string>
     <string name="compose_save_draft">ڕەشنووس پاشەکەوت بکەیت؟</string>
     <string name="lock_account_label_description">داوات لێدەکات کە بە دەستی شوێنکەوتوانی پەسەند بکە</string>
     <string name="lock_account_label">داخستنی ئەژمێر</string>

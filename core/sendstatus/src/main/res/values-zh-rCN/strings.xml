@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_prepare_media_content_resolver_missing_path_fmt">内容解析器 URI 缺少路径: %1$s</string>
+    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">内容解析器 URI 的方案不受支持: %1$s</string>
+    <string name="error_prepare_media_io_fmt">%1$s</string>
+    <string name="error_prepare_media_file_is_too_large_fmt">文件大小为 %1$s，允许的最大值为 %2$s</string>
+    <string name="error_prepare_media_unknown_file_size">无法确定文件大小</string>
+    <string name="error_prepare_media_unsupported_mime_type_fmt">服务器不支持文件类型：%1$s</string>
+    <string name="error_prepare_media_unknown_mime_type">文件类型未知</string>
+    <string name="error_media_uploader_upload_not_found_fmt">未找到ID为 %1$s 的媒体上传</string>
+    <string name="send_post_notification_channel_name">嘟文发送中</string>
+    <string name="send_post_notification_title">正在发送嘟文…</string>
+    <string name="send_post_notification_error_title">嘟文发送出错</string>
+    <string name="send_post_notification_saved_content">嘟文副本已保存为草稿</string>
+    <string name="send_post_notification_cancel_title">已取消发送</string>
+</resources>

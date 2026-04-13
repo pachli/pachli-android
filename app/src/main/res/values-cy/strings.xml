@@ -173,11 +173,6 @@
     <string name="lock_account_label">Cloi cyfrif</string>
     <string name="lock_account_label_description">Bydd angen cymeradwyo\'ch dilynwyr eich hun</string>
     <string name="compose_save_draft">Cadw drafft?</string>
-    <string name="send_post_notification_title">Yn anfon y neges…</string>
-    <string name="send_post_notification_error_title">Gwall wrth anfon y neges</string>
-    <string name="send_post_notification_channel_name">Yn anfon negeseuon</string>
-    <string name="send_post_notification_cancel_title">Diddymwyd anfon</string>
-    <string name="send_post_notification_saved_content">Cadwyd copi o\'r neges i\'ch drafftiau</string>
     <string name="action_compose_shortcut">Creu</string>
     <string name="error_no_custom_emojis">Nid oes gan eich enghraifft %1$s emoji personol</string>
     <string name="emoji_style">Arddull emoji</string>

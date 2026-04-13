@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_prepare_media_content_resolver_missing_path_fmt">al agente de resolución de contenido le faltó una ruta: %1$s</string>
+    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">el agente de resolución de contenido tiene un esquema no compatible: %1$s</string>
+    <string name="error_prepare_media_io_fmt">%1$s</string>
+    <string name="error_prepare_media_file_is_too_large_fmt">el tamaño del archivo es %1$s, el máximo permitido es %2$s</string>
+    <string name="error_prepare_media_unknown_file_size">no se pudo determinar el tamaño del archivo</string>
+    <string name="error_prepare_media_unsupported_mime_type_fmt">el servidor no es compatible con el tipo de archivo: %1$s</string>
+    <string name="error_prepare_media_unknown_mime_type">se desconoce el tipo de archivo</string>
+    <string name="error_media_uploader_upload_not_found_fmt">no se encontró la subida de multimedia con ID %1$s</string>
+    <string name="send_post_notification_channel_name">Enviando Publicaciones</string>
+    <string name="send_post_notification_title">Enviando publicación…</string>
+    <string name="send_post_notification_error_title">Error al enviar publicación</string>
+    <string name="send_post_notification_saved_content">Una copia de la publicación se ha guardado en Borradores</string>
+    <string name="send_post_notification_cancel_title">Envío cancelado</string>
+</resources>

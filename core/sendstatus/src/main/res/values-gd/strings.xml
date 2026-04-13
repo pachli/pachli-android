@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="send_post_notification_channel_name">A’ cur nam post</string>
+    <string name="send_post_notification_title">A’ cur a’ phuist…</string>
+    <string name="send_post_notification_error_title">Mearachd a’ cur a’ phuist</string>
+    <string name="send_post_notification_saved_content">Chaidh lethbhreac dhen phost agad a shàbhaladh ’na dhreachd</string>
+    <string name="send_post_notification_cancel_title">Chaidh sgur dhen chur</string>
+</resources>

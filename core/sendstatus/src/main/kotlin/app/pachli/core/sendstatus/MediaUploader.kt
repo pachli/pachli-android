@@ -14,7 +14,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.components.compose
+package app.pachli.core.sendstatus
 
 import android.content.ContentResolver
 import android.content.Context
@@ -25,11 +25,6 @@ import android.os.Environment
 import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
-import app.pachli.BuildConfig
-import app.pachli.R
-import app.pachli.components.compose.ComposeActivity.QueuedMedia
-import app.pachli.components.compose.MediaUploaderError.PrepareMediaError
-import app.pachli.components.compose.UploadState.Uploaded
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.string.randomAlphanumericString
 import app.pachli.core.common.util.MEDIA_SIZE_UNKNOWN
@@ -37,9 +32,14 @@ import app.pachli.core.common.util.formatNumber
 import app.pachli.core.common.util.getImageSquarePixels
 import app.pachli.core.common.util.getMediaSize
 import app.pachli.core.model.InstanceInfo
+import app.pachli.core.network.extensions.asRequestBody
 import app.pachli.core.network.model.MediaUploadApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
-import app.pachli.util.asRequestBody
+import app.pachli.core.sendstatus.MediaUploaderError.PrepareMediaError
+import app.pachli.core.sendstatus.UploadState.Uploaded
+import app.pachli.core.sendstatus.UploadState.Uploading
+import app.pachli.core.sendstatus.model.PreparedMedia
+import app.pachli.core.sendstatus.model.QueuedMedia
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
@@ -71,15 +71,6 @@ import okio.buffer
 import okio.sink
 import okio.source
 import timber.log.Timber
-
-/**
- * Media that has been prepared for uploading.
- *
- * @param type file's general type (image, video, etc)
- * @param uri content URI for the prepared media file
- * @param size size of the media file, in bytes
- */
-data class PreparedMedia(val type: QueuedMedia.Type, val uri: Uri, val size: Long)
 
 /* Errors that can be returned when uploading media. */
 sealed interface MediaUploaderError : PachliError {
@@ -320,7 +311,8 @@ class MediaUploader @Inject constructor(
                         file.absoluteFile.sink().buffer().use { it.writeAll(input) }
                         uri = FileProvider.getUriForFile(
                             context,
-                            BuildConfig.APPLICATION_ID + ".fileprovider",
+                            // Equivalent to BuildConfig.APPLICATION_ID
+                            context.packageName + ".fileprovider",
                             file,
                         )
                         mediaSize = getMediaSize(contentResolver, uri)
@@ -338,7 +330,8 @@ class MediaUploader @Inject constructor(
                     }
                     uri = FileProvider.getUriForFile(
                         context,
-                        BuildConfig.APPLICATION_ID + ".fileprovider",
+                        // Equivalent to BuildConfig.APPLICATION_ID
+                        context.packageName + ".fileprovider",
                         file,
                     )
                     mediaSize = getMediaSize(contentResolver, uri)
@@ -423,11 +416,11 @@ class MediaUploader @Inject constructor(
             var lastProgress = -1
             val fileBody = media.uri.asRequestBody(
                 contentResolver,
-                requireNotNull(mimeType!!.toMediaTypeOrNull()) { "Invalid Content Type" },
+                requireNotNull(mimeType.toMediaTypeOrNull()) { "Invalid Content Type" },
                 media.mediaSize,
             ) { percentage ->
                 if (percentage != lastProgress) {
-                    trySend(Ok(UploadState.Uploading(percentage)))
+                    trySend(Ok(Uploading(percentage)))
                 }
                 lastProgress = percentage
             }

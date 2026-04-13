@@ -40,8 +40,8 @@ import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.DraftsRepository
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Draft
-import app.pachli.service.SendStatusService
-import app.pachli.service.StatusToSend
+import app.pachli.core.sendstatus.SendStatusUseCase
+import app.pachli.core.sendstatus.model.StatusToSend
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
@@ -60,6 +60,9 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
 
     @Inject
     lateinit var draftsRepository: DraftsRepository
+
+    @Inject
+    lateinit var sendStatus: SendStatusUseCase
 
     override fun onReceive(context: Context, intent: Intent) {
         // Bail unless the user used the "quick reply" feature on a notification.
@@ -96,8 +99,7 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
                 ),
             )
 
-            val sendIntent = SendStatusService.sendStatusIntent(
-                context,
+            sendStatus(
                 StatusToSend(
                     draft = finalDraft,
                     media = emptyList(),
@@ -106,8 +108,6 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
                     retries = 0,
                 ),
             )
-
-            context.startService(sendIntent)
 
             if (ActivityCompat.checkSelfPermission(context, POST_NOTIFICATIONS) != PERMISSION_GRANTED) {
                 return@launch
@@ -121,7 +121,7 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
                 .setGroup(senderFullName)
                 .setDefaults(0) // So it doesn't ring twice, notify only in Target callback
                 .setOnlyAlertOnce(true)
-                .setContentTitle(context.getString(R.string.send_post_notification_title))
+                .setContentTitle(context.getString(app.pachli.core.sendstatus.R.string.send_post_notification_title))
                 .setSubText(senderFullName)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setCategory(NotificationCompat.CATEGORY_SOCIAL)

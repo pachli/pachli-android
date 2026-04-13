@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="send_post_notification_channel_name">툿을 보내고 있습니다</string>
+    <string name="send_post_notification_title">툿을 보내고 있습니다…</string>
+    <string name="send_post_notification_error_title">툿을 보낼 수 없습니다</string>
+    <string name="send_post_notification_saved_content">복사본이 임시 저장에 저장되었습니다</string>
+    <string name="send_post_notification_cancel_title">보내기 취소됨</string>
+</resources>

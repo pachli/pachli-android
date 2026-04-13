@@ -251,7 +251,6 @@
     <string name="filter_add_description">Frasa yang akan difilter</string>
     <string name="compose_save_draft">Simpan Draft?</string>
     <string name="unsaved_changes">Anda memiliki perubahan yang belum disimpan.</string>
-    <string name="send_post_notification_channel_name">Mengirim Postingan</string>
     <string name="profile_metadata_label_label">Deskripsi</string>
     <string name="post_privacy_followers_only">Pengikut saja</string>
     <string name="post_privacy_unlisted">Tidak terdata</string>
@@ -303,17 +302,13 @@
     <string name="notification_follow_request_name">Ikuti permintaan</string>
     <string name="notification_report_description">Pemberitahuan tentang laporan moderasi</string>
     <string name="notification_mention_descriptions">Pemberitahuan tentang sebutan baru</string>
-    <string name="send_post_notification_title">Mengirim kiriman…</string>
-    <string name="send_post_notification_cancel_title">Mengirim dibatalkan</string>
     <plurals name="notification_title_summary">
         <item quantity="other">%d interaksi baru</item>
     </plurals>
-    <string name="send_post_notification_saved_content">Salinan postingan telah disimpan ke draf Anda</string>
     <string name="reblog_private">Meningkatkan jumlah pemirsa asli</string>
     <string name="unreblog_private">Batalkan dorongan</string>
     <string name="manage_lists">Mengelola daftar</string>
     <string name="compose_save_draft_loses_media">Lampiran akan diunggah lagi saat Anda memulihkan draf.</string>
-    <string name="send_post_notification_error_title">Kesalahan pengiriman postingan</string>
     <string name="pref_main_nav_position">Posisi navigasi utama</string>
     <string name="notification_favourite_description">Pemberitahuan ketika postingan Anda ditandai sebagai favorit</string>
     <string name="notification_poll_name">Poling</string>

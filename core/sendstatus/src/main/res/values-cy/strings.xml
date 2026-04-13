@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="send_post_notification_channel_name">Yn anfon negeseuon</string>
+    <string name="send_post_notification_title">Yn anfon y neges…</string>
+    <string name="send_post_notification_error_title">Gwall wrth anfon y neges</string>
+    <string name="send_post_notification_saved_content">Cadwyd copi o\'r neges i\'ch drafftiau</string>
+    <string name="send_post_notification_cancel_title">Diddymwyd anfon</string>
+</resources>

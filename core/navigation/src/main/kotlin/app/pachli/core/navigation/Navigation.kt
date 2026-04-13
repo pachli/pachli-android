@@ -18,8 +18,10 @@
 package app.pachli.core.navigation
 
 import android.app.Activity
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
@@ -1063,5 +1065,13 @@ class TrendingActivityIntent(context: Context, accountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.TRENDING_ACTIVITY)
         pachliAccountId = accountId
+    }
+}
+
+fun pendingIntentFlags(mutable: Boolean): Int {
+    return if (mutable) {
+        PendingIntent.FLAG_UPDATE_CURRENT or if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_MUTABLE else 0
+    } else {
+        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
     }
 }

@@ -55,9 +55,6 @@
     <string name="dialog_redraft_post_warning">Vymazať a prepísať tento príspevok?</string>
     <string name="post_share_content">Zdieľať obsah príspevku</string>
     <string name="post_share_link">Zdieľať odkaz na príspevok</string>
-    <string name="send_post_notification_title">Odosielam príspevok…</string>
-    <string name="send_post_notification_error_title">Chyba pri odosielaní príspevku</string>
-    <string name="send_post_notification_saved_content">Kópia tvojho príspevku bola uložená do konceptov</string>
     <string name="action_open_post">Otvoriť príspevok</string>
     <string name="compose_shortcut_long_label">Napísať príspevok</string>
     <string name="title_scheduled_posts">Plánované príspevky</string>
@@ -66,8 +63,6 @@
     <string name="action_remove">Odstrániť</string>
     <string name="lock_account_label">Uzamknúť účet</string>
     <string name="compose_save_draft">Uložiť koncept\?</string>
-    <string name="send_post_notification_channel_name">Odosielam príspevky</string>
-    <string name="send_post_notification_cancel_title">Odosielanie bolo zrušené</string>
     <string name="later">Neskôr</string>
     <string name="restart">Reštartovať</string>
     <string name="profile_metadata_label">Metadáta profilu</string>
@@ -550,7 +545,6 @@
     <string name="search_operator_attachment_no_media_label">Žiadne médiá</string>
     <string name="error_media_download">Nepodarilo sa stiahnuť %1$s: %2$s</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Uverejniť tak, ako je (%1$s) a viac sa nepýtať</string>
-    <string name="error_prepare_media_unsupported_mime_type_fmt">server nepodporuje typ súboru: %1$s</string>
     <string name="search_operator_attachment_dialog_title">Obmedziť na príspevky s médiami?</string>
     <string name="error_filter_missing_context">Je potrebné zadať aspoň jeden kontext filtra</string>
     <string name="search_operator_embed_dialog_title">Zobraziť príspevky s kartami náhľadov?</string>
@@ -570,15 +564,12 @@
     <string name="compose_warn_language_dialog_title">Skontroluj jazyk príspevku</string>
     <string name="compose_warn_language_dialog_fmt">Jazyk príspevku je nastavený na %1$s, ale zdá sa, že si ho napísal/a v jazyku %2$s.</string>
     <string name="compose_warn_language_dialog_accept_language_fmt">Uverejniť tak, ako je (%1$s)</string>
-    <string name="error_media_uploader_upload_not_found_fmt">nepodarilo sa nájsť nahratie média s ID %1$s</string>
     <string name="search_operator_from_ignore_me">Bez mojich príspevkov</string>
     <string name="search_operator_from_account_fmt">Iba %1$s</string>
     <string name="search_operator_from_ignore_account_fmt">Okrem %1$s</string>
     <string name="search_operator_embed_dialog_only">Iba príspevky s kartami náhľadov</string>
     <string name="action_add_to_tab">Pridať do panelu</string>
     <string name="action_remove_tab">Odstrániť panel</string>
-    <string name="error_prepare_media_file_is_too_large_fmt">súbor má veľkosť %1$s, maximálna povolená veľkosť je %2$s</string>
-    <string name="error_prepare_media_unknown_mime_type">neznámy typ súboru</string>
     <string name="error_pick_media_fmt">Nepodarilo sa pripojiť súbor k príspevku: %1$s</string>
     <string name="action_open_link">Otvoriť odkaz</string>
     <string name="error_save_filter_failed_fmt">Uloženie filtra zlyhalo: %1$s</string>
@@ -597,10 +588,6 @@
     <string name="search_operator_attachment_has_media_except_3_label_fmt">Všetky okrem %1$s, %2$s, %3$s</string>
     <string name="search_operator_attachment_specific_media_include_2_exclude_1_fmt">S %1$s a %2$s, bez %3$s</string>
     <string name="search_operator_from_dialog_ignore_other_account">Všetky príspevky okrem tohto účtu</string>
-    <string name="error_prepare_media_content_resolver_missing_path_fmt">URI Content Resolveru neobsahuje cestu: %1$s</string>
-    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">URI Content Resolveru obsahuje nepodporovanú schému: %1$s</string>
-    <string name="error_prepare_media_io_fmt">%1$s</string>
-    <string name="error_prepare_media_unknown_file_size">nepodarilo sa určiť veľkosť súboru</string>
     <string name="search_operator_attachment_specific_media_include_1_exclude_2_fmt">S %1$s, bez %2$s, %3$s</string>
     <string name="search_operator_attachment_specific_media_include_3_fmt">S %1$s, %2$s, %3$s</string>
     <string name="search_operator_link_dialog_title">Zobraziť príspevky s odkazmi?</string>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="send_post_notification_channel_name">投稿の送信中</string>
+    <string name="send_post_notification_title">投稿を送信中です…</string>
+    <string name="send_post_notification_error_title">投稿の送信エラー</string>
+    <string name="send_post_notification_saved_content">投稿のコピーが下書きに保存されました</string>
+    <string name="send_post_notification_cancel_title">送信がキャンセルされました</string>
+</resources>

@@ -239,11 +239,6 @@
     <string name="compose_active_account_description">Publicar com a conta %1$s</string>
     <string name="action_remove">Remover</string>
     <string name="lock_account_label">Bloquear perfil</string>
-    <string name="send_post_notification_title">A enviar o toot…</string>
-    <string name="send_post_notification_error_title">Erro ao enviar o toot</string>
-    <string name="send_post_notification_channel_name">A Enviar os Toots</string>
-    <string name="send_post_notification_cancel_title">Envio cancelado</string>
-    <string name="send_post_notification_saved_content">Uma cópia do toot foi guardada nos seus rascunhos</string>
     <string name="action_compose_shortcut">Escrever</string>
     <string name="error_no_custom_emojis">A sua instância, %1$s, não tem emojis personalizados</string>
     <string name="emoji_style">Estilo dos emojis</string>

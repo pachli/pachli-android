@@ -221,11 +221,6 @@
     <string name="emoji_style">भावचिह्नशैली</string>
     <string name="error_no_custom_emojis">भवदीयं विशिष्टस्थलं %1$s स्वीयानुकूलभावचिह्नरहितं वर्तते</string>
     <string name="action_compose_shortcut">लिख्यताम्</string>
-    <string name="send_post_notification_saved_content">दौत्यप्रतिलिपिस्तत्र विकर्षेसु रक्षिता</string>
-    <string name="send_post_notification_cancel_title">प्रेषणं निराकृतम्</string>
-    <string name="send_post_notification_channel_name">प्रेष्यमाणानि</string>
-    <string name="send_post_notification_error_title">दौत्यप्रेषणे दोषः</string>
-    <string name="send_post_notification_title">दौत्यं प्रेष्यमाणम्…</string>
     <string name="compose_save_draft">रक्षणीयम् \?</string>
     <string name="lock_account_label_description">स्वयमेवाऽनुसर्तॄणां कृतेऽनुमतिर्दातव्या</string>
     <string name="lock_account_label">लेखा अवरुध्यताम्</string>

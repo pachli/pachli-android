@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_prepare_media_content_resolver_missing_path_fmt">Der Inhaltsauflöser-URI fehlte ein Pfad: %1$s</string>
+    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">Die Inhaltsauflöser-URI hat ein nicht unterstütztes Schema: %1$s</string>
+    <string name="error_prepare_media_io_fmt">%1$s</string>
+    <string name="error_prepare_media_file_is_too_large_fmt">Dateigröße ist %1$s, maximal zulässig ist %2$s</string>
+    <string name="error_prepare_media_unknown_file_size">Dateigröße konnte nicht festgestellt werden</string>
+    <string name="error_prepare_media_unsupported_mime_type_fmt">Server unterstützt den Dateityp nicht: %1$s</string>
+    <string name="error_prepare_media_unknown_mime_type">Typ der Datei ist nicht bekannt</string>
+    <string name="error_media_uploader_upload_not_found_fmt">Medienupload mit der ID %1$s nicht gefunden</string>
+    <string name="send_post_notification_channel_name">Beiträge senden</string>
+    <string name="send_post_notification_title">Beitrag wird gesendet …</string>
+    <string name="send_post_notification_error_title">Fehler beim Senden</string>
+    <string name="send_post_notification_saved_content">Eine Kopie des Beitrags wurde in deine Entwürfe gespeichert</string>
+    <string name="send_post_notification_cancel_title">Senden abgebrochen</string>
+</resources>

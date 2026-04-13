@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="send_post_notification_channel_name">إرسال المنشورات</string>
+    <string name="send_post_notification_title">جارٍ إرسال التبويق…</string>
+    <string name="send_post_notification_error_title">خطأ أثناء عملية إرسال التبويق</string>
+    <string name="send_post_notification_saved_content">تم الاحتفاظ بنسخة مِن التبويق في مسوداتك</string>
+    <string name="send_post_notification_cancel_title">أُلغيَ الإرسال</string>
+</resources>

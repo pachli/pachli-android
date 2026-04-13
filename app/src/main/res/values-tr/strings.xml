@@ -177,11 +177,6 @@
     <string name="lock_account_label">Hesabı Kilitle</string>
     <string name="lock_account_label_description">Takipçileri elle onaylamanız gerekir</string>
     <string name="compose_save_draft">Taslaklara kaydedilsin mi\?</string>
-    <string name="send_post_notification_title">Gönderi gönderiliyor…</string>
-    <string name="send_post_notification_error_title">Gönderi gönderilirken hata oluştu</string>
-    <string name="send_post_notification_channel_name">Gönderiler Gönderiliyor</string>
-    <string name="send_post_notification_cancel_title">Gönderme iptal edildi</string>
-    <string name="send_post_notification_saved_content">Gönderinin bir kopyası taslaklara kaydedildi</string>
     <string name="action_compose_shortcut">Oluştur</string>
     <string name="error_no_custom_emojis">%1$s örneğinizin herhangi bir özel ifadesi yok</string>
     <string name="emoji_style">İfade stili</string>

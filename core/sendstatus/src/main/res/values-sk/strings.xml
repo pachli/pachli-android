@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_prepare_media_content_resolver_missing_path_fmt">URI Content Resolveru neobsahuje cestu: %1$s</string>
+    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">URI Content Resolveru obsahuje nepodporovanú schému: %1$s</string>
+    <string name="error_prepare_media_io_fmt">%1$s</string>
+    <string name="error_prepare_media_file_is_too_large_fmt">súbor má veľkosť %1$s, maximálna povolená veľkosť je %2$s</string>
+    <string name="error_prepare_media_unknown_file_size">nepodarilo sa určiť veľkosť súboru</string>
+    <string name="error_prepare_media_unsupported_mime_type_fmt">server nepodporuje typ súboru: %1$s</string>
+    <string name="error_prepare_media_unknown_mime_type">neznámy typ súboru</string>
+    <string name="error_media_uploader_upload_not_found_fmt">nepodarilo sa nájsť nahratie média s ID %1$s</string>
+    <string name="send_post_notification_channel_name">Odosielam príspevky</string>
+    <string name="send_post_notification_title">Odosielam príspevok…</string>
+    <string name="send_post_notification_error_title">Chyba pri odosielaní príspevku</string>
+    <string name="send_post_notification_saved_content">Kópia tvojho príspevku bola uložená do konceptov</string>
+    <string name="send_post_notification_cancel_title">Odosielanie bolo zrušené</string>
+</resources>

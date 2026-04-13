@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="send_post_notification_channel_name">Pošiljanje tutov</string>
+    <string name="send_post_notification_title">Pošiljanje tuta…</string>
+    <string name="send_post_notification_error_title">napaka pri pošiljanju tuta</string>
+    <string name="send_post_notification_saved_content">Kopija tuta je bila shranjena v osnutke</string>
+    <string name="send_post_notification_cancel_title">Pošiljanje je preklicano</string>
+</resources>

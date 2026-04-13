@@ -158,11 +158,6 @@
     <string name="lock_account_label">கணக்கை முடக்கு</string>
     <string name="lock_account_label_description">நீங்களாக பின்பற்றுபவர்களை அங்கீகரிக்க</string>
     <string name="compose_save_draft">வரைவை சேமிக்கவா?</string>
-    <string name="send_post_notification_title">Toot அனுப்பபடுகிறது…</string>
-    <string name="send_post_notification_error_title">Toot அனுப்புவதில் பிழை</string>
-    <string name="send_post_notification_channel_name">Toots அனுப்பபடுகிறது</string>
-    <string name="send_post_notification_cancel_title">Toot அனுப்பபல் நீக்கபட்டது</string>
-    <string name="send_post_notification_saved_content">நகலெடுக்கபட்ட toot வரைவில் சேமிக்கபட்டது</string>
     <string name="action_compose_shortcut">எழுது</string>
     <string name="error_no_custom_emojis">தங்கள் %1$s instance(களம்)-ல் எந்தவொரு custom emojis-ம் இல்லை </string>
     <string name="emoji_style">Emoji பாணி</string>
@@ -295,10 +290,6 @@
     <string name="pref_title_change_unified_push_distributor">ஒருங்கிணைந்த புச் விநியோகச்தரை மாற்றவும்</string>
     <string name="pref_title_update_check_now">புதுப்பிப்புக்கு இப்போது சரிபார்க்கவும்</string>
     <string name="compose_warn_language_dialog_title">போச்டின் மொழியை சரிபார்க்கவும்</string>
-    <string name="error_media_uploader_upload_not_found_fmt">ஐடி %1$s உடன் மீடியா பதிவேற்றம் காணப்படவில்லை</string>
-    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">உள்ளடக்க தீர்வி யூரி ஆதரிக்கப்படாத திட்டத்தைக் கொண்டுள்ளது: %1$s</string>
-    <string name="error_prepare_media_file_is_too_large_fmt">கோப்பு அளவு %1$s, அதிகபட்சம் அனுமதிக்கப்பட்டுள்ளது %2$s</string>
-    <string name="error_prepare_media_unknown_file_size">கோப்பு அளவை தீர்மானிக்க முடியவில்லை</string>
     <string name="error_pick_media_fmt">இடுகையை இடுகையுடன் இணைக்க முடியவில்லை: %1$s</string>
     <string name="action_open_byline_account">கட்டுரை ஆசிரியரின் சுயவிவரத்தைக் காட்டு</string>
     <string name="error_save_filter_failed_fmt">சேமிப்பு வடிகட்டி தோல்வியுற்றது: %1$s</string>
@@ -391,7 +382,6 @@
     <string name="duration_60_days">60 நாட்கள்</string>
     <string name="filter_keyword_addition_title">முக்கிய சொல்லைச் சேர்க்கவும்</string>
     <string name="compose_warn_language_dialog_change_language_fmt">மொழியை %1$s ஆக மாற்றி இடுகையிடவும்</string>
-    <string name="error_prepare_media_content_resolver_missing_path_fmt">உள்ளடக்க தீர்வி யூரி ஒரு பாதையை காணவில்லை: %1$s</string>
     <string name="label_filter_action">வடிகட்டி செயல்</string>
     <string name="filter_description_hide">முழுமையாக மறைக்கவும்</string>
     <string name="filter_description_none">சாதாரணமாகக் காட்டு</string>
@@ -401,7 +391,6 @@
     <string name="pref_title_notification_up_distributor">ஒருங்கிணைந்த புச் விநியோகச்தர்</string>
     <string name="error_media_download">%1$s ஐ பதிவிறக்கம் செய்ய முடியவில்லை: %2$s</string>
     <string name="action_manage_tabs">தாவல்களை நிர்வகிக்கவும்</string>
-    <string name="error_prepare_media_io_fmt">%1$s</string>
     <string name="search_operator_date_all">தேதிகள்</string>
     <string name="pref_account_notification_filters_subtitle">கணக்குகளிலிருந்து அறிவிப்புகளுக்கு என்ன நடக்க வேண்டும்…</string>
     <string name="pref_title_account_notification_filters">அறிவிப்பு வடிப்பான்கள்</string>
@@ -472,8 +461,6 @@
     <string name="action_add_to_tab">தாவலில் சேர்க்கவும்</string>
     <string name="action_remove_tab">தாவலை அகற்று</string>
     <string name="pref_change_unified_push_distributor_msg">இது ஒருங்கிணைந்த புச் விநியோகச்தர் தேர்வை அழித்து பாச்லியை மறுதொடக்கம் செய்யும்.\n\n பல ஒருங்கிணைந்த புச் விநியோகச்தர்கள் நிறுவப்பட்டால், ஒன்றைத் தேர்வு செய்யும்படி கேட்கப்படுவீர்கள்.</string>
-    <string name="error_prepare_media_unsupported_mime_type_fmt">சேவையகம் கோப்பு வகையை ஆதரிக்காது: %1$s</string>
-    <string name="error_prepare_media_unknown_mime_type">கோப்பின் வகை தெரியவில்லை</string>
     <string name="search_operator_attachment_has_media_label">குறைந்தது ஒரு இணைப்பு</string>
     <string name="search_operator_from_dialog_ignore_other_account">இந்த கணக்கு தவிர அனைத்து இடுகைகளும்</string>
     <string name="search_operator_date_dialog_last_7_days">கடந்த 7 நாட்கள்</string>

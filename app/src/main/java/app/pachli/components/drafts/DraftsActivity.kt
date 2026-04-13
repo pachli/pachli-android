@@ -44,13 +44,13 @@ import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.retrofit.apiresult.ClientError
+import app.pachli.core.sendstatus.SendStatusUseCase
 import app.pachli.core.ui.AlertSuspendDialogFragment
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.appbar.FadeChildScrollEffect
 import app.pachli.core.ui.extensions.addScrollEffect
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.ActivityDraftsBinding
-import app.pachli.service.SendStatusService
 import com.gaelmarhic.quadrant.QuadrantConstants
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -168,7 +168,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
                         // If we don't cancel the notification here the user sees a notification for
                         // a draft they are already looking at.
                         notificationManager.activeNotifications.forEach {
-                            if (it.tag == SendStatusService.TAG_SAVED_TO_DRAFTS) notificationManager.cancel(SendStatusService.TAG_SAVED_TO_DRAFTS, it.id)
+                            if (it.tag == SendStatusUseCase.TAG_SAVED_TO_DRAFTS) notificationManager.cancel(SendStatusUseCase.TAG_SAVED_TO_DRAFTS, it.id)
                         }
 
                         adapter.submitData(draftData)

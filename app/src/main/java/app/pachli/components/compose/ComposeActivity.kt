@@ -92,7 +92,6 @@ import app.pachli.core.data.repository.Loadable
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.AccountSource
-import app.pachli.core.model.Attachment
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_MEDIA_ATTACHMENTS
@@ -103,6 +102,8 @@ import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.Referenci
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.PronounDisplay
+import app.pachli.core.sendstatus.createNewImageFile
+import app.pachli.core.sendstatus.model.QueuedMedia
 import app.pachli.core.ui.EmojiSpan
 import app.pachli.core.ui.clearDragAnimator
 import app.pachli.core.ui.emojify
@@ -128,7 +129,6 @@ import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.getOrElse
-import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.google.android.material.R as MaterialR
@@ -1905,59 +1905,6 @@ class ComposeActivity :
         val animate = sharedPreferencesRepository.animateAvatars
         val target = span.createGlideTarget(this, animate)
         glide.asDrawable().load(if (animate) emoji.url else emoji.staticUrl).into(target)
-    }
-
-    /**
-     * Media queued for upload.
-     *
-     * @param account
-     * @param localId Pachli identifier for this media, while it's queued.
-     * @param uri Local URI for this media on device.
-     * @param type Media's [Type].
-     * @param mediaSize Media size in bytes, or [app.pachli.core.common.util.MEDIA_SIZE_UNKNOWN]. See [getMediaSize].
-     * @param description
-     * @param focus
-     * @param uploadState
-     */
-    data class QueuedMedia(
-        val account: AccountEntity,
-        val localId: Int,
-        val uri: Uri,
-        val type: Type,
-        val mediaSize: Long,
-        val description: String? = null,
-        val focus: Attachment.Focus? = null,
-        val uploadState: Result<UploadState, MediaUploaderError>,
-    ) {
-        enum class Type {
-            IMAGE,
-            VIDEO,
-            AUDIO,
-        }
-
-        /**
-         * Server's ID for this attachment. May be null if the media is still
-         * being uploaded, or it was uploaded and there was an error that
-         * meant it couldn't be processed. Attachments that have an error
-         * *after* processing have a non-null `serverId`.
-         */
-        val serverId: String?
-            get() = uploadState.mapBoth(
-                { state ->
-                    when (state) {
-                        is UploadState.Uploading -> null
-                        is UploadState.Uploaded.Processing -> state.serverId
-                        is UploadState.Uploaded.Processed -> state.serverId
-                        is UploadState.Uploaded.Published -> state.serverId
-                    }
-                },
-                { error ->
-                    when (error) {
-                        is MediaUploaderError.UpdateMediaError -> error.serverId
-                        else -> null
-                    }
-                },
-            )
     }
 
     override fun onTimeSet(time: Date?) {

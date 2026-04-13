@@ -406,14 +406,7 @@
     <string name="compose_save_draft">Save draft?</string>
     <string name="compose_save_draft_loses_media">Attachments will be uploaded again when you restore the draft.</string>
     <string name="unsaved_changes">You have unsaved changes.</string>
-    <string name="send_post_notification_title">Sending post…</string>
-    <string name="send_post_notification_error_title">Error sending post</string>
-    <string name="send_post_notification_channel_name">Sending Posts</string>
-    <string name="send_post_notification_cancel_title">Sending cancelled</string>
-    <string name="send_post_notification_saved_content">A copy of the post has been saved to your drafts</string>
     <string name="send_post_failure_message_prefix">Sending failed: %1$s</string>
-    <string name="send_post_failure_message_cancel">You cancelled sending this post</string>
-    <string name="send_post_failure_message_timeout">Android timed-out sending this post</string>
     <string name="action_compose_shortcut">Compose</string>
     <string name="error_no_custom_emojis">Your instance %1$s does not have any custom emojis</string>
     <string name="emoji_style">Emoji style</string>
@@ -654,15 +647,7 @@
     <string name="compose_warn_language_dialog_accept_language_fmt">Post as-is (%1$s)</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Post as-is (%1$s) and don\'t ask again</string>
 
-    <string name="error_media_uploader_upload_not_found_fmt">media upload with ID %1$s not found</string>
 
-    <string name="error_prepare_media_content_resolver_missing_path_fmt">content resolver URI was missing a path: %1$s</string>
-    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">content resolver URI has unsupported scheme: %1$s</string>
-    <string name="error_prepare_media_io_fmt">%1$s</string>
-    <string name="error_prepare_media_file_is_too_large_fmt">file size is %1$s, maximum allowed is %2$s</string>
-    <string name="error_prepare_media_unknown_file_size">file size could not be determined</string>
-    <string name="error_prepare_media_unsupported_mime_type_fmt">server does not support file type: %1$s</string>
-    <string name="error_prepare_media_unknown_mime_type">file\'s type is not known</string>
 
     <string name="error_pick_media_fmt">Could not attach file to post: %1$s</string>
     <string name="action_open_byline_account">Show article author\'s profile</string>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="send_post_notification_channel_name">Sendado de la mesaĝoj</string>
+    <string name="send_post_notification_title">Sendado de la mesaĝo…</string>
+    <string name="send_post_notification_error_title">Eraro dum sendo de la mesaĝo</string>
+    <string name="send_post_notification_saved_content">Kopio de la mesaĝo estis konservita en viaj malnetoj</string>
+    <string name="send_post_notification_cancel_title">Sendo nuligita</string>
+</resources>

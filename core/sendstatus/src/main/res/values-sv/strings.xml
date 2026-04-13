@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_prepare_media_io_fmt">%1$s</string>
+    <string name="send_post_notification_channel_name">Skickar toot</string>
+    <string name="send_post_notification_title">Skickar toot…</string>
+    <string name="send_post_notification_error_title">Kunde inte skicka toot</string>
+    <string name="send_post_notification_saved_content">En kopia av tooten har sparats i dina utkast</string>
+    <string name="send_post_notification_cancel_title">Sändning avbruten</string>
+</resources>

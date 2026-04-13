@@ -192,11 +192,6 @@
     <string name="lock_account_label">Verrouiller le compte</string>
     <string name="lock_account_label_description">Vous devez approuver manuellement les abonnements</string>
     <string name="compose_save_draft">Enregistrer comme brouillon ?</string>
-    <string name="send_post_notification_title">Envoi du message…</string>
-    <string name="send_post_notification_error_title">Erreur lors de l’envoi du message</string>
-    <string name="send_post_notification_channel_name">Envoi des messages</string>
-    <string name="send_post_notification_cancel_title">Envoi annulé</string>
-    <string name="send_post_notification_saved_content">Une copie du message a été sauvegardée dans vos brouillons</string>
     <string name="action_compose_shortcut">Écrire</string>
     <string name="error_no_custom_emojis">Votre instance %1$s n’a pas d’émojis personnalisés</string>
     <string name="emoji_style">Style d’émojis</string>
@@ -607,12 +602,6 @@
     <string name="compose_warn_language_dialog_change_language_fmt">Changer la langue pour %1$s et envoyer</string>
     <string name="compose_warn_language_dialog_accept_language_fmt">Laisser tel quel (%1$s)</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Envoyer tel quel (%1$s) et ne plus demander</string>
-    <string name="error_media_uploader_upload_not_found_fmt">média envoyé avec l\'ID %1$s introuvable</string>
-    <string name="error_prepare_media_io_fmt">%1$s</string>
-    <string name="error_prepare_media_file_is_too_large_fmt">le poids du fichier est de %1$s, mais la limite est de %2$s</string>
-    <string name="error_prepare_media_unknown_file_size">le poids du fichier n\'a pas pu être calculé</string>
-    <string name="error_prepare_media_unsupported_mime_type_fmt">le serveur ne supporte pas les fichiers de type %1$s</string>
-    <string name="error_prepare_media_unknown_mime_type">le type de fichier est inconnu</string>
     <string name="error_pick_media_fmt">Impossible de joindre le fichier au message : %1$s</string>
     <string name="action_open_byline_account">Voir le profil de l\'auteur·trice de l\'article</string>
     <string name="action_open_link">Ouvrir le lien</string>
@@ -747,8 +736,6 @@
     <string name="notification_severed_relationships_unknown_fmt">&lt;b&gt;%1$s&lt;/b&gt; est bloqué·e (raison inconnue)</string>
     <string name="error_missing_edits">Votre serveur sait que ce message a été édité, mais n\'a pas de copie des modifications, donc elles ne peuvent pas vous être montrées.\n\nC\'est un &lt;a href=\"https://github.com/mastodon/mastodon/issues/25398\"&gt;Problème connu de Mastodon #25398&lt;/a&gt;.</string>
     <string name="filter_description_none">Montrer comme le reste</string>
-    <string name="error_prepare_media_content_resolver_missing_path_fmt">Un chemin manquait à l\'URI du résolveur de contenu : %1$s</string>
-    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">L\'URI du résolveur de contenu a un schéma non supporté : %1$s</string>
     <string name="account_filter_placeholder_type_favourite_fmt">Une personne @&lt;b&gt;%1$s&lt;/b&gt; a mis votre message en signet</string>
     <string name="account_filter_placeholder_type_follow_fmt">Une personne @&lt;b&gt;%1$s&lt;/b&gt; vous suit</string>
     <string name="account_filter_placeholder_type_follow_request_fmt">Demande d\'abonnement d\'une personne @&lt;b&gt;%1$s&lt;/b&gt;</string>

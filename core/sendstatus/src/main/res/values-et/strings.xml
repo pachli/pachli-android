@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_prepare_media_content_resolver_missing_path_fmt">sisulahendaja URI asukoht on puudu: %1$s</string>
+    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">sisulahendaja URI skeem pole toetatud: %1$s</string>
+    <string name="error_prepare_media_io_fmt">%1$s</string>
+    <string name="error_prepare_media_file_is_too_large_fmt">failisuurus on %1$s, aga suurim lubatud on %2$s</string>
+    <string name="error_prepare_media_unknown_file_size">failisuuruse tuvastamine ei õnnestunud</string>
+    <string name="error_prepare_media_unsupported_mime_type_fmt">server ei toeta failitüüpi: %1$s</string>
+    <string name="error_prepare_media_unknown_mime_type">failitüüp pole teada</string>
+    <string name="error_media_uploader_upload_not_found_fmt">üleslaaditud meediafaili tunnusega %1$s ei leidu</string>
+    <string name="send_post_notification_channel_name">Postituste saatmine</string>
+    <string name="send_post_notification_title">Saadan postitust…</string>
+    <string name="send_post_notification_error_title">Viga postitamisel</string>
+    <string name="send_post_notification_saved_content">Postituse koopia on salvestatud sinu kavandite kausta</string>
+    <string name="send_post_notification_cancel_title">Saatmine on katkestatud</string>
+</resources>

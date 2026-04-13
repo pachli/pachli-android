@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="send_post_notification_channel_name">प्रेष्यमाणानि</string>
+    <string name="send_post_notification_title">दौत्यं प्रेष्यमाणम्…</string>
+    <string name="send_post_notification_error_title">दौत्यप्रेषणे दोषः</string>
+    <string name="send_post_notification_saved_content">दौत्यप्रतिलिपिस्तत्र विकर्षेसु रक्षिता</string>
+    <string name="send_post_notification_cancel_title">प्रेषणं निराकृतम्</string>
+</resources>

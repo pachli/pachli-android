@@ -197,7 +197,8 @@
             </intent-filter>
         </service>
 
-        <service android:name=".service.SendStatusService"
+        <service
+            android:name=".core.sendstatus.SendStatusService"
             android:foregroundServiceType="shortService"
             android:exported="false" />
 

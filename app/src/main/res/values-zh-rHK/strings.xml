@@ -195,11 +195,6 @@
     <string name="lock_account_label">保護你的帳戶（鎖嘟）</string>
     <string name="lock_account_label_description">你需要手動審核所有關注請求</string>
     <string name="compose_save_draft">儲存為草稿？</string>
-    <string name="send_post_notification_title">正在發送…</string>
-    <string name="send_post_notification_error_title">發送失敗</string>
-    <string name="send_post_notification_channel_name">嘟文發送中</string>
-    <string name="send_post_notification_cancel_title">發送已被取消</string>
-    <string name="send_post_notification_saved_content">嘟文已儲存為草稿</string>
     <string name="action_compose_shortcut">新嘟文</string>
     <string name="error_no_custom_emojis">當前站點 %1$s 沒有自訂表情符號</string>
     <string name="emoji_style">表情符號風格</string>

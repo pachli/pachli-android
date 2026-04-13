@@ -88,8 +88,6 @@
     <string name="filter_dialog_remove_button">Noņemt</string>
     <string name="filter_dialog_update_button">Atjaunināt</string>
     <string name="action_edit_image">Labot attēlu</string>
-    <string name="send_post_notification_title">Sūta ierakstu…</string>
-    <string name="send_post_notification_cancel_title">Sūtīšana atcelta</string>
     <string name="compose_save_draft_loses_media">Pielikumi tiks atkal augšupielādēti pēc melnraksta atjaunošanas.</string>
     <string name="later">Vēlāk</string>
     <string name="restart">Sākt no jauna</string>
@@ -174,7 +172,6 @@
     <string name="action_mute_conversation">Apklusināt sarunu</string>
     <string name="action_access_scheduled_posts">Ieplānotie ieraksti</string>
     <string name="error_following_hashtags_unsupported">Šī instance neatbalsta sekošanu tēmturiem.</string>
-    <string name="send_post_notification_channel_name">Sūta ierakstus</string>
     <string name="emoji_style">Emocijzīmju stils</string>
     <string name="add_hashtag_title">Pievienot tēmturi</string>
     <string name="pref_title_show_cards_in_timelines">Rādīt saišu priekšskatījumus laika līnijās</string>
@@ -185,7 +182,6 @@
     <string name="pref_title_http_proxy_port_message">Portam ir jābūt starp %1$d un %2$d</string>
     <string name="action_view_account_preferences">Konta iestatījumi</string>
     <string name="mute_domain_warning">Vai tiešām liegt visu no %1$s? Šī domēna saturs netiks rādīts ne publiskajās laika līnijās, ne paziņojumos. Sekotāji no šī domēna tiks noņemti.</string>
-    <string name="send_post_notification_saved_content">Ieraksta kopija tika saglabāta Tavos melnrakstos</string>
     <string name="restart_emoji">Būs nepieciešams palaist Pachli no jauna, lai pielietotu šīs izmaiņas</string>
     <string name="error_status_source_load">Neizdevās no servera ielādēt stāvokļa avotu.</string>
     <string name="error_sender_account_gone">Sūtot ziņu, radās kļūda.</string>
@@ -326,7 +322,6 @@
     <string name="action_delete_and_redraft">Dzēst un sākt no jauna</string>
     <string name="dialog_message_cancel_follow_request">Noraidīt sekošanas pieprasījumu?</string>
     <string name="dialog_redraft_post_warning">Izdzēst šo ierakstu un sākt no jauna?</string>
-    <string name="send_post_notification_error_title">Sūtot ziņu, radās kļūda</string>
     <string name="account_moved_description">%1$s ir pārcēlies uz:</string>
     <string name="failed_to_pin">Piespraušana neizdevās</string>
     <string name="failed_to_unpin">Atspraušana neizdevās</string>
@@ -601,13 +596,7 @@
     <string name="error_import_preferences_fmt">Nevarēja ievietot iestatījumus no %1$s: %2$s</string>
     <string name="ui_error_reblog_fmt">Ieraksta pastiprināšana neizdevās: %1$s</string>
     <string name="conversation_0_recipients">Nav citu dalībnieku</string>
-    <string name="error_prepare_media_unknown_file_size">datnes lielumu nevarēja noteikt</string>
-    <string name="error_media_uploader_upload_not_found_fmt">informācijas nesēju augšupielāde ar Id %1$s nav atrasta</string>
     <string name="error_pick_media_fmt">Ierakstam nevarēja pievienot datni: %1$s</string>
-    <string name="error_prepare_media_unknown_mime_type">datnes veids nav zināms</string>
-    <string name="error_prepare_media_io_fmt">%1$s</string>
-    <string name="error_prepare_media_unsupported_mime_type_fmt">serveris neatbalsta datnes veidu: %1$s</string>
-    <string name="error_prepare_media_file_is_too_large_fmt">datnes izmērs ir %1$s, lielākais pieļaujamais lielums ir %2$s</string>
     <string name="search_operator_from_ignore_account_fmt">Ne %1$s</string>
     <string name="search_operator_from_dialog_title">Ierobežot noteiktiem kontiem?</string>
     <string name="search_operator_from_ignore_me">Ne mani ieraksti</string>
@@ -661,7 +650,6 @@
     <string name="pref_notification_method_all_pull">Tiek iegūti apmēram reizi 15 minūtēs. Piesist, lai uzzinātu vairāk.</string>
     <string name="pref_notification_method_mixed">Daži konti izmanto UnifiedPush, daži - pārbauda ik pēc 15 minūtēm. Piesist, lai uzzinātu vairāk</string>
     <string name="pref_notification_battery_optimisation_should_ignore">Akumulatora optimizēšanai vajadzētu būt atspējotai. Piesist, lai atvērtu.</string>
-    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">satura atrisinātāja URI ir neatbalstīta shēma: %1$s</string>
     <string name="search_operator_where_public">Publiskie ieraksti</string>
     <string name="search_operator_where_dialog_all">Visi ieraksti</string>
     <string name="pref_notification_battery_optimisation_is_disabled">Akumulatora optimizēšana ir atspējota</string>
@@ -673,7 +661,6 @@
     <string name="search_operator_replies_no_replies">Neiekļaut atbildes</string>
     <string name="search_operator_replies_dialog_all">Visi ieraksti</string>
     <string name="pref_title_notification_battery_optimisation">Akumulatora optimizēšana</string>
-    <string name="error_prepare_media_content_resolver_missing_path_fmt">satura atrisinātāja URI trūkst ceļš: %1$s</string>
     <string name="search_operator_where_dialog_public_hint">Serverim zināmi publiskie, meklējamie ieraksti</string>
     <string name="search_operator_replies_dialog_no_replies">Bez atbildēm</string>
     <string name="search_operator_where_dialog_all_hint">Ieraksti Tavā bibliotēkā un publiskie ieraksti</string>

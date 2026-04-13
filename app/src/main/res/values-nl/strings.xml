@@ -182,11 +182,6 @@
     <string name="lock_account_label">Account besloten maken</string>
     <string name="lock_account_label_description">Handmatige goedkeuring vereist voor volgers</string>
     <string name="compose_save_draft">Concept bewaren?</string>
-    <string name="send_post_notification_title">Bericht wordt verzonden…</string>
-    <string name="send_post_notification_error_title">Verzenden van het bericht is mislukt</string>
-    <string name="send_post_notification_channel_name">Berichten worden verzonden</string>
-    <string name="send_post_notification_cancel_title">Verzenden geannuleerd</string>
-    <string name="send_post_notification_saved_content">Een kopie van het bericht werd als concept opgeslagen</string>
     <string name="action_compose_shortcut">Bericht schrijven</string>
     <string name="error_no_custom_emojis">Jouw server %1$s heeft geen lokale emojis</string>
     <string name="emoji_style">Emojistijl</string>

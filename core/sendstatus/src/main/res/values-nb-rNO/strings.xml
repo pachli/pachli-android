@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_prepare_media_content_resolver_missing_path_fmt">innholdsoppløser-URI manglet en bane: %1$s</string>
+    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">innholdsoppløser-URI har ikke-støttet skjema: %1$s</string>
+    <string name="error_prepare_media_io_fmt">%1$s</string>
+    <string name="error_prepare_media_file_is_too_large_fmt">filstørrelse er %1$s, høyeste størrelse tillatt er %2$s</string>
+    <string name="error_prepare_media_unknown_file_size">filstørrelse kunne ikke regnes</string>
+    <string name="error_prepare_media_unsupported_mime_type_fmt">server støtter ikke filtype: %1$s</string>
+    <string name="error_prepare_media_unknown_mime_type">filtypen er ukjent</string>
+    <string name="error_media_uploader_upload_not_found_fmt">Mediaopplasting med ID %1$s finnes ikke</string>
+    <string name="send_post_notification_channel_name">Sender innleggene</string>
+    <string name="send_post_notification_title">Sender innlegg…</string>
+    <string name="send_post_notification_error_title">Det oppsto en feil under sending av innlegget</string>
+    <string name="send_post_notification_saved_content">En kopi av innlegget er lagret i utkastene dine</string>
+    <string name="send_post_notification_cancel_title">Sending avbrutt</string>
+</resources>
