@@ -13,4 +13,6 @@
     <string name="send_post_notification_error_title">Chyba pri odosielaní príspevku</string>
     <string name="send_post_notification_saved_content">Kópia tvojho príspevku bola uložená do konceptov</string>
     <string name="send_post_notification_cancel_title">Odosielanie bolo zrušené</string>
+    <string name="send_post_failure_message_timeout">Časový limit na odoslanie príspevku vypršal</string>
+    <string name="send_post_failure_message_cancel">Zrušil/a si odoslanie tohto príspevku</string>
 </resources>

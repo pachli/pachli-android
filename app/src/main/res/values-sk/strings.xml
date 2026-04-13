@@ -748,8 +748,6 @@
     <string name="title_delete_drafts">Vymazať vybrané koncepty?</string>
     <string name="delete_drafts_msg">Týmto sa natrvalo odstránia vybrané koncepty.</string>
     <string name="send_post_failure_message_prefix">Odoslanie zlyhalo: %1$s</string>
-    <string name="send_post_failure_message_cancel">Zrušil/a si odoslanie tohto príspevku</string>
-    <string name="send_post_failure_message_timeout">Časový limit na odoslanie príspevku vypršal</string>
     <string name="err_draft_error_no_external_files_dir">zdieľané úložisko je nedostupné</string>
     <string name="err_draft_error_mkdir_drafts_fmt">nepodarilo sa vytvoriť priečinok pre koncepty: %1$s</string>
     <string name="err_draft_error_unknown_mime_type">príloha má neznámy typ MIME: %1$s</string>
