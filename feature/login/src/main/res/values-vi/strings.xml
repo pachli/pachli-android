@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">Bạn phải nhập một tên miền. Ví dụ mastodon.social, icosahedron.website, social.tchncs.de và <a href="https://instances.social">vô số khác!</a>
-\n
-\nNếu chưa có tài khoản, bạn phải tạo tài khoản ở đó trước.
-\n
-\nMáy chủ, nói cách khác là một cộng đồng nơi mà bạn đăng ký tài khoản trên đó, nhưng bạn vẫn có thể dễ dàng giao tiếp và theo dõi mọi người trên các máy chủ khác.
-\n
-\nTham khảo <a href="https://joinmastodon.org">joinmastodon.org</a> </string>
-    <string name="action_close">Đóng</string>
-    <string name="action_browser_login">Đăng nhập bằng trình duyệt</string>
-    <string name="error_invalid_domain">Tên miền không hợp lệ</string>
-    <string name="error_failed_app_registration_fmt">Máy chủ này không cấp quyền truy cập: %1$s</string>
-    <string name="error_authorization_unknown">Xảy ra lỗi khi cố gắng truy cập.</string>
-    <string name="error_authorization_denied">Truy cập bị từ chối.</string>
-    <string name="error_retrieving_oauth_token_fmt">Lấy token đăng nhập thất bại: %1$s</string>
-    <string name="error_loading_account_details_fmt">Không thể tải thông tin tài khoản: %1$s</string>
-    <string name="hint_domain">Bạn ở máy chủ nào\?</string>
-    <string name="action_login">Đăng nhập Mastodon</string>
-    <string name="link_whats_an_instance">Máy chủ là gì\?</string>
-    <string name="login_connection">Đang kết nối…</string>
-    <string name="title_login">Đăng nhập</string>
-    <string name="error_could_not_load_login_page">Không thể tải trang đăng nhập.</string>
-    <string name="instance_rule_info">Đăng nhập nghĩa là bạn đồng ý với nội quy của %1$s.</string>
-    <string name="instance_rule_title">Nội quy của %1$s</string>
+    <string name="dialog_whats_an_instance">The address or domain of any instance can be entered
+        here, such as mastodon.social, icosahedron.website, social.tchncs.de, and
+        <a href="https://instances.social">more!</a>
+        \n\nAn instance is a single place where your account is
+        hosted, but you can easily communicate with and follow folks on other instances as though
+        you were on the same site.
+        \n\nMore info can be found at <a href="https://joinmastodon.org">joinmastodon.org</a>.
+    </string>
+    <string name="action_close">Close</string>
+    <string name="action_browser_login">Login with Browser</string>
+    <string name="error_invalid_domain">Invalid domain entered</string>
+    <string name="error_failed_app_registration_fmt">Failed authenticating with that instance: %1$s</string>
+    <string name="error_authorization_unknown">An unidentified authorization error occurred. If this persists, try \"Login in Browser\" from the menu.</string>
+    <string name="error_authorization_denied">Authorization was denied. If you\'re sure that you supplied the correct credentials, try \"Login in Browser\" from the menu.</string>
+    <string name="error_retrieving_oauth_token_fmt">Failed getting a login token. If this persists, try \"Login in Browser\" from the menu: %1$s</string>
+    <string name="error_loading_account_details_fmt">Failed loading account details: %1$s</string>
+    <string name="hint_domain">Which instance?</string>
+    <string name="action_login">Login with Pachli</string>
+    <string name="link_whats_an_instance">What\'s an instance?</string>
+    <string name="login_connection">Connecting…</string>
+    <string name="title_login">Login</string>
+    <string name="error_could_not_load_login_page">Could not load the login page.</string>
+    <string name="instance_rule_info">By logging in you agree to the rules of %1$s.</string>
+    <string name="instance_rule_title">%1$s rules</string>
 </resources>
