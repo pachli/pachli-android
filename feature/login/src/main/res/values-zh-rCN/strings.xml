@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">请输入你账号所在的 Mastodon 站点的域名，比如 mastodon.social，icosahedron.website，social.tchncs.de，<a href="https://instances.social">等等</a> 。 \u0020 \n \u0020 \n还没有 Mastodon 账号？你也可以输入想注册的 Mastodon 站点的域名，然后在该服务器创建新的账号并授权 Pachli 登入。 \u0020 \n \u0020 \n在 Mastodon 里，你的账号信息储存在某一特定实例当中，但 Mastodon 可使跨站互动和站内互动一样简单。 \u0020 \n \u0020 \n可以前往 <a href="https://joinmastodon.org">https://joinmastodon.org</a> 了解更多信息。 \u0020</string>
-    <string name="action_close">关闭</string>
-    <string name="action_browser_login">用浏览器登录</string>
-    <string name="error_invalid_domain">该域名无效</string>
-    <string name="error_failed_app_registration_fmt">未能通过该实例的身份验证。如果这个问题持续，请从菜单处尝试“在浏览器中登录”。: %1$s</string>
-    <string name="error_authorization_unknown">发生不明授权错误。如果这个问题持续，请从菜单处尝试 “在浏览器中登录”。</string>
-    <string name="error_authorization_denied">授权被拒绝。如果你确定提供了正确的凭据，请从菜单处尝试“在浏览器中登录”。</string>
-    <string name="error_retrieving_oauth_token_fmt">未能获取登录令牌。如果这个问题持续，请从菜单处尝试 “在浏览器中登录”。: %1$s</string>
-    <string name="error_loading_account_details_fmt">加载账户详情失败: %1$s</string>
-    <string name="hint_domain">哪个实例？</string>
-    <string name="action_login">用 Pachli 登录</string>
-    <string name="link_whats_an_instance">什么是实例？</string>
-    <string name="login_connection">正在连接…</string>
-    <string name="title_login">登录</string>
-    <string name="error_could_not_load_login_page">无法加载登录页。</string>
-    <string name="instance_rule_info">登录即表示您同意 %1$s 的规定。</string>
-    <string name="instance_rule_title">%1$s 的规定</string>
+    <string name="dialog_whats_an_instance">The address or domain of any instance can be entered
+        here, such as mastodon.social, icosahedron.website, social.tchncs.de, and
+        <a href="https://instances.social">more!</a>
+        \n\nAn instance is a single place where your account is
+        hosted, but you can easily communicate with and follow folks on other instances as though
+        you were on the same site.
+        \n\nMore info can be found at <a href="https://joinmastodon.org">joinmastodon.org</a>.
+    </string>
+    <string name="action_close">Close</string>
+    <string name="action_browser_login">Login with Browser</string>
+    <string name="error_invalid_domain">Invalid domain entered</string>
+    <string name="error_failed_app_registration_fmt">Failed authenticating with that instance: %1$s</string>
+    <string name="error_authorization_unknown">An unidentified authorization error occurred. If this persists, try \"Login in Browser\" from the menu.</string>
+    <string name="error_authorization_denied">Authorization was denied. If you\'re sure that you supplied the correct credentials, try \"Login in Browser\" from the menu.</string>
+    <string name="error_retrieving_oauth_token_fmt">Failed getting a login token. If this persists, try \"Login in Browser\" from the menu: %1$s</string>
+    <string name="error_loading_account_details_fmt">Failed loading account details: %1$s</string>
+    <string name="hint_domain">Which instance?</string>
+    <string name="action_login">Login with Pachli</string>
+    <string name="link_whats_an_instance">What\'s an instance?</string>
+    <string name="login_connection">Connecting…</string>
+    <string name="title_login">Login</string>
+    <string name="error_could_not_load_login_page">Could not load the login page.</string>
+    <string name="instance_rule_info">By logging in you agree to the rules of %1$s.</string>
+    <string name="instance_rule_title">%1$s rules</string>
 </resources>
