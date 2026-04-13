@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">Здесь можно ввести адрес или домен любого узла, например, mastodon.social, icosahedron.website, social.tchncs.de и <a href="https://instances.social/">других</a>!\n\nУзел — это то место, где размещён ваш аккаунт, но вы можете взаимодействовать с пользователями других узлов, как будто вы находитесь на одном сайте.\n\nСмотрите подробности на <a href="https://joinmastodon.org">JoinMastodon.org</a>.</string>
-    <string name="action_close">Закрыть</string>
-    <string name="action_browser_login">Вход через Браузер</string>
-    <string name="error_invalid_domain">Некорректный домен</string>
-    <string name="error_failed_app_registration_fmt">Ошибка аутентификации на этом узле. Если это повторится, попробуйте Вход через Браузер в меню: %1$s</string>
-    <string name="error_authorization_unknown">Произошла ошибка неопознанной авторизации. Если это повторится, попробуйте Вход через Браузер в меню.</string>
-    <string name="error_authorization_denied">Авторизация была отклонена.</string>
-    <string name="error_retrieving_oauth_token_fmt">Не удалось получить токен авторизации: %1$s</string>
-    <string name="hint_domain">Какой узел?</string>
-    <string name="action_login">Войти</string>
-    <string name="link_whats_an_instance">Что такое узел?</string>
-    <string name="login_connection">Соединение…</string>
-    <string name="title_login">Войти</string>
-    <string name="error_loading_account_details_fmt">Не удалось загрузить данные профиля: %1$s</string>
-    <string name="error_could_not_load_login_page">Не удалось загрузить страницу входа.</string>
-    <string name="instance_rule_info">Входя сюда, вы соглашаетесь с правилами %1$s.</string>
-    <string name="instance_rule_title">Правила %1$s</string>
+    <string name="dialog_whats_an_instance">The address or domain of any instance can be entered
+        here, such as mastodon.social, icosahedron.website, social.tchncs.de, and
+        <a href="https://instances.social">more!</a>
+        \n\nAn instance is a single place where your account is
+        hosted, but you can easily communicate with and follow folks on other instances as though
+        you were on the same site.
+        \n\nMore info can be found at <a href="https://joinmastodon.org">joinmastodon.org</a>.
+    </string>
+    <string name="action_close">Close</string>
+    <string name="action_browser_login">Login with Browser</string>
+    <string name="error_invalid_domain">Invalid domain entered</string>
+    <string name="error_failed_app_registration_fmt">Failed authenticating with that instance: %1$s</string>
+    <string name="error_authorization_unknown">An unidentified authorization error occurred. If this persists, try \"Login in Browser\" from the menu.</string>
+    <string name="error_authorization_denied">Authorization was denied. If you\'re sure that you supplied the correct credentials, try \"Login in Browser\" from the menu.</string>
+    <string name="error_retrieving_oauth_token_fmt">Failed getting a login token. If this persists, try \"Login in Browser\" from the menu: %1$s</string>
+    <string name="error_loading_account_details_fmt">Failed loading account details: %1$s</string>
+    <string name="hint_domain">Which instance?</string>
+    <string name="action_login">Login with Pachli</string>
+    <string name="link_whats_an_instance">What\'s an instance?</string>
+    <string name="login_connection">Connecting…</string>
+    <string name="title_login">Login</string>
+    <string name="error_could_not_load_login_page">Could not load the login page.</string>
+    <string name="instance_rule_info">By logging in you agree to the rules of %1$s.</string>
+    <string name="instance_rule_title">%1$s rules</string>
 </resources>
