@@ -109,7 +109,7 @@ suspend fun Uri.saveToDirectory(context: Context, callFactory: Call.Factory, dir
     return@withContext try {
         // saving redrafted media
         if (scheme == "https") {
-            val request = Request.Builder().url(toString()).build()
+            val request = Request.Builder().url(this@saveToDirectory.toString()).build()
             callFactory.newCall(request).execute().use { response ->
                 response.body.source().buffer.use { input ->
                     file.sink().buffer().use { it.writeAll(input) }
