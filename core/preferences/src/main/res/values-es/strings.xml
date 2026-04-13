@@ -1,39 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2024 Pachli Association
+  ~
+  ~ This file is a part of Pachli.
+  ~
+  ~ This program is free software; you can redistribute it and/or modify it under the terms of the
+  ~ GNU General Public License as published by the Free Software Foundation; either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+  ~ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+  ~ Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with Pachli; if not,
+  ~ see <http://www.gnu.org/licenses>.
+  -->
 <resources>
-    <string name="app_theme_light">Claro</string>
-    <string name="app_theme_black">Negro</string>
-    <string name="app_theme_auto">Automático</string>
-    <string name="app_theme_dark">Oscuro</string>
-    <string name="app_theme_system">Usar tema del sistema</string>
     <string name="pref_category_downloads">Descargas</string>
     <string name="pref_title_downloads">Ubicación de las descargas</string>
     <string name="download_location_downloads">Carpeta de Descargas</string>
     <string name="download_location_per_account">Subcarpeta de cuenta, en Descargas</string>
     <string name="download_location_per_sender">Subcarpeta de cuenta que publica, en Descargas</string>
+    <string name="app_theme_light">Claro</string>
+    <string name="app_theme_black">Negro</string>
+    <string name="app_theme_auto">Automático</string>
+    <string name="app_theme_dark">Oscuro</string>
+    <string name="app_theme_system">Usar tema del sistema</string>
+    <string name="pref_category_tabs">Pestañas</string>
     <string name="pref_title_tab_tap">Acción al tocar una pestaña</string>
     <string name="tab_tap_behaviour_jump_to_next_page">Saltar a la siguiente página</string>
     <string name="tab_tap_behaviour_jump_to_newest">Saltar al contenido más nuevo</string>
-    <string name="pref_category_tabs">Pestañas</string>
     <string name="pref_main_nav_position_option_top">Arriba</string>
     <string name="pref_main_nav_position_option_bottom">Abajo</string>
     <string name="pref_show_self_username_always">Siempre</string>
     <string name="pref_show_self_username_disambiguate">Cuando hay varias cuentas ingresadas</string>
     <string name="pref_show_self_username_never">Nunca</string>
-    <string name="pref_tab_contents_text_only">Solo texto</string>
-    <string name="pref_tab_contents_icon_only">Solo icono</string>
-    <string name="pref_tab_contents_icon_text_inline">Icono con texto al lado</string>
-    <string name="pref_tab_contents_icon_text_below">Icono con texto debajo</string>
     <string name="pref_title_tab_alignment">Alinear las pestañas principales de navegación</string>
     <string name="pref_tab_alignment_start">Inicio de la dirección de escritura</string>
     <string name="pref_tab_alignment_justify_if_possible">Ampliar a ancho completo</string>
     <string name="pref_tab_alignment_end">Fin de la dirección de escritura</string>
     <string name="pref_title_tab_contents">Contenido de las pestañas principales de navegación</string>
+    <string name="pref_tab_contents_icon_only">Solo icono</string>
+    <string name="pref_tab_contents_text_only">Solo texto</string>
+    <string name="pref_tab_contents_icon_text_inline">Icono con texto al lado</string>
+    <string name="pref_tab_contents_icon_text_below">Icono con texto debajo</string>
     <string name="pref_title_render_markdown">Mostrar Markdown</string>
     <string name="pref_update_notification_frequency_never">Nunca</string>
     <string name="pref_update_notification_frequency_once_per_version">Una vez por versión</string>
     <string name="pref_update_notification_frequency_always">Siempre</string>
-    <string name="pref_summary_export_settings">Toca para guardar las preferencias de la aplicación y de la cuenta en un archivo local</string>
     <string name="pref_title_export_settings">Exportar preferencias</string>
+    <string name="pref_summary_export_settings">Toca para guardar las preferencias de la aplicación y de la cuenta en un archivo local</string>
     <string name="pref_title_import_settings">Importar preferencias</string>
     <string name="pref_summary_import_settings">Toca para restaurar las preferencias desde un archivo creado usando \"Exportar preferencias\"</string>
     <string name="pref_default_audio_playback_option_unmuted">No silenciado</string>
@@ -47,13 +63,13 @@
     <string name="pref_translation_backend_option_local_only">Sólo dispositivo</string>
     <string name="pref_translation_backend_option_local_only_help">Traducir publicaciones en tu dispositivo usando el Traductor de Google.</string>
     <string name="pref_translation_backend_requires_play_label">Instala desde Google Play para tener compatibilidad con la traducción en dispositivo</string>
-    <string name="pref_pronoun_display_everywhere">En todos lados</string>
-    <string name="pref_quote_policy_followers">Sólo tus seguidores</string>
     <string name="pref_title_pronoun_display">Mostrar pronombres de la cuenta</string>
+    <string name="pref_pronoun_display_everywhere">En todos lados</string>
     <string name="pref_pronoun_display_when_composing">Al escribir una publicación</string>
     <string name="pref_pronoun_display_hide">En ningún lado</string>
     <string name="pref_title_quote_policy">¿Quién puede citar tus publicaciones?</string>
     <string name="pref_quote_policy_public">Cualquiera (salvo cuentas bloqueadas)</string>
+    <string name="pref_quote_policy_followers">Sólo tus seguidores</string>
     <string name="pref_quote_policy_nobody">Sólo tú</string>
     <string name="pref_summary_quote_policy_disabled">Tu servidor no admite reglas de cita</string>
 </resources>
