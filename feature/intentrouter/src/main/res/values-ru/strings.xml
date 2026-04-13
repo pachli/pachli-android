@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_share_as">Поделиться как…</string>
     <string name="error_set_active_account">Попытка входа в систему не удалась из-за следующей ошибки: %1$s</string>
     <string name="error_refresh_account">Обновление профиля не удалось из-за следующей ошибки: %1$s\n\nВы можете продолжить, но ваши списки и фильтры могут быть неполными.</string>
     <string name="action_relogin">Повторный вход</string>
+    <string name="action_share_as">Поделиться как…</string>
     <string name="title_choose_account_dialog">Выберите учётную запись</string>
     <string name="title_error_dialog">Вход не удался</string>
     <string name="error_login_failed_hint">Нажмите на профиль, чтобы повторить попытку.</string>
