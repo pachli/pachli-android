@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2024 Pachli Association
+  ~
+  ~ This file is a part of Pachli.
+  ~
+  ~ This program is free software; you can redistribute it and/or modify it under the terms of the
+  ~ GNU General Public License as published by the Free Software Foundation; either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+  ~ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+  ~ Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with Pachli; if not,
+  ~ see <http://www.gnu.org/licenses>.
+  -->
 <resources>
-    <string name="error_generic_fmt">Erreur %1$s</string>
-    <string name="error_404_not_found_fmt">votre serveur ne prend pas en charge cette fonctionnalité: %1$s</string>
-    <string name="error_network_fmt">Une erreur réseau s\'est produite : %1$s</string>
     <string name="node_info_error_no_software">ne contenait pas de bloc logiciel</string>
     <string name="node_info_error_no_software_name">le nom du logiciel est manquant, vide ou blanc</string>
     <string name="node_info_error_no_software_version">la version du logiciel est manquante, vide ou blanche</string>
     <string name="server_error_unparseable_version">impossible de déchiffrer \"%1$s\" comme version : %2$s</string>
+    <string name="error_generic_fmt">Erreur %1$s</string>
+    <string name="error_404_not_found_fmt">votre serveur ne prend pas en charge cette fonctionnalité: %1$s</string>
     <string name="error_429_rate_limit_fmt">votre serveur limite le nombre de vos demandes : %1$s</string>
     <string name="error_json_data_fmt">votre serveur a renvoyé une réponse non valide : %1$s</string>
+    <string name="error_network_fmt">Une erreur réseau s\'est produite : %1$s</string>
     <string name="error_missing_content_type_fmt">votre serveur est mal configuré, la réponse n\'a pas de content-type : %1$s</string>
     <string name="error_wrong_content_type_fmt">votre serveur est mal configuré et a renvoyé \'%2$s\' avec le mauvais content-type, \'%1$s\'</string>
 </resources>
