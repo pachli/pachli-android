@@ -1,40 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2024 Pachli Association
+  ~
+  ~ This file is a part of Pachli.
+  ~
+  ~ This program is free software; you can redistribute it and/or modify it under the terms of the
+  ~ GNU General Public License as published by the Free Software Foundation; either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+  ~ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+  ~ Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with Pachli; if not,
+  ~ see <http://www.gnu.org/licenses>.
+  -->
 <resources>
-    <string name="app_theme_light">Světlý</string>
-    <string name="app_theme_black">Černý</string>
-    <string name="app_theme_auto">Automaticky při západu slunce</string>
-    <string name="app_theme_dark">Tmavý</string>
-    <string name="app_theme_system">Použít systémový design</string>
-    <string name="pref_category_downloads">Stažené soubory</string>
-    <string name="pref_title_downloads">Složka pro stahování</string>
-    <string name="download_location_downloads">Soubory ke stažení</string>
-    <string name="download_location_per_account">Per-account složky, ve složce Ke stažení</string>
-    <string name="download_location_per_sender">Per-sender složky, ve složce Ke stažení</string>
-    <string name="pref_title_tab_tap">Akce při poklepání karty</string>
-    <string name="tab_tap_behaviour_jump_to_next_page">Skok na další stránku</string>
-    <string name="tab_tap_behaviour_jump_to_newest">Přeskočit na nejnovější obsah</string>
-    <string name="pref_category_tabs">Panely</string>
-    <string name="pref_main_nav_position_option_top">Nahoře</string>
-    <string name="pref_main_nav_position_option_bottom">Dole</string>
-    <string name="pref_show_self_username_always">Vždy</string>
-    <string name="pref_show_self_username_disambiguate">Když je přihlášeno více účtů</string>
-    <string name="pref_show_self_username_never">Nikdy</string>
-    <string name="pref_title_tab_alignment">Align hlavní navigační karty</string>
-    <string name="pref_tab_alignment_start">Začněte směr textu</string>
-    <string name="pref_tab_alignment_justify_if_possible">Rozbalte do plné šířky</string>
-    <string name="pref_tab_alignment_end">Konec směru textu</string>
-    <string name="pref_title_tab_contents">Obsah hlavních navigačních záložek</string>
-    <string name="pref_tab_contents_icon_text_below">Ikona s textem níže</string>
-    <string name="pref_tab_contents_icon_text_inline">Ikona s textem vedle</string>
-    <string name="pref_tab_contents_icon_only">Jen ikony</string>
-    <string name="pref_tab_contents_text_only">Jen text</string>
+    <string name="pref_category_downloads">Downloads</string>
+    <string name="pref_title_downloads">Download location</string>
+    <string name="download_location_downloads">Downloads folder</string>
+    <string name="download_location_per_account">Per-account folders, in Downloads folder</string>
+    <string name="download_location_per_sender">Per-sender folders, in Downloads folder</string>
+    <string name="app_theme_light">Light</string>
+    <string name="app_theme_black">Black</string>
+    <string name="app_theme_auto">Automatic at sunset</string>
+    <string name="app_theme_dark">Dark</string>
+    <string name="app_theme_system">Use system design</string>
+    <string name="pref_category_tabs">Tabs</string>
+    <string name="pref_title_tab_tap">Action when tapping a tab</string>
+    <string name="tab_tap_behaviour_jump_to_next_page">Jump to next page</string>
+    <string name="tab_tap_behaviour_jump_to_newest">Jump to newest content</string>
+    <string name="pref_main_nav_position_option_top">Top</string>
+    <string name="pref_main_nav_position_option_bottom">Bottom</string>
+    <string name="pref_show_self_username_always">Always</string>
+    <string name="pref_show_self_username_disambiguate">When multiple accounts logged in</string>
+    <string name="pref_show_self_username_never">Never</string>
+    <string name="pref_title_tab_alignment">Align main navigation tabs</string>
+    <string name="pref_tab_alignment_start">Start of text direction</string>
+    <string name="pref_tab_alignment_justify_if_possible">Expand to full width</string>
+    <string name="pref_tab_alignment_end">End of text direction</string>
+    <string name="pref_title_tab_contents">Content of main navigation tabs</string>
+    <string name="pref_tab_contents_icon_only">Icon only</string>
+    <string name="pref_tab_contents_text_only">Text only</string>
+    <string name="pref_tab_contents_icon_text_inline">Icon with text beside</string>
+    <string name="pref_tab_contents_icon_text_below">Icon with text below</string>
     <string name="pref_title_render_markdown">Render Markdown</string>
-    <string name="pref_update_notification_frequency_never">Nikdy</string>
-    <string name="pref_update_notification_frequency_always">Vždy</string>
-    <string name="pref_title_export_settings">Exportovat nastavení</string>
-    <string name="pref_title_import_settings">Importovat nastavení</string>
-    <string name="pref_default_audio_playback_option_unmuted">Zesílen.</string>
-    <string name="pref_default_audio_playback_option_muted">Ztlumeno</string>
-    <string name="pref_title_translation">Překlad</string>
-    <string name="pref_pronoun_display_everywhere">Všude</string>
+    <string name="pref_update_notification_frequency_never">Never</string>
+    <string name="pref_update_notification_frequency_once_per_version">Once per version</string>
+    <string name="pref_update_notification_frequency_always">Always</string>
+    <string name="pref_title_export_settings">Export settings</string>
+    <string name="pref_summary_export_settings">Tap to save app and account settings to a local file</string>
+    <string name="pref_title_import_settings">Import settings</string>
+    <string name="pref_summary_import_settings">Tap to restore settings from a file created using \"Export settings\"</string>
+    <string name="pref_default_audio_playback_option_unmuted">Unmuted</string>
+    <string name="pref_default_audio_playback_option_muted">Muted</string>
+    <string name="pref_title_translation">Translation</string>
+    <string name="pref_translation_backend">How to translate</string>
+    <string name="pref_translation_backend_option_server_only">Server only</string>
+    <string name="pref_translation_backend_option_server_only_help">Translates posts using your server. Will not work if your server does not support translation, or the post\'s language is incorrect.</string>
+    <string name="pref_translation_backend_option_server_first">Server first</string>
+    <string name="pref_translation_backend_option_server_first_help">Translates posts using your server. If that fails then translates on your device using Google Translate.</string>
+    <string name="pref_translation_backend_option_local_only">On-device only</string>
+    <string name="pref_translation_backend_option_local_only_help">Translates posts on your device using Google Translate.</string>
+    <string name="pref_translation_backend_requires_play_label">Install from Google Play for on-device translation support</string>
+    <string name="pref_title_pronoun_display">Show account pronouns</string>
+    <string name="pref_pronoun_display_everywhere">Everywhere</string>
+    <string name="pref_pronoun_display_when_composing">When writing a post</string>
+    <string name="pref_pronoun_display_hide">Nowhere</string>
+    <string name="pref_title_quote_policy">Who can quote your posts?</string>
+    <string name="pref_quote_policy_public">Anyone (except blocked accounts)</string>
+    <string name="pref_quote_policy_followers">Only your followers</string>
+    <string name="pref_quote_policy_nobody">Only you</string>
+    <string name="pref_summary_quote_policy_disabled">Your server does not support quote policies</string>
 </resources>
