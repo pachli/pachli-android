@@ -8,12 +8,12 @@
     <string name="error_authorization_unknown">Произошла ошибка неопознанной авторизации. Если это повторится, попробуйте Вход через Браузер в меню.</string>
     <string name="error_authorization_denied">Авторизация была отклонена.</string>
     <string name="error_retrieving_oauth_token_fmt">Не удалось получить токен авторизации: %1$s</string>
+    <string name="error_loading_account_details_fmt">Не удалось загрузить данные профиля: %1$s</string>
     <string name="hint_domain">Какой узел?</string>
     <string name="action_login">Войти</string>
     <string name="link_whats_an_instance">Что такое узел?</string>
     <string name="login_connection">Соединение…</string>
     <string name="title_login">Войти</string>
-    <string name="error_loading_account_details_fmt">Не удалось загрузить данные профиля: %1$s</string>
     <string name="error_could_not_load_login_page">Не удалось загрузить страницу входа.</string>
     <string name="instance_rule_info">Входя сюда, вы соглашаетесь с правилами %1$s.</string>
     <string name="instance_rule_title">Правила %1$s</string>
