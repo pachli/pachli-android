@@ -1,21 +1,85 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about_title_activity">Hakkında</string>
-    <string name="about_device_info_title">Cihazınız</string>
-    <string name="about_account_info_title">Hesabınız</string>
-    <string name="about_copied">Kopyalanan sürüm ve cihaz bilgileri</string>
-    <string name="about_copy">Sürüm ve cihaz bilgilerini kopyala</string>
-    <string name="about_powered_by_pachli">Pachli tarafından desteklenmektedir</string>
-    <string name="about_pachli_license">Pachli özgür ve açık kaynak bir yazılımdır. GNU Genel Kamu Lisansı sürüm 3 altında lisanslanmıştır. Lisansı buradan görüntüleyebilirsiniz: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
-    <string name="about_project_site">Proje web sayfası: https://pachli.app</string>
-    <string name="about_bug_feature_request_site">"Hata raporları ve özellik istekleri:
-\nhttps://github.com/pachli/pachli-android/issues"</string>
-    <string name="about_pachli_account">Pachli\'nin Profili</string>
-    <string name="title_licenses">Lisanslar</string>
-    <string name="about_device_info">%1$s %2$s
-\nAndroid sürüm: %3$s
-\nSDK sürüm: %4$d</string>
-    <string name="about_account_info">\@%1$s@%2$s
-\nSürüm: %3$s</string>
-    <string name="license_description">Pachli aşağıdakı açık kaynaklı projelerden kod ve materyal içeriyor:</string>
+    <string name="about_title_activity">About</string>
+    <string name="about_device_info_title">Your device</string>
+    <string name="about_account_info_title">Your account</string>
+    <string name="about_copied">Copied version and device information</string>
+    <string name="about_copy">Copy version and device information</string>
+    <string name="about_powered_by_pachli">Powered by Pachli</string>
+    <string name="about_pachli_license">Pachli is free and open-source software.
+        It is licensed under the GNU General Public License Version 3.
+        You can view the license here: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_project_site">Project website: https://pachli.app</string>
+    <string name="about_bug_feature_request_site">Bug reports &amp; feature requests:\nhttps://github.com/pachli/pachli-android/issues</string>
+    <string name="about_privacy_policy">Privacy policy</string>
+    <string name="about_pachli_account">Pachli\'s Profile</string>
+    <string name="title_licenses">Licenses</string>
+    <string name="about_device_info">%1$s %2$s\nAndroid version: %3$s\nSDK level: %4$d</string>
+    <string name="about_account_info">\@%1$s\@%2$s\nVersion: %3$s</string>
+    <string name="license_description">Pachli contains code and assets from the following open source projects:</string>
+    <string name="notification_details_title">Details</string>
+    <string name="notification_details_android_notifications_enabled">Android notifications are enabled?</string>
+    <string name="notification_details_notifications_enabled_help"><![CDATA[Notifications are not enabled for any of your accounts. Change this in Account Preferences > Notifications. Until then all notifications are disabled.]]></string>
+    <string name="notification_details_push_notifications_with_unifiedpush">Push notifications with UnifiedPush</string>
+    <string name="notification_details_unifiedpush_available">UnifiedPush is available?</string>
+    <string name="notification_details_unifiedpush_available_help">UnifiedPush (ntfy.sh) is not available, notifications will be periodically pulled. The rest of this section explains why UnifiedPush is not being used, but not relevant to how notifications are currently pulled.</string>
+    <string name="notification_details_any_account_needs_migration">All accounts have \'push\' OAuth scope?</string>
+    <string name="notification_details_any_account_needs_migration_help">One or more accounts does not have the \'push\' OAuth scope, push notifications are disabled.</string>
+    <string name="notification_details_accounts_unified_push_url">All accounts have a UnifiedPush URL?</string>
+    <string name="notification_details_accounts_unified_push_url_help">One or more accounts is not configured with a UnifiedPush URL, push notifications for this account are disabled.</string>
+    <string name="notification_details_accounts_unified_push_subscription">All accounts are subscribed?</string>
+    <string name="notification_details_accounts_unified_push_subscription_help">One or more accounts failed to update its UnifiedPush subscription and will not receive notifications.</string>
+    <string name="notification_details_ntfy_exempt">NTFY is exempt from battery optimization?</string>
+    <string name="notification_details_ntfy_exempt_help">NTFY is not exempt from battery optimizations. Android may be delaying notifications whenever the screen is off.</string>
+    <string name="notification_details_pull_section">Pull notifications with periodic workers</string>
+    <string name="notification_details_pachli_exempt">Pachli is exempt from battery optimization?</string>
+    <string name="notification_details_pachli_exempt_help">Pachli is not exempt from battery optimizations. Android may be delaying notifications whenever the screen is off.</string>
+    <string name="notification_details_workers_help">This is the list of workers that fetch new notifications. There should be one, the state should be RUNNING or ENQUEUED, and it should be scheduled to run in less than 15 minutes from now.</string>
+    <string name="notification_details_last_fetch_help">Irrespective of the notification method, this shows, per-account, when the last fetch occurred, whether it was successful, and the error message if it wasn\'t.</string>
+    <string name="notification_details_usage_event">Power management restrictions</string>
+    <string name="notification_details_usage_event_label">Android can limit what apps can do in the background. This list is how Pachli has been restricted over the last three days, newest first.</string>
+    <string name="notification_details_ago">%1$s ago @ %2$s</string>
+    <string name="notification_details_standby_bucket_exempted">Exempted</string>
+    <string name="notification_details_standby_bucket_active">Active. Unrestricted background jobs</string>
+    <string name="notification_details_standby_bucket_working_set">Working set. Limited to 10 minutes every 2 hours</string>
+    <string name="notification_details_standby_bucket_frequent">Frequent. Limited to 10 minutes every 2 hours</string>
+    <string name="notification_details_standby_bucket_rare">Rare. Limited to 10 minutes every 24 hours</string>
+    <string name="notification_details_standby_bucket_restricted">Restricted. Once per day</string>
+    <string name="notification_details_standby_bucket_never">Never</string>
+    <string name="notification_details_standby_bucket_unknown">Unknown</string>
+    <string name="notification_log_title">Log</string>
+    <string name="notification_log_filter_content_description">Filter logs by tag</string>
+    <string name="notification_log_filter">Filter</string>
+    <string name="notification_log_download_content_description">Download logs</string>
+    <string name="notification_log_download">Download</string>
+    <string name="notification_log_sort">Sort newest first</string>
+    <string name="notification_log_previous_attempts">Run attempts: %1$d</string>
+    <string name="notification_log_scheduled_in">Scheduled in %1$s @ %2$s</string>
+    <string name="notification_log_method_push">Notifications are being pushed using UnifiedPush, and should be immediate</string>
+    <string name="notification_log_method_pull">Notifications are being pulled periodically, approximately every 15 minutes</string>
+    <string name="notification_log_method_unknown">Notification mechanism has not been determined</string>
+    <string name="notification_log_method_pusherror">UnifiedPush is enabled but had an error: %1$s</string>
+    <string name="notification_log_download_failed">Download failed: %1$s</string>
+    <string name="notitication_log_filter_dialog_title">Show log priorities</string>
+    <string name="about_nivenly_foundation">Pachli is a <a href="https://nivenly.org">Nivenly Foundation</a> project.</string>
+    <string name="about_notifications">Notifications</string>
+    <string name="about_database">Database</string>
+    <string name="about_workers">Workers</string>
+    <string name="database_table_sizes">Table sizes</string>
+    <string name="database_integrity_check">Integrity check</string>
+    <string name="database_query_timings">Query timings</string>
+    <string name="database_prune_cache">Prune cache</string>
+    <string name="database_vacuum">Vacuum</string>
+    <string name="database_clear_cache">Clear cache</string>
+    <string name="action_run_integrity_check">Run integrity check</string>
+    <string name="action_run_query_timings">Run query timings</string>
+    <string name="action_prune_cache">Prune cache</string>
+    <string name="action_vacuum">Vacuum</string>
+    <string name="action_clear_cache">Clear cache</string>
+    <string name="database_prune_cache_complete">Prune cache complete</string>
+    <string name="database_vacuum_complete">Vacuum complete</string>
+    <string name="database_clear_cache_complete">Clear cache complete</string>
+    <string name="workers_prune_cached_media_help">This is the list of workers that prune cached media. There should be one, the state should be RUNNING or ENQUEUED, and it should be scheduled to run in less than 12 hours from now.</string>
+    <string name="workers_prune_cache_help">This is the list of workers that prune cached information about posts and authors. There should be one, the state should be RUNNING or ENQUEUED, and it should be scheduled to run in less than 12 hours from now.</string>
+    <string name="workers_prune_log_entry_entity_help">This is the list of workers that debug log entries. There should be one, the state should be RUNNING or ENQUEUED, and it should be scheduled to run in less than 12 hours from now.</string>
 </resources>
