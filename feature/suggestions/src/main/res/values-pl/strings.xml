@@ -1,20 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2024 Pachli Association
+  ~
+  ~ This file is a part of Pachli.
+  ~
+  ~ This program is free software; you can redistribute it and/or modify it under the terms of the
+  ~ GNU General Public License as published by the Free Software Foundation; either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+  ~ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+  ~ Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with Pachli; if not,
+  ~ see <http://www.gnu.org/licenses>.
+  -->
 <resources>
-    <string name="title_suggestions">Proponowane konta</string>
-    <string name="source_unknown">(serwer zwrócił nierozpoznawalne źródła)</string>
-    <string name="sources_featured">Wybrane przez ekipę twojego serwera</string>
-    <string name="sources_most_followed">Jedno z najczęściej obserwowanych na twoim serwerze</string>
-    <string name="sources_most_interactions">Przyciąga sporo uwagi na twoim serwerze</string>
-    <string name="sources_similar_to_recently_followed">Podobne do kont, które obserwujesz</string>
-    <string name="sources_friends_of_friends">Popularne wśród osób, które obserwujesz</string>
-    <string name="sources_unknown">(serwer zwrócił nierozpoznawalne źródła)</string>
-    <string name="action_follow_account">Obserwuj</string>
-    <string name="action_dismiss_follow_suggestion">Odrzuć</string>
-    <string name="follows_count_fmt">&lt;b>%1$s&lt;/b> obserwowanych</string>
-    <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> wpisów</string>
-    <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> wpisów (&lt;b>%2$d&lt;/b> na tydzień)</string>
-    <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> wpisów (&lt;b>%2$d&lt;/b> na tydzień, ostatni &lt;b>%3$s&lt;/b>)</string>
-    <string name="ui_error_follow_account_fmt">Obserwowanie %1$s się nie powiodło: %2$s</string>
-    <string name="ui_error_delete_suggestion_fmt">Odrzucanie sugestii %1$s się nie powiodło: %2$s</string>
-    <string name="follower_count_fmt">&lt;b>%1$s&lt;/b> obserwujących</string>
+    <string name="title_suggestions">Suggested accounts</string>
+    <string name="source_unknown">(server returned unrecognized source)</string>
+    <string name="sources_featured">Hand-picked by your server team</string>
+    <string name="sources_most_followed">One of the most followed on your server</string>
+    <string name="sources_most_interactions">Getting a lot of attention on your server</string>
+    <string name="sources_similar_to_recently_followed">Similar to accounts you have recently followed</string>
+    <string name="sources_friends_of_friends">Popular among people you follow</string>
+    <string name="sources_unknown">(server returned unrecognized sources)</string>
+    <string name="action_follow_account">Follow</string>
+    <string name="action_dismiss_follow_suggestion">Dismiss</string>
+    <string name="ui_error_delete_suggestion_fmt">Dismissing suggestion for %1$s failed: %2$s</string>
+    <string name="ui_error_follow_account_fmt">Following %1$s failed: %2$s</string>
+    <string name="follower_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; followers</string>
+    <string name="follows_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; following</string>
+    <string name="statuses_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; posts</string>
+    <string name="statuses_count_per_week_fmt">&lt;b&gt;%1$s&lt;/b&gt; posts (&lt;b&gt;%2$d&lt;/b&gt; per week)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b&gt;%1$s&lt;/b&gt; posts (&lt;b&gt;%2$d&lt;/b&gt; per week, last &lt;b&gt;%3$s&lt;/b&gt;)</string>
 </resources>
