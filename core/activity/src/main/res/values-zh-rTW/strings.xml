@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_open_as">打開為 %1$s</string>
-    <string name="post_lookup_error_format">尋找嘟文時發生錯誤 %1$s</string>
-    <string name="performing_lookup_title">正在查詢…</string>
+    <string name="post_lookup_error_format">Error looking up %1$s</string>
+    <string name="action_open_as">Open as %1$s</string>
+    <string name="action_open_as_ellipsis">Open as…</string>
+    <string name="action_open_quoted_post">Open quoted post</string>
+    <string name="performing_lookup_title">Performing lookup…</string>
+    <string name="send_error_report">Send error report</string>
 </resources>
