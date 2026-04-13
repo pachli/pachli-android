@@ -13,4 +13,6 @@
     <string name="send_post_notification_error_title">Julkaisun lähettäminen epäonnistui</string>
     <string name="send_post_notification_saved_content">Kopio julkaisusta on tallennettu luonnoksiisi</string>
     <string name="send_post_notification_cancel_title">Lähettäminen peruutettu</string>
+    <string name="send_post_failure_message_timeout">Android aikakatkaisi julkaisun lähettämisen</string>
+    <string name="send_post_failure_message_cancel">Peruit julkaisun lähettämisen</string>
 </resources>

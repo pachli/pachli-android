@@ -740,8 +740,6 @@
     <string name="title_delete_drafts">Kas kustutad valitud kavandid?</string>
     <string name="delete_drafts_msg">Järgnevaga kustutad valitud kavandid.</string>
     <string name="send_post_failure_message_prefix">Saatmine ei õnnestunud: %1$s</string>
-    <string name="send_post_failure_message_cancel">Sa katkestasid postitamise</string>
-    <string name="send_post_failure_message_timeout">Androidi päring aegus postitamise ajal</string>
     <string name="err_draft_error_no_external_files_dir">jagatud andmeruum pole saadaval</string>
     <string name="err_draft_error_mkdir_drafts_fmt">Kavandite kausta loomine ei õnnestunud: %1$s</string>
     <string name="err_draft_error_unknown_mime_type">manuse MIME-tüüp on tundmatu: %1$s</string>
