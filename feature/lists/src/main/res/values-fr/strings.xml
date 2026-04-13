@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hint_list_name">Nom de la liste</string>
-    <string name="list_exclusive_label">Masquer du fil d\'actualité principal</string>
-    <string name="title_lists">Listes</string>
-    <string name="error_create_list_fmt">Impossible de créer la liste \"%1$s\": %2$s</string>
-    <string name="error_delete_list_fmt">Impossible de supprimer la liste \"%1$s\": %2$s</string>
-    <string name="error_rename_list_fmt">Impossible de renommer la liste \"%1$s\": %2$s</string>
-    <string name="action_rename_list">Renommer la liste</string>
-    <string name="action_create_list">Créer une liste</string>
-    <string name="dialog_delete_list_warning">Voulez-vous vraiment supprimer la liste %1$s \?</string>
-    <string name="action_remove_from_list">Supprimer un compte de la liste</string>
-    <string name="action_add_to_list">Ajouter un compte à la liste</string>
-    <string name="action_delete_list">Supprimer la liste</string>
-    <string name="failed_to_add_to_list">Le compte n\'a pas pu être ajouté à la liste</string>
-    <string name="failed_to_remove_from_list">Le compte n\'a pas pu être retiré de la liste</string>
-    <string name="no_lists">Vous n\'avez aucune liste.</string>
-    <string name="hint_search_people_list">Chercher des personnes que vous suivez</string>
-    <string name="action_add_or_remove_from_list">Ajouter à ou retirer de la liste</string>
-    <string name="replies_policy_title">Montrer les réponses de :</string>
-    <string name="replies_policy_name_followed">N\'importe quelle personne suivie</string>
-    <string name="replies_policy_name_list">Les membres de la liste uniquement</string>
-    <string name="replies_policy_name_none">Personne</string>
+    <string name="hint_list_name">List name</string>
+    <string name="list_exclusive_label">Hide from the home timeline</string>
+    <string name="replies_policy_title">Show replies to:</string>
+    <string name="replies_policy_name_followed">Any followed user</string>
+    <string name="replies_policy_name_list">Members of the list</string>
+    <string name="replies_policy_name_none">No one</string>
+    <string name="title_lists">Lists</string>
+    <string name="error_create_list_fmt">Could not create list \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Could not delete list \"%1$s\": %2$s</string>
+    <string name="error_rename_list_fmt">Could not update list \"%1$s\": %2$s</string>
+    <string name="action_rename_list">Update the list</string>
+    <string name="action_create_list">Create a list</string>
+    <string name="dialog_delete_list_warning">Delete the list \"%1$s\"?</string>
+    <string name="action_remove_from_list">Remove account from the list</string>
+    <string name="action_add_to_list">Add account to the list</string>
+    <string name="action_delete_list">Delete the list</string>
+    <string name="failed_to_add_to_list">Failed to add the account to the list</string>
+    <string name="failed_to_remove_from_list">Failed to remove the account from the list</string>
+    <string name="no_lists">You don\'t have any lists.</string>
+    <string name="hint_search_people_list">Search for people you follow</string>
+    <string name="action_add_or_remove_from_list">Add or remove from list</string>
 </resources>
