@@ -3,3 +3,5 @@ bundles:
 files:
   - source: /**/res/values/strings.xml
     translation: /**/res/values-%two_letters_code%/%original_file_name%
+    translate_attributes: 0
+    content_segmentation: 0
