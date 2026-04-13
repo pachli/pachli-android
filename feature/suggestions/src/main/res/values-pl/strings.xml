@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2024 Pachli Association
+  ~
+  ~ This file is a part of Pachli.
+  ~
+  ~ This program is free software; you can redistribute it and/or modify it under the terms of the
+  ~ GNU General Public License as published by the Free Software Foundation; either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+  ~ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+  ~ Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with Pachli; if not,
+  ~ see <http://www.gnu.org/licenses>.
+  -->
 <resources>
     <string name="title_suggestions">Proponowane konta</string>
     <string name="source_unknown">(serwer zwrócił nierozpoznawalne źródła)</string>
@@ -10,11 +26,11 @@
     <string name="sources_unknown">(serwer zwrócił nierozpoznawalne źródła)</string>
     <string name="action_follow_account">Obserwuj</string>
     <string name="action_dismiss_follow_suggestion">Odrzuć</string>
-    <string name="follows_count_fmt">&lt;b>%1$s&lt;/b> obserwowanych</string>
-    <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> wpisów</string>
-    <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> wpisów (&lt;b>%2$d&lt;/b> na tydzień)</string>
-    <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> wpisów (&lt;b>%2$d&lt;/b> na tydzień, ostatni &lt;b>%3$s&lt;/b>)</string>
-    <string name="ui_error_follow_account_fmt">Obserwowanie %1$s się nie powiodło: %2$s</string>
     <string name="ui_error_delete_suggestion_fmt">Odrzucanie sugestii %1$s się nie powiodło: %2$s</string>
-    <string name="follower_count_fmt">&lt;b>%1$s&lt;/b> obserwujących</string>
+    <string name="ui_error_follow_account_fmt">Obserwowanie %1$s się nie powiodło: %2$s</string>
+    <string name="follower_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; obserwujących</string>
+    <string name="follows_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; obserwowanych</string>
+    <string name="statuses_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; wpisów</string>
+    <string name="statuses_count_per_week_fmt">&lt;b&gt;%1$s&lt;/b&gt; wpisów (&lt;b&gt;%2$d&lt;/b&gt; na tydzień)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b&gt;%1$s&lt;/b&gt; wpisów (&lt;b&gt;%2$d&lt;/b&gt; na tydzień, ostatni &lt;b&gt;%3$s&lt;/b&gt;)</string>
 </resources>
