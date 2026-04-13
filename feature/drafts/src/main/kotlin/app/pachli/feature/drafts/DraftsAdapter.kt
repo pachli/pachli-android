@@ -14,7 +14,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.components.drafts
+package app.pachli.feature.drafts
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -24,12 +24,11 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import app.pachli.R
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.model.Draft
-import app.pachli.databinding.ItemDraftBinding
+import app.pachli.feature.drafts.databinding.ItemDraftBinding
 import com.bumptech.glide.RequestManager
 
 interface DraftActionListener {

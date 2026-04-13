@@ -79,7 +79,7 @@ fun NotificationViewData.icon(context: Context) = when (this) {
 
     is PollNotificationViewData -> getIconWithColor(
         context,
-        R.drawable.ic_poll_24dp,
+        app.pachli.core.ui.R.drawable.ic_poll_24dp,
         androidx.appcompat.R.attr.colorPrimary,
     )
 
@@ -91,7 +91,7 @@ fun NotificationViewData.icon(context: Context) = when (this) {
 
     is UpdateNotificationViewData -> getIconWithColor(
         context,
-        R.drawable.ic_edit_24dp,
+        app.pachli.core.ui.R.drawable.ic_edit_24dp,
         androidx.appcompat.R.attr.colorPrimary,
     )
 

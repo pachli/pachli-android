@@ -14,7 +14,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.components.drafts
+package app.pachli.feature.drafts
 
 import android.app.ActivityManager
 import android.app.AlertDialog
@@ -34,7 +34,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
-import app.pachli.R
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
@@ -50,7 +49,7 @@ import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.appbar.FadeChildScrollEffect
 import app.pachli.core.ui.extensions.addScrollEffect
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
-import app.pachli.databinding.ActivityDraftsBinding
+import app.pachli.feature.drafts.databinding.ActivityDraftsBinding
 import com.gaelmarhic.quadrant.QuadrantConstants
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -152,7 +151,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 launch {
-                    val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+                    val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                     viewModel.draftViewData.collectLatest { draftData ->
                         // Cancel any notifications about statuses saved to drafts so the user
                         // doesn't have to cancel them manually.
@@ -211,7 +210,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
      * If [selectDraftsActionMode] is active then tapping a draft is equivalent to
      * toggling the [draft]'s checked state.
      *
-     * Otherwise, prepare and launch [ComposeActivityIntent] to edit the draft.
+     * Otherwise, prepare and launch [app.pachli.core.navigation.ComposeActivityIntent] to edit the draft.
      */
     override fun onOpenDraft(draft: Draft) {
         // Don't open drafts while selecting drafts to delete. Instead, tapping on the draft also
@@ -227,8 +226,8 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
         )
 
         if (draft.inReplyToId == null && draft.quotedStatusId == null) {
-            val intent = ComposeActivityIntent(this, intent.pachliAccountId, composeOptions)
-            resumeOrStartComposeActivity(ComposeActivityIntent(this, intent.pachliAccountId, composeOptions))
+            val intent = ComposeActivityIntent(this, pachliAccountId, composeOptions)
+            resumeOrStartComposeActivity(ComposeActivityIntent(this, pachliAccountId, composeOptions))
             return
         }
 
@@ -259,10 +258,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
                         } else {
                             Snackbar.make(
                                 binding.root,
-                                getString(
-                                    R.string.drafts_load_reply_failed_fmt,
-                                    error.fmt(context),
-                                ),
+                                getString(R.string.drafts_load_reply_failed_fmt, error.fmt(context)),
                                 Snackbar.LENGTH_SHORT,
                             ).show()
                         }
@@ -296,10 +292,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
                         } else {
                             Snackbar.make(
                                 binding.root,
-                                getString(
-                                    R.string.drafts_load_quote_failed_fmt,
-                                    error.fmt(context),
-                                ),
+                                getString(R.string.drafts_load_quote_failed_fmt, error.fmt(context)),
                                 Snackbar.LENGTH_SHORT,
                             ).show()
                         }
@@ -316,7 +309,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
      *
      * If no existing activity exists then a new activity is started.
      *
-     * @param intent The intent containing the [ComposeOptions] and draft information.
+     * @param intent The intent containing the [app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions] and draft information.
      */
     private fun resumeOrStartComposeActivity(intent: ComposeActivityIntent) {
         val draftId = ComposeActivityIntent.getComposeOptions(intent).draft.id

@@ -14,7 +14,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.components.drafts
+package app.pachli.feature.drafts
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -32,9 +32,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
- * Data to show a draft in [DraftViewHolder].
+ * Data to show a draft in [app.pachli.components.drafts.DraftViewHolder].
  *
- * @property draft The [Draft].
+ * @property draft The [app.pachli.core.model.Draft].
  * @property isChecked True if the draft is checked/selected.
  */
 data class DraftViewData(

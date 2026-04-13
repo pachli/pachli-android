@@ -314,7 +314,7 @@
                 android:scrollbars="none"
                 android:visibility="gone" />
 
-            <app.pachli.components.compose.view.PollPreviewView
+            <app.pachli.core.ui.PollPreviewView
                 android:id="@+id/pollPreview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

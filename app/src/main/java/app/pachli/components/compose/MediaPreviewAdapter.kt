@@ -398,7 +398,7 @@ class AttachmentViewHolder(
         if (item.type == QueuedMedia.Type.AUDIO) {
             // TODO: Fancy waveform display?
             glide.clear(this)
-            setImageResource(R.drawable.ic_music_box_preview_24dp)
+            setImageResource(app.pachli.core.ui.R.drawable.ic_music_box_preview_24dp)
             return@with
         }
 

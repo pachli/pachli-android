@@ -14,7 +14,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.components.drafts
+package app.pachli.feature.drafts
 
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -22,7 +22,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import app.pachli.R
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.DraftAttachment
@@ -46,14 +45,14 @@ class DraftMediaAdapter(
 ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DraftMediaViewHolder {
-        return DraftMediaViewHolder(MediaPreviewImageView(parent.context))
+        return DraftMediaViewHolder(MediaPreviewImageView(parent.context), attachmentClick)
     }
 
     override fun onBindViewHolder(holder: DraftMediaViewHolder, position: Int) {
         getItem(position)?.let { attachment ->
             if (attachment.type == Attachment.Type.AUDIO) {
                 holder.imageView.clearFocus()
-                holder.imageView.setImageResource(R.drawable.ic_music_box_preview_24dp)
+                holder.imageView.setImageResource(app.pachli.core.ui.R.drawable.ic_music_box_preview_24dp)
             } else {
                 if (attachment.focus != null) {
                     holder.imageView.setFocalPoint(attachment.focus)
@@ -74,7 +73,7 @@ class DraftMediaAdapter(
         }
     }
 
-    inner class DraftMediaViewHolder(val imageView: MediaPreviewImageView) :
+    class DraftMediaViewHolder(val imageView: MediaPreviewImageView, attachmentClick: () -> Unit) :
         RecyclerView.ViewHolder(imageView) {
         init {
             val thumbnailViewSize =

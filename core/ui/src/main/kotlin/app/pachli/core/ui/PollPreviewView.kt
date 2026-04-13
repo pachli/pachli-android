@@ -1,4 +1,5 @@
-/* Copyright 2019 Tusky Contributors
+/*
+ * Copyright 2019 Tusky Contributors
  *
  * This file is a part of Pachli.
  *
@@ -14,15 +15,56 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.adapter
+package app.pachli.core.ui
 
+import android.content.Context
+import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.RecyclerView
-import app.pachli.R
+import app.pachli.core.model.NewPoll
+import app.pachli.core.ui.databinding.ViewPollPreviewBinding
+
+class PollPreviewView @JvmOverloads constructor(
+    context: Context?,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0,
+) : LinearLayout(context, attrs, defStyleAttr) {
+
+    private val adapter = PreviewPollOptionsAdapter()
+
+    private val binding = ViewPollPreviewBinding.inflate(LayoutInflater.from(context), this)
+
+    init {
+        orientation = VERTICAL
+
+        setBackgroundResource(app.pachli.core.designsystem.R.drawable.card_frame)
+
+        val padding = resources.getDimensionPixelSize(app.pachli.core.designsystem.R.dimen.poll_preview_padding)
+
+        setPadding(padding, padding, padding, padding)
+
+        binding.pollPreviewOptions.adapter = adapter
+    }
+
+    fun setPoll(poll: NewPoll) {
+        adapter.update(poll.options, poll.multiple)
+
+        val pollDurationId = resources.getIntArray(R.array.poll_duration_values).indexOfLast {
+            it <= poll.expiresIn
+        }
+        binding.pollDurationPreview.text = resources.getStringArray(R.array.poll_duration_names)[pollDurationId]
+    }
+
+    override fun setOnClickListener(l: OnClickListener?) {
+        super.setOnClickListener(l)
+        adapter.setOnClickListener(l)
+    }
+}
 
 class PreviewPollOptionsAdapter : RecyclerView.Adapter<PreviewViewHolder>() {
 
