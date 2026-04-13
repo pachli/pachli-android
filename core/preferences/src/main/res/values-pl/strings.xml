@@ -1,19 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2024 Pachli Association
+  ~
+  ~ This file is a part of Pachli.
+  ~
+  ~ This program is free software; you can redistribute it and/or modify it under the terms of the
+  ~ GNU General Public License as published by the Free Software Foundation; either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+  ~ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+  ~ Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with Pachli; if not,
+  ~ see <http://www.gnu.org/licenses>.
+  -->
 <resources>
+    <string name="pref_category_downloads">Pobieranie</string>
+    <string name="pref_title_downloads">Miejsce pobierania</string>
+    <string name="download_location_downloads">Folder pobierania</string>
+    <string name="download_location_per_account">Podfoldery dla kont w folderze pobierania</string>
+    <string name="download_location_per_sender">Podfoldery dla nadawców w folderze pobierania</string>
     <string name="app_theme_light">Jasny</string>
     <string name="app_theme_black">Czarny</string>
     <string name="app_theme_auto">Zmieniaj automatycznie po zachodzie słońca</string>
     <string name="app_theme_dark">Ciemny</string>
     <string name="app_theme_system">Użyj motywu systemu</string>
-    <string name="download_location_downloads">Folder pobierania</string>
-    <string name="download_location_per_account">Podfoldery dla kont w folderze pobierania</string>
-    <string name="pref_category_downloads">Pobieranie</string>
-    <string name="pref_title_downloads">Miejsce pobierania</string>
+    <string name="pref_category_tabs">Karty</string>
     <string name="pref_title_tab_tap">Akcja po dotknięciu karty</string>
-    <string name="download_location_per_sender">Podfoldery dla nadawców w folderze pobierania</string>
     <string name="tab_tap_behaviour_jump_to_next_page">Przejdź do następnej strony</string>
     <string name="tab_tap_behaviour_jump_to_newest">Przejdź do najnowszych treści</string>
-    <string name="pref_category_tabs">Karty</string>
     <string name="pref_main_nav_position_option_top">Góra</string>
     <string name="pref_main_nav_position_option_bottom">Dół</string>
     <string name="pref_show_self_username_always">Zawsze</string>
@@ -24,18 +40,18 @@
     <string name="pref_tab_alignment_justify_if_possible">Pełna szerokość</string>
     <string name="pref_tab_alignment_end">Koniec kierunku tekstu</string>
     <string name="pref_title_tab_contents">Zawartość paska z kartami</string>
-    <string name="pref_tab_contents_icon_text_inline">Ikona i tekst obok</string>
-    <string name="pref_tab_contents_icon_text_below">Ikona i tekst poniżej</string>
     <string name="pref_tab_contents_icon_only">Tylko ikona</string>
     <string name="pref_tab_contents_text_only">Tylko tekst</string>
+    <string name="pref_tab_contents_icon_text_inline">Ikona i tekst obok</string>
+    <string name="pref_tab_contents_icon_text_below">Ikona i tekst poniżej</string>
     <string name="pref_title_render_markdown">Renderuj Markdown</string>
     <string name="pref_update_notification_frequency_never">Nigdy</string>
     <string name="pref_update_notification_frequency_once_per_version">Jeden raz na wersję</string>
     <string name="pref_update_notification_frequency_always">Zawsze</string>
+    <string name="pref_title_export_settings">Eksport ustawień</string>
+    <string name="pref_summary_export_settings">Stuknij, by zapisać ustawienia aplikacji i kont do lokalnego pliku</string>
     <string name="pref_title_import_settings">Import ustawień</string>
     <string name="pref_summary_import_settings">Stuknij, by odtworzyć ustawienia z pliku stworzonego przez „Eksport ustawień”</string>
-    <string name="pref_summary_export_settings">Stuknij, by zapisać ustawienia aplikacji i kont do lokalnego pliku</string>
-    <string name="pref_title_export_settings">Eksport ustawień</string>
     <string name="pref_default_audio_playback_option_unmuted">Wyłączono wyciszenie mikrofonu</string>
     <string name="pref_default_audio_playback_option_muted">Wyciszony</string>
     <string name="pref_title_translation">Tłumaczenie</string>
@@ -47,13 +63,13 @@
     <string name="pref_translation_backend_option_local_only">Tylko na urządzeniu</string>
     <string name="pref_translation_backend_option_local_only_help">Tłumaczy wpisy na twoim urządzeniu przy użyciu Tłumacza Google.</string>
     <string name="pref_translation_backend_requires_play_label">Zainstaluj z Google Play dla wsparcia dla tłumaczenia na urządzeniu</string>
-    <string name="pref_pronoun_display_everywhere">Wszędzie</string>
-    <string name="pref_quote_policy_followers">jeden z twoich obserwujących</string>
     <string name="pref_title_pronoun_display">Pokazuj zaimki konta</string>
+    <string name="pref_pronoun_display_everywhere">Wszędzie</string>
     <string name="pref_pronoun_display_when_composing">Podczas pisania wpisu</string>
     <string name="pref_pronoun_display_hide">Nigdzie</string>
     <string name="pref_title_quote_policy">Kto może cytować twoje wpisy?</string>
     <string name="pref_quote_policy_public">Każdy (poza zablokowanymi kontami)</string>
+    <string name="pref_quote_policy_followers">jeden z twoich obserwujących</string>
     <string name="pref_quote_policy_nobody">Tylko ty</string>
     <string name="pref_summary_quote_policy_disabled">Twój serwer nie wspiera ustawień cytowania</string>
 </resources>
