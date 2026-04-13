@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_lists">Zoznamy</string>
     <string name="hint_list_name">Názov zoznamu</string>
     <string name="list_exclusive_label">Skryť z domovskej časovej osi</string>
     <string name="replies_policy_title">Zobraziť odpovede pre:</string>
     <string name="replies_policy_name_followed">Kohokoľvek, koho sledujem</string>
     <string name="replies_policy_name_list">Členov zoznamu</string>
     <string name="replies_policy_name_none">Nikoho</string>
+    <string name="title_lists">Zoznamy</string>
     <string name="error_create_list_fmt">Nebolo možné vytvoriť zoznam \"%1$s\": %2$s</string>
     <string name="error_delete_list_fmt">Nebolo možné vymazať zoznam \"%1$s\": %2$s</string>
-    <string name="action_rename_list">Premenovať zoznam</string>
     <string name="error_rename_list_fmt">Nepodarilo sa premenovať zoznam \"%1$s\": %2$s</string>
+    <string name="action_rename_list">Premenovať zoznam</string>
     <string name="action_create_list">Vytvoriť zoznam</string>
     <string name="dialog_delete_list_warning">Vymazať zoznam \"%1$s\"?</string>
     <string name="action_remove_from_list">Odstraniť účet zo zoznamu</string>
