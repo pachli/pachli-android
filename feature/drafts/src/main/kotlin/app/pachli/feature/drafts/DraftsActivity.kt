@@ -105,7 +105,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
                         ).await(supportFragmentManager)
 
                         if (button == AlertDialog.BUTTON_POSITIVE) {
-                            viewModel.deleteCheckedDrafts(pachliAccountId)
+                            viewModel.deleteCheckedDrafts()
                         }
                         actionMode.finish()
                     }
@@ -151,7 +151,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 launch {
-                    val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                    val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
                     viewModel.draftViewData.collectLatest { draftData ->
                         // Cancel any notifications about statuses saved to drafts so the user
                         // doesn't have to cancel them manually.
@@ -226,7 +226,6 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
         )
 
         if (draft.inReplyToId == null && draft.quotedStatusId == null) {
-            val intent = ComposeActivityIntent(this, pachliAccountId, composeOptions)
             resumeOrStartComposeActivity(ComposeActivityIntent(this, pachliAccountId, composeOptions))
             return
         }

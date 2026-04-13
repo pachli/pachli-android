@@ -32,7 +32,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
- * Data to show a draft in [app.pachli.components.drafts.DraftViewHolder].
+ * Data to show a draft in [app.pachli.feature.drafts.DraftViewHolder].
  *
  * @property draft The [app.pachli.core.model.Draft].
  * @property isChecked True if the draft is checked/selected.
@@ -87,8 +87,8 @@ class DraftsViewModel @Inject constructor(
     /** @return The number of checked drafts. */
     fun countChecked() = checkedDrafts.value.size
 
-    /** Deletes all checked drafts owned by [pachliAccountId]. */
-    fun deleteCheckedDrafts(pachliAccountId: Long) {
+    /** Deletes all checked drafts. */
+    fun deleteCheckedDrafts() {
         viewModelScope.launch {
             checkedDrafts.value.forEach { draftId ->
                 draftsRepository.deleteDraftAndAttachments(draftId)
