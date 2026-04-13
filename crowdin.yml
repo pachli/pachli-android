@@ -2,4 +2,4 @@ bundles:
   - 2
 files:
   - source: /**/res/values/strings.xml
-    translation: /**/res/values-%android_code%/%original_file_name%
+    translation: /**/res/values-%two_letters_code%/%original_file_name%
