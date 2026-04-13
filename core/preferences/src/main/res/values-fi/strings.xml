@@ -1,19 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2024 Pachli Association
+  ~
+  ~ This file is a part of Pachli.
+  ~
+  ~ This program is free software; you can redistribute it and/or modify it under the terms of the
+  ~ GNU General Public License as published by the Free Software Foundation; either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+  ~ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+  ~ Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with Pachli; if not,
+  ~ see <http://www.gnu.org/licenses>.
+  -->
 <resources>
-    <string name="app_theme_light">Vaalea</string>
-    <string name="app_theme_black">Musta</string>
-    <string name="app_theme_auto">Automaattisesti auringonlaskun aikaan</string>
-    <string name="app_theme_dark">Tumma</string>
-    <string name="app_theme_system">Seuraa laitteen teemaa</string>
     <string name="pref_category_downloads">Lataukset</string>
     <string name="pref_title_downloads">Latausten sijainti</string>
     <string name="download_location_downloads">Lataukset-kansio</string>
     <string name="download_location_per_account">Tilikohtaiset kansiot Lataukset-kansiossa</string>
     <string name="download_location_per_sender">Lähettäjäkohtaiset kansiot Lataukset-kansiossa</string>
+    <string name="app_theme_light">Vaalea</string>
+    <string name="app_theme_black">Musta</string>
+    <string name="app_theme_auto">Automaattisesti auringonlaskun aikaan</string>
+    <string name="app_theme_dark">Tumma</string>
+    <string name="app_theme_system">Seuraa laitteen teemaa</string>
+    <string name="pref_category_tabs">Välilehdet</string>
     <string name="pref_title_tab_tap">Toiminto välilehteä napautettaessa</string>
     <string name="tab_tap_behaviour_jump_to_next_page">Hyppää seuraavalle sivulle</string>
     <string name="tab_tap_behaviour_jump_to_newest">Hyppää uusimpaan sisältöön</string>
-    <string name="pref_category_tabs">Välilehdet</string>
     <string name="pref_main_nav_position_option_top">Yläreuna</string>
     <string name="pref_main_nav_position_option_bottom">Alareuna</string>
     <string name="pref_show_self_username_always">Aina</string>
@@ -23,22 +39,22 @@
     <string name="pref_tab_alignment_start">Tekstin alkusuunta</string>
     <string name="pref_tab_alignment_justify_if_possible">Tasaa koko leveydelle</string>
     <string name="pref_tab_alignment_end">Tekstin loppusuunta</string>
-    <string name="pref_tab_contents_text_only">Vain teksti</string>
-    <string name="pref_tab_contents_icon_text_below">Kuvake ja teksti sen alla</string>
-    <string name="pref_tab_contents_icon_only">Vain kuvake</string>
     <string name="pref_title_tab_contents">Valikon välilehtien sisältö</string>
+    <string name="pref_tab_contents_icon_only">Vain kuvake</string>
+    <string name="pref_tab_contents_text_only">Vain teksti</string>
     <string name="pref_tab_contents_icon_text_inline">Kuvake ja teksti sen vieressä</string>
+    <string name="pref_tab_contents_icon_text_below">Kuvake ja teksti sen alla</string>
     <string name="pref_title_render_markdown">Näytä markdown</string>
     <string name="pref_update_notification_frequency_never">Ei koskaan</string>
     <string name="pref_update_notification_frequency_once_per_version">Kerran jokaisesta versiosta</string>
     <string name="pref_update_notification_frequency_always">Aina</string>
     <string name="pref_title_export_settings">Vie asetukset</string>
+    <string name="pref_summary_export_settings">Tallenna sovelluksen ja tilin asetukset painamalla tästä</string>
     <string name="pref_title_import_settings">Tuo asetukset</string>
+    <string name="pref_summary_import_settings">Paina palauttaaksesi asetukset tiedostosta joka on luotu \"Vie asetukset\"-toiminnolla</string>
     <string name="pref_default_audio_playback_option_unmuted">Mykistys poistettu</string>
     <string name="pref_default_audio_playback_option_muted">Mykistetty</string>
     <string name="pref_title_translation">Käännös</string>
-    <string name="pref_summary_export_settings">Tallenna sovelluksen ja tilin asetukset painamalla tästä</string>
-    <string name="pref_summary_import_settings">Paina palauttaaksesi asetukset tiedostosta joka on luotu \"Vie asetukset\"-toiminnolla</string>
     <string name="pref_translation_backend">Miten käännetään</string>
     <string name="pref_translation_backend_option_server_only">Vain palvelin</string>
     <string name="pref_translation_backend_option_server_only_help">Käännä julkaisut omalla palvelimellasi. Ei toimi jos palvelin ei tue kääntämistä, tai jos julkaisun kieli on merkitty väärin.</string>
@@ -47,13 +63,13 @@
     <string name="pref_translation_backend_option_local_only">Vain laitteella</string>
     <string name="pref_translation_backend_option_local_only_help">Julkaisut käännetään omalla laitteellasi Google Käännökset -palvelua käyttäen.</string>
     <string name="pref_translation_backend_requires_play_label">Asenna Google Play-sivustolta laitteella tapahtuvaa kääntämistä varten</string>
-    <string name="pref_pronoun_display_everywhere">Kaikkialla</string>
-    <string name="pref_pronoun_display_hide">Ei missään</string>
-    <string name="pref_pronoun_display_when_composing">Julkaisua kirjoitettaessa</string>
     <string name="pref_title_pronoun_display">Näytä tilin pronominit</string>
-    <string name="pref_summary_quote_policy_disabled">Palvelimesi ei tue lainausasetuksia</string>
-    <string name="pref_quote_policy_nobody">Vain sinä</string>
-    <string name="pref_quote_policy_followers">Vain seuraajasi</string>
-    <string name="pref_quote_policy_public">Kaikki (paitsi estetyt tilit)</string>
+    <string name="pref_pronoun_display_everywhere">Kaikkialla</string>
+    <string name="pref_pronoun_display_when_composing">Julkaisua kirjoitettaessa</string>
+    <string name="pref_pronoun_display_hide">Ei missään</string>
     <string name="pref_title_quote_policy">Kuka voi lainata julkaisujasi?</string>
+    <string name="pref_quote_policy_public">Kaikki (paitsi estetyt tilit)</string>
+    <string name="pref_quote_policy_followers">Vain seuraajasi</string>
+    <string name="pref_quote_policy_nobody">Vain sinä</string>
+    <string name="pref_summary_quote_policy_disabled">Palvelimesi ei tue lainausasetuksia</string>
 </resources>
