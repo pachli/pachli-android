@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">Mastodon gibi herhangi bir örneğin adresi veya etki alanı buraya girilebilirsiniz. örneğin: mastodon.social, mastodon.online, vb. <a href="https://instances.social">daha fazlası!</a>
-\n
-\nHenüz hesabınız yoksa, katılmak istediğiniz sunucunun adını girebilir ve orada bir hesap oluşturabilirsiniz.
-\n
-\nSunucu, hesabınızın barındırıldığı tek yerdir, ancak aynı sitedeymişsiniz gibi diğer sunuculardaki kişilerle kolayca iletişim kurabilir ve onları takip edebilirsiniz.
-\n
-\n Daha fazla bilgiyi <a href="https://joinmastodon.org">joinmastodon.org</a> adresinde bulabilirsiniz. </string>
-    <string name="action_close">Kapat</string>
-    <string name="action_browser_login">Tarayıcı ile Giriş Yap</string>
-    <string name="error_invalid_domain">Girilen alan adı geçersiz</string>
-    <string name="error_failed_app_registration_fmt">Bu sunucuda kimlik doğrulama başarısız oldu. Sorun devam ederse menüdeki Tarayıcı ile Giriş Yap seçeneğini dene: %1$s</string>
-    <string name="error_authorization_unknown">Tanımlanamayan bir yetkilendirme hatası oluştu. Sorun devam ederse menüdeki Tarayıcı ile Giriş Yap seçeneğini dene.</string>
-    <string name="error_authorization_denied">Yetkilendirme reddedildi. Doğru hesap bilgilerini girdiğinden eminsen menüdeki Tarayıcı ile Giriş Yap seçeneğini dene.</string>
-    <string name="error_retrieving_oauth_token_fmt">Giriş belirteci alınırken hata oluştu. Sorun devam ederse menüdeki Tarayıcı ile Giriş Yap seçeneğini dene: %1$s</string>
-    <string name="error_loading_account_details_fmt">Hesap detayları alınırken hata: %1$s</string>
-    <string name="hint_domain">Hangi sunucu\?</string>
-    <string name="action_login">Pachli ile giriş yap</string>
-    <string name="link_whats_an_instance">Sunucu nedir\?</string>
-    <string name="login_connection">Bağlantı kuruluyor…</string>
-    <string name="title_login">Giriş</string>
-    <string name="error_could_not_load_login_page">Giriş ekranı yüklenemedi.</string>
-    <string name="instance_rule_info">Giriş yaparak aşağıdaki kuralları kabul etmiş sayılırsınız %1$s.</string>
-    <string name="instance_rule_title">%1$s kural</string>
+    <string name="dialog_whats_an_instance">The address or domain of any instance can be entered
+        here, such as mastodon.social, icosahedron.website, social.tchncs.de, and
+        <a href="https://instances.social">more!</a>
+        \n\nAn instance is a single place where your account is
+        hosted, but you can easily communicate with and follow folks on other instances as though
+        you were on the same site.
+        \n\nMore info can be found at <a href="https://joinmastodon.org">joinmastodon.org</a>.
+    </string>
+    <string name="action_close">Close</string>
+    <string name="action_browser_login">Login with Browser</string>
+    <string name="error_invalid_domain">Invalid domain entered</string>
+    <string name="error_failed_app_registration_fmt">Failed authenticating with that instance: %1$s</string>
+    <string name="error_authorization_unknown">An unidentified authorization error occurred. If this persists, try \"Login in Browser\" from the menu.</string>
+    <string name="error_authorization_denied">Authorization was denied. If you\'re sure that you supplied the correct credentials, try \"Login in Browser\" from the menu.</string>
+    <string name="error_retrieving_oauth_token_fmt">Failed getting a login token. If this persists, try \"Login in Browser\" from the menu: %1$s</string>
+    <string name="error_loading_account_details_fmt">Failed loading account details: %1$s</string>
+    <string name="hint_domain">Which instance?</string>
+    <string name="action_login">Login with Pachli</string>
+    <string name="link_whats_an_instance">What\'s an instance?</string>
+    <string name="login_connection">Connecting…</string>
+    <string name="title_login">Login</string>
+    <string name="error_could_not_load_login_page">Could not load the login page.</string>
+    <string name="instance_rule_info">By logging in you agree to the rules of %1$s.</string>
+    <string name="instance_rule_title">%1$s rules</string>
 </resources>
