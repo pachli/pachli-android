@@ -744,4 +744,18 @@
     <string name="search_operator_quote_dialog_all">S citovanými príspevkami alebo bez nich</string>
     <string name="search_operator_quote_dialog_only">Iba príspevky s citáciami</string>
     <string name="search_operator_quote_dialog_no_quotes">Iba príspevky bez citácií</string>
+    <string name="action_delete_drafts">Vymazať vybrané koncepty</string>
+    <string name="title_delete_drafts">Vymazať vybrané koncepty?</string>
+    <string name="delete_drafts_msg">Týmto sa natrvalo odstránia vybrané koncepty.</string>
+    <string name="send_post_failure_message_prefix">Odoslanie zlyhalo: %1$s</string>
+    <string name="send_post_failure_message_cancel">Zrušil/a si odoslanie tohto príspevku</string>
+    <string name="send_post_failure_message_timeout">Časový limit na odoslanie príspevku vypršal</string>
+    <string name="err_draft_error_no_external_files_dir">zdieľané úložisko je nedostupné</string>
+    <string name="err_draft_error_mkdir_drafts_fmt">nepodarilo sa vytvoriť priečinok pre koncepty: %1$s</string>
+    <string name="err_draft_error_unknown_mime_type">príloha má neznámy typ MIME: %1$s</string>
+    <string name="err_draft_error_content_provider_crash">zlyhanie poskytovateľa obsahu</string>
+    <string name="err_draft_error_io_fmt">ukladanie zlyhalo: %1$s</string>
+    <string name="ui_error_delete_scheduled_status_fmt">naplánovaný príspevok sa nepodarilo nahradiť: %1$s</string>
+    <string name="ui_error_sending_post_fmt">Nepodarilo sa odoslať príspevok: %1$s</string>
+    <string name="ui_error_saving_post_fmt">Nepodarilo sa uložiť príspevok: %1$s</string>
 </resources>
