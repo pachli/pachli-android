@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">Bármely példány címét vagy domain nevét beírhatod ide, mint a mastodon.social, az icosahedron.website, a social.tchncs.de és <a href="https://instances.social">mások!</a>
-\n
-\nHa még nincs fiókod, beírhatod annak a példánynak a címét, amelyhez csatlakoznál, majd azon létrehozhatsz egy fiókot.
-\n
-\nA példány az a hely, ahol a fiókadataidat tárolják, de ettől még ugyanúgy kommunikálhatsz más példányokon lévő emberekkel, mintha ugyanazon az oldalon lennétek.
-\n
-\nTöbb információt találhatsz itt: <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
-    <string name="action_close">Bezárás</string>
-    <string name="action_browser_login">Bejelentkezés Böngészővel</string>
-    <string name="error_invalid_domain">Helytelen domain</string>
-    <string name="error_failed_app_registration_fmt">Sikertelen hitelesítés ezen a példányon. Ha ez továbbra is fennáll, próbáld a Bejelentkezés Böngészőben opciót a menüben: %1$s</string>
-    <string name="error_authorization_unknown">Azonosítatlan hitelesítési hiba történt. Ha ez továbbra is fennáll, próbáld a Bejelentkezés Böngészőben opciót a menüben.</string>
-    <string name="error_authorization_denied">Engedély megtagadva. Ha biztos vagy benne, hogy a megfelelő hitelesítési adatokat adtad meg, próbáld a Bejelentkezés Böngészőben funkciót a menüben.</string>
-    <string name="error_retrieving_oauth_token_fmt">Bejelentkezési token megszerzése sikertelen. Ha ez továbbra is fennáll, próbáld a Bejelentkezés Böngészőben opciót a menüben: %1$s</string>
-    <string name="error_loading_account_details_fmt">Nem sikerült betölteni a fiókadatokat: %1$s</string>
-    <string name="hint_domain">Melyik példány\?</string>
-    <string name="action_login">Bejelentkezés Pachlival</string>
-    <string name="link_whats_an_instance">Mi az a példány\?</string>
-    <string name="login_connection">Csatlakozás…</string>
-    <string name="title_login">Bejelentkezés</string>
-    <string name="error_could_not_load_login_page">Nem tudtuk betölteni a bejelentkező oldalt.</string>
-    <string name="instance_rule_info">A bejelentkezéssel elfogadod a %1$s szabályait.</string>
-    <string name="instance_rule_title">%1$s szabályai</string>
+    <string name="dialog_whats_an_instance">The address or domain of any instance can be entered
+        here, such as mastodon.social, icosahedron.website, social.tchncs.de, and
+        <a href="https://instances.social">more!</a>
+        \n\nAn instance is a single place where your account is
+        hosted, but you can easily communicate with and follow folks on other instances as though
+        you were on the same site.
+        \n\nMore info can be found at <a href="https://joinmastodon.org">joinmastodon.org</a>.
+    </string>
+    <string name="action_close">Close</string>
+    <string name="action_browser_login">Login with Browser</string>
+    <string name="error_invalid_domain">Invalid domain entered</string>
+    <string name="error_failed_app_registration_fmt">Failed authenticating with that instance: %1$s</string>
+    <string name="error_authorization_unknown">An unidentified authorization error occurred. If this persists, try \"Login in Browser\" from the menu.</string>
+    <string name="error_authorization_denied">Authorization was denied. If you\'re sure that you supplied the correct credentials, try \"Login in Browser\" from the menu.</string>
+    <string name="error_retrieving_oauth_token_fmt">Failed getting a login token. If this persists, try \"Login in Browser\" from the menu: %1$s</string>
+    <string name="error_loading_account_details_fmt">Failed loading account details: %1$s</string>
+    <string name="hint_domain">Which instance?</string>
+    <string name="action_login">Login with Pachli</string>
+    <string name="link_whats_an_instance">What\'s an instance?</string>
+    <string name="login_connection">Connecting…</string>
+    <string name="title_login">Login</string>
+    <string name="error_could_not_load_login_page">Could not load the login page.</string>
+    <string name="instance_rule_info">By logging in you agree to the rules of %1$s.</string>
+    <string name="instance_rule_title">%1$s rules</string>
 </resources>
