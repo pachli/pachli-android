@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_edit">Upraviť</string>
+    <string name="title_drafts">Koncepty</string>
+    <string name="drafts_post_reply_removed">Príspevok, ku ktorému si písal/a odpoveď, bol zmazaný</string>
+    <string name="drafts_load_reply_failed_fmt">Nepodarilo sa načítať príspevok, na ktorý odpovedáš: %1$s</string>
+    <string name="drafts_post_quote_removed">Príspevok, ktorý si citoval/a, bol odstránený</string>
+    <string name="drafts_load_quote_failed_fmt">Nepodarilo sa načítať príspevok, ktorý cituješ: %1$s</string>
+    <string name="drafts_post_failed_to_send">Tento príspevok se nepodarilo odoslať!</string>
+    <string name="title_delete_drafts">Vymazať vybrané koncepty?</string>
+    <string name="delete_drafts_msg">Týmto sa natrvalo odstránia vybrané koncepty.</string>
+    <string name="action_delete_drafts">Vymazať vybrané koncepty</string>
+    <string name="no_drafts">Nemáš žiadne koncepty.</string>
+    <string name="send_post_failure_message_prefix">Odoslanie zlyhalo: %1$s</string>
+</resources>

@@ -10,13 +10,6 @@
     <string name="poll_new_choice_hint">Vaihtoehto %1$d</string>
     <string name="poll_allow_multiple_choices">Monivalinta</string>
     <string name="add_poll_choice">Lisää vaihtoehto</string>
-    <string name="duration_7_days">7 päivää</string>
-    <string name="duration_3_days">3 päivää</string>
-    <string name="duration_1_day">1 päivä</string>
-    <string name="duration_6_hours">6 tuntia</string>
-    <string name="duration_1_hour">1 tunti</string>
-    <string name="duration_30_min">30 minuuttia</string>
-    <string name="duration_5_min">5 minuuttia</string>
     <string name="add_hashtag_title">Lisää aihetunniste</string>
     <string name="download_failed">Lataus epäonnistui</string>
     <string name="action_open_post">Avaa tuuttaus</string>
@@ -58,7 +51,6 @@
     <string name="title_direct_messages">Viestit</string>
     <string name="account_note_saved">Tallennettu!</string>
     <string name="edit_poll">Muokkaa</string>
-    <string name="create_poll_title">Kysely</string>
     <string name="title_accounts">Tilit</string>
     <string name="button_back">Takaisin</string>
     <string name="notifications_apply_filter">Suodatin</string>
@@ -103,7 +95,6 @@
     <string name="action_view_preferences">Asetukset</string>
     <string name="action_send">TUUT</string>
     <string name="action_delete">Poista</string>
-    <string name="action_edit">Muokkaa</string>
     <string name="action_report">Ilmianna</string>
     <string name="action_unblock">Poista esto</string>
     <string name="action_block">Estä</string>
@@ -112,7 +103,6 @@
     <string name="action_send_public">TUUT!</string>
     <string name="title_view_thread">Ketju</string>
     <string name="title_scheduled_posts">Ajastetut tuuttaukset</string>
-    <string name="title_drafts">Luonnokset</string>
     <string name="title_favourites">Suosikit</string>
     <string name="title_bookmarks">Kirjanmerkit</string>
     <string name="title_followers">Seuraajat</string>
@@ -176,9 +166,6 @@
     <string name="notification_sign_up_name">Rekisteröitymiset</string>
     <string name="notification_sign_up_description">Ilmoitukset uusista käyttäkistä</string>
     <string name="action_unbookmark">Poista kirjanmerkki</string>
-    <string name="duration_90_days">90 päivää</string>
-    <string name="duration_180_days">180 päivää</string>
-    <string name="duration_365_days">365 päivää</string>
     <string name="action_toggle_visibility">Julkaisun näkyvyys</string>
     <string name="title_posts_with_replies">Vastauksetkin</string>
     <string name="post_sensitive_media_directions">Klikkaa näyttääksesi</string>
@@ -386,7 +373,6 @@
     <string name="filter_keyword_addition_title">Lisää avainsana</string>
     <string name="report_category_violation">Sääntörikkomus</string>
     <string name="label_filter_keywords">Avainsanat tai jonot jotka suodatetaan</string>
-    <string name="drafts_post_reply_removed">Julkaisu, johon olit kirjoittanut vastausluonnoksen, on poistettu</string>
     <string name="account_date_joined">Liittyi %1$s</string>
     <string name="ui_error_filter_v1_load_fmt">Suodattimien lataaminen epäonnistui: %1$s</string>
     <string name="announcement_date_updated">(Päivitetty: %1$s)</string>
@@ -399,13 +385,11 @@
     <string name="no_announcements">Ilmoituksia ei ole.</string>
     <string name="ui_error_accept_follow_request">Seuraajapyynnön hyväksyminen epäonnistui: %1$s</string>
     <string name="ui_success_rejected_follow_request">Seuraajapyyntö estetty</string>
-    <string name="no_drafts">Sinulla ei ole luonnoksia.</string>
     <string name="a11y_label_loading_thread">Ketjua ladataan</string>
     <string name="error_missing_edits">Palvelimesi tietää, että tätä julkaisua on muokattu, mutta sillä ei ole kopiota muokkauksista, joten niitä ei voida näyttää.
 \n
 \nTämä on <a href="https://github.com/mastodon/mastodon/issues/25398"> Mastodon-tehtävä #25398 </a>.</string>
     <string name="delete_scheduled_post_warning">Poistetaanko tämä ajastettu julkaisu?</string>
-    <string name="drafts_post_failed_to_send">Julkaisun lähettäminen epäonnistui!</string>
     <string name="label_filter_context">Suodattimen kontekstit</string>
     <string name="pref_title_confirm_reblogs">Pyydä vahvistus ennen tehostamista</string>
     <string name="account_note_hint">Yksityinen muistiinpano tästä tilistä</string>
@@ -429,7 +413,6 @@
     <string name="pref_title_enable_swipe_for_tabs">Vaihda välilehteä pyyhkäisemällä</string>
     <string name="report_remote_instance">Lähetä edelleen %1$s</string>
     <string name="description_post_language">Julkaisun kieli</string>
-    <string name="duration_30_days">30 päivää</string>
     <string name="reblog_private">Tehosta alkuperäiselle yleisölle</string>
     <string name="compose_preview_image_description">Toiminnot kuvalle %1$s</string>
     <string name="action_compose_shortcut">Kirjoita</string>
@@ -447,7 +430,6 @@
     <string name="hint_additional_info">Lisäkommentteja</string>
     <string name="download_fonts">Nämä emojikokoelmat on ensin ladattava</string>
     <string name="failed_fetch_posts">Julkaisujen nouto epäonnistui</string>
-    <string name="duration_60_days">60 päivää</string>
     <string name="compose_shortcut_short_label">Kirjoita</string>
     <string name="poll_ended_voted">Kysely jossa olet äänestänyt on päättynyt</string>
     <string name="profile_metadata_label">Profiilin metadata</string>
@@ -459,7 +441,6 @@
     <string name="pref_title_show_stat_inline">Näytä julkaisujen tilastot aikajanassa</string>
     <string name="restart_required">Sovellus on käynnistettävä uudelleen</string>
     <string name="restart_emoji">Pachli on käynnistettävä uudelleen muutosten ottamiseksi käyttöön</string>
-    <string name="duration_14_days">14 päivää</string>
     <string name="conversation_more_recipients">%1$s, %2$s ja vielä %3$d</string>
     <string name="filter_apply">Käytä</string>
     <string name="help_empty_home">Tämä on sinun <b>kotiaikajanasi</b>. Se näyttää seuraamiesi tilien uusimmat julkaisut. \n \nJos haluat tutkia muita tilejä, voit löytää niitä toisesta aikajanasta, esimerkiksi oman instanssisi paikallisesta aikajanasta [iconics gmd_group]. Voit myös etsiä niitä nimeltä [iconics gmd_search]; etsi esimerkiksi sanalla ”Pachli” löytääksesi Mastodon-tilimme.</string>
@@ -732,9 +713,6 @@
     <string name="compose_quote_policy_dialog_title">Muuta lainausasetus?</string>
     <string name="compose_quote_policy_title">Kuka voi lainata tätä julkaisua?</string>
     <string name="compose_visibility_title">Minne tämä lähetetään?</string>
-    <string name="drafts_post_quote_removed">Lainaamasi julkaisu on poistettu</string>
-    <string name="drafts_load_quote_failed_fmt">Lainaamaasi julkaisua ei voitu ladata: %1$s</string>
-    <string name="drafts_load_reply_failed_fmt">Julkaisua johon vastaat ei voitu ladata: %1$s</string>
     <string name="action_toggle_quote_policy">Muuta lainausasetuksia</string>
     <string name="compose_task_description_quoting_fmt">Lainataan %1$s</string>
     <string name="compose_task_description_replying_fmt">Vastataan käyttäjälle %1$s</string>
@@ -754,8 +732,4 @@
     <string name="err_draft_error_unknown_mime_type">liitteen MIME-tyyppi on tuntematon: %1$s</string>
     <string name="err_draft_error_mkdir_drafts_fmt">Luonnokset-kansoita ei voitu luoda: %1$s</string>
     <string name="err_draft_error_no_external_files_dir">jaettu tallennustila ei ole käytettävissä</string>
-    <string name="send_post_failure_message_prefix">Lähettäminen epäonnistui: %1$s</string>
-    <string name="delete_drafts_msg">Tämä poistaa valitut luonnokset pysyvästi.</string>
-    <string name="title_delete_drafts">Poista valitut luonnokset?</string>
-    <string name="action_delete_drafts">Poista valitut luonnokset</string>
 </resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_edit">सम्पाद्यताम्</string>
+    <string name="title_drafts">लेखविकर्षाः</string>
+    <string name="no_drafts">न लेखविकर्षास्ते सन्ति ।</string>
+</resources>

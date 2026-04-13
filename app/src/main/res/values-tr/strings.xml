@@ -27,7 +27,6 @@
     <string name="title_blocks">Engellenmiş kullanıcılar</string>
     <string name="title_follow_requests">Takip istekleri</string>
     <string name="title_edit_profile">Profili düzenle</string>
-    <string name="title_drafts">Taslaklar</string>
     <string name="post_sensitive_media_directions">Görüntülemek için dokunun</string>
     <string name="footer_empty">Burada henüz hiç birşey yok. Yenilemek için aşağıya çekin!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; gönderinizi paylaştı</string>
@@ -247,7 +246,6 @@
     <string name="action_open_media_n">#%1$d medyayı aç</string>
     <string name="title_bookmarks">Yer imleri</string>
     <string name="title_scheduled_posts">Zamanlanmış yayınlar</string>
-    <string name="action_edit">Düzenle</string>
     <string name="action_delete_and_redraft">Sil ve düzenle</string>
     <string name="action_view_bookmarks">Yer imleri</string>
     <string name="action_add_poll">Anket ekle</string>
@@ -260,14 +258,6 @@
     <string name="list">Liste</string>
     <string name="title_accounts">Hesaplar</string>
     <string name="failed_search">Arama başarısız</string>
-    <string name="create_poll_title">Anket</string>
-    <string name="duration_5_min">5 dakika</string>
-    <string name="duration_30_min">30 dakika</string>
-    <string name="duration_1_hour">1 saat</string>
-    <string name="duration_6_hours">6 saat</string>
-    <string name="duration_1_day">1 gün</string>
-    <string name="duration_3_days">3 gün</string>
-    <string name="duration_7_days">7 gün</string>
     <string name="add_poll_choice">Seçenek ekle</string>
     <string name="poll_allow_multiple_choices">Çoklu seçim</string>
     <string name="edit_poll">Düzenle</string>
@@ -276,7 +266,6 @@
     <string name="pref_title_alway_open_spoiler">Her zaman içerik uyarılarıyla işaretlenmiş alanları genişlet</string>
     <string name="failed_report">Bildirilemedi</string>
     <string name="poll_new_choice_hint">Seçenek %1$d</string>
-    <string name="no_drafts">Hiç taslağın yok.</string>
     <string name="no_scheduled_posts">Zamanlanmış yayınınız yok.</string>
     <string name="reblog_private">Kendi kitlenizle yeniden paylaşın</string>
     <string name="hashtags">Etiketler</string>
@@ -330,18 +319,12 @@
     <string name="pref_title_notification_filter_updates">etkileşimde bulunduğun bir gönderi düzenlendi</string>
     <string name="set_focus_description">Küçük görsellerde her zaman görülebilecek odak noktasını seçmek için daireye dokunun veya sürükleyin.</string>
     <string name="no_announcements">Hiç duyuru yok.</string>
-    <string name="duration_30_days">30 gün</string>
     <string name="compose_save_draft_loses_media">Taslağı kurtarmak mı? (Taslağı geri yüklediğinizde ekler yeniden yüklenir.)</string>
     <string name="pref_title_show_self_username">Kullanıcı adını araç çubuklarında göster</string>
-    <string name="duration_180_days">180 gün</string>
-    <string name="duration_60_days">60 gün</string>
-    <string name="duration_90_days">90 gün</string>
     <string name="pref_default_post_language">Varsayılan gönderme dili</string>
     <string name="notification_report_name">Raporlar</string>
     <string name="notification_report_description">Denetleme raporlarıyla ilgili bildirimler</string>
     <string name="duration_no_change">(değişiklik yok)</string>
-    <string name="duration_14_days">14 gün</string>
-    <string name="duration_365_days">365 gün</string>
     <string name="review_notifications">Bildirimleri Gözden Geçir</string>
     <string name="wellbeing_mode_notice">Huzurlu kullanım için bazı bilgiler gizlenebilir.. Bunlar:
 \n
@@ -363,9 +346,7 @@
     <string name="filter_expiration_format">%1$s (%2$s)</string>
     <string name="failed_to_pin">Sabitleme Başarısız</string>
     <string name="failed_to_unpin">Açılamadı</string>
-    <string name="drafts_post_failed_to_send">Bu yayın gönderilemedi!</string>
     <string name="wellbeing_hide_stats_posts">Yayınların niceliksel istatistikleri gizle</string>
-    <string name="drafts_post_reply_removed">Yanıt yazdığınız yayın kaldırıldı</string>
     <string name="language_display_name_format">%1$s (%2$s)</string>
     <string name="report_category_violation">Kural ihlali</string>
     <string name="description_post_language">Gönderi dili</string>

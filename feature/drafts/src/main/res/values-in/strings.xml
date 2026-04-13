@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_edit">Ubah</string>
+    <string name="title_drafts">Draf</string>
+    <string name="drafts_post_reply_removed">Postingan yang Anda buat sebagai balasan telah dihapus</string>
+    <string name="drafts_post_failed_to_send">Kiriman ini gagal terkirim!</string>
+</resources>

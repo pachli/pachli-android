@@ -96,4 +96,18 @@
     <string name="filter_edit_title">フィルターを編集</string>
     <string name="status_filtered_show_anyway">とにかく表示する</string>
     <string name="status_filter_placeholder_label_format">フィルタ済み: &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="create_poll_title">投票</string>
+    <string name="duration_5_min">5分</string>
+    <string name="duration_30_min">30分</string>
+    <string name="duration_1_hour">1時間</string>
+    <string name="duration_6_hours">6時間</string>
+    <string name="duration_1_day">1日</string>
+    <string name="duration_3_days">3日</string>
+    <string name="duration_7_days">7日</string>
+    <string name="duration_14_days">14日間</string>
+    <string name="duration_30_days">30日間</string>
+    <string name="duration_60_days">60日間</string>
+    <string name="duration_90_days">90日間</string>
+    <string name="duration_180_days">180日間</string>
+    <string name="duration_365_days">365日間</string>
 </resources>

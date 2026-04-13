@@ -176,7 +176,6 @@
     <string name="report_username_format">রিপোর্ট @%1$s</string>
     <string name="footer_empty">এখানে কিছু নেই. রিফ্রেশ করতে নিচে টানুন!</string>
     <string name="post_sensitive_media_directions">দেখার জন্য ক্লিক করুন</string>
-    <string name="title_drafts">খসড়া</string>
     <string name="title_edit_profile">আপনার প্রোফাইল সম্পাদনা করুন</string>
     <string name="title_follow_requests">অনুরোধ অনুসরণ করুন</string>
     <string name="title_blocks">অবরুদ্ধ ব্যবহারকারী</string>
@@ -199,7 +198,6 @@
     <string name="action_unmute_conversation">আলাপ বন্ধ করো</string>
     <string name="action_mute_conversation">আলাপ বন্ধ করো</string>
     <string name="warning_scheduling_interval">মাস্টোডনের সর্বনিম্ন ৫ মিনিটের সময়সূচীর বিরতি আছে।</string>
-    <string name="no_drafts">তোমার কোনো খসড়া নেই।</string>
     <string name="no_scheduled_posts">তোমার কোনো সময়সূচীত স্ট্যাটাস নেই।</string>
     <string name="list">তালিকা</string>
     <string name="select_list_title">তালিকা নির্বাচন করো</string>
@@ -208,20 +206,11 @@
     <string name="action_reset_schedule">রিসেট</string>
     <string name="action_schedule_post">নির্ধারিত টুট</string>
     <string name="action_access_scheduled_posts">নির্ধারিত টুটগুলি</string>
-    <string name="action_edit">সম্পাদন</string>
     <string name="title_scheduled_posts">নির্ধারিত টুটগুলি</string>
     <string name="edit_poll">সম্পাদন</string>
     <string name="poll_new_choice_hint">পছন্দ %1$d</string>
     <string name="poll_allow_multiple_choices">একাধিক পছন্দ</string>
     <string name="add_poll_choice">পছন্দ যুক্ত করুন</string>
-    <string name="duration_7_days">৭ দিন</string>
-    <string name="duration_3_days">৩ দিন</string>
-    <string name="duration_1_day">১ দিন</string>
-    <string name="duration_6_hours">৬ ঘন্টা</string>
-    <string name="duration_1_hour">১ ঘন্টা</string>
-    <string name="duration_30_min">৩০ মিনিট</string>
-    <string name="duration_5_min">৫ মিনিট</string>
-    <string name="create_poll_title">ভোটগ্রহণ</string>
     <string name="action_remove">সরান</string>
     <string name="action_add_poll">পোল যুক্ত করুন</string>
     <string name="pref_title_alway_open_spoiler">সর্বদা সামগ্রী সতর্কতা সহ চিহ্নিত টুটগুলি প্রসারিত করুন</string>
@@ -289,12 +278,10 @@
     <string name="pref_title_notification_filter_subscriptions">সদস্যতা আছে এমন একজন টুট দিয়েছে</string>
     <string name="no_announcements">কোনো ঘোষণা নেই।</string>
     <string name="follow_requests_info">যদিও তোমার অ্যাকাউন্ট রুদ্ধকৃত না, %1$s রা ভেবেছে এই অ্যাকাউন্টগুলোর অনুসরণ অনুরোধ তোমার পরীক্ষা করা উচিত।</string>
-    <string name="drafts_post_reply_removed">যে টুটের উত্তর খসড়া করেছিলে তা মুছে ফেলা হয়েছে</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">%1$d টার বেশি সংযুক্তি পাঠানো যাবে না।</item>
         <item quantity="other">%1$d টার বেশি সংযুক্তি পাঠানো যাবে না।</item>
     </plurals>
-    <string name="drafts_post_failed_to_send">টুট পাঠাতে ব্যর্থ!</string>
     <string name="account_note_saved">সংরক্ষিত!</string>
     <string name="wellbeing_hide_stats_profile">অবতারে পরিসংখ্যান লুকাও</string>
     <string name="wellbeing_hide_stats_posts">ছাপার পরিসংখ্যান লুকাও</string>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="title_favourites">Eftirlæti</string>
-    <string name="title_drafts">Drög</string>
     <string name="action_view_preferences">Kjörstillingar</string>
     <string name="action_view_account_preferences">Eiginleikar notandaaðgangs</string>
     <string name="action_edit_profile">Breyta notandasniði</string>
@@ -51,7 +50,6 @@
     <string name="action_hide_reblogs">Fela endurbirtingar</string>
     <string name="action_show_reblogs">Sýna endurbirtingar</string>
     <string name="action_report">Tilkynna</string>
-    <string name="action_edit">Breyta</string>
     <string name="action_delete">Eyða</string>
     <string name="action_delete_and_redraft">Eyða og endurvinna drög</string>
     <string name="action_send">BIRTA</string>
@@ -258,19 +256,10 @@
     <string name="report_description_remote_instance">Notandaaðgangurinn er af öðrum vefþjóni. Á einnig að senda nafnlaust afrit af kærunni þangað\?</string>
     <string name="title_accounts">Notandaaðgangar</string>
     <string name="failed_search">Tókst ekki að leita</string>
-    <string name="create_poll_title">Athuga</string>
-    <string name="duration_5_min">5 mínútur</string>
-    <string name="duration_30_min">30 mínútur</string>
-    <string name="duration_1_hour">1 klukkustund</string>
-    <string name="duration_6_hours">6 klukkustundir</string>
-    <string name="duration_1_day">1 dagur</string>
-    <string name="duration_3_days">3 dagar</string>
-    <string name="duration_7_days">7 dagar</string>
     <string name="add_poll_choice">Bæta við valkosti</string>
     <string name="poll_allow_multiple_choices">Margir valkostir</string>
     <string name="poll_new_choice_hint">Valkostur %1$d</string>
     <string name="edit_poll">Breyta</string>
-    <string name="no_drafts">Þú ert ekki með nein drög.</string>
     <string name="no_scheduled_posts">Þú ert ekki með neinar áætlaðar stöðufærslur.</string>
     <string name="warning_scheduling_interval">Mastodon er með 5 mínútna lágmarksbil fyrir áætlaðar aðgerðir.</string>
     <string name="notification_follow_request_name">Fylgjendabeiðnir</string>
@@ -306,8 +295,6 @@
     <string name="action_unsubscribe_account">Segja upp áskrift</string>
     <string name="action_subscribe_account">Gerast áskrifandi</string>
     <string name="pref_title_animate_custom_emojis">Hreyfa sérsniðin tjáningartákn</string>
-    <string name="drafts_post_reply_removed">Færslan sem þú gerðir drög að svari við hefur verið fjarlægð</string>
-    <string name="drafts_post_failed_to_send">Mistókst að senda þessa færslu!</string>
     <string name="duration_indefinite">Ótiltekið</string>
     <string name="label_duration">Tímalengd</string>
     <plurals name="error_upload_max_media_reached">
@@ -327,12 +314,6 @@
     <string name="pref_title_confirm_favourites">Birta staðfestingu áður en sett er í eftirlæti</string>
     <string name="dialog_delete_conversation_warning">Eyða þessu samtali\?</string>
     <string name="action_delete_conversation">Eyða samtali</string>
-    <string name="duration_30_days">30 dagar</string>
-    <string name="duration_60_days">60 dagar</string>
-    <string name="duration_90_days">90 dagar</string>
-    <string name="duration_180_days">180 dagar</string>
-    <string name="duration_365_days">365 dagar</string>
-    <string name="duration_14_days">14 dagar</string>
     <string name="pachli_compose_post_quicksetting_label">Semja færslu</string>
     <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; skráði sig</string>
     <string name="pref_title_notification_filter_sign_ups">einhver skráði sig</string>

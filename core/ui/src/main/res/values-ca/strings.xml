@@ -99,4 +99,18 @@
     <string name="filter_edit_title">Modificar un filtre</string>
     <string name="status_filtered_show_anyway">Mostra de totes maneres</string>
     <string name="status_filter_placeholder_label_format">Filtrat: &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="create_poll_title">Enquesta</string>
+    <string name="duration_5_min">5 minuts</string>
+    <string name="duration_30_min">30 minuts</string>
+    <string name="duration_1_hour">1 hora</string>
+    <string name="duration_6_hours">6 hores</string>
+    <string name="duration_1_day">1 dia</string>
+    <string name="duration_3_days">3 dies</string>
+    <string name="duration_7_days">7 dies</string>
+    <string name="duration_14_days">14 dies</string>
+    <string name="duration_30_days">30 dies</string>
+    <string name="duration_60_days">60 dies</string>
+    <string name="duration_90_days">90 dies</string>
+    <string name="duration_180_days">180 dies</string>
+    <string name="duration_365_days">365 dies</string>
 </resources>

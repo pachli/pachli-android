@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_edit">แก้ไข</string>
+    <string name="title_drafts">ฉบับร่าง</string>
+    <string name="drafts_post_reply_removed">โพสต์ที่คุณได้ร่างตอบไว้ ถูกลบแลัว</string>
+    <string name="drafts_post_failed_to_send">ล้มเหลวในการส่งโพสต์นี้!</string>
+    <string name="no_drafts">ไม่มีฉบับร่างใด ๆ</string>
+</resources>

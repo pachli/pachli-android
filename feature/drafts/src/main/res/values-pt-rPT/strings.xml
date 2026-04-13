@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_edit">Editar</string>
+    <string name="title_drafts">Rascunhos</string>
+    <string name="drafts_post_reply_removed">O toot para o qual escreveu um rascunho foi apagado</string>
+    <string name="drafts_post_failed_to_send">Erro ao enviar o toot!</string>
+    <string name="no_drafts">Não tem rascunhos.</string>
+</resources>

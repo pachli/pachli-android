@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="title_view_thread">Публикация</string>
-    <string name="drafts_post_reply_removed">Публикацията, на която сте изготвили отговор, е премахната</string>
-    <string name="duration_1_hour">1 час</string>
-    <string name="duration_30_min">30 минути</string>
-    <string name="duration_5_min">5 минути</string>
     <string name="duration_indefinite">Неопределено</string>
     <string name="label_duration">Продължителност</string>
-    <string name="create_poll_title">Анкета</string>
     <string name="pref_title_enable_swipe_for_tabs">Активиране на плъзгащия жест за превключване между раздели</string>
     <string name="failed_search">Търсенето бе неуспешно</string>
     <string name="title_accounts">Акаунти</string>
@@ -207,7 +202,6 @@
     <string name="action_send">ИЗПРАЩАНЕ</string>
     <string name="action_delete_and_redraft">Изтриване и преработване</string>
     <string name="action_delete">Изтриване</string>
-    <string name="action_edit">Редакция</string>
     <string name="action_report">Докладване</string>
     <string name="action_show_reblogs">Показване на споделяния</string>
     <string name="action_hide_reblogs">Скриване на споделяния</string>
@@ -228,7 +222,6 @@
     <string name="post_sensitive_media_directions">Щракнете за преглед</string>
     <string name="title_announcements">Оповестявания</string>
     <string name="title_scheduled_posts">Планирани публикации</string>
-    <string name="title_drafts">Чернови</string>
     <string name="title_edit_profile">Редакция на профила ви</string>
     <string name="title_follow_requests">Заявки за последване</string>
     <string name="title_domain_mutes">Скрити домейни</string>
@@ -256,7 +249,6 @@
     <string name="error_compose_character_limit">Състоянието е твърде дълго!</string>
     <string name="error_no_web_browser_found">Неуспешно намиране на уеб браузър, който да се използва.</string>
     <string name="error_empty">Това не може да бъде празно.</string>
-    <string name="drafts_post_failed_to_send">Тази публикация не успя да се изпрати!</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="other">Не можете да качите повече от %1$d мултимедийни прикачени файлове.</item>
     </plurals>
@@ -279,15 +271,10 @@
     <string name="warning_scheduling_interval">Mastodon има минимален интервал за планиране от 5 минути.</string>
     <string name="no_announcements">Няма оповестявания.</string>
     <string name="no_scheduled_posts">Нямате планирани състояния.</string>
-    <string name="no_drafts">Нямате чернови.</string>
     <string name="edit_poll">Редакция</string>
     <string name="poll_new_choice_hint">Избор %1$d</string>
     <string name="poll_allow_multiple_choices">Множество избора</string>
     <string name="add_poll_choice">Добавяне на избор</string>
-    <string name="duration_7_days">7 дни</string>
-    <string name="duration_3_days">3 дни</string>
-    <string name="duration_1_day">1 ден</string>
-    <string name="duration_6_hours">6 часа</string>
     <string name="notification_boost_name">Споделяния</string>
     <string name="notification_follow_request_description">Известия за заявки за последване</string>
     <string name="notification_follow_request_name">Заявки за последване</string>

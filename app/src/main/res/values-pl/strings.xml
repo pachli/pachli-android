@@ -24,7 +24,6 @@
     <string name="title_blocks">Zablokowane konta</string>
     <string name="title_follow_requests">Prośby o obserwację</string>
     <string name="title_edit_profile">Edytuj profil</string>
-    <string name="title_drafts">Szkice</string>
     <string name="post_sensitive_media_directions">Naciśnij, aby wyświetlić</string>
     <string name="footer_empty">Pusto tutaj. Pociągnij, aby odświeżyć!</string>
     <string name="notification_reblog_format">Podbicie twojego wpisu przez &lt;b&gt;%1$s&lt;/b&gt;</string>
@@ -258,20 +257,11 @@
     <string name="report_description_remote_instance">To konto jest na innym serwerze. Czy przesłać anonimizowaną kopię zgłoszenia także na ten serwer?</string>
     <string name="title_accounts">Konta</string>
     <string name="failed_search">Wyszukiwanie nie powidło się</string>
-    <string name="create_poll_title">Ankieta</string>
-    <string name="duration_5_min">5 minut</string>
-    <string name="duration_30_min">30 minut</string>
-    <string name="duration_1_hour">1 godzina</string>
-    <string name="duration_6_hours">6 godzin</string>
-    <string name="duration_1_day">1 dzień</string>
-    <string name="duration_3_days">3 dni</string>
-    <string name="duration_7_days">7 dni</string>
     <string name="add_poll_choice">Dodaj wybór</string>
     <string name="poll_allow_multiple_choices">Wielokrotny wybór</string>
     <string name="poll_new_choice_hint">Opcja %1$d</string>
     <string name="edit_poll">Edytuj</string>
     <string name="title_scheduled_posts">Zaplanowane wpisy</string>
-    <string name="action_edit">Edytuj</string>
     <string name="action_access_scheduled_posts">Zaplanowane wpisy</string>
     <string name="action_schedule_post">Zaplanuj wpis</string>
     <string name="action_reset_schedule">Resetuj</string>
@@ -279,7 +269,6 @@
     <string name="action_view_bookmarks">Zakładki</string>
     <string name="select_list_title">Wybierz listę</string>
     <string name="list">Lista</string>
-    <string name="no_drafts">Nie masz żadnych szkiców.</string>
     <string name="no_scheduled_posts">Nie masz żadnych zaplanowanych wpisów.</string>
     <string name="warning_scheduling_interval">Mastodon umożliwia wysłanie minimalnie 5 minut od zaplanowania.</string>
     <string name="notification_follow_request_name">Prośby o obserwację</string>
@@ -302,7 +291,6 @@
         <item quantity="many">Nie możesz przesłać więcej niż %1$d załączników.</item>
         <item quantity="other">Nie możesz przesłać więcej niż %1$d załączników.</item>
     </plurals>
-    <string name="drafts_post_failed_to_send">Przesłanie wpisu nie powiodło się!</string>
     <string name="no_announcements">Nie ma ogłoszeń.</string>
     <string name="label_duration">Czas trwania</string>
     <string name="notification_subscription_name">Nowe wpisy</string>
@@ -316,7 +304,6 @@
     <string name="action_unsubscribe_account">Anuluj subskrypcję</string>
     <string name="action_subscribe_account">Zasubskrybuj</string>
     <string name="follow_requests_info">Mimo tego, że twoje konto nie jest zablokowane, administracja %1$s uznała, że możesz chcieć ręcznie przejrzeć te prośby o obserwację od tych kont.</string>
-    <string name="drafts_post_reply_removed">Wpis, dla którego napisano odpowiedź został usunięty</string>
     <string name="wellbeing_hide_stats_profile">Ukryj ilościowe statystyki na profilach</string>
     <string name="wellbeing_hide_stats_posts">Ukryj ilościowe statystyki na postach</string>
     <string name="review_notifications">Przejrzyj powiadomienia</string>
@@ -332,12 +319,6 @@
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; prosi o możliwość obserwowania ciebie</string>
     <string name="action_unbookmark">Usuń z zakładek</string>
     <string name="pref_title_confirm_favourites">Pytaj o potwierdzenie przed polubieniem</string>
-    <string name="duration_14_days">14 dni</string>
-    <string name="duration_30_days">30 dni</string>
-    <string name="duration_60_days">60 dni</string>
-    <string name="duration_90_days">90 dni</string>
-    <string name="duration_180_days">180 dni</string>
-    <string name="duration_365_days">365 dni</string>
     <string name="pachli_compose_post_quicksetting_label">Utwórz wpis</string>
     <string name="notification_sign_up_format">Nowa rejestracja: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="notification_sign_up_name">Rejestracje</string>
@@ -741,9 +722,6 @@
     <string name="notification_quoted_update_description">Powiadomienia o edycji wpisów zacytowanych przez ciebie</string>
     <string name="action_move_up">Przenieś wyżej</string>
     <string name="action_move_down">Przenieś niżej</string>
-    <string name="drafts_load_reply_failed_fmt">Nie udało się wczytanie wpisu, na który odpowiadasz: %1$s</string>
-    <string name="drafts_load_quote_failed_fmt">Nie udało się wczytanie wpisu, który cytujesz: %1$s</string>
-    <string name="drafts_post_quote_removed">Zacytowany przez ciebie wpis został usunięty</string>
     <string name="detach_quote_dialog_title">Usunąć cytat?</string>
     <string name="detach_quote_dialog_message">To usunie zacytowany przez ciebie wpis z tego wpisu.\n\nOryginalny wpis nie zostanie usunięty.\n\nTa akcja nie może zostać cofnięta.</string>
     <string name="detach_quote_error_fmt">Usuwanie cytatu się nie powiodło: %1$s</string>

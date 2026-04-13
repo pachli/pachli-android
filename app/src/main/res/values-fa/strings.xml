@@ -24,7 +24,6 @@
     <string name="title_blocks">کاربران مسدود</string>
     <string name="title_follow_requests">درخواست‌های پی‌گیری</string>
     <string name="title_edit_profile">ویرایش نمایه‌تان</string>
-    <string name="title_drafts">پیش‌نویس‌ها</string>
     <string name="post_sensitive_media_directions">کلیک برای نمایش</string>
     <string name="footer_empty">این‌جا هیچ‌چیز نیست. برای تازه‌سازی، به پایین بکشید!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; فرسته‌تان را تقویت کرد</string>
@@ -250,20 +249,11 @@
     <string name="failed_fetch_posts">شکست در واکشی فرسته‌ها</string>
     <string name="title_accounts">حساب‌ها</string>
     <string name="failed_search">شکست در جست‌وجو</string>
-    <string name="create_poll_title">نظرسنجی</string>
-    <string name="duration_5_min">۵ دقیقه</string>
-    <string name="duration_30_min">۳۰ دقیقه</string>
-    <string name="duration_1_hour">۱ ساعت</string>
-    <string name="duration_6_hours">۶ ساعت</string>
-    <string name="duration_1_day">۱ روز</string>
-    <string name="duration_3_days">۳ روز</string>
-    <string name="duration_7_days">۷ روز</string>
     <string name="add_poll_choice">افزودن گزینه</string>
     <string name="poll_allow_multiple_choices">گزینه‌های چندگانه</string>
     <string name="poll_new_choice_hint">گزینهٔ %1$d</string>
     <string name="edit_poll">ویرایش</string>
     <string name="title_scheduled_posts">فرسته‌های زمان‌بسته</string>
-    <string name="action_edit">ویرایش</string>
     <string name="action_access_scheduled_posts">فرسته‌های زمان‌بسته</string>
     <string name="action_schedule_post">فرستهٔ زمان‌بسته</string>
     <string name="action_reset_schedule">بازنشانی</string>
@@ -276,7 +266,6 @@
     <string name="action_view_bookmarks">نشانک‌ها</string>
     <string name="select_list_title">گزینش سیاهه</string>
     <string name="list">سیاهه</string>
-    <string name="no_drafts">هیچ پیش‌نویسی ندارید.</string>
     <string name="no_scheduled_posts">هیچ فرستهٔ زمان‌بسته‌ای ندارید.</string>
     <string name="warning_scheduling_interval">ماستودون، بازهٔ زمان‌بندی‌ای با کمینهٔ ۵ دقیقه دارد.</string>
     <string name="pref_title_confirm_reblogs">نمایش تأیید پیش از تقویت</string>
@@ -305,7 +294,6 @@
     <string name="title_announcements">اعلامیه‌ها</string>
     <string name="action_unsubscribe_account">نااشتراک</string>
     <string name="action_subscribe_account">اشتراک</string>
-    <string name="drafts_post_failed_to_send">فرستادن این فرسته شکست خورد!</string>
     <string name="wellbeing_hide_stats_profile">نهفتن آمار کمی روی نمایه‌ها</string>
     <string name="wellbeing_hide_stats_posts">نهفتن آمار کمی روی فرسته‌ها</string>
     <string name="review_notifications">بازبینی آگاهی‌ها</string>
@@ -316,7 +304,6 @@
     <string name="pref_title_animate_custom_emojis">اموجی‌های شخصی متحرّک</string>
     <string name="pref_title_notification_filter_subscriptions">کسی که پی‌می‌گیرم، فرسته‌ای جدید منتشر کرد</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; چیزی فرستاد</string>
-    <string name="drafts_post_reply_removed">فرسته‌ای که پاسخی به آن را پیش‌نویس کردید، برداشته شده</string>
     <string name="wellbeing_mode_notice">برخی اطّلاعات که ممکن است روی سلامتی ذهنیتان تأثیر بگذارد، پنهان خواهند شد. همچون:
 \n
 \n - آگاهی‌های برگزیدن، تقویت و پی‌گیری
@@ -338,12 +325,6 @@
     <string name="pachli_compose_post_quicksetting_label">ایجاد فرسته</string>
     <string name="notification_update_description">آگاهی‌ها هنگام ویرایش فرسته‌هایی که با آن‌ها تعامل داشته‌اید</string>
     <string name="action_unbookmark">برداشن نشانک</string>
-    <string name="duration_14_days">۱۴ روز</string>
-    <string name="duration_30_days">۳۰ روز</string>
-    <string name="duration_60_days">۶۰ روز</string>
-    <string name="duration_90_days">۹۰ روز</string>
-    <string name="duration_365_days">۳۶۵ روز</string>
-    <string name="duration_180_days">۱۸۰ روز</string>
     <string name="pref_title_notification_filter_sign_ups">کسی ثبت‌نام کرد</string>
     <string name="notification_update_name">ویرایش‌های فرسته</string>
     <string name="action_edit_image">ویرایش تصویر</string>

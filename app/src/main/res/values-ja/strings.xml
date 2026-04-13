@@ -27,7 +27,6 @@
     <string name="title_blocks">ブロックしたユーザー</string>
     <string name="title_follow_requests">フォローリクエスト</string>
     <string name="title_edit_profile">プロフィールを編集</string>
-    <string name="title_drafts">下書き</string>
     <string name="post_sensitive_media_directions">タップして表示</string>
     <string name="footer_empty">現在投稿はありません。更新するにはプルダウンしてください！</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt;さんが投稿をブーストしました</string>
@@ -224,14 +223,6 @@
     <string name="filter_dialog_update_button">更新</string>
     <string name="poll_ended_voted">参加した投票の結果がでました</string>
     <string name="poll_ended_created">作成した投票の結果がでました</string>
-    <string name="create_poll_title">投票</string>
-    <string name="duration_5_min">5分</string>
-    <string name="duration_30_min">30分</string>
-    <string name="duration_1_hour">1時間</string>
-    <string name="duration_6_hours">6時間</string>
-    <string name="duration_1_day">1日</string>
-    <string name="duration_3_days">3日</string>
-    <string name="duration_7_days">7日</string>
     <string name="add_poll_choice">選択肢を追加</string>
     <string name="poll_allow_multiple_choices">複数選択可</string>
     <string name="edit_poll">編集</string>
@@ -243,7 +234,6 @@
     <string name="failed_search">検索に失敗しました</string>
     <string name="action_reset_schedule">リセット</string>
     <string name="title_bookmarks">ブックマーク</string>
-    <string name="action_edit">編集</string>
     <string name="action_view_bookmarks">ブックマーク</string>
     <string name="title_scheduled_posts">予約投稿</string>
     <string name="action_access_scheduled_posts">予約投稿</string>
@@ -254,7 +244,6 @@
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt;さんがあなたにフォローリクエストしました</string>
     <string name="report_sent_success">\@%1$sさんを通報しました</string>
     <string name="no_scheduled_posts">予約した投稿はありません。</string>
-    <string name="no_drafts">下書きはありません。</string>
     <string name="poll_new_choice_hint">項目 %1$d</string>
     <string name="report_description_remote_instance">このアカウントは外部のサーバーにあります。匿名化された通報の複製をそちらにも送信しますか？</string>
     <string name="report_description_1">通報をサーバーのモデレーターに送信します。以下にこのアカウントを通報理由を入力できます:</string>
@@ -303,15 +292,9 @@
     <string name="description_post_language">投稿言語</string>
     <string name="label_duration">期間</string>
     <string name="duration_indefinite">無期限</string>
-    <string name="duration_14_days">14日間</string>
-    <string name="duration_30_days">30日間</string>
-    <string name="duration_60_days">60日間</string>
     <string name="pref_title_show_self_username">ツールバーにユーザー名を表示する</string>
     <string name="filter_expiration_format">%1$s (%2$s)</string>
     <string name="compose_save_draft_loses_media">下書きを保存しますか？ (添付ファイルは下書きの復元時に再アップロードされます。)</string>
-    <string name="duration_90_days">90日間</string>
-    <string name="duration_180_days">180日間</string>
-    <string name="duration_365_days">365日間</string>
     <string name="wellbeing_hide_stats_posts">投稿上の数値的な統計情報を隠す</string>
     <string name="failed_to_pin">ピン留めに失敗しました</string>
     <string name="failed_to_unpin">ピン留めの解除に失敗しました</string>
@@ -353,8 +336,6 @@
     <plurals name="error_upload_max_media_reached">
         <item quantity="other">%1$d 個以上のメディア添付ファイルはアップロードできません。</item>
     </plurals>
-    <string name="drafts_post_failed_to_send">この投稿の送信に失敗しました！</string>
-    <string name="drafts_post_reply_removed">下書きの返信先の投稿が削除されました</string>
     <string name="action_subscribe_account">購読する</string>
     <string name="wellbeing_mode_notice">あなたのメンタルヘルスに影響を与える可能性のある情報は隠されます。例:
 \n

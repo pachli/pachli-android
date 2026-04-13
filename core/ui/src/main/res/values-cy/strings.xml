@@ -131,4 +131,18 @@
     <string name="filter_edit_title">Golygu hidlydd</string>
     <string name="status_filtered_show_anyway">Dangos beth bynnag</string>
     <string name="status_filter_placeholder_label_format">Hidlwyd: &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="create_poll_title">Pôl</string>
+    <string name="duration_5_min">5 munud</string>
+    <string name="duration_30_min">Hanner awr</string>
+    <string name="duration_1_hour">Awr</string>
+    <string name="duration_6_hours">6 awr</string>
+    <string name="duration_1_day">Diwrnod</string>
+    <string name="duration_3_days">Tridiau</string>
+    <string name="duration_7_days">Wythnos</string>
+    <string name="duration_14_days">Pythefnos</string>
+    <string name="duration_30_days">30 diwrnod</string>
+    <string name="duration_60_days">60 diwrnod</string>
+    <string name="duration_90_days">90 diwrnod</string>
+    <string name="duration_180_days">180 diwrnod</string>
+    <string name="duration_365_days">Blwyddyn</string>
 </resources>

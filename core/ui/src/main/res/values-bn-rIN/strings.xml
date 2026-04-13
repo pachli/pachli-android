@@ -88,4 +88,12 @@
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; সমর্থন দিয়েছে</string>
     <string name="filter_edit_title">ফিল্টার সম্পাদনা করুন</string>
+    <string name="create_poll_title">ভোটগ্রহণ</string>
+    <string name="duration_5_min">৫ মিনিট</string>
+    <string name="duration_30_min">৩০ মিনিট</string>
+    <string name="duration_1_hour">১ ঘন্টা</string>
+    <string name="duration_6_hours">৬ ঘন্টা</string>
+    <string name="duration_1_day">১ দিন</string>
+    <string name="duration_3_days">৩ দিন</string>
+    <string name="duration_7_days">৭ দিন</string>
 </resources>

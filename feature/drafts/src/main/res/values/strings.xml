@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_edit">Edit</string>
+    <string name="title_drafts">Drafts</string>
+    <string name="drafts_post_reply_removed">The post you drafted a reply to has been removed</string>
+    <string name="drafts_load_reply_failed_fmt">Could not load the post you\'re replying to: %1$s</string>
+    <string name="drafts_post_quote_removed">The post you quoted has been removed</string>
+    <string name="drafts_load_quote_failed_fmt">Could not load the post you\'re quoting: %1$s</string>
+    <string name="drafts_post_failed_to_send">This post failed to send!</string>
+    <string name="title_delete_drafts">Delete selected drafts?</string>
+    <string name="delete_drafts_msg">This will permanently delete the selected drafts.</string>
+    <string name="action_delete_drafts">Delete selected drafts</string>
+    <string name="no_drafts">You don\'t have any drafts.</string>
+    <string name="send_post_failure_message_prefix">Sending failed: %1$s</string>
+</resources>

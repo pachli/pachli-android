@@ -102,4 +102,18 @@
     <string name="filter_edit_title">Filter bewerken</string>
     <string name="status_filtered_show_anyway">Toch tonen</string>
     <string name="status_filter_placeholder_label_format">Gefilterd: &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="create_poll_title">Poll</string>
+    <string name="duration_5_min">5 minuten</string>
+    <string name="duration_30_min">30 minuten</string>
+    <string name="duration_1_hour">1 uur</string>
+    <string name="duration_6_hours">6 uur</string>
+    <string name="duration_1_day">1 dag</string>
+    <string name="duration_3_days">3 dagen</string>
+    <string name="duration_7_days">7 dagen</string>
+    <string name="duration_14_days">14 dagen</string>
+    <string name="duration_30_days">30 dagen</string>
+    <string name="duration_60_days">60 dagen</string>
+    <string name="duration_90_days">90 dagen</string>
+    <string name="duration_180_days">180 dagen</string>
+    <string name="duration_365_days">365 dagen</string>
 </resources>

@@ -163,4 +163,18 @@
     <string name="label_quote_state_blocked_account">நீங்கள் தடுத்த கணக்கிலிருந்து மேற்கோள் காட்டப்பட்ட இடுகை</string>
     <string name="label_quote_state_blocked_domain">மேற்கோள் இடுகை நீங்கள் தடுத்த சர்வரில் இருந்து வந்தது</string>
     <string name="label_quote_state_muted_account">நீங்கள் முடக்கிய கணக்கிலிருந்து மேற்கோள் காட்டப்பட்ட இடுகை</string>
+    <string name="create_poll_title">வாக்கெடுப்பு</string>
+    <string name="duration_5_min">5 நிமிடங்கள்</string>
+    <string name="duration_30_min">30 நிமிடங்கள்</string>
+    <string name="duration_1_hour">1 மணி நேரம்</string>
+    <string name="duration_6_hours">6 மணி நேரம்</string>
+    <string name="duration_1_day">1 நாள்</string>
+    <string name="duration_3_days">3 நாட்கள்</string>
+    <string name="duration_7_days">7 நாட்கள்</string>
+    <string name="duration_14_days">14 நாட்கள்</string>
+    <string name="duration_30_days">30 நாட்கள்</string>
+    <string name="duration_60_days">60 நாட்கள்</string>
+    <string name="duration_90_days">90 நாட்கள்</string>
+    <string name="duration_180_days">180 நாட்கள்</string>
+    <string name="duration_365_days">365 நாட்கள்</string>
 </resources>

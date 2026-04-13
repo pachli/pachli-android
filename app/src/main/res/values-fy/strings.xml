@@ -130,7 +130,6 @@
     <string name="action_delete_and_redraft">Fuortsmite en opnij opstelle</string>
     <string name="action_delete_conversation">Petear fuortsmite</string>
     <string name="action_delete">Fuortsmite</string>
-    <string name="action_edit">Oanpasse</string>
     <string name="action_report">Oanjaan</string>
     <string name="action_unblock">Net mear blokkearje</string>
     <string name="action_block">Blokkearje</string>
@@ -147,7 +146,6 @@
     <string name="footer_empty">Hjir is neat. Lûk nei ûnderen om te ferfarskjen!</string>
     <string name="post_sensitive_media_directions">Klik om te besjen</string>
     <string name="title_scheduled_posts">Ynplanne toots</string>
-    <string name="title_drafts">Sketsen</string>
     <string name="title_edit_profile">Jo profyl oanpasse</string>
     <string name="title_follow_requests">Folgfersyken</string>
     <string name="title_domain_mutes">Ferburgen domeinen</string>

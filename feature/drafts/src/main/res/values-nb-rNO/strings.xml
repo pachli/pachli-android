@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_edit">Rediger</string>
+    <string name="title_drafts">Utkast</string>
+    <string name="drafts_post_reply_removed">Innlegget du hadde opprettet et utkast som svar på har blitt fjernet</string>
+    <string name="drafts_post_failed_to_send">Sending av innlegg feilet!</string>
+    <string name="no_drafts">Du har ikke lagret noen utkast.</string>
+</resources>

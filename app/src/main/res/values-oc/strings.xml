@@ -23,7 +23,6 @@
     <string name="title_blocks">Utilizaires blocats</string>
     <string name="title_follow_requests">Demandas d’abonament</string>
     <string name="title_edit_profile">Modificar lo perfil</string>
-    <string name="title_drafts">Borrolhons</string>
     <string name="post_sensitive_media_directions">Clicar per mostrar</string>
     <string name="footer_empty">I a pas res aquí. Davalatz per actualizar !</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; a partejat vòstra publicacion</string>
@@ -256,20 +255,11 @@
     <string name="title_accounts">Comptes</string>
     <string name="failed_search">Fracàs de la recèrca</string>
     <string name="action_add_poll">Ajustar un sondatge</string>
-    <string name="create_poll_title">Sondatge</string>
-    <string name="duration_5_min">5 minutas</string>
-    <string name="duration_30_min">30 minutas</string>
-    <string name="duration_1_hour">1 ora</string>
-    <string name="duration_6_hours">6 oras</string>
-    <string name="duration_1_day">1 jorn</string>
-    <string name="duration_3_days">3 jorns</string>
-    <string name="duration_7_days">7 jorns</string>
     <string name="add_poll_choice">Ajustar d’opcions</string>
     <string name="poll_allow_multiple_choices">Opcions multiplas</string>
     <string name="poll_new_choice_hint">Opcion %1$d</string>
     <string name="edit_poll">Modificar</string>
     <string name="title_scheduled_posts">Tuts planificats</string>
-    <string name="action_edit">Modificar</string>
     <string name="action_access_scheduled_posts">Tuts planificats</string>
     <string name="action_schedule_post">Planificar de tuts</string>
     <string name="action_reset_schedule">Escafar</string>
@@ -277,7 +267,6 @@
     <string name="action_view_bookmarks">Marcapaginas</string>
     <string name="select_list_title">Seleccionar la list</string>
     <string name="list">Lista</string>
-    <string name="no_drafts">Avètz pas cap de borrolhon.</string>
     <string name="no_scheduled_posts">Avètz pas cap de tut planificat.</string>
     <string name="warning_scheduling_interval">L’interval minimum de planificacion sus Mastodon e de 5 minutas.</string>
     <string name="notification_follow_request_name">Demandas d’abonament</string>
@@ -290,7 +279,6 @@
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; ven de publicar</string>
     <string name="action_unsubscribe_account">Quitar de seguir</string>
     <string name="action_subscribe_account">Seguir</string>
-    <string name="drafts_post_failed_to_send">Fracàs de l’enviament !</string>
     <string name="review_notifications">Repassar las notificacions</string>
     <string name="account_note_saved">Enregistrat !</string>
     <string name="account_note_hint">Vòstra nòta privada tocant aqueste compte</string>
@@ -329,8 +317,6 @@
     <string name="failed_to_unpin">Fracàs en despenjant</string>
     <string name="description_post_language">Lenga de la publicacion</string>
     <string name="notification_update_name">Publicacions modificadas</string>
-    <string name="duration_14_days">14 jorns</string>
-    <string name="duration_30_days">30 jorns</string>
     <string name="error_following_hashtag_format">Error en seguissent #%1$s</string>
     <string name="error_unfollowing_hashtag_format">Error en quitant de seguir #%1$s</string>
     <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; a creat un compte</string>
@@ -342,10 +328,6 @@
     <string name="error_image_edit_failed">Se podiá pas modificar l’imatge.</string>
     <string name="pref_title_wellbeing_mode">Benestar</string>
     <string name="duration_no_change">(Cap de modificacion)</string>
-    <string name="duration_60_days">60 jorns</string>
-    <string name="duration_90_days">90 jorns</string>
-    <string name="duration_180_days">180 jorns</string>
-    <string name="duration_365_days">365 jorns</string>
     <string name="set_focus_description">Tocatz o lisatz lo cercle per causir lo punt focal que deu aparéisser sus las miniaturas.</string>
     <string name="pref_title_show_self_username">Mostrar lo nom d’utilizaire dins la barra d’aisinas</string>
     <string name="action_set_focus">Posicionar lo punt focal</string>
@@ -357,7 +339,6 @@
     <string name="pref_title_notification_filter_sign_ups">un compte novèl creat</string>
     <string name="pref_title_notification_filter_updates">una publicacion ont ai agut una reaccion es modificada</string>
     <string name="delete_scheduled_post_warning">Suprimir la publicacion programada \?</string>
-    <string name="drafts_post_reply_removed">La publicacion a la quala respondiá lo borrolhon foguèt suprimida</string>
     <string name="action_unfollow_hashtag_format">Quitar de seguir #%1$s \?</string>
     <string name="notification_report_format">Senhalament novèl sus %1$s</string>
     <string name="notification_header_report_format">%1$s a senhalat %2$s</string>

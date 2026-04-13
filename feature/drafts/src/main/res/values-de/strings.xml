@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_edit">Bearbeiten</string>
+    <string name="title_drafts">Entwürfe</string>
+    <string name="drafts_post_reply_removed">Der Beitrag, auf den du antworten wolltest, wurde gelöscht</string>
+    <string name="drafts_load_reply_failed_fmt">Konnte Beitrag nicht laden, auf den du antwortest: %1$s</string>
+    <string name="drafts_post_quote_removed">Der von dir zitierte Beitrag wurde entfernt</string>
+    <string name="drafts_load_quote_failed_fmt">Konnte von dir zitierten Beitrag nicht laden: %1$s</string>
+    <string name="drafts_post_failed_to_send">Dieser Beitrag konnte nicht gesendet werden!</string>
+    <string name="no_drafts">Du hast keine Entwürfe.</string>
+</resources>

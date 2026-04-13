@@ -27,7 +27,6 @@
     <string name="title_blocks">被封鎖的使用者</string>
     <string name="title_follow_requests">關注請求</string>
     <string name="title_edit_profile">編輯個人資料</string>
-    <string name="title_drafts">草稿</string>
     <string name="post_sensitive_media_directions">點一下顯示</string>
     <string name="footer_empty">還沒有內容，向下拉動即可重新整理！</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; 轉嘟了你的嘟文</string>
@@ -237,5 +236,4 @@
     <string name="notification_follow_request_name">關注請求</string>
     <string name="hashtags">話題</string>
     <string name="edit_poll">編輯</string>
-    <string name="action_edit">編輯</string>
 </resources>

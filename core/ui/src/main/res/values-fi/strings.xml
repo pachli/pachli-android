@@ -162,4 +162,18 @@
     <string name="action_follow_request_reject">Hylkää seuraamispyyntö</string>
     <string name="action_follow_request_accept">Hyväksy seuraamispyyntö</string>
     <string name="description_quoted_post_prefix">Lainattu julkaisu:</string>
+    <string name="create_poll_title">Kysely</string>
+    <string name="duration_5_min">5 minuuttia</string>
+    <string name="duration_30_min">30 minuuttia</string>
+    <string name="duration_1_hour">1 tunti</string>
+    <string name="duration_6_hours">6 tuntia</string>
+    <string name="duration_1_day">1 päivä</string>
+    <string name="duration_3_days">3 päivää</string>
+    <string name="duration_7_days">7 päivää</string>
+    <string name="duration_14_days">14 päivää</string>
+    <string name="duration_30_days">30 päivää</string>
+    <string name="duration_60_days">60 päivää</string>
+    <string name="duration_90_days">90 päivää</string>
+    <string name="duration_180_days">180 päivää</string>
+    <string name="duration_365_days">365 päivää</string>
 </resources>

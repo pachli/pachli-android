@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_edit">Redigera</string>
+    <string name="title_drafts">Utkast</string>
+    <string name="drafts_post_reply_removed">Inlägget du skrev ett utkast till svar på har raderats</string>
+    <string name="drafts_post_failed_to_send">Det här inlägget kunde inte skickas!</string>
+    <string name="no_drafts">Du har inga utkast.</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_edit">திருத்த</string>
+    <string name="title_drafts">வரைவுகள்</string>
+    <string name="drafts_post_reply_removed">நீங்கள் வரைவு செய்த இடுகை அகற்றப்பட்டது</string>
+    <string name="drafts_load_reply_failed_fmt">நீங்கள் பதிலளிக்கும் இடுகையை ஏற்ற முடியவில்லை: %1$s</string>
+    <string name="drafts_post_quote_removed">நீங்கள் மேற்கோள் காட்டிய இடுகை அகற்றப்பட்டது</string>
+    <string name="drafts_load_quote_failed_fmt">நீங்கள் மேற்கோள் காட்டும் இடுகையை ஏற்ற முடியவில்லை: %1$s</string>
+    <string name="drafts_post_failed_to_send">இந்த இடுகை அனுப்பத் தவறிவிட்டது!</string>
+    <string name="no_drafts">உங்களிடம் எந்த வரைவுகளும் இல்லை.</string>
+</resources>

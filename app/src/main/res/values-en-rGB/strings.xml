@@ -52,7 +52,6 @@
     <string name="title_edits">Edits</string>
     <string name="title_followed_hashtags">Followed hashtags</string>
     <string name="title_migration_relogin">Re-login for push notifications</string>
-    <string name="title_drafts">Drafts</string>
     <string name="title_tab_public_trending_statuses">Posts</string>
     <string name="error_unfollowing_hashtag_format">Error unfollowing #%1$s</string>
     <string name="error_following_hashtag_format">Error following #%1$s</string>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_drafts">Koncepty</string>
     <string name="action_view_preferences">Nastavenia</string>
     <string name="action_view_account_preferences">Nastavenia účtu</string>
     <string name="action_edit_profile">Upraviť profil</string>
@@ -24,7 +23,6 @@
     <string name="action_block">Blokovať</string>
     <string name="action_unblock">Odblokovať</string>
     <string name="action_report">Nahlásiť</string>
-    <string name="action_edit">Upraviť</string>
     <string name="action_delete">Vymazať</string>
     <string name="action_delete_and_redraft">Vymazať a prepísať</string>
     <string name="action_reset_schedule">Obnoviť</string>
@@ -365,12 +363,10 @@
     <string name="no_scheduled_posts">Nemáš žiadne naplánované príspevky.</string>
     <string name="follow_requests_info">Hoci tvoj účet nie je uzamknutý, tím serveru %1$s odporúča manuálnu kontrolu žiadostí o sledovanie.</string>
     <string name="pref_title_show_self_username">Zobraziť používateľské meno v nástrojových lištách</string>
-    <string name="drafts_post_failed_to_send">Tento príspevok se nepodarilo odoslať!</string>
     <string name="wellbeing_hide_stats_posts">Skryť kvantitatívne štatistiky príspevkov</string>
     <string name="pin_action">Pripnúť</string>
     <string name="failed_to_pin">Pripnutie zlyhalo</string>
     <string name="pref_labs_reverse_home_timeline_off_summary">Príspevky sú zoradené od najnovších po najstaršie</string>
-    <string name="drafts_post_reply_removed">Príspevok, ku ktorému si písal/a odpoveď, bol zmazaný</string>
     <string name="wellbeing_hide_stats_profile">Skryť kvantitatívne štatistiky profilov</string>
     <string name="notification_sign_up_description">Upozornenia na nové účty</string>
     <string name="notification_update_name">Úpravy príspevkov</string>
@@ -392,24 +388,14 @@
     <string name="report_sent_success">\@%1$s bol/a úspešne nahlásený/nahlásená</string>
     <string name="poll_ended_voted">Anketa, v ktorej si hlasoval/a, sa skončila</string>
     <string name="pref_title_show_stat_inline">Zobraziť štatistiky príspevkov v časovej osi</string>
-    <string name="create_poll_title">Anketa</string>
     <string name="report_description_remote_instance">Tento účet je z iného servera. Poslať anonymizovanú kópiu hlásenia aj na ten server?</string>
     <string name="hint_additional_info">Ďalšie komentáre</string>
     <string name="failed_search">Vyhľadávanie zlyhalo</string>
     <string name="pref_title_enable_swipe_for_tabs">Aktivovať prepínanie medzi záložkami posunutím prsta</string>
-    <string name="duration_5_min">5 minút</string>
-    <string name="duration_30_min">30 minút</string>
-    <string name="duration_1_hour">1 hodina</string>
-    <string name="duration_30_days">30 dní</string>
-    <string name="duration_3_days">3 dni</string>
-    <string name="duration_60_days">60 dní</string>
-    <string name="duration_90_days">90 dní</string>
-    <string name="duration_180_days">180 dní</string>
     <string name="pref_title_confirm_status_language">Skontroluj jazyk príspevku pred jeho uverejnením</string>
     <string name="account_note_saved">Uložené!</string>
     <string name="pref_title_confirm_reblogs">Zobraziť potvrdenie pred zdieľaním</string>
     <string name="duration_no_change">(Bez zmeny)</string>
-    <string name="no_drafts">Nemáš žiadne koncepty.</string>
     <string name="pref_title_confirm_favourites">Zobraziť potvrdenie pred označením ako obľúbené</string>
     <string name="ui_success_rejected_follow_request">Žiadosť o sledovanie odmietnutá</string>
     <string name="hint_filter_title">Môj filter</string>
@@ -427,7 +413,6 @@
     <string name="download_fonts">Musíš si najprv stiahnuť tieto sady emoji</string>
     <string name="restart_required">Vyžaduje sa reštart aplikácie</string>
     <string name="select_list_manage">Spravovať zoznamy</string>
-    <string name="duration_6_hours">6 hodín</string>
     <string name="total_usage">Celková vyťaženosť</string>
     <string name="error_missing_edits">Tento príspevok bol upravený, ale tvoj server nemá informácie o týchto zmenách, takže ich nevidíš.\n\nJedná sa o problém <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon issue #25398</a>.</string>
     <string name="notification_update_description">Upozornenia na zmeny príspevkov, s ktorými si interagoval/a</string>
@@ -439,8 +424,6 @@
     <string name="system_default">Východzie nastavenie systému</string>
     <string name="report_description_1">Hlásenie bude odoslané moderátorovi tvojho servera. Nižšie môžeš uviesť dôvod, prečo tento účet nahlasuješ:</string>
     <string name="report_remote_instance">Preposlať na %1$s</string>
-    <string name="duration_1_day">1 deň</string>
-    <string name="duration_7_days">7 dní</string>
     <string name="label_filter_context">Filtrovať podľa kontextu</string>
     <string name="label_filter_keywords">Kľúčové slová alebo frázy na filtrovanie</string>
     <string name="action_add">Pridať</string>
@@ -448,7 +431,6 @@
     <string name="filter_keyword_addition_title">Pridať kľúčové slovo</string>
     <string name="filter_description_format">%1$s: %2$s</string>
     <string name="failed_fetch_posts">Nepodarilo sa načítať príspevky</string>
-    <string name="duration_14_days">14 dní</string>
     <string name="select_list_title">Vybrať zoznam</string>
     <string name="select_list_empty">Zatiaľ nemáš žiadne zoznamy</string>
     <string name="notifications_clear">Vymazať upozornenia</string>
@@ -489,7 +471,6 @@
     <string name="account_moved_description">%1$s sa presunul/a na:</string>
     <string name="conversation_more_recipients">%1$s, %2$s a %3$d ďalší</string>
     <string name="edit_hashtag_hint">Hashtag bez #</string>
-    <string name="duration_365_days">365 dní</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Nemôžeš nahrať viac než %1$d mediálnu prílohu.</item>
         <item quantity="few">Nemôžeš nahrať viac než %1$d mediálne prílohy.</item>
@@ -724,9 +705,6 @@
     <string name="notification_quote_description">Upozornenia o citovaní tvojich príspevkov</string>
     <string name="notification_quoted_update_name">Úpravy citovaných príspevkov</string>
     <string name="notification_quoted_update_description">Upozornenia na úpravu citovaných príspevkov</string>
-    <string name="drafts_load_reply_failed_fmt">Nepodarilo sa načítať príspevok, na ktorý odpovedáš: %1$s</string>
-    <string name="drafts_load_quote_failed_fmt">Nepodarilo sa načítať príspevok, ktorý cituješ: %1$s</string>
-    <string name="drafts_post_quote_removed">Príspevok, ktorý si citoval/a, bol odstránený</string>
     <string name="detach_quote_dialog_title">Odstrániť citovanie?</string>
     <string name="detach_quote_dialog_message">Týmto sa odstráni tvoj citovaný príspevok z tohto príspevku.\n\nTvoj pôvodný príspevok sa nevymaže.\n\nTúto akciu nie je možné vrátiť späť.</string>
     <string name="detach_quote_error_fmt">Odstránenie citovania zlyhalo: %1$s</string>
@@ -744,10 +722,6 @@
     <string name="search_operator_quote_dialog_all">S citovanými príspevkami alebo bez nich</string>
     <string name="search_operator_quote_dialog_only">Iba príspevky s citáciami</string>
     <string name="search_operator_quote_dialog_no_quotes">Iba príspevky bez citácií</string>
-    <string name="action_delete_drafts">Vymazať vybrané koncepty</string>
-    <string name="title_delete_drafts">Vymazať vybrané koncepty?</string>
-    <string name="delete_drafts_msg">Týmto sa natrvalo odstránia vybrané koncepty.</string>
-    <string name="send_post_failure_message_prefix">Odoslanie zlyhalo: %1$s</string>
     <string name="err_draft_error_no_external_files_dir">zdieľané úložisko je nedostupné</string>
     <string name="err_draft_error_mkdir_drafts_fmt">nepodarilo sa vytvoriť priečinok pre koncepty: %1$s</string>
     <string name="err_draft_error_unknown_mime_type">príloha má neznámy typ MIME: %1$s</string>

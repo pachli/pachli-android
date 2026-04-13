@@ -92,4 +92,12 @@
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt;-(e)k bultzatu du</string>
     <string name="post_edited">%1$s editatua</string>
     <string name="filter_edit_title">Editatu iragazkia</string>
+    <string name="create_poll_title">Inkesta</string>
+    <string name="duration_5_min">5 minutu</string>
+    <string name="duration_30_min">30 minutu</string>
+    <string name="duration_1_hour">Ordu 1</string>
+    <string name="duration_6_hours">6 ordu</string>
+    <string name="duration_1_day">Egun 1</string>
+    <string name="duration_3_days">3 egun</string>
+    <string name="duration_7_days">7 egun</string>
 </resources>

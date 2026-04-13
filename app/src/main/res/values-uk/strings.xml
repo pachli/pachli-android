@@ -26,7 +26,6 @@
     <string name="action_edit_profile">Редагувати профіль</string>
     <string name="action_view_account_preferences">Налаштування облікового запису</string>
     <string name="action_view_preferences">Налаштування</string>
-    <string name="title_drafts">Чернетки</string>
     <string name="title_favourites">Вподобане</string>
     <string name="search_no_results">Немає результатів</string>
     <string name="hint_search">Пошук…</string>
@@ -58,7 +57,6 @@
     <string name="action_view_favourites">Вподобане</string>
     <string name="action_delete_and_redraft">Видалити та перестворити</string>
     <string name="action_delete">Видалити</string>
-    <string name="action_edit">Змінити</string>
     <string name="action_report">Поскаржитися</string>
     <string name="action_unblock">Розблокувати</string>
     <string name="action_block">Заблокувати</string>
@@ -132,16 +130,8 @@
     <string name="poll_new_choice_hint">Вибір %1$d</string>
     <string name="poll_allow_multiple_choices">Кілька виборів</string>
     <string name="add_poll_choice">Додати вибір</string>
-    <string name="duration_7_days">7 днів</string>
-    <string name="duration_3_days">3 дні</string>
-    <string name="duration_1_day">1 день</string>
-    <string name="duration_6_hours">6 годин</string>
-    <string name="duration_1_hour">1 година</string>
-    <string name="duration_30_min">30 хвилин</string>
-    <string name="duration_5_min">5 хвилин</string>
     <string name="duration_indefinite">Безкінечно</string>
     <string name="label_duration">Тривалість</string>
-    <string name="create_poll_title">Опитування</string>
     <string name="title_accounts">Облікові записи</string>
     <string name="failed_report">Не вдалося звітувати</string>
     <string name="hint_additional_info">Додаткові коментарі</string>
@@ -279,8 +269,6 @@
     <string name="action_add_tab">Додати вкладку</string>
     <string name="action_schedule_post">Запланувати допис</string>
     <string name="action_emoji_keyboard">Клавіотура емодзі</string>
-    <string name="drafts_post_reply_removed">Допис, для якого ви створили чернетку відповіді, вилучено</string>
-    <string name="drafts_post_failed_to_send">Не вдалося надіслати цей допис!</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Ви не можете завантажити більше ніж %1$d медіавкладення.</item>
         <item quantity="few">Ви не можете завантажити більше ніж %1$d медіавкладення.</item>
@@ -298,7 +286,6 @@
     <string name="warning_scheduling_interval">Найкоротший час планування Mastodon становить 5 хвилин.</string>
     <string name="no_announcements">Оголошень немає.</string>
     <string name="no_scheduled_posts">Немає запланованих дописів.</string>
-    <string name="no_drafts">У вас немає чернеток.</string>
     <string name="pref_title_enable_swipe_for_tabs">Увімкнути перемикання між вкладками жестом проведення пальцем</string>
     <string name="failed_search">Не вдалося здійснити пошук</string>
     <string name="report_description_remote_instance">Обліковий запис з іншого сервера. Надіслати анонімізовану копію звіту й туди\?</string>
@@ -331,12 +318,6 @@
     <string name="action_delete_conversation">Видалити бесіду</string>
     <string name="action_unbookmark">Вилучити закладку</string>
     <string name="pref_title_confirm_favourites">Запитувати підтвердження перед додаванням до вподобаних</string>
-    <string name="duration_14_days">14 днів</string>
-    <string name="duration_30_days">30 днів</string>
-    <string name="duration_60_days">60 днів</string>
-    <string name="duration_90_days">90 днів</string>
-    <string name="duration_180_days">180 днів</string>
-    <string name="duration_365_days">365 днів</string>
     <string name="pachli_compose_post_quicksetting_label">Створити допис</string>
     <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; реєструється</string>
     <string name="pref_title_notification_filter_sign_ups">хтось реєструється</string>

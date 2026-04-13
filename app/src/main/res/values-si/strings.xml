@@ -6,17 +6,9 @@
     <string name="filter_apply">යොදන්න</string>
     <string name="button_back">ආපසු</string>
     <string name="title_accounts">ගිණුම්</string>
-    <string name="duration_5_min">විනාඩි 5</string>
-    <string name="duration_30_min">විනාඩි 30</string>
-    <string name="duration_6_hours">පැය 6</string>
-    <string name="duration_1_hour">පැය 1</string>
-    <string name="duration_3_days">දවස් 3</string>
-    <string name="duration_1_day">දවස් 1</string>
-    <string name="duration_7_days">දවස් 7</string>
     <string name="edit_poll">සංස්කරණය</string>
     <string name="title_posts_with_replies">පිළිතුරු සමඟ</string>
     <string name="title_blocks">අවහිර කළ පරිශීලකයින්</string>
-    <string name="title_drafts">කටුපිටපත්</string>
     <string name="footer_empty">කිසිවක් නැත. නැවුම් කිරීමට පහළට අදින්න!</string>
     <string name="action_quick_reply">ඉක්මන් පිළිතුර</string>
     <string name="action_unbookmark">පොත්යොමුව ඉවත් කරන්න</string>
@@ -93,7 +85,6 @@
     <string name="restart_required">යෙදුම යළි ඇරඹීම ඇවැසිය</string>
     <string name="restart">යළි අරඹන්න</string>
     <string name="restart_emoji">මෙම වෙනස්කම් යෙදීමට ඔබ ටුස්කි නැවත ඇරඹිය යුතුය</string>
-    <string name="action_edit">සංස්කරණය</string>
     <string name="pref_title_post_filter">කාලරේඛාව පෙරීම</string>
     <string name="conversation_more_recipients">%1$s, %2$s සහ තවත් %3$d</string>
     <string name="pref_title_timelines">කාලරේඛා</string>
@@ -106,7 +97,6 @@
     <string name="action_undo">පෙරසේ</string>
     <string name="action_mute">නිහඬ කරන්න</string>
     <string name="action_accept">පිළිගන්න</string>
-    <string name="create_poll_title">මතවිමසුම</string>
     <string name="action_remove">ඉවත් කරන්න</string>
     <string name="action_add_media">මාධ්‍ය එකතු කරන්න</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s සහ වෙනත් %4$d</string>
@@ -121,7 +111,6 @@
     <string name="no_announcements">නිවේදන නැත.</string>
     <string name="action_save">සුරකින්න</string>
     <string name="title_mutes">නිහඬ කළ පරිශීලකයින්</string>
-    <string name="no_drafts">ඔබ සතුව කටුපිටපත් නැත.</string>
     <string name="title_view_thread">ටූට්</string>
     <string name="pref_title_timeline_filters">පෙරහන්</string>
     <string name="report_sent_success">\@%1$s වෙත සාර්ථකව වාර්තා කෙරිණි</string>
@@ -151,7 +140,6 @@
     <string name="account_note_hint">මෙම ගිණුම පිළිබඳව ඔබගේ පෞද්ගලික සටහන</string>
     <string name="title_notifications">දැනුම්දීම්</string>
     <string name="filter_dialog_whole_word">මුළු වචනය</string>
-    <string name="drafts_post_failed_to_send">මෙම ටූට් යැවීමට අසමත් විය!</string>
     <string name="later">පසුව</string>
     <string name="action_edit_own_profile">සංස්කරණය</string>
     <string name="system_default">පද්ධති පෙරනිමිය</string>

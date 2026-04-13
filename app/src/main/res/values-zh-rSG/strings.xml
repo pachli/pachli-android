@@ -27,7 +27,6 @@
     <string name="title_blocks">被屏蔽的用户</string>
     <string name="title_follow_requests">关注请求</string>
     <string name="title_edit_profile">编辑个人资料</string>
-    <string name="title_drafts">草稿</string>
     <string name="post_sensitive_media_directions">点击显示</string>
     <string name="footer_empty">还没有内容，向下拉动即可刷新</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; 转嘟了你的嘟文</string>
@@ -235,7 +234,6 @@
     <string name="poll_ended_created">你创建的投票已结束</string>
     <!--These are for timestamps on polls -->
     <string name="hashtags">话题</string>
-    <string name="action_edit">编辑</string>
     <string name="edit_poll">编辑</string>
     <string name="notification_follow_request_name">关注请求</string>
 </resources>

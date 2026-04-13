@@ -68,4 +68,12 @@
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; ने पसंद किया</item>
     </plurals>
     <string name="filter_edit_title">फ़िल्टर संपादित करें</string>
+    <string name="create_poll_title">पोल</string>
+    <string name="duration_5_min">5 मिनट</string>
+    <string name="duration_30_min">30 मिनिट</string>
+    <string name="duration_1_hour">1 घंटा</string>
+    <string name="duration_6_hours">6 घंटे</string>
+    <string name="duration_1_day">1 दिन</string>
+    <string name="duration_3_days">3 दिन</string>
+    <string name="duration_7_days">7 दिन</string>
 </resources>

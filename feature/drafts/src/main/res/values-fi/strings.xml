@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_edit">Muokkaa</string>
+    <string name="title_drafts">Luonnokset</string>
+    <string name="drafts_post_reply_removed">Julkaisu, johon olit kirjoittanut vastausluonnoksen, on poistettu</string>
+    <string name="drafts_load_reply_failed_fmt">Julkaisua johon vastaat ei voitu ladata: %1$s</string>
+    <string name="drafts_post_quote_removed">Lainaamasi julkaisu on poistettu</string>
+    <string name="drafts_load_quote_failed_fmt">Lainaamaasi julkaisua ei voitu ladata: %1$s</string>
+    <string name="drafts_post_failed_to_send">Julkaisun lähettäminen epäonnistui!</string>
+    <string name="title_delete_drafts">Poista valitut luonnokset?</string>
+    <string name="delete_drafts_msg">Tämä poistaa valitut luonnokset pysyvästi.</string>
+    <string name="action_delete_drafts">Poista valitut luonnokset</string>
+    <string name="no_drafts">Sinulla ei ole luonnoksia.</string>
+    <string name="send_post_failure_message_prefix">Lähettäminen epäonnistui: %1$s</string>
+</resources>

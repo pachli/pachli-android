@@ -174,4 +174,18 @@
     <string name="action_open_reportee_profile">Otvoriť profil nahláseného</string>
     <string name="action_open_report">Otvoriť nahlásenie</string>
     <string name="description_quoted_post_prefix">Citovaný príspevok:</string>
+    <string name="create_poll_title">Anketa</string>
+    <string name="duration_5_min">5 minút</string>
+    <string name="duration_30_min">30 minút</string>
+    <string name="duration_1_hour">1 hodina</string>
+    <string name="duration_6_hours">6 hodín</string>
+    <string name="duration_1_day">1 deň</string>
+    <string name="duration_3_days">3 dni</string>
+    <string name="duration_7_days">7 dní</string>
+    <string name="duration_14_days">14 dní</string>
+    <string name="duration_30_days">30 dní</string>
+    <string name="duration_60_days">60 dní</string>
+    <string name="duration_90_days">90 dní</string>
+    <string name="duration_180_days">180 dní</string>
+    <string name="duration_365_days">365 dní</string>
 </resources>

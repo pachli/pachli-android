@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_edit">Modifier</string>
+    <string name="title_drafts">Brouillons</string>
+    <string name="drafts_post_reply_removed">Le message auquel répondait ce brouillon a été supprimé</string>
+    <string name="drafts_load_reply_failed_fmt">Impossible de charger le message auquel vous répondez : %1$s</string>
+    <string name="drafts_post_quote_removed">Le message cité a été supprimé</string>
+    <string name="drafts_load_quote_failed_fmt">Impossible de charger le message que vous citez : %1$s</string>
+    <string name="drafts_post_failed_to_send">Échec d’envoi du message !</string>
+    <string name="no_drafts">Vous n’avez aucun brouillon.</string>
+</resources>

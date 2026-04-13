@@ -24,12 +24,10 @@
     <string name="title_favourites">Αγαπημένα</string>
     <string name="error_compose_character_limit">Η δημοσίευση είναι πολύ μεγάλη!</string>
     <string name="action_emoji_keyboard">Πληκτρολόγιο emoji</string>
-    <string name="title_drafts">Προσχέδια</string>
     <string name="action_view_favourites">Αγαπημένα</string>
     <string name="label_quick_reply">Απάντηση…</string>
     <string name="action_reject">Απόρριψη</string>
     <string name="title_blocks">Αποκλεισμένοι χρήστες</string>
-    <string name="action_edit">Επεξεργασία</string>
     <string name="action_mute_domain">Σίγαση του %1$s</string>
     <string name="action_block">Αποκλεισμός</string>
     <string name="action_undo">Αναίρεση</string>

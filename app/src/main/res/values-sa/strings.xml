@@ -16,7 +16,6 @@
     <string name="footer_empty">न किमप्यत्र । नवीकरणार्थमाकृष्यतामधः !</string>
     <string name="post_sensitive_media_directions">द्रष्टुमत्र नुद्यताम्</string>
     <string name="title_scheduled_posts">कालबद्धदौत्यानि</string>
-    <string name="title_drafts">लेखविकर्षाः</string>
     <string name="title_edit_profile">स्वीयव्यक्तिविवरणं सम्पाद्यताम्</string>
     <string name="title_follow_requests">अनुसरणार्थमनुरोधाः</string>
     <string name="title_domain_mutes">प्रच्छन्नप्रदेशाः</string>
@@ -40,7 +39,6 @@
     <string name="action_send">प्रेष्यताम्</string>
     <string name="action_delete_and_redraft">विनश्य पुनश्च लिख्यताम्</string>
     <string name="action_delete">नश्यताम्</string>
-    <string name="action_edit">सम्पाद्यताम्</string>
     <string name="action_report">आवेद्यताम्</string>
     <string name="action_show_reblogs">प्रकाशनानि दृश्यन्ताम्</string>
     <string name="action_hide_reblogs">प्रकाशनानि छाद्यन्ताम्</string>
@@ -244,7 +242,6 @@
     <string name="unreblog_private">प्रकाशनंं नश्यताम्</string>
     <string name="reblog_private">मूलदर्शकेभ्यः प्रकाश्यताम्</string>
     <string name="account_moved_description">%1$s मित्रमत्र प्रस्थितम्:</string>
-    <string name="no_drafts">न लेखविकर्षास्ते सन्ति ।</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="pref_title_hide_top_toolbar">उच्चैःस्थितायाः साधनशालकायाः शीर्षकं छाद्यताम्</string>
     <string name="pref_title_confirm_reblogs">प्रकाशनात् प्राक् पुष्टिसंवादमञ्जूषा दर्शनीया</string>
@@ -255,14 +252,6 @@
     <string name="poll_new_choice_hint">मतम् %1$d</string>
     <string name="poll_allow_multiple_choices">बहूनि मतानि</string>
     <string name="add_poll_choice">अपरं मतं युज्यताम्</string>
-    <string name="duration_7_days">७ दिनानि</string>
-    <string name="duration_3_days">३ दिनानि</string>
-    <string name="duration_1_day">१ दिनम्</string>
-    <string name="duration_6_hours">६ घण्टाः</string>
-    <string name="duration_1_hour">१ घण्टा</string>
-    <string name="duration_30_min">३० निमेषाः</string>
-    <string name="duration_5_min">५ निमेषाः</string>
-    <string name="create_poll_title">मतपेटिका</string>
     <string name="pref_title_enable_swipe_for_tabs">सारणहावभावस्य संयुतनं पीठिकापरिवर्तनार्थं कार्यम्</string>
     <string name="failed_search">अन्वेषणे विफलता जाता</string>
     <string name="title_accounts">व्यक्तित्वविवरणलेखाः</string>
@@ -304,8 +293,6 @@
     <string name="pref_summary_http_proxy_invalid">&lt;अप्रमाणम्&gt;</string>
     <string name="action_edit_image">चित्रं सम्पाद्यताम्</string>
     <string name="pref_summary_http_proxy_missing">&lt;अनियुक्तम्&gt;</string>
-    <string name="duration_180_days">१८० दिनानि</string>
-    <string name="duration_365_days">३६५ दिनानि</string>
     <string name="duration_no_change">(परिवर्तनं नास्ति)</string>
     <string name="review_notifications">सूचनाः सम्दृश्यन्ताम्</string>
     <string name="pref_default_post_language">पूर्वनिविष्टा प्रकाशका भाषा</string>
@@ -315,14 +302,12 @@
     <string name="title_edits">सम्पादनानि</string>
     <string name="notification_sign_up_description">नूतनोपभोक्तॄन् प्रति सूचनाः</string>
     <string name="filter_expiration_format">%1$s (%2$s)</string>
-    <string name="duration_30_days">३० दिनानि</string>
     <string name="report_category_other">अन्यम्</string>
     <string name="dialog_delete_conversation_warning">इदं सम्भाषणं निष्कास्यताम् \?</string>
     <string name="pref_title_notification_filter_sign_ups">कश्चन पञ्जीकरणम् अकरोत्</string>
     <string name="notification_subscription_name">नूतन-प्रकटनानि</string>
     <string name="notification_sign_up_name">पञ्जीकरणानि</string>
     <string name="no_announcements">उद्घोषणाः न सन्ति।</string>
-    <string name="duration_60_days">६० दिनानि</string>
     <string name="action_unsubscribe_account">ग्राहकता-समापनम्</string>
     <string name="language_display_name_format">%1$s (%2$s)</string>
     <string name="status_created_info">%1$s निर्मितम्</string>
@@ -338,7 +323,6 @@
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; सद्यः प्रसारितम्</string>
     <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; पञ्जीकरणम् अकरोत्</string>
     <string name="action_delete_conversation">सम्भाषणं निष्कास्यताम्</string>
-    <string name="duration_90_days">९० दिनानि</string>
     <string name="action_unbookmark">पुटचिह्नं निस्कास्यताम्</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; स्वस्य दौत्यं समपादयत्</string>
     <string name="pachli_compose_post_quicksetting_label">दौत्यं संस्कुरुताम्</string>
@@ -347,7 +331,6 @@
     <string name="account_username_copied">उपभोक्तृनाम्नः प्रतिकृतिः कृतः</string>
     <string name="label_duration">समयः</string>
     <string name="report_category_spam">अनिष्टसन्देशाः</string>
-    <string name="duration_14_days">१४ दिनानि</string>
     <string name="description_post_language">दौत्यस्य भाषा</string>
     <string name="error_following_hashtag_format">#%1$s-अनुसरणे दोषो जातः</string>
     <string name="error_unfollowing_hashtag_format">#%1$s-अनुसरण-अपाकरणे दोषो जातः</string>
