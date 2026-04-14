@@ -66,21 +66,24 @@ tasks.register<Delete>("clean") {
 
 // Create a "precommit" lifecycle task that depends on other tasks that
 // give reasonable confidence the change will pass CI. The tasks are
-// limited to the "orangeGoogleDebug" flavour/variant. While problems
+// (mostly) limited to the "orangeGoogleDebug" flavour/variant. While problems
 // might affect other combinations (and CI will check all of them), this
 // combination passing gives high confidence for the amount of time it
 // takes to run.
 //
+// - clean
 // - :app:lintOrangeGoogleDebug
 // - :app:assembleOrangeDebug
 // - *:pixel9api31orangegoogledebugAndroidTest
 // - *:testOrangeGoogleDebugUnitTest
 // - *:validateOrangeGoogleDebugScreenshotTest
+// - app:updateLintBaselineBlueFdroidDebug
 tasks.register("precommit") {
     group = "Verification"
     description = "Runs the precommit tests."
-    dependsOn(":app:lintOrangeGoogleDebug")
+    dependsOn("clean")
     dependsOn(":app:assembleOrangeGoogleDebug")
+    dependsOn(":app:updateLintBaselineBlueFdroidDebug")
     val perModuleDeps =
         listOf(
             "testOrangeGoogleDebugUnitTest",
