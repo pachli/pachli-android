@@ -24,7 +24,6 @@
     <string name="title_blocks">Blokeatuak</string>
     <string name="title_follow_requests">Jarraipen-eskaerak</string>
     <string name="title_edit_profile">Profila editatu</string>
-    <string name="title_drafts">Zirriborroak</string>
     <string name="post_sensitive_media_directions">Sakatu ikusteko</string>
     <string name="footer_empty">Edukirik ez. Arrastatu behera birkargatzeko!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt;-(e)k zure tuta bultzatu du</string>
@@ -201,7 +200,6 @@
     <string name="title_posts_pinned">Finkatua</string>
     <string name="title_domain_mutes">Ezkutuko domeinuak</string>
     <string name="title_scheduled_posts">Programatutako tutak</string>
-    <string name="action_edit">Editatu</string>
     <string name="action_delete_and_redraft">Ezabatu eta zirriborroa berriro egin</string>
     <string name="action_view_domain_mutes">Ezkutuko domeinuak</string>
     <string name="action_add_poll">Galdeketa gehitu</string>
@@ -259,14 +257,6 @@
     <string name="report_description_remote_instance">Kontua beste zerbitzari batekoa da. Bidali txostenaren kopia anonimatua hara ere\?</string>
     <string name="title_accounts">Kontuak</string>
     <string name="failed_search">Bilaketa huts egin du</string>
-    <string name="create_poll_title">Inkesta</string>
-    <string name="duration_5_min">5 minutu</string>
-    <string name="duration_30_min">30 minutu</string>
-    <string name="duration_1_hour">Ordu 1</string>
-    <string name="duration_6_hours">6 ordu</string>
-    <string name="duration_1_day">Egun 1</string>
-    <string name="duration_3_days">3 egun</string>
-    <string name="duration_7_days">7 egun</string>
     <string name="add_poll_choice">Gehitu aukera</string>
     <string name="poll_allow_multiple_choices">Aukera anitzak</string>
     <string name="poll_new_choice_hint">%1$d. aukera</string>
@@ -277,7 +267,6 @@
     <string name="pref_title_public_filter_keywords">Denbora lerro publikoak</string>
     <string name="select_list_title">Aukeratu zerrenda</string>
     <string name="list">Zerrenda</string>
-    <string name="no_drafts">Ez duzu zirriborrorik.</string>
     <string name="no_scheduled_posts">Ez duzu tut programaturik.</string>
     <string name="warning_scheduling_interval">Mastodonek gutxienez 5 minutuko programazio-tartea du.</string>
     <string name="notification_follow_request_name">Eskakizunak</string>
@@ -307,7 +296,6 @@
     <string name="dialog_delete_conversation_warning">Elkarrizketa ezabatu nahi duzu\?</string>
     <string name="pref_title_animate_custom_emojis">Animatu emoji pertsonalizatuak</string>
     <string name="wellbeing_hide_stats_profile">Profiletan estatistika kuantitatiboak ezkutatu</string>
-    <string name="drafts_post_reply_removed">Erantzun nahi zenuen tuta ezabatua izan da</string>
     <string name="pref_title_wellbeing_mode">Ongizatea</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Ezin duzu multimedia eranskin %1$d baino gehiago kargatu.</item>
@@ -324,7 +312,6 @@
     <string name="title_announcements">Iragarpenak</string>
     <string name="notification_subscription_description">Jakinarazpenak harpidetuta zauden norbaitek tut berria argitaratu duenean</string>
     <string name="account_note_hint">Kontu honi buruzko zure ohar pribatua</string>
-    <string name="drafts_post_failed_to_send">Akatsa tut hau bidaltzean!</string>
     <string name="wellbeing_mode_notice">Zure ongizate mentalean eragina izan dezaketen zenbait informazio ezkutatuta egongo dira. Honek honako hauek ditu:
 \n
 \n - Gogokoak, bultzadak eta jarraitzaileen jakinarazpenak

@@ -28,7 +28,6 @@
     <string name="title_domain_mutes">숨긴 도메인</string>
     <string name="title_follow_requests">팔로우 요청</string>
     <string name="title_edit_profile">프로필 편집</string>
-    <string name="title_drafts">임시 저장</string>
     <string name="post_sensitive_media_directions">클릭하여 보기</string>
     <string name="footer_empty">게시물이 없습니다. 아래로 당겨서 새로고침하세요!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt;님이 부스트 했습니다</string>
@@ -256,19 +255,10 @@
     <string name="failed_search">검색하지 못했습니다</string>
     <string name="pref_title_alway_open_spoiler">열람주의로 설정된 툿을 항상 펼치기</string>
     <string name="action_add_poll">투표 추가</string>
-    <string name="create_poll_title">투표</string>
-    <string name="duration_5_min">5분</string>
-    <string name="duration_30_min">30분</string>
-    <string name="duration_1_hour">1시간</string>
-    <string name="duration_6_hours">6시간</string>
-    <string name="duration_1_day">1일</string>
-    <string name="duration_3_days">3일</string>
-    <string name="duration_7_days">7일</string>
     <string name="add_poll_choice">항목 추가</string>
     <string name="poll_allow_multiple_choices">여러 항목 선택 가능</string>
     <string name="poll_new_choice_hint">%1$d번 항목</string>
     <string name="edit_poll">수정</string>
-    <string name="action_edit">수정</string>
     <string name="hashtags">해시태그</string>
     <string name="notification_follow_request_name">팔로우 요청</string>
 </resources>

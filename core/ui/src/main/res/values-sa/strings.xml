@@ -96,4 +96,18 @@
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; अप्रकाशयत्</string>
     <string name="post_edited">%1$s सम्पादितम्</string>
     <string name="filter_edit_title">शोधकं सम्पाद्यताम्</string>
+    <string name="create_poll_title">मतपेटिका</string>
+    <string name="duration_5_min">५ निमेषाः</string>
+    <string name="duration_30_min">३० निमेषाः</string>
+    <string name="duration_1_hour">१ घण्टा</string>
+    <string name="duration_6_hours">६ घण्टाः</string>
+    <string name="duration_1_day">१ दिनम्</string>
+    <string name="duration_3_days">३ दिनानि</string>
+    <string name="duration_7_days">७ दिनानि</string>
+    <string name="duration_14_days">१४ दिनानि</string>
+    <string name="duration_30_days">३० दिनानि</string>
+    <string name="duration_60_days">६० दिनानि</string>
+    <string name="duration_90_days">९० दिनानि</string>
+    <string name="duration_180_days">१८० दिनानि</string>
+    <string name="duration_365_days">३६५ दिनानि</string>
 </resources>

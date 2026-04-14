@@ -100,4 +100,18 @@
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; boostnul/a</string>
     <string name="filter_edit_title">Upravit filtr</string>
+    <string name="create_poll_title">Anketa</string>
+    <string name="duration_5_min">5 minut</string>
+    <string name="duration_30_min">30 minut</string>
+    <string name="duration_1_hour">1 hodina</string>
+    <string name="duration_6_hours">6 hodin</string>
+    <string name="duration_1_day">1 den</string>
+    <string name="duration_3_days">3 dny</string>
+    <string name="duration_7_days">7 dní</string>
+    <string name="duration_14_days">14 dní</string>
+    <string name="duration_30_days">30 dní</string>
+    <string name="duration_60_days">60 dní</string>
+    <string name="duration_90_days">90 dní</string>
+    <string name="duration_180_days">180 dní</string>
+    <string name="duration_365_days">365 dní</string>
 </resources>

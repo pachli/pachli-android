@@ -38,7 +38,6 @@
     <string name="title_migration_relogin">Logg inn på nytt for å slå på pushvarsel</string>
     <string name="title_follow_requests">Fylgjeførespurnader</string>
     <string name="title_edit_profile">Brigd profilen din</string>
-    <string name="title_drafts">Utkast</string>
     <string name="title_scheduled_posts">Planlagte innlegg</string>
     <string name="title_announcements">Kunngjeringar</string>
     <string name="title_followed_hashtags">Fylgde emneknaggar</string>
@@ -82,7 +81,6 @@
     <string name="pref_title_show_self_boosts">Syn sjølvdelingar</string>
     <string name="pref_title_show_self_boosts_description">Ei sjølvdeling er eit innlegg delt av forfattaren sjølv.</string>
     <string name="action_report">Rapporter</string>
-    <string name="action_edit">Brigd</string>
     <string name="action_delete">Slett</string>
     <string name="action_delete_conversation">Slett samtale</string>
     <string name="action_delete_and_redraft">Slett og skriv på nytt</string>
@@ -352,8 +350,6 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="report_description_1">Rapporten skal verte send til moderatorane på tenaren din. Du kan oppgje ei forklåring på kvifor du rapporterer kontoen nedanfor:</string>
     <string name="duration_indefinite">Uendeleg</string>
-    <string name="duration_30_min">30 minutt</string>
-    <string name="duration_1_hour">1 time</string>
     <string name="pref_title_show_self_username">Syn brukernamn på verktøylinjer</string>
     <string name="pref_title_confirm_reblogs">Syn stadfesting før deling</string>
     <string name="account_note_hint">Ditt private notat om denne kontoen</string>
@@ -361,8 +357,6 @@
     <string name="wellbeing_mode_notice">Opplysingar som kan påverke di mentale helse, kjem til å verte gøymde. Dette inkluderer:\n\n · Varsel om favorittmerking, deling, og fylgjarar\n · Tal på favorittmerke og delingar på innlegg\n · Tal på fylgjarar og innlegg på profilar\n\nPush-varsel kjem ikkje til å påverkast, men du kan sjå over dine varselinnstillingar for hand.</string>
     <string name="wellbeing_hide_stats_profile">Skjul kvantitative statistikk på profilar</string>
     <string name="review_notifications">Sjå over varsel</string>
-    <string name="drafts_post_failed_to_send">Dette innlegget kunne ikkje sendast!</string>
-    <string name="drafts_post_reply_removed">Innlegget du skreiv et svar til, er vorte fjerna</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Du kan ikkje lada opp fleire en %1$d mediavedlegg.</item>
         <item quantity="other">Du kan ikkje lada opp fleire en %1$d mediavedlegg.</item>
@@ -374,7 +368,6 @@
     <string name="notifications_apply_filter">Filtrer varsler</string>
     <string name="filter_apply">Nøyt</string>
     <string name="compose_shortcut_long_label">Skriv innlegg</string>
-    <string name="no_drafts">Du har ingen lagra utkast.</string>
     <string name="no_scheduled_posts">Du har ingen planlagte innlegg.</string>
     <string name="conversation_2_recipients">%1$s og %2$s</string>
     <string name="description_post_language">Innleggsmål</string>
@@ -402,19 +395,7 @@
     <string name="failed_search">Klarte ikkje å søkje</string>
     <string name="pref_title_enable_swipe_for_tabs">Aktiver sveiprørsler for å bytte mellom faner</string>
     <string name="pref_title_show_stat_inline">Syn innleggsstatistikk i tidslinja</string>
-    <string name="create_poll_title">Avstemming</string>
     <string name="label_duration">Lengd</string>
-    <string name="duration_5_min">5 minutt</string>
-    <string name="duration_6_hours">6 timar</string>
-    <string name="duration_1_day">1 dag</string>
-    <string name="duration_3_days">3 dagar</string>
-    <string name="duration_7_days">7 dagar</string>
-    <string name="duration_14_days">14 dagar</string>
-    <string name="duration_30_days">30 dagar</string>
-    <string name="duration_60_days">60 dagar</string>
-    <string name="duration_90_days">90 dagar</string>
-    <string name="duration_180_days">180 dagar</string>
-    <string name="duration_365_days">365 dagar</string>
     <string name="duration_no_change">(Inga endring)</string>
     <string name="add_poll_choice">Legg til val</string>
     <string name="poll_allow_multiple_choices">Tillat veljing av fleire val</string>
@@ -716,9 +697,6 @@
     <string name="notification_quote_description">Varsel om at nokon hermer innlegga dine</string>
     <string name="notification_quoted_update_name">Brigdingar på hermde innlegg</string>
     <string name="notification_quoted_update_description">Varsel når innlegg du hermde vert brigda</string>
-    <string name="drafts_load_reply_failed_fmt">Klarte ikkje å lada inn innlegget som du svarar på: %1$s</string>
-    <string name="drafts_load_quote_failed_fmt">Klarte ikkje å lada inn innlegget du hermer: %1$s</string>
-    <string name="drafts_post_quote_removed">Innlegget som du hermde, har vorte sletta</string>
     <string name="detach_quote_dialog_title">Slett herming?</string>
     <string name="detach_quote_dialog_message">Dette tek ditt hermeinnlegg bort frå dette innlegget.\n\nDitt opphavlege innlegg vert ikkje sletta.\n\nDette kan ikkje verte angra på.</string>
     <string name="detach_quote_error_fmt">Mislukkast i å sletta hermeinnlegg: %1$s</string>

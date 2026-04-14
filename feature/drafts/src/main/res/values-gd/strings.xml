@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_edit">Deasaich</string>
+    <string name="title_drafts">Dreachdan</string>
+    <string name="drafts_post_reply_removed">Bha againn ris a’ phost a bha thu airson freagairt dha a thoirt air falbh</string>
+    <string name="drafts_post_failed_to_send">Cha b’ urrainn dhuinn am post a chur!</string>
+    <string name="no_drafts">Chan eil dreachd sam bith agad.</string>
+</resources>

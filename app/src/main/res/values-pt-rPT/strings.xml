@@ -46,7 +46,6 @@
     <string name="title_domain_mutes">Instâncias bloqueadas</string>
     <string name="title_follow_requests">Seguidores Pendentes</string>
     <string name="title_edit_profile">Editar perfil</string>
-    <string name="title_drafts">Rascunhos</string>
     <string name="post_sensitive_media_directions">Toque para ver</string>
     <string name="title_scheduled_posts">Toots agendados</string>
     <string name="title_announcements">Anúncios</string>
@@ -70,7 +69,6 @@
     <string name="action_hide_reblogs">Esconder boosts</string>
     <string name="action_show_reblogs">Mostrar boosts</string>
     <string name="action_report">Denunciar</string>
-    <string name="action_edit">Editar</string>
     <string name="action_delete">Apagar</string>
     <string name="action_delete_conversation">Apagar conversa</string>
     <string name="action_delete_and_redraft">Apagar e criar novo rascunho</string>
@@ -289,27 +287,12 @@
     <string name="title_accounts">Contas</string>
     <string name="failed_search">Erro ao pesquisar</string>
     <string name="pref_title_enable_swipe_for_tabs">Ativar gesto de deslizar para alternar entre separadores</string>
-    <string name="create_poll_title">Votação</string>
     <string name="label_duration">Duração</string>
     <string name="duration_indefinite">Indefinido</string>
-    <string name="duration_5_min">5 minutos</string>
-    <string name="duration_30_min">30 minutos</string>
-    <string name="duration_1_hour">1 hora</string>
-    <string name="duration_6_hours">6 horas</string>
-    <string name="duration_1_day">1 dia</string>
-    <string name="duration_3_days">3 dias</string>
-    <string name="duration_7_days">7 dias</string>
-    <string name="duration_14_days">14 dias</string>
-    <string name="duration_30_days">30 dias</string>
-    <string name="duration_60_days">60 dias</string>
-    <string name="duration_90_days">90 dias</string>
-    <string name="duration_180_days">180 dias</string>
-    <string name="duration_365_days">365 dias</string>
     <string name="add_poll_choice">Adicionar opção</string>
     <string name="poll_allow_multiple_choices">Escolha múltipla</string>
     <string name="poll_new_choice_hint">Opção %1$d</string>
     <string name="edit_poll">Editar</string>
-    <string name="no_drafts">Não tem rascunhos.</string>
     <string name="no_scheduled_posts">Não tem toots agendados.</string>
     <string name="account_note_saved">Guardado!</string>
     <string name="wellbeing_mode_notice">Algumas informações que podem afetar seu bem-estar serão ocultadas. Isso inclui:
@@ -334,8 +317,6 @@
         <item quantity="many">Não é possível enviar mais de %1$d arquivos de conteúdo multimédia.</item>
         <item quantity="other">Não é possível enviar mais de %1$d arquivos de conteúdo multimédia.</item>
     </plurals>
-    <string name="drafts_post_failed_to_send">Erro ao enviar o toot!</string>
-    <string name="drafts_post_reply_removed">O toot para o qual escreveu um rascunho foi apagado</string>
     <string name="error_empty">Isto não pode estar vazio.</string>
     <string name="error_no_web_browser_found">Não foi possível encontrar um navegador.</string>
     <string name="action_save">Guardar</string>

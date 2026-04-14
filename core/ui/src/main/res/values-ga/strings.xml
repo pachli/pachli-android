@@ -193,4 +193,18 @@
     <string name="action_open_reportee_profile">Oscail próifíl an tuairisceora</string>
     <string name="action_open_report">Oscail an tuarascáil</string>
     <string name="description_quoted_post_prefix">Post luaite:</string>
+    <string name="create_poll_title">Vótaíocht</string>
+    <string name="duration_5_min">5 nóiméid</string>
+    <string name="duration_30_min">30 nóiméid</string>
+    <string name="duration_1_hour">1 uair an chloig</string>
+    <string name="duration_6_hours">6 uair an chloig</string>
+    <string name="duration_1_day">1 lá</string>
+    <string name="duration_3_days">3 lá</string>
+    <string name="duration_7_days">7 lá</string>
+    <string name="duration_14_days">laethanta 14</string>
+    <string name="duration_30_days">laethanta 30</string>
+    <string name="duration_60_days">laethanta 60</string>
+    <string name="duration_90_days">laethanta 90</string>
+    <string name="duration_180_days">laethanta 180</string>
+    <string name="duration_365_days">laethanta 365</string>
 </resources>

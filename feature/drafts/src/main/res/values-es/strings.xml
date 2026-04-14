@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_edit">Editar</string>
+    <string name="title_drafts">Borradores</string>
+    <string name="drafts_post_reply_removed">La publicación a la que redactaste una respuesta ha sido eliminada</string>
+    <string name="drafts_load_reply_failed_fmt">No se pudo cargar la publicación a la cual estás respondiendo: %1$s</string>
+    <string name="drafts_post_quote_removed">La publicación que citaste ha sido quitada</string>
+    <string name="drafts_load_quote_failed_fmt">No se pudo cargar la publicación que estás citando: %1$s</string>
+    <string name="drafts_post_failed_to_send">¡Esta publicación no se pudo enviar!</string>
+    <string name="no_drafts">No tienes ningún borrador.</string>
+</resources>

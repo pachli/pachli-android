@@ -91,4 +91,18 @@
     <string name="filter_edit_title">Sửa bộ lọc</string>
     <string name="status_filtered_show_anyway">Vẫn hiện</string>
     <string name="status_filter_placeholder_label_format">Đã lọc: &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="create_poll_title">Bình chọn</string>
+    <string name="duration_5_min">5 phút</string>
+    <string name="duration_30_min">30 phút</string>
+    <string name="duration_1_hour">1 giờ</string>
+    <string name="duration_6_hours">6 giờ</string>
+    <string name="duration_1_day">1 ngày</string>
+    <string name="duration_3_days">3 ngày</string>
+    <string name="duration_7_days">7 ngày</string>
+    <string name="duration_14_days">14 ngày</string>
+    <string name="duration_30_days">30 ngày</string>
+    <string name="duration_60_days">60 ngày</string>
+    <string name="duration_90_days">90 ngày</string>
+    <string name="duration_180_days">180 ngày</string>
+    <string name="duration_365_days">365 ngày</string>
 </resources>

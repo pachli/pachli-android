@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_edit">Cuir in Eagar</string>
+    <string name="title_drafts">Dréachtaí</string>
+    <string name="drafts_post_reply_removed">Baineadh an post ar dhréachtaigh tú freagra air</string>
+    <string name="drafts_load_reply_failed_fmt">Níorbh fhéidir an post atá á fhreagairt agat a lódáil: %1$s</string>
+    <string name="drafts_post_quote_removed">Baineadh an post a luaigh tú</string>
+    <string name="drafts_load_quote_failed_fmt">Níorbh fhéidir an post atá á lua agat a lódáil: %1$s</string>
+    <string name="drafts_post_failed_to_send">Theip ar an bpost seo a sheoladh!</string>
+    <string name="no_drafts">Níl aon dréacht agat.</string>
+</resources>

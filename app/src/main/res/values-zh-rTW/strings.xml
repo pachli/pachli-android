@@ -27,7 +27,6 @@
     <string name="title_blocks">被封鎖的使用者</string>
     <string name="title_follow_requests">關注請求</string>
     <string name="title_edit_profile">編輯個人資料</string>
-    <string name="title_drafts">草稿</string>
     <string name="post_sensitive_media_directions">點一下顯示</string>
     <string name="footer_empty">還沒有內容，向下拉動即可重新整理！</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; 轉嘟了你的嘟文</string>
@@ -255,7 +254,6 @@
     <string name="hashtags">話題</string>
     <string name="notification_follow_request_name">關注請求</string>
     <string name="edit_poll">編輯</string>
-    <string name="action_edit">編輯</string>
     <string name="title_bookmarks">書籤</string>
     <string name="wellbeing_hide_stats_profile">隱藏個人頁面中的狀態數量資訊</string>
     <string name="wellbeing_hide_stats_posts">隱藏貼文上的狀態數量資訊</string>
@@ -271,15 +269,6 @@
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; 剛剛發了新嘟文</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; 請求關注你</string>
     <string name="pref_title_animate_custom_emojis">動態自訂表情符號</string>
-    <string name="drafts_post_reply_removed">你的草稿欲回覆的原嘟文已被刪除</string>
-    <string name="drafts_post_failed_to_send">這條嘟文發送失敗！</string>
-    <string name="duration_7_days">7 天</string>
-    <string name="duration_3_days">3 天</string>
-    <string name="duration_1_day">1 天</string>
-    <string name="duration_6_hours">6 小時</string>
-    <string name="duration_1_hour">1 小時</string>
-    <string name="duration_30_min">30 分鐘</string>
-    <string name="duration_5_min">5 分鐘</string>
     <string name="duration_indefinite">無限期</string>
     <string name="label_duration">期間</string>
     <plurals name="error_upload_max_media_reached">
@@ -309,7 +298,6 @@
     <string name="action_unmute_conversation">取消靜音對話</string>
     <string name="action_mute_conversation">靜音對話</string>
     <string name="warning_scheduling_interval">Mastodon 的最短發文間隔限制為 5 分鐘。</string>
-    <string name="no_drafts">你沒有任何草稿。</string>
     <string name="no_scheduled_posts">你沒有任何已排程的嘟文。</string>
     <string name="list">列表</string>
     <string name="select_list_title">選擇列表</string>
@@ -321,7 +309,6 @@
     <string name="poll_new_choice_hint">選項 %1$d</string>
     <string name="poll_allow_multiple_choices">多個選項</string>
     <string name="add_poll_choice">新增選項</string>
-    <string name="create_poll_title">投票</string>
     <string name="action_add_poll">新增投票</string>
     <string name="pref_title_alway_open_spoiler">總是顯示被標注為內容警告的嘟文</string>
     <string name="failed_search">搜尋失敗</string>
@@ -351,18 +338,12 @@
     <string name="action_add_reaction">添加反應</string>
     <string name="pref_title_notification_filter_sign_ups">有人進行了註冊</string>
     <string name="action_edit_image">編輯圖片</string>
-    <string name="duration_30_days">30 天</string>
-    <string name="duration_60_days">60 天</string>
-    <string name="duration_90_days">90 天</string>
-    <string name="duration_180_days">180 天</string>
-    <string name="duration_365_days">365 天</string>
     <string name="duration_no_change">(無更改)</string>
     <string name="error_following_hashtag_format">追蹤 #%1$s 時發生錯誤</string>
     <string name="error_unfollowing_hashtag_format">取消追蹤 #%1$s 時發生錯誤</string>
     <string name="action_unbookmark">移除書籤</string>
     <string name="action_delete_conversation">刪除對話</string>
     <string name="pref_title_notification_filter_updates">我互動過的嘟文被編輯了</string>
-    <string name="duration_14_days">14 天</string>
     <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; 已註冊</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; 編輯了他們的嘟文</string>
     <string name="error_image_edit_failed">這張圖片不能編輯。</string>

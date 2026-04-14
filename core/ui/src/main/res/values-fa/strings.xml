@@ -99,4 +99,18 @@
     <string name="filter_edit_title">ویرایش پالایه</string>
     <string name="status_filtered_show_anyway">نمایش به هر روی</string>
     <string name="status_filter_placeholder_label_format">پالوده: &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="create_poll_title">نظرسنجی</string>
+    <string name="duration_5_min">۵ دقیقه</string>
+    <string name="duration_30_min">۳۰ دقیقه</string>
+    <string name="duration_1_hour">۱ ساعت</string>
+    <string name="duration_6_hours">۶ ساعت</string>
+    <string name="duration_1_day">۱ روز</string>
+    <string name="duration_3_days">۳ روز</string>
+    <string name="duration_7_days">۷ روز</string>
+    <string name="duration_14_days">۱۴ روز</string>
+    <string name="duration_30_days">۳۰ روز</string>
+    <string name="duration_60_days">۶۰ روز</string>
+    <string name="duration_90_days">۹۰ روز</string>
+    <string name="duration_180_days">۱۸۰ روز</string>
+    <string name="duration_365_days">۳۶۵ روز</string>
 </resources>

@@ -98,7 +98,6 @@
     <string name="action_view_favourites">Thích</string>
     <string name="action_delete_and_redraft">Xóa &amp; viết lại</string>
     <string name="action_delete">Xóa</string>
-    <string name="action_edit">Sửa</string>
     <string name="action_report">Báo cáo</string>
     <string name="action_show_reblogs">Hiện lượt đăng lại</string>
     <string name="action_hide_reblogs">Ẩn lượt đăng lại</string>
@@ -131,7 +130,6 @@
     <string name="title_public_local">Máy chủ</string>
     <string name="title_notifications">Thông báo</string>
     <string name="title_home">Trang chính</string>
-    <string name="title_drafts">Những tút nháp</string>
     <string name="title_favourites">Những tút đã thích</string>
     <string name="pref_title_show_media_preview">Hiện xem trước hình ảnh</string>
     <string name="pref_title_show_replies">Hiện những trả lời</string>
@@ -216,19 +214,10 @@
     <string name="pref_title_show_cards_in_timelines">Hiện xem trước link</string>
     <string name="warning_scheduling_interval">Mastodon giới hạn tối thiểu 5 phút.</string>
     <string name="no_scheduled_posts">Bạn không có tút đã lên lịch.</string>
-    <string name="no_drafts">Bạn không có tút nháp.</string>
     <string name="edit_poll">Sửa</string>
     <string name="poll_new_choice_hint">Lựa chọn %1$d</string>
     <string name="poll_allow_multiple_choices">Cho phép chọn nhiều lựa chọn</string>
     <string name="add_poll_choice">Thêm</string>
-    <string name="duration_7_days">7 ngày</string>
-    <string name="duration_3_days">3 ngày</string>
-    <string name="duration_1_day">1 ngày</string>
-    <string name="duration_6_hours">6 giờ</string>
-    <string name="duration_1_hour">1 giờ</string>
-    <string name="duration_30_min">30 phút</string>
-    <string name="duration_5_min">5 phút</string>
-    <string name="create_poll_title">Bình chọn</string>
     <string name="pref_title_enable_swipe_for_tabs">Vuốt qua lại giữa các tab</string>
     <string name="failed_search">Không thể tìm thấy</string>
     <string name="title_accounts">Người</string>
@@ -315,8 +304,6 @@
     </plurals>
     <string name="duration_indefinite">Vĩnh viễn</string>
     <string name="label_duration">Thời hạn</string>
-    <string name="drafts_post_reply_removed">Đã xóa tút trả lời nháp</string>
-    <string name="drafts_post_failed_to_send">Đăng tút không thành công!</string>
     <string name="pref_title_animate_custom_emojis">Emoji GIF</string>
     <string name="action_unsubscribe_account">Dừng nhận thông báo</string>
     <string name="action_subscribe_account">Nhận thông báo</string>
@@ -325,12 +312,6 @@
     <string name="action_delete_conversation">Xóa thảo luận</string>
     <string name="pref_title_confirm_favourites">Hỏi trước khi thích tút</string>
     <string name="action_unbookmark">Bỏ lưu</string>
-    <string name="duration_14_days">14 ngày</string>
-    <string name="duration_30_days">30 ngày</string>
-    <string name="duration_60_days">60 ngày</string>
-    <string name="duration_90_days">90 ngày</string>
-    <string name="duration_180_days">180 ngày</string>
-    <string name="duration_365_days">365 ngày</string>
     <string name="pachli_compose_post_quicksetting_label">Soạn tút</string>
     <string name="pref_title_notification_filter_sign_ups">ai đó mới tham gia máy chủ</string>
     <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; tham gia máy chủ</string>

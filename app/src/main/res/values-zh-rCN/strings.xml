@@ -27,7 +27,6 @@
     <string name="title_blocks">被屏蔽的用户</string>
     <string name="title_follow_requests">关注请求</string>
     <string name="title_edit_profile">编辑个人资料</string>
-    <string name="title_drafts">草稿</string>
     <string name="post_sensitive_media_directions">点击查看</string>
     <string name="footer_empty">还没有内容，向下拉动即可刷新！</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; 转嘟了你的嘟文</string>
@@ -238,7 +237,6 @@
     <string name="title_bookmarks">书签</string>
     <string name="title_domain_mutes">被隐藏的域名</string>
     <string name="title_scheduled_posts">定时嘟文</string>
-    <string name="action_edit">编辑</string>
     <string name="action_view_bookmarks">书签</string>
     <string name="action_view_domain_mutes">隐藏的域名</string>
     <string name="action_add_poll">新增投票</string>
@@ -262,19 +260,10 @@
     <string name="report_description_remote_instance">该账户来自其他服务器。向那里发送一份匿名的报告副本？</string>
     <string name="title_accounts">账户</string>
     <string name="failed_search">搜索失败</string>
-    <string name="create_poll_title">投票</string>
-    <string name="duration_5_min">5 分钟</string>
-    <string name="duration_30_min">30 分钟</string>
-    <string name="duration_1_hour">1 小时</string>
-    <string name="duration_6_hours">6 小时</string>
-    <string name="duration_1_day">1 天</string>
-    <string name="duration_3_days">3 天</string>
-    <string name="duration_7_days">7 天</string>
     <string name="add_poll_choice">添加选择</string>
     <string name="poll_allow_multiple_choices">多项选择</string>
     <string name="poll_new_choice_hint">选择 %1$d</string>
     <string name="edit_poll">编辑</string>
-    <string name="no_drafts">你没有草稿。</string>
     <string name="no_scheduled_posts">您没有任何定时嘟文。</string>
     <string name="warning_scheduling_interval">Mastodon的最小预订时间为5分钟。</string>
     <string name="notification_follow_request_name">关注请求</string>
@@ -305,8 +294,6 @@
     <string name="account_note_hint">此账号的备注</string>
     <string name="action_unsubscribe_account">取消关注</string>
     <string name="action_subscribe_account">关注</string>
-    <string name="drafts_post_reply_removed">该草稿回复的原嘟文已被删除</string>
-    <string name="drafts_post_failed_to_send">嘟文发送失败！</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="other">最多只可上传 %1$d 个媒体附件。</item>
     </plurals>
@@ -333,12 +320,6 @@
     <string name="action_delete_conversation">删除对话</string>
     <string name="pref_title_confirm_favourites">收藏前提示确认</string>
     <string name="action_unbookmark">删除书签</string>
-    <string name="duration_30_days">30 天</string>
-    <string name="duration_60_days">60 天</string>
-    <string name="duration_90_days">90 天</string>
-    <string name="duration_180_days">180 天</string>
-    <string name="duration_14_days">14 天</string>
-    <string name="duration_365_days">365 天</string>
     <string name="pachli_compose_post_quicksetting_label">撰写嘟文</string>
     <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; 已注册</string>
     <string name="pref_title_notification_filter_sign_ups">某人进行了注册</string>

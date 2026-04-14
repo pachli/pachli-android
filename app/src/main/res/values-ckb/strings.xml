@@ -57,7 +57,6 @@
     <string name="action_send">توت</string>
     <string name="action_delete_and_redraft">سڕینەوە و دووبارە-ڕەشنووس</string>
     <string name="action_delete">سڕینەوە</string>
-    <string name="action_edit">دەستکاری</string>
     <string name="action_report">گوزارشەکان</string>
     <string name="action_show_reblogs">پۆستکردنەوەکان نیشان بدە</string>
     <string name="action_hide_reblogs">شاردنەوەی بەهێزکردنەکان</string>
@@ -191,12 +190,10 @@
     <string name="warning_scheduling_interval">ماستۆدۆن کەمترین ماوەی خشتەی هەیە لە ٥ خولەک.</string>
     <string name="no_announcements">هیچ ڕاگه یه نراوێک له بەرده رنه کەون.</string>
     <string name="no_scheduled_posts">هیچ بارێکی خشتەکراوت نیە.</string>
-    <string name="no_drafts">هیچ ڕەشنووسێکت نییە.</string>
     <string name="edit_poll">دەستکاریکردن</string>
     <string name="poll_new_choice_hint">هەڵبژاردنی %1$d</string>
     <string name="poll_allow_multiple_choices">چەند هەڵبژاردنێک</string>
     <string name="add_poll_choice">زیادکردنی هەڵبژاردن</string>
-    <string name="create_poll_title">ڕاپرسی</string>
     <string name="pref_title_enable_swipe_for_tabs">چالاککردنی ئاماژەکردنی لێدانی چالاک بۆ گۆڕین لە نێوان خشتەبەندەکان</string>
     <string name="failed_search">گەڕانەکە سەرکەوتوو نەبوو</string>
     <string name="title_accounts">ئەژمێرەکان</string>

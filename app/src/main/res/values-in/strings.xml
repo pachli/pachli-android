@@ -24,7 +24,6 @@
     <string name="title_blocks">Pengguna diblokir</string>
     <string name="title_domain_mutes">Domain tersembunyi</string>
     <string name="title_edit_profile">Ubah profil</string>
-    <string name="title_drafts">Draf</string>
     <string name="title_scheduled_posts">Postingan terjadwal</string>
     <string name="error_compose_character_limit">Postingan terlalu panjang!</string>
     <string name="error_media_upload_permission">Izin untuk membaca media diperlukan.</string>
@@ -99,7 +98,6 @@
     <string name="title_mutes">Pengguna dibisukan</string>
     <string name="title_announcements">Pengumuman</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; meminta untuk mengikuti anda</string>
-    <string name="action_edit">Ubah</string>
     <string name="action_delete_conversation">Hapus percakapan</string>
     <string name="action_unmute">Jangan bisukan</string>
     <string name="action_mute_conversation">Bisukan percakapan</string>
@@ -333,11 +331,9 @@
     <plurals name="error_upload_max_media_reached">
         <item quantity="other">Anda tidak dapat mengunggah lebih dari %1$d lampiran media.</item>
     </plurals>
-    <string name="drafts_post_failed_to_send">Kiriman ini gagal terkirim!</string>
     <string name="follow_requests_info">Meskipun akun Anda tidak dikunci, staf %1$s berpikir bahwa Anda mungkin ingin meninjau permintaan mengikuti dari akun-akun ini secara manual.</string>
     <string name="action_subscribe_account">Berlangganan</string>
     <string name="action_unsubscribe_account">Hapus Berlangganan</string>
-    <string name="drafts_post_reply_removed">Postingan yang Anda buat sebagai balasan telah dihapus</string>
     <string name="announcement_date_updated">(Diperbarui: %1$s)</string>
     <string name="delete_scheduled_post_warning">Menghapus pos terjadwal ini?</string>
     <string name="language_display_name_format">%1$s %2$s</string>

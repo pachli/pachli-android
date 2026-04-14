@@ -90,4 +90,12 @@
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; сподели</string>
     <string name="filter_edit_title">Редакция на филтър</string>
+    <string name="create_poll_title">Анкета</string>
+    <string name="duration_5_min">5 минути</string>
+    <string name="duration_30_min">30 минути</string>
+    <string name="duration_1_hour">1 час</string>
+    <string name="duration_6_hours">6 часа</string>
+    <string name="duration_1_day">1 ден</string>
+    <string name="duration_3_days">3 дни</string>
+    <string name="duration_7_days">7 дни</string>
 </resources>

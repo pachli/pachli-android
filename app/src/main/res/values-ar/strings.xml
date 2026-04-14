@@ -27,7 +27,6 @@
     <string name="title_blocks">الحسابات المحظورة</string>
     <string name="title_follow_requests">طلبات المتابعة</string>
     <string name="title_edit_profile">عدل ملفك التعريفي</string>
-    <string name="title_drafts">المسودات</string>
     <string name="post_sensitive_media_directions">اضغط للعرض</string>
     <string name="footer_empty">لا يوجد شيء هنا. إسحب إلى أسفل للإنعاش!</string>
     <string name="notification_reblog_format">شارك &lt;b&gt;%1$s&lt;/b&gt; منشورك</string>
@@ -259,21 +258,12 @@
     <string name="failed_search">فشل البحث</string>
     <string name="action_add_poll">إضافة استطلاع رأي</string>
     <string name="pref_title_alway_open_spoiler">افتح دائما المنشورات التي تحتوي على محتوى حساس</string>
-    <string name="create_poll_title">استطلاع رأي</string>
-    <string name="duration_5_min">5 دقائق</string>
-    <string name="duration_30_min">30 دقيقة</string>
-    <string name="duration_1_hour">ساعة واحدة</string>
-    <string name="duration_6_hours">6 ساعات</string>
-    <string name="duration_1_day">يوم واحد</string>
-    <string name="duration_3_days">3 أيام</string>
-    <string name="duration_7_days">7 أيام</string>
     <string name="add_poll_choice">ضف خيارا</string>
     <string name="poll_allow_multiple_choices">خيارات متعددة</string>
     <string name="poll_new_choice_hint">الخيار %1$d</string>
     <string name="edit_poll">تعديل</string>
     <string name="filter_dialog_whole_word_description">عندما تكون الكلمة أو العبارة أبجدية رقمية فقط ، فلن يتم تطبيقها إلا إذا كانت مطابقة للكلمة بأكملها</string>
     <string name="title_scheduled_posts">المنشورات المُبَرمَجة</string>
-    <string name="action_edit">تعديل</string>
     <string name="action_access_scheduled_posts">المنشورات المُبَرمَجة</string>
     <string name="action_schedule_post">برمجة تبويق</string>
     <string name="action_reset_schedule">صفّر</string>
@@ -281,7 +271,6 @@
     <string name="action_view_bookmarks">الفواصل المرجعية</string>
     <string name="select_list_title">اختر قائمة</string>
     <string name="list">القائمة</string>
-    <string name="no_drafts">ليس لديك أية مسودات.</string>
     <string name="no_scheduled_posts">ليس لديك أية منشورات مُبرمَجة للنشر.</string>
     <string name="warning_scheduling_interval">تُقدّر أدنى فترة لبرمجة النشر في ماستدون بـ 5 دقائق.</string>
     <string name="pref_title_enable_swipe_for_tabs">تمكين حركات السحب للانتقال بين الألسنة</string>
@@ -304,7 +293,6 @@
     <string name="action_unmute_desc">إلغاء كتم %1$s</string>
     <string name="pref_title_hide_top_toolbar">إخفاء عنوان شريط الأدوات العلوي</string>
     <string name="title_announcements">الاعلانات</string>
-    <string name="drafts_post_failed_to_send">فشلت عملية إرسال التبويق!</string>
     <string name="action_subscribe_account">اشترك</string>
     <string name="action_unsubscribe_account">إلغاء الإشتراك</string>
     <string name="notification_subscription_format">نشر &lt;b&gt;%1$s&lt;/b&gt; للتوّ</string>
@@ -316,7 +304,6 @@
     <string name="account_note_hint">ملاحظتك الخاصة عن هذا الحساب</string>
     <string name="account_note_saved">تم حفظها!</string>
     <string name="review_notifications">راجع الإشعارات</string>
-    <string name="drafts_post_reply_removed">لقد حُذِف التبويق الذي حررت من أجله مسودة الرد</string>
     <string name="pref_title_notification_filter_subscriptions">شخص ما أنا مشترك في حسابه قد نشر منشورا جديدا</string>
     <string name="pref_title_animate_custom_emojis">حرّك الإيموجيات المخصصة</string>
     <string name="wellbeing_hide_stats_posts">إخفاء الإحصائيات الكمية عن المنشورات</string>
@@ -324,12 +311,6 @@
     <string name="action_unbookmark">احذف الفاصلة المرجعية</string>
     <string name="pref_title_confirm_favourites">أظهر نافذة لطلب التأكيد قبل الإضافة إلى المفضلة</string>
     <string name="duration_indefinite">غير محددة</string>
-    <string name="duration_14_days">14 يومًا</string>
-    <string name="duration_30_days">30 يومًا</string>
-    <string name="duration_60_days">60 يومًا</string>
-    <string name="duration_90_days">90 يومًا</string>
-    <string name="duration_180_days">180 يومًا</string>
-    <string name="duration_365_days">365 يومًا</string>
     <string name="pachli_compose_post_quicksetting_label">تحرير منشور</string>
     <string name="notification_sign_up_name">حسابات جديدة</string>
     <string name="notification_sign_up_format">قام &lt;b&gt;%1$s&lt;/b&gt; بإنشاء حساب</string>

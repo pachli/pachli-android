@@ -157,4 +157,18 @@
     <string name="label_quote_state_blocked_account">Hermt innlegg er frå ein konto som du blokkerte</string>
     <string name="label_quote_state_blocked_domain">Hermt innlegg er frå ein tenar som du blokkerte</string>
     <string name="label_quote_state_muted_account">Hermt innlegg er frå ein konto som du dempa</string>
+    <string name="create_poll_title">Avstemming</string>
+    <string name="duration_5_min">5 minutt</string>
+    <string name="duration_30_min">30 minutt</string>
+    <string name="duration_1_hour">1 time</string>
+    <string name="duration_6_hours">6 timar</string>
+    <string name="duration_1_day">1 dag</string>
+    <string name="duration_3_days">3 dagar</string>
+    <string name="duration_7_days">7 dagar</string>
+    <string name="duration_14_days">14 dagar</string>
+    <string name="duration_30_days">30 dagar</string>
+    <string name="duration_60_days">60 dagar</string>
+    <string name="duration_90_days">90 dagar</string>
+    <string name="duration_180_days">180 dagar</string>
+    <string name="duration_365_days">365 dagar</string>
 </resources>

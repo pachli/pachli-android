@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="add_poll_choice">เพิ่มตัวเลือก</string>
-    <string name="duration_7_days">7 วัน</string>
-    <string name="duration_3_days">3 วัน</string>
-    <string name="duration_1_day">1 วัน</string>
-    <string name="duration_6_hours">6 ชั่วโมง</string>
-    <string name="duration_1_hour">1 ชั่วโมง</string>
-    <string name="duration_30_min">30 นาที</string>
-    <string name="duration_5_min">5 นาที</string>
-    <string name="create_poll_title">โพล</string>
     <string name="pref_title_enable_swipe_for_tabs">เปิดใช้งานการเลื่อนนิ้วเพื่อสลับระหว่างแท็บ</string>
     <string name="failed_search">ค้นหาล้มเหลว</string>
     <string name="title_accounts">บัญชี</string>
@@ -223,7 +215,6 @@
     <string name="action_send">โพสต์</string>
     <string name="action_delete_and_redraft">ลบแล้วร่างใหม่</string>
     <string name="action_delete">ลบ</string>
-    <string name="action_edit">แก้ไข</string>
     <string name="action_report">รายงาน</string>
     <string name="action_show_reblogs">แสดงการดัน</string>
     <string name="action_hide_reblogs">ซ่อนการดัน</string>
@@ -275,14 +266,12 @@
     <string name="action_edit_profile">แก้ไขโปรไฟล์</string>
     <string name="action_view_account_preferences">การกำหนดลักษณะบัญชี</string>
     <string name="action_view_preferences">การกำหนดลักษณะ</string>
-    <string name="title_drafts">ฉบับร่าง</string>
     <string name="title_favourites">ชื่นชอบ</string>
     <string name="poll_allow_multiple_choices">เลือกได้หลายตัวเลือก</string>
     <string name="pref_title_confirm_reblogs">แสดงข้อความยืนยันก่อนที่จะบูสต์</string>
     <string name="pref_title_show_cards_in_timelines">แสดงตัวอย่างลิงก์ในไทม์ไลน์</string>
     <string name="warning_scheduling_interval">Mastodon กำหนดเวลาขั้นต่ำ 5 นาที</string>
     <string name="no_scheduled_posts">ไม่มีสถานะแบบตั้งเวลาใด ๆ</string>
-    <string name="no_drafts">ไม่มีฉบับร่างใด ๆ</string>
     <string name="edit_poll">แก้ไข</string>
     <string name="poll_new_choice_hint">ตัวเลือกที่ %1$d</string>
     <string name="pref_main_nav_position">ตำแหน่งการนำทางหลัก</string>
@@ -291,7 +280,6 @@
     <string name="action_unmute_desc">เลิกปิดเสียง %1$s</string>
     <string name="dialog_mute_hide_notifications">ซ่อนการแจ้งเตือน</string>
     <string name="pref_title_hide_top_toolbar">ซ่อนหัวข้อของแถบเครื่องมือด้านบน</string>
-    <string name="drafts_post_failed_to_send">ล้มเหลวในการส่งโพสต์นี้!</string>
     <string name="wellbeing_mode_notice">ข้อมูลบางอย่างที่อาจส่งผลต่อสุขภาพจิตของคุณจะถูกซ่อนไว้ซึ่งรวมถึง:
 \n
 \n- การแจ้งเตือน ชื่นชอบ/ดัน/ติดตาม
@@ -306,7 +294,6 @@
     <string name="pref_title_wellbeing_mode">สุขภาวะ</string>
     <string name="account_note_hint">บันทึกส่วนตัวของคุณเกี่ยวกับบัญชีนี้</string>
     <string name="notification_subscription_description">แจ้งเตือน เมื่อคนที่คุณติดตาม ได้เผยแพร่โพสต์ใหม่</string>
-    <string name="drafts_post_reply_removed">โพสต์ที่คุณได้ร่างตอบไว้ ถูกลบแลัว</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="other">คุณไม่สามารถอัปโหลดไฟล์แนบมากกว่า %1$d ได้</item>
     </plurals>

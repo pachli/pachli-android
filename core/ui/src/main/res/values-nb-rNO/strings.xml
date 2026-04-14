@@ -113,4 +113,18 @@
     <string name="filter_edit_title">Rediger filter</string>
     <string name="status_filtered_show_anyway">Vis allikevel</string>
     <string name="status_filter_placeholder_label_format">Filtrert: &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="create_poll_title">Avstemming</string>
+    <string name="duration_5_min">5 minutter</string>
+    <string name="duration_30_min">30 minutter</string>
+    <string name="duration_1_hour">1 time</string>
+    <string name="duration_6_hours">6 timer</string>
+    <string name="duration_1_day">1 dag</string>
+    <string name="duration_3_days">3 dager</string>
+    <string name="duration_7_days">7 dager</string>
+    <string name="duration_14_days">14 dager</string>
+    <string name="duration_30_days">30 dager</string>
+    <string name="duration_60_days">60 dager</string>
+    <string name="duration_90_days">90 dager</string>
+    <string name="duration_180_days">180 dager</string>
+    <string name="duration_365_days">365 dager</string>
 </resources>

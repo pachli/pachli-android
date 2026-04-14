@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_edit">एडिट करें</string>
+    <string name="title_drafts">प्रारूप</string>
+    <string name="no_drafts">आपके पास कोई ड्राफ्ट नहीं है।</string>
+</resources>

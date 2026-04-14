@@ -125,4 +125,18 @@
     <string name="filter_edit_title">Modifica filtro</string>
     <string name="status_filtered_show_anyway">Mostra comunque</string>
     <string name="status_filter_placeholder_label_format">Filtrato: &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="create_poll_title">Sondaggio</string>
+    <string name="duration_5_min">5 minuti</string>
+    <string name="duration_30_min">30 minuti</string>
+    <string name="duration_1_hour">1 ora</string>
+    <string name="duration_6_hours">6 ore</string>
+    <string name="duration_1_day">1 giorno</string>
+    <string name="duration_3_days">3 giorni</string>
+    <string name="duration_7_days">7 giorni</string>
+    <string name="duration_14_days">14 giorni</string>
+    <string name="duration_30_days">30 giorni</string>
+    <string name="duration_60_days">60 giorni</string>
+    <string name="duration_90_days">90 giorni</string>
+    <string name="duration_180_days">180 giorni</string>
+    <string name="duration_365_days">365 giorni</string>
 </resources>

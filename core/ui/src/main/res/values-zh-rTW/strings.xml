@@ -99,4 +99,18 @@
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; 轉嘟了</string>
     <string name="filter_edit_title">編輯過濾器</string>
+    <string name="create_poll_title">投票</string>
+    <string name="duration_5_min">5 分鐘</string>
+    <string name="duration_30_min">30 分鐘</string>
+    <string name="duration_1_hour">1 小時</string>
+    <string name="duration_6_hours">6 小時</string>
+    <string name="duration_1_day">1 天</string>
+    <string name="duration_3_days">3 天</string>
+    <string name="duration_7_days">7 天</string>
+    <string name="duration_14_days">14 天</string>
+    <string name="duration_30_days">30 天</string>
+    <string name="duration_60_days">60 天</string>
+    <string name="duration_90_days">90 天</string>
+    <string name="duration_180_days">180 天</string>
+    <string name="duration_365_days">365 天</string>
 </resources>

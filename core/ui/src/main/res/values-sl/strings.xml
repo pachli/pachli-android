@@ -96,4 +96,12 @@
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; spodbudil</string>
     <string name="filter_edit_title">Uredi filter</string>
+    <string name="create_poll_title">Anketa</string>
+    <string name="duration_5_min">5 minut</string>
+    <string name="duration_30_min">30 minut</string>
+    <string name="duration_1_hour">1 ura</string>
+    <string name="duration_6_hours">6 ur</string>
+    <string name="duration_1_day">1 dan</string>
+    <string name="duration_3_days">3 dni</string>
+    <string name="duration_7_days">7 dni</string>
 </resources>

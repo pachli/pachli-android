@@ -33,7 +33,6 @@
     <string name="title_domain_mutes">Схаваныя дамены</string>
     <string name="title_follow_requests">Запыты на падпіску</string>
     <string name="title_edit_profile">Рэдагаваць профіль</string>
-    <string name="title_drafts">Чарнавікі</string>
     <string name="title_scheduled_posts">Запланаваныя допісы</string>
     <string name="title_posts_pinned">Замацаваныя</string>
     <string name="title_mutes">Ігнаруемыя карыстальнікі</string>
@@ -141,7 +140,6 @@
     <string name="action_hide_reblogs">Схаваць пашырэнні</string>
     <string name="action_show_reblogs">Паказаць пашырэнні</string>
     <string name="action_report">Паскардзіцца</string>
-    <string name="action_edit">Рэдагаваць</string>
     <string name="action_delete_conversation">Выдаліць размову</string>
     <string name="action_delete_and_redraft">Выдаліць і перастварыць</string>
     <string name="action_send">ПАШЫРЫЦЬ</string>
@@ -306,7 +304,6 @@
     <string name="list">Спіс</string>
     <string name="notifications_clear">Ачысціць</string>
     <string name="notifications_apply_filter">Фільтр</string>
-    <string name="duration_365_days">365 дзён</string>
     <string name="duration_no_change">(Без змен)</string>
     <string name="compose_shortcut_long_label">Стварыць допіс</string>
     <string name="compose_shortcut_short_label">Стварыць</string>
@@ -316,9 +313,6 @@
     <string name="hint_additional_info">Дадатковыя каментары</string>
     <string name="title_accounts">Уліковыя запісы</string>
     <string name="failed_search">Пошук не атрымаўся</string>
-    <string name="create_poll_title">Апытанне</string>
-    <string name="duration_1_day">1 дзень</string>
-    <string name="duration_3_days">3 дні</string>
     <string name="report_remote_instance">Пераслаць да %1$s</string>
     <string name="pref_title_enable_swipe_for_tabs">Уключыць пераключэнне паміж укладкамі жэстам чыркання</string>
     <string name="label_duration">Працягласць</string>
@@ -328,24 +322,14 @@
     <string name="report_description_1">Скарга будзе даслана да мадэратара Вашага сервера. Ніжэй можна дадаць тлумачэнне, чаму Вы скардзіцеся на гэты ўліковы запіс:</string>
     <string name="report_description_remote_instance">Гэты ўліковы запіс з іншага сервера. Даслаць ананімную копію скаргі туды таксама\?</string>
     <string name="duration_indefinite">Бясконца</string>
-    <string name="duration_5_min">5 хвілін</string>
-    <string name="duration_30_min">30 хвілін</string>
     <string name="action_share_account_link">Падзяліцца спасылкай на ўліковы запіс</string>
     <string name="action_share_account_username">Падзяліцца імем уліковага запісу карыстальніка</string>
     <string name="send_account_link_to">Падзяліцца URL уліковага запісу праз…</string>
     <string name="send_account_username_to">Падзяліцца імем карыстальніка ўліковага запісу праз…</string>
     <string name="account_username_copied">Імя карыстальніка скапіявана</string>
     <string name="filter_apply">Прымяніць</string>
-    <string name="duration_1_hour">1 гадзіну</string>
     <string name="poll_ended_voted">Апытанне, у якім Вы ўдзельнічалі, скончана</string>
     <string name="poll_ended_created">Створанае Вамі апытанне скончана</string>
-    <string name="duration_6_hours">6 гадзін</string>
-    <string name="duration_7_days">7 дзён</string>
-    <string name="duration_14_days">14 дзён</string>
-    <string name="duration_30_days">30 дзён</string>
-    <string name="duration_60_days">60 дзён</string>
-    <string name="duration_90_days">90 дзён</string>
-    <string name="duration_180_days">180 дзён</string>
     <string name="a11y_label_loading_thread">Спампоўваю стужку</string>
     <string name="wellbeing_mode_notice">Некаторая інфармацыя, якая можа ўплываць на Ваш псіхічны стан, будзе скрыта. Гэта ўключае:
 \n
@@ -373,9 +357,7 @@
     <string name="action_unsubscribe_account">Адпісацца</string>
     <string name="pachli_compose_post_quicksetting_label">Стварыць допіс</string>
     <string name="saving_draft">Захоўваю чарнавік…</string>
-    <string name="drafts_post_reply_removed">Допіс, для якога Вы стварылі чарнавік адказу, выдалены</string>
     <string name="follow_requests_info">Нягледзячы на тое што Ваш уліковы запіс не закрыты, кіраўнікі %1$s вырашылі, што Вы, магчыма, пажадаеце праглядзець запыты на падпіску ад гэтых уліковых запісаў уручную.</string>
-    <string name="no_drafts">У Вас няма чарнавікоў.</string>
     <string name="no_scheduled_posts">У Вас няма запланаваных допісаў.</string>
     <string name="no_announcements">Няма аб\'яў.</string>
     <string name="pref_title_show_self_username">Паказваць імя карыстальніка на панэлях інструментаў</string>
@@ -393,7 +375,6 @@
     <string name="language_display_name_format">%1$s (%2$s)</string>
     <string name="delete_scheduled_post_warning">Выдаліць гэты запланаваны допіс\?</string>
     <string name="poll_new_choice_hint">Варыянт %1$d</string>
-    <string name="drafts_post_failed_to_send">Не атрымалася даслаць гэты допіс!</string>
     <string name="mute_notifications_switch">Бязгучныя апавяшчэнні</string>
     <string name="warning_scheduling_interval">Найменшы час планавання ў Mastodon складае 5 хвілін.</string>
     <string name="pref_summary_http_proxy_disabled">Адключана</string>

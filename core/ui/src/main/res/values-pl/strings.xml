@@ -182,4 +182,18 @@
     <string name="action_moderation_warning_view">Pokaż ostrzeżenie moderacji</string>
     <string name="action_open_reportee_profile">Otwórz profil osoby zgłaszającej</string>
     <string name="action_open_report">Otwórz raport</string>
+    <string name="create_poll_title">Ankieta</string>
+    <string name="duration_5_min">5 minut</string>
+    <string name="duration_30_min">30 minut</string>
+    <string name="duration_1_hour">1 godzina</string>
+    <string name="duration_6_hours">6 godzin</string>
+    <string name="duration_1_day">1 dzień</string>
+    <string name="duration_3_days">3 dni</string>
+    <string name="duration_7_days">7 dni</string>
+    <string name="duration_14_days">14 dni</string>
+    <string name="duration_30_days">30 dni</string>
+    <string name="duration_60_days">60 dni</string>
+    <string name="duration_90_days">90 dni</string>
+    <string name="duration_180_days">180 dni</string>
+    <string name="duration_365_days">365 dni</string>
 </resources>

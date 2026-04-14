@@ -27,7 +27,6 @@
     <string name="title_blocks">Bloqueados</string>
     <string name="title_follow_requests">Solicitudes de seguimiento</string>
     <string name="title_edit_profile">Editar tu perfil</string>
-    <string name="title_drafts">Borradores</string>
     <string name="post_sensitive_media_directions">Pulsa para ver</string>
     <string name="footer_empty">Nada por aquí. ¡Arrastra hacia abajo para recargar!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; impulsó tu publicación</string>
@@ -256,20 +255,11 @@
     <string name="title_accounts">Cuentas</string>
     <string name="failed_search">Error al buscar</string>
     <string name="action_add_poll">Añadir encuesta</string>
-    <string name="create_poll_title">Encuesta</string>
-    <string name="duration_5_min">5 minutos</string>
-    <string name="duration_30_min">30 minutos</string>
-    <string name="duration_1_hour">1 hora</string>
-    <string name="duration_6_hours">6 horas</string>
-    <string name="duration_1_day">1 día</string>
-    <string name="duration_3_days">3 días</string>
-    <string name="duration_7_days">7 días</string>
     <string name="add_poll_choice">Añadir opción</string>
     <string name="poll_allow_multiple_choices">Opciones múltiples</string>
     <string name="poll_new_choice_hint">Opción %1$d</string>
     <string name="edit_poll">Editar</string>
     <string name="title_scheduled_posts">Publicaciones programadas</string>
-    <string name="action_edit">Editar</string>
     <string name="action_access_scheduled_posts">Publicaciones programadas</string>
     <string name="action_schedule_post">Programar Publicación</string>
     <string name="action_reset_schedule">Restablecer</string>
@@ -277,7 +267,6 @@
     <string name="action_view_bookmarks">Marcadores</string>
     <string name="select_list_title">Seleccionar lista</string>
     <string name="list">Lista</string>
-    <string name="no_drafts">No tienes ningún borrador.</string>
     <string name="no_scheduled_posts">No tienes ninguna publicación programada.</string>
     <string name="warning_scheduling_interval">Mastodon tiene un intervalo de programación mínimo de 5 minutos.</string>
     <string name="notification_follow_request_name">Solicitudes de seguimiento</string>
@@ -323,8 +312,6 @@
 \n- Estadísticas de seguidores y publicaciones en perfiles
 \n
 \nLas notificaciones Push no serán afectadas, pero puedes revisar manualmente tus preferencias.</string>
-    <string name="drafts_post_reply_removed">La publicación a la que redactaste una respuesta ha sido eliminada</string>
-    <string name="drafts_post_failed_to_send">¡Esta publicación no se pudo enviar!</string>
     <string name="duration_indefinite">Indefinido</string>
     <string name="label_duration">Duración</string>
     <string name="action_unbookmark">Quitar marcador</string>
@@ -349,8 +336,6 @@
     <string name="compose_save_draft_loses_media">Los adjuntos se subirán de nuevo cuando vuelvas al borrador.</string>
     <string name="pref_title_show_self_username">Mostrar identificador en la barra de herramientas</string>
     <string name="account_date_joined">Se unió %1$s</string>
-    <string name="duration_14_days">14 días</string>
-    <string name="duration_365_days">365 días</string>
     <string name="failed_to_pin">Fallo al Fijar</string>
     <string name="failed_to_unpin">Fallo al Desfijar</string>
     <string name="notification_sign_up_description">Notificaciones sobre nuevos usuarios</string>
@@ -359,10 +344,6 @@
     <string name="filter_expiration_format">%1$s (%2$s)</string>
     <string name="action_set_focus">Establece el foco</string>
     <string name="description_post_language">Idioma de publicación</string>
-    <string name="duration_30_days">30 días</string>
-    <string name="duration_60_days">60 días</string>
-    <string name="duration_90_days">90 días</string>
-    <string name="duration_180_days">180 días</string>
     <string name="duration_no_change">(Sin cambios)</string>
     <string name="pachli_compose_post_quicksetting_label">Escribir publicación</string>
     <string name="saving_draft">Guardando borrador…</string>
@@ -731,9 +712,6 @@
     <string name="action_move_down">Mover abajo</string>
     <string name="notification_quote_format">&lt;b&gt;%1$s&lt;/b&gt; citó tu publicación</string>
     <string name="notification_quoted_update_format">&lt;b&gt;%1$s&lt;/b&gt; actualizó la publicación que citaste</string>
-    <string name="drafts_load_reply_failed_fmt">No se pudo cargar la publicación a la cual estás respondiendo: %1$s</string>
-    <string name="drafts_load_quote_failed_fmt">No se pudo cargar la publicación que estás citando: %1$s</string>
-    <string name="drafts_post_quote_removed">La publicación que citaste ha sido quitada</string>
     <string name="detach_quote_dialog_title">¿Quitar cita?</string>
     <string name="detach_quote_dialog_message">Esto quitará la publicación citada de esta publicación.\n\nTu publicación original no se borrará.\n\nEsto no puede deshacerse.</string>
     <string name="detach_quote_error_fmt">Fallo al quitar la cita: %1$s</string>

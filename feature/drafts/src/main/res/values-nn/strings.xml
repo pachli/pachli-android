@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_edit">Brigd</string>
+    <string name="title_drafts">Utkast</string>
+    <string name="drafts_post_reply_removed">Innlegget du skreiv et svar til, er vorte fjerna</string>
+    <string name="drafts_load_reply_failed_fmt">Klarte ikkje å lada inn innlegget som du svarar på: %1$s</string>
+    <string name="drafts_post_quote_removed">Innlegget som du hermde, har vorte sletta</string>
+    <string name="drafts_load_quote_failed_fmt">Klarte ikkje å lada inn innlegget du hermer: %1$s</string>
+    <string name="drafts_post_failed_to_send">Dette innlegget kunne ikkje sendast!</string>
+    <string name="no_drafts">Du har ingen lagra utkast.</string>
+</resources>

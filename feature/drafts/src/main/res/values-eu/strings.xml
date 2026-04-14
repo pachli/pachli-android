@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_edit">Editatu</string>
+    <string name="title_drafts">Zirriborroak</string>
+    <string name="drafts_post_reply_removed">Erantzun nahi zenuen tuta ezabatua izan da</string>
+    <string name="drafts_post_failed_to_send">Akatsa tut hau bidaltzean!</string>
+    <string name="no_drafts">Ez duzu zirriborrorik.</string>
+</resources>

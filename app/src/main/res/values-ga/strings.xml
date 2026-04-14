@@ -114,7 +114,6 @@
     <string name="action_send">SÉID</string>
     <string name="action_delete_and_redraft">Scrios agus athdhréachtú</string>
     <string name="action_delete">Scrios</string>
-    <string name="action_edit">Cuir in Eagar</string>
     <string name="action_report">Tuairiscigh</string>
     <string name="action_show_reblogs">Taispeáin athchraolta</string>
     <string name="action_hide_reblogs">Folaigh athchraolta</string>
@@ -132,7 +131,6 @@
     <string name="action_edit_profile">Cuir próifíl in eagar</string>
     <string name="action_view_account_preferences">Roghanna Cuntais</string>
     <string name="action_view_preferences">Sainroghanna</string>
-    <string name="title_drafts">Dréachtaí</string>
     <string name="title_favourites">Toghanna</string>
     <string name="post_share_link">Comhroinn nasc chuig postáil</string>
     <string name="post_share_content">Comhroinn inneachar na postála</string>
@@ -267,19 +265,10 @@
     <string name="title_accounts">Cuntais</string>
     <string name="failed_search">Theip ar chuardach</string>
     <string name="pref_title_enable_swipe_for_tabs">Cumasaigh gotha swipe aistriú idir cluaisíní</string>
-    <string name="create_poll_title">Vótaíocht</string>
-    <string name="duration_5_min">5 nóiméid</string>
-    <string name="duration_30_min">30 nóiméid</string>
-    <string name="duration_1_hour">1 uair an chloig</string>
-    <string name="duration_6_hours">6 uair an chloig</string>
-    <string name="duration_1_day">1 lá</string>
-    <string name="duration_3_days">3 lá</string>
-    <string name="duration_7_days">7 lá</string>
     <string name="add_poll_choice">Cuir rogha leis</string>
     <string name="poll_allow_multiple_choices">Ilroghanna</string>
     <string name="poll_new_choice_hint">Rogha %1$d</string>
     <string name="edit_poll">Cuir in Eagar</string>
-    <string name="no_drafts">Níl aon dréacht agat.</string>
     <string name="no_scheduled_posts">Níl aon phostáil sceidealta agat.</string>
     <string name="warning_scheduling_interval">Tá eatramh sceidealaithe íosta 5 nóiméad ag Mastodon.</string>
     <string name="pref_title_show_cards_in_timelines">Taispeáin réamhamhairc nasc in amlínte</string>
@@ -332,8 +321,6 @@
     <string name="notification_notification_worker">Fógraí á bhfáil…</string>
     <string name="set_focus_description">Tapáil nó tarraing an ciorcal chun an pointe fócasach a roghnú a bheidh le feiceáil i mionsamhlacha i gcónaí.</string>
     <string name="compose_schedule_date_time_fmt">%1$s%2$s</string>
-    <string name="duration_180_days">laethanta 180</string>
-    <string name="duration_365_days">laethanta 365</string>
     <string name="pref_title_show_self_username">Taispeáin ainm úsáideora i mbarra uirlisí</string>
     <string name="pref_title_confirm_status_language">Seiceáil socrú teanga an phoist roimh phostáil</string>
     <string name="pref_title_hide_top_toolbar">Folaigh teideal an bharra uirlisí is airde</string>
@@ -400,8 +387,6 @@
     <string name="search_operator_where_library">Do leabharlann</string>
     <string name="search_operator_where_dialog_all_hint">Poist i do leabharlann agus i do phoist phoiblí</string>
     <string name="upload_failed_msg_fmt">Theip ar uaslódáil an cheangaltáin. Déanfar iarracht eile an t-uaslódáil nuair a sheolfaidh tú an post. Má theipeann air arís, sábhálfar an post i do dhréachtaí.\n\nBa é an earráid: %1$s</string>
-    <string name="duration_30_days">laethanta 30</string>
-    <string name="duration_60_days">laethanta 60</string>
     <string name="pref_title_confirm_favourites">Taispeáin deimhniú roimh fhabhar</string>
     <string name="report_category_violation">Sárú rialach</string>
     <string name="action_add_to_tab">Cuir leis an táb</string>
@@ -411,7 +396,6 @@
     <string name="pref_summary_http_proxy_disabled">Díchumasaithe</string>
     <string name="action_edit_image">Cuir íomhá in eagar</string>
     <string name="hint_filter_title">Mo scagaire</string>
-    <string name="duration_14_days">laethanta 14</string>
     <string name="delete_scheduled_post_warning">Scrios an post sceidealta seo?</string>
     <string name="language_display_name_format">%1$s (%2$s)</string>
     <string name="ui_success_rejected_follow_request">Lean an t-iarratas bactha</string>
@@ -537,7 +521,6 @@
     <string name="a11y_label_loading_thread">Snáithe á luchtú</string>
     <string name="pref_title_notification_filter_reports">Tá tuairisc nua ann</string>
     <string name="pref_title_wellbeing_mode">Folláine</string>
-    <string name="drafts_post_reply_removed">Baineadh an post ar dhréachtaigh tú freagra air</string>
     <string name="socket_timeout_exception">Thóg sé rófhada teagmháil a dhéanamh le do fhreastalaí</string>
     <string name="ui_error_bookmark_fmt">Theip ar phost leabharmharcála: %1$s</string>
     <string name="ui_error_favourite_fmt">Theip ar fhabhar an phoist: %1$s</string>
@@ -585,8 +568,6 @@
     <string name="error_image_edit_failed">Níorbh fhéidir an íomhá a chur in eagar.</string>
     <string name="manage_lists">Bainistigh liostaí</string>
     <string name="conversation_0_recipients">Níl aon rannpháirtithe eile ann</string>
-    <string name="duration_90_days">laethanta 90</string>
-    <string name="drafts_post_failed_to_send">Theip ar an bpost seo a sheoladh!</string>
     <string name="follow_requests_info">Cé nach bhfuil do chuntas faoi ghlas, cheap foireann %1$s go mb\'fhéidir gur mhaith leat athbhreithniú a dhéanamh ar iarratais ó na cuntais seo de láimh.</string>
     <string name="help_empty_home">Seo é do <b>amlíne baile</b>. Taispeánann sé na postálacha le déanaí de na cuntais a leanann tú.\n\nChun cuntais a iniúchadh is féidir leat iad a aimsiú i gceann de na hamlínte eile. Mar shampla amlíne áitiúil do chás [deilbhíní gmd_group]. Nó is féidir leat iad a chuardach de réir ainm [deilbhíní gmd_search]; mar shampla déan cuardach do Pachli chun ár gcuntas Mastodon a aimsiú.</string>
     <string name="pref_notification_battery_optimisation_should_ignore">Ba cheart optamú ceallraí a dhíchumasú. Tapáil le hoscailt.</string>
@@ -749,9 +730,6 @@
     <string name="detach_quote_error_fmt">Theip ar an luachan a bhaint: %1$s</string>
     <string name="title_quotes">Sleachta</string>
     <string name="action_toggle_quote_policy">Athraigh polasaí luachana</string>
-    <string name="drafts_load_reply_failed_fmt">Níorbh fhéidir an post atá á fhreagairt agat a lódáil: %1$s</string>
-    <string name="drafts_load_quote_failed_fmt">Níorbh fhéidir an post atá á lua agat a lódáil: %1$s</string>
-    <string name="drafts_post_quote_removed">Baineadh an post a luaigh tú</string>
     <string name="compose_visibility_title">Cá seoltar é seo?</string>
     <string name="compose_quote_policy_title">Cá bhfuil sé seo?</string>
     <string name="compose_quote_policy_dialog_title">Athraigh an socrú luachana?</string>

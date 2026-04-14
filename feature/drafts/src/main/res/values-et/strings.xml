@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_edit">Muuda</string>
+    <string name="title_drafts">Kavandid</string>
+    <string name="drafts_post_reply_removed">See postitus on kustutatud, millele olid vastusekavandit koostamas</string>
+    <string name="drafts_load_reply_failed_fmt">Polnud võimalik laadida postitust, millele sa oled vastamas: %1$s</string>
+    <string name="drafts_post_quote_removed">Sinu tsiteeritud postitus on eemaldatud</string>
+    <string name="drafts_load_quote_failed_fmt">Polnud võimalik laadida postitust, mida sa oled tsiteerimas: %1$s</string>
+    <string name="drafts_post_failed_to_send">Selle postituse avaldamine ei õnnestunud!</string>
+    <string name="title_delete_drafts">Kas kustutad valitud kavandid?</string>
+    <string name="delete_drafts_msg">Järgnevaga kustutad valitud kavandid.</string>
+    <string name="action_delete_drafts">Kustuta valitud kavandid</string>
+    <string name="no_drafts">Sul pole ühtegi kavandit.</string>
+    <string name="send_post_failure_message_prefix">Saatmine ei õnnestunud: %1$s</string>
+</resources>

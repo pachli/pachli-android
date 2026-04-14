@@ -22,7 +22,6 @@
     <string name="title_blocks">ဘလော့ခ်ထားသော</string>
     <string name="title_follow_requests">စောင့်ကြည့်ခွင့်တောင်းခံမှုများ</string>
     <string name="title_edit_profile">သင့်ပရိုဖိုင်အားပြုပြင်ရန်</string>
-    <string name="title_drafts">ပုံကြမ်းများ</string>
     <string name="title_scheduled_posts">ချိန်ညှိထားသောပိုစ့်များ</string>
     <string name="title_followed_hashtags">စောင့်ကြည့်ထားသော hashtagများ</string>
     <string name="dialog_follow_hashtag_title">Hashtag ကိုစောင့်ကြည့်မည်</string>
@@ -210,7 +209,6 @@
     <string name="action_translate">ဘာသာပြန်မည်</string>
     <string name="pref_title_show_self_boosts_description">တစ်စုံတစ်ဦး ကိုယ်ပိုင်ပိုစ့်အားမျှဝေနေသည်</string>
     <string name="pref_title_notification_filter_subscriptions">စောင့်ကြည့်ထားသူတစ်ဦးမှပိုစ့်တင်ထားသည်</string>
-    <string name="action_edit">ပြင်ဆင်</string>
     <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; အကောင့်ဖွင့်သည်</string>
     <string name="action_open_reblogger">မျှဝေသူအားကြည့်မည်</string>
     <string name="pref_title_notification_filter_updates">ထိတွေ့ခဲ့သော ပိုစ့်တစ်ခုတွင်ပြင်ဆင်မှုများရှိသည်</string>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_edit">Labot</string>
+    <string name="title_drafts">Melnraksti</string>
+    <string name="drafts_post_reply_removed">Ieraksts, kuram saglabāji atbildes melnrakstu, tika noņemts</string>
+    <string name="drafts_load_reply_failed_fmt">Nevarēja ielādēt ierakstu, uz kuru atbildi: %1$s</string>
+    <string name="drafts_post_quote_removed">Ieraksts, kuru citēji, tika noņemts</string>
+    <string name="drafts_load_quote_failed_fmt">Nevarēja ielādēt ierakstu, kuru citē: %1$s</string>
+    <string name="drafts_post_failed_to_send">Neizdevās nosūtīt šo ierakstu.</string>
+    <string name="no_drafts">Tev nav neviena melnraksta.</string>
+</resources>

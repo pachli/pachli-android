@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_edit">수정</string>
+    <string name="title_drafts">임시 저장</string>
+</resources>

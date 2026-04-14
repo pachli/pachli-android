@@ -163,6 +163,7 @@ dependencies {
     implementation(projects.core.worker)
 
     implementation(projects.feature.about)
+    implementation(projects.feature.drafts)
     implementation(projects.feature.intentrouter)
     implementation(projects.feature.lists)
     implementation(projects.feature.login)

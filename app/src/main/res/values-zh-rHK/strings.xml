@@ -27,7 +27,6 @@
     <string name="title_blocks">被封鎖的使用者</string>
     <string name="title_follow_requests">關注請求</string>
     <string name="title_edit_profile">編輯個人資料</string>
-    <string name="title_drafts">草稿</string>
     <string name="post_sensitive_media_directions">點一下顯示</string>
     <string name="footer_empty">還沒有內容，向下拉動即可重新整理！</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; 轉嘟了你的嘟文</string>
@@ -237,7 +236,6 @@
     <string name="edit_poll">編輯</string>
     <string name="hashtags">話題</string>
     <string name="notification_follow_request_name">關注請求</string>
-    <string name="action_edit">編輯</string>
     <string name="pref_title_animate_custom_emojis">動態自訂表情符號</string>
     <string name="pref_title_gradient_for_media">在隱藏的媒體上使用漸變色彩</string>
     <string name="pref_title_animate_gif_avatars">動態 GIF 頭像</string>
@@ -267,8 +265,6 @@
     <string name="title_scheduled_posts">已排程的嘟文</string>
     <string name="title_domain_mutes">被隱藏的網域</string>
     <string name="filter_dialog_whole_word">完整字詞</string>
-    <string name="drafts_post_reply_removed">你的草稿欲回覆的原嘟文已被刪除</string>
-    <string name="drafts_post_failed_to_send">這條嘟文發送失敗！</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="other">你無法上傳超過 %1$d 媒體附件。</item>
     </plurals>
@@ -280,20 +276,11 @@
     <string name="warning_scheduling_interval">Mastodon 的最短發文間隔限制為 5 分鐘。</string>
     <string name="no_announcements">沒有公告。</string>
     <string name="no_scheduled_posts">你沒有任何已排程的嘟文。</string>
-    <string name="no_drafts">你沒有任何草稿。</string>
     <string name="poll_new_choice_hint">選項 %1$d</string>
     <string name="poll_allow_multiple_choices">多個選項</string>
     <string name="add_poll_choice">新增選項</string>
-    <string name="duration_7_days">7 天</string>
-    <string name="duration_3_days">3 天</string>
-    <string name="duration_1_day">1 天</string>
-    <string name="duration_6_hours">6 小時</string>
-    <string name="duration_1_hour">1 小時</string>
-    <string name="duration_30_min">30 分鐘</string>
-    <string name="duration_5_min">5 分鐘</string>
     <string name="duration_indefinite">無限期</string>
     <string name="label_duration">期間</string>
-    <string name="create_poll_title">投票</string>
     <string name="pref_title_enable_swipe_for_tabs">啟用在分頁間切換的滑動手勢</string>
     <string name="failed_search">搜尋失敗</string>
     <string name="title_accounts">帳號</string>

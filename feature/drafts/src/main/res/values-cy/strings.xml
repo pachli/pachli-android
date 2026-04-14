@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_edit">Golygu</string>
+    <string name="title_drafts">Drafftiau</string>
+    <string name="drafts_post_reply_removed">Mae\'r neges y drafftioch ymateb iddi wedi cael ei dileu</string>
+    <string name="drafts_post_failed_to_send">Methodd anfon y neges hon!</string>
+    <string name="no_drafts">Does gennych chi ddim drafftiau.</string>
+</resources>

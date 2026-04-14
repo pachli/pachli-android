@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="action_edit">編集</string>
+    <string name="title_drafts">下書き</string>
+    <string name="drafts_post_reply_removed">下書きの返信先の投稿が削除されました</string>
+    <string name="drafts_post_failed_to_send">この投稿の送信に失敗しました！</string>
+    <string name="no_drafts">下書きはありません。</string>
+</resources>

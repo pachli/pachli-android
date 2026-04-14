@@ -173,4 +173,18 @@
     <string name="action_open_reportee_profile">Atvērt profilu, par kuru sūdzas</string>
     <string name="description_quoted_post_prefix">Citētais ieraksts:</string>
     <string name="action_open_report">Atvērt ziņojumu</string>
+    <string name="create_poll_title">Aptauja</string>
+    <string name="duration_5_min">5 minūtes</string>
+    <string name="duration_30_min">30 minūtes</string>
+    <string name="duration_1_hour">1 stundu</string>
+    <string name="duration_6_hours">6 stundas</string>
+    <string name="duration_1_day">1 dienu</string>
+    <string name="duration_3_days">3 dienas</string>
+    <string name="duration_7_days">7 dienas</string>
+    <string name="duration_14_days">14 dienas</string>
+    <string name="duration_30_days">30 dienas</string>
+    <string name="duration_60_days">60 dienas</string>
+    <string name="duration_90_days">90 dienas</string>
+    <string name="duration_180_days">180 dienas</string>
+    <string name="duration_365_days">365 dienas</string>
 </resources>

@@ -21,7 +21,6 @@ import android.view.LayoutInflater
 import android.view.WindowManager
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
-import app.pachli.R
 import app.pachli.core.model.NewPoll
 import app.pachli.databinding.DialogAddPollBinding
 
@@ -39,8 +38,8 @@ fun showAddPollDialog(
     val binding = DialogAddPollBinding.inflate(LayoutInflater.from(context))
 
     val dialog = AlertDialog.Builder(context)
-        .setIcon(R.drawable.ic_poll_24dp)
-        .setTitle(R.string.create_poll_title)
+        .setIcon(app.pachli.core.ui.R.drawable.ic_poll_24dp)
+        .setTitle(app.pachli.core.ui.R.string.create_poll_title)
         .setView(binding.root)
         .setNegativeButton(android.R.string.cancel, null)
         .setPositiveButton(android.R.string.ok, null)
@@ -60,8 +59,8 @@ fun showAddPollDialog(
 
     binding.pollChoices.adapter = adapter
 
-    var durations = context.resources.getIntArray(R.array.poll_duration_values).toList()
-    val durationLabels = context.resources.getStringArray(R.array.poll_duration_names).filterIndexed { index, _ -> durations[index] in minDuration..maxDuration }
+    var durations = context.resources.getIntArray(app.pachli.core.ui.R.array.poll_duration_values).toList()
+    val durationLabels = context.resources.getStringArray(app.pachli.core.ui.R.array.poll_duration_names).filterIndexed { index, _ -> durations[index] in minDuration..maxDuration }
     binding.pollDurationSpinner.adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, durationLabels).apply {
         setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item)
     }

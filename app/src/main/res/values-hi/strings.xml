@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="title_favourites">पसंदीदा</string>
-    <string name="title_drafts">प्रारूप</string>
     <string name="action_view_preferences">प्राथमिकताएं</string>
     <string name="action_view_account_preferences">खाता प्राथमिकताएं</string>
     <string name="action_edit_profile">प्रोफाइल एडिट करें</string>
@@ -15,7 +14,6 @@
     <string name="action_hide_reblogs">बूस्ट छिपाएं</string>
     <string name="action_show_reblogs">बूस्ट दिखाएं</string>
     <string name="action_report">रिपोर्ट करें</string>
-    <string name="action_edit">एडिट करें</string>
     <string name="action_delete">डिलीट करें</string>
     <string name="action_delete_and_redraft">डिलीट एवं रिड्राफ्ट करें</string>
     <string name="action_send">टूट करें</string>
@@ -32,7 +30,6 @@
     <string name="edit_poll">संपादित करें</string>
     <string name="pref_title_notification_filter_poll">जनमत खत्म हो गया हैं</string>
     <string name="action_add_poll">जनमत शुरू करें</string>
-    <string name="create_poll_title">पोल</string>
     <string name="title_accounts">खाता</string>
     <string name="button_back">पीछे</string>
     <string name="compose_shortcut_short_label">लिखें</string>
@@ -143,13 +140,6 @@
     <string name="add_poll_choice">विकल्प जोड़ें</string>
     <string name="poll_new_choice_hint">विकल्प %1$d</string>
     <string name="poll_allow_multiple_choices">कई विकल्प</string>
-    <string name="duration_7_days">7 दिन</string>
-    <string name="duration_3_days">3 दिन</string>
-    <string name="duration_1_day">1 दिन</string>
-    <string name="duration_6_hours">6 घंटे</string>
-    <string name="duration_1_hour">1 घंटा</string>
-    <string name="duration_30_min">30 मिनिट</string>
-    <string name="duration_5_min">5 मिनट</string>
     <string name="poll_ended_created">आपके द्वारा बनाया गया एक जनमत समाप्त हो गया है</string>
     <string name="poll_ended_voted">आपके द्वारा मतदान किया गया जनमत समाप्त हो गया है</string>
     <string name="hashtags">हैशटैग</string>
@@ -167,7 +157,6 @@
     <string name="pref_title_public_filter_keywords">सार्वजनिक टाइमलाइन</string>
     <string name="pref_title_show_cards_in_timelines">टाइमलाइन में लिंक प्रीव्यू दिखाएं</string>
     <string name="warning_scheduling_interval">मास्टोडन का न्यूनतम शेड्यूलिंग अंतराल 5 मिनट है।</string>
-    <string name="no_drafts">आपके पास कोई ड्राफ्ट नहीं है।</string>
     <string name="pref_title_enable_swipe_for_tabs">टैब के बीच स्विच करने के लिए स्वाइप जेस्चर को सक्षम करें</string>
     <string name="failed_search">खोज करने में विफल</string>
     <string name="report_description_remote_instance">खाता किसी अन्य सर्वर से है। रिपोर्ट की अनाम प्रति वहां भी भेजें\?</string>

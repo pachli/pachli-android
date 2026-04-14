@@ -142,4 +142,18 @@
     <string name="action_unselect_status">Avmarkera inlägg</string>
     <string name="action_show_pronouns">Visa pronomen</string>
     <string name="action_open_quoted_post">Öppna citatpost</string>
+    <string name="create_poll_title">Omröstning</string>
+    <string name="duration_5_min">5 minuter</string>
+    <string name="duration_30_min">30 minuter</string>
+    <string name="duration_1_hour">1 timme</string>
+    <string name="duration_6_hours">6 timmar</string>
+    <string name="duration_1_day">1 dag</string>
+    <string name="duration_3_days">3 dagar</string>
+    <string name="duration_7_days">7 dagar</string>
+    <string name="duration_14_days">14 dagar</string>
+    <string name="duration_30_days">30 dagar</string>
+    <string name="duration_60_days">60 dagar</string>
+    <string name="duration_90_days">90 dagar</string>
+    <string name="duration_180_days">180 dagar</string>
+    <string name="duration_365_days">365 dagar</string>
 </resources>

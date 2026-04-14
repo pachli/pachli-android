@@ -99,4 +99,18 @@
     <string name="filter_edit_title">Szűrő szerkesztése</string>
     <string name="status_filtered_show_anyway">Mutatás mindenképpen</string>
     <string name="status_filter_placeholder_label_format">Szűrve: &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="create_poll_title">Szavazás</string>
+    <string name="duration_5_min">5 perc</string>
+    <string name="duration_30_min">30 perc</string>
+    <string name="duration_1_hour">1 óra</string>
+    <string name="duration_6_hours">6 óra</string>
+    <string name="duration_1_day">1 nap</string>
+    <string name="duration_3_days">3 nap</string>
+    <string name="duration_7_days">7 nap</string>
+    <string name="duration_14_days">14 nap</string>
+    <string name="duration_30_days">30 nap</string>
+    <string name="duration_60_days">60 nap</string>
+    <string name="duration_90_days">90 nap</string>
+    <string name="duration_180_days">180 nap</string>
+    <string name="duration_365_days">365 nap</string>
 </resources>

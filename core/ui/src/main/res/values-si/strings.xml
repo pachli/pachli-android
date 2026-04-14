@@ -68,4 +68,12 @@
         <item quantity="other">ප්‍රියතමයන් &lt;b&gt;%1$s&lt;/b&gt;</item>
     </plurals>
     <string name="filter_edit_title">පෙරහන සංස්කරණය</string>
+    <string name="create_poll_title">මතවිමසුම</string>
+    <string name="duration_5_min">විනාඩි 5</string>
+    <string name="duration_30_min">විනාඩි 30</string>
+    <string name="duration_1_hour">පැය 1</string>
+    <string name="duration_6_hours">පැය 6</string>
+    <string name="duration_1_day">දවස් 1</string>
+    <string name="duration_3_days">දවස් 3</string>
+    <string name="duration_7_days">දවස් 7</string>
 </resources>

@@ -22,7 +22,6 @@
     <string name="title_blocks">தடைசெய்யபட்ட பயனர்கள்</string>
     <string name="title_follow_requests">பின்பற்ற கோரிக்கை</string>
     <string name="title_edit_profile">சுயவிவரத்தை திருத்த</string>
-    <string name="title_drafts">வரைவுகள்</string>
     <string name="post_sensitive_media_directions">பார்வையிட சொடுக்கவும்</string>
     <string name="footer_empty">இங்கு எதுவுமில்லை. புதுப்பிக்க கீழே இழுக்கவும்!</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; தங்களின் toot உயர்த்தப்பட்டுள்ளது</string>
@@ -186,15 +185,11 @@
     <string name="title_direct_messages">நேரடி தகவல்</string>
     <string name="title_tab_preferences">பட்டைகள்</string>
     <string name="title_posts_pinned">பொருத்தப்பட்டது</string>
-    <string name="duration_1_day">1 நாள்</string>
-    <string name="duration_3_days">3 நாட்கள்</string>
-    <string name="duration_7_days">7 நாட்கள்</string>
     <string name="add_poll_choice">விருப்பத்தைச் சேர்</string>
     <string name="notification_follow_request_name">பின்பற்ற கோரிக்கை</string>
     <string name="filter_dialog_remove_button">நீக்கு</string>
     <string name="action_open_reblogged_by">மேலேற்றத்தை காண்பி</string>
     <string name="edit_poll">திருத்த</string>
-    <string name="action_edit">திருத்த</string>
     <string name="conversation_2_recipients">%1$s மற்றும் %2$s</string>
     <string name="compose_shortcut_short_label">எழுது</string>
     <string name="title_edits">திருத்தங்கள்</string>
@@ -352,7 +347,6 @@
     <string name="pref_title_alway_open_spoiler">உள்ளடக்க எச்சரிக்கைகளுடன் குறிக்கப்பட்ட இடுகைகளை எப்போதும் விரிவாக்குங்கள்</string>
     <string name="description_login">பெரும்பாலான சந்தர்ப்பங்களில் வேலை செய்கிறது. மற்ற பயன்பாடுகளுக்கு தரவு எதுவும் கசியவில்லை.</string>
     <string name="load_newest_statuses">புதிய இடுகைகளை ஏற்றவும்</string>
-    <string name="duration_90_days">90 நாட்கள்</string>
     <string name="ui_error_clear_notifications">அறிவிப்புகளை அழித்தல் தோல்வியுற்றது: %1$s</string>
     <string name="filter_description_format">%1$s: %2$s</string>
     <string name="load_newest_notifications">புதிய அறிவிப்புகளை ஏற்றவும்</string>
@@ -378,8 +372,6 @@
     <string name="title_accounts">கணக்குகள்</string>
     <string name="pref_title_enable_swipe_for_tabs">தாவல்களுக்கு இடையில் மாற ச்வைப் சைகையை இயக்கவும்</string>
     <string name="pref_title_show_stat_inline">காலவரிசையில் இடுகை புள்ளிவிவரங்களைக் காட்டு</string>
-    <string name="duration_14_days">14 நாட்கள்</string>
-    <string name="duration_60_days">60 நாட்கள்</string>
     <string name="filter_keyword_addition_title">முக்கிய சொல்லைச் சேர்க்கவும்</string>
     <string name="compose_warn_language_dialog_change_language_fmt">மொழியை %1$s ஆக மாற்றி இடுகையிடவும்</string>
     <string name="label_filter_action">வடிகட்டி செயல்</string>
@@ -415,7 +407,6 @@
     <string name="failed_fetch_posts">இடுகைகளைப் பெறத் தவறிவிட்டது</string>
     <string name="poll_new_choice_hint">தேர்வு %1$d</string>
     <string name="no_announcements">அறிவிப்புகள் எதுவும் இல்லை.</string>
-    <string name="no_drafts">உங்களிடம் எந்த வரைவுகளும் இல்லை.</string>
     <string name="ui_error_vote_fmt">வாக்கெடுப்பில் வாக்களிப்பது தோல்வியடைந்தது: %1$s</string>
     <string name="ui_error_translate_status_fmt">மொழிபெயர்ப்பு தோல்வியுற்றது: %1$s</string>
     <string name="ui_error_filter_v1_load_fmt">ஏற்றுதல் வடிப்பான்கள் தோல்வியடைந்தன: %1$s</string>
@@ -447,9 +438,6 @@
 
     <string name="compose_preview_image_description">படங்களுக்கான செயல்கள் %1$s</string>
     <string name="duration_indefinite">காலவரையற்றது</string>
-    <string name="duration_5_min">5 நிமிடங்கள்</string>
-    <string name="duration_1_hour">1 மணி நேரம்</string>
-    <string name="duration_180_days">180 நாட்கள்</string>
     <string name="account_note_hint">இந்த கணக்கைப் பற்றிய உங்கள் தனிப்பட்ட குறிப்பு</string>
     <string name="saving_draft">வரைவு சேமிப்பு…</string>
     <string name="total_usage">மொத்த பயன்பாடு</string>
@@ -491,10 +479,7 @@
     <string name="poll_ended_created">நீங்கள் உருவாக்கிய வாக்கெடுப்பு முடிந்தது</string>
     <string name="report_sent_success">வெற்றிகரமாக அறிவிக்கப்பட்டது @%1$s</string>
     <string name="report_description_remote_instance">கணக்கு மற்றொரு சேவையகத்திலிருந்து வந்தது. அறிக்கையின் அநாமதேய நகலையும் அங்கே அனுப்பவா?</string>
-    <string name="create_poll_title">வாக்கெடுப்பு</string>
     <string name="label_duration">காலம்</string>
-    <string name="duration_6_hours">6 மணி நேரம்</string>
-    <string name="duration_365_days">365 நாட்கள்</string>
     <string name="duration_no_change">(எந்த மாற்றமும் இல்லை)</string>
     <string name="pref_title_show_self_username">கருவிப்பட்டிகளில் பயனர்பெயரைக் காட்டு</string>
     <string name="follow_requests_info">உங்கள் கணக்கு பூட்டப்படவில்லை என்றாலும், %1$s ஊழியர்கள் இந்த கணக்குகளின் கோரிக்கைகளை கைமுறையாக மதிப்பாய்வு செய்ய விரும்பலாம் என்று நினைத்தீர்கள்.</string>
@@ -572,8 +557,6 @@
     <string name="list">பட்டியல்</string>
     <string name="notifications_clear">அறிவிப்புகளை நீக்கு</string>
     <string name="failed_search">தேடத் தவறிவிட்டது</string>
-    <string name="duration_30_min">30 நிமிடங்கள்</string>
-    <string name="drafts_post_reply_removed">நீங்கள் வரைவு செய்த இடுகை அகற்றப்பட்டது</string>
     <string name="action_unsubscribe_account">குழுவிலகவும்</string>
     <string name="report_category_violation">விதி மீறல்</string>
     <string name="report_category_spam">ச்பேம்</string>
@@ -609,7 +592,6 @@
     <string name="notification_follow_request_description">பின்தொடர்தல் கோரிக்கைகளைப் பற்றிய அறிவிப்புகள்</string>
     <string name="notification_severed_relationships_description">துண்டிக்கப்பட்ட உறவுகள் பற்றிய அறிவிப்புகள்</string>
     <string name="failed_report">புகாரளிக்கத் தவறிவிட்டது</string>
-    <string name="duration_30_days">30 நாட்கள்</string>
     <string name="search_operator_from_account_fmt">%1$s மட்டுமே</string>
     <string name="search_operator_from_ignore_account_fmt">%1$s அல்ல</string>
     <string name="search_operator_from_dialog_title">குறிப்பிட்ட கணக்குகளுக்கு வரம்பு?</string>
@@ -637,7 +619,6 @@
         <item quantity="one">நீங்கள் %1$d மீடியா இணைப்புக்கு மேல் பதிவேற்ற முடியாது.</item>
         <item quantity="other">நீங்கள் %1$d மீடியா இணைப்புகளுக்கு மேல் பதிவேற்ற முடியாது.</item>
     </plurals>
-    <string name="drafts_post_failed_to_send">இந்த இடுகை அனுப்பத் தவறிவிட்டது!</string>
     <string name="action_subscribe_account">குழுசேர்</string>
     <string name="pachli_compose_post_quicksetting_label">இடுகையை எழுதுங்கள்</string>
     <string name="announcement_date">%1$s %2$s</string>
@@ -721,9 +702,6 @@
     <string name="notification_quoted_update_description">நீங்கள் மேற்கோள் காட்டிய இடுகைகள் திருத்தப்படும் போது அறிவிப்புகள்</string>
     <string name="action_move_up">மேலே செல்லவும்</string>
     <string name="action_move_down">கீழே நகர்த்தவும்</string>
-    <string name="drafts_load_reply_failed_fmt">நீங்கள் பதிலளிக்கும் இடுகையை ஏற்ற முடியவில்லை: %1$s</string>
-    <string name="drafts_load_quote_failed_fmt">நீங்கள் மேற்கோள் காட்டும் இடுகையை ஏற்ற முடியவில்லை: %1$s</string>
-    <string name="drafts_post_quote_removed">நீங்கள் மேற்கோள் காட்டிய இடுகை அகற்றப்பட்டது</string>
     <string name="filter_action_blur">இணைப்புகளை மறை</string>
     <string name="filter_description_blur">உள்ளடக்கத்தைக் காட்டு, எச்சரிக்கையுடன் இணைப்புகளை மறை</string>
     <string name="search_operator_quote_all">மேற்கோள்கள் ▾</string>

@@ -15,7 +15,6 @@
     <string name="title_bookmarks">Grāmatzīmes</string>
     <string name="title_follows">Sekojamie</string>
     <string name="title_mutes">Apklusinātie lietotāji</string>
-    <string name="title_drafts">Melnraksti</string>
     <string name="title_edit_profile">Labot savu profilu</string>
     <string name="title_domain_mutes">Paslēptie domēni</string>
     <string name="title_follow_requests">Sekošanas pieprasījumi</string>
@@ -30,7 +29,6 @@
     <string name="action_follow">Sekot</string>
     <string name="action_unblock">Atbloķēt</string>
     <string name="action_unfollow">Pārtraukt sekošanu</string>
-    <string name="action_edit">Labot</string>
     <string name="action_delete">Dzēst</string>
     <string name="action_delete_conversation">Dzēst sarunu</string>
     <string name="action_view_preferences">Iestatījumi</string>
@@ -105,20 +103,9 @@
     <string name="filter_apply">Pielietot</string>
     <string name="button_back">Atpakaļ</string>
     <string name="hint_additional_info">Papildu komentāri</string>
-    <string name="create_poll_title">Aptauja</string>
     <string name="report_description_remote_instance">Konts ir no cita servera. Vai nosūtīt anonimizētu ziņojuma kopiju arī tam?</string>
-    <string name="duration_30_min">30 minūtes</string>
     <string name="duration_indefinite">Bezgalīgi</string>
-    <string name="duration_1_hour">1 stundu</string>
-    <string name="duration_6_hours">6 stundas</string>
-    <string name="duration_1_day">1 dienu</string>
-    <string name="duration_3_days">3 dienas</string>
-    <string name="duration_7_days">7 dienas</string>
     <string name="label_duration">Ilgums</string>
-    <string name="duration_30_days">30 dienas</string>
-    <string name="duration_60_days">60 dienas</string>
-    <string name="duration_180_days">180 dienas</string>
-    <string name="duration_365_days">365 dienas</string>
     <string name="add_poll_choice">Pievienot izvēli</string>
     <string name="poll_allow_multiple_choices">Vairākas izvēles</string>
     <string name="poll_new_choice_hint">%1$d. izvēle</string>
@@ -134,7 +121,6 @@
     <string name="action_block">Bloķēt</string>
     <string name="action_report">Ziņot</string>
     <string name="action_open_in_web">Atvērt pārlūkā</string>
-    <string name="duration_5_min">5 minūtes</string>
     <string name="hint_search">Meklēt…</string>
     <string name="title_accounts">Konti</string>
     <string name="title_home">Sākums</string>
@@ -161,8 +147,6 @@
     <string name="follows_you">Seko Tev</string>
     <string name="compose_save_draft">Saglabāt melnrakstu\?</string>
     <string name="download_failed">Lejupielāde neizdevās</string>
-    <string name="duration_14_days">14 dienas</string>
-    <string name="duration_90_days">90 dienas</string>
     <string name="saving_draft">Saglabā melnrakstu…</string>
     <string name="post_sensitive_media_directions">Klikšķināt, lai apskatītu</string>
     <string name="report_description_1">Ziņojums tiks nosūtīts Tava servera satura pārraudzītājam. Zemāk vari sniegt skaidrojumu, kāpēc Tu ziņo par šo kontu:</string>
@@ -175,7 +159,6 @@
     <string name="emoji_style">Emocijzīmju stils</string>
     <string name="add_hashtag_title">Pievienot tēmturi</string>
     <string name="pref_title_show_cards_in_timelines">Rādīt saišu priekšskatījumus laika līnijās</string>
-    <string name="drafts_post_failed_to_send">Neizdevās nosūtīt šo ierakstu.</string>
     <string name="title_blocks">Bloķētie lietotāji</string>
     <string name="pref_title_http_proxy_enable">Iespējot HTTP starpniekserveri</string>
     <string name="pref_title_http_proxy_server">HTTP starpniekserveris</string>
@@ -303,7 +286,6 @@
     <string name="notification_mention_descriptions">Paziņojumi par jaunām pieminēšanām</string>
     <string name="notification_follow_request_description">Paziņojumi par sekošanas pieprasījumiem</string>
     <string name="notification_boost_description">Paziņojumi par Tavu ierakstu pastiprināšanu</string>
-    <string name="no_drafts">Tev nav neviena melnraksta.</string>
     <string name="no_announcements">Nav paziņojumu.</string>
     <string name="pref_title_show_self_username">Rādīt lietotājvārdu rīkjoslās</string>
     <string name="pref_title_confirm_reblogs">Pirms pastiprināšanas rādīt apstiprināšanas dialogu</string>
@@ -589,7 +571,6 @@
     <string name="pref_title_notification_filter_severed_relationships">Sekošanas/sekotāja saikne ir pārtraukta</string>
     <string name="pref_title_notification_filter_updates">Ieraksts, ar kuru esmu mijiedarbojies, tika labots</string>
     <string name="pref_title_notification_filter_subscriptions">Kāds, kuru abonēju, laida klajā jaunu ierakstu</string>
-    <string name="drafts_post_reply_removed">Ieraksts, kuram saglabāji atbildes melnrakstu, tika noņemts</string>
     <string name="export_preferences_ok_fmt">Iestatījumi izgūti %1$s</string>
     <string name="error_export_preferences_fmt">Nevarēja izgūt iestatījumus %1$s: %2$s</string>
     <string name="ui_error_favourite_fmt">Ieraksta ievietošana izlasē neizdevās: %1$s</string>
@@ -727,9 +708,6 @@
     <string name="detach_quote_error_fmt">Citāta noņemšana neizdevās: %1$s</string>
     <string name="title_quotes">Citāti</string>
     <string name="action_toggle_quote_policy">Mainīt citēšanas pamatnostādni</string>
-    <string name="drafts_load_reply_failed_fmt">Nevarēja ielādēt ierakstu, uz kuru atbildi: %1$s</string>
-    <string name="drafts_load_quote_failed_fmt">Nevarēja ielādēt ierakstu, kuru citē: %1$s</string>
-    <string name="drafts_post_quote_removed">Ieraksts, kuru citēji, tika noņemts</string>
     <string name="compose_visibility_title">Kur šis tiek nosūtīts?</string>
     <string name="compose_quote_policy_title">Kurš var citēt šo ierakstu?</string>
     <string name="compose_quote_policy_dialog_title">Mainīt citāta iestatījumu?</string>
