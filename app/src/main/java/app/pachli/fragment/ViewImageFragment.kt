@@ -66,8 +66,9 @@ class ViewImageFragment : ViewMediaFragment() {
     override fun setupMediaView(showingDescription: Boolean) {
         binding.photoView.transitionName = attachment.url
 
+        binding.mediaDescription.text = attachment.description
+
         if (showingDescription) {
-            binding.mediaDescription.text = attachment.description
             captionBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
         } else {
             captionBehavior.state = BottomSheetBehavior.STATE_HIDDEN
@@ -290,8 +291,8 @@ class ViewImageFragment : ViewMediaFragment() {
     }
 
     /**
-     * We start transition as soon as we think reasonable but we must take care about couple of
-     * things>
+     * We start transition as soon as we think reasonable, but we must take care of a couple of
+     * things:
      *  - Do not change image in the middle of transition. It messes up the view.
      *  - Do not transition for the views which don't require it. Starting transition from
      *      multiple fragments does weird things
