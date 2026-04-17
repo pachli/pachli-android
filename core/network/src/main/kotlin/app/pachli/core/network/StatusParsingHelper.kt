@@ -17,16 +17,14 @@
 
 package app.pachli.core.network
 
-import android.text.Html.TagHandler
+import android.text.Html
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import androidx.core.text.parseAsHtml
 import app.pachli.core.common.string.trimTrailingWhitespace
 
-private val rxBR = "<br> ".toRegex()
-
 /**
- * Matches the fallback "<X class="quote-inline">...</X>" added to statuses
+ * Matches the fallback `<X class="quote-inline">...</X>` added to statuses
  * with an embedded quote for clients that don't display quotes (X may be any
  * element, not just `p`. For example, Akkoma inserts a `span` element).
  */
@@ -39,17 +37,23 @@ fun CharSequence.removeQuoteInline(): String {
     return this.replace(rxQuoteInline, "")
 }
 
+interface PachliTagHandler : Html.TagHandler {
+    /**
+     * Called before parsing the HTML, allowing the tag handler to
+     * rewrite any of the HTML (e.g., renaming tags) before it is
+     * processed by the [Html.TagHandler].
+     */
+    fun rewriteHtml(html: CharSequence): String = html.toString()
+}
+
 /**
- * parse a String containing html from the Mastodon api to Spanned
+ * Parses a String containing HTML from the Mastodon API to Spanned
  */
 @JvmOverloads
-fun CharSequence.parseAsMastodonHtml(tagHandler: TagHandler? = null): Spanned {
-    return this.replace(rxBR, "<br>&nbsp;")
-        .replace("<br /> ", "<br />&nbsp;")
-        .replace("<br/> ", "<br/>&nbsp;")
-        .replace("  ", "&nbsp;&nbsp;")
+fun CharSequence.parseAsMastodonHtml(tagHandler: PachliTagHandler? = null): Spanned {
+    return (tagHandler?.rewriteHtml(this) ?: this.toString())
         .parseAsHtml(tagHandler = tagHandler)
-        // Html.fromHtml returns trailing whitespace if the html ends in a </p> tag, which
+        // Html.fromHtml returns trailing whitespace if the HTML ends in a </p> tag, which
         // most status contents do, so it should be trimmed.
         .trimTrailingWhitespace()
 }

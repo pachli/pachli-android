@@ -19,8 +19,8 @@ package app.pachli.components.viewthread.edits
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.pachli.components.viewthread.edits.PachliTagHandler.Companion.DELETED_TEXT_EL
-import app.pachli.components.viewthread.edits.PachliTagHandler.Companion.INSERTED_TEXT_EL
+import app.pachli.components.viewthread.edits.ViewEditsTagHandler.Companion.DELETED_TEXT_EL
+import app.pachli.components.viewthread.edits.ViewEditsTagHandler.Companion.INSERTED_TEXT_EL
 import app.pachli.core.model.StatusEdit
 import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi

@@ -3,10 +3,6 @@ package app.pachli.components.viewthread.edits
 import android.content.Context
 import android.graphics.Typeface
 import android.text.Editable
-import android.text.Html
-import android.text.Spannable
-import android.text.SpannableStringBuilder
-import android.text.Spanned
 import android.text.TextPaint
 import android.text.style.CharacterStyle
 import android.text.style.MetricAffectingSpan
@@ -23,6 +19,7 @@ import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.StatusEdit
+import app.pachli.core.network.PachliTagHandler
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.BindingHolder
 import app.pachli.core.ui.LinkListener
@@ -31,6 +28,9 @@ import app.pachli.core.ui.PollAdapter.DisplayMode
 import app.pachli.core.ui.PollOptionViewData
 import app.pachli.core.ui.SetContentAsMastodonHtml
 import app.pachli.core.ui.emojify
+import app.pachli.core.ui.taghandler.Mark
+import app.pachli.core.ui.taghandler.appendMark
+import app.pachli.core.ui.taghandler.setSpansFromMark
 import app.pachli.databinding.ItemStatusEditBinding
 import com.bumptech.glide.RequestManager
 import org.xml.sax.XMLReader
@@ -52,7 +52,7 @@ class ViewEditsAdapter(
     /** Size of medium text in this theme, in px */
     private var mediumTextSizePx: Float = 0f
 
-    private val pachliTagHandler = PachliTagHandler(context)
+    private val viewEditsTagHandler = ViewEditsTagHandler(context)
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -108,7 +108,7 @@ class ViewEditsAdapter(
             binding.statusEditContentWarningDescription.show()
             binding.statusEditContentWarningSeparator.show()
             binding.statusEditContentWarningDescription.text = edit.spoilerText
-                .parseAsMastodonHtml(pachliTagHandler)
+                .parseAsMastodonHtml(viewEditsTagHandler)
                 .emojify(
                     glide,
                     edit.emojis,
@@ -124,7 +124,7 @@ class ViewEditsAdapter(
             emojis = edit.emojis,
             animateEmojis = animateEmojis,
             removeQuoteInline = false,
-            tagHandler = pachliTagHandler,
+            tagHandler = viewEditsTagHandler,
             linkListener = listener,
         )
 
@@ -182,65 +182,29 @@ class ViewEditsAdapter(
  * Handle XML tags created by [ViewEditsViewModel] and create custom spans to display inserted or
  * deleted text.
  */
-class PachliTagHandler(val context: Context) : Html.TagHandler {
-    /** Class to mark the start of a span of deleted text */
-    class Del
+class ViewEditsTagHandler(val context: Context) : PachliTagHandler {
+    /** Object to mark the start of a span of deleted text */
+    object Del : Mark
 
-    /** Class to mark the start of a span of inserted text */
-    class Ins
+    /** Object to mark the start of a span of inserted text */
+    object Ins : Mark
 
     override fun handleTag(opening: Boolean, tag: String, output: Editable, xmlReader: XMLReader) {
         when (tag) {
             DELETED_TEXT_EL -> {
                 if (opening) {
-                    start(output as SpannableStringBuilder, Del())
+                    output.appendMark(Del)
                 } else {
-                    end(
-                        output as SpannableStringBuilder,
-                        Del::class.java,
-                        DeletedTextSpan(context),
-                    )
+                    output.setSpansFromMark(Del, DeletedTextSpan(context))
                 }
             }
             INSERTED_TEXT_EL -> {
                 if (opening) {
-                    start(output as SpannableStringBuilder, Ins())
+                    output.appendMark(Ins)
                 } else {
-                    end(
-                        output as SpannableStringBuilder,
-                        Ins::class.java,
-                        InsertedTextSpan(context),
-                    )
+                    output.setSpansFromMark(Ins, InsertedTextSpan(context))
                 }
             }
-        }
-    }
-
-    /** @return the last span in [text] of type [kind], or null if that kind is not in text */
-    private fun <T> getLast(text: Spanned, kind: Class<T>): Any? {
-        val spans = text.getSpans(0, text.length, kind)
-        return spans?.get(spans.size - 1)
-    }
-
-    /**
-     * Mark the start of a span of [text] with [mark] so it can be discovered later by [end].
-     */
-    private fun start(text: SpannableStringBuilder, mark: Any) {
-        val len = text.length
-        text.setSpan(mark, len, len, Spannable.SPAN_MARK_MARK)
-    }
-
-    /**
-     * Set a [span] over the [text] most from the point recently marked with [mark] to the end
-     * of the text.
-     */
-    private fun <T> end(text: SpannableStringBuilder, mark: Class<T>, span: Any) {
-        val len = text.length
-        val obj = getLast(text, mark)
-        val where = text.getSpanStart(obj)
-        text.removeSpan(obj)
-        if (where != len) {
-            text.setSpan(span, where, len, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
     }
 
