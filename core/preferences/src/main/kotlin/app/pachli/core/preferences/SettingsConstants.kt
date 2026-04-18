@@ -191,6 +191,11 @@ object PrefKeys {
      */
     const val CONFIRM_STATUS_LANGUAGE = "confirmStatusLanguage"
 
+    /**
+     * True if attachments should be hidden by default.
+     */
+    const val HIDE_ATTACHMENTS = "hideAttachments"
+
     /** Tab alignment. See [TabAlignment]. */
     const val TAB_ALIGNMENT = "tabAlignment"
 

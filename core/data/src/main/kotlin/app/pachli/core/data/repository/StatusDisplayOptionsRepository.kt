@@ -76,6 +76,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
         PrefKeys.SHOW_STATS_INLINE,
         PrefKeys.LAB_RENDER_MARKDOWN,
         PrefKeys.PRONOUN_DISPLAY,
+        PrefKeys.HIDE_ATTACHMENTS,
     )
 
     init {
@@ -130,6 +131,9 @@ class StatusDisplayOptionsRepository @Inject constructor(
                         PrefKeys.PRONOUN_DISPLAY -> prev.copy(
                             pronounDisplay = sharedPreferencesRepository.pronounDisplay,
                         )
+                        PrefKeys.HIDE_ATTACHMENTS -> prev.copy(
+                            hideAttachments = sharedPreferencesRepository.hideAttachments,
+                        )
                         else -> prev
                     }
                 }
@@ -183,6 +187,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
             canQuote = account?.server?.can(ServerOperation.ORG_JOINMASTODON_STATUSES_QUOTE, ">=1.0.0".toConstraint()) ?: default.canQuote,
             renderMarkdown = sharedPreferencesRepository.renderMarkdown,
             pronounDisplay = sharedPreferencesRepository.pronounDisplay,
+            hideAttachments = sharedPreferencesRepository.hideAttachments,
         )
     }
 }

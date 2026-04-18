@@ -310,6 +310,13 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     isSingleLineTitle = false
                 }
 
+                switchPreference {
+                    setDefaultValue(false)
+                    key = PrefKeys.HIDE_ATTACHMENTS
+                    setTitle(R.string.pref_title_hide_attachments)
+                    isSingleLineTitle = false
+                }
+
                 enumListPreference<DefaultAudioPlayback> {
                     setDefaultValue(DefaultAudioPlayback.UNMUTED)
                     setTitle(R.string.pref_default_audio_playback)

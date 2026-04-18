@@ -160,6 +160,7 @@ class ViewThreadViewModel @Inject constructor(
                     quoteContentFilterAction = timelineStatusWithQuote.quotedStatus?.status?.let { contentFilterModel?.filterActionFor(it) },
                     translationState = TranslationState.SHOW_ORIGINAL,
                     filterContext = FilterContext.CONVERSATIONS,
+                    hideAttachments = statusDisplayOptions.value.hideAttachments,
                 )
             } else {
                 Timber.d("Loading status from network")
@@ -502,6 +503,7 @@ class ViewThreadViewModel @Inject constructor(
             quoteContentFilterAction = quote?.let { contentFilterModel?.filterActionFor(it) },
             translationState = TranslationState.SHOW_ORIGINAL,
             filterContext = FilterContext.CONVERSATIONS,
+            hideAttachments = statusDisplayOptions.value.hideAttachments,
         )
     }
 

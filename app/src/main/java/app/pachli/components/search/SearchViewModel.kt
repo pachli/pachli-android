@@ -267,6 +267,7 @@ class SearchViewModel @Inject constructor(
                     quoteContentFilterAction = status.quotedStatus?.let { contentFilterModel.filterActionFor(it.status) },
                     filterContext = null,
                     showSensitiveMedia = pachliAccount.entity.alwaysShowSensitiveMedia,
+                    hideAttachments = statusDisplayOptions.hideAttachments,
                 )
             }.apply {
                 loadedStatuses.addAll(this)

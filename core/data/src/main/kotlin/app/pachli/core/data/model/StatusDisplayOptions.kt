@@ -78,4 +78,9 @@ data class StatusDisplayOptions(
     val showStatusInfo: Boolean = true,
 
     val pronounDisplay: PronounDisplay = PronounDisplay.WHEN_COMPOSING,
+
+    /**
+     * True if attachments should be hidden by default
+     */
+    val hideAttachments: Boolean = false,
 )

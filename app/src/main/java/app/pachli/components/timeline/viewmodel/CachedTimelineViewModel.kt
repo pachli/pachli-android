@@ -83,6 +83,7 @@ class CachedTimelineViewModel @AssistedInject constructor(
                         quoteContentFilterAction = timelineStatusWithQuote.quotedStatus?.let { contentFilterModel?.filterActionFor(it.status) },
                         showSensitiveMedia = pachliAccount.entity.alwaysShowSensitiveMedia,
                         filterContext = filterContext,
+                        hideAttachments = statusDisplayOptions.value.hideAttachments,
                     )
                 }
         }
