@@ -22,6 +22,7 @@ import android.util.AttributeSet
 import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
+import androidx.core.text.htmlEncode
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import com.google.android.material.chip.Chip
@@ -45,7 +46,7 @@ open class PronounsChip @JvmOverloads constructor(
             hide()
             setOnClickListener(null)
         } else {
-            val formatted = HtmlCompat.fromHtml(text.toString().trim(), FROM_HTML_MODE_LEGACY)
+            val formatted = HtmlCompat.fromHtml(text.toString().trim().htmlEncode(), FROM_HTML_MODE_LEGACY)
             super.setText(formatted, type)
             setOnClickListener { Toast.makeText(context, formatted, Toast.LENGTH_LONG).show() }
             show()

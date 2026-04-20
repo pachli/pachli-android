@@ -24,6 +24,7 @@ import android.view.LayoutInflater
 import androidx.annotation.Px
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.text.HtmlCompat
+import androidx.core.text.htmlEncode
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.string.unicodeWrap
@@ -221,7 +222,7 @@ class PreviewCardView @JvmOverloads constructor(
         when {
             // Author has an account, link to that, with their avatar.
             author?.account != null -> {
-                val name = author.account?.name.unicodeWrap()
+                val name = author.account?.name?.htmlEncode().unicodeWrap()
                 authorInfo.text = HtmlCompat.fromHtml(
                     authorInfo.context.getString(R.string.preview_card_byline_fediverse_account_fmt, name),
                     HtmlCompat.FROM_HTML_MODE_LEGACY,
@@ -245,7 +246,7 @@ class PreviewCardView @JvmOverloads constructor(
             // https://github.com/mastodon/mastodon/issues/33139).
             !author?.name.isNullOrBlank() -> {
                 authorInfo.text = HtmlCompat.fromHtml(
-                    authorInfo.context.getString(R.string.preview_card_byline_name_only_fmt, author.name),
+                    authorInfo.context.getString(R.string.preview_card_byline_name_only_fmt, author.name.htmlEncode()),
                     HtmlCompat.FROM_HTML_MODE_LEGACY,
                 )
                 authorInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)

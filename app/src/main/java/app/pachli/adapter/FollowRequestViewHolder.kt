@@ -18,6 +18,7 @@
 package app.pachli.adapter
 
 import androidx.core.text.HtmlCompat
+import androidx.core.text.htmlEncode
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.components.notifications.NotificationsPagingAdapter
@@ -93,7 +94,7 @@ class FollowRequestViewHolder(
             val wholeMessage = HtmlCompat.fromHtml(
                 itemView.context.getString(
                     R.string.notification_follow_request_format,
-                    displayName,
+                    displayName.htmlEncode(),
                 ),
                 HtmlCompat.FROM_HTML_MODE_LEGACY,
             )

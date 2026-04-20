@@ -21,6 +21,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.core.text.HtmlCompat
+import androidx.core.text.htmlEncode
 import androidx.core.util.TypedValueCompat.dpToPx
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -136,7 +137,7 @@ class QuotedStatusView @JvmOverloads constructor(
                     val label = HtmlCompat.fromHtml(
                         context.getString(
                             R.string.status_filter_placeholder_label_format,
-                            filters.first().filter.title,
+                            filters.first().filter.title.htmlEncode(),
                         ),
                         HtmlCompat.FROM_HTML_MODE_LEGACY,
                     )

@@ -19,6 +19,7 @@ package app.pachli.adapter
 import android.view.View
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
+import androidx.core.text.htmlEncode
 import app.pachli.R
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -116,7 +117,7 @@ open class StatusViewHolder<T : IStatusViewData>(
                 HtmlCompat.fromHtml(
                     context.getString(
                         app.pachli.core.ui.R.string.post_replied_to_fmt,
-                        viewData.replyToAccount?.name.unicodeWrap(),
+                        viewData.replyToAccount?.name?.htmlEncode().unicodeWrap(),
                     ),
                     HtmlCompat.FROM_HTML_MODE_LEGACY,
                 ).emojify(
@@ -153,7 +154,7 @@ open class StatusViewHolder<T : IStatusViewData>(
         statusInfo.text = HtmlCompat.fromHtml(
             context.getString(
                 app.pachli.core.ui.R.string.post_boosted_fmt,
-                rebloggingAccount.name.unicodeWrap(),
+                rebloggingAccount.name.htmlEncode().unicodeWrap(),
             ),
             HtmlCompat.FROM_HTML_MODE_LEGACY,
         ).emojify(
