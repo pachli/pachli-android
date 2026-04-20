@@ -19,14 +19,12 @@ package app.pachli.feature.about
 
 import android.os.Build
 import android.os.Bundle
-import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.method.LinkMovementMethod
 import android.text.style.URLSpan
 import android.text.util.Linkify
 import android.view.View
 import android.widget.TextView
-import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -35,8 +33,9 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.versionName
+import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.ui.ClipboardUseCase
-import app.pachli.core.ui.NoUnderlineURLSpan
+import app.pachli.core.ui.MaybeUnderlineURLSpan
 import app.pachli.core.ui.extensions.InsetType
 import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.feature.about.databinding.FragmentAboutBinding
@@ -98,9 +97,15 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
             binding.aboutPoweredBy.hide()
         }
 
-        binding.aboutLicenseInfoTextView.setClickableTextWithoutUnderlines(R.string.about_pachli_license, openUrl::invoke)
-        binding.aboutWebsiteInfoTextView.setClickableTextWithoutUnderlines(R.string.about_project_site, openUrl::invoke)
-        binding.aboutBugsFeaturesInfoTextView.setClickableTextWithoutUnderlines(R.string.about_bug_feature_request_site, openUrl::invoke)
+        val underlineUrls = viewModel.linksToUnderline.contains(LinksToUnderline.LINKS)
+
+        binding.aboutNivenlyFoundation.convertUrlSpanToMaybeUnderlineUrlSpan(underlineUrls, openUrl::invoke)
+        binding.aboutLicenseInfoTextView.addLinks(Linkify.WEB_URLS)
+        binding.aboutLicenseInfoTextView.convertUrlSpanToMaybeUnderlineUrlSpan(underlineUrls, openUrl::invoke)
+        binding.aboutWebsiteInfoTextView.addLinks(Linkify.WEB_URLS)
+        binding.aboutWebsiteInfoTextView.convertUrlSpanToMaybeUnderlineUrlSpan(underlineUrls, openUrl::invoke)
+        binding.aboutBugsFeaturesInfoTextView.addLinks(Linkify.WEB_URLS)
+        binding.aboutBugsFeaturesInfoTextView.convertUrlSpanToMaybeUnderlineUrlSpan(underlineUrls, openUrl::invoke)
 
         binding.appProfileButton.setOnClickListener {
             openUrl(BuildConfig.SUPPORT_ACCOUNT_URL)
@@ -117,25 +122,37 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
     }
 }
 
-internal fun TextView.setClickableTextWithoutUnderlines(@StringRes textId: Int, openUrl: (String) -> Unit) {
-    val text = SpannableString(context.getText(textId))
-
-    Linkify.addLinks(text, Linkify.WEB_URLS)
-
-    val builder = SpannableStringBuilder(text)
-    val urlSpans = text.getSpans(0, text.length, URLSpan::class.java)
-    for (span in urlSpans) {
-        val start = builder.getSpanStart(span)
-        val end = builder.getSpanEnd(span)
-        val flags = builder.getSpanFlags(span)
-
-        val customSpan = NoUnderlineURLSpan(span.url, openUrl::invoke)
-
-        builder.removeSpan(span)
-        builder.setSpan(customSpan, start, end, flags)
+/**
+ * Calls [Linkify.addLinks] on [text][TextView.text], applying [mask][Linkify.addLinks].
+ *
+ * @param mask Mask to define which kinds of links will be searched.
+ */
+internal fun TextView.addLinks(mask: Int) {
+    SpannableStringBuilder(text).apply {
+        Linkify.addLinks(this, mask)
+        text = this
     }
+}
 
-    setText(builder)
+/**
+ * Converts [URLSpan] in [text][TextView.text] to [MaybeUnderlineURLSpan].
+ *
+ * @param underlineUrls True if the URLs should be underlined.
+ * @param openUrl Function to call when the URL is clicked.
+ */
+internal fun TextView.convertUrlSpanToMaybeUnderlineUrlSpan(underlineUrls: Boolean, openUrl: (String) -> Unit) {
+    SpannableStringBuilder(text).apply {
+        getSpans(0, this.length, URLSpan::class.java).forEach { span ->
+            val start = getSpanStart(span)
+            val end = getSpanEnd(span)
+            val flags = getSpanFlags(span)
+            val replacement = MaybeUnderlineURLSpan(underlineUrls, span.url, openUrl)
+            removeSpan(span)
+            setSpan(replacement, start, end, flags)
+        }
+
+        text = this
+    }
     linksClickable = true
     movementMethod = LinkMovementMethod.getInstance()
 }

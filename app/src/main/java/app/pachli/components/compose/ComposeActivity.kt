@@ -711,10 +711,9 @@ class ComposeActivity :
         )
         binding.composeEditField.setTokenizer(ComposeTokenizer())
 
-        val mentionColour = binding.composeEditField.linkTextColors.defaultColor
-        highlightSpans(binding.composeEditField.text, mentionColour)
+        highlightSpans(binding.composeEditField.text, sharedPreferencesRepository.linksToUnderline)
         binding.composeEditField.doAfterTextChanged { editable ->
-            highlightSpans(editable!!, mentionColour)
+            highlightSpans(editable!!, sharedPreferencesRepository.linksToUnderline)
             viewModel.onContentChanged(editable)
         }
 

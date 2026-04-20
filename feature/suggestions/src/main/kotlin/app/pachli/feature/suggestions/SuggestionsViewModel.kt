@@ -28,6 +28,7 @@ import app.pachli.core.data.repository.SuggestionsError.DeleteSuggestionError
 import app.pachli.core.data.repository.SuggestionsError.FollowAccountError
 import app.pachli.core.data.repository.SuggestionsRepository
 import app.pachli.core.model.Suggestion
+import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.ui.OperationCounter
 import app.pachli.feature.suggestions.UiAction.GetSuggestions
@@ -64,6 +65,7 @@ internal data class UiState(
     val animateAvatars: Boolean = false,
     val showBotOverlay: Boolean = false,
     val showPronouns: Boolean = false,
+    val linksToUnderline: Set<LinksToUnderline> = emptySet(),
     val renderMarkdown: Boolean = false,
 ) {
     companion object {
@@ -72,6 +74,7 @@ internal data class UiState(
             animateAvatars = statusDisplayOptions.animateAvatars,
             showBotOverlay = statusDisplayOptions.showBotOverlay,
             showPronouns = statusDisplayOptions.pronounDisplay == PronounDisplay.EVERYWHERE,
+            linksToUnderline = statusDisplayOptions.linksToUnderline,
             renderMarkdown = statusDisplayOptions.renderMarkdown,
         )
     }

@@ -283,6 +283,12 @@ class SharedPreferencesRepository @Inject constructor(
     val pronounDisplay: PronounDisplay
         get() = getEnum(PrefKeys.PRONOUN_DISPLAY, PronounDisplay.WHEN_COMPOSING)
 
+    /**
+     * Link types that should be underlined. Empty set if no link types should be underlined.
+     */
+    val linksToUnderline: Set<LinksToUnderline>
+        get() = getEnumSet(PrefKeys.LINKS_TO_UNDERLINE, emptySet())
+
     // Ensure the listener is retained during minification. If you do not do this the
     // field is removed and eventually garbage collected (because registering it as a
     // change listener does not create a strong reference to it) and then no more

@@ -104,6 +104,7 @@ class ViewEditsFragment :
         val animateAvatars = sharedPreferencesRepository.animateAvatars
         val animateEmojis = sharedPreferencesRepository.animateEmojis
         val useBlurhash = sharedPreferencesRepository.useBlurHash
+        val linksToUnderline = sharedPreferencesRepository.linksToUnderline
         val avatarRadius: Int = requireContext().resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -149,6 +150,7 @@ class ViewEditsFragment :
                             edits = uiState.edits,
                             animateEmojis = animateEmojis,
                             useBlurhash = useBlurhash,
+                            linksToUnderline = linksToUnderline,
                             listener = this@ViewEditsFragment,
                         )
 

@@ -28,6 +28,7 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.TimelineAccount
 import app.pachli.core.network.parseAsMastodonHtml
+import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.SetContent
@@ -62,6 +63,7 @@ class FollowViewHolder(
             statusDisplayOptions.animateAvatars,
             statusDisplayOptions.animateEmojis,
             statusDisplayOptions.pronounDisplay == PronounDisplay.EVERYWHERE,
+            statusDisplayOptions.linksToUnderline,
         )
     }
 
@@ -71,6 +73,7 @@ class FollowViewHolder(
         animateAvatars: Boolean,
         animateEmojis: Boolean,
         showPronouns: Boolean,
+        linksToUnderline: Set<LinksToUnderline>,
     ) {
         val context = binding.notificationText.context
         val displayName = account.name.htmlEncode().unicodeWrap()
@@ -112,6 +115,7 @@ class FollowViewHolder(
             emojis = account.emojis.orEmpty(),
             animateEmojis = animateEmojis,
             removeQuoteInline = false,
+            linksToUnderline = linksToUnderline,
             linkListener = linkListener,
         )
 

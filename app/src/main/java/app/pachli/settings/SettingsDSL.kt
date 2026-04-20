@@ -15,6 +15,7 @@ import androidx.preference.PreferenceScreen
 import androidx.preference.SwitchPreferenceCompat
 import app.pachli.core.preferences.PreferenceEnum
 import app.pachli.core.ui.EnumListPreference
+import app.pachli.core.ui.EnumMultiSelectListPreference
 import app.pachli.view.SliderPreference
 import de.c1710.filemojicompat_ui.views.picker.preference.EmojiPickerPreference
 
@@ -43,6 +44,17 @@ inline fun <reified T> PreferenceParent.enumListPreference(
     where T : Enum<T>,
           T : PreferenceEnum {
     val pref = EnumListPreference<T>(context)
+    builder(pref)
+    addPref(pref)
+    return pref
+}
+
+inline fun <reified T> PreferenceParent.enumMultiSelectListPreference(
+    builder: EnumMultiSelectListPreference<T>.() -> Unit,
+): EnumMultiSelectListPreference<T>
+    where T : Enum<T>,
+          T : PreferenceEnum {
+    val pref = EnumMultiSelectListPreference<T>(context)
     builder(pref)
     addPref(pref)
     return pref

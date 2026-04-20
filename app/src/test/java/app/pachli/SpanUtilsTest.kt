@@ -14,7 +14,7 @@ class SpanUtilsTest {
     fun matchesMixedSpans() {
         val input = "one #one two: @two three : https://thr.ee/meh?foo=bar&wat=@at#hmm four #four five @five ろく#six"
         val inputSpannable = FakeSpannable(input)
-        highlightSpans(inputSpannable, 0xffffff)
+        highlightSpans(inputSpannable, emptySet())
         val spans = inputSpannable.spans
         Assert.assertEquals(6, spans.size)
     }
@@ -24,7 +24,7 @@ class SpanUtilsTest {
         val firstURL = "http://first.bar"
         val secondURL = "https://second.bar"
         val inputSpannable = FakeSpannable("$firstURL $secondURL")
-        highlightSpans(inputSpannable, 0xffffff)
+        highlightSpans(inputSpannable, emptySet())
         val spans = inputSpannable.spans
         Assert.assertEquals(2, spans.size)
         Assert.assertEquals(firstURL.length, spans[0].end - spans[0].start)
@@ -50,7 +50,7 @@ class SpanUtilsTest {
         @Test
         fun matchesSpanAtStart() {
             val inputSpannable = FakeSpannable(thingToHighlight)
-            highlightSpans(inputSpannable, 0xffffff)
+            highlightSpans(inputSpannable, emptySet())
             val spans = inputSpannable.spans
             Assert.assertEquals(1, spans.size)
             Assert.assertEquals(thingToHighlight.length, spans[0].end - spans[0].start)
@@ -59,7 +59,7 @@ class SpanUtilsTest {
         @Test
         fun matchesSpanNotAtStart() {
             val inputSpannable = FakeSpannable(" $thingToHighlight")
-            highlightSpans(inputSpannable, 0xffffff)
+            highlightSpans(inputSpannable, emptySet())
             val spans = inputSpannable.spans
             Assert.assertEquals(1, spans.size)
             Assert.assertEquals(thingToHighlight.length, spans[0].end - spans[0].start)
@@ -68,7 +68,7 @@ class SpanUtilsTest {
         @Test
         fun doesNotMatchSpanEmbeddedInText() {
             val inputSpannable = FakeSpannable("aa${thingToHighlight}aa")
-            highlightSpans(inputSpannable, 0xffffff)
+            highlightSpans(inputSpannable, emptySet())
             val spans = inputSpannable.spans
             Assert.assertTrue(spans.isEmpty())
         }
@@ -78,7 +78,7 @@ class SpanUtilsTest {
             val begin = "@begin"
             val end = "#end"
             val inputSpannable = FakeSpannable("$begin $thingToHighlight $end")
-            highlightSpans(inputSpannable, 0xffffff)
+            highlightSpans(inputSpannable, emptySet())
             val spans = inputSpannable.spans
             Assert.assertEquals(3, spans.size)
 
@@ -113,7 +113,7 @@ class SpanUtilsTest {
         @Test
         fun matchExpectations() {
             val inputSpannable = FakeSpannable(text)
-            highlightSpans(inputSpannable, 0xffffff)
+            highlightSpans(inputSpannable, emptySet())
             val spans = inputSpannable.spans
             Assert.assertEquals(1, spans.size)
             val span = spans.first()

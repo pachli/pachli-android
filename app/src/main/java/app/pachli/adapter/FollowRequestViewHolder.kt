@@ -31,6 +31,7 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.TimelineAccount
 import app.pachli.core.network.parseAsMastodonHtml
+import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.SetContent
@@ -70,6 +71,7 @@ class FollowRequestViewHolder(
                 PronounDisplay.HIDE,
                 -> false
             },
+            statusDisplayOptions.linksToUnderline,
         )
 
         setupActionListener(accountActionListener, viewData.account.id)
@@ -81,6 +83,7 @@ class FollowRequestViewHolder(
         animateEmojis: Boolean,
         showBotOverlay: Boolean,
         showPronouns: Boolean,
+        linksToUnderline: Set<LinksToUnderline>,
     ) {
         val displayName = account.name.unicodeWrap()
         val emojifiedName: CharSequence = displayName.emojify(
@@ -128,6 +131,7 @@ class FollowRequestViewHolder(
                 emojis = account.emojis.orEmpty(),
                 animateEmojis = animateEmojis,
                 removeQuoteInline = false,
+                linksToUnderline = linksToUnderline,
                 linkListener = linkListener,
             )
 

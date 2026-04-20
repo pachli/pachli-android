@@ -28,12 +28,13 @@ fun interface OnClickListener {
 /**
  * Span that highlights content and optionally makes it clickable.
  *
+ * @param underline True if the span's content should be underlined.
  * @param url Link destination. This can be anything the [onClickListener] can
  * resolve when clicked, not just a URL.
  * @param onClickListener Called when the span is clicked on. If null the span
- * highlights the text but it is not clickable.
+ * highlights the text, but is not clickable.
  */
-open class NoUnderlineURLSpan(val url: String, private val onClickListener: OnClickListener?) : URLSpan(url) {
+open class MaybeUnderlineURLSpan(private val underline: Boolean, val url: String, private val onClickListener: OnClickListener?) : URLSpan(url) {
 
     // This should not be necessary. But if you don't do this the [StatusLengthTest] tests
     // fail. Without this, accessing the `url` property, or calling `getUrl()` (which should
@@ -44,7 +45,7 @@ open class NoUnderlineURLSpan(val url: String, private val onClickListener: OnCl
 
     override fun updateDrawState(ds: TextPaint) {
         super.updateDrawState(ds)
-        ds.isUnderlineText = false
+        ds.isUnderlineText = underline
     }
 
     override fun onClick(view: View) {
@@ -58,7 +59,7 @@ open class NoUnderlineURLSpan(val url: String, private val onClickListener: OnCl
  * @param url
  * @param onClickListener
  */
-open class MentionSpan(url: String, onClickListener: OnClickListener?) : NoUnderlineURLSpan(url, onClickListener)
+open class MentionSpan(underline: Boolean, url: String, onClickListener: OnClickListener?) : MaybeUnderlineURLSpan(underline, url, onClickListener)
 
 /**
  * Hashtags (`#foo`)
@@ -66,4 +67,4 @@ open class MentionSpan(url: String, onClickListener: OnClickListener?) : NoUnder
  * @param hashtag Text of the tag, without the leading `#`.
  * @param onClickListener Listener for clicks on the tag.
  */
-class HashtagSpan(val hashtag: String, url: String, onClickListener: OnClickListener) : NoUnderlineURLSpan(url, onClickListener)
+class HashtagSpan(val hashtag: String, underline: Boolean, url: String, onClickListener: OnClickListener?) : MaybeUnderlineURLSpan(underline, url, onClickListener)

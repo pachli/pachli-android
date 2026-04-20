@@ -55,6 +55,7 @@ import app.pachli.core.domain.notifications.notificationMethod
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.DefaultAudioPlayback
 import app.pachli.core.preferences.DownloadLocation
+import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.preferences.MainNavigationPosition
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.PronounDisplay
@@ -73,6 +74,7 @@ import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.AccountNotificationDetailsListItemBinding
 import app.pachli.settings.emojiPreference
 import app.pachli.settings.enumListPreference
+import app.pachli.settings.enumMultiSelectListPreference
 import app.pachli.settings.listPreference
 import app.pachli.settings.makePreferenceScreen
 import app.pachli.settings.preference
@@ -324,6 +326,11 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     setDefaultValue(PronounDisplay.WHEN_COMPOSING)
                     setTitle(app.pachli.core.preferences.R.string.pref_title_pronoun_display)
                     key = PrefKeys.PRONOUN_DISPLAY
+                }
+
+                enumMultiSelectListPreference<LinksToUnderline> {
+                    setTitle(app.pachli.core.preferences.R.string.pref_title_underline_links)
+                    key = PrefKeys.LINKS_TO_UNDERLINE
                 }
             }
 

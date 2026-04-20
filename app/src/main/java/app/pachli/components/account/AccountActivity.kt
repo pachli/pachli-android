@@ -162,6 +162,7 @@ class AccountActivity :
 
     private val animateAvatar by unsafeLazy { sharedPreferencesRepository.animateAvatars }
     private val animateEmojis by unsafeLazy { sharedPreferencesRepository.animateEmojis }
+    private val linksToUnderline by unsafeLazy { sharedPreferencesRepository.linksToUnderline }
 
     // fields for scroll animation
     private var hideFab: Boolean = false
@@ -276,7 +277,13 @@ class AccountActivity :
         binding.accountFollowsYouChip.hide()
 
         // setup the RecyclerView for the account fields
-        accountFieldAdapter = AccountFieldAdapter(glide, setContent, this, animateEmojis)
+        accountFieldAdapter = AccountFieldAdapter(
+            glide,
+            setContent,
+            this,
+            animateEmojis,
+            linksToUnderline,
+        )
         binding.accountFieldList.isNestedScrollingEnabled = false
         binding.accountFieldList.layoutManager = LinearLayoutManager(this)
         binding.accountFieldList.adapter = accountFieldAdapter
@@ -558,6 +565,7 @@ class AccountActivity :
             emojis = account.emojis.orEmpty(),
             animateEmojis = viewModel.statusDisplayOptions.value.animateEmojis,
             removeQuoteInline = false,
+            linksToUnderline = viewModel.statusDisplayOptions.value.linksToUnderline,
             linkListener = this,
         )
 

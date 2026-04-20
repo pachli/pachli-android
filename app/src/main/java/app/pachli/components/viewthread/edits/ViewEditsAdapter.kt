@@ -21,6 +21,7 @@ import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.StatusEdit
 import app.pachli.core.network.PachliTagHandler
 import app.pachli.core.network.parseAsMastodonHtml
+import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.ui.BindingHolder
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.PollAdapter
@@ -41,6 +42,7 @@ class ViewEditsAdapter(
     private val edits: List<StatusEdit>,
     private val animateEmojis: Boolean,
     private val useBlurhash: Boolean,
+    private val linksToUnderline: Set<LinksToUnderline>,
     private val listener: LinkListener,
 ) : RecyclerView.Adapter<BindingHolder<ItemStatusEditBinding>>() {
 
@@ -124,6 +126,7 @@ class ViewEditsAdapter(
             emojis = edit.emojis,
             animateEmojis = animateEmojis,
             removeQuoteInline = false,
+            linksToUnderline = linksToUnderline,
             tagHandler = viewEditsTagHandler,
             linkListener = listener,
         )

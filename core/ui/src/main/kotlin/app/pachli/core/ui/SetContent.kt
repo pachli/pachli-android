@@ -33,6 +33,7 @@ import app.pachli.core.model.Status
 import app.pachli.core.network.PachliTagHandler
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.network.removeQuoteInline
+import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.ui.PreProcessMastodonHtml.processMarkdown
 import app.pachli.core.ui.taghandler.MastodonTagHandler
 import com.bumptech.glide.RequestManager
@@ -76,6 +77,7 @@ interface SetContent {
      * @param emojis
      * @param animateEmojis True if emojis should be animated.
      * @param removeQuoteInline If true, remove `p` elements with a `quote-inline` class.
+     * @param linksToUnderline
      * @param mentions
      * @param hashtags
      * @param tagHandler
@@ -88,6 +90,7 @@ interface SetContent {
         emojis: List<Emoji>,
         animateEmojis: Boolean,
         removeQuoteInline: Boolean,
+        linksToUnderline: Set<LinksToUnderline>,
         mentions: List<Status.Mention>? = null,
         hashtags: List<HashTag>? = null,
         tagHandler: PachliTagHandler? = null,
@@ -97,7 +100,7 @@ interface SetContent {
             append(parseToSpanned(textView.context, content, removeQuoteInline, tagHandler))
 
             getSpans(0, length, URLSpan::class.java).forEach {
-                convertUrlSpanToMoreSpecificType(it, this, mentions, hashtags, linkListener)
+                convertUrlSpanToMoreSpecificType(it, linksToUnderline, this, mentions, hashtags, linkListener)
             }
 
             val hashtagsInContent = getSpans(0, length, HashtagSpan::class.java).map {
@@ -105,8 +108,9 @@ interface SetContent {
             }.toSet()
             val oobHashtags = hashtags.orEmpty().filterNot { hashtagsInContent.contains(it.name) }
 
+            val underlineHashtags = linksToUnderline.contains(LinksToUnderline.HASHTAGS)
             val oobSpans = oobHashtags.map { tag ->
-                HashtagSpan(tag.name, tag.url) { linkListener.onViewTag(tag.name) }
+                HashtagSpan(tag.name, underlineHashtags, tag.url) { linkListener.onViewTag(tag.name) }
             }
 
             if (oobSpans.isNotEmpty()) {

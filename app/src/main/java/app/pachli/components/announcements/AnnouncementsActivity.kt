@@ -99,6 +99,7 @@ class AnnouncementsActivity :
         val hideStatsInDetailedPosts = sharedPreferencesRepository.hideStatsInDetailedView
         val animateEmojis = sharedPreferencesRepository.animateEmojis
         val useAbsoluteTime = sharedPreferencesRepository.useAbsoluteTime
+        val linksToUnderline = sharedPreferencesRepository.linksToUnderline
 
         val setContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
             SetContentAsMarkdown(this)
@@ -113,6 +114,7 @@ class AnnouncementsActivity :
             this,
             hideStatsInDetailedPosts,
             animateEmojis,
+            linksToUnderline,
             useAbsoluteTime,
         )
 

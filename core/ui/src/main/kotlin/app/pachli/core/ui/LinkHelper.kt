@@ -26,6 +26,7 @@ import androidx.core.net.toUri
 import androidx.core.text.method.LinkMovementMethodCompat
 import app.pachli.core.model.HashTag
 import app.pachli.core.model.Status.Mention
+import app.pachli.core.preferences.LinksToUnderline
 import com.mikepenz.iconics.IconicsColor
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.IconicsSize
@@ -125,6 +126,7 @@ internal fun markupHiddenUrls(textView: TextView, content: SpannableStringBuilde
  */
 internal fun convertUrlSpanToMoreSpecificType(
     span: URLSpan,
+    linksToUnderline: Set<LinksToUnderline>,
     builder: SpannableStringBuilder,
     mentions: List<Mention>?,
     tags: List<HashTag>?,
@@ -137,9 +139,9 @@ internal fun convertUrlSpanToMoreSpecificType(
     // Determine the new span from the text content.
     val text = subSequence(start, end)
     val newSpan = when (text[0]) {
-        '#' -> getCustomSpanForHashtag(text, tags, span, listener)
-        '@' -> getCustomSpanForMention(mentions, span, listener)
-        else -> NoUnderlineURLSpan(span.url, listener::onViewUrl)
+        '#' -> getCustomSpanForHashtag(linksToUnderline.contains(LinksToUnderline.HASHTAGS), text, tags, span, listener)
+        '@' -> getCustomSpanForMention(linksToUnderline.contains(LinksToUnderline.MENTIONS), mentions, span, listener)
+        else -> MaybeUnderlineURLSpan(linksToUnderline.contains(LinksToUnderline.LINKS), span.url, listener::onViewUrl)
     }
 
     // Replace the previous span with the more appropriate span.
@@ -167,16 +169,16 @@ fun getTagName(text: CharSequence, tags: List<HashTag>?): String? {
     }
 }
 
-private fun getCustomSpanForHashtag(text: CharSequence, tags: List<HashTag>?, span: URLSpan, listener: LinkListener): ClickableSpan? {
+private fun getCustomSpanForHashtag(underline: Boolean, text: CharSequence, tags: List<HashTag>?, span: URLSpan, listener: LinkListener): ClickableSpan? {
     return getTagName(text, tags)?.let { tagName ->
-        HashtagSpan(tagName, span.url) { listener.onViewTag(tagName) }
+        HashtagSpan(tagName, underline, span.url) { listener.onViewTag(tagName) }
     }
 }
 
-private fun getCustomSpanForMention(mentions: List<Mention>?, span: URLSpan, listener: LinkListener): ClickableSpan? {
+private fun getCustomSpanForMention(underline: Boolean, mentions: List<Mention>?, span: URLSpan, listener: LinkListener): ClickableSpan? {
     // https://github.com/tuskyapp/Tusky/pull/2339
     return mentions?.firstOrNull { it.url == span.url }?.let { mention ->
-        MentionSpan(mention.url) { listener.onViewAccount(mention.id) }
+        MentionSpan(underline, mention.url) { listener.onViewAccount(mention.id) }
     }
 }
 
@@ -186,9 +188,10 @@ private fun getCustomSpanForMention(mentions: List<Mention>?, span: URLSpan, lis
  *
  * @param view the returned text will be put in
  * @param mentions any '@' mentions which are known to be in the content
+ * @param underline True if the mentions should be underlined.
  * @param listener to notify about particular spans that are clicked
  */
-fun setClickableMentions(view: TextView, mentions: List<Mention>?, listener: LinkListener) {
+fun setClickableMentions(view: TextView, mentions: List<Mention>?, underline: Boolean, listener: LinkListener) {
     if (mentions?.isEmpty() != false) {
         view.text = null
         return
@@ -201,7 +204,7 @@ fun setClickableMentions(view: TextView, mentions: List<Mention>?, listener: Lin
         var firstMention = true
 
         for (mention in mentions) {
-            val customSpan = MentionSpan(mention.url) { listener.onViewAccount(mention.id) }
+            val customSpan = MentionSpan(underline, mention.url) { listener.onViewAccount(mention.id) }
             end += 1 + mention.localUsername.length // length of @ + username
             flags = getSpanFlags(customSpan)
             if (firstMention) {
@@ -221,10 +224,10 @@ fun setClickableMentions(view: TextView, mentions: List<Mention>?, listener: Lin
     view.movementMethod = LinkMovementMethodCompat.getInstance()
 }
 
-fun createClickableText(text: String, link: String, onClickListener: OnClickListener): CharSequence {
+fun createClickableText(underline: Boolean, text: String, link: String, onClickListener: OnClickListener): CharSequence {
     return SpannableStringBuilder(text).apply {
         setSpan(
-            NoUnderlineURLSpan(link, onClickListener),
+            MaybeUnderlineURLSpan(underline, link, onClickListener),
             0,
             text.length,
             Spanned.SPAN_INCLUSIVE_EXCLUSIVE,

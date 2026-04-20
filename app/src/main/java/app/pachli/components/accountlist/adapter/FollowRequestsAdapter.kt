@@ -19,6 +19,7 @@ package app.pachli.components.accountlist.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import app.pachli.adapter.FollowRequestViewHolder
+import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.SetContent
 import app.pachli.databinding.ItemFollowRequestBinding
@@ -35,12 +36,14 @@ class FollowRequestsAdapter(
     animateEmojis: Boolean,
     showBotOverlay: Boolean,
     showPronouns: Boolean,
+    linksToUnderline: Set<LinksToUnderline>,
 ) : AccountAdapter<FollowRequestViewHolder>(
     accountActionListener = accountActionListener,
     animateAvatar = animateAvatar,
     animateEmojis = animateEmojis,
     showBotOverlay = showBotOverlay,
     showPronouns = showPronouns,
+    linksToUnderline = linksToUnderline,
 ) {
 
     override fun createAccountViewHolder(parent: ViewGroup): FollowRequestViewHolder {
@@ -66,6 +69,7 @@ class FollowRequestsAdapter(
             animateEmojis = animateEmojis,
             showBotOverlay = showBotOverlay,
             showPronouns = showPronouns,
+            linksToUnderline = linksToUnderline,
         )
         viewHolder.setupActionListener(accountActionListener, accountList[position].id)
     }

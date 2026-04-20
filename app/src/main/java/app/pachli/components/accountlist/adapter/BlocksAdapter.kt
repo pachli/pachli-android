@@ -20,6 +20,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.ui.BindingHolder
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.loadAvatar
@@ -35,12 +36,14 @@ class BlocksAdapter(
     animateEmojis: Boolean,
     showBotOverlay: Boolean,
     showPronouns: Boolean,
+    linksToUnderline: Set<LinksToUnderline>,
 ) : AccountAdapter<BindingHolder<ItemBlockedUserBinding>>(
     accountActionListener = accountActionListener,
     animateAvatar = animateAvatar,
     animateEmojis = animateEmojis,
     showBotOverlay = showBotOverlay,
     showPronouns = showPronouns,
+    linksToUnderline = linksToUnderline,
 ) {
 
     override fun createAccountViewHolder(parent: ViewGroup): BindingHolder<ItemBlockedUserBinding> {

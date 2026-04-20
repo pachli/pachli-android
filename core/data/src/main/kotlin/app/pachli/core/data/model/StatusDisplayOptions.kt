@@ -18,6 +18,7 @@
 package app.pachli.core.data.model
 
 import app.pachli.core.preferences.CardViewMode
+import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.preferences.PronounDisplay
 
 /**
@@ -78,4 +79,6 @@ data class StatusDisplayOptions(
     val showStatusInfo: Boolean = true,
 
     val pronounDisplay: PronounDisplay = PronounDisplay.WHEN_COMPOSING,
+
+    val linksToUnderline: Set<LinksToUnderline> = emptySet(),
 )
