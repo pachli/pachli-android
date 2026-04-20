@@ -64,6 +64,11 @@ class EnumListPreference<T> @JvmOverloads constructor(
         super.setDefaultValue(defaultValue.value ?: defaultValue.name)
     }
 
+    override fun setTitle(title: CharSequence?) {
+        super.setTitle(title)
+        dialogTitle = title
+    }
+
     companion object {
         // Can't use reified types in a class constructor, but you can in inline
         // functions, so this helper supplies the correct type for the constructor's
