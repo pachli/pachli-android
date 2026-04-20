@@ -33,4 +33,5 @@ fun AttachmentDisplayReason.getFormattedDescription(context: Context) = when (th
     }
     is AttachmentDisplayReason.Sensitive -> context.getText(R.string.post_sensitive_media_title)
     is AttachmentDisplayReason.UserAction -> context.getText(R.string.attachment_hidden_user_action)
+    is AttachmentDisplayReason.Preferences -> context.getText(R.string.attachment_hidden_preferences)
 }

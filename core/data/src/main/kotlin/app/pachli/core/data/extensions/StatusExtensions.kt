@@ -42,6 +42,7 @@ fun Status.getAttachmentDisplayAction(filterContext: FilterContext?, showSensiti
     sensitive,
     showSensitiveMedia = showSensitiveMedia,
     cachedAction = cachedAction,
+    hideAttachments = false,
 )
 
 /**
@@ -52,17 +53,19 @@ fun Status.getAttachmentDisplayAction(filterContext: FilterContext?, showSensiti
  * not filtered (e.g., private messages).
  * @param showSensitiveMedia True if the user's preference is to show attachments
  * marked sensitive.
- * @param cachedAction
+ * @param hideAttachments True if attachments should be hidden by default
  */
 fun TimelineStatusWithAccount.getAttachmentDisplayAction(
     filterContext: FilterContext?,
     showSensitiveMedia: Boolean,
+    hideAttachments: Boolean,
 ) = getAttachmentDisplayAction(
     filterContext,
     status.filtered,
     status.sensitive,
     showSensitiveMedia = showSensitiveMedia,
     cachedAction = viewData?.attachmentDisplayAction,
+    hideAttachments = hideAttachments,
 )
 
 /**
@@ -73,9 +76,10 @@ fun TimelineStatusWithAccount.getAttachmentDisplayAction(
  * @param filterContext Applicable filter context. May be null for timelines that are
  * not filtered (e.g., private messages).
  * @param matchingFilters List of filters that matched the status.
- * @param sensitive True if the status was marked senstive.
+ * @param sensitive True if the status was marked sensitive.
  * @param showSensitiveMedia True if the user's preference is to show attachments
  * marked sensitive.
+ * @param hideAttachments True if attachments should be hidde by default
  * @param cachedAction
  */
 private fun getAttachmentDisplayAction(
@@ -83,6 +87,7 @@ private fun getAttachmentDisplayAction(
     matchingFilters: List<FilterResult>?,
     sensitive: Boolean,
     showSensitiveMedia: Boolean,
+    hideAttachments: Boolean,
     cachedAction: AttachmentDisplayAction?,
 ): AttachmentDisplayAction {
     // Hide attachments if there is any matching "blur" filter.
@@ -123,6 +128,11 @@ private fun getAttachmentDisplayAction(
     // see them.
     if (sensitive && !showSensitiveMedia) {
         return AttachmentDisplayAction.Hide(reason = AttachmentDisplayReason.Sensitive)
+    }
+
+    // Hide attachments if the user's preferences are to hide them by default
+    if (hideAttachments) {
+        return AttachmentDisplayAction.Hide(reason = AttachmentDisplayReason.Preferences)
     }
 
     // Attachment is OK, and can be shown.

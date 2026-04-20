@@ -80,6 +80,13 @@ class SharedPreferencesRepository @Inject constructor(
             edit { putBoolean(PrefKeys.CONFIRM_STATUS_LANGUAGE, value) }
         }
 
+    /** True if attachments should be hidden by default. */
+    var hideAttachments: Boolean
+        get() = getBoolean(PrefKeys.HIDE_ATTACHMENTS, false)
+        set(value) {
+            edit { putBoolean(PrefKeys.HIDE_ATTACHMENTS, value) }
+        }
+
     /** How statuses should be translated. */
     var translationBackend: TranslationBackend
         get() = if (BuildConfig.FLAVOR_store != "google") {

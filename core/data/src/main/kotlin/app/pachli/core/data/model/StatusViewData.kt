@@ -189,6 +189,7 @@ data class StatusItemViewData(
             quoteContentFilterAction: FilterAction?,
             translationState: TranslationState = TranslationState.SHOW_ORIGINAL,
             showSensitiveMedia: Boolean,
+            hideAttachments: Boolean,
             filterContext: FilterContext?,
         ): StatusItemViewData {
             return StatusItemViewData(
@@ -203,6 +204,7 @@ data class StatusItemViewData(
                     attachmentDisplayAction = timelineStatusWithQuote.timelineStatus.getAttachmentDisplayAction(
                         filterContext,
                         showSensitiveMedia,
+                        hideAttachments = hideAttachments,
                     ),
                     translationState = timelineStatusWithQuote.timelineStatus.viewData?.translationState ?: translationState,
                     replyToAccount = timelineStatusWithQuote.timelineStatus.replyAccount?.asModel(),
@@ -219,6 +221,7 @@ data class StatusItemViewData(
                         attachmentDisplayAction = status.getAttachmentDisplayAction(
                             filterContext,
                             showSensitiveMedia,
+                            hideAttachments = hideAttachments,
                         ),
                         translationState = status.viewData?.translationState ?: translationState,
                         replyToAccount = status.replyAccount?.asModel(),

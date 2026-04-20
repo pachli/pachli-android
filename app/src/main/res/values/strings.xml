@@ -480,6 +480,7 @@
     <string name="pref_title_confirm_reblogs">Show confirmation before boosting</string>
     <string name="pref_title_confirm_favourites">Show confirmation before favoriting</string>
     <string name="pref_title_confirm_status_language">Check post\'s language setting before posting</string>
+    <string name="pref_title_hide_attachments">Hide attachments by default</string>
     <string name="pref_title_hide_top_toolbar">Hide the title of the top toolbar</string>
     <string name="pref_title_wellbeing_mode">Wellbeing</string>
     <string name="account_note_hint">Your private note about this account</string>

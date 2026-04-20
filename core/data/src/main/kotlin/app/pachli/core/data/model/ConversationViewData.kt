@@ -83,6 +83,7 @@ data class ConversationViewData(
                 quoteContentFilterAction = quoteContentFilterAction,
                 showSensitiveMedia = showSensitiveMedia,
                 filterContext = FilterContext.from(Timeline.Conversations),
+                hideAttachments = false,
             ),
             isConversationStarter = conversationData.isConversationStarter,
             accountFilterDecision = accountFilterDecision,

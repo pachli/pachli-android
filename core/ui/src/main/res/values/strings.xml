@@ -109,6 +109,7 @@
     <string name="attachment_matches_filter_other_fmt">Matches filters: \"%1$s\", \"%2$s\", and more. Tap to show.</string>
     <string name="post_sensitive_media_title">Sensitive content. Tap to show.</string>
     <string name="attachment_hidden_user_action">You hid this. Tap to show.</string>
+    <string name="attachment_hidden_preferences">Hidden due to settings. Tap to show.</string>
     <string name="post_media_images">Images</string>
     <string name="post_media_audio">Audio</string>
     <string name="post_media_video">Video</string>

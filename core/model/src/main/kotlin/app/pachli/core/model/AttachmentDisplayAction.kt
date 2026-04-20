@@ -51,6 +51,10 @@ sealed class AttachmentDisplayReason(val type: String) {
     /** The user hid the attachment using the UI. */
     @TypeLabel("userAction")
     data object UserAction : AttachmentDisplayReason("userAction")
+
+    /** The attachment was hidden due to user preference */
+    @TypeLabel("Preferences")
+    data object Preferences : AttachmentDisplayReason("preferences")
 }
 
 /** How to display attachments, with the reason for the action. */

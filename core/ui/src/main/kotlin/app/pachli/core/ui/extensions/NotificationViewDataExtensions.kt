@@ -87,6 +87,7 @@ fun NotificationViewData.Companion.make(
                 quoteContentFilterAction = quoteContentFilterAction,
                 showSensitiveMedia = showSensitiveMedia,
                 filterContext = FilterContext.NOTIFICATIONS,
+                hideAttachments = false,
             )
         },
     )
@@ -108,6 +109,7 @@ fun NotificationViewData.Companion.make(
                 quoteContentFilterAction = quoteContentFilterAction,
                 showSensitiveMedia = showSensitiveMedia,
                 filterContext = FilterContext.NOTIFICATIONS,
+                hideAttachments = false,
             )
         },
     )
@@ -129,6 +131,7 @@ fun NotificationViewData.Companion.make(
                 quoteContentFilterAction = quoteContentFilterAction,
                 showSensitiveMedia = showSensitiveMedia,
                 filterContext = FilterContext.NOTIFICATIONS,
+                hideAttachments = false,
             )
         },
     )
@@ -168,6 +171,7 @@ fun NotificationViewData.Companion.make(
                 quoteContentFilterAction = quoteContentFilterAction,
                 showSensitiveMedia = showSensitiveMedia,
                 filterContext = FilterContext.NOTIFICATIONS,
+                hideAttachments = false,
             )
         },
     )
@@ -189,6 +193,7 @@ fun NotificationViewData.Companion.make(
                 quoteContentFilterAction = quoteContentFilterAction,
                 showSensitiveMedia = showSensitiveMedia,
                 filterContext = FilterContext.NOTIFICATIONS,
+                hideAttachments = false,
             )
         },
     )
@@ -219,6 +224,7 @@ fun NotificationViewData.Companion.make(
                 quoteContentFilterAction = quoteContentFilterAction,
                 showSensitiveMedia = showSensitiveMedia,
                 filterContext = FilterContext.NOTIFICATIONS,
+                hideAttachments = false,
             )
         },
     )
@@ -270,6 +276,7 @@ fun NotificationViewData.Companion.make(
                 quoteContentFilterAction = quoteContentFilterAction,
                 showSensitiveMedia = showSensitiveMedia,
                 filterContext = FilterContext.NOTIFICATIONS,
+                hideAttachments = false,
             )
         },
     )
@@ -291,6 +298,7 @@ fun NotificationViewData.Companion.make(
                 quoteContentFilterAction = quoteContentFilterAction,
                 showSensitiveMedia = showSensitiveMedia,
                 filterContext = FilterContext.NOTIFICATIONS,
+                hideAttachments = false,
             )
         },
     )
