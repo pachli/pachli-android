@@ -19,6 +19,7 @@ package app.pachli.components.notifications
 
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
+import androidx.core.text.htmlEncode
 import androidx.core.util.TypedValueCompat.dpToPx
 import app.pachli.R
 import app.pachli.adapter.StatusViewDataDiffCallback
@@ -95,7 +96,7 @@ internal class StatusNotificationViewHolder(
         statusDisplayOptions: StatusDisplayOptions,
         listener: StatusActionListener,
     ) {
-        val displayName = viewData.account.name.unicodeWrap()
+        val displayName = viewData.account.name.htmlEncode().unicodeWrap()
         val msg = when (viewData) {
             is FavouriteNotificationViewData -> context.getString(R.string.notification_favourite_format, displayName)
             is ReblogNotificationViewData -> context.getString(R.string.notification_reblog_format, displayName)

@@ -7,6 +7,7 @@ import android.widget.Checkable
 import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
+import androidx.core.text.htmlEncode
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat
@@ -292,7 +293,7 @@ class ListStatusAccessibilityDelegate<T : IStatusItemViewData>(
                 showPronounsAction.id -> {
                     val pronouns = status.actionable.account.pronouns?.trim()
                     if (pronouns.isNullOrBlank()) return true
-                    val formatted = HtmlCompat.fromHtml(pronouns, FROM_HTML_MODE_LEGACY)
+                    val formatted = HtmlCompat.fromHtml(pronouns.htmlEncode(), FROM_HTML_MODE_LEGACY)
                     Toast.makeText(context, formatted, Toast.LENGTH_LONG).show()
                 }
 

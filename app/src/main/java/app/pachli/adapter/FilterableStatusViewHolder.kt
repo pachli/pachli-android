@@ -19,6 +19,7 @@ package app.pachli.adapter
 
 import android.view.View
 import androidx.core.text.HtmlCompat
+import androidx.core.text.htmlEncode
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.ContentFilter
@@ -63,7 +64,7 @@ open class FilterableStatusViewHolder<T : IStatusViewData>(
             val label = HtmlCompat.fromHtml(
                 context.getString(
                     app.pachli.core.ui.R.string.status_filter_placeholder_label_format,
-                    result.filter.title,
+                    result.filter.title.htmlEncode(),
                 ),
                 HtmlCompat.FROM_HTML_MODE_LEGACY,
             )
