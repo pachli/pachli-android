@@ -171,6 +171,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
 
                 emojiPreference(requireActivity()) {
                     setTitle(R.string.emoji_style)
+                    setDialogTitle(R.string.emoji_style)
                     icon = makeIcon(GoogleMaterial.Icon.gmd_sentiment_satisfied)
                 }
 
@@ -181,6 +182,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     key = PrefKeys.LANGUAGE + "_" // deliberately not the actual key, the real handling happens in LocaleManager
                     setSummaryProvider { entry }
                     setTitle(R.string.pref_title_language)
+                    setDialogTitle(R.string.pref_title_language)
                     icon = makeIcon(GoogleMaterial.Icon.gmd_translate)
                     preferenceDataStore = localeManager
                 }
@@ -205,6 +207,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     key = PrefKeys.FONT_FAMILY
                     setSummaryProvider { entry }
                     setTitle(R.string.pref_title_font_family)
+                    setDialogTitle(R.string.pref_title_font_family)
                     icon = makeIcon(GoogleMaterial.Icon.gmd_font_download)
                 }
 
@@ -215,6 +218,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     key = PrefKeys.STATUS_TEXT_SIZE
                     setSummaryProvider { entry }
                     setTitle(R.string.pref_post_text_size)
+                    setDialogTitle(R.string.pref_post_text_size)
                     icon = makeIcon(GoogleMaterial.Icon.gmd_format_size)
                 }
 
