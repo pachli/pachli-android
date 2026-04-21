@@ -37,4 +37,6 @@
     <string name="pref_default_audio_playback_option_muted">Σίγαση</string>
     <string name="pref_title_translation">Μετάφραση</string>
     <string name="pref_pronoun_display_everywhere">Παντού</string>
+    <string name="pref_underline_links_links">Εξωτερικοί σύνδεσμοι</string>
+    <string name="pref_underline_links_hashtags">Hashtags</string>
 </resources>
