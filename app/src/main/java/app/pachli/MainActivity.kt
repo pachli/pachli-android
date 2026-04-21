@@ -871,8 +871,8 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                     iconRes = R.drawable.ic_notebook
                     badgeText = viewModel.draftsCount.value.toString()
                     badgeStyle = BadgeStyle().apply {
-                        textColor = ColorHolder.fromColor(MaterialColors.getColor(binding.mainDrawer, com.google.android.material.R.attr.colorOnPrimary))
-                        color = ColorHolder.fromColor(MaterialColors.getColor(binding.mainDrawer, androidx.appcompat.R.attr.colorPrimary))
+                        textColor = ColorHolder.fromColor(MaterialColors.getColor(binding.mainDrawer, com.google.android.material.R.attr.colorOnSecondaryContainer))
+                        color = ColorHolder.fromColor(MaterialColors.getColor(binding.mainDrawer, com.google.android.material.R.attr.colorSecondaryContainer))
                     }
                     onClick = {
                         startActivityWithDefaultTransition(
@@ -890,8 +890,8 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                         )
                     }
                     badgeStyle = BadgeStyle().apply {
-                        textColor = ColorHolder.fromColor(MaterialColors.getColor(binding.mainDrawer, com.google.android.material.R.attr.colorOnPrimary))
-                        color = ColorHolder.fromColor(MaterialColors.getColor(binding.mainDrawer, androidx.appcompat.R.attr.colorPrimary))
+                        textColor = ColorHolder.fromColor(MaterialColors.getColor(binding.mainDrawer, com.google.android.material.R.attr.colorOnSecondaryContainer))
+                        color = ColorHolder.fromColor(MaterialColors.getColor(binding.mainDrawer, com.google.android.material.R.attr.colorSecondaryContainer))
                     }
                 },
                 DividerDrawerItem(),
