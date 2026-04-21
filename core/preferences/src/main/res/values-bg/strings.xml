@@ -24,4 +24,5 @@
     <string name="pref_title_translation">Превод</string>
     <string name="pref_pronoun_display_everywhere">Навсякъде</string>
     <string name="tab_tap_behaviour_jump_to_next_page">Отиване на следващата песен</string>
+    <string name="pref_underline_links_hashtags">Хаштагове</string>
 </resources>
