@@ -36,4 +36,6 @@
     <string name="pref_title_translation">अनुवाद</string>
     <string name="pref_title_export_settings">निर्यात सेटिंग्स</string>
     <string name="pref_title_import_settings">सेटिंग्स आयात करें</string>
+    <string name="pref_underline_links_links">बाहरी कड़ियां</string>
+    <string name="pref_underline_links_hashtags">हैशटैग</string>
 </resources>
