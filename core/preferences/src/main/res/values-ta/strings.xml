@@ -56,4 +56,6 @@
     <string name="pref_title_quote_policy">உங்கள் இடுகைகளை யார் மேற்கோள் காட்டலாம்?</string>
     <string name="pref_quote_policy_public">எவரும் (தடுக்கப்பட்ட கணக்குகள் தவிர)</string>
     <string name="pref_quote_policy_nobody">நீங்கள் மட்டும்</string>
+    <string name="pref_underline_links_links">வெளிப்புற இணைப்புகள்</string>
+    <string name="pref_underline_links_hashtags">ஏச்டேக்குகள்</string>
 </resources>
