@@ -47,6 +47,7 @@ import app.pachli.core.model.PreviewCardKind
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.network.removeQuoteInline
 import app.pachli.core.preferences.CardViewMode
+import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.ui.PollViewData.Companion.from
 import app.pachli.core.ui.extensions.contentDescription
@@ -305,6 +306,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
                 emojis = emojis,
                 animateEmojis = statusDisplayOptions.animateEmojis,
                 removeQuoteInline = viewData.status.quote != null,
+                linksToUnderline = statusDisplayOptions.linksToUnderline,
                 mentions = mentions,
                 hashtags = tags,
                 linkListener = listener,
@@ -333,7 +335,12 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
             } ?: pollView.hide()
         } else {
             pollView.hide()
-            setClickableMentions(this.content, mentions, listener)
+            setClickableMentions(
+                this.content,
+                mentions,
+                statusDisplayOptions.linksToUnderline.contains(LinksToUnderline.MENTIONS),
+                listener,
+            )
         }
         if (TextUtils.isEmpty(this.content.text)) {
             this.content.visibility = GONE

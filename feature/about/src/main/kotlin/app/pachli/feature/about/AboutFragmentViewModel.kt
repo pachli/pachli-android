@@ -22,6 +22,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.InstanceInfoRepository
+import app.pachli.core.preferences.LinksToUnderline
+import app.pachli.core.preferences.SharedPreferencesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -33,9 +35,13 @@ class AboutFragmentViewModel @Inject constructor(
     private val application: Application,
     private val accountManager: AccountManager,
     private val instanceInfoRepository: InstanceInfoRepository,
+    private val sharedPreferencesRepository: SharedPreferencesRepository,
 ) : AndroidViewModel(application) {
     private val _accountInfo = MutableSharedFlow<String?>()
     val accountInfo = _accountInfo.asSharedFlow()
+
+    val linksToUnderline: Set<LinksToUnderline>
+        get() = sharedPreferencesRepository.linksToUnderline
 
     init {
         viewModelScope.launch {

@@ -33,6 +33,7 @@ import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.formatNumber
 import app.pachli.core.model.Suggestion
+import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.emojify
@@ -62,6 +63,7 @@ internal class SuggestionsAdapter(
     private var animateEmojis: Boolean,
     private var showBotOverlay: Boolean,
     private var showPronouns: Boolean,
+    private var linksToUnderline: Set<LinksToUnderline>,
     private val accept: (UiAction) -> Unit,
 ) : ListAdapter<SuggestionViewData, SuggestionViewHolder>(SuggestionDiffer) {
     override fun getItemViewType(position: Int) = R.layout.item_suggestion
@@ -81,6 +83,12 @@ internal class SuggestionsAdapter(
         if (this.animateEmojis == animateEmojis) return
         this.animateEmojis = animateEmojis
         notifyItemRangeChanged(0, currentList.size, ChangePayload.AnimateEmojis(animateEmojis))
+    }
+
+    fun setLinksToUnderline(linksToUnderline: Set<LinksToUnderline>) {
+        if (this.linksToUnderline == linksToUnderline) return
+        this.linksToUnderline = linksToUnderline
+        notifyItemRangeChanged(0, currentList.size, ChangePayload.LinksToUnderline(linksToUnderline))
     }
 
     fun setShowBotOverlay(showBotOverlay: Boolean) {
@@ -104,7 +112,12 @@ internal class SuggestionsAdapter(
                 when (payload) {
                     is ChangePayload.IsEnabled -> holder.bindIsEnabled(payload.isEnabled)
                     is ChangePayload.AnimateAvatars -> holder.bindAvatar(viewData, payload.animateAvatars)
-                    is ChangePayload.AnimateEmojis -> holder.bindAnimateEmojis(viewData, payload.animateEmojis)
+                    is ChangePayload.AnimateEmojis -> {
+                        holder.bindDisplayName(viewData, payload.animateEmojis)
+                        holder.bindNote(viewData, payload.animateEmojis, linksToUnderline)
+                    }
+
+                    is ChangePayload.LinksToUnderline -> holder.bindNote(viewData, animateEmojis, payload.linksToUnderline)
                     is ChangePayload.ShowBotOverlay -> holder.bindShowBotOverlay(viewData, payload.showBotOverlay)
                     is ChangePayload.ShowPronouns -> holder.bindShowPronouns(viewData, payload.showPronouns)
                 }
@@ -119,6 +132,7 @@ internal class SuggestionsAdapter(
             animateAvatars,
             showBotOverlay,
             showPronouns,
+            linksToUnderline,
         )
     }
 }
@@ -150,6 +164,9 @@ internal class SuggestionViewHolder(
 
         /** The [animateEmojis] state of the UI has changed. */
         data class AnimateEmojis(val animateEmojis: Boolean) : ChangePayload
+
+        /** The [linksToUnderline] state of the UI has changed. */
+        data class LinksToUnderline(val linksToUnderline: Set<app.pachli.core.preferences.LinksToUnderline>) : ChangePayload
 
         /** The [showBotOverlay] state of the UI has changed. */
         data class ShowBotOverlay(val showBotOverlay: Boolean) : ChangePayload
@@ -187,6 +204,7 @@ internal class SuggestionViewHolder(
         animateAvatars: Boolean,
         showBotOverlay: Boolean,
         showPronouns: Boolean,
+        linksToUnderline: Set<LinksToUnderline>,
     ) {
         this.viewData = viewData
         this.suggestion = viewData.suggestion
@@ -201,7 +219,8 @@ internal class SuggestionViewHolder(
             username.text = username.context.getString(app.pachli.core.designsystem.R.string.post_username_format, account.username)
 
             bindAvatar(viewData, animateAvatars)
-            bindAnimateEmojis(viewData, animateEmojis)
+            bindDisplayName(viewData, animateEmojis)
+            bindNote(viewData, animateEmojis, linksToUnderline)
             bindShowBotOverlay(viewData, showBotOverlay)
             bindShowPronouns(viewData, showPronouns)
             bindPostStatistics(viewData)
@@ -238,10 +257,10 @@ internal class SuggestionViewHolder(
     }
 
     /**
-     * Binds the account's [name][app.pachli.core.model.Account.name] and
-     * [note][app.pachli.core.model.Account.note] respecting [animateEmojis].
+     * Binds the account's [name][app.pachli.core.model.Account.name] respecting
+     * [animateEmojis].
      */
-    fun bindAnimateEmojis(viewData: SuggestionViewData, animateEmojis: Boolean) = with(binding) {
+    fun bindDisplayName(viewData: SuggestionViewData, animateEmojis: Boolean) = with(binding) {
         val account = viewData.suggestion.account
         displayName.text = account.name.unicodeWrap().emojify(
             glide,
@@ -249,6 +268,14 @@ internal class SuggestionViewHolder(
             itemView,
             animateEmojis,
         )
+    }
+
+    /**
+     * Binds the account's [note][app.pachli.core.model.Account.note] respecting
+     * [animateEmojis] and [linksToUnderline].
+     */
+    fun bindNote(viewData: SuggestionViewData, animateEmojis: Boolean, linksToUnderline: Set<LinksToUnderline>) = with(binding) {
+        val account = viewData.suggestion.account
 
         if (account.note.isBlank()) {
             @SuppressLint("SetTextI18n")
@@ -262,6 +289,7 @@ internal class SuggestionViewHolder(
                 emojis = account.emojis.orEmpty(),
                 animateEmojis = animateEmojis,
                 removeQuoteInline = false,
+                linksToUnderline = linksToUnderline,
                 linkListener = linkListener,
             )
 

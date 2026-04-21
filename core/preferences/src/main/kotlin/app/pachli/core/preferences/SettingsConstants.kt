@@ -197,6 +197,9 @@ object PrefKeys {
     /** Tab contents. See [TabContents]. */
     const val TAB_CONTENTS = "tabContents"
 
+    /** Which links (if any) should be underlined. See [LinksToUnderline]. */
+    const val LINKS_TO_UNDERLINE = "linksToUnderline"
+
     /** True if experimental support for rendering markdown is enabled. */
     const val LAB_RENDER_MARKDOWN = "labRenderMarkdown"
 

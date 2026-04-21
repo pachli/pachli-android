@@ -137,6 +137,7 @@ class SuggestionsFragment :
             animateEmojis = viewModel.uiState.value.animateEmojis,
             showBotOverlay = viewModel.uiState.value.showBotOverlay,
             showPronouns = viewModel.uiState.value.showPronouns,
+            linksToUnderline = viewModel.uiState.value.linksToUnderline,
             accept = accept,
         )
 
@@ -184,6 +185,7 @@ class SuggestionsFragment :
         suggestionsAdapter.setAnimateEmojis(uiState.animateEmojis)
         suggestionsAdapter.setAnimateAvatars(uiState.animateAvatars)
         suggestionsAdapter.setShowBotOverlay(uiState.showBotOverlay)
+        suggestionsAdapter.setLinksToUnderline(uiState.linksToUnderline)
         suggestionsAdapter.setShowPronouns(uiState.showPronouns)
     }
 

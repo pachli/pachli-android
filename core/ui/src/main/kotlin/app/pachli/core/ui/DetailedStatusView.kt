@@ -33,6 +33,7 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.preferences.CardViewMode
+import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.ui.databinding.StatusContentDetailedBinding
 import app.pachli.core.ui.extensions.description
 import app.pachli.core.ui.extensions.icon
@@ -199,14 +200,27 @@ class DetailedStatusView @JvmOverloads constructor(
             val spanEnd = spanStart + editedAtString.length
             sb.append(editedAtString)
             viewData.status.editedAt?.also {
-                val editedClickSpan = NoUnderlineURLSpan(viewData.actionableId, listener::onShowEdits)
+                val editedClickSpan = MaybeUnderlineURLSpan(
+                    statusDisplayOptions.linksToUnderline.contains(LinksToUnderline.LINKS),
+                    viewData.actionableId,
+                    listener::onShowEdits,
+                )
                 sb.setSpan(editedClickSpan, spanStart, spanEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             }
         }
 
         app?.also { (name, website) ->
             sb.append(metadataJoiner)
-            website?.also { sb.append(createClickableText(name, it, listener::onViewUrl)) } ?: sb.append(name)
+            website?.also {
+                sb.append(
+                    createClickableText(
+                        statusDisplayOptions.linksToUnderline.contains(LinksToUnderline.LINKS),
+                        name,
+                        it,
+                        listener::onViewUrl,
+                    ),
+                )
+            } ?: sb.append(name)
         }
 
         binding.statusMetaInfo.movementMethod = LinkMovementMethod.getInstance()

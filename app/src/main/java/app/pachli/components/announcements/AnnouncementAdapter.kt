@@ -29,6 +29,7 @@ import app.pachli.R
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.model.Announcement
+import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.ui.BindingHolder
 import app.pachli.core.ui.EmojiSpan
 import app.pachli.core.ui.LinkListener
@@ -41,7 +42,6 @@ import app.pachli.util.equalByMinute
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.target.Target
 import com.google.android.material.chip.Chip
-import kotlin.collections.emptyList
 
 interface AnnouncementActionListener : LinkListener {
     fun openReactionPicker(announcementId: String, target: View)
@@ -56,6 +56,7 @@ class AnnouncementAdapter(
     private val listener: AnnouncementActionListener,
     private val hideStatsInDetailedPosts: Boolean = false,
     private val animateEmojis: Boolean = false,
+    private val linksToUnderline: Set<LinksToUnderline>,
     private val useAbsoluteTime: Boolean = false,
 ) : RecyclerView.Adapter<BindingHolder<ItemAnnouncementBinding>>() {
     private val absoluteTimeFormatter = AbsoluteTimeFormatter()
@@ -102,6 +103,7 @@ class AnnouncementAdapter(
             emojis = item.emojis,
             animateEmojis = animateEmojis,
             removeQuoteInline = false,
+            linksToUnderline = linksToUnderline,
             linkListener = listener,
         )
 

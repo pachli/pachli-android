@@ -82,4 +82,9 @@
     <string name="pref_quote_policy_followers">Only your followers</string>
     <string name="pref_quote_policy_nobody">Only you</string>
     <string name="pref_summary_quote_policy_disabled">Your server does not support quote policies</string>
+
+    <string name="pref_title_underline_links">Underlined links</string>
+    <string name="pref_underline_links_links">External links</string>
+    <string name="pref_underline_links_mentions">\@-mentions</string>
+    <string name="pref_underline_links_hashtags">#hashtags</string>
 </resources>

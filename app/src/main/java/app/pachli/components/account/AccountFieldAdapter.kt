@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.Field
+import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.ui.BindingHolder
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.SetContent
@@ -34,6 +35,7 @@ class AccountFieldAdapter(
     private val setContent: SetContent,
     private val linkListener: LinkListener,
     private val animateEmojis: Boolean,
+    private val linksToUnderline: Set<LinksToUnderline>,
 ) : RecyclerView.Adapter<BindingHolder<ItemAccountFieldBinding>>() {
 
     var emojis: List<Emoji> = emptyList()
@@ -61,6 +63,7 @@ class AccountFieldAdapter(
             emojis = emojis,
             animateEmojis = animateEmojis,
             removeQuoteInline = false,
+            linksToUnderline = linksToUnderline,
             linkListener = linkListener,
         )
 

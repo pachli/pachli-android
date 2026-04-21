@@ -19,6 +19,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.core.model.TimelineAccount
+import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemFooterBinding
 import app.pachli.interfaces.AccountActionListener
@@ -31,6 +32,7 @@ abstract class AccountAdapter<AVH : RecyclerView.ViewHolder> internal constructo
     protected val animateEmojis: Boolean,
     protected val showBotOverlay: Boolean,
     protected val showPronouns: Boolean,
+    protected val linksToUnderline: Set<LinksToUnderline>,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder?>() {
 
     protected var accountList: MutableList<TimelineAccount> = mutableListOf()

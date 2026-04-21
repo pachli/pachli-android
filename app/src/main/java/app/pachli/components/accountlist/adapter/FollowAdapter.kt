@@ -19,6 +19,7 @@ package app.pachli.components.accountlist.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import app.pachli.adapter.AccountViewHolder
+import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.databinding.ItemAccountBinding
 import app.pachli.interfaces.AccountActionListener
 import com.bumptech.glide.RequestManager
@@ -31,12 +32,14 @@ class FollowAdapter(
     animateEmojis: Boolean,
     showBotOverlay: Boolean,
     showPronouns: Boolean,
+    linksToUnderline: Set<LinksToUnderline>,
 ) : AccountAdapter<AccountViewHolder>(
     accountActionListener = accountActionListener,
     animateAvatar = animateAvatar,
     animateEmojis = animateEmojis,
     showBotOverlay = showBotOverlay,
     showPronouns = showPronouns,
+    linksToUnderline = linksToUnderline,
 ) {
 
     override fun createAccountViewHolder(parent: ViewGroup): AccountViewHolder {

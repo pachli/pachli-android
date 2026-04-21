@@ -22,6 +22,7 @@ import androidx.core.view.ViewCompat
 import app.pachli.R
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.ui.BindingHolder
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.loadAvatar
@@ -37,12 +38,14 @@ class MutesAdapter(
     animateEmojis: Boolean,
     showBotOverlay: Boolean,
     showPronouns: Boolean,
+    linksToUnderline: Set<LinksToUnderline>,
 ) : AccountAdapter<BindingHolder<ItemMutedUserBinding>>(
     accountActionListener = accountActionListener,
     animateAvatar = animateAvatar,
     animateEmojis = animateEmojis,
     showBotOverlay = showBotOverlay,
     showPronouns = showPronouns,
+    linksToUnderline = linksToUnderline,
 ) {
 
     private val mutingNotificationsMap = HashMap<String, Boolean>()

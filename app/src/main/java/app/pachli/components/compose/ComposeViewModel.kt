@@ -64,6 +64,7 @@ import app.pachli.core.sendstatus.UploadState.Uploaded
 import app.pachli.core.sendstatus.model.MediaToSend
 import app.pachli.core.sendstatus.model.QueuedMedia
 import app.pachli.core.sendstatus.model.StatusToSend
+import app.pachli.core.ui.HashtagSpan
 import app.pachli.core.ui.MentionSpan
 import app.pachli.util.SaveUriError
 import app.pachli.util.isInDirectory
@@ -968,6 +969,7 @@ class ComposeViewModel @AssistedInject constructor(
                                     ?: span.url.length
                                 )
                         }
+                        is HashtagSpan -> 0
                         else -> {
                             // Expected to be negative if the URL length < maxUrlLength
                             span.url.mastodonLength() - urlLength

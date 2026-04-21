@@ -145,6 +145,7 @@ class AccountListFragment :
             PronounDisplay.HIDE,
             -> false
         }
+        val linksToUnderline = sharedPreferencesRepository.linksToUnderline
 
         val activeAccount = accountManager.activeAccount!!
 
@@ -158,8 +159,8 @@ class AccountListFragment :
             }
 
             adapter = when (kind) {
-                BLOCKS -> BlocksAdapter(glide, this@AccountListFragment, animateAvatar, animateEmojis, showBotOverlay, showPronouns)
-                MUTES -> MutesAdapter(glide, this@AccountListFragment, animateAvatar, animateEmojis, showBotOverlay, showPronouns)
+                BLOCKS -> BlocksAdapter(glide, this@AccountListFragment, animateAvatar, animateEmojis, showBotOverlay, showPronouns, linksToUnderline)
+                MUTES -> MutesAdapter(glide, this@AccountListFragment, animateAvatar, animateEmojis, showBotOverlay, showPronouns, linksToUnderline)
                 FOLLOW_REQUESTS -> {
                     val headerAdapter = FollowRequestsHeaderAdapter(
                         instanceName = activeAccount.domain,
@@ -174,6 +175,7 @@ class AccountListFragment :
                         animateEmojis,
                         showBotOverlay,
                         showPronouns,
+                        linksToUnderline,
                     )
                     binding.recyclerView.adapter = ConcatAdapter(headerAdapter, followRequestsAdapter)
                     followRequestsAdapter
@@ -186,6 +188,7 @@ class AccountListFragment :
                     animateEmojis,
                     showBotOverlay,
                     showPronouns,
+                    linksToUnderline,
                 )
             }
             if (binding.recyclerView.adapter == null) {

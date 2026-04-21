@@ -19,20 +19,21 @@ package app.pachli.util
 
 import android.text.Spannable
 import android.text.Spanned
-import android.text.style.ForegroundColorSpan
 import android.text.style.URLSpan
+import app.pachli.core.preferences.LinksToUnderline
+import app.pachli.core.ui.HashtagSpan
+import app.pachli.core.ui.MaybeUnderlineURLSpan
 import app.pachli.core.ui.MentionSpan
-import app.pachli.core.ui.NoUnderlineURLSpan
 import com.twitter.twittertext.Extractor
 
-private val spanClasses = listOf(ForegroundColorSpan::class.java, URLSpan::class.java)
+private val spanClasses = listOf(URLSpan::class.java)
 
 private val extractor = Extractor().apply { isExtractURLWithoutProtocol = false }
 
 /**
  * Takes text containing mentions and hashtags and urls and makes them the given colour.
  */
-fun highlightSpans(text: Spannable, colour: Int) {
+fun highlightSpans(text: Spannable, linksToUnderline: Set<LinksToUnderline>) {
     // Strip all existing colour spans.
     for (spanClass in spanClasses) {
         clearSpans(text, spanClass)
@@ -45,9 +46,24 @@ fun highlightSpans(text: Spannable, colour: Int) {
 
     for (entity in entities) {
         val span = when (entity.type) {
-            Extractor.Entity.Type.URL -> NoUnderlineURLSpan(string.substring(entity.start, entity.end), null)
-            Extractor.Entity.Type.HASHTAG -> ForegroundColorSpan(colour)
-            Extractor.Entity.Type.MENTION -> MentionSpan(string.substring(entity.start, entity.end), null)
+            Extractor.Entity.Type.URL -> MaybeUnderlineURLSpan(
+                linksToUnderline.contains(LinksToUnderline.LINKS),
+                string.substring(entity.start, entity.end),
+                null,
+            )
+
+            Extractor.Entity.Type.HASHTAG -> HashtagSpan(
+                entity.value,
+                linksToUnderline.contains(LinksToUnderline.HASHTAGS),
+                string.substring(entity.start, entity.end),
+                null,
+            )
+
+            Extractor.Entity.Type.MENTION -> MentionSpan(
+                linksToUnderline.contains(LinksToUnderline.MENTIONS),
+                string.substring(entity.start, entity.end),
+                null,
+            )
         }
         text.setSpan(span, entity.start, entity.end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
     }

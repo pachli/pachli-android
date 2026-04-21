@@ -63,7 +63,7 @@ class LinkHelperTest {
 
         var urlSpans = builder.getSpans(0, builder.length, URLSpan::class.java)
         for (span in urlSpans) {
-            convertUrlSpanToMoreSpecificType(span, builder, mentions, null, listener)
+            convertUrlSpanToMoreSpecificType(span, emptySet(), builder, mentions, null, listener)
         }
 
         urlSpans = builder.getSpans(0, builder.length, URLSpan::class.java)
@@ -84,7 +84,7 @@ class LinkHelperTest {
 
         var urlSpans = builder.getSpans(0, builder.length, URLSpan::class.java)
         for (span in urlSpans) {
-            convertUrlSpanToMoreSpecificType(span, builder, mentions, null, listener)
+            convertUrlSpanToMoreSpecificType(span, emptySet(), builder, mentions, null, listener)
         }
 
         urlSpans = builder.getSpans(0, builder.length, URLSpan::class.java)

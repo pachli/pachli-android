@@ -21,11 +21,26 @@ inline fun <reified E> SharedPreferences.getEnum(
 }
 
 /**
+ * @return The enums for the preference at [key]. If there is no value for
+ * [key] in preferences, or the values can not be converted to [E], then
+ * [defValue] is returned.
+ */
+inline fun <reified E> SharedPreferences.getEnumSet(
+    key: String,
+    defValue: Set<E> = emptySet(),
+): Set<E>
+    where E : Enum<E>,
+          E : PreferenceEnum {
+    return getStringSet(key, null)
+        ?.mapNotNull { PreferenceEnum.from<E>(it) }?.toSet() ?: defValue
+}
+
+/**
  * Sets an enum value in the preferences editor, to be written back once
  * [commit][SharedPreferences.Editor.commit] or [apply][SharedPreferences.Editor.apply]
  * are called.
  *
- * The enum is persisted using it's [value][PreferenceEnum.value] property. If that
+ * The enum is persisted using its [value][PreferenceEnum.value] property. If that
  * is null the enum's [name][Enum.name] property is used.
  *
  * @param key The name of the preference to modify

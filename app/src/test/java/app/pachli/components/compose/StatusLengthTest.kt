@@ -57,7 +57,7 @@ class StatusLengthTest(
     @Test
     fun statusLength_matchesExpectations() {
         val spannedText = FakeSpannable(text)
-        highlightSpans(spannedText, 0)
+        highlightSpans(spannedText, emptySet())
 
         assertEquals(
             expectedLength,
@@ -68,7 +68,7 @@ class StatusLengthTest(
     @Test
     fun statusLength_withCwText_matchesExpectations() {
         val spannedText = FakeSpannable(text)
-        highlightSpans(spannedText, 0)
+        highlightSpans(spannedText, emptySet())
 
         val cwText = FakeSpannable(
             "a @example@example.org #hashtagmention and http://example.org URL",
