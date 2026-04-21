@@ -36,4 +36,6 @@
     <string name="pref_default_audio_playback_option_muted">Nutildyta</string>
     <string name="pref_title_translation">Vertimas</string>
     <string name="pref_pronoun_display_everywhere">Visur</string>
+    <string name="pref_underline_links_links">Išoriniai saitai</string>
+    <string name="pref_underline_links_hashtags">Saitažodžiai</string>
 </resources>
