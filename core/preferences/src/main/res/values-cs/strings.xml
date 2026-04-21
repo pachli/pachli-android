@@ -37,4 +37,6 @@
     <string name="pref_default_audio_playback_option_muted">Ztlumeno</string>
     <string name="pref_title_translation">Překlad</string>
     <string name="pref_pronoun_display_everywhere">Všude</string>
+    <string name="pref_underline_links_links">Externí odkazy</string>
+    <string name="pref_underline_links_hashtags">Hashtagy</string>
 </resources>
