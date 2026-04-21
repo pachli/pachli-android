@@ -35,4 +35,5 @@
     <string name="pref_default_audio_playback_option_muted">已關閉麥克風。</string>
     <string name="pref_title_translation">翻译</string>
     <string name="pref_pronoun_display_everywhere">到处</string>
+    <string name="pref_underline_links_hashtags">話題</string>
 </resources>
