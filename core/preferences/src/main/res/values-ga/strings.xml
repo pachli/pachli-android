@@ -56,4 +56,5 @@
     <string name="pref_quote_policy_followers">Do leanúna amháin</string>
     <string name="pref_quote_policy_nobody">Tusa amháin</string>
     <string name="pref_summary_quote_policy_disabled">Ní thacaíonn do fhreastalaí le beartais luachana</string>
+    <string name="pref_underline_links_hashtags">Haischlibeanna</string>
 </resources>
