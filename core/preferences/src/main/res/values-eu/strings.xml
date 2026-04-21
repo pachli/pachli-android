@@ -21,4 +21,6 @@
     <string name="pref_default_audio_playback_option_muted">Isilduta</string>
     <string name="pref_title_translation">Itzulpena</string>
     <string name="tab_tap_behaviour_jump_to_next_page">Salto hurrengo abestira</string>
+    <string name="pref_underline_links_links">Kanpoko estekak</string>
+    <string name="pref_underline_links_hashtags">Traolak</string>
 </resources>
