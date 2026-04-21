@@ -1,0 +1,9 @@
+Pachli 2.9.2
+
+Mida on uut:
+
+- Loendite näitamine järjestatuna pealkirjade alusel
+- Kuna Akkomal on nüüd v1 filtrite tugi, siis serveri võimekused on täiendatud
+- „dummy.placeholder“ on eemaldatud võrguvigadega seotud teadetest
+- Kui Dao veateate tekib sisselogimisel, siis kuvatakse vastav veateade
+- birma, iiri, uusnorra, hispaania, rootsi ja tamili keelte tõlgete täiendused
