@@ -33,4 +33,5 @@
     <string name="pref_update_notification_frequency_always">永远</string>
     <string name="pref_default_audio_playback_option_unmuted">取消靜音</string>
     <string name="pref_default_audio_playback_option_muted">靜音</string>
+    <string name="pref_underline_links_hashtags">話題</string>
 </resources>
