@@ -21,4 +21,6 @@
     <string name="pref_title_translation">Prevod</string>
     <string name="pref_pronoun_display_everywhere">Povsod</string>
     <string name="download_location_downloads">Mapa za prenose: %1</string>
+    <string name="pref_underline_links_links">Zunanje povezave</string>
+    <string name="pref_underline_links_hashtags">Ključniki</string>
 </resources>
