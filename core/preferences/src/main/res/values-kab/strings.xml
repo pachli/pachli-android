@@ -17,4 +17,6 @@
     <string name="pref_default_audio_playback_option_unmuted">Ur sgugum ara</string>
     <string name="pref_default_audio_playback_option_muted">Kkes imesli</string>
     <string name="pref_title_translation">Tasuqilt</string>
+    <string name="pref_underline_links_links">Iseɣwan izɣarayen</string>
+    <string name="pref_underline_links_hashtags">Ihacṭagen</string>
 </resources>
