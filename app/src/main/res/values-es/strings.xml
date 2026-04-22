@@ -468,8 +468,6 @@
     <string name="pref_update_check_no_updates">No hay actualizaciones disponibles</string>
     <string name="pref_update_next_scheduled_check">Próxima comprobación: %1$s</string>
     <string name="action_reject">Rechazar</string>
-    <string name="action_add_to_tab">Añadir a pestaña</string>
-    <string name="action_add_to_tab_success">Se ha añadido \'%1$s\' a pestañas</string>
     <string name="action_remove_tab">Quitar pestaña</string>
     <string name="action_manage_tabs">Gestionar pestañas</string>
     <string name="notification_severed_relationships_domain_block_body">Un moderador suspendió el dominio</string>

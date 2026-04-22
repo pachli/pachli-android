@@ -389,7 +389,6 @@
     <string name="upload_failed_msg_fmt">Theip ar uaslódáil an cheangaltáin. Déanfar iarracht eile an t-uaslódáil nuair a sheolfaidh tú an post. Má theipeann air arís, sábhálfar an post i do dhréachtaí.\n\nBa é an earráid: %1$s</string>
     <string name="pref_title_confirm_favourites">Taispeáin deimhniú roimh fhabhar</string>
     <string name="report_category_violation">Sárú rialach</string>
-    <string name="action_add_to_tab">Cuir leis an táb</string>
     <string name="error_filter_missing_context">Tá comhthéacs scagaire amháin ar a laghad ag teastáil</string>
     <string name="compose_warn_language_dialog_change_language_fmt">Athraigh teanga go %1$s agus sa phost</string>
     <string name="action_suggestions">Cuntais mholta</string>
@@ -576,7 +575,6 @@
     <string name="pref_notification_battery_optimisation_ok">Ní gá optamú ceallraí a dhíchumasú.</string>
     <string name="pref_update_next_scheduled_check">An chéad seiceáil sceidealta eile: %1$s</string>
     <string name="error_media_download">Níorbh fhéidir %1$s a íoslódáil: %2$s</string>
-    <string name="action_add_to_tab_success">Cuireadh \'%1$s\' le cluaisíní</string>
     <string name="action_remove_tab">Bain cluaisín</string>
     <string name="search_operator_where_dialog_library_hint">Do phoist féin, boosts, Favorites, leabharmharcanna, agus poist a @mention tú</string>
     <string name="account_note_saved">Sábháilte!</string>

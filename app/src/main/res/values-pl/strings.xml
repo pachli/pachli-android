@@ -459,7 +459,6 @@
     <string name="compose_warn_language_dialog_change_language_fmt">Zmień język na %1$s i opublikuj</string>
     <string name="compose_warn_language_dialog_accept_language_fmt">Wyślij bez zmiany (%1$s)</string>
     <string name="error_pick_media_fmt">Nie udało się dołączenie pliku do wpisu: %1$s</string>
-    <string name="action_add_to_tab">Dodaj do kart</string>
     <string name="error_filter_missing_context">Co najmniej jedno miejsce działania filtra jest wymagane</string>
     <string name="error_delete_filter_failed_fmt">Usuwanie filtra się nie powiodło: %1$s</string>
     <string name="search_operator_attachment_dialog_title">Ograniczyć do wpisów zawierających media?</string>
@@ -536,7 +535,6 @@
     <string name="pref_labs_reverse_home_timeline_title">Odwrócona kolejność na osi czasu</string>
     <string name="pref_labs_reverse_home_timeline_on_summary">Wpisy są ułożone od najstarszych</string>
     <string name="search_operator_attachment_has_media_except_1_label_fmt">Wszystkie oprócz %1$s</string>
-    <string name="action_add_to_tab_success">Dodano \'%1$s\' do kart</string>
     <string name="search_operator_attachment_all">Multimedia ▾</string>
     <string name="compose_warn_language_dialog_title">Sprawdź język wpisu</string>
     <string name="search_operator_from_dialog_account_hint">\@konto</string>

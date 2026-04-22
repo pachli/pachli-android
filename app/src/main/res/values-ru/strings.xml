@@ -524,8 +524,6 @@
     <string name="pref_update_check_no_updates">Нет доступных обновлений</string>
     <string name="pref_update_next_scheduled_check">Следующая запланированная проверка: %1$s</string>
     <string name="error_media_download">Не удалось скачать %1$s: %2$s</string>
-    <string name="action_add_to_tab">Добавить на вкладку</string>
-    <string name="action_add_to_tab_success">Добавлено «%1$s» на вкладки</string>
     <string name="action_remove_tab">Удалить вкладку</string>
     <string name="action_manage_tabs">Управление вкладками</string>
     <string name="error_filter_missing_keyword">Требуется хотя бы одно ключевое слово или фраза</string>

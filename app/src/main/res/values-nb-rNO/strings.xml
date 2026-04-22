@@ -426,7 +426,6 @@
     <string name="pref_title_show_self_boosts">Vis egne delinger</string>
     <string name="pref_title_show_self_boosts_description">Noen som deler sitt eget innlegg</string>
     <string name="confirmation_hashtag_unmuted">#%1$s er ikke lenger skjult</string>
-    <string name="action_add_to_tab_success">La til «%1$s» til fanene</string>
     <string name="action_remove_tab">Fjern fane</string>
     <string name="action_manage_tabs">Håndter faner</string>
     <string name="action_suggestions">Foreslåtte kontoer</string>
@@ -472,7 +471,6 @@
     <string name="pref_update_next_scheduled_check">Nest planlagt kontroll: %1$s</string>
     <string name="error_media_download">Klarte ikke laste ned %1$s: %2$s</string>
     <string name="compose_warn_language_dialog_accept_language_fmt">Tut slik som det er (på %1$s)</string>
-    <string name="action_add_to_tab">Legg til til fane</string>
     <string name="pref_title_update_check_now">Se etter oppdateringer nå</string>
     <string name="error_filter_missing_keyword">Minst ett nøkkelord eller fras kreves</string>
     <string name="error_filter_missing_context">Minst én filterkontekst kreves</string>

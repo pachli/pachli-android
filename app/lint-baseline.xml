@@ -88,7 +88,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="273"
+            line="274"
             column="9"/>
     </issue>
 
@@ -99,7 +99,7 @@
         errorLine2="                                                           ~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="425"
+            line="432"
             column="60"/>
     </issue>
 
@@ -110,7 +110,7 @@
         errorLine2="                                                           ~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="426"
+            line="433"
             column="60"/>
     </issue>
 
@@ -121,7 +121,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="819"
+            line="827"
             column="17"/>
     </issue>
 
@@ -132,7 +132,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="822"
+            line="830"
             column="17"/>
     </issue>
 
@@ -143,7 +143,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="827"
+            line="835"
             column="13"/>
     </issue>
 
@@ -297,7 +297,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/core/ui/StatusView.kt"
-            line="333"
+            line="335"
             column="18"/>
     </issue>
 
@@ -308,7 +308,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/core/ui/StatusView.kt"
-            line="335"
+            line="337"
             column="13"/>
     </issue>
 
@@ -319,7 +319,7 @@
         errorLine2="                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/feature/suggestions/SuggestionsFragment.kt"
-            line="175"
+            line="170"
             column="38"/>
     </issue>
 
@@ -330,7 +330,7 @@
         errorLine2="                                                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/feature/suggestions/SuggestionsFragment.kt"
-            line="175"
+            line="170"
             column="76"/>
     </issue>
 
@@ -714,6 +714,17 @@
 
     <issue
         id="Typos"
+        message="Repeated word &quot;til&quot; in message: possible typo"
+        errorLine1="    &lt;string name=&quot;action_add_to_tab&quot;>Legg til til fane&lt;/string>"
+        errorLine2="                                          ~~~~~~~">
+        <location
+            file="src/main/res/values-nb-rNO/strings.xml"
+            line="130"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="Typos"
         message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?"
         errorLine1="    &lt;string name=&quot;pref_title_show_media_preview&quot;>Last ned forhåndsvisning av media&lt;/string>"
         errorLine2="                                                                             ~~~~~">
@@ -769,23 +780,12 @@
 
     <issue
         id="Typos"
-        message="Repeated word &quot;til&quot; in message: possible typo"
-        errorLine1="    &lt;string name=&quot;action_add_to_tab&quot;>Legg til til fane&lt;/string>"
-        errorLine2="                                          ~~~~~~~">
-        <location
-            file="src/main/res/values-nb-rNO/strings.xml"
-            line="475"
-            column="43"/>
-    </issue>
-
-    <issue
-        id="Typos"
         message="&quot;Media&quot; is a common misspelling; did you mean &quot;Medier&quot;?"
         errorLine1="    &lt;string name=&quot;search_operator_attachment_all&quot;>Media ▾&lt;/string>"
         errorLine2="                                                  ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="554"
+            line="552"
             column="51"/>
     </issue>
 
@@ -796,7 +796,7 @@
         errorLine2="                                                                   ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="578"
+            line="576"
             column="68"/>
     </issue>
 
@@ -851,7 +851,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="566"
+            line="574"
             column="9"/>
     </issue>
 
@@ -862,7 +862,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/accountlist/adapter/AccountAdapter.kt"
-            line="82"
+            line="84"
             column="9"/>
     </issue>
 
@@ -895,7 +895,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/announcements/AnnouncementAdapter.kt"
-            line="190"
+            line="192"
             column="9"/>
     </issue>
 
@@ -906,7 +906,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/accountlist/adapter/MutesAdapter.kt"
-            line="116"
+            line="119"
             column="9"/>
     </issue>
 

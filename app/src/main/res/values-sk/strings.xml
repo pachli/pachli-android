@@ -536,7 +536,6 @@
     <string name="search_operator_attachment_at_least_one">Aspoň jeden</string>
     <string name="search_operator_attachment_specific_media_include_1_exclude_1_fmt">S %1$s, bez %2$s</string>
     <string name="search_operator_poll_only">Zobraziť len ankety</string>
-    <string name="action_add_to_tab_success">\'%1$s\' pridané do panelov</string>
     <string name="action_open_byline_account">Zobraziť profil autora článku</string>
     <string name="search_operator_attachment_specific_media_include_2_fmt">S %1$s, %2$s</string>
     <string name="search_operator_attachment_specific_media_exclude_3_fmt">Bez %1$s, %2$s, %3$s</string>
@@ -549,7 +548,6 @@
     <string name="search_operator_from_account_fmt">Iba %1$s</string>
     <string name="search_operator_from_ignore_account_fmt">Okrem %1$s</string>
     <string name="search_operator_embed_dialog_only">Iba príspevky s kartami náhľadov</string>
-    <string name="action_add_to_tab">Pridať do panelu</string>
     <string name="action_remove_tab">Odstrániť panel</string>
     <string name="error_pick_media_fmt">Nepodarilo sa pripojiť súbor k príspevku: %1$s</string>
     <string name="action_open_link">Otvoriť odkaz</string>

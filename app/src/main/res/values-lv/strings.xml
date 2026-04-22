@@ -467,7 +467,6 @@
         <item quantity="other">%1$d ieraksti</item>
     </plurals>
     <string name="followed_hashtags_summary_fmt">%1$s no %2$s (pēdējā(s) %3$s)</string>
-    <string name="action_add_to_tab_success">\"%1$s\" pievienots cilnēm</string>
     <string name="error_filter_missing_title">Ir nepieciešams nosaukums</string>
     <string name="pref_title_update_check_now">Pārbaudīt atjauninājumus tagad</string>
     <string name="pref_update_next_scheduled_check">Nākamā paredzētā pārbaude: %1$s</string>
@@ -477,7 +476,6 @@
     <string name="error_media_download">Nevarēja lejupielādēt %1$s: %2$s</string>
     <string name="error_filter_missing_context">Ir nepieciešams vismaz viens atlases konteksts</string>
     <string name="pref_change_unified_push_distributor_msg">Tas notīrīs vienotās pašpiegādes izplatītāja izvēli un palaidīs Pachli no jauna.\n\nJa ir uzstādīti vairāki vienotās pašpiegādes izplatītāji, tiks vaicāts izvēlēties vienu.</string>
-    <string name="action_add_to_tab">Pievienot cilnei</string>
     <string name="compose_warn_language_dialog_change_language_fmt">Nomainīt valodu uz %1$s un iesūtīt</string>
     <string name="pref_title_notification_up_distributor">Vienotās pašpiegādes izplatītājs</string>
     <string name="action_manage_tabs">Pārvaldīt cilnes</string>

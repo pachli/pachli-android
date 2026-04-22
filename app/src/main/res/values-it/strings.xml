@@ -553,7 +553,6 @@
     <string name="pref_notification_battery_optimisation_is_disabled">L’ottimizzazione della batteria è disabilitata</string>
     <string name="pref_update_check_no_updates">Nessun aggiornamento disponibile</string>
     <string name="error_media_download">Impossibile scaricare %1$s: %2$s</string>
-    <string name="action_add_to_tab">Aggiungi a scheda</string>
     <string name="action_remove_tab">Rimuovi scheda</string>
     <string name="action_manage_tabs">Gestisci schede</string>
     <string name="error_filter_missing_title">È richiesto il titolo</string>
