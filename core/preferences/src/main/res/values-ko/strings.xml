@@ -36,4 +36,6 @@
     <string name="pref_default_audio_playback_option_muted">음소거</string>
     <string name="pref_title_translation">번역</string>
     <string name="pref_pronoun_display_everywhere">모든 지역</string>
+    <string name="pref_underline_links_links">외부 링크</string>
+    <string name="pref_underline_links_hashtags">해시태그</string>
 </resources>
