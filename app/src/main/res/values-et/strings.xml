@@ -273,8 +273,6 @@
     <string name="pref_update_check_no_updates">Uuendusi pole saadaval</string>
     <string name="pref_update_next_scheduled_check">Järgmine ajastatud kontroll: %1$s</string>
     <string name="error_media_download">%1$s allalaadimine ei õnnestunud: %2$s</string>
-    <string name="action_add_to_tab">Lisa vahekaardiks</string>
-    <string name="action_add_to_tab_success">„%1$s“ on lisatud vahekaartide sekka</string>
     <string name="action_remove_tab">Eemalda vahekaart</string>
     <string name="action_manage_tabs">Halda vahekaarte</string>
     <string name="notification_severed_relationships_format">Võrgustik on katkenud: &lt;b&gt;%1$s&lt;/b&gt;</string>

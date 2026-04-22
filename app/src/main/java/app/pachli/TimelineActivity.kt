@@ -141,7 +141,7 @@ class TimelineActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menuInflater.inflate(R.menu.activity_timeline, menu)
+        menuInflater.inflate(app.pachli.core.ui.R.menu.action_add_to_tab, menu)
 
         hashtag?.let { tag ->
             lifecycleScope.launch {
@@ -170,14 +170,14 @@ class TimelineActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         // special-cased to not be addable to a tab).
         val currentTabs = accountManager.activeAccount?.tabPreferences.orEmpty()
         val hideMenu = timeline is Timeline.Link || timeline is Timeline.Quote || currentTabs.contains(timeline)
-        menu.findItem(R.id.action_add_to_tab)?.isVisible = !hideMenu
+        menu.findItem(app.pachli.core.ui.R.id.action_add_to_tab)?.isVisible = !hideMenu
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
-            R.id.action_add_to_tab -> {
+            app.pachli.core.ui.R.id.action_add_to_tab -> {
                 addToTab()
-                Toast.makeText(this, getString(R.string.action_add_to_tab_success, supportActionBar?.title), Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(app.pachli.core.ui.R.string.action_add_to_tab_success, supportActionBar?.title), Toast.LENGTH_LONG).show()
                 menuItem.isVisible = false
                 true
             }

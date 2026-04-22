@@ -176,4 +176,6 @@
     <string name="duration_90_days">90 päivää</string>
     <string name="duration_180_days">180 päivää</string>
     <string name="duration_365_days">365 päivää</string>
+    <string name="action_add_to_tab">Lisää välilehteen</string>
+    <string name="action_add_to_tab_success">\'%1$s\' lisätty välilehtiin</string>
 </resources>

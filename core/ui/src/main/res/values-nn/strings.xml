@@ -171,4 +171,6 @@
     <string name="duration_90_days">90 dagar</string>
     <string name="duration_180_days">180 dagar</string>
     <string name="duration_365_days">365 dagar</string>
+    <string name="action_add_to_tab">Legg til i fane</string>
+    <string name="action_add_to_tab_success">La til «%1$s» i fanene</string>
 </resources>

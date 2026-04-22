@@ -27,6 +27,7 @@ import app.pachli.components.timeline.TimelineFragment
 import app.pachli.components.trending.TrendingLinksFragment
 import app.pachli.components.trending.TrendingTagsFragment
 import app.pachli.core.model.Timeline
+import app.pachli.feature.drafts.DraftsFragment
 
 /**
  * Wrap a [Timeline] with additional information to display a tab with that
@@ -153,6 +154,12 @@ data class TabViewData(
                 text = R.string.title_quotes,
                 icon = -1,
                 fragment = { TimelineFragment.newInstance(pachliAccountId, timeline) },
+            )
+            is Timeline.Drafts -> TabViewData(
+                timeline = timeline,
+                text = app.pachli.feature.drafts.R.string.title_drafts,
+                icon = R.drawable.ic_notebook,
+                fragment = { DraftsFragment.newInstance(pachliAccountId) },
             )
         }
     }

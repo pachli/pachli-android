@@ -19,8 +19,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_delete_drafts"
-        android:title="@string/action_delete_drafts"
-        android:icon="@drawable/outline_delete_24"
+        android:id="@+id/action_add_to_tab"
+        android:title="@string/action_add_to_tab"
+        android:icon="@drawable/ic_add_to_tab_24"
         app:showAsAction="ifRoom" />
 </menu>

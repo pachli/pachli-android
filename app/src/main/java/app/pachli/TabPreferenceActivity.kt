@@ -399,6 +399,10 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         if (!currentTabs.contains(trendingStatusesTab)) {
             addableTabs.add(trendingStatusesTab)
         }
+        val draftsTab = TabViewData.from(activeAccountId, Timeline.Drafts)
+        if (!currentTabs.contains(draftsTab)) {
+            addableTabs.add(draftsTab)
+        }
 
         addableTabs.add(TabViewData.from(activeAccountId, Timeline.Hashtags(emptyList())))
         addableTabs.add(TabViewData.from(activeAccountId, Timeline.UserList("", "")))

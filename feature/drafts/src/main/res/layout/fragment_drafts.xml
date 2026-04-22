@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="app.pachli.feature.drafts.DraftsActivity">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/draftsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"/>
+
+    <app.pachli.core.ui.BackgroundMessageView
+        android:id="@+id/draftsErrorMessageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:color/transparent"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        tools:src="@drawable/errorphant_error"
+        tools:visibility="visible" />
+</FrameLayout>

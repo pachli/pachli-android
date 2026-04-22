@@ -207,4 +207,6 @@
     <string name="duration_365_days">365 days</string>
 
     <string name="pref_summary_none">None</string>
+    <string name="action_add_to_tab">Add to tab</string>
+    <string name="action_add_to_tab_success">Added \'%1$s\' to tabs</string>
 </resources>

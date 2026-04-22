@@ -207,4 +207,6 @@
     <string name="duration_90_days">laethanta 90</string>
     <string name="duration_180_days">laethanta 180</string>
     <string name="duration_365_days">laethanta 365</string>
+    <string name="action_add_to_tab">Cuir leis an táb</string>
+    <string name="action_add_to_tab_success">Cuireadh \'%1$s\' le cluaisíní</string>
 </resources>

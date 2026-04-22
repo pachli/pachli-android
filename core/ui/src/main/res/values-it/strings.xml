@@ -139,4 +139,5 @@
     <string name="duration_90_days">90 giorni</string>
     <string name="duration_180_days">180 giorni</string>
     <string name="duration_365_days">365 giorni</string>
+    <string name="action_add_to_tab">Aggiungi a scheda</string>
 </resources>
