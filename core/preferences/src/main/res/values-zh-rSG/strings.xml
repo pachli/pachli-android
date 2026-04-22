@@ -33,4 +33,5 @@
     <string name="pref_update_notification_frequency_always">航道</string>
     <string name="pref_default_audio_playback_option_unmuted">取消隐藏</string>
     <string name="pref_default_audio_playback_option_muted">隐藏</string>
+    <string name="pref_underline_links_hashtags">话题</string>
 </resources>
