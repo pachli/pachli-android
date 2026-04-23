@@ -36,4 +36,6 @@
     <string name="pref_default_audio_playback_option_unmuted">Malmutigite.</string>
     <string name="pref_default_audio_playback_option_muted">Silentigita</string>
     <string name="pref_title_translation">Traduko</string>
+    <string name="pref_underline_links_links">Eksteraj ligiloj</string>
+    <string name="pref_underline_links_hashtags">Kradvortoj</string>
 </resources>

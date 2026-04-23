@@ -56,4 +56,5 @@
     <string name="pref_quote_policy_followers">Tikai sekotāji</string>
     <string name="pref_quote_policy_nobody">Tikai es</string>
     <string name="pref_summary_quote_policy_disabled">Serveris nenodrošina citātu pamatnostādnes</string>
+    <string name="pref_underline_links_hashtags">Tēmturi</string>
 </resources>

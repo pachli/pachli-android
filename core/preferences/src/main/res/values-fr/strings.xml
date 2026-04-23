@@ -56,4 +56,6 @@
     <string name="pref_title_pronoun_display">Montrer les pronoms des comptes</string>
     <string name="pref_pronoun_display_when_composing">À la rédaction d\'un message</string>
     <string name="pref_pronoun_display_hide">Nulle part</string>
+    <string name="pref_underline_links_links">Liens externes</string>
+    <string name="pref_underline_links_hashtags">Hashtags</string>
 </resources>

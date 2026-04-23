@@ -22,4 +22,6 @@
     <string name="pref_title_translation">Dịch</string>
     <string name="pref_pronoun_display_everywhere">Ở khắp mọi nơi</string>
     <string name="download_location_downloads">Tải xuống thư mục: %1</string>
+    <string name="pref_underline_links_mentions">đề cập đến</string>
+    <string name="pref_underline_links_hashtags">Hashtag</string>
 </resources>

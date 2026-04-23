@@ -36,4 +36,6 @@
     <string name="pref_default_audio_playback_option_unmuted">Microfone reativado.</string>
     <string name="pref_default_audio_playback_option_muted">Silenciado</string>
     <string name="pref_title_translation">Tradução</string>
+    <string name="pref_underline_links_links">Ligações Externas</string>
+    <string name="pref_underline_links_hashtags">Hashtags</string>
 </resources>

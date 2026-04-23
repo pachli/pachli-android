@@ -1,0 +1,20 @@
+Pachli 2.10.0
+
+Mida on uut:
+
+- Lisanud Atkinson Hyperlegible Next kirjatüüp
+- Vestluse sisu ja konto filtrid
+- Näitame vastatavat postitust
+
+Parandused:
+
+- Topeltmenüükirje „Laadi uuesti“
+- Siltide esiletõstmine postituste muutmisel
+- Sellega seotud vead
+- Eemaldasime vigadest „dummy.placeholder“
+- Loendite järjestus pealkirja lausel
+- Kokkujooksmine kasutaliidese muutmisel
+
+Tõlked:
+
+- birma, saksa, indoneesia, iiri, kabüüli, leedu, uusnorra, poola, slovaki, hispaania, rootsi ja tamili keeled

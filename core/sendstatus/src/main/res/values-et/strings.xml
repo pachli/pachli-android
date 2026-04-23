@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_prepare_media_content_resolver_missing_path_fmt">sisulahendaja URI asukoht on puudu: %1$s</string>
     <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">sisulahendaja URI skeem pole toetatud: %1$s</string>

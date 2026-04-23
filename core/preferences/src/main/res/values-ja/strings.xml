@@ -36,4 +36,6 @@
     <string name="pref_default_audio_playback_option_unmuted">発言禁止を解除しました。</string>
     <string name="pref_default_audio_playback_option_muted">ミュート</string>
     <string name="pref_title_translation">翻訳</string>
+    <string name="pref_underline_links_links">外部リンク</string>
+    <string name="pref_underline_links_hashtags">ハッシュタグ</string>
 </resources>

@@ -46,4 +46,6 @@
     <string name="pref_translation_backend_option_server_first">Prima il server</string>
     <string name="pref_translation_backend_option_local_only_help">Traduce i post sul tuo dispositivo usando Google Traduttore.</string>
     <string name="pref_pronoun_display_everywhere">Ovunque</string>
+    <string name="pref_underline_links_links">Collegamenti esterni</string>
+    <string name="pref_underline_links_hashtags">Hashtag</string>
 </resources>
