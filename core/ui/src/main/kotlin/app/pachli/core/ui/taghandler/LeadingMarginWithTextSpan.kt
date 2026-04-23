@@ -49,7 +49,7 @@ fun interface ComputeLeadingMarginWithTextSpanText {
  * @param alignment See [Alignment].
  * @param computeMarginText See [ComputeLeadingMarginWithTextSpanText.invoke]
  */
-class LeadingMarginWithTextSpan(
+internal class LeadingMarginWithTextSpan(
     private val indentation: Int,
     private val alignment: Alignment = Alignment.END,
     private val computeMarginText: ComputeLeadingMarginWithTextSpanText,

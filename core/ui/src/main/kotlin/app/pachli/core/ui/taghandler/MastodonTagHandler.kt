@@ -18,17 +18,14 @@
 package app.pachli.core.ui.taghandler
 
 import android.content.Context
-import android.graphics.Color
 import android.text.Editable
-import android.text.style.BackgroundColorSpan
-import android.text.style.ForegroundColorSpan
 import android.text.style.TypefaceSpan
 import app.pachli.core.network.PachliTagHandler
 import app.pachli.core.ui.taghandler.LeadingMarginWithTextSpan.Alignment
 import app.pachli.core.ui.taghandler.Mark.Code
 import app.pachli.core.ui.taghandler.Mark.OrderedListItem
+import app.pachli.core.ui.taghandler.Mark.Pre
 import app.pachli.core.ui.taghandler.Mark.UnorderedListItem
-import com.google.android.material.color.MaterialColors
 import java.util.Stack
 import org.xml.sax.XMLReader
 
@@ -46,12 +43,17 @@ import org.xml.sax.XMLReader
 private val rxBR = """(?i)<br(?<inner>\s*/)?> """.toRegex()
 
 /**
- * Matches opening and closing `ul`, `ol`, and `li` tags.
+ * Tags that should be rewritten to have a `pachli-` prefix.
  *
  * The `/` in a (possible) closing tag is saved in `$bl`. The tag name is
  * saved in `$tag`.
  */
-private val rxListTags = """(?i)<(?<bl>/)?(?<tag>li|ol|ul)[^>]*>""".toRegex()
+private val rxPachliTags = """(?i)<(?<bl>/)?(?<tag>li|ol|ul|blockquote)[^>]*>""".toRegex()
+
+/**
+ * Matches the body of a `pre` element.
+ */
+private val rxPre = """(?is)<pre>(.*?)</pre>""".toRegex()
 
 /**
  * Handles HTML elements that may appear in Mastodon content and are not handled
@@ -62,16 +64,19 @@ private val rxListTags = """(?i)<(?<bl>/)?(?<tag>li|ol|ul)[^>]*>""".toRegex()
  *
  * Of those, the elements that require custom handling are:
  *
- * - `code` (not supported by HtmlCompat)
- * - `pre` (not supported by HtmlCompat)
- * - `ol / li` (not supported by HtmlCompat, rewritten to pachli-ol)
- * - `ul / li` (supported by HtmlCompat, but badly, rewritten to pachli-ul)
+ * - `blockquote` (supported by HtmlCompat, but badly, rewritten to `pachli-blockquote`).
+ * - `code` (not supported by HtmlCompat).
+ * - `pre` (not supported by HtmlCompat).
+ * - `ol / li` (not supported by HtmlCompat, rewritten to `pachli-ol`).
+ * - `ul / li` (supported by HtmlCompat, but badly, rewritten to `pachli-ul`).
  */
 class MastodonTagHandler(context: Context) : PachliTagHandler {
     /** Stack of currently open `ol` and `ul` lists. */
     private val lists = Stack<ListElementHandler>()
 
     private val codeHandler = CodeHandler(context)
+    private val blockQuoteHandler = BlockQuoteHandler(context)
+    private val preHandler = PreHandler()
 
     override fun rewriteHtml(html: CharSequence): String {
         // Can't use named match groups here (e.g., code like
@@ -79,7 +84,7 @@ class MastodonTagHandler(context: Context) : PachliTagHandler {
         // match groups aren't supported on Android < API 26.
         //
         // Can't use numbered match groups either (e.g., code like
-        // `.replace(rxListTags, $$"<$1pachli-$2>")` because if the numbered
+        // `.replace(rxListTags, $$"<$1pachli-$2>"`) because if the numbered
         // match group didn't match anything it interpolates into the string
         // as the literal text `null`.
         //
@@ -87,29 +92,47 @@ class MastodonTagHandler(context: Context) : PachliTagHandler {
         return html
             .replace(rxBR, { "<br${it.groups[1]?.value ?: ""}>&nbsp;" })
             .replace("  ", "&nbsp;&nbsp;")
+            // The XML reader doesn't treat whitespace as significant in `pre` elements,
+            // so replace any `\n` with `<br />` and any run of two spaces with
+            // `&nbsp;&nbsp` to counter this.
             .replace(
-                rxListTags,
+                rxPre,
+                { preBody ->
+                    val newBody = preBody.groups[1]?.value
+                        ?.replace("\n", "<br />")
+                        ?.replace("  ", "&nbsp;&nbsp;")
+                    "<pre>$newBody</pre>"
+                },
+            )
+            .replace(
+                rxPachliTags,
                 { "<${it.groups[1]?.value ?: ""}pachli-${it.groups[2]?.value}>" },
             )
     }
 
     override fun handleTag(opening: Boolean, tag: String, output: Editable, xmlReader: XMLReader) {
-        // `ul`, `ol`, and `li` were re-written to have a `pachli-` prefix in
-        // `rewriteHtml`.
+        // `blockquote`, `ul`, `ol`, and `li` were re-written to have a `pachli-`
+        //  prefix in `rewriteHtml`.
         //
         // `code` and `pre` aren't handled by the default tag handler, so can
         // be used as is.
         when (tag.lowercase()) {
+            "pachli-blockquote" -> if (opening) {
+                blockQuoteHandler.startElement(output)
+            } else {
+                blockQuoteHandler.endElement(output)
+            }
+
             "pachli-ul" -> if (opening) {
                 lists.push(UnorderedListElementHandler())
             } else {
-                if (lists.isNotEmpty()) lists.pop()
+                if (lists.isNotEmpty()) lists.pop().endElement(output)
             }
 
             "pachli-ol" -> if (opening) {
                 lists.push(OrderedListElementHandler())
             } else {
-                if (lists.isNotEmpty()) lists.pop()
+                if (lists.isNotEmpty()) lists.pop().endElement(output)
             }
 
             "pachli-li" -> if (opening) {
@@ -118,10 +141,16 @@ class MastodonTagHandler(context: Context) : PachliTagHandler {
                 if (lists.isNotEmpty()) lists.peek().endListItem(output, indentation = lists.size - 1)
             }
 
-            "code", "pre" -> if (opening) {
+            "code" -> if (opening) {
                 codeHandler.startElement(output)
             } else {
                 codeHandler.endElement(output)
+            }
+
+            "pre" -> if (opening) {
+                preHandler.startElement(output)
+            } else {
+                preHandler.endElement(output)
             }
         }
     }
@@ -154,35 +183,60 @@ private interface ListElementHandler : ElementHandler {
 }
 
 /**
+ * Processes `blockquote` elements.
+ *
+ * Marks the `<blockquote>` tag. `</blockquote>` inserts [BlockQuoteSpan]
+ * between the start and end tags.
+ */
+private class BlockQuoteHandler(private val context: Context) : ElementHandler {
+    override fun startElement(text: Editable) {
+        text.appendMark(Mark.BlockQuote)
+    }
+
+    override fun endElement(text: Editable) {
+        text.getLastSpanOrNull<Mark.BlockQuote>()?.let { mark ->
+            text.setSpansFromMark(mark, BlockQuoteSpan(context))
+        }
+        text.ensureEndsWithNewline()
+        text.append("\n")
+    }
+}
+
+/**
  * Processes inline `code` elements.
  *
- * Marks the `<code>` tag. `</code>` inserts spans between the start
+ * Marks the `<code>` tag. `</code>` inserts a [CodeSpan] between the start
  * and end tags setting the font family and foreground/background colours.
  */
-private class CodeHandler(context: Context) : ElementHandler {
-    private val bgColor = MaterialColors.getColor(
-        context,
-        com.google.android.material.R.attr.colorSurfaceContainerLow,
-        Color.WHITE,
-    )
-    private val fgColor = MaterialColors.getColor(
-        context,
-        com.google.android.material.R.attr.colorOnSurfaceVariant,
-        Color.BLACK,
-    )
-
-    private val typefaceSpan = TypefaceSpan("monospace")
-    private val fgColorSpan = ForegroundColorSpan(fgColor)
-    private val bgColorSpan = BackgroundColorSpan(bgColor)
-
+private class CodeHandler(private val context: Context) : ElementHandler {
     override fun startElement(text: Editable) {
         text.appendMark(Code)
     }
 
     override fun endElement(text: Editable) {
         text.getLastSpanOrNull<Code>()?.let { mark ->
-            text.setSpansFromMark(mark, typefaceSpan, fgColorSpan, bgColorSpan)
+            text.setSpansFromMark(mark, CodeSpan(context))
         }
+    }
+}
+
+/**
+ * Processes `pre` elements.
+ *
+ * Marks the `<pre>` tag. `</pre>` inserts a [TypefaceSpan] between the
+ * start and end tags setting the font family.
+ */
+private class PreHandler : ElementHandler {
+    override fun startElement(text: Editable) {
+        text.appendMark(Pre)
+    }
+
+    override fun endElement(text: Editable) {
+        text.getLastSpanOrNull<Pre>()?.let { mark ->
+            text.setSpansFromMark(mark, TypefaceSpan("monospace"))
+        }
+        text.ensureEndsWithNewline()
+        text.append("\n")
     }
 }
 
@@ -207,6 +261,11 @@ private class UnorderedListElementHandler : ListElementHandler {
                 LeadingMarginWithTextSpan(indentation, Alignment.CENTER) { "•" },
             )
         }
+    }
+
+    override fun endElement(text: Editable) {
+        text.ensureEndsWithNewline()
+        text.append("\n")
     }
 }
 
@@ -241,5 +300,10 @@ private class OrderedListElementHandler : ListElementHandler {
                 },
             )
         }
+    }
+
+    override fun endElement(text: Editable) {
+        text.ensureEndsWithNewline()
+        text.append("\n")
     }
 }

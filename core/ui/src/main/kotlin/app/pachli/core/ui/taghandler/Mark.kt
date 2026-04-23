@@ -22,6 +22,12 @@ interface Mark {
     /** Marks the opening tag location of a `code` element. */
     object Code : Mark
 
+    /** Marks the opening tag location of a `blockquote` element. */
+    object BlockQuote : Mark
+
+    /** Marks the opening tag location of a `pre` element. */
+    object Pre : Mark
+
     /**
      * Marks the opening tag location of a list item in an <ol> element.
      *
