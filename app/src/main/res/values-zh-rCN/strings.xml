@@ -460,7 +460,6 @@
     <string name="pref_notification_method_mixed">部分账户使用 UnifiedPush，部分账户每 15 分钟推送一次。点击了解详细信息</string>
     <string name="error_media_download">无法下载 %1$s: %2$s</string>
     <string name="action_manage_tabs">管理标签页</string>
-    <string name="action_add_to_tab_success">添加“%1$s”到标签页</string>
     <string name="compose_warn_language_dialog_fmt">该帖子的语言设置为 %1$s，但您可能使用 %2$s 编写了该帖子。</string>
     <string name="action_open_byline_account">显示嘟文作者的个人资料</string>
     <string name="action_open_link">打开链接</string>
@@ -507,7 +506,6 @@
     <string name="pref_notification_battery_optimisation_should_ignore">应禁用电池优化。点击打开。</string>
     <string name="pref_notification_battery_optimisation_is_disabled">电池优化已禁用</string>
     <string name="pref_title_change_unified_push_distributor">更改 Unified Push distributor</string>
-    <string name="action_add_to_tab">添加到标签页</string>
     <string name="action_remove_tab">删除标签页</string>
     <string name="search_operator_language_all">任何语言 ▾</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">按原样发布 (%1$s)，不再询问</string>

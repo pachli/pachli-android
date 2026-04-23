@@ -463,8 +463,6 @@
     <string name="manage_lists">Hallinnoi listoja</string>
     <string name="notification_severed_relationships_name">Katkaistut yhteydet</string>
     <string name="notification_severed_relationships_description">Ilmoitukset katkaistuista yhteyksistä</string>
-    <string name="action_add_to_tab">Lisää välilehteen</string>
-    <string name="action_add_to_tab_success">\'%1$s\' lisätty välilehtiin</string>
     <string name="action_manage_tabs">Hallinnoi välilehtiä</string>
     <string name="action_remove_tab">Poista välilehti</string>
     <string name="notification_severed_relationships_domain_block_body">Moderaattori esti verkkotunnuksen</string>

@@ -568,8 +568,6 @@
     <string name="pref_update_check_no_updates">Pachli est à jour</string>
     <string name="pref_update_next_scheduled_check">Prochaine vérification : %1$s</string>
     <string name="error_media_download">Impossible de télécharger %1$s : %2$s</string>
-    <string name="action_add_to_tab">Ajouter à l\'onglet</string>
-    <string name="action_add_to_tab_success">« %1$s » ajouté aux onglets</string>
     <string name="action_remove_tab">Supprimer l\'onglet</string>
     <string name="action_manage_tabs">Gérer les onglets</string>
     <string name="error_filter_missing_keyword">Un mot-clé ou une phrase au moins sont nécessaires</string>

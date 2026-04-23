@@ -338,7 +338,6 @@
     <string name="notification_poll_name">வாக்கெடுப்புகள்</string>
     <string name="filter_apply">இடு</string>
     <string name="warning_scheduling_interval">மாச்டோடன் குறைந்தபட்ச திட்டமிடல் இடைவெளியைக் கொண்டுள்ளது.</string>
-    <string name="action_add_to_tab_success">தாவல்களில் \'%1$s\' சேர்க்கப்பட்டது</string>
     <string name="action_suggestions">பரிந்துரைக்கப்பட்ட கணக்குகள்</string>
     <string name="label_image">படம்</string>
     <string name="pref_title_font_family">எழுத்துரு குடும்பம்</string>
@@ -446,7 +445,6 @@
     <string name="pref_title_update_settings">மென்பொருள் புதுப்பிப்புகள்</string>
     <string name="update_dialog_negative">என்னை ஒருபோதும் நினைவூட்ட வேண்டாம்</string>
     <string name="pref_notification_up_distributor_none">எதுவுமில்லை</string>
-    <string name="action_add_to_tab">தாவலில் சேர்க்கவும்</string>
     <string name="action_remove_tab">தாவலை அகற்று</string>
     <string name="pref_change_unified_push_distributor_msg">இது ஒருங்கிணைந்த புச் விநியோகச்தர் தேர்வை அழித்து பாச்லியை மறுதொடக்கம் செய்யும்.\n\n பல ஒருங்கிணைந்த புச் விநியோகச்தர்கள் நிறுவப்பட்டால், ஒன்றைத் தேர்வு செய்யும்படி கேட்கப்படுவீர்கள்.</string>
     <string name="search_operator_attachment_has_media_label">குறைந்தது ஒரு இணைப்பு</string>

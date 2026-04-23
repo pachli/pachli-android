@@ -124,7 +124,7 @@ class TrendingActivity : ViewUrlActivity(), MenuProvider {
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         super.onCreateMenu(menu, menuInflater)
-        menuInflater.inflate(R.menu.activity_trending, menu)
+        menuInflater.inflate(app.pachli.core.ui.R.menu.action_add_to_tab, menu)
     }
 
     override fun onPrepareMenu(menu: Menu) {
@@ -132,11 +132,11 @@ class TrendingActivity : ViewUrlActivity(), MenuProvider {
         // Check if this timeline is in a tab; if not, enable the add_to_tab menu item
         val currentTabs = accountManager.activeAccount?.tabPreferences.orEmpty()
         val hideMenu = currentTabs.contains(timeline)
-        menu.findItem(R.id.action_add_to_tab)?.isVisible = !hideMenu
+        menu.findItem(app.pachli.core.ui.R.id.action_add_to_tab)?.isVisible = !hideMenu
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem) = when (menuItem.itemId) {
-        R.id.action_add_to_tab -> {
+        app.pachli.core.ui.R.id.action_add_to_tab -> {
             val tabViewData = adapter.tabs[binding.pager.currentItem]
             val timeline = tabViewData.timeline
             accountManager.activeAccount?.let {
@@ -144,7 +144,7 @@ class TrendingActivity : ViewUrlActivity(), MenuProvider {
                     accountManager.setTabPreferences(it.id, it.tabPreferences + timeline)
                 }
             }
-            Toast.makeText(this, getString(R.string.action_add_to_tab_success, tabViewData.title(this)), Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(app.pachli.core.ui.R.string.action_add_to_tab_success, tabViewData.title(this)), Toast.LENGTH_LONG).show()
             menuItem.isVisible = false
             true
         }

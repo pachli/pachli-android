@@ -187,4 +187,6 @@
     <string name="duration_90_days">90 días</string>
     <string name="duration_180_days">180 días</string>
     <string name="duration_365_days">365 días</string>
+    <string name="action_add_to_tab">Añadir a pestaña</string>
+    <string name="action_add_to_tab_success">Se ha añadido \'%1$s\' a pestañas</string>
 </resources>

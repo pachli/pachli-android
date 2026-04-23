@@ -544,8 +544,6 @@
     <string name="pref_update_check_no_updates">Es stehen keine Aktualisierungen zur Verfügung</string>
     <string name="pref_update_next_scheduled_check">Nächste geplante Prüfung: %1$s</string>
     <string name="error_media_download">Konnte %1$s nicht herunterladen: %2$s</string>
-    <string name="action_add_to_tab">Zum Tab hinzufügen</string>
-    <string name="action_add_to_tab_success">\'%1$s\' zu Tabs hinzugefügt</string>
     <string name="action_remove_tab">Tab entfernen</string>
     <string name="action_manage_tabs">Tabs verwalten</string>
     <string name="error_filter_missing_keyword">Mindestens ein Schlüsselwort oder Phrase ist erforderlich</string>

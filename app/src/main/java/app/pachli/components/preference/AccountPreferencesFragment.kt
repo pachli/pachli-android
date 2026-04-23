@@ -178,7 +178,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
 
             preference {
                 setTitle(R.string.title_tab_preferences)
-                setIcon(R.drawable.ic_add_to_tab_24)
+                setIcon(app.pachli.core.ui.R.drawable.ic_add_to_tab_24)
                 setOnPreferenceClickListener {
                     val intent = TabPreferenceActivityIntent(context, pachliAccountId)
                     startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)

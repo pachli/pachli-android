@@ -472,7 +472,6 @@
     <string name="pref_labs_reverse_home_timeline_off_summary">Primeiro aparecen as publicacións máis recentes</string>
     <string name="pref_labs_reverse_home_timeline_on_summary">Primeiro aparecen as publicacións máis antigas</string>
     <string name="error_filter_missing_title">Require un título</string>
-    <string name="action_add_to_tab">Engadir á pestana</string>
     <string name="action_manage_tabs">Xestionar pestanas</string>
     <string name="compose_warn_language_dialog_title">Comprobar idioma da publicación</string>
     <string name="compose_warn_language_dialog_fmt">O idioma da publicación estableceuse como %1$s pero podería estar escrito en %2$s.</string>
@@ -554,7 +553,6 @@
     <string name="error_filter_missing_keyword">Require polo menos unha palabra ou frase</string>
     <string name="error_filter_missing_context">Require polo menos un contexto a filtrar</string>
     <string name="pref_update_check_no_updates">Non hai actualizacións dispoñibles</string>
-    <string name="action_add_to_tab_success">Engadíuse «%1$s» ás pestanas</string>
     <string name="search_operator_where_dialog_library_hint">As túas publicacións, promocións, favorecementos, marcadores e publicacións que te @mencionan</string>
     <string name="search_operator_from_dialog_all">Todas as contas</string>
     <string name="search_operator_from_dialog_me">Só as miñas publicacións</string>
