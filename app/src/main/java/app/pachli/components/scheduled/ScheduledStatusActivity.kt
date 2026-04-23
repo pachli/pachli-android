@@ -20,57 +20,30 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
-import androidx.core.view.MenuProvider
 import androidx.core.view.ViewGroupCompat
+import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.LoadState
-import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.R
 import app.pachli.core.activity.BaseActivity
-import app.pachli.core.common.extensions.hide
-import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.data.repository.asDraft
-import app.pachli.core.eventhub.EventHub
-import app.pachli.core.eventhub.StatusScheduledEvent
-import app.pachli.core.model.ScheduledStatus
-import app.pachli.core.navigation.ComposeActivityIntent
-import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
-import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ReferencingStatus
+import app.pachli.core.common.util.unsafeLazy
+import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.pachliAccountId
-import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.appbar.FadeChildScrollEffect
 import app.pachli.core.ui.extensions.addScrollEffect
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.ActivityScheduledStatusBinding
-import com.google.android.material.color.MaterialColors
-import com.google.android.material.divider.MaterialDividerItemDecoration
-import com.mikepenz.iconics.IconicsDrawable
-import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
-import com.mikepenz.iconics.utils.colorInt
-import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ScheduledStatusActivity :
-    BaseActivity(),
-    ScheduledStatusActionListener,
-    MenuProvider {
-
-    @Inject
-    lateinit var eventHub: EventHub
-
-    private val viewModel: ScheduledStatusViewModel by viewModels()
-
+class ScheduledStatusActivity : BaseActivity() {
     private val binding by viewBinding(ActivityScheduledStatusBinding::inflate)
 
-    private val adapter = ScheduledStatusAdapter(this)
+    private val pachliAccountId by unsafeLazy { intent.pachliAccountId }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -78,7 +51,6 @@ class ScheduledStatusActivity :
         ViewGroupCompat.installCompatInsetsDispatch(binding.root)
         binding.includedToolbar.appbar.applyDefaultWindowInsets()
         binding.includedToolbar.toolbar.addScrollEffect(FadeChildScrollEffect)
-        binding.scheduledTootList.applyDefaultWindowInsets()
 
         setContentView(binding.root)
         addMenuProvider(this)
@@ -90,105 +62,51 @@ class ScheduledStatusActivity :
             setDisplayShowHomeEnabled(true)
         }
 
-        binding.swipeRefreshLayout.setOnRefreshListener(this::refreshStatuses)
-        binding.swipeRefreshLayout.setColorSchemeColors(MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimary))
-
-        binding.scheduledTootList.setHasFixedSize(true)
-        binding.scheduledTootList.layoutManager = LinearLayoutManager(this)
-        binding.scheduledTootList.addItemDecoration(
-            MaterialDividerItemDecoration(this, MaterialDividerItemDecoration.VERTICAL),
-        )
-        binding.scheduledTootList.adapter = adapter
-
-        lifecycleScope.launch {
-            viewModel.data.collectLatest { pagingData ->
-                adapter.submitData(pagingData)
-            }
+        binding.includedToolbar.toolbar.setOnClickListener {
+            binding.fragmentContainer.getFragment<ScheduledStatusFragment>().onReselect()
         }
 
-        adapter.addLoadStateListener { loadState ->
-            if (loadState.refresh is LoadState.Error) {
-                binding.progressBar.hide()
-                binding.errorMessageView.show()
+        val fragment = supportFragmentManager.findFragmentByTag(FRAGMENT_TAG + pachliAccountId) as ScheduledStatusFragment?
+            ?: ScheduledStatusFragment.newInstance(pachliAccountId)
 
-                val errorState = loadState.refresh as LoadState.Error
-                binding.errorMessageView.setup(errorState.error) { refreshStatuses() }
-            }
-            if (loadState.refresh != LoadState.Loading) {
-                binding.swipeRefreshLayout.isRefreshing = false
-            }
-            if (loadState.refresh is LoadState.NotLoading) {
-                binding.progressBar.hide()
-                if (adapter.itemCount == 0) {
-                    binding.errorMessageView.setup(BackgroundMessage.Empty(R.string.no_scheduled_posts))
-                    binding.errorMessageView.show()
-                } else {
-                    binding.errorMessageView.hide()
-                }
-            }
-        }
-
-        lifecycleScope.launch {
-            eventHub.events.collect { event ->
-                if (event is StatusScheduledEvent) {
-                    adapter.refresh()
-                }
-            }
+        supportFragmentManager.commit {
+            replace(R.id.fragmentContainer, fragment, FRAGMENT_TAG + pachliAccountId)
         }
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         super.onCreateMenu(menu, menuInflater)
-        menuInflater.inflate(R.menu.activity_announcements, menu)
-        menu.findItem(R.id.action_search)?.apply {
-            icon = IconicsDrawable(this@ScheduledStatusActivity, GoogleMaterial.Icon.gmd_search).apply {
-                sizeDp = 20
-                colorInt = MaterialColors.getColor(binding.includedToolbar.toolbar, android.R.attr.textColorPrimary)
-            }
-        }
+        menuInflater.inflate(app.pachli.core.ui.R.menu.action_add_to_tab, menu)
+    }
+
+    override fun onPrepareMenu(menu: Menu) {
+        val currentTabs = accountManager.activeAccount?.tabPreferences.orEmpty()
+        val hideMenu = currentTabs.contains(Timeline.Scheduled)
+        menu.findItem(app.pachli.core.ui.R.id.action_add_to_tab)?.isVisible = !hideMenu
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        super.onMenuItemSelected(menuItem)
         return when (menuItem.itemId) {
-            R.id.action_refresh -> {
-                binding.swipeRefreshLayout.isRefreshing = true
-                refreshStatuses()
+            app.pachli.core.ui.R.id.action_add_to_tab -> {
+                addToTab()
+                Toast.makeText(this, getString(app.pachli.core.ui.R.string.action_add_to_tab_success, supportActionBar?.title), Toast.LENGTH_LONG).show()
+                menuItem.isVisible = false
                 true
             }
-            else -> false
+
+            else -> super.onMenuItemSelected(menuItem)
         }
     }
 
-    private fun refreshStatuses() {
-        adapter.refresh()
-    }
-
-    override fun edit(item: ScheduledStatus) {
-        val intent = ComposeActivityIntent(
-            this,
-            intent.pachliAccountId,
-            ComposeOptions(
-                draft = item.asDraft(),
-                mediaAttachments = item.mediaAttachments,
-                referencingStatus = item.params.inReplyToId?.let {
-                    ReferencingStatus.ReplyId(it)
-                } ?: item.params.quotedStatusId?.let {
-                    ReferencingStatus.QuoteId(it)
-                },
-                kind = ComposeOptions.ComposeKind.EDIT_SCHEDULED,
-            ),
-        )
-        startActivity(intent)
-    }
-
-    override fun delete(item: ScheduledStatus) {
-        AlertDialog.Builder(this)
-            .setMessage(R.string.delete_scheduled_post_warning)
-            .setNegativeButton(android.R.string.cancel, null)
-            .setPositiveButton(android.R.string.ok) { _, _ ->
-                viewModel.deleteScheduledStatus(item)
+    private fun addToTab() {
+        accountManager.activeAccount?.let {
+            lifecycleScope.launch(Dispatchers.IO) {
+                accountManager.setTabPreferences(it.id, it.tabPreferences + Timeline.Scheduled)
             }
-            .show()
+        }
+    }
+
+    companion object {
+        private const val FRAGMENT_TAG = "ScheduledStatusFragment_"
     }
 }

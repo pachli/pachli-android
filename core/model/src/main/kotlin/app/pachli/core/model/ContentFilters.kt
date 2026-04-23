@@ -151,7 +151,8 @@ enum class FilterContext {
             -> PUBLIC
 
             Timeline.Conversations -> null
-            is Timeline.Drafts -> null
+            Timeline.Drafts -> null
+            Timeline.Scheduled -> null
         }
     }
 }

@@ -292,6 +292,28 @@
 
     <issue
         id="MemberExtensionConflict"
+        message="`hide` is defined both as a member in class `com.google.android.material.progressindicator.BaseProgressIndicator` and an extension in package `app.pachli.core.common.extensions`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
+        errorLine1="                binding.progressIndicator.hide()"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/components/scheduled/ScheduledStatusFragment.kt"
+            line="96"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="MemberExtensionConflict"
+        message="`hide` is defined both as a member in class `com.google.android.material.progressindicator.BaseProgressIndicator` and an extension in package `app.pachli.core.common.extensions`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
+        errorLine1="                binding.progressIndicator.hide()"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/app/pachli/components/scheduled/ScheduledStatusFragment.kt"
+            line="106"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="MemberExtensionConflict"
         message="`hide` is defined both as a member in class `app.pachli.core.ui.PollView` and an extension in package `app.pachli.core.common.extensions`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
         errorLine1="            } ?: pollView.hide()"
         errorLine2="                 ~~~~~~~~~~~~~~~">
@@ -319,7 +341,7 @@
         errorLine2="                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/feature/suggestions/SuggestionsFragment.kt"
-            line="170"
+            line="176"
             column="38"/>
     </issue>
 
@@ -330,7 +352,7 @@
         errorLine2="                                                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/feature/suggestions/SuggestionsFragment.kt"
-            line="170"
+            line="176"
             column="76"/>
     </issue>
 
@@ -1084,17 +1106,6 @@
             file="src/main/res/layout/item_tab_preference_small.xml"
             line="7"
             column="5"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.menu.activity_scheduled_status` appears to be unused"
-        errorLine1="&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
-        errorLine2="^">
-        <location
-            file="src/main/res/menu/activity_scheduled_status.xml"
-            line="19"
-            column="1"/>
     </issue>
 
     <issue

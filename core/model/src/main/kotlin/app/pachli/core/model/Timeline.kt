@@ -157,5 +157,9 @@ sealed class Timeline : Parcelable {
         override val remoteKeyTimelineId: String = "DRAFTS"
     }
 
-    // TODO: SCHEDULED
+    @TypeLabel("scheduled")
+    data object Scheduled : Timeline() {
+        @IgnoredOnParcel
+        override val remoteKeyTimelineId = "SCHEDULED"
+    }
 }

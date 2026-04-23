@@ -26,7 +26,6 @@ import androidx.core.view.ViewGroupCompat
 import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import app.pachli.core.activity.BaseActivity
-import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.model.Timeline
@@ -63,7 +62,7 @@ class DraftsActivity : BaseActivity() {
         addMenuProvider(this)
 
         binding.includedToolbar.toolbar.setOnClickListener {
-            (binding.fragmentContainer.getFragment<DraftsFragment>() as? ReselectableFragment)?.onReselect()
+            binding.fragmentContainer.getFragment<DraftsFragment>().onReselect()
         }
 
         val fragment = supportFragmentManager.findFragmentByTag(FRAGMENT_TAG + pachliAccountId) as DraftsFragment?

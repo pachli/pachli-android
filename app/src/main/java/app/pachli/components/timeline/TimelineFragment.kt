@@ -750,6 +750,7 @@ class TimelineFragment :
             // No need to manually refresh if drafts are updated (e.g., deleted after
             // a succesful send) as the flow from the database will update.
             is Timeline.Drafts,
+            is Timeline.Scheduled,
             -> return
         }
     }

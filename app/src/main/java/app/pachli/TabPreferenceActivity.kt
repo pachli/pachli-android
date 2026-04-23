@@ -403,6 +403,10 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         if (!currentTabs.contains(draftsTab)) {
             addableTabs.add(draftsTab)
         }
+        val scheduledTab = TabViewData.from(activeAccountId, Timeline.Scheduled)
+        if (!currentTabs.contains(scheduledTab)) {
+            addableTabs.add(scheduledTab)
+        }
 
         addableTabs.add(TabViewData.from(activeAccountId, Timeline.Hashtags(emptyList())))
         addableTabs.add(TabViewData.from(activeAccountId, Timeline.UserList("", "")))

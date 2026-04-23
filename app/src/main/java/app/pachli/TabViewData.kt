@@ -23,6 +23,7 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import app.pachli.components.conversation.ConversationsFragment
 import app.pachli.components.notifications.NotificationsFragment
+import app.pachli.components.scheduled.ScheduledStatusFragment
 import app.pachli.components.timeline.TimelineFragment
 import app.pachli.components.trending.TrendingLinksFragment
 import app.pachli.components.trending.TrendingTagsFragment
@@ -160,6 +161,12 @@ data class TabViewData(
                 text = app.pachli.feature.drafts.R.string.title_drafts,
                 icon = R.drawable.ic_notebook,
                 fragment = { DraftsFragment.newInstance(pachliAccountId) },
+            )
+            Timeline.Scheduled -> TabViewData(
+                timeline = timeline,
+                text = R.string.title_scheduled_posts,
+                icon = R.drawable.ic_access_time,
+                fragment = { ScheduledStatusFragment.newInstance(pachliAccountId) },
             )
         }
     }
