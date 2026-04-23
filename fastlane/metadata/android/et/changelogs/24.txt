@@ -1,0 +1,15 @@
+Pachli 2.9.0
+
+Mida on uut:
+
+- Vahekaartide joondumine ja sisueelisused pole enam katsejärgus
+- Algne tugi teavituste filtreerimiseks saatva konto poolt
+- Pleroma päringuvastuste tugi, kui kuupäev ilma ajavööndita
+- Täiendavad a11y tegevused populaarsust koguvate linkide ja kontosoovituste puhul
+
+Parandused:
+
+- A11y vaadete osad on nüüd klikatavad
+- Üleslaadimise vea puhul ei lähe pilt ja selgitus kaotsi
+- Varia kokkujooksmiste parandused
+- Soome, iiri, norra ja hispaania keelte tõlgete uuendused
