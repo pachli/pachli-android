@@ -139,7 +139,7 @@ class DraftsFragment :
             addItemDecoration(
                 MaterialDividerItemDecoration(context, MaterialDividerItemDecoration.VERTICAL),
             )
-            (binding.draftsRecyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+            (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         }
 
         draftsAdapter.addLoadStateListener {
