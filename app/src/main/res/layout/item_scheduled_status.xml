@@ -4,22 +4,89 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
+    android:background="@drawable/item_activable_background"
     android:minHeight="?listPreferredItemHeight"
     android:paddingStart="?listPreferredItemPaddingStart"
     android:paddingEnd="?listPreferredItemPaddingEnd">
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="?attr/status_text_large"
-        app:layout_constraintEnd_toEndOf="parent"
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_vertical"
+        app:buttonTint="@color/compound_button_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/editButton"
+        style="@style/AppImageButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@string/action_edit"
+        android:padding="4dp"
+        android:clickable="false"
+        android:focusable="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:autoText="false"
-        tools:text="@tools:sample/lorem[10]"
-        tools:ignore="SelectableText" />
+        app:srcCompat="@drawable/ic_edit_24dp" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/horizontalBarrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="end"
+        app:constraint_referenced_ids="checkBox,editButton" />
+
+    <Space
+        android:id="@+id/topSpace"
+        android:layout_width="wrap_content"
+        android:layout_height="12dp"
+        app:layout_constraintStart_toEndOf="@id/horizontalBarrier"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/contentWarning"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="?attr/status_text_medium"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintStart_toEndOf="@+id/horizontalBarrier"
+        app:layout_constraintTop_toBottomOf="@id/topSpace"
+        tools:text="Some content warning" />
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="?attr/status_text_medium"
+        app:layout_constraintStart_toStartOf="@+id/contentWarning"
+        app:layout_constraintTop_toBottomOf="@id/contentWarning"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Some post content. May be very long." />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/media_preview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/content"
+        app:layout_constraintTop_toBottomOf="@id/content" />
+
+    <app.pachli.core.ui.PollPreviewView
+        android:id="@+id/draftPoll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:minWidth="@dimen/poll_preview_min_width"
+        app:layout_constraintStart_toStartOf="@+id/media_preview"
+        app:layout_constraintTop_toBottomOf="@id/media_preview"
+        app:layout_goneMarginEnd="8dp" />
 
     <TextView
         android:id="@+id/timestamp"
@@ -33,35 +100,9 @@
         android:textSize="?attr/status_text_medium"
         app:drawableStartCompat="@drawable/ic_access_time"
         app:drawableTint="?colorPrimary"
-        app:layout_constraintBottom_toBottomOf="@+id/edit"
-        app:layout_constraintEnd_toStartOf="@id/edit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/edit"
-        tools:text="2024-10-20 18:00:00" />
-
-    <ImageButton
-        android:id="@+id/edit"
-        style="@style/AppImageButton"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
         android:layout_marginTop="8dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/action_edit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/delete"
-        app:layout_constraintStart_toEndOf="@id/timestamp"
-        app:layout_constraintTop_toBottomOf="@+id/text"
-        app:srcCompat="@drawable/ic_create_24dp" />
-
-    <ImageButton
-        android:id="@+id/delete"
-        style="@style/AppImageButton"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/action_delete"
-        app:layout_constraintBottom_toBottomOf="@+id/edit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_clear_24dp" />
-
+        android:paddingBottom="8dp"
+        app:layout_constraintStart_toStartOf="@id/draftPoll"
+        app:layout_constraintTop_toBottomOf="@id/draftPoll"
+        tools:text="2024-10-20 18:00:00" />
 </androidx.constraintlayout.widget.ConstraintLayout>
