@@ -2,22 +2,4 @@
 <resources>
     <string name="update_dialog_message">Buka Google Play untuk melihat detailnya?</string>
     <string name="update_dialog_positive">Buka Google Play</string>
-    <string name="translation_model_manager_fragment_info"></string>
-    <string name="translation_model_manager_fragment_title"></string>
-    <string name="fragment_confirm_download_language_dialog_msg"></string>
-    <string name="fragment_google_disclaimer_dialog_title"></string>
-    <string name="translation_model_manager_fragment_downloaded_heading"></string>
-    <string name="action_download_remote_model_fmt"></string>
-    <string name="fragment_confirm_download_language_dialog_title_fmt"></string>
-    <string name="content_description_loading_fmt"></string>
-    <string name="action_delete_remote_model_fmt"></string>
-    <string name="label_translated_mlkit"></string>
-    <string name="translation_model_manager_fragment_remote_heading"></string>
-    <string name="action_translate_mlkit"></string>
-    <string name="content_description_available_fmt"></string>
-    <string name="fragment_confirm_delete_language_dialog_title_fmt"></string>
-    <string name="fragment_confirm_delete_language_dialog_msg"></string>
-    <string name="pref_translation_manage_languages"></string>
-    <string name="content_description_loaded_fmt"></string>
-    <string name="pref_translation_require_wifi"></string>
 </resources>
