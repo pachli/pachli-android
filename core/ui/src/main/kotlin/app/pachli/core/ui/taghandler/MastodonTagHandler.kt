@@ -31,19 +31,6 @@ import java.util.Stack
 import org.xml.sax.XMLReader
 
 /**
- * Matches `<br> ` and variants with an internal space or self-closing
- * `/` character.
- *
- * - `<br> `
- * - `<br > `
- * - `<br/> `
- * - `<br /> `
- *
- * etc.
- */
-private val rxBR = """(?i)<br(?<inner>\s*/)?> """.toRegex()
-
-/**
  * Tags that should be rewritten to have a `pachli-` prefix.
  *
  * The `/` in a (possible) closing tag is saved in `$bl`. The tag name is
@@ -91,8 +78,6 @@ class MastodonTagHandler(context: Context) : PachliTagHandler {
         //
         // So use a transform function that can handle both of these cases.
         return html
-            .replace(rxBR, { "<br${it.groups[1]?.value ?: ""}>&nbsp;" })
-            .replace("  ", "&nbsp;&nbsp;")
             // The XML reader doesn't treat whitespace as significant in `pre` elements,
             // so replace any `\n` with `<br />` and any run of two spaces with
             // `&nbsp;&nbsp` to counter this.
@@ -196,11 +181,10 @@ private class BlockQuoteHandler(private val context: Context) : ElementHandler {
     }
 
     override fun endElement(text: Editable) {
+        text.ensureEndsWithNewline()
         text.getLastSpanOrNull<BlockQuote>()?.let { mark ->
             text.setSpansFromMark(mark, BlockQuoteSpan(context))
         }
-        text.ensureEndsWithNewline()
-        text.append("\n")
     }
 }
 
