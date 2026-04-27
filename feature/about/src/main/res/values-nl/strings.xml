@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about_title_activity">Over</string>
-    <string name="about_device_info">%1$s %2$s
-\nAndroid versie: %3$s
-\nSDK niveau: %4$d</string>
+    <string name="about_device_info">%1$s %2$s \nAndroid versie: %3$s \nSDK niveau: %4$d</string>
     <string name="about_account_info_title">Je account</string>
     <string name="about_copied">Versie en apparaatinformatie gekopieerd</string>
     <string name="about_device_info_title">Jouw apparaat</string>
     <string name="about_copy">Kopieer versie en apparaatinformatie</string>
     <string name="about_powered_by_pachli">Mogelijk gemaakt door Pachli</string>
     <string name="about_pachli_license">Pachli is opensource- en vrije software. De licentie valt onder de GNU Algemene Publieke Licentie versie 3. Je kunt de licentie hier bekijken: https://www.gnu.org/licenses/gpl-3.0.nl.html</string>
-    <string name="about_project_site">Projectwebsite:
-\nhttps://pachli.app</string>
-    <string name="about_bug_feature_request_site">Foutmeldingen &amp; nieuwe functies aanvragen:
-\nhttps://github.com/pachli/pachli-android/issues</string>
+    <string name="about_project_site">Projectwebsite: \nhttps://pachli.app</string>
+    <string name="about_bug_feature_request_site">Foutmeldingen &amp; nieuwe functies aanvragen: \nhttps://github.com/pachli/pachli-android/issues</string>
     <string name="about_privacy_policy">Privacy beleid</string>
     <string name="about_pachli_account">Pachli\'s profiel</string>
     <string name="title_licenses">Licenties</string>
-    <string name="about_account_info">\@%1$s@%2$s
-\nVersie: %3$s</string>
+    <string name="about_account_info">\@%1$s@%2$s \nVersie: %3$s</string>
     <string name="license_description">Pachli bevat broncode en onderdelen van de volgende opensourceprojecten:</string>
     <string name="notification_details_title">Details</string>
     <string name="notification_details_android_notifications_enabled">Android notificaties zijn ingeschakeld?</string>
@@ -64,4 +59,25 @@
     <string name="notification_details_pull_section">Haal notificaties op door middel van periodiek werk</string>
     <string name="notification_details_pachli_exempt">Pachli is uitgezonderd van batterij optimalisatie?</string>
     <string name="notification_details_usage_event_label">Android kan beperken wat applicaties kunnen in de achtergrond. Deze lijst toont hoe Pachli beperkt is over de afgelopen drie dagen, met de nieuwste eerst.</string>
+    <string name="database_vacuum"></string>
+    <string name="action_clear_cache"></string>
+    <string name="database_prune_cache_complete"></string>
+    <string name="about_database"></string>
+    <string name="action_vacuum"></string>
+    <string name="about_nivenly_foundation"></string>
+    <string name="action_run_integrity_check"></string>
+    <string name="about_workers"></string>
+    <string name="workers_prune_cached_media_help"></string>
+    <string name="workers_prune_cache_help"></string>
+    <string name="database_table_sizes"></string>
+    <string name="action_run_query_timings"></string>
+    <string name="database_vacuum_complete"></string>
+    <string name="database_integrity_check"></string>
+    <string name="database_query_timings"></string>
+    <string name="database_prune_cache"></string>
+    <string name="about_notifications"></string>
+    <string name="database_clear_cache"></string>
+    <string name="database_clear_cache_complete"></string>
+    <string name="action_prune_cache"></string>
+    <string name="workers_prune_log_entry_entity_help"></string>
 </resources>
