@@ -64,7 +64,7 @@
     <string name="label_quick_reply">Atbildēt…</string>
     <string name="dialog_download_image">Lejupielādēt</string>
     <string name="dialog_delete_post_warning">Izdzēst šo ierakstu?</string>
-    <string name="dialog_delete_conversation_warning">Dzēst šo sarunu\?</string>
+    <string name="dialog_delete_conversation_warning">Dzēst šo sarunu?</string>
     <string name="pref_title_language">Valoda</string>
     <string name="pref_title_post_tabs">Cilnes</string>
     <string name="pref_title_post_filter">Laika līnijas filtrēšana</string>
@@ -136,16 +136,16 @@
     <string name="list">Saraksts</string>
     <string name="account_note_saved">Saglabāts!</string>
     <string name="title_posts_with_replies">Ar atbildēm</string>
-    <string name="report_comment_hint">Papildu komentāri\?</string>
+    <string name="report_comment_hint">Papildu komentāri?</string>
     <string name="action_view_follow_requests">Sekošanas pieprasījumi</string>
     <string name="action_add_reaction">pievienot reakciju</string>
-    <string name="hint_compose">Kas notiek\?</string>
-    <string name="dialog_block_warning">Bloķēt @%1$s\?</string>
+    <string name="hint_compose">Kas notiek?</string>
+    <string name="dialog_block_warning">Bloķēt @%1$s?</string>
     <string name="pref_title_notification_filter_follow_requests">Pieprasīta sekošana</string>
     <string name="notification_follow_request_name">Sekošanas pieprasījumi</string>
     <string name="notification_subscription_name">Jauni ieraksti</string>
     <string name="follows_you">Seko Tev</string>
-    <string name="compose_save_draft">Saglabāt melnrakstu\?</string>
+    <string name="compose_save_draft">Saglabāt melnrakstu?</string>
     <string name="download_failed">Lejupielāde neizdevās</string>
     <string name="saving_draft">Saglabā melnrakstu…</string>
     <string name="post_sensitive_media_directions">Klikšķināt, lai apskatītu</string>
@@ -179,7 +179,7 @@
     <string name="action_open_reblogged_by">Parādīt pastiprinājumus</string>
     <string name="send_post_content_to">Kopīgot ierakstu…</string>
     <string name="hint_display_name">Nosaukums</string>
-    <string name="dialog_mute_warning">Vai apklusināt @%1$s\?</string>
+    <string name="dialog_mute_warning">Vai apklusināt @%1$s?</string>
     <string name="dialog_mute_hide_notifications">Paslēpt paziņojumus</string>
     <string name="mute_domain_warning_dialog_ok">Paslēpt visu domēnu</string>
     <string name="pref_title_edit_notification_settings">Paziņojumi</string>
@@ -196,7 +196,7 @@
     <string name="unreblog_private">Atcelt pastiprināšanu</string>
     <string name="unpin_action">Atspraust</string>
     <string name="pin_action">Piespraust</string>
-    <string name="action_unfollow_hashtag_format">Vai pārtraukt sekot #%1$s\?</string>
+    <string name="action_unfollow_hashtag_format">Vai pārtraukt sekot #%1$s?</string>
     <string name="mute_notifications_switch">Apklusināt paziņojumus</string>
     <string name="title_edits">Labojumi</string>
     <string name="notification_update_name">Ierakstu labojumi</string>
@@ -209,7 +209,7 @@
     <string name="action_continue_edit">Turpināt labošanu</string>
     <string name="pref_title_notification_alert_vibrate">Paziņot ar vibrāciju</string>
     <string name="pref_title_notification_alert_light">Paziņot ar gaismu</string>
-    <string name="dialog_unfollow_warning">Vai pārtraukt sekot šim kontam\?</string>
+    <string name="dialog_unfollow_warning">Vai pārtraukt sekot šim kontam?</string>
     <string name="pref_title_appearance_settings">Izskats</string>
     <string name="pref_title_timelines">Laika līnijas</string>
     <string name="pref_title_app_theme">Lietotnes tēma</string>
@@ -713,4 +713,19 @@
     <string name="compose_task_description_writing_post">Ieraksta sastādīšana</string>
     <string name="compose_task_description_replying_fmt">Atbild uz %1$s</string>
     <string name="compose_task_description_quoting_fmt">Citē %1$s</string>
+    <string name="ui_error_sending_post_fmt"></string>
+    <string name="search_operator_quote_all"></string>
+    <string name="ui_error_saving_post_fmt"></string>
+    <string name="search_operator_quote_dialog_no_quotes"></string>
+    <string name="err_draft_error_no_external_files_dir"></string>
+    <string name="search_operator_quote_dialog_only"></string>
+    <string name="search_operator_quote_no_quotes"></string>
+    <string name="err_draft_error_mkdir_drafts_fmt"></string>
+    <string name="search_operator_quote_dialog_all"></string>
+    <string name="err_draft_error_content_provider_crash"></string>
+    <string name="search_operator_quote_only"></string>
+    <string name="search_operator_quote_dialog_title"></string>
+    <string name="err_draft_error_unknown_mime_type"></string>
+    <string name="err_draft_error_io_fmt"></string>
+    <string name="ui_error_delete_scheduled_status_fmt"></string>
 </resources>
