@@ -239,7 +239,7 @@
     <string name="action_view_domain_mutes">Ausgeblendete Domains</string>
     <string name="action_mute_domain">%1$s stummschalten</string>
     <string name="confirmation_domain_unmuted">%1$s nicht mehr ausgeblendet</string>
-    <string name="mute_domain_warning">Bist du dir sicher, dass du alles von %1$s blockieren möchtest\? Du wirst keine Inhalte dieser Domain in irgendwelchen öffentlichen Timelines oder in deinen Benachrichtigungen sehen. Deine Follower von dieser Domain werden entfernt.</string>
+    <string name="mute_domain_warning">Bist du dir sicher, dass du alles von %1$s blockieren möchtest? Du wirst keine Inhalte dieser Domain in irgendwelchen öffentlichen Timelines oder in deinen Benachrichtigungen sehen. Deine Follower von dieser Domain werden entfernt.</string>
     <string name="mute_domain_warning_dialog_ok">Gesamte Domain ausblenden</string>
     <string name="pref_title_animate_gif_avatars">GIF-Profilbilder animieren</string>
     <string name="filter_dialog_whole_word">Ganzes Wort</string>
@@ -276,8 +276,8 @@
     <string name="notification_follow_request_description">Benachrichtigungen über neue Folgeanfragen</string>
     <string name="pref_title_notification_filter_follow_requests">Neue Folgeanfrage</string>
     <string name="notification_follow_request_name">Folgeanfragen</string>
-    <string name="dialog_mute_warning">\@%1$s stummschalten\?</string>
-    <string name="dialog_block_warning">\@%1$s blockieren\?</string>
+    <string name="dialog_mute_warning">\@%1$s stummschalten?</string>
+    <string name="dialog_block_warning">\@%1$s blockieren?</string>
     <string name="action_unmute_conversation">Stummschaltung der Unterhaltung aufheben</string>
     <string name="action_mute_conversation">Unterhaltung stummschalten</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/&gt; möchte dir folgen</string>
@@ -359,7 +359,7 @@
     <string name="report_category_other">Sonstiges</string>
     <string name="error_following_hashtags_unsupported">Diese Instanz unterstützt das Folgen von Hashtags nicht.</string>
     <string name="title_followed_hashtags">Gefolgte Hashtags</string>
-    <string name="action_unfollow_hashtag_format">#%1$s entfolgen\?</string>
+    <string name="action_unfollow_hashtag_format">#%1$s entfolgen?</string>
     <string name="a11y_label_loading_thread">Thread wird geladen</string>
     <string name="mute_notifications_switch">Benachrichtigungen stummschalten</string>
     <string name="title_edits">Bearbeitungen</string>
