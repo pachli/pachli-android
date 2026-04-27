@@ -58,4 +58,6 @@
     <string name="pref_title_quote_policy">Kuka voi lainata julkaisujasi?</string>
     <string name="pref_underline_links_links">Linkit</string>
     <string name="pref_underline_links_hashtags">Aihetunnisteet</string>
+    <string name="pref_underline_links_mentions"></string>
+    <string name="pref_title_underline_links"></string>
 </resources>
