@@ -42,7 +42,7 @@
     <string name="about_device_info">%1$s %2$s\nAndroid verzia: %3$s\nSDK verzia: %4$d</string>
     <string name="notification_details_any_account_needs_migration_help">Jeden alebo viacero účtov nemá rozsah „push“ protokolu OAuth, push upozornenia sú preto vypnuté.</string>
     <string name="notification_details_title">Detaily</string>
-    <string name="notification_details_notifications_enabled_help">Pre žiadny z tvojich účtov nie sú povolené upozornenia. Zmeň to v Nastaveniach účtu. > Upozornenia. Dovtedy sú všetky upozornenia vypnuté.</string>
+    <string name="notification_details_notifications_enabled_help">Pre žiadny z tvojich účtov nie sú povolené upozornenia. Zmeň to v Nastaveniach účtu. &gt; Upozornenia. Dovtedy sú všetky upozornenia vypnuté.</string>
     <string name="notification_details_unifiedpush_available">Je k dispozícii UnifiedPush?</string>
     <string name="notification_details_unifiedpush_available_help">Služba UnifiedPush (ntfy.sh) nie je dostupná, upozornenia sa budú sťahovať v pravidelných intervaloch. Zvyšok tejto sekcie vysvetľuje, prečo sa UnifiedPush nepoužíva, ale nie je relevantný pre aktuálny spôsob sťahovania upozornení.</string>
     <string name="notification_details_accounts_unified_push_url_help">Pre jeden alebo viacero účtov nie je nastavená URL adresa UnifiedPush, push upozornenia pre tieto účty sú vypnuté.</string>
