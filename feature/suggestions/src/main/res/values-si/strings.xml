@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="sources_featured"></string>
+    <string name="source_unknown"></string>
+    <string name="sources_friends_of_friends"></string>
+    <string name="sources_most_followed"></string>
+    <string name="sources_most_interactions"></string>
+    <string name="follows_count_fmt"></string>
+    <string name="title_suggestions"></string>
+    <string name="account_content_description_fmt" translatable="false"></string>
+    <string name="ui_error_follow_account_fmt"></string>
+    <string name="action_dismiss_follow_suggestion"></string>
+    <string name="sources_similar_to_recently_followed"></string>
+    <string name="sources_unknown"></string>
+    <string name="follower_count_fmt"></string>
+    <string name="statuses_count_fmt"></string>
+    <string name="statuses_count_per_week_fmt"></string>
+    <string name="statuses_count_per_week_last_fmt"></string>
+    <string name="action_follow_account"></string>
+    <string name="ui_error_delete_suggestion_fmt"></string>
+</resources>
