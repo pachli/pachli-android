@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="error_media_upload_sending">Įkėlimas nepavyko.</string>
     <string name="error_muting_hashtag_format">Klaida nutildant #%1$s.</string>
-    <string name="account_filter_placeholder_label_domain">Iš naudotojo @&lt;b&gt;%1$s&lt;/b&gt; </string>
+    <string name="account_filter_placeholder_label_domain">Iš naudotojo @&lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="account_filter_placeholder_label_not_following">Filtruojama, nes: &lt;b&gt;jų nesekate&lt;/b&gt;</string>
     <string name="error_following_hashtag_format">Klaida sekant #%1$s.</string>
     <string name="title_public_local">Vietinis</string>
