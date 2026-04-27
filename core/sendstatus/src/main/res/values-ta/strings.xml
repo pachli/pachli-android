@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_prepare_media_content_resolver_missing_path_fmt">உள்ளடக்க தீர்வி யூரி ஒரு பாதையை காணவில்லை: %1$s</string>
     <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">உள்ளடக்க தீர்வி யூரி ஆதரிக்கப்படாத திட்டத்தைக் கொண்டுள்ளது: %1$s</string>
@@ -13,4 +13,6 @@
     <string name="send_post_notification_error_title">Toot அனுப்புவதில் பிழை</string>
     <string name="send_post_notification_saved_content">நகலெடுக்கபட்ட toot வரைவில் சேமிக்கபட்டது</string>
     <string name="send_post_notification_cancel_title">Toot அனுப்பபல் நீக்கபட்டது</string>
+    <string name="send_post_failure_message_timeout"></string>
+    <string name="send_post_failure_message_cancel"></string>
 </resources>
