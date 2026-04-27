@@ -2,22 +2,18 @@
 <resources>
     <string name="about_title_activity">Tietoja</string>
     <string name="about_device_info_title">Laitteesi</string>
-    <string name="about_account_info">\@%1$s@%2$s
-\nVersio: %3$s</string>
+    <string name="about_account_info">\@%1$s@%2$s \nVersio: %3$s</string>
     <string name="about_copied">Tiedot versiosta ja laitteesta kopioitu</string>
     <string name="about_account_info_title">Tilisi</string>
     <string name="about_copy">Kopio tiedot versiosta ja laitteesta</string>
     <string name="about_powered_by_pachli">Toimii Pachlilla</string>
     <string name="about_pachli_license">Pachli on vapaa avoimen lähdekoodin ohjelmisto. Se on lisensoitu GNU General Public License Version 3 -lisenssillä. Voit katsoa lisenssin täältä: https://www.gnu.org/lisenssit/gpl-3.0.en.html</string>
     <string name="about_project_site">Projektin verkkosivut: https:/pachli.app</string>
-    <string name="about_bug_feature_request_site">Virheilmoitukset ja pyynnöt uusista toiminnoista:
-\nhttps://github.com/pachli/pachli-android/issues</string>
+    <string name="about_bug_feature_request_site">Virheilmoitukset ja pyynnöt uusista toiminnoista: \nhttps://github.com/pachli/pachli-android/issues</string>
     <string name="about_privacy_policy">Yksityisyyden suoja</string>
     <string name="about_pachli_account">Pachlin profiili</string>
     <string name="title_licenses">Lisenssit</string>
-    <string name="about_device_info">%1$s %2$s
-\nAndroidversio: %3$s
-\nSDK-taso: %4$d</string>
+    <string name="about_device_info">%1$s %2$s \nAndroidversio: %3$s \nSDK-taso: %4$d</string>
     <string name="license_description">Pachlissa on koodia ja osioita näistä vapaan lähdekoodin projekteista:</string>
     <string name="notification_details_title">Yksityiskohdat</string>
     <string name="notification_details_android_notifications_enabled">Androidin ilmoitukset sallittu?</string>
@@ -71,4 +67,17 @@
     <string name="action_vacuum">Imurointi</string>
     <string name="about_database">Tietokanta</string>
     <string name="about_notifications">Ilmoitukset</string>
+    <string name="database_vacuum"></string>
+    <string name="action_run_integrity_check"></string>
+    <string name="about_workers"></string>
+    <string name="workers_prune_cached_media_help"></string>
+    <string name="workers_prune_cache_help"></string>
+    <string name="notification_details_workers_help"></string>
+    <string name="database_table_sizes"></string>
+    <string name="action_run_query_timings"></string>
+    <string name="database_integrity_check"></string>
+    <string name="database_query_timings"></string>
+    <string name="database_clear_cache"></string>
+    <string name="notification_details_pull_section"></string>
+    <string name="workers_prune_log_entry_entity_help"></string>
 </resources>
