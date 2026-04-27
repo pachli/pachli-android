@@ -2,16 +2,14 @@
 <resources>
     <string name="about_title_activity">Acerca de</string>
     <string name="about_device_info_title">Tu dispositivo</string>
-    <string name="about_account_info">\@%1$s@%2$s
-\nVersión: %3$s</string>
+    <string name="about_account_info">\@%1$s@%2$s \nVersión: %3$s</string>
     <string name="about_copied">Informaciones de versión y dispositivo copiadas</string>
     <string name="about_account_info_title">Tu cuenta</string>
     <string name="about_copy">Copiar las informaciones de versión y dispositivo</string>
     <string name="about_powered_by_pachli">Potenciado por Pachli</string>
     <string name="about_pachli_license">Pachli es software libre y de código abierto. Está licenciado bajo la Licencia Pública General de GNU Versión 3. Puedes leer sobre la misma en: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <string name="about_project_site">Sitio del proyecto: https://pachli.app</string>
-    <string name="about_bug_feature_request_site">Reporte de errores y peticiones de características:
-\nhttps://github.com/pachli/pachli-android/issues</string>
+    <string name="about_bug_feature_request_site">Reporte de errores y peticiones de características: \nhttps://github.com/pachli/pachli-android/issues</string>
     <string name="about_privacy_policy">Política de privacidad</string>
     <string name="about_pachli_account">Perfil de Pachli</string>
     <string name="title_licenses">Licencias</string>
@@ -39,7 +37,7 @@
     <string name="notitication_log_filter_dialog_title">Mostrar prioridades del registro</string>
     <string name="notification_details_title">Detalles</string>
     <string name="notification_details_android_notifications_enabled">¿Están habilitadas las notificaciones de Android?</string>
-    <string name="notification_details_notifications_enabled_help">Las notificaciones no están habilitadas para ninguna de tus cuentas. Modifícalo en Preferencias de cuenta > Notificaciones. En tanto, todas las notificaciones permanecerán deshabilitadas.</string>
+    <string name="notification_details_notifications_enabled_help">Las notificaciones no están habilitadas para ninguna de tus cuentas. Modifícalo en Preferencias de cuenta &gt; Notificaciones. En tanto, todas las notificaciones permanecerán deshabilitadas.</string>
     <string name="notification_details_unifiedpush_available">¿Está disponible UnifiedPush?</string>
     <string name="notification_details_unifiedpush_available_help">UnifiedPush (ntfy.sh) no está disponible; las notificaciones serán obtenidas periódicamente. El resto de esta sección explica por qué no se está usando UnifiedPush, pero no es relevante para saber cómo se obtienen las notificaciones actualmente.</string>
     <string name="notification_details_any_account_needs_migration_help">Una o más cuentas no tienen alcance \'push\' de OAuth; las notificaciones push están deshabilitadas.</string>
