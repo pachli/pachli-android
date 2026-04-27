@@ -1,5 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_edit">തിരുത്ത്</string>
     <string name="title_drafts">കരടുകൾ</string>
+    <string name="title_delete_drafts"></string>
+    <string name="drafts_post_quote_removed"></string>
+    <string name="action_delete_drafts"></string>
+    <string name="drafts_load_reply_failed_fmt"></string>
+    <string name="drafts_load_quote_failed_fmt"></string>
+    <string name="drafts_post_reply_removed"></string>
+    <string name="send_post_failure_message_prefix"></string>
+    <string name="delete_drafts_msg"></string>
+    <string name="no_drafts"></string>
+    <string name="drafts_post_failed_to_send"></string>
 </resources>
