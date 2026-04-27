@@ -8,13 +8,4 @@
     <string name="error_retrieving_oauth_token_fmt">ഒരു പ്രവേശന ടോക്കൺ ലഭ്യമാക്കുന്നതിൽ പരാജയപ്പെട്ടു: %1$s</string>
     <string name="action_login">മസ്റ്റഡോൺ വഴി പ്രവേശിക്കുക</string>
     <string name="link_whats_an_instance">എന്താണ് ഒരു ഇൻസ്റ്റൻസ്?</string>
-    <string name="title_login"></string>
-    <string name="login_connection"></string>
-    <string name="hint_domain"></string>
-    <string name="instance_rule_title"></string>
-    <string name="dialog_whats_an_instance"></string>
-    <string name="error_could_not_load_login_page"></string>
-    <string name="action_browser_login"></string>
-    <string name="instance_rule_info"></string>
-    <string name="error_loading_account_details_fmt"></string>
 </resources>

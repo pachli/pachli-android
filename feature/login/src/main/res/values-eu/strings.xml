@@ -15,6 +15,4 @@
     <string name="login_connection">Konektatzen…</string>
     <string name="title_login">Saioa hasi</string>
     <string name="error_could_not_load_login_page">Ezin izan da saio-hasierako orria kargatu.</string>
-    <string name="instance_rule_title"></string>
-    <string name="instance_rule_info"></string>
 </resources>

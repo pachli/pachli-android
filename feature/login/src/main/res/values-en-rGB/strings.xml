@@ -8,13 +8,4 @@
     <string name="error_loading_account_details_fmt">Failed loading account details: %1$s</string>
     <string name="title_login">Login</string>
     <string name="error_could_not_load_login_page">Could not load the login page.</string>
-    <string name="login_connection"></string>
-    <string name="hint_domain"></string>
-    <string name="instance_rule_title"></string>
-    <string name="dialog_whats_an_instance"></string>
-    <string name="link_whats_an_instance"></string>
-    <string name="action_browser_login"></string>
-    <string name="instance_rule_info"></string>
-    <string name="action_close"></string>
-    <string name="action_login"></string>
 </resources>

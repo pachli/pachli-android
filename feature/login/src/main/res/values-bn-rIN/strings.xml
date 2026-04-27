@@ -11,10 +11,4 @@
     <string name="action_login">মাস্টোডনের সঙ্গে লগইন করো</string>
     <string name="link_whats_an_instance">ইনস্ট্যান্স কি?</string>
     <string name="login_connection">সংযুক্ত হচ্ছে …</string>
-    <string name="title_login"></string>
-    <string name="instance_rule_title"></string>
-    <string name="error_could_not_load_login_page"></string>
-    <string name="action_browser_login"></string>
-    <string name="instance_rule_info"></string>
-    <string name="error_loading_account_details_fmt"></string>
 </resources>

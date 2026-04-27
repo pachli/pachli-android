@@ -16,5 +16,4 @@
     <string name="error_could_not_load_login_page">無法載入登入頁面。</string>
     <string name="instance_rule_info">登入既代表您已同意 %1$s 的規定。</string>
     <string name="instance_rule_title">%1$s 的規定</string>
-    <string name="action_browser_login"></string>
 </resources>

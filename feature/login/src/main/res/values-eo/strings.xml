@@ -16,5 +16,4 @@
     <string name="error_could_not_load_login_page">La salutpaĝo ne povis esti ŝargita.</string>
     <string name="instance_rule_info">Si vi ensalutas, vi konsentas je la regulo de %1$s.</string>
     <string name="instance_rule_title">Regulo de %1$s</string>
-    <string name="action_browser_login"></string>
 </resources>

@@ -15,6 +15,4 @@
     <string name="login_connection">A ligar…</string>
     <string name="title_login">Entrar</string>
     <string name="error_could_not_load_login_page">Não foi possível carregar a página de autenticação.</string>
-    <string name="instance_rule_title"></string>
-    <string name="instance_rule_info"></string>
 </resources>

@@ -7,14 +7,4 @@
     <string name="login_connection">itteqqen…</string>
     <string name="title_login">Qqen</string>
     <string name="action_browser_login">Tuqqna s yiminig</string>
-    <string name="error_authorization_denied"></string>
-    <string name="error_authorization_unknown"></string>
-    <string name="error_retrieving_oauth_token_fmt"></string>
-    <string name="instance_rule_title"></string>
-    <string name="dialog_whats_an_instance"></string>
-    <string name="error_failed_app_registration_fmt"></string>
-    <string name="error_could_not_load_login_page"></string>
-    <string name="instance_rule_info"></string>
-    <string name="error_loading_account_details_fmt"></string>
-    <string name="error_invalid_domain"></string>
 </resources>

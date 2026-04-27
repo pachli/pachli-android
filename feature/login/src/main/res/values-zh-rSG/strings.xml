@@ -11,10 +11,4 @@
     <string name="action_login">登录 Mastodon 账号</string>
     <string name="link_whats_an_instance">需要帮助？</string>
     <string name="login_connection">正在连接…</string>
-    <string name="title_login"></string>
-    <string name="instance_rule_title"></string>
-    <string name="error_could_not_load_login_page"></string>
-    <string name="action_browser_login"></string>
-    <string name="instance_rule_info"></string>
-    <string name="error_loading_account_details_fmt"></string>
 </resources>
