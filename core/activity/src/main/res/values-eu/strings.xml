@@ -3,4 +3,7 @@
     <string name="action_open_as">%1$s bezala ireki</string>
     <string name="post_lookup_error_format">Errorea agertu da %1$s mezua bilatzean</string>
     <string name="performing_lookup_title">Bilatzen…</string>
+    <string name="send_error_report"></string>
+    <string name="action_open_quoted_post"></string>
+    <string name="action_open_as_ellipsis"></string>
 </resources>
