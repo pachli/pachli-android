@@ -17,4 +17,5 @@
     <string name="source_unknown">(Server yang dikembalikan sumber yang tidak diakui)</string>
     <string name="action_follow_account">Ikuti</string>
     <string name="sources_most_interactions">Mendapatkan banyak perhatian di server Anda</string>
+    <string name="account_content_description_fmt" translatable="false"></string>
 </resources>
