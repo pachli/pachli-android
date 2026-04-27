@@ -396,13 +396,7 @@
     <string name="filter_edit_keyword_title">Muokkaa avainsanaa</string>
     <string name="filter_description_warn">Piilota varoituksen taakse</string>
     <string name="saving_draft">Luonnosta tallennetaan…</string>
-    <string name="wellbeing_mode_notice">Tietoja, jotka saattavat vaikuttaa henkiseen hyvinvointiin, piilotetaan. Tähän sisältyy:
-\n
-\nIlmoitukset tykkäyksistä/Tehostuksista/Seuraajista
-\nTykkäysten/Tehostusten laskurit julkaisuissa
-\nSeuraaja/Julkaisumäärät profiileissa
-\n
-\nTämä ei veikuta puskuilmoituksiin, mutta voit muuttaa ilmoitusasetukset erikseen.</string>
+    <string name="wellbeing_mode_notice">Tietoja, jotka saattavat vaikuttaa henkiseen hyvinvointiin, piilotetaan. Tähän sisältyy: \n \nIlmoitukset tykkäyksistä/Tehostuksista/Seuraajista \nTykkäysten/Tehostusten laskurit julkaisuissa \nSeuraaja/Julkaisumäärät profiileissa \n \nTämä ei veikuta puskuilmoituksiin, mutta voit muuttaa ilmoitusasetukset erikseen.</string>
     <string name="wellbeing_hide_stats_posts">Piilota julkaisujen laskurit</string>
     <string name="status_created_info">Luotu: %1$s</string>
     <string name="action_add">Lisää</string>
@@ -585,9 +579,7 @@
     <string name="pref_labs_reverse_home_timeline_off_summary">Uusimmat julkaisut ensin</string>
     <string name="pref_labs_reverse_home_timeline_on_summary">Vanhimmat julkaisut ensin</string>
     <string name="pref_title_change_unified_push_distributor">Vaihda Unified Push -puskuilmoitusten jakelijaa</string>
-    <string name="pref_change_unified_push_distributor_msg">Tämä tyhjentää Unified Push -ilmoitusten jakelijan valinnan ja käynnistää Pachlin uudestaan.
-\n
-\nJos useita Unified Push -jakelijoita on asennettu, sinua pyydetään valitsemaan niistä yksi.</string>
+    <string name="pref_change_unified_push_distributor_msg">Tämä tyhjentää Unified Push -ilmoitusten jakelijan valinnan ja käynnistää Pachlin uudestaan. \n \nJos useita Unified Push -jakelijoita on asennettu, sinua pyydetään valitsemaan niistä yksi.</string>
     <string name="pref_title_notification_up_distributor">Unified push -ilmoitusten jakelija</string>
     <string name="pref_notification_up_distributor_none">Ei ole</string>
     <string name="pref_notification_up_distributor_name_fmt">%1$s. Napauta avataksesi</string>
