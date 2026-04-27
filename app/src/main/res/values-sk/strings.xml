@@ -154,11 +154,13 @@
     <plurals name="notification_severed_relationships_summary_followers_fmt">
         <item quantity="one">%1$s odstránený sledujúci.</item>
         <item quantity="few">%1$s odstránení sledujúci.</item>
+        <item quantity="many">%1$s odstránených sledujúcich.</item>
         <item quantity="other">%1$s odstránených sledujúcich.</item>
     </plurals>
     <plurals name="notification_severed_relationships_summary_following_fmt">
         <item quantity="one">%1$s sledovaný účet bol odstránený.</item>
         <item quantity="few">%1$s sledované účty boli odstránené.</item>
+        <item quantity="many">%1$s sledovaných účtov bolo odstránených.</item>
         <item quantity="other">%1$s sledovaných účtov bolo odstránených.</item>
     </plurals>
     <string name="account_filter_placeholder_type_favourite_fmt">\@&lt;b&gt;%1$s&lt;/b&gt; si obľúbil/a tvoj príspevok</string>
@@ -189,6 +191,7 @@
     <plurals name="notification_summary_report_format">
         <item quantity="one">%1$s · %2$d priložený príspevok</item>
         <item quantity="few">%1$s · %2$d priložené príspevky</item>
+        <item quantity="many">%1$s · %2$d priložených príspevkov</item>
         <item quantity="other">%1$s · %2$d priložených príspevkov</item>
     </plurals>
     <string name="report_comment_hint">Ďalšie komentáre?</string>
@@ -328,6 +331,7 @@
     <plurals name="notification_title_summary">
         <item quantity="one">%d nová interakcia</item>
         <item quantity="few">%d nové interakcie</item>
+        <item quantity="many">%d nových interakcií</item>
         <item quantity="other">%d nových interakcií</item>
     </plurals>
     <string name="ui_error_reblog_fmt">Zdieľanie príspevku zlyhalo: %1$s</string>
@@ -474,6 +478,7 @@
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Nemôžeš nahrať viac než %1$d mediálnu prílohu.</item>
         <item quantity="few">Nemôžeš nahrať viac než %1$d mediálne prílohy.</item>
+        <item quantity="many">Nemôžeš nahrať viac než %1$d mediálnych príloh.</item>
         <item quantity="other">Nemôžeš nahrať viac než %1$d mediálnych príloh.</item>
     </plurals>
     <string name="announcement_date">%1$s %2$s</string>
@@ -645,16 +650,19 @@
     <plurals name="followed_hashtags_posts_count_fmt">
         <item quantity="one">%1$d príspevok</item>
         <item quantity="few">%1$d príspevky</item>
+        <item quantity="many">%1$d príspevkov</item>
         <item quantity="other">%1$d príspevkov</item>
     </plurals>
     <plurals name="followed_hashtags_accounts_count_fmt">
         <item quantity="one">%1$d účet</item>
         <item quantity="few">%1$d účty</item>
+        <item quantity="many">%1$d účtov</item>
         <item quantity="other">%1$d účtov</item>
     </plurals>
     <plurals name="followed_hashtags_days_count_fmt">
         <item quantity="one">%1$d deň</item>
         <item quantity="few">%1$d dni</item>
+        <item quantity="many">%1$d dní</item>
         <item quantity="other">%1$d dní</item>
     </plurals>
     <string name="pref_custom_tabs_true">Rýchlejšie, tvoj preferovaný prehliadač v Pachli</string>
