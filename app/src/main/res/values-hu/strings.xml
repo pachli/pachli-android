@@ -696,4 +696,24 @@
     <string name="error_filter_missing_context"></string>
     <string name="conversation_0_recipients"></string>
     <string name="search_operator_attachment_specific_media_include_1_exclude_2_fmt"></string>
+    <plurals name="notification_severed_relationships_summary_followers_fmt">
+    </plurals>
+    <string name="title_public_trending_links"></string>
+    <string name="title_tab_public_trending_links"></string>
+    <plurals name="notification_severed_relationships_summary_following_fmt">
+    </plurals>
+    <string name="title_public_trending"></string>
+    <string name="title_public_trending_statuses"></string>
+    <string name="notification_severed_relationships_user_domain_block_body"></string>
+    <string name="notification_severed_relationships_unknown_body"></string>
+    <string name="notification_severed_relationships_format"></string>
+    <string name="pref_title_show_self_boosts_description"></string>
+    <string name="pref_title_show_self_boosts"></string>
+    <string name="title_tab_public_trending_statuses"></string>
+    <string name="action_send_unlisted_content_description"></string>
+    <string name="action_send_public_content_description"></string>
+    <string name="notification_unknown"></string>
+    <string name="notification_severed_relationships_account_suspension_body"></string>
+    <string name="notification_severed_relationships_domain_block_body"></string>
+    <string name="title_tab_public_trending_hashtags"></string>
 </resources>
