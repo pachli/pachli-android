@@ -47,7 +47,7 @@
     <string name="action_follow">Seguir</string>
     <string name="action_compose">Redactar</string>
     <string name="action_quick_reply">Resposta rápida</string>
-    <string name="report_comment_hint">Comentarios adicionais\?</string>
+    <string name="report_comment_hint">Comentarios adicionais?</string>
     <string name="report_username_format">Denunciar a @%1$s</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; publicou agora</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; solicitou seguirte</string>
@@ -95,7 +95,7 @@
     <string name="pref_title_enable_swipe_for_tabs">Activar xestos de desprazamento para moverse entre lapelas</string>
     <string name="failed_search">Fallou a busca</string>
     <string name="title_accounts">Contas</string>
-    <string name="report_description_remote_instance">A conta pertence a outro servidor. Queres enviar unha copia anónima da denuncia alí tamén\?</string>
+    <string name="report_description_remote_instance">A conta pertence a outro servidor. Queres enviar unha copia anónima da denuncia alí tamén?</string>
     <string name="report_description_1">A denuncia vaise enviar á moderación do teu servidor. Podes engadir algunha explicación ou razón pola que estás denunciando a conta:</string>
     <string name="failed_fetch_posts">Fallou a obtención dos estados</string>
     <string name="failed_report">Fallo ao realizar a denuncia</string>
@@ -106,7 +106,7 @@
     <string name="poll_ended_created">Rematou unha enquisa creada por ti</string>
     <string name="poll_ended_voted">Rematou unha enquisa na que votaches</string>
     <string name="compose_preview_image_description">Accións para a imaxe %1$s</string>
-    <string name="notification_clear_text">Tes a certeza de que queres borrar permanentemente todas as notificacións\?</string>
+    <string name="notification_clear_text">Tes a certeza de que queres borrar permanentemente todas as notificacións?</string>
     <string name="compose_shortcut_short_label">Redactar</string>
     <string name="compose_shortcut_long_label">Redactar publicación</string>
     <string name="filter_apply">Aplicar</string>
@@ -144,7 +144,7 @@
     <string name="emoji_style">Estilo dos emoji</string>
     <string name="error_no_custom_emojis">A túa instancia %1$s non ten emojis personalizados</string>
     <string name="action_compose_shortcut">Redactar</string>
-    <string name="compose_save_draft">Gardar borrador\?</string>
+    <string name="compose_save_draft">Gardar borrador?</string>
     <string name="lock_account_label_description">Require que aprobes manualmente as seguidoras</string>
     <string name="lock_account_label">Bloquear conta</string>
     <string name="action_remove">Eliminar</string>
@@ -243,14 +243,14 @@
     <string name="visibility_unlisted">Non listado: non mostrar en cronoloxías públicas</string>
     <string name="visibility_public">Público: Publicar en cronoloxías públicas</string>
     <string name="dialog_mute_hide_notifications">Agochar notificacións</string>
-    <string name="dialog_mute_warning">Acalar a @%1$s\?</string>
-    <string name="dialog_block_warning">Bloquear @%1$s\?</string>
+    <string name="dialog_mute_warning">Acalar a @%1$s?</string>
+    <string name="dialog_block_warning">Bloquear @%1$s?</string>
     <string name="mute_domain_warning_dialog_ok">Agochar todo o dominio</string>
-    <string name="mute_domain_warning">Tes a certeza de querer bloquear a todo %1$s\? Non verás o contido dese dominio en ningunha cronoloxía pública ou nas notificacións. As túas seguidoras nese dominio serán eliminadas.</string>
-    <string name="dialog_redraft_post_warning">Eliminar e reescribir esta publicación\?</string>
-    <string name="dialog_delete_post_warning">Eliminar esta publicación\?</string>
-    <string name="dialog_unfollow_warning">Deixar de seguir esta conta\?</string>
-    <string name="dialog_message_cancel_follow_request">Revogar a solicitude de seguimento\?</string>
+    <string name="mute_domain_warning">Tes a certeza de querer bloquear a todo %1$s? Non verás o contido dese dominio en ningunha cronoloxía pública ou nas notificacións. As túas seguidoras nese dominio serán eliminadas.</string>
+    <string name="dialog_redraft_post_warning">Eliminar e reescribir esta publicación?</string>
+    <string name="dialog_delete_post_warning">Eliminar esta publicación?</string>
+    <string name="dialog_unfollow_warning">Deixar de seguir esta conta?</string>
+    <string name="dialog_message_cancel_follow_request">Revogar a solicitude de seguimento?</string>
     <string name="dialog_download_image">Descargar</string>
     <string name="dialog_message_uploading_media">Subindo…</string>
     <string name="dialog_title_finishing_media_upload">Rematando a subida multimedia</string>
@@ -262,7 +262,7 @@
     <string name="hint_note">Bio</string>
     <string name="hint_display_name">Nome público</string>
     <string name="hint_content_warning">Aviso sobre o contido</string>
-    <string name="hint_compose">Que contas\?</string>
+    <string name="hint_compose">Que contas?</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Non podes subir máis de %1$d anexo multimedia.</item>
         <item quantity="other">Non podes subir máis de %1$d anexos multimedia.</item>
@@ -270,13 +270,7 @@
     <string name="wellbeing_hide_stats_profile">Agochar estatísticas cuantitativas nos perfís</string>
     <string name="wellbeing_hide_stats_posts">Agochar estatísticas cuantitativas nas publicacións</string>
     <string name="review_notifications">Revisar Notificacións</string>
-    <string name="wellbeing_mode_notice">Agocharemos algunha información que podería afectar ao teu benestar mental. Esto inclúe:
-\n
-\n- Notificacións acerca de Favoritos/Promocións/Seguimentos
-\n- Número de Favoritos/Promocións nas publicacións
-\n- Estatísticas de Seguidoras/Publicacións nos perfís
-\n
-\nAs notificacións tipo push non estarán afectadas, mais podes revisar as preferencias de notificacións manualmente.</string>
+    <string name="wellbeing_mode_notice">Agocharemos algunha información que podería afectar ao teu benestar mental. Esto inclúe: \n \n- Notificacións acerca de Favoritos/Promocións/Seguimentos \n- Número de Favoritos/Promocións nas publicacións \n- Estatísticas de Seguidoras/Publicacións nos perfís \n \nAs notificacións tipo push non estarán afectadas, mais podes revisar as preferencias de notificacións manualmente.</string>
     <string name="account_note_saved">Gardado!</string>
     <string name="account_note_hint">Nota privada acerca desta conta</string>
     <string name="pref_title_wellbeing_mode">Benestar</string>
@@ -310,7 +304,7 @@
     <string name="action_schedule_post">Programar Toot</string>
     <string name="action_emoji_keyboard">Teclado Emoji</string>
     <string name="follow_requests_info">Aínda que a túa conta non está bloqueada, a administración de %1$s opina que debes revisar manualmente as peticións de seguimento destas contas.</string>
-    <string name="dialog_delete_conversation_warning">Eliminar esta conversa\?</string>
+    <string name="dialog_delete_conversation_warning">Eliminar esta conversa?</string>
     <string name="action_delete_conversation">Eliminar conversa</string>
     <string name="action_unbookmark">Eliminar marcador</string>
     <string name="pref_title_confirm_favourites">Pedir confirmación antes de favorecer</string>
@@ -338,12 +332,12 @@
     <string name="action_add_reaction">engadir reacción</string>
     <string name="compose_save_draft_loses_media">Gardar borrador? (Os adxuntos serán subidos outra vez cando restablezas o borrador.)</string>
     <string name="pref_title_show_self_username">Mostrar identificador na barra ferramentas</string>
-    <string name="delete_scheduled_post_warning">Eliminar publicación programada\?</string>
+    <string name="delete_scheduled_post_warning">Eliminar publicación programada?</string>
     <string name="failed_to_pin">Fallo ao Fixar</string>
     <string name="failed_to_unpin">Fallo ao Desafixar</string>
     <string name="notification_report_description">Notificacións sobre temas de moderación</string>
     <string name="report_category_spam">Spam</string>
-    <string name="action_unfollow_hashtag_format">Non seguir #%1$s\?</string>
+    <string name="action_unfollow_hashtag_format">Non seguir #%1$s?</string>
     <string name="pref_default_post_language">Idioma de publicación por defecto</string>
     <string name="notification_report_name">Denuncias</string>
     <string name="language_display_name_format">%1$s (%2$s)</string>
@@ -418,11 +412,9 @@
     <string name="filter_edit_keyword_title">Editar palabra</string>
     <string name="select_list_empty">Aínda non tes listas</string>
     <string name="select_list_manage">Xestionar listas</string>
-    <string name="error_missing_edits">O teu servidor sabe que a publicación foi editada, pero non ten unha copia das edición, polo que non pode mostrarchas.
-\n
-\nÉ un <a href="https://github.com/mastodon/mastodon/issues/25398">problema coñecido</a> en Mastodon.</string>
+    <string name="error_missing_edits">O teu servidor sabe que a publicación foi editada, pero non ten unha copia das edición, polo que non pode mostrarchas. \n \nÉ un <a href="https://github.com/mastodon/mastodon/issues/25398">problema coñecido</a> en Mastodon.</string>
     <string name="load_newest_notifications">Cargar as notificacións máis recentes</string>
-    <string name="compose_delete_draft">Eliminar borrador\?</string>
+    <string name="compose_delete_draft">Eliminar borrador?</string>
     <string name="pref_ui_text_size">Tamaño da letra</string>
     <string name="notification_notification_worker">Obtendo as notificacións…</string>
     <string name="dialog_delete_filter_positive_action">Eliminar</string>
@@ -600,4 +592,123 @@
     <string name="pref_notification_battery_optimisation_is_disabled">A optimización da batería está desactivada</string>
     <string name="pref_notification_battery_optimisation_should_ignore">Deberías desactivar a optimización da batería. Toca para abrir.</string>
     <string name="pref_notification_battery_optimisation_ok">Non é preciso desactivar a optimización da batería.</string>
+    <string name="translator_error_unsupported_target_language_fmt"></string>
+    <string name="notification_moderation_warning_body_suspend_fmt"></string>
+    <string name="notification_quote_name"></string>
+    <string name="filter_description_blur"></string>
+    <string name="compose_task_description_quoting_fmt"></string>
+    <string name="notification_moderation_warning_body_silence_fmt"></string>
+    <plurals name="notification_severed_relationships_summary_followers_fmt">
+    </plurals>
+    <string name="ui_error_sending_post_fmt"></string>
+    <string name="followed_hashtags_summary_fmt"></string>
+    <string name="notification_moderation_warning_body_none_fmt"></string>
+    <string name="compose_quote_policy_title"></string>
+    <string name="notification_quote_format"></string>
+    <string name="pref_title_notification_filter_quote"></string>
+    <string name="action_move_down"></string>
+    <string name="action_send_private_content_description"></string>
+    <string name="pref_title_content_filters"></string>
+    <string name="detach_quote_error_fmt"></string>
+    <string name="error_import_preferences_fmt"></string>
+    <string name="action_send_direct_content_description"></string>
+    <string name="pref_summary_account_conversation_filters"></string>
+    <plurals name="followed_hashtags_days_count_fmt">
+    </plurals>
+    <string name="pref_account_notification_filters_label_not_followed"></string>
+    <string name="pref_title_account_notification_filters"></string>
+    <plurals name="notification_severed_relationships_summary_following_fmt">
+    </plurals>
+    <plurals name="followed_hashtags_posts_count_fmt">
+    </plurals>
+    <string name="translator_error_download_required_fmt"></string>
+    <string name="search_operator_quote_all"></string>
+    <string name="pref_account_conversation_filters_subtitle"></string>
+    <string name="pref_default_audio_playback"></string>
+    <string name="account_filter_placeholder_type_follow_fmt"></string>
+    <string name="account_filter_placeholder_type_conversation"></string>
+    <string name="pref_account_notification_filters_label_limited_by_server"></string>
+    <string name="ui_error_reload_reply_fmt"></string>
+    <string name="pref_title_notification_filter_severed_relationships"></string>
+    <string name="notification_quoted_update_name"></string>
+    <string name="ui_error_saving_post_fmt"></string>
+    <string name="notification_severed_relationships_domain_block_fmt"></string>
+    <string name="notification_moderation_warnings_name"></string>
+    <string name="action_toggle_quote_policy"></string>
+    <string name="notification_severed_relationships_account_suspension_fmt"></string>
+    <string name="notification_moderation_warning_tap_for_more"></string>
+    <string name="action_timeline_link"></string>
+    <string name="account_filter_placeholder_type_favourite_fmt"></string>
+    <string name="notification_quote_description"></string>
+    <string name="notification_moderation_warning_title"></string>
+    <string name="compose_quote_policy_dialog_title"></string>
+    <string name="account_filter_placeholder_label_domain"></string>
+    <string name="pref_account_notification_filters_label_younger_30d"></string>
+    <string name="notification_moderation_warning_body_mark_statuses_as_sensitive_fmt"></string>
+    <string name="error_export_preferences_fmt"></string>
+    <string name="filter_action_none"></string>
+    <string name="search_operator_quote_dialog_no_quotes"></string>
+    <string name="account_filter_placeholder_type_reblog_fmt"></string>
+    <string name="account_filter_placeholder_type_mention_fmt"></string>
+    <string name="manage_accounts_name"></string>
+    <string name="translator_error_server_does_not_translate"></string>
+    <string name="account_filter_placeholder_type_follow_request_fmt"></string>
+    <string name="err_draft_error_no_external_files_dir"></string>
+    <string name="search_operator_quote_dialog_only"></string>
+    <string name="notification_quoted_update_format"></string>
+    <string name="search_operator_quote_no_quotes"></string>
+    <string name="pref_title_account_conversation_filters"></string>
+    <string name="notification_moderation_warnings_description"></string>
+    <string name="err_draft_error_mkdir_drafts_fmt"></string>
+    <string name="search_operator_quote_dialog_all"></string>
+    <string name="account_filter_placeholder_label_limited_by_server"></string>
+    <string name="pref_title_confirm_status_language"></string>
+    <string name="notification_quoted_update_description"></string>
+    <string name="notification_moderation_warning_body_unknown_fmt"></string>
+    <string name="pref_custom_tabs_false"></string>
+    <string name="error_share_media"></string>
+    <string name="pref_custom_tabs_true"></string>
+    <string name="notification_moderation_warning_body_disable_fmt"></string>
+    <string name="notification_severed_relationships_unknown_fmt"></string>
+    <string name="pref_account_conversation_filters_label_limited_by_server"></string>
+    <string name="filter_description_none"></string>
+    <string name="pref_account_notification_filters_subtitle"></string>
+    <string name="title_quotes"></string>
+    <string name="pref_title_notification_filter_moderation_warning"></string>
+    <plurals name="followed_hashtags_accounts_count_fmt">
+    </plurals>
+    <string name="pref_title_public_filter_home_and_lists"></string>
+    <string name="compose_task_description_writing_post"></string>
+    <string name="err_draft_error_content_provider_crash"></string>
+    <string name="translator_error_no_language_detected"></string>
+    <string name="account_filter_placeholder_label_not_following"></string>
+    <string name="compose_task_description_replying_fmt"></string>
+    <string name="search_operator_quote_only"></string>
+    <string name="action_move_up"></string>
+    <string name="compose_quote_policy_dialog_body_fmt"></string>
+    <string name="upload_failed_msg_fmt"></string>
+    <string name="account_filter_placeholder_label_younger_30d"></string>
+    <string name="action_send_unlisted_content_description"></string>
+    <string name="action_send_public_content_description"></string>
+    <string name="search_operator_quote_dialog_title"></string>
+    <string name="pref_account_conversation_filters_label_younger_30d"></string>
+    <string name="notification_unknown"></string>
+    <string name="title_report_category_fmt"></string>
+    <string name="detach_quote_dialog_title"></string>
+    <string name="action_refresh_account"></string>
+    <string name="compose_visibility_title"></string>
+    <string name="notification_severed_relationships_user_domain_block_fmt"></string>
+    <string name="err_draft_error_unknown_mime_type"></string>
+    <string name="err_draft_error_io_fmt"></string>
+    <string name="notification_moderation_warning_body_delete_statuses_fmt"></string>
+    <string name="filter_action_blur"></string>
+    <string name="detach_quote_dialog_message"></string>
+    <string name="pref_title_notification_filter_quoted_update"></string>
+    <string name="ui_error_delete_scheduled_status_fmt"></string>
+    <string name="translator_error_unsupported_source_language_fmt"></string>
+    <string name="pref_account_conversation_filters_label_not_followed"></string>
+    <string name="title_report_comment"></string>
+    <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt"></string>
+    <string name="export_preferences_ok_fmt"></string>
+    <string name="conversation_0_recipients"></string>
 </resources>
