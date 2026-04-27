@@ -705,4 +705,19 @@
     <string name="compose_task_description_writing_post">Skriv innlegg</string>
     <string name="compose_task_description_replying_fmt">Svarar på %1$s</string>
     <string name="compose_task_description_quoting_fmt">Hermer etter %1$s</string>
+    <string name="ui_error_sending_post_fmt"></string>
+    <string name="search_operator_quote_all"></string>
+    <string name="ui_error_saving_post_fmt"></string>
+    <string name="search_operator_quote_dialog_no_quotes"></string>
+    <string name="err_draft_error_no_external_files_dir"></string>
+    <string name="search_operator_quote_dialog_only"></string>
+    <string name="search_operator_quote_no_quotes"></string>
+    <string name="err_draft_error_mkdir_drafts_fmt"></string>
+    <string name="search_operator_quote_dialog_all"></string>
+    <string name="err_draft_error_content_provider_crash"></string>
+    <string name="search_operator_quote_only"></string>
+    <string name="search_operator_quote_dialog_title"></string>
+    <string name="err_draft_error_unknown_mime_type"></string>
+    <string name="err_draft_error_io_fmt"></string>
+    <string name="ui_error_delete_scheduled_status_fmt"></string>
 </resources>
