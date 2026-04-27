@@ -2,16 +2,4 @@
 <resources>
     <string name="action_share_as">Compartir como …</string>
     <string name="error_set_active_account">O inicio de sesión fallou co seguinte erro: %1$s</string>
-    <string name="action_choose_another_account"></string>
-    <string name="action_relogin"></string>
-    <string name="client_error_unauthorized_fmt"></string>
-    <string name="title_error_mime_type"></string>
-    <string name="error_login_failed_hint_multiple"></string>
-    <string name="error_mime_type_fmt"></string>
-    <string name="error_login_failed_hint"></string>
-    <string name="title_choose_account_dialog"></string>
-    <string name="error_refresh_account_fmt"></string>
-    <string name="error_refresh_account"></string>
-    <string name="client_error_unauthorized_multiple_fmt"></string>
-    <string name="title_error_dialog"></string>
 </resources>

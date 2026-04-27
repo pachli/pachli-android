@@ -8,10 +8,4 @@
     <string name="title_error_dialog">Prisijungti nepavyko</string>
     <string name="error_login_failed_hint">Palieskite paskyrą, kad bandytumėte dar kartą.</string>
     <string name="error_login_failed_hint_multiple">Palieskite tą pačią paskyrą, kad bandytumėte dar kartą, arba kitą paskyrą, kad prisijungtumėte su ta paskyra.</string>
-    <string name="action_choose_another_account"></string>
-    <string name="client_error_unauthorized_fmt"></string>
-    <string name="title_error_mime_type"></string>
-    <string name="error_mime_type_fmt"></string>
-    <string name="error_refresh_account_fmt"></string>
-    <string name="client_error_unauthorized_multiple_fmt"></string>
 </resources>

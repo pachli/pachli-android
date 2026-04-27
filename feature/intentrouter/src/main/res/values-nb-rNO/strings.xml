@@ -4,14 +4,4 @@
     <string name="error_refresh_account">Å gjenoppfriske kontoen mislyktes med den følgende feilen:\n\n%1$s\n\nDu kan fortsette, men det kan hende at dine lister og filtere kan være ufullstendige.</string>
     <string name="action_relogin">Logg inn på nytt</string>
     <string name="action_share_as">Del som …</string>
-    <string name="action_choose_another_account"></string>
-    <string name="client_error_unauthorized_fmt"></string>
-    <string name="title_error_mime_type"></string>
-    <string name="error_login_failed_hint_multiple"></string>
-    <string name="error_mime_type_fmt"></string>
-    <string name="error_login_failed_hint"></string>
-    <string name="title_choose_account_dialog"></string>
-    <string name="error_refresh_account_fmt"></string>
-    <string name="client_error_unauthorized_multiple_fmt"></string>
-    <string name="title_error_dialog"></string>
 </resources>
