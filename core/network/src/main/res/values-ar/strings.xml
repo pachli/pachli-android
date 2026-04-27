@@ -3,12 +3,4 @@
     <string name="error_generic_fmt">وقع خطأ: %1$s</string>
     <string name="error_404_not_found_fmt">خادمك لا يدعم هذه الميزة: %1$s</string>
     <string name="error_network_fmt">وقع خطأ في الشبكة: %1$s</string>
-    <string name="error_missing_content_type_fmt"></string>
-    <string name="error_json_data_fmt"></string>
-    <string name="node_info_error_no_software"></string>
-    <string name="node_info_error_no_software_name"></string>
-    <string name="server_error_unparseable_version"></string>
-    <string name="error_429_rate_limit_fmt"></string>
-    <string name="error_wrong_content_type_fmt"></string>
-    <string name="node_info_error_no_software_version"></string>
 </resources>
