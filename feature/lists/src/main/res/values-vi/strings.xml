@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hint_list_name">Tên danh sách</string>
     <string name="list_exclusive_label">Ẩn khỏi bảng tin</string>
@@ -8,7 +8,7 @@
     <string name="error_rename_list_fmt">Không thể cập nhật danh sách \"%1$s\": %2$s</string>
     <string name="action_rename_list">Cập nhật danh sách</string>
     <string name="action_create_list">Tạo danh sách</string>
-    <string name="dialog_delete_list_warning">Bạn thật sự muốn xóa danh sách %1$s\?</string>
+    <string name="dialog_delete_list_warning">Bạn thật sự muốn xóa danh sách %1$s?</string>
     <string name="action_remove_from_list">Xóa người này khỏi danh sách</string>
     <string name="action_add_to_list">Thêm người này vào danh sách</string>
     <string name="action_delete_list">Xóa danh sách</string>
@@ -17,4 +17,8 @@
     <string name="no_lists">Chưa có danh sách nào.</string>
     <string name="hint_search_people_list">Tìm người để theo dõi</string>
     <string name="action_add_or_remove_from_list">Thêm hoặc xoá khỏi danh sách</string>
+    <string name="replies_policy_name_list"></string>
+    <string name="replies_policy_title"></string>
+    <string name="replies_policy_name_followed"></string>
+    <string name="replies_policy_name_none"></string>
 </resources>
