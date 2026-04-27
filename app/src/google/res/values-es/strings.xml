@@ -14,7 +14,7 @@
     <string name="translation_model_manager_fragment_downloaded_heading">Descargados</string>
     <string name="translation_model_manager_fragment_remote_heading">Tocar para descargar</string>
     <string name="fragment_confirm_download_language_dialog_title_fmt">¿Descargar %1$s con datos móviles?</string>
-    <string name="fragment_confirm_download_language_dialog_msg">Típicamente se usarán 30‑60 MB de datos.</string>
+    <string name="fragment_confirm_download_language_dialog_msg">Típicamente se usarán 30‑60 MB de datos.</string>
     <string name="fragment_confirm_delete_language_dialog_title_fmt">¿Eliminar %1$s?</string>
     <string name="fragment_confirm_delete_language_dialog_msg">Si eliminas este idioma, será descargado nuevamente la próxima vez que se lo necesite.</string>
     <string name="action_translate_mlkit">Traducir con Google</string>
