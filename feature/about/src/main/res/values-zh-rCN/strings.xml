@@ -25,7 +25,7 @@
     <string name="notification_log_download_failed">下载失败： %1$s</string>
     <string name="about_privacy_policy">隐私政策</string>
     <string name="about_nivenly_foundation">Pachli是一个<a href="https://nivenly.org">Nivenly Foundation</a>项目。</string>
-    <string name="notification_details_notifications_enabled_help">通知未为您的任何账户启用。请在账户偏好设置 > 通知中更改此设置。在此之前，所有通知均已禁用。</string>
+    <string name="notification_details_notifications_enabled_help">通知未为您的任何账户启用。请在账户偏好设置 &gt; 通知中更改此设置。在此之前，所有通知均已禁用。</string>
     <string name="notification_details_unifiedpush_available">UnifiedPush 是否可用？</string>
     <string name="notification_details_any_account_needs_migration">所有账户都有“推送” OAuth 范围吗？</string>
     <string name="notification_details_any_account_needs_migration_help">一个或多个帐户没有“推送”OAuth 范围，推送通知已禁用。</string>
