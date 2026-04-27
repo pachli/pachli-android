@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_prepare_media_content_resolver_missing_path_fmt">内容解析器 URI 缺少路径: %1$s</string>
     <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">内容解析器 URI 的方案不受支持: %1$s</string>
@@ -13,4 +13,6 @@
     <string name="send_post_notification_error_title">嘟文发送出错</string>
     <string name="send_post_notification_saved_content">嘟文副本已保存为草稿</string>
     <string name="send_post_notification_cancel_title">已取消发送</string>
+    <string name="send_post_failure_message_timeout"></string>
+    <string name="send_post_failure_message_cancel"></string>
 </resources>
