@@ -21,7 +21,7 @@
     <string name="license_description">Pachlissa on koodia ja osioita näistä vapaan lähdekoodin projekteista:</string>
     <string name="notification_details_title">Yksityiskohdat</string>
     <string name="notification_details_android_notifications_enabled">Androidin ilmoitukset sallittu?</string>
-    <string name="notification_details_notifications_enabled_help">lmoituksia ei ole otettu käyttöön millään tileistäsi. Muuta tämä kohdasta Tiliasetukset > Ilmoitukset. Siihen asti kaikki ilmoitukset ovat poissa käytöstä.</string>
+    <string name="notification_details_notifications_enabled_help">lmoituksia ei ole otettu käyttöön millään tileistäsi. Muuta tämä kohdasta Tiliasetukset &gt; Ilmoitukset. Siihen asti kaikki ilmoitukset ovat poissa käytöstä.</string>
     <string name="notification_details_push_notifications_with_unifiedpush">Push-ilmoitukset UnifiedPush-tekniikalla</string>
     <string name="notification_details_unifiedpush_available">UnifiedPush käytettävissä?</string>
     <string name="notification_details_unifiedpush_available_help">UnifiedPush (ntfy.sh) ei ole käytettävissä, ilmoitukset haetaan määräajoin. Tämän osion jatko selittää, miksi UnifiedPush ei ole käytössä, mutta ei liity siihen, miten ilmoitukset haetaan nyt.</string>
