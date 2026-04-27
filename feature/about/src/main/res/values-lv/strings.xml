@@ -16,7 +16,7 @@
     <string name="about_device_info">%1$s %2$s\nAndroid versija: %3$s\nSDK līmenis: %4$d</string>
     <string name="about_account_info">\@%1$s@%2$s\nVersija: %3$s</string>
     <string name="notification_details_title">Informācija</string>
-    <string name="notification_details_notifications_enabled_help"><![CDATA[Paziņojumi nav iespējoti nevienam kontam. To var nomainīt Konta iestatījumi > Paziņojumi. Līdz tam visi paziņojumi būs atspējoti.]]></string>
+    <string name="notification_details_notifications_enabled_help">Paziņojumi nav iespējoti nevienam kontam. To var nomainīt Konta iestatījumi > Paziņojumi. Līdz tam visi paziņojumi būs atspējoti.</string>
     <string name="notification_details_push_notifications_with_unifiedpush">Pašpiegādes paziņojumi ar UnifiedPush</string>
     <string name="notification_details_unifiedpush_available">Ir pieejams UnifedPush?</string>
     <string name="notification_details_any_account_needs_migration">Vai visiem kontiem ir OAuth tvērums \"push\"?</string>
