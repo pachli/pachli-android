@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ Copyright 2025 Pachli Association
   ~
   ~ This file is a part of Pachli.
@@ -13,6 +14,11 @@
   ~
   ~ You should have received a copy of the GNU General Public License along with Pachli; if not,
   ~ see <http://www.gnu.org/licenses>.
-  -->
-
-<resources></resources>
+  --><resources>
+    <string name="pachli_account_content_description_fmt"></string>
+    <string name="label_active_account"></string>
+    <string name="title_manage_accounts"></string>
+    <string name="action_logout_account_fmt"></string>
+    <string name="action_switch_account_fmt"></string>
+    <string name="action_switch_account"></string>
+</resources>
