@@ -17,4 +17,5 @@
     <string name="ui_error_follow_account_fmt">Tilin %1$s seuraaminen epäonnistui: %2$s</string>
     <string name="statuses_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; julkaisua</string>
     <string name="statuses_count_per_week_fmt">&lt;b&gt;%1$s&lt;/b&gt; julkaisua (&lt;b&gt;%2$d&lt;/b&gt; viikossa)</string>
+    <string name="account_content_description_fmt" translatable="false"></string>
 </resources>
