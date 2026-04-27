@@ -3,4 +3,7 @@
     <string name="action_open_as">Отваряне като %1$s</string>
     <string name="post_lookup_error_format">Грешка при търсенето на публикация %1$s</string>
     <string name="performing_lookup_title">Извършва се търсене…</string>
+    <string name="send_error_report"></string>
+    <string name="action_open_quoted_post"></string>
+    <string name="action_open_as_ellipsis"></string>
 </resources>
