@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">Aquí podes escribir o enderezo ou dominio de calquera instancia, como mastodon.social, icosahedron.website, social.techncs.de, e <a href="https://instances.social">máis!</a>
-\n
-\nUnha instancia é o lugar onde se hospeda a túa conta, pero podes comunicarte facilmente e seguir a persoas noutras instancias como se estiveses alí.
-\n
-\nPodes atopar máis información en <a href="https://joinmastodon.org">joinmastodon.org</a>. \u0020</string>
+    <string name="dialog_whats_an_instance">Aquí podes escribir o enderezo ou dominio de calquera instancia, como mastodon.social, icosahedron.website, social.techncs.de, e <a href="https://instances.social">máis!</a> \n \nUnha instancia é o lugar onde se hospeda a túa conta, pero podes comunicarte facilmente e seguir a persoas noutras instancias como se estiveses alí. \n \nPodes atopar máis información en <a href="https://joinmastodon.org">joinmastodon.org</a>. \u0020</string>
     <string name="action_close">Pechar</string>
     <string name="action_browser_login">Acceder no Navegador</string>
     <string name="error_invalid_domain">O dominio escrito non é válido</string>
@@ -13,9 +9,9 @@
     <string name="error_authorization_denied">A autorización foi rexeitada. Se tes a certeza de que as credenciais son correctas, inténtao desde Acceder no Navegador no menú.</string>
     <string name="error_retrieving_oauth_token_fmt">Non se obtivo o token de acceso. Se non o consigues, inténtao desde Acceder no Navegador: %1$s</string>
     <string name="error_loading_account_details_fmt">Fallou a carga dos detalles da conta: %1$s</string>
-    <string name="hint_domain">En que instancia\?</string>
+    <string name="hint_domain">En que instancia?</string>
     <string name="action_login">Acceder con Pachli</string>
-    <string name="link_whats_an_instance">Que é unha instancia\?</string>
+    <string name="link_whats_an_instance">Que é unha instancia?</string>
     <string name="login_connection">Conectando…</string>
     <string name="title_login">Acceder</string>
     <string name="error_could_not_load_login_page">Non se puido cargar a páxina de inicio.</string>
