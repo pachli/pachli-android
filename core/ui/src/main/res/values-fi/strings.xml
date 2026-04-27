@@ -178,6 +178,4 @@
     <string name="duration_365_days">365 päivää</string>
     <string name="action_add_to_tab">Lisää välilehteen</string>
     <string name="action_add_to_tab_success">\'%1$s\' lisätty välilehtiin</string>
-    <string name="notification_details_last_fetch_label"></string>
-    <string name="pref_summary_none"></string>
 </resources>

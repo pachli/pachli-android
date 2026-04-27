@@ -189,5 +189,4 @@
     <string name="duration_365_days">365 dienas</string>
     <string name="action_add_to_tab">Pievienot cilnei</string>
     <string name="action_add_to_tab_success">\"%1$s\" pievienots cilnēm</string>
-    <string name="pref_summary_none"></string>
 </resources>

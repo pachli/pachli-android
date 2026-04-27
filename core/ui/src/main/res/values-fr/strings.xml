@@ -189,5 +189,4 @@
     <string name="duration_365_days">365 jours</string>
     <string name="action_add_to_tab">Ajouter à l\'onglet</string>
     <string name="action_add_to_tab_success">« %1$s » ajouté aux onglets</string>
-    <string name="pref_summary_none"></string>
 </resources>

@@ -173,11 +173,4 @@
     <string name="duration_365_days">365 dagar</string>
     <string name="action_add_to_tab">Legg til i fane</string>
     <string name="action_add_to_tab_success">La til «%1$s» i fanene</string>
-    <string name="action_moderation_warning_view"></string>
-    <string name="action_follow_request_accept"></string>
-    <string name="action_follow_request_reject"></string>
-    <string name="description_quoted_post_prefix"></string>
-    <string name="action_open_reportee_profile"></string>
-    <string name="action_open_report"></string>
-    <string name="pref_summary_none"></string>
 </resources>

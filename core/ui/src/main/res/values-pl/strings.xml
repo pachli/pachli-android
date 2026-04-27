@@ -199,5 +199,4 @@
     <string name="duration_365_days">365 dni</string>
     <string name="action_add_to_tab">Dodaj do kart</string>
     <string name="action_add_to_tab_success">Dodano \'%1$s\' do kart</string>
-    <string name="pref_summary_none"></string>
 </resources>
