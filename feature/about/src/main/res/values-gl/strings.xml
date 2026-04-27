@@ -8,15 +8,11 @@
     <string name="about_powered_by_pachli">Desenvolta por Pachli</string>
     <string name="about_pachli_license">Pachli é software libre e de código aberto. Está baixo a licenza GNU General Public License Version 3. Podes ver a licenza aquí: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <string name="about_project_site">Web do proxecto: https://pachli.app</string>
-    <string name="about_bug_feature_request_site">Informar de fallos e solicitar funcións:
-\nhttps://github.com/pachli/pachli-android/issues</string>
+    <string name="about_bug_feature_request_site">Informar de fallos e solicitar funcións: \nhttps://github.com/pachli/pachli-android/issues</string>
     <string name="about_pachli_account">Perfil de Pachli</string>
     <string name="title_licenses">Licenzas</string>
-    <string name="about_device_info">%1$s %2$s
-\nVersión de Android: %3$s
-\nVersión SDK: %4$d</string>
-    <string name="about_account_info">\@%1$s@%2$s
-\nVersión: %3$s</string>
+    <string name="about_device_info">%1$s %2$s \nVersión de Android: %3$s \nVersión SDK: %4$d</string>
+    <string name="about_account_info">\@%1$s@%2$s \nVersión: %3$s</string>
     <string name="license_description">Pachli ten código e ferramentas dos seguintes proxectos de código aberto:</string>
     <string name="notification_details_title">Detalles</string>
     <string name="notification_details_android_notifications_enabled">Están activadas as notificacións android?</string>
@@ -64,4 +60,24 @@
     <string name="notification_details_usage_event_label">Android pode limitar a actividade en segundo plano das aplicacións. Esta lista mostra o xeito en que Pachli estivo limitada nos últimos 3 días, con orde cronolóxica.</string>
     <string name="notification_details_standby_bucket_restricted">Restrinxida. Unha vez ao día</string>
     <string name="about_nivenly_foundation">Pachli é un proxecto da <a href="https://nivenly.org">Nivenly Foundation</a>.</string>
+    <string name="database_vacuum"></string>
+    <string name="action_clear_cache"></string>
+    <string name="database_prune_cache_complete"></string>
+    <string name="about_database"></string>
+    <string name="action_vacuum"></string>
+    <string name="action_run_integrity_check"></string>
+    <string name="about_workers"></string>
+    <string name="workers_prune_cached_media_help"></string>
+    <string name="workers_prune_cache_help"></string>
+    <string name="database_table_sizes"></string>
+    <string name="action_run_query_timings"></string>
+    <string name="database_vacuum_complete"></string>
+    <string name="database_integrity_check"></string>
+    <string name="database_query_timings"></string>
+    <string name="database_prune_cache"></string>
+    <string name="about_notifications"></string>
+    <string name="database_clear_cache"></string>
+    <string name="database_clear_cache_complete"></string>
+    <string name="action_prune_cache"></string>
+    <string name="workers_prune_log_entry_entity_help"></string>
 </resources>
