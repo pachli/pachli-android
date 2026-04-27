@@ -578,9 +578,7 @@
     <string name="search_operator_replies_no_replies">Excluír respostas</string>
     <string name="search_operator_replies_dialog_title">Incluír respostas?</string>
     <string name="pref_title_change_unified_push_distributor">Cambiar de distribuidora UnifiedPush</string>
-    <string name="pref_change_unified_push_distributor_msg">Isto limpará a elección de distribuidor UnifiedPush e reiniciará Pachli.
-\n
-\nSe hai varios distribuidores UnifiedPush instalados terás que elexir un.</string>
+    <string name="pref_change_unified_push_distributor_msg">Isto limpará a elección de distribuidor UnifiedPush e reiniciará Pachli. \n \nSe hai varios distribuidores UnifiedPush instalados terás que elexir un.</string>
     <string name="pref_title_notification_up_distributor">Distribuidor UnifiedPush</string>
     <string name="pref_notification_method_all_pull">Obtidas cada 15 minutos aproximadamente. Toca para detalles.</string>
     <string name="pref_notification_method_all_push">Todas as contas usan UnifiedPush. Toca para detalles.</string>
