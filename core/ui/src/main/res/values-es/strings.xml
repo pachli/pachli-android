@@ -189,4 +189,5 @@
     <string name="duration_365_days">365 días</string>
     <string name="action_add_to_tab">Añadir a pestaña</string>
     <string name="action_add_to_tab_success">Se ha añadido \'%1$s\' a pestañas</string>
+    <string name="pref_summary_none">Ninguno</string>
 </resources>

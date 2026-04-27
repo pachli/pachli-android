@@ -1,0 +1,16 @@
+Pachli 2.9.1
+
+Mida on uut:
+
+- Näitame postitusi, kus on populaarsust koguv link
+- "ApiResult" vigades on päringu meetod ja url
+- Uusnorra on valitavate keelte seas
+
+Parandused:
+
+- "KeyStoreException: BKS not found" viga sisselogimisel
+- Tundmatuid teavituste tüüpe näidatakse nüüd korrektselt
+- Kokkujooksmine menüü uuendamisel
+- Kokkujooksmine "Näita hooandmisi" valiku klõpsimisel
+- Kuvame sisuhoiatuste muutmisi
+- Soome, iiri, uusnorra, hispaania ja rootsi keelte tõlgete uuendused
