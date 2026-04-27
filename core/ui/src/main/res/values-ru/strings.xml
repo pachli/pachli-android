@@ -90,12 +90,8 @@
     <string name="abbreviated_days_ago">%1$dд</string>
     <string name="abbreviated_in_years">через %1$dг</string>
     <string name="abbreviated_years_ago">%1$dг</string>
-    <string name="description_post_media_no_description_placeholder">
-        Без описания
-    </string>
-    <string name="description_visibility_public">
-        Публичный
-    </string>
+    <string name="description_post_media_no_description_placeholder">Без описания</string>
+    <string name="description_visibility_public">Публичный</string>
     <string name="description_visibility_unlisted">Не в списке</string>
     <string name="description_visibility_private">Подписчики</string>
     <string name="description_visibility_direct">Непосредственно</string>
@@ -105,7 +101,7 @@
     <string name="post_media_video">Видео</string>
     <string name="post_media_attachments">Вложения</string>
     <plurals name="description_post_roles">
-        <item quantity="one" tools:ignore="ImpliedQuantity">с ролью:</item>
+        <item quantity="one">с ролью:</item>
         <item quantity="few">с ролями:</item>
         <item quantity="many">с ролями:</item>
         <item quantity="other">с ролями:</item>
@@ -131,9 +127,7 @@
     <string name="description_post_reblogged">Реблогнуто</string>
     <string name="description_post_favourited">Понравилось</string>
     <string name="description_post_bookmarked">Добавлено в закладки</string>
-    <string name="description_post_media">
-        Медиафайл: %1$s
-    </string>
+    <string name="description_post_media">Медиафайл: %1$s</string>
     <string name="description_post_cw">Предупреждение о содержании: %1$s</string>
     <plurals name="reblogs">
         <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Продвинул(а)</item>
@@ -168,4 +162,38 @@
     <string name="duration_365_days">365 дней</string>
     <string name="action_add_to_tab">Добавить на вкладку</string>
     <string name="action_add_to_tab_success">Добавлено «%1$s» на вкладки</string>
+    <string name="label_quote_state_muted_account"></string>
+    <string name="action_quote"></string>
+    <string name="post_replied_to_fmt"></string>
+    <string name="label_quote_state_unauthorized"></string>
+    <string name="label_author_denied_quote"></string>
+    <string name="handle_contentdescription_fmt"></string>
+    <string name="label_quote_state_pending"></string>
+    <string name="post_replied"></string>
+    <string name="action_open_quoted_post"></string>
+    <string name="attachment_matches_filter_two_fmt"></string>
+    <string name="action_show_pronouns"></string>
+    <string name="label_quote_state_deleted"></string>
+    <string name="detach_quote"></string>
+    <string name="label_quoted_status_hidden"></string>
+    <string name="attachment_hidden_user_action"></string>
+    <string name="action_moderation_warning_view"></string>
+    <string name="action_follow_request_accept"></string>
+    <string name="label_quote_state_blocked_account"></string>
+    <string name="attachment_matches_filter_one_fmt"></string>
+    <string name="action_select_status"></string>
+    <string name="action_request_quote"></string>
+    <string name="post_continued_thread"></string>
+    <string name="label_quote_state_blocked_domain"></string>
+    <string name="label_quote_state_rejected"></string>
+    <string name="label_quote_state_unknown"></string>
+    <string name="action_follow_request_reject"></string>
+    <string name="description_quoted_post_prefix"></string>
+    <plurals name="quotes">
+    </plurals>
+    <string name="action_open_reportee_profile"></string>
+    <string name="action_open_report"></string>
+    <string name="label_quote_state_revoked"></string>
+    <string name="pref_summary_none"></string>
+    <string name="action_unselect_status"></string>
 </resources>
