@@ -33,7 +33,7 @@
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; a ajouté votre message à ses favoris</string>
     <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; vous suit</string>
     <string name="report_username_format">Signaler @%1$s</string>
-    <string name="report_comment_hint">Commentaires additionnels \?</string>
+    <string name="report_comment_hint">Commentaires additionnels ?</string>
     <string name="action_quick_reply">Réponse rapide</string>
     <string name="action_compose">Écrire</string>
     <string name="action_follow">Suivre</string>
@@ -101,7 +101,7 @@
     <string name="dialog_download_image">Télécharger</string>
     <string name="dialog_message_cancel_follow_request">Révoquer la demande d’abonnement ?</string>
     <string name="dialog_unfollow_warning">Ne plus suivre ce compte ?</string>
-    <string name="dialog_delete_post_warning">Supprimer ce message \?</string>
+    <string name="dialog_delete_post_warning">Supprimer ce message ?</string>
     <string name="visibility_public">Public : afficher dans les fils publics</string>
     <string name="visibility_unlisted">Non listé : ne pas afficher dans les fils publics</string>
     <string name="visibility_private">Abonné·e·s uniquement : seul·e·s vos abonné·e·s verront vos statuts</string>
@@ -226,9 +226,9 @@
     <string name="compose_shortcut_long_label">Écrire un message</string>
     <string name="compose_shortcut_short_label">Écrire</string>
     <string name="pref_title_bot_overlay">Afficher l\'indicateur de robots</string>
-    <string name="notification_clear_text">Désirez-vous nettoyer toutes vos notifications de façon permanente \?</string>
+    <string name="notification_clear_text">Désirez-vous nettoyer toutes vos notifications de façon permanente ?</string>
     <string name="action_delete_and_redraft">Effacer et ré-écrire</string>
-    <string name="dialog_redraft_post_warning">Effacer et ré-écrire ce message \?</string>
+    <string name="dialog_redraft_post_warning">Effacer et ré-écrire ce message ?</string>
     <string name="notification_poll_name">Sondages</string>
     <string name="pref_title_notification_filter_poll">Des sondages se terminent</string>
     <string name="notification_poll_description">Notifications pour les sondages terminés</string>
@@ -248,8 +248,8 @@
     <string name="failed_report">Échec du signalement</string>
     <string name="failed_fetch_posts">Échec de récupération des messages</string>
     <string name="report_description_1">Le rapport sera envoyé aux modérateur·rice·s de votre instance. Vous pouvez expliquer pourquoi vous signalez le compte ci-dessous :</string>
-    <string name="mute_domain_warning">Êtes-vous sûr⋅e de vouloir bloquer %1$s en entier \? Vous ne verrez plus de contenu provenant de ce domaine, ni dans les fils publics, ni dans vos notifications. Vos abonné·e·s utilisant ce domaine seront retiré·e·s.</string>
-    <string name="report_description_remote_instance">Le compte provient d’un autre serveur. Envoyez également une copie anonyme du rapport \?</string>
+    <string name="mute_domain_warning">Êtes-vous sûr⋅e de vouloir bloquer %1$s en entier ? Vous ne verrez plus de contenu provenant de ce domaine, ni dans les fils publics, ni dans vos notifications. Vos abonné·e·s utilisant ce domaine seront retiré·e·s.</string>
+    <string name="report_description_remote_instance">Le compte provient d’un autre serveur. Envoyez également une copie anonyme du rapport ?</string>
     <string name="filter_dialog_whole_word">Mot entier</string>
     <string name="filter_dialog_whole_word_description">Un mot-clé ou une phrase alphanumérique sera appliqué·e seulement s’il ou elle correspond au mot entier</string>
     <string name="title_accounts">Comptes</string>
@@ -271,13 +271,13 @@
     <string name="no_scheduled_posts">Vous n’avez aucun message planifié.</string>
     <string name="warning_scheduling_interval">L’intervalle minimum de planification sur Mastodon est de 5 minutes.</string>
     <string name="notification_follow_request_name">Demandes d\'abonnement</string>
-    <string name="dialog_block_warning">Bloquer @%1$s \?</string>
+    <string name="dialog_block_warning">Bloquer @%1$s ?</string>
     <string name="pref_title_confirm_reblogs">Demander confirmation avant de partager</string>
     <string name="pref_title_show_cards_in_timelines">Afficher les aperçus des liens dans les fils</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; vous a envoyé une demande d’abonnement</string>
     <string name="notification_follow_request_description">Notifications à propos des demandes d’abonnement</string>
     <string name="pref_title_notification_filter_follow_requests">On demande à me suivre</string>
-    <string name="dialog_mute_warning">Mettre en sourdine @%1$s \?</string>
+    <string name="dialog_mute_warning">Mettre en sourdine @%1$s ?</string>
     <string name="action_unmute_conversation">Enlever la sourdine à la conversation</string>
     <string name="action_mute_conversation">Masquer la conversation</string>
     <string name="pref_title_enable_swipe_for_tabs">Activer le glissement pour changer d’onglet</string>
@@ -289,17 +289,11 @@
     <string name="dialog_mute_hide_notifications">Cacher les notifications</string>
     <string name="action_unmute_desc">Ne plus masquer %1$s</string>
     <string name="pref_title_hide_top_toolbar">Cacher le titre de la barre d’outils supérieure</string>
-    <string name="account_note_saved">Sauvegardé !</string>
+    <string name="account_note_saved">Sauvegardé !</string>
     <string name="account_note_hint">Votre note privée sur ce compte</string>
     <string name="no_announcements">Il n’y a pas d’annonce.</string>
     <string name="title_announcements">Annonces</string>
-    <string name="wellbeing_mode_notice">Certaines informations susceptibles d’affecter votre bien-être mental seront cachées. Il s’agit :
-\n
-\n - des notifications de favoris, de partage et de suivi
-\n - du nombre des favoris/partages des messages
-\n - des statistiques sur les profils
-\n
-\n Les notifications « push » ne seront pas affectées, mais vous pouvez revoir vos préférences de notification manuellement.</string>
+    <string name="wellbeing_mode_notice">Certaines informations susceptibles d’affecter votre bien-être mental seront cachées. Il s’agit : \n \n - des notifications de favoris, de partage et de suivi \n - du nombre des favoris/partages des messages \n - des statistiques sur les profils \n \n Les notifications « push » ne seront pas affectées, mais vous pouvez revoir vos préférences de notification manuellement.</string>
     <string name="pref_title_notification_filter_subscriptions">Un compte auquel je suis abonné·e a publié un nouveau message</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; vient de publier</string>
     <string name="review_notifications">Examiner les notifications</string>
@@ -315,7 +309,7 @@
     <string name="wellbeing_hide_stats_posts">Cacher les statistiques quantitatives sur les messages</string>
     <string name="action_unbookmark">Supprimer le signet</string>
     <string name="action_subscribe_account">S’abonner</string>
-    <string name="dialog_delete_conversation_warning">Supprimer cette conversation \?</string>
+    <string name="dialog_delete_conversation_warning">Supprimer cette conversation ?</string>
     <string name="pref_title_animate_custom_emojis">Animer les émojis personnalisés</string>
     <string name="label_duration">Durée</string>
     <string name="duration_indefinite">Indéfinie</string>
@@ -337,7 +331,7 @@
     <string name="action_edit_image">Retoucher l’image</string>
     <string name="title_migration_relogin">Se reconnecter pour recevoir les notifications instantanées</string>
     <string name="error_image_edit_failed">L\'image n’a pas pu être retouchée.</string>
-    <string name="delete_scheduled_post_warning">Supprimer ce message planifié \?</string>
+    <string name="delete_scheduled_post_warning">Supprimer ce message planifié ?</string>
     <string name="filter_expiration_format">%1$s (%2$s)</string>
     <string name="description_post_language">Langue du message</string>
     <string name="duration_no_change">(Aucune modification)</string>
@@ -380,7 +374,7 @@
     <string name="pref_title_account_filter_keywords">Profils</string>
     <string name="title_public_trending_hashtags">Hashtags tendance</string>
     <string name="send_account_username_to">Partager le nom du compte avec…</string>
-    <string name="action_unfollow_hashtag_format">Arrêter de suivre #%1$s \?</string>
+    <string name="action_unfollow_hashtag_format">Arrêter de suivre #%1$s ?</string>
     <string name="failed_to_pin">Échec de l\'épinglage</string>
     <string name="status_edit_info">Modification de %1$s</string>
     <string name="status_created_info">Création par %1$s</string>
@@ -392,11 +386,11 @@
     <string name="failed_to_unpin">Échec du détachement</string>
     <string name="pref_title_show_self_username">Montrer le nom d\'utilisateur dans la barre d\'outils</string>
     <string name="socket_timeout_exception">La connexion à votre serveur a pris trop longtemps</string>
-    <string name="ui_error_bookmark_fmt">Échec de l\'ajout aux signets : %1$s</string>
-    <string name="ui_error_vote_fmt">Échec du vote : %1$s</string>
-    <string name="ui_error_reblog_fmt">Échec de la mise en signet : %1$s</string>
-    <string name="ui_error_accept_follow_request">N\'a pas pu accepter la demande d\'abonnement : %1$s</string>
-    <string name="ui_error_reject_follow_request">N\'a pas pu rejeter la demande d\'abonnement : %1$s</string>
+    <string name="ui_error_bookmark_fmt">Échec de l\'ajout aux signets : %1$s</string>
+    <string name="ui_error_vote_fmt">Échec du vote : %1$s</string>
+    <string name="ui_error_reblog_fmt">Échec de la mise en signet : %1$s</string>
+    <string name="ui_error_accept_follow_request">N\'a pas pu accepter la demande d\'abonnement : %1$s</string>
+    <string name="ui_error_reject_follow_request">N\'a pas pu rejeter la demande d\'abonnement : %1$s</string>
     <string name="ui_success_accepted_follow_request">Demande d\'abonnement acceptée</string>
     <string name="ui_success_rejected_follow_request">Demande d\'abonnement rejetée</string>
     <string name="description_login">Fonctionne dans la plupart des cas. Aucune autre application n\'aura accès à vos données.</string>
@@ -407,14 +401,14 @@
     <string name="select_list_manage">Gérer les listes</string>
     <string name="report_category_violation">Règle enfreinte</string>
     <string name="error_status_source_load">Le texte d\'origine du statut n\'a pas pu être chargé.</string>
-    <string name="ui_error_clear_notifications">Échec du nettoyage des notifications : %1$s</string>
-    <string name="ui_error_favourite_fmt">Échec de la mise en favori : %1$s</string>
+    <string name="ui_error_clear_notifications">Échec du nettoyage des notifications : %1$s</string>
+    <string name="ui_error_favourite_fmt">Échec de la mise en favori : %1$s</string>
     <string name="label_filter_title">Nom</string>
     <string name="hint_filter_title">Mon filtre</string>
     <string name="pref_title_show_stat_inline">Montrer les statistiques des statuts dans les fils</string>
     <string name="accessibility_talking_about_tag">%1$d personnes parlent du hashtag %2$s</string>
     <string name="total_usage">utilisations</string>
-    <string name="help_empty_home">Ceci est votre <b>fil d\'accueil</b>. Il affiche les publications récentes des comptes que vous suivez. \n \nPour trouver des comptes vous pouvez soit les découvrir dans l\'un des autres fils, par exemple le fil local de votre instance [iconics gmd_group] ; soit les chercher par leur nom [iconics gmd_search], par exemple cherchez « Pachli » pour trouver notre compte Mastodon.</string>
+    <string name="help_empty_home">Ceci est votre <b>fil d\'accueil</b>. Il affiche les publications récentes des comptes que vous suivez. \n \nPour trouver des comptes vous pouvez soit les découvrir dans l\'un des autres fils, par exemple le fil local de votre instance [iconics gmd_group] ; soit les chercher par leur nom [iconics gmd_search], par exemple cherchez « Pachli » pour trouver notre compte Mastodon.</string>
     <string name="action_add">Ajouter</string>
     <string name="label_filter_keywords">Mots-clés ou phrases à filtrer</string>
     <string name="filter_description_warn">Cacher derrière un avertissement</string>
@@ -426,7 +420,7 @@
     <string name="filter_keyword_display_format">%1$s (mot entier)</string>
     <string name="filter_keyword_addition_title">Ajouter un mot-clé</string>
     <string name="filter_edit_keyword_title">Modifier mot-clé</string>
-    <string name="filter_description_format">%1$s : %2$s</string>
+    <string name="filter_description_format">%1$s : %2$s</string>
     <string name="action_translate_undo">Annuler la traduction</string>
     <string name="title_public_trending_statuses">Publications en tendance</string>
     <string name="title_tab_public_trending_hashtags">Hashtags</string>
@@ -448,7 +442,7 @@
     <string name="compose_delete_draft">Supprimer le brouillon ?</string>
     <string name="announcement_date_updated">(Mis à jour : %1$s)</string>
     <string name="load_newest_notifications">Charger les nouvelles notifications</string>
-    <string name="ui_error_translate_status_fmt">Traduction échouée : %1$s</string>
+    <string name="ui_error_translate_status_fmt">Traduction échouée : %1$s</string>
     <string name="load_newest_statuses">Charger les publications les plus récentes</string>
     <string name="error_media_playback">La lecture a échoué : %1$s</string>
     <string name="dialog_save_profile_changes_message">Voulez-vous sauvegarder les changements apportés à votre profil ?</string>
@@ -730,4 +724,13 @@
     <string name="search_operator_quote_dialog_title">Montrer les messages qui en citent d\'autres ?</string>
     <string name="search_operator_quote_no_quotes">Pas de citations</string>
     <string name="search_operator_quote_only">Avec citations</string>
+    <string name="ui_error_sending_post_fmt"></string>
+    <string name="search_operator_quote_all"></string>
+    <string name="ui_error_saving_post_fmt"></string>
+    <string name="err_draft_error_no_external_files_dir"></string>
+    <string name="err_draft_error_mkdir_drafts_fmt"></string>
+    <string name="err_draft_error_content_provider_crash"></string>
+    <string name="err_draft_error_unknown_mime_type"></string>
+    <string name="err_draft_error_io_fmt"></string>
+    <string name="ui_error_delete_scheduled_status_fmt"></string>
 </resources>
