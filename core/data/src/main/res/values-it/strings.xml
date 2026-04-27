@@ -12,4 +12,6 @@
     <string name="server_repository_error_get_instance_info">raccolta/api/v1/istanza fallita: %1$s</string>
     <string name="server_repository_error_get_node_info">la cattura del nodeinfo %1$s è fallita: %2$s</string>
     <string name="server_repository_error_unsupported_schema">/.well-known/nodeinfo non conteneva schemi comprensibili</string>
+    <string name="server_repository_error_capabilities"></string>
+    <string name="server_repository_error_get_well_known_node_info"></string>
 </resources>
