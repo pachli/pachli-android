@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="title_lists">Daftar</string>
     <string name="error_create_list_fmt">Tidak dapat membuat daftar \"%1$s\": %2$s</string>
@@ -7,4 +7,18 @@
     <string name="action_rename_list">Ubah nama daftar</string>
     <string name="action_create_list">Buat daftar</string>
     <string name="action_delete_list">Hapus daftar</string>
+    <string name="failed_to_add_to_list"></string>
+    <string name="dialog_delete_list_warning"></string>
+    <string name="no_lists"></string>
+    <string name="replies_policy_name_list"></string>
+    <string name="replies_policy_title"></string>
+    <string name="action_add_to_list"></string>
+    <string name="hint_list_name"></string>
+    <string name="failed_to_remove_from_list"></string>
+    <string name="list_exclusive_label"></string>
+    <string name="action_remove_from_list"></string>
+    <string name="replies_policy_name_followed"></string>
+    <string name="action_add_or_remove_from_list"></string>
+    <string name="replies_policy_name_none"></string>
+    <string name="hint_search_people_list"></string>
 </resources>
