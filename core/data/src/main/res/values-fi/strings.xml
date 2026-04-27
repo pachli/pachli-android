@@ -13,4 +13,5 @@
     <string name="account_manager_error_dao">Tietokantavirhe, ole hyvä ja ilmoita osoitteeseen team@pachli.app: %1$s</string>
     <string name="error_preference_importer_wrong_version_fmt">tiedoston versio on tuntematon: %1$s</string>
     <string name="error_preference_importer_null_on_import">tiedoston tuonnin tulos tyhjä</string>
+    <string name="error_preference_importer_missing_schema_version"></string>
 </resources>
