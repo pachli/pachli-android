@@ -2,15 +2,9 @@
 <resources>
     <string name="about_title_activity">À propos</string>
     <string name="about_powered_by_pachli">Propulsé par Pachli</string>
-    <string name="about_pachli_license">Pachli est une application libre et open source.
-        Elle est publiée sous licence publique générale GNU version 3.
-        Vous pouvez consulter la licence ici : https://www.gnu.org/licenses/gpl-3.0.fr.html</string>
-    <string name="about_project_site">      Site du projet :\n
-      https://pachli.app
-    </string>
-    <string name="about_bug_feature_request_site">      Rapports d’anomalies &amp; demandes de fonctionnalités :\n
-      https://github.com/pachli/pachli-android/issues
-    </string>
+    <string name="about_pachli_license">Pachli est une application libre et open source. Elle est publiée sous licence publique générale GNU version 3. Vous pouvez consulter la licence ici : https://www.gnu.org/licenses/gpl-3.0.fr.html</string>
+    <string name="about_project_site">Site du projet :\n https://pachli.app</string>
+    <string name="about_bug_feature_request_site">Rapports d’anomalies &amp; demandes de fonctionnalités :\n https://github.com/pachli/pachli-android/issues</string>
     <string name="about_pachli_account">Profil de Pachli</string>
     <string name="title_licenses">Licences</string>
     <string name="license_description">Pachli contient du code et des ressources issus des projets open source suivants :</string>
@@ -23,7 +17,7 @@
     <string name="about_account_info">\@%1$s@%2$s\nVersion : %3$s</string>
     <string name="notification_details_title">Détails</string>
     <string name="notification_details_android_notifications_enabled">Les notifications Android sont activées ?</string>
-    <string name="notification_details_notifications_enabled_help">Les notifications ne sont activées pour aucun de vos comptes. Modifiez cela dans Paramètres de compte &gt; Notifications. En attendant, toutes les notifications sont désactivées.</string>
+    <string name="notification_details_notifications_enabled_help">&lt;![CDATA[Les notifications ne sont activées pour aucun de vos comptes. Modifiez cela dans Paramètres de compte &gt; Notifications. En attendant, toutes les notifications sont désactivées.]&gt;</string>
     <string name="notification_details_push_notifications_with_unifiedpush">Notifications push avec UnifiedPush</string>
     <string name="notification_details_unifiedpush_available">UnifiedPush est disponible ?</string>
     <string name="notification_details_pachli_exempt_help">Pachli n\'est pas exclu des optimisations de batterie. Android risque de retarder les notifications lorsque l\'écran est éteint.</string>
@@ -82,4 +76,8 @@
     <string name="notification_details_pull_section">Récupérer les notifications avec des agents périodiques</string>
     <string name="notification_details_pachli_exempt">Pachli est exclu des optimisations de batterie ?</string>
     <string name="about_nivenly_foundation">Pachli est un projet de la &lt;a href=https://nivenly.org&gt;Fondation Nivenly&lt;/a&gt;.</string>
+    <string name="about_workers"></string>
+    <string name="workers_prune_cached_media_help"></string>
+    <string name="workers_prune_cache_help"></string>
+    <string name="workers_prune_log_entry_entity_help"></string>
 </resources>
