@@ -3,4 +3,7 @@
     <string name="action_open_as">Agor fel %1$s</string>
     <string name="post_lookup_error_format">Gwall wrth chwilio am y neges %1$s</string>
     <string name="performing_lookup_title">Wrthi\'n chwilio…</string>
+    <string name="send_error_report"></string>
+    <string name="action_open_quoted_post"></string>
+    <string name="action_open_as_ellipsis"></string>
 </resources>
