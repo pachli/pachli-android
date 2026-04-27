@@ -17,4 +17,5 @@
     <string name="statuses_count_fmt">&lt;b&gt;%1$s&lt;/&gt; இடுகைகள்</string>
     <string name="statuses_count_per_week_fmt">&lt;b&gt;%1$s&lt;/&gt; இடுகைகள் (வாரத்திற்கு &lt;b&gt;%2$d&lt;/&gt;)</string>
     <string name="statuses_count_per_week_last_fmt">&lt;b&gt;%1$s&lt;/&gt; இடுகைகள் (வாரத்திற்கு &lt;b&gt;%2$d&lt;/&gt;, கடந்த &lt;b&gt;%3$s&lt;/&gt;)</string>
+    <string name="account_content_description_fmt" translatable="false"></string>
 </resources>
