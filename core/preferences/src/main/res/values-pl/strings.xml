@@ -58,4 +58,6 @@
     <string name="pref_summary_quote_policy_disabled">Twój serwer nie wspiera ustawień cytowania</string>
     <string name="pref_underline_links_links">Linki Zewnętrzne</string>
     <string name="pref_underline_links_hashtags">Hasztagi</string>
+    <string name="pref_underline_links_mentions"></string>
+    <string name="pref_title_underline_links"></string>
 </resources>
