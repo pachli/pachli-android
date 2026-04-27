@@ -4,9 +4,9 @@
     <string name="error_invalid_domain">Syöttämäsi verkkonimi on virheellinen</string>
     <string name="error_failed_app_registration_fmt">Tunnistautuminen valitsemasi instanssin kanssa epäonnistui: %1$s</string>
     <string name="error_loading_account_details_fmt">Tilitietojen lataaminen epäonnistui: %1$s</string>
-    <string name="hint_domain">Mikä instanssi\?</string>
+    <string name="hint_domain">Mikä instanssi?</string>
     <string name="action_login">Kirjaudu Mastodonilla</string>
-    <string name="link_whats_an_instance">Mikä on instanssi\?</string>
+    <string name="link_whats_an_instance">Mikä on instanssi?</string>
     <string name="login_connection">Yhdistetään…</string>
     <string name="title_login">Sisäänkirjautuminen</string>
     <string name="error_could_not_load_login_page">Sisäänkirjautumissivun lataaminen epäonnistui.</string>
