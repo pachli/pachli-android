@@ -47,7 +47,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
@@ -98,10 +97,9 @@ class ReportViewModel @AssistedInject constructor(
 ) {
     override val initialRefreshStatusId = flowOf(reportedStatusId)
 
-    private val _navigation = MutableStateFlow(Screen.Statuses)
-
     /** The [Screen] to show to the user. */
-    val navigation: StateFlow<Screen> = _navigation.asStateFlow()
+    val navigation: StateFlow<Screen>
+        field = MutableStateFlow(Screen.Statuses)
 
     /** Emit in to this flow to reload the relationship data. */
     private val reloadRelationship = MutableSharedFlow<Unit>(replay = 1).apply {
@@ -177,11 +175,11 @@ class ReportViewModel @AssistedInject constructor(
         Ok(Loadable.Loading),
     )
 
-    private val _reportingState = MutableSharedFlow<Result<Loadable<Unit>, PachliError>>()
-    var reportingState: SharedFlow<Result<Loadable<Unit>, PachliError>> = _reportingState
+    val reportingState: SharedFlow<Result<Loadable<Unit>, PachliError>>
+        field = MutableSharedFlow<Result<Loadable<Unit>, PachliError>>()
 
-    private val _checkUrl = MutableStateFlow<String?>(null)
-    val checkUrl: StateFlow<String?> = _checkUrl.asStateFlow()
+    val checkUrl: StateFlow<String?>
+        field = MutableStateFlow<String?>(null)
 
     /** IDs of statuses the user is reporting. */
     private val selectedIds = HashSet<String>().apply { reportedStatusId?.let { add(it) } }
@@ -199,11 +197,11 @@ class ReportViewModel @AssistedInject constructor(
     }
 
     fun navigateTo(screen: Screen) {
-        _navigation.value = screen
+        navigation.value = screen
     }
 
     fun navigateBack() {
-        _navigation.update { current ->
+        navigation.update { current ->
             return@update when (current) {
                 Screen.Statuses -> Screen.Finish
                 Screen.Note -> Screen.Statuses
@@ -253,24 +251,24 @@ class ReportViewModel @AssistedInject constructor(
 
     fun doReport() {
         viewModelScope.launch {
-            _reportingState.emit(Ok(Loadable.Loading))
+            reportingState.emit(Ok(Loadable.Loading))
             mastodonApi.report(
                 this@ReportViewModel.reportedAccountId,
                 selectedIds.toList(),
                 reportNote,
                 if (reportedAccountType is AccountType.Remote) isRemoteNotify else null,
             )
-                .onSuccess { _reportingState.emit(Ok(Loadable.Loaded(Unit))) }
-                .onFailure { _reportingState.emit(Err(it)) }
+                .onSuccess { reportingState.emit(Ok(Loadable.Loaded(Unit))) }
+                .onFailure { reportingState.emit(Err(it)) }
         }
     }
 
     fun checkClickedUrl(url: String?) {
-        _checkUrl.value = url
+        checkUrl.value = url
     }
 
     fun urlChecked() {
-        _checkUrl.value = null
+        checkUrl.value = null
     }
 
     fun setStatusChecked(status: Status, checked: Boolean) {

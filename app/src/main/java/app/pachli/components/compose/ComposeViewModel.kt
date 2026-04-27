@@ -94,7 +94,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
@@ -279,19 +279,18 @@ class ComposeViewModel @AssistedInject constructor(
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), Status.Visibility.UNKNOWN)
 
-    private val _showContentWarning: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    val showContentWarning = _showContentWarning.asStateFlow()
-    private val _poll: MutableStateFlow<NewPoll?> = MutableStateFlow(null)
-    val poll = _poll.asStateFlow()
-    private val _scheduledAt: MutableStateFlow<Date?> = MutableStateFlow(composeOptions.draft.scheduledAt)
-    val scheduledAt = _scheduledAt.asStateFlow()
-
-    private val _media: MutableStateFlow<List<QueuedMedia>> = MutableStateFlow(emptyList())
-    val media = _media.asStateFlow()
-    private val _closeConfirmationKind = MutableStateFlow(ConfirmationKind.NONE)
-    val closeConfirmationKind = _closeConfirmationKind.asStateFlow()
-    private val _statusLength = MutableStateFlow(0)
-    val statusLength = _statusLength.asStateFlow()
+    val showContentWarning: StateFlow<Boolean>
+        field = MutableStateFlow(false)
+    val poll: StateFlow<NewPoll?>
+        field = MutableStateFlow(null)
+    val scheduledAt: StateFlow<Date?>
+        field = MutableStateFlow(composeOptions.draft.scheduledAt)
+    val media: StateFlow<List<QueuedMedia>>
+        field = MutableStateFlow(emptyList())
+    val closeConfirmationKind: StateFlow<ConfirmationKind>
+        field = MutableStateFlow(ConfirmationKind.NONE)
+    val statusLength: StateFlow<Int>
+        field = MutableStateFlow(0)
 
     /** Flow of whether or not the server can schedule posts. */
     val serverCanSchedule = serverRepository.flow.map {
@@ -429,7 +428,7 @@ class ComposeViewModel @AssistedInject constructor(
     ): QueuedMedia {
         var stashMediaItem: QueuedMedia? = null
 
-        _media.update { mediaList ->
+        media.update { mediaList ->
             val mediaItem = QueuedMedia(
                 account = pachliAccount.entity,
                 localId = mediaUploader.getNewLocalMediaId(),
@@ -466,7 +465,7 @@ class ComposeViewModel @AssistedInject constructor(
     }
 
     private fun addUploadedMedia(account: AccountEntity, id: String, type: QueuedMedia.Type, uri: Uri, description: String?, focus: Attachment.Focus?) {
-        _media.update { mediaList ->
+        media.update { mediaList ->
             val mediaItem = QueuedMedia(
                 account = account,
                 localId = mediaUploader.getNewLocalMediaId(),
@@ -483,7 +482,7 @@ class ComposeViewModel @AssistedInject constructor(
 
     fun removeMediaFromQueue(item: QueuedMedia) {
         mediaUploader.cancelUploadScope(item.localId)
-        _media.update { mediaList -> mediaList.filter { it.localId != item.localId } }
+        media.update { mediaList -> mediaList.filter { it.localId != item.localId } }
         updateCloseConfirmation()
     }
 
@@ -494,7 +493,7 @@ class ComposeViewModel @AssistedInject constructor(
      * @param second Index of the second item to swap.
      */
     fun swapAttachmentOrder(first: Int, second: Int) {
-        _media.update { mediaList ->
+        media.update { mediaList ->
             val newList = mediaList.toMutableList()
             try {
                 Collections.swap(newList, first, second)
@@ -525,7 +524,7 @@ class ComposeViewModel @AssistedInject constructor(
 
     /** Call this to attach or clear the status' poll */
     fun onPollChanged(newPoll: NewPoll?) {
-        _poll.value = newPoll
+        poll.value = newPoll
         updateCloseConfirmation()
     }
 
@@ -547,11 +546,11 @@ class ComposeViewModel @AssistedInject constructor(
 
     @VisibleForTesting
     fun updateStatusLength() {
-        _statusLength.value = statusLength(content, effectiveContentWarning, instanceInfo.value.charactersReservedPerUrl)
+        statusLength.value = statusLength(content, effectiveContentWarning, instanceInfo.value.charactersReservedPerUrl)
     }
 
     private fun updateCloseConfirmation() {
-        _closeConfirmationKind.value = if (isDirty()) {
+        closeConfirmationKind.value = if (isDirty()) {
             when (composeKind) {
                 ComposeKind.NEW -> if (isEmpty(content, effectiveContentWarning)) {
                     ConfirmationKind.NONE
@@ -593,7 +592,7 @@ class ComposeViewModel @AssistedInject constructor(
     }
 
     fun showContentWarningChanged(value: Boolean) {
-        _showContentWarning.value = value
+        showContentWarning.value = value
         contentWarningStateChanged = true
         updateStatusLength()
     }
@@ -777,7 +776,7 @@ class ComposeViewModel @AssistedInject constructor(
     }
 
     private fun updateMediaItem(localId: Int, mutator: (QueuedMedia) -> QueuedMedia) {
-        _media.update { mediaList ->
+        media.update { mediaList ->
             mediaList.map { mediaItem ->
                 if (mediaItem.localId == localId) {
                     mutator(mediaItem)
@@ -860,7 +859,7 @@ class ComposeViewModel @AssistedInject constructor(
         )
 
         if (!contentWarningStateChanged) {
-            _showContentWarning.value = contentWarning.isNotBlank()
+            showContentWarning.value = contentWarning.isNotBlank()
         }
 
         // recreate media list
@@ -889,7 +888,7 @@ class ComposeViewModel @AssistedInject constructor(
 
         val poll = draft.poll
         if (poll != null && composeOptions.mediaAttachments.isNullOrEmpty()) {
-            _poll.value = poll
+            this.poll.value = poll
         }
 
         updateCloseConfirmation()
@@ -901,7 +900,7 @@ class ComposeViewModel @AssistedInject constructor(
             scheduledTimeChanged = true
         }
 
-        _scheduledAt.value = newScheduledAt
+        scheduledAt.value = newScheduledAt
         updateCloseConfirmation()
     }
 
