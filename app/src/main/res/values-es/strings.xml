@@ -599,9 +599,7 @@
     <string name="pref_notification_battery_optimisation_should_ignore">La optimización de la batería debería ser deshabilitada. Toca para abrir.</string>
     <string name="pref_notification_battery_optimisation_ok">La optimización de la batería no necesita deshabilitarse.</string>
     <string name="pref_title_change_unified_push_distributor">Cambiar distribuidor Unified Push</string>
-    <string name="pref_change_unified_push_distributor_msg">Esto borrará la elección de distribuidor Unified Push y reiniciará Pachli.
-\n
-\nSi hay varios distribuidores Unified Push instalados, se te pedirá que elijas uno.</string>
+    <string name="pref_change_unified_push_distributor_msg">Esto borrará la elección de distribuidor Unified Push y reiniciará Pachli. \n \nSi hay varios distribuidores Unified Push instalados, se te pedirá que elijas uno.</string>
     <string name="pref_notification_battery_optimisation_is_disabled">La optimización de la batería está deshabilitada</string>
     <string name="pref_title_content_filters">Filtros de contenido</string>
     <string name="conversation_0_recipients">Ningún participante más</string>
