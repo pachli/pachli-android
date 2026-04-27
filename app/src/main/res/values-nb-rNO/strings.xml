@@ -539,9 +539,7 @@
     <string name="pref_notification_battery_optimisation_should_ignore">Batterioptimisering bør være avslått. Trykk for å åpne.</string>
     <string name="pref_notification_battery_optimisation_ok">Pachli trenger ikke at batterioptimisering skal være avslått.</string>
     <string name="pref_title_change_unified_push_distributor">Bytt Unified Push-distributør</string>
-    <string name="pref_change_unified_push_distributor_msg">Dette fjerner valget av Unified Push-distributøren og starter Pachli på nytt.
-\n
-\nDersom flere distributører er installert, skal du bli spurt om å velge én.</string>
+    <string name="pref_change_unified_push_distributor_msg">Dette fjerner valget av Unified Push-distributøren og starter Pachli på nytt. \n \nDersom flere distributører er installert, skal du bli spurt om å velge én.</string>
     <string name="search_operator_attachment_dialog_audio_label">Lydvedlegg</string>
     <string name="search_operator_attachment_all">Media ▾</string>
     <string name="search_operator_attachment_kind_image_label">bilder</string>
