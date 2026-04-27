@@ -60,7 +60,7 @@
     <string name="label_avatar">Avatar</string>
     <string name="action_remove">Odstrániť</string>
     <string name="lock_account_label">Uzamknúť účet</string>
-    <string name="compose_save_draft">Uložiť koncept\?</string>
+    <string name="compose_save_draft">Uložiť koncept?</string>
     <string name="later">Neskôr</string>
     <string name="restart">Reštartovať</string>
     <string name="profile_metadata_label">Metadáta profilu</string>
