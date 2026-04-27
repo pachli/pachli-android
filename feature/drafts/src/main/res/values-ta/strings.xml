@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_edit">திருத்த</string>
     <string name="title_drafts">வரைவுகள்</string>
@@ -8,4 +8,8 @@
     <string name="drafts_load_quote_failed_fmt">நீங்கள் மேற்கோள் காட்டும் இடுகையை ஏற்ற முடியவில்லை: %1$s</string>
     <string name="drafts_post_failed_to_send">இந்த இடுகை அனுப்பத் தவறிவிட்டது!</string>
     <string name="no_drafts">உங்களிடம் எந்த வரைவுகளும் இல்லை.</string>
+    <string name="title_delete_drafts"></string>
+    <string name="action_delete_drafts"></string>
+    <string name="send_post_failure_message_prefix"></string>
+    <string name="delete_drafts_msg"></string>
 </resources>
