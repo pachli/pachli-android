@@ -4,4 +4,6 @@
     <string name="post_lookup_error_format">Fel vid uppslagning av status %1$s</string>
     <string name="performing_lookup_title">Utför sökning…</string>
     <string name="send_error_report">Skicka felrapport</string>
+    <string name="action_open_quoted_post"></string>
+    <string name="action_open_as_ellipsis"></string>
 </resources>
