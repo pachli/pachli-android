@@ -32,7 +32,7 @@
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; impulsó tu publicación</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; marcó como favorita tu publicación</string>
     <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; te siguió</string>
-    <string name="report_username_format">Reportar @%1$s</string>
+    <string name="report_username_format">Reportar a @%1$s</string>
     <string name="report_comment_hint">¿Información adicional?</string>
     <string name="action_quick_reply">Respuesta rápida</string>
     <string name="action_compose">Redactar</string>
@@ -270,8 +270,8 @@
     <string name="no_scheduled_posts">No tienes ninguna publicación programada.</string>
     <string name="warning_scheduling_interval">Mastodon tiene un intervalo de programación mínimo de 5 minutos.</string>
     <string name="notification_follow_request_name">Solicitudes de seguimiento</string>
-    <string name="dialog_block_warning">Bloquear @%1$s\?</string>
-    <string name="dialog_mute_warning">Silenciar @%1$s\?</string>
+    <string name="dialog_block_warning">¿Bloquear a @%1$s?</string>
+    <string name="dialog_mute_warning">¿Silenciar a @%1$s?</string>
     <string name="action_mute_conversation">Silenciar conversación</string>
     <string name="action_unmute_conversation">Dejar de silenciar conversación</string>
     <string name="notification_follow_request_description">Notificaciones sobre solicitudes de seguimiento</string>
@@ -284,7 +284,7 @@
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; solicita seguirte</string>
     <string name="pref_main_nav_position">Posición de navegación principal</string>
     <string name="pref_title_gradient_for_media">Mostrar difuminados coloridos para la multimedia oculta</string>
-    <string name="action_unmute_domain">Dejar de silenciar a %1$s</string>
+    <string name="action_unmute_domain">Dejar de silenciar %1$s</string>
     <string name="action_unmute_desc">Dejar de silenciar a %1$s</string>
     <string name="dialog_mute_hide_notifications">Ocultar notificaciones</string>
     <string name="pref_title_hide_top_toolbar">Ocultar el título de la barra de herramientas superior</string>
@@ -327,7 +327,7 @@
     <string name="action_add_reaction">añadir reacción</string>
     <string name="pref_title_notification_filter_sign_ups">Alguien se registró</string>
     <string name="error_following_hashtag_format">Error al seguir #%1$s</string>
-    <string name="error_unfollowing_hashtag_format">Error dejando de seguir #%1$s</string>
+    <string name="error_unfollowing_hashtag_format">Error al dejar de seguir #%1$s</string>
     <string name="title_migration_relogin">Reingresa para activar notificaciones push</string>
     <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; se registró</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; editó su publicación</string>
@@ -364,14 +364,14 @@
     </plurals>
     <string name="language_display_name_format">%1$s (%2$s)</string>
     <string name="error_muting_hashtag_format">Error al silenciar #%1$s</string>
-    <string name="error_unmuting_hashtag_format">Error al reactivar #%1$s</string>
+    <string name="error_unmuting_hashtag_format">Error al dejar de silenciar #%1$s</string>
     <string name="notification_report_description">Notificaciones sobre informes de moderación</string>
     <string name="error_following_hashtags_unsupported">Esta instancia no es compatible con el seguimiento de etiquetas.</string>
     <string name="title_followed_hashtags">Etiquetas seguidas</string>
     <string name="report_category_other">Otros</string>
-    <string name="action_unfollow_hashtag_format">¿Dejar de seguir a #%1$s\?</string>
+    <string name="action_unfollow_hashtag_format">¿Dejar de seguir #%1$s?</string>
     <string name="error_status_source_load">Fallo al cargar el estado de la origen desde el servidor.</string>
-    <string name="confirmation_hashtag_unfollowed">Dejaste de seguir a #%1$s</string>
+    <string name="confirmation_hashtag_unfollowed">Dejaste de seguir #%1$s</string>
     <string name="pref_title_notification_filter_reports">Hay una nueva denuncia</string>
     <string name="action_discard">Descartar cambios</string>
     <string name="action_continue_edit">Continuar editando</string>
@@ -391,7 +391,7 @@
     <string name="action_share_account_username">Compartir el identificador de la cuenta</string>
     <string name="send_account_link_to">Compartir URL de la cuenta con…</string>
     <string name="action_share_account_link">Compartir enlace a la cuenta</string>
-    <string name="title_public_trending_hashtags">Hashtags en tendencia</string>
+    <string name="title_public_trending_hashtags">Etiquetas en tendencia</string>
     <string name="accessibility_talking_about_tag">%1$d personas están hablando de #%2$s</string>
     <string name="total_usage">Uso total</string>
     <string name="total_accounts">Cuentas totales</string>
@@ -450,7 +450,7 @@
     <string name="dialog_save_profile_changes_message">¿Quieres guardar tus cambios de perfil?</string>
     <string name="pref_title_show_self_boosts_description">Alguien impulsa su propia publicación</string>
     <string name="ui_error_filter_v1_load_fmt">La carga de filtros falló: %1$s</string>
-    <string name="confirmation_hashtag_muted">#%1$s oculto(s)</string>
+    <string name="confirmation_hashtag_muted">#%1$s ocultado</string>
     <string name="confirmation_hashtag_unmuted">#%1$s visible</string>
     <string name="pref_title_show_self_boosts">Mostrar auto-impulsos</string>
     <string name="announcement_date_updated">(Actualizado: %1$s)</string>
@@ -735,4 +735,12 @@
     <string name="search_operator_quote_dialog_all">Con o sin citas</string>
     <string name="search_operator_quote_dialog_only">Sólo publicaciones con citas</string>
     <string name="search_operator_quote_dialog_no_quotes">Sólo publicaciones sin citas</string>
+    <string name="err_draft_error_no_external_files_dir">almacenamiento compartido no disponible</string>
+    <string name="err_draft_error_mkdir_drafts_fmt">no se pudo crear la carpeta Borradores: %1$s</string>
+    <string name="err_draft_error_unknown_mime_type">el adjunto tiene un tipo MIME desconocido: %1$s</string>
+    <string name="err_draft_error_content_provider_crash">el proveedor de contenido acaba de colapsar</string>
+    <string name="err_draft_error_io_fmt">fallo al guardar: %1$s</string>
+    <string name="ui_error_delete_scheduled_status_fmt">no se pudo eliminar la publicación programada para reemplazarla: %1$s</string>
+    <string name="ui_error_sending_post_fmt">No se pudo enviar la publicación: %1$s</string>
+    <string name="ui_error_saving_post_fmt">No se pudo guardar la publicación: %1$s</string>
 </resources>

@@ -22,7 +22,7 @@
     <string name="license_description">Pachli innehåller kod och tillgångar från följande öppen källkodsprojekt:</string>
     <string name="notification_details_title">Detaljer</string>
     <string name="notification_details_android_notifications_enabled">Är Android aviseringar påslagna?</string>
-    <string name="notification_details_notifications_enabled_help"><![CDATA[Aviseringar är inte påslagna för något av dina konton. Ändra i Konto Inställningar → Aviseringar. till dess är alla aviseringar avstängda.]]></string>
+    <string name="notification_details_notifications_enabled_help">Aviseringar är inte påslagna för något av dina konton. Ändra i Konto Inställningar → Aviseringar. till dess är alla aviseringar avstängda.</string>
     <string name="notification_details_push_notifications_with_unifiedpush">Aviseringar med UnifiedPush</string>
     <string name="notification_details_unifiedpush_available">Är UnifiedPush tillgängligt?</string>
 </resources>

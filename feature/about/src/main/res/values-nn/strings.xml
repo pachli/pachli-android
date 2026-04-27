@@ -20,7 +20,7 @@
     <string name="notification_details_unifiedpush_available">Er UnifiedPush tilgjengeleg?</string>
     <string name="notification_details_unifiedpush_available_help">UnifiedPush (dvs. ntfy.sh) er ikkje tilgjengeleg og Pachli skal dimed sjå berre sporadisk etter varsel. Resten av dette avsnedet skal forklara kvifor UnifiedPush vert ikkje nøytt, men slike opplysingar er ikkje relevante til korleis Pachli skal sjå etter varslingar no.</string>
     <string name="notification_details_any_account_needs_migration">Har alle kontoar «push»-løyva?</string>
-    <string name="notification_details_notifications_enabled_help"><![CDATA[Varsel er ikkje påslegne for nokon av kontoane dine. Du kan lett forandre dette ved å gå til Kontoinnstillingar → Varsel. Heilt til du gjer dette, skal varsel ikkje sendast.]]></string>
+    <string name="notification_details_notifications_enabled_help">Varsel er ikkje påslegne for nokon av kontoane dine. Du kan lett forandre dette ved å gå til Kontoinnstillingar → Varsel. Heilt til du gjer dette, skal varsel ikkje sendast.</string>
     <string name="notification_details_push_notifications_with_unifiedpush">Pushvarsel med UnifiedPush</string>
     <string name="notification_details_accounts_unified_push_url">Har alle kontoar ein URL med UnifiedPush?</string>
     <string name="notification_details_accounts_unified_push_url_help">Éin eller fleire kontoar har ikkje ein URL med UnifiedPush, og varsel er di avslegne for han/dei.</string>
