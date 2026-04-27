@@ -4,8 +4,7 @@
     <string name="about_powered_by_pachli">Работает на Pachli</string>
     <string name="about_pachli_license">Pachli — это свободное приложение с открытым исходным кодом. Выпускается по лицензии GNU General Public License Version 3. Вы можете прочитать текст лицензии здесь: https://www.gnu.org/licenses/gpl-3.0.ru.html</string>
     <string name="about_project_site">Веб-сайт проекта: https://pachli.app</string>
-    <string name="about_bug_feature_request_site">Отчеты об ошибках и ваши пожелания:
-\n https://github.com/pachli/pachli-android/issues</string>
+    <string name="about_bug_feature_request_site">Отчеты об ошибках и ваши пожелания: \n https://github.com/pachli/pachli-android/issues</string>
     <string name="about_pachli_account">Профиль Pachli</string>
     <string name="title_licenses">Лицензии</string>
     <string name="license_description">Pachli содержит код и ассеты из следующих приложений с открытым исходным кодом:</string>
@@ -61,4 +60,24 @@
     <string name="notification_log_download_failed">Скачать не удалось: %1$s</string>
     <string name="notitication_log_filter_dialog_title">Показать приоритеты журналов</string>
     <string name="about_nivenly_foundation">Pachli — проект <a href="https://nivenly.org">Nivenly Foundation</a>.</string>
+    <string name="database_vacuum"></string>
+    <string name="action_clear_cache"></string>
+    <string name="database_prune_cache_complete"></string>
+    <string name="about_database"></string>
+    <string name="action_vacuum"></string>
+    <string name="action_run_integrity_check"></string>
+    <string name="about_workers"></string>
+    <string name="workers_prune_cached_media_help"></string>
+    <string name="workers_prune_cache_help"></string>
+    <string name="database_table_sizes"></string>
+    <string name="action_run_query_timings"></string>
+    <string name="database_vacuum_complete"></string>
+    <string name="database_integrity_check"></string>
+    <string name="database_query_timings"></string>
+    <string name="database_prune_cache"></string>
+    <string name="about_notifications"></string>
+    <string name="database_clear_cache"></string>
+    <string name="database_clear_cache_complete"></string>
+    <string name="action_prune_cache"></string>
+    <string name="workers_prune_log_entry_entity_help"></string>
 </resources>
