@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_prepare_media_io_fmt">%1$s</string>
     <string name="error_prepare_media_file_is_too_large_fmt">la dimensione del file è %1$s, il massimo consentito è di %2$s</string>
@@ -8,4 +8,11 @@
     <string name="send_post_notification_error_title">Errore durante l\'invio</string>
     <string name="send_post_notification_saved_content">Una copia del messaggio è stata salvata nelle tue bozze</string>
     <string name="send_post_notification_cancel_title">Invio annullato</string>
+    <string name="error_prepare_media_content_resolver_missing_path_fmt"></string>
+    <string name="error_prepare_media_unknown_mime_type"></string>
+    <string name="error_prepare_media_unknown_file_size"></string>
+    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt"></string>
+    <string name="send_post_failure_message_timeout"></string>
+    <string name="error_media_uploader_upload_not_found_fmt"></string>
+    <string name="send_post_failure_message_cancel"></string>
 </resources>
