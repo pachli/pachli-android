@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_prepare_media_content_resolver_missing_path_fmt">innholdsoppløser-URI manglet en bane: %1$s</string>
     <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">innholdsoppløser-URI har ikke-støttet skjema: %1$s</string>
@@ -13,4 +13,6 @@
     <string name="send_post_notification_error_title">Det oppsto en feil under sending av innlegget</string>
     <string name="send_post_notification_saved_content">En kopi av innlegget er lagret i utkastene dine</string>
     <string name="send_post_notification_cancel_title">Sending avbrutt</string>
+    <string name="send_post_failure_message_timeout"></string>
+    <string name="send_post_failure_message_cancel"></string>
 </resources>
