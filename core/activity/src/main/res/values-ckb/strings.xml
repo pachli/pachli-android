@@ -3,7 +3,4 @@
     <string name="action_open_as">کردنەوە وەک %1$s</string>
     <string name="post_lookup_error_format">هەڵە لە گەڕان بەدوای بابەت %1$s</string>
     <string name="performing_lookup_title">ئەنجامدانی گەڕان…</string>
-    <string name="send_error_report"></string>
-    <string name="action_open_quoted_post"></string>
-    <string name="action_open_as_ellipsis"></string>
 </resources>

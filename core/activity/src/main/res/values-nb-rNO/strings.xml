@@ -4,6 +4,4 @@
     <string name="post_lookup_error_format">Det oppsto en feil under henting av %1$s</string>
     <string name="performing_lookup_title">Søker…</string>
     <string name="send_error_report">Send feilrapportering</string>
-    <string name="action_open_quoted_post"></string>
-    <string name="action_open_as_ellipsis"></string>
 </resources>

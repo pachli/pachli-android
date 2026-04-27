@@ -3,7 +3,4 @@
     <string name="action_open_as">Obre com a %1$s</string>
     <string name="post_lookup_error_format">S\'ha produït un error en cercar la publicació %1$s</string>
     <string name="performing_lookup_title">Cercant…</string>
-    <string name="send_error_report"></string>
-    <string name="action_open_quoted_post"></string>
-    <string name="action_open_as_ellipsis"></string>
 </resources>

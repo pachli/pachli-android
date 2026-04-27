@@ -3,7 +3,4 @@
     <string name="action_open_as">%1$s के रूप में खोलें</string>
     <string name="post_lookup_error_format">%1$s पोस्ट खोजने में त्रुटि</string>
     <string name="performing_lookup_title">देखने की क्रिया जारी…</string>
-    <string name="send_error_report"></string>
-    <string name="action_open_quoted_post"></string>
-    <string name="action_open_as_ellipsis"></string>
 </resources>
