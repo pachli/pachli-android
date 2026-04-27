@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_close">Κλείσιμο</string>
     <string name="error_loading_account_details_fmt">Η φόρτωση λεπτομερειών λογαριασμού απέτυχε: %1$s</string>
@@ -6,4 +6,15 @@
     <string name="login_connection">Σύνδεση…</string>
     <string name="title_login">Σύνδεση</string>
     <string name="error_could_not_load_login_page">Δεν ήταν δυνατή η φόρτωση της σελίδας εισόδου χρήστη.</string>
+    <string name="error_authorization_denied"></string>
+    <string name="hint_domain"></string>
+    <string name="error_authorization_unknown"></string>
+    <string name="error_retrieving_oauth_token_fmt"></string>
+    <string name="instance_rule_title"></string>
+    <string name="dialog_whats_an_instance"></string>
+    <string name="error_failed_app_registration_fmt"></string>
+    <string name="link_whats_an_instance"></string>
+    <string name="action_browser_login"></string>
+    <string name="instance_rule_info"></string>
+    <string name="error_invalid_domain"></string>
 </resources>
