@@ -5,4 +5,16 @@
     <string name="error_invalid_domain">Dumini minga valid inseriu</string>
     <string name="action_close">Sarad</string>
     <string name="login_connection">Cunnession…</string>
+    <string name="title_login"></string>
+    <string name="error_authorization_denied"></string>
+    <string name="hint_domain"></string>
+    <string name="error_authorization_unknown"></string>
+    <string name="error_retrieving_oauth_token_fmt"></string>
+    <string name="dialog_whats_an_instance"></string>
+    <string name="error_failed_app_registration_fmt"></string>
+    <string name="error_could_not_load_login_page"></string>
+    <string name="link_whats_an_instance"></string>
+    <string name="action_browser_login"></string>
+    <string name="instance_rule_info"></string>
+    <string name="error_loading_account_details_fmt"></string>
 </resources>
