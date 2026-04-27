@@ -228,7 +228,7 @@
     <string name="notifications_apply_filter">Filtro</string>
     <string name="compose_shortcut_long_label">Escribir publicación</string>
     <string name="compose_shortcut_short_label">Redactar</string>
-    <string name="notification_clear_text">¿Estás seguro de que quieres eliminar permanentemente todas tus notificaciones\?</string>
+    <string name="notification_clear_text">¿Estás seguro de que quieres eliminar permanentemente todas tus notificaciones?</string>
     <string name="compose_preview_image_description">Acciones para la imagen %1$s</string>
     <string name="poll_ended_voted">Una encuesta en la que has votado ha terminado</string>
     <string name="poll_ended_created">Una encuesta que has creado ha terminado</string>
@@ -305,19 +305,13 @@
     <string name="notification_subscription_description">Notificaciones cuando alguien al que estoy suscrito escribe una publicación</string>
     <string name="notification_subscription_name">Nuevas publicaciones</string>
     <string name="pref_title_notification_filter_subscriptions">Alguien a quien estoy suscrito hizo una nueva publicación</string>
-    <string name="wellbeing_mode_notice">Se ocultarán algunas informaciones que podrían afectar a tu bienestar. Esto incluye:
-\n
-\n- Notificaciones de favoritos, impulsos y seguidores
-\n- Conteo de favoritos e impulsos en publicaciones
-\n- Estadísticas de seguidores y publicaciones en perfiles
-\n
-\nLas notificaciones Push no serán afectadas, pero puedes revisar manualmente tus preferencias.</string>
+    <string name="wellbeing_mode_notice">Se ocultarán algunas informaciones que podrían afectar a tu bienestar. Esto incluye: \n \n- Notificaciones de favoritos, impulsos y seguidores \n- Conteo de favoritos e impulsos en publicaciones \n- Estadísticas de seguidores y publicaciones en perfiles \n \nLas notificaciones Push no serán afectadas, pero puedes revisar manualmente tus preferencias.</string>
     <string name="duration_indefinite">Indefinido</string>
     <string name="label_duration">Duración</string>
     <string name="action_unbookmark">Quitar marcador</string>
     <string name="follow_requests_info">Aunque tu cuenta no está protegida, el personal de %1$s pensó que podrías querer revisar las solicitudes de seguimiento de estas cuentas manualmente.</string>
     <string name="action_subscribe_account">Suscribir</string>
-    <string name="dialog_delete_conversation_warning">¿Eliminar esta conversación\?</string>
+    <string name="dialog_delete_conversation_warning">¿Eliminar esta conversación?</string>
     <string name="pref_title_animate_custom_emojis">Animar emojis personalizados</string>
     <string name="action_unsubscribe_account">Darse de baja</string>
     <string name="action_delete_conversation">Eliminar conversación</string>
@@ -331,7 +325,7 @@
     <string name="title_migration_relogin">Reingresa para activar notificaciones push</string>
     <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; se registró</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; editó su publicación</string>
-    <string name="delete_scheduled_post_warning">¿Eliminar publicación programada\?</string>
+    <string name="delete_scheduled_post_warning">¿Eliminar publicación programada?</string>
     <string name="set_focus_description">Toca o arrastra el círculo para centrar el foco de la imagen, que será visible en las miniaturas.</string>
     <string name="compose_save_draft_loses_media">Los adjuntos se subirán de nuevo cuando vuelvas al borrador.</string>
     <string name="pref_title_show_self_username">Mostrar identificador en la barra de herramientas</string>
@@ -431,7 +425,7 @@
     <string name="pref_ui_text_size">Tamaño de fuente de la interfaz</string>
     <string name="notification_notification_worker">Obteniendo notificaciones…</string>
     <string name="load_newest_notifications">Cargar notificaciones más nuevas</string>
-    <string name="compose_delete_draft">¿Eliminar borrador\?</string>
+    <string name="compose_delete_draft">¿Eliminar borrador?</string>
     <string name="ui_error_translate_status_fmt">La traducción falló: %1$s</string>
     <string name="update_dialog_negative">Nunca me lo recuerdes</string>
     <string name="dialog_delete_filter_positive_action">Borrar</string>
