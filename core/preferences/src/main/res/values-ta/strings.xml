@@ -58,4 +58,6 @@
     <string name="pref_quote_policy_nobody">நீங்கள் மட்டும்</string>
     <string name="pref_underline_links_links">வெளிப்புற இணைப்புகள்</string>
     <string name="pref_underline_links_hashtags">ஏச்டேக்குகள்</string>
+    <string name="pref_underline_links_mentions"></string>
+    <string name="pref_title_underline_links"></string>
 </resources>
