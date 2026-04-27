@@ -452,7 +452,7 @@
     <string name="search_operator_from_dialog_title">Teorainn le cuntais shonracha?</string>
     <string name="search_operator_poll_dialog_no_polls">Poist gan pobalbhreitheanna amháin</string>
     <string name="search_operator_embed_all">Cártaí réamhamhairc ▾</string>
-    <string name="search_operator_date_checked"> %1$s - %2$s</string>
+    <string name="search_operator_date_checked">%1$s - %2$s</string>
     <string name="search_operator_date_checked_same_day">Ar %1$s</string>
     <string name="search_operator_language_checked_fmt">%1$s</string>
     <string name="search_operator_language_dialog_all">Teanga ar bith</string>
