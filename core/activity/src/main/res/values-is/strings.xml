@@ -3,4 +3,7 @@
     <string name="action_open_as">Opna sem %1$s</string>
     <string name="post_lookup_error_format">Villa við að fletta upp færslunni %1$s</string>
     <string name="performing_lookup_title">Framkvæmi uppflettingu…</string>
+    <string name="send_error_report"></string>
+    <string name="action_open_quoted_post"></string>
+    <string name="action_open_as_ellipsis"></string>
 </resources>
