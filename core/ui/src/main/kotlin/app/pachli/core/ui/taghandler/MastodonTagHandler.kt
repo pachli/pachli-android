@@ -22,6 +22,7 @@ import android.text.Editable
 import android.text.style.TypefaceSpan
 import app.pachli.core.network.PachliTagHandler
 import app.pachli.core.ui.taghandler.LeadingMarginWithTextSpan.Alignment
+import app.pachli.core.ui.taghandler.Mark.BlockQuote
 import app.pachli.core.ui.taghandler.Mark.Code
 import app.pachli.core.ui.taghandler.Mark.OrderedListItem
 import app.pachli.core.ui.taghandler.Mark.Pre
@@ -190,11 +191,12 @@ private interface ListElementHandler : ElementHandler {
  */
 private class BlockQuoteHandler(private val context: Context) : ElementHandler {
     override fun startElement(text: Editable) {
-        text.appendMark(Mark.BlockQuote)
+        text.ensureEndsWithNewline()
+        text.appendMark(BlockQuote)
     }
 
     override fun endElement(text: Editable) {
-        text.getLastSpanOrNull<Mark.BlockQuote>()?.let { mark ->
+        text.getLastSpanOrNull<BlockQuote>()?.let { mark ->
             text.setSpansFromMark(mark, BlockQuoteSpan(context))
         }
         text.ensureEndsWithNewline()
@@ -228,6 +230,7 @@ private class CodeHandler(private val context: Context) : ElementHandler {
  */
 private class PreHandler : ElementHandler {
     override fun startElement(text: Editable) {
+        text.ensureEndsWithNewline()
         text.appendMark(Pre)
     }
 

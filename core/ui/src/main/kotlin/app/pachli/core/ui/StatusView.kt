@@ -59,6 +59,7 @@ import com.bumptech.glide.RequestManager
 import com.google.android.material.color.MaterialColors
 import java.text.NumberFormat
 import java.util.Date
+import timber.log.Timber
 
 /** Array of [InputFilter] to collapse status content. */
 private val COLLAPSE_INPUT_FILTER = arrayOf<InputFilter>(SmartLengthInputFilter)
@@ -572,6 +573,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         statusDisplayOptions: StatusDisplayOptions,
     ) {
         val actionable = viewData.actionable
+        Timber.d("setupWithStatus for status ID and URL: ${actionable.statusId}, ${actionable.url}")
         setDisplayName(glide, actionable.account.name, actionable.account.emojis, statusDisplayOptions)
         setUsername(actionable.account.username)
         setMetaData(viewData, statusDisplayOptions, listener)
