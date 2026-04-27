@@ -3,7 +3,4 @@
     <string name="title_manage_accounts">Beheer accounts</string>
     <string name="label_active_account">Actief account</string>
     <string name="action_switch_account">Wissel</string>
-    <string name="pachli_account_content_description_fmt"></string>
-    <string name="action_logout_account_fmt"></string>
-    <string name="action_switch_account_fmt"></string>
 </resources>
