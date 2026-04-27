@@ -19,13 +19,13 @@
     <string name="about_copied">Informations de version et d\'appareil copiées</string>
     <string name="about_copy">Copier les informations de version et d\'appareil</string>
     <string name="about_privacy_policy">Politique de vie privée</string>
-    <string name="about_device_info">%1$s%2$s\nVersion d\'Android : %3$s\nNiveau du SDK : %4$d</string>
-    <string name="about_account_info">\@%1$s@%2$s\nVersion : %3$s</string>
+    <string name="about_device_info">%1$s%2$s\nVersion d\'Android : %3$s\nNiveau du SDK : %4$d</string>
+    <string name="about_account_info">\@%1$s@%2$s\nVersion : %3$s</string>
     <string name="notification_details_title">Détails</string>
-    <string name="notification_details_android_notifications_enabled">Les notifications Android sont activées ?</string>
-    <string name="notification_details_notifications_enabled_help">Les notifications ne sont activées pour aucun de vos comptes. Modifiez cela dans Paramètres de compte > Notifications. En attendant, toutes les notifications sont désactivées.</string>
+    <string name="notification_details_android_notifications_enabled">Les notifications Android sont activées ?</string>
+    <string name="notification_details_notifications_enabled_help">Les notifications ne sont activées pour aucun de vos comptes. Modifiez cela dans Paramètres de compte &gt; Notifications. En attendant, toutes les notifications sont désactivées.</string>
     <string name="notification_details_push_notifications_with_unifiedpush">Notifications push avec UnifiedPush</string>
-    <string name="notification_details_unifiedpush_available">UnifiedPush est disponible ?</string>
+    <string name="notification_details_unifiedpush_available">UnifiedPush est disponible ?</string>
     <string name="notification_details_pachli_exempt_help">Pachli n\'est pas exclu des optimisations de batterie. Android risque de retarder les notifications lorsque l\'écran est éteint.</string>
     <string name="notification_details_workers_help">Voici la liste des agents qui récupèrent les nouvelles notifications. Il devrait y en avoir un, l\'état devrait être RUNNING ou ENQUEUED, et il devrait être programmé pour seelancer dans moins de 15 minutes.</string>
     <string name="notification_details_last_fetch_help">Indépendemment de la méthode de notification, cela montre, compte par compte, la date de dernière récupération, si elle a été réussie, et le message d\'erreur sinon.</string>
@@ -46,13 +46,13 @@
     <string name="notification_log_download_content_description">Télécharger les journaux</string>
     <string name="notification_log_download">Télécharger</string>
     <string name="notification_log_sort">Trier en ordre antéchronologique</string>
-    <string name="notification_log_previous_attempts">Essais précédents : %1$d</string>
+    <string name="notification_log_previous_attempts">Essais précédents : %1$d</string>
     <string name="notification_log_scheduled_in">Programmé dans %1$s à %2$s</string>
     <string name="notification_log_method_push">Les notifications sont poussées avec UnifiedPush et devraient être immédiates</string>
     <string name="notification_log_method_pull">Les notifications sont récupérées périodiquement, environ toutes les 15 minutes</string>
     <string name="notification_log_method_unknown">Le mécanisme de notification n\'a pas été déterminé</string>
-    <string name="notification_log_method_pusherror">UnifiedPush est activé mais a produit une erreur : %1$s</string>
-    <string name="notification_log_download_failed">Le téléchargement a échoué : %1$s</string>
+    <string name="notification_log_method_pusherror">UnifiedPush est activé mais a produit une erreur : %1$s</string>
+    <string name="notification_log_download_failed">Le téléchargement a échoué : %1$s</string>
     <string name="notitication_log_filter_dialog_title">Montrer les priorités du journal</string>
     <string name="about_notifications">Notifications</string>
     <string name="about_database">Base de données</string>
@@ -71,15 +71,15 @@
     <string name="database_vacuum_complete">Application nettoyée</string>
     <string name="database_clear_cache_complete">Cache vidé</string>
     <string name="notification_details_unifiedpush_available_help">UnifiedPush (ntfy.sh) n\'est pas disponible, les notifications seront récupérées périodiquement. Le reste de cette section explique pourquoi UnifiedPush n\'est pas utilisé, mais ne concerne pas la façon dont les notifications sont actuellement récupérées.</string>
-    <string name="notification_details_any_account_needs_migration">Tous les comptes ont la portée Oauth « push » ?</string>
+    <string name="notification_details_any_account_needs_migration">Tous les comptes ont la portée Oauth « push » ?</string>
     <string name="notification_details_any_account_needs_migration_help">Un ou plusieurs comptes n\'ont pas la portée Oauth « push », les notifications push sont désactivées.</string>
-    <string name="notification_details_accounts_unified_push_url">Tous les comptes ont une URL UnifiedPush ?</string>
+    <string name="notification_details_accounts_unified_push_url">Tous les comptes ont une URL UnifiedPush ?</string>
     <string name="notification_details_accounts_unified_push_url_help">Un ou plusieurs comptes ne sont pas configurés avec une URL UnifiedPush, les notifications push pour ces comptes sont désactivées.</string>
-    <string name="notification_details_accounts_unified_push_subscription">Tous les comptes sont abonnés ?</string>
+    <string name="notification_details_accounts_unified_push_subscription">Tous les comptes sont abonnés ?</string>
     <string name="notification_details_accounts_unified_push_subscription_help">Un ou plusieurs comptes ont échoué à la mise à jour de leur abonnement UnifiedPush et ne recevront pas de notifications.</string>
-    <string name="notification_details_ntfy_exempt">NTFY est exclu des optimisations de batterie ?</string>
+    <string name="notification_details_ntfy_exempt">NTFY est exclu des optimisations de batterie ?</string>
     <string name="notification_details_ntfy_exempt_help">NTFY n\'est pas exclu des optimisations de batterie. Android pourrait retarder les notifications lorsque l\'écran est éteint.</string>
     <string name="notification_details_pull_section">Récupérer les notifications avec des agents périodiques</string>
-    <string name="notification_details_pachli_exempt">Pachli est exclu des optimisations de batterie ?</string>
-    <string name="about_nivenly_foundation">Pachli est un projet de la &lt;a href="https://nivenly.org"&gt;Fondation Nivenly&lt;/a&gt;.</string>
+    <string name="notification_details_pachli_exempt">Pachli est exclu des optimisations de batterie ?</string>
+    <string name="about_nivenly_foundation">Pachli est un projet de la &lt;a href=https://nivenly.org&gt;Fondation Nivenly&lt;/a&gt;.</string>
 </resources>
