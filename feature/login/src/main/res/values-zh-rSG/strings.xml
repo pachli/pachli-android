@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">请输入你账号所在的 Mastodon 站点的域名，比如 pawoo.net，acg.mn，wxw.moe，<a href="https://instances.social">等等</a> 。
-\n
-\n还没有 Mastodon 账号？你也可以输入想注册的 Mastodon 站点的域名，然后在该服务器创建新的账号并授权 Pachli 登入。
-\n
-\n在 Mastodon 里，跨站互动和站内互动一样简单。可以前往 <a href="https://joinmastodon.org">https://joinmastodon.org</a> 了解更多信息。 </string>
+    <string name="dialog_whats_an_instance">请输入你账号所在的 Mastodon 站点的域名，比如 pawoo.net，acg.mn，wxw.moe，<a href="https://instances.social">等等</a> 。 \n \n还没有 Mastodon 账号？你也可以输入想注册的 Mastodon 站点的域名，然后在该服务器创建新的账号并授权 Pachli 登入。 \n \n在 Mastodon 里，跨站互动和站内互动一样简单。可以前往 <a href="https://joinmastodon.org">https://joinmastodon.org</a> 了解更多信息。</string>
     <string name="action_close">关闭</string>
     <string name="error_invalid_domain">该域名无效</string>
     <string name="error_failed_app_registration_fmt">无法连接此服务器: %1$s</string>
@@ -15,4 +11,10 @@
     <string name="action_login">登录 Mastodon 账号</string>
     <string name="link_whats_an_instance">需要帮助？</string>
     <string name="login_connection">正在连接…</string>
+    <string name="title_login"></string>
+    <string name="instance_rule_title"></string>
+    <string name="error_could_not_load_login_page"></string>
+    <string name="action_browser_login"></string>
+    <string name="instance_rule_info"></string>
+    <string name="error_loading_account_details_fmt"></string>
 </resources>
