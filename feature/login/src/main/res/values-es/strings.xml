@@ -9,7 +9,7 @@
     <string name="error_authorization_denied">La autorización falló. Si tienes certeza de que has suministrado las credenciales correctas, prueba en el menú Iniciar sesión con el Navegador.</string>
     <string name="error_retrieving_oauth_token_fmt">Fallo al obtener identificador de inicio de sesión. Si esto persiste, prueba en el menú Iniciar sesión con el Navegador: %1$s</string>
     <string name="error_loading_account_details_fmt">Fallo al cargar los detalles de la cuenta: %1$s</string>
-    <string name="hint_domain">¿Qué instancia\?</string>
+    <string name="hint_domain">¿Qué instancia?</string>
     <string name="action_login">Iniciar sesión con Pachli</string>
     <string name="link_whats_an_instance">¿Qué es una instancia?</string>
     <string name="login_connection">Conectando…</string>
