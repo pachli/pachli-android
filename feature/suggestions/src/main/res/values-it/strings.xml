@@ -15,4 +15,7 @@
     <string name="sources_most_interactions">Il tuo server sta ricevendo molte attenzioni</string>
     <string name="statuses_count_per_week_fmt">&lt;b&gt;%1$s&lt;/b&gt; posta (&lt;b&gt;%2$d&lt;/b&gt; alla settimana)</string>
     <string name="statuses_count_per_week_last_fmt">&lt;b&gt;%1$s&lt;/b&gt; post (&lt;b&gt;%2$d&lt;/b&gt; per settimana, ultimo &lt;b&gt;%3$s&lt;/b&gt;)</string>
+    <string name="source_unknown"></string>
+    <string name="account_content_description_fmt" translatable="false"></string>
+    <string name="ui_error_delete_suggestion_fmt"></string>
 </resources>
