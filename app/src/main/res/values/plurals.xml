@@ -1,6 +1,6 @@
 <resources>
-    <plurals name="selected_drafts">
-        <item quantity="one">%1$d draft</item>
-        <item quantity="other">%1$d drafts</item>
+    <plurals name="selected_scheduled_statuses">
+        <item quantity="one">%1$d scheduled post</item>
+        <item quantity="other">%1$s scheduled posts</item>
     </plurals>
 </resources>

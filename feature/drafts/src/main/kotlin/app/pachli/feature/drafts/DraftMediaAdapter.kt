@@ -29,7 +29,7 @@ import app.pachli.core.ui.MediaPreviewImageView
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
-class DraftMediaAdapter(
+internal class DraftMediaAdapter(
     private val glide: RequestManager,
     private val attachmentClick: () -> Unit,
 ) : ListAdapter<DraftAttachment, DraftMediaAdapter.DraftMediaViewHolder>(

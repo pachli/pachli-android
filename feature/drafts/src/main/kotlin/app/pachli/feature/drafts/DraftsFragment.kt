@@ -89,7 +89,7 @@ class DraftsFragment :
      */
     private val deleteActionModeCallback = object : ActionMode.Callback {
         override fun onCreateActionMode(actionMode: ActionMode, menu: Menu): Boolean {
-            requireActivity().menuInflater.inflate(R.menu.fragment_drafts, menu)
+            requireActivity().menuInflater.inflate(R.menu.fragment_drafts_action_mode, menu)
             return true
         }
 
@@ -111,8 +111,8 @@ class DraftsFragment :
 
                         if (button == AlertDialog.BUTTON_POSITIVE) {
                             viewModel.deleteCheckedDrafts()
+                            actionMode.finish()
                         }
-                        actionMode.finish()
                     }
                     return true
                 }
@@ -122,6 +122,7 @@ class DraftsFragment :
 
         override fun onDestroyActionMode(actionMode: ActionMode) {
             selectDraftsActionMode = null
+            viewModel.clearChecked()
         }
     }
 
@@ -134,6 +135,7 @@ class DraftsFragment :
         draftsAdapter = DraftsAdapter(Glide.with(this), this)
 
         with(binding.draftsRecyclerView) {
+            setHasFixedSize(true)
             adapter = draftsAdapter
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(
@@ -187,8 +189,7 @@ class DraftsFragment :
      * drafts.
      */
     override fun setDraftChecked(draft: Draft, isChecked: Boolean) {
-        viewModel.checkDraft(draft, isChecked)
-        val countChecked = viewModel.countChecked()
+        val countChecked = viewModel.checkDraft(draft, isChecked)
         if (selectDraftsActionMode == null && countChecked > 0) {
             selectDraftsActionMode = (requireActivity() as? AppCompatActivity)?.startSupportActionMode(deleteActionModeCallback)
         }

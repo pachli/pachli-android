@@ -41,6 +41,13 @@ class ScheduledStatusPagingSourceFactory(
         scheduledTootsCache.remove(status)
         pagingSource?.invalidate()
     }
+
+    fun remove(scheduledStatusId: String) {
+        scheduledTootsCache.removeIf { it.id == scheduledStatusId }
+        pagingSource?.invalidate()
+    }
+
+    fun invalidate() = pagingSource?.invalidate()
 }
 
 class ScheduledStatusPagingSource(
