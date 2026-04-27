@@ -40,7 +40,7 @@
     <string name="about_nivenly_foundation">Pachli jest projektem <a href="https://nivenly.org">Nivenly Foundation</a>.</string>
     <string name="notification_details_any_account_needs_migration">Czy wszystkie konta mają zakres \'push\' OAuth?</string>
     <string name="notification_details_accounts_unified_push_subscription_help">Jedno lub więcej kont nie mogło zaktualizować swojej subskrypcji UnifiedPush i nie będzie otrzymywać powiadomień.</string>
-    <string name="notification_details_notifications_enabled_help"><![CDATA[Powiadomienia nie są włączone dla żadnego z twoich kont. Zmień to w Preferencje konta > Powiadomienia. Do tego czasu wszystkie powiadomienia są wyłączone.]]></string>
+    <string name="notification_details_notifications_enabled_help">Powiadomienia nie są włączone dla żadnego z twoich kont. Zmień to w Preferencje konta > Powiadomienia. Do tego czasu wszystkie powiadomienia są wyłączone.</string>
     <string name="notification_details_unifiedpush_available">Czy UnifiedPush jest dostępny?</string>
     <string name="notification_details_ntfy_exempt">Czy NTFY jest wyłączone z optymalizacji baterii?</string>
     <string name="notification_details_any_account_needs_migration_help">Jedno lub więcej kont nie ma zakresu \'push\' OAuth, powiadomienia push są wyłączone.</string>

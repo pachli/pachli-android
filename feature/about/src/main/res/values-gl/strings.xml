@@ -22,7 +22,7 @@
     <string name="notification_details_android_notifications_enabled">Están activadas as notificacións android?</string>
     <string name="about_privacy_policy">Política de privacidade</string>
     <string name="notification_details_push_notifications_with_unifiedpush">Notificacións Push con UnifiedPush</string>
-    <string name="notification_details_notifications_enabled_help"><![CDATA[Non están activadas as notificacións para ningunha das túas contas. Cambia o axuste en Preferencias da Conta &gt; Notificacións. Ata entón estarán todas desactivadas.]]></string>
+    <string name="notification_details_notifications_enabled_help">Non están activadas as notificacións para ningunha das túas contas. Cambia o axuste en Preferencias da Conta &gt; Notificacións. Ata entón estarán todas desactivadas.</string>
     <string name="notification_details_unifiedpush_available">Está UnifiedPush dispoñible?</string>
     <string name="notification_details_any_account_needs_migration_help">Unha ou máis contas non teñen o ámbito OAuth \'push\', as notificacións push están desactivadas.</string>
     <string name="notification_details_unifiedpush_available_help">UnifiedPush (ntfy.sh) non está dispoñible, as notificacións comprobaranse de xeito periódico. O resto desta sección explica a razón de que non se estea a usar UnifiedPush, pero non é relevante para como se obteñen as notificacións actualmente.</string>

@@ -18,7 +18,7 @@
     <string name="about_account_info">\@%1$s@%2$s\nВерсия: %3$s</string>
     <string name="notification_details_title">Подробности</string>
     <string name="notification_details_android_notifications_enabled">Уведомления Android включены?</string>
-    <string name="notification_details_notifications_enabled_help"><![CDATA[Уведомления не включены ни для одной из ваших учётных записей. Измените это в настройках учётной записи > Уведомления. До этого все уведомления отключены.]]></string>
+    <string name="notification_details_notifications_enabled_help">Уведомления не включены ни для одной из ваших учётных записей. Измените это в настройках учётной записи > Уведомления. До этого все уведомления отключены.</string>
     <string name="notification_details_push_notifications_with_unifiedpush">Push-уведомления с UnifiedPush</string>
     <string name="notification_details_unifiedpush_available">UnifiedPush доступен?</string>
     <string name="notification_details_unifiedpush_available_help">UnifiedPush (ntfy.sh) недоступен, уведомления будут периодически отправляться. Остальная часть этого раздела объясняет, почему UnifiedPush не используется, но не имеет отношения к тому, как в настоящее время отправляются уведомления.</string>

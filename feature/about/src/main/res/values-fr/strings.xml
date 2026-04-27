@@ -23,7 +23,7 @@
     <string name="about_account_info">\@%1$s@%2$s\nVersion : %3$s</string>
     <string name="notification_details_title">Détails</string>
     <string name="notification_details_android_notifications_enabled">Les notifications Android sont activées ?</string>
-    <string name="notification_details_notifications_enabled_help"><![CDATA[<![CDATA[Les notifications ne sont activées pour aucun de vos comptes. Modifiez cela dans Paramètres de compte > Notifications. En attendant, toutes les notifications sont désactivées.]>]]></string>
+    <string name="notification_details_notifications_enabled_help">Les notifications ne sont activées pour aucun de vos comptes. Modifiez cela dans Paramètres de compte > Notifications. En attendant, toutes les notifications sont désactivées.</string>
     <string name="notification_details_push_notifications_with_unifiedpush">Notifications push avec UnifiedPush</string>
     <string name="notification_details_unifiedpush_available">UnifiedPush est disponible ?</string>
     <string name="notification_details_pachli_exempt_help">Pachli n\'est pas exclu des optimisations de batterie. Android risque de retarder les notifications lorsque l\'écran est éteint.</string>

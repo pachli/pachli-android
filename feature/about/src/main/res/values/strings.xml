@@ -19,7 +19,7 @@
     <string name="license_description">Pachli contains code and assets from the following open source projects:</string>
     <string name="notification_details_title">Details</string>
     <string name="notification_details_android_notifications_enabled">Android notifications are enabled?</string>
-    <string name="notification_details_notifications_enabled_help"><![CDATA[Notifications are not enabled for any of your accounts. Change this in Account Preferences > Notifications. Until then all notifications are disabled.]]></string>
+    <string name="notification_details_notifications_enabled_help">Notifications are not enabled for any of your accounts. Change this in Account Preferences > Notifications. Until then all notifications are disabled.</string>
     <string name="notification_details_push_notifications_with_unifiedpush">Push notifications with UnifiedPush</string>
     <string name="notification_details_unifiedpush_available">UnifiedPush is available?</string>
     <string name="notification_details_unifiedpush_available_help">UnifiedPush (ntfy.sh) is not available, notifications will be periodically pulled. The rest of this section explains why UnifiedPush is not being used, but not relevant to how notifications are currently pulled.</string>
