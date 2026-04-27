@@ -11,8 +11,8 @@
     <string name="error_loading_account_details_fmt">Fehler beim Laden der Profildetails: %1$s</string>
     <string name="hint_domain">Welche Instanz?</string>
     <string name="action_login">Mit Pachli anmelden</string>
-    <string name="link_whats_an_instance">Was ist eine Instanz\?</string>
-    <string name="login_connection">Wird verbunden …</string>
+    <string name="link_whats_an_instance">Was ist eine Instanz?</string>
+    <string name="login_connection">Wird verbunden …</string>
     <string name="title_login">Anmelden</string>
     <string name="error_could_not_load_login_page">Die Anmeldeseite konnte nicht geladen werden.</string>
     <string name="instance_rule_info">Mit dem Anmelden stimmst du den Regeln von %1$s zu.</string>
