@@ -11,11 +11,8 @@
     <string name="about_bug_feature_request_site">问题反馈及功能请求：\nhttps://github.com/pachli/pachli-android/issues</string>
     <string name="about_pachli_account">Pachli 官方账号</string>
     <string name="title_licenses">开源协议</string>
-    <string name="about_device_info">%1$s %2$s
-\nAndroid 系统版本: %3$s
-\nSDK 版本: %4$d</string>
-    <string name="about_account_info">\@%1$s@%2$s
-\n版本: %3$s</string>
+    <string name="about_device_info">%1$s %2$s \nAndroid 系统版本: %3$s \nSDK 版本: %4$d</string>
+    <string name="about_account_info">\@%1$s@%2$s \n版本: %3$s</string>
     <string name="license_description">Pachli 使用了以下开源项目的源码：</string>
     <string name="notification_details_title">详细信息</string>
     <string name="notification_details_android_notifications_enabled">Android 通知是否启用？</string>
@@ -63,4 +60,24 @@
     <string name="notification_details_workers_help">这是获取新通知的工作者列表。应该有一个，状态应为 RUNNING 或 ENQUEUED，并且它应该安排在 15 分钟内运行。</string>
     <string name="notification_details_last_fetch_help">不论通知方式如何，这显示了每个账户最后一次获取的时间、是否成功以及如果没有成功的错误消息。</string>
     <string name="notification_log_filter_content_description">按标签过滤日志</string>
+    <string name="database_vacuum"></string>
+    <string name="action_clear_cache"></string>
+    <string name="database_prune_cache_complete"></string>
+    <string name="about_database"></string>
+    <string name="action_vacuum"></string>
+    <string name="action_run_integrity_check"></string>
+    <string name="about_workers"></string>
+    <string name="workers_prune_cached_media_help"></string>
+    <string name="workers_prune_cache_help"></string>
+    <string name="database_table_sizes"></string>
+    <string name="action_run_query_timings"></string>
+    <string name="database_vacuum_complete"></string>
+    <string name="database_integrity_check"></string>
+    <string name="database_query_timings"></string>
+    <string name="database_prune_cache"></string>
+    <string name="about_notifications"></string>
+    <string name="database_clear_cache"></string>
+    <string name="database_clear_cache_complete"></string>
+    <string name="action_prune_cache"></string>
+    <string name="workers_prune_log_entry_entity_help"></string>
 </resources>
