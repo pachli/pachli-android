@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_prepare_media_content_resolver_missing_path_fmt">satura atrisinātāja URI trūkst ceļš: %1$s</string>
     <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">satura atrisinātāja URI ir neatbalstīta shēma: %1$s</string>
@@ -13,4 +13,6 @@
     <string name="send_post_notification_error_title">Sūtot ziņu, radās kļūda</string>
     <string name="send_post_notification_saved_content">Ieraksta kopija tika saglabāta Tavos melnrakstos</string>
     <string name="send_post_notification_cancel_title">Sūtīšana atcelta</string>
+    <string name="send_post_failure_message_timeout"></string>
+    <string name="send_post_failure_message_cancel"></string>
 </resources>
