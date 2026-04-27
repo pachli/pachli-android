@@ -17,8 +17,4 @@
     <string name="no_lists">Je hebt geen lijsten.</string>
     <string name="hint_search_people_list">Naar mensen zoeken die je volgt</string>
     <string name="action_add_or_remove_from_list">Toevoegen of verwijderen van lijst</string>
-    <string name="replies_policy_name_list"></string>
-    <string name="replies_policy_title"></string>
-    <string name="replies_policy_name_followed"></string>
-    <string name="replies_policy_name_none"></string>
 </resources>

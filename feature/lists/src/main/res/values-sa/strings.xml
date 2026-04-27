@@ -11,14 +11,4 @@
     <string name="action_add_to_list">सूच्यां लेखा स्थाप्यताम्</string>
     <string name="action_delete_list">सूचिर्नश्यताम्</string>
     <string name="hint_search_people_list">येषामुसरणं करोषि तेष्वन्विष्यताम्</string>
-    <string name="failed_to_add_to_list"></string>
-    <string name="dialog_delete_list_warning"></string>
-    <string name="no_lists"></string>
-    <string name="replies_policy_name_list"></string>
-    <string name="replies_policy_title"></string>
-    <string name="failed_to_remove_from_list"></string>
-    <string name="list_exclusive_label"></string>
-    <string name="replies_policy_name_followed"></string>
-    <string name="action_add_or_remove_from_list"></string>
-    <string name="replies_policy_name_none"></string>
 </resources>

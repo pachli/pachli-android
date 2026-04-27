@@ -17,8 +17,4 @@
     <string name="no_lists">У вас немає списків.</string>
     <string name="hint_search_people_list">Пошук серед тих, на кого ви підписані</string>
     <string name="action_add_or_remove_from_list">Додати або вилучити зі списку</string>
-    <string name="replies_policy_name_list"></string>
-    <string name="replies_policy_title"></string>
-    <string name="replies_policy_name_followed"></string>
-    <string name="replies_policy_name_none"></string>
 </resources>

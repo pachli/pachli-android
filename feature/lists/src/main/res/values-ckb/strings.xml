@@ -11,14 +11,4 @@
     <string name="action_add_to_list">زیادکردنی ئەژمێر بۆ لیستەکە</string>
     <string name="action_delete_list">سڕینەوەی لیستەکە</string>
     <string name="hint_search_people_list">گەڕان بەدوای ئەو کەسانەی کە پەیڕەوی ان دەکەیت</string>
-    <string name="failed_to_add_to_list"></string>
-    <string name="dialog_delete_list_warning"></string>
-    <string name="no_lists"></string>
-    <string name="replies_policy_name_list"></string>
-    <string name="replies_policy_title"></string>
-    <string name="failed_to_remove_from_list"></string>
-    <string name="list_exclusive_label"></string>
-    <string name="replies_policy_name_followed"></string>
-    <string name="action_add_or_remove_from_list"></string>
-    <string name="replies_policy_name_none"></string>
 </resources>

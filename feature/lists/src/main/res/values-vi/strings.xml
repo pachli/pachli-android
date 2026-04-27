@@ -17,8 +17,4 @@
     <string name="no_lists">Chưa có danh sách nào.</string>
     <string name="hint_search_people_list">Tìm người để theo dõi</string>
     <string name="action_add_or_remove_from_list">Thêm hoặc xoá khỏi danh sách</string>
-    <string name="replies_policy_name_list"></string>
-    <string name="replies_policy_title"></string>
-    <string name="replies_policy_name_followed"></string>
-    <string name="replies_policy_name_none"></string>
 </resources>
