@@ -57,4 +57,6 @@
     <string name="pref_summary_quote_policy_disabled">Je server ondersteund geen filters</string>
     <string name="pref_underline_links_links">Externe links</string>
     <string name="pref_underline_links_hashtags">Hashtags</string>
+    <string name="pref_underline_links_mentions"></string>
+    <string name="pref_title_underline_links"></string>
 </resources>
