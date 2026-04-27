@@ -7,4 +7,11 @@
     <string name="server_repository_error_validate_node_info">validering av nodeinfo %1$s mislyktes: %2$s</string>
     <string name="server_repository_error_get_instance_info">Henting av /api/v1/instance mislyktes: %1$s</string>
     <string name="server_repository_error_capabilities">analysering av serverevner mislyktes: %1$s</string>
+    <string name="account_manager_error_no_active_account"></string>
+    <string name="account_manager_error_account_does_not_exist"></string>
+    <string name="error_preference_importer_wrong_version_fmt"></string>
+    <string name="error_preference_importer_missing_schema_version"></string>
+    <string name="account_manager_error_unexpected"></string>
+    <string name="account_manager_error_dao"></string>
+    <string name="error_preference_importer_null_on_import"></string>
 </resources>
