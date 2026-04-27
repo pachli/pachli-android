@@ -41,31 +41,37 @@
     <plurals name="poll_timespan_seconds">
         <item quantity="one">zostáva %d sekunda</item>
         <item quantity="few">zostávajú %d sekundy</item>
+        <item quantity="many">zostáva %d sekúnd</item>
         <item quantity="other">zostáva %d sekúnd</item>
     </plurals>
     <plurals name="poll_timespan_minutes">
         <item quantity="one">zostáva %d minúta</item>
         <item quantity="few">zostávajú %d minúty</item>
+        <item quantity="many">zostáva %d minút</item>
         <item quantity="other">zostáva %d minút</item>
     </plurals>
     <plurals name="poll_timespan_hours">
         <item quantity="one">zostáva %d hodina</item>
         <item quantity="few">zostávajú %d hodiny</item>
+        <item quantity="many">zostáva %d hodín</item>
         <item quantity="other">zostáva %d hodín</item>
     </plurals>
     <plurals name="poll_timespan_days">
         <item quantity="one">zostáva %d deň</item>
         <item quantity="few">zostávajú %d dni</item>
+        <item quantity="many">zostáva %d dní</item>
         <item quantity="other">zostáva %d dní</item>
     </plurals>
     <plurals name="poll_info_votes">
         <item quantity="one">%s hlas</item>
         <item quantity="few">%s hlasy</item>
+        <item quantity="many">%s hlasov</item>
         <item quantity="other">%s hlasov</item>
     </plurals>
     <plurals name="poll_info_people">
         <item quantity="one">%s osoba</item>
         <item quantity="few">%s ľudia</item>
+        <item quantity="many">%s ľudí</item>
         <item quantity="other">%s ľudí</item>
     </plurals>
     <string name="poll_info_closed">ukončená</string>
@@ -97,6 +103,7 @@
     <plurals name="description_post_roles">
         <item quantity="one">s rolou:</item>
         <item quantity="few">s rolami:</item>
+        <item quantity="many">s rolami:</item>
         <item quantity="other">s rolami:</item>
     </plurals>
     <string name="attachment_matches_filter_one_fmt">Zodpovedá filtru: „%1$s“. Zobraziť klepnutím.</string>
@@ -129,11 +136,13 @@
     <plurals name="reblogs">
         <item quantity="one">&lt;b&gt;%s&lt;/b&gt; zdieľanie</item>
         <item quantity="few">&lt;b&gt;%s&lt;/b&gt; zdieľania</item>
+        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; zdieľaní</item>
         <item quantity="other">&lt;b&gt;%s&lt;/b&gt; zdieľaní</item>
     </plurals>
     <plurals name="favs">
         <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; obľúbenie</item>
         <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; obľúbenia</item>
+        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; obľúbení</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; obľúbení</item>
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; zdieľal/a</string>
@@ -190,4 +199,5 @@
     <string name="duration_365_days">365 dní</string>
     <string name="action_add_to_tab">Pridať do panelu</string>
     <string name="action_add_to_tab_success">\'%1$s\' pridané do panelov</string>
+    <string name="pref_summary_none"></string>
 </resources>
