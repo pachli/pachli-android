@@ -274,8 +274,8 @@
     <string name="notification_follow_request_name">Prośby o obserwację</string>
     <string name="pref_title_confirm_reblogs">Pytaj o potwierdzenie przed podbiciem</string>
     <string name="add_hashtag_title">Dodaj hasztag</string>
-    <string name="dialog_mute_warning">Wyciszyć @%1$s\?</string>
-    <string name="dialog_block_warning">Zablokować @%1$s\?</string>
+    <string name="dialog_mute_warning">Wyciszyć @%1$s?</string>
+    <string name="dialog_block_warning">Zablokować @%1$s?</string>
     <string name="action_unmute_conversation">Cofnij wyciszenie rozmowy</string>
     <string name="action_mute_conversation">Wycisz rozmowę</string>
     <string name="hashtags">Hasztagi</string>
@@ -428,9 +428,7 @@
         <item quantity="many">%1$s kont obserwujących usunięto.</item>
         <item quantity="other">%1$s kont obserwujących usunięto.</item>
     </plurals>
-    <string name="notification_severed_relationships_format">Relacja z &lt;b&gt;%1$s&lt;/b&gt;
-    została przerwana
-</string>
+    <string name="notification_severed_relationships_format">Relacja z &lt;b&gt;%1$s&lt;/b&gt; została przerwana</string>
     <string name="notification_unknown">Nieznany typ powiadomienia</string>
     <string name="manage_lists">Zarządzaj listami</string>
     <string name="pref_summary_content_filters">Twój serwer nie wspiera filtrów treści</string>
