@@ -8,7 +8,7 @@
     <string name="action_view_profile">Profil</string>
     <string name="action_more">Mer</string>
     <string name="action_refresh">Uppdatera</string>
-    <string name="url_domain_notifier">\u0020(🔗 %1$s)</string>
+    <string name="url_domain_notifier">" (🔗 %1$s)"</string>
     <string name="action_links">Länkar</string>
     <string name="action_mentions">Omnämnanden</string>
     <string name="action_hashtags">Hashtaggar</string>
@@ -61,16 +61,11 @@
     <string name="abbreviated_days_ago">%1$dd</string>
     <string name="abbreviated_in_years">om %1$dy</string>
     <string name="abbreviated_years_ago">%1$dy</string>
-    <string name="description_post_media_no_description_placeholder">        Ingen beskrivning
-    </string>
-    <string name="description_visibility_public">        Publik
-    </string>
-    <string name="description_visibility_unlisted">        Olistad
-    </string>
-    <string name="description_visibility_private">        Följare
-    </string>
-    <string name="description_visibility_direct">        Direkt
-    </string>
+    <string name="description_post_media_no_description_placeholder">Ingen beskrivning</string>
+    <string name="description_visibility_public">Publik</string>
+    <string name="description_visibility_unlisted">Olistad</string>
+    <string name="description_visibility_private">Följare</string>
+    <string name="description_visibility_direct">Direkt</string>
     <string name="post_sensitive_media_title">Känsligt innehåll. Klicka för att visa.</string>
     <string name="post_media_images">Bilder</string>
     <string name="post_media_audio">Ljud</string>
@@ -156,4 +151,33 @@
     <string name="duration_90_days">90 dagar</string>
     <string name="duration_180_days">180 dagar</string>
     <string name="duration_365_days">365 dagar</string>
+    <string name="label_quote_state_muted_account"></string>
+    <string name="action_quote"></string>
+    <string name="post_replied_to_fmt"></string>
+    <string name="label_quote_state_unauthorized"></string>
+    <string name="label_author_denied_quote"></string>
+    <string name="handle_contentdescription_fmt"></string>
+    <string name="label_quote_state_pending"></string>
+    <string name="post_replied"></string>
+    <string name="label_quote_state_deleted"></string>
+    <string name="detach_quote"></string>
+    <string name="label_quoted_status_hidden"></string>
+    <string name="role_content_description_fmt"></string>
+    <string name="action_moderation_warning_view"></string>
+    <string name="action_follow_request_accept"></string>
+    <string name="label_quote_state_blocked_account"></string>
+    <string name="action_add_to_tab_success"></string>
+    <string name="action_request_quote"></string>
+    <string name="post_continued_thread"></string>
+    <string name="label_quote_state_blocked_domain"></string>
+    <string name="label_quote_state_rejected"></string>
+    <string name="label_quote_state_unknown"></string>
+    <string name="action_follow_request_reject"></string>
+    <string name="dot_in_name"></string>
+    <string name="description_quoted_post_prefix"></string>
+    <string name="action_open_reportee_profile"></string>
+    <string name="action_open_report"></string>
+    <string name="label_quote_state_revoked"></string>
+    <string name="pref_summary_none"></string>
+    <string name="action_add_to_tab"></string>
 </resources>
