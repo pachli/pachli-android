@@ -8,7 +8,7 @@
     <string name="error_authorization_denied">அங்கீகாரம் மறுக்கப்பட்டுள்ளது. நீங்கள் சரியான நற்சான்றிதழ்களை வழங்கியுள்ளீர்கள் என்பதில் உறுதியாக இருந்தால், மெனுவிலிருந்து உலாவியில் உள்நுழைய முயற்சிக்கவும்.</string>
     <string name="error_retrieving_oauth_token_fmt">உள்நுழைவு டோக்கனைப் பெறுவதில் தோல்வி: %1$s</string>
     <string name="hint_domain">எந்த instance(களம்)?</string>
-    <string name="action_login">Mastodon மூலம்  உள்நுழைய</string>
+    <string name="action_login">Mastodon மூலம் உள்நுழைய</string>
     <string name="link_whats_an_instance">Instance(களம்) என்றால் என்ன?</string>
     <string name="login_connection">இணைக்கபடுகிறது…</string>
     <string name="action_browser_login">உலாவி மூலம் உள்நுழைக</string>
