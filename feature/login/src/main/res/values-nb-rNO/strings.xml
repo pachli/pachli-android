@@ -9,9 +9,9 @@
     <string name="error_authorization_denied">Autorisasjon ble nektet. Hvis du er sikker på at du ga riktige data, prøv å logge inn i nettleseren fra menyen.</string>
     <string name="error_retrieving_oauth_token_fmt">Henting av logintoken mislyktes. Hvis dette fortsetter prøv å logge in med nettleseren fra menyen: %1$s</string>
     <string name="error_loading_account_details_fmt">Lasting av kontodetaljer mislyktes: %1$s</string>
-    <string name="hint_domain">Hvilken instanse\?</string>
+    <string name="hint_domain">Hvilken instanse?</string>
     <string name="action_login">Logg inn med Pachli</string>
-    <string name="link_whats_an_instance">Hva er en instans\?</string>
+    <string name="link_whats_an_instance">Hva er en instans?</string>
     <string name="login_connection">Kobler til…</string>
     <string name="title_login">Logg inn</string>
     <string name="error_could_not_load_login_page">Klarte ikke å laste innloggingssiden.</string>
