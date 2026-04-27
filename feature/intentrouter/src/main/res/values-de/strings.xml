@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_share_as">Teilen als …</string>
+    <string name="action_share_as">Teilen als …</string>
     <string name="error_set_active_account">Anmeldeversuch mit folgender Fehlermeldung gescheitert: %1$s</string>
     <string name="error_refresh_account">Profilaktualisierung mit folgender Fehlermeldung gescheitert: %1$s\n\nDu kannst fortfahren, aber deine Listen und Filter könnten unvollständig sein.</string>
     <string name="action_relogin">Erneute Anmeldung</string>
