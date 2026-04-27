@@ -1,20 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">Тук може да се въведе адресът или домейнът на която и да е инстанция, като mastodon.social, icosahedron.website, social.tchncs.de и <a href="https://instances.social">други!</a>
-\n
-\nАко все още нямате акаунт, можете да въведете името на инстанцията, към който искате да се присъедините, и да създадете акаунт там.
-\n
-\nИнстанцията е единично място, където се хоства акаунтът ви, но можете лесно да комуникирате и да следвате хора в други инстанции, сякаш сте на същия сайт.
-\n
-\nПовече информация можете да намерите на <a href="https://joinmastodon.org">joinmastodon.org</a>.</string>
+    <string name="dialog_whats_an_instance">Тук може да се въведе адресът или домейнът на която и да е инстанция, като mastodon.social, icosahedron.website, social.tchncs.de и <a href="https://instances.social">други!</a> \n \nАко все още нямате акаунт, можете да въведете името на инстанцията, към който искате да се присъедините, и да създадете акаунт там. \n \nИнстанцията е единично място, където се хоства акаунтът ви, но можете лесно да комуникирате и да следвате хора в други инстанции, сякаш сте на същия сайт. \n \nПовече информация можете да намерите на <a href="https://joinmastodon.org">joinmastodon.org</a>.</string>
     <string name="action_close">Затваряне</string>
     <string name="error_invalid_domain">Въведен е невалиден домейн</string>
     <string name="error_failed_app_registration_fmt">Неуспешно удостоверяване с тази инстанция: %1$s</string>
     <string name="error_authorization_unknown">Възникна неидентифицирана грешка при упълномощаване.</string>
     <string name="error_authorization_denied">Упълномощаването е отказано.</string>
     <string name="error_retrieving_oauth_token_fmt">Получаването на токен за вход бе неуспешно: %1$s</string>
-    <string name="hint_domain">Коя инстанция\?</string>
+    <string name="hint_domain">Коя инстанция?</string>
     <string name="action_login">Влизане с Mastodon</string>
-    <string name="link_whats_an_instance">Какво е инстанция\?</string>
+    <string name="link_whats_an_instance">Какво е инстанция?</string>
     <string name="login_connection">Свързване…</string>
+    <string name="title_login"></string>
+    <string name="instance_rule_title"></string>
+    <string name="error_could_not_load_login_page"></string>
+    <string name="action_browser_login"></string>
+    <string name="instance_rule_info"></string>
+    <string name="error_loading_account_details_fmt"></string>
 </resources>
