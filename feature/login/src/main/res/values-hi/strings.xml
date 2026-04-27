@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_close">बंद करें</string>
     <string name="error_invalid_domain">अमान्य डोमेन दर्ज किया गया</string>
@@ -10,4 +10,11 @@
     <string name="action_login">हिंदी</string>
     <string name="login_connection">कनेक्ट कर रहे…</string>
     <string name="error_could_not_load_login_page">लॉगिन पेज लोड नहीं किया जा सका।</string>
+    <string name="title_login"></string>
+    <string name="hint_domain"></string>
+    <string name="instance_rule_title"></string>
+    <string name="dialog_whats_an_instance"></string>
+    <string name="link_whats_an_instance"></string>
+    <string name="action_browser_login"></string>
+    <string name="instance_rule_info"></string>
 </resources>
