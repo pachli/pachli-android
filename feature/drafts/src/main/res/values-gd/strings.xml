@@ -5,11 +5,4 @@
     <string name="drafts_post_reply_removed">Bha againn ris a’ phost a bha thu airson freagairt dha a thoirt air falbh</string>
     <string name="drafts_post_failed_to_send">Cha b’ urrainn dhuinn am post a chur!</string>
     <string name="no_drafts">Chan eil dreachd sam bith agad.</string>
-    <string name="title_delete_drafts"></string>
-    <string name="drafts_post_quote_removed"></string>
-    <string name="action_delete_drafts"></string>
-    <string name="drafts_load_reply_failed_fmt"></string>
-    <string name="drafts_load_quote_failed_fmt"></string>
-    <string name="send_post_failure_message_prefix"></string>
-    <string name="delete_drafts_msg"></string>
 </resources>

@@ -8,8 +8,4 @@
     <string name="drafts_load_quote_failed_fmt">Nie udało się wczytanie wpisu, który cytujesz: %1$s</string>
     <string name="drafts_post_failed_to_send">Przesłanie wpisu nie powiodło się!</string>
     <string name="no_drafts">Nie masz żadnych szkiców.</string>
-    <string name="title_delete_drafts"></string>
-    <string name="action_delete_drafts"></string>
-    <string name="send_post_failure_message_prefix"></string>
-    <string name="delete_drafts_msg"></string>
 </resources>

@@ -8,8 +8,4 @@
     <string name="drafts_load_quote_failed_fmt">Impossible de charger le message que vous citez : %1$s</string>
     <string name="drafts_post_failed_to_send">Échec d’envoi du message !</string>
     <string name="no_drafts">Vous n’avez aucun brouillon.</string>
-    <string name="title_delete_drafts"></string>
-    <string name="action_delete_drafts"></string>
-    <string name="send_post_failure_message_prefix"></string>
-    <string name="delete_drafts_msg"></string>
 </resources>
