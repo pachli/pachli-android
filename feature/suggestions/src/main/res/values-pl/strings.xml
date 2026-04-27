@@ -17,5 +17,4 @@
     <string name="ui_error_follow_account_fmt">Obserwowanie %1$s się nie powiodło: %2$s</string>
     <string name="ui_error_delete_suggestion_fmt">Odrzucanie sugestii %1$s się nie powiodło: %2$s</string>
     <string name="follower_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; obserwujących</string>
-    <string name="account_content_description_fmt" translatable="false"></string>
 </resources>

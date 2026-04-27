@@ -16,6 +16,4 @@
     <string name="statuses_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; 嘟文</string>
     <string name="sources_similar_to_recently_followed">类似于您最近关注的帐户</string>
     <string name="sources_most_interactions">在您的服务器上获得大量关注</string>
-    <string name="account_content_description_fmt" translatable="false"></string>
-    <string name="statuses_count_per_week_last_fmt"></string>
 </resources>

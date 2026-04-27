@@ -17,5 +17,4 @@
     <string name="sources_most_interactions">Iegūst daudz uzmanības Tavā serverī</string>
     <string name="statuses_count_per_week_last_fmt">&lt;b&gt;%1$s&lt;/b&gt; ieraksts/i/u (&lt;b&gt;%2$d&lt;/b&gt; nedēļā, pēdējais &lt;b&gt;%3$s&lt;/b&gt;)</string>
     <string name="action_dismiss_follow_suggestion">Noraidīt</string>
-    <string name="account_content_description_fmt" translatable="false"></string>
 </resources>

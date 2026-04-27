@@ -17,5 +17,4 @@
     <string name="statuses_count_per_week_last_fmt">&lt;b&gt;%1$s&lt;/b&gt; postáil (&lt;b&gt;%2$d&lt;/b&gt; sa tseachtain, an &lt;b&gt;%3$s&lt;/b&gt; deireanach)</string>
     <string name="sources_similar_to_recently_followed">Cosúil le cuntais a lean tú le déanaí</string>
     <string name="ui_error_follow_account_fmt">Theip ar %1$s a leanúint: %2$s</string>
-    <string name="account_content_description_fmt" translatable="false"></string>
 </resources>
