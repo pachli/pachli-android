@@ -8,7 +8,7 @@
     <string name="action_view_profile">Profil</string>
     <string name="action_more">Więcej</string>
     <string name="action_refresh">Odśwież</string>
-    <string name="url_domain_notifier">\u0020(🔗 %1$s)</string>
+    <string name="url_domain_notifier">" (🔗 %1$s)"</string>
     <string name="action_links">Odnośniki</string>
     <string name="action_mentions">Wzmianki</string>
     <string name="action_hashtags">Hasztagi</string>
