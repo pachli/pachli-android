@@ -58,4 +58,6 @@
     <string name="pref_pronoun_display_hide">Nulle part</string>
     <string name="pref_underline_links_links">Liens externes</string>
     <string name="pref_underline_links_hashtags">Hashtags</string>
+    <string name="pref_underline_links_mentions"></string>
+    <string name="pref_title_underline_links"></string>
 </resources>
