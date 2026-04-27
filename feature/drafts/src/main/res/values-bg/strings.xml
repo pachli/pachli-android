@@ -1,8 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_edit">Редакция</string>
     <string name="title_drafts">Чернови</string>
     <string name="drafts_post_reply_removed">Публикацията, на която сте изготвили отговор, е премахната</string>
     <string name="drafts_post_failed_to_send">Тази публикация не успя да се изпрати!</string>
     <string name="no_drafts">Нямате чернови.</string>
+    <string name="title_delete_drafts"></string>
+    <string name="drafts_post_quote_removed"></string>
+    <string name="action_delete_drafts"></string>
+    <string name="drafts_load_reply_failed_fmt"></string>
+    <string name="drafts_load_quote_failed_fmt"></string>
+    <string name="send_post_failure_message_prefix"></string>
+    <string name="delete_drafts_msg"></string>
 </resources>
