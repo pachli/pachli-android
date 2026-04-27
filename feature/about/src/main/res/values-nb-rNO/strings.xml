@@ -5,8 +5,7 @@
     <string name="about_pachli_license">Pachli har fri og åpen kildekode. Applikasjonen er lisensiert under GNU General Public License versjon 3. Du kan se lisensen her: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <string name="about_project_site">Hjemmeside:
 \n https://pachli.app</string>
-    <string name="about_bug_feature_request_site">Rapporter feil og send inn ønsker om funksjoner ved å trykke på lenken nedenfor:
-\n https://github.com/pachli/pachli-android/issues</string>
+    <string name="about_bug_feature_request_site">Rapporter feil og send inn ønsker om funksjoner ved å trykke på lenken nedenfor: \n https://github.com/pachli/pachli-android/issues</string>
     <string name="about_pachli_account">Pachli sin profil</string>
     <string name="title_licenses">Lisenser</string>
     <string name="license_description">Pachli inneholder programkode og elementer fra følgende åpen kildekode-prosjekter:</string>
@@ -29,12 +28,9 @@
     <string name="about_account_info_title">Kontoen din</string>
     <string name="about_copied">Kopierte versjon og enhetsinformasjon</string>
     <string name="about_copy">Kopiér versjon og enhetsinformasjon</string>
-    <string name="about_device_info">%1$s %2$s
-\nAndroid-versjon: %3$s
-\nSDK-nivå: %4$d</string>
+    <string name="about_device_info">%1$s %2$s \nAndroid-versjon: %3$s \nSDK-nivå: %4$d</string>
     <string name="about_privacy_policy">Personvernserklæring</string>
-    <string name="about_account_info">\@%1$s@%2$s
-\nVersjon: %3$s</string>
+    <string name="about_account_info">\@%1$s@%2$s \nVersjon: %3$s</string>
     <string name="notification_details_title">Detaljer</string>
     <string name="notification_details_android_notifications_enabled">Er Android-varslinger påslått?</string>
     <string name="notification_details_push_notifications_with_unifiedpush">Varslinger ved bruk av UnifiedPush</string>
