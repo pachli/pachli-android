@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_edit">Brigd</string>
     <string name="title_drafts">Utkast</string>
@@ -8,4 +8,8 @@
     <string name="drafts_load_quote_failed_fmt">Klarte ikkje å lada inn innlegget du hermer: %1$s</string>
     <string name="drafts_post_failed_to_send">Dette innlegget kunne ikkje sendast!</string>
     <string name="no_drafts">Du har ingen lagra utkast.</string>
+    <string name="title_delete_drafts"></string>
+    <string name="action_delete_drafts"></string>
+    <string name="send_post_failure_message_prefix"></string>
+    <string name="delete_drafts_msg"></string>
 </resources>
