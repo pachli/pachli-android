@@ -88,7 +88,7 @@
     <string name="confirmation_reported">Отправить!</string>
     <string name="confirmation_unblocked">Пользователь разблокирован</string>
     <string name="confirmation_unmuted">Пользователь включен</string>
-    <string name="hint_compose">Что тут происходит\?</string>
+    <string name="hint_compose">Что тут происходит?</string>
     <string name="hint_content_warning">Предупреждение о содержании</string>
     <string name="hint_display_name">Отображаемое имя</string>
     <string name="hint_note">О себе</string>
@@ -100,10 +100,10 @@
     <string name="dialog_title_finishing_media_upload">Завершается закачка медиа</string>
     <string name="dialog_message_uploading_media">Загружается…</string>
     <string name="dialog_download_image">Скачать</string>
-    <string name="dialog_message_cancel_follow_request">Отозвать запрос на подписку\?</string>
+    <string name="dialog_message_cancel_follow_request">Отозвать запрос на подписку?</string>
     <string name="dialog_unfollow_warning">Отписаться от этого аккаунта?</string>
-    <string name="dialog_delete_post_warning">Удалить гудок\?</string>
-    <string name="dialog_redraft_post_warning">Удалить гудок и превратить его в черновик\?</string>
+    <string name="dialog_delete_post_warning">Удалить гудок?</string>
+    <string name="dialog_redraft_post_warning">Удалить гудок и превратить его в черновик?</string>
     <string name="visibility_public">Публичный: Показать в публичных лентах</string>
     <string name="visibility_unlisted">Неизвестно: Не показывать в публичных лентах</string>
     <string name="visibility_private">Только подписчики: Показать только подписчикам</string>
@@ -236,7 +236,7 @@
     <string name="action_view_domain_mutes">Скрытые области</string>
     <string name="action_mute_domain">Заглушить %1$s</string>
     <string name="confirmation_domain_unmuted">%1$s показывается</string>
-    <string name="mute_domain_warning">Вы уверены, что хотите заблокировать %1$s целиком\? Вы перестанете видеть посты из того домена во всех публичных лентах и уведомлениях. Все ваши подписчики из того домена будут удалены.</string>
+    <string name="mute_domain_warning">Вы уверены, что хотите заблокировать %1$s целиком? Вы перестанете видеть посты из того домена во всех публичных лентах и уведомлениях. Все ваши подписчики из того домена будут удалены.</string>
     <string name="mute_domain_warning_dialog_ok">Скрыть домен целиком</string>
     <string name="pref_title_notification_filter_poll">Опросы закончились</string>
     <string name="pref_title_animate_gif_avatars">Анимировать GIF-аватары</string>
@@ -248,7 +248,7 @@
     <string name="failed_report">Не удалось пожаловаться</string>
     <string name="failed_fetch_posts">Не удалось получить статусы</string>
     <string name="report_description_1">Жалоба будет отправлена модератору вашего узла. Ниже вы можете добавить пояснение о причинах жалобы:</string>
-    <string name="report_description_remote_instance">Этот аккаунт расположен на другом узле. Отправить анонимную копию жалобы туда\?</string>
+    <string name="report_description_remote_instance">Этот аккаунт расположен на другом узле. Отправить анонимную копию жалобы туда?</string>
     <string name="action_add_poll">Создать опрос</string>
     <string name="pref_title_alway_open_spoiler">Всегда разворачивать посты с предупреждением о содержимом</string>
     <string name="title_accounts">Аккаунты</string>
@@ -273,8 +273,8 @@
     <string name="notification_follow_request_description">Уведомления о запросах на подписку</string>
     <string name="notification_follow_request_name">Запросы на подписку</string>
     <string name="pref_title_notification_filter_follow_requests">Запросил подписку</string>
-    <string name="dialog_mute_warning">Заглушить @%1$s\?</string>
-    <string name="dialog_block_warning">Заблокировать @%1$s\?</string>
+    <string name="dialog_mute_warning">Заглушить @%1$s?</string>
+    <string name="dialog_block_warning">Заблокировать @%1$s?</string>
     <string name="action_unmute_conversation">Показать обсуждение</string>
     <string name="action_mute_conversation">Заглушить обсуждение</string>
     <string name="notification_follow_request_format">запрос на подписку от &lt;b&gt;%1$s&lt;/b&gt;</string>
@@ -290,13 +290,7 @@
     <string name="pref_title_hide_top_toolbar">Скрыть заголовок верхней панели</string>
     <string name="no_announcements">Объявлений нет.</string>
     <string name="title_announcements">Объявления</string>
-    <string name="wellbeing_mode_notice">Некоторая информация, которая может повлиять на ваше психическое здоровье будет скрыта. Она включает:
-\n
-\n - Уведомления о добавлении в избранное/продвижении/подписке
-\n - Количество добавлений в избранное/количество продвижений
-\n - Статистика подписчиков/постов в профилях
-\n
-\n На всплывающие уведомления это не повлияет, однако, вы можете пересмотреть настройки уведомлений самостоятельно.</string>
+    <string name="wellbeing_mode_notice">Некоторая информация, которая может повлиять на ваше психическое здоровье будет скрыта. Она включает: \n \n - Уведомления о добавлении в избранное/продвижении/подписке \n - Количество добавлений в избранное/количество продвижений \n - Статистика подписчиков/постов в профилях \n \n На всплывающие уведомления это не повлияет, однако, вы можете пересмотреть настройки уведомлений самостоятельно.</string>
     <string name="pref_title_wellbeing_mode">Самочувствие</string>
     <string name="duration_indefinite">Неопределённая</string>
     <string name="label_duration">Продолжительность</string>
@@ -317,7 +311,7 @@
     <string name="notification_subscription_name">Новые гудки</string>
     <string name="pref_title_animate_custom_emojis">Анимировать собственные эмодзи</string>
     <string name="pref_title_notification_filter_subscriptions">Кто-то, на кого я подписан, опубликовал новую запись</string>
-    <string name="dialog_delete_conversation_warning">Удалить этот разговор\?</string>
+    <string name="dialog_delete_conversation_warning">Удалить этот разговор?</string>
     <string name="action_delete_conversation">Удалить разговор</string>
     <string name="pref_title_confirm_favourites">Запрашивать подтверждение перед добавлением в избранное</string>
     <string name="action_unbookmark">Убрать из закладок</string>
@@ -348,15 +342,15 @@
     <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; зарегистрировался</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; изменил свою запись</string>
     <string name="notification_report_format">Новая жалоба на %1$s</string>
-    <string name="notification_severed_relationships_format">Отношения с &lt;b>%1$s&lt;/b> разорваны</string>
+    <string name="notification_severed_relationships_format">Отношения с &lt;b&gt;%1$s&lt;/b&gt; разорваны</string>
     <string name="notification_severed_relationships_domain_block_body">Модератор заблокировал домен</string>
     <string name="notification_severed_relationships_user_domain_block_body">Вы заблокировали домен</string>
     <string name="notification_severed_relationships_account_suspension_body">Модератор заблокировал профиль</string>
     <string name="notification_severed_relationships_unknown_body">Неизвестная причина</string>
-    <string name="notification_severed_relationships_domain_block_fmt">Администратор %1$s заблокировал &lt;b>%2$s&lt;/b></string>
-    <string name="notification_severed_relationships_user_domain_block_fmt">Вы заблокировали &lt;b>%1$s&lt;/b></string>
-    <string name="notification_severed_relationships_account_suspension_fmt">Администратор %1$s заблокировал &lt;b>%2$s&lt;/b></string>
-    <string name="notification_severed_relationships_unknown_fmt">&lt;b>%1$s&lt;/b> заблокирован (причина неизвестна)</string>
+    <string name="notification_severed_relationships_domain_block_fmt">Администратор %1$s заблокировал &lt;b&gt;%2$s&lt;/b&gt;</string>
+    <string name="notification_severed_relationships_user_domain_block_fmt">Вы заблокировали &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="notification_severed_relationships_account_suspension_fmt">Администратор %1$s заблокировал &lt;b&gt;%2$s&lt;/b&gt;</string>
+    <string name="notification_severed_relationships_unknown_fmt">&lt;b&gt;%1$s&lt;/b&gt; заблокирован (причина неизвестна)</string>
     <string name="notification_moderation_warning_title">Сообщение от ваших модераторов</string>
     <string name="notification_moderation_warning_body_none_fmt">Вы получили предупреждение модерации: %1$s</string>
     <string name="notification_moderation_warning_body_disable_fmt">Ваша учётная запись отключена: %1$s</string>
@@ -647,16 +641,16 @@
     <string name="pref_account_conversation_filters_label_not_followed">… вы не подписаны</string>
     <string name="pref_account_conversation_filters_label_younger_30d">… создано за последние 30 дней</string>
     <string name="pref_account_conversation_filters_label_limited_by_server">… ограничено вашими модераторами</string>
-    <string name="account_filter_placeholder_type_favourite_fmt">Пользователь @&lt;b>%1$s&lt;/b> добавил вашу запись в избранное</string>
-    <string name="account_filter_placeholder_type_follow_fmt">Пользователь @&lt;b>%1$s&lt;/b> подписался на вас</string>
-    <string name="account_filter_placeholder_type_follow_request_fmt">Запрос на подписку от пользователя @&lt;b>%1$s&lt;/b></string>
-    <string name="account_filter_placeholder_type_mention_fmt">Пользователь @&lt;b>%1$s&lt;/b> упомянул вас</string>
-    <string name="account_filter_placeholder_type_reblog_fmt">Пользователь @&lt;b>%1$s&lt;/b> переопубликовал вашу запись</string>
-    <string name="account_filter_placeholder_label_domain">От пользователя @&lt;b>%1$s&lt;/b></string>
-    <string name="account_filter_placeholder_label_not_following">Отфильтровано, потому что: &lt;b>вы не подписаны на него&lt;/b></string>
-    <string name="account_filter_placeholder_label_younger_30d">Отфильтровано, потому что: &lt;b>создано за последние 30 дней&lt;/b></string>
-    <string name="account_filter_placeholder_label_limited_by_server">Отфильтровано, потому что: &lt;b>ограничено вашими модераторами&lt;/b></string>
-    <string name="account_filter_placeholder_type_conversation">Пользователь @&lt;b>%1$s&lt;/b> начал беседу</string>
+    <string name="account_filter_placeholder_type_favourite_fmt">Пользователь @&lt;b&gt;%1$s&lt;/b&gt; добавил вашу запись в избранное</string>
+    <string name="account_filter_placeholder_type_follow_fmt">Пользователь @&lt;b&gt;%1$s&lt;/b&gt; подписался на вас</string>
+    <string name="account_filter_placeholder_type_follow_request_fmt">Запрос на подписку от пользователя @&lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="account_filter_placeholder_type_mention_fmt">Пользователь @&lt;b&gt;%1$s&lt;/b&gt; упомянул вас</string>
+    <string name="account_filter_placeholder_type_reblog_fmt">Пользователь @&lt;b&gt;%1$s&lt;/b&gt; переопубликовал вашу запись</string>
+    <string name="account_filter_placeholder_label_domain">От пользователя @&lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="account_filter_placeholder_label_not_following">Отфильтровано, потому что: &lt;b&gt;вы не подписаны на него&lt;/b&gt;</string>
+    <string name="account_filter_placeholder_label_younger_30d">Отфильтровано, потому что: &lt;b&gt;создано за последние 30 дней&lt;/b&gt;</string>
+    <string name="account_filter_placeholder_label_limited_by_server">Отфильтровано, потому что: &lt;b&gt;ограничено вашими модераторами&lt;/b&gt;</string>
+    <string name="account_filter_placeholder_type_conversation">Пользователь @&lt;b&gt;%1$s&lt;/b&gt; начал беседу</string>
     <string name="ui_error_reload_reply_fmt">Не удалось загрузить сообщение: %1$s</string>
     <string name="export_preferences_ok_fmt">Настройки экспортированы в %1$s</string>
     <string name="error_export_preferences_fmt">Не удалось экспортировать настройки в %1$s: %2$s</string>
@@ -708,4 +702,41 @@
     <string name="translator_error_download_required_fmt">для перевода на %1$s нужно скачать языковой пакет, а Wi-Fi не подключён</string>
     <string name="filter_action_blur">Скрыть вложения</string>
     <string name="filter_description_blur">Показывать содержимое, скрывать вложения с предупреждением</string>
+    <string name="notification_quote_name"></string>
+    <string name="compose_task_description_quoting_fmt"></string>
+    <string name="ui_error_sending_post_fmt"></string>
+    <string name="compose_quote_policy_title"></string>
+    <string name="notification_quote_format"></string>
+    <string name="pref_title_notification_filter_quote"></string>
+    <string name="action_move_down"></string>
+    <string name="detach_quote_error_fmt"></string>
+    <string name="search_operator_quote_all"></string>
+    <string name="notification_quoted_update_name"></string>
+    <string name="ui_error_saving_post_fmt"></string>
+    <string name="action_toggle_quote_policy"></string>
+    <string name="notification_quote_description"></string>
+    <string name="compose_quote_policy_dialog_title"></string>
+    <string name="search_operator_quote_dialog_no_quotes"></string>
+    <string name="err_draft_error_no_external_files_dir"></string>
+    <string name="search_operator_quote_dialog_only"></string>
+    <string name="notification_quoted_update_format"></string>
+    <string name="search_operator_quote_no_quotes"></string>
+    <string name="err_draft_error_mkdir_drafts_fmt"></string>
+    <string name="search_operator_quote_dialog_all"></string>
+    <string name="notification_quoted_update_description"></string>
+    <string name="title_quotes"></string>
+    <string name="compose_task_description_writing_post"></string>
+    <string name="err_draft_error_content_provider_crash"></string>
+    <string name="compose_task_description_replying_fmt"></string>
+    <string name="search_operator_quote_only"></string>
+    <string name="action_move_up"></string>
+    <string name="compose_quote_policy_dialog_body_fmt"></string>
+    <string name="search_operator_quote_dialog_title"></string>
+    <string name="detach_quote_dialog_title"></string>
+    <string name="compose_visibility_title"></string>
+    <string name="err_draft_error_unknown_mime_type"></string>
+    <string name="err_draft_error_io_fmt"></string>
+    <string name="detach_quote_dialog_message"></string>
+    <string name="pref_title_notification_filter_quoted_update"></string>
+    <string name="ui_error_delete_scheduled_status_fmt"></string>
 </resources>
