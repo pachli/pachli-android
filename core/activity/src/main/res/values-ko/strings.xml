@@ -1,5 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_open_as">%1$s(으)로 열기</string>
     <string name="performing_lookup_title">탐색하고 있습니다…</string>
+    <string name="post_lookup_error_format"></string>
+    <string name="send_error_report"></string>
+    <string name="action_open_quoted_post"></string>
+    <string name="action_open_as_ellipsis"></string>
 </resources>
