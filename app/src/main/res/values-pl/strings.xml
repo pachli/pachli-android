@@ -88,7 +88,7 @@
     <string name="dialog_message_uploading_media">Wysyłanie…</string>
     <string name="dialog_download_image">Pobierz</string>
     <string name="dialog_message_cancel_follow_request">Czy chcesz cofnąć prośbę o obserwację?</string>
-    <string name="dialog_unfollow_warning">Czy chcesz przestać obserwować to konto\?</string>
+    <string name="dialog_unfollow_warning">Czy chcesz przestać obserwować to konto?</string>
     <string name="visibility_public">Publiczny: Widoczny na publicznych osiach czasu</string>
     <string name="visibility_unlisted">Niepubliczny: Niewidoczny na publicznych osiach czasu</string>
     <string name="visibility_private">Tylko dla obserwujących: Widoczny tylko dla osób, które cię obserwują</string>
@@ -204,8 +204,8 @@
     <string name="downloading_media">Pobieranie mediów</string>
     <string name="send_media_to">Wyślij media do…</string>
     <string name="confirmation_domain_unmuted">Cofnięto schowanie %1$s</string>
-    <string name="dialog_delete_post_warning">Usunąć ten wpis\?</string>
-    <string name="dialog_redraft_post_warning">Usunąć i napisać ponownie ten wpis\?</string>
+    <string name="dialog_delete_post_warning">Usunąć ten wpis?</string>
+    <string name="dialog_redraft_post_warning">Usunąć i napisać ponownie ten wpis?</string>
     <string name="mute_domain_warning">Czy na pewno chcesz zablokować wszystko z domeny %1$s? Nie będziesz widzieć zawartości z tej domeny w żadnej osi czasu ani w twoich powiadomieniach. Twoi obserwujący z tej domeny będą usunięci.</string>
     <string name="mute_domain_warning_dialog_ok">Schowaj całą domenę</string>
     <string name="pref_title_notification_filter_poll">Ankiety zostały zakończone</string>
@@ -363,7 +363,7 @@
     <string name="send_account_username_to">Udostępnij nazwę konta…</string>
     <string name="account_username_copied">Skopiowano nazwę konta</string>
     <string name="report_category_other">Inne</string>
-    <string name="delete_scheduled_post_warning">Usunąć ten zaplanowany wpis\?</string>
+    <string name="delete_scheduled_post_warning">Usunąć ten zaplanowany wpis?</string>
     <string name="pref_summary_http_proxy_missing">&lt;nieustawiony&gt;</string>
     <string name="pref_summary_http_proxy_invalid">&lt;niepoprawny&gt;</string>
     <string name="pref_title_http_proxy_port_message">Port powinien być pomiędzy %1$d a %2$d</string>
@@ -391,7 +391,7 @@
     <string name="dialog_follow_hashtag_hint">#hasztag</string>
     <string name="hint_filter_title">Mój filtr</string>
     <string name="title_public_trending">Popularne</string>
-    <string name="compose_delete_draft">Usunąć szkic\?</string>
+    <string name="compose_delete_draft">Usunąć szkic?</string>
     <string name="notification_notification_worker">Pobieranie powiadomień…</string>
     <string name="dialog_follow_hashtag_title">Obserwuj hasztag</string>
     <string name="title_public_trending_statuses">Popularne wpisy</string>
@@ -735,4 +735,12 @@
     <string name="search_operator_quote_dialog_all">Z cytatami lub bez</string>
     <string name="search_operator_quote_dialog_only">Tylko wpisy z cytatami</string>
     <string name="search_operator_quote_dialog_no_quotes">Tylko wpisy bez cytatów</string>
+    <string name="ui_error_sending_post_fmt"></string>
+    <string name="ui_error_saving_post_fmt"></string>
+    <string name="err_draft_error_no_external_files_dir"></string>
+    <string name="err_draft_error_mkdir_drafts_fmt"></string>
+    <string name="err_draft_error_content_provider_crash"></string>
+    <string name="err_draft_error_unknown_mime_type"></string>
+    <string name="err_draft_error_io_fmt"></string>
+    <string name="ui_error_delete_scheduled_status_fmt"></string>
 </resources>
