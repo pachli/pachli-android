@@ -3,4 +3,7 @@
     <string name="action_open_as">Malfermi kiel %1$s</string>
     <string name="post_lookup_error_format">Eraro dum serĉo de la mesaĝo %1$s</string>
     <string name="performing_lookup_title">Serĉado…</string>
+    <string name="send_error_report"></string>
+    <string name="action_open_quoted_post"></string>
+    <string name="action_open_as_ellipsis"></string>
 </resources>
