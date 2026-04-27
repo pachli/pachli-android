@@ -8,7 +8,7 @@
     <string name="action_view_profile">Profils</string>
     <string name="action_more">Vairāk</string>
     <string name="action_refresh">Atsvaidzināt</string>
-    <string name="url_domain_notifier">\u0020(🔗 %1$s)</string>
+    <string name="url_domain_notifier">" (🔗 %1$s)"</string>
     <string name="action_links">Saites</string>
     <string name="action_mentions">Pieminējumi</string>
     <string name="action_hashtags">Tēmturi</string>
@@ -189,4 +189,5 @@
     <string name="duration_365_days">365 dienas</string>
     <string name="action_add_to_tab">Pievienot cilnei</string>
     <string name="action_add_to_tab_success">\"%1$s\" pievienots cilnēm</string>
+    <string name="pref_summary_none"></string>
 </resources>
