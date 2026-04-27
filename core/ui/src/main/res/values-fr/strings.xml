@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_network">Une erreur réseau s’est produite ! Veuillez vérifier votre connexion puis réessayez !</string>
+    <string name="error_network">Une erreur réseau s’est produite ! Veuillez vérifier votre connexion puis réessayez !</string>
     <string name="error_generic">Une erreur s’est produite.</string>
     <string name="message_empty">Rien ici.</string>
     <string name="action_retry">Réessayer</string>
@@ -8,7 +8,7 @@
     <string name="action_view_profile">Profil</string>
     <string name="action_more">Plus</string>
     <string name="action_refresh">Actualiser</string>
-    <string name="url_domain_notifier">\u0020(🔗 %1$s)</string>
+    <string name="url_domain_notifier">" (🔗 %1$s)"</string>
     <string name="action_links">Liens</string>
     <string name="action_mentions">Mentions</string>
     <string name="action_hashtags">Hashtags</string>
@@ -61,16 +61,15 @@
     <string name="abbreviated_in_minutes">dans %1$d m</string>
     <string name="abbreviated_minutes_ago">%1$d m</string>
     <string name="abbreviated_in_hours">dans %1$d h</string>
-    <string name="abbreviated_hours_ago">%1$d h</string>
+    <string name="abbreviated_hours_ago">%1$d h</string>
     <string name="abbreviated_in_days">dans %1$d j</string>
     <string name="abbreviated_days_ago">%1$d j</string>
     <string name="abbreviated_in_years">dans %1$d a</string>
-    <string name="abbreviated_years_ago">%1$d a</string>
+    <string name="abbreviated_years_ago">%1$d a</string>
     <string name="description_post_media_no_description_placeholder">Aucune description</string>
     <string name="description_visibility_public">Public</string>
     <string name="description_visibility_unlisted">Non listé</string>
-    <string name="description_visibility_private">        Abonné·e·s
-    </string>
+    <string name="description_visibility_private">Abonné·e·s</string>
     <string name="description_visibility_direct">Direct</string>
     <string name="post_sensitive_media_title">Contenu sensible. Appuyez pour montrer.</string>
     <string name="post_media_images">Images</string>
@@ -190,4 +189,5 @@
     <string name="duration_365_days">365 jours</string>
     <string name="action_add_to_tab">Ajouter à l\'onglet</string>
     <string name="action_add_to_tab_success">« %1$s » ajouté aux onglets</string>
+    <string name="pref_summary_none"></string>
 </resources>
