@@ -13,6 +13,4 @@
     <string name="send_post_notification_error_title">Toot அனுப்புவதில் பிழை</string>
     <string name="send_post_notification_saved_content">நகலெடுக்கபட்ட toot வரைவில் சேமிக்கபட்டது</string>
     <string name="send_post_notification_cancel_title">Toot அனுப்பபல் நீக்கபட்டது</string>
-    <string name="send_post_failure_message_timeout"></string>
-    <string name="send_post_failure_message_cancel"></string>
 </resources>

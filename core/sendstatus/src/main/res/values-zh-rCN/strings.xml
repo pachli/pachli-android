@@ -13,6 +13,4 @@
     <string name="send_post_notification_error_title">嘟文发送出错</string>
     <string name="send_post_notification_saved_content">嘟文副本已保存为草稿</string>
     <string name="send_post_notification_cancel_title">已取消发送</string>
-    <string name="send_post_failure_message_timeout"></string>
-    <string name="send_post_failure_message_cancel"></string>
 </resources>

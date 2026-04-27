@@ -13,6 +13,4 @@
     <string name="send_post_notification_error_title">Erro ao enviar o toot</string>
     <string name="send_post_notification_saved_content">Gardouse unha copia do toot nos borradores</string>
     <string name="send_post_notification_cancel_title">Envío cancelado</string>
-    <string name="send_post_failure_message_timeout"></string>
-    <string name="send_post_failure_message_cancel"></string>
 </resources>

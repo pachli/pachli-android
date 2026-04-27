@@ -13,6 +13,4 @@
     <string name="send_post_notification_error_title">Wystąpił błąd podczas wysyłania wpisu</string>
     <string name="send_post_notification_saved_content">Kopia wpisu została zapisana jako szkic</string>
     <string name="send_post_notification_cancel_title">Anulowano wysyłanie</string>
-    <string name="send_post_failure_message_timeout"></string>
-    <string name="send_post_failure_message_cancel"></string>
 </resources>

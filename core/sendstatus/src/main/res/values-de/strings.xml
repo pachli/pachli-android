@@ -13,6 +13,4 @@
     <string name="send_post_notification_error_title">Fehler beim Senden</string>
     <string name="send_post_notification_saved_content">Eine Kopie des Beitrags wurde in deine Entwürfe gespeichert</string>
     <string name="send_post_notification_cancel_title">Senden abgebrochen</string>
-    <string name="send_post_failure_message_timeout"></string>
-    <string name="send_post_failure_message_cancel"></string>
 </resources>

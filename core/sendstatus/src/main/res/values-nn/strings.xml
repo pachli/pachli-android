@@ -13,6 +13,4 @@
     <string name="send_post_notification_error_title">Kunne ikkje sende innlegg</string>
     <string name="send_post_notification_saved_content">Ein kopi av innlegget er vorten lagra i utkasta dine</string>
     <string name="send_post_notification_cancel_title">Sending avbroten</string>
-    <string name="send_post_failure_message_timeout"></string>
-    <string name="send_post_failure_message_cancel"></string>
 </resources>

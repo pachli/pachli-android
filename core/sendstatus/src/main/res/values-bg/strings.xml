@@ -5,14 +5,4 @@
     <string name="send_post_notification_error_title">Грешка при изпращане на публикация</string>
     <string name="send_post_notification_saved_content">Копие от публикацията е запазено във вашите чернови</string>
     <string name="send_post_notification_cancel_title">Изпращането е отменено</string>
-    <string name="error_prepare_media_content_resolver_missing_path_fmt"></string>
-    <string name="error_prepare_media_io_fmt"></string>
-    <string name="error_prepare_media_unknown_mime_type"></string>
-    <string name="error_prepare_media_unknown_file_size"></string>
-    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt"></string>
-    <string name="error_prepare_media_unsupported_mime_type_fmt"></string>
-    <string name="error_prepare_media_file_is_too_large_fmt"></string>
-    <string name="send_post_failure_message_timeout"></string>
-    <string name="error_media_uploader_upload_not_found_fmt"></string>
-    <string name="send_post_failure_message_cancel"></string>
 </resources>

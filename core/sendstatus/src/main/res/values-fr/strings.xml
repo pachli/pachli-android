@@ -13,6 +13,4 @@
     <string name="send_post_notification_error_title">Erreur lors de l’envoi du message</string>
     <string name="send_post_notification_saved_content">Une copie du message a été sauvegardée dans vos brouillons</string>
     <string name="send_post_notification_cancel_title">Envoi annulé</string>
-    <string name="send_post_failure_message_timeout"></string>
-    <string name="send_post_failure_message_cancel"></string>
 </resources>

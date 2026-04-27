@@ -13,6 +13,4 @@
     <string name="send_post_notification_error_title">Earráid le postáil a sheoladh</string>
     <string name="send_post_notification_saved_content">Sábháladh cóip den phostáil i do chuid dréachtaí</string>
     <string name="send_post_notification_cancel_title">Cealaíodh seoladh</string>
-    <string name="send_post_failure_message_timeout"></string>
-    <string name="send_post_failure_message_cancel"></string>
 </resources>
