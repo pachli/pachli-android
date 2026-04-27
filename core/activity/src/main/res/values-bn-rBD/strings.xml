@@ -3,4 +3,7 @@
     <string name="action_open_as">\'%1$s হিসাবে খুলুন\'</string>
     <string name="post_lookup_error_format">\'%1$s পোস্ট অনুসন্ধানে ত্রুটি\'</string>
     <string name="performing_lookup_title">অনুসন্ধান করা হচ্ছে …</string>
+    <string name="send_error_report"></string>
+    <string name="action_open_quoted_post"></string>
+    <string name="action_open_as_ellipsis"></string>
 </resources>
