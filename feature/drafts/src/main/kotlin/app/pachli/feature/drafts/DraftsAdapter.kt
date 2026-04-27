@@ -31,7 +31,7 @@ import app.pachli.core.model.Draft
 import app.pachli.feature.drafts.databinding.ItemDraftBinding
 import com.bumptech.glide.RequestManager
 
-interface DraftActionListener {
+internal interface DraftActionListener {
     /** User has tapped on [draft]. */
     fun onOpenDraft(draft: Draft)
 
@@ -42,7 +42,7 @@ interface DraftActionListener {
     fun setDraftChecked(draft: Draft, isChecked: Boolean)
 }
 
-class DraftsAdapter(
+internal class DraftsAdapter(
     private val glide: RequestManager,
     private val listener: DraftActionListener,
 ) : PagingDataAdapter<DraftViewData, DraftViewHolder>(
@@ -68,7 +68,7 @@ class DraftsAdapter(
     }
 }
 
-class DraftViewHolder(
+internal class DraftViewHolder(
     private val binding: ItemDraftBinding,
     glide: RequestManager,
     private val listener: DraftActionListener,
@@ -77,7 +77,7 @@ class DraftViewHolder(
 
     init {
         with(binding) {
-            draftMediaPreview.layoutManager = LinearLayoutManager(binding.root.context, RecyclerView.HORIZONTAL, false)
+            draftMediaPreview.layoutManager = LinearLayoutManager(root.context, RecyclerView.HORIZONTAL, false)
             draftMediaPreview.adapter = DraftMediaAdapter(glide) {
                 draft?.let { listener.onOpenDraft(it) }
             }
