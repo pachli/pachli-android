@@ -60,24 +60,4 @@
     <string name="notification_log_title">Logg</string>
     <string name="notification_log_filter_content_description">Filtrer loggane etter taggar</string>
     <string name="notification_log_method_unknown">Metoden som vert brukt for å levere varsel, er ukjend</string>
-    <string name="database_vacuum"></string>
-    <string name="action_clear_cache"></string>
-    <string name="database_prune_cache_complete"></string>
-    <string name="about_database"></string>
-    <string name="action_vacuum"></string>
-    <string name="action_run_integrity_check"></string>
-    <string name="about_workers"></string>
-    <string name="workers_prune_cached_media_help"></string>
-    <string name="workers_prune_cache_help"></string>
-    <string name="database_table_sizes"></string>
-    <string name="action_run_query_timings"></string>
-    <string name="database_vacuum_complete"></string>
-    <string name="database_integrity_check"></string>
-    <string name="database_query_timings"></string>
-    <string name="database_prune_cache"></string>
-    <string name="about_notifications"></string>
-    <string name="database_clear_cache"></string>
-    <string name="database_clear_cache_complete"></string>
-    <string name="action_prune_cache"></string>
-    <string name="workers_prune_log_entry_entity_help"></string>
 </resources>

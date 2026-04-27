@@ -59,25 +59,4 @@
     <string name="notification_details_pull_section">Haal notificaties op door middel van periodiek werk</string>
     <string name="notification_details_pachli_exempt">Pachli is uitgezonderd van batterij optimalisatie?</string>
     <string name="notification_details_usage_event_label">Android kan beperken wat applicaties kunnen in de achtergrond. Deze lijst toont hoe Pachli beperkt is over de afgelopen drie dagen, met de nieuwste eerst.</string>
-    <string name="database_vacuum"></string>
-    <string name="action_clear_cache"></string>
-    <string name="database_prune_cache_complete"></string>
-    <string name="about_database"></string>
-    <string name="action_vacuum"></string>
-    <string name="about_nivenly_foundation"></string>
-    <string name="action_run_integrity_check"></string>
-    <string name="about_workers"></string>
-    <string name="workers_prune_cached_media_help"></string>
-    <string name="workers_prune_cache_help"></string>
-    <string name="database_table_sizes"></string>
-    <string name="action_run_query_timings"></string>
-    <string name="database_vacuum_complete"></string>
-    <string name="database_integrity_check"></string>
-    <string name="database_query_timings"></string>
-    <string name="database_prune_cache"></string>
-    <string name="about_notifications"></string>
-    <string name="database_clear_cache"></string>
-    <string name="database_clear_cache_complete"></string>
-    <string name="action_prune_cache"></string>
-    <string name="workers_prune_log_entry_entity_help"></string>
 </resources>

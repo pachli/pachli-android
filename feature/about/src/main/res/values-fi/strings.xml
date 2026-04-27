@@ -67,17 +67,4 @@
     <string name="action_vacuum">Imurointi</string>
     <string name="about_database">Tietokanta</string>
     <string name="about_notifications">Ilmoitukset</string>
-    <string name="database_vacuum"></string>
-    <string name="action_run_integrity_check"></string>
-    <string name="about_workers"></string>
-    <string name="workers_prune_cached_media_help"></string>
-    <string name="workers_prune_cache_help"></string>
-    <string name="notification_details_workers_help"></string>
-    <string name="database_table_sizes"></string>
-    <string name="action_run_query_timings"></string>
-    <string name="database_integrity_check"></string>
-    <string name="database_query_timings"></string>
-    <string name="database_clear_cache"></string>
-    <string name="notification_details_pull_section"></string>
-    <string name="workers_prune_log_entry_entity_help"></string>
 </resources>

@@ -76,8 +76,4 @@
     <string name="notification_details_pull_section">Récupérer les notifications avec des agents périodiques</string>
     <string name="notification_details_pachli_exempt">Pachli est exclu des optimisations de batterie ?</string>
     <string name="about_nivenly_foundation">Pachli est un projet de la &lt;a href=https://nivenly.org&gt;Fondation Nivenly&lt;/a&gt;.</string>
-    <string name="about_workers"></string>
-    <string name="workers_prune_cached_media_help"></string>
-    <string name="workers_prune_cache_help"></string>
-    <string name="workers_prune_log_entry_entity_help"></string>
 </resources>

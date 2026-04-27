@@ -76,8 +76,4 @@
     <string name="database_prune_cache_complete">Kešatmiņas iztukšošana pabeigta</string>
     <string name="database_vacuum_complete">VACUUM pabeigta</string>
     <string name="database_clear_cache_complete">Kešatmiņas iztīšana pabeigta</string>
-    <string name="about_workers"></string>
-    <string name="workers_prune_cached_media_help"></string>
-    <string name="workers_prune_cache_help"></string>
-    <string name="workers_prune_log_entry_entity_help"></string>
 </resources>
