@@ -1,22 +1,83 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about_title_activity">Sobre</string>
     <string name="about_device_info_title">Meu dispositivo</string>
-    <string name="about_account_info">\@%1$s@%2$s
-\nVersão: %3$s</string>
+    <string name="about_account_info">\@%1$s@%2$s \nVersão: %3$s</string>
     <string name="about_copied">Versão e informações do dispositivo copiadas</string>
     <string name="about_account_info_title">Minha conta</string>
     <string name="about_copy">Copiar a versão e as informações do dispositivo</string>
     <string name="about_powered_by_pachli">Desenvolvido por Pachli</string>
     <string name="about_pachli_license">Pachli é um software livre e de código aberto. Ele é licenciado sob a versão 3 da Licença Pública Geral GNU. Ela pode ser acessada aqui: https://www.gnu.org/licenses/gpl-3.0.pt-br.html</string>
     <string name="about_project_site">Sítio do projeto: https://pachli.app</string>
-    <string name="about_bug_feature_request_site">Relatos de falhas e solicitações de funcionalidades:
-\nhttps://github.com/pachli/pachli-android/issues</string>
+    <string name="about_bug_feature_request_site">Relatos de falhas e solicitações de funcionalidades: \nhttps://github.com/pachli/pachli-android/issues</string>
     <string name="about_privacy_policy">Política de privacidade</string>
     <string name="about_pachli_account">Perfil do Pachli</string>
     <string name="title_licenses">Licenças</string>
-    <string name="about_device_info">%1$s %2$s
-\nVersão do Android: %3$s
-\nNível SDK: %4$d</string>
+    <string name="about_device_info">%1$s %2$s \nVersão do Android: %3$s \nNível SDK: %4$d</string>
     <string name="license_description">O Pachli contém código e recursos dos seguintes projetos de código aberto:</string>
+    <string name="notification_details_standby_bucket_exempted"></string>
+    <string name="database_vacuum"></string>
+    <string name="notification_details_any_account_needs_migration_help"></string>
+    <string name="notification_details_accounts_unified_push_subscription_help"></string>
+    <string name="notification_log_method_pusherror"></string>
+    <string name="notification_details_standby_bucket_active"></string>
+    <string name="notification_details_any_account_needs_migration"></string>
+    <string name="notification_log_previous_attempts"></string>
+    <string name="notification_details_accounts_unified_push_url_help"></string>
+    <string name="notification_log_download"></string>
+    <string name="notification_details_usage_event"></string>
+    <string name="action_clear_cache"></string>
+    <string name="notification_details_standby_bucket_rare"></string>
+    <string name="notification_details_usage_event_label"></string>
+    <string name="notification_details_standby_bucket_unknown"></string>
+    <string name="database_prune_cache_complete"></string>
+    <string name="about_database"></string>
+    <string name="notification_details_ago"></string>
+    <string name="action_vacuum"></string>
+    <string name="about_nivenly_foundation"></string>
+    <string name="action_run_integrity_check"></string>
+    <string name="notification_details_standby_bucket_never"></string>
+    <string name="notification_log_filter_content_description"></string>
+    <string name="about_workers"></string>
+    <string name="notification_log_title"></string>
+    <string name="notification_details_ntfy_exempt_help"></string>
+    <string name="workers_prune_cached_media_help"></string>
+    <string name="notification_details_unifiedpush_available"></string>
+    <string name="notification_log_download_content_description"></string>
+    <string name="workers_prune_cache_help"></string>
+    <string name="notification_log_method_pull"></string>
+    <string name="notification_details_notifications_enabled_help"></string>
+    <string name="notification_details_title"></string>
+    <string name="notification_details_accounts_unified_push_subscription"></string>
+    <string name="notification_details_workers_help"></string>
+    <string name="database_table_sizes"></string>
+    <string name="notification_log_scheduled_in"></string>
+    <string name="notification_log_filter"></string>
+    <string name="notitication_log_filter_dialog_title"></string>
+    <string name="action_run_query_timings"></string>
+    <string name="database_vacuum_complete"></string>
+    <string name="database_integrity_check"></string>
+    <string name="notification_details_pachli_exempt_help"></string>
+    <string name="database_query_timings"></string>
+    <string name="database_prune_cache"></string>
+    <string name="notification_details_standby_bucket_working_set"></string>
+    <string name="notification_details_standby_bucket_restricted"></string>
+    <string name="notification_log_method_push"></string>
+    <string name="notification_details_standby_bucket_frequent"></string>
+    <string name="notification_details_pachli_exempt"></string>
+    <string name="notification_details_last_fetch_help"></string>
+    <string name="notification_details_ntfy_exempt"></string>
+    <string name="about_notifications"></string>
+    <string name="database_clear_cache"></string>
+    <string name="notification_details_android_notifications_enabled"></string>
+    <string name="notification_details_accounts_unified_push_url"></string>
+    <string name="notification_details_pull_section"></string>
+    <string name="notification_log_download_failed"></string>
+    <string name="notification_log_sort"></string>
+    <string name="notification_log_method_unknown"></string>
+    <string name="notification_details_unifiedpush_available_help"></string>
+    <string name="notification_details_push_notifications_with_unifiedpush"></string>
+    <string name="database_clear_cache_complete"></string>
+    <string name="action_prune_cache"></string>
+    <string name="workers_prune_log_entry_entity_help"></string>
 </resources>
