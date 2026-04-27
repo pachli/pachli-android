@@ -70,7 +70,7 @@
     <string name="send_post_content_to">Toot உள்ளடக்கத்தை பகிர…</string>
     <string name="send_media_to">Mediaவை பகிர…</string>
     <string name="confirmation_reported">அனுப்பு!</string>
-    <string name="confirmation_unblocked">பயனர்  முடக்கம் நீக்கப்பட்டது</string>
+    <string name="confirmation_unblocked">பயனர் முடக்கம் நீக்கப்பட்டது</string>
     <string name="confirmation_unmuted">பயனர் ஒலிக்க செய்யபட்டது</string>
     <string name="hint_compose">என்ன நடக்கிறது?</string>
     <string name="hint_content_warning">உள்ளடக்க எச்சரிக்கை</string>
@@ -172,12 +172,12 @@
     <string name="account_moved_description">%1$s கணக்கு நகர்த்தபட்டது இதற்க்கு:</string>
     <string name="reblog_private">அசலான பார்வையாளர்களுக்கு மட்டும் மேலேற்று</string>
     <string name="unreblog_private">மேலேற்றத்தை தவிர்</string>
-    <string name="profile_metadata_label">சுயவிவர  மேனிலை தரவு</string>
+    <string name="profile_metadata_label">சுயவிவர மேனிலை தரவு</string>
     <string name="profile_metadata_add">தகவலை இணைக்க</string>
     <string name="profile_metadata_label_label">விவரத்துணுக்கு</string>
     <string name="profile_metadata_content_label">உள்ளடக்கம்</string>
     <string name="pref_title_absolute_time">Absolute நேரத்தை பயன்படுத்து</string>
-    <string name="label_remote_account">கீழுள்ள தகவல் பயனரின் சுயவிவரத்தின்  பிரதிபலிப்பு முழுமையடையாது. முழு சுயவிவரத்தை உலாவில் திறக்க அழுத்தவும்.</string>
+    <string name="label_remote_account">கீழுள்ள தகவல் பயனரின் சுயவிவரத்தின் பிரதிபலிப்பு முழுமையடையாது. முழு சுயவிவரத்தை உலாவில் திறக்க அழுத்தவும்.</string>
     <string name="unpin_action">விடுவி</string>
     <string name="pin_action">பொருத்து</string>
     <string name="action_view_account_preferences">கணக்கரின் முன்னுரிமைகள்</string>
@@ -434,7 +434,6 @@
     <string name="confirmation_domain_unmuted">%1$s</string>
     <string name="dialog_message_cancel_follow_request">பின்தொடர்தல் கோரிக்கையை ரத்து செய்யவா?</string>
     <string name="filter_expiration_format">%1$s (%2$s)</string>
-
     <string name="compose_preview_image_description">படங்களுக்கான செயல்கள் %1$s</string>
     <string name="duration_indefinite">காலவரையற்றது</string>
     <string name="account_note_hint">இந்த கணக்கைப் பற்றிய உங்கள் தனிப்பட்ட குறிப்பு</string>
@@ -720,4 +719,12 @@
     <string name="compose_task_description_writing_post">எழுதும் இடுகை</string>
     <string name="compose_task_description_replying_fmt">%1$sக்கு பதிலளிக்கிறது</string>
     <string name="compose_task_description_quoting_fmt">மேற்கோள் %1$s</string>
+    <string name="ui_error_sending_post_fmt"></string>
+    <string name="ui_error_saving_post_fmt"></string>
+    <string name="err_draft_error_no_external_files_dir"></string>
+    <string name="err_draft_error_mkdir_drafts_fmt"></string>
+    <string name="err_draft_error_content_provider_crash"></string>
+    <string name="err_draft_error_unknown_mime_type"></string>
+    <string name="err_draft_error_io_fmt"></string>
+    <string name="ui_error_delete_scheduled_status_fmt"></string>
 </resources>
