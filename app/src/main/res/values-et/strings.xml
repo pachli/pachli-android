@@ -720,4 +720,7 @@
     <string name="ui_error_delete_scheduled_status_fmt">ajastatud postituse kustutamine asendamise jaoks ei õnnestunud: %1$s</string>
     <string name="err_draft_error_io_fmt">salvestamine ei õnnestunud: %1$s</string>
     <string name="err_draft_error_content_provider_crash">sisupakkuja on hiljuti kokku jooksnud</string>
+    <string name="title_delete_scheduled_statuses">Kas kustutad ajastatud postitused?</string>
+    <string name="delete_scheduled_statuses_msg">Järgnevaga kustutad kõik ajastatud postitused, mille oled valinud.</string>
+    <string name="action_delete_scheduled_statuses">Kustuta valitud postitused</string>
 </resources>
