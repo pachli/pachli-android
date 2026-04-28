@@ -22,6 +22,7 @@ import android.graphics.Paint
 import android.text.Layout
 import android.text.Spanned
 import android.text.style.LeadingMarginSpan
+import androidx.annotation.VisibleForTesting
 import kotlin.math.roundToInt
 
 fun interface ComputeLeadingMarginWithTextSpanText {
@@ -52,7 +53,8 @@ fun interface ComputeLeadingMarginWithTextSpanText {
 internal class LeadingMarginWithTextSpan(
     private val indentation: Int,
     private val alignment: Alignment = Alignment.END,
-    private val computeMarginText: ComputeLeadingMarginWithTextSpanText,
+    @get:VisibleForTesting
+    val computeMarginText: ComputeLeadingMarginWithTextSpanText,
 ) : LeadingMarginSpan {
     private var marginWidth: Int = 0
 
