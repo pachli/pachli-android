@@ -319,7 +319,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/core/ui/StatusView.kt"
-            line="335"
+            line="336"
             column="18"/>
     </issue>
 
@@ -330,7 +330,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/core/ui/StatusView.kt"
-            line="337"
+            line="338"
             column="13"/>
     </issue>
 

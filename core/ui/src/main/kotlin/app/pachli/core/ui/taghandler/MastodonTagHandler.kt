@@ -67,6 +67,28 @@ class MastodonTagHandler(context: Context) : PachliTagHandler {
     private val preHandler = PreHandler()
 
     override fun rewriteHtml(html: CharSequence): String {
+        // Work around an Android bug. If a custom tag handler exists, and the
+        // first tag encountered is a custom tag, Android doesn't call the tag
+        // handler to close the tag until the very end of the content,
+        // irrespective of where the closing tag actually appears. For
+        // example, this:
+        //
+        // ```
+        // <pachli-blockquote>A quote</pachli-blockquote><p>hello</p>
+        // ```
+        //
+        // will show the whole content as quoted, because the span that ends
+        // the quote is inserted at the end of the content instead of when
+        // the `pachli-blockquote` element is closed.
+        //
+        // https://issuetracker.google.com/issues/143231192
+        //
+        // To avoid triggering the bug, if a custom tag appears at the
+        // start of the content then the whole content is wrapped in
+        // `<html>...</html>` to ensure the tag handler sees a known element
+        // first.
+        var wrapInHtmlElement = false
+
         // Can't use named match groups here (e.g., code like
         // `.replace(rxListTags, $$"<${bl}pachli-${tag}>")` because named
         // match groups aren't supported on Android < API 26.
@@ -77,23 +99,31 @@ class MastodonTagHandler(context: Context) : PachliTagHandler {
         // as the literal text `null`.
         //
         // So use a transform function that can handle both of these cases.
-        return html
-            // The XML reader doesn't treat whitespace as significant in `pre` elements,
-            // so replace any `\n` with `<br />` and any run of two spaces with
-            // `&nbsp;&nbsp` to counter this.
+        val rewritten = html
+            // The XML reader doesn't treat whitespace as significant in `pre`
+            // so replace some content within the element.
             .replace(
                 rxPre,
                 { preBody ->
                     val newBody = preBody.groups[1]?.value
+                        // Whitespace at the start of internal paras is significant.
+                        ?.replace("\n ", "<br />&nbsp;")
+                        // Convert internal paras to `br`.
                         ?.replace("\n", "<br />")
+                        // Runs of two or more spaces are significant.
                         ?.replace("  ", "&nbsp;&nbsp;")
                     "<pre>$newBody</pre>"
                 },
             )
             .replace(
                 rxPachliTags,
-                { "<${it.groups[1]?.value ?: ""}pachli-${it.groups[2]?.value}>" },
+                {
+                    wrapInHtmlElement = wrapInHtmlElement || it.groups[0]?.range?.start == 0
+
+                    "<${it.groups[1]?.value ?: ""}pachli-${it.groups[2]?.value}>"
+                },
             )
+        return if (wrapInHtmlElement) "<html>$rewritten</html>" else rewritten
     }
 
     override fun handleTag(opening: Boolean, tag: String, output: Editable, xmlReader: XMLReader) {
