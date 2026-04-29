@@ -2,7 +2,6 @@
 
 ## v3.6.0
 
-
 ### New features and other improvements
 
 - Improve UX editing and deleting scheduled posts (#[2255](https://github.com/pachli/pachli-android/pull/2255), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
