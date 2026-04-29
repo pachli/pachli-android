@@ -1,5 +1,40 @@
 # Pachli changelog
 
+## v3.6.0
+
+
+### New features and other improvements
+
+- Improve UX editing and deleting scheduled posts (#[2255](https://github.com/pachli/pachli-android/pull/2255), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Support adding "Scheduled posts" to a tab (#[2252](https://github.com/pachli/pachli-android/pull/2252), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Support adding "Drafts" to a tab (#[2250](https://github.com/pachli/pachli-android/pull/2250), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Add an option to underline links (#[2247](https://github.com/pachli/pachli-android/pull/2247), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show a badge with the number of local drafts on the main drawer (#[2225](https://github.com/pachli/pachli-android/pull/2225), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Improve UX creating, editing, and deleting drafts (#[2221](https://github.com/pachli/pachli-android/pull/2221), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Encode user content that looks like HTML for display (#[2245](https://github.com/pachli/pachli-android/pull/2245), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Support ol, pre, and code elements in content (#[2241](https://github.com/pachli/pachli-android/pull/2241), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Set the attachment description text when viewing images (#[2239](https://github.com/pachli/pachli-android/pull/2239), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't crash when updating media on an existing status (#[2230](https://github.com/pachli/pachli-android/pull/2230), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't crash checking user's sensitive media preference (#[2207](https://github.com/pachli/pachli-android/pull/2207), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't crash when removing tabs (#[2206](https://github.com/pachli/pachli-android/pull/2206), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't crash when cropping account avatar or header images (#[2205](https://github.com/pachli/pachli-android/pull/2205), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Estonian translations ([Priit Jõerüüt](https://github.com/pachli/pachli-android/commits?author=jrthwlate@users.noreply.hosted.weblate.org))
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update French translations ([Terry L](https://github.com/pachli/pachli-android/commits?author=terrylaire@gmail.com))
+- Update German translations ([Kachelkaiser](https://github.com/pachli/pachli-android/commits?author=kachelkaiser@htpst.de))
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+- Update Norwegian Bokmål translations ([Sunniva Løvstad](https://github.com/pachli/pachli-android/commits?author=sunniva@users.noreply.hosted.weblate.org))
+- Update Polish translations ([Łukasz Horodecki](https://github.com/pachli/pachli-android/commits?author=lukasz@horodecki.net))
+- Update Slovak translations ([Russssty](https://github.com/pachli/pachli-android/commits?author=russssty@users.noreply.hosted.weblate.org))
+- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+- Update Tamil translations ([தமிழ்நேரம்](https://github.com/pachli/pachli-android/commits?author=tamilneram247@gmail.com))
+
 ## v3.5.0
 
 ### Significant bug fixes
