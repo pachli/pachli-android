@@ -141,8 +141,8 @@ internal fun convertUrlSpanToMoreSpecificType(
     val newSpan = when (text[0]) {
         '#' -> getCustomSpanForHashtag(linksToUnderline.contains(LinksToUnderline.HASHTAGS), text, tags, span, listener)
         '@' -> getCustomSpanForMention(linksToUnderline.contains(LinksToUnderline.MENTIONS), mentions, span, listener)
-        else -> MaybeUnderlineURLSpan(linksToUnderline.contains(LinksToUnderline.LINKS), span.url, listener::onViewUrl)
-    }
+        else -> null
+    } ?: MaybeUnderlineURLSpan(linksToUnderline.contains(LinksToUnderline.LINKS), span.url, listener::onViewUrl)
 
     // Replace the previous span with the more appropriate span.
     removeSpan(span)
