@@ -29,7 +29,7 @@ import app.pachli.core.model.ConversationAccount
 import app.pachli.core.model.DraftAttachment
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.FilterResult
-import app.pachli.core.model.HashTag
+import app.pachli.core.model.Hashtag
 import app.pachli.core.model.NewPoll
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Role
@@ -174,10 +174,10 @@ class Converters @Inject constructor(
     fun jsonToMentionArray(mentionListJson: String?) = fromJson<List<Status.Mention>>(mentionListJson)
 
     @TypeConverter
-    fun tagListToJson(tagArray: List<HashTag>?) = toJson(tagArray)
+    fun tagListToJson(tagArray: List<Hashtag>?) = toJson(tagArray)
 
     @TypeConverter
-    fun jsonToTagArray(tagListJson: String?) = fromJson<List<HashTag>>(tagListJson)
+    fun jsonToTagArray(tagListJson: String?) = fromJson<List<Hashtag>>(tagListJson)
 
     @TypeConverter
     fun dateToLong(date: Date?) = date?.time

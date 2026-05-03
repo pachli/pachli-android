@@ -23,7 +23,7 @@ import android.text.style.URLSpan
 import android.widget.TextView
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import app.pachli.core.model.HashTag
+import app.pachli.core.model.Hashtag
 import app.pachli.core.model.Status
 import com.google.common.truth.Truth.assertThat
 import org.junit.Assert
@@ -43,8 +43,8 @@ class LinkHelperTest {
         Status.Mention("2", "https://example.com/@anotherUser", "anotherUser", "anotherUser"),
     )
     private val tags = listOf(
-        HashTag("Pachli", "https://example.com/Tags/Pachli"),
-        HashTag("mastodev", "https://example.com/Tags/mastodev"),
+        Hashtag("Pachli", "https://example.com/Tags/Pachli"),
+        Hashtag("mastodev", "https://example.com/Tags/mastodev"),
     )
 
     private val textView: TextView

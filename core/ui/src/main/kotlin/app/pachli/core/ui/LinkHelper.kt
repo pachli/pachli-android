@@ -24,7 +24,7 @@ import android.widget.TextView
 import androidx.annotation.VisibleForTesting
 import androidx.core.net.toUri
 import androidx.core.text.method.LinkMovementMethodCompat
-import app.pachli.core.model.HashTag
+import app.pachli.core.model.Hashtag
 import app.pachli.core.model.Status.Mention
 import app.pachli.core.preferences.LinksToUnderline
 import com.mikepenz.iconics.IconicsColor
@@ -129,7 +129,7 @@ internal fun convertUrlSpanToMoreSpecificType(
     linksToUnderline: Set<LinksToUnderline>,
     builder: SpannableStringBuilder,
     mentions: List<Mention>?,
-    tags: List<HashTag>?,
+    tags: List<Hashtag>?,
     listener: LinkListener,
 ) = builder.apply {
     val start = getSpanStart(span)
@@ -160,7 +160,7 @@ internal fun convertUrlSpanToMoreSpecificType(
 }
 
 @VisibleForTesting
-fun getTagName(text: CharSequence, tags: List<HashTag>?): String? {
+fun getTagName(text: CharSequence, tags: List<Hashtag>?): String? {
     val scrapedName = text.subSequence(1, text.length).replaceAccents()
     val normalisedName = scrapedName.normaliseHashtag()
     return when (tags) {
@@ -169,7 +169,7 @@ fun getTagName(text: CharSequence, tags: List<HashTag>?): String? {
     }
 }
 
-private fun getCustomSpanForHashtag(underline: Boolean, text: CharSequence, tags: List<HashTag>?, span: URLSpan, listener: LinkListener): ClickableSpan? {
+private fun getCustomSpanForHashtag(underline: Boolean, text: CharSequence, tags: List<Hashtag>?, span: URLSpan, listener: LinkListener): ClickableSpan? {
     return getTagName(text, tags)?.let { tagName ->
         HashtagSpan(tagName, underline, span.url) { listener.onViewTag(tagName) }
     }

@@ -26,7 +26,7 @@ import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.Card
 import app.pachli.core.model.Emoji
-import app.pachli.core.model.HashTag
+import app.pachli.core.model.Hashtag
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Status.Quote.HiddenQuote
@@ -161,7 +161,7 @@ data class TimelineStatusWithAccount(
     fun toStatus(): Status {
         val attachments: List<Attachment> = status.attachments.orEmpty()
         val mentions: List<Status.Mention> = status.mentions.orEmpty()
-        val tags: List<HashTag>? = status.tags
+        val tags: List<Hashtag>? = status.tags
         val application = status.application
         val emojis: List<Emoji> = status.emojis.orEmpty()
         val poll: Poll? = status.poll

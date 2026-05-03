@@ -51,7 +51,7 @@ interface IStatus {
     val visibility: Visibility
     val attachments: List<Attachment>
     val mentions: List<Mention>
-    val tags: List<HashTag>?
+    val tags: List<Hashtag>?
     val application: Application?
     val pinned: Boolean?
     val muted: Boolean?
@@ -90,7 +90,7 @@ data class Status(
     override val visibility: Visibility,
     override val attachments: List<Attachment>,
     override val mentions: List<Mention>,
-    override val tags: List<HashTag>?,
+    override val tags: List<Hashtag>?,
     override val application: Application?,
     override val pinned: Boolean?,
     override val muted: Boolean?,

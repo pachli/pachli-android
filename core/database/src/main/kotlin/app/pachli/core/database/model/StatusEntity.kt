@@ -30,7 +30,7 @@ import app.pachli.core.model.Attachment
 import app.pachli.core.model.Card
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.FilterResult
-import app.pachli.core.model.HashTag
+import app.pachli.core.model.Hashtag
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Role
 import app.pachli.core.model.Status
@@ -112,7 +112,7 @@ data class StatusEntity(
     val visibility: Status.Visibility,
     val attachments: List<Attachment>?,
     val mentions: List<Status.Mention>?,
-    val tags: List<HashTag>?,
+    val tags: List<Hashtag>?,
     val application: Status.Application?,
     // if it has a reblogged status, it's id is stored here
     val reblogServerId: String?,
@@ -285,7 +285,7 @@ data class TimelineStatusWithQuote(
 
         val attachments: List<Attachment> = status.attachments.orEmpty()
         val mentions: List<Status.Mention> = status.mentions.orEmpty()
-        val tags: List<HashTag>? = status.tags
+        val tags: List<Hashtag>? = status.tags
         val application = status.application
         val emojis: List<Emoji> = status.emojis.orEmpty()
         val poll: Poll? = status.poll

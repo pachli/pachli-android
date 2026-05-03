@@ -31,7 +31,7 @@ data class Announcement(
     val read: Boolean,
     val mentions: List<Status.Mention>,
     val statuses: List<AnnouncementStatus>,
-    val tags: List<HashTag>,
+    val tags: List<Hashtag>,
     val emojis: List<Emoji>,
     val reactions: List<Reaction>,
 ) {

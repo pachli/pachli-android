@@ -21,13 +21,13 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import app.pachli.R
-import app.pachli.core.model.HashTag
+import app.pachli.core.model.Hashtag
 import app.pachli.core.ui.BindingHolder
 import app.pachli.core.ui.LinkListener
 import app.pachli.databinding.ItemHashtagBinding
 
 class SearchHashtagsAdapter(private val linkListener: LinkListener) :
-    PagingDataAdapter<HashTag, BindingHolder<ItemHashtagBinding>>(HASHTAG_COMPARATOR) {
+    PagingDataAdapter<Hashtag, BindingHolder<ItemHashtagBinding>>(HASHTAG_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ItemHashtagBinding> {
         val binding = ItemHashtagBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -56,10 +56,10 @@ class SearchHashtagsAdapter(private val linkListener: LinkListener) :
     }
 
     companion object {
-        val HASHTAG_COMPARATOR = object : DiffUtil.ItemCallback<HashTag>() {
-            override fun areContentsTheSame(oldItem: HashTag, newItem: HashTag): Boolean = oldItem.name == newItem.name
+        val HASHTAG_COMPARATOR = object : DiffUtil.ItemCallback<Hashtag>() {
+            override fun areContentsTheSame(oldItem: Hashtag, newItem: Hashtag): Boolean = oldItem.name == newItem.name
 
-            override fun areItemsTheSame(oldItem: HashTag, newItem: HashTag): Boolean = oldItem.name == newItem.name
+            override fun areItemsTheSame(oldItem: Hashtag, newItem: Hashtag): Boolean = oldItem.name == newItem.name
         }
     }
 }

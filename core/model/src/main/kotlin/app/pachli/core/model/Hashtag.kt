@@ -23,7 +23,7 @@ import com.squareup.moshi.JsonClass
  * @property name Hashtag name, without the leading `#`.
  */
 @JsonClass(generateAdapter = true)
-data class HashTag(
+data class Hashtag(
     val name: String,
     val url: String,
     val history: List<HashTagHistory> = emptyList(),

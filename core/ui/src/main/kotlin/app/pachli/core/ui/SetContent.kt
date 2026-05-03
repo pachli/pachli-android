@@ -30,7 +30,7 @@ import androidx.core.text.method.LinkMovementMethodCompat
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.designsystem.R
 import app.pachli.core.model.Emoji
-import app.pachli.core.model.HashTag
+import app.pachli.core.model.Hashtag
 import app.pachli.core.model.Status
 import app.pachli.core.network.PachliTagHandler
 import app.pachli.core.network.parseAsMastodonHtml
@@ -104,7 +104,7 @@ interface SetContent {
         removeQuoteInline: Boolean,
         linksToUnderline: Set<LinksToUnderline>,
         mentions: List<Status.Mention>? = null,
-        hashtags: List<HashTag>? = null,
+        hashtags: List<Hashtag>? = null,
         tagHandler: PachliTagHandler? = null,
         linkListener: LinkListener,
     ) {

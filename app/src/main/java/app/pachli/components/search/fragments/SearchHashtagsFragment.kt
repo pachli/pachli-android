@@ -21,15 +21,15 @@ import android.view.View
 import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import app.pachli.components.search.adapter.SearchHashtagsAdapter
-import app.pachli.core.model.HashTag
+import app.pachli.core.model.Hashtag
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
 
 @AndroidEntryPoint
-class SearchHashtagsFragment : SearchFragment<HashTag>() {
+class SearchHashtagsFragment : SearchFragment<Hashtag>() {
 
-    override val data: Flow<PagingData<HashTag>>
+    override val data: Flow<PagingData<Hashtag>>
         get() = viewModel.hashtagsFlow
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,7 +39,7 @@ class SearchHashtagsFragment : SearchFragment<HashTag>() {
         )
     }
 
-    override fun createAdapter(): PagingDataAdapter<HashTag, *> = SearchHashtagsAdapter(this)
+    override fun createAdapter(): PagingDataAdapter<Hashtag, *> = SearchHashtagsAdapter(this)
 
     companion object {
         fun newInstance(pachliAccountId: Long): SearchHashtagsFragment {
