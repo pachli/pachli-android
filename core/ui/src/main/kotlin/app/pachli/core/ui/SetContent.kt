@@ -19,6 +19,7 @@ package app.pachli.core.ui
 
 import android.content.Context
 import android.graphics.Color
+import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.URLSpan
@@ -130,7 +131,7 @@ interface SetContent {
             markupHiddenUrls(textView, this)
         }
 
-        textView.text = spannableStringBuilder
+        setText(textView, spannableStringBuilder)
         textView.movementMethod = LinkMovementMethodCompat.getInstance()
     }
 
@@ -148,6 +149,9 @@ interface SetContent {
      * @return [content] converted to a [Spanned] string.
      */
     fun parseToSpanned(context: Context, content: CharSequence, removeQuoteInline: Boolean, tagHandler: PachliTagHandler? = null): Spanned
+
+    /** Sets the content of [textView] to [text]. */
+    fun setText(textView: TextView, text: Spannable)
 }
 
 /**
@@ -165,6 +169,10 @@ object SetContentAsMastodonHtml : SetContent {
         } else {
             content.parseAsMastodonHtml(tagHandler = tagHandler ?: MastodonTagHandler(context))
         }
+    }
+
+    override fun setText(textView: TextView, text: Spannable) {
+        textView.text = text
     }
 }
 
@@ -206,6 +214,10 @@ class SetContentAsMarkdown(context: Context) : SetContent {
 
     override fun parseToSpanned(context: Context, content: CharSequence, removeQuoteInline: Boolean, tagHandler: PachliTagHandler?): Spanned {
         return markwon.toMarkdown(if (removeQuoteInline) content.removeQuoteInline() else content.toString())
+    }
+
+    override fun setText(textView: TextView, text: Spannable) {
+        markwon.setParsedMarkdown(textView, text)
     }
 }
 
