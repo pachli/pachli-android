@@ -26,12 +26,12 @@ import com.squareup.moshi.JsonClass
 data class Hashtag(
     val name: String,
     val url: String,
-    val history: List<HashTagHistory> = emptyList(),
+    val history: List<HashtagHistory> = emptyList(),
     val following: Boolean? = null,
 )
 
 @JsonClass(generateAdapter = true)
-data class HashTagHistory(
+data class HashtagHistory(
     val day: String,
     val accounts: Int,
     val uses: Int,

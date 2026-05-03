@@ -29,7 +29,7 @@ data class HashTagHistory(
     val accounts: Int,
     val uses: Int,
 ) {
-    fun asModel() = app.pachli.core.model.HashTagHistory(
+    fun asModel() = app.pachli.core.model.HashtagHistory(
         day = day,
         accounts = accounts,
         uses = uses,
