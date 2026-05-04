@@ -29,9 +29,9 @@ import kotlinx.parcelize.Parcelize
  * emoji enclosed in `:`.
  * @property url URL of the image to show as the emoji.
  * @property staticUrl As [url], but does not animate.
- * @param visibleInPicker True if the emoji should be visible to user when
+ * @property visibleInPicker True if the emoji should be visible to user when
  * picking emojis.
- * @param category Arbitrary category the emoji is a member of. Not localised.
+ * @property category Arbitrary category the emoji is a member of. Not localised.
  */
 @Parcelize
 @JsonClass(generateAdapter = true)

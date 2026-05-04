@@ -158,7 +158,7 @@ sealed interface MediaUploaderError : PachliError {
     /**
      * An error occurred updating media that has already been uploaded.
      *
-     * @param serverId Server's ID for the media
+     * @property serverId Server's ID for the media
      */
     data class UpdateMediaError(val serverId: String, val error: ApiError) : MediaUploaderError, PachliError by error
 

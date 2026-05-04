@@ -200,9 +200,9 @@ sealed interface FallibleStatusAction : FallibleUiAction, StatusAction {
     /**
      * Vote in a poll.
      *
-     * @param poll Poll the user is voting in.
-     * @param choices Indices of the choices the user is voting for.
-     * @param statusViewData
+     * @property poll Poll the user is voting in.
+     * @property choices Indices of the choices the user is voting for.
+     * @property statusViewData
      */
     data class VoteInPoll(
         val poll: Poll,

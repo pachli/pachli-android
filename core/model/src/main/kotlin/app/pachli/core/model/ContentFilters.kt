@@ -34,12 +34,12 @@ enum class ContentFilterVersion {
  * This is a *content* filter, to distinguish it from filters that operate on
  * accounts, domains, or other data.
  *
- * @param id The server's ID for this filter
- * @param title Filter's title (label to use in the UI)
- * @param contexts One or more [FilterContext] the filter is applied to
- * @param expiresAt Date the filter expires, null if the filter does not expire
- * @param filterAction Action to take if the filter matches a status
- * @param keywords One or more [FilterKeyword] the filter matches against a status
+ * @property id The server's ID for this filter
+ * @property title Filter's title (label to use in the UI)
+ * @property contexts One or more [FilterContext] the filter is applied to
+ * @property expiresAt Date the filter expires, null if the filter does not expire
+ * @property filterAction Action to take if the filter matches a status
+ * @property keywords One or more [FilterKeyword] the filter matches against a status
  */
 // The @JsonClass annotations are used when this is serialized to the database.
 @Parcelize

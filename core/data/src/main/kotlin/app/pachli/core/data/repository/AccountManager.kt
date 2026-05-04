@@ -88,7 +88,7 @@ sealed interface SetActiveAccountError : PachliError {
      * The requested account could not be found in the local database. Should
      * never happen.
      *
-     * @param accountId ID of the account that could not be found.
+     * @property accountId ID of the account that could not be found.
      */
     data class AccountDoesNotExist(
         val accountId: Long,
@@ -101,7 +101,7 @@ sealed interface SetActiveAccountError : PachliError {
     /**
      * An API error occurred while logging in.
      *
-     * @param wantedAccount The account entity that could not be made active.
+     * @property wantedAccount The account entity that could not be made active.
      */
     data class Api(
         val wantedAccount: AccountEntity,
@@ -111,7 +111,7 @@ sealed interface SetActiveAccountError : PachliError {
     /**
      * A DAO exception occurred while logging in.
      *
-     * @param wantedAccount The account entity that could not be made active
+     * @property wantedAccount The account entity that could not be made active
      * (if known)
      */
     data class Dao(
@@ -126,8 +126,8 @@ sealed interface SetActiveAccountError : PachliError {
     /**
      * Catch-all for unexpected exceptions when logging in.
      *
-     * @param wantedAccount The account entity that could not be made active.
-     * @param throwable Throwable that caused the error
+     * @property wantedAccount The account entity that could not be made active.
+     * @property throwable Throwable that caused the error
      */
     data class Unexpected(
         val wantedAccount: AccountEntity,

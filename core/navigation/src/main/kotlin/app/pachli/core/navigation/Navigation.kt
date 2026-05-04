@@ -632,9 +632,9 @@ class MainActivityIntent(
         /**
          * Started by tapping on a notification body.
          *
-         * @param notificationId Notification's ID
-         * @param notificationTag Notification's tag (Mastodon notification ID)
-         * @param notificationType Notification's type
+         * @property notificationId Notification's ID
+         * @property notificationTag Notification's tag (Mastodon notification ID)
+         * @property notificationType Notification's type
          */
         @Parcelize
         data class Notification(

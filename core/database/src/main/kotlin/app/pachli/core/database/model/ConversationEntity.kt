@@ -95,12 +95,12 @@ data class ConversationAccountFilterDecisionUpdate(
 /**
  * Represents a [Conversation].
  *
- * @param pachliAccountId
- * @param id Conversation ID.
- * @param accounts List of [ConversationAccount] in the conversation.
- * @param unread True if the conversation is currently marked unread.
- * @param lastStatusServerId Server ID of the most recent status in the conversation.
- * @param isConversationStarter True if the status in [lastStatusServerId] is part
+ * @property pachliAccountId
+ * @property id Conversation ID.
+ * @property accounts List of [ConversationAccount] in the conversation.
+ * @property unread True if the conversation is currently marked unread.
+ * @property lastStatusServerId Server ID of the most recent status in the conversation.
+ * @property isConversationStarter True if the status in [lastStatusServerId] is part
  * of the chain of statuses that started the conversation.
  */
 @Entity(

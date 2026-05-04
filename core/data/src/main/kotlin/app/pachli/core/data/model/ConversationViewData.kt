@@ -31,14 +31,14 @@ import app.pachli.core.model.Timeline
  * Each conversation wraps the [StatusViewData] for the last status in the
  * conversation for display.
  *
- * @param pachliAccountId
- * @param localDomain The domain associated with [pachliAccountId].
- * @param conversationId Server ID of this conversation.
- * @param accounts Accounts participating in this conversation.
- * @param unread True if this conversation is marked unread.
- * @param lastStatus The most recent [StatusViewData] in this conversation.
- * @param accountFilterDecision The account filter decision for this conversation.
- * @param isConversationStarter True if [lastStatus] is starting the conversation.
+ * @property pachliAccountId
+ * @property localDomain The domain associated with [pachliAccountId].
+ * @property conversationId Server ID of this conversation.
+ * @property accounts Accounts participating in this conversation.
+ * @property unread True if this conversation is marked unread.
+ * @property lastStatus The most recent [StatusViewData] in this conversation.
+ * @property accountFilterDecision The account filter decision for this conversation.
+ * @property isConversationStarter True if [lastStatus] is starting the conversation.
  */
 data class ConversationViewData(
     override val pachliAccountId: Long,

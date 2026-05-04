@@ -182,18 +182,18 @@ fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
  * An account associated with a status on a timeline or similar (e.g., an
  * account the user is following).
  *
- * @param serverId
- * @param timelineUserId The pachliAccountId for the logged-in account related
+ * @property serverId
+ * @property timelineUserId The pachliAccountId for the logged-in account related
  * to this account.
- * @param localUsername
- * @param username
- * @param displayName
- * @param url
- * @param avatar
- * @param emojis
- * @param bot
- * @param createdAt
- * @param note
+ * @property localUsername
+ * @property username
+ * @property displayName
+ * @property url
+ * @property avatar
+ * @property emojis
+ * @property bot
+ * @property createdAt
+ * @property note
  */
 @Entity(
     primaryKeys = ["serverId", "timelineUserId"],

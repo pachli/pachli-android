@@ -98,8 +98,8 @@ sealed interface Error : PachliError {
  * describes the format used for this file, and 1-N containers for exported
  * data in the v1..N schema. Not all containers may be populated.
  *
- * @param version Version identifier for the schema in use.
- * @param v1 Container for preferences exported if [version] == 1.
+ * @property version Version identifier for the schema in use.
+ * @property v1 Container for preferences exported if [version] == 1.
  */
 @JsonClass(generateAdapter = true)
 internal data class ExportedPreferences(

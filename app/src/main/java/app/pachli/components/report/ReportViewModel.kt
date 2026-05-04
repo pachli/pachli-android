@@ -65,7 +65,7 @@ sealed interface AccountType {
     /**
      * Account is on a different server to the user.
      *
-     * @param server The name of the user's server (everything after the
+     * @property server The name of the user's server (everything after the
      * '@' in their username).
      */
     data class Remote(val server: String) : AccountType

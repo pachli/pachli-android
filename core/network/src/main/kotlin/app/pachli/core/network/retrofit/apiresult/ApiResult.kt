@@ -40,9 +40,9 @@ typealias ApiResult<T> = Result<ApiResponse<T>, ApiError>
 /**
  * A successful response from an API call.
  *
- * @param headers HTTP headers from the response
- * @param body Response body, converted to [T]
- * @param code HTTP response code (200, etc)
+ * @property headers HTTP headers from the response
+ * @property body Response body, converted to [T]
+ * @property code HTTP response code (200, etc)
  */
 data class ApiResponse<out T>(
     val headers: Headers,

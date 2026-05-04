@@ -148,8 +148,8 @@ sealed interface SearchOperator {
             /**
              * The date range to search.
              *
-             * @param startDate Earliest date to search (inclusive)
-             * @param endDate Latest date to search (inclusive)
+             * @property startDate Earliest date to search (inclusive)
+             * @property endDate Latest date to search (inclusive)
              */
             data class DateRange(val startDate: LocalDate, val endDate: LocalDate) : DateChoice {
                 // This class treats the date range as **inclusive** of the start and
@@ -183,7 +183,7 @@ sealed interface SearchOperator {
             /**
              * `from:<account>` or `-from:<account>` if [ignore] is true.
              *
-             * @param account The account name. Any leading `@` will be removed.
+             * @property account The account name. Any leading `@` will be removed.
              */
             data class FromAccount(val account: String, override val ignore: Boolean) : FromKind {
                 override val q: String
@@ -212,7 +212,7 @@ sealed interface SearchOperator {
     /**
      * The `language:...` operator.
      *
-     * @param choice Restrict results to posts written in [Locale.modernLanguageCode].
+     * @property choice Restrict results to posts written in [Locale.modernLanguageCode].
      */
     class LanguageOperator(override val choice: Locale? = null) : SearchOperator {
         override fun query() = choice?.let { "language:${it.modernLanguageCode}" }

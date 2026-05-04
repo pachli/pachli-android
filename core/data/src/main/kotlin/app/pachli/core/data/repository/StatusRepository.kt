@@ -30,7 +30,7 @@ import com.github.michaelbull.result.Result
 /**
  * Errors that can occur acting on a status.
  *
- * @param error The underlying error.
+ * @property error The underlying error.
  */
 sealed class StatusActionError(open val error: ApiError) : PachliError by error {
     /** Bookmarking a status failed. */
