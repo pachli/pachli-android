@@ -20,7 +20,6 @@ package app.pachli.components.notifications
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.core.text.htmlEncode
-import androidx.core.util.TypedValueCompat.dpToPx
 import app.pachli.R
 import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.adapter.StatusViewHolder
@@ -56,9 +55,6 @@ internal class StatusNotificationViewHolder(
     setContent: SetContent,
     private val notificationActionListener: NotificationActionListener,
 ) : NotificationsPagingAdapter.ViewHolder<WithStatus>, StatusViewHolder<WithStatus>(binding, glide, setContent) {
-    private val compoundDrawablePadding = dpToPx(10f, context.resources.displayMetrics).toInt()
-    private val relativePadding = dpToPx(28f, context.resources.displayMetrics).toInt()
-
     override fun bind(
         viewData: WithStatus,
         payloads: List<List<Any?>>?,
@@ -108,9 +104,8 @@ internal class StatusNotificationViewHolder(
             is WithStatus.PollNotificationViewData -> if (viewData.isAboutSelf) context.getString(R.string.poll_ended_created) else context.getString(R.string.poll_ended_voted)
         }
 
-        statusInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(viewData.icon(context), null, null, null)
-        statusInfo.compoundDrawablePadding = compoundDrawablePadding
-        statusInfo.setPaddingRelative(relativePadding, 0, 0, 0)
+        val drawable = viewData.icon(context)
+        setStatusInfoDrawable(drawable, statusInfo)
 
         val wholeMessage = HtmlCompat.fromHtml(msg, HtmlCompat.FROM_HTML_MODE_LEGACY)
         val emojifiedText = wholeMessage.emojify(

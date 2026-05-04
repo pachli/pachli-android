@@ -16,11 +16,16 @@
 
 package app.pachli.adapter
 
+import android.graphics.Rect
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.TextView
+import androidx.annotation.DrawableRes
+import androidx.annotation.Px
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.text.HtmlCompat
 import androidx.core.text.htmlEncode
-import app.pachli.R
+import androidx.core.util.TypedValueCompat.dpToPx
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.string.unicodeWrap
@@ -33,6 +38,7 @@ import app.pachli.core.ui.StatusActionListener
 import app.pachli.core.ui.emojify
 import app.pachli.databinding.ItemStatusBinding
 import com.bumptech.glide.RequestManager
+import kotlin.math.roundToInt
 
 open class StatusViewHolder<T : IStatusViewData>(
     private val binding: ItemStatusBinding,
@@ -40,6 +46,24 @@ open class StatusViewHolder<T : IStatusViewData>(
     setContent: SetContent,
     root: View? = null,
 ) : StatusBaseViewHolder<T>(root ?: binding.root, glide, setContent) {
+
+    /**
+     * The start padding (pixels) necessary to align the start of text in
+     * statusInfo with the start of text in statusDisplayName.
+     *
+     * See [setStatusInfoDrawableRes].
+     */
+    @Px
+    private val defaultStatusInfoPaddingStart: Int = dpToPx(56f, binding.root.context.resources.displayMetrics).roundToInt()
+
+    /**
+     * The bounds (pixels) for the drawable to show in the "start" slot of
+     * statusInfo.
+     */
+    private val statusInfoStartCompoundDrawableBounds = run {
+        val size = (binding.statusInfo.lineHeight * 1.29).roundToInt()
+        Rect(0, 0, size, size)
+    }
 
     override fun setupWithStatus(
         viewData: T,
@@ -132,7 +156,7 @@ open class StatusViewHolder<T : IStatusViewData>(
             else -> context.getString(app.pachli.core.ui.R.string.post_replied)
         }
 
-        statusInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(app.pachli.core.ui.R.drawable.ic_reply_18dp, 0, 0, 0)
+        setStatusInfoDrawableRes(app.pachli.core.ui.R.drawable.ic_reply_18dp, statusInfo)
         statusInfo.isClickable = false
         statusInfo.show()
     }
@@ -164,9 +188,39 @@ open class StatusViewHolder<T : IStatusViewData>(
             statusDisplayOptions.animateEmojis,
         )
 
-        statusInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_reblog_18dp, 0, 0, 0)
+        setStatusInfoDrawableRes(app.pachli.core.ui.R.drawable.ic_reblog_24dp, statusInfo)
         statusInfo.setOnClickListener { listener.onOpenReblog(viewData.status) }
         statusInfo.show()
+    }
+
+    protected fun setStatusInfoDrawable(drawable: Drawable?, textView: TextView) {
+        drawable?.apply {
+            bounds = statusInfoStartCompoundDrawableBounds
+        }
+        textView.setPaddingRelative(
+            defaultStatusInfoPaddingStart - statusInfoStartCompoundDrawableBounds.width(),
+            textView.paddingTop,
+            textView.paddingEnd,
+            textView.paddingBottom,
+        )
+        textView.setCompoundDrawablesRelative(drawable, null, null, null)
+    }
+
+    /**
+     * Sets [drawableRes] as the "start" drawable in the statusInfo [textView], and
+     * adjusts the textView's start padding as necessary.*
+     */
+    private fun setStatusInfoDrawableRes(@DrawableRes drawableRes: Int, textView: TextView) {
+        setStatusInfoDrawable(getStatusInfoDrawable(drawableRes, textView), textView)
+    }
+
+    /**
+     * Gets [drawableRes], scaled to 129% the line height of [textView].
+     */
+    private fun getStatusInfoDrawable(@DrawableRes drawableRes: Int, textView: TextView): Drawable? {
+        return AppCompatResources.getDrawable(textView.context, drawableRes)?.apply {
+            bounds = statusInfoStartCompoundDrawableBounds
+        }
     }
 
     protected fun hideStatusInfo() = with(binding) {
