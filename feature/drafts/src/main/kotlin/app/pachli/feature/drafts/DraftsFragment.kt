@@ -122,7 +122,6 @@ class DraftsFragment :
 
         override fun onDestroyActionMode(actionMode: ActionMode) {
             selectDraftsActionMode = null
-            viewModel.clearChecked()
         }
     }
 

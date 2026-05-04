@@ -125,7 +125,6 @@ class ScheduledStatusFragment :
 
         override fun onDestroyActionMode(actionMode: ActionMode) {
             selectScheduledStatusActionMode = null
-            viewModel.clearChecked()
         }
     }
 
