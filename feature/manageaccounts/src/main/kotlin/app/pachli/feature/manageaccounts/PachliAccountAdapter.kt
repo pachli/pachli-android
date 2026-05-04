@@ -265,6 +265,9 @@ internal class PachliAccountViewHolder(
     private fun bindAnimateEmojis(account: PachliAccount, animateEmojis: Boolean) = with(binding) {
         displayName.text = account.entity.displayName.unicodeWrap().emojify(
             glide,
+            // Use the server's emojis here, not the account's, as the account's
+            // emojis might have changed (e.g., the user edited their display
+            // name to use a new emoji and the account has not been refreshed).
             account.emojis,
             displayName,
             animateEmojis,

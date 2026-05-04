@@ -35,7 +35,8 @@ import io.github.z4kn4fein.semver.Version
  * @param entity [AccountEntity] from the local database.
  * @param instanceInfo Details about the account's server's instance info.
  * @param lists Account's lists.
- * @param emojis Account's emojis.
+ * @property emojis Server's emojis. Use [entity.emojis][AccountEntity.emojis]
+ * for the account's specific emojis.
  * @param server Details about the account's server.
  * @param contentFilters Account's content filters.
  * @param announcements Announcements from the account's server.
