@@ -18,14 +18,14 @@
 package app.pachli.core.ui
 
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.getAndUpdate
 
 class OperationCounter {
-    private val _count: MutableStateFlow<Int> = MutableStateFlow(0)
 
     /** Count of outstanding operations. */
-    val count = _count.asStateFlow()
+    val count: StateFlow<Int>
+        field = MutableStateFlow(0)
 
     /**
      * Runs [block] incrementing the operation count before [block]
@@ -43,9 +43,9 @@ class OperationCounter {
      * @return Whatever [block] returned
      */
     suspend operator fun <R> invoke(block: suspend () -> R): R {
-        _count.getAndUpdate { it + 1 }
+        count.getAndUpdate { it + 1 }
         val result = block.invoke()
-        _count.getAndUpdate { it - 1 }
+        count.getAndUpdate { it - 1 }
         return result
     }
 }
