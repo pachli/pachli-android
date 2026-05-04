@@ -224,7 +224,7 @@
     <string name="filter_dialog_update_button">Actualizar</string>
     <string name="filter_add_description">Frase para filtrar</string>
     <string name="edit_hashtag_hint">Etiqueta sin #</string>
-    <string name="notifications_clear">Limpiar</string>
+    <string name="notifications_clear">Eliminar notificaciones</string>
     <string name="notifications_apply_filter">Filtro</string>
     <string name="compose_shortcut_long_label">Escribir publicación</string>
     <string name="compose_shortcut_short_label">Redactar</string>
@@ -743,4 +743,7 @@
     <string name="ui_error_delete_scheduled_status_fmt">no se pudo eliminar la publicación programada para reemplazarla: %1$s</string>
     <string name="ui_error_sending_post_fmt">No se pudo enviar la publicación: %1$s</string>
     <string name="ui_error_saving_post_fmt">No se pudo guardar la publicación: %1$s</string>
+    <string name="title_delete_scheduled_statuses">¿Eliminar publicaciones programadas seleccionadas?</string>
+    <string name="delete_scheduled_statuses_msg">Esto borrará permanentemente las publicaciones programadas seleccionadas.</string>
+    <string name="action_delete_scheduled_statuses">Eliminar publicaciones seleccionadas</string>
 </resources>
