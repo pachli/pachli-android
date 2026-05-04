@@ -91,18 +91,13 @@ internal class DraftsViewModel @Inject constructor(
     /** @return The number of checked drafts. */
     fun countChecked() = checkedDrafts.value.size
 
-    /** Unchecks all drafts. */
-    fun clearChecked() {
-        checkedDrafts.value = emptySet()
-    }
-
     /** Deletes all checked drafts. */
     fun deleteCheckedDrafts() {
         viewModelScope.launch {
             checkedDrafts.value.forEach { draftId ->
                 draftsRepository.deleteDraftAndAttachments(draftId)
             }
-            checkedDrafts.update { emptySet() }
+            checkedDrafts.value = emptySet()
         }
     }
 

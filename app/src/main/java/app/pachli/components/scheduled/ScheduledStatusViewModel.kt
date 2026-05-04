@@ -167,19 +167,15 @@ internal class ScheduledStatusViewModel @Inject constructor(
     /** @return The number of checked scheduled statuses. */
     fun countChecked() = states.value.values.filter { it == State.CHECKED }.size
 
-    /** Unchecks all scheduled statuses. */
-    fun clearChecked() {
-        states.update {
-            it.filterValues { it != State.CHECKED }
-        }
-    }
-
     /** Deletes all checked scheduled statuses. */
     fun deleteCheckedScheduledStatuses() {
         viewModelScope.launch {
             states.value.filter { it.value == State.CHECKED }.keys.forEach { scheduledStatusId ->
                 mastodonApi.deleteScheduledStatus(scheduledStatusId)
-                    .onSuccess { pagingSourceFactory.remove(scheduledStatusId) }
+                    .onSuccess {
+                        pagingSourceFactory.remove(scheduledStatusId)
+                        states.update { it - scheduledStatusId }
+                    }
                     .onFailure { Timber.w("Error deleting scheduled status: %s", it) }
             }
         }
