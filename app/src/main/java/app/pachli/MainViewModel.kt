@@ -60,14 +60,14 @@ internal sealed interface InfallibleUiAction : UiAction {
 }
 
 /**
- * @param animateAvatars See [SharedPreferencesRepository.animateAvatars].
- * @param animateEmojis See [SharedPreferencesRepository.animateEmojis].
- * @param enableTabSwipe See [SharedPreferencesRepository.enableTabSwipe].
- * @param hideTopToolbar See [SharedPreferencesRepository.hideTopToolbar].
- * @param mainNavigationPosition See [SharedPreferencesRepository.mainNavigationPosition].
- * @param displaySelfUsername See [ShowSelfUsername].
- * @param accounts Unordered list of available accounts.
- * @param canSchedulePost True if the account can schedule posts
+ * @property animateAvatars See [SharedPreferencesRepository.animateAvatars].
+ * @property animateEmojis See [SharedPreferencesRepository.animateEmojis].
+ * @property enableTabSwipe See [SharedPreferencesRepository.enableTabSwipe].
+ * @property hideTopToolbar See [SharedPreferencesRepository.hideTopToolbar].
+ * @property mainNavigationPosition See [SharedPreferencesRepository.mainNavigationPosition].
+ * @property displaySelfUsername See [ShowSelfUsername].
+ * @property accounts Unordered list of available accounts.
+ * @property canSchedulePost True if the account can schedule posts
  */
 data class UiState(
     val animateAvatars: Boolean,

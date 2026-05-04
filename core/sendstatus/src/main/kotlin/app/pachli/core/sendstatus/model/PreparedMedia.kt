@@ -22,8 +22,8 @@ import android.net.Uri
 /**
  * Media that has been prepared for uploading.
  *
- * @param type file's general type (image, video, etc)
- * @param uri content URI for the prepared media file
- * @param size size of the media file, in bytes
+ * @property type file's general type (image, video, etc)
+ * @property uri content URI for the prepared media file
+ * @property size size of the media file, in bytes
  */
 data class PreparedMedia(val type: QueuedMedia.Type, val uri: Uri, val size: Long)

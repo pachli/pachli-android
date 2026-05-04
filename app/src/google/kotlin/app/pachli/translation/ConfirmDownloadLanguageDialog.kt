@@ -33,8 +33,8 @@ import kotlinx.parcelize.Parcelize
 /**
  * Displays a dialog for the user to confirm download a language model.
  *
- * @param language ISO code of the language to download.
- * @param displayLanguage Name of the language, in the user's locale.
+ * @property language ISO code of the language to download.
+ * @property displayLanguage Name of the language, in the user's locale.
  */
 @Immutable
 @Parcelize

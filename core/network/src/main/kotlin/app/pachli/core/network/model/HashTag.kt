@@ -3,7 +3,7 @@ package app.pachli.core.network.model
 import com.squareup.moshi.JsonClass
 
 /**
- * @param name Hashtag name, without the leading `#`.
+ * @property name Hashtag name, without the leading `#`.
  */
 @JsonClass(generateAdapter = true)
 data class HashTag(

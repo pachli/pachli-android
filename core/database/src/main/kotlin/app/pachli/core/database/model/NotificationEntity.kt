@@ -32,10 +32,10 @@ import java.time.Instant
  *
  * Collates data from the different notification tables into a single type.
  *
- * @param notification The notification.
- * @param account Account that sent the notification.
- * @param status (optional) Status associated with the notification.
- * @param viewData (optional) Local view data for the notification.
+ * @property notification The notification.
+ * @property account Account that sent the notification.
+ * @property status (optional) Status associated with the notification.
+ * @property viewData (optional) Local view data for the notification.
  */
 data class NotificationData(
     @Embedded val notification: NotificationEntity,
@@ -52,9 +52,9 @@ data class NotificationData(
 /**
  * Pachli-specific viewdata for the notification.
  *
- * @param pachliAccountId
- * @param serverId Notification's remote server ID.
- * @param accountFilterDecision The user's [AccountFilterDecision] for
+ * @property pachliAccountId
+ * @property serverId Notification's remote server ID.
+ * @property accountFilterDecision The user's [AccountFilterDecision] for
  * this notification (which may not match the inherent decision if they
  * have chosen to show the notification).
  */
@@ -91,12 +91,12 @@ data class NotificationAccountFilterDecisionUpdate(
 /**
  * Cached copy of a notification.
  *
- * @param pachliAccountId
- * @param serverId Server's ID for this notification.
- * @param type Notifications [NotificationEntity.Type].
- * @param createdAt When the notification was created.
- * @param accountServerId ID of the account that generated this notification.
- * @param statusServerId (optional) ID of the status this notification is about.
+ * @property pachliAccountId
+ * @property serverId Server's ID for this notification.
+ * @property type Notifications [NotificationEntity.Type].
+ * @property createdAt When the notification was created.
+ * @property accountServerId ID of the account that generated this notification.
+ * @property statusServerId (optional) ID of the status this notification is about.
  * Null if the notification is not about a particular status.
  */
 @Entity(
@@ -185,18 +185,18 @@ data class NotificationEntity(
 /**
  * Data about a report associated with a notification.
  *
- * @param pachliAccountId
- * @param serverId Server ID for the notification this relates to.
- * @param reportId Server ID for the report
- * @param actionTaken True if action has been taken about this report.
- * @param actionTakenAt When action was taken. Null if no action has been taken.
- * @param category The [Category][NotificationReportEntity.Category] for the report.
- * @param comment The reason for the report.
- * @param forwarded True if the report was forwarded to the remote domain.
- * @param createdAt When the report was created.
- * @param statusIds Optional list of status IDs referenced in the report. Null if no
+ * @property pachliAccountId
+ * @property serverId Server ID for the notification this relates to.
+ * @property reportId Server ID for the report
+ * @property actionTaken True if action has been taken about this report.
+ * @property actionTakenAt When action was taken. Null if no action has been taken.
+ * @property category The [Category][NotificationReportEntity.Category] for the report.
+ * @property comment The reason for the report.
+ * @property forwarded True if the report was forwarded to the remote domain.
+ * @property createdAt When the report was created.
+ * @property statusIds Optional list of status IDs referenced in the report. Null if no
  * statuses were listed.
- * @param ruleIds Optional list of server rule IDs referenced in the report. Null if
+ * @property ruleIds Optional list of server rule IDs referenced in the report. Null if
  * no rules were listed.
  */
 @Entity(
@@ -245,14 +245,14 @@ data class NotificationReportEntity(
 /**
  * Data about a relationship severance event.
  *
- * @param pachliAccountId
- * @param serverId Server ID for the notification this relates to.
- * @param eventId Server's ID for this severance event.
- * @param type The event's [Type][NotificationRelationshipSeveranceEventEntity.Type].
- * @param purged True if the list of severed relationships is unavailable.
- * @param followersCount How many follower relationships are broken due to this event.
- * @param followingCount How many following relationships are broken due to this event.
- * @param createdAt When the relationships were severed.
+ * @property pachliAccountId
+ * @property serverId Server ID for the notification this relates to.
+ * @property eventId Server's ID for this severance event.
+ * @property type The event's [Type][NotificationRelationshipSeveranceEventEntity.Type].
+ * @property purged True if the list of severed relationships is unavailable.
+ * @property followersCount How many follower relationships are broken due to this event.
+ * @property followingCount How many following relationships are broken due to this event.
+ * @property createdAt When the relationships were severed.
  */
 @Entity(
     primaryKeys = ["pachliAccountId", "serverId", "eventId"],

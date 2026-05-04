@@ -24,8 +24,8 @@ import app.pachli.core.model.TimelineAccount
 /**
  * An account the user is following.
  *
- * @param pachliAccountId ID of the local account that is following this account.
- * @param serverId Server's identifier for the account. Unique within a single server,
+ * @property pachliAccountId ID of the local account that is following this account.
+ * @property serverId Server's identifier for the account. Unique within a single server,
  * but not unique across the federated network.
  */
 @Entity(

@@ -46,14 +46,14 @@ import kotlinx.coroutines.flow.map
 /**
  * Represents a collection of edits to make to an existing content filter.
  *
- * @param id ID of the content filter to be changed
- * @param title New title, null if the title should not be changed
- * @param contexts New contexts, null if the contexts should not be changed
- * @param expiresIn New expiresIn, -1 if the expiry time should not be changed
- * @param filterAction New action, null if the action should not be changed
- * @param keywordsToAdd One or more keywords to add to the content filter, null if none to add
- * @param keywordsToDelete One or more keywords to delete from the content filter, null if none to delete
- * @param keywordsToModify One or more keywords to modify in the content filter, null if none to modify
+ * @property id ID of the content filter to be changed
+ * @property title New title, null if the title should not be changed
+ * @property contexts New contexts, null if the contexts should not be changed
+ * @property expiresIn New expiresIn, -1 if the expiry time should not be changed
+ * @property filterAction New action, null if the action should not be changed
+ * @property keywordsToAdd One or more keywords to add to the content filter, null if none to add
+ * @property keywordsToDelete One or more keywords to delete from the content filter, null if none to delete
+ * @property keywordsToModify One or more keywords to modify in the content filter, null if none to modify
  */
 data class ContentFilterEdit(
     val id: String,

@@ -108,9 +108,9 @@ data class ModelStats(val sizeOnDisk: Long) {
 /**
  * View data for a translation model.
  *
- * @param remoteModel MlKit's [TranslateRemoteModel] for this model.
- * @param translationModelDownloadState The model's download state.
- * @param locale The locale corresponding to the model's language.
+ * @property remoteModel MlKit's [TranslateRemoteModel] for this model.
+ * @property translationModelDownloadState The model's download state.
+ * @property locale The locale corresponding to the model's language.
  */
 @Immutable
 data class TranslationModelViewData(

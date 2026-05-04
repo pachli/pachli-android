@@ -34,11 +34,11 @@ import app.pachli.feature.drafts.DraftsFragment
  * Wrap a [Timeline] with additional information to display a tab with that
  * timeline.
  *
- * @param timeline wrapped [Timeline]
- * @param text text to use for this tab when displayed in lists
- * @param icon icon to use when displaying the tab
- * @param fragment [Fragment] to display the tab's contents
- * @param title title to display in the action bar if this tab is active
+ * @property timeline wrapped [Timeline]
+ * @property text text to use for this tab when displayed in lists
+ * @property icon icon to use when displaying the tab
+ * @property fragment [Fragment] to display the tab's contents
+ * @property title title to display in the action bar if this tab is active
  */
 data class TabViewData(
     val timeline: Timeline,

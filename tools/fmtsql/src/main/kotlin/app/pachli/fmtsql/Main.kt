@@ -47,7 +47,7 @@ import kotlinx.coroutines.withContext
 /**
  * Lint result from sqlfluff for a single file.
  *
- * @param violations Individual lint violations.
+ * @property violations Individual lint violations.
  */
 @JsonClass(generateAdapter = true)
 data class SqlFluffLintResult(
@@ -57,10 +57,10 @@ data class SqlFluffLintResult(
 /**
  * Individual sqlfluff lint violation.
  *
- * @param code The violated rule.
- * @param description End-user description of the rule.
- * @param name Internal name of the rule.
- * @param fixes List of fixes that can be applied. Empty if no fixes are possible.
+ * @property code The violated rule.
+ * @property description End-user description of the rule.
+ * @property name Internal name of the rule.
+ * @property fixes List of fixes that can be applied. Empty if no fixes are possible.
  */
 @JsonClass(generateAdapter = true)
 data class SqlFluffViolation(

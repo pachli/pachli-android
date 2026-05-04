@@ -28,14 +28,14 @@ import com.github.michaelbull.result.mapBoth
 /**
  * Media queued for upload.
  *
- * @param account
- * @param localId Pachli identifier for this media, while it's queued.
- * @param uri Local URI for this media on device.
- * @param type Media's [Type].
- * @param mediaSize Media size in bytes, or [app.pachli.core.common.util.MEDIA_SIZE_UNKNOWN]. See [app.pachli.core.common.util.getMediaSize].
- * @param description
- * @param focus
- * @param uploadState
+ * @property account
+ * @property localId Pachli identifier for this media, while it's queued.
+ * @property uri Local URI for this media on device.
+ * @property type Media's [Type].
+ * @property mediaSize Media size in bytes, or [app.pachli.core.common.util.MEDIA_SIZE_UNKNOWN]. See [app.pachli.core.common.util.getMediaSize].
+ * @property description
+ * @property focus
+ * @property uploadState
  */
 data class QueuedMedia(
     val account: AccountEntity,

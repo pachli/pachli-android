@@ -36,8 +36,8 @@ class Rfc3339DateTest(private val testData: TestData) {
     /**
      * Data for each test.
      *
-     * @param name Test name.
-     * @param json JSON string as input for the test.
+     * @property name Test name.
+     * @property json JSON string as input for the test.
      */
     data class TestData(val name: String, val json: String)
 

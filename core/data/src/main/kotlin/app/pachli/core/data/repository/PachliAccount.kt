@@ -31,15 +31,16 @@ import io.github.z4kn4fein.semver.Version
 /**
  * A single Pachli account with all the information associated with it.
  *
- * @param id Account's unique local database ID.
- * @param entity [AccountEntity] from the local database.
- * @param instanceInfo Details about the account's server's instance info.
- * @param lists Account's lists.
- * @param emojis Account's emojis.
- * @param server Details about the account's server.
- * @param contentFilters Account's content filters.
- * @param announcements Announcements from the account's server.
- * @param following Accounts this account is following.
+ * @property id Account's unique local database ID.
+ * @property entity [AccountEntity] from the local database.
+ * @property instanceInfo Details about the account's server's instance info.
+ * @property lists Account's lists.
+ * @property emojis Server's emojis. Use [entity.emojis][AccountEntity.emojis]
+ * for the account's specific emojis.
+ * @property server Details about the account's server.
+ * @property contentFilters Account's content filters.
+ * @property announcements Announcements from the account's server.
+ * @property following Accounts this account is following.
  */
 // TODO: Still not sure if it's better to have one class that contains everything,
 // or provide dedicated functions that return specific flows for the different

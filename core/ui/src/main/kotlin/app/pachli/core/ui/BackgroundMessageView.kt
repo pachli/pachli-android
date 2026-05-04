@@ -54,7 +54,7 @@ sealed interface BackgroundMessage {
      * Generic "Nothing here" message and image, for use when a collection has
      * no items.
      *
-     * @param stringRes Alternative string resource to use as the message
+     * @property stringRes Alternative string resource to use as the message
      */
     data class Empty(override val stringRes: Int = R.string.message_empty) : BackgroundMessage {
         override val drawableRes: Int = R.drawable.elephant_friend_empty
@@ -63,7 +63,7 @@ sealed interface BackgroundMessage {
     /**
      * Generic "An error occurred" message and image
      *
-     * @param stringRes Alternative string resource to use as the message
+     * @property stringRes Alternative string resource to use as the message
      */
     data class GenericError(override val stringRes: Int = R.string.error_generic) : BackgroundMessage {
         override val drawableRes: Int = R.drawable.errorphant_error
@@ -72,7 +72,7 @@ sealed interface BackgroundMessage {
     /**
      * Generic "A network error occurred" message and image
      *
-     * @param stringRes Alternative string resource to use as the message
+     * @property stringRes Alternative string resource to use as the message
      */
     data class Network(override val stringRes: Int = R.string.error_network) : BackgroundMessage {
         override val drawableRes: Int = R.drawable.errorphant_offline
