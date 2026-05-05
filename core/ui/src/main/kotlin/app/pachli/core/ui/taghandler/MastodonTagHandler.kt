@@ -18,8 +18,12 @@
 package app.pachli.core.ui.taghandler
 
 import android.content.Context
+import android.graphics.Color
 import android.text.Editable
 import android.text.style.TypefaceSpan
+import android.widget.TextView
+import androidx.annotation.ColorInt
+import androidx.annotation.Px
 import app.pachli.core.network.PachliTagHandler
 import app.pachli.core.ui.taghandler.LeadingMarginWithTextSpan.Alignment
 import app.pachli.core.ui.taghandler.Mark.BlockQuote
@@ -27,7 +31,9 @@ import app.pachli.core.ui.taghandler.Mark.Code
 import app.pachli.core.ui.taghandler.Mark.OrderedListItem
 import app.pachli.core.ui.taghandler.Mark.Pre
 import app.pachli.core.ui.taghandler.Mark.UnorderedListItem
+import com.google.android.material.color.MaterialColors
 import java.util.Stack
+import kotlin.math.roundToInt
 import org.xml.sax.XMLReader
 
 /**
@@ -57,14 +63,18 @@ private val rxPre = """(?is)<pre>(.*?)</pre>""".toRegex()
  * - `pre` (not supported by HtmlCompat).
  * - `ol / li` (not supported by HtmlCompat, rewritten to `pachli-ol`).
  * - `ul / li` (supported by HtmlCompat, but badly, rewritten to `pachli-ul`).
+ *
+ * @param textView The [TextView] the content will be displayed in.
  */
-class MastodonTagHandler(context: Context) : PachliTagHandler {
+class MastodonTagHandler(textView: TextView) : PachliTagHandler {
     /** Stack of currently open `ol` and `ul` lists. */
     private val lists = Stack<ListElementHandler>()
 
-    private val codeHandler = CodeHandler(context)
-    private val blockQuoteHandler = BlockQuoteHandler(context)
+    private val codeHandler = CodeHandler(textView.context)
+    private val blockQuoteHandler = BlockQuoteHandler(textView)
     private val preHandler = PreHandler()
+    private val orderedListElementHandler = OrderedListElementHandler(textView)
+    private val unorderedListElementHandler = UnorderedListElementHandler(textView)
 
     override fun rewriteHtml(html: CharSequence): String {
         // Work around an Android bug. If a custom tag handler exists, and the
@@ -140,13 +150,13 @@ class MastodonTagHandler(context: Context) : PachliTagHandler {
             }
 
             "pachli-ul" -> if (opening) {
-                lists.push(UnorderedListElementHandler())
+                lists.push(unorderedListElementHandler)
             } else {
                 if (lists.isNotEmpty()) lists.pop().endElement(output)
             }
 
             "pachli-ol" -> if (opening) {
-                lists.push(OrderedListElementHandler())
+                lists.push(orderedListElementHandler)
             } else {
                 if (lists.isNotEmpty()) lists.pop().endElement(output)
             }
@@ -203,8 +213,23 @@ private interface ListElementHandler : ElementHandler {
  *
  * Marks the `<blockquote>` tag. `</blockquote>` inserts [BlockQuoteSpan]
  * between the start and end tags.
+ *
+ * @param textView [TextView] the content will be set in to.
  */
-private class BlockQuoteHandler(private val context: Context) : ElementHandler {
+private class BlockQuoteHandler(textView: TextView) : ElementHandler {
+    @Px
+    private val marginWidth = textView.lineHeight / 2
+
+    @Px
+    private val stripeWidth = marginWidth / 3
+
+    @ColorInt
+    private val stripeColour = MaterialColors.getColor(
+        textView.context,
+        androidx.appcompat.R.attr.colorPrimary,
+        Color.WHITE,
+    )
+
     override fun startElement(text: Editable) {
         text.ensureEndsWithNewline()
         text.appendMark(BlockQuote)
@@ -213,7 +238,7 @@ private class BlockQuoteHandler(private val context: Context) : ElementHandler {
     override fun endElement(text: Editable) {
         text.ensureEndsWithNewline()
         text.getLastSpanOrNull<BlockQuote>()?.let { mark ->
-            text.setSpansFromMark(mark, BlockQuoteSpan(context))
+            text.setSpansFromMark(mark, BlockQuoteSpan(marginWidth, stripeWidth, stripeColour))
         }
     }
 }
@@ -262,8 +287,13 @@ private class PreHandler : ElementHandler {
  *
  * Marks the `<li>` tag. `</li>` tags insert a [LeadingMarginWithTextSpan]
  * between the start and end tag with a bullet character in the margin.
+ *
+ * @param textView [TextView] the content will be set in to.
  */
-private class UnorderedListElementHandler : ListElementHandler {
+private class UnorderedListElementHandler(textView: TextView) : ListElementHandler {
+    @Px
+    private val marginWidth = textView.paint.measureText("99. ").roundToInt()
+
     override fun startListItem(text: Editable) {
         text.ensureEndsWithNewline()
         text.appendMark(UnorderedListItem)
@@ -275,7 +305,7 @@ private class UnorderedListElementHandler : ListElementHandler {
         text.getLastSpanOrNull<UnorderedListItem>()?.let { mark ->
             text.setSpansFromMark(
                 mark,
-                LeadingMarginWithTextSpan(indentation, Alignment.CENTER) { "•" },
+                LeadingMarginWithTextSpan(marginWidth, indentation, Alignment.CENTER) { "•" },
             )
         }
     }
@@ -292,8 +322,12 @@ private class UnorderedListElementHandler : ListElementHandler {
  * Marks the `<li>` tag. `</li>` tags insert a [LeadingMarginWithTextSpan]
  * between the start and end tag, with the 1-based numbered index of the
  * `li` element in the list.
+ *
+ * @param textView [TextView] the content will be set in to.
  */
-private class OrderedListElementHandler : ListElementHandler {
+private class OrderedListElementHandler(textView: TextView) : ListElementHandler {
+    private val marginWidth = textView.paint.measureText("99. ").roundToInt()
+
     /** Count of total `li` tags seen in this ordered list. */
     private var count = 1
 
@@ -308,7 +342,7 @@ private class OrderedListElementHandler : ListElementHandler {
         text.getLastSpanOrNull<OrderedListItem>()?.let { mark ->
             text.setSpansFromMark(
                 mark,
-                LeadingMarginWithTextSpan(indentation) {
+                LeadingMarginWithTextSpan(marginWidth, indentation) {
                     if (it > 0) {
                         "${mark.number}. "
                     } else {

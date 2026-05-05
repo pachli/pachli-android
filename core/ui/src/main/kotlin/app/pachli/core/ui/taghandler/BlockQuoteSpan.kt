@@ -17,37 +17,30 @@
 
 package app.pachli.core.ui.taghandler
 
-import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.text.Layout
 import android.text.style.LeadingMarginSpan
-import androidx.appcompat.R
-import com.google.android.material.color.MaterialColors
-import kotlin.math.roundToInt
+import androidx.annotation.ColorInt
+import androidx.annotation.Px
 
 /**
  * A [LeadingMarginSpan] that draws a vertical line in the leading margin of
  * the text, suitable for displaying an HTML `blockquote`.
  *
- * The margin is sized to the width of an "m" in the text's font.
- *
- * The stripe is set to one-third of the margin width, and drawn in
- * `colorPrimary`.
- *
  * [android.text.style.QuoteSpan] is not suitable for this as the basic
- * implementation does not allow you to set the colour or stripe width.
+ * implementation does not allow you to set the colour or stripe width,
+ * that's only possible in API 28+.
+ *
+ * @param marginWidth Width of the margin, in pixels.
+ * @param stripeWidth Width of the stripe, in pixels.
+ * @param stripeColour Colour to use for the stripe.
  */
-internal class BlockQuoteSpan(context: Context) : LeadingMarginSpan {
-    private var marginWidth = 0
-
-    private val stripeColour = MaterialColors.getColor(
-        context,
-        R.attr.colorPrimary,
-        Color.WHITE,
-    )
-
+internal class BlockQuoteSpan(
+    @Px private val marginWidth: Int,
+    @Px private val stripeWidth: Int,
+    @ColorInt private val stripeColour: Int,
+) : LeadingMarginSpan {
     override fun drawLeadingMargin(
         c: Canvas,
         p: Paint,
@@ -62,13 +55,11 @@ internal class BlockQuoteSpan(context: Context) : LeadingMarginSpan {
         first: Boolean,
         layout: Layout?,
     ) {
-        marginWidth = p.measureText("m").roundToInt()
-        val stripeWidth = (marginWidth / 3f)
         val style = p.style
         val color = p.color
         p.style = Paint.Style.FILL
         p.color = stripeColour
-        c.drawRect(x.toFloat(), top.toFloat(), x + dir * stripeWidth, bottom.toFloat(), p)
+        c.drawRect(x.toFloat(), top.toFloat(), (x + dir * stripeWidth).toFloat(), bottom.toFloat(), p)
         p.style = style
         p.color = color
     }

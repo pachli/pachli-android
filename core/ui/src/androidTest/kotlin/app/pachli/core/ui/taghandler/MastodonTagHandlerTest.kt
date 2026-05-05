@@ -22,6 +22,7 @@ import android.graphics.Typeface
 import android.text.Spanned
 import android.text.style.StyleSpan
 import android.text.style.TypefaceSpan
+import android.widget.TextView
 import androidx.core.text.getSpans
 import androidx.core.text.parseAsHtml
 import androidx.test.core.app.ApplicationProvider
@@ -42,7 +43,7 @@ class MastodonTagHandlerTest(private val testData: TestData) {
 
     private val context: Context = ApplicationProvider.getApplicationContext()
 
-    private val tagHandler = MastodonTagHandler(context)
+    private val tagHandler = MastodonTagHandler(TextView(context))
 
     data class TestData(val src: String, val want: String)
 

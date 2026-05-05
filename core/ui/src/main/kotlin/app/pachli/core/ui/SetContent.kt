@@ -98,7 +98,7 @@ interface SetContent {
         linkListener: LinkListener,
     ) {
         val spannableStringBuilder = SpannableStringBuilder().apply {
-            append(parseToSpanned(textView.context, content, removeQuoteInline, tagHandler))
+            append(parseToSpanned(textView, content, removeQuoteInline, tagHandler))
 
             getSpans(0, length, URLSpan::class.java).forEach {
                 convertUrlSpanToMoreSpecificType(it, linksToUnderline, this, mentions, hashtags, linkListener)
@@ -141,6 +141,7 @@ interface SetContent {
      * Implementations of [SetContent] should override this to perform the
      * actual parsing. Post-processing is handled in [invoke].
      *
+     * @param textView [TextView] to load the final content in to.
      * @param content The content to parse, expected to be HTML.
      * @param removeQuoteInline If true, remove any `p` elements with a `quote-inline`
      * class as part of parsing.
@@ -148,7 +149,7 @@ interface SetContent {
      *
      * @return [content] converted to a [Spanned] string.
      */
-    fun parseToSpanned(context: Context, content: CharSequence, removeQuoteInline: Boolean, tagHandler: PachliTagHandler? = null): Spanned
+    fun parseToSpanned(textView: TextView, content: CharSequence, removeQuoteInline: Boolean, tagHandler: PachliTagHandler? = null): Spanned
 
     /** Sets the content of [textView] to [text]. */
     fun setText(textView: TextView, text: Spannable)
@@ -159,15 +160,15 @@ interface SetContent {
  */
 object SetContentAsMastodonHtml : SetContent {
     override fun parseToSpanned(
-        context: Context,
+        textView: TextView,
         content: CharSequence,
         removeQuoteInline: Boolean,
         tagHandler: PachliTagHandler?,
     ): Spanned {
         return if (removeQuoteInline) {
-            content.removeQuoteInline().parseAsMastodonHtml(tagHandler = tagHandler ?: MastodonTagHandler(context))
+            content.removeQuoteInline().parseAsMastodonHtml(tagHandler = tagHandler ?: MastodonTagHandler(textView))
         } else {
-            content.parseAsMastodonHtml(tagHandler = tagHandler ?: MastodonTagHandler(context))
+            content.parseAsMastodonHtml(tagHandler = tagHandler ?: MastodonTagHandler(textView))
         }
     }
 
@@ -212,7 +213,7 @@ class SetContentAsMarkdown(context: Context) : SetContent {
         .usePlugin(PachliMarkwonTheme(context))
         .build()
 
-    override fun parseToSpanned(context: Context, content: CharSequence, removeQuoteInline: Boolean, tagHandler: PachliTagHandler?): Spanned {
+    override fun parseToSpanned(textView: TextView, content: CharSequence, removeQuoteInline: Boolean, tagHandler: PachliTagHandler?): Spanned {
         return markwon.toMarkdown(if (removeQuoteInline) content.removeQuoteInline() else content.toString())
     }
 
