@@ -852,19 +852,15 @@ class ComposeViewModel @AssistedInject constructor(
             Draft.State.EDITING,
         )
 
-        val preferredVisibility = account.entity.defaultPostPrivacy
+        val draft = composeOptions.draft
 
-        val replyVisibility = composeOptions.replyVisibility ?: Status.Visibility.UNKNOWN
-        startingVisibility = Status.Visibility.getOrUnknown(
-            preferredVisibility.ordinal.coerceAtLeast(replyVisibility.ordinal),
-        )
+        startingVisibility = draft.visibility
 
         if (!contentWarningStateChanged) {
             _showContentWarning.value = contentWarning.isNotBlank()
         }
 
         // recreate media list
-        val draft = composeOptions.draft
         viewModelScope.launch {
             draft.attachments.forEach { attachment ->
                 pickMedia(attachment.uri, attachment.description, attachment.focus)
@@ -880,10 +876,6 @@ class ComposeViewModel @AssistedInject constructor(
             addUploadedMedia(account.entity, a.id, mediaType, a.url.toUri(), a.description, a.meta?.focus)
         }
 
-        val tootVisibility = draft.visibility
-        if (tootVisibility != Status.Visibility.UNKNOWN) {
-            startingVisibility = tootVisibility
-        }
         _statusVisibility.value = startingVisibility
         initialContent = draft.content.orEmpty()
 

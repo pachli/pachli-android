@@ -32,7 +32,6 @@ import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.Draft
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.Notification
-import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.TimelineActivityIntent.Companion.bookmarks
@@ -369,7 +368,6 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
     @Parcelize
     data class ComposeOptions(
         val draft: Draft,
-        val replyVisibility: Status.Visibility? = null,
         val referencingStatus: ReferencingStatus? = null,
         val mediaAttachments: List<Attachment>? = null,
         val modifiedInitialState: Boolean? = null,

@@ -270,7 +270,7 @@ fun Draft.Companion.createDraft(context: Context, pachliAccountEntity: AccountEn
  *
  * - [spoilerText][Status.spoilerText]
  * - [sensitive][Status.sensitive], falling back to the user's [defaultMediaSensitivity][AccountEntity.defaultMediaSensitivity]
- * - [visibility][Status.visibility]
+ * - [visibility][Status.visibility], or the user's default visibility if that is more private.
  * - [language][Status.language], falling back to the user's [defaultPostLanguage][AccountEntity.defaultPostLanguage]
  *
  * The initial content is set to @-mention all the accounts @-mentioned in
@@ -296,6 +296,8 @@ fun Draft.Companion.createDraftReply(pachliAccountEntity: AccountEntity, status:
         }
     }
 
+    val visibility = actionable.visibility.coerceAtLeast(pachliAccountEntity.defaultPostPrivacy)
+
     val draft = Draft(
         id = 0,
         contentWarning = actionable.spoilerText,
@@ -304,9 +306,9 @@ fun Draft.Companion.createDraftReply(pachliAccountEntity: AccountEntity, status:
         attachments = emptyList(),
         poll = null,
         failureMessage = null,
-        visibility = actionable.visibility,
+        visibility = visibility,
         language = actionable.language ?: pachliAccountEntity.defaultPostLanguage,
-        quotePolicy = pachliAccountEntity.defaultQuotePolicy.clampToVisibility(actionable.visibility),
+        quotePolicy = pachliAccountEntity.defaultQuotePolicy.clampToVisibility(visibility),
         scheduledAt = null,
         statusId = null,
         inReplyToId = actionable.statusId,
@@ -325,13 +327,15 @@ fun Draft.Companion.createDraftReply(pachliAccountEntity: AccountEntity, status:
  *
  * - [spoilerText][Status.spoilerText]
  * - [sensitive][Status.sensitive], falling back to the user's [defaultMediaSensitivity][AccountEntity.defaultMediaSensitivity]
- * - [visibility][Status.visibility]
+ * - [visibility][Status.visibility], or the user's default visibility if that is more private.
  * - [language][Status.language], falling back to the user's [defaultPostLanguage][AccountEntity.defaultPostLanguage]
  *
  * @param status Status to quote.
  */
 fun Draft.Companion.createDraftQuote(pachliAccountEntity: AccountEntity, status: Status): Draft {
     val actionable = status.actionableStatus
+
+    val visibility = actionable.visibility.coerceAtLeast(pachliAccountEntity.defaultPostPrivacy)
 
     val draft = Draft(
         id = 0,
@@ -341,9 +345,9 @@ fun Draft.Companion.createDraftQuote(pachliAccountEntity: AccountEntity, status:
         attachments = emptyList(),
         poll = null,
         failureMessage = null,
-        visibility = actionable.visibility,
+        visibility = visibility,
         language = actionable.language ?: pachliAccountEntity.defaultPostLanguage,
-        quotePolicy = pachliAccountEntity.defaultQuotePolicy.clampToVisibility(actionable.visibility),
+        quotePolicy = pachliAccountEntity.defaultQuotePolicy.clampToVisibility(visibility),
         scheduledAt = null,
         statusId = null,
         inReplyToId = null,
