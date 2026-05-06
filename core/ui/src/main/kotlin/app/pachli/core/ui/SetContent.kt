@@ -42,23 +42,32 @@ import com.google.android.material.color.MaterialColors
 import com.mohamedrejeb.ksoup.entities.KsoupEntities
 import io.noties.markwon.AbstractMarkwonPlugin
 import io.noties.markwon.Markwon
+import io.noties.markwon.MarkwonConfiguration
+import io.noties.markwon.MarkwonPlugin
+import io.noties.markwon.RenderProps
 import io.noties.markwon.SoftBreakAddsNewLinePlugin
 import io.noties.markwon.core.MarkwonTheme
+import io.noties.markwon.core.spans.CodeBlockSpan
+import io.noties.markwon.core.spans.CodeSpan
 import io.noties.markwon.ext.latex.JLatexMathPlugin
 import io.noties.markwon.ext.strikethrough.StrikethroughPlugin
 import io.noties.markwon.html.HtmlPlugin
+import io.noties.markwon.html.HtmlTag
+import io.noties.markwon.html.tag.SimpleTagHandler
 import io.noties.markwon.inlineparser.MarkwonInlineParserPlugin
 import io.noties.markwon.movement.MovementMethodPlugin
 import io.noties.markwon.syntax.Prism4jThemeDefault
 import io.noties.markwon.syntax.SyntaxHighlightPlugin
 import io.noties.prism4j.Prism4j
 import io.noties.prism4j.annotations.PrismBundle
+import java.util.Collections
+import kotlin.math.roundToInt
 
 /**
  * Interface for setting the content of a [TextView] to Mastodon HTML that
  * has been processed for display.
  *
- * @see [SetContent.invoke]
+ * @see [invoke]
  */
 interface SetContent {
     /**
@@ -194,6 +203,16 @@ class SetContentAsMarkdown(context: Context) : SetContent {
     private val markwon = Markwon.builder(context)
         .usePlugin(MovementMethodPlugin.create(LinkMovementMethodCompat.getInstance()))
         .usePlugin(HtmlPlugin.create())
+        .usePlugin(
+            object : AbstractMarkwonPlugin() {
+                override fun configure(registry: MarkwonPlugin.Registry) {
+                    registry.require(HtmlPlugin::class.java) { htmlPlugin ->
+                        htmlPlugin.addHandler(CodeTagHandler)
+                        htmlPlugin.addHandler(PreTagHandler)
+                    }
+                }
+            },
+        )
         .usePlugin(SoftBreakAddsNewLinePlugin.create())
         .usePlugin(MarkwonInlineParserPlugin.create())
         .usePlugin(
@@ -210,7 +229,7 @@ class SetContentAsMarkdown(context: Context) : SetContent {
         .usePlugin(StrikethroughPlugin.create())
         .usePlugin(PreProcessMastodonHtml)
         // Has to be at the end of the list, see https://github.com/noties/Markwon/issues/494
-        .usePlugin(PachliMarkwonTheme(context))
+        .usePlugin(PachliMarkwonTheme(context, textSize))
         .build()
 
     override fun parseToSpanned(textView: TextView, content: CharSequence, removeQuoteInline: Boolean, tagHandler: PachliTagHandler?): Spanned {
@@ -222,18 +241,41 @@ class SetContentAsMarkdown(context: Context) : SetContent {
     }
 }
 
+private object CodeTagHandler : SimpleTagHandler() {
+    override fun getSpans(configuration: MarkwonConfiguration, renderProps: RenderProps, tag: HtmlTag): Any {
+        return CodeSpan(configuration.theme())
+    }
+
+    override fun supportedTags(): Collection<String> = Collections.singleton("code")
+}
+
+private object PreTagHandler : SimpleTagHandler() {
+    override fun getSpans(configuration: MarkwonConfiguration, renderProps: RenderProps, tag: HtmlTag): Any {
+        return CodeBlockSpan(configuration.theme())
+    }
+
+    override fun supportedTags(): Collection<String> = Collections.singleton("pre")
+}
+
 /**
  * Markwon theme plugin to set foreground and background colours for code blocks
  * (inline and fenced) from the app theme, to ensure code blocks are still legible
  * in light and dark themes.
  */
-class PachliMarkwonTheme(private val context: Context) : AbstractMarkwonPlugin() {
+class PachliMarkwonTheme(private val context: Context, private val textSize: Float) : AbstractMarkwonPlugin() {
     override fun configureTheme(builder: MarkwonTheme.Builder) {
+        val blockQuoteStripeColor = MaterialColors.getColor(
+            context,
+            androidx.appcompat.R.attr.colorPrimary,
+            Color.BLACK,
+        )
+
         val codeBackgroundColor = MaterialColors.getColor(
             context,
             com.google.android.material.R.attr.colorSurfaceContainerLow,
             Color.WHITE,
         )
+
         val codeTextColor = MaterialColors.getColor(
             context,
             com.google.android.material.R.attr.colorOnSurfaceVariant,
@@ -241,6 +283,9 @@ class PachliMarkwonTheme(private val context: Context) : AbstractMarkwonPlugin()
         )
 
         builder
+            .blockMargin(textSize.roundToInt())
+            .blockQuoteColor(blockQuoteStripeColor)
+            .blockQuoteWidth((textSize / 4).roundToInt())
             .codeBackgroundColor(codeBackgroundColor)
             .codeTextColor(codeTextColor)
             .codeBlockBackgroundColor(codeBackgroundColor)
