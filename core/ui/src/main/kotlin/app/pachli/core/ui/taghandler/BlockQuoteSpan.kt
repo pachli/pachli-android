@@ -35,11 +35,14 @@ import androidx.annotation.Px
  * @param marginWidth Width of the margin, in pixels.
  * @param stripeWidth Width of the stripe, in pixels.
  * @param stripeColour Colour to use for the stripe.
+ * @param indentation Count of the number of open `blockquote` elements
+ * before this one.
  */
 internal class BlockQuoteSpan(
     @Px private val marginWidth: Int,
     @Px private val stripeWidth: Int,
     @ColorInt private val stripeColour: Int,
+    private val indentation: Int,
 ) : LeadingMarginSpan {
     override fun drawLeadingMargin(
         c: Canvas,
@@ -59,7 +62,18 @@ internal class BlockQuoteSpan(
         val color = p.color
         p.style = Paint.Style.FILL
         p.color = stripeColour
-        c.drawRect(x.toFloat(), top.toFloat(), (x + dir * stripeWidth).toFloat(), bottom.toFloat(), p)
+
+        // Draw N stripes in the margin, one for this quote, and one for
+        // every other open blockquote to here.
+        for (level in 0..indentation) {
+            val trueX = if (dir > 0) {
+                marginWidth * level
+            } else {
+                c.width - (marginWidth * level)
+            }
+            c.drawRect(trueX.toFloat(), top.toFloat(), (trueX + dir * stripeWidth).toFloat(), bottom.toFloat(), p)
+        }
+
         p.style = style
         p.color = color
     }

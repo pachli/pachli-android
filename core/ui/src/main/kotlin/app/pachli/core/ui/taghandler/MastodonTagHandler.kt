@@ -28,11 +28,10 @@ import app.pachli.core.network.PachliTagHandler
 import app.pachli.core.ui.taghandler.LeadingMarginWithTextSpan.Alignment
 import app.pachli.core.ui.taghandler.Mark.BlockQuote
 import app.pachli.core.ui.taghandler.Mark.Code
-import app.pachli.core.ui.taghandler.Mark.OrderedListItem
+import app.pachli.core.ui.taghandler.Mark.ListItem.OrderedListItem
+import app.pachli.core.ui.taghandler.Mark.ListItem.UnorderedListItem
 import app.pachli.core.ui.taghandler.Mark.Pre
-import app.pachli.core.ui.taghandler.Mark.UnorderedListItem
 import com.google.android.material.color.MaterialColors
-import java.util.Stack
 import kotlin.math.roundToInt
 import org.xml.sax.XMLReader
 
@@ -66,9 +65,12 @@ private val rxPre = """(?is)<pre>(.*?)</pre>""".toRegex()
  *
  * @param textView The [TextView] the content will be displayed in.
  */
-class MastodonTagHandler(textView: TextView) : PachliTagHandler {
+class MastodonTagHandler(private val textView: TextView) : PachliTagHandler {
     /** Stack of currently open `ol` and `ul` lists. */
-    private val lists = Stack<ListElementHandler>()
+    private val lists = mutableListOf<ListElementHandler>()
+
+    /** Count of currently open `blockquote` elements. */
+    private var blockquotes = 0
 
     private val codeHandler = CodeHandler(textView.context)
     private val blockQuoteHandler = BlockQuoteHandler(textView)
@@ -112,27 +114,22 @@ class MastodonTagHandler(textView: TextView) : PachliTagHandler {
         val rewritten = html
             // The XML reader doesn't treat whitespace as significant in `pre`
             // so replace some content within the element.
-            .replace(
-                rxPre,
-                { preBody ->
-                    val newBody = preBody.groups[1]?.value
-                        // Whitespace at the start of internal paras is significant.
-                        ?.replace("\n ", "<br />&nbsp;")
-                        // Convert internal paras to `br`.
-                        ?.replace("\n", "<br />")
-                        // Runs of two or more spaces are significant.
-                        ?.replace("  ", "&nbsp;&nbsp;")
-                    "<pre>$newBody</pre>"
-                },
-            )
-            .replace(
-                rxPachliTags,
-                {
-                    wrapInHtmlElement = wrapInHtmlElement || it.groups[0]?.range?.start == 0
+            .replace(rxPre) { preBody ->
+                val newBody = preBody.groups[1]?.value
+                    // Whitespace at the start of internal paras is significant.
+                    ?.replace("\n ", "<br />&nbsp;")
+                    // Convert internal paras to `br`.
+                    ?.replace("\n", "<br />")
+                    // Runs of two or more spaces are significant.
+                    ?.replace("  ", "&nbsp;&nbsp;")
+                "<pre>$newBody</pre>"
+            }
+            .replace(rxPachliTags) {
+                wrapInHtmlElement = wrapInHtmlElement || it.groups[0]?.range?.start == 0
 
-                    "<${it.groups[1]?.value ?: ""}pachli-${it.groups[2]?.value}>"
-                },
-            )
+                "<${it.groups[1]?.value ?: ""}pachli-${it.groups[2]?.value}>"
+            }
+
         return if (wrapInHtmlElement) "<html>$rewritten</html>" else rewritten
     }
 
@@ -145,26 +142,33 @@ class MastodonTagHandler(textView: TextView) : PachliTagHandler {
         when (tag.lowercase()) {
             "pachli-blockquote" -> if (opening) {
                 blockQuoteHandler.startElement(output)
+                blockquotes++
             } else {
-                blockQuoteHandler.endElement(output)
+                blockquotes--
+                blockQuoteHandler.endElement(output, blockquotes)
             }
 
             "pachli-ul" -> if (opening) {
-                lists.push(unorderedListElementHandler)
+                lists.add(unorderedListElementHandler)
             } else {
-                if (lists.isNotEmpty()) lists.pop().endElement(output)
+                lists.removeLastOrNull()?.endElement(output)
             }
 
             "pachli-ol" -> if (opening) {
-                lists.push(orderedListElementHandler)
+                lists.add(orderedListElementHandler)
             } else {
-                if (lists.isNotEmpty()) lists.pop().endElement(output)
+                lists.removeLastOrNull()?.endElement(output)
             }
 
             "pachli-li" -> if (opening) {
-                if (lists.isNotEmpty()) lists.peek().startListItem(output)
+                lists.lastOrNull()?.startListItem(output)
             } else {
-                if (lists.isNotEmpty()) lists.peek().endListItem(output, indentation = lists.size - 1)
+                lists.lastOrNull()?.endListItem(
+                    output,
+                    // Add additional margin for all open blockquotes and lists.
+                    additionalMargin = (blockquotes * blockQuoteHandler.marginWidth) +
+                        lists.dropLast(1).sumOf { it.marginWidth },
+                )
             }
 
             "code" -> if (opening) {
@@ -201,11 +205,15 @@ private interface ElementHandler {
 }
 
 private interface ListElementHandler : ElementHandler {
+    /** The width of the space reserved for each list marker. */
+    @get:Px
+    val marginWidth: Int
+
     /** Called when an opening <li> tag is encountered. */
     fun startListItem(text: Editable) = Unit
 
     /** Called when a closing </li> tag is encountered. */
-    fun endListItem(text: Editable, indentation: Int) = Unit
+    fun endListItem(text: Editable, additionalMargin: Int) = Unit
 }
 
 /**
@@ -217,9 +225,11 @@ private interface ListElementHandler : ElementHandler {
  * @param textView [TextView] the content will be set in to.
  */
 private class BlockQuoteHandler(textView: TextView) : ElementHandler {
+    /** The total width of the space reserved for the blockquote margin. */
     @Px
-    private val marginWidth = textView.lineHeight / 2
+    val marginWidth = textView.lineHeight / 2
 
+    /** The width of the stripe drawn inside the margin. */
     @Px
     private val stripeWidth = marginWidth / 3
 
@@ -232,13 +242,13 @@ private class BlockQuoteHandler(textView: TextView) : ElementHandler {
 
     override fun startElement(text: Editable) {
         text.ensureEndsWithNewline()
-        text.appendMark(BlockQuote)
+        text.appendMark(BlockQuote())
     }
 
-    override fun endElement(text: Editable) {
+    fun endElement(text: Editable, indentation: Int) {
         text.ensureEndsWithNewline()
         text.getLastSpanOrNull<BlockQuote>()?.let { mark ->
-            text.setSpansFromMark(mark, BlockQuoteSpan(marginWidth, stripeWidth, stripeColour))
+            text.setSpansFromMark(mark, BlockQuoteSpan(marginWidth, stripeWidth, stripeColour, indentation))
         }
     }
 }
@@ -285,34 +295,36 @@ private class PreHandler : ElementHandler {
 /**
  * Processes unordered lists and their `li` contents.
  *
- * Marks the `<li>` tag. `</li>` tags insert a [LeadingMarginWithTextSpan]
+ * Marks the `<li>` tag. `</li>` tags, inserts a [LeadingMarginWithTextSpan]
  * between the start and end tag with a bullet character in the margin.
  *
  * @param textView [TextView] the content will be set in to.
  */
 private class UnorderedListElementHandler(textView: TextView) : ListElementHandler {
     @Px
-    private val marginWidth = textView.paint.measureText("99. ").roundToInt()
+    override val marginWidth = textView.paint.measureText("99. ").roundToInt()
 
     override fun startListItem(text: Editable) {
         text.ensureEndsWithNewline()
-        text.appendMark(UnorderedListItem)
+        text.appendMark(UnorderedListItem())
     }
 
-    override fun endListItem(text: Editable, indentation: Int) {
+    override fun endListItem(text: Editable, additionalMargin: Int) {
         text.ensureEndsWithNewline()
 
         text.getLastSpanOrNull<UnorderedListItem>()?.let { mark ->
             text.setSpansFromMark(
                 mark,
-                LeadingMarginWithTextSpan(marginWidth, indentation, Alignment.CENTER) { "•" },
+                LeadingMarginWithTextSpan(marginWidth, additionalMargin, Alignment.CENTER) { "•" },
             )
         }
     }
 
     override fun endElement(text: Editable) {
         text.ensureEndsWithNewline()
-        text.append("\n")
+        // Add another new line after the list, unless this list is nested inside
+        // another list.
+        if (text.getLastSpanOrNull<Mark.ListItem>() == null) text.append("\n")
     }
 }
 
@@ -326,7 +338,8 @@ private class UnorderedListElementHandler(textView: TextView) : ListElementHandl
  * @param textView [TextView] the content will be set in to.
  */
 private class OrderedListElementHandler(textView: TextView) : ListElementHandler {
-    private val marginWidth = textView.paint.measureText("99. ").roundToInt()
+    @Px
+    override val marginWidth = textView.paint.measureText("99. ").roundToInt()
 
     /** Count of total `li` tags seen in this ordered list. */
     private var count = 1
@@ -336,13 +349,13 @@ private class OrderedListElementHandler(textView: TextView) : ListElementHandler
         text.appendMark(OrderedListItem(count++))
     }
 
-    override fun endListItem(text: Editable, indentation: Int) {
+    override fun endListItem(text: Editable, additionalMargin: Int) {
         text.ensureEndsWithNewline()
 
         text.getLastSpanOrNull<OrderedListItem>()?.let { mark ->
             text.setSpansFromMark(
                 mark,
-                LeadingMarginWithTextSpan(marginWidth, indentation) {
+                LeadingMarginWithTextSpan(marginWidth, additionalMargin) {
                     if (it > 0) {
                         "${mark.number}. "
                     } else {
@@ -355,6 +368,8 @@ private class OrderedListElementHandler(textView: TextView) : ListElementHandler
 
     override fun endElement(text: Editable) {
         text.ensureEndsWithNewline()
-        text.append("\n")
+        // Add another new line after the list, unless this list is nested inside
+        // another list.
+        if (text.getLastSpanOrNull<Mark.ListItem>() == null) text.append("\n")
     }
 }

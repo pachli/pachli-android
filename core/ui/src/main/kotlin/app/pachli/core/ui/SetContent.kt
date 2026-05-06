@@ -25,6 +25,7 @@ import android.text.Spanned
 import android.text.style.URLSpan
 import android.util.TypedValue
 import android.widget.TextView
+import androidx.core.text.getSpans
 import androidx.core.text.method.LinkMovementMethodCompat
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.designsystem.R
@@ -36,6 +37,7 @@ import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.network.removeQuoteInline
 import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.ui.PreProcessMastodonHtml.processMarkdown
+import app.pachli.core.ui.taghandler.LeadingMarginWithTextSpan
 import app.pachli.core.ui.taghandler.MastodonTagHandler
 import com.bumptech.glide.RequestManager
 import com.google.android.material.color.MaterialColors
@@ -182,6 +184,45 @@ object SetContentAsMastodonHtml : SetContent {
     }
 
     override fun setText(textView: TextView, text: Spannable) {
+        // HTML like this:
+        //
+        // <ul>
+        //   <li>one</li>
+        //   <li>two</li>
+        //   <li><ul><li>a</li><li>b</li></ul></li>
+        // </ul>
+        //
+        // will have created nested LeadingMarginWithTextSpans for the third item, the
+        // nested list.
+        //
+        // This is a problem, because the nested LeadingMarginWithTextSpans will each
+        // draw their own marker. So the output for the above looks like:
+        //
+        // ```
+        //  * one
+        //  * two
+        //  *  * a
+        //  *  * b
+        // ```
+        //
+        // To fix this (hack) update `computeMarginText` in the outermost spans to return
+        // the empty string.
+
+        // First, find all spans that share a start index.
+        //
+        // key: Index of the start of the span in `text`.
+        // value: List<Span>, a list of all spans starting at `key`, sorted, shortest span
+        // first.
+        val spansSharingStartIndex = text.getSpans<LeadingMarginWithTextSpan>(0, text.length)
+            .groupBy { text.getSpanStart(it) }
+            .filter { it.value.size != 1 }
+            .mapValues { it.value.sortedBy { text.getSpanEnd(it) } }
+
+        // Then update the margin text of all spans except the first (which is the shortest).
+        spansSharingStartIndex.values.forEach { spans ->
+            spans.drop(1).forEach { span -> span.computeMarginText = { "" } }
+        }
+
         textView.text = text
     }
 }

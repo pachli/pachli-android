@@ -23,8 +23,6 @@ import android.os.Build
 import android.text.Layout
 import android.text.style.LeadingMarginSpan
 import androidx.annotation.Px
-import androidx.annotation.VisibleForTesting
-import kotlin.math.roundToInt
 
 fun interface ComputeLeadingMarginWithTextSpanText {
     /**
@@ -44,17 +42,26 @@ fun interface ComputeLeadingMarginWithTextSpanText {
  *
  * Within the margin the text is aligned according to [alignment].
  *
- * @param marginWidth Width of the margin, in pixels
- * @param indentation 0-based indentation level of this item.
+ * The content is laid out with space reserved for [additionalMargin]
+ * first, then [marginWidth]. The contents (from [computeMarginText])
+ * are aligned within the space defined by [marginWidth].
+ *
+ * ```
+ * |<-- additional margin -->||<-- marginWidth -->|
+ *                                 ^-- margin text inserted/aligned here
+ * ```
+ *
+ * @param marginWidth Width of the margin this span should create, in pixels
+ * @param additionalMargin Extra margin to include before [marginWidth]
+ * when laying out the content.
  * @param alignment See [Alignment].
  * @param computeMarginText See [ComputeLeadingMarginWithTextSpanText.invoke]
  */
 internal class LeadingMarginWithTextSpan(
-    @Px private val marginWidth: Int,
-    private val indentation: Int,
+    @Px val marginWidth: Int,
+    @Px val additionalMargin: Int,
     private val alignment: Alignment = Alignment.END,
-    @get:VisibleForTesting
-    val computeMarginText: ComputeLeadingMarginWithTextSpanText,
+    var computeMarginText: ComputeLeadingMarginWithTextSpanText,
 ) : LeadingMarginSpan {
     /** Text to display in the margin. */
     private var marginText: String? = null
@@ -87,6 +94,14 @@ internal class LeadingMarginWithTextSpan(
     ) {
         if (!first) return
 
+        val computedMarginText = if (marginText == null) {
+            marginText = computeMarginText(dir)
+            marginText!!
+        } else {
+            marginText!!
+        }
+        if (computedMarginText.isBlank()) return
+
         // On newer Android versions the paint may be flagged to include hyphens
         // at the start or end (this seems to occur if the first line of the
         // paragraph this span is attached to will be hyphenated). This:
@@ -106,12 +121,6 @@ internal class LeadingMarginWithTextSpan(
             p
         }
 
-        val computedMarginText = if (marginText == null) {
-            marginText = computeMarginText(dir)
-            marginText!!
-        } else {
-            marginText!!
-        }
         val marginTextWidth = finalPaint.measureText(computedMarginText)
 
         val xOffset = when (alignment) {
@@ -120,17 +129,11 @@ internal class LeadingMarginWithTextSpan(
             Alignment.END -> if (dir > 0) marginWidth - marginTextWidth else -(marginWidth - marginTextWidth)
         }
 
-        // Some Android versions have a bug where `x` is always 0 (e.g., API 28).
-        // Calculate the correct value.
-        val trueX: Int = if (dir > 0) {
-            marginWidth * indentation
+        val trueX = if (dir > 0) {
+            additionalMargin
         } else {
-            c.width - if (marginWidth * indentation == 0) {
-                marginTextWidth.roundToInt()
-            } else {
-                marginWidth * indentation
-            }
-        }
+            c.width - additionalMargin
+        } + xOffset
 
         // Alternative code for fixing the "Hyphenated text draws a hyphen
         // after a bullet" problem, in case changing the paint doesn't work
@@ -155,7 +158,7 @@ internal class LeadingMarginWithTextSpan(
 //            staticLayout.draw(this)
 //        }
 
-        c.drawText(computedMarginText, trueX + xOffset, baseline.toFloat(), finalPaint)
+        c.drawText(computedMarginText, trueX, baseline.toFloat(), finalPaint)
     }
 
     override fun getLeadingMargin(first: Boolean): Int = marginWidth

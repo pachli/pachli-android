@@ -130,6 +130,61 @@ quote
 block</s:BlockQuoteSpan>
                     """.trimIndent(),
                 ),
+                // Ensure nested blockquotes work.
+                TestData(
+                    """
+<blockquote>
+<p>Para 1 that runs on several lines to make sure it wraps and is visible</p>
+<p>Para 2 that runs on several lines to make sure it wraps and is visible</p>
+<blockquote>
+<p>Nested 1 that runs on several lines to make sure it wraps and is visible</p>
+<p>Nested 2 that runs on several lines to make sure it wraps and is visible</p>
+<ul>
+  <li>list item 1</li>
+  <li>list item 2</li>
+  <li><ul><li>a</li><li>b</li><li>c</li></ul></li>
+</ul>
+</blockquote>
+<p>Para 3 that runs on several lines to make sure it wraps and is visible</p>
+</blockquote>
+                    """.trimIndent(),
+                    """
+<s:BlockQuoteSpan>Para 1 that runs on several lines to make sure it wraps and is visible
+
+Para 2 that runs on several lines to make sure it wraps and is visible
+
+<s:BlockQuoteSpan>Nested 1 that runs on several lines to make sure it wraps and is visible
+
+Nested 2 that runs on several lines to make sure it wraps and is visible
+
+<s:LeadingMarginWithTextSpan text="•">list item 1
+</s:LeadingMarginWithTextSpan><s:LeadingMarginWithTextSpan text="•">list item 2
+</s:LeadingMarginWithTextSpan><s:LeadingMarginWithTextSpan text="•"><s:LeadingMarginWithTextSpan text="•">a
+</s:LeadingMarginWithTextSpan><s:LeadingMarginWithTextSpan text="•">b
+</s:LeadingMarginWithTextSpan><s:LeadingMarginWithTextSpan text="•">c
+</s:LeadingMarginWithTextSpan></s:LeadingMarginWithTextSpan></s:BlockQuoteSpan>
+Para 3 that runs on several lines to make sure it wraps and is visible</s:BlockQuoteSpan>
+                    """.trimIndent(),
+                ),
+                // Check nested lists.
+                TestData(
+                    """
+<ul>
+  <li>item 1</li>
+  <li>item 2</li>
+  <li><ul><li>nest 1</li><li>nest 2</li><li>nest 3</li></ul></li>
+  <li>item 4</li>
+</ul>
+                    """.trimIndent(),
+                    """
+<s:LeadingMarginWithTextSpan text="•">item 1
+</s:LeadingMarginWithTextSpan><s:LeadingMarginWithTextSpan text="•">item 2
+</s:LeadingMarginWithTextSpan><s:LeadingMarginWithTextSpan text="•"><s:LeadingMarginWithTextSpan text="•">nest 1
+</s:LeadingMarginWithTextSpan><s:LeadingMarginWithTextSpan text="•">nest 2
+</s:LeadingMarginWithTextSpan><s:LeadingMarginWithTextSpan text="•">nest 3
+</s:LeadingMarginWithTextSpan></s:LeadingMarginWithTextSpan><s:LeadingMarginWithTextSpan text="•">item 4</s:LeadingMarginWithTextSpan>
+                    """.trimIndent(),
+                ),
             )
         }
     }

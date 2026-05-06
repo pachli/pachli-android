@@ -23,18 +23,23 @@ interface Mark {
     object Code : Mark
 
     /** Marks the opening tag location of a `blockquote` element. */
-    object BlockQuote : Mark
+    // `class` instead of `object`, as these can be nested, as repeatedly
+    // setting an `object` span just moves it around.
+    class BlockQuote : Mark
 
     /** Marks the opening tag location of a `pre` element. */
     object Pre : Mark
 
-    /**
-     * Marks the opening tag location of a list item in an <ol> element.
-     *
-     * @property number The list item's 1-based position in the list.
-     */
-    class OrderedListItem(val number: Int) : Mark
+    /** Marks the opening tag location of an `li` element. */
+    interface ListItem : Mark {
+        /**
+         * Marks the opening tag location of an `li` element in a `ol` element.
+         *
+         * @property number The list item's 1-based position in the list.
+         */
+        class OrderedListItem(val number: Int) : ListItem
 
-    /** Marks the opening tag location of a list item in an <ul> element. */
-    object UnorderedListItem : Mark
+        /** Marks the opening tag location of an `li` element in a `ul` element. */
+        class UnorderedListItem : ListItem
+    }
 }
