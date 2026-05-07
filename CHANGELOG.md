@@ -1,5 +1,23 @@
 # Pachli changelog
 
+## v3.6.1
+
+### New features and other improvements
+
+- Improve `pre`, `code`, `blockquote` Markdown rendering (#[2276](https://github.com/pachli/pachli-android/pull/2276), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Use the more private visibility of (original x account) when replying (#[2275](https://github.com/pachli/pachli-android/pull/2275), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Prevent race deleting drafts and scheduled posts (#[2269](https://github.com/pachli/pachli-android/pull/2269), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Display LaTeX equations, other images when rendering Markdown (#[2267](https://github.com/pachli/pachli-android/pull/2267), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Display mentions as links when the mention URL doesn't match (#[2263](https://github.com/pachli/pachli-android/pull/2263), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+
 ## v3.6.0
 
 ### New features and other improvements
