@@ -43,7 +43,7 @@ import java.io.File
 import javax.inject.Inject
 import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -78,10 +78,9 @@ class EditProfileViewModel @Inject constructor(
 
     private var apiProfileAccount: CredentialAccount? = null
 
-    private val _isDirty = MutableStateFlow(false)
-
     /** True if the user has made unsaved changes to the profile */
-    val isDirty = _isDirty.asStateFlow()
+    val isDirty: StateFlow<Boolean>
+        field = MutableStateFlow(false)
 
     var pachliAccountId by Delegates.notNull<Long>()
 
@@ -190,7 +189,7 @@ class EditProfileViewModel @Inject constructor(
     }
 
     internal fun onChange(newProfileData: ProfileDataInUi) {
-        _isDirty.value = getProfileDiff(apiProfileAccount, newProfileData).hasChanges()
+        isDirty.value = getProfileDiff(apiProfileAccount, newProfileData).hasChanges()
     }
 
     private fun getProfileDiff(oldProfileAccount: CredentialAccount?, newProfileData: ProfileDataInUi): DiffProfileData {
