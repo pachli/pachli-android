@@ -49,9 +49,9 @@
     <string name="visibility_unlisted">Neamhliostaithe: Ná taispeáin in amlínte poiblí</string>
     <string name="visibility_public">Poiblí: Post chuig amlínte poiblí</string>
     <string name="dialog_mute_hide_notifications">Folaigh fógraí</string>
-    <string name="dialog_block_warning">Bloc @%1$s\?</string>
+    <string name="dialog_block_warning">Bloc @%1$s?</string>
     <string name="mute_domain_warning_dialog_ok">Folaigh an fearann iomlán</string>
-    <string name="mute_domain_warning">An bhfuil tú cinnte gur mhaith leat gach %1$s a bhac\? Ní fheicfidh tú inneachar ón bhfearann sin in aon amlíne poiblí ar bith ná i do chuid fógraí. Bainfear do chuid leantóirí ón bhfearann sin.</string>
+    <string name="mute_domain_warning">An bhfuil tú cinnte gur mian leat gach duine de %1$s a bhac? Ní fheicfidh tú ábhar ón bhfearann sin in aon amlínte poiblí ná i do fhógraí. Bainfear do leanúna ón bhfearann sin.</string>
     <string name="dialog_redraft_post_warning">Scrios agus athdhréachtaigh an postáil seo\?</string>
     <string name="dialog_delete_post_warning">Scrios an postáil seo\?</string>
     <string name="dialog_unfollow_warning">An cuntas seo a scaoileadh\?</string>
@@ -226,7 +226,7 @@
     <string name="lock_account_label_description">Éileofar ort leantóirí a cheadú de láimh</string>
     <string name="compose_save_draft">Sábháil dréacht\?</string>
     <string name="action_compose_shortcut">Cum</string>
-    <string name="error_no_custom_emojis">Níl emoji-nna saincheaptha ag d\'ásc %1$s</string>
+    <string name="error_no_custom_emojis">Níl aon emoji saincheaptha ag do chás %1$s</string>
     <string name="emoji_style">Stíl Emoji</string>
     <string name="system_default">Réamhshocrú an chórais</string>
     <string name="download_fonts">Caithfear na tacair emoji seo a íoslódáil ar dtús</string>
@@ -254,7 +254,7 @@
     <string name="notifications_apply_filter">Scagaire</string>
     <string name="filter_apply">Cuir iarratas isteach</string>
     <string name="compose_shortcut_short_label">Cum</string>
-    <string name="compose_preview_image_description">Gníomhartha maidir le híomhá %1$s</string>
+    <string name="compose_preview_image_description">Gníomhartha don íomhá %1$s</string>
     <string name="poll_ended_voted">Tá deireadh le vótaíocht ar vótáil tú ann</string>
     <string name="button_back">Ar ais</string>
     <string name="report_sent_success">Tuairiscíodh go rathúil @%1$s</string>
@@ -302,7 +302,7 @@
     <string name="title_edits">Cuir in Eagar</string>
     <string name="action_translate_undo">Cealaigh an t-aistriú</string>
     <string name="pref_title_notification_filter_subscriptions">D\'fhoilsigh duine éigin a bhfuil mé suibscríofa dó postáil nua</string>
-    <string name="pref_title_http_proxy_port_message">Ba chóir go mbeadh an port idir %1$d agus %2$d</string>
+    <string name="pref_title_http_proxy_port_message">Ba chóir go mbeadh an calafort idir %1$d agus %2$d</string>
     <string name="notification_sign_up_name">Cláraigh</string>
     <string name="action_set_focus">Socraigh pointe fócais</string>
     <string name="compose_delete_draft">Scrios dréacht?</string>
@@ -312,7 +312,7 @@
     <string name="filter_keyword_display_format">%1$s (focal iomlán)</string>
     <string name="error_following_hashtags_unsupported">Ní thacaíonn an cás seo le haischlibeanna a leanúint.</string>
     <string name="title_public_trending">Treochtáil</string>
-    <string name="notification_report_format">Tuairisc nua ar %1$s</string>
+    <string name="notification_report_format">Tuarascáil nua ar %1$s</string>
     <string name="action_share_account_username">Comhroinn ainm úsáideora an chuntais</string>
     <string name="send_account_link_to">Comhroinn URL an chuntais go…</string>
     <string name="send_account_username_to">Comhroinn ainm úsáideora an chuntais…</string>
@@ -328,7 +328,7 @@
     <string name="wellbeing_hide_stats_profile">Folaigh stats cainníochtúla ar phróifílí</string>
     <string name="announcement_date_updated">(Nuashonraithe: %1$s)</string>
     <string name="ui_error_translate_status_fmt">Theip ar aistriúchán: %1$s</string>
-    <string name="ui_error_reject_follow_request">Theip ar dhiúltú don iarratas seo a leanas: %1$s</string>
+    <string name="ui_error_reject_follow_request">Theip ar iarratas leantach a dhiúltú: %1$s</string>
     <string name="action_add">Cuir Leis</string>
     <string name="dialog_delete_filter_positive_action">Scrios</string>
     <string name="dialog_save_profile_changes_message">An bhfuil fonn ort athruithe do phróifíle a shábháil?</string>
@@ -401,7 +401,7 @@
     <string name="title_tab_public_trending_statuses">Poist</string>
     <string name="title_migration_relogin">Ath-logáil isteach le haghaidh fógraí brú</string>
     <string name="action_discard">Ná sábháil athruithe</string>
-    <string name="confirmation_hashtag_unfollowed">#%1$s gan sárú</string>
+    <string name="confirmation_hashtag_unfollowed">#%1$s díleanúna</string>
     <string name="hint_media_description_missing">Ba chóir go mbeadh cur síos ag na meáin.</string>
     <string name="notification_severed_relationships_description">Fógraí faoi chaidrimh throma</string>
     <string name="notification_report_name">Tuarascálacha</string>
@@ -532,8 +532,8 @@
     <string name="action_open_byline_account">Taispeáin próifíl údar an ailt</string>
     <string name="action_open_link">Oscail nasc</string>
     <string name="search_operator_attachment_dialog_title">Teorainn le poist leis na meáin?</string>
-    <string name="error_following_hashtag_format">Earráid agus #%1$s á leanúint</string>
-    <string name="error_unfollowing_hashtag_format">Earráid agus #%1$s á dhíleanúint</string>
+    <string name="error_following_hashtag_format">Earráid ag leanúint #%1$s</string>
+    <string name="error_unfollowing_hashtag_format">Earráid ag díleanúint #%1$s</string>
     <string name="error_unmuting_hashtag_format">Earráid agus #%1$s á dhíluchtú</string>
     <string name="error_muting_hashtag_format">Earráid agus #%1$s á mutáil</string>
     <string name="error_status_source_load">Theip ar luchtú na foinse stádais ón bhfreastalaí.</string>
@@ -559,7 +559,7 @@
     <string name="description_post_language">Iar-theanga</string>
     <string name="label_duration">Fad ama</string>
     <string name="pref_title_show_stat_inline">Taispeáin staitisticí an phoist san amlíne</string>
-    <string name="action_unfollow_hashtag_format">Díluchtaigh #%1$s?</string>
+    <string name="action_unfollow_hashtag_format">Díleanúint #%1$s?</string>
     <string name="mute_notifications_switch">Fógraí mute</string>
     <string name="status_created_info">Cruthaithe: %1$s</string>
     <string name="label_filter_title">Teideal</string>
@@ -582,7 +582,7 @@
     <string name="action_unsubscribe_account">Díliostáil</string>
     <string name="report_category_other">Eile</string>
     <string name="ui_error_clear_notifications">Theip ar fhógraí a ghlanadh: %1$s</string>
-    <string name="ui_error_accept_follow_request">Theip ar ghlacadh leis an iarratas seo a leanas: %1$s</string>
+    <string name="ui_error_accept_follow_request">Theip ar ghlacadh leis an iarratas leantach: %1$s</string>
     <string name="filter_description_warn">Folaigh le rabhadh</string>
     <string name="label_filter_action">Scag gníomh</string>
     <string name="pref_title_change_unified_push_distributor">Athraigh dáileoir Brú Aontaithe</string>
@@ -629,18 +629,18 @@
     <string name="pref_title_account_notification_filters">Scagairí fógra</string>
     <string name="pref_account_notification_filters_subtitle">Cad ba cheart a tharlú d\'fhógraí ó chuntais…</string>
     <string name="pref_account_notification_filters_label_younger_30d">… a cruthaíodh le 30 lá anuas</string>
-    <string name="account_filter_placeholder_type_favourite_fmt">B\'fhearr le húsáideoir @&lt;b&gt;%1$s&lt;/b&gt; do phostáil</string>
+    <string name="account_filter_placeholder_type_favourite_fmt">Chuir úsáideoir @&lt;b&gt;%1$s&lt;/b&gt; do phost i bhfabhar</string>
     <string name="account_filter_placeholder_type_follow_request_fmt">Lean iarratas ó úsáideoir @&lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="account_filter_placeholder_label_younger_30d">Scagtha toisc: &lt;b&gt;cruthaithe le 30 lá anuas&lt;/b&gt;</string>
-    <string name="account_filter_placeholder_type_reblog_fmt">Chuir úsáideoir @&lt;b&gt;%1$s&lt;/b&gt; do phostáil chun cinn</string>
+    <string name="account_filter_placeholder_type_reblog_fmt">Chuir úsáideoir @&lt;b&gt;%1$s&lt;/b&gt; borradh faoi do phost</string>
     <string name="account_filter_placeholder_label_domain">Ó úsáideoir @&lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="account_filter_placeholder_label_not_following">Scagtha toisc: &lt;b&gt;ní leanann tú iad&lt;/b&gt;</string>
     <string name="account_filter_placeholder_label_limited_by_server">Scagtha toisc: &lt;b&gt;teoranta ag do mhodhnóirí&lt;/b&gt;</string>
-    <string name="account_filter_placeholder_type_mention_fmt">Luaigh úsáideoir @ &lt;b&gt;%1$s&lt;/b&gt; tú</string>
+    <string name="account_filter_placeholder_type_mention_fmt">Luaigh úsáideoir @&lt;b&gt;%1$s&lt;/b&gt; thú</string>
     <string name="pref_account_notification_filters_label_limited_by_server">… teoranta ag do mhodhnóirí</string>
     <string name="filter_action_none">Taispeáin</string>
     <string name="pref_account_notification_filters_label_not_followed">… ní leanann tú</string>
-    <string name="account_filter_placeholder_type_follow_fmt">Lean úsáideoir @&lt;b&gt;%1$s&lt;/b&gt; tú</string>
+    <string name="account_filter_placeholder_type_follow_fmt">Lean úsáideoir @&lt;b&gt;%1$s&lt;/b&gt; thú</string>
     <string name="notification_unknown">Cineál fógra anaithnid</string>
     <string name="action_timeline_link">Postálacha faoin nasc seo</string>
     <string name="ui_error_reload_reply_fmt">Níorbh fhéidir postáil a luchtú: %1$s</string>
@@ -742,4 +742,15 @@
     <string name="search_operator_quote_dialog_all">Le nó gan luachana</string>
     <string name="search_operator_quote_dialog_only">Poist le luachana amháin</string>
     <string name="search_operator_quote_dialog_no_quotes">Poist gan luachana amháin</string>
+    <string name="title_delete_scheduled_statuses">Scrios na poist sceidealaithe roghnaithe?</string>
+    <string name="delete_scheduled_statuses_msg">Scriosfaidh sé seo na poist sceidealaithe roghnaithe go buan.</string>
+    <string name="action_delete_scheduled_statuses">Scrios na poist roghnaithe</string>
+    <string name="err_draft_error_no_external_files_dir">níl stóráil chomhroinnte ar fáil</string>
+    <string name="err_draft_error_mkdir_drafts_fmt">Níorbh fhéidir fillteán Dréachtaí a chruthú: %1$s</string>
+    <string name="err_draft_error_unknown_mime_type">cineál MIME anaithnid ag an gceangaltán: %1$s</string>
+    <string name="err_draft_error_content_provider_crash">thit an soláthraí ábhair le déanaí</string>
+    <string name="err_draft_error_io_fmt">theip ar an sábháil: %1$s</string>
+    <string name="ui_error_delete_scheduled_status_fmt">Níorbh fhéidir an post sceidealaithe a scriosadh chun é a athsholáthar: %1$s</string>
+    <string name="ui_error_sending_post_fmt">Níorbh fhéidir an post a sheoladh: %1$s</string>
+    <string name="ui_error_saving_post_fmt">Níorbh fhéidir an post a shábháil: %1$s</string>
 </resources>
