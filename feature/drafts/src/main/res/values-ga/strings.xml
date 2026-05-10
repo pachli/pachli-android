@@ -1,11 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_edit">Cuir in Eagar</string>
+    <string name="action_edit">Eagar</string>
     <string name="title_drafts">Dréachtaí</string>
-    <string name="drafts_post_reply_removed">Baineadh an post ar dhréachtaigh tú freagra air</string>
+    <string name="drafts_post_reply_removed">Baineadh an post ar scríobh tú freagra air</string>
     <string name="drafts_load_reply_failed_fmt">Níorbh fhéidir an post atá á fhreagairt agat a lódáil: %1$s</string>
     <string name="drafts_post_quote_removed">Baineadh an post a luaigh tú</string>
     <string name="drafts_load_quote_failed_fmt">Níorbh fhéidir an post atá á lua agat a lódáil: %1$s</string>
     <string name="drafts_post_failed_to_send">Theip ar an bpost seo a sheoladh!</string>
-    <string name="no_drafts">Níl aon dréacht agat.</string>
+    <string name="no_drafts">Níl aon dréachtaí agat.</string>
+    <string name="title_delete_drafts">Scrios dréachtaí roghnaithe?</string>
+    <string name="delete_drafts_msg">Scriosfaidh sé seo na dréachtaí roghnaithe go buan.</string>
+    <string name="action_delete_drafts">Scrios dréachtaí roghnaithe</string>
+    <string name="send_post_failure_message_prefix">Theip ar sheoladh: %1$s</string>
 </resources>
