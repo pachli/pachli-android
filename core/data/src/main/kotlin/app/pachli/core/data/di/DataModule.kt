@@ -25,6 +25,8 @@ import app.pachli.core.data.repository.NetworkSuggestionsRepository
 import app.pachli.core.data.repository.OfflineFirstContentFiltersRepository
 import app.pachli.core.data.repository.OfflineFirstListRepository
 import app.pachli.core.data.repository.SuggestionsRepository
+import app.pachli.core.data.repository.hashtags.HashtagsRepository
+import app.pachli.core.data.repository.hashtags.OfflineFirstHashtagsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -52,4 +54,9 @@ abstract class DataModule {
     internal abstract fun bindsSuggestionsRepository(
         suggestionsRepository: NetworkSuggestionsRepository,
     ): SuggestionsRepository
+
+    @Binds
+    internal abstract fun bindsHashtagsRepository(
+        hashtagsRepository: OfflineFirstHashtagsRepository,
+    ): HashtagsRepository
 }

@@ -42,7 +42,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.distinctUntilChangedBy
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -69,7 +69,9 @@ class CachedTimelineViewModel @AssistedInject constructor(
     statusDisplayOptionsRepository = statusDisplayOptionsRepository,
     sharedPreferencesRepository = sharedPreferencesRepository,
 ) {
-    override val statuses = pachliAccountFlow.distinctUntilChangedBy { it.id }.flatMapLatest { pachliAccount ->
+    override val statuses = pachliAccountFlow.distinctUntilChanged { old, new ->
+        old.id == new.id && old.followedHashtags == new.followedHashtags
+    }.flatMapLatest { pachliAccount ->
         repository.getStatusStream(pachliAccount.id, timeline).map { pagingData ->
             pagingData
                 .map { Pair(it, shouldFilterStatus(it.timelineStatus)) }

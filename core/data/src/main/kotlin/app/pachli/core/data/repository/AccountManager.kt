@@ -21,16 +21,15 @@ import android.database.sqlite.SQLiteException
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.R
-import app.pachli.core.data.extensions.asEntity
 import app.pachli.core.data.model.Server
 import app.pachli.core.data.repository.ServerRepository.Error.GetNodeInfo
 import app.pachli.core.data.repository.ServerRepository.Error.GetWellKnownNodeInfo
 import app.pachli.core.data.repository.ServerRepository.Error.UnsupportedSchema
 import app.pachli.core.data.repository.ServerRepository.Error.ValidateNodeInfo
+import app.pachli.core.data.repository.hashtags.HashtagsRepository
 import app.pachli.core.database.dao.AccountDao
 import app.pachli.core.database.dao.AnnouncementsDao
 import app.pachli.core.database.dao.FollowingAccountDao
-import app.pachli.core.database.dao.HashtagsDao
 import app.pachli.core.database.dao.InstanceDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.AccountEntity
@@ -177,7 +176,7 @@ class AccountManager @Inject constructor(
     private val listsRepository: ListsRepository,
     private val announcementsDao: AnnouncementsDao,
     private val followingAccountDao: FollowingAccountDao,
-    private val hashtagsDao: HashtagsDao,
+    private val hashtagsRepository: HashtagsRepository,
     private val instanceSwitchAuthInterceptor: InstanceSwitchAuthInterceptor,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
@@ -494,26 +493,11 @@ class AccountManager @Inject constructor(
             return@async Ok(following)
         }
 
-        val deferHashtags = externalScope.async {
-            var maxId: String? = null
-            val hashtags = buildList {
-                do {
-                    val response = mastodonApi.followedTags()
-                        .getOrElse { return@async Err(RefreshAccountError.General(account, it)) }
-                    addAll(response.body.asEntity(account.id))
-                    val links = HttpHeaderLink.parse(response.headers["Link"])
-                    val next = HttpHeaderLink.findByRelationType(links, "next")
-                    maxId = next?.uri?.getQueryParameter("max_id")
-                } while (maxId != null)
-            }
-
-            transactionProvider {
-                hashtagsDao.deleteFollowedHashtagsForAccount(account.id)
-                hashtagsDao.upsert(hashtags)
-            }
-
-            return@async Ok(hashtags)
-        }
+        // Refreshing the hashtags can run in the background without waiting for
+        // success/failure. Worst thing that can happen is the UI is out of date
+        // for followed hashtags for a few seconds if the user followed/unfollowed
+        // hashtags outside Pachli.
+        externalScope.launch { hashtagsRepository.refreshFollowedHashtags(account.id) }
 
         val nodeInfo = deferNodeInfo.await().bind()
         val instanceInfo = deferInstanceInfo.await().bind()
@@ -545,8 +529,6 @@ class AccountManager @Inject constructor(
             }.bind()
 
         deferEmojis.await().bind()
-
-        deferHashtags.await().bind()
 
         externalScope.async { listsRepository.refresh(account.id) }.await()
             .mapError { RefreshAccountError.General(account, it) }.bind()
