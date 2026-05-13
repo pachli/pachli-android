@@ -58,4 +58,11 @@ interface HashtagsRepository {
      * @return The server's latest view of [hashtag], or an error.
      */
     suspend fun unfollowHashtag(pachliAccountId: Long, hashtag: String): Result<Hashtag, HashtagsError.Unfollow>
+
+    /**
+     * Fetch the most recent information about [hashtag].
+     *
+     * @return The server's latest view of [hashtag], or an error.
+     */
+    suspend fun getTag(pachliAccountId: Long, hashtag: String): Result<Hashtag, HashtagsError.Retrieve>
 }

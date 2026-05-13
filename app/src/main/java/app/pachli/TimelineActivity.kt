@@ -37,6 +37,7 @@ import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.canFilterV1
 import app.pachli.core.data.repository.canFilterV2
 import app.pachli.core.data.repository.createDraft
+import app.pachli.core.data.repository.hashtags.HashtagsRepository
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.Draft
@@ -76,6 +77,9 @@ class TimelineActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
 
     @Inject
     lateinit var contentFiltersRepository: ContentFiltersRepository
+
+    @Inject
+    lateinit var hashtagsRepository: HashtagsRepository
 
     private val binding by viewBinding(ActivityTimelineBinding::inflate)
     private lateinit var timeline: Timeline
@@ -145,15 +149,14 @@ class TimelineActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
 
         hashtag?.let { tag ->
             lifecycleScope.launch {
-                mastodonApi.tag(tag).onSuccess {
-                    val tagEntity = it.body
+                hashtagsRepository.getTag(pachliAccountId, tag).onSuccess { hashtag ->
                     menuInflater.inflate(R.menu.view_hashtag_toolbar, menu)
                     followTagItem = menu.findItem(R.id.action_follow_hashtag)
                     unfollowTagItem = menu.findItem(R.id.action_unfollow_hashtag)
                     muteTagItem = menu.findItem(R.id.action_mute_hashtag)
                     unmuteTagItem = menu.findItem(R.id.action_unmute_hashtag)
-                    followTagItem?.isVisible = tagEntity.following == false
-                    unfollowTagItem?.isVisible = tagEntity.following == true
+                    followTagItem?.isVisible = hashtag.following == false
+                    unfollowTagItem?.isVisible = hashtag.following == true
                     updateMuteTagMenuItems(tag)
                 }.onFailure {
                     Timber.w("Failed to query tag #%s: %s", tag, it)
@@ -213,11 +216,11 @@ class TimelineActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         val tag = hashtag
         if (tag != null) {
             lifecycleScope.launch {
-                mastodonApi.followTag(tag).onSuccess {
+                hashtagsRepository.followHashtag(pachliAccountId, tag).onSuccess {
                     followTagItem?.isVisible = false
                     unfollowTagItem?.isVisible = true
                 }.onFailure {
-                    Snackbar.make(binding.root, getString(R.string.error_following_hashtag_format, tag), Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(binding.root, it.fmt(this@TimelineActivity), Snackbar.LENGTH_SHORT).show()
                     Timber.e("Failed to follow #%s: %s", tag, it)
                 }
             }
@@ -230,11 +233,11 @@ class TimelineActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         val tag = hashtag
         if (tag != null) {
             lifecycleScope.launch {
-                mastodonApi.unfollowTag(tag).onSuccess {
+                hashtagsRepository.unfollowHashtag(pachliAccountId, tag).onSuccess {
                     followTagItem?.isVisible = true
                     unfollowTagItem?.isVisible = false
                 }.onFailure {
-                    Snackbar.make(binding.root, getString(R.string.error_unfollowing_hashtag_format, tag), Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(binding.root, it.fmt(this@TimelineActivity), Snackbar.LENGTH_SHORT).show()
                     Timber.e("Failed to unfollow #%s: %s", tag, it)
                 }
             }
@@ -252,6 +255,9 @@ class TimelineActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         muteTagItem?.isVisible = true
         muteTagItem?.isEnabled = false
         unmuteTagItem?.isVisible = false
+
+        muteTagItem?.title = getString(R.string.action_mute_hashtag, tag)
+        unmuteTagItem?.title = getString(R.string.action_unmute_hashtag, tag)
 
         lifecycleScope.launch {
             accountManager.getPachliAccountFlow(pachliAccountId)

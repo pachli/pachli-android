@@ -75,6 +75,10 @@ internal class OfflineFirstHashtagsRepository @Inject constructor(
             .map { it.asModel() }
             .onSuccess { localDataSource.unfollowHashtag(it.asEntity(pachliAccountId)) }
     }.await()
+
+    override suspend fun getTag(pachliAccountId: Long, hashtag: String): Result<Hashtag, HashtagsError.Retrieve> {
+        return remoteDataSource.getHashtag(hashtag).map { it.asModel() }
+    }
 }
 
 @Singleton
@@ -121,4 +125,7 @@ internal class HashtagsRemoteDataSource @Inject constructor(
 
     suspend fun unfollowHashtag(hashtag: String) = mastodonApi.unfollowTag(hashtag)
         .mapEither({ it.body }, { HashtagsError.Unfollow(it) })
+
+    suspend fun getHashtag(hashtag: String) = mastodonApi.tag(hashtag)
+        .mapEither({ it.body }, { HashtagsError.Retrieve(it) })
 }

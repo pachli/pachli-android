@@ -10,30 +10,42 @@
         android:id="@+id/includedToolbar"
         layout="@layout/toolbar_basic" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/followedTagsView"
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progressIndicator"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:itemCount="5"
-        tools:listitem="@layout/item_followed_hashtag" />
+        android:layout_height="4dp"
+        android:visibility="gone"
+        android:indeterminate="true"
+        android:contentDescription=""
+        app:layout_anchor="@id/swipeRefreshLayout"
+        app:layout_anchorGravity="top"/>
 
-    <app.pachli.core.ui.BackgroundMessageView
-        android:id="@+id/followedTagsMessageView"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:visibility="gone" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <ProgressBar
-        android:id="@+id/followedTagsProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:visibility="gone" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/followedTagsView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                tools:itemCount="5"
+                tools:listitem="@layout/item_followed_hashtag" />
+
+            <app.pachli.core.ui.BackgroundMessageView
+                android:id="@+id/followedTagsMessageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                tools:visibility="gone" />
+        </FrameLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -41,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:contentDescription="@string/action_mention"
+        android:contentDescription="@string/dialog_follow_hashtag_title"
         app:srcCompat="@drawable/ic_hashtag" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

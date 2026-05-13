@@ -3,16 +3,19 @@ package app.pachli.components.followedtags
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.AutoCompleteTextView
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.MenuProvider
 import androidx.core.view.ViewGroupCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import app.pachli.R
@@ -22,37 +25,41 @@ import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.common.extensions.visible
+import app.pachli.core.common.util.unsafeLazy
+import app.pachli.core.data.repository.Loadable
+import app.pachli.core.model.Hashtag
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.pachliAccountId
-import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.core.ui.appbar.FadeChildScrollEffect
 import app.pachli.core.ui.extensions.addScrollEffect
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.ActivityFollowedTagsBinding
-import app.pachli.interfaces.HashtagActionListener
 import com.bumptech.glide.Glide
+import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class FollowedTagsActivity :
     BaseActivity(),
-    HashtagActionListener,
+    MenuProvider,
     ComposeAutoCompleteAdapter.AutocompletionProvider {
-    @Inject
-    lateinit var api: MastodonApi
-
     private val binding by viewBinding(ActivityFollowedTagsBinding::inflate)
+
     private val viewModel: FollowedTagsViewModel by viewModels()
+
+    private var snackbar: Snackbar? = null
+
+    private val adapter = FollowedTagsAdapter(this::onUnfollowTag, this::onViewTag)
+
+    private val pachliAccountId by unsafeLazy { intent.pachliAccountId }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -71,28 +78,67 @@ class FollowedTagsActivity :
             setDisplayShowHomeEnabled(true)
         }
 
+        addMenuProvider(this)
+
         binding.fab.setOnClickListener {
             val dialog: DialogFragment = FollowTagDialog.newInstance()
             dialog.show(supportFragmentManager, "dialog")
         }
 
-        setupAdapter().let { adapter ->
-            setupRecyclerView(adapter)
+        setupRecyclerView(adapter)
 
-            lifecycleScope.launch {
-                viewModel.pager.collectLatest { pagingData ->
-                    adapter.submitData(pagingData)
-                }
+        with(binding.swipeRefreshLayout) {
+            setOnRefreshListener {
+                viewModel.accept(FallibleUiAction.Reload(pachliAccountId))
+                isRefreshing = false
             }
+            setColorSchemeColors(
+                MaterialColors.getColor(
+                    binding.root,
+                    androidx.appcompat.R.attr.colorPrimary,
+                ),
+            )
         }
 
-        val actionButtonScrollListener = ActionButtonScrollListener(binding.fab)
-        binding.followedTagsView.addOnScrollListener(actionButtonScrollListener)
+        bind()
+    }
+
+    private fun bind() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.showFabWhileScrolling.collect { showFabWhileScrolling ->
-                    actionButtonScrollListener.showActionButtonWhileScrolling = showFabWhileScrolling
+                launch {
+                    viewModel.showProgress.collect {
+                        if (it) binding.progressIndicator.show() else binding.progressIndicator.hide()
+                    }
                 }
+
+                launch {
+                    viewModel.followedHashtags.collectLatest { loadable ->
+                        binding.followedTagsMessageView.hide()
+                        binding.followedTagsView.show()
+
+                        when (loadable) {
+                            Loadable.Loading -> {}
+                            is Loadable.Loaded<List<Hashtag>> -> adapter.submitList(loadable.data)
+                        }
+                    }
+                }
+
+                launch {
+                    viewModel.uiResult.collect(::bindUiResult)
+                }
+
+                launch {
+                    // TODO: Maybe move this bit of setup back in to onCreate
+                    val actionButtonScrollListener = ActionButtonScrollListener(binding.fab)
+                    binding.followedTagsView.addOnScrollListener(actionButtonScrollListener)
+
+                    viewModel.showFabWhileScrolling.collect { showFabWhileScrolling ->
+                        actionButtonScrollListener.showActionButtonWhileScrolling = showFabWhileScrolling
+                    }
+                }
+
+                viewModel.accept(InfallibleUiAction.SetPachliAccountId(pachliAccountId))
             }
         }
     }
@@ -108,20 +154,50 @@ class FollowedTagsActivity :
         (binding.followedTagsView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
     }
 
-    private fun setupAdapter(): FollowedTagsAdapter {
-        return FollowedTagsAdapter(this).apply {
-            addLoadStateListener { loadState ->
-                binding.followedTagsProgressBar.visible(loadState.refresh == LoadState.Loading && itemCount == 0)
+    private fun bindUiResult(uiResult: Result<UiSuccess, UiError>) {
+        uiResult
+            .onFailure(::bindUiError)
+            .onSuccess(::bindUiSuccess)
+    }
 
-                if (loadState.refresh is LoadState.Error) {
-                    binding.followedTagsView.hide()
-                    binding.followedTagsMessageView.show()
-                    val errorState = loadState.refresh as LoadState.Error
-                    binding.followedTagsMessageView.setup(errorState.error) { retry() }
-                    Timber.w(errorState.error, "error loading followed hashtags")
-                } else {
-                    binding.followedTagsView.show()
-                    binding.followedTagsMessageView.hide()
+    private fun bindUiError(uiError: UiError) {
+        val message = uiError.fmt(this)
+        snackbar?.dismiss()
+        try {
+            Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE).apply {
+                setAction(app.pachli.core.ui.R.string.action_retry) {
+                    viewModel.accept(uiError.action)
+                }
+                show()
+                snackbar = this
+            }
+        } catch (_: IllegalArgumentException) {
+        }
+    }
+
+    private fun bindUiSuccess(uiSuccess: UiSuccess) {
+        when (uiSuccess) {
+            is UiSuccess.FollowHashtag -> Unit
+            is UiSuccess.UnfollowHashtag -> {
+                snackbar?.dismiss()
+                try {
+                    Snackbar.make(
+                        binding.followedTagsView,
+                        getString(R.string.confirmation_hashtag_unfollowed, uiSuccess.action.tagName),
+                        Snackbar.LENGTH_LONG,
+                    ).apply {
+                        setAction(R.string.action_undo) {
+                            viewModel.accept(
+                                FallibleUiAction.FollowHashtag(
+                                    uiSuccess.action.pachliAccountId,
+                                    uiSuccess.action.tagName,
+                                ),
+                            )
+                        }
+                        show()
+                        snackbar = this
+                    }
+                } catch (_: IllegalArgumentException) {
                 }
             }
         }
@@ -131,61 +207,37 @@ class FollowedTagsActivity :
      * @param tagName Name of the tag, without the leading `#`.
      */
     private fun follow(tagName: String) {
-        lifecycleScope.launch {
-            api.followTag(tagName).onSuccess {
-                viewModel.tags.add(it.body)
-                viewModel.currentSource?.invalidate()
-            }.onFailure {
-                Snackbar.make(
-                    this@FollowedTagsActivity,
-                    binding.followedTagsView,
-                    getString(R.string.error_following_hashtag_format, tagName),
-                    Snackbar.LENGTH_SHORT,
-                )
-                    .show()
-            }
-        }
+        viewModel.accept(FallibleUiAction.FollowHashtag(pachliAccountId, tagName))
     }
 
     /**
      * @param tagName Name of the tag, without the leading `#`.
      */
-    override fun unfollow(tagName: String) {
-        lifecycleScope.launch {
-            api.unfollowTag(tagName).onSuccess {
-                viewModel.tags.removeIf { it.name == tagName }
-                Snackbar.make(
-                    this@FollowedTagsActivity,
-                    binding.followedTagsView,
-                    getString(R.string.confirmation_hashtag_unfollowed, tagName),
-                    Snackbar.LENGTH_LONG,
-                )
-                    .setAction(R.string.action_undo) {
-                        follow(tagName)
-                    }
-                    .show()
-                viewModel.currentSource?.invalidate()
-            }.onFailure {
-                Snackbar.make(
-                    this@FollowedTagsActivity,
-                    binding.followedTagsView,
-                    getString(
-                        R.string.error_unfollowing_hashtag_format,
-                        tagName,
-                    ),
-                    Snackbar.LENGTH_SHORT,
-                )
-                    .show()
-            }
-        }
+    fun onUnfollowTag(tagName: String) {
+        viewModel.accept(FallibleUiAction.UnfollowHashtag(pachliAccountId, tagName))
     }
 
-    override fun onViewTag(tag: String) {
-        startActivityWithDefaultTransition(TimelineActivityIntent.hashtag(this, intent.pachliAccountId, tag))
+    fun onViewTag(tagName: String) {
+        startActivityWithDefaultTransition(TimelineActivityIntent.hashtag(this, intent.pachliAccountId, tagName))
     }
 
     override suspend fun search(token: String): List<ComposeAutoCompleteAdapter.AutocompleteResult> {
         return viewModel.searchAutocompleteSuggestions(token)
+    }
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        super.onCreateMenu(menu, menuInflater)
+        menuInflater.inflate(R.menu.activity_followed_tags, menu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        return when (menuItem.itemId) {
+            R.id.action_refresh -> {
+                viewModel.accept(FallibleUiAction.Reload(pachliAccountId))
+                true
+            }
+            else -> super.onMenuItemSelected(menuItem)
+        }
     }
 
     class FollowTagDialog : DialogFragment() {
