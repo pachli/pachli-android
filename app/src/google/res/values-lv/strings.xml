@@ -10,14 +10,14 @@
     <string name="pref_translation_require_wifi">Nepieciešams Wi-Fi tīkls, lai lejupielādētu valodu pakotnes</string>
     <string name="pref_translation_manage_languages">Pārvaldīt valodu pakotnes</string>
     <string name="translation_model_manager_fragment_title">Valodu pakotnes</string>
-    <string name="translation_model_manager_fragment_info">Valodas, kurās Pachli var tulkot, izmantojot Google tulkotāju. Valodu pakotņu iepriekšēja lejupielāde paātrinās tulkošanu.</string>
+    <string name="translation_model_manager_fragment_info">Valodas, kurās Pachli var tulkot ar Google tulkotāju. Valodu pakotņu iepriekšēja lejupielāde paātrinās tulkošanu.</string>
     <string name="translation_model_manager_fragment_downloaded_heading">Lejupielādēta</string>
-    <string name="translation_model_manager_fragment_remote_heading">Piesitiet, lai lejupielādētu</string>
-    <string name="fragment_confirm_download_language_dialog_title_fmt">Vai lejupielādēt %1$s, izmantojot mobilos datus?</string>
+    <string name="translation_model_manager_fragment_remote_heading">Piesist, lai lejupielādētu</string>
+    <string name="fragment_confirm_download_language_dialog_title_fmt">Vai lejupielādēt %1$s ar mobilajiem datiem?</string>
     <string name="fragment_confirm_download_language_dialog_msg">Tas parasti patērē 30–60MB mobilo datu.</string>
-    <string name="fragment_confirm_delete_language_dialog_title_fmt">Vai tiešām vēlaties dzēst %1$s?</string>
-    <string name="fragment_confirm_delete_language_dialog_msg">Ja izdzēsīsiet šo valodu, tā tiks lejupielādēta nākamreiz, kad tā būs nepieciešama.</string>
+    <string name="fragment_confirm_delete_language_dialog_title_fmt">Izdzēst %1$s?</string>
+    <string name="fragment_confirm_delete_language_dialog_msg">Ja izdzēsīsi šo valodu, tā tiks lejupielādēta nākamreiz, kad tā būs nepieciešama.</string>
     <string name="fragment_google_disclaimer_dialog_title">Tulkojuma atruna</string>
-    <string name="action_translate_mlkit">Tulkot, izmantojot Google</string>
-    <string name="label_translated_mlkit">Tulkoja Google</string>
+    <string name="action_translate_mlkit">Tulkot ar Google</string>
+    <string name="label_translated_mlkit">Tulkots ar Google</string>
 </resources>
