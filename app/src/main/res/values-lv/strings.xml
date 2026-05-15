@@ -713,4 +713,7 @@
     <string name="compose_task_description_writing_post">Ieraksta sastādīšana</string>
     <string name="compose_task_description_replying_fmt">Atbild uz %1$s</string>
     <string name="compose_task_description_quoting_fmt">Citē %1$s</string>
+    <string name="action_delete_scheduled_statuses">Izdzēst atlasītos ierakstus</string>
+    <string name="delete_scheduled_statuses_msg">Tas neatgriezeniski izdzēsīs atlasītos ierindotos ierakstus.</string>
+    <string name="title_delete_scheduled_statuses">Izdzēst atlasītos ierindotos ierakstus?</string>
 </resources>
