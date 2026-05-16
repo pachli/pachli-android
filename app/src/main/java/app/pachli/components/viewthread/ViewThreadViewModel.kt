@@ -199,9 +199,21 @@ class ViewThreadViewModel @Inject constructor(
             if (timelineStatusWithQuote != null) {
                 api.status(id).get()?.body?.asModel()?.let { status ->
                     detailedStatus = detailedStatus.copy(
-                        statusViewData = detailedStatus.statusViewData.copy(status = status),
+                        statusViewData = detailedStatus.statusViewData.copy(
+                            status = status.copy(
+                                tags = status.tags?.map {
+                                    it.copy(following = account.followedHashtags.contains(it.name))
+                                },
+                            ),
+                        ),
                         quotedViewData = (status.quote as? Status.Quote.FullQuote)?.status?.let {
-                            detailedStatus.quotedViewData?.copy(status = it)
+                            detailedStatus.quotedViewData?.copy(
+                                status = it.copy(
+                                    tags = it.tags?.map {
+                                        it.copy(following = account.followedHashtags.contains(it.name))
+                                    },
+                                ),
+                            )
                         },
                     )
                 }
