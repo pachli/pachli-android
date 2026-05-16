@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_prepare_media_content_resolver_missing_path_fmt">URI Content Resolveru neobsahuje cestu: %1$s</string>
-    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">URI Content Resolveru obsahuje nepodporovanú schému: %1$s</string>
+    <string name="error_prepare_media_content_resolver_missing_path_fmt">URI content resolvera chýbala cesta: %1$s</string>
+    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">URI content resolvera obsahuje nepodporovanú schému: %1$s</string>
     <string name="error_prepare_media_io_fmt">%1$s</string>
     <string name="error_prepare_media_file_is_too_large_fmt">súbor má veľkosť %1$s, maximálna povolená veľkosť je %2$s</string>
     <string name="error_prepare_media_unknown_file_size">nepodarilo sa určiť veľkosť súboru</string>
