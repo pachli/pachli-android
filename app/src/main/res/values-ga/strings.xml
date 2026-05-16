@@ -67,7 +67,7 @@
     <string name="hint_display_name">Ainm taispeána</string>
     <string name="hint_content_warning">Rabhadh ábhair</string>
     <string name="hint_compose">Cad atá ag tarlú\?</string>
-    <string name="confirmation_domain_unmuted">%1$s neamhcheangailte</string>
+    <string name="confirmation_domain_unmuted">%1$s nochtaithe</string>
     <string name="confirmation_unmuted">Úsáideoir gan trácht</string>
     <string name="confirmation_unblocked">Úsáideoir gan bhac</string>
     <string name="confirmation_reported">Seolta!</string>
@@ -196,7 +196,7 @@
     <string name="filter_dialog_whole_word_description">Nuair atá an eochairfhocal nó an frása alfa-uimhriúil amháin, ní chuirfear i bhfeidhm é ach má oireann sé don fhocal iomlán</string>
     <string name="title_posts">Postálacha</string>
     <string name="notification_favourite_format">Chuir &lt;b&gt;%1$s&lt;/b&gt; do phost i bhfabhar</string>
-    <string name="action_unmute_desc">Díbhalbhaigh %1$s</string>
+    <string name="action_unmute_desc">Díbholg %1$s</string>
     <string name="action_mute_conversation">Comhrá tost</string>
     <string name="state_follow_requested">Lean iarrtha</string>
     <string name="follows_you">Leanann tú</string>
@@ -277,7 +277,7 @@
     <string name="action_mute_domain">Balbhaigh %1$s</string>
     <string name="action_unmute_domain">Díbhalbhaigh %1$s</string>
     <string name="action_unmute_conversation">Comhrá unmute</string>
-    <string name="dialog_mute_warning">Tost @%1$s\?</string>
+    <string name="dialog_mute_warning">Balbhaigh @%1$s?</string>
     <string name="pref_title_post_tabs">Cluaisíní</string>
     <string name="unreblog_private">Bain athchraoladh</string>
     <string name="unpin_action">Díphionnáil</string>
@@ -420,7 +420,7 @@
     <string name="notification_severed_relationships_user_domain_block_body">Chuir tú bac ar an bhfearann</string>
     <string name="notification_severed_relationships_account_suspension_body">Chuir modhnóir an cuntas ar fionraí</string>
     <string name="notification_severed_relationships_unknown_body">Cúis anaithnid</string>
-    <string name="notification_header_report_format">%1$s tuairiscithe %2$s</string>
+    <string name="notification_header_report_format">Tuairiscíodh %1$s %2$s</string>
     <plurals name="notification_summary_report_format">
         <item quantity="one">%1$s · %2$d post ceangailte</item>
         <item quantity="two">%1$s · %2$d post ceangailte</item>
@@ -534,8 +534,8 @@
     <string name="search_operator_attachment_dialog_title">Teorainn le poist leis na meáin?</string>
     <string name="error_following_hashtag_format">Earráid ag leanúint #%1$s</string>
     <string name="error_unfollowing_hashtag_format">Earráid ag díleanúint #%1$s</string>
-    <string name="error_unmuting_hashtag_format">Earráid agus #%1$s á dhíluchtú</string>
-    <string name="error_muting_hashtag_format">Earráid agus #%1$s á mutáil</string>
+    <string name="error_unmuting_hashtag_format">Earráid ag dí-bholgadh #%1$s</string>
+    <string name="error_muting_hashtag_format">Earráid ag múchadh #%1$s</string>
     <string name="error_status_source_load">Theip ar luchtú na foinse stádais ón bhfreastalaí.</string>
     <string name="title_public_trending_hashtags">Haischlibeanna treochta</string>
     <string name="title_public_trending_links">Naisc treochta</string>
