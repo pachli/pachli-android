@@ -728,4 +728,7 @@
     <string name="ui_error_delete_scheduled_status_fmt">naplánovaný príspevok sa nepodarilo nahradiť: %1$s</string>
     <string name="ui_error_sending_post_fmt">Nepodarilo sa odoslať príspevok: %1$s</string>
     <string name="ui_error_saving_post_fmt">Nepodarilo sa uložiť príspevok: %1$s</string>
+    <string name="title_delete_scheduled_statuses">Vymazať plánované príspevky?</string>
+    <string name="delete_scheduled_statuses_msg">Týmto sa natrvalo odstránia plánované príspevky.</string>
+    <string name="action_delete_scheduled_statuses">Vymazať vybrané príspevky</string>
 </resources>
