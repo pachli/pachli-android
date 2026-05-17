@@ -19,7 +19,7 @@
     <string name="pref_default_audio_playback_option_muted">Muted</string>
     <string name="pref_title_translation">Translation</string>
     <string name="pref_pronoun_display_everywhere">Everywhere</string>
-    <string name="pref_translation_backend_option_server_only">Server online</string>
+    <string name="pref_translation_backend_option_server_only">Server only</string>
     <string name="pref_underline_links_links">External Links</string>
     <string name="pref_underline_links_hashtags">Hashtags</string>
 </resources>
