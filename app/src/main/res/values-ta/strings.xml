@@ -434,7 +434,6 @@
     <string name="confirmation_domain_unmuted">%1$s</string>
     <string name="dialog_message_cancel_follow_request">பின்தொடர்தல் கோரிக்கையை ரத்து செய்யவா?</string>
     <string name="filter_expiration_format">%1$s (%2$s)</string>
-
     <string name="compose_preview_image_description">படங்களுக்கான செயல்கள் %1$s</string>
     <string name="duration_indefinite">காலவரையற்றது</string>
     <string name="account_note_hint">இந்த கணக்கைப் பற்றிய உங்கள் தனிப்பட்ட குறிப்பு</string>
