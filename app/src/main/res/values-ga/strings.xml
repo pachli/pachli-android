@@ -107,7 +107,7 @@
     <string name="action_view_follow_requests">Lean Iarrataí</string>
     <string name="action_view_domain_mutes">Fearainn i bhfolach</string>
     <string name="action_view_blocks">Úsáideoirí blocáilte</string>
-    <string name="action_view_mutes">Úsáideoirí fuaim</string>
+    <string name="action_view_mutes">Úsáideoirí balbhaithe</string>
     <string name="action_view_bookmarks">Leabharmharcanna</string>
     <string name="action_view_favourites">Toghanna</string>
     <string name="action_send_public">SÉID!</string>
@@ -196,8 +196,8 @@
     <string name="filter_dialog_whole_word_description">Nuair atá an eochairfhocal nó an frása alfa-uimhriúil amháin, ní chuirfear i bhfeidhm é ach má oireann sé don fhocal iomlán</string>
     <string name="title_posts">Postálacha</string>
     <string name="notification_favourite_format">Chuir &lt;b&gt;%1$s&lt;/b&gt; do phost i bhfabhar</string>
-    <string name="action_unmute_desc">Díbholg %1$s</string>
-    <string name="action_mute_conversation">Comhrá tost</string>
+    <string name="action_unmute_desc">Díbhalbhaigh %1$s</string>
+    <string name="action_mute_conversation">Comhrá balbhaigh</string>
     <string name="state_follow_requested">Lean iarrtha</string>
     <string name="follows_you">Leanann tú</string>
     <string name="pref_title_alway_show_sensitive_media">Taispeáin ábhar íogair i gcónaí</string>
@@ -276,7 +276,7 @@
     <string name="title_tab_preferences">Cluaisíní</string>
     <string name="action_mute_domain">Balbhaigh %1$s</string>
     <string name="action_unmute_domain">Díbhalbhaigh %1$s</string>
-    <string name="action_unmute_conversation">Comhrá unmute</string>
+    <string name="action_unmute_conversation">Comhrá díbhalbhaigh</string>
     <string name="dialog_mute_warning">Balbhaigh @%1$s?</string>
     <string name="pref_title_post_tabs">Cluaisíní</string>
     <string name="unreblog_private">Bain athchraoladh</string>
@@ -532,8 +532,8 @@
     <string name="action_open_byline_account">Taispeáin próifíl údar an ailt</string>
     <string name="action_open_link">Oscail nasc</string>
     <string name="search_operator_attachment_dialog_title">Teorainn le poist leis na meáin?</string>
-    <string name="error_following_hashtag_format">Earráid ag leanúint #%1$s</string>
-    <string name="error_unfollowing_hashtag_format">Earráid ag díleanúint #%1$s</string>
+    <string name="error_following_hashtag_format">Earráid ag leanúint #%1$s: %2$s</string>
+    <string name="error_unfollowing_hashtag_format">Earráid ag díleanúint #%1$s: %2$s</string>
     <string name="error_unmuting_hashtag_format">Earráid ag dí-bholgadh #%1$s</string>
     <string name="error_muting_hashtag_format">Earráid ag múchadh #%1$s</string>
     <string name="error_status_source_load">Theip ar luchtú na foinse stádais ón bhfreastalaí.</string>
@@ -753,4 +753,6 @@
     <string name="ui_error_delete_scheduled_status_fmt">Níorbh fhéidir an post sceidealaithe a scriosadh chun é a athsholáthar: %1$s</string>
     <string name="ui_error_sending_post_fmt">Níorbh fhéidir an post a sheoladh: %1$s</string>
     <string name="ui_error_saving_post_fmt">Níorbh fhéidir an post a shábháil: %1$s</string>
+    <string name="action_mute_hashtag">Balbhaigh #%1$s</string>
+    <string name="action_unmute_hashtag">Díbhalbhaigh #%1$s</string>
 </resources>

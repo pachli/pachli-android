@@ -222,7 +222,7 @@
     <plurals name="notification_severed_relationships_summary_followers_fmt">
         <item quantity="other">%1$s pengikut di hapus</item>
     </plurals>
-    <string name="notification_severed_relationships_format">Hubungan dengan &lt;b>%1$s&lt;/b> terputus</string>
+    <string name="notification_severed_relationships_format">Hubungan dengan &lt;b&gt;%1$s&lt;/b&gt; terputus</string>
     <string name="notification_severed_relationships_domain_block_body">Moderator menangguhkan domain tersebut</string>
     <string name="pref_title_notification_filter_follow_requests">ikuti diminta</string>
     <plurals name="notification_severed_relationships_summary_following_fmt">
