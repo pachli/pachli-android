@@ -19,14 +19,14 @@
 
     <item
         android:id="@+id/action_mute_hashtag"
-        android:title="@string/action_mute"
+        android:title="@string/action_mute_hashtag"
         app:showAsAction="ifRoom"
         app:iconTint="?attr/colorControlNormal"
         android:icon="@drawable/ic_mute_24dp" />
 
     <item
         android:id="@+id/action_unmute_hashtag"
-        android:title="@string/action_unmute"
+        android:title="@string/action_unmute_hashtag"
         app:showAsAction="ifRoom"
         app:iconTint="?attr/colorControlNormal"
         android:icon="@drawable/ic_unmute_24dp" />
