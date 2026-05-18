@@ -62,7 +62,7 @@ class DraftsActivity : BaseActivity() {
         addMenuProvider(this)
 
         binding.includedToolbar.toolbar.setOnClickListener {
-            binding.fragmentContainer.getFragment<DraftsFragment>().onReselect()
+            binding.fragmentContainer.getFragment<DraftsFragment?>()?.onReselect()
         }
 
         val fragment = supportFragmentManager.findFragmentByTag(FRAGMENT_TAG + pachliAccountId) as DraftsFragment?

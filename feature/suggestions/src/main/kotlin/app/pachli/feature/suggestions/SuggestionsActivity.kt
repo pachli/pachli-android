@@ -21,7 +21,6 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewGroupCompat
 import androidx.fragment.app.commit
-import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.navigation.pachliAccountId
@@ -56,7 +55,7 @@ class SuggestionsActivity : ViewUrlActivity() {
         }
 
         binding.toolbar.setOnClickListener {
-            (binding.fragmentContainer.getFragment<SuggestionsFragment>() as? ReselectableFragment)?.onReselect()
+            binding.fragmentContainer.getFragment<SuggestionsFragment?>()?.onReselect()
         }
 
         val pachliAccountId = intent.pachliAccountId
