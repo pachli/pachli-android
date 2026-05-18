@@ -63,7 +63,7 @@ class ScheduledStatusActivity : BaseActivity() {
         }
 
         binding.includedToolbar.toolbar.setOnClickListener {
-            binding.fragmentContainer.getFragment<ScheduledStatusFragment>().onReselect()
+            binding.fragmentContainer.getFragment<ScheduledStatusFragment?>()?.onReselect()
         }
 
         val fragment = supportFragmentManager.findFragmentByTag(FRAGMENT_TAG + pachliAccountId) as ScheduledStatusFragment?

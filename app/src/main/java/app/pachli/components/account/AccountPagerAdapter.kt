@@ -44,10 +44,7 @@ class AccountPagerAdapter(
 
     fun refreshContent() {
         for (i in 0 until TAB_COUNT) {
-            val fragment = getFragment(i)
-            if (fragment != null && fragment is RefreshableFragment) {
-                (fragment as RefreshableFragment).refreshContent()
-            }
+            (getFragment(i) as? RefreshableFragment)?.refreshContent()
         }
     }
 
