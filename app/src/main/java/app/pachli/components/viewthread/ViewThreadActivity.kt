@@ -52,6 +52,11 @@ class ViewThreadActivity : ViewUrlActivity() {
             setDisplayShowHomeEnabled(true)
             setDisplayShowTitleEnabled(true)
         }
+
+        binding.toolbar.setOnClickListener {
+            binding.fragmentContainer.getFragment<ViewThreadFragment?>()?.onReselect()
+        }
+
         val id = ViewThreadActivityIntent.getStatusId(intent)
         val url = ViewThreadActivityIntent.getUrl(intent)
         val fragment =
