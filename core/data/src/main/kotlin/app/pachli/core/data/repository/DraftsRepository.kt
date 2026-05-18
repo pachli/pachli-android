@@ -207,7 +207,11 @@ fun DeletedStatus.asDraft() = Draft(
     language = language,
     quotePolicy = quoteApproval?.asQuotePolicy() ?: AccountSource.QuotePolicy.NOBODY,
     scheduledAt = null,
-    statusId = id,
+    // Clear the status ID. Since this is a deleted status the draft can't
+    // refer back to it, otherwise SendStatusService tries to send it as an
+    // update to an existing status (which has been deleted, so doesn't
+    // exist).
+    statusId = null,
     inReplyToId = inReplyToId,
     quotedStatusId = (quote as? Status.Quote.WithStatusId)?.statusId,
     cursorPosition = text?.length ?: 0,
