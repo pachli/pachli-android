@@ -35,6 +35,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.components.viewthread.edits.ViewEditsFragment
+import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
@@ -82,6 +83,7 @@ import kotlinx.coroutines.launch
 class ViewThreadFragment :
     SFragment<StatusItemViewData>(),
     OnRefreshListener,
+    ReselectableFragment,
     StatusActionListener,
     MenuProvider {
 
@@ -467,6 +469,10 @@ class ViewThreadFragment :
 
     override fun clearContentFilter(viewData: IStatusViewData) {
         viewModel.clearWarning(viewData)
+    }
+
+    override fun onReselect() {
+        binding.recyclerView.scrollToPosition(0)
     }
 
     companion object {
