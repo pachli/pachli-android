@@ -83,8 +83,8 @@
     <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; registreerus</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; just postitas midagi</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; muutis oma postitust</string>
-    <string name="error_following_hashtag_format">Viga #%1$s teemaviite jälgimisel</string>
-    <string name="error_unfollowing_hashtag_format">Viga #%1$s teemaviite jälgimise lõpetamisel</string>
+    <string name="error_following_hashtag_format">Viga #%1$s teemaviite jälgimisel: %2$s</string>
+    <string name="error_unfollowing_hashtag_format">Viga #%1$s teemaviite jälgimise lõpetamisel: %2$s</string>
     <string name="error_following_hashtags_unsupported">See koduserver ei võimalda teemaviidete jälgimist.</string>
     <string name="error_muting_hashtag_format">Viga #%1$s teemaviite summutamisel</string>
     <string name="error_unmuting_hashtag_format">Viga #%1$s teemaviite summutamise lõpetamisel</string>
@@ -723,4 +723,6 @@
     <string name="title_delete_scheduled_statuses">Kas kustutad ajastatud postitused?</string>
     <string name="delete_scheduled_statuses_msg">Järgnevaga kustutad kõik ajastatud postitused, mille oled valinud.</string>
     <string name="action_delete_scheduled_statuses">Kustuta valitud postitused</string>
+    <string name="action_mute_hashtag">Summuta #%1$s</string>
+    <string name="action_unmute_hashtag">Lõpeta summutamine: #%1$s</string>
 </resources>
