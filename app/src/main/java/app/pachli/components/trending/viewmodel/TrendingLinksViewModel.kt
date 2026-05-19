@@ -24,11 +24,12 @@ import app.pachli.components.trending.TrendingLinksRepository
 import app.pachli.core.common.extensions.stateFlow
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.model.TrendsLink
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
-import com.github.michaelbull.result.mapBoth
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.map
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -53,12 +54,6 @@ sealed interface InfallibleUiAction : UiAction {
     data object Reload : InfallibleUiAction
 }
 
-sealed interface LoadState {
-    data object Loading : LoadState
-    data class Success(val data: List<TrendsLink>) : LoadState
-    data class Error(val throwable: Throwable) : LoadState
-}
-
 @HiltViewModel(assistedFactory = TrendingLinksViewModel.Factory::class)
 class TrendingLinksViewModel @AssistedInject constructor(
     @Assisted private val pachliAccountId: Long,
@@ -73,15 +68,14 @@ class TrendingLinksViewModel @AssistedInject constructor(
 
     private val reload = MutableSharedFlow<Unit>(replay = 1)
 
-    val loadState = stateFlow(viewModelScope, LoadState.Loading) {
+    val loadState = stateFlow(viewModelScope, Ok(Loadable.Loading)) {
         reload.flatMapLatest {
             flow {
-                emit(LoadState.Loading)
+                emit(Ok(Loadable.Loading))
                 emit(
-                    repository.getTrendingLinks().mapBoth(
-                        { response -> LoadState.Success(response) },
-                        { error -> LoadState.Error(error.throwable) },
-                    ),
+                    repository.getTrendingLinks().map {
+                        Loadable.Loaded(it)
+                    },
                 )
             }
         }.flowWhileShared(SharingStarted.WhileSubscribed(5000))
