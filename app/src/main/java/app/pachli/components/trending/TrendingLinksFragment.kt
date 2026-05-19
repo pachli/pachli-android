@@ -38,7 +38,6 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.components.trending.viewmodel.InfallibleUiAction
-import app.pachli.components.trending.viewmodel.LoadState
 import app.pachli.components.trending.viewmodel.TrendingLinksViewModel
 import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.activity.RefreshableFragment
@@ -48,11 +47,14 @@ import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.data.repository.Loadable
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.PreviewCard
 import app.pachli.core.model.ServerOperation
+import app.pachli.core.model.TrendsLink
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
+import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.PreviewCardView.Target
@@ -60,6 +62,8 @@ import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentTrendingLinksBinding
 import app.pachli.interfaces.ActionButtonActivity
 import com.bumptech.glide.Glide
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.IconicsDrawable
@@ -157,11 +161,13 @@ class TrendingLinksFragment :
 
                 launch {
                     viewModel.loadState.collect {
-                        when (it) {
-                            LoadState.Loading -> bindLoading()
-                            is LoadState.Success -> bindSuccess(it)
-                            is LoadState.Error -> bindError(it)
+                        it.onSuccess {
+                            when (it) {
+                                Loadable.Loading -> bindLoading()
+                                is Loadable.Loaded -> bindSuccess(it.data)
+                            }
                         }
+                        it.onFailure { bindError(it) }
                     }
                 }
                 launch {
@@ -183,11 +189,11 @@ class TrendingLinksFragment :
         }
     }
 
-    private fun bindSuccess(loadState: LoadState.Success) {
-        trendingLinksAdapter.submitList(loadState.data)
+    private fun bindSuccess(links: List<TrendsLink>) {
+        trendingLinksAdapter.submitList(links)
         binding.progressBar.hide()
         binding.swipeRefreshLayout.isRefreshing = false
-        if (loadState.data.isEmpty()) {
+        if (links.isEmpty()) {
             binding.messageView.setup(BackgroundMessage.Empty())
             binding.messageView.show()
         } else {
@@ -196,28 +202,31 @@ class TrendingLinksFragment :
         }
     }
 
-    private fun bindError(loadState: LoadState.Error) {
+    private fun bindError(error: ApiError) {
         binding.progressBar.hide()
         binding.swipeRefreshLayout.isRefreshing = false
         binding.recyclerView.hide()
-        if (trendingLinksAdapter.itemCount != 0) {
-            val snackbar = Snackbar.make(
-                binding.root,
-                loadState.throwable.message ?: "Error",
-                Snackbar.LENGTH_INDEFINITE,
-            )
 
-            if (loadState.throwable !is HttpException || loadState.throwable.code() != 404) {
-                snackbar.setAction("Retry") { viewModel.accept(InfallibleUiAction.Reload) }
+        val canRetry = error.throwable !is HttpException || (error.throwable as HttpException).code() != 404
+
+        if (trendingLinksAdapter.itemCount != 0) {
+            Snackbar.make(
+                binding.root,
+                error.fmt(binding.root.context),
+                Snackbar.LENGTH_INDEFINITE,
+            ).apply {
+                if (canRetry) {
+                    setAction("Retry") { viewModel.accept(InfallibleUiAction.Reload) }
+                }
+                show()
             }
-            snackbar.show()
         } else {
-            if (loadState.throwable !is HttpException || loadState.throwable.code() != 404) {
-                binding.messageView.setup(loadState.throwable) {
+            if (canRetry) {
+                binding.messageView.setup(error.throwable) {
                     viewModel.accept(InfallibleUiAction.Reload)
                 }
             } else {
-                binding.messageView.setup(loadState.throwable)
+                binding.messageView.setup(error.throwable)
             }
             binding.messageView.show()
         }
