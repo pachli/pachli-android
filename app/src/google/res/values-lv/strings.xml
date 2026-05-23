@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="update_dialog_positive">Atvērt Google Play</string>
-    <string name="update_dialog_message">Vai atvērt Google Play, lai apskatītu informāciju?</string>
+    <string name="update_dialog_message">Atvērt Google Play, lai apskatītu informāciju?</string>
     <string name="action_delete_remote_model_fmt">Izdzēst %1$s</string>
     <string name="action_download_remote_model_fmt">Lejupielādēt %1$s</string>
     <string name="content_description_loading_fmt">%1$s, lejupielādē</string>
