@@ -27,14 +27,14 @@
     <string name="action_quick_reply">Ātrā atbilde</string>
     <string name="action_unbookmark">Noņemt grāmatzīmi</string>
     <string name="action_follow">Sekot</string>
-    <string name="action_unblock">Atbloķēt</string>
+    <string name="action_unblock">Atcelt liegumu</string>
     <string name="action_unfollow">Pārtraukt sekošanu</string>
     <string name="action_delete">Dzēst</string>
     <string name="action_delete_conversation">Dzēst sarunu</string>
     <string name="action_view_preferences">Iestatījumi</string>
     <string name="action_view_domain_mutes">Paslēptie domēni</string>
     <string name="action_view_mutes">Apklusinātie lietotāji</string>
-    <string name="action_view_blocks">Bloķētie lietotāji</string>
+    <string name="action_view_blocks">Liegtie lietotāji</string>
     <string name="action_share">Kopīgot</string>
     <string name="action_add_poll">Pievienot aptauju</string>
     <string name="action_photo_take">Uzņemt fotoattēlu</string>
@@ -56,7 +56,7 @@
     <string name="download_image">Lejupielādē %1$s</string>
     <string name="confirmation_reported">Nosūtīts!</string>
     <string name="action_copy_link">Nokopēt saiti</string>
-    <string name="confirmation_unblocked">Lietotājs atbloķēts</string>
+    <string name="confirmation_unblocked">Lietotāja liegšana atcelta</string>
     <string name="hint_note">Biogrāfija</string>
     <string name="hint_content_warning">Satura brīdinājums</string>
     <string name="label_avatar">Avatars</string>
@@ -118,7 +118,7 @@
     <string name="error_media_upload_sending">Augšupielāde neizdevās.</string>
     <string name="edit_poll">Labot</string>
     <string name="action_access_drafts">Melnraksti</string>
-    <string name="action_block">Bloķēt</string>
+    <string name="action_block">Liegt</string>
     <string name="action_report">Ziņot</string>
     <string name="action_open_in_web">Atvērt pārlūkā</string>
     <string name="hint_search">Meklēt…</string>
@@ -140,7 +140,7 @@
     <string name="action_view_follow_requests">Sekošanas pieprasījumi</string>
     <string name="action_add_reaction">pievienot reakciju</string>
     <string name="hint_compose">Kas notiek\?</string>
-    <string name="dialog_block_warning">Bloķēt @%1$s\?</string>
+    <string name="dialog_block_warning">Liegt @%1$s?</string>
     <string name="pref_title_notification_filter_follow_requests">Pieprasīta sekošana</string>
     <string name="notification_follow_request_name">Sekošanas pieprasījumi</string>
     <string name="notification_subscription_name">Jauni ieraksti</string>
@@ -159,7 +159,7 @@
     <string name="emoji_style">Emocijzīmju stils</string>
     <string name="add_hashtag_title">Pievienot tēmturi</string>
     <string name="pref_title_show_cards_in_timelines">Rādīt saišu priekšskatījumus laika līnijās</string>
-    <string name="title_blocks">Bloķētie lietotāji</string>
+    <string name="title_blocks">Liegtie lietotāji</string>
     <string name="pref_title_http_proxy_enable">Iespējot HTTP starpniekserveri</string>
     <string name="pref_title_http_proxy_server">HTTP starpniekserveris</string>
     <string name="pref_title_http_proxy_port_message">Portam ir jābūt starp %1$d un %2$d</string>
@@ -170,7 +170,7 @@
     <string name="error_sender_account_gone">Sūtot ziņu, radās kļūda.</string>
     <string name="title_posts_pinned">Piespraustie</string>
     <string name="title_followed_hashtags">Sekotie tēmturi</string>
-    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; nupat publicēja</string>
+    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; tikko ievietoja ierakstu</string>
     <string name="report_username_format">Ziņot par @%1$s</string>
     <string name="notification_header_report_format">%1$s ziņoja par %2$s</string>
     <string name="action_show_reblogs">Parādīt pastiprinājumus</string>
@@ -179,7 +179,7 @@
     <string name="action_open_reblogged_by">Parādīt pastiprinājumus</string>
     <string name="send_post_content_to">Kopīgot ierakstu…</string>
     <string name="hint_display_name">Nosaukums</string>
-    <string name="dialog_mute_warning">Vai apklusināt @%1$s\?</string>
+    <string name="dialog_mute_warning">Vai apklusināt @%1$s?</string>
     <string name="dialog_mute_hide_notifications">Paslēpt paziņojumus</string>
     <string name="mute_domain_warning_dialog_ok">Paslēpt visu domēnu</string>
     <string name="pref_title_edit_notification_settings">Paziņojumi</string>
@@ -239,7 +239,7 @@
     <string name="dialog_title_finishing_media_upload">Pabeidz multivides augšupielādi</string>
     <string name="pref_title_hide_follow_button">Ritināšanas laikā paslēpt ieraksta sastādīšanas pogu</string>
     <string name="pref_default_media_sensitivity">Vienmēr atzīmēt informācijas nesējus kā jūtīgus</string>
-    <string name="error_no_custom_emojis">Instancē %1$s nav neviena pielāgota emocijzīmje</string>
+    <string name="error_no_custom_emojis">Serverī %1$s nav nevienas pielāgotas emocijzīmes</string>
     <string name="download_fonts">Vispirms jālejupielādē šie emocijzīmju komplekti</string>
     <string name="action_compose_shortcut">Rakstīt</string>
     <string name="warning_scheduling_interval">Mastodon minimālais ieplānošanas intervāls ir 5 minūtes.</string>
@@ -606,7 +606,7 @@
     <string name="pref_summary_account_conversation_filters">Tavs serveris neatbalsta sarunu atlasītājus</string>
     <string name="pref_account_conversation_filters_label_younger_30d">… kas ir izveidoti pēdējās 30 dienās</string>
     <string name="account_filter_placeholder_type_favourite_fmt">Lietotājs @&lt;b&gt;%1$s&lt;/b&gt; ievietoja izlasē Tavu ierakstu</string>
-    <string name="account_filter_placeholder_type_follow_fmt">Lietotājs @&lt;b&gt;%1$s&lt;/b&gt; seko Tev</string>
+    <string name="account_filter_placeholder_type_follow_fmt">Lietotājs @&lt;b&gt;%1$s&lt;/b&gt; sāka Tev sekot</string>
     <string name="account_filter_placeholder_type_follow_request_fmt">Sekošanas pieprasījums no lietotāja @&lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="account_filter_placeholder_type_reblog_fmt">Lietotājs @&lt;b&gt;%1$s&lt;/b&gt; pastiprināja Tavu ierakstu</string>
     <string name="account_filter_placeholder_label_domain">No lietotāja @&lt;b&gt;%1$s&lt;/b&gt;</string>
@@ -718,4 +718,6 @@
     <string name="title_delete_scheduled_statuses">Izdzēst atlasītos ierindotos ierakstus?</string>
     <string name="action_unmute_hashtag">Atcelt #%1$s apklusināšanu</string>
     <string name="action_mute_hashtag">Apklusināt #%1$s</string>
+    <string name="err_draft_error_no_external_files_dir">kopīgotā krātuve nav pieejama</string>
+    <string name="err_draft_error_mkdir_drafts_fmt">nevarēja izveidot melnrakstu mapi: %1$s</string>
 </resources>
