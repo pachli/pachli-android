@@ -106,6 +106,9 @@ class ViewImageFragment : ViewMediaFragment() {
             },
         )
 
+        binding.photoView.doubleTapScale = 3f
+        binding.photoView.maxZoom = 12f
+
         binding.photoView.setOnTouchCoordinatesListener(
             object : OnTouchCoordinatesListener {
                 /** Y coordinate of the last single-finger drag */
