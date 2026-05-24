@@ -337,22 +337,11 @@
     <issue
         id="MemberExtensionConflict"
         message="`hide` is defined both as a member in class `app.pachli.core.ui.PollView` and an extension in package `app.pachli.core.common.extensions`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            } ?: pollView.hide()"
-        errorLine2="                 ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/ui/StatusView.kt"
-            line="336"
-            column="18"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`hide` is defined both as a member in class `app.pachli.core.ui.PollView` and an extension in package `app.pachli.core.common.extensions`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
         errorLine1="            pollView.hide()"
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/core/ui/StatusView.kt"
-            line="338"
+            line="324"
             column="13"/>
     </issue>
 
@@ -440,7 +429,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/trending/TrendingLinksFragment.kt"
-            line="123"
+            line="127"
             column="13"/>
     </issue>
 
@@ -473,7 +462,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/viewthread/ViewThreadFragment.kt"
-            line="192"
+            line="194"
             column="13"/>
     </issue>
 
@@ -484,7 +473,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/viewthread/ViewThreadFragment.kt"
-            line="222"
+            line="224"
             column="21"/>
     </issue>
 
@@ -495,7 +484,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/viewthread/ViewThreadFragment.kt"
-            line="244"
+            line="246"
             column="21"/>
     </issue>
 
@@ -506,7 +495,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/viewthread/ViewThreadFragment.kt"
-            line="266"
+            line="268"
             column="21"/>
     </issue>
 
