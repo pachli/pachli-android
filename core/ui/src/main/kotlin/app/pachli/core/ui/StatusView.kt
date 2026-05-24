@@ -187,52 +187,34 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         statusDisplayOptions: StatusDisplayOptions,
         listener: StatusActionListener,
     ) {
-        val spoilerText = when (viewData.translationState) {
-            TranslationState.SHOW_ORIGINAL -> viewData.actionable.spoilerText
-            TranslationState.TRANSLATING -> viewData.actionable.spoilerText
-            TranslationState.SHOW_TRANSLATION -> viewData.translation?.spoilerText.orEmpty()
-        }
+        val hasContentWarning = viewData.actionable.spoilerText.isNotBlank()
 
-        // Determine sensitive state from the original spoiler text, not the translated
-        // text, in case the translation erroneously returns empty spoiler text.
-        val sensitive = !TextUtils.isEmpty(viewData.actionable.spoilerText)
-        val expanded = viewData.isExpanded
-        if (sensitive) {
-            val emojiSpoiler = spoilerText.emojify(
+        contentWarningButton.visible(hasContentWarning)
+        contentWarningDescription.visible(hasContentWarning)
+
+        if (hasContentWarning) {
+            val emojiSpoiler = viewData.spoilerText.emojify(
                 glide,
                 viewData.actionable.emojis,
                 contentWarningDescription,
                 statusDisplayOptions.animateEmojis,
             )
             contentWarningDescription.text = emojiSpoiler
-            contentWarningDescription.visibility = VISIBLE
-            contentWarningButton.visibility = VISIBLE
             setContentWarningButtonText(viewData.isExpanded)
             contentWarningButton.setOnClickListener {
                 toggleExpandedState(
                     setContent,
                     glide,
                     viewData,
-                    true,
-                    !expanded,
+                    !viewData.isExpanded,
                     statusDisplayOptions,
                     listener,
                 )
             }
-            setTextVisible(setContent, glide, true, viewData, statusDisplayOptions, listener)
-            return
         }
 
-        contentWarningDescription.visibility = GONE
-        contentWarningButton.visibility = GONE
-        setTextVisible(
-            setContent,
-            glide,
-            sensitive = false,
-            viewData = viewData,
-            statusDisplayOptions = statusDisplayOptions,
-            listener = listener,
-        )
+        setTextVisible(setContent, glide, viewData, statusDisplayOptions, listener)
+        setupPoll(glide, viewData, statusDisplayOptions, listener)
     }
 
     private fun setContentWarningButtonText(expanded: Boolean) {
@@ -247,7 +229,6 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         setContent: SetContent,
         glide: RequestManager,
         viewData: T,
-        sensitive: Boolean,
         expanded: Boolean,
         statusDisplayOptions: StatusDisplayOptions,
         listener: StatusActionListener,
@@ -255,7 +236,8 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         contentWarningDescription.invalidate()
         listener.onExpandedChange(viewData, expanded)
         setContentWarningButtonText(expanded)
-        setTextVisible(setContent, glide, sensitive, viewData, statusDisplayOptions, listener)
+        setTextVisible(setContent, glide, viewData, statusDisplayOptions, listener)
+        setupPoll(glide, viewData, statusDisplayOptions, listener)
         setupCard(
             glide,
             viewData,
@@ -269,7 +251,6 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
     private fun setTextVisible(
         setContent: SetContent,
         glide: RequestManager,
-        sensitive: Boolean,
         viewData: T,
         statusDisplayOptions: StatusDisplayOptions,
         listener: StatusActionListener,
@@ -277,7 +258,6 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         val emojis = viewData.actionable.emojis
         val mentions = viewData.actionable.mentions
         val tags = viewData.actionable.tags
-        val poll = viewData.actionable.poll
 
         when (viewData.translationState) {
             TranslationState.SHOW_ORIGINAL -> translationProvider.hide()
@@ -299,7 +279,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
             }
         }
 
-        if (!sensitive || viewData.isExpanded) {
+        if (viewData.isShowingContent) {
             setContent(
                 glide = glide,
                 textView = this.content,
@@ -312,30 +292,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
                 hashtags = tags,
                 linkListener = listener,
             )
-
-            poll?.let {
-                val pollViewData = if (viewData.translationState == TranslationState.SHOW_TRANSLATION) {
-                    from(poll).copy(translatedPoll = viewData.translation?.poll)
-                } else {
-                    from(poll)
-                }
-
-                pollView.bind(
-                    glide,
-                    pollViewData,
-                    emojis,
-                    statusDisplayOptions,
-                    NUMBER_FORMATTER,
-                    TIME_FORMATTER,
-                ) { choices ->
-                    choices?.let {
-                        listener.onVoteInPoll(viewData, poll, it)
-                    } ?: listener.onViewThread(viewData.actionable)
-                }
-                pollView.show()
-            } ?: pollView.hide()
         } else {
-            pollView.hide()
             setClickableMentions(
                 this.content,
                 mentions,
@@ -343,11 +300,50 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
                 listener,
             )
         }
-        if (TextUtils.isEmpty(this.content.text)) {
+        if (this.content.text.isBlank()) {
             this.content.visibility = GONE
         } else {
             this.content.visibility = VISIBLE
         }
+    }
+
+    /**
+     * Displays any poll in [viewData], if
+     * [isShowingContent][StatusViewData.isShowingContent] (otherwise
+     * the poll is hidden).
+     */
+    private fun setupPoll(
+        glide: RequestManager,
+        viewData: T,
+        statusDisplayOptions: StatusDisplayOptions,
+        listener: StatusActionListener,
+    ) {
+        val poll = viewData.poll
+
+        if (!viewData.isShowingContent || poll == null) {
+            pollView.hide()
+            return
+        }
+
+        val pollViewData = if (viewData.translationState == TranslationState.SHOW_TRANSLATION) {
+            from(poll).copy(translatedPoll = viewData.translation?.poll)
+        } else {
+            from(poll)
+        }
+
+        pollView.bind(
+            glide,
+            pollViewData,
+            viewData.actionable.emojis,
+            statusDisplayOptions,
+            NUMBER_FORMATTER,
+            TIME_FORMATTER,
+        ) { choices ->
+            choices?.let {
+                listener.onVoteInPoll(viewData, poll, it)
+            } ?: listener.onViewThread(viewData.actionable)
+        }
+        pollView.show()
     }
 
     private fun setAvatar(
@@ -489,6 +485,11 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         listener: StatusActionListener,
         useBlurhash: Boolean,
     ) {
+        if (!viewData.isShowingContent) {
+            attachmentsView.hide()
+            return
+        }
+
         // Get the attachments -- this might be the translated version (with any
         // translated descriptions).
         val actionable = viewData.actionable
@@ -656,9 +657,8 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
 
             append("; ")
 
-            // Content is optional, and hidden if there are spoilers or the status is
-            // marked sensitive, and it has not been expanded.
-            if (TextUtils.isEmpty(spoilerText) || !sensitive || viewData.isExpanded) {
+            // Content is only included if it's visible.
+            if (viewData.isShowingContent) {
                 val removeQuoteInline = viewData.actionable.quote != null
                 val content = if (removeQuoteInline) {
                     viewData.content.removeQuoteInline().parseAsMastodonHtml()
@@ -761,36 +761,35 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         statusDisplayOptions: StatusDisplayOptions,
         listener: StatusActionListener,
     ) {
-        val sensitive = viewData.actionable.sensitive
-        val attachments = viewData.actionable.attachments
-        val poll = viewData.actionable.poll
-        val card = viewData.actionable.card
+        val actionable = viewData.actionable
+        val sensitive = actionable.sensitive
+        val card = actionable.card
 
-        if (cardViewMode !== CardViewMode.NONE &&
-            attachments.isEmpty() &&
-            poll == null &&
-            card != null &&
-            !TextUtils.isEmpty(card.url) &&
-            (!sensitive || expanded) &&
-            (!viewData.isCollapsible || !viewData.isCollapsed)
-        ) {
-            cardView.visibility = VISIBLE
-            cardView.bind(glide, card, viewData.actionable.sensitive, statusDisplayOptions, false) { card, target ->
-                if (target == PreviewCardView.Target.BYLINE) {
-                    card.authors?.firstOrNull()?.account?.id?.let { listener.onViewAccount(it) }
-                    return@bind
-                }
+        val hasAttachments = actionable.attachments.isNotEmpty()
+        val hasPoll = actionable.poll != null
+        val hasCard = card != null && card.url.isNotBlank()
 
-                if (card.kind == PreviewCardKind.PHOTO && card.embedUrl.isNotEmpty() && target == PreviewCardView.Target.IMAGE) {
-                    listener.onViewMedia(viewData.pachliAccountId, viewData.actionable.account.username, card.embedUrl)
-                    return@bind
-                }
+        val showCard = hasCard && !hasAttachments && !hasPoll && cardViewMode != CardViewMode.NONE && viewData.isShowingContent
 
-                listener.onViewUrl(card.url)
-            }
-        } else {
-            cardView.visibility = GONE
+        if (!showCard) {
+            cardView.hide()
+            return
         }
+
+        cardView.bind(glide, card, sensitive, statusDisplayOptions, false) { card, target ->
+            if (target == PreviewCardView.Target.BYLINE) {
+                card.authors?.firstOrNull()?.account?.id?.let { listener.onViewAccount(it) }
+                return@bind
+            }
+
+            if (card.kind == PreviewCardKind.PHOTO && card.embedUrl.isNotBlank() && target == PreviewCardView.Target.IMAGE) {
+                listener.onViewMedia(viewData.pachliAccountId, actionable.account.username, card.embedUrl)
+                return@bind
+            }
+
+            listener.onViewUrl(card.url)
+        }
+        cardView.show()
     }
 
     companion object {
