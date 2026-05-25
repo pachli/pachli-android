@@ -39,6 +39,7 @@ import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
 import app.pachli.core.model.TranslatedAttachment
 import app.pachli.core.model.TranslatedPoll
+import com.squareup.moshi.JsonDataException
 import com.squareup.moshi.JsonEncodingException
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapter
@@ -59,10 +60,10 @@ import javax.inject.Singleton
  * @property type Name of the target type.
  * @property cause
  */
-data class BetterJsonEncodingException(
+data class BetterJsonException(
     val json: String?,
     val type: String,
-    override val cause: JsonEncodingException,
+    override val cause: Throwable,
 ) : Exception() {
     override fun getLocalizedMessage(): String {
         return "«${cause.localizedMessage}»: failed JSON: «$json», type: «$type»"
@@ -81,13 +82,15 @@ class Converters @Inject constructor(
     /**
      * Deserialises [json] to [T].
      *
-     * @throws BetterJsonEncodingException if deserialisation fails.
+     * @throws BetterJsonException if deserialisation fails.
      */
     private inline fun <reified T> fromJson(json: String?): T? {
         return try {
             json?.let { moshi.adapter<T>().fromJson(it) }
         } catch (e: JsonEncodingException) {
-            throw BetterJsonEncodingException(json, T::class.java.name, e)
+            throw BetterJsonException(json, T::class.java.name, e)
+        } catch (e: JsonDataException) {
+            throw BetterJsonException(json, T::class.java.name, e)
         }
     }
 
