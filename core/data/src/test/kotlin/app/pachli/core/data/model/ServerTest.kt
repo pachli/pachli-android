@@ -26,6 +26,8 @@ import app.pachli.core.model.ServerKind.GOTOSOCIAL
 import app.pachli.core.model.ServerKind.MASTODON
 import app.pachli.core.model.ServerKind.PLEROMA
 import app.pachli.core.model.ServerKind.UNKNOWN
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_ACCOUNT_QUOTE_POLICY
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_ACTION_BLUR
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE
@@ -36,13 +38,18 @@ import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_I
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_LINK
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_MEDIA
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_POLL
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_QUOTE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_VIDEO
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IN_LIBRARY
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IN_PUBLIC
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_REPLY
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_GET
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_QUOTE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_SCHEDULED
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_TIMELINES_LINK
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Configuration
 import app.pachli.core.network.model.Contact
@@ -323,6 +330,44 @@ class ServerTest(
                             capabilities = mapOf(
                                 ORG_JOINMASTODON_FILTERS_SERVER to "1.0.0".toVersion(),
                                 ORG_JOINMASTODON_STATUSES_SCHEDULED to "1.0.0".toVersion(),
+                            ),
+                        ),
+                    ),
+                ),
+                arrayOf(
+                    Triple(
+                        "Hometown >= 4.5.0 can quote",
+                        NodeInfo.Software("hometown", "4.5.10+hometown-1.2.1"),
+                        defaultInstance,
+                    ),
+                    Ok(
+                        Server(
+                            kind = ServerKind.HOMETOWN,
+                            version = "4.5.10+hometown-1.2.1".toVersion(),
+                            capabilities = mapOf(
+                                ORG_JOINMASTODON_STATUSES_SCHEDULED to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_FILTERS_CLIENT to "1.1.0".toVersion(),
+                                ORG_JOINMASTODON_FILTERS_SERVER to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_IN_PUBLIC to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_FROM to "1.1.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_HAS_MEDIA to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_HAS_IMAGE to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_HAS_VIDEO to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_HAS_AUDIO to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_HAS_POLL to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_HAS_QUOTE to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_HAS_LINK to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_HAS_EMBED to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_IS_REPLY to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_IN_LIBRARY to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_TIMELINES_LINK to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_STATUSES_GET to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_FILTERS_ACTION_BLUR to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_ACCOUNT_QUOTE_POLICY to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_STATUSES_QUOTE to "1.0.0".toVersion(),
                             ),
                         ),
                     ),
