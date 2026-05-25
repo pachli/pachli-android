@@ -280,8 +280,8 @@ data class Server(
         private fun capabilitiesFromServerVersion(kind: ServerKind, v: Version): MutableMap<ServerOperation, Version> {
             val c = mutableMapOf<ServerOperation, Version>()
             when (kind) {
-                // Glitch has the same version number as upstream Mastodon
-                GLITCH, MASTODON -> {
+                // Glitch and Hometown have the same version number as upstream Mastodon
+                GLITCH, HOMETOWN, MASTODON -> {
                     // Scheduled statuses
                     when {
                         v >= "2.7.0".toVersion() -> c[ORG_JOINMASTODON_STATUSES_SCHEDULED] = "1.0.0".toVersion()
@@ -466,7 +466,7 @@ data class Server(
                 // - no translation
                 //
                 // This may be an incorrect assumption.
-                FEDIBIRD, HOMETOWN, ICESHRIMP, PIXELFED, UNKNOWN -> {
+                FEDIBIRD, ICESHRIMP, PIXELFED, UNKNOWN -> {
                     c[ORG_JOINMASTODON_FILTERS_SERVER] = "1.0.0".toVersion()
                     c[ORG_JOINMASTODON_STATUSES_SCHEDULED] = "1.0.0".toVersion()
                 }
