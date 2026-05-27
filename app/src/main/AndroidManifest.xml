@@ -121,7 +121,6 @@
         </activity>
         <activity
             android:name=".components.compose.ComposeActivity"
-            android:theme="@style/AppDialogActivityTheme"
             android:windowSoftInputMode="stateVisible|adjustResize"
             android:alwaysRetainTaskState="true" />
         <activity

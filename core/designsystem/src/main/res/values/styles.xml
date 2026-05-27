@@ -112,8 +112,6 @@
 
     <style name="AppTheme" parent="Theme.Pachli" />
 
-    <style name="AppDialogActivityTheme" parent="AppTheme" />
-
     <style name="Pachli.Widget.Toolbar" parent="Widget.Material3.Toolbar">
         <item name="android:minHeight">?attr/actionBarSize</item>
     </style>

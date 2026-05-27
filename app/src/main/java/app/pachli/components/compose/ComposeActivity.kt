@@ -100,7 +100,6 @@ import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ReferencingStatus
 import app.pachli.core.navigation.pachliAccountId
-import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.sendstatus.createNewImageFile
 import app.pachli.core.sendstatus.model.QueuedMedia
@@ -386,9 +385,6 @@ class ComposeActivity :
             right = InsetType.PADDING,
         )
 
-        if (sharedPreferencesRepository.appTheme == AppTheme.BLACK) {
-            setTheme(DR.style.AppDialogActivityBlackTheme)
-        }
         setContentView(binding.root)
 
         // Restore photoUploadUri early, as it's needed by `takePicture`.
