@@ -256,8 +256,9 @@ class TimelineFragment :
                             // Logging shows that some initial updated pages may be empty or may not
                             // contain the ID we expect (no idea how that can happen). Filter those
                             // out.
+                            .filter { (_, snapshot) -> snapshot.isNotEmpty() }
                             .onEach { (statusId, _) -> Timber.d("timeline: $timeline, Checking contains $statusId") }
-                            .map { (statusId, snapshot) -> Triple(statusId, snapshot, snapshot.indexOfFirst { it?.statusId == statusId }) }
+                            .map { (statusId, snapshot) -> Triple(statusId, snapshot, if (statusId == null) 0 else snapshot.indexOfFirst { it?.statusId == statusId }) }
                             .filter { (_, _, index) -> index != -1 }
                             // Only going to restore the position manually once over the lifetime of this
                             // fragment. Other position restoration is handled by the RecyclerView.
