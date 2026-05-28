@@ -737,7 +737,10 @@ class ComposeViewModel @AssistedInject constructor(
         val draft = saveDraft(cursorPosition).andThen { draft ->
             // Can't edit a scheduled status in place. It needs to be deleted so
             // SendStatusService can create a new scheduled status.
-            if (draft.scheduledAt != null && draft.statusId != null) {
+
+            // Delete the original scheduled status if the original draft was
+            // scheduled.
+            if (composeOptions.draft.scheduledAt != null && draft.statusId != null) {
                 api.deleteScheduledStatus(draft.statusId!!)
                     .mapError { UiError.DeleteScheduledStatus(it) }
                     .map {
@@ -897,8 +900,9 @@ class ComposeViewModel @AssistedInject constructor(
         updateCloseConfirmation()
     }
 
+    /** True if editing a published status (not a scheduled status). */
     val editing: Boolean
-        get() = !originalStatusId.isNullOrEmpty()
+        get() = !originalStatusId.isNullOrEmpty() && composeOptions.draft.scheduledAt == null
 
     /** Closes the open draft when the viewmodel is cleared. */
     override fun onCleared() {
