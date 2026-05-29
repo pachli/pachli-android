@@ -196,7 +196,7 @@
     <string name="unreblog_private">Atcelt pastiprināšanu</string>
     <string name="unpin_action">Atspraust</string>
     <string name="pin_action">Piespraust</string>
-    <string name="action_unfollow_hashtag_format">Vai pārtraukt sekot #%1$s\?</string>
+    <string name="action_unfollow_hashtag_format">Vai pārtraukt sekot #%1$s?</string>
     <string name="mute_notifications_switch">Apklusināt paziņojumus</string>
     <string name="title_edits">Labojumi</string>
     <string name="notification_update_name">Ierakstu labojumi</string>
@@ -720,4 +720,10 @@
     <string name="action_mute_hashtag">Apklusināt #%1$s</string>
     <string name="err_draft_error_no_external_files_dir">kopīgotā krātuve nav pieejama</string>
     <string name="err_draft_error_mkdir_drafts_fmt">nevarēja izveidot melnrakstu mapi: %1$s</string>
+    <string name="err_draft_error_unknown_mime_type">pielikumam ir nezināms MIME veids: %1$s</string>
+    <string name="err_draft_error_content_provider_crash">satura nodrošinātājs nesen avarēja</string>
+    <string name="err_draft_error_io_fmt">saglabāšana neizdevās: %1$s</string>
+    <string name="search_operator_quote_all">Citāti ▾</string>
+    <string name="search_operator_quote_only">Tikai citāti</string>
+    <string name="search_operator_quote_no_quotes">Bez citātiem</string>
 </resources>
