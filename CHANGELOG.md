@@ -1,5 +1,37 @@
 # Pachli changelog
 
+## v3.7.0
+
+See https://pachli.app/pachli/2026/05/30/3.7.0-release.html for full details and credits.
+
+### New features and other improvements
+
+- Highlight followed tags in posts (#[2286](https://github.com/pachli/pachli-android/pull/2286), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Allow images to be zoomed 12x (#[2303](https://github.com/pachli/pachli-android/pull/2303), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Tap the thread title to jump to the top ([Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Allow the scheduled time of scheduled posts to be changed (#[2310](https://github.com/pachli/pachli-android/pull/2310), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't show the Compose screen as a dialog on larger devices (#[2307](https://github.com/pachli/pachli-android/pull/2307), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Ensure first load of "with replies" tab starts from the top (#[2308](https://github.com/pachli/pachli-android/pull/2308), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Catch and report JsonDataExceptions (#[2305](https://github.com/pachli/pachli-android/pull/2305), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Support Mastodon vX features on Hometown vX (#[2306](https://github.com/pachli/pachli-android/pull/2306), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Hide preview cards on all posts with content warnings (#[2302](https://github.com/pachli/pachli-android/pull/2302), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Clear status ID when creating a draft from a deleted status (#[2297](https://github.com/pachli/pachli-android/pull/2297), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Scale the "info" icon above each post to match the text size (#[2284](https://github.com/pachli/pachli-android/pull/2284), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Burmese translations ([htet](https://github.com/pachli/pachli-android/commits?author=htetoh2006@outlook.com))
+- Update Estonian translations ([Priit Jõerüüt](https://github.com/pachli/pachli-android/commits?author=jrthwlate@users.noreply.hosted.weblate.org))
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+- Update Latvian translations ([Edgars Andersons](https://github.com/pachli/pachli-android/commits?author=Edgars+Weblate@gaitenis.id.lv))
+- Update Lithuanian translations ([Vaclovas Intas (Vac31.)](https://github.com/pachli/pachli-android/commits?author=Gateway_31@protonmail.com))
+- Update Russian translations ([Yurt Page](https://github.com/pachli/pachli-android/commits?author=yurtpage@gmail.com))
+- Update Slovak translations ([Russssty](https://github.com/pachli/pachli-android/commits?author=russssty@users.noreply.hosted.weblate.org))
+- Update Tamil translations ([தமிழ்நேரம்](https://github.com/pachli/pachli-android/commits?author=tamilneram247@gmail.com))
+
 ## v3.6.1
 
 ### New features and other improvements
