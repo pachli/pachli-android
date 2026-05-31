@@ -188,7 +188,7 @@
     <string name="lock_account_label_description">Follower müssen manuell genehmigt werden</string>
     <string name="compose_save_draft">Entwurf speichern?</string>
     <string name="action_compose_shortcut">Beitrag erstellen</string>
-    <string name="error_no_custom_emojis">Deine Instanz %1$s hat keine Emojis definiert</string>
+    <string name="error_no_custom_emojis">Deine Instanz %1$s verfügt über keine benutzerdefinierten Emojis</string>
     <string name="emoji_style">Emoji-Stil</string>
     <string name="system_default">Systemstandard</string>
     <string name="download_fonts">Du musst diese Emoji-Sets zunächst herunterladen</string>
@@ -280,7 +280,7 @@
     <string name="dialog_block_warning">\@%1$s blockieren\?</string>
     <string name="action_unmute_conversation">Stummschaltung der Unterhaltung aufheben</string>
     <string name="action_mute_conversation">Unterhaltung stummschalten</string>
-    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/&gt; möchte dir folgen</string>
+    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; möchte dir folgen</string>
     <string name="hashtags">Hashtags</string>
     <string name="add_hashtag_title">Hashtag hinzufügen</string>
     <string name="pref_title_confirm_reblogs">Vor dem Teilen bestätigen</string>
@@ -330,7 +330,7 @@
     <string name="pref_title_notification_filter_updates">ein Beitrag, mit dem ich interagiert habe, bearbeitet wurde</string>
     <string name="notification_sign_up_name">Registrierungen</string>
     <string name="notification_sign_up_description">Benachrichtigungen über neue Profile</string>
-    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/&gt; hat sich registriert</string>
+    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; hat sich registriert</string>
     <string name="pref_title_notification_filter_sign_ups">jemand sich registriert</string>
     <string name="notification_update_description">Benachrichtigungen, wenn Beiträge bearbeitet werden, mit denen du interagiert hast</string>
     <string name="notification_update_name">Beitragsbearbeitungen</string>
@@ -339,8 +339,8 @@
     <string name="action_edit_image">Bild bearbeiten</string>
     <string name="error_image_edit_failed">Das Bild konnte nicht bearbeitet werden.</string>
     <string name="saving_draft">Entwurf wird gespeichert …</string>
-    <string name="error_following_hashtag_format">Fehler beim Folgen von #%1$s</string>
-    <string name="error_unfollowing_hashtag_format">Fehler beim Entfolgen von #%1$s</string>
+    <string name="error_following_hashtag_format">Fehler beim Folgen von #%1$s: %2$s</string>
+    <string name="error_unfollowing_hashtag_format">Fehler beim Entfolgen von #%1$s: %2$s</string>
     <string name="delete_scheduled_post_warning">Diesen geplanten Beitrag löschen\?</string>
     <string name="set_focus_description">Tippe oder ziehe den Kreis auf die Stelle, die in Vorschaubildern immer sichtbar sein soll.</string>
     <string name="compose_save_draft_loses_media">Anhänge werden erneut hochgeladen, sobald du den Entwurf wiederherstellst.</string>
@@ -480,7 +480,7 @@
     <string name="notification_severed_relationships_user_domain_block_fmt">Du hast &lt;b&gt;%1$s&lt;/b&gt; blockiert</string>
     <string name="notification_severed_relationships_account_suspension_fmt">Ein Admin von %1$s hat &lt;b&gt;%2$s&lt;/b&gt; blockiert</string>
     <string name="notification_severed_relationships_unknown_fmt">&lt;b&gt;%1$s&lt;/b&gt; ist blockiert (unbekannter Grund)</string>
-    <string name="account_filter_placeholder_type_conversation">Ein*e Benutzer*in @&lt;b&gt;%1$s&lt;/b&gt; hat eine Unterhaltung gestartet</string>
+    <string name="account_filter_placeholder_type_conversation">Ein*e Nutzer*in @&lt;b&gt;%1$s&lt;/b&gt; hat eine Unterhaltung gestartet</string>
     <string name="ui_error_reload_reply_fmt">Konnte Beitrag nicht laden: %1$s</string>
     <string name="export_preferences_ok_fmt">Einstellungen exportiert nach %1$s</string>
     <string name="error_export_preferences_fmt">Konnte Einstellungen nicht nach %1$s exportieren: %2$s</string>
@@ -668,12 +668,12 @@
     <string name="pref_account_conversation_filters_label_not_followed">… denen du nicht folgst</string>
     <string name="pref_account_conversation_filters_label_younger_30d">… die in den letzten 30 Tagen erstellt wurden</string>
     <string name="pref_account_conversation_filters_label_limited_by_server">… die von deinen Moderatoren eingeschränkt wurden</string>
-    <string name="account_filter_placeholder_type_favourite_fmt">Ein Nutzer @&lt;b&gt;%1$s&lt;/&gt; hat deinen Beitrag favorisiert</string>
-    <string name="account_filter_placeholder_type_follow_fmt">Ein*e Nutzer*in @&lt;b&gt;%1$s&lt;/&gt; folgt dir</string>
-    <string name="account_filter_placeholder_type_follow_request_fmt">Folgeanfrage von Benutzer*in @&lt;b&gt;%1$s&lt;/&gt;</string>
-    <string name="account_filter_placeholder_type_mention_fmt">Ein*e Nutzer*in @&lt;b&gt;%1$s&lt;/&gt; hat dich erwähnt</string>
-    <string name="account_filter_placeholder_type_reblog_fmt">Ein*e Nutzer*in @&lt;b&gt;%1$s&lt;/&gt; hat deinen Beitrag geteilt</string>
-    <string name="account_filter_placeholder_label_domain">Von einem/einer Nutzer*in @&lt;b&gt;%1$s&lt;/&gt;</string>
+    <string name="account_filter_placeholder_type_favourite_fmt">Ein*e Nutzer*in @&lt;b&gt;%1$s&lt;/b&gt; hat deinen Beitrag favorisiert</string>
+    <string name="account_filter_placeholder_type_follow_fmt">Ein*e Nutzer*in @&lt;b&gt;%1$s&lt;/b&gt; folgt dir</string>
+    <string name="account_filter_placeholder_type_follow_request_fmt">Folgeanfrage von Nutzer*in @&lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="account_filter_placeholder_type_mention_fmt">Ein*e Nutzer*in @&lt;b&gt;%1$s&lt;/b&gt; hat dich erwähnt</string>
+    <string name="account_filter_placeholder_type_reblog_fmt">Ein*e Nutzer*in @&lt;b&gt;%1$s&lt;/b&gt; hat deinen Beitrag geteilt</string>
+    <string name="account_filter_placeholder_label_domain">Von einem/r Nutzer*in @&lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="account_filter_placeholder_label_not_following">Gefiltert weil: &lt;b&gt;nicht von dir gefolgt&lt;/b&gt;</string>
     <string name="account_filter_placeholder_label_younger_30d">Gefiltert weil: &lt;b&gt;in den letzten 30 Tagen erstellt&lt;/b&gt;</string>
     <string name="account_filter_placeholder_label_limited_by_server">Gefiltert weil: &lt;b&gt;von deinen Moderator*innen eingeschränkt&lt;/b&gt;</string>
@@ -727,4 +727,17 @@
     <string name="search_operator_quote_dialog_all">Mit oder ohne Zitate</string>
     <string name="search_operator_quote_dialog_only">Nur Beiträge mit Zitaten</string>
     <string name="search_operator_quote_dialog_no_quotes">Nur Beiträge ohne Zitate</string>
+    <string name="title_delete_scheduled_statuses">Ausgewählte geplante Beiträge löschen?</string>
+    <string name="delete_scheduled_statuses_msg">Dadurch werden die ausgewählten geplanten Beiträge dauerhaft gelöscht.</string>
+    <string name="action_delete_scheduled_statuses">Ausgewählte Beiträge löschen</string>
+    <string name="action_mute_hashtag">#%1$s stummschalten</string>
+    <string name="action_unmute_hashtag">#%1$s nicht mehr stummschalten</string>
+    <string name="err_draft_error_no_external_files_dir">Gemeinsamer Speicher ist nicht verfügbar</string>
+    <string name="err_draft_error_mkdir_drafts_fmt">Der Ordner „Entwürfe“ konnte nicht erstellt werden: %1$s</string>
+    <string name="err_draft_error_unknown_mime_type">Anhang hat unbekannten MIME-Typ: %1$s</string>
+    <string name="err_draft_error_content_provider_crash">Content-Anbieter ist kürzlich abgestürzt</string>
+    <string name="err_draft_error_io_fmt">Speichern fehlgeschlagen: %1$s</string>
+    <string name="ui_error_delete_scheduled_status_fmt">konnte den geplanten Beitrag nicht löschen, um ihn zu ersetzen: %1$s</string>
+    <string name="ui_error_sending_post_fmt">Beitrag konnte nicht gesendet werden: %1$s</string>
+    <string name="ui_error_saving_post_fmt">Beitrag konnte nicht gespeichert werden: %1$s</string>
 </resources>
