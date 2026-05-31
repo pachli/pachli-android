@@ -326,8 +326,8 @@
     <string name="error_image_edit_failed">La imagen no se pudo editar.</string>
     <string name="action_add_reaction">añadir reacción</string>
     <string name="pref_title_notification_filter_sign_ups">Alguien se registró</string>
-    <string name="error_following_hashtag_format">Error al seguir #%1$s</string>
-    <string name="error_unfollowing_hashtag_format">Error al dejar de seguir #%1$s</string>
+    <string name="error_following_hashtag_format">Error al seguir #%1$s: %2$s</string>
+    <string name="error_unfollowing_hashtag_format">Error al dejar de seguir #%1$s: %2$s</string>
     <string name="title_migration_relogin">Reingresa para activar notificaciones push</string>
     <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; se registró</string>
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; editó su publicación</string>
@@ -746,4 +746,6 @@
     <string name="title_delete_scheduled_statuses">¿Eliminar publicaciones programadas seleccionadas?</string>
     <string name="delete_scheduled_statuses_msg">Esto borrará permanentemente las publicaciones programadas seleccionadas.</string>
     <string name="action_delete_scheduled_statuses">Eliminar publicaciones seleccionadas</string>
+    <string name="action_mute_hashtag">Silenciar #%1$s</string>
+    <string name="action_unmute_hashtag">Dejar de silenciar #%1$s</string>
 </resources>
