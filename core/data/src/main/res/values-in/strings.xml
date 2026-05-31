@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="server_repository_error_get_well_known_node_info">pengambilan /.well-known/nodeinfo gagal: %1$s</string>
+    <string name="server_repository_error_unsupported_schema">/.well-known/nodeinfo tidak berisi skema yang dapat dipahami</string>
+    <string name="server_repository_error_get_node_info">pengambilan nodeinfo %1$s gagal: %2$s</string>
+    <string name="server_repository_error_validate_node_info">validasi nodeinfo %1$s gagal: %2$s</string>
+    <string name="server_repository_error_get_instance_info">pengambilan /api/v1/instance gagal: %1$s</string>
+    <string name="server_repository_error_capabilities">penguraian kapabilitas server gagal: %1$s</string>
+    <string name="error_filter_server_does_not_filter">Server tidak mendukung filter</string>
+    <string name="account_manager_error_account_does_not_exist">Akun tidak ada dalam database lokal. Ini seharusnya tidak pernah terjadi. Jika Anda melihat pesan ini, harap laporkan ke [team@pachli.app](mailto:team@pachli.app).</string>
+    <string name="account_manager_error_no_active_account">tidak ada akun yang ditandai aktif</string>
+    <string name="account_manager_error_dao">Error database, harap laporkan ini ke team@pachli.app: %1$s</string>
+    <string name="account_manager_error_unexpected">error tidak terduga: %1$s</string>
+    <string name="error_preference_importer_null_on_import">mengimpor file mengembalikan null</string>
+    <string name="error_preference_importer_missing_schema_version">file tidak berisi versi skema</string>
+    <string name="error_preference_importer_wrong_version_fmt">file adalah versi yang tidak dikenal: %1$s</string>
+</resources>
