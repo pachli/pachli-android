@@ -2,4 +2,22 @@
 <resources>
     <string name="update_dialog_message">Buka Google Play untuk melihat detailnya?</string>
     <string name="update_dialog_positive">Buka Google Play</string>
+    <string name="action_delete_remote_model_fmt">Hapus %1$s</string>
+    <string name="action_download_remote_model_fmt">Unduh %1$s</string>
+    <string name="content_description_loading_fmt">%1$s, sedang diunduh</string>
+    <string name="content_description_loaded_fmt">%1$s, selesai diunduh</string>
+    <string name="content_description_available_fmt">%1$s, tersedia untuk diunduh</string>
+    <string name="pref_translation_require_wifi">Wi-Fi diperlukan untuk mengunduh paket bahasa</string>
+    <string name="pref_translation_manage_languages">Kelola paket bahasa</string>
+    <string name="translation_model_manager_fragment_title">Paket bahasa</string>
+    <string name="translation_model_manager_fragment_info">Bahasa yang dapat diterjemahkan oleh Pachli menggunakan Google Translate. Mengunduh paket bahasa terlebih dahulu akan membuat proses penerjemahan lebih cepat.</string>
+    <string name="translation_model_manager_fragment_downloaded_heading">Sudah diunduh</string>
+    <string name="translation_model_manager_fragment_remote_heading">Ketuk untuk mengunduh</string>
+    <string name="fragment_confirm_download_language_dialog_title_fmt">Unduh %1$s dengan data seluler?</string>
+    <string name="fragment_confirm_download_language_dialog_msg">Ini biasanya akan menggunakan 30–60 MB data seluler.</string>
+    <string name="fragment_confirm_delete_language_dialog_title_fmt">Hapus %1$s?</string>
+    <string name="fragment_confirm_delete_language_dialog_msg">Jika Anda menghapus bahasa ini, bahasa tersebut akan diunduh kembali saat berikutnya diperlukan.</string>
+    <string name="fragment_google_disclaimer_dialog_title">Penafian terjemahan</string>
+    <string name="action_translate_mlkit">Terjemahkan dengan Google</string>
+    <string name="label_translated_mlkit">Diterjemahkan oleh Google</string>
 </resources>
