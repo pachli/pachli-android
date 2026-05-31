@@ -112,7 +112,7 @@
     <string name="action_select_status">Pilih postingan</string>
     <string name="action_unselect_status">Batalkan pilihan postingan</string>
     <string name="action_show_pronouns">Tampilkan pronomina</string>
-    <string name="action_open_quoted_post">Buka postingan kutipan</string>
+    <string name="action_open_quoted_post">Buka postingan yang dikutip</string>
     <string name="dot_in_name">titik</string>
     <string name="role_content_description_fmt">%1$s, pada %2$s</string>
     <plurals name="description_post_roles">
