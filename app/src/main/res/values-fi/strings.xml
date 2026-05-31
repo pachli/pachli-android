@@ -730,4 +730,9 @@
     <string name="err_draft_error_unknown_mime_type">liitteen MIME-tyyppi on tuntematon: %1$s</string>
     <string name="err_draft_error_mkdir_drafts_fmt">Luonnokset-kansoita ei voitu luoda: %1$s</string>
     <string name="err_draft_error_no_external_files_dir">jaettu tallennustila ei ole käytettävissä</string>
+    <string name="action_unmute_hashtag">Poista hiljennys #%1$s</string>
+    <string name="action_mute_hashtag">Hiljennä #%1$s</string>
+    <string name="action_delete_scheduled_statuses">Poista valitut julkaisut</string>
+    <string name="delete_scheduled_statuses_msg">Tämä poistaa valitut ajastetut julkaisut pysyvästi.</string>
+    <string name="title_delete_scheduled_statuses">Poista valitut ajastetut julkaisut?</string>
 </resources>
