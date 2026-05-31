@@ -1,4 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_share_as">Bagikan sebagai…</string>
+    <string name="error_set_active_account">Memuat login gagal dengan error berikut: %1$s</string>
+    <string name="error_refresh_account">Menyegarkan akun gagal dengan error berikut: %1$s\n\nAnda dapat melanjutkan, tetapi daftar dan filter Anda mungkin tidak lengkap.</string>
+    <string name="action_relogin">Login ulang</string>
+    <string name="title_choose_account_dialog">Pilih akun</string>
+    <string name="title_error_dialog">Login gagal</string>
+    <string name="error_login_failed_hint">Ketuk akun untuk mencoba lagi.</string>
+    <string name="error_login_failed_hint_multiple">Ketuk akun yang sama untuk mencoba lagi, atau akun lain untuk login dengan akun tersebut.</string>
+    <string name="client_error_unauthorized_multiple_fmt">%1$s\n\nKetuk \"%2$s\" untuk mencoba lagi, atau \"%3$s\" untuk memilih akun lain.</string>
+    <string name="client_error_unauthorized_fmt">%1$s\n\nKetuk \"%2$s\" untuk mencoba lagi.</string>
+    <string name="error_refresh_account_fmt">Mengambil beberapa detail akun gagal:\n\n%1$s\n\nKetuk \"%2$s\" untuk melanjutkan, tetapi beberapa informasi mungkin tidak benar (misalnya filter dan daftar).\n\nKetuk \"%3$s\" untuk mencoba lagi.\n\nKetuk \"%4$s\" untuk memilih akun lain.</string>
+    <string name="action_choose_another_account">Pilih akun lain</string>
+    <string name="title_error_mime_type">Tipe tidak dikenali</string>
+    <string name="error_mime_type_fmt">Pachli dibuka untuk membagikan konten dengan tipe \"%1$s\", tetapi Pachli tidak menangani tipe tersebut.</string>
 </resources>
