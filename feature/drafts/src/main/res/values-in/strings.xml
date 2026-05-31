@@ -1,7 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_edit">Ubah</string>
+    <string name="action_edit">Edit</string>
     <string name="title_drafts">Draf</string>
-    <string name="drafts_post_reply_removed">Postingan yang Anda buat sebagai balasan telah dihapus</string>
-    <string name="drafts_post_failed_to_send">Kiriman ini gagal terkirim!</string>
+    <string name="drafts_post_reply_removed">Postingan yang Anda balas telah dihapus</string>
+    <string name="drafts_post_failed_to_send">Postingan ini gagal dikirim!</string>
+    <string name="drafts_load_reply_failed_fmt">Tidak dapat memuat postingan yang Anda balas: %1$s</string>
+    <string name="drafts_post_quote_removed">Postingan yang Anda kutip telah dihapus</string>
+    <string name="drafts_load_quote_failed_fmt">Tidak dapat memuat postingan yang Anda kutip: %1$s</string>
+    <string name="title_delete_drafts">Hapus draf yang dipilih?</string>
+    <string name="delete_drafts_msg">Ini akan menghapus permanen draf yang dipilih.</string>
+    <string name="action_delete_drafts">Hapus draf yang dipilih</string>
+    <string name="no_drafts">Anda belum memiliki draf.</string>
+    <string name="send_post_failure_message_prefix">Pengiriman gagal: %1$s</string>
 </resources>
