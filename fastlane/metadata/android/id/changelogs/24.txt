@@ -2,14 +2,14 @@ Pachli 2.9.0
 
 Fitur baru:
 
-- Memindahkan perataan tab dan preferensi konten dari lab 
-- Dukungan awal untuk memfilter pemberitahuan dengan mengirim akun 
-- Mendukung tanggal pengembalian Pleroma tanpa zona waktu 
-- Tampilkan tindakan a11y ekstra untuk tautan yang sedang tren dan akun yang disarankan 
+- Memindahkan preferensi perataan tab dan konten dari labs
+- Dukungan awal untuk memfilter notifikasi berdasarkan akun pengirim
+- Mendukung Pleroma yang mengembalikan tanggal tanpa zona waktu
+- Menampilkan tindakan a11y tambahan untuk tautan tren dan akun yang disarankan
 
 Perbaikan:
 
-- Pastikan item dalam dialog a11y dapat diklik 
-- Jangan kehilangan gambar / keterangan setelah unggahan gagal 
-- Perbaiki berbagai macam kerusakan
+- Memastikan item dalam dialog a11y dapat diklik
+- Tidak kehilangan gambar/keterangan setelah unggahan gagal
+- Memperbaiki berbagai crash
 - Memperbarui terjemahan bahasa Finlandia, Irlandia, Norwegia (Bokmål, Nynorsk), dan Spanyol

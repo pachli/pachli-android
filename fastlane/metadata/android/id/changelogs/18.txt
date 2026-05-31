@@ -1,18 +1,18 @@
 Pachli 2.7.0
 
-Fitur-fitur baru:
+Fitur baru:
 
--  UI operator pencarian baru
-- Memperingatkan jika bahasa postingan salah
-- Menampilkan garis bawah penulis
-- Mengedit filter pencocokan dari timeline
-- Menampilkan tagar pelengkapan otomatis dengan jumlah penggunaan
+- UI operator pencarian baru
+- Peringatan jika bahasa postingan mungkin salah
+- Menampilkan byline penulis
+- Mengedit filter yang cocok dari linimasa
+- Menampilkan tagar autocomplete dengan jumlah penggunaan
 
 Perbaikan:
 
--  Memastikan nama tag yang sedang tren terlihat
-- Mengaktifkan pemfilteran server di GoToSocial 0.16+
-- Jangan tampilkan keyboard setelah hasil pencarian
-- Mengoreksi penghitungan panjang postingan
-- Mengoreksi tanda baca deskripsi konten
-- Memperbarui terjemahan bahasa Mandarin, Finlandia, Irlandia, Spanyol, Norwegia
+- Memastikan nama tag tren terlihat
+- Mengaktifkan pemfilteran server pada GoToSocial 0.16+
+- Tidak menampilkan keyboard setelah hasil pencarian
+- Memperbaiki perhitungan panjang postingan
+- Memperbaiki tanda baca deskripsi konten
+- Memperbarui terjemahan bahasa Tiongkok, Finlandia, Irlandia, Spanyol, Norwegia

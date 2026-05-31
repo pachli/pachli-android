@@ -2,15 +2,15 @@ Pachli 2.9.1
 
 Fitur baru:
 
-- Tampilkan postingan yg menyebutkan tautan yg sedang tren
-- Tampilkan metode permintaan & URL dalam kesalahan ApiResult
-- Menambah Norsk Nynorsk sebagai bahasa yg dapat dipilih
+- Menampilkan postingan yang menyebut tautan tren
+- Menampilkan metode permintaan dan URL dalam error ApiResult
+- Menambahkan Norsk Nynorsk sebagai bahasa yang dapat dipilih
 
 Perbaikan:
 
-- "KeyStoreException: BKS tidak ditemukan" saat login
-- Tampilkan jenis pemberitahuan yang tidak dikenal dengan benar
-- Jangan macet saat memperbarui item laci utama
-- Jangan macet saat mengganti opsi "Tampilkan peningkatan"
-- Tampilkan pengeditan peringatan konten
+- Error "KeyStoreException: BKS not found" saat login
+- Menampilkan tipe notifikasi yang tidak dikenal dengan benar
+- Tidak crash saat memperbarui item drawer utama
+- Tidak crash saat mengaktifkan/menonaktifkan opsi "Show boosts"
+- Menampilkan edit peringatan konten
 - Memperbarui terjemahan bahasa Finlandia, Irlandia, Norwegia Nynorsk, Spanyol, dan Swedia

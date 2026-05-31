@@ -2,6 +2,6 @@ Pachli 2.8.1
 
 Perbaikan:
 
-- mencegah kerusakan saat mengirim posting saat media mengunggah 
-- Kembalikan transisi video di androidx.media3 1.4.0 dan 1.4.1 
-- Berhenti Teks Kartu Pratinjau Teks Tumpang tindih
+- Mencegah crash saat mengirim postingan ketika media sedang diunggah
+- Memulihkan transisi video pada androidx.media3 1.4.0 dan 1.4.1
+- Menghentikan teks kartu pratinjau agar tidak menumpuk di atas gambar

@@ -1,15 +1,15 @@
 Pachli 1.4.0
 
-Fitur Baru:
+Fitur baru:
 
-- Periksa secara berkala untuk pembaruan dan peringatan pengguna 
+- Memeriksa pembaruan secara berkala dan memberi tahu pengguna
 
 Perbaikan:
 
-- Tampilkan perubahan preferensi segera 
-- Hormati preferensi Fab_hide dalam jadwal 
-- Pastikan kontrol sistem terlihat pada perangkat yang lebih lama 
-- Hapus ProgressBar dari jadwal status 
-- Kembalikan rasio aspek gambar saat seret berakhir 
-- mencegah potensi crash saat filter lambat 
-- Perbarui terjemahan Italia
+- Menampilkan perubahan preferensi secara langsung
+- Menghormati preferensi FAB_HIDE di linimasa
+- Memastikan kontrol sistem terlihat pada perangkat lama
+- Menghapus progressbar dari linimasa status
+- Memulihkan rasio aspek gambar saat seret berakhir
+- Mencegah potensi crash saat filter lambat dimuat
+- Memperbarui terjemahan bahasa Italia

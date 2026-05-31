@@ -1,0 +1,20 @@
+Pachli 2.11.0
+
+Fitur baru:
+
+- Mendukung terjemahan di seluruh aplikasi
+- Filter konten default untuk semua konteks
+- Dukungan Markdown eksperimental
+
+Perbaikan:
+
+- Menghentikan UI laporan agar tidak hang
+- Menetapkan deskripsi pada tombol "Toot"
+- Mencegah berbagai crash
+- Membuat filter dengan content-type yang benar
+- Memfilter dengan benar di thread dan pesan privat
+- Mendukung pengeditan keterangan gambar yang diunggah
+
+Terjemahan:
+
+- Finlandia, Indonesia, Irlandia, Latvia, Norwegia Nynorsk, Polandia, Slowakia, Spanyol

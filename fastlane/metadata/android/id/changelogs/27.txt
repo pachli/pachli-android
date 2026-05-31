@@ -3,17 +3,17 @@ Pachli 2.10.0
 Fitur baru:
 
 - Menambahkan font Atkinson Hyperlegible Next
-- Konten percakapan dan filter akun
-- Tampilkan postingan yang sedang dibalas
+- Filter konten percakapan dan akun
+- Menampilkan postingan yang sedang dibalas
 
 Perbaikan:
 
-- Memperbaiki menu "Segarkan" yang duplikat
-- Sorot tag saat melihat pengeditan postingan
-- Mencegah berbagai macam kerusakan
-- Menghapus "dummy.placeholder" dari kesalahan
-- Urutkan daftar berdasarkan judul
-- Perbaiki kerusakan dengan penggeser ukuran UI
+- Memperbaiki menu "Refresh" duplikat
+- Menyorot tag saat melihat edit postingan
+- Mencegah berbagai crash
+- Menghapus "dummy.placeholder" dari error
+- Mengurutkan daftar berdasarkan judul
+- Memperbaiki crash pada slider ukuran UI
 
 Terjemahan:
 
