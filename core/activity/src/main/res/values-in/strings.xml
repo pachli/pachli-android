@@ -1,4 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_open_as">Buka sebagai %1$s</string>
+    <string name="post_lookup_error_format">Kesalahan saat mencari %1$s</string>
+    <string name="action_open_as_ellipsis">Buka sebagai…</string>
+    <string name="action_open_quoted_post">Buka postingan yang dikutip</string>
+    <string name="performing_lookup_title">Melakukan pencarian…</string>
+    <string name="send_error_report">Kirim laporan kesalahan</string>
 </resources>
