@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_generic_fmt">Terjadi error: %1$s</string>
-    <string name="error_404_not_found_fmt">Server Anda tidak mendukung fitur ini: %1$s</string>
-    <string name="error_network_fmt">Jaringan error: %1$s</string>
+    <string name="error_generic_fmt">%1$s</string>
+    <string name="error_404_not_found_fmt">server Anda tidak mendukung fitur ini: %1$s</string>
+    <string name="error_network_fmt">Terjadi kesalahan jaringan: %1$s</string>
+    <string name="node_info_error_no_software">tidak mengandung blok perangkat lunak</string>
+    <string name="node_info_error_no_software_name">nama perangkat lunak tidak ada, kosong, atau blank</string>
+    <string name="node_info_error_no_software_version">versi perangkat lunak tidak ada, kosong, atau blank</string>
+    <string name="server_error_unparseable_version">tidak dapat mengurai \"%1$s\" sebagai versi: %2$s</string>
+    <string name="error_429_rate_limit_fmt">server Anda melakukan rate-limit terhadap permintaan Anda: %1$s</string>
+    <string name="error_json_data_fmt">server Anda mengembalikan respons yang tidak valid: %1$s</string>
+    <string name="error_missing_content_type_fmt">server Anda salah konfigurasi, respons tidak memiliki content-type: %1$s</string>
+    <string name="error_wrong_content_type_fmt">server Anda salah konfigurasi dan mengembalikan \'%2$s\' dengan content-type yang salah, \'%1$s\'</string>
 </resources>
