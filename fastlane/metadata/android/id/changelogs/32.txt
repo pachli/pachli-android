@@ -1,0 +1,17 @@
+Pachli 2.14.0
+
+Fitur baru:
+
+- Memulihkan posisi pengguna dalam daftar
+- Mempercepat pergantian akun jika pengguna tidak memiliki filter akun
+- Menyediakan UI "Account Management"
+
+Perbaikan:
+
+- Menghapus notifikasi cache saat menghapus notifikasi server
+- Tidak crash saat menerima notifikasi hubungan yang terputus
+- Tidak crash saat membatalkan pemuatan gambar
+
+Terjemahan:
+
+- Tiongkok, Estonia, Finlandia, Indonesia, Irlandia, Italia, Latvia, Norwegia Nynorsk, Polandia, Rusia, Slowakia, Tamil

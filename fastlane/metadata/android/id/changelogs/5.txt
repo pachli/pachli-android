@@ -1,5 +1,5 @@
 Pachli 1.2.2
 
-Fitur Baru:
+Fitur baru:
 
-- Embed Kebijakan Privasi di Aplikasi
+- Menanamkan kebijakan privasi di dalam aplikasi

@@ -2,10 +2,10 @@ Pachli 2.10.1
 
 Perbaikan:
 
-- Pastikan semua bahasa dapat dipilih melalui pengaturan sistem
-- Hapus data akun lama sebelum membuat batasan FK
-- Pastikan "Tampilkan Pokoknya" berfungsi di semua lini masa
+- Memastikan semua bahasa dapat dipilih melalui pengaturan sistem
+- Menghapus data akun lama sebelum membuat FK constraints
+- Memastikan "Show Anyway" berfungsi di semua linimasa
 
 Terjemahan:
 
-- Bahasa Finlandia, Indonesia, Irlandia, Polandia
+- Finlandia, Indonesia, Irlandia, Polandia

@@ -1,5 +1,5 @@
 Pachli 2.7.1
 
-Fixes:
+Perbaikan:
 
-- Gambar kartu pratinjau posisi benar, menunjukkan deskripsi kartu
+- Memosisikan gambar kartu pratinjau dengan benar, menampilkan deskripsi kartu

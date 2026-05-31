@@ -2,4 +2,4 @@ Pachli 2.1.1
 
 Perbaikan:
 
-- mencegah crash jika ada tab yang sedang tren
+- Mencegah crash jika tab tren ada

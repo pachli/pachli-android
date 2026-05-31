@@ -2,15 +2,15 @@ Pachli 2.5.2
 
 Fitur baru:
 
-- Mendukung terjemahan di server Hometown/Glitch
+- Mendukung terjemahan pada server Hometown/Glitch
 
 Perbaikan:
 
-- Mencegah kerusakan pada halaman "domain tersembunyi" 
-- Tampilkan pesan kesalahan yang berguna untuk semua kesalahan 
-- Hanya menyertakan transitionKind dalam maksud untuk aktivitas Pachli 
-- Hanya menyarankan peningkatan ke versi yang telah dibuat oleh F-Droid 
-- Aktifkan kembali tindakan aksesibilitas di semua lini masa 
-- Meminta pengguna untuk menyimpan/membuang perubahan setelah mengedit biodata 
-- Tampilkan riwayat edit untuk jajak pendapat 
-- Perbarui terjemahan bahasa Finlandia, Prancis, dan Spanyol
+- Mencegah crash pada halaman "hidden domains"
+- Menampilkan pesan kesalahan yang berguna untuk semua error
+- Hanya menyertakan transitionKind dalam intent untuk aktivitas Pachli
+- Hanya menyarankan peningkatan ke versi yang dibangun oleh F-Droid
+- Mengaktifkan kembali tindakan aksesibilitas di semua linimasa
+- Meminta pengguna menyimpan/membuang perubahan setelah mengedit bio
+- Menampilkan riwayat edit untuk polling
+- Memperbarui terjemahan bahasa Finlandia, Prancis, dan Spanyol

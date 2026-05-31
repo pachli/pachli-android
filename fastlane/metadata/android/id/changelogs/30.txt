@@ -1,0 +1,18 @@
+Pachli 2.12.0
+
+Fitur baru:
+
+- Meningkatkan tampilan notifikasi admin
+- Cadangan cloud terenkripsi di sisi klien
+- Ekspor/impor preferensi
+
+Perbaikan:
+
+- Menampilkan postingan/media yang diterjemahkan saat melihat thread
+- Berbagai perbaikan notifikasi
+- Memungkinkan pemfilteran mention dan hubungan yang terputus pada perangkat lama
+- Mencegah "Record not found" saat membuka sebagai akun lain
+
+Terjemahan:
+
+- Finlandia, Irlandia, Latvia, Polandia, Slowakia, Spanyol

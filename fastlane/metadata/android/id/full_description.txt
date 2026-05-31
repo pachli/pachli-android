@@ -1,11 +1,11 @@
-Pachli adalah klien berfitur lengkap untuk mastodon dan server serupa.
+Pachli adalah klien berfitur lengkap untuk Mastodon dan server serupa.
 
-- Baca, Balas, Filter, Posting, Favorit, dan Boost Posts
-- Terjemahkan posting dari bahasa lain
-- Garis waktu Anda di -cache secara lokal, sehingga Anda dapat membaca saat offline
-- Draft posting sekarang, untuk menyelesaikannya nanti
-- Tulis posting sekarang, jadwalkan untuk dikirim nanti
-- Baca dan posting dari beberapa akun
-- Beberapa tema
-- Fokus untuk memastikan semua fungsi tersedia untuk orang dengan kebutuhan aksesibilitas
-- Open Source, https://github.com/pachli
+- Baca, balas, filter, kirim, favoritkan, dan boost postingan
+- Terjemahkan postingan dari bahasa lain
+- Linimasa Anda disimpan secara lokal, sehingga dapat dibaca saat offline
+- Simpan draf sekarang, selesaikan nanti
+- Tulis postingan sekarang, jadwalkan untuk dikirim nanti
+- Baca dan kirim dari beberapa akun
+- Beragam tema
+- Berfokus memastikan semua fungsi dapat diakses oleh pengguna dengan kebutuhan aksesibilitas
+- Open source, https://github.com/pachli

@@ -2,15 +2,15 @@ Pachli 2.4.0
 
 Fitur baru:
 
-- Beritahu pengguna tentang putus hubungan
-- Ijinkan pengguna untuk melihat hasil jajak pendapat sebelum memilih, set kebijakan daftar jawaban
-- Tampilkan "Notifications", "Followed hashtags" dan daftar item di kiri-nav
-- Otomatis-sembunyikan bilah alat Penilik Gambar
+- Memberi tahu pengguna tentang hubungan yang terputus
+- Memungkinkan pengguna melihat hasil polling sebelum memilih, mengatur kebijakan balasan daftar
+- Menampilkan "Notifications", "Followed hashtags" dan item daftar di navigasi kiri
+- Menyembunyikan toolbar Image Viewer secara otomatis
 
 Perbaikan:
 
-- Impreve ekstraksi URL ketika menyusun
-- Mutakhirkan tab ketika daftar diubah namanya atau dihapus
-- Pastikan log out akun komplit
-- Pastikan berkas sepenuhnya diunduh sebelum berbagi
-- Perbarui Finlandia, Kabyle, dan Spanyol terjemahan
+- Meningkatkan ekstraksi URL saat menulis
+- Memperbarui tab saat daftar diubah nama atau dihapus
+- Memastikan proses logout akun selesai
+- Memastikan file sepenuhnya diunduh sebelum dibagikan
+- Memperbarui terjemahan bahasa Finlandia, Kabyle, dan Spanyol

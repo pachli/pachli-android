@@ -1,5 +1,5 @@
 Pachli 2.5.1
 
-Fixes:
+Perbaikan:
 
-- Hanya mengaktifkan tindakan yang dapat diakses pada notifikasi yang melekat pada status
+- Hanya mengaktifkan tindakan aksesibel pada notifikasi yang terkait dengan status

@@ -1,5 +1,5 @@
 Pachli 1.2.1
 
-Fitur Baru:
+Fitur baru:
 
-- Tautan ke Kebijakan Privasi dari "Tentang"
+- Tautan ke kebijakan privasi dari "About"

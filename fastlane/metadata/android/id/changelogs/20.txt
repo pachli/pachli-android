@@ -2,13 +2,13 @@ Pachli 2.8.0
 
 Fitur baru:
 
-- Preferensi eksperimental untuk membalikkan timeline beranda
+- Preferensi eksperimental untuk membalik linimasa beranda
 - Meningkatkan keandalan notifikasi push dan pull
 
 Perbaikan:
 
-- Tampilkan nama aplikasi posting jika tautan aplikasi hilang
-- Menoleransi bidang status yang hilang di veganism.social
-- Merender tagar, sebutan, dan paras awal dengan benar di RTL
-- Filter pencarian menggunakan warna yang benar dalam mode gelap dan hitam
-- Perbarui terjemahan bahasa Finlandia, Galicia, Irlandia, Norwegia, dan Spanyol
+- Menampilkan nama aplikasi pengirim postingan jika tautan aplikasi tidak ada
+- Menoleransi field status yang hilang di veganism.social
+- Merender tagar, mention, dan paragraf awal dengan benar dalam RTL
+- Filter pencarian menggunakan warna yang benar pada mode gelap dan hitam
+- Memperbarui terjemahan bahasa Finlandia, Galisia, Irlandia, Norwegia, dan Spanyol
