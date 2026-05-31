@@ -1,10 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="title_lists">Daftar</string>
     <string name="error_create_list_fmt">Tidak dapat membuat daftar \"%1$s\": %2$s</string>
     <string name="error_delete_list_fmt">Tidak dapat menghapus daftar \"%1$s\": %2$s</string>
-    <string name="error_rename_list_fmt">Tidak dapat mengubah nama daftar \"%1$s\": %2$s</string>
-    <string name="action_rename_list">Ubah nama daftar</string>
+    <string name="error_rename_list_fmt">Tidak dapat memperbarui daftar \"%1$s\": %2$s</string>
+    <string name="action_rename_list">Perbarui daftar</string>
     <string name="action_create_list">Buat daftar</string>
     <string name="action_delete_list">Hapus daftar</string>
+    <string name="hint_list_name">Nama daftar</string>
+    <string name="list_exclusive_label">Sembunyikan dari linimasa beranda</string>
+    <string name="replies_policy_title">Tampilkan balasan kepada:</string>
+    <string name="replies_policy_name_followed">Pengguna yang diikuti mana pun</string>
+    <string name="replies_policy_name_list">Anggota daftar</string>
+    <string name="replies_policy_name_none">Tidak ada</string>
+    <string name="dialog_delete_list_warning">Hapus daftar \"%1$s\"?</string>
+    <string name="action_remove_from_list">Hapus akun dari daftar</string>
+    <string name="action_add_to_list">Tambahkan akun ke daftar</string>
+    <string name="failed_to_add_to_list">Gagal menambahkan akun ke daftar</string>
+    <string name="failed_to_remove_from_list">Gagal menghapus akun dari daftar</string>
+    <string name="no_lists">Anda belum memiliki daftar.</string>
+    <string name="hint_search_people_list">Cari orang yang Anda ikuti</string>
+    <string name="action_add_or_remove_from_list">Tambahkan atau hapus dari daftar</string>
 </resources>
