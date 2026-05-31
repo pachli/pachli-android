@@ -336,8 +336,8 @@
     <string name="filter_expiration_format">%1$s (%2$s)</string>
     <string name="description_post_language">Język wpisu</string>
     <string name="duration_no_change">(bez zmian)</string>
-    <string name="error_following_hashtag_format">Wystąpił błąd podczas obserwowania #%1$s</string>
-    <string name="error_unfollowing_hashtag_format">Wystąpił błąd podczas odobserwowywania #%1$s</string>
+    <string name="error_following_hashtag_format">Wystąpił błąd podczas obserwowania #%1$s: %2$s</string>
+    <string name="error_unfollowing_hashtag_format">Wystąpił błąd podczas cofania obserwowania #%1$s: %2$s</string>
     <string name="set_focus_description">Naciśnij lub przeciągnij kółko, aby wybrać punkt skupienia, który będzie zawsze widoczny w miniaturkach.</string>
     <string name="action_unfollow_hashtag_format">Odobserwować #%1$s?</string>
     <string name="pref_default_post_language">Domyślny język wpisów</string>
@@ -737,4 +737,9 @@
     <string name="search_operator_quote_dialog_all">Z cytatami lub bez</string>
     <string name="search_operator_quote_dialog_only">Tylko wpisy z cytatami</string>
     <string name="search_operator_quote_dialog_no_quotes">Tylko wpisy bez cytatów</string>
+    <string name="title_delete_scheduled_statuses">Usunąć wybrane zaplanowanie wpisy?</string>
+    <string name="delete_scheduled_statuses_msg">To bezpowrotnie usunie wybrane zaplanowane wpisy.</string>
+    <string name="action_delete_scheduled_statuses">Usuń wybrane wpisy</string>
+    <string name="action_mute_hashtag">Wycisz #%1$s</string>
+    <string name="action_unmute_hashtag">Cofnij wyciszenie #%1$s</string>
 </resources>
