@@ -1,8 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="send_post_notification_channel_name">Mengirim Postingan</string>
-    <string name="send_post_notification_title">Mengirim kiriman…</string>
-    <string name="send_post_notification_error_title">Kesalahan pengiriman postingan</string>
+    <string name="send_post_notification_title">Mengirim postingan…</string>
+    <string name="send_post_notification_error_title">Kesalahan saat mengirim postingan</string>
     <string name="send_post_notification_saved_content">Salinan postingan telah disimpan ke draf Anda</string>
-    <string name="send_post_notification_cancel_title">Mengirim dibatalkan</string>
+    <string name="send_post_notification_cancel_title">Pengiriman dibatalkan</string>
+    <string name="error_prepare_media_content_resolver_missing_path_fmt">URI content resolver kekurangan path: %1$s</string>
+    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">URI content resolver memiliki skema yang tidak didukung: %1$s</string>
+    <string name="error_prepare_media_io_fmt">%1$s</string>
+    <string name="error_prepare_media_file_is_too_large_fmt">ukuran file %1$s, maksimum yang diizinkan %2$s</string>
+    <string name="error_prepare_media_unknown_file_size">ukuran file tidak dapat ditentukan</string>
+    <string name="error_prepare_media_unsupported_mime_type_fmt">server tidak mendukung tipe file: %1$s</string>
+    <string name="error_prepare_media_unknown_mime_type">tipe file tidak diketahui</string>
+    <string name="error_media_uploader_upload_not_found_fmt">media upload dengan ID %1$s tidak ditemukan</string>
+    <string name="send_post_failure_message_timeout">Android timeout saat mengirim postingan ini</string>
+    <string name="send_post_failure_message_cancel">Anda membatalkan pengiriman postingan ini</string>
 </resources>
