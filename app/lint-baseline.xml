@@ -965,38 +965,6 @@
     <issue
         id="StringFormatCount"
         message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml"
-        errorLine1="    &lt;string name=&quot;error_following_hashtag_format&quot;>Terjadi kesalahan saat mengikuti #%1$s&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-in/strings.xml"
-            line="15"
-            column="5"/>
-        <location
-            file="src/main/res/values/strings.xml"
-            line="31"
-            column="5"
-            message="Conflicting number of arguments (2) here"/>
-    </issue>
-
-    <issue
-        id="StringFormatCount"
-        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml"
-        errorLine1="    &lt;string name=&quot;error_unfollowing_hashtag_format&quot;>Terjadi kesalahan saat berhenti mengikuti #%1$s&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-in/strings.xml"
-            line="16"
-            column="5"/>
-        <location
-            file="src/main/res/values/strings.xml"
-            line="32"
-            column="5"
-            message="Conflicting number of arguments (2) here"/>
-    </issue>
-
-    <issue
-        id="StringFormatCount"
-        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml"
         errorLine1="    &lt;string name=&quot;error_following_hashtag_format&quot;>Памылка падпіскі на #%1$s&lt;/string>"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -1269,22 +1237,6 @@
     <issue
         id="StringFormatCount"
         message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml"
-        errorLine1="    &lt;string name=&quot;error_following_hashtag_format&quot;>Error al seguir #%1$s&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-es/strings.xml"
-            line="329"
-            column="5"/>
-        <location
-            file="src/main/res/values/strings.xml"
-            line="31"
-            column="5"
-            message="Conflicting number of arguments (2) here"/>
-    </issue>
-
-    <issue
-        id="StringFormatCount"
-        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml"
         errorLine1="    &lt;string name=&quot;error_following_hashtag_format&quot;>Lỗi khi theo dõi #%1$s&lt;/string>"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -1342,22 +1294,6 @@
         <location
             file="src/main/res/values/strings.xml"
             line="31"
-            column="5"
-            message="Conflicting number of arguments (2) here"/>
-    </issue>
-
-    <issue
-        id="StringFormatCount"
-        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml"
-        errorLine1="    &lt;string name=&quot;error_unfollowing_hashtag_format&quot;>Error al dejar de seguir #%1$s&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-es/strings.xml"
-            line="330"
-            column="5"/>
-        <location
-            file="src/main/res/values/strings.xml"
-            line="32"
             column="5"
             message="Conflicting number of arguments (2) here"/>
     </issue>
@@ -1717,22 +1653,6 @@
     <issue
         id="StringFormatCount"
         message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml"
-        errorLine1="    &lt;string name=&quot;error_following_hashtag_format&quot;>Wystąpił błąd podczas obserwowania #%1$s&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-pl/strings.xml"
-            line="339"
-            column="5"/>
-        <location
-            file="src/main/res/values/strings.xml"
-            line="31"
-            column="5"
-            message="Conflicting number of arguments (2) here"/>
-    </issue>
-
-    <issue
-        id="StringFormatCount"
-        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml"
         errorLine1="    &lt;string name=&quot;error_following_hashtag_format&quot;>Erro ao seguir #%1$s&lt;/string>"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -1742,22 +1662,6 @@
         <location
             file="src/main/res/values/strings.xml"
             line="31"
-            column="5"
-            message="Conflicting number of arguments (2) here"/>
-    </issue>
-
-    <issue
-        id="StringFormatCount"
-        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml"
-        errorLine1="    &lt;string name=&quot;error_unfollowing_hashtag_format&quot;>Wystąpił błąd podczas odobserwowywania #%1$s&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-pl/strings.xml"
-            line="340"
-            column="5"/>
-        <location
-            file="src/main/res/values/strings.xml"
-            line="32"
             column="5"
             message="Conflicting number of arguments (2) here"/>
     </issue>
@@ -1781,22 +1685,6 @@
     <issue
         id="StringFormatCount"
         message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml"
-        errorLine1="    &lt;string name=&quot;error_following_hashtag_format&quot;>Fehler beim Folgen von #%1$s&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-de/strings.xml"
-            line="342"
-            column="5"/>
-        <location
-            file="src/main/res/values/strings.xml"
-            line="31"
-            column="5"
-            message="Conflicting number of arguments (2) here"/>
-    </issue>
-
-    <issue
-        id="StringFormatCount"
-        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml"
         errorLine1="    &lt;string name=&quot;error_following_hashtag_format&quot;>追蹤 #%1$s 時發生錯誤&lt;/string>"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -1806,22 +1694,6 @@
         <location
             file="src/main/res/values/strings.xml"
             line="31"
-            column="5"
-            message="Conflicting number of arguments (2) here"/>
-    </issue>
-
-    <issue
-        id="StringFormatCount"
-        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml"
-        errorLine1="    &lt;string name=&quot;error_unfollowing_hashtag_format&quot;>Fehler beim Entfolgen von #%1$s&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-de/strings.xml"
-            line="343"
-            column="5"/>
-        <location
-            file="src/main/res/values/strings.xml"
-            line="32"
             column="5"
             message="Conflicting number of arguments (2) here"/>
     </issue>
