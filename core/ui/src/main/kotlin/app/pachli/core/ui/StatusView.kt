@@ -318,7 +318,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         statusDisplayOptions: StatusDisplayOptions,
         listener: StatusActionListener,
     ) {
-        val poll = viewData.poll
+        val poll = viewData.actionable.poll
 
         if (!viewData.isShowingContent || poll == null) {
             pollView.hide()
