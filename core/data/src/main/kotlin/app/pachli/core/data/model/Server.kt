@@ -97,6 +97,14 @@ data class Server(
         version satisfies constraint
     } ?: false
 
+    fun asEntity(pachliAccountId: Long) = ServerEntity(
+        accountId = pachliAccountId,
+        serverKind = kind,
+        version = version,
+        capabilities = capabilities,
+        limits = limits,
+    )
+
     companion object {
         /**
          * Constructs a server from its [NodeInfo] and [InstanceV2] details.
@@ -118,7 +126,7 @@ data class Server(
                 else -> { /* Nothing to do */ }
             }
 
-            Server(serverKind, version, capabilities, instanceV2.asServerLimits())
+            Server(serverKind, version, instanceV2.version, capabilities, instanceV2.asServerLimits())
         }
 
         /**
@@ -129,7 +137,7 @@ data class Server(
             val version = parseVersionString(serverKind, software.version).bind()
             val capabilities = capabilitiesFromServerVersion(serverKind, version)
 
-            Server(serverKind, version, capabilities, instanceV1.asServerLimits())
+            Server(serverKind, version, instanceV1.version, capabilities, instanceV1.asServerLimits())
         }
 
         /**
@@ -155,15 +163,8 @@ data class Server(
                 }
             }
 
-            Server(serverKind, version, capabilities, instanceInfoEntity.asServerLimits())
+            Server(serverKind, version, instanceInfoEntity.version, capabilities, instanceInfoEntity.asServerLimits())
         }
-
-        fun from(entity: ServerEntity) = Server(
-            kind = entity.serverKind,
-            version = entity.version,
-            capabilities = entity.capabilities,
-            limits = entity.limits,
-        )
 
         /**
          * Parse a [version] string from the given [serverKind] in to a [Version].
@@ -487,3 +488,10 @@ data class Server(
         }
     }
 }
+
+fun ServerEntity.asModel() = Server(
+    kind = serverKind,
+    version = version,
+    capabilities = capabilities,
+    limits = limits,
+)

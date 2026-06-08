@@ -32,6 +32,12 @@ import io.github.z4kn4fein.semver.Version
  *
  * Each server is associated with exactly one [AccountEntity] through the [accountId]
  * property.
+ *
+ * @property accountId
+ * @property serverKind
+ * @property version Parsed server version.
+ * @property capabilities
+ * @property limits
  */
 @Entity(
     primaryKeys = ["accountId"],

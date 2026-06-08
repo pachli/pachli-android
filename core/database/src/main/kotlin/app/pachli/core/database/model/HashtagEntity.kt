@@ -57,6 +57,7 @@ data class HashtagEntity(
     )
 }
 
+@JvmName("iterableHashtagEntityAsModel")
 fun Iterable<HashtagEntity>.asModel() = map { it.asModel() }
 
 fun Hashtag.asEntity(pachliAccountId: Long) = HashtagEntity(

@@ -37,7 +37,6 @@ import app.pachli.core.database.model.AnnouncementEntity
 import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.database.model.InstanceInfoEntity
-import app.pachli.core.database.model.ServerEntity
 import app.pachli.core.model.Account
 import app.pachli.core.model.AccountSource
 import app.pachli.core.model.FilterAction
@@ -509,15 +508,7 @@ class AccountManager @Inject constructor(
         Server.from(nodeInfo.software, instanceInfo)
             .mapError { RefreshAccountError.General(account, it) }
             .onSuccess {
-                instanceDao.upsert(
-                    ServerEntity(
-                        accountId = account.id,
-                        serverKind = it.kind,
-                        version = it.version,
-                        capabilities = it.capabilities,
-                        limits = it.limits,
-                    ),
-                )
+                instanceDao.upsert(it.asEntity(account.id))
             }
             .bind()
 
