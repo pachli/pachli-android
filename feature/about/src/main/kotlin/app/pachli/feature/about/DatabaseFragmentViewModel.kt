@@ -92,7 +92,6 @@ data class QueryDurations(
  * `Ok(null)` means the call hasn't happened yet.
  */
 data class DatabaseUiState(
-    val pachliAccountId: Long,
     val tableRowCounts: TableRowCounts,
     val integrityCheck: Result<String, Throwable> = Ok("Check not run yet"),
     val queryDurations: QueryDurations? = null,
@@ -116,12 +115,13 @@ class DatabaseFragmentViewModel @Inject constructor(
     private val _uiState: MutableStateFlow<DatabaseUiState?> = MutableStateFlow(null)
     val uiState = _uiState.asStateFlow()
 
+    private val pachliAccountId = MutableSharedFlow<Long>(replay = 1)
+
     init {
         viewModelScope.launch {
-            combine(reload, accountManager.accountsOrderedByActiveFlow) { _, accounts -> accounts.first() }.collect { account ->
+            combine(reload, pachliAccountId) { _, pachliAccountId -> pachliAccountId }.collect { pachliAccountId ->
                 _uiState.update {
                     DatabaseUiState(
-                        pachliAccountId = account.id,
                         tableRowCounts = getTableRowCounts(),
                         integrityCheck = Ok("Check not run yet"),
                         queryDurations = null,
@@ -129,6 +129,10 @@ class DatabaseFragmentViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    internal fun setPachliAccountId(pachliAccountId: Long) {
+        viewModelScope.launch { this@DatabaseFragmentViewModel.pachliAccountId.emit(pachliAccountId) }
     }
 
     /** @return Individual table row counts. */
