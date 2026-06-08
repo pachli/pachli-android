@@ -28,6 +28,7 @@ import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.ui.ClipboardUseCase
 import app.pachli.core.ui.extensions.InsetType
 import app.pachli.core.ui.extensions.applyWindowInsets
@@ -55,6 +56,8 @@ class DatabaseFragment : Fragment(R.layout.fragment_database) {
 
     private val binding by viewBinding(FragmentDatabaseBinding::bind)
 
+    private val pachliAccountId by unsafeLazy { requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID) }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.root.applyWindowInsets(bottom = InsetType.PADDING)
 
@@ -63,6 +66,8 @@ class DatabaseFragment : Fragment(R.layout.fragment_database) {
                 viewModel.uiState.filterNotNull().collect(::bindUiState)
             }
         }
+
+        viewModel.setPachliAccountId(pachliAccountId)
     }
 
     fun bindUiState(uiState: DatabaseUiState) {
@@ -80,7 +85,7 @@ class DatabaseFragment : Fragment(R.layout.fragment_database) {
 
         binding.buttonQueryTimings.setOnClickListener { v ->
             v.isEnabled = false
-            viewModel.getQueryDurations(uiState.pachliAccountId)
+            viewModel.getQueryDurations(pachliAccountId)
         }
 
         binding.buttonPruneCache.setOnClickListener { v ->
@@ -181,6 +186,14 @@ getConversationsWithQuote: ${queryDurations?.getConversationsWithQuote?.fmt() ?:
     }
 
     companion object {
-        fun newInstance() = DatabaseFragment()
+        private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"
+
+        fun newInstance(pachliAccountId: Long): DatabaseFragment {
+            return DatabaseFragment().apply {
+                arguments = Bundle(1).apply {
+                    putLong(ARG_PACHLI_ACCOUNT_ID, pachliAccountId)
+                }
+            }
+        }
     }
 }
