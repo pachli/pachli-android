@@ -30,7 +30,6 @@ import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.pageseeder.diffx.api.LoadingException
 import org.pageseeder.diffx.api.Operator
@@ -50,32 +49,31 @@ import timber.log.Timber
 
 @HiltViewModel
 class ViewEditsViewModel @Inject constructor(private val api: MastodonApi) : ViewModel() {
-
-    private val _uiState: MutableStateFlow<EditsUiState> = MutableStateFlow(EditsUiState.Initial)
-    val uiState: StateFlow<EditsUiState> = _uiState.asStateFlow()
+    val uiState: StateFlow<EditsUiState>
+        field = MutableStateFlow<EditsUiState>(EditsUiState.Initial)
 
     /** The API call to fetch edit history returned less than two items */
     class MissingEditsException : Exception()
 
     fun loadEdits(statusId: String, force: Boolean = false, refreshing: Boolean = false) {
-        if (!force && _uiState.value !is EditsUiState.Initial) return
+        if (!force && uiState.value !is EditsUiState.Initial) return
 
         if (refreshing) {
-            _uiState.value = EditsUiState.Refreshing
+            uiState.value = EditsUiState.Refreshing
         } else {
-            _uiState.value = EditsUiState.Loading
+            uiState.value = EditsUiState.Loading
         }
 
         viewModelScope.launch {
             val edits = api.statusEdits(statusId).getOrElse {
-                _uiState.value = EditsUiState.Error(it.throwable)
+                uiState.value = EditsUiState.Error(it.throwable)
                 return@launch
             }.body.asModel()
 
             // `edits` might have fewer than the minimum number of entries because of
             // https://github.com/mastodon/mastodon/issues/25398.
             if (edits.size < 2) {
-                _uiState.value = EditsUiState.Error(MissingEditsException())
+                uiState.value = EditsUiState.Error(MissingEditsException())
                 return@launch
             }
 
@@ -143,13 +141,13 @@ class ViewEditsViewModel @Inject constructor(private val api: MastodonApi) : Vie
                             )
                         }
                     }
-                    _uiState.value = EditsUiState.Success(sortedEdits)
+                    uiState.value = EditsUiState.Success(sortedEdits)
                 } catch (e: LoadingException) {
                     Timber.e(e, "Could not diff")
                     // Something failed parsing the XML from the server. Rather than
                     // show an error just return the sorted edits so the user can at
                     // least visually scan the differences.
-                    _uiState.value = EditsUiState.Success(sortedEdits)
+                    uiState.value = EditsUiState.Success(sortedEdits)
                 }
             }
         }

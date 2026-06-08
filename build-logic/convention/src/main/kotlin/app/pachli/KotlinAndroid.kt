@@ -116,6 +116,7 @@ private fun Project.configureKotlin() {
                 "-Xtype-enhancement-improvements-strict-mode",
                 "-Xjspecify-annotations=strict",
                 "-Xannotation-default-target=param-property",
+                "-Xexplicit-backing-fields",
             )
         }
     }

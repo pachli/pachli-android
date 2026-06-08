@@ -53,9 +53,8 @@ fun Spannable.emojify(glide: RequestManager, emojis: List<Emoji>?, view: View, a
 }
 
 class EmojiTargetScope<T : View>(val view: T) {
-    private val _targets = mutableListOf<Target<Drawable>>()
     val targets: List<Target<Drawable>>
-        get() = _targets
+        field = mutableListOf<Target<Drawable>>()
 
     fun CharSequence.emojify(glide: RequestManager, emojis: List<Emoji>?, animate: Boolean): CharSequence {
         if (emojis.isNullOrEmpty()) return this
@@ -76,7 +75,7 @@ class EmojiTargetScope<T : View>(val view: T) {
                 setSpan(span, start, end, 0)
                 val target = span.createGlideTarget(view, animate)
                 glide.asDrawable().load(if (animate) url else staticUrl).into(target)
-                _targets.add(target)
+                targets.add(target)
 
                 start = indexOf(shortcode, end)
             }

@@ -86,7 +86,7 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -115,22 +115,6 @@ class SearchViewModel @Inject constructor(
 
     val statusDisplayOptions: StatusDisplayOptions = statusDisplayOptionsRepository.flow.value
 
-    private val _operatorViewData = MutableStateFlow(
-        setOf(
-            SearchOperatorViewData.from(HasMediaOperator()),
-            SearchOperatorViewData.from(DateOperator()),
-            SearchOperatorViewData.from(HasEmbedOperator()),
-            SearchOperatorViewData.from(FromOperator()),
-            SearchOperatorViewData.from(LanguageOperator()),
-            SearchOperatorViewData.from(HasLinkOperator()),
-            SearchOperatorViewData.from(HasPollOperator()),
-            SearchOperatorViewData.from(HasQuoteOperator()),
-            SearchOperatorViewData.from(IsReplyOperator()),
-            SearchOperatorViewData.from(IsSensitiveOperator()),
-            SearchOperatorViewData.from(WhereOperator()),
-        ),
-    )
-
     /**
      * Complete set of [SearchOperatorViewData].
      *
@@ -140,7 +124,22 @@ class SearchViewModel @Inject constructor(
      * @see [replaceOperator]
      * @see [getOperator]
      */
-    val operatorViewData = _operatorViewData.asStateFlow()
+    val operatorViewData: StateFlow<Set<SearchOperatorViewData<SearchOperator>>>
+        field = MutableStateFlow(
+            setOf(
+                SearchOperatorViewData.from(HasMediaOperator()),
+                SearchOperatorViewData.from(DateOperator()),
+                SearchOperatorViewData.from(HasEmbedOperator()),
+                SearchOperatorViewData.from(FromOperator()),
+                SearchOperatorViewData.from(LanguageOperator()),
+                SearchOperatorViewData.from(HasLinkOperator()),
+                SearchOperatorViewData.from(HasPollOperator()),
+                SearchOperatorViewData.from(HasQuoteOperator()),
+                SearchOperatorViewData.from(IsReplyOperator()),
+                SearchOperatorViewData.from(IsSensitiveOperator()),
+                SearchOperatorViewData.from(WhereOperator()),
+            ),
+        )
 
     val locales = accountManager.activeAccountFlow
         .filterIsInstance<Loadable.Loaded<AccountEntity?>>()
@@ -298,15 +297,15 @@ class SearchViewModel @Inject constructor(
     inline fun <reified T : SearchOperator> getOperator() = operatorViewData.value.find { it.operator is T }?.operator as T?
 
     /**
-     * Replaces the existing [SearchOperatorViewData] in [_operatorViewData]
+     * Replaces the existing [SearchOperatorViewData] in [operatorViewData]
      * with [viewData].
      */
-    fun <T : SearchOperator> replaceOperator(viewData: SearchOperatorViewData<T>) = _operatorViewData.update { operators ->
+    fun <T : SearchOperator> replaceOperator(viewData: SearchOperatorViewData<T>) = operatorViewData.update { operators ->
         operators.find { it.javaClass == viewData.javaClass }?.let { operators - it + viewData } ?: operators
     }
 
     fun search() {
-        val operatorQuery = _operatorViewData.value.mapNotNull { it.operator.query() }.joinToString(" ")
+        val operatorQuery = operatorViewData.value.mapNotNull { it.operator.query() }.joinToString(" ")
         currentQuery = if (operatorQuery.isNotBlank()) arrayOf(currentSearchFieldContent, operatorQuery).joinToString(" ") else currentSearchFieldContent ?: ""
 
         loadedStatuses.clear()
