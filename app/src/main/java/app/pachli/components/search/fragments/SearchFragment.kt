@@ -22,6 +22,7 @@ import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.network.retrofit.MastodonApi
@@ -35,7 +36,6 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import javax.inject.Inject
-import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -62,12 +62,7 @@ abstract class SearchFragment<T : Any> :
 
     private var currentQuery: String = ""
 
-    protected var pachliAccountId by Delegates.notNull<Long>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
-    }
+    protected val pachliAccountId by unsafeLazy { requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.searchRecyclerView.applyDefaultWindowInsets()

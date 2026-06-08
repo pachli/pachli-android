@@ -28,11 +28,6 @@ import kotlinx.coroutines.flow.Flow
 
 /** Errors that can be returned from this repository. */
 sealed interface ContentFiltersError : PachliError {
-    /** Wraps errors from actions on the [ServerRepository]. */
-    @JvmInline
-    value class ServerRepositoryError(private val error: ServerRepository.Error) :
-        ContentFiltersError, PachliError by error
-
     /** The user's server does not support filters. */
     data object ServerDoesNotFilter : ContentFiltersError {
         override val resourceId: Int = R.string.error_filter_server_does_not_filter

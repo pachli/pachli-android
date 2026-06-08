@@ -240,23 +240,13 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
     }
 
     private fun reply(status: IStatusViewData) {
-        val actionableStatus = status.actionable
-        val mentionedUsernames = actionableStatus.mentions.map { it.username }
-            .toMutableSet()
-            .apply {
-                add(actionableStatus.account.username)
-                remove(viewModel.activeAccount?.username)
-            }
-
-        val intent = ComposeActivityIntent(
-            requireContext(),
-            status.pachliAccountId,
-            ComposeOptions(
-                draft = Draft.createDraftReply(viewModel.activeAccount!!, status.actionable),
-                referencingStatus = ReferencingStatus.ReplyingTo.from(status.actionable),
-            ),
+        val draft = Draft.createDraftReply(viewModel.pachliAccount.value!!.entity, status.actionable)
+        val composeOptions = ComposeOptions(
+            draft = draft,
+            referencingStatus = ReferencingStatus.ReplyingTo.from(status.actionable),
         )
-        startActivityWithDefaultTransition(intent)
+        val intent = ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions)
+        startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 
     /**
@@ -266,7 +256,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         val actionableStatus = status.actionableStatus
 
         val composeOptions = ComposeOptions(
-            draft = Draft.createDraftQuote(viewModel.activeAccount!!, status.actionableStatus),
+            draft = Draft.createDraftQuote(viewModel.pachliAccount.value!!.entity, status.actionableStatus),
             referencingStatus = ReferencingStatus.Quoting.from(actionableStatus),
         )
 
@@ -280,11 +270,11 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         val accountId = status.account.id
         val accountUsername = status.account.username
         val statusUrl = status.url
-        val loggedInAccountId = viewModel.activeAccount?.accountId
+        val loggedInAccountId = viewModel.pachliAccount.value!!.entity.accountId
 
         val popup = PopupMenu(view.context, view)
-        val statusIsByCurrentUser = loggedInAccountId?.equals(accountId) == true
-        // Give a different menu depending on whether this is the user's own toot or not.
+        val statusIsByCurrentUser = loggedInAccountId == accountId
+        // Give a different menu depending on whether this is the user's own status or not.
         if (statusIsByCurrentUser) {
             popup.inflate(R.menu.status_more_for_user)
             val menu = popup.menu
@@ -317,7 +307,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
             openAsItem.title = openAsText
         }
 
-        val mutable = statusIsByCurrentUser || accountIsInMentions(viewModel.activeAccount, status.mentions)
+        val mutable = statusIsByCurrentUser || accountIsInMentions(viewModel.pachliAccount.value!!.entity, status.mentions)
         val muteConversationItem = popup.menu.findItem(R.id.status_mute_conversation).apply {
             isVisible = mutable
         }
@@ -416,7 +406,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
     private fun onBlock(accountId: String, accountUsername: String) {
         AlertDialog.Builder(requireContext())
             .setMessage(getString(R.string.dialog_block_warning, accountUsername))
-            .setPositiveButton(android.R.string.ok) { _, _ -> viewModel.blockAccount(accountId) }
+            .setPositiveButton(android.R.string.ok) { _, _ -> viewModel.blockAccount(pachliAccountId, accountId) }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
     }
@@ -426,7 +416,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
             this.requireActivity(),
             accountUsername,
         ) { notifications, duration ->
-            viewModel.muteAccount(accountId, notifications, duration)
+            viewModel.muteAccount(pachliAccountId, accountId, notifications, duration)
         }
     }
 
@@ -448,7 +438,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         Toast.makeText(context, R.string.downloading_media, Toast.LENGTH_SHORT).show()
         for ((_, url) in status.attachments) {
             lifecycleScope.launch {
-                downloadUrlUseCase(url, viewModel.activeAccount!!.fullName, status.actionableStatus.account.username)
+                downloadUrlUseCase(url, viewModel.pachliAccount.value!!.entity.fullName, status.actionableStatus.account.username)
             }
         }
     }

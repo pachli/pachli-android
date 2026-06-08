@@ -78,6 +78,7 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.toggleVisibility
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.model.Server
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE
@@ -108,7 +109,6 @@ import app.pachli.databinding.SearchOperatorAttachmentDialogBinding
 import app.pachli.databinding.SearchOperatorDateDialogBinding
 import app.pachli.databinding.SearchOperatorFromDialogBinding
 import app.pachli.databinding.SearchOperatorWhereLocationDialogBinding
-import com.github.michaelbull.result.get
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
@@ -127,6 +127,7 @@ import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -143,6 +144,8 @@ class SearchActivity :
 
     private val showFilterIcon: Boolean
         get() = viewModel.availableOperators.value.isNotEmpty()
+
+    private val pachliAccountId by unsafeLazy { intent.pachliAccountId }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -171,6 +174,7 @@ class SearchActivity :
         addMenuProvider(this)
         setupPages()
         bindOperators()
+        viewModel.setPachliAccountId(pachliAccountId)
         handleIntent(intent)
     }
 
@@ -219,9 +223,7 @@ class SearchActivity :
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 launch {
-                    viewModel.server.collectLatest {
-                        // Ignore errors for the moment
-                        val server = it?.get() ?: return@collectLatest
+                    viewModel.server.filterNotNull().collectLatest { server ->
                         bindDateChip(server)
                         bindFromChip(server)
                         bindHasMediaChip(server)

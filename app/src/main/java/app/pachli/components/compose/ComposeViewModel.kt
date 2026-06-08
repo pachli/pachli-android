@@ -39,7 +39,6 @@ import app.pachli.core.data.repository.DraftsRepository
 import app.pachli.core.data.repository.InstanceInfoRepository
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.PachliAccount
-import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.AccountSource
@@ -173,7 +172,6 @@ class ComposeViewModel @AssistedInject constructor(
     private val mediaUploader: MediaUploader,
     private val sendStatus: SendStatusUseCase,
     instanceInfoRepo: InstanceInfoRepository,
-    serverRepository: ServerRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     private val draftsRepository: DraftsRepository,
@@ -294,8 +292,8 @@ class ComposeViewModel @AssistedInject constructor(
     val statusLength = _statusLength.asStateFlow()
 
     /** Flow of whether or not the server can schedule posts. */
-    val serverCanSchedule = serverRepository.flow.map {
-        it.get()?.can(ServerOperation.ORG_JOINMASTODON_STATUSES_SCHEDULED, ">= 1.0.0".toConstraint()) == true
+    val serverCanSchedule = accountFlow.map {
+        it.server.can(ServerOperation.ORG_JOINMASTODON_STATUSES_SCHEDULED, ">= 1.0.0".toConstraint())
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
 
     /**
