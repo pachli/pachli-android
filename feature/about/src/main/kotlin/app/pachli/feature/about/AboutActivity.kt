@@ -29,7 +29,9 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.ui.appbar.FadeChildScrollEffect
 import app.pachli.core.ui.extensions.addScrollEffect
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
@@ -50,6 +52,8 @@ class AboutActivity : ViewUrlActivity(), MenuProvider {
             binding.pager.currentItem = 0
         }
     }
+
+    private val pachliAccountId by unsafeLazy { intent.pachliAccountId }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -77,7 +81,7 @@ class AboutActivity : ViewUrlActivity(), MenuProvider {
 
         addMenuProvider(this)
 
-        val adapter = AboutFragmentAdapter(this)
+        val adapter = AboutFragmentAdapter(this, pachliAccountId)
         // Ensure privacy policy table displays correctly, possibly due to
         // https://issuetracker.google.com/issues/432664597.
         binding.pager.offscreenPageLimit = 1
@@ -102,14 +106,14 @@ class AboutActivity : ViewUrlActivity(), MenuProvider {
     }
 }
 
-class AboutFragmentAdapter(val activity: FragmentActivity) : FragmentStateAdapter(activity) {
+class AboutFragmentAdapter(val activity: FragmentActivity, pachliAccountId: Long) : FragmentStateAdapter(activity) {
     data class TabData(
         @StringRes val title: Int,
         val createFragment: () -> Fragment,
     )
 
     val fragments = buildList {
-        add(TabData(R.string.about_title_activity) { AboutFragment.newInstance() })
+        add(TabData(R.string.about_title_activity) { AboutFragment.newInstance(pachliAccountId) })
         add(TabData(R.string.title_licenses) { LibsBuilder().supportFragment() })
         add(TabData(R.string.about_privacy_policy) { PrivacyPolicyFragment.newInstance() })
         add(TabData(R.string.about_notifications) { NotificationFragment.newInstance() })

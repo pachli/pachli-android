@@ -965,9 +965,10 @@ class ViewThreadActivityIntent(context: Context, accountId: Long, statusId: Stri
     }
 }
 
-class AboutActivityIntent(context: Context) : Intent() {
+class AboutActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.ABOUT_ACTIVITY)
+        this.pachliAccountId = pachliAccountId
     }
 }
 
