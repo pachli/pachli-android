@@ -63,7 +63,7 @@ val SCHEMAS = listOf(
 )
 
 @Singleton
-class ServerRepository @Inject constructor(
+internal class ServerRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val nodeInfoApi: NodeInfoApi,
     accountManager: AccountManager,

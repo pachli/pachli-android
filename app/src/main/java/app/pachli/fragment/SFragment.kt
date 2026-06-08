@@ -42,7 +42,6 @@ import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
-import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.data.repository.asDraft
 import app.pachli.core.data.repository.createDraftQuote
 import app.pachli.core.data.repository.createDraftReply
@@ -90,9 +89,6 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
 
     @Inject
     lateinit var timelineCases: TimelineCases
-
-    @Inject
-    lateinit var serverRepository: ServerRepository
 
     @Inject
     lateinit var downloadUrlUseCase: DownloadUrlUseCase

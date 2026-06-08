@@ -381,8 +381,6 @@ data class Server(
                 }
 
                 GOTOSOCIAL -> {
-                    // Can't do scheduled posts, https://github.com/superseriousbusiness/gotosocial/issues/1006
-
                     // Filters
                     when {
                         // Implemented in https://github.com/superseriousbusiness/gotosocial/pull/2936

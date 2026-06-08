@@ -39,12 +39,9 @@ import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
-import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.dao.TimelineStatusWithAccount
-import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.AttachmentDisplayAction
@@ -84,11 +81,13 @@ import io.github.z4kn4fein.semver.constraints.toConstraint
 import javax.inject.Inject
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -99,19 +98,22 @@ import timber.log.Timber
 class SearchViewModel @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val timelineCases: TimelineCases,
-    private val accountManager: AccountManager,
+    accountManager: AccountManager,
     private val statusRepository: OfflineFirstStatusRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
-    serverRepository: ServerRepository,
 ) : ViewModel() {
+    private val pachliAccountId = MutableSharedFlow<Long>(replay = 1)
+
+    internal val pachliAccount = pachliAccountId.flatMapLatest {
+        accountManager.getPachliAccountFlow(it)
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        null,
+    )
 
     var currentQuery: String = ""
     var currentSearchFieldContent: String? = null
-
-    val activeAccount: AccountEntity?
-        get() = accountManager.activeAccount
-
-    private val alwaysOpenSpoiler = activeAccount?.alwaysOpenSpoiler ?: false
 
     val statusDisplayOptions: StatusDisplayOptions = statusDisplayOptionsRepository.flow.value
 
@@ -142,82 +144,75 @@ class SearchViewModel @Inject constructor(
      */
     val operatorViewData = _operatorViewData.asStateFlow()
 
-    val locales = accountManager.activeAccountFlow
-        .filterIsInstance<Loadable.Loaded<AccountEntity?>>()
-        .map { getLocaleList(getInitialLanguages(activeAccount = it.data)) }
+    val locales = pachliAccount.filterNotNull()
+        .map { getLocaleList(getInitialLanguages(activeAccount = it.entity)) }
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000),
             getLocaleList(getInitialLanguages()),
         )
 
-    val server = serverRepository.flow.stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000),
-        null,
-    )
+    val server = pachliAccount.filterNotNull().map { it.server }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000),
+            null,
+        )
 
     /**
      * Set of operators the server supports.
      *
      * Empty set if the server does not support any operators.
      */
-    val availableOperators = serverRepository.flow.map { result ->
-        result.mapBoth(
-            { server ->
-                buildSet {
-                    val constraint100 = ">=1.0.0".toConstraint()
-                    val canHasMedia = server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_MEDIA, constraint100)
-                    val canHasImage = server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_IMAGE, constraint100)
-                    val canHasVideo = server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_VIDEO, constraint100)
-                    val canHasAudio = server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_AUDIO, constraint100)
-                    if (canHasMedia || canHasImage || canHasVideo || canHasAudio) {
-                        add(HasMediaOperator())
-                    }
+    val availableOperators = server.filterNotNull().map { server ->
+        buildSet {
+            val constraint100 = ">=1.0.0".toConstraint()
+            val canHasMedia = server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_MEDIA, constraint100)
+            val canHasImage = server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_IMAGE, constraint100)
+            val canHasVideo = server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_VIDEO, constraint100)
+            val canHasAudio = server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_AUDIO, constraint100)
+            if (canHasMedia || canHasImage || canHasVideo || canHasAudio) {
+                add(HasMediaOperator())
+            }
 
-                    if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE, constraint100)) {
-                        add(DateOperator())
-                    }
+            if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE, constraint100)) {
+                add(DateOperator())
+            }
 
-                    if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_FROM, constraint100)) {
-                        add(FromOperator())
-                    }
+            if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_FROM, constraint100)) {
+                add(FromOperator())
+            }
 
-                    if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE, constraint100)) {
-                        add(LanguageOperator())
-                    }
+            if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE, constraint100)) {
+                add(LanguageOperator())
+            }
 
-                    if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_LINK, constraint100)) {
-                        add(HasLinkOperator())
-                    }
-                    if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_EMBED, constraint100)) {
-                        add(HasEmbedOperator())
-                    }
+            if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_LINK, constraint100)) {
+                add(HasLinkOperator())
+            }
+            if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_EMBED, constraint100)) {
+                add(HasEmbedOperator())
+            }
 
-                    if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_POLL, constraint100)) {
-                        add(HasPollOperator())
-                    }
+            if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_POLL, constraint100)) {
+                add(HasPollOperator())
+            }
 
-                    if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_QUOTE, constraint100)) {
-                        add(HasQuoteOperator())
-                    }
+            if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_QUOTE, constraint100)) {
+                add(HasQuoteOperator())
+            }
 
-                    if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_IS_REPLY, constraint100)) {
-                        add(IsReplyOperator())
-                    }
-                    if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE, constraint100)) {
-                        add(IsSensitiveOperator())
-                    }
+            if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_IS_REPLY, constraint100)) {
+                add(IsReplyOperator())
+            }
+            if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE, constraint100)) {
+                add(IsSensitiveOperator())
+            }
 
-                    val canInLibrary = server.can(ORG_JOINMASTODON_SEARCH_QUERY_IN_LIBRARY, constraint100)
-                    val canInPublic = server.can(ORG_JOINMASTODON_SEARCH_QUERY_IN_PUBLIC, constraint100)
-                    if (canInLibrary || canInPublic) add(WhereOperator())
-                }
-            },
-            {
-                emptySet()
-            },
-        )
+            val canInLibrary = server.can(ORG_JOINMASTODON_SEARCH_QUERY_IN_LIBRARY, constraint100)
+            val canInPublic = server.can(ORG_JOINMASTODON_SEARCH_QUERY_IN_PUBLIC, constraint100)
+            if (canInLibrary || canInPublic) add(WhereOperator())
+        }
     }.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
@@ -227,7 +222,7 @@ class SearchViewModel @Inject constructor(
     private val loadedStatuses: MutableList<StatusItemViewData> = mutableListOf()
 
     private val statusesPagingSourceFactory = SearchPagingSourceFactory(mastodonApi, SearchType.Status, loadedStatuses) {
-        val pachliAccount = accountManager.activePachliAccountFlow.first()
+        val pachliAccount = pachliAccount.filterNotNull().first()
 
         // Search uses the "PUBLIC" context, since https://github.com/mastodon/mastodon/pull/36346/
         val contentFilterModel = when (pachliAccount.contentFilters.version) {
@@ -262,7 +257,7 @@ class SearchViewModel @Inject constructor(
                 StatusItemViewData.from(
                     pachliAccount = pachliAccount,
                     status,
-                    isExpanded = alwaysOpenSpoiler,
+                    isExpanded = pachliAccount.entity.alwaysOpenSpoiler,
                     contentFilterAction = contentFilterAction,
                     quoteContentFilterAction = status.quotedStatus?.let { contentFilterModel.filterActionFor(it.status) },
                     filterContext = null,
@@ -272,9 +267,11 @@ class SearchViewModel @Inject constructor(
                 loadedStatuses.addAll(this)
             }
     }
+
     private val accountsPagingSourceFactory = SearchPagingSourceFactory(mastodonApi, SearchType.Account) {
         it.accounts
     }
+
     private val hashtagsPagingSourceFactory = SearchPagingSourceFactory(mastodonApi, SearchType.Hashtag) {
         it.hashtags
     }
@@ -293,6 +290,10 @@ class SearchViewModel @Inject constructor(
         config = PagingConfig(pageSize = DEFAULT_LOAD_SIZE, initialLoadSize = DEFAULT_LOAD_SIZE),
         pagingSourceFactory = hashtagsPagingSourceFactory,
     ).flow.cachedIn(viewModelScope)
+
+    internal fun setPachliAccountId(pachliAccountId: Long) {
+        viewModelScope.launch { this@SearchViewModel.pachliAccountId.emit(pachliAccountId) }
+    }
 
     /** @return The operator of type T. */
     inline fun <reified T : SearchOperator> getOperator() = operatorViewData.value.find { it.operator is T }?.operator as T?
@@ -391,9 +392,9 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun muteAccount(accountId: String, notifications: Boolean, duration: Int?) {
+    fun muteAccount(pachliAccountId: Long, accountId: String, notifications: Boolean, duration: Int?) {
         viewModelScope.launch {
-            timelineCases.muteAccount(activeAccount!!.id, accountId, notifications, duration)
+            timelineCases.muteAccount(pachliAccountId, accountId, notifications, duration)
         }
     }
 
@@ -403,9 +404,9 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun blockAccount(accountId: String) {
+    fun blockAccount(pachliAccountId: Long, accountId: String) {
         viewModelScope.launch {
-            timelineCases.blockAccount(activeAccount!!.id, accountId)
+            timelineCases.blockAccount(pachliAccountId, accountId)
         }
     }
 
@@ -418,7 +419,7 @@ class SearchViewModel @Inject constructor(
     fun muteConversation(statusViewData: IStatusViewData, mute: Boolean) {
         updateStatus(statusViewData.status.copy(muted = mute))
         viewModelScope.launch {
-            timelineCases.muteConversation(activeAccount!!.id, statusViewData.statusId, mute)
+            timelineCases.muteConversation(statusViewData.pachliAccountId, statusViewData.statusId, mute)
         }
     }
 
