@@ -32,6 +32,7 @@ import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.common.util.versionName
 import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.ui.ClipboardUseCase
@@ -54,6 +55,8 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
     private val viewModel: AboutFragmentViewModel by viewModels()
 
     private val binding by viewBinding(FragmentAboutBinding::bind)
+
+    private val pachliAccountId by unsafeLazy { requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.root.applyWindowInsets(bottom = InsetType.PADDING)
@@ -78,20 +81,27 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
         binding.deviceInfo.text = deviceInfo
 
         lifecycleScope.launch {
-            viewModel.accountInfo.collect { accountInfo ->
-                if (accountInfo == null) {
+            viewModel.uiState.collect { uiState ->
+                if (uiState == null) {
                     binding.accountInfoTitle.hide()
                     binding.accountInfo.hide()
                     binding.copyDeviceInfo.hide()
                     return@collect
                 }
 
-                binding.accountInfo.text = accountInfo
+                binding.accountInfo.text = getString(
+                    R.string.about_account_info,
+                    uiState.username,
+                    uiState.domain,
+                    uiState.serverVersion,
+                )
                 binding.accountInfoTitle.show()
                 binding.accountInfo.show()
                 binding.copyDeviceInfo.show()
             }
         }
+
+        viewModel.setPachliAccountId(pachliAccountId)
 
         if (BuildConfig.CUSTOM_INSTANCE.isBlank()) {
             binding.aboutPoweredBy.hide()
@@ -118,7 +128,15 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
     }
 
     companion object {
-        fun newInstance() = AboutFragment()
+        private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"
+
+        fun newInstance(pachliAccountId: Long): AboutFragment {
+            return AboutFragment().apply {
+                arguments = Bundle(1).apply {
+                    putLong(ARG_PACHLI_ACCOUNT_ID, pachliAccountId)
+                }
+            }
+        }
     }
 }
 

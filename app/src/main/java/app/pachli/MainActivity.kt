@@ -927,7 +927,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                     iconicsIcon = GoogleMaterial.Icon.gmd_info
                     onClick = {
                         startActivityWithDefaultTransition(
-                            AboutActivityIntent(context),
+                            AboutActivityIntent(context, pachliAccountId),
                         )
                     }
                 },
