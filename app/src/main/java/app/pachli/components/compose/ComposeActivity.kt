@@ -439,7 +439,7 @@ class ComposeActivity :
 
                 val mediaAdapter = MediaPreviewAdapter(
                     glide = glide,
-                    descriptionLimit = account.serverLimits.maxMediaDescriptionChars,
+                    descriptionLimit = account.server.limits.maxMediaDescriptionChars,
                     onDescriptionChanged = this@ComposeActivity::onUpdateDescription,
                     onEditFocus = { item ->
                         makeFocusDialog(item.focus, item.uri) { newFocus ->

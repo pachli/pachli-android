@@ -77,7 +77,7 @@ class EditProfileViewModel @Inject constructor(
     val instanceData = pachliAccountId.flatMapLatest { pachliAccountId ->
         accountManager.getPachliAccountFlow(pachliAccountId)
     }.filterNotNull()
-        .map { it.serverLimits }
+        .map { it.server.limits }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ServerLimits())
 
     val profileData = MutableLiveData<Resource<CredentialAccount>>()

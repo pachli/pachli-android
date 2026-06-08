@@ -255,7 +255,7 @@ class ComposeViewModel @AssistedInject constructor(
     private val modifiedInitialState: Boolean = composeOptions.modifiedInitialState == true
     private var scheduledTimeChanged: Boolean = false
 
-    val serverLimits = accountFlow.map { it.serverLimits }
+    val serverLimits = accountFlow.map { it.server.limits }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ServerLimits())
 
     val emojis = accountFlow.map { it.emojis }

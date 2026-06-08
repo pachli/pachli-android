@@ -27,7 +27,6 @@ import app.pachli.core.model.Emoji
 import app.pachli.core.model.Hashtag
 import app.pachli.core.model.MastodonList
 import app.pachli.core.model.ServerKind
-import app.pachli.core.model.ServerLimits
 import io.github.z4kn4fein.semver.Version
 
 /**
@@ -35,7 +34,6 @@ import io.github.z4kn4fein.semver.Version
  *
  * @property id Account's unique local database ID.
  * @property entity [AccountEntity] from the local database.
- * @property serverLimits Details about the account's server's instance info.
  * @property lists Account's lists.
  * @property emojis Server's emojis. Use [entity.emojis][AccountEntity.emojis]
  * for the account's specific emojis.
@@ -53,7 +51,6 @@ data class PachliAccount(
     val id: Long,
     // TODO: Should be a core.data type
     val entity: AccountEntity,
-    val serverLimits: ServerLimits,
     val lists: List<MastodonList>,
     val emojis: List<Emoji>,
     val server: Server,
@@ -69,7 +66,6 @@ data class PachliAccount(
             return PachliAccount(
                 id = account.account.id,
                 entity = account.account,
-                serverLimits = account.instanceInfo.asServerLimits(),
                 lists = account.lists.orEmpty().map { it.asModel() },
                 emojis = account.emojis?.emojiList.orEmpty(),
                 server = account.server?.let { Server.from(it) } ?: Server(ServerKind.MASTODON, Version(4, 0, 0), limits = account.instanceInfo.asServerLimits()),
