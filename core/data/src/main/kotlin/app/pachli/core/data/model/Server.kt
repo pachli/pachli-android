@@ -86,6 +86,7 @@ import java.text.ParseException
 data class Server(
     val kind: ServerKind,
     val version: Version,
+    val rawVersion: String,
     val capabilities: ServerCapabilities = emptyMap(),
     val limits: ServerLimits,
 ) {
@@ -101,6 +102,7 @@ data class Server(
         accountId = pachliAccountId,
         serverKind = kind,
         version = version,
+        rawVersion = rawVersion,
         capabilities = capabilities,
         limits = limits,
     )
@@ -492,6 +494,7 @@ data class Server(
 fun ServerEntity.asModel() = Server(
     kind = serverKind,
     version = version,
+    rawVersion = rawVersion,
     capabilities = capabilities,
     limits = limits,
 )

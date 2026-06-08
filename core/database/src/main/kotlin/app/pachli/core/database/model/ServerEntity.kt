@@ -36,6 +36,7 @@ import io.github.z4kn4fein.semver.Version
  * @property accountId
  * @property serverKind
  * @property version Parsed server version.
+ * @property rawVersion Raw server version, unparsed, as reported by the server.
  * @property capabilities
  * @property limits
  */
@@ -56,6 +57,8 @@ data class ServerEntity(
     val accountId: Long,
     val serverKind: ServerKind,
     val version: Version,
+    @ColumnInfo(defaultValue = "")
+    val rawVersion: String,
     val capabilities: Map<ServerOperation, Version>,
 
     @ColumnInfo(defaultValue = "{}")

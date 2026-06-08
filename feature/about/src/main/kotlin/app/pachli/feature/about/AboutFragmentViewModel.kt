@@ -58,7 +58,7 @@ class AboutFragmentViewModel @Inject constructor(
             UiState(
                 username = pachliAccount.entity.username,
                 domain = pachliAccount.entity.domain,
-                serverVersion = pachliAccount.serverLimits.version,
+                serverVersion = pachliAccount.server.rawVersion,
             )
         }
     }.stateIn(

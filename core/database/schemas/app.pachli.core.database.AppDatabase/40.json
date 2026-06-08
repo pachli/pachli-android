@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 40,
-    "identityHash": "b9ad1386acc2e6aeec5e80160cf52c60",
+    "identityHash": "46da17456f6ddda451cd05263e7d2b21",
     "entities": [
       {
         "tableName": "DraftEntity",
@@ -1376,7 +1376,7 @@
       },
       {
         "tableName": "ServerEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`accountId` INTEGER NOT NULL, `serverKind` TEXT NOT NULL, `version` TEXT NOT NULL, `capabilities` TEXT NOT NULL, `limits` TEXT NOT NULL DEFAULT '{}', PRIMARY KEY(`accountId`), FOREIGN KEY(`accountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`accountId` INTEGER NOT NULL, `serverKind` TEXT NOT NULL, `version` TEXT NOT NULL, `rawVersion` TEXT NOT NULL DEFAULT '', `capabilities` TEXT NOT NULL, `limits` TEXT NOT NULL DEFAULT '{}', PRIMARY KEY(`accountId`), FOREIGN KEY(`accountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
         "fields": [
           {
             "fieldPath": "accountId",
@@ -1395,6 +1395,13 @@
             "columnName": "version",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "rawVersion",
+            "columnName": "rawVersion",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
           },
           {
             "fieldPath": "capabilities",
@@ -2157,7 +2164,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b9ad1386acc2e6aeec5e80160cf52c60')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '46da17456f6ddda451cd05263e7d2b21')"
     ]
   }
 }
