@@ -82,9 +82,6 @@ class ExportedPreferencesRepositoryTest {
     lateinit var nodeInfoApi: NodeInfoApi
 
     @Inject
-    lateinit var instanceInfoRepository: InstanceInfoRepository
-
-    @Inject
     lateinit var accountManager: AccountManager
 
     private lateinit var exportedPreferencesRepository: ExportedPreferencesRepository

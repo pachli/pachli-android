@@ -40,6 +40,7 @@ import app.pachli.adapter.AccountFieldEditAdapter
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_ACCOUNT_FIELDS
 import app.pachli.core.navigation.pachliAccountId
@@ -80,6 +81,8 @@ class EditProfileActivity : BaseActivity() {
         const val HEADER_WIDTH = 1500
         const val HEADER_HEIGHT = 500
     }
+
+    private val pachliAccountId by unsafeLazy { intent.pachliAccountId }
 
     private val viewModel: EditProfileViewModel by viewModels()
 
@@ -355,7 +358,7 @@ class EditProfileActivity : BaseActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun save() = viewModel.save(currentProfileData)
+    private fun save() = viewModel.save(pachliAccountId, currentProfileData)
 
     private fun onSaveFailure(msg: String?) {
         val errorMsg = msg ?: getString(R.string.error_media_upload_sending)

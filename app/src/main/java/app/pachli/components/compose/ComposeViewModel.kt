@@ -36,7 +36,6 @@ import app.pachli.core.common.string.mastodonLength
 import app.pachli.core.common.string.randomAlphanumericString
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.DraftsRepository
-import app.pachli.core.data.repository.InstanceInfoRepository
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
@@ -45,6 +44,7 @@ import app.pachli.core.model.AccountSource
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.Draft
 import app.pachli.core.model.DraftAttachment
+import app.pachli.core.model.InstanceInfo
 import app.pachli.core.model.NewPoll
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Status
@@ -171,7 +171,6 @@ class ComposeViewModel @AssistedInject constructor(
     private val accountManager: AccountManager,
     private val mediaUploader: MediaUploader,
     private val sendStatus: SendStatusUseCase,
-    instanceInfoRepo: InstanceInfoRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     private val draftsRepository: DraftsRepository,
@@ -256,9 +255,11 @@ class ComposeViewModel @AssistedInject constructor(
     private val modifiedInitialState: Boolean = composeOptions.modifiedInitialState == true
     private var scheduledTimeChanged: Boolean = false
 
-    val instanceInfo = instanceInfoRepo.instanceInfo
+    val instanceInfo = accountFlow.map { it.instanceInfo }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), InstanceInfo())
 
-    val emojis = instanceInfoRepo.emojis
+    val emojis = accountFlow.map { it.emojis }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     private val _markMediaAsSensitive: MutableStateFlow<Boolean?> = MutableStateFlow(composeOptions.draft.sensitive)
     val markMediaAsSensitive = accountFlow.combine(_markMediaAsSensitive) { account, sens ->
