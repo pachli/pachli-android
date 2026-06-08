@@ -23,6 +23,7 @@ import app.pachli.core.common.PachliError
 import app.pachli.core.data.model.Server.Error.UnparseableVersion
 import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.database.model.ServerEntity
+import app.pachli.core.database.model.asServerLimits
 import app.pachli.core.model.NodeInfo
 import app.pachli.core.model.ServerCapabilities
 import app.pachli.core.model.ServerKind
@@ -39,6 +40,7 @@ import app.pachli.core.model.ServerKind.PIXELFED
 import app.pachli.core.model.ServerKind.PLEROMA
 import app.pachli.core.model.ServerKind.SHARKEY
 import app.pachli.core.model.ServerKind.UNKNOWN
+import app.pachli.core.model.ServerLimits
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_ACCOUNT_QUOTE_POLICY
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_ACTION_BLUR
@@ -85,6 +87,7 @@ data class Server(
     val kind: ServerKind,
     val version: Version,
     val capabilities: ServerCapabilities = emptyMap(),
+    val limits: ServerLimits,
 ) {
     /**
      * @return true if the server supports the given operation at the given minimum version
@@ -115,7 +118,7 @@ data class Server(
                 else -> { /* Nothing to do */ }
             }
 
-            Server(serverKind, version, capabilities)
+            Server(serverKind, version, capabilities, instanceV2.asServerLimits())
         }
 
         /**
@@ -126,7 +129,7 @@ data class Server(
             val version = parseVersionString(serverKind, software.version).bind()
             val capabilities = capabilitiesFromServerVersion(serverKind, version)
 
-            Server(serverKind, version, capabilities)
+            Server(serverKind, version, capabilities, instanceV1.asServerLimits())
         }
 
         /**
@@ -152,13 +155,14 @@ data class Server(
                 }
             }
 
-            Server(serverKind, version, capabilities)
+            Server(serverKind, version, capabilities, instanceInfoEntity.asServerLimits())
         }
 
         fun from(entity: ServerEntity) = Server(
             kind = entity.serverKind,
             version = entity.version,
             capabilities = entity.capabilities,
+            limits = entity.limits,
         )
 
         /**

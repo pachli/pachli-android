@@ -515,6 +515,7 @@ class AccountManager @Inject constructor(
                         serverKind = it.kind,
                         version = it.version,
                         capabilities = it.capabilities,
+                        limits = it.limits,
                     ),
                 )
             }

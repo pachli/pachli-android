@@ -17,9 +17,12 @@
 
 package app.pachli.core.model
 
+import com.squareup.moshi.JsonClass
+
 // Know that these fields are all used somewhere
 //
 // Server.Kt also uses v2.configuration.translation.enabled
+@JsonClass(generateAdapter = true)
 data class ServerLimits(
     val maxChars: Int = DEFAULT_CHARACTER_LIMIT,
     val pollMaxOptions: Int = DEFAULT_MAX_OPTION_COUNT,
@@ -36,7 +39,6 @@ data class ServerLimits(
     val maxFields: Int = DEFAULT_MAX_ACCOUNT_FIELDS,
     val maxFieldNameLength: Int? = null,
     val maxFieldValueLength: Int? = null,
-    val version: String = "(Pachli defaults)",
 ) {
     companion object {
         const val DEFAULT_CHARACTER_LIMIT = 500

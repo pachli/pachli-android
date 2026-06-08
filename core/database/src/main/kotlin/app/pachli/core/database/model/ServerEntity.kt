@@ -17,11 +17,13 @@
 
 package app.pachli.core.database.model
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
 import app.pachli.core.model.ServerKind
+import app.pachli.core.model.ServerLimits
 import app.pachli.core.model.ServerOperation
 import io.github.z4kn4fein.semver.Version
 
@@ -49,4 +51,7 @@ data class ServerEntity(
     val serverKind: ServerKind,
     val version: Version,
     val capabilities: Map<ServerOperation, Version>,
+
+    @ColumnInfo(defaultValue = "{}")
+    val limits: ServerLimits,
 )

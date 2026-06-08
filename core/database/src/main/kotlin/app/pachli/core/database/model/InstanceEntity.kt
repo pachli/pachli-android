@@ -55,7 +55,7 @@ data class InstanceInfoEntity(
  * @return [ServerLimits] model; if this is null then returns the default
  * [ServerLimits] values.
  */
-fun InstanceInfoEntity?.asModel(): ServerLimits {
+fun InstanceInfoEntity?.asServerLimits(): ServerLimits {
     if (this == null) return ServerLimits()
     return ServerLimits(
         maxChars = maxPostCharacters,
@@ -72,7 +72,6 @@ fun InstanceInfoEntity?.asModel(): ServerLimits {
         maxFields = maxFields,
         maxFieldNameLength = maxFieldNameLength,
         maxFieldValueLength = maxFieldValueLength,
-        version = version,
     )
 }
 

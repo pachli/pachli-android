@@ -108,7 +108,7 @@ import java.util.TimeZone
         TimelineStatusWithAccount::class,
         ReferencedStatusId::class,
     ],
-    version = 39,
+    version = 40,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -164,6 +164,8 @@ import java.util.TimeZone
         AutoMigration(from = 37, to = 38, spec = AppDatabase.MIGRATE_37_38::class),
         // HashtagEntity, to show followed hashtags in timelines.
         AutoMigration(from = 38, to = 39),
+        // Converting InstanceInfo to ServerLimits.
+        AutoMigration(from = 39, to = 40),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
