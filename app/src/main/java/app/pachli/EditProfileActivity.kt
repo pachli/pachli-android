@@ -42,7 +42,7 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_ACCOUNT_FIELDS
+import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MAX_ACCOUNT_FIELDS
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.ui.extensions.InsetType
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets

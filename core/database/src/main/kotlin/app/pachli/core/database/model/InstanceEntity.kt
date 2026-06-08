@@ -24,8 +24,8 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
 import app.pachli.core.model.Emoji
-import app.pachli.core.model.InstanceInfo
-import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_MEDIA_DESCRIPTION_CHARS
+import app.pachli.core.model.ServerLimits
+import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MAX_MEDIA_DESCRIPTION_CHARS
 
 @Entity
 @TypeConverters(Converters::class)
@@ -52,12 +52,12 @@ data class InstanceInfoEntity(
 )
 
 /**
- * @return [InstanceInfo] model; if this is null then returns the default
- * [InstanceInfo] values.
+ * @return [ServerLimits] model; if this is null then returns the default
+ * [ServerLimits] values.
  */
-fun InstanceInfoEntity?.asModel(): InstanceInfo {
-    if (this == null) return InstanceInfo()
-    return InstanceInfo(
+fun InstanceInfoEntity?.asModel(): ServerLimits {
+    if (this == null) return ServerLimits()
+    return ServerLimits(
         maxChars = maxPostCharacters,
         pollMaxOptions = maxPollOptions,
         pollMaxLength = maxPollOptionLength,

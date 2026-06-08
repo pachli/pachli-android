@@ -18,9 +18,9 @@
 package app.pachli.core.data.repository
 
 import app.pachli.core.database.model.InstanceInfoEntity
-import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
-import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_ACCOUNT_FIELDS
-import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_MEDIA_DESCRIPTION_CHARS
+import app.pachli.core.model.ServerLimits.Companion.DEFAULT_CHARACTER_LIMIT
+import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MAX_ACCOUNT_FIELDS
+import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MAX_MEDIA_DESCRIPTION_CHARS
 import app.pachli.core.network.model.InstanceV1
 import app.pachli.core.network.model.InstanceV2
 

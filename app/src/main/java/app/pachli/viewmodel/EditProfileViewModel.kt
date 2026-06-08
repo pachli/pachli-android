@@ -28,7 +28,7 @@ import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.ProfileEditedEvent
 import app.pachli.core.model.CredentialAccount
-import app.pachli.core.model.InstanceInfo
+import app.pachli.core.model.ServerLimits
 import app.pachli.core.model.StringField
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.Error
@@ -77,8 +77,8 @@ class EditProfileViewModel @Inject constructor(
     val instanceData = pachliAccountId.flatMapLatest { pachliAccountId ->
         accountManager.getPachliAccountFlow(pachliAccountId)
     }.filterNotNull()
-        .map { it.instanceInfo }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), InstanceInfo())
+        .map { it.serverLimits }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ServerLimits())
 
     val profileData = MutableLiveData<Resource<CredentialAccount>>()
     val avatarData = MutableLiveData<Uri>()

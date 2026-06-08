@@ -16,19 +16,19 @@
 
 package app.pachli.core.network.model
 
-import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_CHARACTERS_RESERVED_PER_URL
-import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
-import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_IMAGE_MATRIX_LIMIT
-import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_IMAGE_SIZE_LIMIT
-import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_ACCOUNT_FIELDS
-import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_MEDIA_ATTACHMENTS
-import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_OPTION_COUNT
-import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_OPTION_LENGTH
-import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_POLL_DURATION
-import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MIN_POLL_DURATION
-import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_VIDEO_FRAME_RATE_LIMIT
-import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_VIDEO_MATRIX_LIMIX
-import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_VIDEO_SIZE_LIMIT
+import app.pachli.core.model.ServerLimits.Companion.DEFAULT_CHARACTERS_RESERVED_PER_URL
+import app.pachli.core.model.ServerLimits.Companion.DEFAULT_CHARACTER_LIMIT
+import app.pachli.core.model.ServerLimits.Companion.DEFAULT_IMAGE_MATRIX_LIMIT
+import app.pachli.core.model.ServerLimits.Companion.DEFAULT_IMAGE_SIZE_LIMIT
+import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MAX_ACCOUNT_FIELDS
+import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MAX_MEDIA_ATTACHMENTS
+import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MAX_OPTION_COUNT
+import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MAX_OPTION_LENGTH
+import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MAX_POLL_DURATION
+import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MIN_POLL_DURATION
+import app.pachli.core.model.ServerLimits.Companion.DEFAULT_VIDEO_FRAME_RATE_LIMIT
+import app.pachli.core.model.ServerLimits.Companion.DEFAULT_VIDEO_MATRIX_LIMIX
+import app.pachli.core.model.ServerLimits.Companion.DEFAULT_VIDEO_SIZE_LIMIT
 import app.pachli.core.network.json.DefaultIfNull
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

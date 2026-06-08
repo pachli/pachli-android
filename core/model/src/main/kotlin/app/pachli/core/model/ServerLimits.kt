@@ -20,7 +20,7 @@ package app.pachli.core.model
 // Know that these fields are all used somewhere
 //
 // Server.Kt also uses v2.configuration.translation.enabled
-data class InstanceInfo(
+data class ServerLimits(
     val maxChars: Int = DEFAULT_CHARACTER_LIMIT,
     val pollMaxOptions: Int = DEFAULT_MAX_OPTION_COUNT,
     val pollMaxLength: Int = DEFAULT_MAX_OPTION_LENGTH,
