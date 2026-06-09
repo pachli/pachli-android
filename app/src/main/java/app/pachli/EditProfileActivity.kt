@@ -217,9 +217,9 @@ class EditProfileActivity : BaseActivity() {
         }
 
         lifecycleScope.launch {
-            viewModel.instanceData.collect { instanceInfo ->
-                maxAccountFields = instanceInfo.maxFields
-                accountFieldEditAdapter.setFieldLimits(instanceInfo.maxFieldNameLength, instanceInfo.maxFieldValueLength)
+            viewModel.serverLimits.collect { serverLimits ->
+                maxAccountFields = serverLimits.maxFields
+                accountFieldEditAdapter.setFieldLimits(serverLimits.maxFieldNameLength, serverLimits.maxFieldValueLength)
                 binding.addFieldButton.isVisible =
                     accountFieldEditAdapter.itemCount < maxAccountFields
             }
