@@ -22,14 +22,12 @@ import app.pachli.core.common.PachliError
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.R
 import app.pachli.core.data.model.Server
-import app.pachli.core.data.repository.ServerRepository.Error.GetInstanceInfoV1
-import app.pachli.core.data.repository.ServerRepository.Error.GetNodeInfo
-import app.pachli.core.data.repository.ServerRepository.Error.GetWellKnownNodeInfo
-import app.pachli.core.data.repository.ServerRepository.Error.UnsupportedSchema
-import app.pachli.core.data.repository.ServerRepository.Error.ValidateNodeInfo
+import app.pachli.core.data.repository.ServerRepository.ServerError.GetInstanceInfoV1
+import app.pachli.core.data.repository.ServerRepository.ServerError.GetNodeInfo
+import app.pachli.core.data.repository.ServerRepository.ServerError.GetWellKnownNodeInfo
+import app.pachli.core.data.repository.ServerRepository.ServerError.UnsupportedSchema
+import app.pachli.core.data.repository.ServerRepository.ServerError.ValidateNodeInfo
 import app.pachli.core.database.dao.ServerDao
-import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.InstanceInfo
 import app.pachli.core.model.NodeInfo
 import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
@@ -43,7 +41,6 @@ import com.github.michaelbull.result.map
 import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.mapError
-import com.github.michaelbull.result.onSuccess
 import com.github.michaelbull.result.orElse
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -67,48 +64,42 @@ val SCHEMAS = listOf(
 class ServerRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val nodeInfoApi: NodeInfoApi,
-    private val serverDao: ServerDao,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
-    // TODO: Document.
-    suspend fun getServer(account: AccountEntity): Result<Server, ServerRepository.Error> = binding {
+    /**
+     * Fetches the server information for the active account from the remote
+     * server.
+     *
+     * It is the caller's responsibility to save this information (e.g,. to
+     * [ServerDao]).
+     */
+    suspend fun getServer(): Result<Server, ServerError> = binding {
         val deferNodeInfo = externalScope.async {
             fetchNodeInfo()
         }
 
         val deferInstanceInfo = externalScope.async {
-            fetchInstanceInfo(account.domain)
+            fetchInstanceInfo()
         }
 
         val nodeInfo = deferNodeInfo.await().bind()
         val instanceInfo = deferInstanceInfo.await().bind()
 
         val server = Server.from(nodeInfo.software, instanceInfo)
-            .mapError { Error.Capabilities(it) }
-            .onSuccess { serverDao.upsert(it.asEntity(account.id)) }
+            .mapError { ServerError.Capabilities(it) }
             .bind()
 
         return@binding server
     }
 
-    private suspend fun fetchInstanceInfo(domain: String): Result<InstanceInfo, GetInstanceInfoV1> {
-        return mastodonApi.getInstanceV2()
-            .map { it.body.asModel(domain) }
-            .orElse {
-                mastodonApi.getInstanceV1().mapEither(
-                    { it.body.asModel(domain) },
-                    { GetInstanceInfoV1(it) },
-                )
-            }
-    }
-
-    private suspend fun fetchNodeInfo(): Result<NodeInfo, Error> = binding {
+    /** Fetches the node info for the server. */
+    private suspend fun fetchNodeInfo(): Result<NodeInfo, ServerError> = binding {
         // Fetch the /.well-known/nodeinfo document
         val nodeInfoJrd = nodeInfoApi.nodeInfoJrd()
             .mapError { GetWellKnownNodeInfo(it) }.bind().body
 
         // Find a link to a schema we can parse, prefering newer schema versions
-        var nodeInfoUrlResult: Result<String, Error> = Err(UnsupportedSchema)
+        var nodeInfoUrlResult: Result<String, ServerError> = Err(UnsupportedSchema)
         for (link in nodeInfoJrd.links.sortedByDescending { it.rel }) {
             if (SCHEMAS.contains(link.rel)) {
                 nodeInfoUrlResult = Ok(link.href)
@@ -127,35 +118,47 @@ class ServerRepository @Inject constructor(
         return@binding nodeInfo
     }
 
-    sealed class Error(
+    /** Fetches the instance information for the active account. */
+    private suspend fun fetchInstanceInfo(): Result<InstanceInfo, GetInstanceInfoV1> {
+        return mastodonApi.getInstanceV2()
+            .map { it.body.asModel() }
+            .orElse {
+                mastodonApi.getInstanceV1().mapEither(
+                    { it.body.asModel() },
+                    { GetInstanceInfoV1(it) },
+                )
+            }
+    }
+
+    sealed class ServerError(
         @StringRes override val resourceId: Int,
         override val formatArgs: Array<out String>? = emptyArray<String>(),
         override val cause: PachliError? = null,
     ) : PachliError {
 
-        data class GetWellKnownNodeInfo(override val cause: PachliError) : Error(
+        data class GetWellKnownNodeInfo(override val cause: PachliError) : ServerError(
             R.string.server_repository_error_get_well_known_node_info,
         )
 
-        data object UnsupportedSchema : Error(
+        data object UnsupportedSchema : ServerError(
             R.string.server_repository_error_unsupported_schema,
         )
 
-        data class GetNodeInfo(val url: String, override val cause: PachliError) : Error(
+        data class GetNodeInfo(val url: String, override val cause: PachliError) : ServerError(
             R.string.server_repository_error_get_node_info,
             arrayOf(url),
         )
 
-        data class ValidateNodeInfo(val url: String, val error: UnvalidatedNodeInfo.Error) : Error(
+        data class ValidateNodeInfo(val url: String, val error: UnvalidatedNodeInfo.Error) : ServerError(
             R.string.server_repository_error_validate_node_info,
             arrayOf(url),
         )
 
-        data class GetInstanceInfoV1(override val cause: PachliError) : Error(
+        data class GetInstanceInfoV1(override val cause: PachliError) : ServerError(
             R.string.server_repository_error_get_instance_info,
         )
 
-        data class Capabilities(override val cause: Server.Error) : Error(
+        data class Capabilities(override val cause: Server.Error) : ServerError(
             R.string.server_repository_error_capabilities,
         )
     }

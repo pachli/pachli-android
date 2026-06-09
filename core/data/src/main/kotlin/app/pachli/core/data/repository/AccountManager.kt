@@ -31,6 +31,7 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.AnnouncementEntity
 import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.FollowingAccountEntity
+import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.Account
 import app.pachli.core.model.AccountSource
 import app.pachli.core.model.FilterAction
@@ -417,7 +418,8 @@ class AccountManager @Inject constructor(
     // TODO: Protect this with a mutex?
     suspend fun refresh(account: AccountEntity): Result<Unit, RefreshAccountError> = binding {
         val deferServer = externalScope.async {
-            serverRepository.getServer(account)
+            serverRepository.getServer()
+                .onSuccess { serverDao.upsert(it.asEntity(account.id)) }
                 .mapError { RefreshAccountError.General(account, it) }
         }
 

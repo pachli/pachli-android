@@ -17,8 +17,28 @@
 
 package app.pachli.core.model
 
+/**
+ * Normalised information from the API `instance` endpoint, either
+ * v1 or v2.
+ *
+ * @property maxPostCharacters Maximum number of characters allowed in a post.
+ * @property maxPollOptions Maximum number of options allowed in a poll.
+ * @property maxPollOptionLength Maximum number of characters allowed in a poll option.
+ * @property minPollDuration Minimum duration allowed in a poll.
+ * @property maxPollDuration Maximum duration allowed in a poll.
+ * @property charactersReservedPerUrl Number of characters reserved per URL.
+ * @property version Raw version string of the instance.
+ * @property videoSizeLimit Maximum video size allowed in bytes.
+ * @property imageSizeLimit Maximum image size allowed in bytes.
+ * @property imageMatrixLimit Maximum image matrix size in bytes.
+ * @property maxMediaAttachments Maximum number of media attachments.
+ * @property maxMediaDescriptionChars Maximum number of characters in a media description.
+ * @property maxFields Maximum number of fields in an account.
+ * @property maxFieldNameLength Maximum length of an account field name.
+ * @property maxFieldValueLength Maximum length of an account field value.
+ * @property enabledTranslation True if the server's translation feature is enabled.
+ */
 data class InstanceInfo(
-    val instance: String,
     val maxPostCharacters: Int,
     val maxPollOptions: Int,
     val maxPollOptionLength: Int,

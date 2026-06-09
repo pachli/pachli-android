@@ -408,7 +408,7 @@ class ServerTest(
         val software = input.second
         val instanceV2 = input.third
         assertWithMessage(msg)
-            .that(Server.from(software, instanceV2.asModel(instanceV2.domain)))
+            .that(Server.from(software, instanceV2.asModel()))
             .isEqualTo(want)
     }
 }

@@ -26,16 +26,8 @@ import app.pachli.core.network.model.InstanceV2
 
 /**
  * Returns [InstanceInfo] for this [InstanceV1].
- *
- * There's no guarantee the [InstanceV1.uri] field will be just the domain, as some
- * servers return URLs or possibly other junk (https://akkoma.dev/AkkomaGang/akkoma/issues/907,
- * https://activitypub.software/TransFem-org/Sharkey/-/issues/1046), so require the
- * caller to explicitly provide the domain to use as the primary key for this entity.
- *
- * @param domain Primary key for this domain
  */
-fun InstanceV1.asModel(domain: String) = InstanceInfo(
-    instance = domain,
+fun InstanceV1.asModel() = InstanceInfo(
     maxPostCharacters = configuration.statuses.maxCharacters ?: maxTootChars ?: DEFAULT_CHARACTER_LIMIT,
     maxPollOptions = configuration.polls.maxOptions,
     maxPollOptionLength = configuration.polls.maxCharactersPerOption,
@@ -56,16 +48,8 @@ fun InstanceV1.asModel(domain: String) = InstanceInfo(
 
 /**
  * Returns [InstanceInfo] for this [InstanceV2].
- *
- * There's no guarantee the [InstanceV2.domain] field will be just the domain, as some
- * servers return URLs or possibly other junk (https://akkoma.dev/AkkomaGang/akkoma/issues/907,
- * https://activitypub.software/TransFem-org/Sharkey/-/issues/1046), so require the
- * caller to explicitly provide the domain to use as the primary key for this entity.
- *
- * @param domain Primary key for this domain
  */
-fun InstanceV2.asModel(domain: String) = InstanceInfo(
-    instance = domain,
+fun InstanceV2.asModel() = InstanceInfo(
     maxPostCharacters = configuration.statuses.maxCharacters,
     maxPollOptions = configuration.polls.maxOptions,
     maxPollOptionLength = configuration.polls.maxCharactersPerOption,
