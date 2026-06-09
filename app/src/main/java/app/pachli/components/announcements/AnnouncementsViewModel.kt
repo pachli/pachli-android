@@ -21,10 +21,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.data.repository.InstanceInfoRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.model.Announcement
-import app.pachli.core.model.Emoji
 import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.SharedPreferencesRepository
@@ -36,31 +34,41 @@ import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @HiltViewModel
 class AnnouncementsViewModel @Inject constructor(
     private val accountManager: AccountManager,
-    private val instanceInfoRepo: InstanceInfoRepository,
     private val mastodonApi: MastodonApi,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
 ) : ViewModel() {
+    private val pachliAccountId = MutableSharedFlow<Long>(replay = 1)
 
     private val announcementsMutable = MutableLiveData<Resource<List<Announcement>>>()
     val announcements: LiveData<Resource<List<Announcement>>> = announcementsMutable
 
-    val emojis: List<Emoji>
-        get() = instanceInfoRepo.emojis.value
+    val emojis = pachliAccountId.flatMapLatest { pachliAccountId ->
+        accountManager.getPachliAccountFlow(pachliAccountId)
+    }.filterNotNull()
+        .map { it.emojis }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     val animateEmojis: Boolean
         get() = sharedPreferencesRepository.animateEmojis
 
     val statusDisplayOptions = statusDisplayOptionsRepository.flow
 
-    fun load() {
+    fun load(pachliAccountId: Long) {
         viewModelScope.launch {
+            this@AnnouncementsViewModel.pachliAccountId.emit(pachliAccountId)
             announcementsMutable.postValue(Loading())
             mastodonApi.listAnnouncements()
                 .onSuccess {
@@ -103,7 +111,7 @@ class AnnouncementsViewModel @Inject constructor(
                                         } else {
                                             listOf(
                                                 *announcement.reactions.toTypedArray(),
-                                                emojis.find { emoji -> emoji.shortcode == name }!!.run {
+                                                emojis.value.find { emoji -> emoji.shortcode == name }!!.run {
                                                     Announcement.Reaction(
                                                         name,
                                                         1,

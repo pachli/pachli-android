@@ -25,10 +25,10 @@ import androidx.lifecycle.viewModelScope
 import app.pachli.BuildConfig
 import app.pachli.core.common.string.randomAlphanumericString
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.data.repository.InstanceInfoRepository
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.ProfileEditedEvent
 import app.pachli.core.model.CredentialAccount
+import app.pachli.core.model.InstanceInfo
 import app.pachli.core.model.StringField
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.Error
@@ -41,9 +41,14 @@ import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.File
 import javax.inject.Inject
-import kotlin.properties.Delegates
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -66,15 +71,19 @@ class EditProfileViewModel @Inject constructor(
     private val eventHub: EventHub,
     private val application: Application,
     private val accountManager: AccountManager,
-    instanceInfoRepo: InstanceInfoRepository,
 ) : ViewModel() {
+    private val pachliAccountId = MutableSharedFlow<Long>(replay = 1)
+
+    val instanceData = pachliAccountId.flatMapLatest { pachliAccountId ->
+        accountManager.getPachliAccountFlow(pachliAccountId)
+    }.filterNotNull()
+        .map { it.instanceInfo }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), InstanceInfo())
 
     val profileData = MutableLiveData<Resource<CredentialAccount>>()
     val avatarData = MutableLiveData<Uri>()
     val headerData = MutableLiveData<Uri>()
     val saveData = MutableLiveData<Resource<Nothing>>()
-
-    val instanceData = instanceInfoRepo.instanceInfo
 
     private var apiProfileAccount: CredentialAccount? = null
 
@@ -83,10 +92,8 @@ class EditProfileViewModel @Inject constructor(
     /** True if the user has made unsaved changes to the profile */
     val isDirty = _isDirty.asStateFlow()
 
-    var pachliAccountId by Delegates.notNull<Long>()
-
     fun obtainProfile(pachliAccountId: Long) = viewModelScope.launch {
-        this@EditProfileViewModel.pachliAccountId = pachliAccountId
+        this@EditProfileViewModel.pachliAccountId.emit(pachliAccountId)
 
         if (profileData.value == null || profileData.value is Error) {
             profileData.postValue(Loading())
@@ -121,7 +128,7 @@ class EditProfileViewModel @Inject constructor(
         headerData.value = getHeaderUri()
     }
 
-    internal fun save(newProfileData: ProfileDataInUi) {
+    internal fun save(pachliAccountId: Long, newProfileData: ProfileDataInUi) {
         if (saveData.value is Loading || profileData.value !is Success) {
             return
         }

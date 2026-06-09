@@ -33,6 +33,7 @@ import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.ui.BackgroundMessage
@@ -68,6 +69,8 @@ class AnnouncementsActivity :
     private lateinit var adapter: AnnouncementAdapter
 
     private var currentAnnouncementId: String? = null
+
+    private val pachliAccountId by unsafeLazy { intent.pachliAccountId }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -147,7 +150,7 @@ class AnnouncementsActivity :
             }
         }
 
-        viewModel.load()
+        viewModel.load(pachliAccountId)
         binding.progressBar.show()
     }
 
@@ -175,7 +178,7 @@ class AnnouncementsActivity :
     }
 
     private fun refreshAnnouncements() {
-        viewModel.load()
+        viewModel.load(pachliAccountId)
         binding.swipeRefreshLayout.isRefreshing = true
     }
 
@@ -183,7 +186,7 @@ class AnnouncementsActivity :
         currentAnnouncementId = announcementId
         lifecycleScope.launch {
             ChooseEmojiDialogFragment.newInstance(
-                viewModel.emojis,
+                viewModel.emojis.value,
                 viewModel.animateEmojis,
             ).await(supportFragmentManager)?.let {
                 viewModel.addReaction(announcementId, it.shortcode)
