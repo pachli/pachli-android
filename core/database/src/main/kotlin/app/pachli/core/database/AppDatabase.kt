@@ -169,7 +169,7 @@ import java.util.TimeZone
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun accountDao(): AccountDao
-    abstract fun instanceDao(): ServerDao
+    abstract fun serverDao(): ServerDao
     abstract fun conversationDao(): ConversationsDao
     abstract fun timelineDao(): TimelineDao
     abstract fun draftDao(): DraftDao

@@ -730,9 +730,9 @@ class ComposeActivity :
 
     private fun subscribeToUpdates(mediaAdapter: MediaPreviewAdapter) {
         lifecycleScope.launch {
-            viewModel.serverLimits.collect { instanceData ->
-                maximumTootCharacters = instanceData.maxChars
-                maxUploadMediaNumber = instanceData.maxMediaAttachments
+            viewModel.serverLimits.collect { serverLimits ->
+                maximumTootCharacters = serverLimits.maxChars
+                maxUploadMediaNumber = serverLimits.maxMediaAttachments
                 updateVisibleCharactersLeft(viewModel.statusLength.value)
             }
         }
@@ -1310,14 +1310,14 @@ class ComposeActivity :
      */
     private fun onAddPollClick() = lifecycleScope.launch {
         addAttachmentBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-        val instanceParams = viewModel.serverLimits.value
+        val serverLimits = viewModel.serverLimits.value
         showAddPollDialog(
             context = this@ComposeActivity,
             poll = viewModel.poll.value,
-            maxOptionCount = instanceParams.pollMaxOptions,
-            maxOptionLength = instanceParams.pollMaxLength,
-            minDuration = instanceParams.pollMinDuration,
-            maxDuration = instanceParams.pollMaxDuration,
+            maxOptionCount = serverLimits.pollMaxOptions,
+            maxOptionLength = serverLimits.pollMaxLength,
+            minDuration = serverLimits.pollMinDuration,
+            maxDuration = serverLimits.pollMaxDuration,
             onUpdatePoll = viewModel::onPollChanged,
         )
     }

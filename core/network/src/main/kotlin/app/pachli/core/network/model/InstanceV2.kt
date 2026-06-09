@@ -17,10 +17,12 @@
 
 package app.pachli.core.network.model
 
+import app.pachli.core.model.InstanceInfo
 import app.pachli.core.model.ServerLimits.Companion.DEFAULT_CHARACTERS_RESERVED_PER_URL
 import app.pachli.core.model.ServerLimits.Companion.DEFAULT_CHARACTER_LIMIT
 import app.pachli.core.model.ServerLimits.Companion.DEFAULT_IMAGE_MATRIX_LIMIT
 import app.pachli.core.model.ServerLimits.Companion.DEFAULT_IMAGE_SIZE_LIMIT
+import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MAX_ACCOUNT_FIELDS
 import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MAX_MEDIA_ATTACHMENTS
 import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MAX_MEDIA_DESCRIPTION_CHARS
 import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MAX_OPTION_COUNT
@@ -75,7 +77,29 @@ data class InstanceV2(
 
     /** An itemized list of rules for this website. */
     val rules: List<Rule> = emptyList(),
-)
+) {
+    /**
+     * Returns [InstanceInfo] for this [InstanceV2].
+     */
+    fun asModel() = InstanceInfo(
+        maxPostCharacters = configuration.statuses.maxCharacters,
+        maxPollOptions = configuration.polls.maxOptions,
+        maxPollOptionLength = configuration.polls.maxCharactersPerOption,
+        minPollDuration = configuration.polls.minExpiration,
+        maxPollDuration = configuration.polls.maxExpiration,
+        charactersReservedPerUrl = configuration.statuses.charactersReservedPerUrl,
+        version = version,
+        videoSizeLimit = configuration.mediaAttachments.videoSizeLimit,
+        imageSizeLimit = configuration.mediaAttachments.imageSizeLimit,
+        imageMatrixLimit = configuration.mediaAttachments.imageMatrixLimit,
+        maxMediaAttachments = configuration.statuses.maxMediaAttachments,
+        maxMediaDescriptionChars = configuration.mediaAttachments.descriptionLimit,
+        maxFields = DEFAULT_MAX_ACCOUNT_FIELDS,
+        maxFieldNameLength = null,
+        maxFieldValueLength = null,
+        enabledTranslation = configuration.translation.enabled,
+    )
+}
 
 @JsonClass(generateAdapter = true)
 data class Usage(

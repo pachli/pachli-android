@@ -17,7 +17,6 @@
 
 package app.pachli.core.data.model
 
-import app.pachli.core.data.repository.asModel
 import app.pachli.core.model.NodeInfo
 import app.pachli.core.model.ServerKind
 import app.pachli.core.model.ServerKind.AKKOMA
