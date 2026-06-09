@@ -25,7 +25,7 @@ import app.pachli.core.data.repository.hashtags.HashtagsRepository
 import app.pachli.core.database.dao.AccountDao
 import app.pachli.core.database.dao.AnnouncementsDao
 import app.pachli.core.database.dao.FollowingAccountDao
-import app.pachli.core.database.dao.InstanceDao
+import app.pachli.core.database.dao.ServerDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.AnnouncementEntity
@@ -160,7 +160,7 @@ class AccountManager @Inject constructor(
     private val transactionProvider: TransactionProvider,
     private val mastodonApi: MastodonApi,
     private val accountDao: AccountDao,
-    private val instanceDao: InstanceDao,
+    private val serverDao: ServerDao,
     private val serverRepository: ServerRepository,
     private val contentFiltersRepository: ContentFiltersRepository,
     private val listsRepository: ListsRepository,
@@ -425,7 +425,7 @@ class AccountManager @Inject constructor(
             mastodonApi.getCustomEmojis()
                 .mapError { RefreshAccountError.General(account, it) }
                 .onSuccess {
-                    instanceDao.upsert(
+                    serverDao.upsert(
                         EmojisEntity(
                             accountId = account.id,
                             emojiList = it.body.asModel(),

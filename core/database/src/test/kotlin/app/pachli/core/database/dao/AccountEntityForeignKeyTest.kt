@@ -87,7 +87,8 @@ class AccountEntityForeignKeyTest {
 
     @Inject lateinit var followingAccountDao: FollowingAccountDao
 
-    @Inject lateinit var instanceInfoDao: InstanceDao
+    @Inject
+    lateinit var instanceInfoDao: ServerDao
 
     @Inject lateinit var mastodonListDao: ListsDao
 

@@ -25,7 +25,7 @@ import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.ServerEntity
 
 @Dao
-interface InstanceDao {
+interface ServerDao {
 
     @Upsert
     suspend fun upsert(emojis: EmojisEntity)

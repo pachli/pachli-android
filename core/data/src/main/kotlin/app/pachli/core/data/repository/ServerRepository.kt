@@ -27,7 +27,7 @@ import app.pachli.core.data.repository.ServerRepository.Error.GetNodeInfo
 import app.pachli.core.data.repository.ServerRepository.Error.GetWellKnownNodeInfo
 import app.pachli.core.data.repository.ServerRepository.Error.UnsupportedSchema
 import app.pachli.core.data.repository.ServerRepository.Error.ValidateNodeInfo
-import app.pachli.core.database.dao.InstanceDao
+import app.pachli.core.database.dao.ServerDao
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.InstanceInfo
 import app.pachli.core.model.NodeInfo
@@ -66,7 +66,7 @@ val SCHEMAS = listOf(
 class ServerRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val nodeInfoApi: NodeInfoApi,
-    private val instanceDao: InstanceDao,
+    private val serverDao: ServerDao,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
     // TODO: Document.
@@ -82,12 +82,9 @@ class ServerRepository @Inject constructor(
         val nodeInfo = deferNodeInfo.await().bind()
         val instanceInfo = deferInstanceInfo.await().bind()
 
-        // TODO: Rename instanceDao to serverDao
-
-        // TODO: Split EmojiDao out.
         val server = Server.from(nodeInfo.software, instanceInfo)
             .mapError { Error.Capabilities(it) }
-            .onSuccess { instanceDao.upsert(it.asEntity(account.id)) }
+            .onSuccess { serverDao.upsert(it.asEntity(account.id)) }
             .bind()
 
         return@binding server

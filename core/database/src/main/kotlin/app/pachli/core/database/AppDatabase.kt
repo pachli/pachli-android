@@ -38,11 +38,11 @@ import app.pachli.core.database.dao.DebugDao
 import app.pachli.core.database.dao.DraftDao
 import app.pachli.core.database.dao.FollowingAccountDao
 import app.pachli.core.database.dao.HashtagsDao
-import app.pachli.core.database.dao.InstanceDao
 import app.pachli.core.database.dao.ListsDao
 import app.pachli.core.database.dao.LogEntryDao
 import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.RemoteKeyDao
+import app.pachli.core.database.dao.ServerDao
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.dao.TimelineStatusWithAccount
@@ -169,7 +169,7 @@ import java.util.TimeZone
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun accountDao(): AccountDao
-    abstract fun instanceDao(): InstanceDao
+    abstract fun instanceDao(): ServerDao
     abstract fun conversationDao(): ConversationsDao
     abstract fun timelineDao(): TimelineDao
     abstract fun draftDao(): DraftDao

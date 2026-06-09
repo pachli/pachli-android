@@ -27,7 +27,7 @@ import app.pachli.core.data.source.ContentFiltersLocalDataSource
 import app.pachli.core.data.source.ContentFiltersRemoteDataSource
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.dao.ContentFiltersDao
-import app.pachli.core.database.dao.InstanceDao
+import app.pachli.core.database.dao.ServerDao
 import app.pachli.core.network.di.test.DEFAULT_INSTANCE_V2
 import app.pachli.core.network.model.AccountSource
 import app.pachli.core.network.model.CredentialAccount
@@ -97,7 +97,7 @@ abstract class BaseContentFiltersRepositoryTest {
     lateinit var accountManager: AccountManager
 
     @Inject
-    lateinit var instanceDao: InstanceDao
+    lateinit var serverDao: ServerDao
 
     @Inject
     lateinit var contentFiltersDao: ContentFiltersDao
@@ -180,7 +180,7 @@ abstract class V2Test : BaseContentFiltersRepositoryTest() {
             TestScope(),
             localDataSource,
             remoteDataSource,
-            instanceDao,
+            serverDao,
         )
     }
 }
@@ -243,7 +243,7 @@ abstract class V1Test : BaseContentFiltersRepositoryTest() {
             TestScope(),
             localDataSource,
             remoteDataSource,
-            instanceDao,
+            serverDao,
         )
     }
 }
