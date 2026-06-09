@@ -17,6 +17,7 @@
 
 package app.pachli.core.data.model
 
+import app.pachli.core.data.repository.asModel
 import app.pachli.core.model.NodeInfo
 import app.pachli.core.model.ServerKind
 import app.pachli.core.model.ServerKind.AKKOMA
@@ -84,7 +85,7 @@ class ServerTest(
 ) {
     companion object {
         private val defaultInstance = InstanceV2(
-            domain = "",
+            domain = "example.com",
             title = "",
             version = "",
             sourceUrl = "",
@@ -407,7 +408,7 @@ class ServerTest(
         val software = input.second
         val instanceV2 = input.third
         assertWithMessage(msg)
-            .that(Server.from(software, instanceV2))
+            .that(Server.from(software, instanceV2.asModel(instanceV2.domain)))
             .isEqualTo(want)
     }
 }

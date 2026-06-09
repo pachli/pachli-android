@@ -67,7 +67,6 @@ import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_TIMELINES_LINK
 import app.pachli.core.model.asServerLimits
 import app.pachli.core.network.R
-import app.pachli.core.network.model.InstanceV2
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.andThen
@@ -108,32 +107,11 @@ data class Server(
 
     companion object {
         /**
-         * Constructs a server from its [NodeInfo] and [InstanceV2] details.
-         */
-        fun from(software: NodeInfo.Software, instanceV2: InstanceV2): Result<Server, Error> = binding {
-            val serverKind = ServerKind.from(software)
-            val version = parseVersionString(serverKind, software.version).bind()
-            val capabilities = capabilitiesFromServerVersion(serverKind, version)
-
-            when (serverKind) {
-                GLITCH, HOMETOWN, MASTODON -> {
-                    if (instanceV2.configuration.translation.enabled) {
-                        capabilities[ORG_JOINMASTODON_STATUSES_TRANSLATE] = when {
-                            version >= "4.2.0".toVersion() -> "1.1.0".toVersion()
-                            else -> "1.0.0".toVersion()
-                        }
-                    }
-                }
-                else -> { /* Nothing to do */ }
-            }
-
-            Server(serverKind, version, instanceV2.version, capabilities, instanceV2.asServerLimits())
-        }
-
-        /**
          * Constructs a capabilities map from its [NodeInfo] and [InstanceInfo] details.
+         *
+         * May fail if the version cannot be parsed.
          */
-        fun from(software: NodeInfo.Software, instanceInfo: InstanceInfo): Result<Server, Error> = binding {
+        fun from(software: NodeInfo.Software, instanceInfo: InstanceInfo): Result<Server, UnparseableVersion> = binding {
             val serverKind = ServerKind.from(software)
             val version = parseVersionString(serverKind, software.version).bind()
             val capabilities = capabilitiesFromServerVersion(serverKind, version)
@@ -160,7 +138,7 @@ data class Server(
          * Parse a [version] string from the given [serverKind] in to a [Version].
          */
         @VisibleForTesting(otherwise = PRIVATE)
-        fun parseVersionString(serverKind: ServerKind, version: String): Result<Version, Error> {
+        fun parseVersionString(serverKind: ServerKind, version: String): Result<Version, UnparseableVersion> {
             val result = runSuspendCatching {
                 Version.parse(version, strict = false)
             }.mapError { UnparseableVersion(version, it) }
