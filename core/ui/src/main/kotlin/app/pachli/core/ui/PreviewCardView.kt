@@ -282,18 +282,18 @@ class PreviewCardView @JvmOverloads constructor(
     // https://issuetracker.google.com/issues/364179209
     private fun setTopBottomLayout() = with(binding) {
         // Move image to top.
-        val lpCardImage = cardImage.layoutParams as ConstraintLayout.LayoutParams
+        val lpCardImage = cardImage.layoutParams as LayoutParams
         lpCardImage.height = imageVerticalHeight
         lpCardImage.width = LayoutParams.MATCH_PARENT
-        lpCardImage.bottomToBottom = ConstraintLayout.LayoutParams.UNSET
+        lpCardImage.bottomToBottom = LayoutParams.UNSET
         cardImage.layoutParams = lpCardImage
 
         // Move cardInfo below image
-        val lpCardInfo = cardInfo.layoutParams as ConstraintLayout.LayoutParams
-        lpCardInfo.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
+        val lpCardInfo = cardInfo.layoutParams as LayoutParams
+        lpCardInfo.startToStart = LayoutParams.PARENT_ID
         lpCardInfo.topToBottom = cardImage.id
-        lpCardInfo.startToEnd = ConstraintLayout.LayoutParams.UNSET
-        lpCardInfo.topToTop = ConstraintLayout.LayoutParams.UNSET
+        lpCardInfo.startToEnd = LayoutParams.UNSET
+        lpCardInfo.topToTop = LayoutParams.UNSET
         cardInfo.layoutParams = lpCardInfo
 
         // Image top corners should be rounded.
@@ -310,18 +310,18 @@ class PreviewCardView @JvmOverloads constructor(
     // https://issuetracker.google.com/issues/364179209
     private fun setStartEndLayout() = with(binding) {
         // Move image to start with fixed width to allow space for cardInfo.
-        val lpCardImage = cardImage.layoutParams as ConstraintLayout.LayoutParams
-        lpCardImage.height = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
+        val lpCardImage = cardImage.layoutParams as LayoutParams
+        lpCardImage.height = LayoutParams.MATCH_CONSTRAINT
         lpCardImage.width = imageHorizontalWidth
-        lpCardImage.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
+        lpCardImage.bottomToBottom = LayoutParams.PARENT_ID
         cardImage.layoutParams = lpCardImage
 
         // Move cardInfo to end of image
-        val lpCardInfo = cardInfo.layoutParams as ConstraintLayout.LayoutParams
+        val lpCardInfo = cardInfo.layoutParams as LayoutParams
         lpCardInfo.startToEnd = cardImage.id
-        lpCardInfo.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
-        lpCardInfo.startToStart = ConstraintLayout.LayoutParams.UNSET
-        lpCardInfo.topToBottom = ConstraintLayout.LayoutParams.UNSET
+        lpCardInfo.topToTop = LayoutParams.PARENT_ID
+        lpCardInfo.startToStart = LayoutParams.UNSET
+        lpCardInfo.topToBottom = LayoutParams.UNSET
         cardInfo.layoutParams = lpCardInfo
 
         // Image left corners should be rounded.
