@@ -67,7 +67,6 @@ import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_TIMELINES_LINK
 import app.pachli.core.model.asServerLimits
 import app.pachli.core.network.R
-import app.pachli.core.network.model.InstanceV1
 import app.pachli.core.network.model.InstanceV2
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
@@ -129,17 +128,6 @@ data class Server(
             }
 
             Server(serverKind, version, instanceV2.version, capabilities, instanceV2.asServerLimits())
-        }
-
-        /**
-         * Constructs a server from its [NodeInfo] and [InstanceV1] details.
-         */
-        fun from(software: NodeInfo.Software, instanceV1: InstanceV1): Result<Server, Error> = binding {
-            val serverKind = ServerKind.from(software)
-            val version = parseVersionString(serverKind, software.version).bind()
-            val capabilities = capabilitiesFromServerVersion(serverKind, version)
-
-            Server(serverKind, version, instanceV1.version, capabilities, instanceV1.asServerLimits())
         }
 
         /**
