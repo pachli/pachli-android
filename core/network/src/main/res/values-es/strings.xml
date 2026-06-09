@@ -2,7 +2,6 @@
 <resources>
     <string name="node_info_error_no_software_name">nombre del programa faltante, vacío o en blanco</string>
     <string name="node_info_error_no_software_version">versión del programa faltante, vacía o en blanco</string>
-    <string name="server_error_unparseable_version">no se pudo analizar \"%1$s\" como una versión: %2$s</string>
     <string name="node_info_error_no_software">no hay bloque sobre el programa</string>
     <string name="error_generic_fmt">%1$s</string>
     <string name="error_404_not_found_fmt">tu servidor no es compatible con esta característica: %1$s</string>

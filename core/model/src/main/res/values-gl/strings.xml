@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="server_error_unparseable_version">non se puido procesar «%1$s» como versión: %2$s</string>
+</resources>

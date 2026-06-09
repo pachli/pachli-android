@@ -3,7 +3,6 @@
     <string name="node_info_error_no_software">inneheldt ikkje programvareblokkering</string>
     <string name="node_info_error_no_software_name">programvarenamn saknar eller er tomt</string>
     <string name="node_info_error_no_software_version">programvareversjon saknar eller er tom</string>
-    <string name="server_error_unparseable_version">kunne ikkje tolke «%1$s» som ei utgåve: %2$s</string>
     <string name="error_generic_fmt">%1$s</string>
     <string name="error_404_not_found_fmt">tenar din stør ikkje denne funksjonen: %1$s</string>
     <string name="error_429_rate_limit_fmt">tenaren din fartsavgrensar førespurnadene dine: %1$s</string>

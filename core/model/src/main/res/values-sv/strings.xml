@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="server_error_unparseable_version">Kunde inte analysera \"%1$s\" som en version: %2$s</string>
+</resources>

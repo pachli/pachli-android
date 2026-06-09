@@ -21,10 +21,9 @@ import androidx.annotation.VisibleForTesting
 import androidx.annotation.VisibleForTesting.Companion.PRIVATE
 import app.pachli.core.common.PachliError
 import app.pachli.core.data.model.Server.Error.UnparseableVersion
-import app.pachli.core.database.model.ServerEntity
 import app.pachli.core.model.InstanceInfo
 import app.pachli.core.model.NodeInfo
-import app.pachli.core.model.ServerCapabilities
+import app.pachli.core.model.R
 import app.pachli.core.model.ServerKind
 import app.pachli.core.model.ServerKind.AKKOMA
 import app.pachli.core.model.ServerKind.FEDIBIRD
@@ -66,7 +65,6 @@ import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_SCHEDULED
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_TIMELINES_LINK
 import app.pachli.core.model.asServerLimits
-import app.pachli.core.network.R
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.andThen
@@ -81,6 +79,23 @@ import io.github.z4kn4fein.semver.satisfies
 import io.github.z4kn4fein.semver.toVersion
 import java.text.ParseException
 
+/**
+ * Map between the [operations][ServerOperation] a server supports and the
+ * specific [version][Version] of the operation the server supports.
+ */
+typealias ServerCapabilities = Map<ServerOperation, Version>
+
+/**
+ * Represents the user's server, its [capabilities] and [limits].
+ *
+ * Generally, create this with [Server.from], which is fallible.
+ *
+ * @property kind Server's [ServerKind].
+ * @property version Server's version, parsed to a [Version].
+ * @property rawVersion Raw server version string, as reported by the server.
+ * @property capabilities Server's [ServerCapabilities]
+ * @property limits Server's [ServerLimits]
+ */
 data class Server(
     val kind: ServerKind,
     val version: Version,
@@ -96,20 +111,10 @@ data class Server(
         version satisfies constraint
     } ?: false
 
-    fun asEntity(pachliAccountId: Long) = ServerEntity(
-        accountId = pachliAccountId,
-        serverKind = kind,
-        version = version,
-        rawVersion = rawVersion,
-        capabilities = capabilities,
-        limits = limits,
-    )
-
     companion object {
         /**
-         * Constructs a capabilities map from its [NodeInfo] and [InstanceInfo] details.
-         *
-         * May fail if the version cannot be parsed.
+         * @return [Server] with its [capabilities] and [limits] determined from
+         * [software] and [InstanceInfo]. May fail if the version cannot be parsed.
          */
         fun from(software: NodeInfo.Software, instanceInfo: InstanceInfo): Result<Server, UnparseableVersion> = binding {
             val serverKind = ServerKind.from(software)
@@ -456,11 +461,3 @@ data class Server(
         }
     }
 }
-
-fun ServerEntity.asModel() = Server(
-    kind = serverKind,
-    version = version,
-    rawVersion = rawVersion,
-    capabilities = capabilities,
-    limits = limits,
-)

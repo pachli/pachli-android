@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="server_error_unparseable_version">could not parse \"%1$s\" as a version: %2$s</string>
+</resources>

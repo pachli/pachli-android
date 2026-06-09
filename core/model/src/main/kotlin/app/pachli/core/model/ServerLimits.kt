@@ -19,9 +19,25 @@ package app.pachli.core.model
 
 import com.squareup.moshi.JsonClass
 
-// Know that these fields are all used somewhere
-//
-// Server.Kt also uses v2.configuration.translation.enabled
+/**
+ * Limits the server imposes on clients when creating content, editing
+ * the user's profile, etc.
+ *
+ * @property maxChars Maximum number of characters in a status.
+ * @property pollMaxOptions Maximum number of options in a poll.
+ * @property pollMaxLength Maximum number of characters in a poll option.
+ * @property pollMinDuration Minimum duration of a poll in seconds.
+ * @property pollMaxDuration Maximum duration of a poll in seconds.
+ * @property charactersReservedPerUrl Number of characters reserved per URL.
+ * @property videoSizeLimit Maximum video size in bytes.
+ * @property imageSizeLimit Maximum image size in bytes.
+ * @property imageMatrixLimit Maximum image matrix size in bytes.
+ * @property maxMediaAttachments Maximum number of media attachments.
+ * @property maxMediaDescriptionChars Maximum number of characters in a media description.
+ * @property maxFields Maximum number of fields in an account.
+ * @property maxFieldNameLength Maximum length of an account field name.
+ * @property maxFieldValueLength Maximum length of an account field value.
+ */
 @JsonClass(generateAdapter = true)
 data class ServerLimits(
     val maxChars: Int = DEFAULT_CHARACTER_LIMIT,
@@ -34,7 +50,6 @@ data class ServerLimits(
     val imageSizeLimit: Long = DEFAULT_IMAGE_SIZE_LIMIT,
     val imageMatrixLimit: Int = DEFAULT_IMAGE_MATRIX_LIMIT,
     val maxMediaAttachments: Int = DEFAULT_MAX_MEDIA_ATTACHMENTS,
-    /** Maximum number of characters in a media description. */
     val maxMediaDescriptionChars: Int = DEFAULT_MAX_MEDIA_DESCRIPTION_CHARS,
     val maxFields: Int = DEFAULT_MAX_ACCOUNT_FIELDS,
     val maxFieldNameLength: Int? = null,

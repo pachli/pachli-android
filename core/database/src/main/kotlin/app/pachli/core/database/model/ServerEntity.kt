@@ -21,10 +21,11 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.TypeConverters
+import app.pachli.core.data.model.Server
+import app.pachli.core.data.model.ServerCapabilities
 import app.pachli.core.database.Converters
 import app.pachli.core.model.ServerKind
 import app.pachli.core.model.ServerLimits
-import app.pachli.core.model.ServerOperation
 import io.github.z4kn4fein.semver.Version
 
 /**
@@ -34,11 +35,11 @@ import io.github.z4kn4fein.semver.Version
  * property.
  *
  * @property accountId
- * @property serverKind
- * @property version Parsed server version.
- * @property rawVersion Raw server version, unparsed, as reported by the server.
- * @property capabilities
- * @property limits
+ * @property serverKind Server's [ServerKind].
+ * @property version Server's version, parsed to a [Version].
+ * @property rawVersion Raw server version string, as reported by the server.
+ * @property capabilities Server's [ServerCapabilities]
+ * @property limits Server's [ServerLimits]
  */
 @Entity(
     primaryKeys = ["accountId"],
@@ -59,8 +60,25 @@ data class ServerEntity(
     val version: Version,
     @ColumnInfo(defaultValue = "")
     val rawVersion: String,
-    val capabilities: Map<ServerOperation, Version>,
+    val capabilities: ServerCapabilities,
 
     @ColumnInfo(defaultValue = "{}")
     val limits: ServerLimits,
+) {
+    fun asModel() = Server(
+        kind = serverKind,
+        version = version,
+        rawVersion = rawVersion,
+        capabilities = capabilities,
+        limits = limits,
+    )
+}
+
+fun Server.asEntity(pachliAccountId: Long) = ServerEntity(
+    accountId = pachliAccountId,
+    serverKind = kind,
+    version = version,
+    rawVersion = rawVersion,
+    capabilities = capabilities,
+    limits = limits,
 )

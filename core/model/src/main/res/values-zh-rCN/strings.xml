@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="server_error_unparseable_version">无法将“%1$s”解析为版本：%2$s</string>
+</resources>

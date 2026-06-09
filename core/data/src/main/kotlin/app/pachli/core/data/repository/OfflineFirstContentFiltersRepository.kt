@@ -19,7 +19,6 @@ package app.pachli.core.data.repository
 
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.model.Server
-import app.pachli.core.data.model.asModel
 import app.pachli.core.data.repository.ContentFiltersError.ServerDoesNotFilter
 import app.pachli.core.data.source.ContentFiltersLocalDataSource
 import app.pachli.core.data.source.ContentFiltersRemoteDataSource

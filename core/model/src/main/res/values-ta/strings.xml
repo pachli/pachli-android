@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="server_error_unparseable_version">ஒரு பதிப்பாக \" %1$s\" ஐ அலச முடியவில்லை: %2$s</string>
+</resources>

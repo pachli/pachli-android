@@ -29,6 +29,7 @@ import app.pachli.core.data.repository.ServerRepository.Error.UnsupportedSchema
 import app.pachli.core.data.repository.ServerRepository.Error.ValidateNodeInfo
 import app.pachli.core.database.dao.ServerDao
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.InstanceInfo
 import app.pachli.core.model.NodeInfo
 import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
