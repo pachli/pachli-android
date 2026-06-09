@@ -417,6 +417,8 @@ class AccountManager @Inject constructor(
      */
     // TODO: Protect this with a mutex?
     suspend fun refresh(account: AccountEntity): Result<Unit, RefreshAccountError> = binding {
+        // Kick off network fetches that can happen in parallel because they do not
+        // depend on one another.
         val deferServer = externalScope.async {
             serverRepository.getServer()
                 .onSuccess { serverDao.upsert(it.asEntity(account.id)) }
@@ -484,6 +486,7 @@ class AccountManager @Inject constructor(
         // hashtags outside Pachli.
         externalScope.launch { hashtagsRepository.refreshFollowedHashtags(account.id) }
 
+        // Create the server info so it can used for both server capabilities and filters.
         deferServer.await().bind()
 
         externalScope.async { contentFiltersRepository.refresh(account.id) }.await()
