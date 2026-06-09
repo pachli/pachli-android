@@ -726,4 +726,8 @@
     <string name="search_operator_quote_all">Citāti ▾</string>
     <string name="search_operator_quote_only">Tikai citāti</string>
     <string name="search_operator_quote_no_quotes">Bez citātiem</string>
+    <string name="search_operator_quote_dialog_title">Rādīt ierakstus, kuros ir citēti citi ieraksti?</string>
+    <string name="search_operator_quote_dialog_all">Ar vai bez citātiem</string>
+    <string name="search_operator_quote_dialog_only">Tikai ieraksti ar citātiem</string>
+    <string name="search_operator_quote_dialog_no_quotes">Tikai ieraksti bez citātiem</string>
 </resources>
