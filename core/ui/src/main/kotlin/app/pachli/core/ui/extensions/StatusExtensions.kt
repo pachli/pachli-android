@@ -54,7 +54,7 @@ fun Status.Visibility?.iconRes(): Int? {
         Status.Visibility.UNLISTED -> app.pachli.core.designsystem.R.drawable.ic_lock_open_24dp
         Status.Visibility.PRIVATE -> app.pachli.core.designsystem.R.drawable.ic_lock_24dp
         Status.Visibility.DIRECT -> R.drawable.ic_email_24dp
-        Status.Visibility.UNKNOWN -> return null
+        Status.Visibility.UNKNOWN -> null
     }
 }
 
