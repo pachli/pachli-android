@@ -16,14 +16,12 @@
 
 package app.pachli.core.network.model
 
-import app.pachli.core.model.ServerLimits
 import app.pachli.core.model.ServerLimits.Companion.DEFAULT_CHARACTERS_RESERVED_PER_URL
 import app.pachli.core.model.ServerLimits.Companion.DEFAULT_CHARACTER_LIMIT
 import app.pachli.core.model.ServerLimits.Companion.DEFAULT_IMAGE_MATRIX_LIMIT
 import app.pachli.core.model.ServerLimits.Companion.DEFAULT_IMAGE_SIZE_LIMIT
 import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MAX_ACCOUNT_FIELDS
 import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MAX_MEDIA_ATTACHMENTS
-import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MAX_MEDIA_DESCRIPTION_CHARS
 import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MAX_OPTION_COUNT
 import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MAX_OPTION_LENGTH
 import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MAX_POLL_DURATION
@@ -69,23 +67,6 @@ data class InstanceV1(
         val instanceV1 = other as InstanceV1?
         return instanceV1?.uri.equals(uri)
     }
-
-    fun asServerLimits() = ServerLimits(
-        maxChars = configuration.statuses.maxCharacters ?: maxTootChars ?: DEFAULT_CHARACTER_LIMIT,
-        pollMaxOptions = configuration.polls.maxOptions,
-        pollMaxLength = configuration.polls.maxCharactersPerOption,
-        pollMinDuration = configuration.polls.minExpiration,
-        pollMaxDuration = configuration.polls.maxExpiration,
-        charactersReservedPerUrl = configuration.statuses.charactersReservedPerUrl,
-        videoSizeLimit = configuration.mediaAttachments.videoSizeLimit,
-        imageSizeLimit = configuration.mediaAttachments.imageSizeLimit,
-        imageMatrixLimit = configuration.mediaAttachments.imageMatrixLimit,
-        maxMediaAttachments = configuration.statuses.maxMediaAttachments,
-        maxMediaDescriptionChars = DEFAULT_MAX_MEDIA_DESCRIPTION_CHARS,
-        maxFields = pleroma?.metadata?.fieldLimits?.maxFields ?: DEFAULT_MAX_ACCOUNT_FIELDS,
-        maxFieldNameLength = null,
-        maxFieldValueLength = null,
-    )
 }
 
 @JsonClass(generateAdapter = true)
