@@ -416,17 +416,6 @@ class AccountManager @Inject constructor(
      */
     // TODO: Protect this with a mutex?
     suspend fun refresh(account: AccountEntity): Result<Unit, RefreshAccountError> = binding {
-        // Kick off network fetches that can happen in parallel because they do not
-        // depend on one another.
-//        val deferNodeInfo = externalScope.async {
-//            fetchNodeInfo().mapError { RefreshAccountError.General(account, it) }
-//        }
-//
-//        val deferInstanceInfo = externalScope.async {
-//            fetchInstanceInfo(account.domain)
-//                .mapError { RefreshAccountError.General(account, it) }
-//                .onSuccess { instanceDao.upsert(it) }
-//        }
         val deferServer = externalScope.async {
             serverRepository.getServer(account)
                 .mapError { RefreshAccountError.General(account, it) }
@@ -596,42 +585,6 @@ class AccountManager @Inject constructor(
         }
         return if (changed) newTabPreferences else null
     }
-
-//    // Based on ServerRepository.getServer(). This can be removed when AccountManager
-//    // can use ServerRepository directly.
-//    private suspend fun fetchNodeInfo(): Result<NodeInfo, ServerRepository.Error> = binding {
-//        // Fetch the /.well-known/nodeinfo document
-//        val nodeInfoJrd = nodeInfoApi.nodeInfoJrd()
-//            .mapError { GetWellKnownNodeInfo(it) }.bind().body
-//
-//        // Find a link to a schema we can parse, prefering newer schema versions
-//        var nodeInfoUrlResult: Result<String, ServerRepository.Error> = Err(UnsupportedSchema)
-//        for (link in nodeInfoJrd.links.sortedByDescending { it.rel }) {
-//            if (SCHEMAS.contains(link.rel)) {
-//                nodeInfoUrlResult = Ok(link.href)
-//                break
-//            }
-//        }
-//
-//        val nodeInfoUrl = nodeInfoUrlResult.bind()
-//
-//        Timber.d("Loading node info from %s", nodeInfoUrl)
-//        val nodeInfo = nodeInfoApi.nodeInfo(nodeInfoUrl).mapBoth(
-//            { it.body.validate().mapError { ValidateNodeInfo(nodeInfoUrl, it) } },
-//            { Err(GetNodeInfo(nodeInfoUrl, it)) },
-//        ).bind()
-//
-//        return@binding nodeInfo
-//    }
-//
-//    // TODO: Maybe rename InstanceInfoEntity to ServerLimits or something like that, since that's
-//    // what it records.
-//    private suspend fun fetchInstanceInfo(domain: String): Result<InstanceInfoEntity, ApiError> {
-//        // TODO: InstanceInfoEntity needs to gain support for recording translation
-//        return mastodonApi.getInstanceV2()
-//            .map { it.body.asEntity(domain) }
-//            .orElse { mastodonApi.getInstanceV1().map { it.body.asEntity(domain) } }
-//    }
 
     /**
      * @return True if at least one account has Android notifications enabled

@@ -82,18 +82,6 @@ class ServerRepository @Inject constructor(
         val nodeInfo = deferNodeInfo.await().bind()
         val instanceInfo = deferInstanceInfo.await().bind()
 
-        // TODO: InstanceInfoEntity doesn't need to exist, since it's not persisted.
-        // Need a core.model.InstanceInfo, map from core.network.model.InstanceInfo* to
-        // core.model.InstanceInfo, and pass that to Server.from.
-        //
-
-        // Create the server info so it can used for both server capabilities and filters.
-        //
-        // Can't use ServerRespository here because it depends on AccountManager.
-        // TODO: Break that dependency, re-write ServerRepository to be offline-first.
-
-        // TODO: Server.from() should be 2-arg constructor.
-
         // TODO: Rename instanceDao to serverDao
 
         // TODO: Split EmojiDao out.
