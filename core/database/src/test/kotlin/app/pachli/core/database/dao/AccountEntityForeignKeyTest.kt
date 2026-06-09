@@ -43,6 +43,7 @@ import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.Draft
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.ServerKind
+import app.pachli.core.model.ServerLimits
 import app.pachli.core.model.Status
 import app.pachli.core.model.UserListRepliesPolicy
 import app.pachli.core.testing.extensions.insertTimelineStatusWithQuote
@@ -406,7 +407,9 @@ class AccountEntityForeignKeyTest {
             accountId = pachliAccountId,
             serverKind = ServerKind.MASTODON,
             version = Version.parse("1.0.0"),
+            rawVersion = "1.0.0",
             capabilities = emptyMap(),
+            limits = ServerLimits(),
         )
         instanceInfoDao.upsert(server)
 
