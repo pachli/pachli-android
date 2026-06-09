@@ -19,7 +19,6 @@ package app.pachli.core.ui.extensions
 
 import android.graphics.Rect
 import android.view.View
-import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import androidx.appcompat.widget.Toolbar
 import androidx.core.graphics.Insets
@@ -92,7 +91,7 @@ fun View.applyWindowInsets(
     withIme: Boolean = false,
 ) {
     // Store the view's initial margin and padding for use in the listener.
-    val lp = layoutParams as? ViewGroup.MarginLayoutParams
+    val lp = layoutParams as? MarginLayoutParams
     val initialMargins = Rect(
         lp?.leftMargin ?: 0,
         lp?.topMargin ?: 0,
@@ -123,8 +122,8 @@ fun View.applyWindowInsets(
         // A view might not be in a group that supports margins (e.g., a
         // RecyclerView in a SwipeRefreshLayout has no margins), so only
         // apply margins if the layout params are appropriate.
-        if (layoutParams as? ViewGroup.MarginLayoutParams != null) {
-            updateLayoutParams<ViewGroup.MarginLayoutParams> {
+        if (layoutParams as? MarginLayoutParams != null) {
+            updateLayoutParams<MarginLayoutParams> {
                 rect.left = if (left == InsetType.MARGIN) insets.left else 0
                 rect.top = if (top == InsetType.MARGIN) insets.top else 0
                 rect.right = if (right == InsetType.MARGIN) insets.right else 0

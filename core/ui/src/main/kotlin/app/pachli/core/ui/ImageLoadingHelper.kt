@@ -154,9 +154,9 @@ inline fun <reified T> RequestBuilder<T>.into(
     width: Int,
     height: Int,
     animate: Boolean = false,
-): com.bumptech.glide.request.target.Target<T> {
+): Target<T> {
     if (T::class == Bitmap::class) {
-        return into(BitmapTextViewTarget(textView, width, height) as com.bumptech.glide.request.target.Target<T>)
+        return into(BitmapTextViewTarget(textView, width, height) as Target<T>)
     }
 
     if (T::class == Drawable::class) {
