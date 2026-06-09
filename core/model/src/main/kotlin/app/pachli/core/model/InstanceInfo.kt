@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Conny Duck
+ * Copyright (c) 2026 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -15,22 +15,10 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.core.database.model
+package app.pachli.core.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
-import app.pachli.core.database.Converters
-import app.pachli.core.model.Emoji
-import app.pachli.core.model.ServerLimits
-import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MAX_MEDIA_DESCRIPTION_CHARS
-
-@Entity
-@TypeConverters(Converters::class)
-data class InstanceInfoEntity(
-    @PrimaryKey val instance: String,
+data class InstanceInfo(
+    val instance: String,
     val maxPostCharacters: Int,
     val maxPollOptions: Int,
     val maxPollOptionLength: Int,
@@ -42,12 +30,10 @@ data class InstanceInfoEntity(
     val imageSizeLimit: Long,
     val imageMatrixLimit: Int,
     val maxMediaAttachments: Int,
-    @ColumnInfo(defaultValue = DEFAULT_MAX_MEDIA_DESCRIPTION_CHARS.toString())
     val maxMediaDescriptionChars: Int,
     val maxFields: Int,
     val maxFieldNameLength: Int?,
     val maxFieldValueLength: Int?,
-    @ColumnInfo(defaultValue = "0")
     val enabledTranslation: Boolean = false,
 )
 
@@ -55,7 +41,7 @@ data class InstanceInfoEntity(
  * @return [ServerLimits] model; if this is null then returns the default
  * [ServerLimits] values.
  */
-fun InstanceInfoEntity?.asServerLimits(): ServerLimits {
+fun InstanceInfo?.asServerLimits(): ServerLimits {
     if (this == null) return ServerLimits()
     return ServerLimits(
         maxChars = maxPostCharacters,
@@ -74,21 +60,3 @@ fun InstanceInfoEntity?.asServerLimits(): ServerLimits {
         maxFieldValueLength = maxFieldValueLength,
     )
 }
-
-@Entity(
-    primaryKeys = ["accountId"],
-    foreignKeys = [
-        ForeignKey(
-            entity = AccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("accountId"),
-            onDelete = ForeignKey.CASCADE,
-            deferred = true,
-        ),
-    ],
-)
-@TypeConverters(Converters::class)
-data class EmojisEntity(
-    val accountId: Long,
-    val emojiList: List<Emoji>,
-)

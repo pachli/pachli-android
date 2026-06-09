@@ -17,7 +17,7 @@
 
 package app.pachli.core.data.repository
 
-import app.pachli.core.database.model.InstanceInfoEntity
+import app.pachli.core.model.InstanceInfo
 import app.pachli.core.model.ServerLimits.Companion.DEFAULT_CHARACTER_LIMIT
 import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MAX_ACCOUNT_FIELDS
 import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MAX_MEDIA_DESCRIPTION_CHARS
@@ -25,7 +25,7 @@ import app.pachli.core.network.model.InstanceV1
 import app.pachli.core.network.model.InstanceV2
 
 /**
- * Returns [InstanceInfoEntity] for this [InstanceV1].
+ * Returns [InstanceInfo] for this [InstanceV1].
  *
  * There's no guarantee the [InstanceV1.uri] field will be just the domain, as some
  * servers return URLs or possibly other junk (https://akkoma.dev/AkkomaGang/akkoma/issues/907,
@@ -34,7 +34,7 @@ import app.pachli.core.network.model.InstanceV2
  *
  * @param domain Primary key for this domain
  */
-fun InstanceV1.asEntity(domain: String) = InstanceInfoEntity(
+fun InstanceV1.asModel(domain: String) = InstanceInfo(
     instance = domain,
     maxPostCharacters = configuration.statuses.maxCharacters ?: maxTootChars ?: DEFAULT_CHARACTER_LIMIT,
     maxPollOptions = configuration.polls.maxOptions,
@@ -55,7 +55,7 @@ fun InstanceV1.asEntity(domain: String) = InstanceInfoEntity(
 )
 
 /**
- * Returns [InstanceInfoEntity] for this [InstanceV2].
+ * Returns [InstanceInfo] for this [InstanceV2].
  *
  * There's no guarantee the [InstanceV2.domain] field will be just the domain, as some
  * servers return URLs or possibly other junk (https://akkoma.dev/AkkomaGang/akkoma/issues/907,
@@ -64,7 +64,7 @@ fun InstanceV1.asEntity(domain: String) = InstanceInfoEntity(
  *
  * @param domain Primary key for this domain
  */
-fun InstanceV2.asEntity(domain: String) = InstanceInfoEntity(
+fun InstanceV2.asModel(domain: String) = InstanceInfo(
     instance = domain,
     maxPostCharacters = configuration.statuses.maxCharacters,
     maxPollOptions = configuration.polls.maxOptions,

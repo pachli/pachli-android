@@ -21,9 +21,8 @@ import androidx.annotation.VisibleForTesting
 import androidx.annotation.VisibleForTesting.Companion.PRIVATE
 import app.pachli.core.common.PachliError
 import app.pachli.core.data.model.Server.Error.UnparseableVersion
-import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.database.model.ServerEntity
-import app.pachli.core.database.model.asServerLimits
+import app.pachli.core.model.InstanceInfo
 import app.pachli.core.model.NodeInfo
 import app.pachli.core.model.ServerCapabilities
 import app.pachli.core.model.ServerKind
@@ -66,6 +65,7 @@ import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_QUOTE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_SCHEDULED
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_TIMELINES_LINK
+import app.pachli.core.model.asServerLimits
 import app.pachli.core.network.R
 import app.pachli.core.network.model.InstanceV1
 import app.pachli.core.network.model.InstanceV2
@@ -88,7 +88,7 @@ data class Server(
     val version: Version,
     val rawVersion: String,
     val capabilities: ServerCapabilities = emptyMap(),
-    val limits: ServerLimits,
+    val limits: ServerLimits = ServerLimits(),
 ) {
     /**
      * @return true if the server supports the given operation at the given minimum version
@@ -143,16 +143,16 @@ data class Server(
         }
 
         /**
-         * Constructs a capabilities map from its [NodeInfo] and [InstanceInfoEntity] details.
+         * Constructs a capabilities map from its [NodeInfo] and [InstanceInfo] details.
          */
-        fun from(software: NodeInfo.Software, instanceInfoEntity: InstanceInfoEntity): Result<Server, Error> = binding {
+        fun from(software: NodeInfo.Software, instanceInfo: InstanceInfo): Result<Server, Error> = binding {
             val serverKind = ServerKind.from(software)
             val version = parseVersionString(serverKind, software.version).bind()
             val capabilities = capabilitiesFromServerVersion(serverKind, version)
 
             when (serverKind) {
                 GLITCH, HOMETOWN, MASTODON -> {
-                    if (instanceInfoEntity.enabledTranslation) {
+                    if (instanceInfo.enabledTranslation) {
                         capabilities[ORG_JOINMASTODON_STATUSES_TRANSLATE] = when {
                             version >= "4.2.0".toVersion() -> "1.1.0".toVersion()
                             else -> "1.0.0".toVersion()
@@ -165,7 +165,7 @@ data class Server(
                 }
             }
 
-            Server(serverKind, version, instanceInfoEntity.version, capabilities, instanceInfoEntity.asServerLimits())
+            Server(serverKind, version, instanceInfo.version, capabilities, instanceInfo.asServerLimits())
         }
 
         /**

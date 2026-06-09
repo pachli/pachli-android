@@ -20,33 +20,18 @@ package app.pachli.core.database.dao
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.RewriteQueriesToDropUnusedColumns
-import androidx.room.Transaction
 import androidx.room.Upsert
 import app.pachli.core.database.model.EmojisEntity
-import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.database.model.ServerEntity
 
 @Dao
 interface InstanceDao {
 
     @Upsert
-    suspend fun upsert(instance: InstanceInfoEntity)
-
-    @Upsert
     suspend fun upsert(emojis: EmojisEntity)
 
     @Upsert
     suspend fun upsert(serverEntity: ServerEntity)
-
-    @Transaction
-    @Query(
-        """
-SELECT *
-FROM InstanceInfoEntity
-WHERE instance = :instance LIMIT 1
-""",
-    )
-    suspend fun getInstanceInfo(instance: String): InstanceInfoEntity?
 
     @Query(
         """

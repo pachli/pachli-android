@@ -22,13 +22,15 @@ import app.pachli.core.common.PachliError
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.R
 import app.pachli.core.data.model.Server
-import app.pachli.core.data.repository.ServerRepository.Error.Capabilities
 import app.pachli.core.data.repository.ServerRepository.Error.GetInstanceInfoV1
 import app.pachli.core.data.repository.ServerRepository.Error.GetNodeInfo
 import app.pachli.core.data.repository.ServerRepository.Error.GetWellKnownNodeInfo
 import app.pachli.core.data.repository.ServerRepository.Error.UnsupportedSchema
 import app.pachli.core.data.repository.ServerRepository.Error.ValidateNodeInfo
+import app.pachli.core.database.dao.InstanceDao
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.model.InstanceInfo
+import app.pachli.core.model.NodeInfo
 import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi
@@ -36,18 +38,16 @@ import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.coroutines.binding.binding
+import com.github.michaelbull.result.map
 import com.github.michaelbull.result.mapBoth
+import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.mapError
+import com.github.michaelbull.result.onSuccess
+import com.github.michaelbull.result.orElse
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.filterIsInstance
-import kotlinx.coroutines.flow.shareIn
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.async
 import timber.log.Timber
 
 /**
@@ -63,30 +63,60 @@ val SCHEMAS = listOf(
 )
 
 @Singleton
-internal class ServerRepository @Inject constructor(
+class ServerRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val nodeInfoApi: NodeInfoApi,
-    accountManager: AccountManager,
+    private val instanceDao: InstanceDao,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
-    private val reload = MutableSharedFlow<Unit>(replay = 1).apply { tryEmit(Unit) }
+    // TODO: Document.
+    suspend fun getServer(account: AccountEntity): Result<Server, ServerRepository.Error> = binding {
+        val deferNodeInfo = externalScope.async {
+            fetchNodeInfo()
+        }
 
-    // SharedFlow, **not** StateFlow, to ensure a new value is emitted even if the
-    // user switches between accounts that are on the same server.
-    val flow = reload.combine(
-        accountManager.activeAccountFlow
-            .filterIsInstance<Loadable.Loaded<AccountEntity?>>()
-            .distinctUntilChangedBy { it.data?.id },
-    ) { _, _ -> getServer() }
-        .shareIn(externalScope, SharingStarted.Lazily, replay = 1)
+        val deferInstanceInfo = externalScope.async {
+            fetchInstanceInfo(account.domain)
+        }
 
-    fun reload() = externalScope.launch { reload.emit(Unit) }
+        val nodeInfo = deferNodeInfo.await().bind()
+        val instanceInfo = deferInstanceInfo.await().bind()
 
-    /**
-     * @return the server info or a [Server.Error] if the server info can not
-     * be determined.
-     */
-    private suspend fun getServer(): Result<Server, Error> = binding {
+        // TODO: InstanceInfoEntity doesn't need to exist, since it's not persisted.
+        // Need a core.model.InstanceInfo, map from core.network.model.InstanceInfo* to
+        // core.model.InstanceInfo, and pass that to Server.from.
+        //
+
+        // Create the server info so it can used for both server capabilities and filters.
+        //
+        // Can't use ServerRespository here because it depends on AccountManager.
+        // TODO: Break that dependency, re-write ServerRepository to be offline-first.
+
+        // TODO: Server.from() should be 2-arg constructor.
+
+        // TODO: Rename instanceDao to serverDao
+
+        // TODO: Split EmojiDao out.
+        val server = Server.from(nodeInfo.software, instanceInfo)
+            .mapError { Error.Capabilities(it) }
+            .onSuccess { instanceDao.upsert(it.asEntity(account.id)) }
+            .bind()
+
+        return@binding server
+    }
+
+    private suspend fun fetchInstanceInfo(domain: String): Result<InstanceInfo, GetInstanceInfoV1> {
+        return mastodonApi.getInstanceV2()
+            .map { it.body.asModel(domain) }
+            .orElse {
+                mastodonApi.getInstanceV1().mapEither(
+                    { it.body.asModel(domain) },
+                    { GetInstanceInfoV1(it) },
+                )
+            }
+    }
+
+    private suspend fun fetchNodeInfo(): Result<NodeInfo, Error> = binding {
         // Fetch the /.well-known/nodeinfo document
         val nodeInfoJrd = nodeInfoApi.nodeInfoJrd()
             .mapError { GetWellKnownNodeInfo(it) }.bind().body
@@ -108,16 +138,7 @@ internal class ServerRepository @Inject constructor(
             { Err(GetNodeInfo(nodeInfoUrl, it)) },
         ).bind()
 
-        mastodonApi.getInstanceV2().mapBoth(
-            { Server.from(nodeInfo.software, it.body).mapError(::Capabilities) },
-            { error ->
-                Timber.e(error.throwable, "Couldn't process /api/v2/instance result")
-                mastodonApi.getInstanceV1().mapBoth(
-                    { Server.from(nodeInfo.software, it.body).mapError(::Capabilities) },
-                    { Err(GetInstanceInfoV1(it)) },
-                )
-            },
-        ).bind()
+        return@binding nodeInfo
     }
 
     sealed class Error(

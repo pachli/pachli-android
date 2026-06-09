@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 40,
-    "identityHash": "46da17456f6ddda451cd05263e7d2b21",
+    "identityHash": "b63aa0499ddaa0d4906b096690d569fc",
     "entities": [
       {
         "tableName": "DraftEntity",
@@ -496,120 +496,6 @@
             "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_AccountEntity_domain_accountId` ON `${TABLE_NAME}` (`domain`, `accountId`)"
           }
         ]
-      },
-      {
-        "tableName": "InstanceInfoEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`instance` TEXT NOT NULL, `maxPostCharacters` INTEGER NOT NULL, `maxPollOptions` INTEGER NOT NULL, `maxPollOptionLength` INTEGER NOT NULL, `minPollDuration` INTEGER NOT NULL, `maxPollDuration` INTEGER NOT NULL, `charactersReservedPerUrl` INTEGER NOT NULL, `version` TEXT NOT NULL, `videoSizeLimit` INTEGER NOT NULL, `imageSizeLimit` INTEGER NOT NULL, `imageMatrixLimit` INTEGER NOT NULL, `maxMediaAttachments` INTEGER NOT NULL, `maxMediaDescriptionChars` INTEGER NOT NULL DEFAULT 1500, `maxFields` INTEGER NOT NULL, `maxFieldNameLength` INTEGER, `maxFieldValueLength` INTEGER, `enabledTranslation` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`instance`))",
-        "fields": [
-          {
-            "fieldPath": "instance",
-            "columnName": "instance",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "maxPostCharacters",
-            "columnName": "maxPostCharacters",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "maxPollOptions",
-            "columnName": "maxPollOptions",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "maxPollOptionLength",
-            "columnName": "maxPollOptionLength",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "minPollDuration",
-            "columnName": "minPollDuration",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "maxPollDuration",
-            "columnName": "maxPollDuration",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "charactersReservedPerUrl",
-            "columnName": "charactersReservedPerUrl",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "version",
-            "columnName": "version",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "videoSizeLimit",
-            "columnName": "videoSizeLimit",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "imageSizeLimit",
-            "columnName": "imageSizeLimit",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "imageMatrixLimit",
-            "columnName": "imageMatrixLimit",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "maxMediaAttachments",
-            "columnName": "maxMediaAttachments",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "maxMediaDescriptionChars",
-            "columnName": "maxMediaDescriptionChars",
-            "affinity": "INTEGER",
-            "notNull": true,
-            "defaultValue": "1500"
-          },
-          {
-            "fieldPath": "maxFields",
-            "columnName": "maxFields",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "maxFieldNameLength",
-            "columnName": "maxFieldNameLength",
-            "affinity": "INTEGER"
-          },
-          {
-            "fieldPath": "maxFieldValueLength",
-            "columnName": "maxFieldValueLength",
-            "affinity": "INTEGER"
-          },
-          {
-            "fieldPath": "enabledTranslation",
-            "columnName": "enabledTranslation",
-            "affinity": "INTEGER",
-            "notNull": true,
-            "defaultValue": "0"
-          }
-        ],
-        "primaryKey": {
-          "autoGenerate": false,
-          "columnNames": [
-            "instance"
-          ]
-        }
       },
       {
         "tableName": "EmojisEntity",
@@ -2164,7 +2050,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '46da17456f6ddda451cd05263e7d2b21')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b63aa0499ddaa0d4906b096690d569fc')"
     ]
   }
 }

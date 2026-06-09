@@ -22,7 +22,6 @@ import app.pachli.core.data.model.asModel
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.database.model.asModel
-import app.pachli.core.database.model.asServerLimits
 import app.pachli.core.model.Announcement
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.Hashtag
@@ -69,7 +68,7 @@ data class PachliAccount(
                 entity = account.account,
                 lists = account.lists.orEmpty().map { it.asModel() },
                 emojis = account.emojis?.emojiList.orEmpty(),
-                server = account.server?.asModel() ?: Server(ServerKind.MASTODON, Version(4, 0, 0), rawVersion = "4.0.0", limits = account.instanceInfo.asServerLimits()),
+                server = account.server?.asModel() ?: Server(ServerKind.MASTODON, Version(4, 0, 0), rawVersion = "4.0.0"),
                 contentFilters = account.contentFilters?.let { ContentFilters.from(it) } ?: ContentFilters.EMPTY,
                 announcements = account.announcements.orEmpty().map { it.announcement },
                 following = account.following,
