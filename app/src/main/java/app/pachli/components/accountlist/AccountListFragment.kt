@@ -426,7 +426,7 @@ class AccountListFragment :
     private fun onFetchRelationshipsSuccess(relationships: List<Relationship>) {
         val mutesAdapter = adapter as MutesAdapter
         val mutingNotificationsMap = HashMap<String, Boolean>()
-        relationships.map { mutingNotificationsMap.put(it.id, it.mutingNotifications) }
+        relationships.forEach { mutingNotificationsMap.put(it.id, it.mutingNotifications) }
         mutesAdapter.updateMutingNotificationsMap(mutingNotificationsMap)
     }
 

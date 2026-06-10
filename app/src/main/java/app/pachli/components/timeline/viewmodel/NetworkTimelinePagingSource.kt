@@ -149,7 +149,7 @@ class NetworkTimelinePagingSource(
 suspend fun Iterable<Status>.asTimelineStatusWithQuote(pachliAccountId: Long, statusRepository: StatusRepository): List<TimelineStatusWithQuote> {
     // Figure out all the status IDs referenced in this iterable.
     val statusIds = buildSet {
-        this@asTimelineStatusWithQuote.map {
+        this@asTimelineStatusWithQuote.forEach {
             add(it.actionableId)
             it.reblog?.let { (it.quote as? Status.Quote.FullQuote)?.let { add(it.status.actionableId) } }
             (it.quote as? Status.Quote.FullQuote)?.let { add(it.status.actionableId) }
