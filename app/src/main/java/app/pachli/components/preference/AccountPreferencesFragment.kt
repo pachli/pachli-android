@@ -256,7 +256,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 preference {
                     setTitle(R.string.pref_title_account_notification_filters)
                     setOnPreferenceClickListener {
-                        AccountNotificationFiltersPreferencesDialogFragment.Companion.newInstance(pachliAccountId)
+                        AccountNotificationFiltersPreferencesDialogFragment.newInstance(pachliAccountId)
                             .show(parentFragmentManager, null)
                         return@setOnPreferenceClickListener true
                     }
@@ -265,7 +265,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 conversationAccountFilterPreference = preference {
                     setTitle(R.string.pref_title_account_conversation_filters)
                     setOnPreferenceClickListener {
-                        AccountConversationFiltersPreferenceDialogFragment.Companion.newInstance(pachliAccountId)
+                        AccountConversationFiltersPreferenceDialogFragment.newInstance(pachliAccountId)
                             .show(parentFragmentManager, null)
                         return@setOnPreferenceClickListener true
                     }
