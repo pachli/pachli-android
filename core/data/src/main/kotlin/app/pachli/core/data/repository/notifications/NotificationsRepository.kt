@@ -214,34 +214,46 @@ class NotificationsRepository @Inject constructor(
     }
 }
 
+// /**
+// * @return A [NotificationEntity] from a network [Notification] for [pachliAccountId].
+// */
+// fun app.pachli.core.network.model.Notification.asEntity(pachliAccountId: Long) = NotificationEntity(
+//    pachliAccountId = pachliAccountId,
+//    serverId = id,
+//    type = type.asModel().asEntity(),
+//    createdAt = createdAt.toInstant(),
+//    accountServerId = account.id,
+//    statusServerId = status?.id,
+// )
+
 /**
- * @return A [NotificationEntity] from a network [Notification] for [pachliAccountId].
+ * @return A [NotificationEntity] from a model [Notification] for [pachliAccountId]
  */
-fun app.pachli.core.network.model.Notification.asEntity(pachliAccountId: Long) = NotificationEntity(
+fun Notification.asEntity(pachliAccountId: Long) = NotificationEntity(
     pachliAccountId = pachliAccountId,
     serverId = id,
-    type = type.asModel().asEntity(),
+    type = asEntityType(),
     createdAt = createdAt.toInstant(),
     accountServerId = account.id,
-    statusServerId = status?.id,
+    statusServerId = (this as? Notification.WithStatus)?.status?.statusId,
 )
 
-fun Notification.Type.asEntity() = when (this) {
-    Notification.Type.UNKNOWN -> NotificationEntity.Type.UNKNOWN
-    Notification.Type.MENTION -> NotificationEntity.Type.MENTION
-    Notification.Type.REBLOG -> NotificationEntity.Type.REBLOG
-    Notification.Type.FAVOURITE -> NotificationEntity.Type.FAVOURITE
-    Notification.Type.FOLLOW -> NotificationEntity.Type.FOLLOW
-    Notification.Type.FOLLOW_REQUEST -> NotificationEntity.Type.FOLLOW_REQUEST
-    Notification.Type.POLL -> NotificationEntity.Type.POLL
-    Notification.Type.STATUS -> NotificationEntity.Type.STATUS
-    Notification.Type.SIGN_UP -> NotificationEntity.Type.SIGN_UP
-    Notification.Type.UPDATE -> NotificationEntity.Type.UPDATE
-    Notification.Type.REPORT -> NotificationEntity.Type.REPORT
-    Notification.Type.SEVERED_RELATIONSHIPS -> NotificationEntity.Type.SEVERED_RELATIONSHIPS
-    Notification.Type.MODERATION_WARNING -> NotificationEntity.Type.MODERATION_WARNING
-    Notification.Type.QUOTE -> NotificationEntity.Type.QUOTE
-    Notification.Type.QUOTED_UPDATE -> NotificationEntity.Type.QUOTED_UPDATE
+fun Notification.asEntityType() = when (this) {
+    is Notification.Unknown -> NotificationEntity.Type.UNKNOWN
+    is Notification.Mention -> NotificationEntity.Type.MENTION
+    is Notification.Reblog -> NotificationEntity.Type.REBLOG
+    is Notification.Favourite -> NotificationEntity.Type.FAVOURITE
+    is Notification.Follow -> NotificationEntity.Type.FOLLOW
+    is Notification.FollowRequest -> NotificationEntity.Type.FOLLOW_REQUEST
+    is Notification.Poll -> NotificationEntity.Type.POLL
+    is Notification.Status -> NotificationEntity.Type.STATUS
+    is Notification.SignUp -> NotificationEntity.Type.SIGN_UP
+    is Notification.Update -> NotificationEntity.Type.UPDATE
+    is Notification.Report -> NotificationEntity.Type.REPORT
+    is Notification.SeveredRelationships -> NotificationEntity.Type.SEVERED_RELATIONSHIPS
+    is Notification.ModerationWarning -> NotificationEntity.Type.MODERATION_WARNING
+    is Notification.Quote -> NotificationEntity.Type.QUOTE
+    is Notification.QuotedUpdate -> NotificationEntity.Type.QUOTED_UPDATE
 }
 
 /**

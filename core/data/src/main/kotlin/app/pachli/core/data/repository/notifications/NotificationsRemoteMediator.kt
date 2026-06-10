@@ -261,7 +261,7 @@ class NotificationsRemoteMediator(
         notificationDao.upsertEvents(severanceEvents)
         notificationDao.upsertAccountWarnings(accountWarnings)
         notificationDao.upsertNotifications(
-            notifications.map { it.asEntity(pachliAccountId) },
+            notifications.map { it.asModel().asEntity(pachliAccountId) },
         )
     }
 }
@@ -270,7 +270,7 @@ class NotificationsRemoteMediator(
  * @return A [NotificationData] from a network [Notification] for [pachliAccountId].
  */
 fun NotificationData.Companion.from(pachliAccountId: Long, notification: Notification) = NotificationData(
-    notification = notification.asEntity(pachliAccountId),
+    notification = notification.asModel().asEntity(pachliAccountId),
     account = notification.account.asEntity(pachliAccountId),
     status = notification.status?.let { status ->
         TimelineStatusWithQuote(

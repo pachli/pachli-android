@@ -113,23 +113,23 @@ data class Notification(
             return presentation
         }
 
-        fun asModel(): app.pachli.core.model.Notification.Type = when (this) {
-            UNKNOWN -> app.pachli.core.model.Notification.Type.UNKNOWN
-            MENTION -> app.pachli.core.model.Notification.Type.MENTION
-            REBLOG -> app.pachli.core.model.Notification.Type.REBLOG
-            FAVOURITE -> app.pachli.core.model.Notification.Type.FAVOURITE
-            FOLLOW -> app.pachli.core.model.Notification.Type.FOLLOW
-            FOLLOW_REQUEST -> app.pachli.core.model.Notification.Type.FOLLOW_REQUEST
-            POLL -> app.pachli.core.model.Notification.Type.POLL
-            STATUS -> app.pachli.core.model.Notification.Type.STATUS
-            SIGN_UP -> app.pachli.core.model.Notification.Type.SIGN_UP
-            UPDATE -> app.pachli.core.model.Notification.Type.UPDATE
-            REPORT -> app.pachli.core.model.Notification.Type.REPORT
-            SEVERED_RELATIONSHIPS -> app.pachli.core.model.Notification.Type.SEVERED_RELATIONSHIPS
-            MODERATION_WARNING -> app.pachli.core.model.Notification.Type.MODERATION_WARNING
-            QUOTE -> app.pachli.core.model.Notification.Type.QUOTE
-            QUOTED_UPDATE -> app.pachli.core.model.Notification.Type.QUOTED_UPDATE
-        }
+//        fun asModel(): app.pachli.core.model.Notification.Type = when (this) {
+//            UNKNOWN -> app.pachli.core.model.Notification.Type.UNKNOWN
+//            MENTION -> app.pachli.core.model.Notification.Type.MENTION
+//            REBLOG -> app.pachli.core.model.Notification.Type.REBLOG
+//            FAVOURITE -> app.pachli.core.model.Notification.Type.FAVOURITE
+//            FOLLOW -> app.pachli.core.model.Notification.Type.FOLLOW
+//            FOLLOW_REQUEST -> app.pachli.core.model.Notification.Type.FOLLOW_REQUEST
+//            POLL -> app.pachli.core.model.Notification.Type.POLL
+//            STATUS -> app.pachli.core.model.Notification.Type.STATUS
+//            SIGN_UP -> app.pachli.core.model.Notification.Type.SIGN_UP
+//            UPDATE -> app.pachli.core.model.Notification.Type.UPDATE
+//            REPORT -> app.pachli.core.model.Notification.Type.REPORT
+//            SEVERED_RELATIONSHIPS -> app.pachli.core.model.Notification.Type.SEVERED_RELATIONSHIPS
+//            MODERATION_WARNING -> app.pachli.core.model.Notification.Type.MODERATION_WARNING
+//            QUOTE -> app.pachli.core.model.Notification.Type.QUOTE
+//            QUOTED_UPDATE -> app.pachli.core.model.Notification.Type.QUOTED_UPDATE
+//        }
     }
 
     override fun hashCode(): Int {
@@ -144,33 +144,164 @@ data class Notification(
         return notification?.id == this.id
     }
 
-    fun asModel() = app.pachli.core.model.Notification(
-        type = type.asModel(),
-        id = id,
-        createdAt = createdAt,
-        account = account.asModel(),
-        status = status?.asModel(),
-        report = report?.asModel(),
-        relationshipSeveranceEvent = relationshipSeveranceEvent?.asModel(),
-    )
+    fun asModel(accountId: String): app.pachli.core.model.Notification {
+        // Pleroma uses 'Mention' type for mentions and subscribed status updates.
+        // Split out depending on whether the user is mentioned in the status.
+        val notification = if (type == Type.MENTION && status != null) {
+            if (status.mentions.any { it.id == accountId }) this else copy(type = Type.STATUS)
+        } else {
+            this
+        }
+
+        return when (type) {
+            Type.UNKNOWN -> app.pachli.core.model.Notification.Unknown(
+                id = id,
+                createdAt = createdAt,
+                account = account.asModel(),
+                remoteType = type.presentation,
+            )
+
+            Type.MENTION -> app.pachli.core.model.Notification.Mention(
+                id = id,
+                createdAt = createdAt,
+                account = account.asModel(),
+                status = status!!.asModel(),
+            )
+
+            Type.REBLOG -> app.pachli.core.model.Notification.Reblog(
+                id = id,
+                createdAt = createdAt,
+                account = account.asModel(),
+                status = status!!.asModel(),
+            )
+
+            Type.FAVOURITE -> app.pachli.core.model.Notification.Favourite(
+                id = id,
+                createdAt = createdAt,
+                account = account.asModel(),
+                status = status!!.asModel(),
+            )
+
+            Type.FOLLOW -> app.pachli.core.model.Notification.Follow(
+                id = id,
+                createdAt = createdAt,
+                account = account.asModel(),
+            )
+
+            Type.FOLLOW_REQUEST -> app.pachli.core.model.Notification.FollowRequest(
+                id = id,
+                createdAt = createdAt,
+                account = account.asModel(),
+            )
+
+            Type.POLL -> app.pachli.core.model.Notification.Poll(
+                id = id,
+                createdAt = createdAt,
+                account = account.asModel(),
+                status = status!!.asModel(),
+            )
+
+            Type.STATUS -> app.pachli.core.model.Notification.Status(
+                id = id,
+                createdAt = createdAt,
+                account = account.asModel(),
+                status = status!!.asModel(),
+            )
+
+            Type.SIGN_UP -> app.pachli.core.model.Notification.SignUp(
+                id = id,
+                createdAt = createdAt,
+                account = account.asModel(),
+            )
+
+            Type.UPDATE -> app.pachli.core.model.Notification.Update(
+                id = id,
+                createdAt = createdAt,
+                account = account.asModel(),
+                status = status!!.asModel(),
+            )
+
+            Type.REPORT -> app.pachli.core.model.Notification.Report(
+                id = id,
+                createdAt = createdAt,
+                account = account.asModel(),
+                report = report!!.asModel(),
+            )
+
+            Type.SEVERED_RELATIONSHIPS -> app.pachli.core.model.Notification.SeveredRelationships(
+                id = id,
+                createdAt = createdAt,
+                account = account.asModel(),
+                relationshipSeveranceEvent = relationshipSeveranceEvent!!.asModel(),
+            )
+
+            Type.MODERATION_WARNING -> app.pachli.core.model.Notification.ModerationWarning(
+                id = id,
+                createdAt = createdAt,
+                account = account.asModel(),
+                accountWarning = accountWarning!!.asModel(),
+            )
+
+            Type.QUOTE -> app.pachli.core.model.Notification.Quote(
+                id = id,
+                createdAt = createdAt,
+                account = account.asModel(),
+                status = status!!.asModel(),
+            )
+
+            Type.QUOTED_UPDATE -> app.pachli.core.model.Notification.QuotedUpdate(
+                id = id,
+                createdAt = createdAt,
+                account = account.asModel(),
+                status = status!!.asModel(),
+            )
+        }
+    }
+//    fun asModel() = app.pachli.core.model.Notification(
+//        type = type.asModel(),
+//        id = id,
+//        createdAt = createdAt,
+//        account = account.asModel(),
+//        status = status?.asModel(),
+//        report = report?.asModel(),
+//        relationshipSeveranceEvent = relationshipSeveranceEvent?.asModel(),
+//    )
 }
 
-fun app.pachli.core.model.Notification.Type.asNetworkModel() = when (this) {
-    app.pachli.core.model.Notification.Type.UNKNOWN -> Notification.Type.UNKNOWN
-    app.pachli.core.model.Notification.Type.MENTION -> Notification.Type.MENTION
-    app.pachli.core.model.Notification.Type.REBLOG -> Notification.Type.REBLOG
-    app.pachli.core.model.Notification.Type.FAVOURITE -> Notification.Type.FAVOURITE
-    app.pachli.core.model.Notification.Type.FOLLOW -> Notification.Type.FOLLOW
-    app.pachli.core.model.Notification.Type.FOLLOW_REQUEST -> Notification.Type.FOLLOW_REQUEST
-    app.pachli.core.model.Notification.Type.POLL -> Notification.Type.POLL
-    app.pachli.core.model.Notification.Type.STATUS -> Notification.Type.STATUS
-    app.pachli.core.model.Notification.Type.SIGN_UP -> Notification.Type.SIGN_UP
-    app.pachli.core.model.Notification.Type.UPDATE -> Notification.Type.UPDATE
-    app.pachli.core.model.Notification.Type.REPORT -> Notification.Type.REPORT
-    app.pachli.core.model.Notification.Type.SEVERED_RELATIONSHIPS -> Notification.Type.SEVERED_RELATIONSHIPS
-    app.pachli.core.model.Notification.Type.MODERATION_WARNING -> Notification.Type.MODERATION_WARNING
-    app.pachli.core.model.Notification.Type.QUOTE -> Notification.Type.QUOTE
-    app.pachli.core.model.Notification.Type.QUOTED_UPDATE -> Notification.Type.QUOTED_UPDATE
+fun app.pachli.core.model.Notification.asNetworkType() = when (this) {
+    is app.pachli.core.model.Notification.Unknown -> Notification.Type.UNKNOWN
+    is app.pachli.core.model.Notification.Mention -> Notification.Type.MENTION
+    is app.pachli.core.model.Notification.Reblog -> Notification.Type.REBLOG
+    is app.pachli.core.model.Notification.Favourite -> Notification.Type.FAVOURITE
+    is app.pachli.core.model.Notification.Follow -> Notification.Type.FOLLOW
+    is app.pachli.core.model.Notification.FollowRequest -> Notification.Type.FOLLOW_REQUEST
+    is app.pachli.core.model.Notification.Poll -> Notification.Type.POLL
+    is app.pachli.core.model.Notification.Status -> Notification.Type.STATUS
+    is app.pachli.core.model.Notification.SignUp -> Notification.Type.SIGN_UP
+    is app.pachli.core.model.Notification.Update -> Notification.Type.UPDATE
+    is app.pachli.core.model.Notification.Report -> Notification.Type.REPORT
+    is app.pachli.core.model.Notification.SeveredRelationships -> Notification.Type.SEVERED_RELATIONSHIPS
+    is app.pachli.core.model.Notification.ModerationWarning -> Notification.Type.MODERATION_WARNING
+    is app.pachli.core.model.Notification.Quote -> Notification.Type.QUOTE
+    is app.pachli.core.model.Notification.QuotedUpdate -> Notification.Type.QUOTED_UPDATE
 }
 
-fun Iterable<app.pachli.core.model.Notification.Type>.asNetworkModel() = map { it.asNetworkModel() }
+// fun app.pachli.core.model.Notification.Type.asNetworkModel() = when (this) {
+//    app.pachli.core.model.Notification.Type.UNKNOWN -> Notification.Type.UNKNOWN
+//    app.pachli.core.model.Notification.Type.MENTION -> Notification.Type.MENTION
+//    app.pachli.core.model.Notification.Type.REBLOG -> Notification.Type.REBLOG
+//    app.pachli.core.model.Notification.Type.FAVOURITE -> Notification.Type.FAVOURITE
+//    app.pachli.core.model.Notification.Type.FOLLOW -> Notification.Type.FOLLOW
+//    app.pachli.core.model.Notification.Type.FOLLOW_REQUEST -> Notification.Type.FOLLOW_REQUEST
+//    app.pachli.core.model.Notification.Type.POLL -> Notification.Type.POLL
+//    app.pachli.core.model.Notification.Type.STATUS -> Notification.Type.STATUS
+//    app.pachli.core.model.Notification.Type.SIGN_UP -> Notification.Type.SIGN_UP
+//    app.pachli.core.model.Notification.Type.UPDATE -> Notification.Type.UPDATE
+//    app.pachli.core.model.Notification.Type.REPORT -> Notification.Type.REPORT
+//    app.pachli.core.model.Notification.Type.SEVERED_RELATIONSHIPS -> Notification.Type.SEVERED_RELATIONSHIPS
+//    app.pachli.core.model.Notification.Type.MODERATION_WARNING -> Notification.Type.MODERATION_WARNING
+//    app.pachli.core.model.Notification.Type.QUOTE -> Notification.Type.QUOTE
+//    app.pachli.core.model.Notification.Type.QUOTED_UPDATE -> Notification.Type.QUOTED_UPDATE
+// }
+//
+// fun Iterable<app.pachli.core.model.Notification.Type>.asNetworkModel() = map { it.asNetworkModel() }

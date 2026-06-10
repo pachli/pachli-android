@@ -89,7 +89,7 @@ class NotificationFetcher @Inject constructor(
 
                     // Create sorted list of new notifications
                     val notifications = fetchNewNotifications(entity)
-                        .filter { filterNotification(notificationManager, entity, it.type.asModel()) }
+                        .filter { filterNotification(notificationManager, entity, it) }
                         .filter {
                             val decision = filterNotificationByAccount(pachliAccount, NotificationData.from(pachliAccountId, it))
                             decision is AccountFilterDecision.None
