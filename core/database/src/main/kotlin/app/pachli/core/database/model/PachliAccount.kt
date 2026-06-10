@@ -29,12 +29,6 @@ data class PachliAccount(
     @Embedded val account: AccountEntity,
 
     @Relation(
-        parentColumn = "domain",
-        entityColumn = "instance",
-    )
-    val instanceInfo: InstanceInfoEntity?,
-
-    @Relation(
         parentColumn = "id",
         entityColumn = "accountId",
     )

@@ -8,7 +8,6 @@
     <string name="node_info_error_no_software_version">verzia softvéru chýba, je prázdna alebo nevyplnená</string>
     <string name="node_info_error_no_software">neobsahoval blok so softvérovými informáciami</string>
     <string name="node_info_error_no_software_name">názov softvéru chýba, je prázdny alebo nevyplnený</string>
-    <string name="server_error_unparseable_version">nepodarilo sa analyzovať \"%1$s\" ako verziu: %2$s</string>
     <string name="error_generic_fmt">%1$s</string>
     <string name="error_404_not_found_fmt">tvoj server nepodporuje túto funkciu: %1$s</string>
 </resources>

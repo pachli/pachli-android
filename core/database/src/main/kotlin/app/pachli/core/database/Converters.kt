@@ -34,6 +34,7 @@ import app.pachli.core.model.HashtagHistory
 import app.pachli.core.model.NewPoll
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Role
+import app.pachli.core.model.ServerLimits
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
@@ -320,4 +321,10 @@ class Converters @Inject constructor(
 
     @TypeConverter
     fun jsonToHashtagHistory(s: String?) = fromJson<List<HashtagHistory>>(s)
+
+    @TypeConverter
+    fun serverLimitsToJson(serverLimits: ServerLimits) = toJson(serverLimits)
+
+    @TypeConverter
+    fun jsonToServerLimits(s: String?) = fromJson<ServerLimits>(s)
 }

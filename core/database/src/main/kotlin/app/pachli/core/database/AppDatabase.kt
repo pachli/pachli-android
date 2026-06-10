@@ -21,6 +21,7 @@ import android.annotation.SuppressLint
 import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.DeleteColumn
+import androidx.room.DeleteTable
 import androidx.room.RenameColumn
 import androidx.room.RenameTable
 import androidx.room.RoomDatabase
@@ -37,11 +38,11 @@ import app.pachli.core.database.dao.DebugDao
 import app.pachli.core.database.dao.DraftDao
 import app.pachli.core.database.dao.FollowingAccountDao
 import app.pachli.core.database.dao.HashtagsDao
-import app.pachli.core.database.dao.InstanceDao
 import app.pachli.core.database.dao.ListsDao
 import app.pachli.core.database.dao.LogEntryDao
 import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.RemoteKeyDao
+import app.pachli.core.database.dao.ServerDao
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.dao.TimelineStatusWithAccount
@@ -55,7 +56,6 @@ import app.pachli.core.database.model.DraftEntity
 import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.database.model.HashtagEntity
-import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.database.model.LogEntryEntity
 import app.pachli.core.database.model.MastodonListEntity
 import app.pachli.core.database.model.NotificationAccountWarningEntity
@@ -81,7 +81,6 @@ import java.util.TimeZone
     entities = [
         DraftEntity::class,
         AccountEntity::class,
-        InstanceInfoEntity::class,
         EmojisEntity::class,
         StatusEntity::class,
         TimelineAccountEntity::class,
@@ -108,7 +107,7 @@ import java.util.TimeZone
         TimelineStatusWithAccount::class,
         ReferencedStatusId::class,
     ],
-    version = 39,
+    version = 40,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -164,11 +163,13 @@ import java.util.TimeZone
         AutoMigration(from = 37, to = 38, spec = AppDatabase.MIGRATE_37_38::class),
         // HashtagEntity, to show followed hashtags in timelines.
         AutoMigration(from = 38, to = 39),
+        // Converting InstanceInfo to ServerLimits.
+        AutoMigration(from = 39, to = 40, spec = AppDatabase.MIGRATE_39_40::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun accountDao(): AccountDao
-    abstract fun instanceDao(): InstanceDao
+    abstract fun serverDao(): ServerDao
     abstract fun conversationDao(): ConversationsDao
     abstract fun timelineDao(): TimelineDao
     abstract fun draftDao(): DraftDao
@@ -363,6 +364,9 @@ abstract class AppDatabase : RoomDatabase() {
     @DeleteColumn("DraftEntity", "failedToSendNew")
     @RenameColumn("DraftEntity", "accountId", "pachliAccountId")
     class MIGRATE_37_38 : AutoMigrationSpec
+
+    @DeleteTable("InstanceInfoEntity")
+    class MIGRATE_39_40 : AutoMigrationSpec
 }
 
 val MIGRATE_8_9 = object : Migration(8, 9) {

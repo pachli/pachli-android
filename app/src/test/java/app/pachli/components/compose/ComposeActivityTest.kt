@@ -25,8 +25,8 @@ import app.pachli.R
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.model.Draft
-import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_CHARACTERS_RESERVED_PER_URL
-import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
+import app.pachli.core.model.ServerLimits.Companion.DEFAULT_CHARACTERS_RESERVED_PER_URL
+import app.pachli.core.model.ServerLimits.Companion.DEFAULT_CHARACTER_LIMIT
 import app.pachli.core.model.Status
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions

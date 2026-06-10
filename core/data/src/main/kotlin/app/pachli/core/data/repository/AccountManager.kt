@@ -21,35 +21,27 @@ import android.database.sqlite.SQLiteException
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.R
-import app.pachli.core.data.model.Server
-import app.pachli.core.data.repository.ServerRepository.Error.GetNodeInfo
-import app.pachli.core.data.repository.ServerRepository.Error.GetWellKnownNodeInfo
-import app.pachli.core.data.repository.ServerRepository.Error.UnsupportedSchema
-import app.pachli.core.data.repository.ServerRepository.Error.ValidateNodeInfo
 import app.pachli.core.data.repository.hashtags.HashtagsRepository
 import app.pachli.core.database.dao.AccountDao
 import app.pachli.core.database.dao.AnnouncementsDao
 import app.pachli.core.database.dao.FollowingAccountDao
-import app.pachli.core.database.dao.InstanceDao
+import app.pachli.core.database.dao.ServerDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.AnnouncementEntity
 import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.FollowingAccountEntity
-import app.pachli.core.database.model.InstanceInfoEntity
-import app.pachli.core.database.model.ServerEntity
+import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.Account
 import app.pachli.core.model.AccountSource
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.MastodonList
-import app.pachli.core.model.NodeInfo
 import app.pachli.core.model.Status.Visibility
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.HttpHeaderLink
 import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.core.network.retrofit.NodeInfoApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
@@ -57,7 +49,6 @@ import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.coroutines.binding.binding
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.map
-import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.mapError
 import com.github.michaelbull.result.onSuccess
 import com.github.michaelbull.result.orElse
@@ -169,9 +160,9 @@ sealed interface LogoutError : PachliError {
 class AccountManager @Inject constructor(
     private val transactionProvider: TransactionProvider,
     private val mastodonApi: MastodonApi,
-    private val nodeInfoApi: NodeInfoApi,
     private val accountDao: AccountDao,
-    private val instanceDao: InstanceDao,
+    private val serverDao: ServerDao,
+    private val serverRepository: ServerRepository,
     private val contentFiltersRepository: ContentFiltersRepository,
     private val listsRepository: ListsRepository,
     private val announcementsDao: AnnouncementsDao,
@@ -428,21 +419,17 @@ class AccountManager @Inject constructor(
     suspend fun refresh(account: AccountEntity): Result<Unit, RefreshAccountError> = binding {
         // Kick off network fetches that can happen in parallel because they do not
         // depend on one another.
-        val deferNodeInfo = externalScope.async {
-            fetchNodeInfo().mapError { RefreshAccountError.General(account, it) }
-        }
-
-        val deferInstanceInfo = externalScope.async {
-            fetchInstanceInfo(account.domain)
+        val deferServer = externalScope.async {
+            serverRepository.getServer()
+                .onSuccess { serverDao.upsert(it.asEntity(account.id)) }
                 .mapError { RefreshAccountError.General(account, it) }
-                .onSuccess { instanceDao.upsert(it) }
         }
 
         val deferEmojis = externalScope.async {
             mastodonApi.getCustomEmojis()
                 .mapError { RefreshAccountError.General(account, it) }
                 .onSuccess {
-                    instanceDao.upsert(
+                    serverDao.upsert(
                         EmojisEntity(
                             accountId = account.id,
                             emojiList = it.body.asModel(),
@@ -499,26 +486,8 @@ class AccountManager @Inject constructor(
         // hashtags outside Pachli.
         externalScope.launch { hashtagsRepository.refreshFollowedHashtags(account.id) }
 
-        val nodeInfo = deferNodeInfo.await().bind()
-        val instanceInfo = deferInstanceInfo.await().bind()
-
         // Create the server info so it can used for both server capabilities and filters.
-        //
-        // Can't use ServerRespository here because it depends on AccountManager.
-        // TODO: Break that dependency, re-write ServerRepository to be offline-first.
-        Server.from(nodeInfo.software, instanceInfo)
-            .mapError { RefreshAccountError.General(account, it) }
-            .onSuccess {
-                instanceDao.upsert(
-                    ServerEntity(
-                        accountId = account.id,
-                        serverKind = it.kind,
-                        version = it.version,
-                        capabilities = it.capabilities,
-                    ),
-                )
-            }
-            .bind()
+        deferServer.await().bind()
 
         externalScope.async { contentFiltersRepository.refresh(account.id) }.await()
             .orElse {
@@ -620,42 +589,6 @@ class AccountManager @Inject constructor(
             }
         }
         return if (changed) newTabPreferences else null
-    }
-
-    // Based on ServerRepository.getServer(). This can be removed when AccountManager
-    // can use ServerRepository directly.
-    private suspend fun fetchNodeInfo(): Result<NodeInfo, ServerRepository.Error> = binding {
-        // Fetch the /.well-known/nodeinfo document
-        val nodeInfoJrd = nodeInfoApi.nodeInfoJrd()
-            .mapError { GetWellKnownNodeInfo(it) }.bind().body
-
-        // Find a link to a schema we can parse, prefering newer schema versions
-        var nodeInfoUrlResult: Result<String, ServerRepository.Error> = Err(UnsupportedSchema)
-        for (link in nodeInfoJrd.links.sortedByDescending { it.rel }) {
-            if (SCHEMAS.contains(link.rel)) {
-                nodeInfoUrlResult = Ok(link.href)
-                break
-            }
-        }
-
-        val nodeInfoUrl = nodeInfoUrlResult.bind()
-
-        Timber.d("Loading node info from %s", nodeInfoUrl)
-        val nodeInfo = nodeInfoApi.nodeInfo(nodeInfoUrl).mapBoth(
-            { it.body.validate().mapError { ValidateNodeInfo(nodeInfoUrl, it) } },
-            { Err(GetNodeInfo(nodeInfoUrl, it)) },
-        ).bind()
-
-        return@binding nodeInfo
-    }
-
-    // TODO: Maybe rename InstanceInfoEntity to ServerLimits or something like that, since that's
-    // what it records.
-    private suspend fun fetchInstanceInfo(domain: String): Result<InstanceInfoEntity, ApiError> {
-        // TODO: InstanceInfoEntity needs to gain support for recording translation
-        return mastodonApi.getInstanceV2()
-            .map { it.body.asEntity(domain) }
-            .orElse { mastodonApi.getInstanceV1().map { it.body.asEntity(domain) } }
     }
 
     /**

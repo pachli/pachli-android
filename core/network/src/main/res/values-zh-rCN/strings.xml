@@ -7,7 +7,6 @@
     <string name="error_missing_content_type_fmt">你的服务器配置错误，响应不具有content-type“%1$s”</string>
     <string name="node_info_error_no_software_version">软件版本缺失、为空或空白</string>
     <string name="node_info_error_no_software">不包含软件块</string>
-    <string name="server_error_unparseable_version">无法将“%1$s”解析为版本：%2$s</string>
     <string name="node_info_error_no_software_name">软件名称缺失、为空或空白</string>
     <string name="error_404_not_found_fmt">你的服务器不支持此功能：%1$s</string>
     <string name="error_generic_fmt">%1$s</string>

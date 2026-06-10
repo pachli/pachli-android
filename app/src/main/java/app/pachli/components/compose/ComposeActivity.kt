@@ -93,8 +93,8 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.AccountSource
 import app.pachli.core.model.Emoji
-import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
-import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_MEDIA_ATTACHMENTS
+import app.pachli.core.model.ServerLimits.Companion.DEFAULT_CHARACTER_LIMIT
+import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MAX_MEDIA_ATTACHMENTS
 import app.pachli.core.model.Status
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
@@ -439,7 +439,7 @@ class ComposeActivity :
 
                 val mediaAdapter = MediaPreviewAdapter(
                     glide = glide,
-                    descriptionLimit = account.instanceInfo.maxMediaDescriptionChars,
+                    descriptionLimit = account.server.limits.maxMediaDescriptionChars,
                     onDescriptionChanged = this@ComposeActivity::onUpdateDescription,
                     onEditFocus = { item ->
                         makeFocusDialog(item.focus, item.uri) { newFocus ->
@@ -730,9 +730,9 @@ class ComposeActivity :
 
     private fun subscribeToUpdates(mediaAdapter: MediaPreviewAdapter) {
         lifecycleScope.launch {
-            viewModel.instanceInfo.collect { instanceData ->
-                maximumTootCharacters = instanceData.maxChars
-                maxUploadMediaNumber = instanceData.maxMediaAttachments
+            viewModel.serverLimits.collect { serverLimits ->
+                maximumTootCharacters = serverLimits.maxChars
+                maxUploadMediaNumber = serverLimits.maxMediaAttachments
                 updateVisibleCharactersLeft(viewModel.statusLength.value)
             }
         }
@@ -1310,14 +1310,14 @@ class ComposeActivity :
      */
     private fun onAddPollClick() = lifecycleScope.launch {
         addAttachmentBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-        val instanceParams = viewModel.instanceInfo.value
+        val serverLimits = viewModel.serverLimits.value
         showAddPollDialog(
             context = this@ComposeActivity,
             poll = viewModel.poll.value,
-            maxOptionCount = instanceParams.pollMaxOptions,
-            maxOptionLength = instanceParams.pollMaxLength,
-            minDuration = instanceParams.pollMinDuration,
-            maxDuration = instanceParams.pollMaxDuration,
+            maxOptionCount = serverLimits.pollMaxOptions,
+            maxOptionLength = serverLimits.pollMaxLength,
+            minDuration = serverLimits.pollMinDuration,
+            maxDuration = serverLimits.pollMaxDuration,
             onUpdatePoll = viewModel::onPollChanged,
         )
     }

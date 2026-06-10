@@ -31,7 +31,7 @@ import app.pachli.core.common.util.MEDIA_SIZE_UNKNOWN
 import app.pachli.core.common.util.formatNumber
 import app.pachli.core.common.util.getImageSquarePixels
 import app.pachli.core.common.util.getMediaSize
-import app.pachli.core.model.InstanceInfo
+import app.pachli.core.model.ServerLimits
 import app.pachli.core.network.extensions.asRequestBody
 import app.pachli.core.network.model.MediaUploadApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
@@ -251,16 +251,16 @@ class MediaUploader @Inject constructor(
      * Uploads media.
      *
      * @param media the media to upload
-     * @param instanceInfo info about the current media to make sure the media gets resized correctly
+     * @param serverLimits info about the current media to make sure the media gets resized correctly
      * @return A Flow emitting upload events.
      * The Flow is hot, in order to cancel upload or clear resources call [cancelUploadScope].
      */
     @OptIn(ExperimentalCoroutinesApi::class)
-    suspend fun uploadMedia(media: QueuedMedia, instanceInfo: InstanceInfo): Flow<Result<UploadState, MediaUploaderError>> {
+    suspend fun uploadMedia(media: QueuedMedia, serverLimits: ServerLimits): Flow<Result<UploadState, MediaUploaderError>> {
         val uploadScope = CoroutineScope(Dispatchers.IO)
         val uploadFlow: Flow<Result<UploadState, MediaUploaderError>> = flow {
-            if (shouldResizeMedia(media, instanceInfo)) {
-                emit(downsize(media, instanceInfo))
+            if (shouldResizeMedia(media, serverLimits)) {
+                emit(downsize(media, serverLimits))
             } else {
                 emit(media)
             }
@@ -287,9 +287,9 @@ class MediaUploader @Inject constructor(
      * a temporary location.
      *
      * @param inUri [ContentResolver] URI for the file to prepare
-     * @param instanceInfo server's configuration, for maximum file size limits
+     * @param serverLimits server's configuration, for maximum file size limits
      */
-    suspend fun prepareMedia(inUri: Uri, instanceInfo: InstanceInfo): Result<PreparedMedia, PrepareMediaError> = withContext(Dispatchers.IO) {
+    suspend fun prepareMedia(inUri: Uri, serverLimits: ServerLimits): Result<PreparedMedia, PrepareMediaError> = withContext(Dispatchers.IO) {
         var mediaSize = MEDIA_SIZE_UNKNOWN
         var uri = inUri
         val mimeType: String?
@@ -355,8 +355,8 @@ class MediaUploader @Inject constructor(
 
         return@withContext when (mimeType.substring(0, mimeType.indexOf('/'))) {
             "video" -> {
-                if (mediaSize > instanceInfo.videoSizeLimit) {
-                    Err(PrepareMediaError.FileIsTooLargeError(mediaSize, instanceInfo.videoSizeLimit))
+                if (mediaSize > serverLimits.videoSizeLimit) {
+                    Err(PrepareMediaError.FileIsTooLargeError(mediaSize, serverLimits.videoSizeLimit))
                 } else {
                     Ok(PreparedMedia(QueuedMedia.Type.VIDEO, uri, mediaSize))
                 }
@@ -367,8 +367,8 @@ class MediaUploader @Inject constructor(
             }
 
             "audio" -> {
-                if (mediaSize > instanceInfo.videoSizeLimit) {
-                    Err(PrepareMediaError.FileIsTooLargeError(mediaSize, instanceInfo.videoSizeLimit))
+                if (mediaSize > serverLimits.videoSizeLimit) {
+                    Err(PrepareMediaError.FileIsTooLargeError(mediaSize, serverLimits.videoSizeLimit))
                 } else {
                     Ok(PreparedMedia(QueuedMedia.Type.AUDIO, uri, mediaSize))
                 }
@@ -460,14 +460,14 @@ class MediaUploader @Inject constructor(
         }
     }
 
-    private suspend fun downsize(media: QueuedMedia, instanceInfo: InstanceInfo): QueuedMedia = withContext(Dispatchers.IO) {
+    private suspend fun downsize(media: QueuedMedia, serverLimits: ServerLimits): QueuedMedia = withContext(Dispatchers.IO) {
         val file = createNewImageFile(context)
-        downsizeImage(media.uri, instanceInfo.imageSizeLimit, contentResolver, file)
+        downsizeImage(media.uri, serverLimits.imageSizeLimit, contentResolver, file)
         return@withContext media.copy(uri = file.toUri(), mediaSize = file.length())
     }
 
-    private fun shouldResizeMedia(media: QueuedMedia, instanceInfo: InstanceInfo): Boolean {
+    private fun shouldResizeMedia(media: QueuedMedia, serverLimits: ServerLimits): Boolean {
         return media.type == QueuedMedia.Type.IMAGE &&
-            (media.mediaSize > instanceInfo.imageSizeLimit || getImageSquarePixels(context.contentResolver, media.uri) > instanceInfo.imageMatrixLimit)
+            (media.mediaSize > serverLimits.imageSizeLimit || getImageSquarePixels(context.contentResolver, media.uri) > serverLimits.imageMatrixLimit)
     }
 }

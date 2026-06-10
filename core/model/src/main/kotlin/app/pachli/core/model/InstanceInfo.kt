@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Pachli Association
+ * Copyright (c) 2026 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -17,47 +17,66 @@
 
 package app.pachli.core.model
 
-// Know that these fields are all used somewhere
-//
-// Server.Kt also uses v2.configuration.translation.enabled
+/**
+ * Normalised information from the API `instance` endpoint, either
+ * v1 or v2.
+ *
+ * @property maxPostCharacters Maximum number of characters allowed in a post.
+ * @property maxPollOptions Maximum number of options allowed in a poll.
+ * @property maxPollOptionLength Maximum number of characters allowed in a poll option.
+ * @property minPollDuration Minimum duration allowed in a poll.
+ * @property maxPollDuration Maximum duration allowed in a poll.
+ * @property charactersReservedPerUrl Number of characters reserved per URL.
+ * @property version Raw version string of the instance.
+ * @property videoSizeLimit Maximum video size allowed in bytes.
+ * @property imageSizeLimit Maximum image size allowed in bytes.
+ * @property imageMatrixLimit Maximum image matrix size in bytes.
+ * @property maxMediaAttachments Maximum number of media attachments.
+ * @property maxMediaDescriptionChars Maximum number of characters in a media description.
+ * @property maxFields Maximum number of fields in an account.
+ * @property maxFieldNameLength Maximum length of an account field name.
+ * @property maxFieldValueLength Maximum length of an account field value.
+ * @property enabledTranslation True if the server's translation feature is enabled.
+ */
 data class InstanceInfo(
-    val maxChars: Int = DEFAULT_CHARACTER_LIMIT,
-    val pollMaxOptions: Int = DEFAULT_MAX_OPTION_COUNT,
-    val pollMaxLength: Int = DEFAULT_MAX_OPTION_LENGTH,
-    val pollMinDuration: Int = DEFAULT_MIN_POLL_DURATION,
-    val pollMaxDuration: Long = DEFAULT_MAX_POLL_DURATION,
-    val charactersReservedPerUrl: Int = DEFAULT_CHARACTERS_RESERVED_PER_URL,
-    val videoSizeLimit: Long = DEFAULT_VIDEO_SIZE_LIMIT,
-    val imageSizeLimit: Long = DEFAULT_IMAGE_SIZE_LIMIT,
-    val imageMatrixLimit: Int = DEFAULT_IMAGE_MATRIX_LIMIT,
-    val maxMediaAttachments: Int = DEFAULT_MAX_MEDIA_ATTACHMENTS,
-    /** Maximum number of characters in a media description. */
-    val maxMediaDescriptionChars: Int = DEFAULT_MAX_MEDIA_DESCRIPTION_CHARS,
-    val maxFields: Int = DEFAULT_MAX_ACCOUNT_FIELDS,
-    val maxFieldNameLength: Int? = null,
-    val maxFieldValueLength: Int? = null,
-    val version: String = "(Pachli defaults)",
-) {
-    companion object {
-        const val DEFAULT_CHARACTER_LIMIT = 500
-        const val DEFAULT_MAX_OPTION_COUNT = 4
-        const val DEFAULT_MAX_OPTION_LENGTH = 50
-        const val DEFAULT_MIN_POLL_DURATION = 300
-        const val DEFAULT_MAX_POLL_DURATION = 604800L
+    val maxPostCharacters: Int,
+    val maxPollOptions: Int,
+    val maxPollOptionLength: Int,
+    val minPollDuration: Int,
+    val maxPollDuration: Long,
+    val charactersReservedPerUrl: Int,
+    val version: String,
+    val videoSizeLimit: Long,
+    val imageSizeLimit: Long,
+    val imageMatrixLimit: Int,
+    val maxMediaAttachments: Int,
+    val maxMediaDescriptionChars: Int,
+    val maxFields: Int,
+    val maxFieldNameLength: Int?,
+    val maxFieldValueLength: Int?,
+    val enabledTranslation: Boolean = false,
+)
 
-        const val DEFAULT_VIDEO_SIZE_LIMIT = 40L * 1024 * 1024 // 40 MiB
-        const val DEFAULT_VIDEO_MATRIX_LIMIX = 4096 * 4096
-        const val DEFAULT_VIDEO_FRAME_RATE_LIMIT = 30
-        const val DEFAULT_IMAGE_SIZE_LIMIT = 10L * 1024 * 1024 // 10 MiB
-        const val DEFAULT_IMAGE_MATRIX_LIMIT = 4096 * 4096
-
-        // Mastodon only counts URLs as this long in terms of status character limits
-        const val DEFAULT_CHARACTERS_RESERVED_PER_URL = 23
-
-        const val DEFAULT_MAX_MEDIA_ATTACHMENTS = 4
-
-        // Default Mastodon limit
-        const val DEFAULT_MAX_MEDIA_DESCRIPTION_CHARS = 1500
-        const val DEFAULT_MAX_ACCOUNT_FIELDS = 4
-    }
+/**
+ * @return [ServerLimits] model; if this is null then returns the default
+ * [ServerLimits] values.
+ */
+fun InstanceInfo?.asServerLimits(): ServerLimits {
+    if (this == null) return ServerLimits()
+    return ServerLimits(
+        maxChars = maxPostCharacters,
+        pollMaxOptions = maxPollOptions,
+        pollMaxLength = maxPollOptionLength,
+        pollMinDuration = minPollDuration,
+        pollMaxDuration = maxPollDuration,
+        charactersReservedPerUrl = charactersReservedPerUrl,
+        videoSizeLimit = videoSizeLimit,
+        imageSizeLimit = imageSizeLimit,
+        imageMatrixLimit = imageMatrixLimit,
+        maxMediaAttachments = maxMediaAttachments,
+        maxMediaDescriptionChars = maxMediaDescriptionChars,
+        maxFields = maxFields,
+        maxFieldNameLength = maxFieldNameLength,
+        maxFieldValueLength = maxFieldValueLength,
+    )
 }

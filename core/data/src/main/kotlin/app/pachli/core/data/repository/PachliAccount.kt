@@ -24,7 +24,6 @@ import app.pachli.core.database.model.asModel
 import app.pachli.core.model.Announcement
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.Hashtag
-import app.pachli.core.model.InstanceInfo
 import app.pachli.core.model.MastodonList
 import app.pachli.core.model.ServerKind
 import io.github.z4kn4fein.semver.Version
@@ -34,7 +33,6 @@ import io.github.z4kn4fein.semver.Version
  *
  * @property id Account's unique local database ID.
  * @property entity [AccountEntity] from the local database.
- * @property instanceInfo Details about the account's server's instance info.
  * @property lists Account's lists.
  * @property emojis Server's emojis. Use [entity.emojis][AccountEntity.emojis]
  * for the account's specific emojis.
@@ -52,7 +50,6 @@ data class PachliAccount(
     val id: Long,
     // TODO: Should be a core.data type
     val entity: AccountEntity,
-    val instanceInfo: InstanceInfo,
     val lists: List<MastodonList>,
     val emojis: List<Emoji>,
     val server: Server,
@@ -68,10 +65,9 @@ data class PachliAccount(
             return PachliAccount(
                 id = account.account.id,
                 entity = account.account,
-                instanceInfo = account.instanceInfo.asModel(),
                 lists = account.lists.orEmpty().map { it.asModel() },
                 emojis = account.emojis?.emojiList.orEmpty(),
-                server = account.server?.let { Server.from(it) } ?: Server(ServerKind.MASTODON, Version(4, 0, 0)),
+                server = account.server?.asModel() ?: Server(ServerKind.MASTODON, Version(4, 0, 0), rawVersion = "4.0.0"),
                 contentFilters = account.contentFilters?.let { ContentFilters.from(it) } ?: ContentFilters.EMPTY,
                 announcements = account.announcements.orEmpty().map { it.announcement },
                 following = account.following,

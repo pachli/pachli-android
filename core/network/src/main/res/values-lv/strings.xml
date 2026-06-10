@@ -8,7 +8,6 @@
     <string name="error_429_rate_limit_fmt">serveris ierobežo pieprasījumu biežumu: %1$s</string>
     <string name="error_network_fmt">Atgadījās tīkla kļūda: %1$s</string>
     <string name="error_missing_content_type_fmt">serveris ir nepareizi konfigurēts, atbildei nav satura veida: %1$s</string>
-    <string name="server_error_unparseable_version">nevarēja apstrādāt \"%1$s\" kā versiju: %2$s</string>
     <string name="node_info_error_no_software">nesaturēja programmatūras bloku</string>
     <string name="node_info_error_no_software_name">trūkst programmatūras nosaukuma, tas ir tukšs vai satur tikai atstarpes</string>
 </resources>

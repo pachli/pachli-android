@@ -43,6 +43,7 @@ import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.Draft
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.ServerKind
+import app.pachli.core.model.ServerLimits
 import app.pachli.core.model.Status
 import app.pachli.core.model.UserListRepliesPolicy
 import app.pachli.core.testing.extensions.insertTimelineStatusWithQuote
@@ -86,7 +87,8 @@ class AccountEntityForeignKeyTest {
 
     @Inject lateinit var followingAccountDao: FollowingAccountDao
 
-    @Inject lateinit var instanceInfoDao: InstanceDao
+    @Inject
+    lateinit var serverDao: ServerDao
 
     @Inject lateinit var mastodonListDao: ListsDao
 
@@ -275,16 +277,16 @@ class AccountEntityForeignKeyTest {
             accountId = pachliAccountId,
             emojiList = emptyList(),
         )
-        instanceInfoDao.upsert(emoji)
+        serverDao.upsert(emoji)
 
         // Check everything is as expected.
-        assertThat(instanceInfoDao.getEmojiInfo(pachliAccountId)).isEqualTo(emoji)
+        assertThat(serverDao.getEmojiInfo(pachliAccountId)).isEqualTo(emoji)
 
         // When -- delete the account.
         accountDao.delete(activeAccount)
 
         // Then
-        assertThat(instanceInfoDao.getEmojiInfo(pachliAccountId)).isNull()
+        assertThat(serverDao.getEmojiInfo(pachliAccountId)).isNull()
     }
 
     @Test
@@ -304,12 +306,6 @@ class AccountEntityForeignKeyTest {
         // Then
         assertThat(followingAccountDao.loadAllForAccount(pachliAccountId)).isEmpty()
     }
-
-    // InstanceInfoEntity
-    //
-    // InstanceInfoEntity is not checked, as it is not specified per-account,
-    // and contains no account-specific information. If two or more Pachli accounts
-    // are on the same server they share this information.
 
     // LogEntryEntity
     //
@@ -406,18 +402,20 @@ class AccountEntityForeignKeyTest {
             accountId = pachliAccountId,
             serverKind = ServerKind.MASTODON,
             version = Version.parse("1.0.0"),
+            rawVersion = "1.0.0",
             capabilities = emptyMap(),
+            limits = ServerLimits(),
         )
-        instanceInfoDao.upsert(server)
+        serverDao.upsert(server)
 
         // Check everything is as expected.
-        assertThat(instanceInfoDao.getServer(pachliAccountId)).isEqualTo(server)
+        assertThat(serverDao.getServer(pachliAccountId)).isEqualTo(server)
 
         // When -- delete the account.
         accountDao.delete(activeAccount)
 
         // Then
-        assertThat(instanceInfoDao.getServer(pachliAccountId)).isNull()
+        assertThat(serverDao.getServer(pachliAccountId)).isNull()
     }
 
     @Test

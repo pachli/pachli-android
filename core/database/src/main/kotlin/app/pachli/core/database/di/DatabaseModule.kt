@@ -74,7 +74,7 @@ object DatabaseModule {
     fun provideAccountDao(appDatabase: AppDatabase) = appDatabase.accountDao()
 
     @Provides
-    fun provideInstanceDao(appDatabase: AppDatabase) = appDatabase.instanceDao()
+    fun provideServerDao(appDatabase: AppDatabase) = appDatabase.serverDao()
 
     @Provides
     fun provideConversationsDao(appDatabase: AppDatabase) = appDatabase.conversationDao()

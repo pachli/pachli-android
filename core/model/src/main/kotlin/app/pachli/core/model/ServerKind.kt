@@ -18,7 +18,7 @@
 package app.pachli.core.model
 
 /**
- * Servers that are known to implement the Mastodon client API
+ * Kinds of servers that are known to implement the Mastodon client API.
  */
 enum class ServerKind {
     AKKOMA,

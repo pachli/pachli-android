@@ -44,8 +44,8 @@ import app.pachli.core.model.AccountSource
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.Draft
 import app.pachli.core.model.DraftAttachment
-import app.pachli.core.model.InstanceInfo
 import app.pachli.core.model.NewPoll
+import app.pachli.core.model.ServerLimits
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Status
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
@@ -255,8 +255,8 @@ class ComposeViewModel @AssistedInject constructor(
     private val modifiedInitialState: Boolean = composeOptions.modifiedInitialState == true
     private var scheduledTimeChanged: Boolean = false
 
-    val instanceInfo = accountFlow.map { it.instanceInfo }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), InstanceInfo())
+    val serverLimits = accountFlow.map { it.server.limits }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ServerLimits())
 
     val emojis = accountFlow.map { it.emojis }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
@@ -332,10 +332,10 @@ class ComposeViewModel @AssistedInject constructor(
      *
      * In addition, multiple attachments can only be added if they are all images.
      */
-    val canAttachMedia = combine(instanceInfo, media, poll) { instanceInfo, media, poll ->
+    val canAttachMedia = combine(serverLimits, media, poll) { serverLimits, media, poll ->
         composeOptions.referencingStatus?.isQuoting() != true &&
             poll == null &&
-            media.size < instanceInfo.maxMediaAttachments &&
+            media.size < serverLimits.maxMediaAttachments &&
             (media.isEmpty() || media.first().type == QueuedMedia.Type.IMAGE)
     }
 
@@ -407,7 +407,7 @@ class ComposeViewModel @AssistedInject constructor(
      * @param focus focus, if relevant
      */
     suspend fun pickMedia(mediaUri: Uri, description: String? = null, focus: Attachment.Focus? = null): Result<QueuedMedia, PickMediaError> = withContext(Dispatchers.IO) {
-        val (type, uri, size) = mediaUploader.prepareMedia(mediaUri, instanceInfo.value)
+        val (type, uri, size) = mediaUploader.prepareMedia(mediaUri, serverLimits.value)
             .mapError { PickMediaError.PrepareMediaError(it) }.getOrElse { return@withContext Err(it) }
         val mediaItems = media.value
         if (type != QueuedMedia.Type.IMAGE && mediaItems.isNotEmpty() && mediaItems[0].type == QueuedMedia.Type.IMAGE) {
@@ -454,7 +454,7 @@ class ComposeViewModel @AssistedInject constructor(
 
         viewModelScope.launch {
             mediaUploader
-                .uploadMedia(mediaItem, instanceInfo.value)
+                .uploadMedia(mediaItem, serverLimits.value)
                 .collect { uploadResult ->
                     updateMediaItem(mediaItem.localId) { it.copy(uploadState = uploadResult) }
                 }
@@ -546,7 +546,7 @@ class ComposeViewModel @AssistedInject constructor(
 
     @VisibleForTesting
     fun updateStatusLength() {
-        _statusLength.value = statusLength(content, effectiveContentWarning, instanceInfo.value.charactersReservedPerUrl)
+        _statusLength.value = statusLength(content, effectiveContentWarning, serverLimits.value.charactersReservedPerUrl)
     }
 
     private fun updateCloseConfirmation() {
