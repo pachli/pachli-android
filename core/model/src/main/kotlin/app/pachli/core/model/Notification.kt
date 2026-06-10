@@ -27,7 +27,7 @@ sealed interface Notification {
     val createdAt: Date
     val account: TimelineAccount
 
-    sealed interface WithStatus {
+    sealed interface WithStatus : Notification {
         val status: app.pachli.core.model.Status
     }
 

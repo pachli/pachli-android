@@ -47,7 +47,6 @@ import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.model.asModel
-import app.pachli.core.network.model.asNetworkModel
 import app.pachli.core.network.model.pronouns
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.onSuccess
@@ -88,6 +87,9 @@ class NotificationsRepository @Inject constructor(
      *
      * See https://github.com/tuskyapp/Tusky/issues/2252.
      */
+    // TODO: This is better handled with Notification.Invalid type that records
+    // a message explaining why the notification is invalid and is returned by
+    // asModel(). This is not the same as the .Unknown type.
     private val notificationTypesWithStatus = setOf(
         NotificationEntity.Type.FAVOURITE,
         NotificationEntity.Type.REBLOG,
@@ -104,7 +106,7 @@ class NotificationsRepository @Inject constructor(
      * @return Notifications for [pachliAccountId].
      */
     @OptIn(ExperimentalPagingApi::class)
-    suspend fun notifications(pachliAccountId: Long, excludeTypes: Set<Notification.Type>): Flow<PagingData<NotificationData>> {
+    suspend fun notifications(pachliAccountId: Long, accountId: String, excludeTypes: Set<app.pachli.core.network.model.Notification.Type>): Flow<PagingData<NotificationData>> {
         factory = InvalidatingPagingSourceFactory { notificationDao.getNotificationsWithQuote(pachliAccountId) }
 
         // Room is row-keyed, not item-keyed. Find the user's REFRESH key, then find the
@@ -121,13 +123,14 @@ class NotificationsRepository @Inject constructor(
             remoteMediator = NotificationsRemoteMediator(
                 context,
                 pachliAccountId,
+                accountId,
                 mastodonApi,
                 transactionProvider,
                 timelineDao,
                 remoteKeyDao,
                 notificationDao,
                 statusDao,
-                excludeTypes.asNetworkModel(),
+                excludeTypes,
             ),
             pagingSourceFactory = factory!!,
         ).flow

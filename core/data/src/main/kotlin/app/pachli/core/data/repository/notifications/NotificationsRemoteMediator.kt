@@ -62,6 +62,7 @@ import okhttp3.Headers
 class NotificationsRemoteMediator(
     private val context: Context,
     private val pachliAccountId: Long,
+    private val accountId: String,
     private val mastodonApi: MastodonApi,
     private val transactionProvider: TransactionProvider,
     private val timelineDao: TimelineDao,
@@ -261,7 +262,7 @@ class NotificationsRemoteMediator(
         notificationDao.upsertEvents(severanceEvents)
         notificationDao.upsertAccountWarnings(accountWarnings)
         notificationDao.upsertNotifications(
-            notifications.map { it.asModel().asEntity(pachliAccountId) },
+            notifications.map { it.asModel(accountId).asEntity(pachliAccountId) },
         )
     }
 }
@@ -269,8 +270,8 @@ class NotificationsRemoteMediator(
 /**
  * @return A [NotificationData] from a network [Notification] for [pachliAccountId].
  */
-fun NotificationData.Companion.from(pachliAccountId: Long, notification: Notification) = NotificationData(
-    notification = notification.asModel().asEntity(pachliAccountId),
+fun NotificationData.Companion.from(pachliAccountId: Long, accountId: String, notification: Notification) = NotificationData(
+    notification = notification.asModel(accountId).asEntity(pachliAccountId),
     account = notification.account.asEntity(pachliAccountId),
     status = notification.status?.let { status ->
         TimelineStatusWithQuote(

@@ -23,9 +23,7 @@ import androidx.annotation.WorkerThread
 import app.pachli.core.common.string.isLessThan
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.notifications.NotificationsRepository
-import app.pachli.core.data.repository.notifications.from
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.database.model.NotificationData
 import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.network.model.Links
@@ -89,9 +87,13 @@ class NotificationFetcher @Inject constructor(
 
                     // Create sorted list of new notifications
                     val notifications = fetchNewNotifications(entity)
+                        // TODO: Inefficient to do the map here before the filtering.
+                        // filterNotification should be renamed to filterNetworkNotification and
+                        // explicitly work on the network notification.
+                        .map { it.asModel(entity.accountId) }
                         .filter { filterNotification(notificationManager, entity, it) }
                         .filter {
-                            val decision = filterNotificationByAccount(pachliAccount, NotificationData.from(pachliAccountId, it))
+                            val decision = filterNotificationByAccount(pachliAccount, it)
                             decision is AccountFilterDecision.None
                         }
                         .sortedWith(compareBy({ it.id.length }, { it.id })) // oldest notifications first
@@ -129,7 +131,7 @@ class NotificationFetcher @Inject constructor(
                         val androidNotification = makeNotification(
                             context,
                             notificationManager,
-                            notification.asModel(),
+                            notification,
                             entity,
                             index == 0,
                         )

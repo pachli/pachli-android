@@ -278,6 +278,7 @@ data class TimelineStatusWithQuote(
     @Embedded(prefix = "q_")
     val quotedStatus: TimelineStatusWithAccount? = null,
 ) {
+    // TODO: Rename to asModel()
     fun toStatus(): Status {
         val status = timelineStatus.status
         val account = timelineStatus.account

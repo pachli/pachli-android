@@ -81,7 +81,6 @@ import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.Announcement
 import app.pachli.core.model.Draft
 import app.pachli.core.model.MastodonList
-import app.pachli.core.model.Notification
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.AboutActivityIntent
 import app.pachli.core.navigation.AccountActivityIntent
@@ -297,8 +296,8 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                 is Payload.Notification -> {
                     val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
                     notificationManager.cancel(payload.notificationTag, payload.notificationId)
-                    when (payload.notificationType) {
-                        Notification.Type.FOLLOW_REQUEST -> {
+                    when (payload.networkType) {
+                        app.pachli.core.network.model.Notification.Type.FOLLOW_REQUEST -> {
                             val intent = AccountListActivityIntent(this, intent.pachliAccountId, AccountListActivityIntent.Kind.FOLLOW_REQUESTS)
                             startActivityWithDefaultTransition(intent)
                         }

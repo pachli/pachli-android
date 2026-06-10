@@ -67,7 +67,7 @@ import app.pachli.core.model.RelationshipSeveranceEvent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.navigation.pendingIntentFlags
-import app.pachli.core.network.model.asNetworkType
+import app.pachli.core.network.model.networkType
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.buildDescription
 import app.pachli.core.ui.calculatePercent
@@ -328,7 +328,7 @@ fun updateSummaryNotifications(
         // Create a notification that summarises the other notifications in this group
 
         // All notifications in this group have the same type, so get it from the first.
-        val notificationType = members[0].notification.extras.getEnum<Notification.Type>(EXTRA_NOTIFICATION_TYPE)
+        val notificationType = members[0].notification.extras.getEnum<app.pachli.core.network.model.Notification.Type>(EXTRA_NOTIFICATION_NETWORK_TYPE)
         val summaryResultIntent = IntentRouterActivityIntent.fromNotification(
             context,
             account.id,
@@ -554,9 +554,8 @@ fun filterNotification(
     notification: Notification,
 ): Boolean {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        val channelId = getChannelId(account, notification)
-            ?: // unknown notificationtype
-            return false
+        // unknown notificationtype
+        val channelId = getChannelId(account, notification) ?: return false
         val channel = notificationManager.getNotificationChannel(channelId)
         return channel != null && channel.importance > NotificationManager.IMPORTANCE_NONE
     }
@@ -586,25 +585,25 @@ fun filterNotification(
  * @return The most severe [AccountFilterDecision], in order [Hide][AccountFilterDecision.Hide],
  * [Warn][AccountFilterDecision.Warn], or [None][AccountFilterDecision.None].
  */
-fun filterNotificationByAccount(accountWithFilters: PachliAccount, notificationData: NotificationData): AccountFilterDecision {
-    val notification = notificationData.notification
+fun filterNotificationByAccount(accountWithFilters: PachliAccount, notificationData: Notification): AccountFilterDecision {
+    val notification = notificationData // .notification
     // Some notifications are never filtered, irrespective of the account that
     // sent them.
-    when (notification.type) {
+    when (notification) {
         // Poll we interacted with has ended.
-        NotificationEntity.Type.POLL -> return AccountFilterDecision.None
+        is Notification.Poll -> return AccountFilterDecision.None
         // Status we interacted with has been updated.
-        NotificationEntity.Type.UPDATE -> return AccountFilterDecision.None
+        is Notification.Update -> return AccountFilterDecision.None
         // A new moderation report.
-        NotificationEntity.Type.REPORT -> return AccountFilterDecision.None
+        is Notification.Report -> return AccountFilterDecision.None
         // Moderation has resulted in severed relationships.
-        NotificationEntity.Type.SEVERED_RELATIONSHIPS -> return AccountFilterDecision.None
+        is Notification.SeveredRelationships -> return AccountFilterDecision.None
         // Moderators sent a warning.
-        NotificationEntity.Type.MODERATION_WARNING -> return AccountFilterDecision.None
+        is Notification.ModerationWarning -> return AccountFilterDecision.None
         // We explicitly asked to be notified about this user.
-        NotificationEntity.Type.STATUS -> return AccountFilterDecision.None
+        is Notification.Status -> return AccountFilterDecision.None
         // Admin signup notifications should not be filtered.
-        NotificationEntity.Type.SIGN_UP -> return AccountFilterDecision.None
+        is Notification.SignUp -> return AccountFilterDecision.None
         // TODO: Quote notifications should probably not be filtered
         // here either.
         else -> {
@@ -616,12 +615,12 @@ fun filterNotificationByAccount(accountWithFilters: PachliAccount, notificationD
     val accountToTest = notificationData.account
 
     // Any notifications from our own activity are not filtered.
-    if (accountWithFilters.entity.accountId == accountToTest.serverId) return AccountFilterDecision.None
+    if (accountWithFilters.entity.accountId == accountToTest.id) return AccountFilterDecision.None
 
     val decisions = buildList {
         // Check the following relationship.
         if (accountWithFilters.entity.notificationAccountFilterNotFollowed != FilterAction.NONE) {
-            if (accountWithFilters.following.none { it.serverId == accountToTest.serverId }) {
+            if (accountWithFilters.following.none { it.serverId == accountToTest.id }) {
                 add(
                     AccountFilterDecision.make(
                         accountWithFilters.entity.notificationAccountFilterNotFollowed,
@@ -634,7 +633,7 @@ fun filterNotificationByAccount(accountWithFilters: PachliAccount, notificationD
         // Check the age of the account relative to the notification.
         accountToTest.createdAt?.let { createdAt ->
             if (accountWithFilters.entity.notificationAccountFilterYounger30d != FilterAction.NONE) {
-                if (Duration.between(createdAt, notification.createdAt) < Duration.ofDays(30)) {
+                if (Duration.between(createdAt, notification.createdAt.toInstant()) < Duration.ofDays(30)) {
                     add(
                         AccountFilterDecision.make(
                             accountWithFilters.entity.notificationAccountFilterYounger30d,

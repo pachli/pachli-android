@@ -107,6 +107,9 @@ data class Notification(
         companion object {
             /** Notification types for UI display (omits UNKNOWN) */
             val visibleTypes = Type.entries.filter { it != UNKNOWN }
+
+            @JvmStatic
+            fun byString(s: String) = entries.firstOrNull { s == it.presentation } ?: UNKNOWN
         }
 
         override fun toString(): String {
@@ -147,10 +150,11 @@ data class Notification(
     fun asModel(accountId: String): app.pachli.core.model.Notification {
         // Pleroma uses 'Mention' type for mentions and subscribed status updates.
         // Split out depending on whether the user is mentioned in the status.
-        val notification = if (type == Type.MENTION && status != null) {
-            if (status.mentions.any { it.id == accountId }) this else copy(type = Type.STATUS)
+
+        val type = if (type == Type.MENTION && status != null) {
+            if (status.mentions.any { it.id == accountId }) this.type else Type.STATUS
         } else {
-            this
+            this.type
         }
 
         return when (type) {
@@ -268,23 +272,27 @@ data class Notification(
 //    )
 }
 
-fun app.pachli.core.model.Notification.asNetworkType() = when (this) {
-    is app.pachli.core.model.Notification.Unknown -> Notification.Type.UNKNOWN
-    is app.pachli.core.model.Notification.Mention -> Notification.Type.MENTION
-    is app.pachli.core.model.Notification.Reblog -> Notification.Type.REBLOG
-    is app.pachli.core.model.Notification.Favourite -> Notification.Type.FAVOURITE
-    is app.pachli.core.model.Notification.Follow -> Notification.Type.FOLLOW
-    is app.pachli.core.model.Notification.FollowRequest -> Notification.Type.FOLLOW_REQUEST
-    is app.pachli.core.model.Notification.Poll -> Notification.Type.POLL
-    is app.pachli.core.model.Notification.Status -> Notification.Type.STATUS
-    is app.pachli.core.model.Notification.SignUp -> Notification.Type.SIGN_UP
-    is app.pachli.core.model.Notification.Update -> Notification.Type.UPDATE
-    is app.pachli.core.model.Notification.Report -> Notification.Type.REPORT
-    is app.pachli.core.model.Notification.SeveredRelationships -> Notification.Type.SEVERED_RELATIONSHIPS
-    is app.pachli.core.model.Notification.ModerationWarning -> Notification.Type.MODERATION_WARNING
-    is app.pachli.core.model.Notification.Quote -> Notification.Type.QUOTE
-    is app.pachli.core.model.Notification.QuotedUpdate -> Notification.Type.QUOTED_UPDATE
-}
+/**
+ * @return The network type for this notification.
+ */
+val app.pachli.core.model.Notification.networkType: Notification.Type
+    get() = when (this) {
+        is app.pachli.core.model.Notification.Unknown -> Notification.Type.UNKNOWN
+        is app.pachli.core.model.Notification.Mention -> Notification.Type.MENTION
+        is app.pachli.core.model.Notification.Reblog -> Notification.Type.REBLOG
+        is app.pachli.core.model.Notification.Favourite -> Notification.Type.FAVOURITE
+        is app.pachli.core.model.Notification.Follow -> Notification.Type.FOLLOW
+        is app.pachli.core.model.Notification.FollowRequest -> Notification.Type.FOLLOW_REQUEST
+        is app.pachli.core.model.Notification.Poll -> Notification.Type.POLL
+        is app.pachli.core.model.Notification.Status -> Notification.Type.STATUS
+        is app.pachli.core.model.Notification.SignUp -> Notification.Type.SIGN_UP
+        is app.pachli.core.model.Notification.Update -> Notification.Type.UPDATE
+        is app.pachli.core.model.Notification.Report -> Notification.Type.REPORT
+        is app.pachli.core.model.Notification.SeveredRelationships -> Notification.Type.SEVERED_RELATIONSHIPS
+        is app.pachli.core.model.Notification.ModerationWarning -> Notification.Type.MODERATION_WARNING
+        is app.pachli.core.model.Notification.Quote -> Notification.Type.QUOTE
+        is app.pachli.core.model.Notification.QuotedUpdate -> Notification.Type.QUOTED_UPDATE
+    }
 
 // fun app.pachli.core.model.Notification.Type.asNetworkModel() = when (this) {
 //    app.pachli.core.model.Notification.Type.UNKNOWN -> Notification.Type.UNKNOWN
