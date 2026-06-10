@@ -141,7 +141,7 @@ class TranslationBackendDialogFragment : ListPreferenceDialogFragmentCompat() {
 
                 text1.isChecked = position == clickedDialogEntryIndex
 
-                val backend = PreferenceEnum.Companion.from<TranslationBackend>(entryValues[position]) ?: SERVER_ONLY
+                val backend = PreferenceEnum.from<TranslationBackend>(entryValues[position]) ?: SERVER_ONLY
 
                 backendLabels[backend]!!
                     .onSuccess {
