@@ -86,7 +86,7 @@ class UpdateShortCutsUseCase @Inject constructor(
                 val person = Person.Builder()
                     .setIcon(icon)
                     .setName(account.displayName)
-                    .setKey(account.identifier)
+                    .setKey(account.identifier.value)
                     .build()
 
                 // This intent will be sent when the user clicks on one of the launcher shortcuts.

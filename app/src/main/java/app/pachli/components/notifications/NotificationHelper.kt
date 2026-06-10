@@ -26,10 +26,12 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import android.provider.Settings
 import android.service.notification.StatusBarNotification
 import android.text.Spanned
 import android.text.TextUtils
+import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import androidx.core.app.RemoteInput
 import androidx.core.app.TaskStackBuilder
@@ -50,6 +52,7 @@ import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.createDraftReply
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.AccountIdentifier
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.designsystem.R as DR
@@ -95,21 +98,44 @@ const val KEY_SERVER_NOTOFICATION_ID = "KEY_SERVER_NOTIFICATION_ID"
 /** Key to return the [Draft]. */
 const val KEY_DRAFT = "KEY_DRAFT"
 
-/** notification channels used on Android O+ */
-const val CHANNEL_MENTION = "CHANNEL_MENTION"
-private const val CHANNEL_FOLLOW = "CHANNEL_FOLLOW"
-private const val CHANNEL_FOLLOW_REQUEST = "CHANNEL_FOLLOW_REQUEST"
-private const val CHANNEL_BOOST = "CHANNEL_BOOST"
-private const val CHANNEL_FAVOURITE = "CHANNEL_FAVOURITE"
-private const val CHANNEL_POLL = "CHANNEL_POLL"
-private const val CHANNEL_SUBSCRIPTIONS = "CHANNEL_SUBSCRIPTIONS"
-private const val CHANNEL_SIGN_UP = "CHANNEL_SIGN_UP"
-private const val CHANNEL_UPDATES = "CHANNEL_UPDATES"
-private const val CHANNEL_REPORT = "CHANNEL_REPORT"
-private const val CHANNEL_SEVERED_RELATIONSHIPS = "CHANNEL_SEVERED_RELATIONSHIPS"
-private const val CHANNEL_MODERATION_WARNINGS = "CHANNEL_MODERATION_WARNING"
-private const val CHANNEL_QUOTE = "CHANNEL_QUOTE"
-private const val CHANNEL_QUOTED_UPDATE = "CHANNEL_QUOTED_UPDATE"
+/**
+ * Notification channels for per-account Mastodon notifications, used on
+ * Android O+
+ *
+ * @property baseId Base ID for the channel. Notification channels are created
+ * per account, use [channelId] to get the full channel ID.
+ * @property nameRes Resource identifier for the notification channel name
+ * @property descriptionRes Resource identifier for the notification
+ * channel description
+ */
+enum class PachliNotificationChannels(
+    private val baseId: String,
+    @StringRes val nameRes: Int,
+    @StringRes val descriptionRes: Int,
+) {
+    MENTION("CHANNEL_MENTION", R.string.notification_mention_name, R.string.notification_mention_descriptions),
+    FOLLOW("CHANNEL_FOLLOW", R.string.notification_follow_name, R.string.notification_follow_description),
+    FOLLOW_REQUEST("CHANNEL_FOLLOW_REQUEST", R.string.notification_follow_request_name, R.string.notification_follow_request_description),
+    REBLOG("CHANNEL_BOOST", R.string.notification_boost_name, R.string.notification_boost_description),
+    FAVOURITE("CHANNEL_FAVOURITE", R.string.notification_favourite_name, R.string.notification_favourite_description),
+    POLL("CHANNEL_POLL", R.string.notification_poll_name, R.string.notification_poll_description),
+    SUBSCRIPTIONS("CHANNEL_SUBSCRIPTIONS", R.string.notification_subscription_name, R.string.notification_subscription_description),
+    SIGN_UP("CHANNEL_SIGN_UP", R.string.notification_sign_up_name, R.string.notification_sign_up_description),
+    UPDATES("CHANNEL_UPDATES", R.string.notification_update_name, R.string.notification_update_description),
+    REPORT("CHANNEL_REPORT", R.string.notification_report_name, R.string.notification_report_description),
+    SEVERED_RELATIONSHIPS("CHANNEL_SEVERED_RELATIONSHIPS", R.string.notification_severed_relationships_name, R.string.notification_severed_relationships_description),
+    MODERATION_WARNINGS("CHANNEL_MODERATION_WARNING", R.string.notification_moderation_warnings_name, R.string.notification_moderation_warnings_description),
+    QUOTE("CHANNEL_QUOTE", R.string.notification_quote_name, R.string.notification_quote_description),
+    QUOTED_UPDATE("CHANNEL_QUOTED_UPDATE", R.string.notification_quoted_update_name, R.string.notification_quoted_update_description),
+
+    ;
+
+    /**
+     * @return The full ID for this channel for the account identified
+     * by [accountIdentifier].
+     */
+    fun channelId(accountIdentifier: AccountIdentifier) = baseId + accountIdentifier
+}
 
 /** WorkManager Tag */
 private const val NOTIFICATION_PULL_TAG = "pullNotifications"
@@ -406,7 +432,8 @@ private fun getStatusReplyIntent(
         .setAction(REPLY_ACTION)
         .putExtra(KEY_DRAFT, draft)
         .putExtra(KEY_SENDER_ACCOUNT_ID, account.id)
-        .putExtra(KEY_SENDER_ACCOUNT_IDENTIFIER, account.identifier)
+        // Required
+        .putExtra(KEY_SENDER_ACCOUNT_IDENTIFIER, account.identifier as Parcelable)
         .putExtra(KEY_SENDER_ACCOUNT_FULL_NAME, account.fullName)
         .putExtra(KEY_SERVER_NOTOFICATION_ID, body.id)
     return PendingIntent.getBroadcast(
@@ -448,61 +475,14 @@ fun createNotificationChannelsForAccount(account: AccountEntity, context: Contex
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val channelIds = arrayOf(
-            CHANNEL_MENTION + account.identifier,
-            CHANNEL_FOLLOW + account.identifier,
-            CHANNEL_FOLLOW_REQUEST + account.identifier,
-            CHANNEL_BOOST + account.identifier,
-            CHANNEL_FAVOURITE + account.identifier,
-            CHANNEL_POLL + account.identifier,
-            CHANNEL_SUBSCRIPTIONS + account.identifier,
-            CHANNEL_SIGN_UP + account.identifier,
-            CHANNEL_UPDATES + account.identifier,
-            CHANNEL_REPORT + account.identifier,
-            CHANNEL_SEVERED_RELATIONSHIPS + account.identifier,
-            CHANNEL_MODERATION_WARNINGS + account.identifier,
-            CHANNEL_QUOTE + account.identifier,
-            CHANNEL_QUOTED_UPDATE + account.identifier,
-        )
-        val channelNames = intArrayOf(
-            R.string.notification_mention_name,
-            R.string.notification_follow_name,
-            R.string.notification_follow_request_name,
-            R.string.notification_boost_name,
-            R.string.notification_favourite_name,
-            R.string.notification_poll_name,
-            R.string.notification_subscription_name,
-            R.string.notification_sign_up_name,
-            R.string.notification_update_name,
-            R.string.notification_report_name,
-            R.string.notification_severed_relationships_name,
-            R.string.notification_moderation_warnings_name,
-            R.string.notification_quote_name,
-            R.string.notification_quoted_update_name,
-        )
-        val channelDescriptions = intArrayOf(
-            R.string.notification_mention_descriptions,
-            R.string.notification_follow_description,
-            R.string.notification_follow_request_description,
-            R.string.notification_boost_description,
-            R.string.notification_favourite_description,
-            R.string.notification_poll_description,
-            R.string.notification_subscription_description,
-            R.string.notification_sign_up_description,
-            R.string.notification_update_description,
-            R.string.notification_report_description,
-            R.string.notification_severed_relationships_description,
-            R.string.notification_moderation_warnings_description,
-            R.string.notification_quote_description,
-            R.string.notification_quoted_update_description,
-        )
-        val channels: MutableList<NotificationChannel> = ArrayList(6)
-        val channelGroup = NotificationChannelGroup(account.identifier, account.fullName)
+
+        val channelGroup = NotificationChannelGroup(account.identifier.value, account.fullName)
         notificationManager.createNotificationChannelGroup(channelGroup)
-        for (i in channelIds.indices) {
-            val id = channelIds[i]
-            val name = context.getString(channelNames[i])
-            val description = context.getString(channelDescriptions[i])
+
+        val channels = PachliNotificationChannels.entries.map {
+            val id = it.channelId(account.identifier)
+            val name = context.getString(it.nameRes)
+            val description = context.getString(it.descriptionRes)
             val importance = NotificationManager.IMPORTANCE_DEFAULT
             val channel = NotificationChannel(id, name, importance)
             channel.description = description
@@ -510,8 +490,8 @@ fun createNotificationChannelsForAccount(account: AccountEntity, context: Contex
             channel.lightColor = -0xd46f27
             channel.enableVibration(true)
             channel.setShowBadge(true)
-            channel.group = account.identifier
-            channels.add(channel)
+            channel.group = account.identifier.value
+            channel
         }
         notificationManager.createNotificationChannels(channels)
     }
@@ -688,20 +668,20 @@ private fun getChannelId(account: AccountEntity, notification: Notification): St
 
 private fun getChannelId(account: AccountEntity, type: Notification.Type): String? {
     return when (type) {
-        Notification.Type.MENTION -> CHANNEL_MENTION + account.identifier
-        Notification.Type.STATUS -> CHANNEL_SUBSCRIPTIONS + account.identifier
-        Notification.Type.FOLLOW -> CHANNEL_FOLLOW + account.identifier
-        Notification.Type.FOLLOW_REQUEST -> CHANNEL_FOLLOW_REQUEST + account.identifier
-        Notification.Type.REBLOG -> CHANNEL_BOOST + account.identifier
-        Notification.Type.FAVOURITE -> CHANNEL_FAVOURITE + account.identifier
-        Notification.Type.POLL -> CHANNEL_POLL + account.identifier
-        Notification.Type.SIGN_UP -> CHANNEL_SIGN_UP + account.identifier
-        Notification.Type.UPDATE -> CHANNEL_UPDATES + account.identifier
-        Notification.Type.REPORT -> CHANNEL_REPORT + account.identifier
-        Notification.Type.SEVERED_RELATIONSHIPS -> CHANNEL_SEVERED_RELATIONSHIPS + account.identifier
-        Notification.Type.MODERATION_WARNING -> CHANNEL_MODERATION_WARNINGS + account.identifier
-        Notification.Type.QUOTE -> CHANNEL_QUOTE + account.identifier
-        Notification.Type.QUOTED_UPDATE -> CHANNEL_QUOTED_UPDATE + account.identifier
+        Notification.Type.MENTION -> PachliNotificationChannels.MENTION.channelId(account.identifier)
+        Notification.Type.STATUS -> PachliNotificationChannels.SUBSCRIPTIONS.channelId(account.identifier)
+        Notification.Type.FOLLOW -> PachliNotificationChannels.FOLLOW.channelId(account.identifier)
+        Notification.Type.FOLLOW_REQUEST -> PachliNotificationChannels.FOLLOW_REQUEST.channelId(account.identifier)
+        Notification.Type.REBLOG -> PachliNotificationChannels.REBLOG.channelId(account.identifier)
+        Notification.Type.FAVOURITE -> PachliNotificationChannels.FAVOURITE.channelId(account.identifier)
+        Notification.Type.POLL -> PachliNotificationChannels.POLL.channelId(account.identifier)
+        Notification.Type.SIGN_UP -> PachliNotificationChannels.SIGN_UP.channelId(account.identifier)
+        Notification.Type.UPDATE -> PachliNotificationChannels.UPDATES.channelId(account.identifier)
+        Notification.Type.REPORT -> PachliNotificationChannels.REPORT.channelId(account.identifier)
+        Notification.Type.SEVERED_RELATIONSHIPS -> PachliNotificationChannels.SEVERED_RELATIONSHIPS.channelId(account.identifier)
+        Notification.Type.MODERATION_WARNING -> PachliNotificationChannels.MODERATION_WARNINGS.channelId(account.identifier)
+        Notification.Type.QUOTE -> PachliNotificationChannels.QUOTE.channelId(account.identifier)
+        Notification.Type.QUOTED_UPDATE -> PachliNotificationChannels.QUOTED_UPDATE.channelId(account.identifier)
         Notification.Type.UNKNOWN -> null
     }
 }

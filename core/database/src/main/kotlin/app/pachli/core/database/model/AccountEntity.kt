@@ -17,6 +17,7 @@
 
 package app.pachli.core.database.model
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
@@ -28,7 +29,51 @@ import app.pachli.core.model.Emoji
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
+import java.util.stream.IntStream
+import kotlinx.parcelize.Parcelize
 
+/**
+ * Unique identifier for the user's account. Guaranteed unique irrespective of
+ * the order the user logs in to their accounts.
+ *
+ * @property value Underlying string value for the identifier.
+ * @constructor Creates a new [AccountIdentifier] from a string. Should not
+ * normally be used, use the constructor that takes an [AccountEntity].
+ */
+// @Parcelize so this can be passed directly in an intent, instead of round
+// tripping as a String.
+@JvmInline
+@Parcelize
+value class AccountIdentifier internal constructor(val value: String) : CharSequence by value, Parcelable {
+    /**
+     * Creates a new [AccountIdentifier] from an [AccountEntity]. The
+     * preferred way to construct an [AccountIdentifier], as it ensures the
+     * value is constructed correctly.
+     */
+    constructor(account: AccountEntity) : this("${account.domain}:${account.accountId}")
+
+    override fun chars(): IntStream {
+        return super.chars()
+    }
+
+    override fun codePoints(): IntStream {
+        return super.codePoints()
+    }
+
+    override fun toString() = value
+
+    companion object {
+        /**
+         * Unsafe way to construct an [AccountIdentifier]. It is the caller's
+         * responsibility to ensure [value] is in the expected format.
+         */
+        fun unsafe(value: String) = AccountIdentifier(value)
+    }
+}
+
+/**
+ * @property identifier A unique identifier for the account.
+ */
 @Entity(
     indices = [
         Index(
@@ -150,8 +195,8 @@ data class AccountEntity(
     @ColumnInfo(defaultValue = "0")
     val isBot: Boolean = false,
 ) {
-    val identifier: String
-        get() = "$domain:$accountId"
+    val identifier: AccountIdentifier
+        get() = AccountIdentifier(this)
 
     /** Full account name, of the form `@username@domain` */
     val fullName: String

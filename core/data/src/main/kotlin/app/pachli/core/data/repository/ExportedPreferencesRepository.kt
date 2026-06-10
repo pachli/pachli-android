@@ -26,6 +26,7 @@ import app.pachli.core.data.R
 import app.pachli.core.data.repository.Error.ExportError
 import app.pachli.core.data.repository.Error.ImportError
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.AccountIdentifier
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.Timeline
 import app.pachli.core.preferences.PrefKeys
@@ -349,8 +350,10 @@ data class RedactedAccount(
     val conversationAccountFilterYounger30d: FilterAction,
     val conversationAccountFilterLimitedByServer: FilterAction,
 ) {
-    val identifier: String
-        get() = "$domain:$accountId"
+    // Caution! This has to behave identically to the `AccountEntity` constructor
+    // for `AccountIdentifier`.
+    val identifier: AccountIdentifier
+        get() = AccountIdentifier.unsafe("$domain:$accountId")
 }
 
 /** Converts [AccountEntity] to [RedactedAccount]. */
