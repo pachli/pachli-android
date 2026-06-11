@@ -93,7 +93,7 @@ const val KEY_SENDER_ACCOUNT_IDENTIFIER = "KEY_SENDER_ACCOUNT_IDENTIFIER"
 const val KEY_SENDER_ACCOUNT_FULL_NAME = "KEY_SENDER_ACCOUNT_FULL_NAME"
 
 /** Key to return the server ID of the notification, equivalent to [Notification.id]. */
-const val KEY_SERVER_NOTOFICATION_ID = "KEY_SERVER_NOTIFICATION_ID"
+const val KEY_SERVER_NOTIFICATION_ID = "KEY_SERVER_NOTIFICATION_ID"
 
 /** Key to return the [Draft]. */
 const val KEY_DRAFT = "KEY_DRAFT"
@@ -435,7 +435,7 @@ private fun getStatusReplyIntent(
         // Required
         .putExtra(KEY_SENDER_ACCOUNT_IDENTIFIER, account.identifier as Parcelable)
         .putExtra(KEY_SENDER_ACCOUNT_FULL_NAME, account.fullName)
-        .putExtra(KEY_SERVER_NOTOFICATION_ID, body.id)
+        .putExtra(KEY_SERVER_NOTIFICATION_ID, body.id)
     return PendingIntent.getBroadcast(
         context.applicationContext,
         notificationId,

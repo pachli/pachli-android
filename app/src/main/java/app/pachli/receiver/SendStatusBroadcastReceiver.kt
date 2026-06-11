@@ -32,7 +32,7 @@ import app.pachli.components.notifications.KEY_REPLY
 import app.pachli.components.notifications.KEY_SENDER_ACCOUNT_FULL_NAME
 import app.pachli.components.notifications.KEY_SENDER_ACCOUNT_ID
 import app.pachli.components.notifications.KEY_SENDER_ACCOUNT_IDENTIFIER
-import app.pachli.components.notifications.KEY_SERVER_NOTOFICATION_ID
+import app.pachli.components.notifications.KEY_SERVER_NOTIFICATION_ID
 import app.pachli.components.notifications.PachliNotificationChannels
 import app.pachli.components.notifications.REPLY_ACTION
 import app.pachli.core.common.di.ApplicationScope
@@ -70,7 +70,7 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
         // Bail unless the user used the "quick reply" feature on a notification.
         if (intent.action != REPLY_ACTION) return
 
-        val serverNotificationId = intent.getStringExtra(KEY_SERVER_NOTOFICATION_ID)
+        val serverNotificationId = intent.getStringExtra(KEY_SERVER_NOTIFICATION_ID)
         val senderId = intent.getLongExtra(KEY_SENDER_ACCOUNT_ID, -1)
         val senderIdentifier = IntentCompat.getParcelableExtra(intent, KEY_SENDER_ACCOUNT_IDENTIFIER, AccountIdentifier::class.java)
         val senderFullName = intent.getStringExtra(KEY_SENDER_ACCOUNT_FULL_NAME)
