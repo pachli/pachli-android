@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="server_error_unparseable_version">nevarēja apstrādāt \"%1$s\" kā versiju: %2$s</string>
 </resources>
