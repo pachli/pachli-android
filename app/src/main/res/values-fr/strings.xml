@@ -730,4 +730,18 @@
     <string name="search_operator_quote_dialog_title">Montrer les messages qui en citent d\'autres ?</string>
     <string name="search_operator_quote_no_quotes">Pas de citations</string>
     <string name="search_operator_quote_only">Avec citations</string>
+    <string name="title_delete_scheduled_statuses">Effacer les messages programmés sélectionnés ?</string>
+    <string name="delete_scheduled_statuses_msg">Cela effacera définitivement les messages programmés sélectionnés.</string>
+    <string name="action_delete_scheduled_statuses">Effacer les messages sélectionnés</string>
+    <string name="action_mute_hashtag">Masquer #%1$s</string>
+    <string name="action_unmute_hashtag">Réafficher #%1$s</string>
+    <string name="err_draft_error_no_external_files_dir">le stockage partagé n\'est pas disponible</string>
+    <string name="err_draft_error_mkdir_drafts_fmt">impossible de créer le dossier de brouillons : %1$s</string>
+    <string name="err_draft_error_unknown_mime_type">la pièce-jointe a un type MIME inconnu : %1$s</string>
+    <string name="err_draft_error_content_provider_crash">le fournisseur de contenu a planté récemment</string>
+    <string name="err_draft_error_io_fmt">sauvegarde échouée : %1$s</string>
+    <string name="search_operator_quote_all">Citations ▾</string>
+    <string name="ui_error_delete_scheduled_status_fmt">impossible de supprimer le message programmé pour le remplacer : %1$s</string>
+    <string name="ui_error_sending_post_fmt">Impossible d\'envoyer le message : %1$s</string>
+    <string name="ui_error_saving_post_fmt">Impossible de sauvegarder le message : %1$s</string>
 </resources>
