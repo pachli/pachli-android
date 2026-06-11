@@ -48,6 +48,7 @@ import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /** MIME type for exported preference files. */
 private const val PREFERENCES_MIME_TYPE = "application/json"
@@ -79,11 +80,9 @@ class LabPreferencesFragment : PreferenceFragmentCompat() {
                         ).show()
                     }
                     .onFailure {
-                        Snackbar.make(
-                            binding.root,
-                            getString(R.string.error_export_preferences_fmt, filename, it.fmt(binding.root.context)),
-                            Snackbar.LENGTH_INDEFINITE,
-                        ).show()
+                        val msg = getString(R.string.error_export_preferences_fmt, filename, it.fmt(binding.root.context))
+                        Timber.e(msg)
+                        Snackbar.make(binding.root, msg, Snackbar.LENGTH_INDEFINITE).show()
                     }
             }
         }
@@ -99,11 +98,9 @@ class LabPreferencesFragment : PreferenceFragmentCompat() {
                 val name = uri.resolveName(contentResolver)
                 exportedPreferencesRepository.import(uri)
                     .onFailure {
-                        Snackbar.make(
-                            binding.root,
-                            getString(R.string.error_import_preferences_fmt, name, it.fmt(binding.root.context)),
-                            Snackbar.LENGTH_INDEFINITE,
-                        ).show()
+                        val msg = getString(R.string.error_import_preferences_fmt, name, it.fmt(binding.root.context))
+                        Timber.e(msg)
+                        Snackbar.make(binding.root, msg, Snackbar.LENGTH_INDEFINITE).show()
                     }
             }
         }
