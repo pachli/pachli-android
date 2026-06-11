@@ -168,8 +168,8 @@ fun makeNotification(
     account: AccountEntity,
     isFirstOfBatch: Boolean,
 ): android.app.Notification {
-    val notif = mastodonNotification.rewriteToStatusTypeIfNeeded(account.accountId)
-    val mastodonNotificationId = notif.id
+    val mastodonNotification = mastodonNotification.rewriteToStatusTypeIfNeeded(account.accountId)
+    val mastodonNotificationId = mastodonNotification.id
     val accountId = account.id.toInt()
 
     // Check for an existing notification with this Mastodon Notification ID
@@ -184,16 +184,16 @@ fun makeNotification(
     // Create the Android notification -- either create a new one, or use the existing one.
     val androidNotificationBuilder = existingAndroidNotification?.let {
         NotificationCompat.Builder(context, it)
-    } ?: newAndroidNotification(context, notificationId, notif, account)
+    } ?: newAndroidNotification(context, notificationId, mastodonNotification, account)
 
     androidNotificationBuilder
-        .setContentTitle(titleForType(context, notif, account))
-        .setContentText(bodyForType(notif, context, account.alwaysOpenSpoiler))
+        .setContentTitle(titleForType(context, mastodonNotification, account))
+        .setContentText(bodyForType(mastodonNotification, context, account.alwaysOpenSpoiler))
 
-    if (notif.type === Notification.Type.MENTION || notif.type === Notification.Type.POLL) {
+    if (mastodonNotification.type === Notification.Type.MENTION || mastodonNotification.type === Notification.Type.POLL) {
         androidNotificationBuilder.setStyle(
             NotificationCompat.BigTextStyle()
-                .bigText(bodyForType(notif, context, account.alwaysOpenSpoiler)),
+                .bigText(bodyForType(mastodonNotification, context, account.alwaysOpenSpoiler)),
         )
     }
 
@@ -201,7 +201,7 @@ fun makeNotification(
     val accountAvatar = try {
         Glide.with(context)
             .asBitmap()
-            .load(notif.account.avatar)
+            .load(mastodonNotification.account.avatar)
             .transform(RoundedCorners(20))
             .submit()
             .get()
@@ -215,13 +215,13 @@ fun makeNotification(
     androidNotificationBuilder.setLargeIcon(accountAvatar)
 
     // Reply to mention action; RemoteInput is available from KitKat Watch, but buttons are available from Nougat
-    if (notif.type === Notification.Type.MENTION &&
+    if (mastodonNotification.type === Notification.Type.MENTION &&
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
     ) {
         val replyRemoteInput = RemoteInput.Builder(KEY_REPLY)
             .setLabel(context.getString(R.string.label_quick_reply))
             .build()
-        val quickReplyPendingIntent = getStatusReplyIntent(context, notif, account)
+        val quickReplyPendingIntent = getStatusReplyIntent(context, mastodonNotification, account)
         val quickReplyAction = NotificationCompat.Action.Builder(
             app.pachli.core.ui.R.drawable.ic_reply_24dp,
             context.getString(R.string.action_quick_reply),
@@ -230,7 +230,7 @@ fun makeNotification(
             .addRemoteInput(replyRemoteInput)
             .build()
         androidNotificationBuilder.addAction(quickReplyAction)
-        val composeIntent = getStatusComposeIntent(context, notif, account)
+        val composeIntent = getStatusComposeIntent(context, mastodonNotification, account)
         val composeAction = NotificationCompat.Action.Builder(
             app.pachli.core.ui.R.drawable.ic_reply_24dp,
             context.getString(R.string.action_compose_shortcut),
@@ -248,8 +248,8 @@ fun makeNotification(
 
     // Add the sending account's name, so it can be used when summarising this notification
     val extras = Bundle()
-    extras.putString(EXTRA_ACCOUNT_NAME, notif.account.name)
-    extras.putEnum(EXTRA_NOTIFICATION_TYPE, notif.type)
+    extras.putString(EXTRA_ACCOUNT_NAME, mastodonNotification.account.name)
+    extras.putEnum(EXTRA_NOTIFICATION_TYPE, mastodonNotification.type)
     androidNotificationBuilder.addExtras(extras)
 
     // Only alert for the first notification of a batch to avoid multiple alerts at once
@@ -316,12 +316,12 @@ fun updateSummaryNotifications(
 
     // Create, update, or cancel the summary notifications for each group.
     for ((channelId, members) in channelGroups) {
-        val summaryTag = "$GROUP_SUMMARY_TAG.$channelId"
+        val summaryNotificationTag = "$GROUP_SUMMARY_TAG.$channelId"
 
         // If there are 0-1 notifications in this group then the additional summary
         // notification is not needed and can be cancelled.
         if (members.size <= 1) {
-            notificationManager.cancel(summaryTag, accountId)
+            notificationManager.cancel(summaryNotificationTag, accountId)
             continue
         }
 
@@ -369,7 +369,7 @@ fun updateSummaryNotifications(
         // TODO: Use the batch notification API available in NotificationManagerCompat
         // 1.11 and up (https://developer.android.com/jetpack/androidx/releases/core#1.11.0-alpha01)
         // when it is released.
-        notificationManager.notify(summaryTag, accountId, summaryBuilder.build())
+        notificationManager.notify(summaryNotificationTag, accountId, summaryBuilder.build())
 
         // Android will rate limit / drop notifications if they're posted too
         // quickly. There is no indication to the user that this happened.
