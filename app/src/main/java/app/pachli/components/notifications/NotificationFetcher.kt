@@ -87,9 +87,7 @@ class NotificationFetcher @Inject constructor(
 
                     // Create sorted list of new notifications
                     val notifications = fetchNewNotifications(entity)
-                        // TODO: Inefficient to do the map here before the filtering.
-                        // filterNotification should be renamed to filterNetworkNotification and
-                        // explicitly work on the network notification.
+                        .asSequence()
                         .map { it.asModel(entity.accountId) }
                         .filter { filterNotification(notificationManager, entity, it) }
                         .filter {
