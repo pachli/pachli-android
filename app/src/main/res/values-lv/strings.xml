@@ -333,13 +333,13 @@
     <string name="reblog_private">Pastiprināt sākotnējai auditorijai</string>
     <string name="lock_account_label_description">Sekotājus nepieciešams pašrocīgi apstiprināt</string>
     <string name="title_reblogged_by">Pastiprināja</string>
-    <string name="title_favourites">Izlases</string>
+    <string name="title_favourites">Izlase</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; pievienoja izlasei Tavu ierakstu</string>
     <string name="action_send">PUBLICĒT</string>
     <string name="action_send_public">PUBLICĒT!</string>
-    <string name="action_open_faved_by">Rādīt izlases</string>
+    <string name="action_open_faved_by">Rādīt izlasi</string>
     <string name="pref_publishing">Publicē (sinhronizēts ar serveri)</string>
-    <string name="notification_favourite_name">Izlases</string>
+    <string name="notification_favourite_name">Izlase</string>
     <string name="report_category_spam">Mēstule</string>
     <string name="action_set_focus">Iestatīt fokālo punktu</string>
     <string name="status_created_info">%1$s izveidoja</string>
@@ -347,7 +347,7 @@
     <string name="status_edit_info">%1$s laboja</string>
     <string name="description_login">Darbojas vairumā gadījumu. Dati netiek nopludināti citām lietotnēm.</string>
     <string name="pref_title_confirm_favourites">Pirms pievienošanas izlasei rādīt apstiprināšanas dialogu</string>
-    <string name="action_view_favourites">Izlases</string>
+    <string name="action_view_favourites">Izlase</string>
     <string name="pref_title_notification_filter_favourites">Mani ieraksti tiek pievienoti izlasei</string>
     <string name="pref_title_alway_open_spoiler">Vienmēr izvērst ziņas, kas atzīmētas ar satura brīdinājumiem</string>
     <string name="notification_favourite_description">Paziņojumi par Tavu ierakstu pievienošanu izlasei</string>
@@ -730,4 +730,6 @@
     <string name="search_operator_quote_dialog_all">Ar vai bez citātiem</string>
     <string name="search_operator_quote_dialog_only">Tikai ieraksti ar citātiem</string>
     <string name="search_operator_quote_dialog_no_quotes">Tikai ieraksti bez citātiem</string>
+    <string name="ui_error_sending_post_fmt">Ierakstu nevarēja nosūtīt: %1$s</string>
+    <string name="ui_error_saving_post_fmt">Ierakstu evarēja saglabāt: %1$s</string>
 </resources>
