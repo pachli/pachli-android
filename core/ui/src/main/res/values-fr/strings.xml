@@ -124,7 +124,7 @@
     <string name="hint_search_emojis">Rechercher des emojis…</string>
     <string name="label_emoji_no_category">Sans catégorie</string>
     <string name="emoji_picker_show_detail">Voir le détail</string>
-    <string name="preview_card_byline_fediverse_account_fmt">Par &lt;b&gt;%1$s&lt;/b&gt;. Voir plus de messages</string>
+    <string name="preview_card_byline_fediverse_account_fmt">Par &amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt;. Voir plus de messages</string>
     <string name="preview_card_byline_name_only_fmt">Par &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="preview_card_timeline_link_fmt">Voir les messages de &lt;b&gt;%1$s&lt;/b&gt; à propos de ce lien</string>
     <string name="poll_show_votes">Voir les votes</string>
@@ -190,4 +190,5 @@
     <string name="duration_365_days">365 jours</string>
     <string name="action_add_to_tab">Ajouter à l\'onglet</string>
     <string name="action_add_to_tab_success">« %1$s » ajouté aux onglets</string>
+    <string name="pref_summary_none">Aucun(e)</string>
 </resources>
