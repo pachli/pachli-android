@@ -23,7 +23,7 @@
     <string name="about_account_info">\@%1$s@%2$s\nVersion : %3$s</string>
     <string name="notification_details_title">Détails</string>
     <string name="notification_details_android_notifications_enabled">Les notifications Android sont activées ?</string>
-    <string name="notification_details_notifications_enabled_help">Les notifications ne sont activées pour aucun de vos comptes. Modifiez cela dans Paramètres de compte > Notifications. En attendant, toutes les notifications sont désactivées.</string>
+    <string name="notification_details_notifications_enabled_help">Les notifications ne sont activées pour aucun de vos comptes. Modifiez cela dans Paramètres de compte &gt; Notifications. En attendant, toutes les notifications sont désactivées.</string>
     <string name="notification_details_push_notifications_with_unifiedpush">Notifications push avec UnifiedPush</string>
     <string name="notification_details_unifiedpush_available">UnifiedPush est disponible ?</string>
     <string name="notification_details_pachli_exempt_help">Pachli n\'est pas exclu des optimisations de batterie. Android risque de retarder les notifications lorsque l\'écran est éteint.</string>
@@ -82,4 +82,8 @@
     <string name="notification_details_pull_section">Récupérer les notifications avec des agents périodiques</string>
     <string name="notification_details_pachli_exempt">Pachli est exclu des optimisations de batterie ?</string>
     <string name="about_nivenly_foundation">Pachli est un projet de la &lt;a href="https://nivenly.org"&gt;Fondation Nivenly&lt;/a&gt;.</string>
+    <string name="about_workers">Processus</string>
+    <string name="workers_prune_cached_media_help">Ceci est la liste des processus qui nettoient les médias cachés. Il devrait y en avoir un, son état devrait être RUNNING ou ENQUEUED, et il devrait être programmé pour être exécuté dans moins de 12 heures.</string>
+    <string name="workers_prune_cache_help">Ceci est la liste des processus qui nettoient les informations en cache à propos des messages et des auteurices. Il devrait y en avoir un, son état devrait être RUNNING ou ENQUEUED, et il devrait être programmé pour être exécuté dans moins de 12 heures.</string>
+    <string name="workers_prune_log_entry_entity_help">Ceci est la liste des processus qui débugguent les journaux. Il devrait y en avoir un, son état devrait être RUNNING ou ENQUEUED, et il devrait être programmé pour être exécuté dans moins de 12 heures.</string>
 </resources>
