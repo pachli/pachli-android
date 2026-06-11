@@ -1,0 +1,7 @@
+Pachli 2.8.1
+
+Corrections:
+
+- Évite de planter à l'envoi d'un message alors qu'un média est téléversé 
+- Restaure les transitions vidéo sur androidx.media3 1.4.0 et 1.4.1 
+- Empêche le texte de la carte de prévisualisation de se superposer à l'image

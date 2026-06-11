@@ -1,0 +1,5 @@
+Pachli 1.2.1
+
+Nouveautés :
+
+-  Lien vers la politique de vie privée depuis "A propos"
