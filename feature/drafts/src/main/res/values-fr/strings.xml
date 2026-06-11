@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_edit">Modifier</string>
     <string name="title_drafts">Brouillons</string>
@@ -8,4 +8,8 @@
     <string name="drafts_load_quote_failed_fmt">Impossible de charger le message que vous citez : %1$s</string>
     <string name="drafts_post_failed_to_send">Échec d’envoi du message !</string>
     <string name="no_drafts">Vous n’avez aucun brouillon.</string>
+    <string name="title_delete_drafts">Supprimer les brouillons sélectionnés ?</string>
+    <string name="delete_drafts_msg">Cela supprimera définitivement les brouillons sélectionnés.</string>
+    <string name="action_delete_drafts">Supprimer les brouillons sélectionnés</string>
+    <string name="send_post_failure_message_prefix">L\'envoi a échoué : %1$s</string>
 </resources>
