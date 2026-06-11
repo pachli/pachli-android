@@ -88,7 +88,7 @@ import kotlinx.coroutines.launch
 
 data class UiState(
     /** Filtered notification types */
-    val activeFilter: Set<app.pachli.core.network.model.Notification.Type> = emptySet(),
+    val activeFilter: Set<Notification.Type> = emptySet(),
 
     /** True if the FAB should be shown while scrolling */
     val showFabWhileScrolling: Boolean = true,
@@ -130,7 +130,7 @@ sealed interface InfallibleUiAction : UiAction {
     // data may fail, but that's handled by the paging system / adapter refresh logic.
     data class ApplyFilter(
         val pachliAccountId: Long,
-        val filter: Set<app.pachli.core.network.model.Notification.Type>,
+        val filter: Set<Notification.Type>,
     ) : InfallibleUiAction
 
     /**
@@ -634,7 +634,7 @@ class NotificationsViewModel @AssistedInject constructor(
      */
     private suspend fun getNotifications(
         pachliAccount: PachliAccount,
-        excludeTypes: Set<app.pachli.core.network.model.Notification.Type>,
+        excludeTypes: Set<Notification.Type>,
     ): Flow<PagingData<NotificationViewData>> {
         return repository.notifications(pachliAccountId, account.accountId, excludeTypes)
             .map { pagingData ->

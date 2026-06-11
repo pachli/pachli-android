@@ -55,7 +55,7 @@ data class NotificationData(
                 createdAt = Date.from(notification.createdAt),
                 account = account.asModel(),
                 // TODO: This is wrong, the remoteType is not currently persisted.
-                remoteType = notification.type.toString(),
+                networkType = notification.type.toString(),
             )
 
             NotificationEntity.Type.MENTION -> Notification.Mention(

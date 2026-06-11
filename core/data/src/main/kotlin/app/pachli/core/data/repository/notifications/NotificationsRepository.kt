@@ -47,6 +47,7 @@ import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.model.asModel
+import app.pachli.core.network.model.asNetworkType
 import app.pachli.core.network.model.pronouns
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.onSuccess
@@ -106,7 +107,7 @@ class NotificationsRepository @Inject constructor(
      * @return Notifications for [pachliAccountId].
      */
     @OptIn(ExperimentalPagingApi::class)
-    suspend fun notifications(pachliAccountId: Long, accountId: String, excludeTypes: Set<app.pachli.core.network.model.Notification.Type>): Flow<PagingData<NotificationData>> {
+    suspend fun notifications(pachliAccountId: Long, accountId: String, excludeTypes: Set<Notification.Type>): Flow<PagingData<NotificationData>> {
         factory = InvalidatingPagingSourceFactory { notificationDao.getNotificationsWithQuote(pachliAccountId) }
 
         // Room is row-keyed, not item-keyed. Find the user's REFRESH key, then find the
@@ -130,7 +131,7 @@ class NotificationsRepository @Inject constructor(
                 remoteKeyDao,
                 notificationDao,
                 statusDao,
-                excludeTypes,
+                excludeTypes.asNetworkType(),
             ),
             pagingSourceFactory = factory!!,
         ).flow

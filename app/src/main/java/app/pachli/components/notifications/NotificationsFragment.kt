@@ -59,6 +59,7 @@ import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.IStatus
+import app.pachli.core.model.Notification
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.navigation.AttachmentViewData.Companion.list
@@ -720,14 +721,14 @@ class NotificationsFragment :
 }
 
 class FilterDialogFragment(
-    private val activeFilter: Set<app.pachli.core.network.model.Notification.Type>,
-    private val listener: ((filter: Set<app.pachli.core.network.model.Notification.Type>) -> Unit),
+    private val activeFilter: Set<Notification.Type>,
+    private val listener: ((filter: Set<Notification.Type>) -> Unit),
 ) : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val context = requireContext()
 
-        val items = app.pachli.core.network.model.Notification.Type.visibleTypes.map { getString(it.uiString()) }.toTypedArray()
-        val checkedItems = app.pachli.core.network.model.Notification.Type.visibleTypes.map {
+        val items = Notification.Type.visibleTypes.map { getString(it.uiString()) }.toTypedArray()
+        val checkedItems = Notification.Type.visibleTypes.map {
             !activeFilter.contains(it)
         }.toBooleanArray()
 
@@ -737,9 +738,9 @@ class FilterDialogFragment(
                 checkedItems[which] = isChecked
             }
             .setPositiveButton(android.R.string.ok) { _, _ ->
-                val excludes: MutableSet<app.pachli.core.network.model.Notification.Type> = HashSet()
-                for (i in app.pachli.core.network.model.Notification.Type.visibleTypes.indices) {
-                    if (!checkedItems[i]) excludes.add(app.pachli.core.network.model.Notification.Type.visibleTypes[i])
+                val excludes: MutableSet<Notification.Type> = HashSet()
+                for (i in Notification.Type.visibleTypes.indices) {
+                    if (!checkedItems[i]) excludes.add(Notification.Type.visibleTypes[i])
                 }
                 listener(excludes)
             }
@@ -749,20 +750,20 @@ class FilterDialogFragment(
 }
 
 @StringRes
-fun app.pachli.core.network.model.Notification.Type.uiString(): Int = when (this) {
-    app.pachli.core.network.model.Notification.Type.UNKNOWN -> R.string.notification_unknown_name
-    app.pachli.core.network.model.Notification.Type.MENTION -> R.string.notification_mention_name
-    app.pachli.core.network.model.Notification.Type.REBLOG -> R.string.notification_boost_name
-    app.pachli.core.network.model.Notification.Type.FAVOURITE -> R.string.notification_favourite_name
-    app.pachli.core.network.model.Notification.Type.FOLLOW -> R.string.notification_follow_name
-    app.pachli.core.network.model.Notification.Type.FOLLOW_REQUEST -> R.string.notification_follow_request_name
-    app.pachli.core.network.model.Notification.Type.POLL -> R.string.notification_poll_name
-    app.pachli.core.network.model.Notification.Type.STATUS -> R.string.notification_subscription_name
-    app.pachli.core.network.model.Notification.Type.SIGN_UP -> R.string.notification_sign_up_name
-    app.pachli.core.network.model.Notification.Type.UPDATE -> R.string.notification_update_name
-    app.pachli.core.network.model.Notification.Type.REPORT -> R.string.notification_report_name
-    app.pachli.core.network.model.Notification.Type.SEVERED_RELATIONSHIPS -> R.string.notification_severed_relationships_name
-    app.pachli.core.network.model.Notification.Type.MODERATION_WARNING -> R.string.notification_moderation_warnings_name
-    app.pachli.core.network.model.Notification.Type.QUOTE -> R.string.notification_quote_name
-    app.pachli.core.network.model.Notification.Type.QUOTED_UPDATE -> R.string.notification_quoted_update_name
+fun Notification.Type.uiString(): Int = when (this) {
+    Notification.Type.UNKNOWN -> R.string.notification_unknown_name
+    Notification.Type.MENTION -> R.string.notification_mention_name
+    Notification.Type.REBLOG -> R.string.notification_boost_name
+    Notification.Type.FAVOURITE -> R.string.notification_favourite_name
+    Notification.Type.FOLLOW -> R.string.notification_follow_name
+    Notification.Type.FOLLOW_REQUEST -> R.string.notification_follow_request_name
+    Notification.Type.POLL -> R.string.notification_poll_name
+    Notification.Type.STATUS -> R.string.notification_subscription_name
+    Notification.Type.SIGN_UP -> R.string.notification_sign_up_name
+    Notification.Type.UPDATE -> R.string.notification_update_name
+    Notification.Type.REPORT -> R.string.notification_report_name
+    Notification.Type.SEVERED_RELATIONSHIPS -> R.string.notification_severed_relationships_name
+    Notification.Type.MODERATION_WARNING -> R.string.notification_moderation_warnings_name
+    Notification.Type.QUOTE -> R.string.notification_quote_name
+    Notification.Type.QUOTED_UPDATE -> R.string.notification_quoted_update_name
 }

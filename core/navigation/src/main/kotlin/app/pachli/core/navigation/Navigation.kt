@@ -31,6 +31,7 @@ import app.pachli.core.model.Attachment
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.Draft
 import app.pachli.core.model.Emoji
+import app.pachli.core.model.Notification
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.TimelineActivityIntent.Companion.bookmarks
@@ -193,17 +194,17 @@ class IntentRouterActivityIntent(context: Context, pachliAccountId: Long) : Inte
                  * notification.
                  * @param notificationTag Notification's tag (Mastodon notification ID). May be null
                  * if this is from a summary notification.
-                 * @param networkType Notification's network type
+                 * @param notificationType Notification's type
                  */
                 fun fromNotification(
                     notificationId: Int,
                     notificationTag: String?,
-                    networkType: app.pachli.core.network.model.Notification.Type,
+                    notificationType: Notification.Type,
                 ) = MainActivity(
                     MainActivityIntent.Payload.Notification(
                         notificationId,
                         notificationTag,
-                        networkType,
+                        notificationType,
                     ),
                 )
             }
@@ -631,13 +632,13 @@ class MainActivityIntent(
          *
          * @property notificationId Notification's ID
          * @property notificationTag Notification's tag (Mastodon notification ID)
-         * @property networkType Notification's type
+         * @property notificationType Notification's type
          */
         @Parcelize
         data class Notification(
             val notificationId: Int,
             val notificationTag: String?,
-            val networkType: app.pachli.core.network.model.Notification.Type,
+            val notificationType: Notification.Type,
         ) : Payload
 
         /** Start as normal, no special processing. */

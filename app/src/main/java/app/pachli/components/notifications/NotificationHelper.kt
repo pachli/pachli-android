@@ -65,7 +65,6 @@ import app.pachli.core.model.RelationshipSeveranceEvent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.navigation.pendingIntentFlags
-import app.pachli.core.network.model.networkType
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.buildDescription
 import app.pachli.core.ui.calculatePercent
@@ -324,7 +323,7 @@ fun updateSummaryNotifications(
         // Create a notification that summarises the other notifications in this group
 
         // All notifications in this group have the same type, so get it from the first.
-        val notificationType = members[0].notification.extras.getEnum<app.pachli.core.network.model.Notification.Type>(EXTRA_NOTIFICATION_NETWORK_TYPE)
+        val notificationType = members[0].notification.extras.getEnum<Notification.Type>(EXTRA_NOTIFICATION_TYPE)
         val summaryResultIntent = IntentRouterActivityIntent.fromNotification(
             context,
             account.id,

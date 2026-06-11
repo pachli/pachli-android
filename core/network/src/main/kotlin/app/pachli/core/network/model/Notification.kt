@@ -145,7 +145,10 @@ data class Notification(
                 id = id,
                 createdAt = createdAt,
                 account = account.asModel(),
-                remoteType = type.presentation,
+                // Note: This collapses everything to "unknown" because the
+                // model uses the enum. Should keep this as a string here
+                // and convert to the internal model Type later.
+                networkType = type.presentation,
             )
 
             Type.MENTION -> app.pachli.core.model.Notification.Mention(
@@ -246,24 +249,23 @@ data class Notification(
     }
 }
 
-/**
- * @return The network type for this notification.
- */
-val app.pachli.core.model.Notification.networkType: Notification.Type
-    get() = when (this) {
-        is app.pachli.core.model.Notification.Unknown -> Notification.Type.UNKNOWN
-        is app.pachli.core.model.Notification.Mention -> Notification.Type.MENTION
-        is app.pachli.core.model.Notification.Reblog -> Notification.Type.REBLOG
-        is app.pachli.core.model.Notification.Favourite -> Notification.Type.FAVOURITE
-        is app.pachli.core.model.Notification.Follow -> Notification.Type.FOLLOW
-        is app.pachli.core.model.Notification.FollowRequest -> Notification.Type.FOLLOW_REQUEST
-        is app.pachli.core.model.Notification.Poll -> Notification.Type.POLL
-        is app.pachli.core.model.Notification.Status -> Notification.Type.STATUS
-        is app.pachli.core.model.Notification.SignUp -> Notification.Type.SIGN_UP
-        is app.pachli.core.model.Notification.Update -> Notification.Type.UPDATE
-        is app.pachli.core.model.Notification.Report -> Notification.Type.REPORT
-        is app.pachli.core.model.Notification.SeveredRelationships -> Notification.Type.SEVERED_RELATIONSHIPS
-        is app.pachli.core.model.Notification.ModerationWarning -> Notification.Type.MODERATION_WARNING
-        is app.pachli.core.model.Notification.Quote -> Notification.Type.QUOTE
-        is app.pachli.core.model.Notification.QuotedUpdate -> Notification.Type.QUOTED_UPDATE
-    }
+/** @return The network type for this notification. */
+fun app.pachli.core.model.Notification.Type.asNetworkType() = when (this) {
+    app.pachli.core.model.Notification.Type.UNKNOWN -> Notification.Type.UNKNOWN
+    app.pachli.core.model.Notification.Type.MENTION -> Notification.Type.MENTION
+    app.pachli.core.model.Notification.Type.REBLOG -> Notification.Type.REBLOG
+    app.pachli.core.model.Notification.Type.FAVOURITE -> Notification.Type.FAVOURITE
+    app.pachli.core.model.Notification.Type.FOLLOW -> Notification.Type.FOLLOW
+    app.pachli.core.model.Notification.Type.FOLLOW_REQUEST -> Notification.Type.FOLLOW_REQUEST
+    app.pachli.core.model.Notification.Type.POLL -> Notification.Type.POLL
+    app.pachli.core.model.Notification.Type.STATUS -> Notification.Type.STATUS
+    app.pachli.core.model.Notification.Type.SIGN_UP -> Notification.Type.SIGN_UP
+    app.pachli.core.model.Notification.Type.UPDATE -> Notification.Type.UPDATE
+    app.pachli.core.model.Notification.Type.REPORT -> Notification.Type.REPORT
+    app.pachli.core.model.Notification.Type.SEVERED_RELATIONSHIPS -> Notification.Type.SEVERED_RELATIONSHIPS
+    app.pachli.core.model.Notification.Type.MODERATION_WARNING -> Notification.Type.MODERATION_WARNING
+    app.pachli.core.model.Notification.Type.QUOTE -> Notification.Type.QUOTE
+    app.pachli.core.model.Notification.Type.QUOTED_UPDATE -> Notification.Type.QUOTED_UPDATE
+}
+
+fun Iterable<app.pachli.core.model.Notification.Type>.asNetworkType() = map { it.asNetworkType() }

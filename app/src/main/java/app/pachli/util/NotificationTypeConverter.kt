@@ -16,13 +16,14 @@
 
 package app.pachli.util
 
+import app.pachli.core.model.Notification
 import org.json.JSONArray
 
 /**
  * Serialize to string array and deserialize notifications type
  */
 
-fun serialize(data: Set<app.pachli.core.network.model.Notification.Type>?): String {
+fun serialize(data: Set<Notification.Type>?): String {
     val array = JSONArray()
     data?.forEach {
         array.put(it.presentation)
@@ -30,14 +31,14 @@ fun serialize(data: Set<app.pachli.core.network.model.Notification.Type>?): Stri
     return array.toString()
 }
 
-fun deserialize(data: String?): Set<app.pachli.core.network.model.Notification.Type> {
-    val ret = HashSet<app.pachli.core.network.model.Notification.Type>()
+fun deserialize(data: String?): Set<Notification.Type> {
+    val ret = HashSet<Notification.Type>()
     data?.let {
         val array = JSONArray(data)
         for (i in 0 until array.length()) {
             val item = array.getString(i)
-            val type = app.pachli.core.network.model.Notification.Type.byString(item)
-            if (type != app.pachli.core.network.model.Notification.Type.UNKNOWN) {
+            val type = Notification.Type.byString(item)
+            if (type != Notification.Type.UNKNOWN) {
                 ret.add(type)
             }
         }
