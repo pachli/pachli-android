@@ -130,8 +130,9 @@ data class Notification(
     }
 
     fun asModel(accountId: String): app.pachli.core.model.Notification {
-        // Pleroma uses 'Mention' type for mentions and subscribed status updates.
-        // Split out depending on whether the user is mentioned in the status.
+        // Pleroma uses 'Mention' type for both mentions and subscribed status
+        // updates. Adjust the type depending on whether the user is mentioned
+        // in the status.
 
         val type = if (type == Type.MENTION && status != null) {
             if (status.mentions.any { it.id == accountId }) this.type else Type.STATUS
