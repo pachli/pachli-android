@@ -167,8 +167,6 @@ fun makeNotification(
     account: AccountEntity,
     isFirstOfBatch: Boolean,
 ): android.app.Notification {
-//    val notif = mastodonNotification.rewriteToStatusTypeIfNeeded(account.accountId)
-    val mastodonNotification = mastodonNotification.rewriteToStatusTypeIfNeeded(account.accountId)
     val mastodonNotificationId = mastodonNotification.id
     val accountId = account.id.toInt()
 
@@ -190,7 +188,7 @@ fun makeNotification(
         .setContentTitle(titleForType(context, mastodonNotification, account))
         .setContentText(bodyForType(mastodonNotification, context, account.alwaysOpenSpoiler))
 
-    if (mastodonNotification.type === Notification.Type.MENTION || mastodonNotification.type === Notification.Type.POLL) {
+    if (mastodonNotification is Notification.Mention || mastodonNotification is Notification.Poll) {
         androidNotificationBuilder.setStyle(
             NotificationCompat.BigTextStyle()
                 .bigText(bodyForType(mastodonNotification, context, account.alwaysOpenSpoiler)),
