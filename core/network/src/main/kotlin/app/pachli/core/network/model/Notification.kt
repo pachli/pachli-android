@@ -250,7 +250,7 @@ data class Notification(
 }
 
 /** @return The network type for this notification. */
-fun app.pachli.core.model.Notification.Type.asNetworkType() = when (this) {
+fun app.pachli.core.model.Notification.Type.asNetworkModel() = when (this) {
     app.pachli.core.model.Notification.Type.UNKNOWN -> Notification.Type.UNKNOWN
     app.pachli.core.model.Notification.Type.MENTION -> Notification.Type.MENTION
     app.pachli.core.model.Notification.Type.REBLOG -> Notification.Type.REBLOG
@@ -268,4 +268,4 @@ fun app.pachli.core.model.Notification.Type.asNetworkType() = when (this) {
     app.pachli.core.model.Notification.Type.QUOTED_UPDATE -> Notification.Type.QUOTED_UPDATE
 }
 
-fun Iterable<app.pachli.core.model.Notification.Type>.asNetworkType() = map { it.asNetworkType() }
+fun Iterable<app.pachli.core.model.Notification.Type>.asNetworkModel() = map { it.asNetworkModel() }

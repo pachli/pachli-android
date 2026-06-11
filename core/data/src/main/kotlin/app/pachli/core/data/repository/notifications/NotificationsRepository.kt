@@ -47,7 +47,7 @@ import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.model.asModel
-import app.pachli.core.network.model.asNetworkType
+import app.pachli.core.network.model.asNetworkModel
 import app.pachli.core.network.model.pronouns
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.onSuccess
@@ -131,7 +131,7 @@ class NotificationsRepository @Inject constructor(
                 remoteKeyDao,
                 notificationDao,
                 statusDao,
-                excludeTypes.asNetworkType(),
+                excludeTypes.asNetworkModel(),
             ),
             pagingSourceFactory = factory!!,
         ).flow
