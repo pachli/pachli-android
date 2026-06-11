@@ -232,7 +232,7 @@ sealed interface Notification {
      * The notification's [Type].
      *
      * Use sparingly, and prefer instance (`is`) checks against the notification's
-     * type. This should only be used when the notification's type has to sent
+     * type. This should only be used when the notification's type has to be sent
      * somewhere that doesn't support the [Notification] class (e.g., serialise
      * to the database, or in an intent).
      */
