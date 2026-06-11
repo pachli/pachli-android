@@ -291,21 +291,21 @@ class IntentRouterActivityIntent(context: Context, pachliAccountId: Long) : Inte
          * notification.
          * @param notificationTag Notification's tag (Mastodon notification ID). May be null
          * if this is from a summary notification.
-         * @param type
+         * @param notificationType
          */
         fun fromNotification(
             context: Context,
             pachliAccountId: Long,
             notificationId: Int,
             notificationTag: String?,
-            type: Notification.Type,
+            notificationType: Notification.Type,
         ) = IntentRouterActivityIntent(context, pachliAccountId).apply {
             putExtra(
                 EXTRA_PAYLOAD,
                 Payload.MainActivity.fromNotification(
                     notificationId,
                     notificationTag,
-                    type,
+                    notificationType,
                 ),
             )
         }

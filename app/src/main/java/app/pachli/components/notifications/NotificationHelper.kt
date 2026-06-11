@@ -144,12 +144,10 @@ private const val NOTIFICATION_PULL_TAG = "pullNotifications"
 private const val GROUP_SUMMARY_TAG = BuildConfig.APPLICATION_ID + ".notification.group_summary"
 
 /** The name of the account that caused the notification, for use in a summary  */
-private const val EXTRA_ACCOUNT_NAME =
-    BuildConfig.APPLICATION_ID + ".notification.extra.account_name"
+private const val EXTRA_ACCOUNT_NAME = BuildConfig.APPLICATION_ID + ".notification.extra.account_name"
 
-/** The notification's type (string representation of a Notification.Type)  */
-private const val EXTRA_NOTIFICATION_TYPE =
-    BuildConfig.APPLICATION_ID + ".notification.extra.notification_type"
+/** The notification's type. */
+private const val EXTRA_NOTIFICATION_TYPE = BuildConfig.APPLICATION_ID + ".notification.extra.notification_type"
 
 /**
  * Takes a given Mastodon notification and creates a new Android notification or updates the
@@ -159,7 +157,7 @@ private const val EXTRA_NOTIFICATION_TYPE =
  * is the ID of the account that received the notification.
  *
  * @param context to access application preferences and services
- * @param mastodonNotification    a new Mastodon notification
+ * @param mastodonNotification Mastodon [Notification]
  * @param account the account for which the notification should be shown
  * @return the new notification
  */
@@ -183,17 +181,17 @@ fun makeNotification(
     // =========================
     notificationId++
 
-    // Create the notification -- either create a new one, or use the existing one.
-    val builder = existingAndroidNotification?.let {
+    // Create the Android notification -- either create a new one, or use the existing one.
+    val androidNotificationBuilder = existingAndroidNotification?.let {
         NotificationCompat.Builder(context, it)
     } ?: newAndroidNotification(context, notificationId, notif, account)
 
-    builder
+    androidNotificationBuilder
         .setContentTitle(titleForType(context, notif, account))
         .setContentText(bodyForType(notif, context, account.alwaysOpenSpoiler))
 
     if (notif.type === Notification.Type.MENTION || notif.type === Notification.Type.POLL) {
-        builder.setStyle(
+        androidNotificationBuilder.setStyle(
             NotificationCompat.BigTextStyle()
                 .bigText(bodyForType(notif, context, account.alwaysOpenSpoiler)),
         )
@@ -201,12 +199,12 @@ fun makeNotification(
 
     // Load the avatar synchronously
     val accountAvatar = try {
-        val target = Glide.with(context)
+        Glide.with(context)
             .asBitmap()
             .load(notif.account.avatar)
             .transform(RoundedCorners(20))
             .submit()
-        target.get()
+            .get()
     } catch (e: ExecutionException) {
         Timber.w(e, "error loading account avatar")
         BitmapFactory.decodeResource(context.resources, DR.drawable.avatar_default)
@@ -214,7 +212,7 @@ fun makeNotification(
         Timber.w(e, "error loading account avatar")
         BitmapFactory.decodeResource(context.resources, DR.drawable.avatar_default)
     }
-    builder.setLargeIcon(accountAvatar)
+    androidNotificationBuilder.setLargeIcon(accountAvatar)
 
     // Reply to mention action; RemoteInput is available from KitKat Watch, but buttons are available from Nougat
     if (notif.type === Notification.Type.MENTION &&
@@ -231,7 +229,7 @@ fun makeNotification(
         )
             .addRemoteInput(replyRemoteInput)
             .build()
-        builder.addAction(quickReplyAction)
+        androidNotificationBuilder.addAction(quickReplyAction)
         val composeIntent = getStatusComposeIntent(context, notif, account)
         val composeAction = NotificationCompat.Action.Builder(
             app.pachli.core.ui.R.drawable.ic_reply_24dp,
@@ -240,28 +238,31 @@ fun makeNotification(
         )
             .setShowsUserInterface(true)
             .build()
-        builder.addAction(composeAction)
+        androidNotificationBuilder.addAction(composeAction)
     }
-    builder.setSubText(account.fullName)
-    builder.setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
-    builder.setCategory(NotificationCompat.CATEGORY_SOCIAL)
-    builder.setOnlyAlertOnce(true)
+
+    androidNotificationBuilder.setSubText(account.fullName)
+    androidNotificationBuilder.setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
+    androidNotificationBuilder.setCategory(NotificationCompat.CATEGORY_SOCIAL)
+    androidNotificationBuilder.setOnlyAlertOnce(true)
 
     // Add the sending account's name, so it can be used when summarising this notification
     val extras = Bundle()
     extras.putString(EXTRA_ACCOUNT_NAME, notif.account.name)
     extras.putEnum(EXTRA_NOTIFICATION_TYPE, notif.type)
-    builder.addExtras(extras)
+    androidNotificationBuilder.addExtras(extras)
 
     // Only alert for the first notification of a batch to avoid multiple alerts at once
     if (!isFirstOfBatch) {
-        builder.setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY)
+        androidNotificationBuilder.setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY)
     }
-    return builder.build()
+    return androidNotificationBuilder.build()
 }
 
 /**
- * Updates the summary notifications for each notification group.
+ * Regnerates the summary notifications for all active Pachli notifications for `account`.
+ * This may delete the summary notification if there are no active notifications for that
+ * account in a group.
  *
  * Notifications are sent to channels. Within each channel they may be grouped, and the group
  * may have a summary.
@@ -271,10 +272,6 @@ fun makeNotification(
  * 0 or 1 summary notifications along with its regular notifications.
  *
  * The group key is the same as the channel ID.
- *
- * Regnerates the summary notifications for all active Pachli notifications for `account`.
- * This may delete the summary notification if there are no active notifications for that
- * account in a group.
  *
  * @see [Create a
  * notification group](https://developer.android.com/develop/ui/views/notifications/group)
@@ -290,13 +287,13 @@ fun updateSummaryNotifications(
 ) {
     // Map from the channel ID to a list of notifications in that channel. Those are the
     // notifications that will be summarised.
-    val channelGroups: MutableMap<String?, MutableList<StatusBarNotification>> = HashMap()
-    val accountId = account.id.toInt()
-
-    // Initialise the map with all channel IDs.
-    Notification.Type.entries.forEach {
-        channelGroups[getChannelId(account, it)] = ArrayList()
+    val channelGroups = buildMap {
+        PachliNotificationChannels.entries.forEach {
+            put(it.channelId(account.identifier), ArrayList<StatusBarNotification>())
+        }
     }
+
+    val accountId = account.id.toInt()
 
     // Fetch all existing notifications. Add them to the map, ignoring notifications that:
     // - belong to a different account
@@ -304,8 +301,8 @@ fun updateSummaryNotifications(
     for (sn in notificationManager.activeNotifications) {
         if (sn.id != accountId) continue
         val channelId = sn.notification.group
-        val summaryTag = "$GROUP_SUMMARY_TAG.$channelId"
-        if (summaryTag == sn.tag) continue
+        val summaryNotificationTag = "$GROUP_SUMMARY_TAG.$channelId"
+        if (summaryNotificationTag == sn.tag) continue
 
         // TODO: API 26 supports getting the channel ID directly (sn.getNotification().getChannelId()).
         // This works here because the channelId and the groupKey are the same.
@@ -337,7 +334,7 @@ fun updateSummaryNotifications(
             account.id,
             -1,
             null,
-            type = notificationType,
+            notificationType = notificationType,
         )
         val summaryStackBuilder = TaskStackBuilder.create(context)
         summaryStackBuilder.addParentStack(MainActivity::class.java)
@@ -387,15 +384,15 @@ fun updateSummaryNotifications(
 private fun newAndroidNotification(
     context: Context,
     notificationId: Int,
-    body: Notification,
+    notification: Notification,
     account: AccountEntity,
 ): NotificationCompat.Builder {
     val eventResultIntent = IntentRouterActivityIntent.fromNotification(
         context,
         account.id,
         notificationId,
-        body.id,
-        body.type,
+        notification.id,
+        notification.type,
     )
     val eventStackBuilder = TaskStackBuilder.create(context)
     eventStackBuilder.addParentStack(MainActivity::class.java)
@@ -404,7 +401,7 @@ private fun newAndroidNotification(
         account.id.toInt(),
         pendingIntentFlags(false),
     )
-    val channelId = getChannelId(account, body)!!
+    val channelId = getChannelId(account, notification)!!
     val builder = NotificationCompat.Builder(context, channelId)
         .setSmallIcon(app.pachli.core.common.R.drawable.ic_notify)
         .setContentIntent(eventResultPendingIntent)
@@ -608,6 +605,8 @@ fun filterNotificationByAccount(accountWithFilters: PachliAccount, notificationD
         NotificationEntity.Type.STATUS -> return AccountFilterDecision.None
         // Admin signup notifications should not be filtered.
         NotificationEntity.Type.SIGN_UP -> return AccountFilterDecision.None
+        // TODO: Quote notifications should probably not be filtered
+        // here either.
         else -> {
             /* fall through */
         }

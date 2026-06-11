@@ -72,22 +72,6 @@ class NotificationsRemoteMediator(
 ) : RemoteMediator<Int, NotificationData>() {
     private val remoteKeyTimelineId = Timeline.Notifications.remoteKeyTimelineId
 
-    /**
-     * Set of notification types that **must** have a non-null status. Some servers
-     * break this contract, and notifications from those servers must be filtered
-     * out.
-     *
-     * See https://github.com/tuskyapp/Tusky/issues/2252.
-     */
-    private val notificationTypesWithStatus = setOf(
-        Notification.Type.FAVOURITE,
-        Notification.Type.REBLOG,
-        Notification.Type.STATUS,
-        Notification.Type.MENTION,
-        Notification.Type.POLL,
-        Notification.Type.UPDATE,
-    )
-
     override suspend fun load(loadType: LoadType, state: PagingState<Int, NotificationData>): MediatorResult {
         return transactionProvider {
             val response = when (loadType) {
