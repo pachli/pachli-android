@@ -23,7 +23,7 @@ import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.domain.notifications.DisablePushNotificationsForAccountUseCase
 import app.pachli.core.domain.notifications.NotificationConfig
-import app.pachli.core.network.model.Notification
+import app.pachli.core.model.Notification
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess

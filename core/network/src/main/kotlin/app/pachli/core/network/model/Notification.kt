@@ -104,14 +104,6 @@ data class Notification(
         QUOTED_UPDATE("quoted_update"),
         ;
 
-        companion object {
-            /** Notification types for UI display (omits UNKNOWN) */
-            val visibleTypes = Type.entries.filter { it != UNKNOWN }
-
-            @JvmStatic
-            fun byString(s: String) = entries.firstOrNull { s == it.presentation } ?: UNKNOWN
-        }
-
         override fun toString(): String {
             return presentation
         }
@@ -129,11 +121,14 @@ data class Notification(
         return notification?.id == this.id
     }
 
+    /**
+     * @param accountId Server ID of the account notifications are being
+     * fetched for.
+     */
     fun asModel(accountId: String): app.pachli.core.model.Notification {
         // Pleroma uses 'Mention' type for both mentions and subscribed status
         // updates. Adjust the type depending on whether the user is mentioned
         // in the status.
-
         val type = if (type == Type.MENTION && status != null) {
             if (status.mentions.any { it.id == accountId }) this.type else Type.STATUS
         } else {

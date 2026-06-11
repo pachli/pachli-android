@@ -103,6 +103,9 @@ class NotificationsRepository @Inject constructor(
     )
 
     /**
+     * @param pachliAccountId
+     * @param accountId Server ID of the account identified by [pachliAccountId],
+     * needed by [Notification.asModel][app.pachli.core.network.model.Notification.asModel].
      * @param excludeTypes Types to filter from the results.
      * @return Notifications for [pachliAccountId].
      */
@@ -237,8 +240,6 @@ fun Notification.Type.asEntity() = when (this) {
     Notification.Type.FAVOURITE -> NotificationEntity.Type.FAVOURITE
     Notification.Type.FOLLOW -> NotificationEntity.Type.FOLLOW
     Notification.Type.FOLLOW_REQUEST -> NotificationEntity.Type.FOLLOW_REQUEST
-    Notification.Type.QUOTE -> NotificationEntity.Type.QUOTE
-    Notification.Type.QUOTED_UPDATE -> NotificationEntity.Type.QUOTED_UPDATE
     Notification.Type.POLL -> NotificationEntity.Type.POLL
     Notification.Type.STATUS -> NotificationEntity.Type.STATUS
     Notification.Type.SIGN_UP -> NotificationEntity.Type.SIGN_UP
@@ -246,6 +247,8 @@ fun Notification.Type.asEntity() = when (this) {
     Notification.Type.REPORT -> NotificationEntity.Type.REPORT
     Notification.Type.SEVERED_RELATIONSHIPS -> NotificationEntity.Type.SEVERED_RELATIONSHIPS
     Notification.Type.MODERATION_WARNING -> NotificationEntity.Type.MODERATION_WARNING
+    Notification.Type.QUOTE -> NotificationEntity.Type.QUOTE
+    Notification.Type.QUOTED_UPDATE -> NotificationEntity.Type.QUOTED_UPDATE
 }
 
 /**

@@ -636,7 +636,7 @@ class NotificationsViewModel @AssistedInject constructor(
         pachliAccount: PachliAccount,
         excludeTypes: Set<Notification.Type>,
     ): Flow<PagingData<NotificationViewData>> {
-        return repository.notifications(pachliAccountId, account.accountId, excludeTypes)
+        return repository.notifications(pachliAccountId, pachliAccount.entity.accountId, excludeTypes)
             .map { pagingData ->
                 pagingData
                     .map { notification ->

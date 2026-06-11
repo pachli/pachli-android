@@ -29,6 +29,7 @@ sealed interface Notification {
     val createdAt: Instant
     val account: TimelineAccount
 
+    /** Notification that references a [Status]. */
     sealed interface WithStatus : Notification {
         val status: app.pachli.core.model.Status
     }
@@ -44,6 +45,7 @@ sealed interface Notification {
         val networkType: String,
     ) : Notification
 
+    /** [account] posted [status] mentioning the user. */
     data class Mention(
         override val id: String,
         override val createdAt: Instant,
@@ -51,6 +53,7 @@ sealed interface Notification {
         override val status: app.pachli.core.model.Status,
     ) : Notification, WithStatus
 
+    /** [account] boosted the user's [status]. */
     data class Reblog(
         override val id: String,
         override val createdAt: Instant,
@@ -58,6 +61,7 @@ sealed interface Notification {
         override val status: app.pachli.core.model.Status,
     ) : Notification, WithStatus
 
+    /** [account] favourited the user's [status]. */
     data class Favourite(
         override val id: String,
         override val createdAt: Instant,
@@ -65,18 +69,21 @@ sealed interface Notification {
         override val status: app.pachli.core.model.Status,
     ) : Notification, WithStatus
 
+    /** [account] followed the user. */
     data class Follow(
         override val id: String,
         override val createdAt: Instant,
         override val account: TimelineAccount,
     ) : Notification
 
+    /** [account] requested to follow the user. */
     data class FollowRequest(
         override val id: String,
         override val createdAt: Instant,
         override val account: TimelineAccount,
     ) : Notification
 
+    /** [account] quoted the user in [status]. */
     data class Quote(
         override val id: String,
         override val createdAt: Instant,
@@ -84,6 +91,7 @@ sealed interface Notification {
         override val status: app.pachli.core.model.Status,
     ) : Notification, WithStatus
 
+    /** [account] updated their quote of the user in [status]. */
     data class QuotedUpdate(
         override val id: String,
         override val createdAt: Instant,
@@ -91,6 +99,7 @@ sealed interface Notification {
         override val status: app.pachli.core.model.Status,
     ) : Notification, WithStatus
 
+    /** The poll the user voted on or created in [status] has ended. */
     data class Poll(
         override val id: String,
         override val createdAt: Instant,
@@ -98,6 +107,7 @@ sealed interface Notification {
         override val status: app.pachli.core.model.Status,
     ) : Notification, WithStatus
 
+    /** [account] posted [status], the user has notifications enabled for [account]. */
     data class Status(
         override val id: String,
         override val createdAt: Instant,
@@ -105,12 +115,14 @@ sealed interface Notification {
         override val status: app.pachli.core.model.Status,
     ) : Notification, WithStatus
 
+    /** [account] signed up to the server. */
     data class SignUp(
         override val id: String,
         override val createdAt: Instant,
         override val account: TimelineAccount,
     ) : Notification
 
+    /** The user boosted [status], which has been modified. */
     data class Update(
         override val id: String,
         override val createdAt: Instant,
@@ -118,6 +130,7 @@ sealed interface Notification {
         override val status: app.pachli.core.model.Status,
     ) : Notification, WithStatus
 
+    /** A new [report] has been filed. */
     data class Report(
         override val id: String,
         override val createdAt: Instant,
@@ -125,6 +138,10 @@ sealed interface Notification {
         val report: app.pachli.core.model.Report,
     ) : Notification
 
+    /**
+     * Follow relationships have been severed because of a moderation
+     * or block event.
+     */
     data class SeveredRelationships(
         override val id: String,
         override val createdAt: Instant,
@@ -132,6 +149,7 @@ sealed interface Notification {
         val relationshipSeveranceEvent: RelationshipSeveranceEvent,
     ) : Notification
 
+    /** Moderator took action against your account / sent an [accountWarning]. */
     data class ModerationWarning(
         override val id: String,
         override val createdAt: Instant,
@@ -210,6 +228,14 @@ sealed interface Notification {
         }
     }
 
+    /**
+     * The notification's [Type].
+     *
+     * Use sparingly, and prefer instance (`is`) checks against the notification's
+     * type. This should only be used when the notification's type has to sent
+     * somewhere that doesn't support the [Notification] class (e.g., serialise
+     * to the database, or in an intent).
+     */
     val type: Type
         get() = when (this) {
             is Favourite -> Type.FAVOURITE
