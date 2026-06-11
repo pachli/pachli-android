@@ -17,16 +17,16 @@
 
 package app.pachli.core.model
 
-import java.util.Date
+import java.time.Instant
 
 /**
  * @property id The server ID of the notification.
- * @property createdAt The date the notification was created.
+ * @property createdAt The Instant the notification was created.
  * @property account
  */
 sealed interface Notification {
     val id: String
-    val createdAt: Date
+    val createdAt: Instant
     val account: TimelineAccount
 
     sealed interface WithStatus : Notification {
@@ -39,102 +39,102 @@ sealed interface Notification {
      */
     data class Unknown(
         override val id: String,
-        override val createdAt: Date,
+        override val createdAt: Instant,
         override val account: TimelineAccount,
         val networkType: String,
     ) : Notification
 
     data class Mention(
         override val id: String,
-        override val createdAt: Date,
+        override val createdAt: Instant,
         override val account: TimelineAccount,
         override val status: app.pachli.core.model.Status,
     ) : Notification, WithStatus
 
     data class Reblog(
         override val id: String,
-        override val createdAt: Date,
+        override val createdAt: Instant,
         override val account: TimelineAccount,
         override val status: app.pachli.core.model.Status,
     ) : Notification, WithStatus
 
     data class Favourite(
         override val id: String,
-        override val createdAt: Date,
+        override val createdAt: Instant,
         override val account: TimelineAccount,
         override val status: app.pachli.core.model.Status,
     ) : Notification, WithStatus
 
     data class Follow(
         override val id: String,
-        override val createdAt: Date,
+        override val createdAt: Instant,
         override val account: TimelineAccount,
     ) : Notification
 
     data class FollowRequest(
         override val id: String,
-        override val createdAt: Date,
+        override val createdAt: Instant,
         override val account: TimelineAccount,
     ) : Notification
 
     data class Quote(
         override val id: String,
-        override val createdAt: Date,
+        override val createdAt: Instant,
         override val account: TimelineAccount,
         override val status: app.pachli.core.model.Status,
     ) : Notification, WithStatus
 
     data class QuotedUpdate(
         override val id: String,
-        override val createdAt: Date,
+        override val createdAt: Instant,
         override val account: TimelineAccount,
         override val status: app.pachli.core.model.Status,
     ) : Notification, WithStatus
 
     data class Poll(
         override val id: String,
-        override val createdAt: Date,
+        override val createdAt: Instant,
         override val account: TimelineAccount,
         override val status: app.pachli.core.model.Status,
     ) : Notification, WithStatus
 
     data class Status(
         override val id: String,
-        override val createdAt: Date,
+        override val createdAt: Instant,
         override val account: TimelineAccount,
         override val status: app.pachli.core.model.Status,
     ) : Notification, WithStatus
 
     data class SignUp(
         override val id: String,
-        override val createdAt: Date,
+        override val createdAt: Instant,
         override val account: TimelineAccount,
     ) : Notification
 
     data class Update(
         override val id: String,
-        override val createdAt: Date,
+        override val createdAt: Instant,
         override val account: TimelineAccount,
         override val status: app.pachli.core.model.Status,
     ) : Notification, WithStatus
 
     data class Report(
         override val id: String,
-        override val createdAt: Date,
+        override val createdAt: Instant,
         override val account: TimelineAccount,
         val report: app.pachli.core.model.Report,
     ) : Notification
 
     data class SeveredRelationships(
         override val id: String,
-        override val createdAt: Date,
+        override val createdAt: Instant,
         override val account: TimelineAccount,
         val relationshipSeveranceEvent: RelationshipSeveranceEvent,
     ) : Notification
 
     data class ModerationWarning(
         override val id: String,
-        override val createdAt: Date,
+        override val createdAt: Instant,
         override val account: TimelineAccount,
         val accountWarning: AccountWarning,
     ) : Notification

@@ -143,7 +143,7 @@ data class Notification(
         return when (type) {
             Type.UNKNOWN -> app.pachli.core.model.Notification.Unknown(
                 id = id,
-                createdAt = createdAt,
+                createdAt = createdAt.toInstant(),
                 account = account.asModel(),
                 // Note: This collapses everything to "unknown" because the
                 // model uses the enum. Should keep this as a string here
@@ -153,95 +153,95 @@ data class Notification(
 
             Type.MENTION -> app.pachli.core.model.Notification.Mention(
                 id = id,
-                createdAt = createdAt,
+                createdAt = createdAt.toInstant(),
                 account = account.asModel(),
                 status = status!!.asModel(),
             )
 
             Type.REBLOG -> app.pachli.core.model.Notification.Reblog(
                 id = id,
-                createdAt = createdAt,
+                createdAt = createdAt.toInstant(),
                 account = account.asModel(),
                 status = status!!.asModel(),
             )
 
             Type.FAVOURITE -> app.pachli.core.model.Notification.Favourite(
                 id = id,
-                createdAt = createdAt,
+                createdAt = createdAt.toInstant(),
                 account = account.asModel(),
                 status = status!!.asModel(),
             )
 
             Type.FOLLOW -> app.pachli.core.model.Notification.Follow(
                 id = id,
-                createdAt = createdAt,
+                createdAt = createdAt.toInstant(),
                 account = account.asModel(),
             )
 
             Type.FOLLOW_REQUEST -> app.pachli.core.model.Notification.FollowRequest(
                 id = id,
-                createdAt = createdAt,
+                createdAt = createdAt.toInstant(),
                 account = account.asModel(),
             )
 
             Type.POLL -> app.pachli.core.model.Notification.Poll(
                 id = id,
-                createdAt = createdAt,
+                createdAt = createdAt.toInstant(),
                 account = account.asModel(),
                 status = status!!.asModel(),
             )
 
             Type.STATUS -> app.pachli.core.model.Notification.Status(
                 id = id,
-                createdAt = createdAt,
+                createdAt = createdAt.toInstant(),
                 account = account.asModel(),
                 status = status!!.asModel(),
             )
 
             Type.SIGN_UP -> app.pachli.core.model.Notification.SignUp(
                 id = id,
-                createdAt = createdAt,
+                createdAt = createdAt.toInstant(),
                 account = account.asModel(),
             )
 
             Type.UPDATE -> app.pachli.core.model.Notification.Update(
                 id = id,
-                createdAt = createdAt,
+                createdAt = createdAt.toInstant(),
                 account = account.asModel(),
                 status = status!!.asModel(),
             )
 
             Type.REPORT -> app.pachli.core.model.Notification.Report(
                 id = id,
-                createdAt = createdAt,
+                createdAt = createdAt.toInstant(),
                 account = account.asModel(),
                 report = report!!.asModel(),
             )
 
             Type.SEVERED_RELATIONSHIPS -> app.pachli.core.model.Notification.SeveredRelationships(
                 id = id,
-                createdAt = createdAt,
+                createdAt = createdAt.toInstant(),
                 account = account.asModel(),
                 relationshipSeveranceEvent = relationshipSeveranceEvent!!.asModel(),
             )
 
             Type.MODERATION_WARNING -> app.pachli.core.model.Notification.ModerationWarning(
                 id = id,
-                createdAt = createdAt,
+                createdAt = createdAt.toInstant(),
                 account = account.asModel(),
                 accountWarning = accountWarning!!.asModel(),
             )
 
             Type.QUOTE -> app.pachli.core.model.Notification.Quote(
                 id = id,
-                createdAt = createdAt,
+                createdAt = createdAt.toInstant(),
                 account = account.asModel(),
                 status = status!!.asModel(),
             )
 
             Type.QUOTED_UPDATE -> app.pachli.core.model.Notification.QuotedUpdate(
                 id = id,
-                createdAt = createdAt,
+                createdAt = createdAt.toInstant(),
                 account = account.asModel(),
                 status = status!!.asModel(),
             )

@@ -628,7 +628,7 @@ fun filterNotificationByAccount(accountWithFilters: PachliAccount, notificationD
         // Check the age of the account relative to the notification.
         accountToTest.createdAt?.let { createdAt ->
             if (accountWithFilters.entity.notificationAccountFilterYounger30d != FilterAction.NONE) {
-                if (Duration.between(createdAt, notification.createdAt.toInstant()) < Duration.ofDays(30)) {
+                if (Duration.between(createdAt, notification.createdAt) < Duration.ofDays(30)) {
                     add(
                         AccountFilterDecision.make(
                             accountWithFilters.entity.notificationAccountFilterYounger30d,
