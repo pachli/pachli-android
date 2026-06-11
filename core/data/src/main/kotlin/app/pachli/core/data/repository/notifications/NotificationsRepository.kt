@@ -217,18 +217,6 @@ class NotificationsRepository @Inject constructor(
     }
 }
 
-// /**
-// * @return A [NotificationEntity] from a network [Notification] for [pachliAccountId].
-// */
-// fun app.pachli.core.network.model.Notification.asEntity(pachliAccountId: Long) = NotificationEntity(
-//    pachliAccountId = pachliAccountId,
-//    serverId = id,
-//    type = type.asModel().asEntity(),
-//    createdAt = createdAt.toInstant(),
-//    accountServerId = account.id,
-//    statusServerId = status?.id,
-// )
-
 /**
  * @return A [NotificationEntity] from a model [Notification] for [pachliAccountId]
  */

@@ -53,8 +53,6 @@ import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.createDraftReply
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.AccountIdentifier
-import app.pachli.core.database.model.NotificationData
-import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.model.AccountFilterDecision
@@ -679,26 +677,6 @@ private fun getChannelId(account: AccountEntity, notification: Notification): St
         is Notification.Unknown -> null
     }
 }
-
-// private fun getChannelId(account: AccountEntity, type: Notification.Type): String? {
-//    return when (type) {
-//        Notification.Type.MENTION -> CHANNEL_MENTION + account.identifier
-//        Notification.Type.STATUS -> CHANNEL_SUBSCRIPTIONS + account.identifier
-//        Notification.Type.FOLLOW -> CHANNEL_FOLLOW + account.identifier
-//        Notification.Type.FOLLOW_REQUEST -> CHANNEL_FOLLOW_REQUEST + account.identifier
-//        Notification.Type.REBLOG -> CHANNEL_BOOST + account.identifier
-//        Notification.Type.FAVOURITE -> CHANNEL_FAVOURITE + account.identifier
-//        Notification.Type.POLL -> CHANNEL_POLL + account.identifier
-//        Notification.Type.SIGN_UP -> CHANNEL_SIGN_UP + account.identifier
-//        Notification.Type.UPDATE -> CHANNEL_UPDATES + account.identifier
-//        Notification.Type.REPORT -> CHANNEL_REPORT + account.identifier
-//        Notification.Type.SEVERED_RELATIONSHIPS -> CHANNEL_SEVERED_RELATIONSHIPS + account.identifier
-//        Notification.Type.MODERATION_WARNING -> CHANNEL_MODERATION_WARNINGS + account.identifier
-//        Notification.Type.QUOTE -> CHANNEL_QUOTE + account.identifier
-//        Notification.Type.QUOTED_UPDATE -> CHANNEL_QUOTED_UPDATE + account.identifier
-//        Notification.Type.UNKNOWN -> null
-//    }
-// }
 
 private fun setSoundVibrationLight(
     account: AccountEntity,
