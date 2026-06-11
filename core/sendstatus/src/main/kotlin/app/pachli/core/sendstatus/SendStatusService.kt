@@ -429,6 +429,8 @@ internal class SendStatusService : Service() {
     companion object {
         private const val KEY_STATUS = "status"
         private const val KEY_CANCEL = "cancel_id"
+
+        // TODO: Also used in SendStatusBroadcastReceiver.showQuickReplyErrorNotification
         private const val CHANNEL_ID = "send_toots"
 
         private val MAX_RETRY_INTERVAL = TimeUnit.MINUTES.toMillis(1)

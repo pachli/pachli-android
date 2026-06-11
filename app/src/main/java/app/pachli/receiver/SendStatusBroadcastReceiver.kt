@@ -25,19 +25,21 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.RemoteInput
+import androidx.core.content.IntentCompat
 import app.pachli.R
-import app.pachli.components.notifications.CHANNEL_MENTION
 import app.pachli.components.notifications.KEY_DRAFT
 import app.pachli.components.notifications.KEY_REPLY
 import app.pachli.components.notifications.KEY_SENDER_ACCOUNT_FULL_NAME
 import app.pachli.components.notifications.KEY_SENDER_ACCOUNT_ID
 import app.pachli.components.notifications.KEY_SENDER_ACCOUNT_IDENTIFIER
 import app.pachli.components.notifications.KEY_SERVER_NOTOFICATION_ID
+import app.pachli.components.notifications.PachliNotificationChannels
 import app.pachli.components.notifications.REPLY_ACTION
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.common.string.randomAlphanumericString
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.DraftsRepository
+import app.pachli.core.database.model.AccountIdentifier
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Draft
 import app.pachli.core.sendstatus.SendStatusUseCase
@@ -70,13 +72,19 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
 
         val serverNotificationId = intent.getStringExtra(KEY_SERVER_NOTOFICATION_ID)
         val senderId = intent.getLongExtra(KEY_SENDER_ACCOUNT_ID, -1)
-        val senderIdentifier = intent.getStringExtra(KEY_SENDER_ACCOUNT_IDENTIFIER)
+        val senderIdentifier = IntentCompat.getParcelableExtra(intent, KEY_SENDER_ACCOUNT_IDENTIFIER, AccountIdentifier::class.java)
         val senderFullName = intent.getStringExtra(KEY_SENDER_ACCOUNT_FULL_NAME)
         val draft = intent.getParcelableExtra<Draft>(KEY_DRAFT)
 
         val account = accountManager.getAccountById(senderId)
 
         val notificationManager = NotificationManagerCompat.from(context)
+
+        if (senderIdentifier == null) {
+            Timber.w("KEY_SENDER_ACCOUNT_IDENTIFIER value was null")
+            showQuickReplyErrorNotification(senderId, context, senderIdentifier, senderFullName, notificationManager, serverNotificationId)
+            return
+        }
 
         if (account == null) {
             Timber.w("Account \"$senderId\" not found in database. Aborting quick reply!")
@@ -115,7 +123,7 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
 
             // Can't cancel the QuickReply notification, replace it with one that
             // auto-cancels.
-            val notification = NotificationCompat.Builder(context, CHANNEL_MENTION + senderIdentifier)
+            val notification = NotificationCompat.Builder(context, PachliNotificationChannels.MENTION.channelId(senderIdentifier))
                 .setSmallIcon(app.pachli.core.common.R.drawable.ic_notify)
                 .setColor(context.getColor(DR.color.notification_color))
                 .setGroup(senderFullName)
@@ -135,7 +143,7 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
     private fun showQuickReplyErrorNotification(
         senderId: Long,
         context: Context,
-        senderIdentifier: String?,
+        senderIdentifier: AccountIdentifier?,
         senderFullName: String?,
         notificationManager: NotificationManagerCompat,
         serverNotificationId: String?,
@@ -144,7 +152,15 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
             return
         }
 
-        val notification = NotificationCompat.Builder(context, CHANNEL_MENTION + senderIdentifier)
+        val channelId = if (senderIdentifier == null) {
+            // Need a channel ID that's not tied to a particular account. This is
+            // SendStatusService.CHANNEL_ID
+            "send_toots"
+        } else {
+            PachliNotificationChannels.MENTION.channelId(senderIdentifier)
+        }
+
+        val notification = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(app.pachli.core.common.R.drawable.ic_notify)
             .setColor(context.getColor(DR.color.notification_color))
             .setGroup(senderFullName)

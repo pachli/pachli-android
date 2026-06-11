@@ -78,7 +78,7 @@ class LogoutUseCase @Inject constructor(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationManager =
                 context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.deleteNotificationChannelGroup(account.identifier)
+            notificationManager.deleteNotificationChannelGroup(account.identifier.value)
         }
     }
 }
