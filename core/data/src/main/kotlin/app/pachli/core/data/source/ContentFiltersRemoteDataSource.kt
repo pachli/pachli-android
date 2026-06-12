@@ -17,7 +17,6 @@
 
 package app.pachli.core.data.source
 
-import app.pachli.core.data.model.Server
 import app.pachli.core.data.repository.ContentFilterEdit
 import app.pachli.core.data.repository.ContentFilters
 import app.pachli.core.data.repository.ContentFiltersError
@@ -31,6 +30,7 @@ import app.pachli.core.data.repository.canFilterV2
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.NewContentFilter
+import app.pachli.core.model.Server
 import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.asModel

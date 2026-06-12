@@ -17,7 +17,6 @@
 
 package app.pachli.core.data.repository
 
-import app.pachli.core.data.model.Server
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.database.model.asModel
@@ -25,6 +24,7 @@ import app.pachli.core.model.Announcement
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.Hashtag
 import app.pachli.core.model.MastodonList
+import app.pachli.core.model.Server
 import app.pachli.core.model.ServerKind
 import io.github.z4kn4fein.semver.Version
 
