@@ -21,9 +21,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.TypeConverters
-import app.pachli.core.data.model.Server
-import app.pachli.core.data.model.ServerCapabilities
 import app.pachli.core.database.Converters
+import app.pachli.core.model.Server
+import app.pachli.core.model.ServerCapabilities
 import app.pachli.core.model.ServerKind
 import app.pachli.core.model.ServerLimits
 import io.github.z4kn4fein.semver.Version

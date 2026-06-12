@@ -18,7 +18,6 @@
 package app.pachli.core.data.repository
 
 import app.pachli.core.common.di.ApplicationScope
-import app.pachli.core.data.model.Server
 import app.pachli.core.data.repository.ContentFiltersError.ServerDoesNotFilter
 import app.pachli.core.data.source.ContentFiltersLocalDataSource
 import app.pachli.core.data.source.ContentFiltersRemoteDataSource
@@ -30,6 +29,7 @@ import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
 import app.pachli.core.model.FilterKeyword
 import app.pachli.core.model.NewContentFilter
+import app.pachli.core.model.Server
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
 import app.pachli.core.network.retrofit.apiresult.ApiResponse

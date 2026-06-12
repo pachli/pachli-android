@@ -21,7 +21,6 @@ import androidx.annotation.StringRes
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.R
-import app.pachli.core.data.model.Server
 import app.pachli.core.data.repository.ServerRepository.ServerError.GetInstanceInfoV1
 import app.pachli.core.data.repository.ServerRepository.ServerError.GetNodeInfo
 import app.pachli.core.data.repository.ServerRepository.ServerError.GetWellKnownNodeInfo
@@ -30,6 +29,7 @@ import app.pachli.core.data.repository.ServerRepository.ServerError.ValidateNode
 import app.pachli.core.database.dao.ServerDao
 import app.pachli.core.model.InstanceInfo
 import app.pachli.core.model.NodeInfo
+import app.pachli.core.model.Server
 import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi

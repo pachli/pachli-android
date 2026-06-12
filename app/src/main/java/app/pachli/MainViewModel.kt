@@ -19,10 +19,10 @@ package app.pachli
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.pachli.core.data.model.Server
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.DraftsRepository
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.model.Server
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Timeline
 import app.pachli.core.preferences.MainNavigationPosition

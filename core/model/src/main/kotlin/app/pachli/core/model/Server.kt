@@ -15,16 +15,12 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.core.data.model
+package app.pachli.core.model
 
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.VisibleForTesting.Companion.PRIVATE
 import app.pachli.core.common.PachliError
-import app.pachli.core.data.model.Server.Error.UnparseableVersion
-import app.pachli.core.model.InstanceInfo
-import app.pachli.core.model.NodeInfo
-import app.pachli.core.model.R
-import app.pachli.core.model.ServerKind
+import app.pachli.core.model.Server.Error.UnparseableVersion
 import app.pachli.core.model.ServerKind.AKKOMA
 import app.pachli.core.model.ServerKind.FEDIBIRD
 import app.pachli.core.model.ServerKind.FIREFISH
@@ -38,8 +34,6 @@ import app.pachli.core.model.ServerKind.PIXELFED
 import app.pachli.core.model.ServerKind.PLEROMA
 import app.pachli.core.model.ServerKind.SHARKEY
 import app.pachli.core.model.ServerKind.UNKNOWN
-import app.pachli.core.model.ServerLimits
-import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_ACCOUNT_QUOTE_POLICY
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_ACTION_BLUR
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
@@ -64,7 +58,6 @@ import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_QUOTE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_SCHEDULED
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_TIMELINES_LINK
-import app.pachli.core.model.asServerLimits
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.andThen
