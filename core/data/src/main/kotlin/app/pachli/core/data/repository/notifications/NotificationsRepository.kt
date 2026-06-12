@@ -23,7 +23,6 @@ import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.filter
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusRepository
@@ -57,7 +56,6 @@ import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -80,27 +78,6 @@ class NotificationsRepository @Inject constructor(
     private var factory: InvalidatingPagingSourceFactory<Int, NotificationData>? = null
 
     private val remoteKeyTimelineId = Timeline.Notifications.remoteKeyTimelineId
-
-    /**
-     * Set of notification types that **must** have a non-null status. Some servers
-     * break this contract, and notifications from those servers must be filtered
-     * out.
-     *
-     * See https://github.com/tuskyapp/Tusky/issues/2252.
-     */
-    // TODO: This is better handled with Notification.Invalid type that records
-    // a message explaining why the notification is invalid and is returned by
-    // asModel(). This is not the same as the .Unknown type.
-    private val notificationTypesWithStatus = setOf(
-        NotificationEntity.Type.FAVOURITE,
-        NotificationEntity.Type.REBLOG,
-        NotificationEntity.Type.STATUS,
-        NotificationEntity.Type.MENTION,
-        NotificationEntity.Type.POLL,
-        NotificationEntity.Type.UPDATE,
-        NotificationEntity.Type.QUOTE,
-        NotificationEntity.Type.QUOTED_UPDATE,
-    )
 
     /**
      * @param pachliAccountId
@@ -138,12 +115,6 @@ class NotificationsRepository @Inject constructor(
             ),
             pagingSourceFactory = factory!!,
         ).flow
-            .map { pagingData ->
-                // Filter out notifications that should have a non-null status but don't.
-                pagingData.filter { notificationData ->
-                    !notificationTypesWithStatus.contains(notificationData.notification.type) || notificationData.status != null
-                }
-            }
     }
 
     fun invalidate() = factory?.invalidate()
@@ -232,6 +203,8 @@ fun Notification.asEntity(pachliAccountId: Long) = NotificationEntity(
     accountServerId = account.id,
     statusServerId = (this as? Notification.WithStatus)?.status?.statusId,
 )
+
+fun Iterable<Notification>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }
 
 fun Notification.Type.asEntity() = when (this) {
     Notification.Type.UNKNOWN -> NotificationEntity.Type.UNKNOWN

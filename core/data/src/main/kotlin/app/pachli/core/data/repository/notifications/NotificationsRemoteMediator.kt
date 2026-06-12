@@ -42,6 +42,7 @@ import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.RelationshipSeveranceEvent
 import app.pachli.core.network.model.Report
+import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiResponse
 import app.pachli.core.network.retrofit.apiresult.ApiResult
@@ -269,9 +270,7 @@ class NotificationsRemoteMediator(
         notificationDao.upsertReports(reports)
         notificationDao.upsertEvents(severanceEvents)
         notificationDao.upsertAccountWarnings(accountWarnings)
-        notificationDao.upsertNotifications(
-            notifications.map { it.asModel(accountId).asEntity(pachliAccountId) },
-        )
+        notificationDao.upsertNotifications(notifications.asModel(accountId).asEntity(pachliAccountId))
     }
 }
 
