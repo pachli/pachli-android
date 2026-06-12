@@ -194,17 +194,17 @@ class IntentRouterActivityIntent(context: Context, pachliAccountId: Long) : Inte
                  * notification.
                  * @param notificationTag Notification's tag (Mastodon notification ID). May be null
                  * if this is from a summary notification.
-                 * @param type
+                 * @param notificationType Notification's type
                  */
                 fun fromNotification(
                     notificationId: Int,
                     notificationTag: String?,
-                    type: Notification.Type,
+                    notificationType: Notification.Type,
                 ) = MainActivity(
                     MainActivityIntent.Payload.Notification(
                         notificationId,
                         notificationTag,
-                        type,
+                        notificationType,
                     ),
                 )
             }
@@ -638,7 +638,7 @@ class MainActivityIntent(
         data class Notification(
             val notificationId: Int,
             val notificationTag: String?,
-            val notificationType: app.pachli.core.model.Notification.Type,
+            val notificationType: Notification.Type,
         ) : Payload
 
         /** Start as normal, no special processing. */

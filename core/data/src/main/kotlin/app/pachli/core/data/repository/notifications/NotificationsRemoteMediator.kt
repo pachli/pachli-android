@@ -26,7 +26,6 @@ import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
-import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.NotificationAccountWarningEntity
 import app.pachli.core.database.model.NotificationData
@@ -34,7 +33,6 @@ import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEnti
 import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
-import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
@@ -44,6 +42,7 @@ import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.RelationshipSeveranceEvent
 import app.pachli.core.network.model.Report
+import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiResponse
 import app.pachli.core.network.retrofit.apiresult.ApiResult
@@ -56,12 +55,23 @@ import kotlinx.coroutines.coroutineScope
 import okhttp3.Headers
 
 /**
+ * @property context
+ * @property pachliAccountId
+ * @property accountId Server ID of the account identified by [pachliAccountId],
+ * needed by [Notification.asModel].
+ * @property mastodonApi
+ * @property transactionProvider
+ * @property timelineDao
+ * @property remoteKeyDao
+ * @property notificationDao
+ * @property statusDao
  * @property excludeTypes 0 or more [Notification.Type] that should not be fetched.
  */
 @OptIn(ExperimentalPagingApi::class)
 class NotificationsRemoteMediator(
     private val context: Context,
     private val pachliAccountId: Long,
+    private val accountId: String,
     private val mastodonApi: MastodonApi,
     private val transactionProvider: TransactionProvider,
     private val timelineDao: TimelineDao,
@@ -260,37 +270,9 @@ class NotificationsRemoteMediator(
         notificationDao.upsertReports(reports)
         notificationDao.upsertEvents(severanceEvents)
         notificationDao.upsertAccountWarnings(accountWarnings)
-        notificationDao.upsertNotifications(
-            notifications.map { it.asEntity(pachliAccountId) },
-        )
+        notificationDao.upsertNotifications(notifications.asModel(accountId).asEntity(pachliAccountId))
     }
 }
-
-/**
- * @return A [NotificationData] from a network [Notification] for [pachliAccountId].
- */
-fun NotificationData.Companion.from(pachliAccountId: Long, notification: Notification) = NotificationData(
-    notification = notification.asEntity(pachliAccountId),
-    account = notification.account.asEntity(pachliAccountId),
-    status = notification.status?.let { status ->
-        TimelineStatusWithQuote(
-            timelineStatus = TimelineStatusWithAccount(
-                status = status.asEntity(pachliAccountId),
-                account = status.account.asEntity(pachliAccountId),
-            ),
-            quotedStatus = (status.actionableStatus.quote?.asModel() as? Status.Quote.FullQuote)?.let {
-                TimelineStatusWithAccount(
-                    status = it.status.asEntity(pachliAccountId),
-                    account = it.status.account.asEntity(pachliAccountId),
-                )
-            },
-        )
-    },
-    viewData = null,
-    report = notification.report?.asEntity(pachliAccountId, notification.id),
-    relationshipSeveranceEvent = notification.relationshipSeveranceEvent?.asEntity(pachliAccountId, notification.id),
-    accountWarning = notification.accountWarning?.asEntity(pachliAccountId, notification.id),
-)
 
 /**
  * @return A [NotificationReportEntity] from a network [Notification] for [pachliAccountId].

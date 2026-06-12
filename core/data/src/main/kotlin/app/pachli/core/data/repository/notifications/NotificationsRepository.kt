@@ -23,7 +23,6 @@ import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.filter
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusRepository
@@ -57,7 +56,6 @@ import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -82,29 +80,14 @@ class NotificationsRepository @Inject constructor(
     private val remoteKeyTimelineId = Timeline.Notifications.remoteKeyTimelineId
 
     /**
-     * Set of notification types that **must** have a non-null status. Some servers
-     * break this contract, and notifications from those servers must be filtered
-     * out.
-     *
-     * See https://github.com/tuskyapp/Tusky/issues/2252.
-     */
-    private val notificationTypesWithStatus = setOf(
-        NotificationEntity.Type.FAVOURITE,
-        NotificationEntity.Type.REBLOG,
-        NotificationEntity.Type.STATUS,
-        NotificationEntity.Type.MENTION,
-        NotificationEntity.Type.POLL,
-        NotificationEntity.Type.UPDATE,
-        NotificationEntity.Type.QUOTE,
-        NotificationEntity.Type.QUOTED_UPDATE,
-    )
-
-    /**
+     * @param pachliAccountId
+     * @param accountId Server ID of the account identified by [pachliAccountId],
+     * needed by [Notification.asModel][app.pachli.core.network.model.Notification.asModel].
      * @param excludeTypes Types to filter from the results.
      * @return Notifications for [pachliAccountId].
      */
     @OptIn(ExperimentalPagingApi::class)
-    suspend fun notifications(pachliAccountId: Long, excludeTypes: Set<Notification.Type>): Flow<PagingData<NotificationData>> {
+    suspend fun notifications(pachliAccountId: Long, accountId: String, excludeTypes: Set<Notification.Type>): Flow<PagingData<NotificationData>> {
         factory = InvalidatingPagingSourceFactory { notificationDao.getNotificationsWithQuote(pachliAccountId) }
 
         // Room is row-keyed, not item-keyed. Find the user's REFRESH key, then find the
@@ -121,6 +104,7 @@ class NotificationsRepository @Inject constructor(
             remoteMediator = NotificationsRemoteMediator(
                 context,
                 pachliAccountId,
+                accountId,
                 mastodonApi,
                 transactionProvider,
                 timelineDao,
@@ -131,12 +115,6 @@ class NotificationsRepository @Inject constructor(
             ),
             pagingSourceFactory = factory!!,
         ).flow
-            .map { pagingData ->
-                // Filter out notifications that should have a non-null status but don't.
-                pagingData.filter { notificationData ->
-                    !notificationTypesWithStatus.contains(notificationData.notification.type) || notificationData.status != null
-                }
-            }
     }
 
     fun invalidate() = factory?.invalidate()
@@ -215,16 +193,18 @@ class NotificationsRepository @Inject constructor(
 }
 
 /**
- * @return A [NotificationEntity] from a network [Notification] for [pachliAccountId].
+ * @return A [NotificationEntity] from a model [Notification] for [pachliAccountId]
  */
-fun app.pachli.core.network.model.Notification.asEntity(pachliAccountId: Long) = NotificationEntity(
+fun Notification.asEntity(pachliAccountId: Long) = NotificationEntity(
     pachliAccountId = pachliAccountId,
     serverId = id,
-    type = type.asModel().asEntity(),
-    createdAt = createdAt.toInstant(),
+    type = type.asEntity(),
+    createdAt = createdAt,
     accountServerId = account.id,
-    statusServerId = status?.id,
+    statusServerId = (this as? Notification.WithStatus)?.status?.statusId,
 )
+
+fun Iterable<Notification>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }
 
 fun Notification.Type.asEntity() = when (this) {
     Notification.Type.UNKNOWN -> NotificationEntity.Type.UNKNOWN

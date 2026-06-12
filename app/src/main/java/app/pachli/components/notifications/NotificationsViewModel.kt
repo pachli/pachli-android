@@ -636,7 +636,7 @@ class NotificationsViewModel @AssistedInject constructor(
         pachliAccount: PachliAccount,
         excludeTypes: Set<Notification.Type>,
     ): Flow<PagingData<NotificationViewData>> {
-        return repository.notifications(pachliAccountId, excludeTypes)
+        return repository.notifications(pachliAccountId, pachliAccount.entity.accountId, excludeTypes)
             .map { pagingData ->
                 pagingData
                     .map { notification ->
@@ -648,7 +648,7 @@ class NotificationsViewModel @AssistedInject constructor(
                         val isAboutSelf = notification.account.serverId == pachliAccount.entity.accountId
                         val accountFilterDecision =
                             notification.viewData?.accountFilterDecision
-                                ?: filterNotificationByAccount(pachliAccount, notification)
+                                ?: filterNotificationByAccount(pachliAccount, notification.asModel())
 
                         NotificationViewData.make(
                             pachliAccount,

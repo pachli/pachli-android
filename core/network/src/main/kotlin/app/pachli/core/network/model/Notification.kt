@@ -104,31 +104,8 @@ data class Notification(
         QUOTED_UPDATE("quoted_update"),
         ;
 
-        companion object {
-            /** Notification types for UI display (omits UNKNOWN) */
-            val visibleTypes = Type.entries.filter { it != UNKNOWN }
-        }
-
         override fun toString(): String {
             return presentation
-        }
-
-        fun asModel(): app.pachli.core.model.Notification.Type = when (this) {
-            UNKNOWN -> app.pachli.core.model.Notification.Type.UNKNOWN
-            MENTION -> app.pachli.core.model.Notification.Type.MENTION
-            REBLOG -> app.pachli.core.model.Notification.Type.REBLOG
-            FAVOURITE -> app.pachli.core.model.Notification.Type.FAVOURITE
-            FOLLOW -> app.pachli.core.model.Notification.Type.FOLLOW
-            FOLLOW_REQUEST -> app.pachli.core.model.Notification.Type.FOLLOW_REQUEST
-            POLL -> app.pachli.core.model.Notification.Type.POLL
-            STATUS -> app.pachli.core.model.Notification.Type.STATUS
-            SIGN_UP -> app.pachli.core.model.Notification.Type.SIGN_UP
-            UPDATE -> app.pachli.core.model.Notification.Type.UPDATE
-            REPORT -> app.pachli.core.model.Notification.Type.REPORT
-            SEVERED_RELATIONSHIPS -> app.pachli.core.model.Notification.Type.SEVERED_RELATIONSHIPS
-            MODERATION_WARNING -> app.pachli.core.model.Notification.Type.MODERATION_WARNING
-            QUOTE -> app.pachli.core.model.Notification.Type.QUOTE
-            QUOTED_UPDATE -> app.pachli.core.model.Notification.Type.QUOTED_UPDATE
         }
     }
 
@@ -144,17 +121,162 @@ data class Notification(
         return notification?.id == this.id
     }
 
-    fun asModel() = app.pachli.core.model.Notification(
-        type = type.asModel(),
-        id = id,
-        createdAt = createdAt,
-        account = account.asModel(),
-        status = status?.asModel(),
-        report = report?.asModel(),
-        relationshipSeveranceEvent = relationshipSeveranceEvent?.asModel(),
-    )
+    /**
+     * Fallibly convert a [network Notification][Notification] to a
+     * [Notification][app.pachli.core.model.Notification].
+     *
+     * Fails and returns null if the notification could not be converted.
+     * This happens if the network notification is missing mandatory
+     * information, for example a Favourite notification without an
+     * associated [status][app.pachli.core.model.Notification.Favourite.status].
+     *
+     * See https://github.com/tuskyapp/Tusky/issues/2252.
+     *
+     * @param accountId Server ID of the account notifications are being
+     * fetched for.
+     */
+    fun asModel(accountId: String): app.pachli.core.model.Notification? {
+        // Pleroma uses 'Mention' type for both mentions and subscribed status
+        // updates. Adjust the type depending on whether the user is mentioned
+        // in the status.
+        val type = if (type == Type.MENTION && status != null) {
+            if (status.mentions.any { it.id == accountId }) this.type else Type.STATUS
+        } else {
+            this.type
+        }
+
+        return when (type) {
+            Type.UNKNOWN -> app.pachli.core.model.Notification.Unknown(
+                id = id,
+                createdAt = createdAt.toInstant(),
+                account = account.asModel(),
+                // Note: This collapses everything to "unknown" because the
+                // model uses the enum. Should keep this as a string here
+                // and convert to the internal model Type later.
+                networkType = type.presentation,
+            )
+
+            Type.MENTION -> status?.let {
+                app.pachli.core.model.Notification.Mention(
+                    id = id,
+                    createdAt = createdAt.toInstant(),
+                    account = account.asModel(),
+                    status = status.asModel(),
+                )
+            }
+
+            Type.REBLOG -> status?.let {
+                app.pachli.core.model.Notification.Reblog(
+                    id = id,
+                    createdAt = createdAt.toInstant(),
+                    account = account.asModel(),
+                    status = status.asModel(),
+                )
+            }
+
+            Type.FAVOURITE -> status?.let {
+                app.pachli.core.model.Notification.Favourite(
+                    id = id,
+                    createdAt = createdAt.toInstant(),
+                    account = account.asModel(),
+                    status = status.asModel(),
+                )
+            }
+
+            Type.FOLLOW -> app.pachli.core.model.Notification.Follow(
+                id = id,
+                createdAt = createdAt.toInstant(),
+                account = account.asModel(),
+            )
+
+            Type.FOLLOW_REQUEST -> app.pachli.core.model.Notification.FollowRequest(
+                id = id,
+                createdAt = createdAt.toInstant(),
+                account = account.asModel(),
+            )
+
+            Type.POLL -> status?.let {
+                app.pachli.core.model.Notification.Poll(
+                    id = id,
+                    createdAt = createdAt.toInstant(),
+                    account = account.asModel(),
+                    status = status.asModel(),
+                )
+            }
+
+            Type.STATUS -> status?.let {
+                app.pachli.core.model.Notification.Status(
+                    id = id,
+                    createdAt = createdAt.toInstant(),
+                    account = account.asModel(),
+                    status = status.asModel(),
+                )
+            }
+
+            Type.SIGN_UP -> app.pachli.core.model.Notification.SignUp(
+                id = id,
+                createdAt = createdAt.toInstant(),
+                account = account.asModel(),
+            )
+
+            Type.UPDATE -> status?.let {
+                app.pachli.core.model.Notification.Update(
+                    id = id,
+                    createdAt = createdAt.toInstant(),
+                    account = account.asModel(),
+                    status = status.asModel(),
+                )
+            }
+
+            Type.REPORT -> report?.let {
+                app.pachli.core.model.Notification.Report(
+                    id = id,
+                    createdAt = createdAt.toInstant(),
+                    account = account.asModel(),
+                    report = report.asModel(),
+                )
+            }
+
+            Type.SEVERED_RELATIONSHIPS -> relationshipSeveranceEvent?.let {
+                app.pachli.core.model.Notification.SeveredRelationships(
+                    id = id,
+                    createdAt = createdAt.toInstant(),
+                    account = account.asModel(),
+                    relationshipSeveranceEvent = relationshipSeveranceEvent.asModel(),
+                )
+            }
+
+            Type.MODERATION_WARNING -> accountWarning?.let {
+                app.pachli.core.model.Notification.ModerationWarning(
+                    id = id,
+                    createdAt = createdAt.toInstant(),
+                    account = account.asModel(),
+                    accountWarning = accountWarning.asModel(),
+                )
+            }
+
+            Type.QUOTE -> status?.let {
+                app.pachli.core.model.Notification.Quote(
+                    id = id,
+                    createdAt = createdAt.toInstant(),
+                    account = account.asModel(),
+                    status = status.asModel(),
+                )
+            }
+
+            Type.QUOTED_UPDATE -> status?.let {
+                app.pachli.core.model.Notification.QuotedUpdate(
+                    id = id,
+                    createdAt = createdAt.toInstant(),
+                    account = account.asModel(),
+                    status = status.asModel(),
+                )
+            }
+        }
+    }
 }
 
+/** @return The network type for this notification. */
 fun app.pachli.core.model.Notification.Type.asNetworkModel() = when (this) {
     app.pachli.core.model.Notification.Type.UNKNOWN -> Notification.Type.UNKNOWN
     app.pachli.core.model.Notification.Type.MENTION -> Notification.Type.MENTION
@@ -172,5 +294,13 @@ fun app.pachli.core.model.Notification.Type.asNetworkModel() = when (this) {
     app.pachli.core.model.Notification.Type.QUOTE -> Notification.Type.QUOTE
     app.pachli.core.model.Notification.Type.QUOTED_UPDATE -> Notification.Type.QUOTED_UPDATE
 }
+
+/**
+ * Converts [this] to [model Notification][app.pachli.core.model.Notification]s,
+ * discarding any failed conversions (so may produce an emtpy list).
+ *
+ * @param accountId See [Notification.asModel].
+ */
+fun Iterable<Notification>.asModel(accountId: String) = mapNotNull { it.asModel(accountId) }
 
 fun Iterable<app.pachli.core.model.Notification.Type>.asNetworkModel() = map { it.asNetworkModel() }
