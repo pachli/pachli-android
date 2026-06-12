@@ -163,7 +163,7 @@ sealed interface Notification {
      * Notifications have a "type". Ordinarily this is the type of the class,
      * used in `is` checks, etc.
      *
-     * However, sometimes it needs to passed through Android intents or
+     * However, sometimes it needs to be passed through Android intents or
      * persisted as a tag (e.g., for filtering).
      *
      * Order of the enums determines the order in the "Filter notifications"
