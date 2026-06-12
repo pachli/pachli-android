@@ -55,7 +55,7 @@
     <string name="action_reset_schedule">Atiestatīt</string>
     <string name="download_image">Lejupielādē %1$s</string>
     <string name="confirmation_reported">Nosūtīts!</string>
-    <string name="action_copy_link">Nokopēt saiti</string>
+    <string name="action_copy_link">Ievietot saiti starpliktuvē</string>
     <string name="confirmation_unblocked">Lietotāja liegšana atcelta</string>
     <string name="hint_note">Biogrāfija</string>
     <string name="hint_content_warning">Satura brīdinājums</string>
@@ -275,7 +275,7 @@
     <string name="action_share_account_username">Kopīgot konta lietotājvārdu</string>
     <string name="send_account_link_to">Kopīgot konta URL…</string>
     <string name="send_account_username_to">Kopīgot konta lietotājvārdu…</string>
-    <string name="account_username_copied">Lietotājvārds nokopēts</string>
+    <string name="account_username_copied">Lietotājvārds ievietots starpliktuvē</string>
     <string name="pref_title_notification_alert_sound">Paziņot ar skaņu</string>
     <string name="label_header">Galvene</string>
     <string name="pref_title_bot_overlay">Rādīt botu rādītājus</string>
