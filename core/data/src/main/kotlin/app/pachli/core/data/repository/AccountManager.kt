@@ -188,7 +188,7 @@ class AccountManager @Inject constructor(
 
     /** All logged in PachliAccounts. */
     val pachliAccountsFlow = accountDao.loadAllPachliAccountFlow()
-        .map { it.map { PachliAccount.make(it) } }
+        .map { it.map { it.asModel() } }
         .shareIn(externalScope, SharingStarted.Eagerly, replay = 1)
 
     val accounts: List<PachliAccountEntity>
@@ -203,7 +203,7 @@ class AccountManager @Inject constructor(
     @Deprecated("Caller should use getPachliAccountFlow with a specific account ID")
     val activePachliAccountFlow = accountDao.getActivePachliAccountFlow()
         .filterNotNull()
-        .map { PachliAccount.make(it) }
+        .map { it.asModel() }
 
     init {
         // Ensure InstanceSwitchAuthInterceptor is initially set with the credentials of
@@ -243,7 +243,7 @@ class AccountManager @Inject constructor(
             accountDao.getPachliAccountFlow(pachliAccountId)
         }
 
-        return accountFlow.map { it?.let { PachliAccount.make(it) } }
+        return accountFlow.map { it?.asModel() }
     }
 
     /**
