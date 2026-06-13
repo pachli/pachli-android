@@ -78,7 +78,8 @@ jobs:
         api-level: [ 31 ]
         target: [ default ]
     name: Full CI
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
+    needs: [ "check-assignee", "ktlint", "tools", "custom-lint", "screenshots" ]
 
     steps:
       - name: Checkout
