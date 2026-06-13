@@ -152,7 +152,8 @@ jobs:
       matrix:
         color: [ "orange", "blue" ]
         store: [ "Fdroid", "Github", "Google" ]
-        type: [ "Release" ]
+        # Emulator tests only run in Debug builds
+        type: [ "Debug" ]
         api-level: [ 31 ]
         target: [ default ]
     name: Android Emulator Tests
