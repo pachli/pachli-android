@@ -70,9 +70,9 @@ jobs:
       security-events: write
     strategy:
       matrix:
-        color: ["orange"]
+        color: [ "Orange", "Blue" ]
         store: [ "Fdroid", "Github", "Google" ]
-        type: [ "Debug" ]
+        type: [ "Release" ]
         api-level: [ 31 ]
         target: [ default ]
     name: Full CI
@@ -86,8 +86,7 @@ jobs:
         with:
           gradle-cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
-      # Run lint for the app module. This is configured to also lint the
-      # dependent modules and produce a single report.
+      # Lint, test, build everything
       - name: Lint, test, build ${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
         id: runbuild
         run: |
