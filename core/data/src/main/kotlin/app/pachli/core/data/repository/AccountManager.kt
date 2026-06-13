@@ -27,10 +27,10 @@ import app.pachli.core.database.dao.AnnouncementsDao
 import app.pachli.core.database.dao.FollowingAccountDao
 import app.pachli.core.database.dao.ServerDao
 import app.pachli.core.database.di.TransactionProvider
-import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.AnnouncementEntity
 import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.FollowingAccountEntity
+import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.Account
 import app.pachli.core.model.AccountSource
@@ -96,7 +96,7 @@ sealed interface SetActiveAccountError : PachliError {
      * @property wantedAccount The account entity that could not be made active.
      */
     data class Api(
-        val wantedAccount: AccountEntity,
+        val wantedAccount: PachliAccountEntity,
         val apiError: ApiError,
     ) : SetActiveAccountError, PachliError by apiError
 
@@ -107,7 +107,7 @@ sealed interface SetActiveAccountError : PachliError {
      * (if known)
      */
     data class Dao(
-        val wantedAccount: AccountEntity?,
+        val wantedAccount: PachliAccountEntity?,
         val sqlException: SQLiteException,
     ) : SetActiveAccountError {
         override val resourceId = R.string.account_manager_error_dao
@@ -122,7 +122,7 @@ sealed interface SetActiveAccountError : PachliError {
      * @property throwable Throwable that caused the error
      */
     data class Unexpected(
-        val wantedAccount: AccountEntity,
+        val wantedAccount: PachliAccountEntity,
         val throwable: Throwable,
     ) : SetActiveAccountError {
         override val resourceId = R.string.account_manager_error_unexpected
@@ -132,9 +132,9 @@ sealed interface SetActiveAccountError : PachliError {
 }
 
 sealed interface RefreshAccountError : PachliError {
-    val wantedAccount: AccountEntity
+    val wantedAccount: PachliAccountEntity
 
-    data class General(override val wantedAccount: AccountEntity, override val cause: PachliError) : RefreshAccountError {
+    data class General(override val wantedAccount: PachliAccountEntity, override val cause: PachliError) : RefreshAccountError {
         override val resourceId = app.pachli.core.network.R.string.error_generic_fmt
         override val formatArgs: Array<String>? = null
     }
@@ -172,7 +172,7 @@ class AccountManager @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
     @Deprecated("Caller should use getPachliAccountFlow with a specific account ID")
-    val activeAccountFlow: StateFlow<Loadable<AccountEntity?>> =
+    val activeAccountFlow: StateFlow<Loadable<PachliAccountEntity?>> =
         accountDao.getActiveAccountFlow()
             .distinctUntilChanged()
             .map { Loadable.Loaded(it) }
@@ -180,7 +180,7 @@ class AccountManager @Inject constructor(
 
     /** The active account, or null if there is no active account. */
     @Deprecated("Caller should use getPachliAccountFlow with a specific account ID")
-    val activeAccount: AccountEntity?
+    val activeAccount: PachliAccountEntity?
         get() = activeAccountFlow.value.getOrNull()
 
     /** All logged in accounts. */
@@ -191,13 +191,13 @@ class AccountManager @Inject constructor(
         .map { it.map { PachliAccount.make(it) } }
         .shareIn(externalScope, SharingStarted.Eagerly, replay = 1)
 
-    val accounts: List<AccountEntity>
+    val accounts: List<PachliAccountEntity>
         get() = accountsFlow.value
 
     val accountsOrderedByActiveFlow = accountDao.getAccountsOrderedByActive()
         .shareIn(externalScope, SharingStarted.Eagerly, replay = 1)
 
-    val accountsOrderedByActive: List<AccountEntity>
+    val accountsOrderedByActive: List<PachliAccountEntity>
         get() = accountsOrderedByActiveFlow.replayCache.first()
 
     @Deprecated("Caller should use getPachliAccountFlow with a specific account ID")
@@ -253,7 +253,7 @@ class AccountManager @Inject constructor(
      */
     // TODO: Should be `suspend`, accessed through a ViewModel, but not all the
     // calling code has been converted yet.
-    fun getAccountById(accountId: Long): AccountEntity? {
+    fun getAccountById(accountId: Long): PachliAccountEntity? {
         return accounts.find { (id) ->
             id == accountId
         }
@@ -294,7 +294,7 @@ class AccountManager @Inject constructor(
                 clientId = clientId,
                 clientSecret = clientSecret,
                 oauthScopes = oauthScopes,
-            ) ?: AccountEntity(
+            ) ?: PachliAccountEntity(
                 id = 0L,
                 domain = domain.lowercase(Locale.ROOT),
                 accessToken = accessToken,
@@ -316,7 +316,7 @@ class AccountManager @Inject constructor(
         setPushNotificationData(accountId, "", "", "", "", "")
     }
 
-    suspend fun deleteAccount(account: AccountEntity) = accountDao.delete(account)
+    suspend fun deleteAccount(account: PachliAccountEntity) = accountDao.delete(account)
 
     /**
      * Changes the active account.
@@ -326,12 +326,12 @@ class AccountManager @Inject constructor(
      * @param accountId the database id of the new active account
      * @return The account entity for the new active account, or an error.
      */
-    suspend fun setActiveAccount(accountId: Long): Result<AccountEntity, SetActiveAccountError> {
+    suspend fun setActiveAccount(accountId: Long): Result<PachliAccountEntity, SetActiveAccountError> {
         /** Wrapper to pass an API error out of the transaction. */
         data class ApiErrorException(val apiError: ApiError) : Exception()
 
         /** Account we're trying to switch to. */
-        var accountEntity: AccountEntity? = null
+        var pachliAccountEntity: PachliAccountEntity? = null
 
         return try {
             transactionProvider {
@@ -350,7 +350,7 @@ class AccountManager @Inject constructor(
                     return@transactionProvider Err(SetActiveAccountError.AccountDoesNotExist(accountId))
                 }
 
-                accountEntity = newActiveAccount
+                pachliAccountEntity = newActiveAccount
 
                 // Fetch data from the API, updating the account as necessary.
                 // If this fails an exception is thrown to cancel the transaction.
@@ -396,12 +396,12 @@ class AccountManager @Inject constructor(
                 return@transactionProvider Ok(finalAccount)
             }
         } catch (e: ApiErrorException) {
-            Err(SetActiveAccountError.Api(accountEntity!!, e.apiError))
+            Err(SetActiveAccountError.Api(pachliAccountEntity!!, e.apiError))
         } catch (e: SQLiteException) {
-            Err(SetActiveAccountError.Dao(accountEntity, e))
+            Err(SetActiveAccountError.Dao(pachliAccountEntity, e))
         } catch (e: Throwable) {
             currentCoroutineContext().ensureActive()
-            Err(SetActiveAccountError.Unexpected(accountEntity!!, e))
+            Err(SetActiveAccountError.Unexpected(pachliAccountEntity!!, e))
         }
     }
 
@@ -416,7 +416,7 @@ class AccountManager @Inject constructor(
      * @return Unit if the refresh completed successfully, or the error.
      */
     // TODO: Protect this with a mutex?
-    suspend fun refresh(account: AccountEntity): Result<Unit, RefreshAccountError> = binding {
+    suspend fun refresh(account: PachliAccountEntity): Result<Unit, RefreshAccountError> = binding {
         // Kick off network fetches that can happen in parallel because they do not
         // depend on one another.
         val deferServer = externalScope.async {
@@ -525,10 +525,10 @@ class AccountManager @Inject constructor(
      *
      * Updates the values:
      *
-     * - [displayName][AccountEntity.displayName]
-     * - [profilePictureUrl][AccountEntity.profilePictureUrl]
-     * - [profileHeaderPictureUrl][AccountEntity.profileHeaderPictureUrl]
-     * - [locked][AccountEntity.locked]
+     * - [displayName][PachliAccountEntity.displayName]
+     * - [profilePictureUrl][PachliAccountEntity.profilePictureUrl]
+     * - [profileHeaderPictureUrl][PachliAccountEntity.profileHeaderPictureUrl]
+     * - [locked][PachliAccountEntity.locked]
      */
     suspend fun updateAccount(pachliAccountId: Long, newAccount: Account) {
         transactionProvider {

@@ -63,7 +63,7 @@ object NotificationConfig {
     /**
      * The current per-account method for fetching notifications for that account.
      *
-     * The map key is [app.pachli.core.database.model.AccountEntity.fullName]
+     * The map key is [app.pachli.core.database.model.PachliAccountEntity.fullName]
      */
     var notificationMethodAccount = mutableMapOf<String, Method>()
 
@@ -71,7 +71,7 @@ object NotificationConfig {
      * Per-account details of the last time notifications were fetched for
      * the account.
      *
-     * The map key is [app.pachli.core.database.model.AccountEntity.fullName].
+     * The map key is [app.pachli.core.database.model.PachliAccountEntity.fullName].
      *
      * The value [Pair] is a timestamp of the fetch, and either a successful result,
      * or a description of what failed.

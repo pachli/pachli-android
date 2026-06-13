@@ -19,7 +19,6 @@ package app.pachli.core.database.dao
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.core.database.AppDatabase
-import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.AnnouncementEntity
 import app.pachli.core.database.model.ContentFiltersEntity
 import app.pachli.core.database.model.ConversationEntity
@@ -30,6 +29,7 @@ import app.pachli.core.database.model.MastodonListEntity
 import app.pachli.core.database.model.NotificationAccountFilterDecisionUpdate
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.NotificationViewDataEntity
+import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.ServerEntity
 import app.pachli.core.database.model.StatusViewDataEntity
@@ -64,12 +64,12 @@ import org.junit.runner.RunWith
 
 /**
  * Ensures foreign key relationships are created in entities that reference
- * an [AccountEntity] so that deleting the user's account also deletes all data
+ * an [PachliAccountEntity] so that deleting the user's account also deletes all data
  * associated with their account.
  */
 @HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
-class AccountEntityForeignKeyTest {
+class PachliAccountEntityForeignKeyTest {
     @get:Rule(order = 0)
     var hilt = HiltAndroidRule(this)
 
@@ -109,7 +109,7 @@ class AccountEntityForeignKeyTest {
      * Deleting this account should trigger a cascading delete of each
      * entity under test.
      */
-    private val activeAccount = AccountEntity(
+    private val activeAccount = PachliAccountEntity(
         id = pachliAccountId,
         domain = "mastodon.example",
         accessToken = "token",

@@ -17,14 +17,14 @@
 
 package app.pachli.core.domain.notifications
 
-import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.PachliAccountEntity
 
 /** True if the account has the `push` OAuth scope, false otherwise. */
-val AccountEntity.hasPushScope: Boolean
+val PachliAccountEntity.hasPushScope: Boolean
     get() = oauthScopes.contains("push")
 
 /** The account's [AccountNotificationMethod]. */
-val AccountEntity.notificationMethod: AccountNotificationMethod
+val PachliAccountEntity.notificationMethod: AccountNotificationMethod
     get() {
         if (unifiedPushUrl.isBlank()) return AccountNotificationMethod.PULL
         return AccountNotificationMethod.PUSH

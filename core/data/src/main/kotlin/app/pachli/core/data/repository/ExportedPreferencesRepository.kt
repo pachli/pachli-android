@@ -25,8 +25,8 @@ import app.pachli.core.common.PachliError
 import app.pachli.core.data.R
 import app.pachli.core.data.repository.Error.ExportError
 import app.pachli.core.data.repository.Error.ImportError
-import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.AccountIdentifier
+import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.Timeline
 import app.pachli.core.preferences.PrefKeys
@@ -291,7 +291,7 @@ class TaggedNumberAdapter private constructor(private val delegate: JsonAdapter<
 }
 
 /**
- * Redacted version of [AccountEntity] that can be saved to local storage without
+ * Redacted version of [PachliAccountEntity] that can be saved to local storage without
  * exposing sensitive data or needlessly replicating data that is stored on the
  * server.
  *
@@ -356,8 +356,8 @@ data class RedactedAccount(
         get() = AccountIdentifier.unsafe("$domain:$accountId")
 }
 
-/** Converts [AccountEntity] to [RedactedAccount]. */
-fun AccountEntity.toRedactedAccount() = RedactedAccount(
+/** Converts [PachliAccountEntity] to [RedactedAccount]. */
+fun PachliAccountEntity.toRedactedAccount() = RedactedAccount(
     domain = this.domain,
     accountId = this.accountId,
     notificationsEnabled = this.notificationsEnabled,

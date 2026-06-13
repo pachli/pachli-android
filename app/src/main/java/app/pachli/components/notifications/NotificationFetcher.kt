@@ -23,7 +23,7 @@ import androidx.annotation.WorkerThread
 import app.pachli.core.common.string.isLessThan
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.notifications.NotificationsRepository
-import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.network.model.Links
@@ -171,7 +171,7 @@ class NotificationFetcher @Inject constructor(
      * ones that were last fetched here. So the refresh key takes precedence if it is greater
      * than the marker.
      */
-    private suspend fun fetchNewNotifications(account: AccountEntity): List<Notification> {
+    private suspend fun fetchNewNotifications(account: PachliAccountEntity): List<Notification> {
         Timber.d("fetchNewNotifications(%s)", account.fullName)
 
         // Figure out which water mark to use.
@@ -241,7 +241,7 @@ class NotificationFetcher @Inject constructor(
         return notifications
     }
 
-    private suspend fun fetchMarker(account: AccountEntity): Marker? {
+    private suspend fun fetchMarker(account: PachliAccountEntity): Marker? {
         return mastodonApi.markersWithAuth(
             account.authHeader,
             account.domain,

@@ -662,7 +662,7 @@ class NotificationsFragment :
     }
 
     override fun onViewReport(reportId: String) {
-        openUrl("https://${viewModel.account.domain}/admin/reports/$reportId")
+        openUrl("https://${viewModel.pachliAccountEntity.domain}/admin/reports/$reportId")
     }
 
     // Empty -- this fragment doesn't remove items

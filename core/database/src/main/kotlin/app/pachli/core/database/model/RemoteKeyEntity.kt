@@ -27,7 +27,7 @@ import androidx.room.ForeignKey
     primaryKeys = ["accountId", "timelineId", "kind"],
     foreignKeys = [
         ForeignKey(
-            entity = AccountEntity::class,
+            entity = PachliAccountEntity::class,
             parentColumns = arrayOf("id"),
             childColumns = arrayOf("accountId"),
             onDelete = ForeignKey.CASCADE,

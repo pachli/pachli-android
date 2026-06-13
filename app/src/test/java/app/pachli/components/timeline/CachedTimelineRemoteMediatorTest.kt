@@ -15,7 +15,7 @@ import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.di.TransactionProvider
-import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.TimelineStatusWithQuote
@@ -88,7 +88,7 @@ class CachedTimelineRemoteMediatorTest {
     @Inject
     lateinit var transactionProvider: TransactionProvider
 
-    private lateinit var activeAccount: AccountEntity
+    private lateinit var activeAccount: PachliAccountEntity
 
     private val account = CredentialAccount(
         id = "1",

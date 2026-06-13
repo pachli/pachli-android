@@ -19,12 +19,12 @@ package app.pachli.core.database.dao
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.core.database.AppDatabase
-import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.NotificationAccountFilterDecisionUpdate
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
 import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.NotificationViewDataEntity
+import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountFilterReason
@@ -67,7 +67,7 @@ class NotificationEntityForeignKeyTest {
      * Deleting this account should trigger a cascading delete of each
      * entity under test.
      */
-    private val activeAccount = AccountEntity(
+    private val activeAccount = PachliAccountEntity(
         id = pachliAccountId,
         domain = "mastodon.example",
         accessToken = "token",

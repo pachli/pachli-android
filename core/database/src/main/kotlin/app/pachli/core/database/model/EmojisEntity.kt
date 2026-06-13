@@ -27,7 +27,7 @@ import app.pachli.core.model.Emoji
     primaryKeys = ["accountId"],
     foreignKeys = [
         ForeignKey(
-            entity = AccountEntity::class,
+            entity = PachliAccountEntity::class,
             parentColumns = arrayOf("id"),
             childColumns = arrayOf("accountId"),
             onDelete = ForeignKey.CASCADE,

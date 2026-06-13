@@ -65,7 +65,7 @@ import java.util.Date
     foreignKeys = (
         [
             ForeignKey(
-                entity = AccountEntity::class,
+                entity = PachliAccountEntity::class,
                 parentColumns = ["id"],
                 childColumns = ["timelineUserId"],
                 onDelete = ForeignKey.CASCADE,
@@ -199,7 +199,7 @@ fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
     primaryKeys = ["serverId", "timelineUserId"],
     foreignKeys = [
         ForeignKey(
-            entity = AccountEntity::class,
+            entity = PachliAccountEntity::class,
             parentColumns = arrayOf("id"),
             childColumns = arrayOf("timelineUserId"),
             onDelete = ForeignKey.CASCADE,

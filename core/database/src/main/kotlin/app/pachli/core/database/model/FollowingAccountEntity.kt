@@ -32,7 +32,7 @@ import app.pachli.core.model.TimelineAccount
     primaryKeys = ["pachliAccountId", "serverId"],
     foreignKeys = [
         ForeignKey(
-            entity = AccountEntity::class,
+            entity = PachliAccountEntity::class,
             parentColumns = arrayOf("id"),
             childColumns = arrayOf("pachliAccountId"),
             onDelete = ForeignKey.CASCADE,

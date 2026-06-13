@@ -35,7 +35,7 @@ import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.notifications.NotificationsRepository
-import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.eventhub.BlockEvent
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.MuteConversationEvent
@@ -407,7 +407,7 @@ class NotificationsViewModel @AssistedInject constructor(
     }
 
     /** The account to display notifications for */
-    val account: AccountEntity
+    val pachliAccountEntity: PachliAccountEntity
         get() = accountFlow.replayCache.first().entity
 
     val uiState: StateFlow<UiState>
@@ -615,7 +615,7 @@ class NotificationsViewModel @AssistedInject constructor(
      * [UiSuccess.LoadNewest] so it knows to do that.
      */
     private suspend fun onLoadNewest() {
-        repository.saveRefreshKey(account.id, null)
+        repository.saveRefreshKey(pachliAccountEntity.id, null)
         _uiResult.send(Ok(UiSuccess.LoadNewest))
     }
 

@@ -19,7 +19,7 @@ package app.pachli.core.domain.notifications
 
 import android.content.Context
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Ok
@@ -46,7 +46,7 @@ class DisablePushNotificationsForAccountUseCase @Inject constructor(
      *
      * @param account
      */
-    suspend operator fun invoke(account: AccountEntity): Result<Unit, ApiError> {
+    suspend operator fun invoke(account: PachliAccountEntity): Result<Unit, ApiError> {
         if (account.notificationMethod != AccountNotificationMethod.PUSH) return Ok(Unit)
 
         // Try and unregister the endpoint from the server.

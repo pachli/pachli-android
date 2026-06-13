@@ -26,7 +26,7 @@ import androidx.room.Relation
  * Joins the different tables that make up the account data.
  */
 data class PachliAccount(
-    @Embedded val account: AccountEntity,
+    @Embedded val pachliAccountEntity: PachliAccountEntity,
 
     @Relation(
         parentColumn = "id",

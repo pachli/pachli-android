@@ -57,7 +57,7 @@ data class ConversationData(
     foreignKeys = (
         [
             ForeignKey(
-                entity = AccountEntity::class,
+                entity = PachliAccountEntity::class,
                 parentColumns = ["id"],
                 childColumns = ["pachliAccountId"],
                 onDelete = ForeignKey.CASCADE,
@@ -107,7 +107,7 @@ data class ConversationAccountFilterDecisionUpdate(
     primaryKeys = ["id", "pachliAccountId"],
     foreignKeys = [
         ForeignKey(
-            entity = AccountEntity::class,
+            entity = PachliAccountEntity::class,
             parentColumns = ["id"],
             childColumns = ["pachliAccountId"],
             onDelete = ForeignKey.CASCADE,

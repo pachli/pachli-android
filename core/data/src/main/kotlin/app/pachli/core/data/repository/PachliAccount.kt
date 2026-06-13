@@ -17,8 +17,8 @@
 
 package app.pachli.core.data.repository
 
-import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.FollowingAccountEntity
+import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.database.model.asModel
 import app.pachli.core.model.Announcement
 import app.pachli.core.model.Emoji
@@ -32,9 +32,9 @@ import io.github.z4kn4fein.semver.Version
  * A single Pachli account with all the information associated with it.
  *
  * @property id Account's unique local database ID.
- * @property entity [AccountEntity] from the local database.
+ * @property entity [PachliAccountEntity] from the local database.
  * @property lists Account's lists.
- * @property emojis Server's emojis. Use [entity.emojis][AccountEntity.emojis]
+ * @property emojis Server's emojis. Use [entity.emojis][PachliAccountEntity.emojis]
  * for the account's specific emojis.
  * @property server Details about the account's server.
  * @property contentFilters Account's content filters.
@@ -49,7 +49,7 @@ import io.github.z4kn4fein.semver.Version
 data class PachliAccount(
     val id: Long,
     // TODO: Should be a core.data type
-    val entity: AccountEntity,
+    val entity: PachliAccountEntity,
     val lists: List<MastodonList>,
     val emojis: List<Emoji>,
     val server: Server,
@@ -63,8 +63,8 @@ data class PachliAccount(
             account: app.pachli.core.database.model.PachliAccount,
         ): PachliAccount {
             return PachliAccount(
-                id = account.account.id,
-                entity = account.account,
+                id = account.pachliAccountEntity.id,
+                entity = account.pachliAccountEntity,
                 lists = account.lists.orEmpty().map { it.asModel() },
                 emojis = account.emojis?.emojiList.orEmpty(),
                 server = account.server?.asModel() ?: Server(ServerKind.MASTODON, Version(4, 0, 0), rawVersion = "4.0.0"),

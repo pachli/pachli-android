@@ -89,7 +89,7 @@ import app.pachli.core.common.string.mastodonLength
 import app.pachli.core.common.util.getMediaSize
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.Loadable
-import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.AccountSource
 import app.pachli.core.model.Emoji
@@ -955,7 +955,7 @@ class ComposeActivity :
         }
     }
 
-    private fun setupAvatar(account: AccountEntity) {
+    private fun setupAvatar(account: PachliAccountEntity) {
         val avatarDimen = binding.composeUsernameView.resources.getDimension(DR.dimen.compose_avatar_dimen)
 
         loadAvatar(

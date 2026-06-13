@@ -51,8 +51,8 @@ import app.pachli.R
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.createDraftReply
-import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.AccountIdentifier
+import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.model.AccountFilterDecision
@@ -156,18 +156,18 @@ private const val EXTRA_NOTIFICATION_TYPE = BuildConfig.APPLICATION_ID + ".notif
  *
  * @param context to access application preferences and services
  * @param mastodonNotification Mastodon [Notification]
- * @param account the account for which the notification should be shown
+ * @param pachliAccountEntity the account for which the notification should be shown
  * @return the new notification
  */
 fun makeNotification(
     context: Context,
     notificationManager: NotificationManager,
     mastodonNotification: Notification,
-    account: AccountEntity,
+    pachliAccountEntity: PachliAccountEntity,
     isFirstOfBatch: Boolean,
 ): android.app.Notification {
     val mastodonNotificationId = mastodonNotification.id
-    val accountId = account.id.toInt()
+    val accountId = pachliAccountEntity.id.toInt()
 
     // Check for an existing notification with this Mastodon Notification ID
     val activeNotifications = notificationManager.activeNotifications
@@ -181,16 +181,16 @@ fun makeNotification(
     // Create the Android notification -- either create a new one, or use the existing one.
     val androidNotificationBuilder = existingAndroidNotification?.let {
         NotificationCompat.Builder(context, it)
-    } ?: newAndroidNotification(context, notificationId, mastodonNotification, account)
+    } ?: newAndroidNotification(context, notificationId, mastodonNotification, pachliAccountEntity)
 
     androidNotificationBuilder
-        .setContentTitle(titleForType(context, mastodonNotification, account))
-        .setContentText(bodyForType(mastodonNotification, context, account.alwaysOpenSpoiler))
+        .setContentTitle(titleForType(context, mastodonNotification, pachliAccountEntity))
+        .setContentText(bodyForType(mastodonNotification, context, pachliAccountEntity.alwaysOpenSpoiler))
 
     if (mastodonNotification is Notification.Mention || mastodonNotification is Notification.Poll) {
         androidNotificationBuilder.setStyle(
             NotificationCompat.BigTextStyle()
-                .bigText(bodyForType(mastodonNotification, context, account.alwaysOpenSpoiler)),
+                .bigText(bodyForType(mastodonNotification, context, pachliAccountEntity.alwaysOpenSpoiler)),
         )
     }
 
@@ -216,7 +216,7 @@ fun makeNotification(
         val replyRemoteInput = RemoteInput.Builder(KEY_REPLY)
             .setLabel(context.getString(R.string.label_quick_reply))
             .build()
-        val quickReplyPendingIntent = getStatusReplyIntent(context, mastodonNotification, account)
+        val quickReplyPendingIntent = getStatusReplyIntent(context, mastodonNotification, pachliAccountEntity)
         val quickReplyAction = NotificationCompat.Action.Builder(
             app.pachli.core.ui.R.drawable.ic_reply_24dp,
             context.getString(R.string.action_quick_reply),
@@ -225,7 +225,7 @@ fun makeNotification(
             .addRemoteInput(replyRemoteInput)
             .build()
         androidNotificationBuilder.addAction(quickReplyAction)
-        val composeIntent = getStatusComposeIntent(context, mastodonNotification, account)
+        val composeIntent = getStatusComposeIntent(context, mastodonNotification, pachliAccountEntity)
         val composeAction = NotificationCompat.Action.Builder(
             app.pachli.core.ui.R.drawable.ic_reply_24dp,
             context.getString(R.string.action_compose_shortcut),
@@ -236,7 +236,7 @@ fun makeNotification(
         androidNotificationBuilder.addAction(composeAction)
     }
 
-    androidNotificationBuilder.setSubText(account.fullName)
+    androidNotificationBuilder.setSubText(pachliAccountEntity.fullName)
     androidNotificationBuilder.setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
     androidNotificationBuilder.setCategory(NotificationCompat.CATEGORY_SOCIAL)
     androidNotificationBuilder.setOnlyAlertOnce(true)
@@ -273,22 +273,22 @@ fun makeNotification(
  *
  * @param context to access application preferences and services
  * @param notificationManager the system's NotificationManager
- * @param account the account for which the notification should be shown
+ * @param pachliAccountEntity the account for which the notification should be shown
  */
 fun updateSummaryNotifications(
     context: Context,
     notificationManager: NotificationManager,
-    account: AccountEntity,
+    pachliAccountEntity: PachliAccountEntity,
 ) {
     // Map from the channel ID to a list of notifications in that channel. Those are the
     // notifications that will be summarised.
     val channelGroups = buildMap {
         PachliNotificationChannels.entries.forEach {
-            put(it.channelId(account.identifier), ArrayList<StatusBarNotification>())
+            put(it.channelId(pachliAccountEntity.identifier), ArrayList<StatusBarNotification>())
         }
     }
 
-    val accountId = account.id.toInt()
+    val accountId = pachliAccountEntity.id.toInt()
 
     // Fetch all existing notifications. Add them to the map, ignoring notifications that:
     // - belong to a different account
@@ -326,7 +326,7 @@ fun updateSummaryNotifications(
         val notificationType = members[0].notification.extras.getEnum<Notification.Type>(EXTRA_NOTIFICATION_TYPE)
         val summaryResultIntent = IntentRouterActivityIntent.fromNotification(
             context,
-            account.id,
+            pachliAccountEntity.id,
             -1,
             null,
             notificationType = notificationType,
@@ -335,7 +335,7 @@ fun updateSummaryNotifications(
         summaryStackBuilder.addParentStack(MainActivity::class.java)
         summaryStackBuilder.addNextIntent(summaryResultIntent)
         val summaryResultPendingIntent = summaryStackBuilder.getPendingIntent(
-            (notificationId + account.id * 10000).toInt(),
+            (notificationId + pachliAccountEntity.id * 10000).toInt(),
             pendingIntentFlags(false),
         )
         val title = context.resources.getQuantityString(
@@ -349,17 +349,17 @@ fun updateSummaryNotifications(
             .setContentIntent(summaryResultPendingIntent)
             .setColor(context.getColor(DR.color.notification_color))
             .setAutoCancel(true)
-            .setShortcutId(account.id.toString())
+            .setShortcutId(pachliAccountEntity.id.toString())
             .setDefaults(0) // So it doesn't ring twice, notify only in Target callback
             .setContentTitle(title)
             .setContentText(text)
-            .setSubText(account.fullName)
+            .setSubText(pachliAccountEntity.fullName)
             .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
             .setCategory(NotificationCompat.CATEGORY_SOCIAL)
             .setOnlyAlertOnce(true)
             .setGroup(channelId)
             .setGroupSummary(true)
-        setSoundVibrationLight(account, summaryBuilder)
+        setSoundVibrationLight(pachliAccountEntity, summaryBuilder)
 
         // TODO: Use the batch notification API available in NotificationManagerCompat
         // 1.11 and up (https://developer.android.com/jetpack/androidx/releases/core#1.11.0-alpha01)
@@ -380,11 +380,11 @@ private fun newAndroidNotification(
     context: Context,
     notificationId: Int,
     notification: Notification,
-    account: AccountEntity,
+    pachliAccountEntity: PachliAccountEntity,
 ): NotificationCompat.Builder {
     val eventResultIntent = IntentRouterActivityIntent.fromNotification(
         context,
-        account.id,
+        pachliAccountEntity.id,
         notificationId,
         notification.id,
         notification.type,
@@ -393,40 +393,40 @@ private fun newAndroidNotification(
     eventStackBuilder.addParentStack(MainActivity::class.java)
     eventStackBuilder.addNextIntent(eventResultIntent)
     val eventResultPendingIntent = eventStackBuilder.getPendingIntent(
-        account.id.toInt(),
+        pachliAccountEntity.id.toInt(),
         pendingIntentFlags(false),
     )
-    val channelId = getChannelId(account, notification)!!
+    val channelId = getChannelId(pachliAccountEntity, notification)!!
     val builder = NotificationCompat.Builder(context, channelId)
         .setSmallIcon(app.pachli.core.common.R.drawable.ic_notify)
         .setContentIntent(eventResultPendingIntent)
         .setColor(context.getColor(DR.color.notification_color))
         .setGroup(channelId)
         .setAutoCancel(true)
-        .setShortcutId(account.id.toString())
+        .setShortcutId(pachliAccountEntity.id.toString())
         .setDefaults(0) // So it doesn't ring twice, notify only in Target callback
-    setSoundVibrationLight(account, builder)
+    setSoundVibrationLight(pachliAccountEntity, builder)
     return builder
 }
 
 private fun getStatusReplyIntent(
     context: Context,
     body: Notification.WithStatus,
-    account: AccountEntity,
+    pachliAccountEntity: PachliAccountEntity,
 ): PendingIntent {
     val status = body.status
 
-    val draft = Draft.createDraftReply(account, status.actionableStatus)
+    val draft = Draft.createDraftReply(pachliAccountEntity, status.actionableStatus)
 
     // TODO: Revisit suppressing this when this file is moved
     @SuppressLint("IntentDetector")
     val replyIntent = Intent(context, SendStatusBroadcastReceiver::class.java)
         .setAction(REPLY_ACTION)
         .putExtra(KEY_DRAFT, draft)
-        .putExtra(KEY_SENDER_ACCOUNT_ID, account.id)
+        .putExtra(KEY_SENDER_ACCOUNT_ID, pachliAccountEntity.id)
         // Required
-        .putExtra(KEY_SENDER_ACCOUNT_IDENTIFIER, account.identifier as Parcelable)
-        .putExtra(KEY_SENDER_ACCOUNT_FULL_NAME, account.fullName)
+        .putExtra(KEY_SENDER_ACCOUNT_IDENTIFIER, pachliAccountEntity.identifier as Parcelable)
+        .putExtra(KEY_SENDER_ACCOUNT_FULL_NAME, pachliAccountEntity.fullName)
         .putExtra(KEY_SERVER_NOTIFICATION_ID, body.id)
     return PendingIntent.getBroadcast(
         context.applicationContext,
@@ -439,20 +439,20 @@ private fun getStatusReplyIntent(
 private fun getStatusComposeIntent(
     context: Context,
     body: Notification.WithStatus,
-    account: AccountEntity,
+    pachliAccountEntity: PachliAccountEntity,
 ): PendingIntent {
     val status = body.status
 
-    val draft = Draft.createDraftReply(account, status.actionableStatus)
+    val draft = Draft.createDraftReply(pachliAccountEntity, status.actionableStatus)
     val composeOptions = ComposeOptions(
         draft = draft,
         referencingStatus = ComposeOptions.ReferencingStatus.ReplyingTo.from(status.actionableStatus),
     )
     val composeIntent = IntentRouterActivityIntent.fromNotificationCompose(
         context,
-        account.id,
+        pachliAccountEntity.id,
         composeOptions,
-        account.id.toInt(),
+        pachliAccountEntity.id.toInt(),
         body.id,
     )
     return PendingIntent.getActivity(
@@ -463,7 +463,7 @@ private fun getStatusComposeIntent(
     )
 }
 
-fun createNotificationChannelsForAccount(account: AccountEntity, context: Context) {
+fun createNotificationChannelsForAccount(account: PachliAccountEntity, context: Context) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -545,7 +545,7 @@ fun clearNotificationsForAccount(context: Context, pachliAccountId: Long) {
  */
 fun filterNotification(
     notificationManager: NotificationManager,
-    account: AccountEntity,
+    account: PachliAccountEntity,
     notification: Notification,
 ): Boolean {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -655,7 +655,7 @@ fun filterNotificationByAccount(accountWithFilters: PachliAccount, notificationD
         ?: AccountFilterDecision.None
 }
 
-private fun getChannelId(account: AccountEntity, notification: Notification): String? {
+private fun getChannelId(account: PachliAccountEntity, notification: Notification): String? {
     return when (notification) {
         is Notification.Mention -> PachliNotificationChannels.MENTION.channelId(account.identifier)
         is Notification.Status -> PachliNotificationChannels.SUBSCRIPTIONS.channelId(account.identifier)
@@ -676,7 +676,7 @@ private fun getChannelId(account: AccountEntity, notification: Notification): St
 }
 
 private fun setSoundVibrationLight(
-    account: AccountEntity,
+    account: PachliAccountEntity,
     builder: NotificationCompat.Builder,
 ) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -728,7 +728,7 @@ private fun joinNames(context: Context, notifications: List<StatusBarNotificatio
 private fun titleForType(
     context: Context,
     notification: Notification,
-    account: AccountEntity,
+    account: PachliAccountEntity,
 ): Spanned {
     val accountName = notification.account.name.htmlEncode().unicodeWrap()
     val htmlTitle = when (notification) {

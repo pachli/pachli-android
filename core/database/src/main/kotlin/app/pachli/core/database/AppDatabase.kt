@@ -47,7 +47,6 @@ import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.dao.TranslatedStatusDao
-import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.AnnouncementEntity
 import app.pachli.core.database.model.ContentFiltersEntity
 import app.pachli.core.database.model.ConversationEntity
@@ -63,6 +62,7 @@ import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
 import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.NotificationViewDataEntity
+import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.database.model.ReferencedStatusId
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.ServerEntity
@@ -80,7 +80,7 @@ import java.util.TimeZone
 @Database(
     entities = [
         DraftEntity::class,
-        AccountEntity::class,
+        PachliAccountEntity::class,
         EmojisEntity::class,
         StatusEntity::class,
         TimelineAccountEntity::class,
@@ -107,7 +107,7 @@ import java.util.TimeZone
         TimelineStatusWithAccount::class,
         ReferencedStatusId::class,
     ],
-    version = 40,
+    version = 41,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -165,6 +165,7 @@ import java.util.TimeZone
         AutoMigration(from = 38, to = 39),
         // Converting InstanceInfo to ServerLimits.
         AutoMigration(from = 39, to = 40, spec = AppDatabase.MIGRATE_39_40::class),
+        AutoMigration(from = 40, to = 41, spec = AppDatabase.MIGRATE_40_41::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -367,6 +368,9 @@ abstract class AppDatabase : RoomDatabase() {
 
     @DeleteTable("InstanceInfoEntity")
     class MIGRATE_39_40 : AutoMigrationSpec
+
+    @RenameTable("AccountEntity", "PachliAccountEntity")
+    class MIGRATE_40_41 : AutoMigrationSpec
 }
 
 val MIGRATE_8_9 = object : Migration(8, 9) {
@@ -517,7 +521,7 @@ val MIGRATE_12_13 = object : Migration(12, 13) {
 }
 
 /**
- * Removes any StatusEntity that reference a non-existent [AccountEntity.id] in
+ * Removes any StatusEntity that reference a non-existent [PachliAccountEntity.id] in
  * [StatusEntity.timelineUserId].
  *
  * Version 20 introduces that as an FK constraint, this ensures that any statuses
