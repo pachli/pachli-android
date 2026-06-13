@@ -19,7 +19,7 @@ jobs:
   # ktlintCheck does not have per-variant tasks, so runs once over everything
   ktlint:
     name: ktlintCheck
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
@@ -34,7 +34,7 @@ jobs:
   # Tools are not per-variant
   tools:
     name: Test tools
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
@@ -50,7 +50,7 @@ jobs:
   # Custom lint rules are not per-variant
   custom-lint:
     name: Custom lint
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
@@ -76,7 +76,7 @@ jobs:
         api-level: [ 31 ]
         target: [ default ]
     name: Full CI
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
 
     steps:
       - name: Checkout
@@ -110,7 +110,7 @@ jobs:
   # Screenshots are taken and validated on orangeGoogleDebug.
   screenshots:
     name: Validate screenshots
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
@@ -134,7 +134,7 @@ jobs:
         api-level: [ 31 ]
         target: [ default ]
     name: Android Emulator Tests
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
 
     steps:
       - name: Checkout
