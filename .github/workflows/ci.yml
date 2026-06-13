@@ -92,7 +92,7 @@ jobs:
         id: runbuild
         run: |
           set +e
-          ./gradlew :app:lint${{ matrix.color }}${{ matrix.store }}${{ matrix.type }} test${{ matrix.color }}${{ matrix.store }}${{ matrix.type }} assemble${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
+          ./gradlew :app:lint${{ matrix.color }}${{ matrix.store }}${{ matrix.type }} test${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}UnitTest assemble${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
           echo "exitcode=$?" >> $GITHUB_OUTPUT
 
       - name: Upload SARIF file
@@ -106,6 +106,23 @@ jobs:
       # uploaded.
       - name: Fail if build failed
         run: exit ${{ steps.runbuild.outputs.exitcode }}
+
+  # Screenshots are taken and validated on orangeGoogleDebug.
+  screenshots:
+    name: Validate screenshots
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          lfs: true
+
+      - uses: ./.github/actions/setup-build-env
+        with:
+          gradle-cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+
+      - name: Validate screenshots
+        run: ./gradlew validateOrangeGoogleDebugScreenshotTest
 
   # Connected tests are per-store-variant, debug builds only.
   connected:
