@@ -29,7 +29,7 @@ import app.pachli.core.data.repository.SetActiveAccountError
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.dao.LogEntryDao
 import app.pachli.core.database.dao.TimelineDao
-import app.pachli.core.database.model.PachliAccountEntity
+import app.pachli.core.model.PachliAccount
 import app.pachli.core.navigation.IntentRouterActivityIntent.Payload
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.coroutines.runSuspendCatching
@@ -63,11 +63,11 @@ internal sealed interface FallibleUiAction : UiAction {
     data class SetActiveAccount(
         val pachliAccountId: Long,
         val payload: Payload.MainActivity,
-        val logoutAccount: PachliAccountEntity? = null,
+        val logoutAccount: PachliAccount? = null,
     ) : FallibleUiAction
 
     data class RefreshAccount(
-        val pachliAccountEntity: PachliAccountEntity,
+        val pachliAccount: PachliAccount,
         val payload: Payload.MainActivity,
     ) : FallibleUiAction
 }
@@ -78,7 +78,7 @@ internal sealed interface UiSuccess {
 
     data class SetActiveAccount(
         override val action: FallibleUiAction.SetActiveAccount,
-        val pachliAccountEntity: PachliAccountEntity,
+        val pachliAccount: PachliAccount,
     ) : UiSuccess
 
     data class RefreshAccount(override val action: FallibleUiAction.RefreshAccount) : UiSuccess
@@ -151,7 +151,7 @@ internal class IntentRouterViewModel @Inject constructor(
     }
 
     private suspend fun onRefreshAccount(action: FallibleUiAction.RefreshAccount): Result<UiSuccess.RefreshAccount, UiError.RefreshAccount> {
-        return accountManager.refresh(action.pachliAccountEntity.id)
+        return accountManager.refresh(action.pachliAccount.id)
             .mapEither(
                 { UiSuccess.RefreshAccount(action) },
                 { UiError.RefreshAccount(action, it) },

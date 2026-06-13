@@ -21,10 +21,8 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AlertDialog
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.domain.notifications.AccountNotificationMethod
 import app.pachli.core.domain.notifications.AppNotificationMethod
-import app.pachli.core.domain.notifications.hasPushScope
-import app.pachli.core.domain.notifications.notificationMethod
+import app.pachli.core.model.AccountNotificationMethod
 import app.pachli.core.ui.extensions.awaitSingleChoiceItem
 import org.unifiedpush.android.connector.UnifiedPush
 import timber.log.Timber

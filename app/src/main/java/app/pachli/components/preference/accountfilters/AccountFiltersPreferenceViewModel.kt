@@ -82,14 +82,14 @@ class AccountFiltersPreferenceViewModel @AssistedInject constructor(
         .map {
             when (accountFilterTimeline) {
                 CONVERSATIONS -> UiState(
-                    filterNotFollowing = it.entity.conversationAccountFilterNotFollowed,
-                    filterYounger30d = it.entity.conversationAccountFilterYounger30d,
-                    filterLimitedByServer = it.entity.conversationAccountFilterLimitedByServer,
+                    filterNotFollowing = it.conversationAccountFilterNotFollowed,
+                    filterYounger30d = it.conversationAccountFilterYounger30d,
+                    filterLimitedByServer = it.conversationAccountFilterLimitedByServer,
                 )
                 NOTIFICATIONS -> UiState(
-                    filterNotFollowing = it.entity.notificationAccountFilterNotFollowed,
-                    filterYounger30d = it.entity.notificationAccountFilterYounger30d,
-                    filterLimitedByServer = it.entity.notificationAccountFilterLimitedByServer,
+                    filterNotFollowing = it.notificationAccountFilterNotFollowed,
+                    filterYounger30d = it.notificationAccountFilterYounger30d,
+                    filterLimitedByServer = it.notificationAccountFilterLimitedByServer,
                 )
             }
         }

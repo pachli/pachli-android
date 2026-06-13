@@ -991,13 +991,13 @@ class AccountActivity :
     }
 
     private fun mention(account: Account) {
-        val activeAccount = accountManager.activeAccount!!
+        val activePachliAccount = accountManager.activePachliAccount
         // Create a draft that mentions the user. Uses `Timeline.Home` to get
         // generic draft creation behaviour.
         val draft = if (viewModel.isSelf.value) {
-            Draft.createDraft(this@AccountActivity, activeAccount, Timeline.Home)
+            Draft.createDraft(this@AccountActivity, activePachliAccount, Timeline.Home)
         } else {
-            Draft.createDraftMention(this@AccountActivity, activeAccount, Timeline.Home, account.username)
+            Draft.createDraftMention(this@AccountActivity, activePachliAccount, Timeline.Home, account.username)
         }
         val intent = ComposeActivityIntent(
             this@AccountActivity,

@@ -17,7 +17,6 @@
 
 package app.pachli.core.database.model
 
-import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
@@ -29,51 +28,7 @@ import app.pachli.core.model.Emoji
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
-import java.util.stream.IntStream
-import kotlinx.parcelize.Parcelize
 
-/**
- * Unique identifier for the user's account. Guaranteed unique irrespective of
- * the order the user logs in to their accounts.
- *
- * @property value Underlying string value for the identifier.
- * @constructor Creates a new [AccountIdentifier] from a string. Should not
- * normally be used, use the constructor that takes an [PachliAccountEntity].
- */
-// @Parcelize so this can be passed directly in an intent, instead of round
-// tripping as a String.
-@JvmInline
-@Parcelize
-value class AccountIdentifier internal constructor(val value: String) : CharSequence by value, Parcelable {
-    /**
-     * Creates a new [AccountIdentifier] from an [PachliAccountEntity]. The
-     * preferred way to construct an [AccountIdentifier], as it ensures the
-     * value is constructed correctly.
-     */
-    constructor(pachliAccountEntity: PachliAccountEntity) : this("${pachliAccountEntity.domain}:${pachliAccountEntity.accountId}")
-
-    override fun chars(): IntStream {
-        return super.chars()
-    }
-
-    override fun codePoints(): IntStream {
-        return super.codePoints()
-    }
-
-    override fun toString() = value
-
-    companion object {
-        /**
-         * Unsafe way to construct an [AccountIdentifier]. It is the caller's
-         * responsibility to ensure [value] is in the expected format.
-         */
-        fun unsafe(value: String) = AccountIdentifier(value)
-    }
-}
-
-/**
- * @property identifier A unique identifier for the account.
- */
 @Entity(
     indices = [
         Index(
@@ -84,132 +39,76 @@ value class AccountIdentifier internal constructor(val value: String) : CharSequ
 )
 @TypeConverters(Converters::class)
 data class PachliAccountEntity(
-    @field:PrimaryKey(autoGenerate = true) var id: Long,
-    /** The domain of the account's server (e.g., "mastodon.social") */
-    val domain: String,
-    val accessToken: String,
-    /**
-     * Client ID key, used for obtaining OAuth tokens.
-     *
-     * - [Mastodon.Application.clientId](https://docs.joinmastodon.org/entities/Application/#client_id)
-     */
-    val clientId: String,
-    /**
-     * Client secret key, used for obtaining OAuth tokens.
-     *
-     * - [Mastodon.Application.clientSecret](https://docs.joinmastodon.org/entities/Application/#client_secret)
-     */
-    val clientSecret: String,
-    val isActive: Boolean,
-    /** Account's remote (server) ID. */
-    val accountId: String = "",
-    /** User's local name, without the leading `@` or the `@domain` portion */
-    val username: String = "",
-    val displayName: String = "",
-    val profilePictureUrl: String = "",
+    @field:PrimaryKey(autoGenerate = true) override var id: Long,
+    override val domain: String,
+    override val accessToken: String,
+    override val clientId: String,
+    override val clientSecret: String,
+    override val isActive: Boolean,
+    override val accountId: String = "",
+    override val username: String = "",
+    override val displayName: String = "",
+    override val profilePictureUrl: String = "",
     @ColumnInfo(defaultValue = "")
-    val profileHeaderPictureUrl: String = "",
-    /** User wants Android notifications enabled for this account */
-    val notificationsEnabled: Boolean = true,
-    val notificationsMentioned: Boolean = true,
-    val notificationsFollowed: Boolean = true,
-    val notificationsFollowRequested: Boolean = false,
-    val notificationsReblogged: Boolean = true,
-    val notificationsFavorited: Boolean = true,
-    val notificationsPolls: Boolean = true,
-    val notificationsSubscriptions: Boolean = true,
-    val notificationsSignUps: Boolean = true,
-    val notificationsUpdates: Boolean = true,
-    val notificationsReports: Boolean = true,
+    override val profileHeaderPictureUrl: String = "",
+    override val notificationsEnabled: Boolean = true,
+    override val notificationsMentioned: Boolean = true,
+    override val notificationsFollowed: Boolean = true,
+    override val notificationsFollowRequested: Boolean = false,
+    override val notificationsReblogged: Boolean = true,
+    override val notificationsFavorited: Boolean = true,
+    override val notificationsPolls: Boolean = true,
+    override val notificationsSubscriptions: Boolean = true,
+    override val notificationsSignUps: Boolean = true,
+    override val notificationsUpdates: Boolean = true,
+    override val notificationsReports: Boolean = true,
     @ColumnInfo(defaultValue = "true")
-    val notificationsSeveredRelationships: Boolean = true,
+    override val notificationsSeveredRelationships: Boolean = true,
     @ColumnInfo(defaultValue = "true")
-    val notificationsModerationWarnings: Boolean = true,
+    override val notificationsModerationWarnings: Boolean = true,
     @ColumnInfo(defaultValue = "true")
-    val notificationsQuotes: Boolean = true,
+    override val notificationsQuotes: Boolean = true,
     @ColumnInfo(defaultValue = "true")
-    val notificationsQuotedUpdates: Boolean = true,
-    val notificationSound: Boolean = true,
-    val notificationVibration: Boolean = true,
-    val notificationLight: Boolean = true,
-    val defaultPostPrivacy: Status.Visibility = Status.Visibility.PUBLIC,
-    val defaultMediaSensitivity: Boolean = false,
-    val defaultPostLanguage: String = "",
+    override val notificationsQuotedUpdates: Boolean = true,
+    override val notificationSound: Boolean = true,
+    override val notificationVibration: Boolean = true,
+    override val notificationLight: Boolean = true,
+    override val defaultPostPrivacy: Status.Visibility = Status.Visibility.PUBLIC,
+    override val defaultMediaSensitivity: Boolean = false,
+    override val defaultPostLanguage: String = "",
     @ColumnInfo(defaultValue = "NOBODY")
-    val defaultQuotePolicy: AccountSource.QuotePolicy = AccountSource.QuotePolicy.NOBODY,
-    val alwaysShowSensitiveMedia: Boolean = false,
-    /** True if content behind a content warning is shown by default */
-    val alwaysOpenSpoiler: Boolean = false,
-
-    /**
-     * True if the "Download media previews" preference is true. This implies
-     * that media previews are shown as well as downloaded.
-     */
-    val mediaPreviewEnabled: Boolean = true,
-    /**
-     *  ID of the most recent Mastodon notification that Pachli has fetched to show as an
-     *  Android notification.
-     */
+    override val defaultQuotePolicy: AccountSource.QuotePolicy = AccountSource.QuotePolicy.NOBODY,
+    override val alwaysShowSensitiveMedia: Boolean = false,
+    override val alwaysOpenSpoiler: Boolean = false,
+    override val mediaPreviewEnabled: Boolean = true,
     @ColumnInfo(defaultValue = "0")
-    val notificationMarkerId: String = "0",
-    val emojis: List<Emoji> = emptyList(),
-    val tabPreferences: List<Timeline> = defaultTabs(),
-    val notificationsFilter: String = "[\"follow_request\"]",
-    // Scope cannot be changed without re-login, so store it in case
-    // the scope needs to be changed in the future
-    val oauthScopes: String = "",
-    val unifiedPushUrl: String = "",
-    val pushPubKey: String = "",
-    val pushPrivKey: String = "",
-    val pushAuth: String = "",
-    val pushServerKey: String = "",
-
-    /** True if the connected Mastodon account is locked (has to manually approve all follow requests **/
+    override val notificationMarkerId: String = "0",
+    override val emojis: List<Emoji> = emptyList(),
+    override val tabPreferences: List<Timeline> = defaultTabs(),
+    override val notificationsFilter: String = "[\"follow_request\"]",
+    override val oauthScopes: String = "",
+    override val unifiedPushUrl: String = "",
+    override val pushPubKey: String = "",
+    override val pushPrivKey: String = "",
+    override val pushAuth: String = "",
+    override val pushServerKey: String = "",
     @ColumnInfo(defaultValue = "0")
-    val locked: Boolean = false,
-
-    /** [FilterAction] for notifications from accounts this account does not follow. */
+    override val locked: Boolean = false,
     @ColumnInfo(defaultValue = "NONE")
-    var notificationAccountFilterNotFollowed: FilterAction = FilterAction.NONE,
-
-    /** [FilterAction] for notifications from accounts younger than 30 days. */
+    override var notificationAccountFilterNotFollowed: FilterAction = FilterAction.NONE,
     @ColumnInfo(defaultValue = "NONE")
-    var notificationAccountFilterYounger30d: FilterAction = FilterAction.NONE,
-
-    /** [FilterAction] for notifications from account limited by the server. */
+    override var notificationAccountFilterYounger30d: FilterAction = FilterAction.NONE,
     @ColumnInfo(defaultValue = "NONE")
-    var notificationAccountFilterLimitedByServer: FilterAction = FilterAction.NONE,
-
-    /** [FilterAction] for conversations from accounts this account does not follow. */
+    override var notificationAccountFilterLimitedByServer: FilterAction = FilterAction.NONE,
     @ColumnInfo(defaultValue = "NONE")
-    var conversationAccountFilterNotFollowed: FilterAction = FilterAction.NONE,
-
-    /** [FilterAction] for conversations from accounts younger than 30 days. */
+    override var conversationAccountFilterNotFollowed: FilterAction = FilterAction.NONE,
     @ColumnInfo(defaultValue = "NONE")
-    var conversationAccountFilterYounger30d: FilterAction = FilterAction.NONE,
-
-    /** [FilterAction] for conversations from account limited by the server. */
+    override var conversationAccountFilterYounger30d: FilterAction = FilterAction.NONE,
     @ColumnInfo(defaultValue = "NONE")
-    var conversationAccountFilterLimitedByServer: FilterAction = FilterAction.NONE,
-
+    override var conversationAccountFilterLimitedByServer: FilterAction = FilterAction.NONE,
     @ColumnInfo(defaultValue = "0")
-    val isBot: Boolean = false,
-) {
-    val identifier: AccountIdentifier
-        get() = AccountIdentifier(this)
-
-    /** Full account name, of the form `@username@domain` */
-    val fullName: String
-        get() = "@$username@$domain"
-
-    /** UnifiedPush "instance" identifier for this account. */
-    val unifiedPushInstance: String
-        get() = id.toString()
-
-    /** Value of the "Authorization" header for this account ("Bearer $accessToken"). */
-    val authHeader: String
-        get() = "Bearer $accessToken"
-}
+    override val isBot: Boolean = false,
+) : app.pachli.core.model.PachliAccount
 
 fun defaultTabs() = listOf(
     Timeline.Home,

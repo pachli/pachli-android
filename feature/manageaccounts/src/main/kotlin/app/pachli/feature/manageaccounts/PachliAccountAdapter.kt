@@ -30,12 +30,9 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.unsafeLazy
-import app.pachli.core.data.repository.PachliAccount
-import app.pachli.core.database.model.PachliAccountEntity
-import app.pachli.core.domain.notifications.AccountNotificationMethod
 import app.pachli.core.domain.notifications.NotificationConfig
-import app.pachli.core.domain.notifications.hasPushScope
-import app.pachli.core.domain.notifications.notificationMethod
+import app.pachli.core.model.AccountNotificationMethod
+import app.pachli.core.model.PachliAccount
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.asDdHhMmSs
 import app.pachli.core.ui.extensions.instantFormatter
@@ -189,10 +186,10 @@ internal class PachliAccountViewHolder(
         }
     }
 
-    private fun bindAll(account: PachliAccount, animateEmojis: Boolean, animateAvatars: Boolean, showBotOverlay: Boolean) = with(binding) {
-        root.isActivated = account.entity.isActive
-        suggestionReason.visible(account.entity.isActive)
-        switchAccount.isEnabled = !account.entity.isActive
+    private fun bindAll(account: app.pachli.core.model.PachliAccount, animateEmojis: Boolean, animateAvatars: Boolean, showBotOverlay: Boolean) = with(binding) {
+        root.isActivated = account.isActive
+        suggestionReason.visible(account.isActive)
+        switchAccount.isEnabled = !account.isActive
 
         // Set the content description to the account's fullname, and indicate if it's the
         // active account.
@@ -202,23 +199,23 @@ internal class PachliAccountViewHolder(
         //
         // The notification information is not included -- it's a lot to read out, and if
         // remote debugging then screenshots are more useful.
-        root.contentDescription = if (account.entity.isActive) {
+        root.contentDescription = if (account.isActive) {
             context.getString(
                 R.string.pachli_account_content_description_fmt,
-                account.entity.fullName,
+                account.fullName,
             )
         } else {
-            account.entity.fullName
+            account.fullName
         }
 
         bindAvatar(account, animateAvatars)
         bindShowBotOverlay(account, showBotOverlay)
         bindAnimateEmojis(account, animateEmojis)
 
-        notificationMethod.text = context.getString(account.entity.notificationMethod.stringRes)
-        notificationMethodExtra.text = account.entity.notificationMethodExtra(context)
+        notificationMethod.text = context.getString(account.notificationMethod.stringRes)
+        notificationMethodExtra.text = account.notificationMethodExtra(context)
 
-        val lastFetch = NotificationConfig.lastFetchNewNotifications[account.entity.fullName]
+        val lastFetch = NotificationConfig.lastFetchNewNotifications[account.fullName]
         if (lastFetch == null) {
             lastFetchTime.hide()
             lastFetchError.hide()
@@ -250,7 +247,7 @@ internal class PachliAccountViewHolder(
 
     /** Loads the account's avatar, respecting [animateAvatars]. */
     private fun bindAvatar(account: PachliAccount, animateAvatars: Boolean) = with(binding) {
-        loadAvatar(glide, account.entity.profilePictureUrl, avatar, avatarRadius, animateAvatars)
+        loadAvatar(glide, account.profilePictureUrl, avatar, avatarRadius, animateAvatars)
     }
 
     /**
@@ -258,12 +255,12 @@ internal class PachliAccountViewHolder(
      * [showBotOverlay].
      */
     private fun bindShowBotOverlay(account: PachliAccount, showBotOverlay: Boolean) = with(binding) {
-        avatarBadge.isVisible = account.entity.isBot && showBotOverlay
+        avatarBadge.isVisible = account.isBot && showBotOverlay
     }
 
     /** Displays the account's name/username respecting [animateEmojis]. */
     private fun bindAnimateEmojis(account: PachliAccount, animateEmojis: Boolean) = with(binding) {
-        displayName.text = account.entity.displayName.unicodeWrap().emojify(
+        displayName.text = account.displayName.unicodeWrap().emojify(
             glide,
             // Use the server's emojis here, not the account's, as the account's
             // emojis might have changed (e.g., the user edited their display
@@ -272,7 +269,7 @@ internal class PachliAccountViewHolder(
             displayName,
             animateEmojis,
         )
-        username.text = account.entity.fullName
+        username.text = account.fullName
     }
 }
 
@@ -298,7 +295,7 @@ private val AccountNotificationMethod.stringRes: Int
  * Otherwise this should explain why the method is [PULL][AccountNotificationMethod.PULL]
  * (either the error when registering, or the lack of the `push` oauth scope).
  */
-private fun PachliAccountEntity.notificationMethodExtra(context: Context): String {
+private fun PachliAccount.notificationMethodExtra(context: Context): String {
     return when (notificationMethod) {
         AccountNotificationMethod.PUSH -> unifiedPushUrl
         AccountNotificationMethod.PULL -> if (hasPushScope) {

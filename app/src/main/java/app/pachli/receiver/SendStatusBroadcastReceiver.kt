@@ -39,8 +39,8 @@ import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.common.string.randomAlphanumericString
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.DraftsRepository
-import app.pachli.core.database.model.AccountIdentifier
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.AccountIdentifier
 import app.pachli.core.model.Draft
 import app.pachli.core.sendstatus.SendStatusUseCase
 import app.pachli.core.sendstatus.model.StatusToSend

@@ -36,7 +36,7 @@ import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
-import app.pachli.core.data.repository.PachliAccount
+import app.pachli.core.model.PachliAccount
 import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent.LoginMode
@@ -145,11 +145,11 @@ class ManageAccountsFragment :
             val button = AlertSuspendDialogFragment.newInstance(
                 title = getString(
                     app.pachli.core.ui.R.string.title_logout_fmt,
-                    pachliAccount.entity.fullName,
+                    pachliAccount.fullName,
                 ),
                 message = getString(
                     app.pachli.core.ui.R.string.action_logout_confirm,
-                    pachliAccount.entity.fullName,
+                    pachliAccount.fullName,
                 ),
                 positiveText = getString(android.R.string.ok),
                 negativeText = getString(android.R.string.cancel),

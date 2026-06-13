@@ -39,7 +39,6 @@ import app.pachli.core.data.repository.DraftsRepository
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.model.AccountSource
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.Draft
@@ -263,7 +262,7 @@ class ComposeViewModel @AssistedInject constructor(
 
     private val _markMediaAsSensitive: MutableStateFlow<Boolean?> = MutableStateFlow(composeOptions.draft.sensitive)
     val markMediaAsSensitive = accountFlow.combine(_markMediaAsSensitive) { account, sens ->
-        sens ?: account.entity.defaultMediaSensitivity
+        sens ?: account.defaultMediaSensitivity
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
 
     /** Flow of changes to statusDisplayOptions, for use by the UI */
@@ -272,7 +271,7 @@ class ComposeViewModel @AssistedInject constructor(
     private val _statusVisibility: MutableStateFlow<Status.Visibility> = MutableStateFlow(Status.Visibility.UNKNOWN)
     val statusVisibility = accountFlow.combine(_statusVisibility) { account, vis ->
         if (vis == Status.Visibility.UNKNOWN) {
-            account.entity.defaultPostPrivacy
+            account.defaultPostPrivacy
         } else {
             vis
         }
@@ -377,7 +376,7 @@ class ComposeViewModel @AssistedInject constructor(
             qp != null -> qp
             composeOptions.draft.quotePolicy != null -> composeOptions.draft.quotePolicy
             composeOptions.draft.visibility == Status.Visibility.DIRECT || composeOptions.draft.visibility == Status.Visibility.PRIVATE -> AccountSource.QuotePolicy.NOBODY
-            else -> account.entity.defaultQuotePolicy
+            else -> account.defaultQuotePolicy
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
@@ -430,7 +429,7 @@ class ComposeViewModel @AssistedInject constructor(
 
         _media.update { mediaList ->
             val mediaItem = QueuedMedia(
-                account = pachliAccount.entity,
+                account = pachliAccount,
                 localId = mediaUploader.getNewLocalMediaId(),
                 uri = uri,
                 type = type,
@@ -464,7 +463,7 @@ class ComposeViewModel @AssistedInject constructor(
         return mediaItem
     }
 
-    private fun addUploadedMedia(account: PachliAccountEntity, id: String, type: QueuedMedia.Type, uri: Uri, description: String?, focus: Attachment.Focus?) {
+    private fun addUploadedMedia(account: PachliAccount, id: String, type: QueuedMedia.Type, uri: Uri, description: String?, focus: Attachment.Focus?) {
         _media.update { mediaList ->
             val mediaItem = QueuedMedia(
                 account = account,
@@ -875,7 +874,7 @@ class ComposeViewModel @AssistedInject constructor(
                 Attachment.Type.UNKNOWN, Attachment.Type.IMAGE -> QueuedMedia.Type.IMAGE
                 Attachment.Type.AUDIO -> QueuedMedia.Type.AUDIO
             }
-            addUploadedMedia(account.entity, a.id, mediaType, a.url.toUri(), a.description, a.meta?.focus)
+            addUploadedMedia(account, a.id, mediaType, a.url.toUri(), a.description, a.meta?.focus)
         }
 
         _statusVisibility.value = startingVisibility

@@ -89,7 +89,7 @@ open class ChooseAccountSuspendDialogFragment : AppCompatDialogFragment(), Suspe
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.accounts
-                    .map { if (includeActive) it else it.filter { !it.entity.isActive } }
+                    .map { if (includeActive) it else it.filter { !it.isActive } }
                     .filter { it.isNotEmpty() }
                     .collect { accounts ->
                         adapter.clear()
@@ -180,12 +180,12 @@ class ChooseAccountAdapter(
 
         val account = getItem(position) ?: return binding.root
 
-        binding.username.text = account.entity.fullName
-        binding.displayName.text = account.entity.displayName.emojify(glide, account.emojis, binding.displayName, animateEmojis)
+        binding.username.text = account.fullName
+        binding.displayName.text = account.displayName.emojify(glide, account.emojis, binding.displayName, animateEmojis)
         binding.avatarBadge.visibility = View.GONE // We never want to display the bot badge here
 
         val avatarRadius = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_42dp)
-        loadAvatar(glide, account.entity.profilePictureUrl, binding.avatar, avatarRadius, animateAvatars)
+        loadAvatar(glide, account.profilePictureUrl, binding.avatar, avatarRadius, animateAvatars)
 
         return binding.root
     }

@@ -35,7 +35,7 @@ android {
 }
 
 dependencies {
-    // TODO: AccountManager currently exposes AccountEntity which must be re-exported.
+    // TODO: AccountManager currently exposes PachliAccountEntity which must be re-exported.
     api(projects.core.database)
 
     implementation(projects.core.common)

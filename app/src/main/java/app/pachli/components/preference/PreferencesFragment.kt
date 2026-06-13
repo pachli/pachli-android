@@ -47,11 +47,10 @@ import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.domain.notifications.AccountNotificationMethod
 import app.pachli.core.domain.notifications.AppNotificationMethod
 import app.pachli.core.domain.notifications.NotificationConfig
-import app.pachli.core.domain.notifications.hasPushScope
-import app.pachli.core.domain.notifications.notificationMethod
+import app.pachli.core.model.AccountNotificationMethod
+import app.pachli.core.model.PachliAccount
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.DefaultAudioPlayback
 import app.pachli.core.preferences.DownloadLocation
@@ -660,7 +659,7 @@ class AccountNotificationDetailsAdapter(context: Context, accounts: List<PachliA
      * Otherwise this should explain why the method is [PULL][AccountNotificationMethod.PULL]
      * (either the error when registering, or the lack of the `push` oauth scope).
      */
-    private fun PachliAccountEntity.notificationMethodExtra(): String {
+    private fun PachliAccount.notificationMethodExtra(): String {
         return when (notificationMethod) {
             AccountNotificationMethod.PUSH -> unifiedPushUrl
             AccountNotificationMethod.PULL -> if (hasPushScope) {

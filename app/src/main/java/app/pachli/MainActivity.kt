@@ -74,7 +74,6 @@ import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.createDraft
-import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.designsystem.EmbeddedFontFamily
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.eventhub.EventHub
@@ -362,7 +361,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 // One-off setup independent of the UI state.
                 val initialAccount = account.first()
-                createNotificationChannelsForAccount(initialAccount.entity, this@MainActivity)
+                createNotificationChannelsForAccount(initialAccount, this@MainActivity)
 
                 bindMainDrawer(initialAccount)
                 bindMainDrawerItems(initialAccount, savedInstanceState)
@@ -385,8 +384,8 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
 
                 // Process changes to the account's header picture.
                 launch {
-                    account.distinctUntilChangedBy { it.entity.profileHeaderPictureUrl }.collectLatest {
-                        header.headerBackground = ImageHolder(it.entity.profileHeaderPictureUrl)
+                    account.distinctUntilChangedBy { it.profileHeaderPictureUrl }.collectLatest {
+                        header.headerBackground = ImageHolder(it.profileHeaderPictureUrl)
                     }
                 }
             }
@@ -403,15 +402,15 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
 
                 // Process changes to the account's profile picture.
                 launch {
-                    account.distinctUntilChangedBy { it.entity.profilePictureUrl }.collectLatest {
-                        bindDrawerAvatar(it.entity.profilePictureUrl, true)
+                    account.distinctUntilChangedBy { it.profilePictureUrl }.collectLatest {
+                        bindDrawerAvatar(it.profilePictureUrl, true)
                     }
                 }
 
                 // Process changes to the account's tab preferences.
                 launch {
-                    account.distinctUntilChangedBy { it.entity.tabPreferences }.collectLatest {
-                        bindTabs(it.entity, showNotificationTab)
+                    account.distinctUntilChangedBy { it.tabPreferences }.collectLatest {
+                        bindTabs(it, showNotificationTab)
                         showNotificationTab = false
                     }
                 }
@@ -432,7 +431,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                     account.collect { account ->
                         binding.composeButton.setOnClickListener {
                             val timeline = tabAdapter.tabs.getOrNull(binding.viewPager.currentItem)?.timeline ?: return@setOnClickListener
-                            val draft = Draft.createDraft(this@MainActivity, account.entity, timeline)
+                            val draft = Draft.createDraft(this@MainActivity, account, timeline)
                             val composeOptions = ComposeOptions(draft = draft)
                             val intent = ComposeActivityIntent(this@MainActivity, pachliAccountId, composeOptions)
                             startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
@@ -545,7 +544,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                         ComposeOptions(
                             draft = Draft.createDraft(
                                 this@MainActivity,
-                                viewModel.pachliAccountFlow.replayCache.first().entity,
+                                viewModel.pachliAccountFlow.replayCache.first(),
                                 timeline,
                             ),
                         ),
@@ -1024,7 +1023,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
      * @param account
      * @param selectNotificationTab True if the "Notification" tab should be made active.
      */
-    private fun bindTabs(account: PachliAccountEntity, selectNotificationTab: Boolean) {
+    private fun bindTabs(account: PachliAccount, selectNotificationTab: Boolean) {
         val activeTabLayout = when (sharedPreferencesRepository.mainNavigationPosition) {
             MainNavigationPosition.TOP -> {
                 binding.bottomNav.hide()
@@ -1150,7 +1149,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
     private fun onAccountHeaderClick(pachliAccount: PachliAccount, profile: IProfile, current: Boolean) {
         when {
             current -> startActivityWithDefaultTransition(
-                AccountActivityIntent(this, pachliAccount.id, pachliAccount.entity.accountId),
+                AccountActivityIntent(this, pachliAccount.id, pachliAccount.accountId),
             )
 
             profile.identifier == DRAWER_ITEM_ADD_ACCOUNT -> startActivityWithDefaultTransition(
@@ -1179,8 +1178,8 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
     private fun logout(pachliAccount: PachliAccount) {
         lifecycleScope.launch {
             val button = AlertDialog.Builder(this@MainActivity)
-                .setTitle(getString(app.pachli.core.ui.R.string.title_logout_fmt, pachliAccount.entity.fullName))
-                .setMessage(getString(app.pachli.core.ui.R.string.action_logout_confirm, pachliAccount.entity.fullName))
+                .setTitle(getString(app.pachli.core.ui.R.string.title_logout_fmt, pachliAccount.fullName))
+                .setMessage(getString(app.pachli.core.ui.R.string.action_logout_confirm, pachliAccount.fullName))
                 .create()
                 .await(android.R.string.ok, android.R.string.cancel)
 

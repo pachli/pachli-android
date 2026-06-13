@@ -41,9 +41,9 @@ import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.data.repository.SetActiveAccountError
 import app.pachli.core.data.repository.createDraft
 import app.pachli.core.data.repository.getOrNull
-import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.domain.LogoutUseCase
 import app.pachli.core.model.Draft
+import app.pachli.core.model.PachliAccount
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
@@ -64,8 +64,7 @@ import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 
@@ -115,11 +114,9 @@ class IntentRouterActivity : BaseActivity() {
 
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 launch {
-                    // Get the first set of loaded accounts (as AccountEntity).
+                    // Get the first set of loaded accounts.
                     viewModel.accounts
-                        .map { it.getOrNull() }
-                        .filterNotNull()
-                        .map { it.map { it.entity } }
+                        .mapNotNull { it.getOrNull() }
                         .take(1)
                         .collect { bindAccount(savedInstanceState, it) }
                 }
@@ -138,7 +135,7 @@ class IntentRouterActivity : BaseActivity() {
      *
      * @param accounts The available accounts.
      */
-    private suspend fun bindAccount(savedInstanceState: Bundle?, accounts: List<PachliAccountEntity>) {
+    private suspend fun bindAccount(savedInstanceState: Bundle?, accounts: List<PachliAccount>) {
         // Only thing to do if there are no accounts is to prompt the user to login.
         if (accounts.isEmpty()) {
             val intent = LoginActivityIntent(this@IntentRouterActivity)
@@ -197,7 +194,7 @@ class IntentRouterActivity : BaseActivity() {
      * If there are other accounts the next account is selected.
      */
     private suspend fun routeLogout(
-        accounts: List<PachliAccountEntity>,
+        accounts: List<PachliAccount>,
         pachliAccountId: Long,
     ) {
         val accountToLogout = accounts.find { it.id == pachliAccountId }
@@ -243,14 +240,14 @@ class IntentRouterActivity : BaseActivity() {
      *
      * Does not change the active account.
      */
-    private suspend fun routeQuickTile(accounts: List<PachliAccountEntity>) {
+    private suspend fun routeQuickTile(accounts: List<PachliAccount>) {
         dismissSplashScreen = true
         val account = if (accounts.size == 1) {
             accounts.first()
         } else {
             ChooseAccountSuspendDialogFragment
                 .newInstance(getString(R.string.action_share_as), true)
-                .await(supportFragmentManager)?.entity
+                .await(supportFragmentManager)
         }
         if (account == null) {
             finish()
@@ -273,7 +270,7 @@ class IntentRouterActivity : BaseActivity() {
      *
      * Shows an error dialog if Pachli cannot handle the content.
      */
-    private suspend fun routeShareContent(accounts: List<PachliAccountEntity>) {
+    private suspend fun routeShareContent(accounts: List<PachliAccount>) {
         dismissSplashScreen = true
         // If the intent contains data to share choose the account to share from
         // and start the composer.
@@ -292,7 +289,7 @@ class IntentRouterActivity : BaseActivity() {
         } else {
             ChooseAccountSuspendDialogFragment
                 .newInstance(getString(R.string.action_share_as), true)
-                .await(supportFragmentManager)?.entity
+                .await(supportFragmentManager)
         }
         account?.let {
             forwardToComposeActivityAndExit(
@@ -323,7 +320,7 @@ class IntentRouterActivity : BaseActivity() {
 
                 viewModel.accept(
                     FallibleUiAction.RefreshAccount(
-                        success.pachliAccountEntity,
+                        success.pachliAccount,
                         success.action.payload,
                     ),
                 )
@@ -333,7 +330,7 @@ class IntentRouterActivity : BaseActivity() {
             // and finish this activity.
             is UiSuccess.RefreshAccount -> {
                 val payload = success.action.payload
-                val intent = MainActivityIntent(this, success.action.pachliAccountEntity.id).apply {
+                val intent = MainActivityIntent(this, success.action.pachliAccount.id).apply {
                     putExtra(MainActivityIntent.EXTRA_PAYLOAD, payload.mainActivityPayload)
                     flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
                 }
@@ -523,7 +520,7 @@ class IntentRouterActivity : BaseActivity() {
      *  then that account ID (i.e., input == output).
      *  - Otherwise the account does not exist locally, returns null
      */
-    private fun resolvePachliAccountId(pachliAccountId: Long?, accounts: List<PachliAccountEntity>): Long? {
+    private fun resolvePachliAccountId(pachliAccountId: Long?, accounts: List<PachliAccount>): Long? {
         if (pachliAccountId == null || pachliAccountId == PACHLI_ACCOUNT_ID_ACTIVE) {
             return accounts.find { it.isActive }?.id
         }

@@ -41,9 +41,9 @@ import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
-import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.designsystem.EmbeddedFontFamily
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.PachliAccount
 import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.preferences.AppTheme
@@ -265,7 +265,7 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
     suspend fun chooseAccount(
         dialogTitle: CharSequence?,
         showActiveAccount: Boolean,
-    ): PachliAccountEntity? {
+    ): PachliAccount? {
         val accounts = accountManager.accountsOrderedByActive
         when (accounts.size) {
             1 -> return accounts.first()
@@ -274,7 +274,7 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
         return ChooseAccountSuspendDialogFragment.newInstance(
             dialogTitle,
             showActiveAccount,
-        ).await(supportFragmentManager)?.entity
+        ).await(supportFragmentManager)
     }
 
     val openAsText: String?
@@ -287,7 +287,7 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
             }
         }
 
-    fun openAsAccount(url: String, account: PachliAccountEntity) {
+    fun openAsAccount(url: String, account: PachliAccount) {
         startActivity(IntentRouterActivityIntent.openAs(this, account.id, url))
         finish()
     }

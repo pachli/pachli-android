@@ -22,8 +22,8 @@ import androidx.lifecycle.viewModelScope
 import app.pachli.core.common.extensions.stateFlow
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.model.PachliAccount
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted

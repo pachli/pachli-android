@@ -152,8 +152,8 @@ class ViewThreadViewModel @Inject constructor(
                 StatusItemViewData.from(
                     pachliAccount = account,
                     timelineStatusWithQuote = timelineStatusWithQuote,
-                    isExpanded = account.entity.alwaysOpenSpoiler,
-                    showSensitiveMedia = account.entity.alwaysShowSensitiveMedia,
+                    isExpanded = account.alwaysOpenSpoiler,
+                    showSensitiveMedia = account.alwaysShowSensitiveMedia,
                     isDetailed = true,
                     contentFilterAction = contentFilterModel?.filterActionFor(status.actionableStatus)
                         ?: FilterAction.NONE,
@@ -177,8 +177,8 @@ class ViewThreadViewModel @Inject constructor(
 
                 status.asStatusViewDataQ(
                     account,
-                    account.entity.alwaysOpenSpoiler,
-                    account.entity.alwaysShowSensitiveMedia,
+                    account.alwaysOpenSpoiler,
+                    account.alwaysShowSensitiveMedia,
                     mapOf(status.actionableId to existingViewData),
                     mapOf(status.actionableId to existingTranslation),
                     isDetailed = true,
@@ -235,8 +235,8 @@ class ViewThreadViewModel @Inject constructor(
                     .map { (status, contentFilterAction) ->
                         status.asStatusViewDataQ(
                             account,
-                            account.entity.alwaysOpenSpoiler,
-                            account.entity.alwaysShowSensitiveMedia,
+                            account.alwaysOpenSpoiler,
+                            account.alwaysShowSensitiveMedia,
                             cachedViewData,
                             cachedTranslations,
                             contentFilterAction,
@@ -248,8 +248,8 @@ class ViewThreadViewModel @Inject constructor(
                     .map { (status, contentFilterAction) ->
                         status.asStatusViewDataQ(
                             account,
-                            account.entity.alwaysOpenSpoiler,
-                            account.entity.alwaysShowSensitiveMedia,
+                            account.alwaysOpenSpoiler,
+                            account.alwaysShowSensitiveMedia,
                             cachedViewData,
                             cachedTranslations,
                             contentFilterAction,
@@ -659,8 +659,8 @@ class ViewThreadViewModel @Inject constructor(
     ): StatusItemViewData {
         val q = status.asStatusViewDataQ(
             account,
-            account.entity.alwaysOpenSpoiler,
-            account.entity.alwaysShowSensitiveMedia,
+            account.alwaysOpenSpoiler,
+            account.alwaysShowSensitiveMedia,
             isDetailed = isDetailed,
         )
 

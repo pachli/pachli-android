@@ -47,12 +47,12 @@ import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.asDraft
 import app.pachli.core.data.repository.createDraftQuote
 import app.pachli.core.data.repository.createDraftReply
-import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.domain.DownloadUrlUseCase
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Draft
 import app.pachli.core.model.IStatus
+import app.pachli.core.model.PachliAccount
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Status.Mention
@@ -240,7 +240,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
     }
 
     private fun reply(status: IStatusViewData) {
-        val draft = Draft.createDraftReply(viewModel.pachliAccount.value!!.entity, status.actionable)
+        val draft = Draft.createDraftReply(viewModel.pachliAccount.value!!, status.actionable)
         val composeOptions = ComposeOptions(
             draft = draft,
             referencingStatus = ReferencingStatus.ReplyingTo.from(status.actionable),
@@ -256,7 +256,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         val actionableStatus = status.actionableStatus
 
         val composeOptions = ComposeOptions(
-            draft = Draft.createDraftQuote(viewModel.pachliAccount.value!!.entity, status.actionableStatus),
+            draft = Draft.createDraftQuote(viewModel.pachliAccount.value!!, status.actionableStatus),
             referencingStatus = ReferencingStatus.Quoting.from(actionableStatus),
         )
 
@@ -270,7 +270,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         val accountId = status.account.id
         val accountUsername = status.account.username
         val statusUrl = status.url
-        val loggedInAccountId = viewModel.pachliAccount.value!!.entity.accountId
+        val loggedInAccountId = viewModel.pachliAccount.value!!.accountId
 
         val popup = PopupMenu(view.context, view)
         val statusIsByCurrentUser = loggedInAccountId == accountId
@@ -307,7 +307,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
             openAsItem.title = openAsText
         }
 
-        val mutable = statusIsByCurrentUser || accountIsInMentions(viewModel.pachliAccount.value!!.entity, status.mentions)
+        val mutable = statusIsByCurrentUser || accountIsInMentions(viewModel.pachliAccount.value!!, status.mentions)
         val muteConversationItem = popup.menu.findItem(R.id.status_mute_conversation).apply {
             isVisible = mutable
         }
@@ -420,7 +420,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         }
     }
 
-    private fun accountIsInMentions(account: PachliAccountEntity?, mentions: List<Mention>): Boolean {
+    private fun accountIsInMentions(account: PachliAccount?, mentions: List<Mention>): Boolean {
         return mentions.firstOrNull {
             account?.username == it.username && account.domain == it.url.toUri().host
         } != null
@@ -438,7 +438,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         Toast.makeText(context, R.string.downloading_media, Toast.LENGTH_SHORT).show()
         for ((_, url) in status.attachments) {
             lifecycleScope.launch {
-                downloadUrlUseCase(url, viewModel.pachliAccount.value!!.entity.fullName, status.actionableStatus.account.username)
+                downloadUrlUseCase(url, viewModel.pachliAccount.value!!.fullName, status.actionableStatus.account.username)
             }
         }
     }

@@ -145,7 +145,7 @@ class SearchViewModel @Inject constructor(
     val operatorViewData = _operatorViewData.asStateFlow()
 
     val locales = pachliAccount.filterNotNull()
-        .map { getLocaleList(getInitialLanguages(activeAccount = it.entity)) }
+        .map { getLocaleList(getInitialLanguages(activeAccount = it)) }
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000),
@@ -257,11 +257,11 @@ class SearchViewModel @Inject constructor(
                 StatusItemViewData.from(
                     pachliAccount = pachliAccount,
                     status,
-                    isExpanded = pachliAccount.entity.alwaysOpenSpoiler,
+                    isExpanded = pachliAccount.alwaysOpenSpoiler,
                     contentFilterAction = contentFilterAction,
                     quoteContentFilterAction = status.quotedStatus?.let { contentFilterModel.filterActionFor(it.status) },
                     filterContext = null,
-                    showSensitiveMedia = pachliAccount.entity.alwaysShowSensitiveMedia,
+                    showSensitiveMedia = pachliAccount.alwaysShowSensitiveMedia,
                 )
             }.apply {
                 loadedStatuses.addAll(this)
