@@ -36,7 +36,7 @@ import app.pachli.core.model.AttachmentDisplayAction
     primaryKeys = ["serverId", "pachliAccountId"],
     foreignKeys = [
         ForeignKey(
-            entity = AccountEntity::class,
+            entity = PachliAccountEntity::class,
             parentColumns = arrayOf("id"),
             childColumns = arrayOf("pachliAccountId"),
             onDelete = ForeignKey.CASCADE,

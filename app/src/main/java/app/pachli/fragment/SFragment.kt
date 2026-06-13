@@ -45,7 +45,7 @@ import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.asDraft
 import app.pachli.core.data.repository.createDraftQuote
 import app.pachli.core.data.repository.createDraftReply
-import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.domain.DownloadUrlUseCase
 import app.pachli.core.model.Attachment
@@ -647,7 +647,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
     }
 
     companion object {
-        private fun accountIsInMentions(account: AccountEntity?, mentions: List<Status.Mention>): Boolean {
+        private fun accountIsInMentions(account: PachliAccountEntity?, mentions: List<Status.Mention>): Boolean {
             return mentions.any { mention ->
                 account?.username == mention.username && account.domain == mention.url.toUri().host
             }

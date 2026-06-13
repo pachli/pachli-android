@@ -25,7 +25,7 @@ import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.IconCompat
-import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.IntentRouterActivityIntent
 import com.bumptech.glide.Glide
@@ -45,7 +45,7 @@ class UpdateShortCutsUseCase @Inject constructor(
      * are converted to shortcuts which launch [app.pachli.feature.intentrouter.IntentRouterActivity]. The
      * active account is always included.
      */
-    suspend operator fun invoke(accounts: List<AccountEntity>) = withContext(Dispatchers.IO) {
+    suspend operator fun invoke(accounts: List<PachliAccountEntity>) = withContext(Dispatchers.IO) {
         val innerSize = context.resources.getDimensionPixelSize(DR.dimen.adaptive_bitmap_inner_size)
         val outerSize = context.resources.getDimensionPixelSize(DR.dimen.adaptive_bitmap_outer_size)
 

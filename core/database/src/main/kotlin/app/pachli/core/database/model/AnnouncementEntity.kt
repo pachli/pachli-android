@@ -29,13 +29,13 @@ import app.pachli.core.model.Announcement
  * Although announcements are also associated with a server, the user may have
  * multiple accounts on the same server with announcements that are in different
  * "read" states. So each announcement is associated with exactly one
- * [AccountEntity] through the [accountId] property.
+ * [PachliAccountEntity] through the [accountId] property.
  */
 @Entity(
     primaryKeys = ["accountId"],
     foreignKeys = [
         ForeignKey(
-            entity = AccountEntity::class,
+            entity = PachliAccountEntity::class,
             parentColumns = arrayOf("id"),
             childColumns = arrayOf("accountId"),
             onDelete = ForeignKey.CASCADE,

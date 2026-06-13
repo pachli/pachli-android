@@ -50,7 +50,7 @@ const val PACHLI_ACCOUNT_ID_ACTIVE = -1L
 
 /**
  * The Pachli Account ID passed to this intent. This is the
- * [id][app.pachli.core.database.model.AccountEntity.id] of the account that is
+ * [id][app.pachli.core.database.model.PachliAccountEntity.id] of the account that is
  * "active" for the purposes of this activity.
  *
  * [PACHLI_ACCOUNT_ID_ACTIVE] is a marker only used by [IntentRouterActivityIntent]

@@ -31,7 +31,7 @@ import io.github.z4kn4fein.semver.Version
 /**
  * Represents a Mastodon server's capabilities.
  *
- * Each server is associated with exactly one [AccountEntity] through the [accountId]
+ * Each server is associated with exactly one [PachliAccountEntity] through the [accountId]
  * property.
  *
  * @property accountId
@@ -45,7 +45,7 @@ import io.github.z4kn4fein.semver.Version
     primaryKeys = ["accountId"],
     foreignKeys = [
         ForeignKey(
-            entity = AccountEntity::class,
+            entity = PachliAccountEntity::class,
             parentColumns = arrayOf("id"),
             childColumns = arrayOf("accountId"),
             onDelete = ForeignKey.CASCADE,

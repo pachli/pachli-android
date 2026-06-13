@@ -171,7 +171,7 @@ data class NotificationData(
     foreignKeys = (
         [
             ForeignKey(
-                entity = AccountEntity::class,
+                entity = PachliAccountEntity::class,
                 parentColumns = ["id"],
                 childColumns = ["pachliAccountId"],
                 onDelete = ForeignKey.CASCADE,
@@ -212,7 +212,7 @@ data class NotificationAccountFilterDecisionUpdate(
     foreignKeys = (
         [
             ForeignKey(
-                entity = AccountEntity::class,
+                entity = PachliAccountEntity::class,
                 parentColumns = ["id"],
                 childColumns = ["pachliAccountId"],
                 onDelete = ForeignKey.CASCADE,

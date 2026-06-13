@@ -47,7 +47,7 @@ import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.asDraft
 import app.pachli.core.data.repository.createDraftQuote
 import app.pachli.core.data.repository.createDraftReply
-import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.domain.DownloadUrlUseCase
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.AttachmentDisplayAction
@@ -420,7 +420,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         }
     }
 
-    private fun accountIsInMentions(account: AccountEntity?, mentions: List<Mention>): Boolean {
+    private fun accountIsInMentions(account: PachliAccountEntity?, mentions: List<Mention>): Boolean {
         return mentions.firstOrNull {
             account?.username == it.username && account.domain == it.url.toUri().host
         } != null

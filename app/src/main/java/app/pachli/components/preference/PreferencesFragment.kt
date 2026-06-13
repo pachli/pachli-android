@@ -45,7 +45,7 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.domain.notifications.AccountNotificationMethod
 import app.pachli.core.domain.notifications.AppNotificationMethod
@@ -627,7 +627,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
 }
 
 /**
- * Displays notification configuration information for each [AccountEntity].
+ * Displays notification configuration information for each [PachliAccountEntity].
  *
  * Shows:
  *
@@ -636,7 +636,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
  * - If pull, an explanation for why it's not push.
  * - The last time notifications were fetched for the account, and the result.
  */
-class AccountNotificationDetailsAdapter(context: Context, accounts: List<AccountEntity>) : ArrayAdapter<AccountEntity>(
+class AccountNotificationDetailsAdapter(context: Context, accounts: List<PachliAccountEntity>) : ArrayAdapter<PachliAccountEntity>(
     context,
     R.layout.account_notification_details_list_item,
     R.id.accountName,
@@ -660,7 +660,7 @@ class AccountNotificationDetailsAdapter(context: Context, accounts: List<Account
      * Otherwise this should explain why the method is [PULL][AccountNotificationMethod.PULL]
      * (either the error when registering, or the lack of the `push` oauth scope).
      */
-    private fun AccountEntity.notificationMethodExtra(): String {
+    private fun PachliAccountEntity.notificationMethodExtra(): String {
         return when (notificationMethod) {
             AccountNotificationMethod.PUSH -> unifiedPushUrl
             AccountNotificationMethod.PULL -> if (hasPushScope) {

@@ -21,7 +21,7 @@ import androidx.paging.PagingSource
 import androidx.room.support.getSupportWrapper
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.core.database.AppDatabase
-import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
@@ -64,7 +64,7 @@ class TimelineDaoTest {
         runTest {
             // Insert two accounts with IDs 1 and 2, which are assumed to exist
             // by the tests.
-            val activeAccount = AccountEntity(
+            val activeAccount = PachliAccountEntity(
                 id = 1L,
                 domain = "mastodon.example",
                 accessToken = "token",

@@ -3,7 +3,7 @@ package app.pachli.util
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.PachliAccountEntity
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -64,7 +64,7 @@ class LocaleUtilsTest {
 
                 return getInitialLanguages(
                     configuredLanguages[0],
-                    AccountEntity(
+                    PachliAccountEntity(
                         id = 0,
                         domain = "foo.bar",
                         accessToken = "",

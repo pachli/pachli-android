@@ -21,7 +21,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.DraftsRepository
-import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.model.Server
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Timeline
@@ -76,13 +76,13 @@ data class UiState(
     val hideTopToolbar: Boolean,
     val mainNavigationPosition: MainNavigationPosition,
     val displaySelfUsername: Boolean,
-    val accounts: List<AccountEntity>,
+    val accounts: List<PachliAccountEntity>,
     val canSchedulePost: Boolean,
     val tabAlignment: TabAlignment,
     val tabContents: TabContents,
 ) {
     companion object {
-        fun make(prefs: SharedPreferencesRepository, accounts: List<AccountEntity>, server: Server?) = UiState(
+        fun make(prefs: SharedPreferencesRepository, accounts: List<PachliAccountEntity>, server: Server?) = UiState(
             animateAvatars = prefs.animateAvatars,
             animateEmojis = prefs.animateEmojis,
             enableTabSwipe = prefs.enableTabSwipe,

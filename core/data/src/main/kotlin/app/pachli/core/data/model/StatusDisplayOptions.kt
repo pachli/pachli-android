@@ -22,7 +22,7 @@ import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.preferences.PronounDisplay
 
 /**
- * @property mediaPreviewEnabled See [app.pachli.core.database.model.AccountEntity.mediaPreviewEnabled].
+ * @property mediaPreviewEnabled See [app.pachli.core.database.model.PachliAccountEntity.mediaPreviewEnabled].
  * @property showStatsInline If true, statuses in timelines show the counts
  * of replies, reblogs, and favourites.
  *

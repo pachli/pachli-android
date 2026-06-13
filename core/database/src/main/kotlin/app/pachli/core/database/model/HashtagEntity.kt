@@ -34,7 +34,7 @@ import app.pachli.core.model.HashtagHistory
     primaryKeys = ["pachliAccountId", "name"],
     foreignKeys = [
         ForeignKey(
-            entity = AccountEntity::class,
+            entity = PachliAccountEntity::class,
             parentColumns = arrayOf("id"),
             childColumns = arrayOf("pachliAccountId"),
             onDelete = ForeignKey.CASCADE,

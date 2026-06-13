@@ -31,7 +31,7 @@ import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.PachliAccount
-import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.domain.notifications.AccountNotificationMethod
 import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.domain.notifications.hasPushScope
@@ -298,7 +298,7 @@ private val AccountNotificationMethod.stringRes: Int
  * Otherwise this should explain why the method is [PULL][AccountNotificationMethod.PULL]
  * (either the error when registering, or the lack of the `push` oauth scope).
  */
-private fun AccountEntity.notificationMethodExtra(context: Context): String {
+private fun PachliAccountEntity.notificationMethodExtra(context: Context): String {
     return when (notificationMethod) {
         AccountNotificationMethod.PUSH -> unifiedPushUrl
         AccountNotificationMethod.PULL -> if (hasPushScope) {

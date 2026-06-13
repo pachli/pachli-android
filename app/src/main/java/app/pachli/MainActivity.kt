@@ -74,7 +74,7 @@ import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.createDraft
-import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.designsystem.EmbeddedFontFamily
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.eventhub.EventHub
@@ -1024,7 +1024,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
      * @param account
      * @param selectNotificationTab True if the "Notification" tab should be made active.
      */
-    private fun bindTabs(account: AccountEntity, selectNotificationTab: Boolean) {
+    private fun bindTabs(account: PachliAccountEntity, selectNotificationTab: Boolean) {
         val activeTabLayout = when (sharedPreferencesRepository.mainNavigationPosition) {
             MainNavigationPosition.TOP -> {
                 binding.bottomNav.hide()

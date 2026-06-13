@@ -27,14 +27,14 @@ import app.pachli.core.model.UserListRepliesPolicy
  *
  * Does not include details about the lists's membership.
  *
- * Each list is associated with exactly one [AccountEntity] through the [accountId]
+ * Each list is associated with exactly one [PachliAccountEntity] through the [accountId]
  * property.
  */
 @Entity(
     primaryKeys = ["accountId", "listId"],
     foreignKeys = [
         ForeignKey(
-            entity = AccountEntity::class,
+            entity = PachliAccountEntity::class,
             parentColumns = arrayOf("id"),
             childColumns = arrayOf("accountId"),
             onDelete = ForeignKey.CASCADE,

@@ -24,7 +24,7 @@ package app.pachli.core.data.repository
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.model.AccountSource
 import app.pachli.core.model.Draft
 import app.pachli.core.model.Status
@@ -38,7 +38,7 @@ import org.robolectric.ParameterizedRobolectricTestRunner
 abstract class BaseDraftCompanionTest {
     protected val context: Context = ApplicationProvider.getApplicationContext()
 
-    protected val account = AccountEntity(
+    protected val account = PachliAccountEntity(
         id = 0L,
         domain = "mastodon.example",
         accessToken = "token",

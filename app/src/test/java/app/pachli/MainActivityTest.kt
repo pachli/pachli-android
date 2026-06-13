@@ -30,7 +30,7 @@ import app.pachli.components.compose.HiltTestApplication_Application
 import app.pachli.components.notifications.createNotificationChannelsForAccount
 import app.pachli.components.notifications.makeNotification
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.database.model.defaultTabs
 import app.pachli.core.model.Notification
 import app.pachli.core.model.Timeline
@@ -78,7 +78,7 @@ class MainActivityTest {
         launchActivity = false,
     )
 
-    private val accountEntity = AccountEntity(
+    private val pachliAccountEntity = PachliAccountEntity(
         id = 1,
         domain = "test.domain",
         accessToken = "fakeToken",
@@ -189,14 +189,14 @@ class MainActivityTest {
         val notificationManager = context.getSystemService(NotificationManager::class.java)
         val shadowNotificationManager = shadowOf(notificationManager)
 
-        createNotificationChannelsForAccount(accountEntity, context)
+        createNotificationChannelsForAccount(pachliAccountEntity, context)
 
         runInBackground {
             val notification = makeNotification(
                 context,
                 notificationManager,
                 notification,
-                accountEntity,
+                pachliAccountEntity,
                 true,
             )
             notificationManager.notify("id", 1, notification)
