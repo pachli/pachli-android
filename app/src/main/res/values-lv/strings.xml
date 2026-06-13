@@ -45,7 +45,7 @@
     <string name="action_reject">Noraidīt</string>
     <string name="action_edit_profile">Labot profilu</string>
     <string name="action_search">Meklēt</string>
-    <string name="action_hide_media">Paslēpt multividi</string>
+    <string name="action_hide_media">Paslēpt informācijas nesējus</string>
     <string name="action_undo">Atcelt</string>
     <string name="action_content_warning">Satura brīdinājums</string>
     <string name="action_toggle_visibility">Ieraksta redzamība</string>
@@ -215,8 +215,8 @@
     <string name="pref_title_app_theme">Lietotnes tēma</string>
     <string name="pref_title_notification_filter_poll">Aptaujas ir noslēgušās</string>
     <string name="pref_title_show_boosts">Parādīt pastiprinājumus</string>
-    <string name="error_media_upload_permission">Nepieciešama atļauja lasīt multividi.</string>
-    <string name="error_media_download_permission">Nepieciešama atļauja saglabāt multividi.</string>
+    <string name="error_media_upload_permission">Nepieciešama atļauja lasīt informācijas nesējus.</string>
+    <string name="error_media_download_permission">Nepieciešama atļauja saglabāt informācijas nesējus.</string>
     <string name="error_following_hashtag_format">Kļūda #%1$s sekošanas uzsākšanas laikā: %2$s</string>
     <string name="error_unfollowing_hashtag_format">Kļūda sekošanas #%1$s pārtraukšanā: %2$s</string>
     <string name="error_muting_hashtag_format">Kļūda #%1$s apklusināšanas laikā</string>
@@ -230,13 +230,13 @@
         <item quantity="other">%1$s · pievienoti %2$d ieraksti</item>
     </plurals>
     <string name="action_compose">Rakstīt</string>
-    <string name="action_add_media">Pievienot multividi</string>
+    <string name="action_add_media">Pievienot informācijas nesējus</string>
     <string name="action_open_drawer">Atvērt izvēlni</string>
     <string name="action_open_media_n">Atvērt pielikumu #%1$d</string>
-    <string name="download_media">Lejupielādēt multividi</string>
-    <string name="downloading_media">Lejupielādē multividi</string>
-    <string name="hint_media_description_missing">Multividei ir jābūt aprakstam.</string>
-    <string name="dialog_title_finishing_media_upload">Pabeidz multivides augšupielādi</string>
+    <string name="download_media">Lejupielādēt informācijas nesējus</string>
+    <string name="downloading_media">Lejupielādē informācijas nesējus</string>
+    <string name="hint_media_description_missing">Informācijas nesējiem ir jābūt aprakstam.</string>
+    <string name="dialog_title_finishing_media_upload">Pabeidz informācijas nesēju augšupielādi</string>
     <string name="pref_title_hide_follow_button">Ritināšanas laikā paslēpt ieraksta sastādīšanas pogu</string>
     <string name="pref_default_media_sensitivity">Vienmēr atzīmēt informācijas nesējus kā jūtīgus</string>
     <string name="error_no_custom_emojis">Serverī %1$s nav nevienas pielāgotas emocijzīmes</string>
@@ -251,7 +251,7 @@
     <string name="compose_shortcut_short_label">Rakstīt</string>
     <string name="poll_ended_voted">Aptauja, kurā Tu piedalījies, ir noslēgusies</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s un %4$d citi</string>
-    <string name="title_media">Multivide</string>
+    <string name="title_media">Informācijas nesēji</string>
     <string name="pref_title_alway_show_sensitive_media">Vienmēr rādīt jūtīgu saturu</string>
     <string name="unsaved_changes">Tev ir nesaglabātas izmaiņas.</string>
     <string name="notification_clear_text">Vai tiešām vēlies neatgriezeniski notīrīt visus savus paziņojumus?</string>
