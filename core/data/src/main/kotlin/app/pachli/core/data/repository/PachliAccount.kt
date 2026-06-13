@@ -57,22 +57,16 @@ data class PachliAccount(
     val announcements: List<Announcement>,
     val following: List<FollowingAccountEntity>,
     val followedHashtags: Map<String, Hashtag>,
-) {
-    companion object {
-        fun make(
-            account: app.pachli.core.database.model.PachliAccount,
-        ): PachliAccount {
-            return PachliAccount(
-                id = account.pachliAccountEntity.id,
-                entity = account.pachliAccountEntity,
-                lists = account.lists.orEmpty().map { it.asModel() },
-                emojis = account.emojis?.emojiList.orEmpty(),
-                server = account.server?.asModel() ?: Server(ServerKind.MASTODON, Version(4, 0, 0), rawVersion = "4.0.0"),
-                contentFilters = account.contentFilters?.let { ContentFilters.from(it) } ?: ContentFilters.EMPTY,
-                announcements = account.announcements.orEmpty().map { it.announcement },
-                following = account.following,
-                followedHashtags = account.followedHashtags.asModel().associateBy { it.name },
-            )
-        }
-    }
-}
+)
+
+fun app.pachli.core.database.model.PachliAccount.asModel() = PachliAccount(
+    id = pachliAccountEntity.id,
+    entity = pachliAccountEntity,
+    lists = lists.orEmpty().map { it.asModel() },
+    emojis = emojis?.emojiList.orEmpty(),
+    server = server?.asModel() ?: Server(ServerKind.MASTODON, Version(4, 0, 0), rawVersion = "4.0.0"),
+    contentFilters = contentFilters?.let { ContentFilters.from(it) } ?: ContentFilters.EMPTY,
+    announcements = announcements.orEmpty().map { it.announcement },
+    following = following,
+    followedHashtags = followedHashtags.asModel().associateBy { it.name },
+)
