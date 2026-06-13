@@ -129,8 +129,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Verify assigned to nikclayton
+        env:
+          ASSIGNEE: ${{ github.event.pull_request.assignee.login }}
         run: |
-          ASSIGNEE="${{ github.event.pull_request.assignee.login }}"
           echo "Assignee: :$ASSIGNEE:"
           if [[ "$ASSIGNEE" == "nikclayton" ]]; then
             echo "PR assigned to nikclayton"
