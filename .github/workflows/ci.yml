@@ -148,7 +148,7 @@ jobs:
   connected:
     strategy:
       matrix:
-        color: [ "orange", "olue" ]
+        color: [ "orange", "blue" ]
         store: [ "Fdroid", "Github", "Google" ]
         type: [ "Release" ]
         api-level: [ 31 ]
