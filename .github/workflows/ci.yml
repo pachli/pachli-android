@@ -19,7 +19,7 @@ jobs:
   # ktlintCheck does not have per-variant tasks, so runs once over everything
   ktlint:
     name: ktlintCheck
-    runs-on: blacksmith-4vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
@@ -34,7 +34,7 @@ jobs:
   # Tools are not per-variant
   tools:
     name: Test tools
-    runs-on: blacksmith-4vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
@@ -50,7 +50,7 @@ jobs:
   # Custom lint rules are not per-variant
   custom-lint:
     name: Custom lint
-    runs-on: blacksmith-4vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
@@ -70,13 +70,15 @@ jobs:
       security-events: write
     strategy:
       matrix:
-        color: [ "Orange", "Blue" ]
+        # Note: "color" names must be lower-case, to match the case used in file
+        # names that "Upload SARIF file" looks for.
+        color: [ "orange", "blue" ]
         store: [ "Fdroid", "Github", "Google" ]
         type: [ "Release" ]
         api-level: [ 31 ]
         target: [ default ]
     name: Full CI
-    runs-on: blacksmith-4vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -109,7 +111,7 @@ jobs:
   # Screenshots are taken and validated on orangeGoogleDebug.
   screenshots:
     name: Validate screenshots
-    runs-on: blacksmith-4vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
@@ -123,17 +125,37 @@ jobs:
       - name: Validate screenshots
         run: ./gradlew validateOrangeGoogleDebugScreenshotTest
 
-  # Connected tests are per-store-variant, debug builds only.
+  check-assignee:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify assigned to nikclayton
+        run: |
+          ASSIGNEE="${{ github.event.pull_request.assignee.login }}"
+          echo "Assignee: :$ASSIGNEE:"
+          if [[ "$ASSIGNEE" == "nikclayton" ]]; then
+            echo "PR assigned to nikclayton"
+            exit 0
+          else
+            echo "PR not assigned to nikclayton"
+            exit 1
+          fi
+
+  # Connected tests are per-store-variant, release builds only.
+  #
+  # They require the other steps to finish to avoid unnecessarily running
+  # steps on infrastructure that costs money. In addition, the PR must be
+  # assigned to nikclayton, otherwise the tests fail.
   connected:
     strategy:
       matrix:
-        color: [ "Orange" ]
+        color: [ "orange", "olue" ]
         store: [ "Fdroid", "Github", "Google" ]
-        type: [ "Debug" ]
+        type: [ "Release" ]
         api-level: [ 31 ]
         target: [ default ]
     name: Android Emulator Tests
     runs-on: blacksmith-4vcpu-ubuntu-2404
+    needs: [ "check-assignee", "ktlint", "tools", "custom-lint", "ci", "screenshots" ]
 
     steps:
       - name: Checkout
