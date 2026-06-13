@@ -66,11 +66,6 @@ import java.time.Instant
  * @param showBotOverlay See [PachliAccountAdapter.showBotOverlay]
  * @param accept Handler to call when the user acts on the UI.
  */
-// Note: This operates with an app.pachli.core.data.repository.PachliAccount as
-// that is guaranteed to be a data class that implements `equals` using
-// structural equality. Structural equality comparison is required for DiffUtil
-// to work. Using app.pachli.core.model.PachliAccount doesn't provide that
-// guarantee.
 internal class PachliAccountAdapter(
     private val glide: RequestManager,
     animateAvatars: Boolean,
