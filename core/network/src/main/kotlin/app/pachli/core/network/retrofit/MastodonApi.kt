@@ -422,6 +422,16 @@ interface MastodonApi {
     ): ApiResult<Account>
 
     /**
+     * Resolve multiple accounts, by their [Account.id].
+     *
+     * See https://docs.joinmastodon.org/methods/accounts/#index
+     */
+    @GET("api/v1/accounts")
+    suspend fun accounts(
+        @Query("id") ids: Collection<String>,
+    ): ApiResult<List<Account>>
+
+    /**
      * Method to fetch statuses for the specified account.
      * @param accountId ID for account for which statuses will be requested
      * @param maxId Only statuses with ID less than maxId will be returned

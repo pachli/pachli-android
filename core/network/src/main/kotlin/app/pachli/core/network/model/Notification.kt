@@ -37,6 +37,7 @@ data class Notification(
     val relationshipSeveranceEvent: RelationshipSeveranceEvent? = null,
     @Json(name = "moderation_warning")
     val accountWarning: AccountWarning? = null,
+    val collection: Collection? = null,
 ) {
 
     /** From https://docs.joinmastodon.org/entities/Notification/#type */
@@ -102,6 +103,15 @@ data class Notification(
         /** A post you quoted has been updated. */
         @Json(name = "quoted_update")
         QUOTED_UPDATE("quoted_update"),
+
+        /** Added to a collection. */
+        @Json(name = "added_to_collection")
+        COLLECTION_ADD("added_to_collection"),
+
+        /** Collection was updated. */
+        @Json(name = "collection_update")
+        COLLECTION_UPDATE("collection_update"),
+
         ;
 
         override fun toString(): String {
@@ -155,6 +165,24 @@ data class Notification(
                 // and convert to the internal model Type later.
                 networkType = type.presentation,
             )
+
+            Type.COLLECTION_ADD -> collection?.let {
+                app.pachli.core.model.Notification.CollectionAdd(
+                    id = id,
+                    createdAt = createdAt.toInstant(),
+                    account = account.asModel(),
+                    collection = collection.asModel(),
+                )
+            }
+
+            Type.COLLECTION_UPDATE -> collection?.let {
+                app.pachli.core.model.Notification.CollectionUpdate(
+                    id = id,
+                    createdAt = createdAt.toInstant(),
+                    account = account.asModel(),
+                    collection = collection.asModel(),
+                )
+            }
 
             Type.MENTION -> status?.let {
                 app.pachli.core.model.Notification.Mention(
@@ -293,6 +321,8 @@ fun app.pachli.core.model.Notification.Type.asNetworkModel() = when (this) {
     app.pachli.core.model.Notification.Type.MODERATION_WARNING -> Notification.Type.MODERATION_WARNING
     app.pachli.core.model.Notification.Type.QUOTE -> Notification.Type.QUOTE
     app.pachli.core.model.Notification.Type.QUOTED_UPDATE -> Notification.Type.QUOTED_UPDATE
+    app.pachli.core.model.Notification.Type.COLLECTION_ADD -> Notification.Type.COLLECTION_ADD
+    app.pachli.core.model.Notification.Type.COLLECTION_UPDATE -> Notification.Type.COLLECTION_UPDATE
 }
 
 /**

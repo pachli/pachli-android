@@ -110,6 +110,8 @@ enum class PachliNotificationChannels(
     @StringRes val nameRes: Int,
     @StringRes val descriptionRes: Int,
 ) {
+    COLLECTION_ADD("CHANNEL_COLLECTION_ADD", R.string.notification_collection_add_name, R.string.notification_collection_add_description),
+    COLLECTION_UPDATE("CHANNEL_COLLECTION_UPDATE", R.string.notification_collection_update_name, R.string.notification_collection_update_description),
     MENTION("CHANNEL_MENTION", R.string.notification_mention_name, R.string.notification_mention_descriptions),
     FOLLOW("CHANNEL_FOLLOW", R.string.notification_follow_name, R.string.notification_follow_description),
     FOLLOW_REQUEST("CHANNEL_FOLLOW_REQUEST", R.string.notification_follow_request_name, R.string.notification_follow_request_description),
@@ -554,6 +556,8 @@ fun filterNotification(
         return channel != null && channel.importance > NotificationManager.IMPORTANCE_NONE
     }
     return when (notification) {
+        is Notification.CollectionAdd -> account.notificationsCollectionAdd
+        is Notification.CollectionUpdate -> account.notificationsCollectionUpdate
         is Notification.Mention -> account.notificationsMentioned
         is Notification.Status -> account.notificationsSubscriptions
         is Notification.Follow -> account.notificationsFollowed
@@ -656,6 +660,8 @@ fun filterNotificationByAccount(accountWithFilters: app.pachli.core.data.reposit
 
 private fun getChannelId(account: PachliAccount, notification: Notification): String? {
     return when (notification) {
+        is Notification.CollectionAdd -> PachliNotificationChannels.COLLECTION_ADD.channelId(account.identifier)
+        is Notification.CollectionUpdate -> PachliNotificationChannels.COLLECTION_UPDATE.channelId(account.identifier)
         is Notification.Mention -> PachliNotificationChannels.MENTION.channelId(account.identifier)
         is Notification.Status -> PachliNotificationChannels.SUBSCRIPTIONS.channelId(account.identifier)
         is Notification.Follow -> PachliNotificationChannels.FOLLOW.channelId(account.identifier)
@@ -731,6 +737,13 @@ private fun titleForType(
 ): Spanned {
     val accountName = notification.account.name.htmlEncode().unicodeWrap()
     val htmlTitle = when (notification) {
+        is Notification.CollectionAdd -> {
+            context.getString(R.string.notification_collection_add_format, accountName)
+        }
+
+        is Notification.CollectionUpdate -> {
+            context.getString(R.string.notification_collection_update_format, accountName)
+        }
         is Notification.Mention -> {
             context.getString(R.string.notification_mention_format, accountName)
         }
@@ -807,6 +820,16 @@ private fun bodyForType(
     alwaysOpenSpoiler: Boolean,
 ): String? {
     when (notification) {
+        // TODO: Finish
+        is Notification.CollectionAdd -> {
+            return "TODO: CollectionAdd"
+        }
+
+        // TODO: Finish
+        is Notification.CollectionUpdate -> {
+            return "TODO: CollectionUpdate"
+        }
+
         is Notification.Follow, is Notification.FollowRequest, is Notification.SignUp -> {
             return "@" + notification.account.username
         }

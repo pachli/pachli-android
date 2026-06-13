@@ -73,4 +73,35 @@
         <attr name="previewCardAvatarSize" format="reference|dimension" />
         <attr name="previewCardAvatarCornerRadius" format="reference|dimension" />
     </declare-styleable>
+
+    <attr name="collectionCardViewStyle" format="reference" />
+    <declare-styleable name="CollectionCardView">
+        <attr name="android:background" />
+        <attr name="android:foreground" />
+
+        <!-- Background of the "info" part of the collection (contains the text
+             content. -->
+        <attr name="collectionCardBackground" format="reference|color" />
+        <!-- Height of the collection image, if the image is stacked vertically above
+             the collection content. -->
+        <!--        <attr name="collectionCardImageVerticalHeight" format="reference|dimension" />-->
+        <!-- Width of the collection image, if the image is laid out horizontally next
+             to the collection content. -->
+        <!--        <attr name="collectionCardImageHorizontalWidth" format="reference|dimension" />-->
+
+        <attr name="collectionCardNameTextColor" format="reference|color" />
+        <attr name="collectionCardNameTextSize" format="reference|dimension" />
+
+        <attr name="collectionCardOwnerTextColor" format="reference|color" />
+        <attr name="collectionCardOwnerTextSize" format="reference|dimension" />
+
+        <attr name="collectionCardDescriptionTextColor" format="reference|color" />
+        <attr name="collectionCardDescriptionTextSize" format="reference|dimension" />
+
+        <attr name="collectionCardItemCountTextColor" format="reference|color" />
+        <attr name="collectionCardItemCountTextSize" format="reference|dimension" />
+
+        <attr name="collectionCardAvatarSize" format="reference|dimension" />
+        <attr name="collectionCardAvatarCornerRadius" format="reference|dimension" />
+    </declare-styleable>
 </resources>

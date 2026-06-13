@@ -46,6 +46,7 @@ data class NotificationData(
     @Embedded(prefix = "report_") val report: NotificationReportEntity?,
     @Embedded(prefix = "rse_") val relationshipSeveranceEvent: NotificationRelationshipSeveranceEventEntity?,
     @Embedded(prefix = "warn_") val accountWarning: NotificationAccountWarningEntity?,
+    @Embedded(prefix = "collection_") val collection: CollectionEntity?,
 ) {
     fun asModel(): Notification {
         return when (notification.type) {
@@ -55,6 +56,28 @@ data class NotificationData(
                 account = account.asModel(),
                 // TODO: This is wrong, the remoteType is not currently persisted.
                 networkType = notification.type.toString(),
+            )
+
+            NotificationEntity.Type.COLLECTION_ADD -> collection?.let {
+                Notification.CollectionAdd(
+                    id = notification.serverId,
+                    createdAt = notification.createdAt,
+                    account = account.asModel(),
+                    collection = collection!!.asModel(),
+                )
+            } ?: Notification.Unknown(
+                id = notification.serverId,
+                createdAt = notification.createdAt,
+                account = account.asModel(),
+                // TODO: This is wrong, the remoteType is not currently persisted.
+                networkType = "added_to_collection",
+            )
+
+            NotificationEntity.Type.COLLECTION_UPDATE -> Notification.CollectionUpdate(
+                id = notification.serverId,
+                createdAt = notification.createdAt,
+                account = account.asModel(),
+                collection = collection!!.asModel(),
             )
 
             NotificationEntity.Type.MENTION -> Notification.Mention(
@@ -206,6 +229,8 @@ data class NotificationAccountFilterDecisionUpdate(
  * @property accountServerId ID of the account that generated this notification.
  * @property statusServerId (optional) ID of the status this notification is about.
  * Null if the notification is not about a particular status.
+ * @property collectionServerId (optional) ID of the collection contained in this
+ * notification. Null if this notification does not reference a collection.
  */
 @Entity(
     primaryKeys = ["pachliAccountId", "serverId"],
@@ -236,6 +261,7 @@ data class NotificationEntity(
     val createdAt: Instant,
     val accountServerId: String,
     val statusServerId: String?,
+    val collectionServerId: String?,
 ) {
     enum class Type {
         /** Unknown notification. */
@@ -282,6 +308,12 @@ data class NotificationEntity(
 
         /** A post you quoted has been updated. */
         QUOTED_UPDATE,
+
+        /** Added to a collection. */
+        COLLECTION_ADD,
+
+        /** Collection was updated. */
+        COLLECTION_UPDATE,
         ;
 
         companion object

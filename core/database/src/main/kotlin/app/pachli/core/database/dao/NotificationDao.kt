@@ -25,6 +25,7 @@ import androidx.room.Transaction
 import androidx.room.TypeConverters
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
+import app.pachli.core.database.model.CollectionEntity
 import app.pachli.core.database.model.NotificationAccountFilterDecisionUpdate
 import app.pachli.core.database.model.NotificationAccountWarningEntity
 import app.pachli.core.database.model.NotificationData
@@ -280,12 +281,25 @@ SELECT
     rse.createdAt AS 'rse_createdAt',
 
     -- AccountWarning
-    warn.pachliAccountId as 'warn_pachliAccountId',
+    warn.pachliAccountId AS 'warn_pachliAccountId',
     warn.serverId AS 'warn_serverId',
     warn.accountWarningId AS 'warn_accountWarningId',
     warn.text AS 'warn_text',
     warn."action" AS "warn_action",
-    warn.createdAt AS 'warn_createdAt'
+    warn.createdAt AS 'warn_createdAt',
+
+    -- Collection
+    collection.pachliAccountId AS 'collection_pachliAccountId',
+    collection.serverId AS 'collection_serverId',
+    collection.accountId AS 'collection_accountId',
+    collection.name AS 'collection_name',
+    collection.description AS 'collection_description',
+    collection.local AS 'collection_local',
+    collection.sensitive AS 'collection_sensitive',
+    collection.discoverable AS 'collection_discoverable',
+    collection.createdAt AS 'collection_createdAt',
+    collection.updatedAt AS 'collection_updatedAt',
+    collection.items AS 'collection_items'
 FROM NotificationEntity AS n
 LEFT JOIN TimelineAccountEntity AS a ON (n.pachliAccountId = a.timelineUserId AND n.accountServerId = a.serverId)
 LEFT JOIN TimelineStatusWithAccount AS s ON (n.pachliAccountId = s.timelineUserId AND n.statusServerId = s.serverId)
@@ -301,6 +315,9 @@ LEFT JOIN
 LEFT JOIN
     NotificationAccountWarningEntity AS warn
     ON (n.pachliAccountId = warn.pachliAccountId AND n.serverId = warn.serverId)
+LEFT JOIN
+    CollectionEntity AS collection
+    ON (n.pachliAccountId = collection.pachliAccountId and n.collectionServerId = collection.serverId)
 WHERE n.pachliAccountId = :pachliAccountId
 ORDER BY LENGTH(n.serverId) DESC, n.serverId DESC
 """,
@@ -355,6 +372,10 @@ WHERE pachliAccountId = :pachliAccountId
 
     @Upsert
     suspend fun upsertAccountWarnings(accountWarnings: Collection<NotificationAccountWarningEntity>)
+
+    // TODO: This moves to CollectionsDao
+    @Upsert
+    suspend fun upsertCollections(collections: Collection<CollectionEntity>)
 
     @Upsert(entity = NotificationViewDataEntity::class)
     suspend fun upsert(notificationAccountFilterDecisionUpdate: NotificationAccountFilterDecisionUpdate)
@@ -660,12 +681,25 @@ SELECT
     rse.createdAt AS 'rse_createdAt',
 
     -- AccountWarning
-    warn.pachliAccountId as 'warn_pachliAccountId',
+    warn.pachliAccountId AS 'warn_pachliAccountId',
     warn.serverId AS 'warn_serverId',
     warn.accountWarningId AS 'warn_accountWarningId',
     warn.text AS 'warn_text',
     warn."action" AS "warn_action",
-    warn.createdAt AS 'warn_createdAt'
+    warn.createdAt AS 'warn_createdAt',
+
+    -- Collection
+    collection.pachliAccountId AS 'collection_pachliAccountId',
+    collection.serverId AS 'collection_serverId',
+    collection.accountId AS 'collection_accountId',
+    collection.name AS 'collection_name',
+    collection.description AS 'collection_description',
+    collection.local AS 'collection_local',
+    collection.sensitive AS 'collection_sensitive',
+    collection.discoverable AS 'collection_discoverable',
+    collection.createdAt AS 'collection_createdAt',
+    collection.updatedAt AS 'collection_updatedAt',
+    collection.items AS 'collection_items'
 FROM NotificationEntity AS n
 LEFT JOIN TimelineAccountEntity AS a ON (n.pachliAccountId = a.timelineUserId AND n.accountServerId = a.serverId)
 LEFT JOIN TimelineStatusWithAccount AS s ON (n.pachliAccountId = s.timelineUserId AND n.statusServerId = s.serverId)
@@ -681,6 +715,9 @@ LEFT JOIN
 LEFT JOIN
     NotificationAccountWarningEntity AS warn
     ON (n.pachliAccountId = warn.pachliAccountId AND n.serverId = warn.serverId)
+LEFT JOIN
+    CollectionEntity AS collection
+    ON (n.pachliAccountId = collection.pachliAccountId and n.collectionServerId = collection.serverId)
 WHERE n.pachliAccountId = :pachliAccountId
 ORDER BY LENGTH(n.serverId) DESC, n.serverId DESC
 """,

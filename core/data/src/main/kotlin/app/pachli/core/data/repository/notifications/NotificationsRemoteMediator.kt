@@ -27,6 +27,7 @@ import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider
+import app.pachli.core.database.model.CollectionEntity
 import app.pachli.core.database.model.NotificationAccountWarningEntity
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
@@ -37,6 +38,7 @@ import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
 import app.pachli.core.model.TimelineAccount
+import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.AccountWarning
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Notification
@@ -50,6 +52,7 @@ import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getOrElse
+import com.github.michaelbull.result.map
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import okhttp3.Headers
@@ -233,6 +236,11 @@ class NotificationsRemoteMediator(
         /** Unique account warnings referenced in this batch of notifications. */
         val accountWarnings = mutableSetOf<NotificationAccountWarningEntity>()
 
+        /** Unique collections referenced in this batch of notifications. */
+        val collections = mutableSetOf<CollectionEntity>()
+
+        val collectionAccounts = resolveCollectionAccounts(notifications.mapNotNull { it.collection })
+
         // Collect the different items from this batch of notifications.
         // TODO: This could do less work by using a Map<String, T> as the type,
         // instead of a Set, where the map key is the server ID of the thing.
@@ -262,6 +270,7 @@ class NotificationsRemoteMediator(
             notification.report?.let { reports.add(it.asEntity(pachliAccountId, notification.id)) }
             notification.relationshipSeveranceEvent?.let { severanceEvents.add(it.asEntity(pachliAccountId, notification.id)) }
             notification.accountWarning?.let { accountWarnings.add(it.asEntity(pachliAccountId, notification.id)) }
+            notification.collection?.let { collections.add(it.asModel().asEntity(pachliAccountId)) }
         }
 
         // Bulk upsert the discovered items.
@@ -270,7 +279,20 @@ class NotificationsRemoteMediator(
         notificationDao.upsertReports(reports)
         notificationDao.upsertEvents(severanceEvents)
         notificationDao.upsertAccountWarnings(accountWarnings)
+        notificationDao.upsertCollections(collections)
         notificationDao.upsertNotifications(notifications.asModel(accountId).asEntity(pachliAccountId))
+    }
+
+    fun app.pachli.core.network.model.Collection.allAccountIds(): List<String> {
+        return items.mapNotNull { it.accountId } + accountId
+    }
+
+    private suspend fun resolveCollectionAccounts(collections: Collection<app.pachli.core.network.model.Collection>): Map<String, Account> {
+        val accountIds = buildSet {
+            collections.forEach { addAll(it.allAccountIds()) }
+        }
+
+        return mastodonApi.accounts(accountIds).map { it.body.associateBy { it.id } }.getOrElse { emptyMap() }
     }
 }
 

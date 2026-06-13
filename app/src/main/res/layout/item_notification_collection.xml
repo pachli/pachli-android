@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="14dp"
+    android:paddingRight="14dp"
+    android:paddingBottom="10dp">
+
+    <TextView
+        android:id="@+id/notification_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:drawableStartCompat="@drawable/ic_person_add_24dp"
+        android:drawablePadding="10dp"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="2"
+        android:paddingStart="28dp"
+        android:textSize="?attr/status_text_small"
+        android:importantForAccessibility="no"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Someone added you to a collection"
+        tools:ignore="RtlSymmetry" />
+
+    <ImageView
+        android:id="@+id/notification_avatar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentStart="false"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@string/action_view_profile"
+        android:scaleType="centerCrop"
+        android:textSize="?attr/status_text_medium"
+        android:importantForAccessibility="no"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notification_text"
+        tools:src="@drawable/avatar_default" />
+
+    <app.pachli.core.ui.RoleChipGroup
+        android:id="@+id/roleChipGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp"
+        app:chipSpacingVertical="4dp"
+        app:layout_constraintStart_toStartOf="@id/notification_username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/notification_avatar"
+        android:importantForAccessibility="no" />
+
+    <TextView
+        android:id="@+id/notification_username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="?attr/status_text_medium"
+        android:importantForAccessibility="no"
+        app:layout_constraintStart_toEndOf="@id/notification_avatar"
+        app:layout_constraintEnd_toStartOf="@id/account_pronouns"
+        app:layout_constraintTop_toBottomOf="@+id/roleChipGroup"
+        tools:text="\@testuser" />
+
+    <app.pachli.core.ui.PronounsChip
+        android:id="@+id/account_pronouns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:importantForAccessibility="no"
+        app:layout_constraintBaseline_toBaselineOf="@id/notification_username"
+        app:layout_constraintStart_toEndOf="@id/notification_username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_max="@dimen/pronounChip_maxWidth"
+        tools:ignore="SelectableText"
+        tools:text="he/him" />
+
+    <app.pachli.core.ui.ClickableSpanTextView
+        android:id="@+id/notification_account_note"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:hyphenationFrequency="full"
+        android:lineSpacingMultiplier="1.1"
+        android:textSize="?attr/status_text_medium"
+        android:textIsSelectable="true"
+        android:importantForAccessibility="no"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/notification_username"
+        app:layout_constraintTop_toBottomOf="@+id/notification_username"
+        tools:text="Account note" />
+
+    <app.pachli.core.ui.CollectionCardView
+        android:id="@+id/collection_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintStart_toStartOf="@id/notification_username"
+        app:layout_constraintTop_toBottomOf="@id/notification_account_note"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

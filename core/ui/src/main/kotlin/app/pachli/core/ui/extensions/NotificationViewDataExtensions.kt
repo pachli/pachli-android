@@ -43,7 +43,7 @@ import app.pachli.core.model.FilterContext
 
 /**
  *
- * @param pachliAccountEntity
+ * @param pachliAccount
  * @param data
  * @param showSensitiveMedia
  * @param isExpanded
@@ -68,6 +68,26 @@ fun NotificationViewData.Companion.make(
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
+    )
+
+    NotificationEntity.Type.COLLECTION_ADD -> NotificationViewData.WithCollection.CollectionAddNotificationViewData(
+        pachliAccountId = pachliAccount.id,
+        localDomain = pachliAccount.domain,
+        notificationId = data.notification.serverId,
+        account = data.account.asModel(),
+        isAboutSelf = isAboutSelf,
+        accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
+        collection = data.collection!!.asModel(),
+    )
+
+    NotificationEntity.Type.COLLECTION_UPDATE -> NotificationViewData.WithCollection.CollectionUpdateNotificationViewData(
+        pachliAccountId = pachliAccount.id,
+        localDomain = pachliAccount.domain,
+        notificationId = data.notification.serverId,
+        account = data.account.asModel(),
+        isAboutSelf = isAboutSelf,
+        accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
+        collection = data.collection!!.asModel(),
     )
 
     NotificationEntity.Type.MENTION -> MentionNotificationViewData(

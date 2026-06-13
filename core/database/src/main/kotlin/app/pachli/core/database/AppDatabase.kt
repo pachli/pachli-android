@@ -48,6 +48,7 @@ import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.model.AnnouncementEntity
+import app.pachli.core.database.model.CollectionEntity
 import app.pachli.core.database.model.ContentFiltersEntity
 import app.pachli.core.database.model.ConversationEntity
 import app.pachli.core.database.model.ConversationViewDataEntity
@@ -79,6 +80,7 @@ import java.util.TimeZone
 @Suppress("ClassName")
 @Database(
     entities = [
+        CollectionEntity::class,
         DraftEntity::class,
         PachliAccountEntity::class,
         EmojisEntity::class,
@@ -107,7 +109,7 @@ import java.util.TimeZone
         TimelineStatusWithAccount::class,
         ReferencedStatusId::class,
     ],
-    version = 41,
+    version = 42,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -166,6 +168,8 @@ import java.util.TimeZone
         // Converting InstanceInfo to ServerLimits.
         AutoMigration(from = 39, to = 40, spec = AppDatabase.MIGRATE_39_40::class),
         AutoMigration(from = 40, to = 41, spec = AppDatabase.MIGRATE_40_41::class),
+        // Support Mastodon Collections.
+        AutoMigration(from = 41, to = 42),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {

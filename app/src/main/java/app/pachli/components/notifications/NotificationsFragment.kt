@@ -752,6 +752,8 @@ class FilterDialogFragment(
 @StringRes
 fun Notification.Type.uiString(): Int = when (this) {
     Notification.Type.UNKNOWN -> R.string.notification_unknown_name
+    Notification.Type.COLLECTION_ADD -> R.string.notification_collection_add_name
+    Notification.Type.COLLECTION_UPDATE -> R.string.notification_collection_update_name
     Notification.Type.MENTION -> R.string.notification_mention_name
     Notification.Type.REBLOG -> R.string.notification_boost_name
     Notification.Type.FAVOURITE -> R.string.notification_favourite_name

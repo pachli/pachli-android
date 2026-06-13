@@ -103,6 +103,14 @@ class NotificationAccessibilityDelegate<T : NotificationViewData>(
                     info.addAction(openProfileAction)
                 }
 
+                is NotificationViewData.WithCollection.CollectionAddNotificationViewData -> {
+                    // TODO: Add actions
+                }
+
+                is NotificationViewData.WithCollection.CollectionUpdateNotificationViewData -> {
+                    // TODO: Add actions
+                }
+
                 is NotificationViewData.UnknownNotificationViewData -> {
                     // No actions.
                 }

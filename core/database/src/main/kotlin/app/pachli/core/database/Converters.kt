@@ -24,6 +24,7 @@ import app.pachli.core.model.Announcement
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Card
+import app.pachli.core.model.CollectionItem
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.ConversationAccount
 import app.pachli.core.model.DraftAttachment
@@ -327,4 +328,10 @@ class Converters @Inject constructor(
 
     @TypeConverter
     fun jsonToServerLimits(s: String?) = fromJson<ServerLimits>(s)
+
+    @TypeConverter
+    fun collectionItemsToJson(collectionItems: List<CollectionItem>) = toJson(collectionItems)
+
+    @TypeConverter
+    fun jsonToCollectionItems(s: String?) = fromJson<List<CollectionItem>>(s)
 }

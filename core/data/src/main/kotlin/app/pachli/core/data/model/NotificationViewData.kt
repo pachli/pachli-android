@@ -270,5 +270,29 @@ sealed interface NotificationViewData {
         val accountWarning: AccountWarning,
     ) : NotificationViewData
 
+    sealed interface WithCollection : NotificationViewData {
+        val collection: app.pachli.core.model.Collection
+
+        data class CollectionAddNotificationViewData(
+            override val pachliAccountId: Long,
+            override val localDomain: String,
+            override val notificationId: String,
+            override val account: TimelineAccount,
+            override val isAboutSelf: Boolean,
+            override val accountFilterDecision: AccountFilterDecision,
+            override val collection: app.pachli.core.model.Collection,
+        ) : NotificationViewData, WithCollection
+
+        data class CollectionUpdateNotificationViewData(
+            override val pachliAccountId: Long,
+            override val localDomain: String,
+            override val notificationId: String,
+            override val account: TimelineAccount,
+            override val isAboutSelf: Boolean,
+            override val accountFilterDecision: AccountFilterDecision,
+            override val collection: app.pachli.core.model.Collection,
+        ) : NotificationViewData, WithCollection
+    }
+
     companion object
 }

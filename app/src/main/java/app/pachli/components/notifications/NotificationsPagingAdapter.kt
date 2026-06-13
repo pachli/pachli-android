@@ -33,6 +33,8 @@ import app.pachli.core.data.model.NotificationViewData.ReportNotificationViewDat
 import app.pachli.core.data.model.NotificationViewData.SeveredRelationshipsNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.SignupNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.UnknownNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithCollection.CollectionAddNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithCollection.CollectionUpdateNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.FavouriteNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.MentionNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.PollNotificationViewData
@@ -49,6 +51,7 @@ import app.pachli.core.ui.StatusActionListener
 import app.pachli.databinding.ItemFollowBinding
 import app.pachli.databinding.ItemFollowRequestBinding
 import app.pachli.databinding.ItemModerationWarningBinding
+import app.pachli.databinding.ItemNotificationCollectionBinding
 import app.pachli.databinding.ItemNotificationFilteredBinding
 import app.pachli.databinding.ItemReportNotificationBinding
 import app.pachli.databinding.ItemSeveredRelationshipsBinding
@@ -85,6 +88,9 @@ enum class NotificationViewKind {
     /** View details of the moderation warning. */
     MODERATION_WARNING,
 
+    /** View details of the collection (added or updated). */
+    COLLECTION,
+
     UNKNOWN,
     ;
 
@@ -109,7 +115,13 @@ enum class NotificationViewKind {
                 is ReportNotificationViewData -> REPORT
                 is SeveredRelationshipsNotificationViewData -> SEVERED_RELATIONSHIPS
                 is ModerationWarningNotificationViewData -> MODERATION_WARNING
+
+                is CollectionAddNotificationViewData,
+                is CollectionUpdateNotificationViewData,
+                -> COLLECTION
+
                 is UnknownNotificationViewData -> UNKNOWN
+
                 null -> UNKNOWN
             }
         }
@@ -196,6 +208,15 @@ class NotificationsPagingAdapter(
         val inflater = LayoutInflater.from(parent.context)
 
         return when (NotificationViewKind.entries[viewType]) {
+            NotificationViewKind.COLLECTION -> {
+                CollectionNotificationViewHolder(
+                    ItemNotificationCollectionBinding.inflate(inflater, parent, false),
+                    glide,
+                    setContent,
+                    notificationActionListener,
+                )
+            }
+
             NotificationViewKind.STATUS -> {
                 StatusNotificationViewHolder(
                     ItemStatusBinding.inflate(inflater, parent, false),
