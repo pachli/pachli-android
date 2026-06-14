@@ -78,6 +78,46 @@ fun app.pachli.core.model.Collection.asEntity(pachliAccountId: Long) = Collectio
     items = items,
 )
 
+@Entity(
+    primaryKeys = ["pachliAccountId", "serverId"],
+    foreignKeys = [
+        ForeignKey(
+            entity = PachliAccountEntity::class,
+            parentColumns = arrayOf("id"),
+            childColumns = arrayOf("pachliAccountId"),
+            onDelete = ForeignKey.CASCADE,
+            deferred = true,
+        ),
+    ],
+)
+@TypeConverters(Converters::class)
+data class TimelineCollectionEntity(
+    val pachliAccountId: Long,
+    val serverId: String,
+    val accountId: String,
+    val name: String,
+    val description: String,
+    val local: Boolean,
+    val sensitive: Boolean,
+    val discoverable: Boolean,
+    val createdAt: Instant,
+    val updatedAt: Instant,
+    val itemIconUrls: List<String>,
+) {
+    fun asModel() = app.pachli.core.model.TimelineCollection(
+        serverId = serverId,
+        accountId = accountId,
+        name = name,
+        description = description,
+        local = local,
+        sensitive = sensitive,
+        discoverable = discoverable,
+        createdAt = createdAt,
+        updatedAt = updatedAt,
+        itemIconUrls = itemIconUrls,
+    )
+}
+
 // @Entity(
 //    primaryKeys = ["pachliAccountId", "serverId"],
 //    foreignKeys = [

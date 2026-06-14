@@ -110,6 +110,6 @@ class CollectionNotificationViewHolder(
         binding.notificationAccountNote.setOnClickListener { linkListener.onViewAccount(account.id) }
         itemView.setOnClickListener { linkListener.onViewAccount(account.id) }
 
-        binding.collectionCard.bind(glide, viewData.collection, null)
+        binding.collectionCard.bind(glide, viewData.timelineCollection, null)
     }
 }

@@ -289,17 +289,17 @@ SELECT
     warn.createdAt AS 'warn_createdAt',
 
     -- Collection
-    collection.pachliAccountId AS 'collection_pachliAccountId',
-    collection.serverId AS 'collection_serverId',
-    collection.accountId AS 'collection_accountId',
-    collection.name AS 'collection_name',
-    collection.description AS 'collection_description',
-    collection.local AS 'collection_local',
-    collection.sensitive AS 'collection_sensitive',
-    collection.discoverable AS 'collection_discoverable',
-    collection.createdAt AS 'collection_createdAt',
-    collection.updatedAt AS 'collection_updatedAt',
-    collection.items AS 'collection_items'
+    timelineCollection.pachliAccountId AS 'timelineCollection_pachliAccountId',
+    timelineCollection.serverId AS 'timelineCollection_serverId',
+    timelineCollection.accountId AS 'timelineCollection_accountId',
+    timelineCollection.name AS 'timelineCollection_name',
+    timelineCollection.description AS 'timelineCollection_description',
+    timelineCollection.local AS 'timelineCollection_local',
+    timelineCollection.sensitive AS 'timelineCollection_sensitive',
+    timelineCollection.discoverable AS 'timelineCollection_discoverable',
+    timelineCollection.createdAt AS 'timelineCollection_createdAt',
+    timelineCollection.updatedAt AS 'timelineCollection_updatedAt',
+    timelineCollection.itemIconUrls AS 'timelineCollection_itemIconUrls'
 FROM NotificationEntity AS n
 LEFT JOIN TimelineAccountEntity AS a ON (n.pachliAccountId = a.timelineUserId AND n.accountServerId = a.serverId)
 LEFT JOIN TimelineStatusWithAccount AS s ON (n.pachliAccountId = s.timelineUserId AND n.statusServerId = s.serverId)
@@ -316,8 +316,8 @@ LEFT JOIN
     NotificationAccountWarningEntity AS warn
     ON (n.pachliAccountId = warn.pachliAccountId AND n.serverId = warn.serverId)
 LEFT JOIN
-    CollectionEntity AS collection
-    ON (n.pachliAccountId = collection.pachliAccountId and n.collectionServerId = collection.serverId)
+    TimelineCollectionEntity AS timelineCollection
+    ON (n.pachliAccountId = timelineCollection.pachliAccountId and n.collectionServerId = timelineCollection.serverId)
 WHERE n.pachliAccountId = :pachliAccountId
 ORDER BY LENGTH(n.serverId) DESC, n.serverId DESC
 """,

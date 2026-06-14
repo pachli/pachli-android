@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 42,
-    "identityHash": "83fc7ed6f9f8624de6267607117d3994",
+    "identityHash": "6da14bb58aa0b834c0357cedaedbf123",
     "entities": [
       {
         "tableName": "CollectionEntity",
@@ -71,6 +71,98 @@
           {
             "fieldPath": "items",
             "columnName": "items",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "pachliAccountId",
+            "serverId"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "PachliAccountEntity",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "pachliAccountId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "TimelineCollectionEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `accountId` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `local` INTEGER NOT NULL, `sensitive` INTEGER NOT NULL, `discoverable` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `itemIconUrls` TEXT NOT NULL, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `PachliAccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
+        "fields": [
+          {
+            "fieldPath": "pachliAccountId",
+            "columnName": "pachliAccountId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "serverId",
+            "columnName": "serverId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accountId",
+            "columnName": "accountId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "local",
+            "columnName": "local",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sensitive",
+            "columnName": "sensitive",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "discoverable",
+            "columnName": "discoverable",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "itemIconUrls",
+            "columnName": "itemIconUrls",
             "affinity": "TEXT",
             "notNull": true
           }
@@ -2161,7 +2253,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '83fc7ed6f9f8624de6267607117d3994')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6da14bb58aa0b834c0357cedaedbf123')"
     ]
   }
 }

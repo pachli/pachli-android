@@ -25,7 +25,6 @@ import androidx.room.Index
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
 import app.pachli.core.model.AccountFilterDecision
-import app.pachli.core.model.Notification
 import java.time.Instant
 
 /**
@@ -46,136 +45,136 @@ data class NotificationData(
     @Embedded(prefix = "report_") val report: NotificationReportEntity?,
     @Embedded(prefix = "rse_") val relationshipSeveranceEvent: NotificationRelationshipSeveranceEventEntity?,
     @Embedded(prefix = "warn_") val accountWarning: NotificationAccountWarningEntity?,
-    @Embedded(prefix = "collection_") val collection: CollectionEntity?,
+    @Embedded(prefix = "timelineCollection_") val timelineCollection: TimelineCollectionEntity?,
 ) {
-    fun asModel(): Notification {
-        return when (notification.type) {
-            NotificationEntity.Type.UNKNOWN -> Notification.Unknown(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                // TODO: This is wrong, the remoteType is not currently persisted.
-                networkType = notification.type.toString(),
-            )
-
-            NotificationEntity.Type.COLLECTION_ADD -> collection?.let {
-                Notification.CollectionAdd(
-                    id = notification.serverId,
-                    createdAt = notification.createdAt,
-                    account = account.asModel(),
-                    collection = collection!!.asModel(),
-                )
-            } ?: Notification.Unknown(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                // TODO: This is wrong, the remoteType is not currently persisted.
-                networkType = "added_to_collection",
-            )
-
-            NotificationEntity.Type.COLLECTION_UPDATE -> Notification.CollectionUpdate(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                collection = collection!!.asModel(),
-            )
-
-            NotificationEntity.Type.MENTION -> Notification.Mention(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                status = status!!.toStatus(),
-            )
-
-            NotificationEntity.Type.REBLOG -> Notification.Reblog(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                status = status!!.toStatus(),
-            )
-
-            NotificationEntity.Type.FAVOURITE -> Notification.Favourite(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                status = status!!.toStatus(),
-            )
-
-            NotificationEntity.Type.FOLLOW -> Notification.Follow(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-            )
-
-            NotificationEntity.Type.FOLLOW_REQUEST -> Notification.FollowRequest(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-            )
-
-            NotificationEntity.Type.POLL -> Notification.Poll(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                status = status!!.toStatus(),
-            )
-
-            NotificationEntity.Type.STATUS -> Notification.Status(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                status = status!!.toStatus(),
-            )
-
-            NotificationEntity.Type.SIGN_UP -> Notification.SignUp(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-            )
-
-            NotificationEntity.Type.UPDATE -> Notification.Update(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                status = status!!.toStatus(),
-            )
-
-            NotificationEntity.Type.REPORT -> Notification.Report(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                report = report!!.asModel(),
-            )
-
-            NotificationEntity.Type.SEVERED_RELATIONSHIPS -> Notification.SeveredRelationships(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                relationshipSeveranceEvent = relationshipSeveranceEvent!!.asModel(),
-            )
-
-            NotificationEntity.Type.MODERATION_WARNING -> Notification.ModerationWarning(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                accountWarning = accountWarning!!.asModel(),
-            )
-
-            NotificationEntity.Type.QUOTE -> Notification.Quote(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                status = status!!.toStatus(),
-            )
-
-            NotificationEntity.Type.QUOTED_UPDATE -> Notification.QuotedUpdate(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                status = status!!.toStatus(),
-            )
-        }
-    }
+//    fun asModel(): Notification {
+//        return when (notification.type) {
+//            NotificationEntity.Type.UNKNOWN -> Notification.Unknown(
+//                id = notification.serverId,
+//                createdAt = notification.createdAt,
+//                account = account.asModel(),
+//                // TODO: This is wrong, the remoteType is not currently persisted.
+//                networkType = notification.type.toString(),
+//            )
+//
+//            NotificationEntity.Type.COLLECTION_ADD -> timelineCollection?.let {
+//                Notification.CollectionAdd(
+//                    id = notification.serverId,
+//                    createdAt = notification.createdAt,
+//                    account = account.asModel(),
+//                    collection = timelineCollection.asModel(),
+//                )
+//            } ?: Notification.Unknown(
+//                id = notification.serverId,
+//                createdAt = notification.createdAt,
+//                account = account.asModel(),
+//                // TODO: This is wrong, the remoteType is not currently persisted.
+//                networkType = "added_to_collection",
+//            )
+//
+//            NotificationEntity.Type.COLLECTION_UPDATE -> Notification.CollectionUpdate(
+//                id = notification.serverId,
+//                createdAt = notification.createdAt,
+//                account = account.asModel(),
+//                collection = timelineCollection!!.asModel(),
+//            )
+//
+//            NotificationEntity.Type.MENTION -> Notification.Mention(
+//                id = notification.serverId,
+//                createdAt = notification.createdAt,
+//                account = account.asModel(),
+//                status = status!!.toStatus(),
+//            )
+//
+//            NotificationEntity.Type.REBLOG -> Notification.Reblog(
+//                id = notification.serverId,
+//                createdAt = notification.createdAt,
+//                account = account.asModel(),
+//                status = status!!.toStatus(),
+//            )
+//
+//            NotificationEntity.Type.FAVOURITE -> Notification.Favourite(
+//                id = notification.serverId,
+//                createdAt = notification.createdAt,
+//                account = account.asModel(),
+//                status = status!!.toStatus(),
+//            )
+//
+//            NotificationEntity.Type.FOLLOW -> Notification.Follow(
+//                id = notification.serverId,
+//                createdAt = notification.createdAt,
+//                account = account.asModel(),
+//            )
+//
+//            NotificationEntity.Type.FOLLOW_REQUEST -> Notification.FollowRequest(
+//                id = notification.serverId,
+//                createdAt = notification.createdAt,
+//                account = account.asModel(),
+//            )
+//
+//            NotificationEntity.Type.POLL -> Notification.Poll(
+//                id = notification.serverId,
+//                createdAt = notification.createdAt,
+//                account = account.asModel(),
+//                status = status!!.toStatus(),
+//            )
+//
+//            NotificationEntity.Type.STATUS -> Notification.Status(
+//                id = notification.serverId,
+//                createdAt = notification.createdAt,
+//                account = account.asModel(),
+//                status = status!!.toStatus(),
+//            )
+//
+//            NotificationEntity.Type.SIGN_UP -> Notification.SignUp(
+//                id = notification.serverId,
+//                createdAt = notification.createdAt,
+//                account = account.asModel(),
+//            )
+//
+//            NotificationEntity.Type.UPDATE -> Notification.Update(
+//                id = notification.serverId,
+//                createdAt = notification.createdAt,
+//                account = account.asModel(),
+//                status = status!!.toStatus(),
+//            )
+//
+//            NotificationEntity.Type.REPORT -> Notification.Report(
+//                id = notification.serverId,
+//                createdAt = notification.createdAt,
+//                account = account.asModel(),
+//                report = report!!.asModel(),
+//            )
+//
+//            NotificationEntity.Type.SEVERED_RELATIONSHIPS -> Notification.SeveredRelationships(
+//                id = notification.serverId,
+//                createdAt = notification.createdAt,
+//                account = account.asModel(),
+//                relationshipSeveranceEvent = relationshipSeveranceEvent!!.asModel(),
+//            )
+//
+//            NotificationEntity.Type.MODERATION_WARNING -> Notification.ModerationWarning(
+//                id = notification.serverId,
+//                createdAt = notification.createdAt,
+//                account = account.asModel(),
+//                accountWarning = accountWarning!!.asModel(),
+//            )
+//
+//            NotificationEntity.Type.QUOTE -> Notification.Quote(
+//                id = notification.serverId,
+//                createdAt = notification.createdAt,
+//                account = account.asModel(),
+//                status = status!!.toStatus(),
+//            )
+//
+//            NotificationEntity.Type.QUOTED_UPDATE -> Notification.QuotedUpdate(
+//                id = notification.serverId,
+//                createdAt = notification.createdAt,
+//                account = account.asModel(),
+//                status = status!!.toStatus(),
+//            )
+//        }
+//    }
 
     companion object
 }

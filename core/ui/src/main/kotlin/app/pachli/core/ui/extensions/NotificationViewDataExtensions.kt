@@ -77,7 +77,7 @@ fun NotificationViewData.Companion.make(
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
-        collection = data.collection!!.asModel(),
+        timelineCollection = data.timelineCollection!!.asModel(),
     )
 
     NotificationEntity.Type.COLLECTION_UPDATE -> NotificationViewData.WithCollection.CollectionUpdateNotificationViewData(
@@ -87,7 +87,7 @@ fun NotificationViewData.Companion.make(
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
-        collection = data.collection!!.asModel(),
+        timelineCollection = data.timelineCollection!!.asModel(),
     )
 
     NotificationEntity.Type.MENTION -> MentionNotificationViewData(

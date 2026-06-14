@@ -239,7 +239,9 @@ class NotificationsRemoteMediator(
         /** Unique collections referenced in this batch of notifications. */
         val collections = mutableSetOf<CollectionEntity>()
 
-        val collectionAccounts = resolveCollectionAccounts(notifications.mapNotNull { it.collection })
+        val collectionAccounts = resolveCollectionAccounts(
+            collections = notifications.mapNotNull { it.collection },
+        )
 
         // Collect the different items from this batch of notifications.
         // TODO: This could do less work by using a Map<String, T> as the type,
@@ -283,11 +285,11 @@ class NotificationsRemoteMediator(
         notificationDao.upsertNotifications(notifications.asModel(accountId).asEntity(pachliAccountId))
     }
 
-    fun app.pachli.core.network.model.Collection.allAccountIds(): List<String> {
+    private fun app.pachli.core.network.model.Collection.allAccountIds(): List<String> {
         return items.mapNotNull { it.accountId } + accountId
     }
 
-    private suspend fun resolveCollectionAccounts(collections: Collection<app.pachli.core.network.model.Collection>): Map<String, Account> {
+    private suspend fun resolveCollectionAccounts(collections: List<app.pachli.core.network.model.Collection>): Map<String, Account> {
         val accountIds = buildSet {
             collections.forEach { addAll(it.allAccountIds()) }
         }

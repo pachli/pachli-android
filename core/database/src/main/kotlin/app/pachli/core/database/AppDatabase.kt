@@ -70,6 +70,7 @@ import app.pachli.core.database.model.ServerEntity
 import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
+import app.pachli.core.database.model.TimelineCollectionEntity
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.model.ContentFilterVersion
@@ -81,6 +82,7 @@ import java.util.TimeZone
 @Database(
     entities = [
         CollectionEntity::class,
+        TimelineCollectionEntity::class,
         DraftEntity::class,
         PachliAccountEntity::class,
         EmojisEntity::class,

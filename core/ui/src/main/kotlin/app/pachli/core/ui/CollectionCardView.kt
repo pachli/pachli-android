@@ -26,6 +26,7 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Collection
+import app.pachli.core.model.TimelineCollection
 import app.pachli.core.ui.databinding.CollectionCardBinding
 import app.pachli.core.ui.extensions.useInPlace
 import com.bumptech.glide.RequestManager
@@ -98,7 +99,7 @@ class CollectionCardView @JvmOverloads constructor(
 
     fun bind(
         glide: RequestManager,
-        collection: Collection,
+        collection: TimelineCollection,
         listener: OnClickListener?,
     ): Unit = with(binding) {
         name.text = collection.name
@@ -113,8 +114,8 @@ class CollectionCardView @JvmOverloads constructor(
 
         itemCount.text = resources.getQuantityString(
             R.plurals.collection_item_count,
-            collection.items.size,
-            collection.items.size,
+            collection.itemIconUrls.size,
+            collection.itemIconUrls.size,
         )
     }
 }

@@ -23,6 +23,7 @@ import app.pachli.core.model.AccountWarning
 import app.pachli.core.model.RelationshipSeveranceEvent
 import app.pachli.core.model.Status
 import app.pachli.core.model.TimelineAccount
+import app.pachli.core.model.TimelineCollection
 
 /**
  * Data necessary to show a single notification.
@@ -271,7 +272,7 @@ sealed interface NotificationViewData {
     ) : NotificationViewData
 
     sealed interface WithCollection : NotificationViewData {
-        val collection: app.pachli.core.model.Collection
+        val timelineCollection: TimelineCollection
 
         data class CollectionAddNotificationViewData(
             override val pachliAccountId: Long,
@@ -280,7 +281,7 @@ sealed interface NotificationViewData {
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
-            override val collection: app.pachli.core.model.Collection,
+            override val timelineCollection: TimelineCollection,
         ) : NotificationViewData, WithCollection
 
         data class CollectionUpdateNotificationViewData(
@@ -290,7 +291,7 @@ sealed interface NotificationViewData {
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
-            override val collection: app.pachli.core.model.Collection,
+            override val timelineCollection: TimelineCollection,
         ) : NotificationViewData, WithCollection
     }
 

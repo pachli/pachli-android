@@ -46,3 +46,16 @@ data class CollectionItem(
         ACCEPTED,
     }
 }
+
+data class TimelineCollection(
+    val serverId: String,
+    val accountId: String,
+    val name: String,
+    val description: String,
+    val local: Boolean,
+    val sensitive: Boolean,
+    val discoverable: Boolean,
+    val createdAt: Instant,
+    val updatedAt: Instant,
+    val itemIconUrls: List<String>,
+)
