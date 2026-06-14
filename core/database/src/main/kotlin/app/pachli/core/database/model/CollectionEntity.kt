@@ -22,6 +22,7 @@ import androidx.room.ForeignKey
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
 import app.pachli.core.model.CollectionItem
+import app.pachli.core.model.TimelineCollection
 import java.time.Instant
 
 @Entity(
@@ -78,6 +79,9 @@ fun app.pachli.core.model.Collection.asEntity(pachliAccountId: Long) = Collectio
     items = items,
 )
 
+@JvmName("iterableCollectionAsEntity")
+fun Iterable<app.pachli.core.model.Collection>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }
+
 @Entity(
     primaryKeys = ["pachliAccountId", "serverId"],
     foreignKeys = [
@@ -102,9 +106,10 @@ data class TimelineCollectionEntity(
     val discoverable: Boolean,
     val createdAt: Instant,
     val updatedAt: Instant,
-    val itemIconUrls: List<String>,
+    val items: List<CollectionItem>,
+    val itemIconUrls: List<String?>,
 ) {
-    fun asModel() = app.pachli.core.model.TimelineCollection(
+    fun asModel() = TimelineCollection(
         serverId = serverId,
         accountId = accountId,
         name = name,
@@ -114,9 +119,40 @@ data class TimelineCollectionEntity(
         discoverable = discoverable,
         createdAt = createdAt,
         updatedAt = updatedAt,
+        items = items,
         itemIconUrls = itemIconUrls,
     )
+
+    fun asCollectionModel() = app.pachli.core.model.Collection(
+        serverId = serverId,
+        accountId = accountId,
+        name = name,
+        description = description,
+        local = local,
+        sensitive = sensitive,
+        discoverable = discoverable,
+        createdAt = createdAt,
+        updatedAt = updatedAt,
+        items = items,
+    )
 }
+
+fun TimelineCollection.asEntity(pachliAccountId: Long) = TimelineCollectionEntity(
+    pachliAccountId = pachliAccountId,
+    serverId = serverId,
+    accountId = accountId,
+    name = name,
+    description = description,
+    local = local,
+    sensitive = sensitive,
+    discoverable = discoverable,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+    items = items,
+    itemIconUrls = itemIconUrls,
+)
+
+fun Iterable<TimelineCollection>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }
 
 // @Entity(
 //    primaryKeys = ["pachliAccountId", "serverId"],

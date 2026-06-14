@@ -429,7 +429,7 @@ interface MastodonApi {
     @GET("api/v1/accounts")
     suspend fun accounts(
         @Query("id") ids: Collection<String>,
-    ): ApiResult<List<Account>>
+    ): ApiResult<List<TimelineAccount>>
 
     /**
      * Method to fetch statuses for the specified account.

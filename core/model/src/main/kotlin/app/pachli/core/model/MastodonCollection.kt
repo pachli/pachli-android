@@ -47,8 +47,18 @@ data class CollectionItem(
     }
 }
 
+/**
+ * @property items Same as [Collection.items]. This needs to be stored so
+ * a [TimelineCollection] can be converted back to a [Collection] in
+ * [NotificationData.asModel].
+ * @property itemIconUrls URLs for the avatar icons of the accounts in this
+ * collection. Allows nulls in case an account does not have an avatar or
+ * could not be fetched. This ensures [itemIconUrls] is the same size as
+ * [Collection.items] in the [Collection] it was created from.
+ */
 data class TimelineCollection(
     val serverId: String,
+    // TODO: Needs to be a TimelineAccount for name, emojis, etc.
     val accountId: String,
     val name: String,
     val description: String,
@@ -57,5 +67,20 @@ data class TimelineCollection(
     val discoverable: Boolean,
     val createdAt: Instant,
     val updatedAt: Instant,
-    val itemIconUrls: List<String>,
+    val items: List<CollectionItem>,
+    val itemIconUrls: List<String?>,
+)
+
+fun Collection.asTimelineCollection(accounts: Map<String, TimelineAccount>) = TimelineCollection(
+    serverId = serverId,
+    accountId = accountId,
+    name = name,
+    description = description,
+    local = local,
+    sensitive = sensitive,
+    discoverable = discoverable,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+    items = items,
+    itemIconUrls = items.map { accounts[it.accountId]?.avatar },
 )

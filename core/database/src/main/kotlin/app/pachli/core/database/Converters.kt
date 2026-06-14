@@ -282,6 +282,12 @@ class Converters @Inject constructor(
     fun stringToListString(s: String?) = fromJson<List<String>>(s)
 
     @TypeConverter
+    fun listNullableStringToJson(l: List<String?>) = toJson(l)
+
+    @TypeConverter
+    fun stringToListNullableString(s: String?) = fromJson<List<String?>>(s)
+
+    @TypeConverter
     fun accountFilterDecisionToJson(accountFilterDecision: AccountFilterDecision) = toJson(accountFilterDecision)
 
     @TypeConverter
