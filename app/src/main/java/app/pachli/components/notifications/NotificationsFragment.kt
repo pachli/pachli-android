@@ -58,6 +58,7 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.ICollection
 import app.pachli.core.model.IStatus
 import app.pachli.core.model.Notification
 import app.pachli.core.model.Poll
@@ -675,6 +676,14 @@ class NotificationsFragment :
                 TabTapBehaviour.JUMP_TO_NEWEST -> viewModel.accept(InfallibleUiAction.LoadNewest)
             }
         }
+    }
+
+    override fun onOpenCollection(collection: ICollection) {
+        Timber.e("onOpenCollection: $collection")
+    }
+
+    override fun onRemoveUserFromCollection(collection: ICollection) {
+        Timber.e("onRemoveMe: $collection")
     }
 
     companion object {

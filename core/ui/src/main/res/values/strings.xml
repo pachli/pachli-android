@@ -224,4 +224,6 @@
         <item quantity="one">%1$d account</item>
         <item quantity="other">%1$d accounts</item>
     </plurals>
+
+    <string name="collection_remove_self">Remove me</string>
 </resources>

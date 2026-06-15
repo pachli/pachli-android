@@ -24,12 +24,14 @@ import android.view.LayoutInflater
 import android.widget.FrameLayout
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
+import app.pachli.core.common.extensions.visible
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Collection
 import app.pachli.core.model.TimelineCollection
 import app.pachli.core.ui.databinding.CollectionCardBinding
 import app.pachli.core.ui.extensions.useInPlace
 import com.bumptech.glide.RequestManager
+import timber.log.Timber
 
 /**
  * Compound view that displays [Collection].
@@ -41,13 +43,9 @@ class CollectionCardView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
 ) : FrameLayout(context, attrs) {
-    fun interface OnClickListener {
-        fun onClick(collection: Collection)
-    }
-
     private val binding = CollectionCardBinding.inflate(LayoutInflater.from(context), this)
 
-    private val cardCornerRadius = context.resources.getDimensionPixelSize(DR.dimen.card_radius).toFloat()
+    private val avatarRadius = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_24dp)
 
     init {
         clipToOutline = true
@@ -94,24 +92,84 @@ class CollectionCardView @JvmOverloads constructor(
                 )
                 setTextColor(it.getColor(DR.styleable.CollectionCardView_collectionCardItemCountTextColor, 0))
             }
+
+            val avatarBackground = it.getDrawable(DR.styleable.CollectionCardView_collectionCardAvatarBackground)
+            binding.avatar1.background = avatarBackground
+            binding.avatar2.background = avatarBackground
+            binding.avatar3.background = avatarBackground
+            binding.avatar4.background = avatarBackground
         }
     }
 
+    /**
+     * @param showOwner True if the collection owner's information should be shown.
+     * Some displays may not need this (e.g., in a notification about a collection,
+     * the owner's information is already shown in the notification).
+     * @param isMember True if the user is a member of this collection.
+     */
     fun bind(
         glide: RequestManager,
         collection: TimelineCollection,
-        listener: OnClickListener?,
+        showOwner: Boolean,
+        isMember: Boolean,
+        listener: CollectionCardActionListener,
     ): Unit = with(binding) {
+        // Distinguish between discoverable or not
+        // Distinguish between sensitive or not. If sensitive:
+        //  - Hide avatars
+        //  - Hide description
+        //  - Require clickthrough
+        //  - Implies we need CollectionViewData to store this
+        // Distinguish between "User is in the collection" or not
+        // Distinguish between "User owns the collection" or not
+        // Show created/updated information?
+
+        val avatarIcons = collection.itemIconUrls.filterNotNull().take(4)
+
+        Timber.d("icons: $avatarIcons")
+
+        avatarIcons.getOrNull(0)?.let {
+            loadAvatar(glide, it, binding.avatar1, avatarRadius, false)
+            binding.avatar1.show()
+        } ?: {
+            binding.avatar1.hide()
+        }
+
+        avatarIcons.getOrNull(1)?.let {
+            loadAvatar(glide, it, binding.avatar2, avatarRadius, false)
+            binding.avatar2.show()
+        } ?: {
+            binding.avatar2.hide()
+        }
+        avatarIcons.getOrNull(2)?.let {
+            loadAvatar(glide, it, binding.avatar3, avatarRadius, false)
+            binding.avatar3.show()
+        } ?: {
+            binding.avatar3.hide()
+        }
+        avatarIcons.getOrNull(3)?.let {
+            loadAvatar(glide, it, binding.avatar4, avatarRadius, false)
+            binding.avatar4.show()
+        } ?: {
+            binding.avatar4.hide()
+        }
+
         name.text = collection.name
-        ownerHandle.text = collection.ownerAccount?.let {
-            // TODO: Emojify, etc.
-            it.name
-        } ?: "Unknown user"
+
+        if (showOwner) {
+            ownerHandle.text = collection.ownerAccount?.let {
+                // TODO: Emojify, etc.
+                it.name
+            } ?: "Unknown user"
+            ownerHandle.show()
+        } else {
+            ownerHandle.hide()
+        }
 
         if (collection.description.isBlank()) {
             description.hide()
         } else {
-            description.text = "${collection.description}, ${collection.itemIconUrls}"
+            description.text = collection.description
             description.show()
         }
 
@@ -120,5 +178,11 @@ class CollectionCardView @JvmOverloads constructor(
             collection.itemIconUrls.size,
             collection.itemIconUrls.size,
         )
+
+        val showDivider = isMember
+        binding.controlDivider.visible(showDivider)
+
+        binding.collectionRemoveSelf.setOnClickListener { listener.onRemoveUserFromCollection(collection) }
+        binding.collectionRemoveSelf.visible(isMember)
     }
 }

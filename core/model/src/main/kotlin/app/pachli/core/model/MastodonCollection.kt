@@ -20,18 +20,30 @@ package app.pachli.core.model
 import com.squareup.moshi.JsonClass
 import java.time.Instant
 
+interface ICollection {
+    val serverId: String
+    val accountId: String
+    val name: String
+    val description: String
+    val local: Boolean
+    val sensitive: Boolean
+    val discoverable: Boolean
+    val createdAt: Instant
+    val updatedAt: Instant
+}
+
 data class Collection(
-    val serverId: String,
-    val accountId: String,
-    val name: String,
-    val description: String,
-    val local: Boolean,
-    val sensitive: Boolean,
-    val discoverable: Boolean,
-    val createdAt: Instant,
-    val updatedAt: Instant,
+    override val serverId: String,
+    override val accountId: String,
+    override val name: String,
+    override val description: String,
+    override val local: Boolean,
+    override val sensitive: Boolean,
+    override val discoverable: Boolean,
+    override val createdAt: Instant,
+    override val updatedAt: Instant,
     val items: List<CollectionItem>,
-)
+) : ICollection
 
 @JsonClass(generateAdapter = true)
 data class CollectionItem(
@@ -61,19 +73,21 @@ data class CollectionItem(
  * [Collection.items] in the [Collection] it was created from.
  */
 data class TimelineCollection(
-    val serverId: String,
+    override val serverId: String,
     val ownerAccountId: String,
     val ownerAccount: TimelineAccount?,
-    val name: String,
-    val description: String,
-    val local: Boolean,
-    val sensitive: Boolean,
-    val discoverable: Boolean,
-    val createdAt: Instant,
-    val updatedAt: Instant,
+    override val name: String,
+    override val description: String,
+    override val local: Boolean,
+    override val sensitive: Boolean,
+    override val discoverable: Boolean,
+    override val createdAt: Instant,
+    override val updatedAt: Instant,
     val items: List<CollectionItem>,
     val itemIconUrls: List<String?>,
-)
+) : ICollection {
+    override val accountId = ownerAccountId
+}
 
 fun Collection.asTimelineCollection(accounts: Map<String, TimelineAccount>) = TimelineCollection(
     serverId = serverId,

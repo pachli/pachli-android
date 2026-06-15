@@ -267,6 +267,7 @@
         <!--        <item name="collectionCardInfoBackground">?colorSurfaceContainerHigh</item>-->
         <!--        <item name="collectionCardImageVerticalHeight">@dimen/card_image_vertical_height</item>-->
         <!--        <item name="collectionCardImageHorizontalWidth">@dimen/card_image_horizontal_width</item>-->
+        <item name="collectionCardAvatarBackground">?colorSurfaceContainer</item>
         <item name="collectionCardNameTextColor">?colorOnSurface</item>
         <item name="collectionCardNameTextSize">?status_text_large</item>
         <item name="collectionCardDescriptionTextColor">?colorOnSurface</item>

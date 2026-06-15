@@ -89,6 +89,8 @@
              to the collection content. -->
         <!--        <attr name="collectionCardImageHorizontalWidth" format="reference|dimension" />-->
 
+        <attr name="collectionCardAvatarBackground" format="reference|color" />
+
         <attr name="collectionCardNameTextColor" format="reference|color" />
         <attr name="collectionCardNameTextSize" format="reference|dimension" />
 

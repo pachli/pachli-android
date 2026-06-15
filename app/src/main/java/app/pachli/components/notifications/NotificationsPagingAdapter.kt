@@ -46,6 +46,7 @@ import app.pachli.core.data.model.NotificationViewData.WithStatus.UpdateNotifica
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
+import app.pachli.core.ui.CollectionCardActionListener
 import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.databinding.ItemFollowBinding
@@ -128,7 +129,7 @@ enum class NotificationViewKind {
     }
 }
 
-interface NotificationActionListener : StatusActionListener {
+interface NotificationActionListener : StatusActionListener, CollectionCardActionListener {
     fun onViewReport(reportId: String)
 
     /**
@@ -214,6 +215,7 @@ class NotificationsPagingAdapter(
                     glide,
                     setContent,
                     notificationActionListener,
+                    collectionListener = notificationActionListener,
                 )
             }
 

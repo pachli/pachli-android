@@ -29,6 +29,7 @@ import app.pachli.core.data.model.NotificationViewData.WithCollection.Collection
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.preferences.PronounDisplay
+import app.pachli.core.ui.CollectionCardActionListener
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.emojify
@@ -42,6 +43,7 @@ class CollectionNotificationViewHolder(
     private val glide: RequestManager,
     private val setContent: SetContent,
     private val linkListener: LinkListener,
+    private val collectionListener: CollectionCardActionListener,
 ) : NotificationsPagingAdapter.ViewHolder<NotificationViewData.WithCollection>, RecyclerView.ViewHolder(binding.root) {
     private val avatarRadius48dp = itemView.context.resources.getDimensionPixelSize(
         DR.dimen.avatar_radius_48dp,
@@ -96,20 +98,28 @@ class CollectionNotificationViewHolder(
 
         binding.roleChipGroup.setRoles(account.roles)
 
-        setContent(
-            glide = glide,
-            textView = binding.notificationAccountNote,
-            content = account.note,
-            emojis = account.emojis.orEmpty(),
-            animateEmojis = statusDisplayOptions.animateEmojis,
-            removeQuoteInline = false,
-            linksToUnderline = statusDisplayOptions.linksToUnderline,
-            linkListener = linkListener,
+//        setContent(
+//            glide = glide,
+//            textView = binding.notificationAccountNote,
+//            content = account.note,
+//            emojis = account.emojis.orEmpty(),
+//            animateEmojis = statusDisplayOptions.animateEmojis,
+//            removeQuoteInline = false,
+//            linksToUnderline = statusDisplayOptions.linksToUnderline,
+//            linkListener = linkListener,
+//        )
+
+//        binding.notificationAccountNote.setOnClickListener { linkListener.onViewAccount(account.id) }
+//        itemView.setOnClickListener { linkListener.onViewAccount(account.id) }
+
+        binding.collectionCard.bind(
+            glide,
+            viewData.timelineCollection,
+            false,
+            true,
+            listener = collectionListener,
         )
 
-        binding.notificationAccountNote.setOnClickListener { linkListener.onViewAccount(account.id) }
-        itemView.setOnClickListener { linkListener.onViewAccount(account.id) }
-
-        binding.collectionCard.bind(glide, viewData.timelineCollection, null)
+        binding.collectionCard.setOnClickListener { collectionListener.onOpenCollection(viewData.timelineCollection) }
     }
 }

@@ -28,13 +28,65 @@
         android:layout_height="wrap_content"
         android:padding="6dp">
 
+        <GridLayout
+            android:id="@+id/avatar_grid"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:columnCount="2"
+            android:rowCount="2"
+            android:alignmentMode="alignMargins"
+            android:columnOrderPreserved="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/avatar_1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="2dp"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/avatar_2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="2dp"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/avatar_3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="2dp"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/avatar_4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="2dp"
+                android:scaleType="centerCrop" />
+
+        </GridLayout>
+
         <TextView
             android:id="@+id/name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:importantForAccessibility="no"
-            android:textSize="?status_text_large"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="?status_text_medium"
+            android:textStyle="normal|bold"
+            android:layout_marginStart="7dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintStart_toEndOf="@id/avatar_grid"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Collection name"
@@ -45,7 +97,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:importantForAccessibility="no"
-            android:textSize="?status_text_medium"
+            android:textSize="?status_text_small"
             app:layout_constraintStart_toStartOf="@id/name"
             app:layout_constraintEnd_toEndOf="@id/name"
             app:layout_constraintTop_toBottomOf="@id/name"
@@ -58,6 +110,8 @@
             android:layout_height="wrap_content"
             android:importantForAccessibility="no"
             android:textSize="?status_text_medium"
+            android:hyphenationFrequency="full"
+            android:lineSpacingMultiplier="1.1"
             app:layout_constraintStart_toStartOf="@id/name"
             app:layout_constraintTop_toBottomOf="@id/owner_handle"
             app:layout_constraintEnd_toEndOf="@id/name"
@@ -75,6 +129,30 @@
             app:layout_constraintEnd_toEndOf="@id/name"
             tools:text="2 accounts"
             tools:ignore="SelectableText" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/control_divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_count" />
+
+        <Button
+            android:id="@+id/collection_remove_self"
+            style="@style/AppButton.Outlined"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:importantForAccessibility="no"
+            android:minHeight="48dp"
+            android:text="@string/collection_remove_self"
+            android:textSize="?attr/status_text_small"
+            android:textAllCaps="false"
+            app:layout_constraintStart_toStartOf="@+id/avatar_grid"
+            app:layout_constraintTop_toBottomOf="@id/control_divider"
+            tools:text="Detach quote"
+            tools:visibility="visible" />
 
         <!--    <com.google.android.material.imageview.ShapeableImageView-->
         <!--        android:id="@+id/card_image"-->
