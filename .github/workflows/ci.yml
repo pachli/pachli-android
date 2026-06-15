@@ -78,7 +78,7 @@ jobs:
         api-level: [ 31 ]
         target: [ default ]
     name: Full CI
-    runs-on: blacksmith-2vcpu-ubuntu-2404
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     needs: [ "check-assignee", "ktlint", "tools", "custom-lint", "screenshots" ]
 
     steps:
@@ -157,7 +157,7 @@ jobs:
         api-level: [ 31 ]
         target: [ default ]
     name: Android Emulator Tests
-    runs-on: blacksmith-2vcpu-ubuntu-2404
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     needs: [ "check-assignee", "ktlint", "tools", "custom-lint", "ci", "screenshots" ]
 
     steps:
