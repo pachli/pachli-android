@@ -103,12 +103,15 @@ class CollectionCardView @JvmOverloads constructor(
         listener: OnClickListener?,
     ): Unit = with(binding) {
         name.text = collection.name
-        ownerHandle.text = collection.accountId
+        ownerHandle.text = collection.ownerAccount?.let {
+            // TODO: Emojify, etc.
+            it.name
+        } ?: "Unknown user"
 
         if (collection.description.isBlank()) {
             description.hide()
         } else {
-            description.text = collection.description
+            description.text = "${collection.description}, ${collection.itemIconUrls}"
             description.show()
         }
 

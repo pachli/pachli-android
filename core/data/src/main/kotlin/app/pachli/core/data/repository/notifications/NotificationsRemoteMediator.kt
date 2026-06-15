@@ -273,33 +273,47 @@ class NotificationsRemoteMediator(
         // Get all the accounts referenced in any collections so:
         // 1. The accounts can be saved.
         // 2. The accounts can be used to create TimelineCollectionEntity objects.
-        val collectionAccounts = resolveCollectionAccounts(
+        val accountsInCollections = resolveAccountsInCollections(
             collections = notifications.mapNotNull { it.collection },
         )
 
         // Bulk upsert the discovered items.
-        timelineDao.upsertAccounts(accounts.asEntity(pachliAccountId))
+        timelineDao.upsertAccounts(
+            accounts.asEntity(pachliAccountId) +
+                accountsInCollections.values.asEntity(pachliAccountId),
+        )
         statusDao.upsertStatuses(statuses.map { it.asEntity(pachliAccountId) })
         notificationDao.upsertReports(reports)
         notificationDao.upsertEvents(severanceEvents)
         notificationDao.upsertAccountWarnings(accountWarnings)
+        notificationDao.upsertNotifications(notifications.asModel(accountId).asEntity(pachliAccountId))
         notificationDao.upsertCollections(collections.asEntity(pachliAccountId))
         notificationDao.upsertTimelineCollections(
-            collections.map { it.asTimelineCollection(collectionAccounts) }.asEntity(pachliAccountId),
+            collections.map { it.asTimelineCollection(accountsInCollections) }.asEntity(pachliAccountId),
         )
-        notificationDao.upsertNotifications(notifications.asModel(accountId).asEntity(pachliAccountId))
     }
 
+    /**
+     * @return All the account IDs referenced in [Collection]. The account ID of the owner
+     * and of all items in the collection.
+     */
     private fun app.pachli.core.network.model.Collection.allAccountIds(): List<String> {
         return items.mapNotNull { it.accountId } + accountId
     }
 
-    private suspend fun resolveCollectionAccounts(collections: List<app.pachli.core.network.model.Collection>): Map<String, TimelineAccount> {
-        val accountIds = buildSet {
-            collections.forEach { addAll(it.allAccountIds()) }
-        }
+    /**
+     * Calls the server to convert all account IDs referenced in [collections] to
+     * the full [TimelineAccount] details.
+     *
+     * @return Map between the server's ID for the account and the [TimelineAccount].
+     */
+    private suspend fun resolveAccountsInCollections(collections: List<app.pachli.core.network.model.Collection>): Map<String, TimelineAccount> {
+        val accountIds = collections.flatMap { it.allAccountIds() }
+        if (accountIds.isEmpty()) return emptyMap()
 
-        return mastodonApi.accounts(accountIds).map { it.body.map { it.asModel() }.associateBy { it.id } }.getOrElse { emptyMap() }
+        return mastodonApi.accounts(accountIds)
+            .map { it.body.asModel().associateBy { it.id } }
+            .getOrElse { emptyMap() }
     }
 }
 

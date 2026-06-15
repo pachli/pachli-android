@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 42,
-    "identityHash": "508cc972682ba6ef1f09d8a5674941c4",
+    "identityHash": "3894dd0685695c7b2e47a753dd8e0830",
     "entities": [
       {
         "tableName": "CollectionEntity",
@@ -98,7 +98,7 @@
       },
       {
         "tableName": "TimelineCollectionEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `accountId` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `local` INTEGER NOT NULL, `sensitive` INTEGER NOT NULL, `discoverable` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `items` TEXT NOT NULL, `itemIconUrls` TEXT NOT NULL, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `PachliAccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `ownerAccountId` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `local` INTEGER NOT NULL, `sensitive` INTEGER NOT NULL, `discoverable` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `items` TEXT NOT NULL, `itemIconUrls` TEXT NOT NULL, `owner_serverId` TEXT, `owner_timelineUserId` INTEGER, `owner_localUsername` TEXT, `owner_username` TEXT, `owner_displayName` TEXT, `owner_url` TEXT, `owner_avatar` TEXT, `owner_emojis` TEXT, `owner_bot` INTEGER, `owner_createdAt` INTEGER, `owner_limited` INTEGER DEFAULT false, `owner_note` TEXT DEFAULT '', `owner_roles` TEXT DEFAULT '', `owner_pronouns` TEXT DEFAULT '', PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `PachliAccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
         "fields": [
           {
             "fieldPath": "pachliAccountId",
@@ -113,8 +113,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "accountId",
-            "columnName": "accountId",
+            "fieldPath": "ownerAccountId",
+            "columnName": "ownerAccountId",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -171,6 +171,80 @@
             "columnName": "itemIconUrls",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "ownerAccount.serverId",
+            "columnName": "owner_serverId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "ownerAccount.timelineUserId",
+            "columnName": "owner_timelineUserId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "ownerAccount.localUsername",
+            "columnName": "owner_localUsername",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "ownerAccount.username",
+            "columnName": "owner_username",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "ownerAccount.displayName",
+            "columnName": "owner_displayName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "ownerAccount.url",
+            "columnName": "owner_url",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "ownerAccount.avatar",
+            "columnName": "owner_avatar",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "ownerAccount.emojis",
+            "columnName": "owner_emojis",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "ownerAccount.bot",
+            "columnName": "owner_bot",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "ownerAccount.createdAt",
+            "columnName": "owner_createdAt",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "ownerAccount.limited",
+            "columnName": "owner_limited",
+            "affinity": "INTEGER",
+            "defaultValue": "false"
+          },
+          {
+            "fieldPath": "ownerAccount.note",
+            "columnName": "owner_note",
+            "affinity": "TEXT",
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "ownerAccount.roles",
+            "columnName": "owner_roles",
+            "affinity": "TEXT",
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "ownerAccount.pronouns",
+            "columnName": "owner_pronouns",
+            "affinity": "TEXT",
+            "defaultValue": "''"
           }
         ],
         "primaryKey": {
@@ -2259,7 +2333,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '508cc972682ba6ef1f09d8a5674941c4')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3894dd0685695c7b2e47a753dd8e0830')"
     ]
   }
 }

@@ -17,6 +17,7 @@
 
 package app.pachli.core.database.model
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.TypeConverters
@@ -24,6 +25,14 @@ import app.pachli.core.database.Converters
 import app.pachli.core.model.CollectionItem
 import app.pachli.core.model.TimelineCollection
 import java.time.Instant
+
+/**
+ * Data about a Collection
+ */
+data class CollectionData(
+    @Embedded val collection: CollectionEntity,
+    @Embedded(prefix = "a_") val account: TimelineAccountEntity,
+)
 
 @Entity(
     primaryKeys = ["pachliAccountId", "serverId"],
@@ -98,7 +107,8 @@ fun Iterable<app.pachli.core.model.Collection>.asEntity(pachliAccountId: Long) =
 data class TimelineCollectionEntity(
     val pachliAccountId: Long,
     val serverId: String,
-    val accountId: String,
+    val ownerAccountId: String,
+    @Embedded(prefix = "owner_") val ownerAccount: TimelineAccountEntity?,
     val name: String,
     val description: String,
     val local: Boolean,
@@ -111,7 +121,8 @@ data class TimelineCollectionEntity(
 ) {
     fun asModel() = TimelineCollection(
         serverId = serverId,
-        accountId = accountId,
+        ownerAccountId = ownerAccountId,
+        ownerAccount = ownerAccount?.asModel(),
         name = name,
         description = description,
         local = local,
@@ -123,9 +134,11 @@ data class TimelineCollectionEntity(
         itemIconUrls = itemIconUrls,
     )
 
+    // TODO: Check if this function is needed. If not then `accountId`
+    // can be removed from TimelineCollection and TimelineCollectionEntity
     fun asCollectionModel() = app.pachli.core.model.Collection(
         serverId = serverId,
-        accountId = accountId,
+        accountId = ownerAccountId,
         name = name,
         description = description,
         local = local,
@@ -140,7 +153,8 @@ data class TimelineCollectionEntity(
 fun TimelineCollection.asEntity(pachliAccountId: Long) = TimelineCollectionEntity(
     pachliAccountId = pachliAccountId,
     serverId = serverId,
-    accountId = accountId,
+    ownerAccountId = ownerAccountId,
+    ownerAccount = ownerAccount?.asEntity(pachliAccountId),
     name = name,
     description = description,
     local = local,

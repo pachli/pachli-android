@@ -428,7 +428,7 @@ interface MastodonApi {
      */
     @GET("api/v1/accounts")
     suspend fun accounts(
-        @Query("id") ids: Collection<String>,
+        @Query("id[]") ids: Collection<String>,
     ): ApiResult<List<TimelineAccount>>
 
     /**

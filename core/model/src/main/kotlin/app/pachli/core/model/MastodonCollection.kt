@@ -48,6 +48,10 @@ data class CollectionItem(
 }
 
 /**
+ * @property ownerAccountId ID of the account that owns the collection.
+ * Required to convert a [TimelineCollection] back to a [Collection].
+ * @property ownerAccount Account that owns the collection. Nullable because
+ * the call to retrieve owner account information may fail.
  * @property items Same as [Collection.items]. This needs to be stored so
  * a [TimelineCollection] can be converted back to a [Collection] in
  * [NotificationData.asModel].
@@ -58,8 +62,8 @@ data class CollectionItem(
  */
 data class TimelineCollection(
     val serverId: String,
-    // TODO: Needs to be a TimelineAccount for name, emojis, etc.
-    val accountId: String,
+    val ownerAccountId: String,
+    val ownerAccount: TimelineAccount?,
     val name: String,
     val description: String,
     val local: Boolean,
@@ -73,7 +77,8 @@ data class TimelineCollection(
 
 fun Collection.asTimelineCollection(accounts: Map<String, TimelineAccount>) = TimelineCollection(
     serverId = serverId,
-    accountId = accountId,
+    ownerAccountId = accountId,
+    ownerAccount = accounts[accountId],
     name = name,
     description = description,
     local = local,

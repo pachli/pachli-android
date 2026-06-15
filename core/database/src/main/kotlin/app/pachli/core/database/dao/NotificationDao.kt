@@ -292,7 +292,6 @@ SELECT
     -- Collection
     timelineCollection.pachliAccountId AS 'timelineCollection_pachliAccountId',
     timelineCollection.serverId AS 'timelineCollection_serverId',
-    timelineCollection.accountId AS 'timelineCollection_accountId',
     timelineCollection.name AS 'timelineCollection_name',
     timelineCollection.description AS 'timelineCollection_description',
     timelineCollection.local AS 'timelineCollection_local',
@@ -301,11 +300,24 @@ SELECT
     timelineCollection.createdAt AS 'timelineCollection_createdAt',
     timelineCollection.updatedAt AS 'timelineCollection_updatedAt',
     timelineCollection.items AS 'timelineCollection_items',
-    timelineCollection.itemIconUrls AS 'timelineCollection_itemIconUrls'
+    timelineCollection.itemIconUrls AS 'timelineCollection_itemIconUrls',
+    timelineCollection.ownerAccountId AS 'timelineCollection_ownerAccountId',
+    timelineCollection.owner_serverId AS 'timelineCollection_owner_serverId',
+    timelineCollection.owner_timelineUserId AS 'timelineCollection_owner_timelineUserId',
+    timelineCollection.owner_localUsername AS 'timelineCollection_owner_localUsername',
+    timelineCollection.owner_username AS 'timelineCollection_owner_username',
+    timelineCollection.owner_displayName AS 'timelineCollection_owner_displayName',
+    timelineCollection.owner_url AS 'timelineCollection_owner_url',
+    timelineCollection.owner_avatar AS 'timelineCollection_owner_avatar',
+    timelineCollection.owner_emojis AS 'timelineCollection_owner_emojis',
+    timelineCollection.owner_bot AS 'timelineCollection_owner_bot',
+    timelineCollection.owner_createdAt AS 'timelineCollection_owner_createdAt',
+    timelineCollection.owner_limited AS 'timelineCollection_owner_limited',
+    timelineCollection.owner_note AS 'timelineCollection_owner_note'
 FROM NotificationEntity AS n
 LEFT JOIN TimelineAccountEntity AS a ON (n.pachliAccountId = a.timelineUserId AND n.accountServerId = a.serverId)
 LEFT JOIN TimelineStatusWithAccount AS s ON (n.pachliAccountId = s.timelineUserId AND n.statusServerId = s.serverId)
- LEFT JOIN TimelineStatusWithAccount AS q
+LEFT JOIN TimelineStatusWithAccount AS q
     ON (n.pachliAccountId = :pachliAccountId AND (q.timelineUserId = :pachliAccountId AND s.quoteServerId = q.serverId))
 LEFT JOIN NotificationViewDataEntity AS nvd ON (n.pachliAccountId = nvd.pachliAccountId AND n.serverId = nvd.serverId)
 LEFT JOIN
@@ -697,7 +709,6 @@ SELECT
     -- Collection
     timelineCollection.pachliAccountId AS 'timelineCollection_pachliAccountId',
     timelineCollection.serverId AS 'timelineCollection_serverId',
-    timelineCollection.accountId AS 'timelineCollection_accountId',
     timelineCollection.name AS 'timelineCollection_name',
     timelineCollection.description AS 'timelineCollection_description',
     timelineCollection.local AS 'timelineCollection_local',
@@ -706,7 +717,20 @@ SELECT
     timelineCollection.createdAt AS 'timelineCollection_createdAt',
     timelineCollection.updatedAt AS 'timelineCollection_updatedAt',
     timelineCollection.items AS 'timelineCollection_items',
-    timelineCollection.itemIconUrls AS 'timelineCollection_itemIconUrls'
+    timelineCollection.itemIconUrls AS 'timelineCollection_itemIconUrls',
+    timelineCollection.ownerAccountId AS 'timelineCollection_ownerAccountId',
+    timelineCollection.owner_serverId AS 'timelineCollection_owner_serverId',
+    timelineCollection.owner_timelineUserId AS 'timelineCollection_owner_timelineUserId',
+    timelineCollection.owner_localUsername AS 'timelineCollection_owner_localUsername',
+    timelineCollection.owner_username AS 'timelineCollection_owner_username',
+    timelineCollection.owner_displayName AS 'timelineCollection_owner_displayName',
+    timelineCollection.owner_url AS 'timelineCollection_owner_url',
+    timelineCollection.owner_avatar AS 'timelineCollection_owner_avatar',
+    timelineCollection.owner_emojis AS 'timelineCollection_owner_emojis',
+    timelineCollection.owner_bot AS 'timelineCollection_owner_bot',
+    timelineCollection.owner_createdAt AS 'timelineCollection_owner_createdAt',
+    timelineCollection.owner_limited AS 'timelineCollection_owner_limited',
+    timelineCollection.owner_note AS 'timelineCollection_owner_note'
 FROM NotificationEntity AS n
 LEFT JOIN TimelineAccountEntity AS a ON (n.pachliAccountId = a.timelineUserId AND n.accountServerId = a.serverId)
 LEFT JOIN TimelineStatusWithAccount AS s ON (n.pachliAccountId = s.timelineUserId AND n.statusServerId = s.serverId)
