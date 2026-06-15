@@ -9,6 +9,9 @@ on:
   pull_request:
   workflow_dispatch:
 
+env:
+  CI: true
+  
 permissions: read-all
 
 concurrency:
