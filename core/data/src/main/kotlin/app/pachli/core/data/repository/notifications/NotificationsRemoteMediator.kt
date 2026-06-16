@@ -22,6 +22,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import app.pachli.core.database.dao.CollectionsDao
 import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
@@ -80,6 +81,7 @@ class NotificationsRemoteMediator(
     private val remoteKeyDao: RemoteKeyDao,
     private val notificationDao: NotificationDao,
     private val statusDao: StatusDao,
+    private val collectionsDao: CollectionsDao,
     private val excludeTypes: Iterable<Notification.Type>,
 ) : RemoteMediator<Int, NotificationData>() {
     private val remoteKeyTimelineId = Timeline.Notifications.remoteKeyTimelineId
@@ -287,8 +289,11 @@ class NotificationsRemoteMediator(
         notificationDao.upsertEvents(severanceEvents)
         notificationDao.upsertAccountWarnings(accountWarnings)
         notificationDao.upsertNotifications(notifications.asModel(accountId).asEntity(pachliAccountId))
-        notificationDao.upsertCollections(collections.asEntity(pachliAccountId))
-        notificationDao.upsertTimelineCollections(
+        collectionsDao.upsertCollections(collections.asEntity(pachliAccountId))
+        collectionsDao.upsertCollectionItems(
+            collections.flatMap { it.items.asEntity(pachliAccountId, it.serverId) },
+        )
+        collectionsDao.upsertTimelineCollections(
             collections.map { it.asTimelineCollection(accountsInCollections) }.asEntity(pachliAccountId),
         )
     }

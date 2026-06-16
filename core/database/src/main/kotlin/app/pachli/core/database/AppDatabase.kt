@@ -32,6 +32,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.execSQL
 import app.pachli.core.database.dao.AccountDao
 import app.pachli.core.database.dao.AnnouncementsDao
+import app.pachli.core.database.dao.CollectionsDao
 import app.pachli.core.database.dao.ContentFiltersDao
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.dao.DebugDao
@@ -49,6 +50,7 @@ import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.model.AnnouncementEntity
 import app.pachli.core.database.model.CollectionEntity
+import app.pachli.core.database.model.CollectionItemEntity
 import app.pachli.core.database.model.ContentFiltersEntity
 import app.pachli.core.database.model.ConversationEntity
 import app.pachli.core.database.model.ConversationViewDataEntity
@@ -82,6 +84,7 @@ import java.util.TimeZone
 @Database(
     entities = [
         CollectionEntity::class,
+        CollectionItemEntity::class,
         TimelineCollectionEntity::class,
         DraftEntity::class,
         PachliAccountEntity::class,
@@ -176,6 +179,7 @@ import java.util.TimeZone
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun accountDao(): AccountDao
+    abstract fun collectionsDao(): CollectionsDao
     abstract fun serverDao(): ServerDao
     abstract fun conversationDao(): ConversationsDao
     abstract fun timelineDao(): TimelineDao

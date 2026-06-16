@@ -170,6 +170,7 @@
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".feature.suggestions.SuggestionsActivity" />
         <activity android:name=".feature.manageaccounts.ManageAccountsActivity" />
+        <activity android:name=".feature.collections.CollectionActivity" />
 
         <receiver
             android:name=".receiver.SendStatusBroadcastReceiver"

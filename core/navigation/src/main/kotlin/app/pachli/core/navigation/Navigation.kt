@@ -31,6 +31,7 @@ import app.pachli.core.model.Attachment
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.Draft
 import app.pachli.core.model.Emoji
+import app.pachli.core.model.ICollection
 import app.pachli.core.model.Notification
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
@@ -1064,6 +1065,21 @@ class TrendingActivityIntent(context: Context, accountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.TRENDING_ACTIVITY)
         pachliAccountId = accountId
+    }
+}
+
+class CollectionActivityIntent(context: Context, accountId: Long, collection: ICollection) : Intent() {
+    init {
+        setClassName(context, QuadrantConstants.COLLECTION_ACTIVITY)
+        pachliAccountId = accountId
+        putExtra(EXTRA_COLLECTION, collection)
+    }
+
+    companion object {
+        private const val EXTRA_COLLECTION = "app.pachli.EXTRA_COLLECTION"
+
+        /** @return the `collection` passed to this intent */
+        fun getCollection(intent: Intent) = IntentCompat.getParcelableExtra<ICollection>(intent, EXTRA_COLLECTION, ICollection::class.java)!!
     }
 }
 

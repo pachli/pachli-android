@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 42,
-    "identityHash": "3894dd0685695c7b2e47a753dd8e0830",
+    "identityHash": "50db68836ee62ac85a12cf6a6b8b9514",
     "entities": [
       {
         "tableName": "CollectionEntity",
@@ -92,6 +92,70 @@
             ],
             "referencedColumns": [
               "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "CollectionItemEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `collectionServerId` TEXT NOT NULL, `serverId` TEXT NOT NULL, `accountId` TEXT, `state` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, PRIMARY KEY(`pachliAccountId`, `collectionServerId`, `serverId`), FOREIGN KEY(`pachliAccountId`, `collectionServerId`) REFERENCES `CollectionEntity`(`pachliAccountId`, `serverId`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
+        "fields": [
+          {
+            "fieldPath": "pachliAccountId",
+            "columnName": "pachliAccountId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "collectionServerId",
+            "columnName": "collectionServerId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "serverId",
+            "columnName": "serverId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accountId",
+            "columnName": "accountId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "state",
+            "columnName": "state",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "pachliAccountId",
+            "collectionServerId",
+            "serverId"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "CollectionEntity",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "pachliAccountId",
+              "collectionServerId"
+            ],
+            "referencedColumns": [
+              "pachliAccountId",
+              "serverId"
             ]
           }
         ]
@@ -2333,7 +2397,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3894dd0685695c7b2e47a753dd8e0830')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '50db68836ee62ac85a12cf6a6b8b9514')"
     ]
   }
 }

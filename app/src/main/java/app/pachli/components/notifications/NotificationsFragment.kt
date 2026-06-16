@@ -64,6 +64,7 @@ import app.pachli.core.model.Notification
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.navigation.AttachmentViewData.Companion.list
+import app.pachli.core.navigation.CollectionActivityIntent
 import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.preferences.TabTapBehaviour
 import app.pachli.core.ui.ActionButtonScrollListener
@@ -679,7 +680,11 @@ class NotificationsFragment :
     }
 
     override fun onOpenCollection(collection: ICollection) {
-        Timber.e("onOpenCollection: $collection")
+        // Timber.e("onOpenCollection: $collection")
+        startActivityWithTransition(
+            CollectionActivityIntent(requireContext(), pachliAccountId, collection),
+            TransitionKind.SLIDE_FROM_END,
+        )
     }
 
     override fun onRemoveUserFromCollection(collection: ICollection) {

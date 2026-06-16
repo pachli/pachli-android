@@ -29,10 +29,16 @@ import java.time.Instant
 /**
  * Data about a Collection
  */
-data class CollectionData(
+data class CollectionWithAccountsData(
     @Embedded val collection: CollectionEntity,
-    @Embedded(prefix = "a_") val account: TimelineAccountEntity,
+    @Embedded(prefix = "owner_") val ownerAccount: TimelineAccountEntity,
+
 )
+
+// data class CollectionViewData(
+//    val collection: Collection,
+//    val accounts
+// )
 
 @Entity(
     primaryKeys = ["pachliAccountId", "serverId"],
@@ -45,6 +51,7 @@ data class CollectionData(
             deferred = true,
         ),
     ],
+//    indices = [Index(value = ["pachliAccountId", "serverId"])],
 )
 @TypeConverters(Converters::class)
 data class CollectionEntity(
@@ -168,59 +175,63 @@ fun TimelineCollection.asEntity(pachliAccountId: Long) = TimelineCollectionEntit
 
 fun Iterable<TimelineCollection>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }
 
-// @Entity(
-//    primaryKeys = ["pachliAccountId", "serverId"],
-//    foreignKeys = [
-//        ForeignKey(
-//            entity = AccountEntity::class,
-//            parentColumns = arrayOf("id"),
-//            childColumns = arrayOf("pachliAccountId"),
-//            onDelete = ForeignKey.CASCADE,
-//            deferred = true,
-//        ),
-//        ForeignKey(
-//            entity = CollectionEntity::class,
-//            parentColumns = arrayOf("serverId"),
-//            childColumns = arrayOf("collectionServerId"),
-//            onDelete = ForeignKey.CASCADE,
-//            deferred = true,
-//        ),
-//    ],
-// )
-// data class CollectionItemEntity(
-//    val pachliAccountId: Long,
-//    val collectionServerId: String,
-//    val serverId: String,
-//    val accountId: String?,
-//    val state: State,
-//    val createdAt: Instant,
-// ) {
-//    enum class State {
-//        UNKNOWN,
-//        PENDING,
-//        ACCEPTED,
-//
-//        ;
-//
-//        fun asModel() = when (this) {
-//            UNKNOWN -> CollectionItem.State.UNKNOWN
-//            PENDING -> CollectionItem.State.PENDING
-//            ACCEPTED -> CollectionItem.State.ACCEPTED
-//        }
-//    }
-// }
-//
-// fun CollectionItem.asEntity(pachliAccountId: Long, collectionServerId: String) = CollectionItemEntity(
-//    pachliAccountId = pachliAccountId,
-//    collectionServerId = collectionServerId,
-//    serverId = serverId,
-//    accountId = accountId,
-//    state = state.asEntity(),
-//    createdAt = createdAt,
-// )
-//
-// fun CollectionItem.State.asEntity() = when (this) {
-//    CollectionItem.State.UNKNOWN -> CollectionItemEntity.State.UNKNOWN
-//    CollectionItem.State.PENDING -> CollectionItemEntity.State.PENDING
-//    CollectionItem.State.ACCEPTED -> CollectionItemEntity.State.ACCEPTED
-// }
+/**
+ * @property pachliAccountId
+ * @property collectionServerId [CollectionEntity.serverId] this item belongs to.
+ * @property serverId Server ID for this item.
+ * @property accountId [CollectionEntity.accountId] for this item.
+ * @property state
+ * @property createdAt
+ */
+@Entity(
+    primaryKeys = ["pachliAccountId", "collectionServerId", "serverId"],
+    foreignKeys = [
+        ForeignKey(
+            entity = CollectionEntity::class,
+            parentColumns = arrayOf("pachliAccountId", "serverId"),
+            childColumns = arrayOf("pachliAccountId", "collectionServerId"),
+            onDelete = ForeignKey.CASCADE,
+            deferred = true,
+        ),
+    ],
+)
+@TypeConverters(Converters::class)
+data class CollectionItemEntity(
+    val pachliAccountId: Long,
+    val collectionServerId: String,
+    val serverId: String,
+    val accountId: String?,
+    val state: State,
+    val createdAt: Instant,
+) {
+    enum class State {
+        UNKNOWN,
+        PENDING,
+        ACCEPTED,
+
+        ;
+
+        fun asModel() = when (this) {
+            UNKNOWN -> CollectionItem.State.UNKNOWN
+            PENDING -> CollectionItem.State.PENDING
+            ACCEPTED -> CollectionItem.State.ACCEPTED
+        }
+    }
+}
+
+fun CollectionItem.asEntity(pachliAccountId: Long, collectionServerId: String) = CollectionItemEntity(
+    pachliAccountId = pachliAccountId,
+    collectionServerId = collectionServerId,
+    serverId = serverId,
+    accountId = accountId,
+    state = state.asEntity(),
+    createdAt = createdAt,
+)
+
+fun CollectionItem.State.asEntity() = when (this) {
+    CollectionItem.State.UNKNOWN -> CollectionItemEntity.State.UNKNOWN
+    CollectionItem.State.PENDING -> CollectionItemEntity.State.PENDING
+    CollectionItem.State.ACCEPTED -> CollectionItemEntity.State.ACCEPTED
+}
+
+fun Iterable<CollectionItem>.asEntity(pachliAccountId: Long, collectionServerId: String) = map { it.asEntity(pachliAccountId, collectionServerId) }

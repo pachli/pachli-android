@@ -25,7 +25,6 @@ import androidx.room.Transaction
 import androidx.room.TypeConverters
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
-import app.pachli.core.database.model.CollectionEntity
 import app.pachli.core.database.model.NotificationAccountFilterDecisionUpdate
 import app.pachli.core.database.model.NotificationAccountWarningEntity
 import app.pachli.core.database.model.NotificationData
@@ -33,7 +32,6 @@ import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
 import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.NotificationViewDataEntity
-import app.pachli.core.database.model.TimelineCollectionEntity
 
 @Dao
 @TypeConverters(Converters::class)
@@ -386,14 +384,6 @@ WHERE pachliAccountId = :pachliAccountId
 
     @Upsert
     suspend fun upsertAccountWarnings(accountWarnings: Collection<NotificationAccountWarningEntity>)
-
-    // TODO: This moves to CollectionsDao
-    @Upsert
-    suspend fun upsertCollections(collections: Collection<CollectionEntity>)
-
-    // TODO: This moves to CollectionsDao
-    @Upsert
-    suspend fun upsertTimelineCollections(timelineCollections: Collection<TimelineCollectionEntity>)
 
     @Upsert(entity = NotificationViewDataEntity::class)
     suspend fun upsert(notificationAccountFilterDecisionUpdate: NotificationAccountFilterDecisionUpdate)

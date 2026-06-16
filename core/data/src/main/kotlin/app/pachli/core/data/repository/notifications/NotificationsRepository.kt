@@ -26,6 +26,7 @@ import androidx.paging.PagingData
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusRepository
+import app.pachli.core.database.dao.CollectionsDao
 import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
@@ -73,6 +74,7 @@ class NotificationsRepository @Inject constructor(
     private val notificationDao: NotificationDao,
     private val remoteKeyDao: RemoteKeyDao,
     private val statusDao: StatusDao,
+    private val collectionsDao: CollectionsDao,
     statusRepository: OfflineFirstStatusRepository,
 ) : StatusRepository by statusRepository {
     private var factory: InvalidatingPagingSourceFactory<Int, NotificationData>? = null
@@ -111,6 +113,7 @@ class NotificationsRepository @Inject constructor(
                 remoteKeyDao,
                 notificationDao,
                 statusDao,
+                collectionsDao,
                 excludeTypes.asNetworkModel(),
             ),
             pagingSourceFactory = factory!!,

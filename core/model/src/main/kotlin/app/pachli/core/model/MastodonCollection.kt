@@ -17,10 +17,13 @@
 
 package app.pachli.core.model
 
+import android.os.Parcelable
 import com.squareup.moshi.JsonClass
 import java.time.Instant
+import kotlinx.parcelize.IgnoredOnParcel
+import kotlinx.parcelize.Parcelize
 
-interface ICollection {
+interface ICollection : Parcelable {
     val serverId: String
     val accountId: String
     val name: String
@@ -32,6 +35,9 @@ interface ICollection {
     val updatedAt: Instant
 }
 
+// TODO: Maybe don't need to parcelize this, since the data can
+// always (?) be loaded from the database.
+@Parcelize
 data class Collection(
     override val serverId: String,
     override val accountId: String,
@@ -42,9 +48,16 @@ data class Collection(
     override val discoverable: Boolean,
     override val createdAt: Instant,
     override val updatedAt: Instant,
-    val items: List<CollectionItem>,
+    @IgnoredOnParcel
+    val items: List<CollectionItem> = emptyList(),
 ) : ICollection
 
+/**
+ * @property serverId Server ID for this item.
+ * @property accountId Server ID for the account in this item.
+ * @property state
+ * @property createdAt
+ */
 @JsonClass(generateAdapter = true)
 data class CollectionItem(
     val serverId: String,
@@ -72,10 +85,12 @@ data class CollectionItem(
  * could not be fetched. This ensures [itemIconUrls] is the same size as
  * [Collection.items] in the [Collection] it was created from.
  */
+@Parcelize
 data class TimelineCollection(
     override val serverId: String,
     val ownerAccountId: String,
-    val ownerAccount: TimelineAccount?,
+    @IgnoredOnParcel
+    val ownerAccount: TimelineAccount? = null,
     override val name: String,
     override val description: String,
     override val local: Boolean,
@@ -83,7 +98,8 @@ data class TimelineCollection(
     override val discoverable: Boolean,
     override val createdAt: Instant,
     override val updatedAt: Instant,
-    val items: List<CollectionItem>,
+    @IgnoredOnParcel
+    val items: List<CollectionItem> = emptyList(),
     val itemIconUrls: List<String?>,
 ) : ICollection {
     override val accountId = ownerAccountId
