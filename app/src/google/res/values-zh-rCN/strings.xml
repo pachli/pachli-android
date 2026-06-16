@@ -2,4 +2,7 @@
 <resources>
     <string name="update_dialog_message">是否打开Google Play查看详情？</string>
     <string name="update_dialog_positive">打开Google Play</string>
+    <string name="action_delete_remote_model_fmt">删除 %1$s</string>
+    <string name="action_download_remote_model_fmt">下载 %1$s</string>
+    <string name="content_description_loading_fmt">%1$s正在下载</string>
 </resources>
