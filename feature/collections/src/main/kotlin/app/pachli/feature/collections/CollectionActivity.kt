@@ -131,10 +131,11 @@ internal class CollectionAccountsAdapter(
     private var showBotOverlay: Boolean,
     private var showPronouns: Boolean,
     private var linksToUnderline: Set<LinksToUnderline>,
+    private val accept: (UiAction) -> Unit,
 ) : ListAdapter<AccountViewData, AccountViewHolder>(AccountInCollectionViewDataDiffer) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AccountViewHolder {
         val binding = ItemAccountBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return AccountViewHolder(binding, glide, setContent)
+        return AccountViewHolder(binding, glide, setContent, accept)
     }
 
     override fun onBindViewHolder(holder: AccountViewHolder, position: Int) {
@@ -195,7 +196,7 @@ internal class AccountViewHolder(
 
             // Build an accessible content description.
             root.contentDescription = root.context.getString(
-                app.pachli.feature.suggestions.R.string.account_content_description_fmt,
+                app.pachli.core.ui.R.string.account_content_description_fmt,
                 account.nameContentDescription(root.context),
                 followerCount.text,
                 followsCount.text,
@@ -281,7 +282,7 @@ internal class AccountViewHolder(
 
         followerCount.text = HtmlCompat.fromHtml(
             followerCount.context.getString(
-                app.pachli.feature.suggestions.R.string.follower_count_fmt,
+                app.pachli.core.ui.R.string.follower_count_fmt,
                 formatNumber(account.followersCount.toLong(), 1000),
             ),
             FROM_HTML_MODE_LEGACY,
@@ -289,7 +290,7 @@ internal class AccountViewHolder(
 
         followsCount.text = HtmlCompat.fromHtml(
             followsCount.context.getString(
-                app.pachli.feature.suggestions.R.string.follows_count_fmt,
+                app.pachli.core.ui.R.string.follows_count_fmt,
                 formatNumber(account.followingCount.toLong(), 1000),
             ),
             FROM_HTML_MODE_LEGACY,
@@ -304,7 +305,7 @@ internal class AccountViewHolder(
             if (account.createdAt == null) {
                 text = HtmlCompat.fromHtml(
                     context.getString(
-                        app.pachli.feature.suggestions.R.string.statuses_count_fmt,
+                        app.pachli.core.ui.R.string.statuses_count_fmt,
                         formatNumber(account.statusesCount.toLong(), 1000),
                     ),
                     FROM_HTML_MODE_LEGACY,
@@ -317,7 +318,7 @@ internal class AccountViewHolder(
                 if (account.lastStatusAt == null) {
                     text = HtmlCompat.fromHtml(
                         context.getString(
-                            app.pachli.feature.suggestions.R.string.statuses_count_per_week_fmt,
+                            app.pachli.core.ui.R.string.statuses_count_per_week_fmt,
                             formatNumber(account.statusesCount.toLong(), 1000),
                             (account.statusesCount / elapsed).roundToInt(),
                         ),
@@ -326,7 +327,7 @@ internal class AccountViewHolder(
                 } else {
                     text = HtmlCompat.fromHtml(
                         context.getString(
-                            app.pachli.feature.suggestions.R.string.statuses_count_per_week_last_fmt,
+                            app.pachli.core.ui.R.string.statuses_count_per_week_last_fmt,
                             formatNumber(account.statusesCount.toLong(), 1000),
                             (account.statusesCount / elapsed).roundToInt(),
                             DateUtils.getRelativeTimeSpanString(
