@@ -210,7 +210,7 @@ jobs:
           arch: x86_64
           api-level: ${{ matrix.api-level }}
           force-avd-creation: false
-          emulator-options: -no-metrics -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          emulator-options: -no-snapshot-save -no-metrics -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           target: ${{ matrix.target }}
-          script: ./gradlew pixel9api31{{ matrix.color }}${{ matrix.store }}${{ matrix.type }}AndroidTest
+          script: ./gradlew pixel9api31${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}AndroidTest
