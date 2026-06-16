@@ -77,6 +77,8 @@ data class Account(
     )
 }
 
+fun Iterable<Account>.asModel() = map { it.asModel() }
+
 @JsonClass(generateAdapter = true)
 data class Field(
     val name: String,

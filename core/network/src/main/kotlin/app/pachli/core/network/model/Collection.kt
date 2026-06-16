@@ -111,3 +111,8 @@ data class CollectionItem(
 }
 
 fun Iterable<CollectionItem>.asModel() = map { it.asModel() }
+
+data class CollectionWithAccounts(
+    val accounts: List<Account>,
+    val collection: Collection,
+)

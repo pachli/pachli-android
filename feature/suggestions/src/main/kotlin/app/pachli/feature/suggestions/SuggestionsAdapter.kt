@@ -66,8 +66,6 @@ internal class SuggestionsAdapter(
     private var linksToUnderline: Set<LinksToUnderline>,
     private val accept: (UiAction) -> Unit,
 ) : ListAdapter<SuggestionViewData, SuggestionViewHolder>(SuggestionDiffer) {
-    override fun getItemViewType(position: Int) = R.layout.item_suggestion
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuggestionViewHolder {
         val binding = ItemSuggestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return SuggestionViewHolder(binding, glide, setContent, accept)

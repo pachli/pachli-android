@@ -22,6 +22,7 @@ import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.model.AppCredentials
 import app.pachli.core.network.model.Attachment
+import app.pachli.core.network.model.CollectionWithAccounts
 import app.pachli.core.network.model.Conversation
 import app.pachli.core.network.model.CredentialAccount
 import app.pachli.core.network.model.DeletedStatus
@@ -865,6 +866,11 @@ interface MastodonApi {
 
     @DELETE("api/v1/suggestions/{accountId}")
     suspend fun deleteSuggestion(@Path("accountId") accountId: String): ApiResult<Unit>
+
+    @GET("api/v1/collections/{collectionId}")
+    suspend fun getCollectionWithAccounts(
+        @Query("collectionId") collectionId: String,
+    ): ApiResult<CollectionWithAccounts>
 }
 
 /**
