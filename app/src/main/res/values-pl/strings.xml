@@ -474,12 +474,12 @@
     <string name="pref_account_notification_filters_label_younger_30d">… utworzonych w ciągu ostatnich 30 dni</string>
     <string name="pref_account_notification_filters_label_not_followed">… których nie obserwujesz</string>
     <string name="pref_account_notification_filters_label_limited_by_server">… ograniczonych przez moderację</string>
-    <string name="account_filter_placeholder_type_favourite_fmt">Polubienie twojego wpisu przez @&lt;b&gt;%1$s&lt;/&gt;</string>
-    <string name="account_filter_placeholder_type_follow_fmt">Konto @&lt;b&gt;%1$s&lt;/&gt; cię obserwuje</string>
-    <string name="account_filter_placeholder_type_mention_fmt">Nowa wzmianka od @&lt;b&gt;%1$s&lt;/&gt;</string>
-    <string name="account_filter_placeholder_type_follow_request_fmt">Prośba o obserwację od @&lt;b&gt;%1$s&lt;/&gt;</string>
-    <string name="account_filter_placeholder_type_reblog_fmt">Podbicie twojego wpisu przez @&lt;b&gt;%1$s&lt;/&gt;</string>
-    <string name="account_filter_placeholder_label_domain">Od konta @&lt;b&gt;%1$s&lt;/&gt;</string>
+    <string name="account_filter_placeholder_type_favourite_fmt">Polubienie twojego wpisu przez @&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt;</string>
+    <string name="account_filter_placeholder_type_follow_fmt">Konto @&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; cię obserwuje</string>
+    <string name="account_filter_placeholder_type_mention_fmt">Nowa wzmianka od @&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt;</string>
+    <string name="account_filter_placeholder_type_follow_request_fmt">Prośba o obserwację od @&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt;</string>
+    <string name="account_filter_placeholder_type_reblog_fmt">Podbicie twojego wpisu przez @&amp;lt;b&amp;gt;%1$s&amp;lt;/&amp;gt;</string>
+    <string name="account_filter_placeholder_label_domain">Od konta @&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt;</string>
     <string name="account_filter_placeholder_label_not_following">Odfiltrowane z powodu: &lt;b&gt;nie obserwujesz tego konta&lt;/b&gt;</string>
     <string name="announcement_date">%1$s %2$s</string>
     <string name="update_dialog_negative">Nigdy mi nie przypominaj</string>
@@ -742,4 +742,12 @@
     <string name="action_delete_scheduled_statuses">Usuń wybrane wpisy</string>
     <string name="action_mute_hashtag">Wycisz #%1$s</string>
     <string name="action_unmute_hashtag">Cofnij wyciszenie #%1$s</string>
+    <string name="err_draft_error_no_external_files_dir">współdzielona pamięć jest niedostępna</string>
+    <string name="err_draft_error_mkdir_drafts_fmt">nie powiodło się utworzenie folderu szkiców: %1$s</string>
+    <string name="err_draft_error_unknown_mime_type">załącznik ma nieznany typu MIME: %1$s</string>
+    <string name="err_draft_error_content_provider_crash">dostawca treści niedawno uległ awarii</string>
+    <string name="err_draft_error_io_fmt">zapisywanie się nie powiodło: %1$s</string>
+    <string name="ui_error_delete_scheduled_status_fmt">nie powiodło się usunięcie zaplanowanego wpisu, aby go zastąpić: %1$s</string>
+    <string name="ui_error_sending_post_fmt">Nie powiodło się wysłanie wpisu: %1$s</string>
+    <string name="ui_error_saving_post_fmt">Nie powiodło się zapisanie wpisu: %1$s</string>
 </resources>
