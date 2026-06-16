@@ -190,4 +190,9 @@
     <string name="action_add_to_tab">Añadir a pestaña</string>
     <string name="action_add_to_tab_success">Se ha añadido \'%1$s\' a pestañas</string>
     <string name="pref_summary_none">Ninguno</string>
+    <string name="follower_count_fmt">&lt;b>%1$s&lt;/b> seguidores</string>
+    <string name="follows_count_fmt">&lt;b>%1$s&lt;/b> siguiendo</string>
+    <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> publicaciones</string>
+    <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> publicaciones (&lt;b>%2$d&lt;/b> por semana)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> publicaciones (&lt;b>%2$d&lt;/b> por semana; última: &lt;b>%3$s&lt;/b>)</string>
 </resources>

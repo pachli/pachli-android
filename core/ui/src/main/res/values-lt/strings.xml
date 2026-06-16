@@ -14,4 +14,9 @@
     <string name="action_mentions">Paminėjimai</string>
     <string name="action_more">Daugiau</string>
     <string name="action_hashtags">Saitažodžiai</string>
+    <string name="follower_count_fmt">&lt;b>%1$s&lt;/b> sekėjai</string>
+    <string name="follows_count_fmt">&lt;b>%1$s&lt;/b> sekimai</string>
+    <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> įrašai</string>
+    <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> įrašai (&lt;b>%2$d&lt;/b> per savaitę)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> įrašai (&lt;b>%2$d&lt;/b> per savaitę, paskutinis &lt;b>%3$s&lt;/b>)</string>
 </resources>

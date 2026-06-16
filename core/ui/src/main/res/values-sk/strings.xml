@@ -191,4 +191,9 @@
     <string name="action_add_to_tab">Pridať do panelu</string>
     <string name="action_add_to_tab_success">\'%1$s\' pridané do panelov</string>
     <string name="pref_summary_none">Žiadne</string>
+    <string name="follower_count_fmt">&lt;b>%1$s&lt;/b> sledujúcich</string>
+    <string name="follows_count_fmt">&lt;b>%1$s&lt;/b> sledovaných</string>
+    <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> príspevkov</string>
+    <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> príspevkov (&lt;b>%2$d&lt;/b> za týždeň)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> príspevkov (&lt;b>%2$d&lt;/b> za týždeň, posledný &lt;b>%3$s&lt;/b>)</string>
 </resources>

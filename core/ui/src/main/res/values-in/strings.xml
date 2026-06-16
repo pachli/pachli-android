@@ -170,4 +170,9 @@
     <string name="pref_summary_none">Tidak ada</string>
     <string name="action_add_to_tab">Tambahkan ke tab</string>
     <string name="action_add_to_tab_success">Ditambahkan \'%1$s\' ke tab</string>
+    <string name="follower_count_fmt">&lt;b>%1$s&lt;/b> pengikut</string>
+    <string name="follows_count_fmt">&lt;b>%1$s&lt;/b> mengikuti</string>
+    <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> postingan</string>
+    <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> postingan (&lt;b>%2$d&lt;/b> per minggu)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> postingan (&lt;b>%2$d&lt;/b> per minggu, terakhir &lt;b>%3$s&lt;/b>)</string>
 </resources>

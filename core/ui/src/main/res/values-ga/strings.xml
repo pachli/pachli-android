@@ -210,4 +210,9 @@
     <string name="action_add_to_tab">Cuir leis an táb</string>
     <string name="action_add_to_tab_success">Cuireadh \'%1$s\' leis na cluaisíní</string>
     <string name="pref_summary_none">Dada</string>
+    <string name="follower_count_fmt">&lt;b>%1$s&lt;/b> leantóir</string>
+    <string name="follows_count_fmt">&lt;b>%1$s&lt;/b> ina dhiaidh</string>
+    <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> postáil</string>
+    <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> postáil (&lt;b>%2$d&lt;/b> in aghaidh na seachtaine)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> postáil (&lt;b>%2$d&lt;/b> sa tseachtain, an &lt;b>%3$s&lt;/b> deireanach)</string>
 </resources>

@@ -191,4 +191,9 @@
     <string name="action_add_to_tab">Ajouter à l\'onglet</string>
     <string name="action_add_to_tab_success">« %1$s » ajouté aux onglets</string>
     <string name="pref_summary_none">Aucun(e)</string>
+    <string name="follower_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; suivi·e·s</string>
+    <string name="follows_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; abonné·e·s</string>
+    <string name="statuses_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; messages</string>
+    <string name="statuses_count_per_week_fmt">&lt;b&gt;%1$s&lt;/b&gt; messages (&lt;b&gt;%2$d&lt;/b&gt; par semaine)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b&gt;%1$s&lt;/b&gt; messages (&lt;b&gt;%2$d&lt;/b&gt; par semaine, depuis &lt;b&gt;%3$s&lt;/b&gt;)</string>
 </resources>

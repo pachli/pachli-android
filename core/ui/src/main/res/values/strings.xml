@@ -209,4 +209,14 @@
     <string name="pref_summary_none">None</string>
     <string name="action_add_to_tab">Add to tab</string>
     <string name="action_add_to_tab_success">Added \'%1$s\' to tabs</string>
+
+    <string name="follower_count_fmt">&lt;b>%1$s&lt;/b> followers</string>
+    <string name="follows_count_fmt">&lt;b>%1$s&lt;/b> following</string>
+    <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> posts</string>
+    <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> posts (&lt;b>%2$d&lt;/b> per week)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> posts (&lt;b>%2$d&lt;/b> per week, last &lt;b>%3$s&lt;/b>)</string>
+    <string name="account_content_description_fmt" translatable="false">
+        <!-- Display name, follower count, follows count, statuses count, note -->
+        %1$s; %2$s; %3$s; %4$s. %5$s
+    </string>
 </resources>

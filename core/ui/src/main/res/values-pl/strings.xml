@@ -199,4 +199,9 @@
     <string name="action_add_to_tab">Dodaj do kart</string>
     <string name="action_add_to_tab_success">Dodano \'%1$s\' do kart</string>
     <string name="pref_summary_none">Brak</string>
+    <string name="follower_count_fmt">&lt;b>%1$s&lt;/b> obserwujących</string>
+    <string name="follows_count_fmt">&lt;b>%1$s&lt;/b> obserwowanych</string>
+    <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> wpisów</string>
+    <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> wpisów (&lt;b>%2$d&lt;/b> na tydzień)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> wpisów (&lt;b>%2$d&lt;/b> na tydzień, ostatni &lt;b>%3$s&lt;/b>)</string>
 </resources>
