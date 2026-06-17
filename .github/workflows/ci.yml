@@ -167,7 +167,7 @@ jobs:
         target: [ default ]
     name: Android Emulator Tests
     runs-on: ubuntu-24.04
-    needs: [ "check-assignee", "ktlint", "tools", "custom-lint", "screenshots" ]
+    needs: [ "check-assignee", "ktlint", "tools", "custom-lint" ]
 
     steps:
       - name: Checkout
