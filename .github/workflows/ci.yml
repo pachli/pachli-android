@@ -70,12 +70,9 @@ jobs:
       security-events: write
     strategy:
       matrix:
-        color: ["orange"]
+        color: [ "blue", "orange" ]
         store: [ "Fdroid", "Github", "Google" ]
-        type: [ "Debug", "Release" ]
-        exclude:
-          - color: "orange"
-            store: "Fdroid"
+        type: [ "Debug" ]
     name: Android Lint
     runs-on: ubuntu-latest
 
@@ -113,12 +110,9 @@ jobs:
   test:
     strategy:
       matrix:
-        color: ["orange"]
+        color: [ "blue", "orange" ]
         store: [ "Fdroid", "Github", "Google" ]
-        type: [ "Debug", "Release" ]
-        exclude:
-          - color: "orange"
-            store: "Fdroid"
+        type: [ "Debug" ]
     name: Android Unit Test
     runs-on: ubuntu-latest
 
