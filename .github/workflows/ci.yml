@@ -9,6 +9,9 @@ on:
   pull_request:
   workflow_dispatch:
 
+env:
+  CI: true
+
 permissions: read-all
 
 concurrency:
@@ -64,17 +67,25 @@ jobs:
         run: ../gradlew test
 
   # Android lint is per-variant
-  lint:
+  ci:
     permissions:
       # Required to upload SARIF files
       security-events: write
     strategy:
       matrix:
-        color: ["orange"]
+        # Note: "color" names must be lower-case, to match the case used in file
+        # names that "Upload SARIF file" looks for.
+        color: [ "orange", "blue" ]
         store: [ "Fdroid", "Github", "Google" ]
-        type: [ "Debug", "Release" ]
-    name: Android Lint
+        type: [ "Release" ]
+        exclude:
+          - color: "orange"
+            store: "Fdroid"
+        api-level: [ 31 ]
+        target: [ default ]
+    name: Full CI
     runs-on: ubuntu-latest
+    needs: [ "check-assignee", "ktlint", "tools", "custom-lint", "screenshots" ]
 
     steps:
       - name: Checkout
@@ -84,13 +95,12 @@ jobs:
         with:
           gradle-cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
-      # Run lint for the app module. This is configured to also lint the
-      # dependent modules and produce a single report.
-      - name: Regular lint ${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
-        id: runlint
+      # Lint, test, build everything
+      - name: Lint, test, build ${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
+        id: runbuild
         run: |
           set +e
-          ./gradlew app:lint${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
+          ./gradlew :app:lint${{ matrix.color }}${{ matrix.store }}${{ matrix.type }} test${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}UnitTest assemble${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
           echo "exitcode=$?" >> $GITHUB_OUTPUT
 
       - name: Upload SARIF file
@@ -99,54 +109,11 @@ jobs:
           sarif_file: app/build/reports/lint-results-${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}.sarif
           category: lint-${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
 
-
       # Exit with whatever exit code the original lint run exited with, to
       # ensure this job fails if lint fails, *but* the lint reports are still
       # uploaded.
-      - name: Fail if lint failed
-        run: exit ${{ steps.runlint.outputs.exitcode }}
-
-  # Android tests are per variant
-  test:
-    strategy:
-      matrix:
-        color: ["orange"]
-        store: [ "Fdroid", "Github", "Google" ]
-        type: [ "Debug", "Release" ]
-    name: Android Unit Test
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-
-      - uses: ./.github/actions/setup-build-env
-        with:
-          gradle-cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
-
-      - name: test ${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
-        run: ./gradlew test${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}UnitTest
-
-  # Android assemble is per variant
-  assemble:
-    strategy:
-      matrix:
-        color: ["orange"]
-        store: [ "Fdroid", "Github", "Google" ]
-        type: [ "Debug", "Release" ]
-    name: Android Assemble
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-
-      - uses: ./.github/actions/setup-build-env
-        with:
-          gradle-cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
-
-      - name: assemble ${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
-        run: ./gradlew assemble${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
+      - name: Fail if build failed
+        run: exit ${{ steps.runbuild.outputs.exitcode }}
 
   # Screenshots are taken and validated on orangeGoogleDebug.
   screenshots:
@@ -165,17 +132,42 @@ jobs:
       - name: Validate screenshots
         run: ./gradlew validateOrangeGoogleDebugScreenshotTest
 
-  # Connected tests are per-store-variant, debug builds only.
+  check-assignee:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify assigned to nikclayton
+        env:
+          ASSIGNEE: ${{ github.event.pull_request.assignee.login }}
+        run: |
+          echo "Assignee: :$ASSIGNEE:"
+          if [[ "$ASSIGNEE" == "nikclayton" ]]; then
+            echo "PR assigned to nikclayton"
+            exit 0
+          else
+            echo "PR not assigned to nikclayton"
+            exit 1
+          fi
+
+  # Connected tests are per-store-variant, release builds only.
+  #
+  # They require the other steps to finish to avoid unnecessarily running
+  # steps on infrastructure that costs money. In addition, the PR must be
+  # assigned to nikclayton, otherwise the tests fail.
   connected:
     strategy:
       matrix:
-        color: ["Orange"]
-        store: ["Fdroid", "Github", "Google"]
-        type: ["Debug"]
-        api-level: [31]
-        target: [default]
+        color: [ "orange" ]#, "blue" ]
+        store: [ "Github" ]#, "Fdroid", "Google" ]
+        # Emulator tests only run in Debug builds
+        type: [ "Debug" ]
+        exclude:
+          - color: "orange"
+            store: "Fdroid"
+        api-level: [ 31 ]
+        target: [ default ]
     name: Android Emulator Tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+    needs: [ "check-assignee", "ktlint", "tools", "custom-lint" ]
 
     steps:
       - name: Checkout
@@ -191,33 +183,38 @@ jobs:
         with:
           gradle-cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
-      - name: AVD cache
-        uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5
-        id: avd-cache
-        with:
-          path: |
-            ~/.android/avd/*
-            ~/.android/adb*
-          key: avd-${{ matrix.api-level }}
+      #      - name: AVD cache
+      #        uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5
+      #        id: avd-cache
+      #        with:
+      #          path: |
+      #            ~/.android/avd/*
+      #            ~/.android/adb*
+      #          key: avd-${{ matrix.api-level }}
+      #
+      #      - name: Create AVD and generate snapshot for caching
+      #        if: steps.avd-cache.outputs.cache-hit != 'true'
+      #        uses: reactivecircus/android-emulator-runner@e89f39f1abbbd05b1113a29cf4db69e7540cae5a # v2
+      #        with:
+      #          arch: x86_64
+      #          api-level: ${{ matrix.api-level }}
+      #          force-avd-creation: false
+      #          emulator-options: -no-metrics -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+      #          disable-animations: false
+      #          script: echo "Generated AVD snapshot for caching."
 
-      - name: Create AVD and generate snapshot for caching
-        if: steps.avd-cache.outputs.cache-hit != 'true'
-        uses: reactivecircus/android-emulator-runner@e89f39f1abbbd05b1113a29cf4db69e7540cae5a # v2
-        with:
-          arch: x86_64
-          api-level: ${{ matrix.api-level }}
-          force-avd-creation: false
-          emulator-options: -no-metrics -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: false
-          script: echo "Generated AVD snapshot for caching."
+      # Connected tests only run on Debug variant (release variant task doesn't exist).
+      #      - name: Run emulator tests
+      #        uses: reactivecircus/android-emulator-runner@e89f39f1abbbd05b1113a29cf4db69e7540cae5a # v2
+      #        with:
+      #          arch: x86_64
+      #          api-level: ${{ matrix.api-level }}
+      #          force-avd-creation: false
+      #          emulator-options: -no-snapshot-save -no-metrics -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+      #          disable-animations: true
+      #          target: ${{ matrix.target }}
+      #          script: ./gradlew pixel9api31${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}AndroidTest
 
-      - name: Run tests
-        uses: reactivecircus/android-emulator-runner@e89f39f1abbbd05b1113a29cf4db69e7540cae5a # v2
-        with:
-          arch: x86_64
-          api-level: ${{ matrix.api-level }}
-          force-avd-creation: false
-          emulator-options: -no-metrics -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: true
-          target: ${{ matrix.target }}
-          script: ./gradlew connected${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}AndroidTest
+      - name: Run emulator tests
+        run: |
+          ./gradlew pixel9api31${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}AndroidTest
