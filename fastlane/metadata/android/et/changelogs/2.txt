@@ -1,0 +1,11 @@
+Pachli 1.1
+
+Parandused:
+
+-  Korrektne kontrastvärv teemaviite nupukestel
+-  Mustvalge ikoon skaleerub nüüd paremini
+-  Kasutaja avalehe ajajoone asukoha taastamine
+-  Tagame, et andmete uuendamine ei katkesta ajajoont
+-  Ujuvat nuppu kuvatakse korrektselt vastavalt kasutaja seadistustele
+-  Parandasime vea, kus tööriistariba vilgub loendite kerimisel
+-  Parandasime vea, kus MainActivity avamine Pixel C seadmetes jooksutab rakenduse kokku

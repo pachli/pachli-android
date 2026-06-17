@@ -1,0 +1,7 @@
+Pachli 2.8.1
+
+Parandused:
+
+- Tegime korda kokkujooksmise, kui postitamise ajal on meedium veel üleslaadimisel 
+- androidx.media3 1.4.0 ja 1.4.1 puhul on videoüleminekud tagasi kasutusel
+- Eelvaate kaart ei kata enam pilte
