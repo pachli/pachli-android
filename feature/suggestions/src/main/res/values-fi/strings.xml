@@ -28,9 +28,4 @@
     <string name="action_dismiss_follow_suggestion">Hylkää</string>
     <string name="ui_error_delete_suggestion_fmt">Ehdotuksen %1$s hylkääminen epäonnistui: %2$s</string>
     <string name="ui_error_follow_account_fmt">Tilin %1$s seuraaminen epäonnistui: %2$s</string>
-    <string name="follower_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; seuraajaa</string>
-    <string name="follows_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; seuraa</string>
-    <string name="statuses_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; julkaisua</string>
-    <string name="statuses_count_per_week_fmt">&lt;b&gt;%1$s&lt;/b&gt; julkaisua (&lt;b&gt;%2$d&lt;/b&gt; viikossa)</string>
-    <string name="statuses_count_per_week_last_fmt">&lt;b&gt;%1$s&lt;/b&gt; julkaisua &lt;b&gt;%2$d&lt;/b&gt; viikossa, uusin &lt;b&gt;%3$s&lt;/b&gt;)</string>
 </resources>
