@@ -166,7 +166,7 @@ jobs:
         api-level: [ 31 ]
         target: [ default ]
     name: Android Emulator Tests
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     needs: [ "check-assignee", "ktlint", "tools", "custom-lint" ]
 
     steps:
