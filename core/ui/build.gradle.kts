@@ -74,16 +74,10 @@ dependencies {
     api(libs.material.typeface)
 
     // Markdown support
-    implementation(libs.markwon)
-    implementation(libs.markwon.html)
-    implementation(libs.markwon.inline.parser)
-    implementation(libs.markwon.latex)
-    implementation(libs.markwon.simple.ext)
-    implementation(libs.markwon.strikethrough)
-    implementation(libs.markwon.syntax.highlight)
-    kapt(libs.prism4j)
+    implementation(projects.core.markwon)
+
     implementation(libs.ksoup.entities)
-    implementation(libs.jlatexmath.android)
+        ?.because("Preprocessing Mastodon HTML resolves entities")
 
     testImplementation(libs.bundles.mockito)
 
