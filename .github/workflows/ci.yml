@@ -73,6 +73,9 @@ jobs:
         color: ["orange"]
         store: [ "Fdroid", "Github", "Google" ]
         type: [ "Debug", "Release" ]
+        exclude:
+          - color: "orange"
+            store: "Fdroid"
     name: Android Lint
     runs-on: ubuntu-latest
 
@@ -113,6 +116,9 @@ jobs:
         color: ["orange"]
         store: [ "Fdroid", "Github", "Google" ]
         type: [ "Debug", "Release" ]
+        exclude:
+          - color: "orange"
+            store: "Fdroid"
     name: Android Unit Test
     runs-on: ubuntu-latest
 
@@ -134,6 +140,9 @@ jobs:
         color: ["orange"]
         store: [ "Fdroid", "Github", "Google" ]
         type: [ "Debug", "Release" ]
+        exclude:
+          - color: "orange"
+            store: "Fdroid"
     name: Android Assemble
     runs-on: ubuntu-latest
 
