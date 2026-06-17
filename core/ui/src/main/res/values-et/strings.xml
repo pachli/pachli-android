@@ -180,9 +180,9 @@
     <string name="pref_summary_none">Määratlemata</string>
     <string name="action_add_to_tab">Lisa vahekaardiks</string>
     <string name="action_add_to_tab_success">„%1$s“ on lisatud vahekaartide sekka</string>
-    <string name="follower_count_fmt">&lt;b>%1$s&lt;/b> jälgijat</string>
-    <string name="follows_count_fmt">&lt;b>%1$s&lt;/b> jälgimas</string>
-    <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> postitust</string>
-    <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> postitust (&lt;b>%2$d&lt;/b> nädalas)</string>
-    <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> postitust (&lt;b>%2$d&lt;/b> nädalas, viimati &lt;b>%3$s&lt;/b>)</string>
+    <string name="follower_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; jälgijat</string>
+    <string name="follows_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; jälgimas</string>
+    <string name="statuses_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; postitust</string>
+    <string name="statuses_count_per_week_fmt">&lt;b&gt;%1$s&lt;/b&gt; postitust (&lt;b&gt;%2$d&lt;/b&gt; nädalas)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b&gt;%1$s&lt;/b&gt; postitust (&lt;b&gt;%2$d&lt;/b&gt; nädalas, viimati &lt;b&gt;%3$s&lt;/b&gt;)</string>
 </resources>
