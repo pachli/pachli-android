@@ -28,9 +28,4 @@
     <string name="action_dismiss_follow_suggestion">Odrzuć</string>
     <string name="ui_error_delete_suggestion_fmt">Odrzucanie sugestii %1$s się nie powiodło: %2$s</string>
     <string name="ui_error_follow_account_fmt">Obserwowanie %1$s się nie powiodło: %2$s</string>
-    <string name="follower_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; obserwujących</string>
-    <string name="follows_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; obserwowanych</string>
-    <string name="statuses_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; wpisów</string>
-    <string name="statuses_count_per_week_fmt">&lt;b&gt;%1$s&lt;/b&gt; wpisów (&lt;b&gt;%2$d&lt;/b&gt; na tydzień)</string>
-    <string name="statuses_count_per_week_last_fmt">&lt;b&gt;%1$s&lt;/b&gt; wpisów (&lt;b&gt;%2$d&lt;/b&gt; na tydzień, ostatni &lt;b&gt;%3$s&lt;/b&gt;)</string>
 </resources>
