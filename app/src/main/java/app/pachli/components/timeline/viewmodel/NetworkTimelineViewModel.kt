@@ -93,7 +93,7 @@ open class NetworkTimelineViewModel @AssistedInject constructor(
                         // Not using shouldFilterStatus here as that also checks to see if things like
                         // "Hide boosts" or "Hide replies" are enabled.
                         quoteContentFilterAction = timelineStatusWithQuote.quotedStatus?.let { contentFilterModel?.filterActionFor(it.status) },
-                        showSensitiveMedia = pachliAccount.entity.alwaysShowSensitiveMedia,
+                        showSensitiveMedia = pachliAccount.alwaysShowSensitiveMedia,
                         filterContext = filterContext,
                     )
                 }

@@ -25,8 +25,8 @@ import androidx.room.TypeConverters
 import androidx.room.Update
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
-import app.pachli.core.database.model.PachliAccount
 import app.pachli.core.database.model.PachliAccountEntity
+import app.pachli.core.database.model.PachliAccountWithRelations
 import app.pachli.core.model.AccountSource
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.Status
@@ -44,7 +44,7 @@ FROM PachliAccountEntity
 WHERE id = :accountId
 """,
     )
-    suspend fun getPachliAccount(accountId: Long): PachliAccount?
+    suspend fun getPachliAccount(accountId: Long): PachliAccountWithRelations?
 
     @Transaction
     @Query(
@@ -54,7 +54,7 @@ FROM PachliAccountEntity
 WHERE id = :accountId
 """,
     )
-    fun getPachliAccountFlow(accountId: Long): Flow<PachliAccount?>
+    fun getPachliAccountFlow(accountId: Long): Flow<PachliAccountWithRelations?>
 
     @Transaction
     @Query(
@@ -64,7 +64,17 @@ FROM PachliAccountEntity
 WHERE isActive = 1
 """,
     )
-    fun getActivePachliAccountFlow(): Flow<PachliAccount?>
+    fun getActivePachliAccountFlow(): Flow<PachliAccountWithRelations?>
+
+    @Transaction
+    @Query(
+        """
+SELECT *
+FROM PachliAccountEntity
+WHERE isActive = 1
+""",
+    )
+    fun getActivePachliAccount(): PachliAccountWithRelations?
 
     @Transaction
     @Query(
@@ -73,7 +83,7 @@ SELECT *
 FROM PachliAccountEntity
 """,
     )
-    fun loadAllPachliAccountFlow(): Flow<List<PachliAccount>>
+    fun loadAllPachliAccountFlow(): Flow<List<PachliAccountWithRelations>>
 
     @Update
     suspend fun update(account: PachliAccountEntity)
@@ -89,6 +99,15 @@ FROM PachliAccountEntity
      */
     @Delete
     suspend fun delete(account: PachliAccountEntity)
+
+    @Query(
+        """
+DELETE
+FROM PachliAccountEntity
+WHERE id = :pachliAccountId
+""",
+    )
+    suspend fun deleteAccountById(pachliAccountId: Long)
 
     @Query(
         """
@@ -142,7 +161,7 @@ FROM PachliAccountEntity
 WHERE isActive = 1
 """,
     )
-    suspend fun getActiveAccount(): PachliAccountEntity?
+    suspend fun getActivePachliAccountEntity(): PachliAccountEntity?
 
     @Query(
         """
@@ -160,7 +179,7 @@ FROM PachliAccountEntity
 WHERE id = :id
 """,
     )
-    suspend fun getAccountById(id: Long): PachliAccountEntity?
+    suspend fun getPachliAccountEntityById(id: Long): PachliAccountEntity?
 
     @Query(
         """

@@ -93,21 +93,21 @@ sealed interface SetActiveAccountError : PachliError {
     /**
      * An API error occurred while logging in.
      *
-     * @property wantedAccount The account entity that could not be made active.
+     * @property wantedAccount The account that could not be made active.
      */
     data class Api(
-        val wantedAccount: PachliAccountEntity,
+        val wantedAccount: app.pachli.core.model.PachliAccount,
         val apiError: ApiError,
     ) : SetActiveAccountError, PachliError by apiError
 
     /**
      * A DAO exception occurred while logging in.
      *
-     * @property wantedAccount The account entity that could not be made active
+     * @property wantedAccount The account that could not be made active
      * (if known)
      */
     data class Dao(
-        val wantedAccount: PachliAccountEntity?,
+        val wantedAccount: app.pachli.core.model.PachliAccount?,
         val sqlException: SQLiteException,
     ) : SetActiveAccountError {
         override val resourceId = R.string.account_manager_error_dao
@@ -118,11 +118,11 @@ sealed interface SetActiveAccountError : PachliError {
     /**
      * Catch-all for unexpected exceptions when logging in.
      *
-     * @property wantedAccount The account entity that could not be made active.
+     * @property wantedAccount The account that could not be made active.
      * @property throwable Throwable that caused the error
      */
     data class Unexpected(
-        val wantedAccount: PachliAccountEntity,
+        val wantedAccount: app.pachli.core.model.PachliAccount,
         val throwable: Throwable,
     ) : SetActiveAccountError {
         override val resourceId = R.string.account_manager_error_unexpected
@@ -132,9 +132,9 @@ sealed interface SetActiveAccountError : PachliError {
 }
 
 sealed interface RefreshAccountError : PachliError {
-    val wantedAccount: PachliAccountEntity
+    val wantedAccount: app.pachli.core.model.PachliAccount
 
-    data class General(override val wantedAccount: PachliAccountEntity, override val cause: PachliError) : RefreshAccountError {
+    data class General(override val wantedAccount: PachliAccount, override val cause: PachliError) : RefreshAccountError {
         override val resourceId = app.pachli.core.network.R.string.error_generic_fmt
         override val formatArgs: Array<String>? = null
     }
@@ -204,6 +204,11 @@ class AccountManager @Inject constructor(
     val activePachliAccountFlow = accountDao.getActivePachliAccountFlow()
         .filterNotNull()
         .map { it.asModel() }
+        .shareIn(externalScope, SharingStarted.Eagerly, replay = 1)
+
+    @Deprecated("Caller should use getPachliAccountFlow with a specific account ID")
+    val activePachliAccount: PachliAccount
+        get() = activePachliAccountFlow.replayCache.first()
 
     init {
         // Ensure InstanceSwitchAuthInterceptor is initially set with the credentials of
@@ -316,7 +321,7 @@ class AccountManager @Inject constructor(
         setPushNotificationData(accountId, "", "", "", "", "")
     }
 
-    suspend fun deleteAccount(account: PachliAccountEntity) = accountDao.delete(account)
+    suspend fun deleteAccount(account: app.pachli.core.model.PachliAccount) = accountDao.deleteAccountById(account.id)
 
     /**
      * Changes the active account.
@@ -326,7 +331,7 @@ class AccountManager @Inject constructor(
      * @param accountId the database id of the new active account
      * @return The account entity for the new active account, or an error.
      */
-    suspend fun setActiveAccount(accountId: Long): Result<PachliAccountEntity, SetActiveAccountError> {
+    suspend fun setActiveAccount(accountId: Long): Result<PachliAccount, SetActiveAccountError> {
         /** Wrapper to pass an API error out of the transaction. */
         data class ApiErrorException(val apiError: ApiError) : Exception()
 
@@ -338,19 +343,19 @@ class AccountManager @Inject constructor(
                 Timber.d("setActiveAccount(%d)", accountId)
 
                 // Handle "-1" as the accountId.
-                val previousActiveAccount = accountDao.getActiveAccount()
-                val newActiveAccount = if (accountId == -1L) {
-                    previousActiveAccount
+                val previousActiveAccountEntity = accountDao.getActivePachliAccountEntity()
+                val newActiveAccountEntity = if (accountId == -1L) {
+                    previousActiveAccountEntity
                 } else {
-                    accountDao.getAccountById(accountId)
+                    accountDao.getPachliAccountEntityById(accountId)
                 }
 
-                if (newActiveAccount == null) {
+                if (newActiveAccountEntity == null) {
                     Timber.d("Account %d not in database", accountId)
                     return@transactionProvider Err(SetActiveAccountError.AccountDoesNotExist(accountId))
                 }
 
-                pachliAccountEntity = newActiveAccount
+                pachliAccountEntity = newActiveAccountEntity
 
                 // Fetch data from the API, updating the account as necessary.
                 // If this fails an exception is thrown to cancel the transaction.
@@ -360,13 +365,13 @@ class AccountManager @Inject constructor(
                 // part of cancelling the transaction. That's why it's modified at the
                 // very end of this block.
                 val account = mastodonApi.accountVerifyCredentials(
-                    domain = newActiveAccount.domain,
-                    auth = newActiveAccount.authHeader,
+                    domain = newActiveAccountEntity.domain,
+                    auth = newActiveAccountEntity.authHeader,
                 ).getOrElse { throw ApiErrorException(it) }.body
 
                 accountDao.clearActiveAccount()
 
-                val finalAccount = newActiveAccount.copy(
+                val finalPachliAccountEntity = newActiveAccountEntity.copy(
                     isActive = true,
                     accountId = account.id,
                     username = account.username,
@@ -382,18 +387,20 @@ class AccountManager @Inject constructor(
                     isBot = account.bot,
                 )
 
-                Timber.d("setActiveAccount: saving id: %d, isActive: %s", finalAccount.id, finalAccount.isActive)
-                accountDao.update(finalAccount)
+                Timber.d("setActiveAccount: saving id: %d, isActive: %s", finalPachliAccountEntity.id, finalPachliAccountEntity.isActive)
+                accountDao.update(finalPachliAccountEntity)
 
                 // Now safe to update InstanceSwitchAuthInterceptor.
-                Timber.d("Updating instanceSwitchAuthInterceptor with credentials for %s", newActiveAccount.fullName)
+                Timber.d("Updating instanceSwitchAuthInterceptor with credentials for %s", newActiveAccountEntity.fullName)
                 instanceSwitchAuthInterceptor.credentials =
                     InstanceSwitchAuthInterceptor.Credentials(
-                        accessToken = newActiveAccount.accessToken,
-                        domain = newActiveAccount.domain,
+                        accessToken = newActiveAccountEntity.accessToken,
+                        domain = newActiveAccountEntity.domain,
                     )
 
-                return@transactionProvider Ok(finalAccount)
+                val finalPachliAccount = accountDao.getPachliAccount(finalPachliAccountEntity.id)!!
+
+                return@transactionProvider Ok(finalPachliAccount.asModel())
             }
         } catch (e: ApiErrorException) {
             Err(SetActiveAccountError.Api(pachliAccountEntity!!, e.apiError))
@@ -407,7 +414,7 @@ class AccountManager @Inject constructor(
 
     suspend fun refresh(pachliAccountId: Long): Result<Unit, RefreshAccountError> {
         // TODO: Ok(unit) not OK here, should handle the case where getAccountById fails
-        return getAccountById(pachliAccountId)?.let { return@let refresh(it) } ?: Ok(Unit)
+        return accountDao.getPachliAccount(pachliAccountId)?.let { return@let refresh(it.asModel()) } ?: Ok(Unit)
     }
 
     /**
@@ -416,7 +423,7 @@ class AccountManager @Inject constructor(
      * @return Unit if the refresh completed successfully, or the error.
      */
     // TODO: Protect this with a mutex?
-    suspend fun refresh(account: PachliAccountEntity): Result<Unit, RefreshAccountError> = binding {
+    suspend fun refresh(account: PachliAccount): Result<Unit, RefreshAccountError> = binding {
         // Kick off network fetches that can happen in parallel because they do not
         // depend on one another.
         val deferServer = externalScope.async {
@@ -532,7 +539,7 @@ class AccountManager @Inject constructor(
      */
     suspend fun updateAccount(pachliAccountId: Long, newAccount: Account) {
         transactionProvider {
-            val existingAccount = accountDao.getAccountById(pachliAccountId) ?: return@transactionProvider
+            val existingAccount = accountDao.getPachliAccountEntityById(pachliAccountId) ?: return@transactionProvider
             val updatedAccount = existingAccount.copy(
                 displayName = newAccount.displayName ?: existingAccount.displayName,
                 profilePictureUrl = newAccount.avatar,
@@ -559,7 +566,7 @@ class AccountManager @Inject constructor(
      */
     private suspend fun newTabPreferences(pachliAccountId: Long, lists: List<MastodonList>): List<Timeline>? {
         val map = lists.associateBy { it.listId }
-        val account = accountDao.getAccountById(pachliAccountId) ?: return null
+        val account = accountDao.getPachliAccountEntityById(pachliAccountId) ?: return null
         val oldTabPreferences = account.tabPreferences
         var changed = false
         val newTabPreferences = buildList {

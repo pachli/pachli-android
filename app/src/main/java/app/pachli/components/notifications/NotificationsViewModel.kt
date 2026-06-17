@@ -35,7 +35,6 @@ import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.notifications.NotificationsRepository
-import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.eventhub.BlockEvent
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.MuteConversationEvent
@@ -407,8 +406,8 @@ class NotificationsViewModel @AssistedInject constructor(
     }
 
     /** The account to display notifications for */
-    val pachliAccountEntity: PachliAccountEntity
-        get() = accountFlow.replayCache.first().entity
+    val pachliAccount: PachliAccount
+        get() = accountFlow.replayCache.first()
 
     val uiState: StateFlow<UiState>
 
@@ -576,25 +575,25 @@ class NotificationsViewModel @AssistedInject constructor(
 
         pagingData = accountFlow
             .distinctUntilChanged { old, new ->
-                (old.entity.notificationsFilter == new.entity.notificationsFilter) &&
-                    (old.entity.notificationAccountFilterNotFollowed == new.entity.notificationAccountFilterNotFollowed) &&
-                    (old.entity.notificationAccountFilterYounger30d == new.entity.notificationAccountFilterYounger30d) &&
+                (old.notificationsFilter == new.notificationsFilter) &&
+                    (old.notificationAccountFilterNotFollowed == new.notificationAccountFilterNotFollowed) &&
+                    (old.notificationAccountFilterYounger30d == new.notificationAccountFilterYounger30d) &&
                     (
-                        old.entity.notificationAccountFilterLimitedByServer ==
-                            new.entity.notificationAccountFilterLimitedByServer
+                        old.notificationAccountFilterLimitedByServer ==
+                            new.notificationAccountFilterLimitedByServer
                         )
             }
             .flatMapLatest { account ->
                 getNotifications(
                     account,
-                    excludeTypes = deserialize(account.entity.notificationsFilter),
+                    excludeTypes = deserialize(account.notificationsFilter),
                 )
             }.cachedIn(viewModelScope)
 
         uiState =
-            combine(accountFlow.distinctUntilChangedBy { it.entity.notificationsFilter }, getUiPrefs()) { account, _ ->
+            combine(accountFlow.distinctUntilChangedBy { it.notificationsFilter }, getUiPrefs()) { account, _ ->
                 UiState(
-                    activeFilter = deserialize(account.entity.notificationsFilter),
+                    activeFilter = deserialize(account.notificationsFilter),
                     showFabWhileScrolling = !sharedPreferencesRepository.hideFabWhenScrolling,
                     tabTapBehaviour = sharedPreferencesRepository.tabTapBehaviour,
                 )
@@ -615,7 +614,7 @@ class NotificationsViewModel @AssistedInject constructor(
      * [UiSuccess.LoadNewest] so it knows to do that.
      */
     private suspend fun onLoadNewest() {
-        repository.saveRefreshKey(pachliAccountEntity.id, null)
+        repository.saveRefreshKey(pachliAccount.id, null)
         _uiResult.send(Ok(UiSuccess.LoadNewest))
     }
 
@@ -636,7 +635,7 @@ class NotificationsViewModel @AssistedInject constructor(
         pachliAccount: PachliAccount,
         excludeTypes: Set<Notification.Type>,
     ): Flow<PagingData<NotificationViewData>> {
-        return repository.notifications(pachliAccountId, pachliAccount.entity.accountId, excludeTypes)
+        return repository.notifications(pachliAccountId, pachliAccount.accountId, excludeTypes)
             .map { pagingData ->
                 pagingData
                     .map { notification ->
@@ -645,7 +644,7 @@ class NotificationsViewModel @AssistedInject constructor(
                                 ?: FilterAction.NONE
                         val quoteContentFilterAction =
                             notification.status?.quotedStatus?.let { contentFilterModel?.filterActionFor(it.status) }
-                        val isAboutSelf = notification.account.serverId == pachliAccount.entity.accountId
+                        val isAboutSelf = notification.account.serverId == pachliAccount.accountId
                         val accountFilterDecision =
                             notification.viewData?.accountFilterDecision
                                 ?: filterNotificationByAccount(pachliAccount, notification.asModel())

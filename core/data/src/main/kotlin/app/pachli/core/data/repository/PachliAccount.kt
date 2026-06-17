@@ -21,7 +21,6 @@ import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.database.model.asModel
 import app.pachli.core.model.Announcement
-import app.pachli.core.model.Emoji
 import app.pachli.core.model.Hashtag
 import app.pachli.core.model.MastodonList
 import app.pachli.core.model.Server
@@ -34,8 +33,6 @@ import io.github.z4kn4fein.semver.Version
  * @property id Account's unique local database ID.
  * @property entity [PachliAccountEntity] from the local database.
  * @property lists Account's lists.
- * @property emojis Server's emojis. Use [entity.emojis][PachliAccountEntity.emojis]
- * for the account's specific emojis.
  * @property server Details about the account's server.
  * @property contentFilters Account's content filters.
  * @property announcements Announcements from the account's server.
@@ -47,23 +44,19 @@ import io.github.z4kn4fein.semver.Version
 // or provide dedicated functions that return specific flows for the different
 // things, parameterised by the account ID.
 data class PachliAccount(
-    val id: Long,
     // TODO: Should be a core.data type
-    val entity: PachliAccountEntity,
+    private val entity: PachliAccountEntity,
     val lists: List<MastodonList>,
-    val emojis: List<Emoji>,
     val server: Server,
     val contentFilters: ContentFilters,
     val announcements: List<Announcement>,
     val following: List<FollowingAccountEntity>,
     val followedHashtags: Map<String, Hashtag>,
-)
+) : app.pachli.core.model.PachliAccount by entity
 
-fun app.pachli.core.database.model.PachliAccount.asModel() = PachliAccount(
-    id = pachliAccountEntity.id,
+fun app.pachli.core.database.model.PachliAccountWithRelations.asModel() = PachliAccount(
     entity = pachliAccountEntity,
     lists = lists.orEmpty().map { it.asModel() },
-    emojis = emojis?.emojiList.orEmpty(),
     server = server?.asModel() ?: Server(ServerKind.MASTODON, Version(4, 0, 0), rawVersion = "4.0.0"),
     contentFilters = contentFilters?.let { ContentFilters.from(it) } ?: ContentFilters.EMPTY,
     announcements = announcements.orEmpty().map { it.announcement },

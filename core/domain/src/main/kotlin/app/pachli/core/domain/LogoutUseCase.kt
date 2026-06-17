@@ -23,8 +23,8 @@ import android.os.Build
 import androidx.core.content.pm.ShortcutManagerCompat
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.LogoutError
-import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.domain.notifications.DisablePushNotificationsForAccountUseCase
+import app.pachli.core.model.PachliAccount
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
@@ -48,7 +48,7 @@ class LogoutUseCase @Inject constructor(
      * logout. The errors are ignored (local data is still deleted), but this allows the
      * caller to inform the user.
      */
-    suspend operator fun invoke(account: PachliAccountEntity): Result<Unit, LogoutError> {
+    suspend operator fun invoke(account: PachliAccount): Result<Unit, LogoutError> {
         var result: Result<Unit, LogoutError> = Ok(Unit)
 
         disablePushNotificationsForAccount(account)
@@ -74,7 +74,7 @@ class LogoutUseCase @Inject constructor(
         return result
     }
 
-    private fun deleteNotificationChannelsForAccount(account: PachliAccountEntity) {
+    private fun deleteNotificationChannelsForAccount(account: PachliAccount) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationManager =
                 context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

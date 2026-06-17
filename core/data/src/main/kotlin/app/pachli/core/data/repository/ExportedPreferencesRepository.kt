@@ -25,8 +25,8 @@ import app.pachli.core.common.PachliError
 import app.pachli.core.data.R
 import app.pachli.core.data.repository.Error.ExportError
 import app.pachli.core.data.repository.Error.ImportError
-import app.pachli.core.database.model.AccountIdentifier
 import app.pachli.core.database.model.PachliAccountEntity
+import app.pachli.core.model.AccountIdentifier
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.Timeline
 import app.pachli.core.preferences.PrefKeys

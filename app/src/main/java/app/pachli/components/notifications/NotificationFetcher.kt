@@ -23,9 +23,9 @@ import androidx.annotation.WorkerThread
 import app.pachli.core.common.string.isLessThan
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.notifications.NotificationsRepository
-import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.model.AccountFilterDecision
+import app.pachli.core.model.PachliAccount
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Marker
 import app.pachli.core.network.model.Notification
@@ -75,21 +75,20 @@ class NotificationFetcher @Inject constructor(
         }
 
         for (pachliAccount in pachliAccounts) {
-            val entity = pachliAccount.entity
             Timber.d(
                 "Checking %s, notificationsEnabled = %s",
-                entity.fullName,
-                entity.notificationsEnabled,
+                pachliAccount.fullName,
+                pachliAccount.notificationsEnabled,
             )
-            if (entity.notificationsEnabled) {
+            if (pachliAccount.notificationsEnabled) {
                 try {
                     val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
                     // Create sorted list of new notifications
-                    val notifications = fetchNewNotifications(entity)
+                    val notifications = fetchNewNotifications(pachliAccount)
                         .asSequence()
-                        .mapNotNull { it.asModel(entity.accountId) }
-                        .filter { filterNotification(notificationManager, entity, it) }
+                        .mapNotNull { it.asModel(pachliAccount.accountId) }
+                        .filter { filterNotification(notificationManager, pachliAccount, it) }
                         .filter {
                             val decision = filterNotificationByAccount(pachliAccount, it)
                             decision is AccountFilterDecision.None
@@ -130,10 +129,10 @@ class NotificationFetcher @Inject constructor(
                             context,
                             notificationManager,
                             notification,
-                            entity,
+                            pachliAccount,
                             index == 0,
                         )
-                        notificationManager.notify(notification.id, entity.id.toInt(), androidNotification)
+                        notificationManager.notify(notification.id, pachliAccount.id.toInt(), androidNotification)
                         // Android will rate limit / drop notifications if they're posted too
                         // quickly. There is no indication to the user that this happened.
                         // See https://github.com/tuskyapp/Tusky/pull/3626#discussion_r1192963664
@@ -143,7 +142,7 @@ class NotificationFetcher @Inject constructor(
                     updateSummaryNotifications(
                         context,
                         notificationManager,
-                        entity,
+                        pachliAccount,
                     )
                 } catch (e: Exception) {
                     currentCoroutineContext().ensureActive()
@@ -171,7 +170,7 @@ class NotificationFetcher @Inject constructor(
      * ones that were last fetched here. So the refresh key takes precedence if it is greater
      * than the marker.
      */
-    private suspend fun fetchNewNotifications(account: PachliAccountEntity): List<Notification> {
+    private suspend fun fetchNewNotifications(account: PachliAccount): List<Notification> {
         Timber.d("fetchNewNotifications(%s)", account.fullName)
 
         // Figure out which water mark to use.
@@ -241,7 +240,7 @@ class NotificationFetcher @Inject constructor(
         return notifications
     }
 
-    private suspend fun fetchMarker(account: PachliAccountEntity): Marker? {
+    private suspend fun fetchMarker(account: PachliAccount): Marker? {
         return mastodonApi.markersWithAuth(
             account.authHeader,
             account.domain,

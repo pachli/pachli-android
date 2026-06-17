@@ -80,10 +80,10 @@ class CachedTimelineViewModel @AssistedInject constructor(
                     StatusItemViewData.from(
                         pachliAccount = pachliAccount,
                         timelineStatusWithQuote,
-                        isExpanded = pachliAccount.entity.alwaysOpenSpoiler,
+                        isExpanded = pachliAccount.alwaysOpenSpoiler,
                         contentFilterAction = contentFilterAction,
                         quoteContentFilterAction = timelineStatusWithQuote.quotedStatus?.let { contentFilterModel?.filterActionFor(it.status) },
-                        showSensitiveMedia = pachliAccount.entity.alwaysShowSensitiveMedia,
+                        showSensitiveMedia = pachliAccount.alwaysShowSensitiveMedia,
                         filterContext = filterContext,
                     )
                 }

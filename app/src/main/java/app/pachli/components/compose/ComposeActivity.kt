@@ -89,10 +89,10 @@ import app.pachli.core.common.string.mastodonLength
 import app.pachli.core.common.util.getMediaSize
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.Loadable
-import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.AccountSource
 import app.pachli.core.model.Emoji
+import app.pachli.core.model.PachliAccount
 import app.pachli.core.model.ServerLimits.Companion.DEFAULT_CHARACTER_LIMIT
 import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MAX_MEDIA_ATTACHMENTS
 import app.pachli.core.model.Status
@@ -413,12 +413,12 @@ class ComposeActivity :
 
         lifecycleScope.launch {
             viewModel.accountFlow.take(1).collect { account ->
-                setupAvatar(account.entity)
+                setupAvatar(account)
 
                 if (viewModel.displaySelfUsername) {
                     binding.composeUsernameView.text = getString(
                         R.string.compose_active_account_description,
-                        account.entity.fullName,
+                        account.fullName,
                     )
                     binding.composeUsernameView.show()
                 } else {
@@ -427,7 +427,7 @@ class ComposeActivity :
 
                 viewModel.setup(account)
 
-                setupLanguageSpinner(getInitialLanguages(composeOptions.draft.language, account.entity))
+                setupLanguageSpinner(getInitialLanguages(composeOptions.draft.language, account))
 
                 setupButtons(account.id)
 
@@ -955,7 +955,7 @@ class ComposeActivity :
         }
     }
 
-    private fun setupAvatar(account: PachliAccountEntity) {
+    private fun setupAvatar(account: PachliAccount) {
         val avatarDimen = binding.composeUsernameView.resources.getDimension(DR.dimen.compose_avatar_dimen)
 
         loadAvatar(

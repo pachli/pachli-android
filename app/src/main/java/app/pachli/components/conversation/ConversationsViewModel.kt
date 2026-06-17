@@ -93,7 +93,7 @@ class ConversationsViewModel @AssistedInject constructor(
                         pachliAccount,
                         conversation,
                         showSensitiveMedia = statusDisplayOptions.value.showSensitiveMedia,
-                        defaultIsExpanded = pachliAccount.entity.alwaysOpenSpoiler,
+                        defaultIsExpanded = pachliAccount.alwaysOpenSpoiler,
                         // Mastodon filters don't apply to direct messages, so this
                         // is always FilterAction.NONE.
                         contentFilterAction = FilterAction.NONE,
@@ -156,15 +156,15 @@ class ConversationsViewModel @AssistedInject constructor(
         val accountToTest = conversationData.lastStatus.timelineStatus.account
 
         // Any conversations where we wrote the last status are not filtered.
-        if (accountWithFilters.entity.accountId == accountToTest.serverId) return AccountFilterDecision.None
+        if (accountWithFilters.accountId == accountToTest.serverId) return AccountFilterDecision.None
 
         val decisions = buildList {
             // Check the following relationship.
-            if (accountWithFilters.entity.conversationAccountFilterNotFollowed != FilterAction.NONE) {
+            if (accountWithFilters.conversationAccountFilterNotFollowed != FilterAction.NONE) {
                 if (accountWithFilters.following.none { it.serverId == accountToTest.serverId }) {
                     add(
                         AccountFilterDecision.make(
-                            accountWithFilters.entity.conversationAccountFilterNotFollowed,
+                            accountWithFilters.conversationAccountFilterNotFollowed,
                             AccountFilterReason.NOT_FOLLOWING,
                         ),
                     )
@@ -173,11 +173,11 @@ class ConversationsViewModel @AssistedInject constructor(
 
             // Check the age of the account relative to the status.
             accountToTest.createdAt?.let { createdAt ->
-                if (accountWithFilters.entity.conversationAccountFilterYounger30d != FilterAction.NONE) {
+                if (accountWithFilters.conversationAccountFilterYounger30d != FilterAction.NONE) {
                     if (Duration.between(createdAt, Instant.ofEpochMilli(status.status.createdAt)) < Duration.ofDays(30)) {
                         add(
                             AccountFilterDecision.make(
-                                accountWithFilters.entity.conversationAccountFilterYounger30d,
+                                accountWithFilters.conversationAccountFilterYounger30d,
                                 AccountFilterReason.YOUNGER_30D,
                             ),
                         )
@@ -186,10 +186,10 @@ class ConversationsViewModel @AssistedInject constructor(
             }
 
             // Check limited status
-            if (accountToTest.limited && accountWithFilters.entity.conversationAccountFilterLimitedByServer != FilterAction.NONE) {
+            if (accountToTest.limited && accountWithFilters.conversationAccountFilterLimitedByServer != FilterAction.NONE) {
                 add(
                     AccountFilterDecision.make(
-                        accountWithFilters.entity.notificationAccountFilterLimitedByServer,
+                        accountWithFilters.notificationAccountFilterLimitedByServer,
                         AccountFilterReason.LIMITED_BY_SERVER,
                     ),
                 )

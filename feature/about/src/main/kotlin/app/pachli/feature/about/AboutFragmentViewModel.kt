@@ -56,8 +56,8 @@ class AboutFragmentViewModel @Inject constructor(
     val uiState = pachliAccountId.flatMapLatest {
         accountManager.getPachliAccountFlow(it).filterNotNull().map { pachliAccount ->
             UiState(
-                username = pachliAccount.entity.username,
-                domain = pachliAccount.entity.domain,
+                username = pachliAccount.username,
+                domain = pachliAccount.domain,
                 serverVersion = pachliAccount.server.rawVersion,
             )
         }

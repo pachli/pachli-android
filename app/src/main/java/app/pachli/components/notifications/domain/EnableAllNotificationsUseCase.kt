@@ -24,7 +24,6 @@ import app.pachli.components.notifications.enablePullNotifications
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.domain.notifications.DisablePushNotificationsForAccountUseCase
 import app.pachli.core.domain.notifications.NotificationConfig
-import app.pachli.core.domain.notifications.hasPushScope
 import app.pachli.core.preferences.SharedPreferencesRepository
 import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.scopes.ActivityScoped

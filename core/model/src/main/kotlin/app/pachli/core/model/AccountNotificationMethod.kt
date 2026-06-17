@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Pachli Association
+ * Copyright (c) 2026 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -15,17 +15,13 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.core.domain.notifications
+package app.pachli.core.model
 
-import app.pachli.core.database.model.PachliAccountEntity
+/** The notification method an account is using. */
+enum class AccountNotificationMethod {
+    /** Notifications are pushed. */
+    PUSH,
 
-/** True if the account has the `push` OAuth scope, false otherwise. */
-val PachliAccountEntity.hasPushScope: Boolean
-    get() = oauthScopes.contains("push")
-
-/** The account's [AccountNotificationMethod]. */
-val PachliAccountEntity.notificationMethod: AccountNotificationMethod
-    get() {
-        if (unifiedPushUrl.isBlank()) return AccountNotificationMethod.PULL
-        return AccountNotificationMethod.PUSH
-    }
+    /** Notifications are pulled. */
+    PULL,
+}

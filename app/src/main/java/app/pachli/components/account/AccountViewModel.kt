@@ -104,8 +104,8 @@ class AccountViewModel @AssistedInject constructor(
             accountRepository.getAccount(accountId)
                 .onSuccess { account ->
                     domain = getDomain(account.url)
-                    isFromOwnDomain = domain == pachliAccount.entity.domain
-                    val isSelf = pachliAccount.entity.accountId == accountId
+                    isFromOwnDomain = domain == pachliAccount.domain
+                    val isSelf = pachliAccount.accountId == accountId
                     if (!isSelf) obtainRelationship(accountId)
                 }
                 .onFailure {
@@ -123,7 +123,7 @@ class AccountViewModel @AssistedInject constructor(
 
     /** True if the laoded account in [accountData] is the user's account. */
     val isSelf = combine(accountData, pachliAccount) { accountData, pachliAccount ->
-        pachliAccount.entity.accountId == accountData.get()?.getOrNull()?.id
+        pachliAccount.accountId == accountData.get()?.getOrNull()?.id
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
 
     private fun obtainRelationship(accountId: String, reload: Boolean = false) {

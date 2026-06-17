@@ -70,7 +70,7 @@ data class ConversationViewData(
             accountFilterDecision: AccountFilterDecision?,
         ) = ConversationViewData(
             pachliAccountId = pachliAccount.id,
-            localDomain = pachliAccount.entity.domain,
+            localDomain = pachliAccount.domain,
             conversationId = conversationData.id,
             accounts = conversationData.accounts,
             unread = conversationData.unread,
