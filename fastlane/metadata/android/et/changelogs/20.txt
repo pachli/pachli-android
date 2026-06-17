@@ -1,0 +1,14 @@
+Pachli 2.8.0
+
+Uus funktsionaalsus:
+
+- Katseline funktsionaalsus avalehe ajajoont teistpidi pöörata
+- Parem tõuketeavituste ja päringute töökindlus
+
+Parandused:
+
+- Kui link puudub, siis kuvame postitusel kasutatud rakenduse nime
+- Lahendus puuduvate olekuväljade puhul veganism.social saidis
+- Paremalt-vasakule keelete teemaviited, mainimised ja alglõigud on nüüd korrektsed
+- Otsingufiltrid on tumedas ja mustas kujunduses nüüd õiged
+- Soome, galeegi, iirinorra ja hispaania keele tõlgete täiendused
