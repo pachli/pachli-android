@@ -175,7 +175,16 @@ jobs:
         run: ./gradlew validateOrangeGoogleDebugScreenshotTest
 
   # Connected tests are per-store-variant, debug builds only.
+  #
+  # Currently disabled because of
+  # https://github.com/ReactiveCircus/android-emulator-runner/issues/478
+  #
+  # To locally verify a PR works run:
+  #
+  # gh pr checkout [pr]
+  # ./gradlew pixel9api31Check
   connected:
+    if: false
     strategy:
       matrix:
         color: [ "blue", "orange" ]
