@@ -28,6 +28,8 @@
     android:importantForAccessibility="yes"
     tools:ignore="SelectableText">
 
+    <!-- Start of account details -->
+
     <ImageView
         android:id="@+id/avatar"
         android:layout_width="48dp"
@@ -144,6 +146,10 @@
         app:layout_constraintTop_toBottomOf="@id/follower_count"
         tools:text="46 posts (4.6 per week)" />
 
+    <!-- End of account details -->
+
+    <!-- Start of controls -->
+
     <Button
         android:id="@+id/delete_suggestion"
         style="@style/AppButton.Outlined"
@@ -180,4 +186,6 @@
         app:layout_constraintStart_toEndOf="@id/delete_suggestion"
         app:layout_constraintTop_toTopOf="@+id/delete_suggestion"
         android:text="[placeholder]" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

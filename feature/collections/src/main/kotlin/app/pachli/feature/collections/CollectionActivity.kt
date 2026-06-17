@@ -66,7 +66,7 @@ import app.pachli.feature.collections.ICollectionViewModel.UiAction
 import app.pachli.feature.collections.ICollectionViewModel.UiError
 import app.pachli.feature.collections.ICollectionViewModel.UiSuccess
 import app.pachli.feature.collections.databinding.ActivityCollectionBinding
-import app.pachli.feature.collections.databinding.ItemAccountBinding
+import app.pachli.feature.collections.databinding.ItemAccountInCollectionBinding
 import com.bumptech.glide.RequestManager
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
@@ -134,7 +134,7 @@ internal class CollectionAccountsAdapter(
     private val accept: (UiAction) -> Unit,
 ) : ListAdapter<AccountViewData, AccountViewHolder>(AccountInCollectionViewDataDiffer) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AccountViewHolder {
-        val binding = ItemAccountBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemAccountInCollectionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return AccountViewHolder(binding, glide, setContent, accept)
     }
 
@@ -156,7 +156,7 @@ internal data class AccountViewData(
 
 /** Displays an account in a collection. */
 internal class AccountViewHolder(
-    internal val binding: ItemAccountBinding,
+    internal val binding: ItemAccountInCollectionBinding,
     private val glide: RequestManager,
     private val setContent: SetContent,
     private val accept: (UiAction) -> Unit,
