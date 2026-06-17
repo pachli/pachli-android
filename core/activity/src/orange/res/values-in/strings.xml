@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="acra_dialog_title">%1$s laporkan eror</string>
+    <string name="acra_dialog_text">Klik OK untuk menyiapkan e-mail ke pengembang dengan detail</string>
+</resources>
