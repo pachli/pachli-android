@@ -140,4 +140,9 @@
     <string name="duration_180_days">180 giorni</string>
     <string name="duration_365_days">365 giorni</string>
     <string name="action_add_to_tab">Aggiungi a scheda</string>
+    <string name="follower_count_fmt">&lt;b>%1$s&lt;/b> seguaci</string>
+    <string name="follows_count_fmt">&lt;b>%1$s&lt;/b> seguiti</string>
+    <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> post</string>
+    <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> posta (&lt;b>%2$d&lt;/b> alla settimana)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> post (&lt;b>%2$d&lt;/b> per settimana, ultimo &lt;b>%3$s&lt;/b>)</string>
 </resources>

@@ -168,4 +168,9 @@
     <string name="duration_365_days">365 дней</string>
     <string name="action_add_to_tab">Добавить на вкладку</string>
     <string name="action_add_to_tab_success">Добавлено «%1$s» на вкладки</string>
+    <string name="follower_count_fmt">&lt;b>%1$s&lt;/b> подписчиков</string>
+    <string name="follows_count_fmt">&lt;b>%1$s&lt;/b> подписок</string>
+    <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> записей</string>
+    <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> записей (&lt;b>%2$d&lt;/b> в неделю)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> записей (&lt;b>%2$d&lt;/b> в неделю, последние &lt;b>%3$s&lt;/b>)</string>
 </resources>

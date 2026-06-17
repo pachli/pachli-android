@@ -129,4 +129,9 @@
     <string name="duration_365_days">365 dager</string>
     <string name="action_add_to_tab">Legg til til fane</string>
     <string name="action_add_to_tab_success">La til «%1$s» til fanene</string>
+    <string name="follower_count_fmt">&lt;b>%1$s&lt;/b> følgere</string>
+    <string name="follows_count_fmt">Følger &lt;b>%1$s&lt;/b></string>
+    <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> innlegg</string>
+    <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> innlegg (&lt;b>%2$d&lt;/b> om uken)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> innlegg (&lt;b>%2$d&lt;/b> om uken, siste uke &lt;b>%3$s&lt;/b>)</string>
 </resources>

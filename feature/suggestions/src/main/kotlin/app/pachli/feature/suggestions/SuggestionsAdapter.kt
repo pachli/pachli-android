@@ -228,7 +228,7 @@ internal class SuggestionViewHolder(
 
             // Build an accessible content description.
             root.contentDescription = root.context.getString(
-                R.string.account_content_description_fmt,
+                app.pachli.core.ui.R.string.account_content_description_fmt,
                 account.nameContentDescription(root.context),
                 followerCount.text,
                 followsCount.text,
@@ -320,7 +320,7 @@ internal class SuggestionViewHolder(
 
         followerCount.text = HtmlCompat.fromHtml(
             followerCount.context.getString(
-                R.string.follower_count_fmt,
+                app.pachli.core.ui.R.string.follower_count_fmt,
                 formatNumber(account.followersCount.toLong(), 1000),
             ),
             FROM_HTML_MODE_LEGACY,
@@ -328,7 +328,7 @@ internal class SuggestionViewHolder(
 
         followsCount.text = HtmlCompat.fromHtml(
             followsCount.context.getString(
-                R.string.follows_count_fmt,
+                app.pachli.core.ui.R.string.follows_count_fmt,
                 formatNumber(account.followingCount.toLong(), 1000),
             ),
             FROM_HTML_MODE_LEGACY,
@@ -343,7 +343,7 @@ internal class SuggestionViewHolder(
             if (account.createdAt == null) {
                 text = HtmlCompat.fromHtml(
                     context.getString(
-                        R.string.statuses_count_fmt,
+                        app.pachli.core.ui.R.string.statuses_count_fmt,
                         formatNumber(account.statusesCount.toLong(), 1000),
                     ),
                     FROM_HTML_MODE_LEGACY,
@@ -356,7 +356,7 @@ internal class SuggestionViewHolder(
                 if (account.lastStatusAt == null) {
                     text = HtmlCompat.fromHtml(
                         context.getString(
-                            R.string.statuses_count_per_week_fmt,
+                            app.pachli.core.ui.R.string.statuses_count_per_week_fmt,
                             formatNumber(account.statusesCount.toLong(), 1000),
                             (account.statusesCount / elapsed).roundToInt(),
                         ),
@@ -365,7 +365,7 @@ internal class SuggestionViewHolder(
                 } else {
                     text = HtmlCompat.fromHtml(
                         context.getString(
-                            R.string.statuses_count_per_week_last_fmt,
+                            app.pachli.core.ui.R.string.statuses_count_per_week_last_fmt,
                             formatNumber(account.statusesCount.toLong(), 1000),
                             (account.statusesCount / elapsed).roundToInt(),
                             DateUtils.getRelativeTimeSpanString(
