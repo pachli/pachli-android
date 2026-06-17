@@ -2,4 +2,5 @@
 <resources>
     <string name="acra_dialog_title">%1$s laporkan eror</string>
     <string name="acra_dialog_text">Klik OK untuk menyiapkan e-mail ke pengembang dengan detail</string>
+    <string name="acra_email_body">Data ini akan dikirim ke developer.\n\n Harap periksa untuk memastikan itu tidak termasuk apa pun yang tidak ingin Anda bagikan, dan tolong jelaskan apa yang Anda lakukan ketika kecelakaan itu terjadi.\n\n ----\nDeskripsi kamu disini:\n\n ----</string>
 </resources>
