@@ -186,7 +186,7 @@ internal class PachliAccountViewHolder(
         }
     }
 
-    private fun bindAll(account: app.pachli.core.model.PachliAccount, animateEmojis: Boolean, animateAvatars: Boolean, showBotOverlay: Boolean) = with(binding) {
+    private fun bindAll(account: PachliAccount, animateEmojis: Boolean, animateAvatars: Boolean, showBotOverlay: Boolean) = with(binding) {
         root.isActivated = account.isActive
         suggestionReason.visible(account.isActive)
         switchAccount.isEnabled = !account.isActive

@@ -148,7 +148,7 @@ interface PachliAccount {
     val isBot: Boolean
 
     val identifier: AccountIdentifier
-        get() = AccountIdentifier(domain, accountId)
+        get() = AccountIdentifier(this)
 
     val fullName: String
         get() = "@$username@$domain"

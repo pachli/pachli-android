@@ -27,7 +27,7 @@ import kotlinx.parcelize.Parcelize
  *
  * @property value Underlying string value for the identifier.
  * @constructor Creates a new [AccountIdentifier] from a string. Should not
- * normally be used, use the constructor that takes an [app.pachli.core.database.model.PachliAccountEntity].
+ * normally be used, use the constructor that takes an [app.pachli.core.model.PachliAccount].
  */
 // @Parcelize so this can be passed directly in an intent, instead of round
 // tripping as a String.
@@ -37,13 +37,11 @@ value class AccountIdentifier internal constructor(val value: String) :
     CharSequence by value,
     Parcelable {
     /**
-     * Creates a new [AccountIdentifier] from an [app.pachli.core.database.model.PachliAccountEntity]. The
+     * Creates a new [AccountIdentifier] from an [app.pachli.core.model.PachliAccount]. The
      * preferred way to construct an [AccountIdentifier], as it ensures the
      * value is constructed correctly.
      */
-//    constructor(pachliAccountEntity: PachliAccountEntity) : this("${pachliAccountEntity.domain}:${pachliAccountEntity.accountId}")
-
-    constructor(domain: String, serverId: String) : this("$domain:$serverId")
+    constructor(pachliAccount: PachliAccount) : this("${pachliAccount.domain}:${pachliAccount.accountId}")
 
     override fun chars(): IntStream {
         return super.chars()
