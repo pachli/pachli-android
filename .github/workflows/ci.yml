@@ -166,7 +166,7 @@ jobs:
         api-level: [ 31 ]
         target: [ default ]
     name: Android Emulator Tests
-    runs-on: blacksmith-4vcpu-ubuntu-2404
+    runs-on: ubuntu-24.04
     needs: [ "check-assignee", "ktlint", "tools", "custom-lint", "screenshots" ]
 
     steps:
