@@ -178,11 +178,14 @@ jobs:
   connected:
     strategy:
       matrix:
-        color: ["Orange"]
+        color: [ "blue", "orange" ]
         store: ["Fdroid", "Github", "Google"]
         type: ["Debug"]
         api-level: [31]
         target: [default]
+        exclude:
+          - color: "orange"
+            store: "Fdroid"
     name: Android Emulator Tests
     runs-on: ubuntu-latest
 
