@@ -112,6 +112,7 @@ data class CollectionItem(
 
 fun Iterable<CollectionItem>.asModel() = map { it.asModel() }
 
+@JsonClass(generateAdapter = true)
 data class CollectionWithAccounts(
     val accounts: List<Account>,
     val collection: Collection,
