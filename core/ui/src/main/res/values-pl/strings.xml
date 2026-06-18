@@ -204,4 +204,5 @@
     <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> wpisów</string>
     <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> wpisów (&lt;b>%2$d&lt;/b> na tydzień)</string>
     <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> wpisów (&lt;b>%2$d&lt;/b> na tydzień, ostatni &lt;b>%3$s&lt;/b>)</string>
+    <string name="action_follow_account">Obserwuj</string>
 </resources>

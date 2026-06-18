@@ -215,4 +215,5 @@
     <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> postáil</string>
     <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> postáil (&lt;b>%2$d&lt;/b> in aghaidh na seachtaine)</string>
     <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> postáil (&lt;b>%2$d&lt;/b> sa tseachtain, an &lt;b>%3$s&lt;/b> deireanach)</string>
+    <string name="action_follow_account">Lean</string>
 </resources>

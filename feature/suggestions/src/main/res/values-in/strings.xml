@@ -10,6 +10,5 @@
     <string name="action_dismiss_follow_suggestion">Menolak</string>
     <string name="ui_error_follow_account_fmt">Mengikuti %1$s failed: %2$s</string>
     <string name="source_unknown">(Server yang dikembalikan sumber yang tidak diakui)</string>
-    <string name="action_follow_account">Ikuti</string>
     <string name="sources_most_interactions">Mendapatkan banyak perhatian di server Anda</string>
 </resources>

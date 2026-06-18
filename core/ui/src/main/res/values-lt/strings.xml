@@ -19,4 +19,5 @@
     <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> įrašai</string>
     <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> įrašai (&lt;b>%2$d&lt;/b> per savaitę)</string>
     <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> įrašai (&lt;b>%2$d&lt;/b> per savaitę, paskutinis &lt;b>%3$s&lt;/b>)</string>
+    <string name="action_follow_account">Sekti</string>
 </resources>

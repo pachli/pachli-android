@@ -219,4 +219,5 @@
         <!-- Display name, follower count, follows count, statuses count, note -->
         %1$s; %2$s; %3$s; %4$s. %5$s
     </string>
+    <string name="action_follow_account">Follow</string>
 </resources>

@@ -8,7 +8,6 @@
     <string name="sources_friends_of_friends">Populær blant dei som du fylgjer</string>
     <string name="sources_unknown">(serveren gav ukjende kjelder)</string>
     <string name="source_unknown">(tenar gav uattkjend kjelde)</string>
-    <string name="action_follow_account">Fylg</string>
     <string name="action_dismiss_follow_suggestion">Avvis</string>
     <string name="ui_error_delete_suggestion_fmt">Mislukkast i å avvise forslag til %1$s: %2$s</string>
     <string name="ui_error_follow_account_fmt">Mislukkast i å fylgje %1$s: %2$s</string>

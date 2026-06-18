@@ -8,7 +8,6 @@
     <string name="sources_similar_to_recently_followed">Sarnane sinu poolt hiljuti jälgitud kontodele</string>
     <string name="sources_friends_of_friends">Populaarne nende hulgas, keda sa tunned</string>
     <string name="sources_unknown">(serveri vastuses on tuvastamatud allikad)</string>
-    <string name="action_follow_account">Jälgi</string>
     <string name="action_dismiss_follow_suggestion">Loobu</string>
     <string name="ui_error_delete_suggestion_fmt">%1$s soovitusest loobumine ei õnnestunud: %2$s</string>
     <string name="ui_error_follow_account_fmt">%1$s jälgimise alustamine ei õnnestunud: %2$s</string>

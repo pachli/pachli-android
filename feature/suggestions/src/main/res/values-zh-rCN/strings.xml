@@ -6,7 +6,6 @@
     <string name="sources_most_followed">服务器上最受关注的账号</string>
     <string name="sources_friends_of_friends">在您关注的人中受欢迎</string>
     <string name="sources_unknown">（服务器返回无法识别的源）</string>
-    <string name="action_follow_account">关注</string>
     <string name="action_dismiss_follow_suggestion">取消</string>
     <string name="ui_error_delete_suggestion_fmt">取消对%1$s的建议失败：%2$s</string>
     <string name="ui_error_follow_account_fmt">关注%1$s失败：%2$s</string>

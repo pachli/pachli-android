@@ -56,7 +56,7 @@ internal class SuggestionAccessibilityDelegate(
 
     private val followAccountAction = AccessibilityNodeInfoCompat.AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_follow_account,
-        context.getString(R.string.action_follow_account),
+        context.getString(app.pachli.core.ui.R.string.action_follow_account),
     )
 
     private val linksAction = AccessibilityNodeInfoCompat.AccessibilityActionCompat(
