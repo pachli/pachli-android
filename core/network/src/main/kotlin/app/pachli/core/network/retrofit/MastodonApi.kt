@@ -869,7 +869,7 @@ interface MastodonApi {
 
     @GET("api/v1/collections/{collectionId}")
     suspend fun getCollectionWithAccounts(
-        @Query("collectionId") collectionId: String,
+        @Path("collectionId") collectionId: String,
     ): ApiResult<CollectionWithAccounts>
 }
 

@@ -45,7 +45,7 @@ interface ICollectionsRepository {
         value class GetCollection(private val error: ApiError) : Error, PachliError by error
     }
 
-    suspend fun getCollection(pachliAccountId: Long, collectionId: String): Result<Pair<Collection, List<Account>?>, Error.GetCollection>
+    suspend fun getCollection(pachliAccountId: Long, collectionId: String): Result<Pair<Collection, List<Account>>, Error.GetCollection>
 }
 
 @Singleton
@@ -57,7 +57,7 @@ internal class OfflineFirstCollectionsRepository @Inject constructor(
     /**
      * Makes a **network** request for [collectionId].
      */
-    override suspend fun getCollection(pachliAccountId: Long, collectionId: String): Result<Pair<Collection, List<Account>?>, Error.GetCollection> {
+    override suspend fun getCollection(pachliAccountId: Long, collectionId: String): Result<Pair<Collection, List<Account>>, Error.GetCollection> {
         // TODO: This should probably return a flow from the database, and kick off
         // an async network request.
 
