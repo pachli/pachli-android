@@ -8,7 +8,6 @@
     <string name="sources_similar_to_recently_followed">Podobne do kont, które obserwujesz</string>
     <string name="sources_friends_of_friends">Popularne wśród osób, które obserwujesz</string>
     <string name="sources_unknown">(serwer zwrócił nierozpoznawalne źródła)</string>
-    <string name="action_follow_account">Obserwuj</string>
     <string name="action_dismiss_follow_suggestion">Odrzuć</string>
     <string name="ui_error_follow_account_fmt">Obserwowanie %1$s się nie powiodło: %2$s</string>
     <string name="ui_error_delete_suggestion_fmt">Odrzucanie sugestii %1$s się nie powiodło: %2$s</string>

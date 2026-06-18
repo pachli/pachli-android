@@ -196,4 +196,5 @@
     <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> príspevkov</string>
     <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> príspevkov (&lt;b>%2$d&lt;/b> za týždeň)</string>
     <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> príspevkov (&lt;b>%2$d&lt;/b> za týždeň, posledný &lt;b>%3$s&lt;/b>)</string>
+    <string name="action_follow_account">Sledovať</string>
 </resources>

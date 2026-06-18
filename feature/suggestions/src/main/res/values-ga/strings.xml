@@ -7,7 +7,6 @@
     <string name="sources_most_interactions">Ag fáil go leor aird ar do fhreastalaí</string>
     <string name="sources_friends_of_friends">Coitianta i measc na ndaoine a leanann tú</string>
     <string name="sources_unknown">(tug an freastalaí foinsí neamhaitheanta ar ais)</string>
-    <string name="action_follow_account">Lean</string>
     <string name="action_dismiss_follow_suggestion">Díbhe</string>
     <string name="ui_error_delete_suggestion_fmt">Theip ar mholadh le haghaidh %1$s a dhíbhe: %2$s</string>
     <string name="sources_similar_to_recently_followed">Cosúil le cuntais a lean tú le déanaí</string>

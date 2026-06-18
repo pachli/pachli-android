@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="sources_most_followed">Vienas iš labiausiai sekamų jūsų serveryje</string>
-    <string name="action_follow_account">Sekti</string>
     <string name="action_dismiss_follow_suggestion">Atmesti</string>
     <string name="sources_friends_of_friends">Populiarus tarp žmonių, kuriuos sekate</string>
     <string name="title_suggestions">Siūlomos paskyros</string>

@@ -7,7 +7,6 @@
     <string name="sources_unknown">(serveris atgrieza neatpazītus avotus)</string>
     <string name="ui_error_delete_suggestion_fmt">%1$s ieteikumu noraidīšana neizdevās: %2$s</string>
     <string name="ui_error_follow_account_fmt">Sekošana %1$s neizdevās: %2$s</string>
-    <string name="action_follow_account">Sekot</string>
     <string name="sources_similar_to_recently_followed">Līdzīgs kontiem, kuriem nesen sāki sekot</string>
     <string name="source_unknown">(serveris atgrieza neatpazītu avotu)</string>
     <string name="sources_most_interactions">Iegūst daudz uzmanības Tavā serverī</string>

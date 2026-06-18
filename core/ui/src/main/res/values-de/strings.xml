@@ -185,4 +185,5 @@
     <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> Beiträge</string>
     <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> Beiträge (&lt;b>%2$d&lt;/b> pro Woche)</string>
     <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> Beiträge (&lt;b>%2$d&lt;/b> pro Woche, letzter am &lt;b>%3$s&lt;/b>)</string>
+    <string name="action_follow_account">Folgen</string>
 </resources>

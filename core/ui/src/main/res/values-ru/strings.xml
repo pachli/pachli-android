@@ -173,4 +173,5 @@
     <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> записей</string>
     <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> записей (&lt;b>%2$d&lt;/b> в неделю)</string>
     <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> записей (&lt;b>%2$d&lt;/b> в неделю, последние &lt;b>%3$s&lt;/b>)</string>
+    <string name="action_follow_account">Подписаться</string>
 </resources>
