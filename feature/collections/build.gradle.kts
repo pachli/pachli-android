@@ -36,10 +36,10 @@ dependencies {
         ?.because("layout/toolbar_basic")
     implementation(projects.core.common)
     implementation(projects.core.data)
+    implementation(projects.core.designsystem)
     implementation(projects.core.model)
     implementation(projects.core.navigation)
     implementation(projects.core.network)
-    implementation(projects.core.sendstatus)
     implementation(projects.core.ui)
 
     implementation(libs.bundles.androidx)

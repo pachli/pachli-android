@@ -51,12 +51,14 @@ import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.formatNumber
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.ICollectionsRepository
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.getOrNull
 import app.pachli.core.designsystem.R
 import app.pachli.core.model.Account
+import app.pachli.core.model.Collection
 import app.pachli.core.model.ICollection
 import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.preferences.PronounDisplay
@@ -77,8 +79,6 @@ import app.pachli.feature.collections.databinding.FragmentCollectionBinding
 import app.pachli.feature.collections.databinding.ItemAccountInCollectionBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
-import com.github.michaelbull.result.Err
-import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.onFailure
@@ -95,18 +95,21 @@ import kotlin.math.roundToInt
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 
 /**
- * Displays the details for a single [app.pachli.core.model.Collection] and its
+ * Displays the details for a single [Collection] and its
  * members.
  */
 @AndroidEntryPoint
@@ -371,7 +374,13 @@ internal class AccountViewHolder(
 
     /** Binds the avatar image, respecting [animateAvatars]. */
     private fun bindAvatar(viewData: AccountViewData, animateAvatars: Boolean) = with(binding) {
-        loadAvatar(glide, viewData.account.avatar, avatar, avatarRadius, animateAvatars)
+        loadAvatar(
+            glide,
+            viewData.account.avatar,
+            avatar,
+            avatarRadius,
+            animateAvatars,
+        )
     }
 
     /**
@@ -551,6 +560,7 @@ internal interface ICollectionViewModel {
         val collection: ICollection,
         val owner: AccountViewData?,
         val accounts: List<AccountViewData>,
+        val isMember: Boolean,
     )
 
     sealed interface UiError : PachliError {
@@ -564,13 +574,14 @@ internal interface ICollectionViewModel {
 
     val operationCount: Flow<Int>
 
-    val collectionViewData: StateFlow<Result<Loadable<CollectionViewData>, UiError.GetCollection>>
+    val collectionViewData: SharedFlow<Result<Loadable<CollectionViewData>, UiError.GetCollection>>
 
     val uiOptions: Flow<UiOptions>
 }
 
 @HiltViewModel
 internal class CollectionViewModel @Inject constructor(
+    private val accountManager: AccountManager,
     private val collectionsRepository: ICollectionsRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
 ) : ViewModel(), ICollectionViewModel {
@@ -590,8 +601,34 @@ internal class CollectionViewModel @Inject constructor(
             .flowWhileShared(SharingStarted.WhileSubscribed(5000))
     }
 
-    private val _collectionViewData = MutableStateFlow<Result<Loadable<CollectionViewData>, UiError.GetCollection>>(Ok(Loadable.Loading))
-    override val collectionViewData = _collectionViewData.asStateFlow()
+    private val pachliAccountId = MutableSharedFlow<Long>(replay = 1)
+    private val pachliAccount = pachliAccountId.distinctUntilChanged().flatMapLatest {
+        accountManager.getPachliAccountFlow(it).filterNotNull()
+    }
+
+    private val collection = MutableSharedFlow<Result<Pair<Collection, List<Account>>, ICollectionsRepository.Error.GetCollection>>(replay = 1)
+
+    // Combines the most recent collection load with the current PachliAccount
+    // in order to populate the `CollectionViewData.isMember` property.
+    override val collectionViewData = combine(pachliAccount, collection) { pachliAccount, collection ->
+        collection.mapEither(
+            { (collection, accounts) ->
+                // Per the API spec, `accounts` always contains the owner as the
+                // first item, the remaining items are members of the collection.
+                val owner = accounts.firstOrNull()
+                val members = accounts.drop(1)
+                Loadable.Loaded(
+                    CollectionViewData(
+                        collection = collection,
+                        owner = owner?.let { AccountViewData(owner) },
+                        accounts = members.map { AccountViewData(it) },
+                        isMember = members.any { it.id == pachliAccount.accountId },
+                    ),
+                )
+            },
+            { UiError.GetCollection(it) },
+        )
+    }.shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
 
     init {
         viewModelScope.launch {
@@ -603,24 +640,11 @@ internal class CollectionViewModel @Inject constructor(
 
     private suspend fun onGetCollection(action: UiAction.GetCollection) {
         operationCounter {
-            _collectionViewData.value = Ok(Loadable.Loading)
-            collectionsRepository.getCollection(action.pachliAccountId, action.collectionId)
-                .mapEither(
-                    { (collection, accounts) ->
-                        // Per the API spec, `accounts` always contains the owner as the
-                        // first item, the remaining items are members of the collection.
-                        val owner = accounts.firstOrNull()
-                        val members = accounts.drop(1)
-                        CollectionViewData(
-                            collection = collection,
-                            owner = owner?.let { AccountViewData(owner) },
-                            accounts = members.map { AccountViewData(it) },
-                        )
-                    },
-                    { UiError.GetCollection(it) },
-                )
-                .onSuccess { _collectionViewData.value = Ok(Loadable.Loaded(it)) }
-                .onFailure { _collectionViewData.value = Err(it) }
+            pachliAccountId.emit(action.pachliAccountId)
+
+            collection.emit(
+                collectionsRepository.getCollection(action.pachliAccountId, action.collectionId),
+            )
         }
     }
 }

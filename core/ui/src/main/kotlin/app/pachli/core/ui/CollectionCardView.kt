@@ -31,7 +31,6 @@ import app.pachli.core.model.TimelineCollection
 import app.pachli.core.ui.databinding.CollectionCardBinding
 import app.pachli.core.ui.extensions.useInPlace
 import com.bumptech.glide.RequestManager
-import timber.log.Timber
 
 /**
  * Compound view that displays [Collection].
@@ -125,8 +124,6 @@ class CollectionCardView @JvmOverloads constructor(
         // Show created/updated information?
 
         val avatarIcons = collection.itemIconUrls.filterNotNull().take(4)
-
-        Timber.d("icons: $avatarIcons")
 
         avatarIcons.getOrNull(0)?.let {
             loadAvatar(glide, it, binding.avatar1, avatarRadius, false)
