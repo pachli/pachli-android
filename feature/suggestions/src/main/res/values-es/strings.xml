@@ -24,7 +24,6 @@
     <string name="sources_similar_to_recently_followed">Similar a las últimas cuentas que has seguido</string>
     <string name="sources_friends_of_friends">Popular entre la gente que sigues</string>
     <string name="sources_unknown">(el servidor devolvió fuentes no reconocidas)</string>
-    <string name="action_follow_account">Seguir</string>
     <string name="action_dismiss_follow_suggestion">Descartar</string>
     <string name="ui_error_delete_suggestion_fmt">Fallo al descartar la sugerencia para %1$s: %2$s</string>
     <string name="ui_error_follow_account_fmt">Fallo al seguir a %1$s: %2$s</string>
