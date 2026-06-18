@@ -226,4 +226,5 @@
     </plurals>
 
     <string name="collection_remove_self">Remove me</string>
+    <string name="action_follow_account">Follow</string>
 </resources>
