@@ -19,17 +19,27 @@ package app.pachli.feature.collections
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.core.view.ViewGroupCompat
 import androidx.fragment.app.commit
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.data.repository.Loadable
+import app.pachli.core.data.repository.getOrNull
 import app.pachli.core.navigation.CollectionActivityIntent
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.ui.appbar.FadeChildScrollEffect
 import app.pachli.core.ui.extensions.addScrollEffect
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.feature.collections.databinding.ActivityCollectionBinding
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.get
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 /**
  * Displays the details for a single [app.pachli.core.model.Collection] and its
@@ -38,6 +48,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class CollectionActivity : ViewUrlActivity() {
     private val binding by viewBinding(ActivityCollectionBinding::inflate)
+
+    private val viewModel by viewModels<CollectionViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -71,5 +83,23 @@ class CollectionActivity : ViewUrlActivity() {
         supportFragmentManager.commit {
             replace(R.id.fragment_container, fragment, fragmentTag)
         }
+
+        bind()
+    }
+
+    private fun bind() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.collectionViewData.collectLatest(::bindCollection)
+            }
+        }
+    }
+
+    private fun bindCollection(result: Result<Loadable<ICollectionViewModel.CollectionViewData>, ICollectionViewModel.UiError.GetCollection>) {
+        // Only update on success
+        val collectionViewData = result.get()?.getOrNull() ?: return
+
+        supportActionBar?.title = collectionViewData.collection.name
+        supportActionBar?.subtitle = collectionViewData.owner?.account?.username ?: ""
     }
 }

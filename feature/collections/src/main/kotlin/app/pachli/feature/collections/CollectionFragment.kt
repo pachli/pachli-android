@@ -28,7 +28,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
@@ -116,7 +116,7 @@ class CollectionFragment :
     ReselectableFragment {
     private val binding by viewBinding(FragmentCollectionBinding::bind)
 
-    private val viewModel by viewModels<CollectionViewModel>()
+    private val viewModel: CollectionViewModel by activityViewModels()
 
     private val pachliAccountId by unsafeLazy { requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID) }
 
@@ -211,6 +211,16 @@ class CollectionFragment :
 
         result.onSuccess {
             it.getOrNull()?.let { collectionViewData ->
+                // Update toolbar
+                // - Owner avatar
+                // - Collection name
+                // - Collection owner handle
+
+                // Update description, above the list
+                // Update hashtag, above the list
+
+                // Control to-reorder list?
+
                 collectionAdapter.submitList(collectionViewData.accounts)
                 binding.messageView.hide()
                 binding.recyclerView.show()
@@ -539,6 +549,7 @@ internal interface ICollectionViewModel {
 
     data class CollectionViewData(
         val collection: ICollection,
+        val owner: AccountViewData?,
         val accounts: List<AccountViewData>,
     )
 
@@ -595,10 +606,15 @@ internal class CollectionViewModel @Inject constructor(
             _collectionViewData.value = Ok(Loadable.Loading)
             collectionsRepository.getCollection(action.pachliAccountId, action.collectionId)
                 .mapEither(
-                    {
+                    { (collection, accounts) ->
+                        // Per the API spec, `accounts` always contains the owner as the
+                        // first item, the remaining items are members of the collection.
+                        val owner = accounts.firstOrNull()
+                        val members = accounts.drop(1)
                         CollectionViewData(
-                            collection = it.first,
-                            accounts = it.second.map { AccountViewData(it) },
+                            collection = collection,
+                            owner = owner?.let { AccountViewData(owner) },
+                            accounts = members.map { AccountViewData(it) },
                         )
                     },
                     { UiError.GetCollection(it) },
