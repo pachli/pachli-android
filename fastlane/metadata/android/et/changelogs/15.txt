@@ -1,0 +1,5 @@
+Pachli 2.5.1
+
+Parandused:
+
+- Luba juurdepääsetavaid toiminguid ainult olekule lisatud teavituste puhul
