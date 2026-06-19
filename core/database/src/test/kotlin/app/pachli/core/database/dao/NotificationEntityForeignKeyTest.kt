@@ -119,6 +119,7 @@ class NotificationEntityForeignKeyTest {
             createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
             accountServerId = "1",
             statusServerId = null,
+            collectionServerId = null,
         )
         notificationDao.upsertNotifications(listOf(notification))
         val notificationReport = NotificationReportEntity(
@@ -175,6 +176,7 @@ class NotificationEntityForeignKeyTest {
             createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
             accountServerId = "1",
             statusServerId = null,
+            collectionServerId = null,
         )
         notificationDao.upsertNotifications(listOf(notification))
 
@@ -224,6 +226,7 @@ class NotificationEntityForeignKeyTest {
             createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
             accountServerId = "1",
             statusServerId = "1",
+            collectionServerId = null,
         )
         notificationDao.upsertNotifications(listOf(notification))
 

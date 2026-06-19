@@ -71,6 +71,7 @@ import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.extensions.nameContentDescription
 import app.pachli.core.ui.loadAvatar
+import app.pachli.feature.collections.ICollectionViewModel.AccountAction
 import app.pachli.feature.collections.ICollectionViewModel.CollectionViewData
 import app.pachli.feature.collections.ICollectionViewModel.UiAction
 import app.pachli.feature.collections.ICollectionViewModel.UiError
@@ -95,6 +96,7 @@ import kotlin.math.roundToInt
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.collectLatest
@@ -106,6 +108,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
@@ -552,6 +555,12 @@ internal interface ICollectionViewModel {
 
     sealed interface CollectionAction : UiAction
 
+    sealed interface AccountAction : CollectionAction {
+        val accountId: String
+
+        data class FollowAccount(override val accountId: String) : AccountAction
+    }
+
     sealed interface UiSuccess {
         val action: CollectionAction
     }
@@ -608,9 +617,12 @@ internal class CollectionViewModel @Inject constructor(
 
     private val collection = MutableSharedFlow<Result<Pair<Collection, List<Account>>, ICollectionsRepository.Error.GetCollection>>(replay = 1)
 
+    /** IDs of accounts with active operations. */
+    private val activeAccountIds = MutableStateFlow<Set<String>>(emptySet())
+
     // Combines the most recent collection load with the current PachliAccount
     // in order to populate the `CollectionViewData.isMember` property.
-    override val collectionViewData = combine(pachliAccount, collection) { pachliAccount, collection ->
+    override val collectionViewData = combine(pachliAccount, collection, activeAccountIds) { pachliAccount, collection, activeAccountIds ->
         collection.mapEither(
             { (collection, accounts) ->
                 // Per the API spec, `accounts` always contains the owner as the
@@ -621,7 +633,12 @@ internal class CollectionViewModel @Inject constructor(
                     CollectionViewData(
                         collection = collection,
                         owner = owner?.let { AccountViewData(owner) },
-                        accounts = members.map { AccountViewData(it) },
+                        accounts = members.map {
+                            AccountViewData(
+                                account = it,
+                                isEnabled = !activeAccountIds.contains(it.id),
+                            )
+                        },
                         isMember = members.any { it.id == pachliAccount.accountId },
                     ),
                 )
@@ -635,6 +652,10 @@ internal class CollectionViewModel @Inject constructor(
             uiAction.filterIsInstance<UiAction.GetCollection>().collect {
                 launch { onGetCollection(it) }
             }
+
+            uiAction.filterIsInstance<AccountAction.FollowAccount>().collect {
+                launch { onFollowAccount(it) }
+            }
         }
     }
 
@@ -645,6 +666,12 @@ internal class CollectionViewModel @Inject constructor(
             collection.emit(
                 collectionsRepository.getCollection(action.pachliAccountId, action.collectionId),
             )
+        }
+    }
+
+    private suspend fun onFollowAccount(action: AccountAction.FollowAccount) {
+        operationCounter {
+            activeAccountIds.update { it + action.accountId }
         }
     }
 }

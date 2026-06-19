@@ -342,6 +342,7 @@ class PachliAccountEntityForeignKeyTest {
             createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
             accountServerId = "1",
             statusServerId = "1",
+            collectionServerId = null,
         )
 
         notificationDao.upsertNotifications(listOf(notification))
