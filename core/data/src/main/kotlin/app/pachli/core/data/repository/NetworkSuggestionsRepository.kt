@@ -64,7 +64,7 @@ class NetworkSuggestionsRepository @Inject constructor(
 
     override suspend fun followAccount(accountId: String): Result<Unit, FollowAccountError> = binding {
         externalScope.async {
-            api.followSuggestedAccount(accountId).mapError { FollowAccountError(it) }.bind()
+            api.followAccount(accountId).mapError { FollowAccountError(it) }.bind()
         }.await()
     }
 
