@@ -77,11 +77,6 @@ import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-@RequiresOptIn(message = "This API should only be called through or by the appropriate UseCase class.")
-@Retention(AnnotationRetention.BINARY)
-@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
-annotation class UseCaseOnly
-
 /**
  * Annotation that marks a network method as only callable through a
  * UseCase class, as the UseCase is expected to contain additional

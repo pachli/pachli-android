@@ -327,7 +327,7 @@ fun app.pachli.core.model.Notification.Type.asNetworkModel() = when (this) {
 
 /**
  * Converts [this] to [model Notification][app.pachli.core.model.Notification]s,
- * discarding any failed conversions (so may produce an emtpy list).
+ * discarding any failed conversions (so may produce an empty list).
  *
  * @param accountId See [Notification.asModel].
  */
