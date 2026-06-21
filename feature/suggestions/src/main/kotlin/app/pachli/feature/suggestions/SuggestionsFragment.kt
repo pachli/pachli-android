@@ -71,7 +71,6 @@ import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -106,16 +105,11 @@ class SuggestionsFragment :
     /** The active snackbar */
     private var snackbar: Snackbar? = null
 
-    private var pachliAccountId by Delegates.notNull<Long>()
+    private val pachliAccountId by unsafeLazy { requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID) }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (context as? ViewUrlActivity) ?: throw IllegalStateException("Fragment must be attached to a BottomSheetActivity")
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -157,6 +151,8 @@ class SuggestionsFragment :
         }
 
         bind()
+
+        viewModel.accept(GetSuggestions(pachliAccountId))
     }
 
     /** Binds data to the UI */
@@ -228,7 +224,7 @@ class SuggestionsFragment :
             binding.messageView.show()
             binding.recyclerView.hide()
 
-            binding.messageView.setup(it) { viewModel.accept(GetSuggestions) }
+            binding.messageView.setup(it) { viewModel.accept(GetSuggestions(pachliAccountId)) }
         }
 
         result.onSuccess {
@@ -289,7 +285,7 @@ class SuggestionsFragment :
 
     override fun onRefresh() {
         snackbar?.dismiss()
-        viewModel.accept(GetSuggestions)
+        viewModel.accept(GetSuggestions(pachliAccountId))
     }
 
     override fun onReselect() {

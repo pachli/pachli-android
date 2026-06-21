@@ -28,7 +28,7 @@ import app.pachli.feature.suggestions.UiAction.SuggestionAction
 /** Actions the user can take from the UI. */
 internal sealed interface UiAction {
     /** Get fresh suggestions. */
-    data object GetSuggestions : UiAction
+    data class GetSuggestions(val pachliAccountId: Long) : UiAction
 
     /** Actions that navigate the user to another part of the app. */
     sealed interface NavigationAction : UiAction {
@@ -39,13 +39,20 @@ internal sealed interface UiAction {
 
     /** Actions that operate on a suggestion. */
     sealed interface SuggestionAction : UiAction {
+        val pachliAccountId: Long
         val suggestion: Suggestion
 
         /** Delete the suggestion. */
-        data class DeleteSuggestion(override val suggestion: Suggestion) : SuggestionAction
+        data class DeleteSuggestion(
+            override val pachliAccountId: Long,
+            override val suggestion: Suggestion,
+        ) : SuggestionAction
 
         /** Accept the suggestion and follow the user. */
-        data class AcceptSuggestion(override val suggestion: Suggestion) : SuggestionAction
+        data class AcceptSuggestion(
+            override val pachliAccountId: Long,
+            override val suggestion: Suggestion,
+        ) : SuggestionAction
     }
 }
 

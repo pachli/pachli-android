@@ -48,6 +48,8 @@ import app.pachli.core.data.repository.createDraftReply
 import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.domain.DownloadUrlUseCase
+import app.pachli.core.domain.accounts.BlockAccountUseCase
+import app.pachli.core.domain.accounts.MuteAccountUseCase
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.Draft
 import app.pachli.core.model.IStatus
@@ -89,6 +91,12 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
 
     @Inject
     lateinit var timelineCases: TimelineCases
+
+    @Inject
+    lateinit var blockAccountUseCase: BlockAccountUseCase
+
+    @Inject
+    lateinit var muteAccountUseCase: MuteAccountUseCase
 
     @Inject
     lateinit var downloadUrlUseCase: DownloadUrlUseCase
@@ -412,7 +420,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
     private fun onMute(accountId: String, accountUsername: String) {
         showMuteAccountDialog(this.requireActivity(), accountUsername) { notifications: Boolean?, duration: Int? ->
             lifecycleScope.launch {
-                timelineCases.muteAccount(pachliAccountId, accountId, notifications == true, duration)
+                muteAccountUseCase(pachliAccountId, accountId, notifications == true, duration)
             }
         }
     }
@@ -422,7 +430,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
             .setMessage(getString(R.string.dialog_block_warning, accountUsername))
             .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
                 lifecycleScope.launch {
-                    timelineCases.blockAccount(pachliAccountId, accountId)
+                    blockAccountUseCase(pachliAccountId, accountId)
                 }
             }
             .setNegativeButton(android.R.string.cancel, null)

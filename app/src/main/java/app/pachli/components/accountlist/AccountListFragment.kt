@@ -39,6 +39,10 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.domain.accounts.BlockAccountUseCase
+import app.pachli.core.domain.accounts.MuteAccountUseCase
+import app.pachli.core.domain.accounts.UnblockAccountUseCase
+import app.pachli.core.domain.accounts.UnmuteAccountUseCase
 import app.pachli.core.model.Relationship
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AccountListActivityIntent.Kind
@@ -64,7 +68,6 @@ import app.pachli.core.ui.SetContentAsMastodonHtml
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentAccountListBinding
 import app.pachli.interfaces.AccountActionListener
-import app.pachli.usecase.TimelineCases
 import app.pachli.view.EndlessOnScrollListener
 import com.bumptech.glide.Glide
 import com.github.michaelbull.result.getOrElse
@@ -98,7 +101,16 @@ class AccountListFragment :
     lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
     @Inject
-    lateinit var timelineCases: TimelineCases
+    lateinit var blockAccountUseCase: BlockAccountUseCase
+
+    @Inject
+    lateinit var unblockAccountUseCase: UnblockAccountUseCase
+
+    @Inject
+    lateinit var muteAccountUseCase: MuteAccountUseCase
+
+    @Inject
+    lateinit var unmuteAccountUseCase: UnmuteAccountUseCase
 
     private val binding by viewBinding(FragmentAccountListBinding::bind)
 
@@ -229,9 +241,9 @@ class AccountListFragment :
     override fun onMute(mute: Boolean, id: String, position: Int, notifications: Boolean) {
         viewLifecycleOwner.lifecycleScope.launch {
             if (!mute) {
-                timelineCases.unmuteAccount(pachliAccountId, id)
+                unmuteAccountUseCase(pachliAccountId, id)
             } else {
-                timelineCases.muteAccount(pachliAccountId, id, notifications)
+                muteAccountUseCase(pachliAccountId, id, notifications)
             }
                 .onSuccess { onMuteSuccess(mute, id, position, notifications) }
                 .onFailure { onMuteFailure(mute, id, notifications) }
@@ -272,9 +284,9 @@ class AccountListFragment :
     override fun onBlock(block: Boolean, id: String, position: Int) {
         viewLifecycleOwner.lifecycleScope.launch {
             if (block) {
-                timelineCases.blockAccount(pachliAccountId, id)
+                blockAccountUseCase(pachliAccountId, id)
             } else {
-                timelineCases.unblockAccount(pachliAccountId, id)
+                unblockAccountUseCase(pachliAccountId, id)
             }
                 .onSuccess { onBlockSuccess(block, id, position) }
                 .onFailure { onBlockFailure(block, id, it.throwable) }

@@ -77,9 +77,19 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
+ * Annotation that marks a network method as only callable through a
+ * UseCase class, as the UseCase is expected to contain additional
+ * business logic that must be applied whenever the network method
+ * is called.
+ */
+@RequiresOptIn(message = "This API should only be called through or by the appropriate UseCase class.")
+@Retention(AnnotationRetention.BINARY)
+@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
+annotation class UseCaseOnly
+
+/**
  * for documentation of the Mastodon REST API see https://docs.joinmastodon.org/api/
  */
-
 @JvmSuppressWildcards
 interface MastodonApi {
 
@@ -448,6 +458,7 @@ interface MastodonApi {
         @Query("limit") limit: Int = 80,
     ): ApiResult<List<TimelineAccount>>
 
+    @UseCaseOnly
     @FormUrlEncoded
     @POST("api/v1/accounts/{id}/follow")
     suspend fun followAccount(
@@ -456,21 +467,25 @@ interface MastodonApi {
         @Field("notify") notify: Boolean? = null,
     ): ApiResult<Relationship>
 
+    @UseCaseOnly
     @POST("api/v1/accounts/{id}/unfollow")
     suspend fun unfollowAccount(
         @Path("id") accountId: String,
     ): ApiResult<Relationship>
 
+    @UseCaseOnly
     @POST("api/v1/accounts/{id}/block")
     suspend fun blockAccount(
         @Path("id") accountId: String,
     ): ApiResult<Relationship>
 
+    @UseCaseOnly
     @POST("api/v1/accounts/{id}/unblock")
     suspend fun unblockAccount(
         @Path("id") accountId: String,
     ): ApiResult<Relationship>
 
+    @UseCaseOnly
     @FormUrlEncoded
     @POST("api/v1/accounts/{id}/mute")
     suspend fun muteAccount(
@@ -479,6 +494,7 @@ interface MastodonApi {
         @Field("duration") duration: Int? = null,
     ): ApiResult<Relationship>
 
+    @UseCaseOnly
     @POST("api/v1/accounts/{id}/unmute")
     suspend fun unmuteAccount(
         @Path("id") accountId: String,
@@ -489,11 +505,13 @@ interface MastodonApi {
         @Query("id[]") accountIds: List<String>,
     ): ApiResult<List<Relationship>>
 
+    @UseCaseOnly
     @POST("api/v1/pleroma/accounts/{id}/subscribe")
     suspend fun subscribeAccount(
         @Path("id") accountId: String,
     ): ApiResult<Relationship>
 
+    @UseCaseOnly
     @POST("api/v1/pleroma/accounts/{id}/unsubscribe")
     suspend fun unsubscribeAccount(
         @Path("id") accountId: String,

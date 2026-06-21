@@ -19,7 +19,6 @@ package app.pachli.feature.suggestions
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.pachli.core.common.extensions.mapIfInstance
 import app.pachli.core.common.extensions.stateFlow
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.repository.Loadable
@@ -27,6 +26,9 @@ import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.SuggestionsError.DeleteSuggestionError
 import app.pachli.core.data.repository.SuggestionsError.FollowAccountError
 import app.pachli.core.data.repository.SuggestionsRepository
+import app.pachli.core.data.repository.mapLoaded
+import app.pachli.core.domain.accounts.FollowAccountUseCase
+import app.pachli.core.model.Relationship
 import app.pachli.core.model.Suggestion
 import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.preferences.PronounDisplay
@@ -37,7 +39,10 @@ import app.pachli.feature.suggestions.UiAction.SuggestionAction.AcceptSuggestion
 import app.pachli.feature.suggestions.UiAction.SuggestionAction.DeleteSuggestion
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.map
 import com.github.michaelbull.result.mapEither
+import com.github.michaelbull.result.mapError
+import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
@@ -80,11 +85,17 @@ internal data class UiState(
     }
 }
 
-/** Data to show a [Suggestion]. */
+/**
+ * Data to show a [Suggestion].
+ *
+ * @property pachliAccountId
+ * @property isEnabled If false the user should not be able to interact
+ * with the suggestion.
+ * @property suggestion The [Suggestion].
+ */
 internal data class SuggestionViewData(
-    /** If false the user should not be able to interact with the suggestion. */
+    val pachliAccountId: Long,
     val isEnabled: Boolean = true,
-    /** The suggestion. */
     val suggestion: Suggestion,
 )
 
@@ -122,6 +133,7 @@ internal interface ISuggestionsViewModel {
 internal class SuggestionsViewModel @Inject constructor(
     private val suggestionsRepository: SuggestionsRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
+    private val followAccountUseCase: FollowAccountUseCase,
 ) : ViewModel(),
     ISuggestionsViewModel {
     private val uiAction = MutableSharedFlow<UiAction>()
@@ -133,20 +145,33 @@ internal class SuggestionsViewModel @Inject constructor(
     private val operationCounter = OperationCounter()
     override val operationCount = operationCounter.count
 
-    private val reload = MutableSharedFlow<Unit>(replay = 1)
+    private val pachliAccountId = MutableSharedFlow<Long>(replay = 1)
 
-    private var disabledSuggestions = MutableStateFlow<Set<String>>(setOf()) // mutableSetOf<String>()
+    /**
+     * Account IDs of suggestions that should be disabled in the UI.
+     * E.g., because there is an active operation involving the account.
+     */
+    private var disabledSuggestions = MutableStateFlow<Set<String>>(setOf())
 
-    private var _suggestions = MutableStateFlow<Result<Suggestions, GetSuggestionsError>>(Ok(Loadable.Loading))
+    /** Cache of suggestions fetched from the network. */
+    // Modified depending on the user's actions (e.g., rejecting or accepting)
+    // a suggestion, as refreshing on each network operation could return a
+    // completely different list of suggestions, losing the user's place in
+    // the list.
+    private var _suggestions = MutableStateFlow<Result<Loadable<List<Suggestion>>, GetSuggestionsError>>(Ok(Loadable.Loading))
+
     override val suggestions = stateFlow(viewModelScope, Ok(Loadable.Loading)) {
-        disabledSuggestions.combine(_suggestions) { disabled, suggestions ->
-            // Mark any disabled suggestions.
-            suggestions.mapIfInstance<_, _, Loadable.Loaded<List<SuggestionViewData>>> {
-                it.copy(
-                    data = it.data.map {
-                        it.copy(isEnabled = !disabled.contains(it.suggestion.account.id))
-                    },
-                )
+        combine(pachliAccountId, _suggestions, disabledSuggestions) { pachliAccountId, suggestionsResult, disabled ->
+            suggestionsResult.map {
+                it.mapLoaded { suggestions ->
+                    suggestions.map {
+                        SuggestionViewData(
+                            pachliAccountId = pachliAccountId,
+                            suggestion = it,
+                            isEnabled = !disabled.contains(it.account.id),
+                        )
+                    }
+                }
             }
         }.flowWhileShared(SharingStarted.WhileSubscribed(5000))
     }
@@ -164,15 +189,21 @@ internal class SuggestionsViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            reload.collect {
-                _suggestions.emit(Ok(Loadable.Loading))
-                _suggestions.emit(getSuggestions())
+            uiAction.filterIsInstance<GetSuggestions>().collect {
+                pachliAccountId.emit(it.pachliAccountId)
             }
         }
 
         viewModelScope.launch {
-            reload.emit(Unit)
-            uiAction.filterIsInstance<GetSuggestions>().collect { reload.emit(Unit) }
+            pachliAccountId.collect {
+                operationCounter {
+                    _suggestions.value = Ok(Loadable.Loading)
+                    _suggestions.value = suggestionsRepository.getSuggestions().mapEither(
+                        { Loadable.Loaded(it) },
+                        { GetSuggestionsError(it) },
+                    )
+                }
+            }
         }
     }
 
@@ -189,22 +220,21 @@ internal class SuggestionsViewModel @Inject constructor(
 
         // Process the suggestion, and handle the success/failure
         val result = when (suggestionAction) {
-            is DeleteSuggestion -> deleteSuggestion(suggestionAction.suggestion)
-            is AcceptSuggestion -> acceptSuggestion(suggestionAction.suggestion)
-        }.mapEither(
-            {
-                // Remove this suggestion from the list.
-                _suggestions.update { suggestions ->
-                    suggestions.mapIfInstance<_, _, Loadable.Loaded<List<SuggestionViewData>>> {
-                        it.copy(
-                            data = it.data.filterNot {
-                                it.suggestion.account.id == suggestionAction.suggestion.account.id
-                            },
-                        )
+            is DeleteSuggestion -> deleteSuggestion(suggestionAction)
+            is AcceptSuggestion -> acceptSuggestion(suggestionAction)
+        }.onSuccess {
+            // Remove this suggestion from _suggestions, updates the UI.
+            _suggestions.update { suggestions ->
+                suggestions.map { loadable ->
+                    loadable.mapLoaded { suggestions ->
+                        suggestions.filterNot { suggestion ->
+                            suggestion.account.id == suggestionAction.suggestion.account.id
+                        }
                     }
                 }
-                UiSuccess.from(suggestionAction)
-            },
+            }
+        }.mapEither(
+            { UiSuccess.from(suggestionAction) },
             { UiError.make(it, suggestionAction) },
         )
 
@@ -213,26 +243,19 @@ internal class SuggestionsViewModel @Inject constructor(
         _uiResult.send(result)
     }
 
-    /** Get fresh suggestions from the repository. */
-    private suspend fun getSuggestions(): Result<Loadable.Loaded<List<SuggestionViewData>>, GetSuggestionsError> = operationCounter {
-        // Note: disabledSuggestions is *not* cleared here. Suppose the user has
-        // dismissed a suggestion and the network operation has not completed yet.
-        // They reload, and get a list of suggestions that includes the suggestion
-        // they have just dismissed. In that case the suggestion should still be
-        // disabled.
-        suggestionsRepository.getSuggestions().mapEither(
-            { Loadable.Loaded(it.map { SuggestionViewData(suggestion = it) }) },
-            { GetSuggestionsError(it) },
-        )
-    }
-
     /** Delete a suggestion from the repository. */
-    private suspend fun deleteSuggestion(suggestion: Suggestion): Result<Unit, DeleteSuggestionError> = operationCounter {
-        suggestionsRepository.deleteSuggestion(suggestion.account.id)
+    private suspend fun deleteSuggestion(action: DeleteSuggestion): Result<Unit, DeleteSuggestionError> = operationCounter {
+        suggestionsRepository.deleteSuggestion(action.suggestion.account.id)
     }
 
-    /** Accept the suggestion and follow the account. */
-    private suspend fun acceptSuggestion(suggestion: Suggestion): Result<Unit, FollowAccountError> = operationCounter {
-        suggestionsRepository.followAccount(suggestion.account.id)
+    /**
+     * Follow an account from a suggestion
+     *
+     * @param action [AcceptSuggestion] containing the account to follow.
+     * @return Result with the new relationship, or an error.
+     */
+    private suspend fun acceptSuggestion(action: AcceptSuggestion): Result<Relationship, FollowAccountError> = operationCounter {
+        followAccountUseCase(action.pachliAccountId, action.suggestion.account.id)
+            .mapError { FollowAccountError(it) }
     }
 }

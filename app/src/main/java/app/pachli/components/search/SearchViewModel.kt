@@ -44,6 +44,8 @@ import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.database.model.asEntity
+import app.pachli.core.domain.accounts.BlockAccountUseCase
+import app.pachli.core.domain.accounts.MuteAccountUseCase
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.DeletedStatus
@@ -98,6 +100,8 @@ import timber.log.Timber
 class SearchViewModel @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val timelineCases: TimelineCases,
+    private val blockAccountUseCase: BlockAccountUseCase,
+    private val muteAccountUseCase: MuteAccountUseCase,
     accountManager: AccountManager,
     private val statusRepository: OfflineFirstStatusRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
@@ -394,7 +398,7 @@ class SearchViewModel @Inject constructor(
 
     fun muteAccount(pachliAccountId: Long, accountId: String, notifications: Boolean, duration: Int?) {
         viewModelScope.launch {
-            timelineCases.muteAccount(pachliAccountId, accountId, notifications, duration)
+            muteAccountUseCase(pachliAccountId, accountId, notifications, duration)
         }
     }
 
@@ -406,7 +410,7 @@ class SearchViewModel @Inject constructor(
 
     fun blockAccount(pachliAccountId: Long, accountId: String) {
         viewModelScope.launch {
-            timelineCases.blockAccount(pachliAccountId, accountId)
+            blockAccountUseCase(pachliAccountId, accountId)
         }
     }
 

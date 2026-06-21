@@ -187,8 +187,8 @@ internal class SuggestionViewHolder(
 
     init {
         with(binding) {
-            followAccount.setOnClickListener { accept(SuggestionAction.AcceptSuggestion(suggestion)) }
-            deleteSuggestion.setOnClickListener { accept(SuggestionAction.DeleteSuggestion(suggestion)) }
+            followAccount.setOnClickListener { accept(SuggestionAction.AcceptSuggestion(viewData.pachliAccountId, viewData.suggestion)) }
+            deleteSuggestion.setOnClickListener { accept(SuggestionAction.DeleteSuggestion(viewData.pachliAccountId, viewData.suggestion)) }
             accountNote.setOnClickListener { accept(NavigationAction.ViewAccount(suggestion.account.id)) }
             root.setOnClickListener { accept(NavigationAction.ViewAccount(suggestion.account.id)) }
 
