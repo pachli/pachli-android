@@ -24,6 +24,10 @@ import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.getOrNull
+import app.pachli.core.domain.accounts.BlockAccountUseCase
+import app.pachli.core.domain.accounts.MuteAccountUseCase
+import app.pachli.core.domain.accounts.UnblockAccountUseCase
+import app.pachli.core.domain.accounts.UnmuteAccountUseCase
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.Relationship
 import app.pachli.core.model.Status
@@ -85,6 +89,10 @@ class ReportViewModel @AssistedInject constructor(
     eventHub: EventHub,
     repository: NetworkTimelineRepository,
     timelineCases: TimelineCases,
+    private val blockAccountUseCase: BlockAccountUseCase,
+    private val unblockAccountUseCase: UnblockAccountUseCase,
+    private val muteAccountUseCase: MuteAccountUseCase,
+    private val unmuteAccountUseCase: UnmuteAccountUseCase,
     accountManager: AccountManager,
     sharedPreferencesRepository: SharedPreferencesRepository,
 ) : NetworkTimelineViewModel(
@@ -224,12 +232,11 @@ class ReportViewModel @AssistedInject constructor(
 
         viewModelScope.launch {
             if (alreadyMuted) {
-                timelineCases.unmuteAccount(pachliAccountId, this@ReportViewModel.reportedAccountId)
+                unmuteAccountUseCase(pachliAccountId, this@ReportViewModel.reportedAccountId)
             } else {
-                timelineCases.muteAccount(pachliAccountId, this@ReportViewModel.reportedAccountId)
+                muteAccountUseCase(pachliAccountId, this@ReportViewModel.reportedAccountId)
             }
-                .map { it.body.muting }
-                .onSuccess { _muting.emit(Ok(Loadable.Loaded(it))) }
+                .onSuccess { _muting.emit(Ok(Loadable.Loaded(it.muting))) }
                 .onFailure { _muting.emit(Err(it)) }
         }
     }
@@ -241,12 +248,11 @@ class ReportViewModel @AssistedInject constructor(
 
         viewModelScope.launch {
             if (alreadyBlocked) {
-                timelineCases.unblockAccount(pachliAccountId, this@ReportViewModel.reportedAccountId)
+                unblockAccountUseCase(pachliAccountId, this@ReportViewModel.reportedAccountId)
             } else {
-                timelineCases.blockAccount(pachliAccountId, this@ReportViewModel.reportedAccountId)
+                blockAccountUseCase(pachliAccountId, this@ReportViewModel.reportedAccountId)
             }
-                .map { it.body.blocking }
-                .onSuccess { _blocking.emit(Ok(Loadable.Loaded(it))) }
+                .onSuccess { _blocking.emit(Ok(Loadable.Loaded(it.blocking))) }
                 .onFailure { _blocking.emit(Err(it)) }
         }
     }

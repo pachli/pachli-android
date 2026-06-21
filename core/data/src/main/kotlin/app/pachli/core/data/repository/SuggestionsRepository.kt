@@ -19,7 +19,6 @@ package app.pachli.core.data.repository
 
 import app.pachli.core.common.PachliError
 import app.pachli.core.data.repository.SuggestionsError.DeleteSuggestionError
-import app.pachli.core.data.repository.SuggestionsError.FollowAccountError
 import app.pachli.core.data.repository.SuggestionsError.GetSuggestionsError
 import app.pachli.core.model.Suggestion
 import app.pachli.core.network.retrofit.apiresult.ApiError
@@ -57,12 +56,4 @@ interface SuggestionsRepository {
      * @return Unit, or an error
      */
     suspend fun deleteSuggestion(accountId: String): Result<Unit, DeleteSuggestionError>
-
-    /**
-     * Follow an account from a suggestion
-     *
-     * @param accountId ID of the account to follow
-     * @return Unit, or an error
-     */
-    suspend fun followAccount(accountId: String): Result<Unit, FollowAccountError>
 }

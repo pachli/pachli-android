@@ -20,6 +20,7 @@ package app.pachli.core.data.repository
 import app.pachli.core.data.repository.Loadable.Loaded
 import app.pachli.core.data.repository.Loadable.Loading
 import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
 /**
@@ -51,5 +52,22 @@ fun <T> Loadable<T>.getOrNull(): T? {
     return when (this) {
         is Loaded<T> -> this.data
         is Loading -> null
+    }
+}
+
+/**
+ * Maps this [Loadable&lt;T>][Loadable] to [Loadable&lt;R>][Loadable] by
+ * applying the [transform] function if this [Loadable] is
+ * [Loadable.Loading], or returning [this] unchanged.
+ */
+@OptIn(ExperimentalContracts::class)
+fun <T, R> Loadable<T>.mapLoaded(transform: (T) -> R): Loadable<R> {
+    contract {
+        callsInPlace(transform, InvocationKind.AT_MOST_ONCE)
+    }
+
+    return when (this) {
+        is Loading -> this
+        is Loaded -> Loaded(transform(data))
     }
 }

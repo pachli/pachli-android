@@ -9,6 +9,14 @@ import app.pachli.core.data.repository.AccountRepository
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.getOrNull
+import app.pachli.core.domain.accounts.BlockAccountUseCase
+import app.pachli.core.domain.accounts.FollowAccountUseCase
+import app.pachli.core.domain.accounts.MuteAccountUseCase
+import app.pachli.core.domain.accounts.SubscribeAccountUseCase
+import app.pachli.core.domain.accounts.UnblockAccountUseCase
+import app.pachli.core.domain.accounts.UnfollowAccountUseCase
+import app.pachli.core.domain.accounts.UnmuteAccountUseCase
+import app.pachli.core.domain.accounts.UnsubscribeAccountUseCase
 import app.pachli.core.eventhub.DomainMuteEvent
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.ProfileEditedEvent
@@ -17,7 +25,6 @@ import app.pachli.core.model.Relationship
 import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.getDomain
-import app.pachli.usecase.TimelineCases
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Resource
@@ -51,7 +58,14 @@ class AccountViewModel @AssistedInject constructor(
     private val mastodonApi: MastodonApi,
     private val eventHub: EventHub,
     accountManager: AccountManager,
-    private val timelineCases: TimelineCases,
+    private val followAccountUseCase: FollowAccountUseCase,
+    private val unfollowAccountUseCase: UnfollowAccountUseCase,
+    private val blockAccountUseCase: BlockAccountUseCase,
+    private val unblockAccountUseCase: UnblockAccountUseCase,
+    private val muteAccountUseCase: MuteAccountUseCase,
+    private val unmuteAccountUseCase: UnmuteAccountUseCase,
+    private val subscribeAccountUseCase: SubscribeAccountUseCase,
+    private val unsubscribeAccountUseCase: UnsubscribeAccountUseCase,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val accountRepository: AccountRepository,
 ) : ViewModel() {
@@ -273,39 +287,38 @@ class AccountViewModel @AssistedInject constructor(
         }
 
         val response = when (relationshipAction) {
-            RelationShipAction.FOLLOW -> timelineCases.followAccount(pachliAccountId, accountId, showReblogs = true)
-            RelationShipAction.UNFOLLOW -> timelineCases.unfollowAccount(pachliAccountId, accountId)
-            RelationShipAction.BLOCK -> timelineCases.blockAccount(pachliAccountId, accountId)
-            RelationShipAction.UNBLOCK -> timelineCases.unblockAccount(pachliAccountId, accountId)
-            RelationShipAction.MUTE -> timelineCases.muteAccount(
+            RelationShipAction.FOLLOW -> followAccountUseCase(pachliAccountId, accountId, showReblogs = true)
+            RelationShipAction.UNFOLLOW -> unfollowAccountUseCase(pachliAccountId, accountId)
+            RelationShipAction.BLOCK -> blockAccountUseCase(pachliAccountId, accountId)
+            RelationShipAction.UNBLOCK -> unblockAccountUseCase(pachliAccountId, accountId)
+            RelationShipAction.MUTE -> muteAccountUseCase(
                 pachliAccountId,
                 accountId,
                 notifications = parameter ?: true,
                 duration,
             )
 
-            RelationShipAction.UNMUTE -> timelineCases.unmuteAccount(pachliAccountId, accountId)
+            RelationShipAction.UNMUTE -> unmuteAccountUseCase(pachliAccountId, accountId)
             RelationShipAction.SUBSCRIBE -> {
                 if (isMastodon) {
-                    timelineCases.followAccount(pachliAccountId, accountId, notify = true)
+                    followAccountUseCase(pachliAccountId, accountId, notify = true)
                 } else {
-                    timelineCases.subscribeAccount(pachliAccountId, accountId)
+                    subscribeAccountUseCase(pachliAccountId, accountId)
                 }
             }
             RelationShipAction.UNSUBSCRIBE -> {
                 if (isMastodon) {
-                    timelineCases.followAccount(pachliAccountId, accountId, notify = false)
+                    followAccountUseCase(pachliAccountId, accountId, notify = false)
                 } else {
-                    timelineCases.unsubscribeAccount(pachliAccountId, accountId)
+                    unsubscribeAccountUseCase(pachliAccountId, accountId)
                 }
             }
 
-            RelationShipAction.SHOW_REBLOGS -> timelineCases.followAccount(pachliAccountId, accountId, showReblogs = true)
-            RelationShipAction.HIDE_REBLOGS -> timelineCases.followAccount(pachliAccountId, accountId, showReblogs = false)
+            RelationShipAction.SHOW_REBLOGS -> followAccountUseCase(pachliAccountId, accountId, showReblogs = true)
+            RelationShipAction.HIDE_REBLOGS -> followAccountUseCase(pachliAccountId, accountId, showReblogs = false)
         }
 
         response
-            .map { it.body.asModel() }
             .onSuccess { relationshipData.postValue(Success(it)) }
             .onFailure { e ->
                 Timber.w("failed loading relationship: %s", e)
