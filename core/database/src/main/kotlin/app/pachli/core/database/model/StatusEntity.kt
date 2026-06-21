@@ -178,6 +178,9 @@ fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
     filtered = actionableStatus.filtered,
 )
 
+@JvmName("IterableStatus")
+fun Iterable<Status>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }
+
 /**
  * An account associated with a status on a timeline or similar (e.g., an
  * account the user is following).
