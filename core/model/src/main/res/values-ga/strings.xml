@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="server_error_unparseable_version">Níorbh fhéidir \"%1$s\" a pharsáil mar leagan: %2$s</string>
 </resources>
