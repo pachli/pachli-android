@@ -80,6 +80,7 @@ import app.pachli.feature.collections.databinding.FragmentCollectionBinding
 import app.pachli.feature.collections.databinding.ItemAccountInCollectionBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
+import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.onFailure
@@ -107,7 +108,6 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -603,49 +603,52 @@ internal class CollectionViewModel @Inject constructor(
     private val operationCounter = OperationCounter()
     override val operationCount = operationCounter.count
 
-    private val reload = MutableSharedFlow<Unit>(replay = 1)
+    private val pachliAccountId = MutableSharedFlow<Long>(replay = 1)
+    private val pachliAccount = pachliAccountId.distinctUntilChanged().flatMapLatest {
+        accountManager.getPachliAccountFlow(it).filterNotNull()
+    }
 
     override val uiOptions = stateFlow(viewModelScope, UiOptions.from(statusDisplayOptionsRepository.flow.value)) {
         statusDisplayOptionsRepository.flow.map { UiOptions.from(it) }
             .flowWhileShared(SharingStarted.WhileSubscribed(5000))
     }
 
-    private val pachliAccountId = MutableSharedFlow<Long>(replay = 1)
-    private val pachliAccount = pachliAccountId.distinctUntilChanged().flatMapLatest {
-        accountManager.getPachliAccountFlow(it).filterNotNull()
-    }
-
     private val collection = MutableSharedFlow<Result<Pair<Collection, List<Account>>, ICollectionsRepository.Error.GetCollection>>(replay = 1)
 
-    /** IDs of accounts with active operations. */
-    private val activeAccountIds = MutableStateFlow<Set<String>>(emptySet())
+    /**
+     * IDs of accounts the user can't interact with (e.g., because they have active
+     * network operations).
+     */
+    private val disabledAccountIds = MutableStateFlow<Set<String>>(emptySet())
 
     // Combines the most recent collection load with the current PachliAccount
     // in order to populate the `CollectionViewData.isMember` property.
-    override val collectionViewData = combine(pachliAccount, collection, activeAccountIds) { pachliAccount, collection, activeAccountIds ->
-        collection.mapEither(
-            { (collection, accounts) ->
-                // Per the API spec, `accounts` always contains the owner as the
-                // first item, the remaining items are members of the collection.
-                val owner = accounts.firstOrNull()
-                val members = accounts.drop(1)
-                Loadable.Loaded(
-                    CollectionViewData(
-                        collection = collection,
-                        owner = owner?.let { AccountViewData(owner) },
-                        accounts = members.map {
-                            AccountViewData(
-                                account = it,
-                                isEnabled = !activeAccountIds.contains(it.id),
-                            )
-                        },
-                        isMember = members.any { it.id == pachliAccount.accountId },
-                    ),
-                )
-            },
-            { UiError.GetCollection(it) },
-        )
-    }.shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
+    override val collectionViewData = stateFlow(viewModelScope, Ok(Loadable.Loading)) {
+        combine(pachliAccount, collection, disabledAccountIds) { pachliAccount, collection, disabledAccountIds ->
+            collection.mapEither(
+                { (collection, accounts) ->
+                    // Per the API spec, `accounts` always contains the owner as the
+                    // first item, the remaining items are members of the collection.
+                    val owner = accounts.firstOrNull()
+                    val members = accounts.drop(1)
+                    Loadable.Loaded(
+                        CollectionViewData(
+                            collection = collection,
+                            owner = owner?.let { AccountViewData(owner) },
+                            accounts = members.map {
+                                AccountViewData(
+                                    account = it,
+                                    isEnabled = !disabledAccountIds.contains(it.id),
+                                )
+                            },
+                            isMember = members.any { it.id == pachliAccount.accountId },
+                        ),
+                    )
+                },
+                { UiError.GetCollection(it) },
+            )
+        }.flowWhileShared(SharingStarted.WhileSubscribed(5000))
+    }
 
     init {
         viewModelScope.launch {
@@ -671,7 +674,7 @@ internal class CollectionViewModel @Inject constructor(
 
     private suspend fun onFollowAccount(action: AccountAction.FollowAccount) {
         operationCounter {
-            activeAccountIds.update { it + action.accountId }
+            disabledAccountIds.update { it + action.accountId }
         }
     }
 }
