@@ -88,6 +88,7 @@ typealias ServerCapabilities = Map<ServerOperation, Version>
  * @property rawVersion Raw server version string, as reported by the server.
  * @property capabilities Server's [ServerCapabilities]
  * @property limits Server's [ServerLimits]
+ * @property emojis Emojis that can be used on the server.
  */
 data class Server(
     val kind: ServerKind,
@@ -95,6 +96,7 @@ data class Server(
     val rawVersion: String,
     val capabilities: ServerCapabilities = emptyMap(),
     val limits: ServerLimits = ServerLimits(),
+    val emojis: List<Emoji>,
 ) {
     /**
      * @return true if the server supports the given operation at the given minimum version
@@ -109,7 +111,7 @@ data class Server(
          * @return [Server] with its [capabilities] and [limits] determined from
          * [software] and [InstanceInfo]. May fail if the version cannot be parsed.
          */
-        fun from(software: NodeInfo.Software, instanceInfo: InstanceInfo): Result<Server, UnparseableVersion> = binding {
+        fun from(software: NodeInfo.Software, instanceInfo: InstanceInfo, emojis: List<Emoji>): Result<Server, UnparseableVersion> = binding {
             val serverKind = ServerKind.from(software)
             val version = parseVersionString(serverKind, software.version).bind()
             val capabilities = capabilitiesFromServerVersion(serverKind, version)
@@ -129,7 +131,7 @@ data class Server(
                 }
             }
 
-            Server(serverKind, version, instanceInfo.version, capabilities, instanceInfo.asServerLimits())
+            Server(serverKind, version, instanceInfo.version, capabilities, instanceInfo.asServerLimits(), emojis)
         }
 
         /**

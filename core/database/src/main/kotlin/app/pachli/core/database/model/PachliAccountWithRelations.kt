@@ -38,12 +38,6 @@ data class PachliAccountWithRelations(
         parentColumn = "id",
         entityColumn = "accountId",
     )
-    val emojis: EmojisEntity?,
-
-    @Relation(
-        parentColumn = "id",
-        entityColumn = "accountId",
-    )
     val server: ServerEntity?,
 
     @Relation(

@@ -21,15 +21,19 @@ import androidx.annotation.StringRes
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.R
+import app.pachli.core.data.repository.ServerRepository.ServerError.Capabilities
+import app.pachli.core.data.repository.ServerRepository.ServerError.GetCustomEmojis
 import app.pachli.core.data.repository.ServerRepository.ServerError.GetInstanceInfoV1
 import app.pachli.core.data.repository.ServerRepository.ServerError.GetNodeInfo
 import app.pachli.core.data.repository.ServerRepository.ServerError.GetWellKnownNodeInfo
 import app.pachli.core.data.repository.ServerRepository.ServerError.UnsupportedSchema
 import app.pachli.core.data.repository.ServerRepository.ServerError.ValidateNodeInfo
 import app.pachli.core.database.dao.ServerDao
+import app.pachli.core.model.Emoji
 import app.pachli.core.model.InstanceInfo
 import app.pachli.core.model.NodeInfo
 import app.pachli.core.model.Server
+import app.pachli.core.network.model.asModel
 import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi
@@ -82,11 +86,16 @@ class ServerRepository @Inject constructor(
             fetchInstanceInfo()
         }
 
+        val deferEmojis = externalScope.async {
+            fetchEmojis()
+        }
+
         val nodeInfo = deferNodeInfo.await().bind()
         val instanceInfo = deferInstanceInfo.await().bind()
+        val emojis = deferEmojis.await().bind()
 
-        val server = Server.from(nodeInfo.software, instanceInfo)
-            .mapError { ServerError.Capabilities(it) }
+        val server = Server.from(nodeInfo.software, instanceInfo, emojis)
+            .mapError { Capabilities(it) }
             .bind()
 
         return@binding server
@@ -130,6 +139,13 @@ class ServerRepository @Inject constructor(
             }
     }
 
+    private suspend fun fetchEmojis(): Result<List<Emoji>, GetCustomEmojis> {
+        return mastodonApi.getCustomEmojis().mapEither(
+            { it.body.asModel() },
+            { GetCustomEmojis(it) },
+        )
+    }
+
     sealed class ServerError(
         @StringRes override val resourceId: Int,
         override val formatArgs: Array<out String>? = emptyArray<String>(),
@@ -156,6 +172,10 @@ class ServerRepository @Inject constructor(
 
         data class GetInstanceInfoV1(override val cause: PachliError) : ServerError(
             R.string.server_repository_error_get_instance_info,
+        )
+
+        data class GetCustomEmojis(override val cause: PachliError) : ServerError(
+            R.string.server_repository_error_get_emojis,
         )
 
         data class Capabilities(override val cause: Server.Error) : ServerError(
