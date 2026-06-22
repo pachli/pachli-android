@@ -28,7 +28,6 @@ import app.pachli.core.database.dao.FollowingAccountDao
 import app.pachli.core.database.dao.ServerDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.AnnouncementEntity
-import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.database.model.asEntity
@@ -432,19 +431,6 @@ class AccountManager @Inject constructor(
                 .mapError { RefreshAccountError.General(account, it) }
         }
 
-        val deferEmojis = externalScope.async {
-            mastodonApi.getCustomEmojis()
-                .mapError { RefreshAccountError.General(account, it) }
-                .onSuccess {
-                    serverDao.upsert(
-                        EmojisEntity(
-                            accountId = account.id,
-                            emojiList = it.body.asModel(),
-                        ),
-                    )
-                }
-        }
-
         val deferAnnouncements = externalScope.async {
             mastodonApi.listAnnouncements(false)
                 .mapError { RefreshAccountError.General(account, it) }
@@ -503,8 +489,6 @@ class AccountManager @Inject constructor(
                     else -> Err(RefreshAccountError.General(account, it))
                 }
             }.bind()
-
-        deferEmojis.await().bind()
 
         externalScope.async { listsRepository.refresh(account.id) }.await()
             .mapError { RefreshAccountError.General(account, it) }.bind()

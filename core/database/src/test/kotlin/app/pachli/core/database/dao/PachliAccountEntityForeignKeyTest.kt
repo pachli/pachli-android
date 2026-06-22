@@ -23,7 +23,6 @@ import app.pachli.core.database.model.AnnouncementEntity
 import app.pachli.core.database.model.ContentFiltersEntity
 import app.pachli.core.database.model.ConversationEntity
 import app.pachli.core.database.model.DraftEntity
-import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.database.model.MastodonListEntity
 import app.pachli.core.database.model.NotificationAccountFilterDecisionUpdate
@@ -272,24 +271,6 @@ class PachliAccountEntityForeignKeyTest {
     }
 
     @Test
-    fun `deleting account deletes EmojisEntity`() = runTest {
-        val emoji = EmojisEntity(
-            accountId = pachliAccountId,
-            emojiList = emptyList(),
-        )
-        serverDao.upsert(emoji)
-
-        // Check everything is as expected.
-        assertThat(serverDao.getEmojiInfo(pachliAccountId)).isEqualTo(emoji)
-
-        // When -- delete the account.
-        accountDao.delete(activeAccount)
-
-        // Then
-        assertThat(serverDao.getEmojiInfo(pachliAccountId)).isNull()
-    }
-
-    @Test
     fun `deleting account deletes FollowingAccountEntity`() = runTest {
         val followingAccount = FollowingAccountEntity(
             pachliAccountId = pachliAccountId,
@@ -406,6 +387,7 @@ class PachliAccountEntityForeignKeyTest {
             rawVersion = "1.0.0",
             capabilities = emptyMap(),
             limits = ServerLimits(),
+            emojis = emptyList(),
         )
         serverDao.upsert(server)
 

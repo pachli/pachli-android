@@ -18,6 +18,7 @@ package app.pachli.core.network.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import java.time.Instant
 import java.util.Date
 
 /**
@@ -34,7 +35,7 @@ data class Account(
     // should never be null per API definition, but some servers break the contract
     @Json(name = "display_name") val displayName: String?,
     // should never be null per API definition, but some servers break the contract
-    @Json(name = "created_at") val createdAt: Date?,
+    @Json(name = "created_at") val createdAt: Instant?,
     val note: String,
     val url: String,
     val avatar: String,
@@ -51,6 +52,7 @@ data class Account(
     // nullable for backward compatibility
     val fields: List<Field>? = emptyList(),
     val moved: Account? = null,
+    val limited: Boolean = false,
     val roles: List<Role>? = emptyList(),
 ) {
     fun asModel(): app.pachli.core.model.Account = app.pachli.core.model.Account(
@@ -72,7 +74,8 @@ data class Account(
         emojis = emojis?.asModel(),
         fields = fields?.asModel(),
         moved = moved?.asModel(),
-        roles = roles?.asModel(),
+        limited = limited,
+        roles = roles.orEmpty().asModel(),
         pronouns = fields?.pronouns(),
     )
 }

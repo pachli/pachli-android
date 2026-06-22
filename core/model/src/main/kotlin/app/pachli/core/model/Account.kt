@@ -17,28 +17,24 @@
 package app.pachli.core.model
 
 import com.squareup.moshi.JsonClass
+import java.time.Instant
 import java.util.Date
 
 /**
- * @property localUsername The username of the account, without the domain.
- * @property username The webfinger account URI. Equal to [localUsername]
- * for local users, or [localUsername]@domain for remote users.
  * @property note (HTML) The profile’s bio or description.
- * @property roles Roles associated with this account on this server.
- * Undocumented, see https://github.com/mastodon/documentation/issues/1483.
- * @property pronouns Options pronouns, derived from the account's fields.
  */
 data class Account(
-    val id: String,
-    val localUsername: String,
-    val username: String,
+    override val id: String,
+    override val localUsername: String,
+    override val username: String,
     // should never be null per API definition, but some servers break the contract
-    val displayName: String?,
+    @Deprecated("prefer the `name` property, which is not-null and not-empty")
+    override val displayName: String?,
     // should never be null per API definition, but some servers break the contract
-    val createdAt: Date?,
-    val note: String,
-    val url: String,
-    val avatar: String,
+    override val createdAt: Instant?,
+    override val note: String,
+    override val url: String,
+    override val avatar: String,
     // Pixelfed might omit `header`
     val header: String = "",
     val locked: Boolean = false,
@@ -46,22 +42,16 @@ data class Account(
     val followersCount: Int = 0,
     val followingCount: Int = 0,
     val statusesCount: Int = 0,
-    val bot: Boolean = false,
+    override val bot: Boolean = false,
     // nullable for backward compatibility
-    val emojis: List<Emoji>? = emptyList(),
+    override val emojis: List<Emoji>? = emptyList(),
     // nullable for backward compatibility
     val fields: List<Field>? = emptyList(),
     val moved: Account? = null,
-    val roles: List<Role>?,
-    val pronouns: String?,
-) {
-    val name: String
-        get() = if (displayName.isNullOrEmpty()) {
-            localUsername
-        } else {
-            displayName
-        }
-
+    override val limited: Boolean,
+    override val roles: List<Role>,
+    override val pronouns: String?,
+) : ITimelineAccount {
     fun isRemote(): Boolean = this.username != this.localUsername
 }
 

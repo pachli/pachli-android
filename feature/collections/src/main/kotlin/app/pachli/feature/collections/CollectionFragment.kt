@@ -488,7 +488,7 @@ internal class AccountViewHolder(
                     FROM_HTML_MODE_LEGACY,
                 )
             } else {
-                val then = account.createdAt!!.toInstant()
+                val then = account.createdAt!!
                 val now = Instant.now()
                 val elapsed = Duration.between(then, now).toDays() / 7.0
 

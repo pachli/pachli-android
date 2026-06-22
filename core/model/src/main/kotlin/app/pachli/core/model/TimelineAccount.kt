@@ -22,50 +22,49 @@ import com.squareup.moshi.JsonClass
 import java.time.Instant
 
 /**
- * Same as [Account], but only with the attributes required in timelines.
- * Prefer this class over [Account] because it uses way less memory & deserializes faster from json.
+ * Interface for anything that implements the minimum subset of [Account]
+ * information that [TimelineAccount] does.
+ *
+ * @property id
+ * @property localUsername The username of the account, without the domain.
+ * @property username The webfinger account URI. Equal to [localUsername] for local users, or
+ * [localUsername]@domain for remote users.
+ * @property displayName
+ * @property url
+ * @property avatar
+ * @property note
+ * @property bot
+ * @property emojis
+ * @property createdAt When the account was created, if known. May not be
+ * the exact time, the server may clamp it e.g., to midnight.
+ * @property limited If true, indicates that the account should be hidden
+ * behind a warning.
+ * @property roles Roles associated with this account on this server.
+ * @property pronouns Optional pronouns, derived from the account's fields.
+ * @property name The account's [displayName], falling back to [localUsername] if
+ * [displayName] is null or empty.
  */
-@JsonClass(generateAdapter = true)
-data class TimelineAccount(
-    val id: String,
-    /** The username of the account, without the domain */
-    val localUsername: String,
-
-    /**
-     * The webfinger account URI. Equal to [localUsername] for local users, or
-     * [localUsername]@domain for remote users.
-     */
-    val username: String,
+interface ITimelineAccount {
+    val id: String
+    val localUsername: String
+    val username: String
 
     // should never be null per Api definition, but some servers break the contract
     @Deprecated("prefer the `name` property, which is not-null and not-empty")
-    val displayName: String?,
-    val url: String,
-    val avatar: String,
-    val note: String,
-    val bot: Boolean = false,
+    val displayName: String?
+    val url: String
+    val avatar: String
+    val note: String
+    val bot: Boolean
+
     // nullable for backward compatibility
-    val emojis: List<Emoji>? = emptyList(),
+    val emojis: List<Emoji>?
 
     // Should never be null per API definition, but some servers break the contract
-    /**
-     * When the account was created, if known.
-     *
-     * May not be the exact time, the server may clamp it e.g., to midnight.
-     */
-    val createdAt: Instant?,
-
-    /**
-     * If true, indicates that the account should be hidden behind a warning screen.
-     */
-    val limited: Boolean = false,
-
-    /** Roles associated with this account on this server.*/
-    val roles: List<Role>,
-
-    /** Optional pronouns, derived from the account's fields. */
-    val pronouns: String?,
-) {
+    val createdAt: Instant?
+    val limited: Boolean
+    val roles: List<Role>
+    val pronouns: String?
 
     /**
      * The account's [displayName], falling back to [localUsername] if
@@ -76,9 +75,36 @@ data class TimelineAccount(
         get() = if (displayName.isNullOrEmpty()) {
             localUsername
         } else {
-            displayName
+            displayName!!
         }
+}
 
+/**
+ * A specialised version of [Account], with only the properties
+ * required to show an account in a timeline.
+ *
+ * Prefer this class over [Account] because it requires less memory
+ * and deserialises faster.
+ */
+@JsonClass(generateAdapter = true)
+data class TimelineAccount(
+    override val id: String,
+    override val localUsername: String,
+    override val username: String,
+
+    @Deprecated("prefer the `name` property, which is not-null and not-empty")
+    override val displayName: String?,
+    override val url: String,
+    override val avatar: String,
+    override val note: String,
+    override val bot: Boolean = false,
+    // nullable for backward compatibility
+    override val emojis: List<Emoji>? = emptyList(),
+    override val createdAt: Instant?,
+    override val limited: Boolean = false,
+    override val roles: List<Role>,
+    override val pronouns: String?,
+) : ITimelineAccount {
     /** The domain of the account (excluding the '@'), empty string if local. */
     val domain: String by unsafeLazy {
         username.indexOf('@').takeIf { it != -1 }?.let { index ->

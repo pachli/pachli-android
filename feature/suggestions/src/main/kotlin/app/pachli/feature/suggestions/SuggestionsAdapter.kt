@@ -37,7 +37,7 @@ import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.emojify
-import app.pachli.core.ui.extensions.nameContentDescription
+import app.pachli.core.ui.extensions.contentDescription
 import app.pachli.core.ui.loadAvatar
 import app.pachli.feature.suggestions.SuggestionViewHolder.ChangePayload
 import app.pachli.feature.suggestions.UiAction.NavigationAction
@@ -217,6 +217,7 @@ internal class SuggestionViewHolder(
             username.text = username.context.getString(app.pachli.core.designsystem.R.string.post_username_format, account.username)
 
             bindAvatar(viewData, animateAvatars)
+            bindRoles(viewData)
             bindDisplayName(viewData, animateEmojis)
             bindNote(viewData, animateEmojis, linksToUnderline)
             bindShowBotOverlay(viewData, showBotOverlay)
@@ -227,7 +228,7 @@ internal class SuggestionViewHolder(
             // Build an accessible content description.
             root.contentDescription = root.context.getString(
                 app.pachli.core.ui.R.string.account_content_description_fmt,
-                account.nameContentDescription(root.context),
+                account.contentDescription(root.context),
                 followerCount.text,
                 followsCount.text,
                 statusesCount.text,
@@ -252,6 +253,11 @@ internal class SuggestionViewHolder(
     /** Binds the avatar image, respecting [animateAvatars]. */
     fun bindAvatar(viewData: SuggestionViewData, animateAvatars: Boolean) = with(binding) {
         loadAvatar(glide, viewData.suggestion.account.avatar, avatar, avatarRadius, animateAvatars)
+    }
+
+    /** Binds the account's [roles][app.pachli.core.model.Account.roles]. */
+    private fun bindRoles(viewData: SuggestionViewData) = with(binding) {
+        roleChipGroup.setRoles(viewData.suggestion.account.roles)
     }
 
     /**
@@ -347,7 +353,7 @@ internal class SuggestionViewHolder(
                     FROM_HTML_MODE_LEGACY,
                 )
             } else {
-                val then = account.createdAt!!.toInstant()
+                val then = account.createdAt!!
                 val now = Instant.now()
                 val elapsed = Duration.between(then, now).toDays() / 7.0
 

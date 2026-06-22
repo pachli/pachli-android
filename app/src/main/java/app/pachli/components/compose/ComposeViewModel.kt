@@ -257,7 +257,8 @@ class ComposeViewModel @AssistedInject constructor(
     val serverLimits = accountFlow.map { it.server.limits }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ServerLimits())
 
-    val emojis = accountFlow.map { it.emojis }
+    /** Emojis on the server the user can use in their status. */
+    val serverEmojis = accountFlow.map { it.server.emojis }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     private val _markMediaAsSensitive: MutableStateFlow<Boolean?> = MutableStateFlow(composeOptions.draft.sensitive)
@@ -825,7 +826,7 @@ class ComposeViewModel @AssistedInject constructor(
             ':' -> {
                 val incomplete = token.substring(1)
 
-                return emojis.value.filter { emoji ->
+                return serverEmojis.value.filter { emoji ->
                     emoji.shortcode.contains(incomplete, ignoreCase = true)
                 }.sortedBy { emoji ->
                     emoji.shortcode.indexOf(incomplete, ignoreCase = true)

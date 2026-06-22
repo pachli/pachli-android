@@ -19,17 +19,11 @@ package app.pachli.core.database.dao
 
 import androidx.room.Dao
 import androidx.room.Query
-import androidx.room.RewriteQueriesToDropUnusedColumns
 import androidx.room.Upsert
-import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.ServerEntity
 
 @Dao
 interface ServerDao {
-
-    @Upsert
-    suspend fun upsert(emojis: EmojisEntity)
-
     @Upsert
     suspend fun upsert(serverEntity: ServerEntity)
 
@@ -41,14 +35,4 @@ WHERE accountId = :pachliAccountId
 """,
     )
     suspend fun getServer(pachliAccountId: Long): ServerEntity?
-
-    @RewriteQueriesToDropUnusedColumns
-    @Query(
-        """
-SELECT *
-FROM EmojisEntity
-WHERE accountId = :pachliAccountId
-""",
-    )
-    suspend fun getEmojiInfo(pachliAccountId: Long): EmojisEntity?
 }
