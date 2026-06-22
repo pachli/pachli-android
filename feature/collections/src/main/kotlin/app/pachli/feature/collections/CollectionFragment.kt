@@ -349,12 +349,21 @@ internal class AccountViewHolder(
             username.text = username.context.getString(R.string.post_username_format, account.username)
 
             bindAvatar(viewData, animateAvatars)
+            // TODO: bindRole()
+            // Roles aren't displayed here and should be.
             bindDisplayName(viewData, animateEmojis)
             bindNote(viewData, animateEmojis, linksToUnderline)
             bindShowBotOverlay(viewData, showBotOverlay)
             bindShowPronouns(viewData, showPronouns)
             bindPostStatistics(viewData)
 //            bindIsEnabled(viewData.isEnabled)
+
+            // Bind the controls
+            //
+            // - Follow button
+            //   - Show if not following the account
+            // - "Remove me" button
+            //   - Show if this is me
 
             // Build an accessible content description.
             root.contentDescription = root.context.getString(
