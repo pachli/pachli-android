@@ -18,8 +18,8 @@
 package app.pachli.core.ui.extensions
 
 import android.content.Context
+import app.pachli.core.model.ITimelineAccount
 import app.pachli.core.model.Role
-import app.pachli.core.model.TimelineAccount
 import app.pachli.core.ui.R
 import kotlin.text.Regex.Companion.escape
 
@@ -35,7 +35,7 @@ import kotlin.text.Regex.Companion.escape
  * to make it explicit (otherwise TalkBack inserts a short pause, which is no use
  * for domains). See [nameContentDescription].
  */
-fun TimelineAccount.contentDescription(context: Context): String {
+fun ITimelineAccount.contentDescription(context: Context): String {
     return buildString {
         append(nameContentDescription(context))
         rolesContentDescription(context)?.let {
@@ -53,9 +53,9 @@ fun TimelineAccount.contentDescription(context: Context): String {
  * "Mastodon.social Staff", and this ensures this is read as "Mastodon dot social
  * Staff", not "Mastodon <pause> Social staff".
  */
-fun TimelineAccount.nameContentDescription(context: Context) = nameContentDescription(context, name)
+fun ITimelineAccount.nameContentDescription(context: Context) = nameContentDescription(context, this.name)
 
-internal fun nameContentDescription(context: Context, name: String): String {
+private fun nameContentDescription(context: Context, name: String): String {
     val dotReplacement = context.getString(R.string.dot_in_name)
     return name.replace(".", " $dotReplacement ")
 }
@@ -66,22 +66,22 @@ internal fun nameContentDescription(context: Context, name: String): String {
  *
  * Work around for https://issuetracker.google.com/issues/447792953.
  */
-val talkbackTlds = mapOf(
+private val talkbackTlds = mapOf(
     ".la" to ".l a",
     ".xyz" to ".x y z",
 )
 
 /** Regex that matches and groups each domain suffix in [talkbackTlds]. */
-val rxTalkbackTlds = "(${talkbackTlds.keys.map { escape(it) }.joinToString("|")}$)".toRegex()
+private val rxTalkbackTlds = "(${talkbackTlds.keys.joinToString("|") { escape(it) }}$)".toRegex()
 
 /**
  * @return A content description for the account's handle. If the handle
  * contains a TLD with a key in [talkbackTlds] it is replaced with the
  * value at that key for better TalkBack pronounciation.
  */
-fun TimelineAccount.handleContentDescription(context: Context) = handleContentDescription(context, username)
+fun ITimelineAccount.handleContentDescription(context: Context) = handleContentDescription(context, username)
 
-internal fun handleContentDescription(context: Context, handle: String): String {
+private fun handleContentDescription(context: Context, handle: String): String {
     // Create a pronounceable version of the handle by replacing problematic TLDs.
     val correctedHandle = rxTalkbackTlds.replace(handle) { m ->
         m.groupValues.getOrNull(1)?.let { talkbackTlds[it] as CharSequence } ?: ""
@@ -94,9 +94,9 @@ internal fun handleContentDescription(context: Context, handle: String): String 
  * @return A content description for the account's roles (null if the account
  * has no roles).
  */
-fun TimelineAccount.rolesContentDescription(context: Context) = roles.contentDescription(context)
+private fun ITimelineAccount.rolesContentDescription(context: Context) = roles.contentDescription(context)
 
-internal fun Collection<Role>.contentDescription(context: Context): String? {
+private fun Collection<Role>.contentDescription(context: Context): String? {
     if (this.isEmpty()) return null
 
     return buildString {
