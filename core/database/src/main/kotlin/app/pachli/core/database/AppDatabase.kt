@@ -52,7 +52,6 @@ import app.pachli.core.database.model.ContentFiltersEntity
 import app.pachli.core.database.model.ConversationEntity
 import app.pachli.core.database.model.ConversationViewDataEntity
 import app.pachli.core.database.model.DraftEntity
-import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.database.model.HashtagEntity
 import app.pachli.core.database.model.LogEntryEntity
@@ -81,7 +80,6 @@ import java.util.TimeZone
     entities = [
         DraftEntity::class,
         PachliAccountEntity::class,
-        EmojisEntity::class,
         StatusEntity::class,
         TimelineAccountEntity::class,
         ConversationEntity::class,
@@ -107,7 +105,7 @@ import java.util.TimeZone
         TimelineStatusWithAccount::class,
         ReferencedStatusId::class,
     ],
-    version = 41,
+    version = 42,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -166,6 +164,8 @@ import java.util.TimeZone
         // Converting InstanceInfo to ServerLimits.
         AutoMigration(from = 39, to = 40, spec = AppDatabase.MIGRATE_39_40::class),
         AutoMigration(from = 40, to = 41, spec = AppDatabase.MIGRATE_40_41::class),
+        // Store emojis directly in the Server class.
+        AutoMigration(from = 41, to = 42, spec = AppDatabase.MIGRATE_41_42::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -371,6 +371,9 @@ abstract class AppDatabase : RoomDatabase() {
 
     @RenameTable("AccountEntity", "PachliAccountEntity")
     class MIGRATE_40_41 : AutoMigrationSpec
+
+    @DeleteTable("EmojisEntity")
+    class MIGRATE_41_42 : AutoMigrationSpec
 }
 
 val MIGRATE_8_9 = object : Migration(8, 9) {

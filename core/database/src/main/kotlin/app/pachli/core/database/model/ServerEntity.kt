@@ -22,6 +22,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
+import app.pachli.core.model.Emoji
 import app.pachli.core.model.Server
 import app.pachli.core.model.ServerCapabilities
 import app.pachli.core.model.ServerKind
@@ -38,8 +39,9 @@ import io.github.z4kn4fein.semver.Version
  * @property serverKind Server's [ServerKind].
  * @property version Server's version, parsed to a [Version].
  * @property rawVersion Raw server version string, as reported by the server.
- * @property capabilities Server's [ServerCapabilities]
- * @property limits Server's [ServerLimits]
+ * @property capabilities Server's [ServerCapabilities].
+ * @property limits Server's [ServerLimits].
+ * @property emojis Server's [Emoji].
  */
 @Entity(
     primaryKeys = ["accountId"],
@@ -64,6 +66,9 @@ data class ServerEntity(
 
     @ColumnInfo(defaultValue = "{}")
     val limits: ServerLimits,
+
+    @ColumnInfo(defaultValue = "[]")
+    val emojis: List<Emoji>,
 ) {
     fun asModel() = Server(
         kind = serverKind,
@@ -71,6 +76,7 @@ data class ServerEntity(
         rawVersion = rawVersion,
         capabilities = capabilities,
         limits = limits,
+        emojis = emojis,
     )
 }
 
@@ -81,4 +87,5 @@ fun Server.asEntity(pachliAccountId: Long) = ServerEntity(
     rawVersion = rawVersion,
     capabilities = capabilities,
     limits = limits,
+    emojis = emojis,
 )

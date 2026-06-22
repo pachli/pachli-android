@@ -57,7 +57,7 @@ data class PachliAccount(
 fun app.pachli.core.database.model.PachliAccountWithRelations.asModel() = PachliAccount(
     entity = pachliAccountEntity,
     lists = lists.orEmpty().map { it.asModel() },
-    server = server?.asModel() ?: Server(ServerKind.MASTODON, Version(4, 0, 0), rawVersion = "4.0.0"),
+    server = server?.asModel() ?: Server(ServerKind.MASTODON, Version(4, 0, 0), rawVersion = "4.0.0", emojis = emptyList()),
     contentFilters = contentFilters?.let { ContentFilters.from(it) } ?: ContentFilters.EMPTY,
     announcements = announcements.orEmpty().map { it.announcement },
     following = following,

@@ -162,6 +162,7 @@ class ServerTest(
                                 ORG_JOINMASTODON_STATUSES_SCHEDULED to "1.0.0".toVersion(),
                             ),
                             limits = ServerLimits(),
+                            emojis = emptyList(),
                         ),
                     ),
                 ),
@@ -189,6 +190,7 @@ class ServerTest(
                                 ORG_JOINMASTODON_STATUSES_TRANSLATE to "1.0.0".toVersion(),
                             ),
                             limits = ServerLimits(),
+                            emojis = emptyList(),
                         ),
                     ),
                 ),
@@ -228,6 +230,7 @@ class ServerTest(
                                 ORG_JOINMASTODON_STATUSES_TRANSLATE to "1.1.0".toVersion(),
                             ),
                             limits = ServerLimits(),
+                            emojis = emptyList(),
                         ),
                     ),
                 ),
@@ -244,6 +247,7 @@ class ServerTest(
                             rawVersion = "0.13.1 git-ccecf5a",
                             capabilities = emptyMap(),
                             limits = ServerLimits(),
+                            emojis = emptyList(),
                         ),
                     ),
                 ),
@@ -262,6 +266,7 @@ class ServerTest(
                                 ORG_JOINMASTODON_FILTERS_CLIENT to "1.1.0".toVersion(),
                             ),
                             limits = ServerLimits(),
+                            emojis = emptyList(),
                         ),
                     ),
                 ),
@@ -282,6 +287,7 @@ class ServerTest(
                                 ORG_JOINMASTODON_SEARCH_QUERY_FROM to "1.0.0".toVersion(),
                             ),
                             limits = ServerLimits(),
+                            emojis = emptyList(),
                         ),
                     ),
                 ),
@@ -301,6 +307,7 @@ class ServerTest(
                                 ORG_JOINMASTODON_STATUSES_SCHEDULED to "1.0.0".toVersion(),
                             ),
                             limits = ServerLimits(),
+                            emojis = emptyList(),
                         ),
                     ),
                 ),
@@ -320,6 +327,7 @@ class ServerTest(
                                 ORG_JOINMASTODON_STATUSES_SCHEDULED to "1.0.0".toVersion(),
                             ),
                             limits = ServerLimits(),
+                            emojis = emptyList(),
                         ),
                     ),
                 ),
@@ -336,6 +344,7 @@ class ServerTest(
                             rawVersion = "1.1.0-dev29-hf1",
                             capabilities = emptyMap(),
                             limits = ServerLimits(),
+                            emojis = emptyList(),
                         ),
                     ),
                 ),
@@ -355,6 +364,7 @@ class ServerTest(
                                 ORG_JOINMASTODON_STATUSES_SCHEDULED to "1.0.0".toVersion(),
                             ),
                             limits = ServerLimits(),
+                            emojis = emptyList(),
                         ),
                     ),
                 ),
@@ -395,6 +405,7 @@ class ServerTest(
                                 ORG_JOINMASTODON_STATUSES_QUOTE to "1.0.0".toVersion(),
                             ),
                             limits = ServerLimits(),
+                            emojis = emptyList(),
                         ),
                     ),
                 ),
@@ -408,7 +419,13 @@ class ServerTest(
         val software = input.second
         val instanceV2 = input.third
         assertWithMessage(msg)
-            .that(Server.from(software, instanceV2.asModel()))
+            .that(
+                Server.from(
+                    software = software,
+                    instanceInfo = instanceV2.asModel(),
+                    emojis = emptyList(),
+                ),
+            )
             .isEqualTo(want)
     }
 }
