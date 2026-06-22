@@ -114,8 +114,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
 import java.text.NumberFormat
 import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.Locale
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 import kotlin.math.abs
 import kotlinx.coroutines.launch
@@ -593,9 +593,12 @@ class AccountActivity :
     private fun updateAccountJoinedDate(account: Account) {
         try {
             account.createdAt?.let { createdAt ->
+                val formatter = DateTimeFormatter.ofPattern("LLLL yyyy")
+                    .withZone(ZoneId.systemDefault())
+
                 binding.accountDateJoined.text = resources.getString(
                     R.string.account_date_joined,
-                    SimpleDateFormat("LLLL yyyy", Locale.getDefault()).format(createdAt),
+                    formatter.format(createdAt),
                 )
                 binding.accountDateJoined.show()
             } ?: binding.accountDateJoined.hide()
