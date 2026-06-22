@@ -58,7 +58,7 @@ package app.pachli.core.model
  * is true. This implies that media previews are shown as well as downloaded.
  * @property notificationMarkerId ID of the most recent Mastodon notification
  * that Pachli has fetched to show as an Android notification
- * @property emojis Emojis available for the account to use.
+ * @property emojis Custom emojis used in the account's profile.
  * @property tabPreferences
  * @property notificationsFilter
  * @property oauthScopes

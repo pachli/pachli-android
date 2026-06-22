@@ -746,7 +746,7 @@ class ComposeActivity :
         }
 
         lifecycleScope.launch {
-            viewModel.emojis.collect(::bindEmojiList)
+            viewModel.serverEmojis.collect(::bindEmojiList)
         }
 
         lifecycleScope.launch {
@@ -1148,7 +1148,7 @@ class ComposeActivity :
     private fun enableButtons(enable: Boolean, editing: Boolean) {
         binding.composeAddAttachmentButton.isClickable = enable
         binding.composeChangeVisibilityButton.isClickable = enable && !editing
-        binding.composeEmojiButton.isClickable = enable && viewModel.emojis.value.isNotEmpty()
+        binding.composeEmojiButton.isClickable = enable && viewModel.serverEmojis.value.isNotEmpty()
         binding.composeMarkSensitiveButton.isClickable = enable
         binding.composeScheduleButton.isClickable = enable && !editing
         binding.composeTootButton.isEnabled = enable
