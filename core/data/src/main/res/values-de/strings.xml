@@ -14,4 +14,5 @@
     <string name="server_repository_error_validate_node_info">Fehler bei Validierung von nodeinfo %1$s : %2$s</string>
     <string name="server_repository_error_get_instance_info">Fehler bei Abfrage von /api/v1/instance: %1$s</string>
     <string name="server_repository_error_capabilities">Fehler bei Analyse der Server-Fähigkeiten: %1$s</string>
+    <string name="server_repository_error_get_emojis">Abrufen von /api/v1/custom_emojis ist fehlgeschlagen: %1$s</string>
 </resources>
