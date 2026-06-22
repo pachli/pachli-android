@@ -181,6 +181,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:minHeight="48dp"
         android:paddingStart="16dp"
         android:paddingTop="4dp"
@@ -190,7 +191,9 @@
         android:textAllCaps="true"
         android:textSize="?attr/status_text_medium"
         android:importantForAccessibility="no"
-        app:layout_constraintStart_toStartOf="@id/displayName"
+        app:icon="@drawable/outline_delete_24"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toStartOf="@id/followAccount"
         app:layout_constraintTop_toBottomOf="@id/statuses_count" />
 
     <Button
@@ -208,7 +211,8 @@
         android:textAllCaps="true"
         android:textSize="?attr/status_text_medium"
         android:importantForAccessibility="no"
-        app:layout_constraintStart_toEndOf="@id/delete_suggestion"
+        app:icon="@drawable/ic_person_add_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/delete_suggestion"
         android:text="@string/action_follow_account" />
 </androidx.constraintlayout.widget.ConstraintLayout>
