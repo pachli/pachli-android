@@ -121,7 +121,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="827"
+            line="830"
             column="17"/>
     </issue>
 
@@ -132,7 +132,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="830"
+            line="833"
             column="17"/>
     </issue>
 
@@ -143,7 +143,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="835"
+            line="838"
             column="13"/>
     </issue>
 
@@ -264,7 +264,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="1193"
+            line="1192"
             column="17"/>
     </issue>
 
@@ -352,7 +352,7 @@
         errorLine2="                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/feature/suggestions/SuggestionsFragment.kt"
-            line="176"
+            line="172"
             column="38"/>
     </issue>
 
@@ -363,7 +363,7 @@
         errorLine2="                                                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/feature/suggestions/SuggestionsFragment.kt"
-            line="176"
+            line="172"
             column="76"/>
     </issue>
 
@@ -1834,38 +1834,6 @@
         <location
             file="src/main/res/values-hu/strings.xml"
             line="346"
-            column="5"/>
-        <location
-            file="src/main/res/values/strings.xml"
-            line="32"
-            column="5"
-            message="Conflicting number of arguments (2) here"/>
-    </issue>
-
-    <issue
-        id="StringFormatCount"
-        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml"
-        errorLine1="    &lt;string name=&quot;error_following_hashtag_format&quot;>Une erreur est survenue en suivant #%1$s&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-fr/strings.xml"
-            line="349"
-            column="5"/>
-        <location
-            file="src/main/res/values/strings.xml"
-            line="31"
-            column="5"
-            message="Conflicting number of arguments (2) here"/>
-    </issue>
-
-    <issue
-        id="StringFormatCount"
-        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml"
-        errorLine1="    &lt;string name=&quot;error_unfollowing_hashtag_format&quot;>Une erreur est survenue en arrêtant de suivre #%1$s&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-fr/strings.xml"
-            line="350"
             column="5"/>
         <location
             file="src/main/res/values/strings.xml"
