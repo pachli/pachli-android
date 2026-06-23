@@ -35,11 +35,7 @@
     <string name="action_hide_media">شاردنەوەی میدیا</string>
     <string name="action_mention">ئاماژە</string>
     <string name="action_unmute_conversation">گفتوگۆی لاببە</string>
-    <string name="action_unmute_domain">نابێدەنگ کردن %1$s</string>
-    <string name="action_mute_domain">بێدەنگکردن %1$s</string>
     <string name="action_unmute_desc">نابێدەنگ %1$s</string>
-    <string name="action_unmute">بێدەنگی لابردن</string>
-    <string name="action_mute">بێدەنگ</string>
     <string name="action_share">هاوبەش کردن</string>
     <string name="action_photo_take">وێنە بگرە</string>
     <string name="action_add_poll">زیادکردنی ڕاپرسی</string>
@@ -60,10 +56,6 @@
     <string name="action_report">گوزارشەکان</string>
     <string name="action_show_reblogs">پۆستکردنەوەکان نیشان بدە</string>
     <string name="action_hide_reblogs">شاردنەوەی بەهێزکردنەکان</string>
-    <string name="action_unblock">بەربەست کردن لاببە</string>
-    <string name="action_block">بلۆک</string>
-    <string name="action_unfollow">بەدوادانەچو</string>
-    <string name="action_follow">شوێنی بکەوە</string>
     <string name="action_compose">دروستکردن</string>
     <string name="action_quick_reply">وەڵامدانەوەی خێرا</string>
     <string name="report_comment_hint">سەرنجەکانی تر؟</string>
@@ -264,7 +256,6 @@
     <string name="pref_title_alway_open_spoiler">هەمیشە ئەو توتانەی کە بە ئاگادارکردنەوەکانی ناوەڕۆکەوە نیشانەکراون فراوان بکە</string>
     <string name="pref_title_alway_show_sensitive_media">هەمیشە ناوەڕۆکی هەستیار نیشان بدە</string>
     <string name="follows_you">دوای تۆ دەکەوێت</string>
-    <string name="state_follow_requested">بەدواداچوونەوەی داواکراو</string>
     <string name="post_share_link">هاوبەشکردنی لینک بۆ توت</string>
     <string name="post_share_content">هاوبەشکردنی ناوەڕۆکی دووت</string>
     <string name="description_account_locked">هەژماری داخراو</string>

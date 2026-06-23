@@ -18,10 +18,6 @@
     <string name="error_media_upload_opening">Súbor sa nepodarilo otvoriť.</string>
     <string name="title_home">Domov</string>
     <string name="title_tab_preferences">Panely</string>
-    <string name="action_follow">Sledovať</string>
-    <string name="action_unfollow">Prestať sledovať</string>
-    <string name="action_block">Blokovať</string>
-    <string name="action_unblock">Odblokovať</string>
     <string name="action_report">Nahlásiť</string>
     <string name="action_delete">Vymazať</string>
     <string name="action_delete_and_redraft">Vymazať a prepísať</string>
@@ -119,7 +115,6 @@
     <string name="pref_title_appearance_settings">Vzhľad</string>
     <string name="pref_default_post_language">Predvolený jazyk príspevku</string>
     <string name="label_header">Záhlavie</string>
-    <string name="action_mute">Stlmiť</string>
     <string name="pref_title_browser_settings">Prehliadač</string>
     <string name="title_public_local">Miestne</string>
     <string name="title_public_trending">Populárne</string>
@@ -165,11 +160,8 @@
     <string name="pref_title_bot_overlay">Zobraziť indikátor botov</string>
     <string name="notification_severed_relationships_unknown_body">Neznámy dôvod</string>
     <string name="notification_severed_relationships_account_suspension_body">Moderátor pozastavil účet</string>
-    <string name="action_unmute">Zrušiť stlmenie</string>
     <string name="action_unmute_desc">Zrušiť stlmenie %1$s</string>
-    <string name="action_mute_domain">Stlmiť %1$s</string>
     <string name="action_add_poll">Pridať anketu</string>
-    <string name="action_unmute_domain">Zrušiť stlmenie %1$s</string>
     <string name="action_unmute_conversation">Zrušiť stlmenie konverzácie</string>
     <string name="action_emoji_keyboard">Emoji klávesnica</string>
     <string name="action_translate_undo">Vrátiť späť preklad</string>
@@ -286,7 +278,6 @@
     <string name="notification_poll_description">Upozornenia na ukončené ankety</string>
     <string name="notification_subscription_name">Nové príspevky</string>
     <string name="notification_sign_up_name">Registrácia</string>
-    <string name="state_follow_requested">Sledovanie vyžiadané</string>
     <string name="post_text_size_smallest">Najmenšie</string>
     <string name="notification_mention_descriptions">Upozornenia na nové zmienenia</string>
     <string name="notification_follow_request_description">Upozornenia na žiadosti o sledovanie</string>

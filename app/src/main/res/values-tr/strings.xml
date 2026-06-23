@@ -36,10 +36,6 @@
     <string name="report_comment_hint">Daha fazla yorum?</string>
     <string name="action_quick_reply">Hızlı yanıt</string>
     <string name="action_compose">Oluştur</string>
-    <string name="action_follow">Takip et</string>
-    <string name="action_unfollow">Takibi bırak</string>
-    <string name="action_block">Engelle</string>
-    <string name="action_unblock">Engeli kaldır</string>
     <string name="action_hide_reblogs">Yeniden gönderiyi gizle</string>
     <string name="action_show_reblogs">Yeniden gönderileri göster</string>
     <string name="action_report">Bildir</string>
@@ -56,8 +52,6 @@
     <string name="action_add_media">Medya ekle</string>
     <string name="action_photo_take">Fotoğraf çek</string>
     <string name="action_share">Paylaş</string>
-    <string name="action_mute">Sessize al</string>
-    <string name="action_unmute">Sessizden çıkar</string>
     <string name="action_mention">Bahset</string>
     <string name="action_hide_media">Medyayı gizle</string>
     <string name="action_open_drawer">Çekmece aç</string>
@@ -165,7 +159,6 @@
     -->
     <string name="post_share_content">Gönderinin içeriğini paylaş</string>
     <string name="post_share_link">Gönderinin adresini paylaş</string>
-    <string name="state_follow_requested">Takip istenen</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Seni takip ediyor</string>
     <string name="pref_title_alway_show_sensitive_media">Her zaman hassas içerikleri göster</string>
@@ -205,7 +198,6 @@
     <string name="conversation_more_recipients">%1$s, %2$s ve %3$d dahası</string>
     <string name="title_domain_mutes">Gizli alan adları</string>
     <string name="action_view_domain_mutes">Gizli alan adları</string>
-    <string name="action_mute_domain">%1$s alan adını sessize al</string>
     <string name="action_open_faved_by">Gözdeleri göster</string>
     <string name="download_media">Medya indir</string>
     <string name="downloading_media">Medya indiriliyor</string>
@@ -278,7 +270,6 @@
     <string name="dialog_mute_hide_notifications">Bildirimleri gizle</string>
     <string name="dialog_mute_warning">\@%1$s sessize al\?</string>
     <string name="dialog_block_warning">\@%1$s engellensin mi\?</string>
-    <string name="action_unmute_domain">%1$s alan adının sesini aç</string>
     <string name="action_unmute_desc">%1$s sesini aç</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; seni takip etmek istiyor</string>
     <string name="action_unmute_conversation">Sohbetin sesini aç</string>

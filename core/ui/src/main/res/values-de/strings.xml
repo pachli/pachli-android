@@ -186,4 +186,13 @@
     <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> Beiträge (&lt;b>%2$d&lt;/b> pro Woche)</string>
     <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> Beiträge (&lt;b>%2$d&lt;/b> pro Woche, letzter am &lt;b>%3$s&lt;/b>)</string>
     <string name="action_follow_account">Folgen</string>
+    <string name="action_unfollow">Entfolgen</string>
+    <string name="action_unblock">Blockierung aufheben</string>
+    <string name="state_follow_requested">Folgeanfrage gesendet</string>
+    <string name="action_block">Blockieren</string>
+    <string name="action_mute_domain">%1$s stummschalten</string>
+    <string name="action_unmute_domain">%1$s nicht mehr stummschalten</string>
+    <string name="action_mute">Stummschalten</string>
+    <string name="action_unmute">Stummschaltung aufheben</string>
+    <string name="action_follow">Folgen</string>
 </resources>

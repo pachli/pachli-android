@@ -107,11 +107,7 @@
     <string name="action_mention">Beneame</string>
     <string name="action_unmute_conversation">Petear net mear negearre</string>
     <string name="action_mute_conversation">Petear negearre</string>
-    <string name="action_unmute_domain">%1$s net mear negearre</string>
-    <string name="action_mute_domain">%1$s negearre</string>
     <string name="action_unmute_desc">%1$s net mear negearre</string>
-    <string name="action_unmute">Net mear negearre</string>
-    <string name="action_mute">Negearre</string>
     <string name="action_share">Diele</string>
     <string name="action_photo_take">Foto nimme</string>
     <string name="action_add_poll">Fragelist tafoegje</string>
@@ -131,10 +127,6 @@
     <string name="action_delete_conversation">Petear fuortsmite</string>
     <string name="action_delete">Fuortsmite</string>
     <string name="action_report">Oanjaan</string>
-    <string name="action_unblock">Net mear blokkearje</string>
-    <string name="action_block">Blokkearje</string>
-    <string name="action_unfollow">Net mear folgje</string>
-    <string name="action_follow">Folgje</string>
     <string name="action_compose">Gearstelle</string>
     <string name="action_quick_reply">Flugge Reaksje</string>
     <string name="report_comment_hint">Oanfoljende opmerkingen\?</string>

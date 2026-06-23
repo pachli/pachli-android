@@ -36,10 +36,6 @@
     <string name="report_comment_hint">Ytterligere kommentarer\?</string>
     <string name="action_quick_reply">Hurtigsvar</string>
     <string name="action_compose">Skriv</string>
-    <string name="action_follow">Følg</string>
-    <string name="action_unfollow">Slutt å følge</string>
-    <string name="action_block">Blokkér</string>
-    <string name="action_unblock">Fjern blokkering</string>
     <string name="action_hide_reblogs">Skjul delinger</string>
     <string name="action_show_reblogs">Vis delte innlegg</string>
     <string name="action_report">Rapporter</string>
@@ -56,8 +52,6 @@
     <string name="action_add_media">Legg til media</string>
     <string name="action_photo_take">Ta bilde</string>
     <string name="action_share">Del</string>
-    <string name="action_mute">Demp</string>
-    <string name="action_unmute">Fjern demping</string>
     <string name="action_mention">Nevn</string>
     <string name="action_hide_media">Skjul media</string>
     <string name="action_open_drawer">Åpne skuff</string>
@@ -156,7 +150,6 @@
     <string name="description_account_locked">Låst konto</string>
     <string name="post_share_content">Del inneholdet i innlegget</string>
     <string name="post_share_link">Del lenke til tuten</string>
-    <string name="state_follow_requested">Forespørsel sendt</string>
     <string name="follows_you">Følger deg</string>
     <string name="pref_title_alway_show_sensitive_media">Vis alltid sensitivt innhold</string>
     <string name="title_media">Media</string>
@@ -238,7 +231,6 @@
     <string name="report_description_remote_instance">Kontoen tilhører en annen instans. Vil du også sende en anonymisert kopi av rapporten dit\?</string>
     <string name="title_domain_mutes">Skjulte domener</string>
     <string name="action_view_domain_mutes">Skjulte domener</string>
-    <string name="action_mute_domain">Demp %1$s</string>
     <string name="confirmation_domain_unmuted">%1$s er ikke lenger skjult</string>
     <string name="mute_domain_warning">Er du sikker på at du vil blokkere alt fra %1$s\? Du kommer ikke til å se innhold fra domenet i noen offentlige tidslinjer, eller i varslene dine. Kontoer som følger deg fra dette domenet vil bli fjernet.</string>
     <string name="mute_domain_warning_dialog_ok">Skjul hele domenet</string>
@@ -277,7 +269,6 @@
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; ønsker å følge deg</string>
     <string name="pref_title_gradient_for_media">Vis fargerike gradienter for skjult media</string>
     <string name="pref_main_nav_position">Plassering av hovednavigasjon</string>
-    <string name="action_unmute_domain">Fjern demping av %1$s</string>
     <string name="dialog_mute_hide_notifications">Skjul varsler</string>
     <string name="action_unmute_desc">Fjern demping av %1$s</string>
     <string name="pref_title_hide_top_toolbar">Skjul tittelen på den øverste verktøylinjen</string>

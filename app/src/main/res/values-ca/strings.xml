@@ -30,10 +30,6 @@
     <string name="report_username_format">Denuncia @%1$s</string>
     <string name="report_comment_hint">Cap comentari addicional?</string>
     <string name="action_compose">Escriure</string>
-    <string name="action_follow">Segueix</string>
-    <string name="action_unfollow">Deixa de seguir</string>
-    <string name="action_block">Bloca</string>
-    <string name="action_unblock">Deixa de blocar</string>
     <string name="action_report">Denuncia</string>
     <string name="action_delete">Elimina</string>
     <string name="action_send">PUBLICA</string>
@@ -47,8 +43,6 @@
     <string name="action_add_media">Afegeix multimèdia</string>
     <string name="action_photo_take">Fes una foto</string>
     <string name="action_share">Comparteix</string>
-    <string name="action_mute">Silencia</string>
-    <string name="action_unmute">Deixa de silenciar</string>
     <string name="action_mention">Menciona</string>
     <string name="action_hide_media">Amaga el multimèdia</string>
     <string name="action_save">Desa</string>
@@ -147,7 +141,6 @@
     <string name="action_open_faved_by">Mostra els favorits</string>
     <string name="download_media">Baixa el fitxer</string>
     <string name="send_media_to">Compartir la imatge a …</string>
-    <string name="state_follow_requested">Petició enviada</string>
     <string name="title_posts_with_replies">Amb respostes</string>
     <string name="action_emoji_keyboard">Teclat d\'emojis</string>
     <string name="action_open_media_n">Obrir el media #%1$d</string>
@@ -232,7 +225,6 @@
     <string name="pref_title_animate_gif_avatars">Activar l\'animació dels GIF</string>
     <string name="title_domain_mutes">Dominis ocults</string>
     <string name="action_view_domain_mutes">Dominis ocults</string>
-    <string name="action_mute_domain">Silenciar %1$s</string>
     <string name="confirmation_domain_unmuted">%1$s visible</string>
     <string name="mute_domain_warning_dialog_ok">Amagar el domini sencer</string>
     <string name="pref_title_alway_open_spoiler">Mostra sempre obertes les publicacions marcades amb avisos de contingut</string>
@@ -280,7 +272,6 @@
     <string name="pref_main_nav_position">Posició de navegació principal</string>
     <string name="pref_title_gradient_for_media">Mostra els degradats de colors per als mitjans ocults</string>
     <string name="dialog_mute_hide_notifications">Amagar notificacions</string>
-    <string name="action_unmute_domain">Deixar de silenciar %1$s</string>
     <string name="action_unmute_desc">Deixar de silenciar %1$s</string>
     <string name="review_notifications">Revisió d\'avisos</string>
     <string name="account_note_saved">S\'ha desat!</string>

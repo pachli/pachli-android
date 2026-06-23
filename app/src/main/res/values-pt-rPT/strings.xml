@@ -62,10 +62,6 @@
     <string name="action_quick_reply">Resposta Rápida</string>
     <string name="action_unbookmark">Remover dos itens guardados</string>
     <string name="action_compose">Escrever</string>
-    <string name="action_follow">Seguir</string>
-    <string name="action_unfollow">Deixar de seguir</string>
-    <string name="action_block">Bloquear</string>
-    <string name="action_unblock">Desbloquear</string>
     <string name="action_hide_reblogs">Esconder boosts</string>
     <string name="action_show_reblogs">Mostrar boosts</string>
     <string name="action_report">Denunciar</string>
@@ -87,11 +83,7 @@
     <string name="action_add_poll">Adicionar votação</string>
     <string name="action_photo_take">Tirar foto</string>
     <string name="action_share">Partilhar</string>
-    <string name="action_mute">Silenciar</string>
-    <string name="action_unmute">Remover silêncio</string>
     <string name="action_unmute_desc">Remover %1$s do silêncio</string>
-    <string name="action_mute_domain">Silenciar %1$s</string>
-    <string name="action_unmute_domain">Remover %1$s do silêncio</string>
     <string name="action_mute_conversation">Silenciar conversa</string>
     <string name="action_unmute_conversation">Remover conversa do silêncio</string>
     <string name="action_mention">Mencionar</string>
@@ -221,7 +213,6 @@
     <string name="filter_dialog_update_button">Atualizar</string>
     <string name="post_share_content">Partilhar conteúdo do toot</string>
     <string name="post_share_link">Partilhar hiperligação do toot</string>
-    <string name="state_follow_requested">Pedido para seguir enviado</string>
     <string name="follows_you">Segue-te</string>
     <string name="pref_title_alway_show_sensitive_media">Mostrar sempre conteúdo multimédia sensível</string>
     <string name="pref_title_alway_open_spoiler">Expandir sempre toots com Aviso de Conteúdo</string>

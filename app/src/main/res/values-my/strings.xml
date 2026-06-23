@@ -37,9 +37,6 @@
     </plurals>
     <string name="report_comment_hint">ဖြည့်စွက်မှတ်ချက်များရှိပါသလား</string>
     <string name="action_compose">စာစီမည်</string>
-    <string name="action_follow">စောင့်ကြည့်မည်</string>
-    <string name="action_unfollow">မစောင့်ကြည့်တော့ပါ</string>
-    <string name="action_unblock">ဘလော့ခ်ဖြည်မည်</string>
     <string name="action_share_account_link">အကောင့်လင်ခ့်မျှဝေမည်</string>
     <string name="action_share_account_username">အကောင့်၏ Username မျှဝေမည်</string>
     <string name="action_hide_reblogs">တစ်ဆင့်မျှဝေမှုများဖျောက်မည်</string>
@@ -80,7 +77,6 @@
     <string name="report_username_format">\@%1$s အားတိုင်ကြားမည်</string>
     <string name="action_quick_reply">အမြန်ပြန်စာ</string>
     <string name="action_unbookmark">သိမ်ဆည်းမှုဖယ်ရှားမည်</string>
-    <string name="action_block">ဘလော့ခ်</string>
     <plurals name="notification_severed_relationships_summary_followers_fmt">
         <item quantity="other">%1$s စောင့်ကြည့်သူများအားဖယ်ရှားပြီး</item>
     </plurals>
@@ -148,11 +144,7 @@
     <string name="action_open_in_web">ဘရောက်ဇာတွင်ဖွင့်မည်</string>
     <string name="action_photo_take">ပုံရိုက်မည်</string>
     <string name="action_share">မျှဝေမည်</string>
-    <string name="action_mute">ကန့်သတ်မည်</string>
-    <string name="action_unmute">မကန့်သတ်တော့</string>
     <string name="action_unmute_desc">%1$s အားမကန့်သတ်တော့</string>
-    <string name="action_mute_domain">%1$s အားကန့်သတ်မည်</string>
-    <string name="action_unmute_domain">%1$s အားမကန့်သတ်တော့</string>
     <string name="action_mute_conversation">စကားဝိုင်းအားကန့်သတ်မည်</string>
     <string name="action_unmute_conversation">စကားဝိုင်းအားမကန့်သတ်တော့</string>
     <string name="action_mention">မန်းရှင်း</string>

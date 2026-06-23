@@ -100,4 +100,13 @@
     <string name="duration_1_day">Egun 1</string>
     <string name="duration_3_days">3 egun</string>
     <string name="duration_7_days">7 egun</string>
+    <string name="action_unfollow">Jarraitzeari utzi</string>
+    <string name="action_unblock">Desblokeatu</string>
+    <string name="state_follow_requested">Eskaera bidalita</string>
+    <string name="action_block">Blokeatu</string>
+    <string name="action_mute_domain">Mututu %1$s</string>
+    <string name="action_unmute_domain">Desmututu %1$s</string>
+    <string name="action_mute">Mututu</string>
+    <string name="action_unmute">Desmututu</string>
+    <string name="action_follow">Jarraitu</string>
 </resources>

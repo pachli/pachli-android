@@ -31,10 +31,6 @@
     <string name="post_sensitive_media_directions">Klik untuk melihat</string>
     <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; mengikuti Anda</string>
     <string name="report_username_format">Laporkan @%1$s</string>
-    <string name="action_follow">Ikuti</string>
-    <string name="action_unfollow">Berhenti Mengikuti</string>
-    <string name="action_block">Blokir</string>
-    <string name="action_unblock">Buka blokir</string>
     <string name="action_report">Laporkan</string>
     <string name="action_delete">Hapus</string>
     <string name="action_view_preferences">Preferensi</string>
@@ -47,10 +43,7 @@
     <string name="action_add_media">Tambahkan media</string>
     <string name="action_photo_take">Ambil gambar</string>
     <string name="action_share">Bagikan</string>
-    <string name="action_mute">Bisukan</string>
     <string name="action_unmute_desc">Batalkan bisukan %1$s</string>
-    <string name="action_mute_domain">Bisukan %1$s</string>
-    <string name="action_unmute_domain">Batalkan bisukan %1$s</string>
     <string name="action_unmute_conversation">Jangan bisukan percakapan</string>
     <string name="action_save">Simpan</string>
     <string name="action_edit_profile">Ubah profil</string>
@@ -99,7 +92,6 @@
     <string name="title_announcements">Pengumuman</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; meminta untuk mengikuti Anda</string>
     <string name="action_delete_conversation">Hapus percakapan</string>
-    <string name="action_unmute">Jangan bisukan</string>
     <string name="action_mute_conversation">Bisukan percakapan</string>
     <string name="action_schedule_post">Jadwalkan Postingan</string>
     <string name="action_access_scheduled_posts">Postingan terjadwal</string>
@@ -243,7 +235,6 @@
     <string name="pref_title_timeline_filters">Filter</string>
     <string name="pref_title_alway_open_spoiler">Selalu perluas postingan yg ditandai dengan peringatan konten</string>
     <string name="action_set_focus">Menetapkan titik fokus</string>
-    <string name="state_follow_requested">Ikuti yang diminta</string>
     <string name="pref_title_thread_filter_keywords">Percakapan</string>
     <string name="pref_title_account_filter_keywords">Profil</string>
     <string name="filter_add_description">Frasa yang akan difilter</string>

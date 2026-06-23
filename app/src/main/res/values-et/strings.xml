@@ -100,10 +100,6 @@
     <string name="action_quick_reply">Kiirvastus</string>
     <string name="action_unbookmark">Eemalda järjehoidja</string>
     <string name="action_compose">Koosta postitus</string>
-    <string name="action_follow">Jälgi</string>
-    <string name="action_unfollow">Lõpeta jälgimine</string>
-    <string name="action_block">Blokeeri</string>
-    <string name="action_unblock">Lõpeta blokeerimine</string>
     <string name="action_share_account_link">Jaga kasutajakonto linki</string>
     <string name="action_share_account_username">Jaga konto kasutajanime</string>
     <string name="action_hide_reblogs">Peida hoo lisamised</string>
@@ -135,12 +131,8 @@
     <string name="action_add_poll">Lisa küsitlus</string>
     <string name="action_photo_take">Pildista</string>
     <string name="action_share">Jaga</string>
-    <string name="action_mute">Summuta</string>
-    <string name="action_unmute">Lõpeta summutamine</string>
     <string name="notification_report_format">Uus teatis: %1$s</string>
     <string name="action_unmute_desc">Lõpeta kasutaja %1$s summutamine</string>
-    <string name="action_mute_domain">Summuta %1$s</string>
-    <string name="action_unmute_domain">Lõpeta %1$s domeeni summutamine</string>
     <string name="action_mute_conversation">Summuta vestlus</string>
     <string name="action_unmute_conversation">Lõpeta vestluse summutamine</string>
     <string name="action_mention">Maini</string>
@@ -394,7 +386,6 @@
     <string name="description_account_locked">Lukustatud kasutajakonto</string>
     <string name="post_share_content">Jaga postituse sisu</string>
     <string name="post_share_link">Jaga postituse linki</string>
-    <string name="state_follow_requested">Oled saanud jälgimispäringu</string>
     <string name="follows_you">Jälgib sind</string>
     <string name="pref_title_alway_show_sensitive_media">Alati näita delikaatset sisu</string>
     <string name="pref_title_alway_open_spoiler">Näita sisuhoiatusega postitusi alati täisvaates</string>

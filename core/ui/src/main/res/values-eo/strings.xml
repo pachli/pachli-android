@@ -112,4 +112,13 @@
     <string name="duration_90_days">90 tagoj</string>
     <string name="duration_180_days">180 tagoj</string>
     <string name="duration_365_days">365 tagoj</string>
+    <string name="action_unfollow">Ne plu sekvi</string>
+    <string name="action_unblock">Malbloki</string>
+    <string name="state_follow_requested">Sekvado petita</string>
+    <string name="action_block">Bloki</string>
+    <string name="action_mute_domain">Silentigi %1$s</string>
+    <string name="action_unmute_domain">Malsilentigi %1$s</string>
+    <string name="action_mute">Silentigi</string>
+    <string name="action_unmute">Malsilentigi</string>
+    <string name="action_follow">Sekvi</string>
 </resources>

@@ -33,10 +33,6 @@
     <string name="report_comment_hint">نظرهای اضافی؟</string>
     <string name="action_quick_reply">پاسخ سریع</string>
     <string name="action_compose">ایجاد</string>
-    <string name="action_follow">پیگیری</string>
-    <string name="action_unfollow">ناپیگیری</string>
-    <string name="action_block">انسداد</string>
-    <string name="action_unblock">رفع انسداد</string>
     <string name="action_hide_reblogs">نهفتن تقویت‌ها</string>
     <string name="action_show_reblogs">نمایش تقویت‌ها</string>
     <string name="action_report">گزارش</string>
@@ -53,8 +49,6 @@
     <string name="action_add_media">افزودن رسانه</string>
     <string name="action_photo_take">گرفتن عکس</string>
     <string name="action_share">هم‌رسانی</string>
-    <string name="action_mute">خموشی</string>
-    <string name="action_unmute">ناخموشی</string>
     <string name="action_mention">اشاره</string>
     <string name="action_hide_media">نهفتن رسانه</string>
     <string name="action_open_drawer">گشودن کشو</string>
@@ -161,7 +155,6 @@
     -->
     <string name="post_share_content">هم‌رسانی محتوای فرسته</string>
     <string name="post_share_link">هم‌رسانی پیوند فرسته</string>
-    <string name="state_follow_requested">تقاضای پیگیری شد</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">پیگیرتان است</string>
     <string name="pref_title_alway_show_sensitive_media">نمایش همیشگی محتوای حساس</string>
@@ -202,7 +195,6 @@
     <string name="action_delete_and_redraft">حذف و بازنویسی</string>
     <string name="action_view_domain_mutes">دامنه‌های نهفته</string>
     <string name="action_add_poll">افزودن نظرسنجی</string>
-    <string name="action_mute_domain">خموشی %1$s</string>
     <string name="action_add_tab">افزودن زبانه</string>
     <string name="action_open_reblogger">گشودن تقویت‌کنندهٔ بوق</string>
     <string name="action_open_reblogged_by">نمایش تقویت‌ها</string>
@@ -284,7 +276,6 @@
     <string name="pref_main_nav_position">موقعیت ناوبری اصلی</string>
     <string name="pref_title_gradient_for_media">نمایش گرادیان‌های رنگی برای رسانه‌های نهفته</string>
     <string name="dialog_mute_hide_notifications">نهفتن آگاهی‌ها</string>
-    <string name="action_unmute_domain">ناخموشی %1$s</string>
     <string name="action_unmute_desc">ناخموشی %1$s</string>
     <string name="pref_title_hide_top_toolbar">نهفتن عنوان نوارابزار بالایی</string>
     <string name="compose_preview_image_description">کنش‌ها برای تصویر %1$s</string>

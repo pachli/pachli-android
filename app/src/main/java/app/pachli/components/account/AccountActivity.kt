@@ -778,18 +778,18 @@ class AccountActivity :
             return
         }
         if (blocking) {
-            binding.accountFollowButton.setText(R.string.action_unblock)
+            binding.accountFollowButton.setText(app.pachli.core.ui.R.string.action_unblock)
             return
         }
         when (followState) {
             FollowState.NOT_FOLLOWING -> {
-                binding.accountFollowButton.setText(R.string.action_follow)
+                binding.accountFollowButton.setText(app.pachli.core.ui.R.string.action_follow_account)
             }
             FollowState.REQUESTED -> {
-                binding.accountFollowButton.setText(R.string.state_follow_requested)
+                binding.accountFollowButton.setText(app.pachli.core.ui.R.string.state_follow_requested)
             }
             FollowState.FOLLOWING -> {
-                binding.accountFollowButton.setText(R.string.action_unfollow)
+                binding.accountFollowButton.setText(app.pachli.core.ui.R.string.action_unfollow)
             }
         }
     }
@@ -879,16 +879,16 @@ class AccountActivity :
         if (!viewModel.isSelf.value) {
             val block = menu.findItem(R.id.action_block)
             block.title = if (blocking) {
-                getString(R.string.action_unblock)
+                getString(app.pachli.core.ui.R.string.action_unblock)
             } else {
-                getString(R.string.action_block)
+                getString(app.pachli.core.ui.R.string.action_block)
             }
 
             val mute = menu.findItem(R.id.action_mute)
             mute.title = if (muting) {
-                getString(R.string.action_unmute)
+                getString(app.pachli.core.ui.R.string.action_unmute)
             } else {
-                getString(R.string.action_mute)
+                getString(app.pachli.core.ui.R.string.action_mute)
             }
 
             viewModel.accountData.value.get()?.getOrNull()?.let { loadedAccount ->
@@ -901,10 +901,10 @@ class AccountActivity :
                         menu.removeItem(R.id.action_mute_domain)
                     }
                     blockingDomain -> {
-                        muteDomain.title = getString(R.string.action_unmute_domain, domain)
+                        muteDomain.title = getString(app.pachli.core.ui.R.string.action_unmute_domain, domain)
                     }
                     else -> {
-                        muteDomain.title = getString(R.string.action_mute_domain, domain)
+                        muteDomain.title = getString(app.pachli.core.ui.R.string.action_mute_domain, domain)
                     }
                 }
             }

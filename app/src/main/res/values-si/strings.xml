@@ -67,7 +67,6 @@
     <string name="confirmation_unblocked">පරිශීලක අනවහිර කෙරිණි</string>
     <string name="profile_metadata_add">දත්ත එක්කරන්න</string>
     <string name="send_post_content_to">වෙත ටූට් බෙදාගන්න…</string>
-    <string name="action_unblock">අනවහිර</string>
     <string name="action_send_public">ටූට්!</string>
     <string name="title_favourites">ප්‍රියතමයන්</string>
     <string name="download_image">%1$s බාගත වෙමින්</string>
@@ -88,14 +87,11 @@
     <string name="pref_title_post_filter">කාලරේඛාව පෙරීම</string>
     <string name="conversation_more_recipients">%1$s, %2$s සහ තවත් %3$d</string>
     <string name="pref_title_timelines">කාලරේඛා</string>
-    <string name="action_mute_domain">%1$s නිහඬ කරන්න</string>
-    <string name="action_block">අවහිර</string>
     <string name="download_media">මාධ්‍ය බාගන්න</string>
     <string name="action_view_domain_mutes">සැඟවුනු වසම්</string>
     <string name="post_text_size_small">කුඩා</string>
     <string name="pref_title_alway_open_spoiler">අන්තර්ගත අවවාද සමඟ ඇති ටූට්ස් සැමවිටම විහිදන්න</string>
     <string name="action_undo">පෙරසේ</string>
-    <string name="action_mute">නිහඬ කරන්න</string>
     <string name="action_accept">පිළිගන්න</string>
     <string name="action_remove">ඉවත් කරන්න</string>
     <string name="action_add_media">මාධ්‍ය එකතු කරන්න</string>

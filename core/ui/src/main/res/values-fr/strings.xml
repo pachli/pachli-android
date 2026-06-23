@@ -197,4 +197,13 @@
     <string name="statuses_count_per_week_fmt">&lt;b&gt;%1$s&lt;/b&gt; messages (&lt;b&gt;%2$d&lt;/b&gt; par semaine)</string>
     <string name="statuses_count_per_week_last_fmt">&lt;b&gt;%1$s&lt;/b&gt; messages (&lt;b&gt;%2$d&lt;/b&gt; par semaine, depuis &lt;b&gt;%3$s&lt;/b&gt;)</string>
     <string name="action_follow_account">Suivre</string>
+    <string name="action_unfollow">Ne plus suivre</string>
+    <string name="action_unblock">Débloquer</string>
+    <string name="state_follow_requested">Demande d’abonnement effectuée</string>
+    <string name="action_block">Bloquer</string>
+    <string name="action_mute_domain">Masquer %1$s</string>
+    <string name="action_unmute_domain">Ne plus masquer %1$s</string>
+    <string name="action_mute">Masquer</string>
+    <string name="action_unmute">Ne plus masquer</string>
+    <string name="action_follow">Suivre</string>
 </resources>

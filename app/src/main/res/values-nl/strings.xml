@@ -36,10 +36,6 @@
     <string name="report_comment_hint">Extra opmerkingen\?</string>
     <string name="action_quick_reply">Snelle reactie</string>
     <string name="action_compose">Bericht schrijven</string>
-    <string name="action_follow">Volgen</string>
-    <string name="action_unfollow">Ontvolgen</string>
-    <string name="action_block">Blokkeren</string>
-    <string name="action_unblock">Deblokkeren</string>
     <string name="action_hide_reblogs">Boosts verbergen</string>
     <string name="action_show_reblogs">Boosts tonen</string>
     <string name="action_report">Rapporteren</string>
@@ -56,8 +52,6 @@
     <string name="action_add_media">Media toevoegen</string>
     <string name="action_photo_take">Foto maken</string>
     <string name="action_share">Delen</string>
-    <string name="action_mute">Negeren</string>
-    <string name="action_unmute">Niet langer negeren</string>
     <string name="action_mention">Vermelden</string>
     <string name="action_hide_media">Media verbergen</string>
     <string name="action_open_drawer">Menu openen</string>
@@ -170,7 +164,6 @@
     -->
     <string name="post_share_content">Inhoud van bericht delen</string>
     <string name="post_share_link">Link van het bericht delen</string>
-    <string name="state_follow_requested">Volgverzoek verzonden</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Volgt jou</string>
     <string name="pref_title_alway_show_sensitive_media">Altijd gevoelige inhoud (nsfw) tonen</string>
@@ -235,7 +228,6 @@
     <string name="poll_ended_created">Een poll die jij hebt aangemaakt is beëindigd</string>
     <string name="title_domain_mutes">Verborgen domeinen</string>
     <string name="action_view_domain_mutes">Verborgen domeinen</string>
-    <string name="action_mute_domain">%1$s negeren</string>
     <string name="confirmation_domain_unmuted">%1$s niet langer verborgen</string>
     <string name="mute_domain_warning_dialog_ok">Volledig domein verbergen</string>
     <string name="pref_title_animate_gif_avatars">GIF-avatars animeren</string>
@@ -300,7 +292,6 @@
     <string name="dialog_block_warning">\@%1$s blokkeren\?</string>
     <string name="action_unmute_conversation">Gesprek niet meer negeren</string>
     <string name="action_mute_conversation">Gesprek negeren</string>
-    <string name="action_unmute_domain">%1$s niet meer negeren</string>
     <string name="action_unmute_desc">%1$s niet meer negeren</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; heeft zojuist een bericht geplaatst</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; verzoekt u te volgen</string>

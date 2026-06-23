@@ -174,4 +174,13 @@
     <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> записей (&lt;b>%2$d&lt;/b> в неделю)</string>
     <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> записей (&lt;b>%2$d&lt;/b> в неделю, последние &lt;b>%3$s&lt;/b>)</string>
     <string name="action_follow_account">Подписаться</string>
+    <string name="action_unfollow">Отписаться</string>
+    <string name="action_unblock">Разблокировать</string>
+    <string name="state_follow_requested">Запрошенные подписки</string>
+    <string name="action_block">Заблокировать</string>
+    <string name="action_mute_domain">Заглушить %1$s</string>
+    <string name="action_unmute_domain">Отменить глушение %1$s</string>
+    <string name="action_mute">Заглушить</string>
+    <string name="action_unmute">Отменить глушение</string>
+    <string name="action_follow">Подписаться</string>
 </resources>

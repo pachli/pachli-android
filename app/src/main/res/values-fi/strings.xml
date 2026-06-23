@@ -87,8 +87,6 @@
     <string name="action_edit_own_profile">Muokkaa</string>
     <string name="action_save">Tallenna</string>
     <string name="action_mention">Mainitse</string>
-    <string name="action_unmute">Poista mykistys</string>
-    <string name="action_mute">Mykistä</string>
     <string name="action_share">Jaa</string>
     <string name="action_view_bookmarks">Kirjanmerkit</string>
     <string name="action_view_favourites">Suosikit</string>
@@ -96,10 +94,6 @@
     <string name="action_send">TUUT</string>
     <string name="action_delete">Poista</string>
     <string name="action_report">Ilmianna</string>
-    <string name="action_unblock">Poista esto</string>
-    <string name="action_block">Estä</string>
-    <string name="action_unfollow">Seurataan</string>
-    <string name="action_follow">Seuraa</string>
     <string name="action_send_public">TUUT!</string>
     <string name="title_view_thread">Ketju</string>
     <string name="title_scheduled_posts">Ajastetut tuuttaukset</string>
@@ -131,7 +125,6 @@
     <string name="report_username_format">Ilmianna @%1$s</string>
     <string name="report_comment_hint">Lisähuomautuksia\?</string>
     <string name="error_media_upload_permission">Tiedostojen lähettäminen vaatii lukuoikeuden.</string>
-    <string name="action_unmute_domain">Poista mykistys verkkonimeltä %1$s</string>
     <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; on maininnut sinut</string>
     <string name="error_media_upload_opening">Tiedoston lataaminen epäonnistui.</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; jakoi julkaisusi</string>
@@ -139,7 +132,6 @@
     <string name="action_unmute_conversation">Poista keskustelun mykistys</string>
     <string name="download_image">Ladataan kuvaa %1$s</string>
     <string name="action_mute_conversation">Mykistä keskustelu</string>
-    <string name="action_mute_domain">Mykistä %1$s</string>
     <string name="action_view_domain_mutes">Piilotetut verkkonimet</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; lisäsi julkaisusi suosikkeihinsa</string>
     <string name="action_open_reblogged_by">Näytä jaot</string>
@@ -285,7 +277,6 @@
     <string name="pref_title_notification_filter_poll">Päättyneet äänestykset</string>
     <string name="failed_to_unpin">Irrottaminen epäonnistui</string>
     <string name="unsaved_changes">Sinulla on tallentamattomia muutoksia.</string>
-    <string name="state_follow_requested">Seuraamista pyydetty</string>
     <string name="compose_delete_draft">Poista luonnos?</string>
     <string name="notification_notification_worker">Ilmoituksia haetaan…</string>
     <string name="pref_title_notification_filter_favourites">Tykätyt julkaisut</string>

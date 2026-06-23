@@ -37,10 +37,6 @@
     <string name="report_comment_hint">코멘트</string>
     <string name="action_quick_reply">빠른 답장</string>
     <string name="action_compose">작성</string>
-    <string name="action_follow">팔로우</string>
-    <string name="action_unfollow">팔로우 해제</string>
-    <string name="action_block">차단</string>
-    <string name="action_unblock">차단 해제</string>
     <string name="action_hide_reblogs">이 유저의 부스트 숨기기</string>
     <string name="action_show_reblogs">부스트한 유저 보이기</string>
     <string name="action_report">신고</string>
@@ -59,9 +55,6 @@
     <string name="action_add_media">미디어 추가</string>
     <string name="action_photo_take">사진 촬영</string>
     <string name="action_share">공유</string>
-    <string name="action_mute">뮤트</string>
-    <string name="action_unmute">뮤트 해제</string>
-    <string name="action_mute_domain">%1$s 전체를 숨김</string>
     <string name="action_mention">멘션</string>
     <string name="action_hide_media">미디어 숨기기</string>
     <string name="action_open_drawer">메뉴 열기</string>
@@ -185,7 +178,6 @@
     -->
     <string name="post_share_content">이 툿의 내용 공유</string>
     <string name="post_share_link">이 툿의 링크 공유</string>
-    <string name="state_follow_requested">팔로우 요청함</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">당신을 팔로우합니다</string>
     <string name="pref_title_alway_show_sensitive_media">민감한 컨텐츠 항상 보이기</string>

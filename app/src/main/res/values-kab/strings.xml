@@ -14,8 +14,6 @@
     <string name="title_edit_profile">Ẓreg amaɣnu-ik</string>
     <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; yeṭṭafar-ik·ikem-id</string>
     <string name="action_compose">Azen</string>
-    <string name="action_follow">Ḍfeṛ</string>
-    <string name="action_unfollow">Ur ṭṭafar ara</string>
     <string name="action_delete">Kkes</string>
     <string name="action_delete_and_redraft">Kkes tɛiwdeḍ tira</string>
     <string name="action_send">Jewweq</string>
@@ -23,14 +21,12 @@
     <string name="action_view_favourites">Ismenyifen</string>
     <string name="action_open_in_web">Ldi deg uminig</string>
     <string name="action_share">Bḍu</string>
-    <string name="action_mute">Sgugem</string>
     <string name="action_access_drafts">Irewwayen</string>
     <string name="action_open_faved_by">Sken-d ismenyifen</string>
     <string name="notification_favourite_name">Ismenyifen</string>
     <string name="title_notifications">Tilɣa</string>
     <string name="title_bookmarks">Ticraḍ</string>
     <string name="action_view_bookmarks">Ticraḍ</string>
-    <string name="action_mute_domain">Sgugem %1$s</string>
     <string name="action_mention">Bder</string>
     <string name="action_save">Sekles</string>
     <string name="action_edit_own_profile">Ẓreg</string>
@@ -141,7 +137,6 @@
     <string name="action_quick_reply">Tiririt taruradt</string>
     <string name="action_hide_reblogs">Ffer beṭuyat</string>
     <string name="action_show_reblogs">Sken-d beṭuyat</string>
-    <string name="action_unmute">Ur sgugum ara</string>
     <string name="action_accept">Ddeg</string>
     <string name="action_open_reblogged_by">Sken-d beṭuyat</string>
     <string name="confirmation_unmuted">Aseqdac nni ur yettwasgugem ara tura</string>
@@ -149,8 +144,6 @@
     <string name="hint_note">Assisen</string>
     <string name="label_header">Tugna n yiɣef n umaɣnu</string>
     <string name="error_empty">Ur ilaq ara ad yili d ilem.</string>
-    <string name="action_block">Cekkel</string>
-    <string name="action_unblock">Kkes tacekkalt</string>
     <string name="confirmation_unblocked">Tettwakkes tacekkalt ɣef umiḍan-nni</string>
     <string name="report_remote_instance">Bren-it ɣer %1$s</string>
     <string name="pref_title_app_theme">Asentel n wesnas</string>

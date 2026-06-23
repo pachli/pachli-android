@@ -36,10 +36,6 @@
     <string name="report_comment_hint">Ĉu pliaj komentoj\?</string>
     <string name="action_quick_reply">Rapida respondo</string>
     <string name="action_compose">Verki</string>
-    <string name="action_follow">Sekvi</string>
-    <string name="action_unfollow">Ne plu sekvi</string>
-    <string name="action_block">Bloki</string>
-    <string name="action_unblock">Malbloki</string>
     <string name="action_hide_reblogs">Kaŝi diskonigojn</string>
     <string name="action_show_reblogs">Montri diskonigojn</string>
     <string name="action_report">Signali</string>
@@ -56,8 +52,6 @@
     <string name="action_add_media">Aldoni aŭdovidaĵon</string>
     <string name="action_photo_take">Foti</string>
     <string name="action_share">Konigi</string>
-    <string name="action_mute">Silentigi</string>
-    <string name="action_unmute">Malsilentigi</string>
     <string name="action_mention">Mencii</string>
     <string name="action_hide_media">Kaŝi aŭdovidaĵojn</string>
     <string name="action_open_drawer">Montri tirmenuon</string>
@@ -173,7 +167,6 @@
     -->
     <string name="post_share_content">Konigi enhavon de la mesaĝo</string>
     <string name="post_share_link">Konigi ligilon al mesaĝo</string>
-    <string name="state_follow_requested">Sekvado petita</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Sekvas vin</string>
     <string name="pref_title_alway_show_sensitive_media">Ĉiam montri tiklan enhavon</string>
@@ -237,7 +230,6 @@
     <string name="poll_ended_created">Enketo, kiun vi kreis, finiĝis</string>
     <string name="title_domain_mutes">Kaŝitaj domajnoj</string>
     <string name="action_view_domain_mutes">Kaŝitaj domajnoj</string>
-    <string name="action_mute_domain">Silentigi %1$s</string>
     <string name="confirmation_domain_unmuted">%1$s malsilentigita</string>
     <string name="mute_domain_warning">Ĉu vi certas ke vi volas tute bloki %1$s\? Vi ne vidos enhavon de tiu domajno en publika tempolinio aŭ en viaj sciigoj. Viaj sekvantoj el tiu domajno estos forigitaj.</string>
     <string name="mute_domain_warning_dialog_ok">Kaŝi la tutan domajnon</string>
@@ -278,7 +270,6 @@
     <string name="dialog_block_warning">Ĉu bloki @%1$s\?</string>
     <string name="action_unmute_conversation">Malsilentigi la konversacion</string>
     <string name="action_mute_conversation">Silentigi la konversacion</string>
-    <string name="action_unmute_domain">Malsilentigi %1$s</string>
     <string name="action_unmute_desc">Malsilentigi %1$s</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; petis sekvi vin</string>
     <string name="title_announcements">Anoncoj</string>

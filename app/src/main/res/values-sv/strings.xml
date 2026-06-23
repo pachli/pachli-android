@@ -36,10 +36,6 @@
     <string name="report_comment_hint">Ytterligare kommentarer?</string>
     <string name="action_quick_reply">Snabbsvar</string>
     <string name="action_compose">Skriv</string>
-    <string name="action_follow">Följ</string>
-    <string name="action_unfollow">Avfölj</string>
-    <string name="action_block">Blockera</string>
-    <string name="action_unblock">Avblockera</string>
     <string name="action_hide_reblogs">Dölj knuffar</string>
     <string name="action_show_reblogs">Visa knuffar</string>
     <string name="action_report">Rapportera</string>
@@ -56,8 +52,6 @@
     <string name="action_add_media">Lägg till media</string>
     <string name="action_photo_take">Ta foto</string>
     <string name="action_share">Dela</string>
-    <string name="action_mute">Tysta</string>
-    <string name="action_unmute">Ta bort tystade användare</string>
     <string name="action_mention">Omnämn</string>
     <string name="action_hide_media">Dölj media</string>
     <string name="action_open_drawer">Öppna låda</string>
@@ -171,7 +165,6 @@
     -->
     <string name="post_share_content">Dela innehåll av toot</string>
     <string name="post_share_link">Dela länk till toot</string>
-    <string name="state_follow_requested">Följarförfrågan</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Följer dig</string>
     <string name="pref_title_alway_show_sensitive_media">Visa alltid allt innehåll (inkl. känsligt)</string>
@@ -237,7 +230,6 @@
     <string name="pref_title_animate_gif_avatars">Animera profil gifar</string>
     <string name="title_domain_mutes">Dolda domäner</string>
     <string name="action_view_domain_mutes">Dolda domäner</string>
-    <string name="action_mute_domain">Tysta %1$s</string>
     <string name="confirmation_domain_unmuted">%1$s inte tystad längre</string>
     <string name="mute_domain_warning">Är du säker på att du vill blockera allt från %1$s\? Du kommer inte kunna se något innehåll från denna domän i publika tidslinjer eller i dina notifieringar. Dina följare på domänen kommer inte att bli borttagna.</string>
     <string name="mute_domain_warning_dialog_ok">Dölj hela domänen</string>
@@ -284,7 +276,6 @@
     <string name="hashtags">Hashtaggar</string>
     <string name="pref_main_nav_position">Standard navigationsposition</string>
     <string name="pref_title_gradient_for_media">Visa färgglada gradienter för gömd media</string>
-    <string name="action_unmute_domain">Ta bort tystad %1$s</string>
     <string name="action_unmute_desc">Ta bort tystad %1$s</string>
     <string name="pref_title_hide_top_toolbar">Dölj titeln i övre verktygsfältet</string>
     <string name="dialog_mute_hide_notifications">Dölj aviseringar</string>

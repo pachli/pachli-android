@@ -36,10 +36,6 @@
     <string name="report_comment_hint">Дополнительные комментарии?</string>
     <string name="action_quick_reply">Быстрый ответ</string>
     <string name="action_compose">Сочинить</string>
-    <string name="action_follow">Подписаться</string>
-    <string name="action_unfollow">Отписаться</string>
-    <string name="action_block">Заблокировать</string>
-    <string name="action_unblock">Разблокировать</string>
     <string name="action_hide_reblogs">Скрыть продвижения</string>
     <string name="action_show_reblogs">Показать продвижения</string>
     <string name="action_report">Пожаловаться</string>
@@ -57,8 +53,6 @@
     <string name="action_add_media">Добавить медиа</string>
     <string name="action_photo_take">Сфотографировать</string>
     <string name="action_share">Поделиться</string>
-    <string name="action_mute">Заглушить</string>
-    <string name="action_unmute">Отменить глушение</string>
     <string name="action_mention">Упомянуть</string>
     <string name="action_hide_media">Скрыть медиа</string>
     <string name="action_open_drawer">Открыть черновик</string>
@@ -174,7 +168,6 @@
     <!-- note to translators: the url can be changed to link to the localized version of the license -->
     <string name="post_share_content">Поделиться содержанием гудка</string>
     <string name="post_share_link">Поделиться ссылкой на гудок</string>
-    <string name="state_follow_requested">Запрошенные подписки</string>
     <!--Отметки времени у постов: "16s" or "2d"-->
     <!--Оставшееся время в опросах -->
     <string name="follows_you">Подписан(а) на вас</string>
@@ -234,7 +227,6 @@
     <string name="hint_additional_info">Дополнительные комментарии</string>
     <string name="title_domain_mutes">Скрытые домены</string>
     <string name="action_view_domain_mutes">Скрытые области</string>
-    <string name="action_mute_domain">Заглушить %1$s</string>
     <string name="confirmation_domain_unmuted">%1$s показывается</string>
     <string name="mute_domain_warning">Вы уверены, что хотите заблокировать %1$s целиком\? Вы перестанете видеть посты из того домена во всех публичных лентах и уведомлениях. Все ваши подписчики из того домена будут удалены.</string>
     <string name="mute_domain_warning_dialog_ok">Скрыть домен целиком</string>
@@ -282,7 +274,6 @@
     <string name="add_hashtag_title">Добавить хэштэг</string>
     <string name="pref_title_gradient_for_media">Отображать цветные градиенты для скрытых изображений</string>
     <string name="pref_main_nav_position">Расположение панели навигации</string>
-    <string name="action_unmute_domain">Отменить глушение %1$s</string>
     <string name="dialog_mute_hide_notifications">Скрыть уведомления</string>
     <string name="action_unmute_desc">Разблокировать %1$s</string>
     <string name="account_note_saved">Сохранено!</string>

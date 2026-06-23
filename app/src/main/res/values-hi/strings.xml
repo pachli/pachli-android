@@ -7,10 +7,6 @@
     <string name="action_search">खोज</string>
     <string name="title_posts_with_replies">उत्तरों के साथ</string>
     <string name="title_followers">अनुगामी</string>
-    <string name="action_follow">फ़ॉलो</string>
-    <string name="action_unfollow">अनफ़ॉलो</string>
-    <string name="action_block">ब्लॉक</string>
-    <string name="action_unblock">अनब्लॉक</string>
     <string name="action_hide_reblogs">बूस्ट छिपाएं</string>
     <string name="action_show_reblogs">बूस्ट दिखाएं</string>
     <string name="action_report">रिपोर्ट करें</string>
@@ -110,10 +106,6 @@
     <string name="action_hide_media">मीडिया छिपाओ</string>
     <string name="action_mention">ज़िक्र</string>
     <string name="action_unmute_conversation">बातचीत को अनम्यूट करें</string>
-    <string name="action_unmute_domain">अनम्यूट %1$s</string>
-    <string name="action_unmute">अनम्यूट</string>
-    <string name="action_mute">म्यूट</string>
-    <string name="action_mute_domain">म्यूट %1$s</string>
     <string name="action_mute_conversation">बातचीत को म्यूट करें</string>
     <string name="action_share">शेयर</string>
     <string name="action_photo_take">फोटो खींचिए</string>
@@ -200,7 +192,6 @@
     <string name="pref_title_alway_show_sensitive_media">संवेदनशील विषय वस्तु</string>
     <string name="follows_you">आपको फॉलो करते है</string>
     <string name="pref_title_notification_filter_follow_requests">फ़ॉलो करने का अनुरोध किया</string>
-    <string name="state_follow_requested">फ़ॉलो करने का अनुरोध किया हुआ</string>
     <string name="post_share_link">टूट का लिंक साझा करें</string>
     <string name="post_share_content">टूट की विषय वस्तु साझा करें</string>
     <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; ने आपका जिक्र किया</string>

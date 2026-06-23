@@ -36,10 +36,6 @@
     <string name="report_comment_hint">コメント</string>
     <string name="action_quick_reply">クイック返信</string>
     <string name="action_compose">投稿する</string>
-    <string name="action_follow">フォローする</string>
-    <string name="action_unfollow">フォロー解除</string>
-    <string name="action_block">ブロック</string>
-    <string name="action_unblock">ブロック解除</string>
     <string name="action_hide_reblogs">ブーストを非表示</string>
     <string name="action_show_reblogs">ブーストを表示</string>
     <string name="action_report">通報</string>
@@ -57,8 +53,6 @@
     <string name="action_add_media">メディアを追加</string>
     <string name="action_photo_take">写真を撮る</string>
     <string name="action_share">共有</string>
-    <string name="action_mute">ミュート</string>
-    <string name="action_unmute">ミュート解除</string>
     <string name="action_mention">返信</string>
     <string name="action_hide_media">メディアを隠す</string>
     <string name="action_open_drawer">メニューを開く</string>
@@ -167,7 +161,6 @@
     -->
     <string name="post_share_content">投稿の内容を共有</string>
     <string name="post_share_link">投稿へのリンクを共有</string>
-    <string name="state_follow_requested">フォローリクエスト中</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">あなたをフォロー中</string>
     <string name="pref_title_alway_show_sensitive_media">閲覧注意のメディアを常に表示</string>
@@ -212,7 +205,6 @@
     <string name="notification_clear_text">すべての通知を完全に削除してよろしいですか？</string>
     <string name="title_domain_mutes">非表示のドメイン</string>
     <string name="action_view_domain_mutes">非表示のドメイン</string>
-    <string name="action_mute_domain">%1$sをミュート</string>
     <string name="pref_title_notification_filter_poll">投票の集計が完了した</string>
     <string name="notification_poll_name">投票</string>
     <string name="notification_poll_description">投票の集計が完了したときの通知</string>
@@ -271,7 +263,6 @@
     <string name="action_open_reblogger">ブーストしたユーザーを開く</string>
     <string name="action_unmute_conversation">会話のミュートを解除</string>
     <string name="action_mute_conversation">会話をミュート</string>
-    <string name="action_unmute_domain">%1$sのミュートを解除</string>
     <string name="pref_title_enable_swipe_for_tabs">タブ間の切り替えにスワイプのジェスチャーを有効化</string>
     <string name="pref_title_show_cards_in_timelines">リンクのプレビューをタイムラインに表示</string>
     <string name="pref_title_confirm_reblogs">ブーストする前に確認を表示</string>
