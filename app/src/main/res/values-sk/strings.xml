@@ -115,7 +115,6 @@
     <string name="pref_title_appearance_settings">Vzhľad</string>
     <string name="pref_default_post_language">Predvolený jazyk príspevku</string>
     <string name="label_header">Záhlavie</string>
-    <string name="action_mute">Stlmiť</string>
     <string name="pref_title_browser_settings">Prehliadač</string>
     <string name="title_public_local">Miestne</string>
     <string name="title_public_trending">Populárne</string>
@@ -161,7 +160,6 @@
     <string name="pref_title_bot_overlay">Zobraziť indikátor botov</string>
     <string name="notification_severed_relationships_unknown_body">Neznámy dôvod</string>
     <string name="notification_severed_relationships_account_suspension_body">Moderátor pozastavil účet</string>
-    <string name="action_unmute">Zrušiť stlmenie</string>
     <string name="action_unmute_desc">Zrušiť stlmenie %1$s</string>
     <string name="action_add_poll">Pridať anketu</string>
     <string name="action_unmute_conversation">Zrušiť stlmenie konverzácie</string>

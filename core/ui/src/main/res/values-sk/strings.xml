@@ -205,4 +205,6 @@
     <string name="action_block">Blokovať</string>
     <string name="action_mute_domain">Stlmiť %1$s</string>
     <string name="action_unmute_domain">Zrušiť stlmenie %1$s</string>
+    <string name="action_mute">Stlmiť</string>
+    <string name="action_unmute">Zrušiť stlmenie</string>
 </resources>

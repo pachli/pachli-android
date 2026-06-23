@@ -117,4 +117,6 @@
     <string name="action_block">ブロック</string>
     <string name="action_mute_domain">%1$sをミュート</string>
     <string name="action_unmute_domain">%1$sのミュートを解除</string>
+    <string name="action_mute">ミュート</string>
+    <string name="action_unmute">ミュート解除</string>
 </resources>

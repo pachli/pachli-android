@@ -205,4 +205,6 @@
     <string name="action_block">Bloquer</string>
     <string name="action_mute_domain">Masquer %1$s</string>
     <string name="action_unmute_domain">Ne plus masquer %1$s</string>
+    <string name="action_mute">Masquer</string>
+    <string name="action_unmute">Ne plus masquer</string>
 </resources>

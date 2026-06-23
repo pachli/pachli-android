@@ -141,4 +141,6 @@
     <string name="action_block">Bloquear</string>
     <string name="action_mute_domain">Acalar %1$s</string>
     <string name="action_unmute_domain">Reactivar %1$s</string>
+    <string name="action_mute">Acalar</string>
+    <string name="action_unmute">Desacalar</string>
 </resources>

@@ -108,8 +108,6 @@
     <string name="action_unmute_conversation">Petear net mear negearre</string>
     <string name="action_mute_conversation">Petear negearre</string>
     <string name="action_unmute_desc">%1$s net mear negearre</string>
-    <string name="action_unmute">Net mear negearre</string>
-    <string name="action_mute">Negearre</string>
     <string name="action_share">Diele</string>
     <string name="action_photo_take">Foto nimme</string>
     <string name="action_add_poll">Fragelist tafoegje</string>

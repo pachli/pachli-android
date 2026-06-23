@@ -58,8 +58,6 @@
     <string name="action_add_media">Aggiungi media</string>
     <string name="action_photo_take">Scatta foto</string>
     <string name="action_share">Condividi</string>
-    <string name="action_mute">Silenzia</string>
-    <string name="action_unmute">Smetti di silenziare</string>
     <string name="action_mention">Menzioni</string>
     <string name="action_hide_media">Nascondi media</string>
     <string name="action_open_drawer">Apri compositore</string>

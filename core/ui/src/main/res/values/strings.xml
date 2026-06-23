@@ -234,4 +234,6 @@
     <string name="action_block">Block</string>
     <string name="action_mute_domain">Mute %1$s</string>
     <string name="action_unmute_domain">Unmute %1$s</string>
+    <string name="action_mute">Mute</string>
+    <string name="action_unmute">Unmute</string>
 </resources>

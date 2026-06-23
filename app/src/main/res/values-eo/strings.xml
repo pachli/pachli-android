@@ -52,8 +52,6 @@
     <string name="action_add_media">Aldoni aŭdovidaĵon</string>
     <string name="action_photo_take">Foti</string>
     <string name="action_share">Konigi</string>
-    <string name="action_mute">Silentigi</string>
-    <string name="action_unmute">Malsilentigi</string>
     <string name="action_mention">Mencii</string>
     <string name="action_hide_media">Kaŝi aŭdovidaĵojn</string>
     <string name="action_open_drawer">Montri tirmenuon</string>

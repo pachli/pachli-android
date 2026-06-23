@@ -112,4 +112,6 @@
     <string name="action_block">Chặn</string>
     <string name="action_mute_domain">Ẩn %1$s</string>
     <string name="action_unmute_domain">Bỏ ẩn %1$s</string>
+    <string name="action_mute">Ẩn</string>
+    <string name="action_unmute">Bỏ ẩn</string>
 </resources>

@@ -143,4 +143,6 @@
     <string name="action_block">Blokkér</string>
     <string name="action_mute_domain">Demp %1$s</string>
     <string name="action_unmute_domain">Fjern demping av %1$s</string>
+    <string name="action_mute">Demp</string>
+    <string name="action_unmute">Fjern demping</string>
 </resources>

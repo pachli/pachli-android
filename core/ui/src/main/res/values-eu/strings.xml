@@ -107,4 +107,6 @@
     <string name="action_block">Blokeatu</string>
     <string name="action_mute_domain">Mututu %1$s</string>
     <string name="action_unmute_domain">Desmututu %1$s</string>
+    <string name="action_mute">Mututu</string>
+    <string name="action_unmute">Desmututu</string>
 </resources>

@@ -136,4 +136,6 @@
     <string name="action_block">Bac</string>
     <string name="action_mute_domain">Mùch %1$s</string>
     <string name="action_unmute_domain">Dì-mhùch %1$s</string>
+    <string name="action_mute">Mùch</string>
+    <string name="action_unmute">Dì-mhùch</string>
 </resources>

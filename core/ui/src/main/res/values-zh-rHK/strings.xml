@@ -114,4 +114,6 @@
     <string name="action_block">封鎖</string>
     <string name="action_mute_domain">靜音 %1$s</string>
     <string name="action_unmute_domain">取消靜音 %1$s</string>
+    <string name="action_mute">靜音</string>
+    <string name="action_unmute">取消靜音</string>
 </resources>

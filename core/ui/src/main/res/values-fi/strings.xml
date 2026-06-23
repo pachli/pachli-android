@@ -193,4 +193,6 @@
     <string name="action_block">Estä</string>
     <string name="action_mute_domain">Mykistä %1$s</string>
     <string name="action_unmute_domain">Poista mykistys verkkonimeltä %1$s</string>
+    <string name="action_mute">Mykistä</string>
+    <string name="action_unmute">Poista mykistys</string>
 </resources>

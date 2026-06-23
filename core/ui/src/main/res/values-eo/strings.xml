@@ -119,4 +119,6 @@
     <string name="action_block">Bloki</string>
     <string name="action_mute_domain">Silentigi %1$s</string>
     <string name="action_unmute_domain">Malsilentigi %1$s</string>
+    <string name="action_mute">Silentigi</string>
+    <string name="action_unmute">Malsilentigi</string>
 </resources>

@@ -120,4 +120,6 @@
     <string name="action_block">Engelle</string>
     <string name="action_mute_domain">%1$s alan adını sessize al</string>
     <string name="action_unmute_domain">%1$s alan adının sesini aç</string>
+    <string name="action_mute">Sessize al</string>
+    <string name="action_unmute">Sessizden çıkar</string>
 </resources>

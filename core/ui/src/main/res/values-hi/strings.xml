@@ -83,4 +83,6 @@
     <string name="action_block">ब्लॉक</string>
     <string name="action_mute_domain">म्यूट %1$s</string>
     <string name="action_unmute_domain">अनम्यूट %1$s</string>
+    <string name="action_mute">म्यूट</string>
+    <string name="action_unmute">अनम्यूट</string>
 </resources>

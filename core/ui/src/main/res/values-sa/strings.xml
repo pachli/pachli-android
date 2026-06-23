@@ -117,4 +117,6 @@
     <string name="action_block">अवरुध्यताम्</string>
     <string name="action_mute_domain">%1$s निःशब्दं क्रियताम्</string>
     <string name="action_unmute_domain">%1$s सशब्दं क्रियताम्</string>
+    <string name="action_mute">निःशब्दम्</string>
+    <string name="action_unmute">सशब्दम्</string>
 </resources>

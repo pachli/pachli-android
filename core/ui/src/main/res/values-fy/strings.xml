@@ -37,4 +37,6 @@
     <string name="action_block">Blokkearje</string>
     <string name="action_mute_domain">%1$s negearre</string>
     <string name="action_unmute_domain">%1$s net mear negearre</string>
+    <string name="action_mute">Negearre</string>
+    <string name="action_unmute">Net mear negearre</string>
 </resources>

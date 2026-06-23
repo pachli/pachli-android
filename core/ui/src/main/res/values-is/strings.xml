@@ -120,4 +120,6 @@
     <string name="action_block">Útiloka</string>
     <string name="action_mute_domain">Þagga niður í %1$s</string>
     <string name="action_unmute_domain">Afþagga %1$s</string>
+    <string name="action_mute">Þagga niður</string>
+    <string name="action_unmute">Ekki þagga</string>
 </resources>

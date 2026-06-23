@@ -21,4 +21,6 @@
     <string name="action_block">ဘလော့ခ်</string>
     <string name="action_mute_domain">%1$s အားကန့်သတ်မည်</string>
     <string name="action_unmute_domain">%1$s အားမကန့်သတ်တော့</string>
+    <string name="action_mute">ကန့်သတ်မည်</string>
+    <string name="action_unmute">မကန့်သတ်တော့</string>
 </resources>

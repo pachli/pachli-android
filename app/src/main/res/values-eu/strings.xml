@@ -49,8 +49,6 @@
     <string name="action_add_media">Multimedia erantsi</string>
     <string name="action_photo_take">Argazkia atera</string>
     <string name="action_share">Partekatu</string>
-    <string name="action_mute">Mututu</string>
-    <string name="action_unmute">Desmututu</string>
     <string name="action_mention">Aipatu</string>
     <string name="action_hide_media">Multimedia ezkutatu</string>
     <string name="action_open_drawer">Tiradera ireki</string>

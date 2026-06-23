@@ -163,4 +163,6 @@
     <string name="action_block">Blockera</string>
     <string name="action_mute_domain">Tysta %1$s</string>
     <string name="action_unmute_domain">Ta bort tystad %1$s</string>
+    <string name="action_mute">Tysta</string>
+    <string name="action_unmute">Ta bort tystade användare</string>
 </resources>

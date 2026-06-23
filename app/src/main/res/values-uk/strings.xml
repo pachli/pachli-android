@@ -44,7 +44,6 @@
     <string name="action_edit_own_profile">Змінити</string>
     <string name="action_save">Зберегти</string>
     <string name="action_mention">Згадати</string>
-    <string name="action_mute">Приховати</string>
     <string name="action_share">Поділитися</string>
     <string name="action_photo_take">Сфотографувати</string>
     <string name="action_add_poll">Додати опитування</string>
@@ -79,7 +78,6 @@
     <string name="notification_favourite_name">Вподобане</string>
     <string name="notification_follow_request_name">Запити на стеження</string>
     <string name="action_unmute_desc">Не приховувати %1$s</string>
-    <string name="action_unmute">Не приховувати</string>
     <string name="action_view_domain_mutes">Приховані домени</string>
     <string name="action_view_mutes">Приховувані користувачі</string>
     <string name="action_send_public">ПОШИРИТИ!</string>

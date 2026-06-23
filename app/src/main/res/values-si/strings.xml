@@ -92,7 +92,6 @@
     <string name="post_text_size_small">කුඩා</string>
     <string name="pref_title_alway_open_spoiler">අන්තර්ගත අවවාද සමඟ ඇති ටූට්ස් සැමවිටම විහිදන්න</string>
     <string name="action_undo">පෙරසේ</string>
-    <string name="action_mute">නිහඬ කරන්න</string>
     <string name="action_accept">පිළිගන්න</string>
     <string name="action_remove">ඉවත් කරන්න</string>
     <string name="action_add_media">මාධ්‍ය එකතු කරන්න</string>

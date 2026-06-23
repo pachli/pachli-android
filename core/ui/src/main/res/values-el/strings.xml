@@ -25,4 +25,6 @@
     <string name="action_block">Αποκλεισμός</string>
     <string name="action_mute_domain">Σίγαση του %1$s</string>
     <string name="action_unmute_domain">Άρση σίγασης του %1$s</string>
+    <string name="action_mute">Σίγαση</string>
+    <string name="action_unmute">Άρση σίγασης</string>
 </resources>

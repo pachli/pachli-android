@@ -52,8 +52,6 @@
     <string name="action_add_media">Přidat média</string>
     <string name="action_photo_take">Pořídit fotku</string>
     <string name="action_share">Sdílet</string>
-    <string name="action_mute">Skrýt</string>
-    <string name="action_unmute">Zrušit skrytí</string>
     <string name="action_mention">Zmínit</string>
     <string name="action_hide_media">Skrýt média</string>
     <string name="action_open_drawer">Otevřít menu</string>

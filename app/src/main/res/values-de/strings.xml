@@ -52,8 +52,6 @@
     <string name="action_add_media">Mediendateien hinzufügen</string>
     <string name="action_photo_take">Foto aufnehmen</string>
     <string name="action_share">Teilen</string>
-    <string name="action_mute">Stummschalten</string>
-    <string name="action_unmute">Stummschaltung aufheben</string>
     <string name="action_mention">Erwähnen</string>
     <string name="action_hide_media">Mediendateien ausblenden</string>
     <string name="action_open_drawer">Menü öffnen</string>

@@ -120,4 +120,6 @@
     <string name="action_block">Blocar</string>
     <string name="action_mute_domain">Rescondre %1$s</string>
     <string name="action_unmute_domain">Amagar pas mai a %1$s</string>
+    <string name="action_mute">Silenciar</string>
+    <string name="action_unmute">Quitar de silenciar</string>
 </resources>

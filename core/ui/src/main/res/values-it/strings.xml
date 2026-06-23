@@ -154,4 +154,6 @@
     <string name="action_block">Blocca</string>
     <string name="action_mute_domain">Silenzia %1$s</string>
     <string name="action_unmute_domain">Smetti di silenziare %1$s</string>
+    <string name="action_mute">Silenzia</string>
+    <string name="action_unmute">Smetti di silenziare</string>
 </resources>

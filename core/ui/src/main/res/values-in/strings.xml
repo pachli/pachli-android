@@ -184,4 +184,6 @@
     <string name="action_block">Blokir</string>
     <string name="action_mute_domain">Bisukan %1$s</string>
     <string name="action_unmute_domain">Batalkan bisukan %1$s</string>
+    <string name="action_mute">Bisukan</string>
+    <string name="action_unmute">Jangan bisukan</string>
 </resources>

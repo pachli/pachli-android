@@ -52,8 +52,6 @@
     <string name="action_add_media">Média csatolása</string>
     <string name="action_photo_take">Kép készítése</string>
     <string name="action_share">Megosztás</string>
-    <string name="action_mute">Némítás</string>
-    <string name="action_unmute">Némítás feloldása</string>
     <string name="action_mention">Megemlítés</string>
     <string name="action_hide_media">Média elrejtése</string>
     <string name="action_open_drawer">Menü megnyitása</string>

@@ -131,8 +131,6 @@
     <string name="action_add_poll">Lisa küsitlus</string>
     <string name="action_photo_take">Pildista</string>
     <string name="action_share">Jaga</string>
-    <string name="action_mute">Summuta</string>
-    <string name="action_unmute">Lõpeta summutamine</string>
     <string name="notification_report_format">Uus teatis: %1$s</string>
     <string name="action_unmute_desc">Lõpeta kasutaja %1$s summutamine</string>
     <string name="action_mute_conversation">Summuta vestlus</string>

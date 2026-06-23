@@ -58,8 +58,6 @@
     <string name="action_view_account_preferences">लेखाविन्यासाः</string>
     <string name="action_view_preferences">विन्यासाः</string>
     <string name="action_unmute_desc">%1$s सशब्दं क्रियताम्</string>
-    <string name="action_unmute">सशब्दम्</string>
-    <string name="action_mute">निःशब्दम्</string>
     <string name="action_share">विभाज्यताम्</string>
     <string name="action_photo_take">चित्रं गृह्यताम्</string>
     <string name="action_add_poll">मतदानं युज्यताम्</string>

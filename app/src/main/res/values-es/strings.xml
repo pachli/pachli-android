@@ -52,8 +52,6 @@
     <string name="action_add_media">Añadir multimedia</string>
     <string name="action_photo_take">Tomar foto</string>
     <string name="action_share">Compartir</string>
-    <string name="action_mute">Silenciar</string>
-    <string name="action_unmute">Dejar de silenciar</string>
     <string name="action_mention">Mencionar</string>
     <string name="action_hide_media">Ocultar multimedia</string>
     <string name="action_open_drawer">Abrir menu</string>

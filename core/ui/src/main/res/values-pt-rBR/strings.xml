@@ -130,4 +130,6 @@
     <string name="action_block">Bloquear</string>
     <string name="action_mute_domain">Bloquear %1$s</string>
     <string name="action_unmute_domain">Desbloquear %1$s</string>
+    <string name="action_mute">Silenciar</string>
+    <string name="action_unmute">Dessilenciar</string>
 </resources>

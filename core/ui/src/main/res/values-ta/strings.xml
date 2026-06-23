@@ -193,4 +193,6 @@
     <string name="action_block">தடை</string>
     <string name="action_mute_domain">முடக்கு %1$s</string>
     <string name="action_unmute_domain">இயக்க %1$s</string>
+    <string name="action_mute">ஒலி நீக்கு</string>
+    <string name="action_unmute">ஒலிக்க செய்</string>
 </resources>

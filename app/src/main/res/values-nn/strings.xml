@@ -98,8 +98,6 @@
     <string name="action_add_poll">Legg ved avstemming</string>
     <string name="action_photo_take">Ta bilete</string>
     <string name="action_share">Del</string>
-    <string name="action_mute">Demp</string>
-    <string name="action_unmute">Fjern demping</string>
     <string name="action_unmute_desc">Fjern dempinga på %1$s</string>
     <string name="action_mute_conversation">Demp samtale</string>
     <string name="action_unmute_conversation">Fjern dempinga på samtale</string>

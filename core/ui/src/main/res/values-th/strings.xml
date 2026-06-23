@@ -97,4 +97,6 @@
     <string name="action_block">บล็อก</string>
     <string name="action_mute_domain">ปิดเสียง %1$s</string>
     <string name="action_unmute_domain">เลิกปิดเสียง %1$s</string>
+    <string name="action_mute">ปิดเสียง</string>
+    <string name="action_unmute">เลิกปิดเสียง</string>
 </resources>

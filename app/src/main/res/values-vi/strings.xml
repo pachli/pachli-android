@@ -82,8 +82,6 @@
     <string name="action_mention">Nhắc tới</string>
     <string name="action_unmute_conversation">Mở lại thông báo</string>
     <string name="action_mute_conversation">Tắt thông báo</string>
-    <string name="action_unmute">Bỏ ẩn</string>
-    <string name="action_mute">Ẩn</string>
     <string name="action_share">Chia sẻ</string>
     <string name="action_photo_take">Chụp hình</string>
     <string name="action_add_poll">Tạo bình chọn</string>

@@ -52,8 +52,6 @@
     <string name="action_add_media">إضافة وسائط</string>
     <string name="action_photo_take">أخذ صورة</string>
     <string name="action_share">شارك</string>
-    <string name="action_mute">أكتم</string>
-    <string name="action_unmute">إلغاء الكتم</string>
     <string name="action_mention">أذكر</string>
     <string name="action_hide_media">إخفاء الوسائط</string>
     <string name="action_open_drawer">إفتح الدرج</string>

@@ -53,8 +53,6 @@
     <string name="action_add_media">從相簿中選擇</string>
     <string name="action_photo_take">拍照</string>
     <string name="action_share">分享</string>
-    <string name="action_mute">靜音</string>
-    <string name="action_unmute">取消靜音</string>
     <string name="action_mention">提及</string>
     <string name="action_hide_media">隱藏媒體檔案</string>
     <string name="action_open_drawer">打開應用抽屜</string>

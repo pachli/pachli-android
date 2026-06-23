@@ -153,8 +153,6 @@
     <string name="action_add_poll">Дадаць апытанне</string>
     <string name="action_photo_take">Зрабіць здымак</string>
     <string name="action_share">Абагуліць</string>
-    <string name="action_mute">Ігнараваць</string>
-    <string name="action_unmute">Скасаваць ігнараванне</string>
     <string name="action_unmute_desc">Скасаваць ігнараванне %1$s</string>
     <string name="action_mute_conversation">Ігнараваць размову</string>
     <string name="action_unmute_conversation">Паказаць размову</string>

@@ -52,8 +52,6 @@
     <string name="action_add_media">Medya ekle</string>
     <string name="action_photo_take">Fotoğraf çek</string>
     <string name="action_share">Paylaş</string>
-    <string name="action_mute">Sessize al</string>
-    <string name="action_unmute">Sessizden çıkar</string>
     <string name="action_mention">Bahset</string>
     <string name="action_hide_media">Medyayı gizle</string>
     <string name="action_open_drawer">Çekmece aç</string>

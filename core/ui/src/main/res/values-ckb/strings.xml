@@ -96,4 +96,6 @@
     <string name="action_block">بلۆک</string>
     <string name="action_mute_domain">بێدەنگکردن %1$s</string>
     <string name="action_unmute_domain">نابێدەنگ کردن %1$s</string>
+    <string name="action_mute">بێدەنگ</string>
+    <string name="action_unmute">بێدەنگی لابردن</string>
 </resources>

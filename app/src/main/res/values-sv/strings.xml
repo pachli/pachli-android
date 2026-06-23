@@ -52,8 +52,6 @@
     <string name="action_add_media">Lägg till media</string>
     <string name="action_photo_take">Ta foto</string>
     <string name="action_share">Dela</string>
-    <string name="action_mute">Tysta</string>
-    <string name="action_unmute">Ta bort tystade användare</string>
     <string name="action_mention">Omnämn</string>
     <string name="action_hide_media">Dölj media</string>
     <string name="action_open_drawer">Öppna låda</string>

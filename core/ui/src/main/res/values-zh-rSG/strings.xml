@@ -89,4 +89,6 @@
     <string name="action_unfollow">取消关注</string>
     <string name="state_follow_requested">已发送关注请求</string>
     <string name="action_block">屏蔽</string>
+    <string name="action_mute">隐藏</string>
+    <string name="action_unmute">取消隐藏</string>
 </resources>

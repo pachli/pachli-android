@@ -43,7 +43,6 @@
     <string name="action_add_media">Tambahkan media</string>
     <string name="action_photo_take">Ambil gambar</string>
     <string name="action_share">Bagikan</string>
-    <string name="action_mute">Bisukan</string>
     <string name="action_unmute_desc">Batalkan bisukan %1$s</string>
     <string name="action_unmute_conversation">Jangan bisukan percakapan</string>
     <string name="action_save">Simpan</string>
@@ -93,7 +92,6 @@
     <string name="title_announcements">Pengumuman</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; meminta untuk mengikuti Anda</string>
     <string name="action_delete_conversation">Hapus percakapan</string>
-    <string name="action_unmute">Jangan bisukan</string>
     <string name="action_mute_conversation">Bisukan percakapan</string>
     <string name="action_schedule_post">Jadwalkan Postingan</string>
     <string name="action_access_scheduled_posts">Postingan terjadwal</string>

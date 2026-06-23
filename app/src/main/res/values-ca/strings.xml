@@ -43,8 +43,6 @@
     <string name="action_add_media">Afegeix multimèdia</string>
     <string name="action_photo_take">Fes una foto</string>
     <string name="action_share">Comparteix</string>
-    <string name="action_mute">Silencia</string>
-    <string name="action_unmute">Deixa de silenciar</string>
     <string name="action_mention">Menciona</string>
     <string name="action_hide_media">Amaga el multimèdia</string>
     <string name="action_save">Desa</string>

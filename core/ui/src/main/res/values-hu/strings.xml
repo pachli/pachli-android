@@ -120,4 +120,6 @@
     <string name="action_block">Letiltás</string>
     <string name="action_mute_domain">%1$s némítása</string>
     <string name="action_unmute_domain">%1$s némításának feloldása</string>
+    <string name="action_mute">Némítás</string>
+    <string name="action_unmute">Némítás feloldása</string>
 </resources>

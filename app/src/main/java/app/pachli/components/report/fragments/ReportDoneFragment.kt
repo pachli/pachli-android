@@ -76,8 +76,8 @@ class ReportDoneFragment : Fragment(R.layout.fragment_report_done) {
                 is Loadable.Loaded<Boolean> -> {
                     binding.buttonMute.setText(
                         when (loadable.data) {
-                            true -> R.string.action_unmute
-                            false -> R.string.action_mute
+                            true -> app.pachli.core.ui.R.string.action_unmute
+                            false -> app.pachli.core.ui.R.string.action_mute
                         },
                     )
                     binding.buttonMute.isEnabled = true

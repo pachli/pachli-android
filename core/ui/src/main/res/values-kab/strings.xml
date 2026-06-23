@@ -92,4 +92,6 @@
     <string name="action_unfollow">Ur ṭṭafar ara</string>
     <string name="action_block">Cekkel</string>
     <string name="action_mute_domain">Sgugem %1$s</string>
+    <string name="action_mute">Sgugem</string>
+    <string name="action_unmute">Ur sgugum ara</string>
 </resources>

@@ -877,9 +877,9 @@ class AccountActivity :
 
             val mute = menu.findItem(R.id.action_mute)
             mute.title = if (muting) {
-                getString(R.string.action_unmute)
+                getString(app.pachli.core.ui.R.string.action_unmute)
             } else {
-                getString(R.string.action_mute)
+                getString(app.pachli.core.ui.R.string.action_mute)
             }
 
             viewModel.accountData.value.get()?.getOrNull()?.let { loadedAccount ->

@@ -21,7 +21,6 @@
     <string name="action_view_favourites">Ismenyifen</string>
     <string name="action_open_in_web">Ldi deg uminig</string>
     <string name="action_share">Bḍu</string>
-    <string name="action_mute">Sgugem</string>
     <string name="action_access_drafts">Irewwayen</string>
     <string name="action_open_faved_by">Sken-d ismenyifen</string>
     <string name="notification_favourite_name">Ismenyifen</string>
@@ -138,7 +137,6 @@
     <string name="action_quick_reply">Tiririt taruradt</string>
     <string name="action_hide_reblogs">Ffer beṭuyat</string>
     <string name="action_show_reblogs">Sken-d beṭuyat</string>
-    <string name="action_unmute">Ur sgugum ara</string>
     <string name="action_accept">Ddeg</string>
     <string name="action_open_reblogged_by">Sken-d beṭuyat</string>
     <string name="confirmation_unmuted">Aseqdac nni ur yettwasgugem ara tura</string>

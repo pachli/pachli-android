@@ -152,4 +152,6 @@
     <string name="action_block">Blocio</string>
     <string name="action_mute_domain">Tewi %1$s</string>
     <string name="action_unmute_domain">Dad-dewi %1$s</string>
+    <string name="action_mute">Tewi</string>
+    <string name="action_unmute">Dad-dewi</string>
 </resources>

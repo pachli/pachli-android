@@ -196,8 +196,6 @@
     <string name="action_mention">กล่าวถึง</string>
     <string name="action_unmute_conversation">เลิกปิดเสียงการสนทนา</string>
     <string name="action_mute_conversation">ปิดเสียงการสนทนานี้</string>
-    <string name="action_unmute">เลิกปิดเสียง</string>
-    <string name="action_mute">ปิดเสียง</string>
     <string name="action_share">แบ่งปัน</string>
     <string name="action_photo_take">ถ่ายภาพ</string>
     <string name="action_add_poll">เพิ่มโพล</string>

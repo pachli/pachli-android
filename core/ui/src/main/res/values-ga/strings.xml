@@ -224,4 +224,6 @@
     <string name="action_block">Bac</string>
     <string name="action_mute_domain">Balbhaigh %1$s</string>
     <string name="action_unmute_domain">Díbhalbhaigh %1$s</string>
+    <string name="action_mute">Balbhaigh</string>
+    <string name="action_unmute">Díbhalbhaigh</string>
 </resources>

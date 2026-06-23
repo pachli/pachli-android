@@ -120,4 +120,6 @@
     <string name="action_block">Bloca</string>
     <string name="action_mute_domain">Silenciar %1$s</string>
     <string name="action_unmute_domain">Deixar de silenciar %1$s</string>
+    <string name="action_mute">Silencia</string>
+    <string name="action_unmute">Deixa de silenciar</string>
 </resources>

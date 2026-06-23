@@ -53,8 +53,6 @@
     <string name="action_add_media">メディアを追加</string>
     <string name="action_photo_take">写真を撮る</string>
     <string name="action_share">共有</string>
-    <string name="action_mute">ミュート</string>
-    <string name="action_unmute">ミュート解除</string>
     <string name="action_mention">返信</string>
     <string name="action_hide_media">メディアを隠す</string>
     <string name="action_open_drawer">メニューを開く</string>

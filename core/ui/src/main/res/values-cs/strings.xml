@@ -121,4 +121,6 @@
     <string name="action_block">Blokovat</string>
     <string name="action_mute_domain">Skrýt doménu %1$s</string>
     <string name="action_unmute_domain">Zrušit skrytí domény %1$s</string>
+    <string name="action_mute">Skrýt</string>
+    <string name="action_unmute">Zrušit skrytí</string>
 </resources>

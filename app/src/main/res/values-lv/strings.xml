@@ -35,7 +35,6 @@
     <string name="action_share">Kopīgot</string>
     <string name="action_add_poll">Pievienot aptauju</string>
     <string name="action_photo_take">Uzņemt fotoattēlu</string>
-    <string name="action_mute">Apklusināt</string>
     <string name="action_edit_own_profile">Labot</string>
     <string name="action_accept">Pieņemt</string>
     <string name="action_reject">Noraidīt</string>
@@ -255,7 +254,6 @@
     <string name="action_mention">Pieminēt</string>
     <string name="pref_title_gradient_for_media">Rādīt krāsainas krāsu pārejas paslēptajiem informācijas nesējiem</string>
     <string name="pref_title_show_media_preview">Lejupielādēt informācijas nesēju priekšskatījumus</string>
-    <string name="action_unmute">Atcelt apklusināšanu</string>
     <string name="action_unmute_desc">Atcelt %1$s apklusināšanu</string>
     <string name="send_post_link_to">Kopīgot ieraksta URL…</string>
     <string name="confirmation_unmuted">Lietotāja apklusināšana atcelta</string>

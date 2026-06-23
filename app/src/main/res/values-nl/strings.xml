@@ -52,8 +52,6 @@
     <string name="action_add_media">Media toevoegen</string>
     <string name="action_photo_take">Foto maken</string>
     <string name="action_share">Delen</string>
-    <string name="action_mute">Negeren</string>
-    <string name="action_unmute">Niet langer negeren</string>
     <string name="action_mention">Vermelden</string>
     <string name="action_hide_media">Media verbergen</string>
     <string name="action_open_drawer">Menu openen</string>

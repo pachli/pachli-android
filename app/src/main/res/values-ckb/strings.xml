@@ -36,8 +36,6 @@
     <string name="action_mention">ئاماژە</string>
     <string name="action_unmute_conversation">گفتوگۆی لاببە</string>
     <string name="action_unmute_desc">نابێدەنگ %1$s</string>
-    <string name="action_unmute">بێدەنگی لابردن</string>
-    <string name="action_mute">بێدەنگ</string>
     <string name="action_share">هاوبەش کردن</string>
     <string name="action_photo_take">وێنە بگرە</string>
     <string name="action_add_poll">زیادکردنی ڕاپرسی</string>

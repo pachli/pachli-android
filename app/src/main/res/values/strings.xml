@@ -164,8 +164,6 @@
     <string name="action_add_poll">Add poll</string>
     <string name="action_photo_take">Take photo</string>
     <string name="action_share">Share</string>
-    <string name="action_mute">Mute</string>
-    <string name="action_unmute">Unmute</string>
     <string name="action_mute_hashtag">Mute #%1$s</string>
     <string name="action_unmute_hashtag">Unmute #%1$s</string>
     <string name="action_unmute_desc">Unmute %1$s</string>

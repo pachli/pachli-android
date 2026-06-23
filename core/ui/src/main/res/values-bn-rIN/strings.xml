@@ -103,4 +103,6 @@
     <string name="action_block">অবরুদ্ধ</string>
     <string name="action_mute_domain">নিঃশব্দ %1$s</string>
     <string name="action_unmute_domain">আনমিউট %1$s</string>
+    <string name="action_mute">শব্দ বন্ধ</string>
+    <string name="action_unmute">সশব্দ</string>
 </resources>

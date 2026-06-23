@@ -53,8 +53,6 @@
     <string name="action_add_media">Добавить медиа</string>
     <string name="action_photo_take">Сфотографировать</string>
     <string name="action_share">Поделиться</string>
-    <string name="action_mute">Заглушить</string>
-    <string name="action_unmute">Отменить глушение</string>
     <string name="action_mention">Упомянуть</string>
     <string name="action_hide_media">Скрыть медиа</string>
     <string name="action_open_drawer">Открыть черновик</string>

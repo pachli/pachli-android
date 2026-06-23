@@ -61,8 +61,6 @@
     <string name="action_add_poll">Bæta við könnun</string>
     <string name="action_photo_take">Taka ljósmynd</string>
     <string name="action_share">Deila</string>
-    <string name="action_mute">Þagga niður</string>
-    <string name="action_unmute">Ekki þagga</string>
     <string name="action_mention">Tilvísun</string>
     <string name="action_hide_media">Fela myndefni</string>
     <string name="action_open_drawer">Opna sleða</string>

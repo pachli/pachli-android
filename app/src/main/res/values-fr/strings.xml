@@ -52,8 +52,6 @@
     <string name="action_add_media">Ajouter un média</string>
     <string name="action_photo_take">Prendre une photo</string>
     <string name="action_share">Partager</string>
-    <string name="action_mute">Masquer</string>
-    <string name="action_unmute">Ne plus masquer</string>
     <string name="action_mention">Mentionner</string>
     <string name="action_hide_media">Cacher les médias</string>
     <string name="action_open_drawer">Ouvrir le menu</string>

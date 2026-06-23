@@ -87,8 +87,6 @@
     <string name="action_edit_own_profile">Muokkaa</string>
     <string name="action_save">Tallenna</string>
     <string name="action_mention">Mainitse</string>
-    <string name="action_unmute">Poista mykistys</string>
-    <string name="action_mute">Mykistä</string>
     <string name="action_share">Jaa</string>
     <string name="action_view_bookmarks">Kirjanmerkit</string>
     <string name="action_view_favourites">Suosikit</string>

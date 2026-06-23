@@ -123,4 +123,6 @@
     <string name="action_block">Blokkeren</string>
     <string name="action_mute_domain">%1$s negeren</string>
     <string name="action_unmute_domain">%1$s niet meer negeren</string>
+    <string name="action_mute">Negeren</string>
+    <string name="action_unmute">Niet langer negeren</string>
 </resources>

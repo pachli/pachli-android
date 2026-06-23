@@ -79,4 +79,5 @@
     <string name="action_unblock">අනවහිර</string>
     <string name="action_block">අවහිර</string>
     <string name="action_mute_domain">%1$s නිහඬ කරන්න</string>
+    <string name="action_mute">නිහඬ කරන්න</string>
 </resources>

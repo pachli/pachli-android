@@ -154,4 +154,6 @@
     <string name="action_block">قم بحظره</string>
     <string name="action_mute_domain">اكتم %1$s</string>
     <string name="action_unmute_domain">إلغاء كتم %1$s</string>
+    <string name="action_mute">أكتم</string>
+    <string name="action_unmute">إلغاء الكتم</string>
 </resources>

@@ -194,4 +194,6 @@
     <string name="action_block">Blockieren</string>
     <string name="action_mute_domain">%1$s stummschalten</string>
     <string name="action_unmute_domain">%1$s nicht mehr stummschalten</string>
+    <string name="action_mute">Stummschalten</string>
+    <string name="action_unmute">Stummschaltung aufheben</string>
 </resources>

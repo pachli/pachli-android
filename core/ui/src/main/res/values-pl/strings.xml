@@ -213,4 +213,6 @@
     <string name="action_block">Zablokuj</string>
     <string name="action_mute_domain">Wycisz %1$s</string>
     <string name="action_unmute_domain">Cofnij wyciszenie %1$s</string>
+    <string name="action_mute">Wycisz</string>
+    <string name="action_unmute">Cofnij wyciszenie</string>
 </resources>

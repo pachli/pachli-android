@@ -50,8 +50,6 @@
     <string name="action_add_media">Adicionar mídia</string>
     <string name="action_photo_take">Tirar foto</string>
     <string name="action_share">Compartilhar</string>
-    <string name="action_mute">Silenciar</string>
-    <string name="action_unmute">Dessilenciar</string>
     <string name="action_mention">Mencionar</string>
     <string name="action_hide_media">Ocultar mídia</string>
     <string name="action_open_drawer">Abrir menu</string>

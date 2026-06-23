@@ -180,8 +180,6 @@
     <string name="action_unmute_conversation">Раззаглушаване на разговор</string>
     <string name="action_mute_conversation">Заглушаване на разговор</string>
     <string name="action_unmute_desc">Раззаглушаване на %1$s</string>
-    <string name="action_unmute">Раззаглушаване</string>
-    <string name="action_mute">Заглушаване</string>
     <string name="action_share">Споделяне</string>
     <string name="action_photo_take">Снимане</string>
     <string name="action_add_poll">Добавяне на анкета</string>

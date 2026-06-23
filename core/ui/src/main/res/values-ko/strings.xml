@@ -89,4 +89,6 @@
     <string name="state_follow_requested">팔로우 요청함</string>
     <string name="action_block">차단</string>
     <string name="action_mute_domain">%1$s 전체를 숨김</string>
+    <string name="action_mute">뮤트</string>
+    <string name="action_unmute">뮤트 해제</string>
 </resources>
