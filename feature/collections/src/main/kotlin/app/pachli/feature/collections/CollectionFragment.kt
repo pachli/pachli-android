@@ -98,6 +98,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.andThen
 import com.github.michaelbull.result.map
 import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.mapError
@@ -112,9 +113,7 @@ import java.time.Duration
 import java.time.Instant
 import javax.inject.Inject
 import kotlin.math.roundToInt
-import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -200,7 +199,7 @@ class CollectionFragment :
 
         bind()
 
-        viewModel.accept(CollectionAction.GetCollection(pachliAccountId, collectionId))
+        viewModel.accept(UiAction.GetCollection(pachliAccountId, collectionId))
     }
 
     private fun bind() {
@@ -273,7 +272,7 @@ class CollectionFragment :
         result.onFailure {
             binding.messageView.show()
             binding.recyclerView.hide()
-            binding.messageView.setup(it) { viewModel.accept(CollectionAction.GetCollection(pachliAccountId, collectionId)) }
+            binding.messageView.setup(it) { viewModel.accept(UiAction.GetCollection(pachliAccountId, collectionId)) }
         }
 
         result.onSuccess {
@@ -301,7 +300,7 @@ class CollectionFragment :
 
     override fun onRefresh() {
         snackbar?.dismiss()
-        viewModel.accept(CollectionAction.GetCollection(pachliAccountId, collectionId))
+        viewModel.accept(UiAction.GetCollection(pachliAccountId, collectionId))
     }
 
     override fun onReselect() {
@@ -722,7 +721,13 @@ private object AccountInCollectionViewDataDiffer : DiffUtil.ItemCallback<Account
 }
 
 internal interface ICollectionViewModel {
-    sealed interface UiAction
+    sealed interface UiAction {
+        /** Get the most recent version of [collectionId] from the server. */
+        data class GetCollection(
+            val pachliAccountId: Long,
+            val collectionId: String,
+        ) : UiAction
+    }
 
     sealed interface NavigationAction : UiAction {
         data class ViewAccount(val accountId: String) : NavigationAction
@@ -737,12 +742,7 @@ internal interface ICollectionViewModel {
         val pachliAccountId: Long
         val collectionId: String
 
-        data class GetCollection(
-            override val pachliAccountId: Long,
-            override val collectionId: String,
-        ) : CollectionAction
-
-        /** Remove's the user from the collection. */
+        /** Remove the user from the collection. */
         data class Revoke(
             override val pachliAccountId: Long,
             override val collectionId: String,
@@ -764,9 +764,15 @@ internal interface ICollectionViewModel {
     sealed interface UiSuccess {
         val action: UiAction
 
+        data class Revoke(override val action: CollectionAction.Revoke) : UiSuccess
+
         data class FollowAccount(override val action: AccountAction.FollowAccount) : UiSuccess
 
         companion object {
+            fun from(action: CollectionAction) = when (action) {
+                is CollectionAction.Revoke -> Revoke(action)
+            }
+
             fun from(action: AccountAction) = when (action) {
                 is AccountAction.FollowAccount -> FollowAccount(action)
             }
@@ -791,19 +797,32 @@ internal interface ICollectionViewModel {
 
     sealed class UiError(
         @StringRes override val resourceId: Int,
-        open val action: AccountAction,
+        open val action: UiAction,
         override val cause: PachliError,
-        override val formatArgs: Array<out String>? = arrayOf(action.account.name),
+        override val formatArgs: Array<out String>? = null,
     ) : PachliError {
         @JvmInline
-        value class GetCollection(private val error: ICollectionsRepository.Error.GetCollection) : PachliError by error
+        value class GetCollection(private val error: PachliError) : PachliError by error
 
         data class FollowAccount(
             override val action: AccountAction.FollowAccount,
             override val cause: PachliError,
-        ) : UiError(app.pachli.core.ui.R.string.ui_error_follow_account_fmt, action, cause)
+        ) : UiError(
+            app.pachli.core.ui.R.string.ui_error_follow_account_fmt,
+            action,
+            cause,
+            arrayOf(action.account.name),
+        )
+
+        data class Revoke(
+            override val action: CollectionAction.Revoke,
+            override val cause: PachliError,
+        ) : UiError(R.string.ui_error_collection_revoke_fmt, action, cause)
 
         companion object {
+            fun make(error: PachliError, action: CollectionAction) = when (action) {
+                is CollectionAction.Revoke -> Revoke(action, error)
+            }
             fun make(error: UiError, action: AccountAction) = when (action) {
                 is AccountAction.FollowAccount -> FollowAccount(action, error)
             }
@@ -868,7 +887,7 @@ internal class CollectionViewModel @Inject constructor(
             .flowWhileShared(SharingStarted.WhileSubscribed(5000))
     }
 
-    private val collection = MutableStateFlow<Result<Loadable<Pair<Collection, List<Account>>>, ICollectionsRepository.Error.GetCollection>>(Ok(Loadable.Loading))
+    private val collection = MutableStateFlow<Result<Loadable<Pair<Collection, List<Account>>>, UiError.GetCollection>>(Ok(Loadable.Loading))
 
     /**
      * Map from [account IDs][app.pachli.core.model.ITimelineAccount.id] to the
@@ -915,11 +934,15 @@ internal class CollectionViewModel @Inject constructor(
                         isMember = members.firstOrNull { it.id == pachliAccount.accountId }?.id,
                     )
                 }
-            }.mapError { UiError.GetCollection(it) }
+            }
         }.flowWhileShared(SharingStarted.WhileSubscribed(5000))
     }
 
     init {
+        viewModelScope.launch {
+            uiAction.filterIsInstance<UiAction.GetCollection>().collect(::onGetCollection)
+        }
+
         viewModelScope.launch {
             uiAction.filterIsInstance<CollectionAction>().collect(::onCollectionAction)
         }
@@ -931,45 +954,48 @@ internal class CollectionViewModel @Inject constructor(
 
     private suspend fun onCollectionAction(action: CollectionAction) {
         when (action) {
-            is CollectionAction.GetCollection -> onGetCollection(action)
             is CollectionAction.Revoke -> onRevokeCollection(action)
         }
     }
 
-    private suspend fun onGetCollection(action: CollectionAction.GetCollection) = operationCounter {
+    /**
+     * Gets the most recent collection and relationship data, updating [collection]
+     * and [relationships].
+     */
+    private suspend fun onGetCollection(action: UiAction.GetCollection) = operationCounter {
         pachliAccountId.emit(action.pachliAccountId)
 
-        collection.emit(Ok(Loadable.Loading))
+        collection.update { Ok(Loadable.Loading) }
         collectionsRepository.getCollection(action.pachliAccountId, action.collectionId)
-            .onSuccess { (_, accounts) ->
-                relationshipsRepository.getRelationships(
-                    action.pachliAccountId,
-                    accounts.map { it.id },
-                ).onSuccess { relationships ->
-                    this.relationships.update { relationships.associateBy { it.id } }
-                }
+            .andThen { (collection, accounts) ->
+                relationshipsRepository.getRelationships(action.pachliAccountId, accounts.map { it.id })
+                    .map { Triple(collection, accounts, it) }
             }
-        collection.emit(
-            collectionsRepository.getCollection(action.pachliAccountId, action.collectionId)
-                .map { Loadable.Loaded(it) },
-        )
+            .mapError { UiError.GetCollection(it) }
+            .onSuccess { (collection, accounts, relationships) ->
+                this.relationships.update { relationships.associateBy { it.id } }
+                this.collection.update { Ok(Loadable.Loaded(Pair(collection, accounts))) }
+            }
+            .onFailure { this.collection.update { it } }
     }
 
     private suspend fun onRevokeCollection(action: CollectionAction.Revoke) = operationCounter {
-        Timber.d("onRevokeCollection")
         disabledAccountIds.update { it + action.accountId }
 
-        Timber.d("Pretending to revoke")
-        delay(5.seconds)
-
-        // onSuccess block
-        collection.update {
-            it.map {
-                it.mapLoaded { (collection, accounts) ->
-                    Pair(collection, accounts.filterNot { it.id == action.accountId })
+        val result = collectionsRepository.revokeFromCollection(action.pachliAccountId, action.collectionId, action.accountId).onSuccess {
+            collection.update {
+                it.map { loadable ->
+                    loadable.mapLoaded { (collection, accounts) ->
+                        Pair(collection, accounts.filterNot { it.id == action.accountId })
+                    }
                 }
             }
-        }
+        }.mapEither(
+            { UiSuccess.from(action) },
+            { UiError.make(it, action) },
+        )
+
+        _uiResult.send(result)
 
         disabledAccountIds.update { it - action.accountId }
     }

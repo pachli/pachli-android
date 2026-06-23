@@ -54,7 +54,7 @@
             <app.pachli.core.ui.BackgroundMessageView
                 android:id="@+id/messageView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:src="@android:color/transparent"
                 android:visibility="gone"
                 tools:src="@drawable/errorphant_error"
