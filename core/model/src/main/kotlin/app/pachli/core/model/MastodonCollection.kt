@@ -23,6 +23,17 @@ import java.time.Instant
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
+/**
+ * @property serverId
+ * @property accountId
+ * @property name
+ * @property description
+ * @property local
+ * @property sensitive
+ * @property discoverable
+ * @property createdAt
+ * @property updatedAt
+ */
 interface ICollection : Parcelable {
     val serverId: String
     val accountId: String

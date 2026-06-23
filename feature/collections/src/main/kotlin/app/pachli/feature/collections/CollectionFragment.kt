@@ -41,6 +41,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import app.pachli.core.activity.ReselectableFragment
+import app.pachli.core.activity.ViewUrlActivity
+import app.pachli.core.activity.extensions.TransitionKind
+import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -65,6 +68,8 @@ import app.pachli.core.model.Account
 import app.pachli.core.model.Collection
 import app.pachli.core.model.ICollection
 import app.pachli.core.model.Relationship
+import app.pachli.core.navigation.AccountActivityIntent
+import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.ui.LinkListener
@@ -78,6 +83,7 @@ import app.pachli.core.ui.extensions.contentDescription
 import app.pachli.core.ui.loadAvatar
 import app.pachli.feature.collections.ICollectionViewModel.AccountAction
 import app.pachli.feature.collections.ICollectionViewModel.CollectionViewData
+import app.pachli.feature.collections.ICollectionViewModel.NavigationAction
 import app.pachli.feature.collections.ICollectionViewModel.UiAction
 import app.pachli.feature.collections.ICollectionViewModel.UiError
 import app.pachli.feature.collections.ICollectionViewModel.UiSuccess
@@ -212,7 +218,35 @@ class CollectionFragment :
 
     private fun bindUiOptions(uiOptions: UiOptions) {}
 
-    private fun bindUiAction(uiAction: UiAction) {}
+    /** Process user actions. */
+    private fun bindUiAction(uiAction: UiAction) {
+        when (uiAction) {
+            is NavigationAction -> {
+                when (uiAction) {
+                    is NavigationAction.ViewAccount -> startActivityWithTransition(
+                        AccountActivityIntent(requireContext(), pachliAccountId, uiAction.accountId),
+                        TransitionKind.SLIDE_FROM_END,
+                    )
+
+                    is NavigationAction.ViewHashtag -> startActivityWithTransition(
+                        TimelineActivityIntent.hashtag(
+                            requireContext(),
+                            pachliAccountId,
+                            uiAction.hashtag,
+                        ),
+                        TransitionKind.SLIDE_FROM_END,
+                    )
+
+                    is NavigationAction.ViewUrl -> (requireActivity() as? ViewUrlActivity)?.viewUrl(
+                        pachliAccountId,
+                        uiAction.url,
+                    )
+                }
+            }
+
+            else -> viewModel.accept(uiAction)
+        }
+    }
 
     private fun bindCollection(result: Result<Loadable<CollectionViewData>, UiError.GetCollection>) {
         binding.swipeRefreshLayout.isRefreshing = false
@@ -335,8 +369,9 @@ internal class AccountViewHolder(
     private val glide: RequestManager,
     private val setContent: SetContent,
     private val accept: (UiAction) -> Unit,
-
 ) : RecyclerView.ViewHolder(binding.root) {
+    private lateinit var viewData: AccountViewData
+
     private val avatarRadius: Int
 
     /**
@@ -344,18 +379,22 @@ internal class AccountViewHolder(
      * navigation actions.
      */
     private val linkListener = object : LinkListener {
-        override fun onViewTag(tag: String) = accept(ICollectionViewModel.NavigationAction.ViewHashtag(tag))
-        override fun onViewAccount(id: String) = accept(ICollectionViewModel.NavigationAction.ViewAccount(id))
-        override fun onViewUrl(url: String) = accept(ICollectionViewModel.NavigationAction.ViewUrl(url))
+        override fun onViewTag(tag: String) = accept(NavigationAction.ViewHashtag(tag))
+        override fun onViewAccount(id: String) = accept(NavigationAction.ViewAccount(id))
+        override fun onViewUrl(url: String) = accept(NavigationAction.ViewUrl(url))
     }
 
     init {
         with(binding) {
+            accountNote.setOnClickListener { accept(NavigationAction.ViewAccount(viewData.account.id)) }
+            root.setOnClickListener { accept(NavigationAction.ViewAccount(viewData.account.id)) }
+
             avatarRadius = avatar.context.resources.getDimensionPixelSize(R.dimen.avatar_radius_48dp)
         }
     }
 
     fun bind(viewData: AccountViewData, animateEmojis: Boolean, animateAvatars: Boolean, showBotOverlay: Boolean, showPronouns: Boolean, linksToUnderline: Set<LinksToUnderline>) {
+        this.viewData = viewData
         val account = viewData.account
 
         Timber.d("relationship: ${viewData.relationship}")

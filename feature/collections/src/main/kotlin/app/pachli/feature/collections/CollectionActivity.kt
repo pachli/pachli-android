@@ -28,6 +28,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import app.pachli.core.activity.ViewUrlActivity
+import app.pachli.core.activity.extensions.TransitionKind
+import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -37,6 +39,7 @@ import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.getOrNull
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.ICollection
+import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.CollectionActivityIntent
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.ui.appbar.FadeChildScrollEffect
@@ -180,6 +183,19 @@ class CollectionActivity : ViewUrlActivity() {
 
     private fun bindCollection(collection: ICollection) {
         supportActionBar?.title = collection.name
+
+        binding.collectionInfoContainer.setOnClickListener {
+            startActivityWithTransition(
+                AccountActivityIntent(this, intent.pachliAccountId, collection.accountId),
+                TransitionKind.SLIDE_FROM_END,
+            )
+        }
+        binding.collectionDescription.setOnClickListener {
+            startActivityWithTransition(
+                AccountActivityIntent(this, intent.pachliAccountId, collection.accountId),
+                TransitionKind.SLIDE_FROM_END,
+            )
+        }
 
         // TODO: Make description clickable (links, mentions, hashtags)
         binding.collectionDescription.text = collection.description
