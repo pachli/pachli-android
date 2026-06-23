@@ -66,6 +66,7 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Account
 import app.pachli.core.model.Draft
 import app.pachli.core.model.Relationship
+import app.pachli.core.model.Relationship.FollowState
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AccountListActivityIntent
@@ -153,7 +154,7 @@ class AccountActivity :
 
     private lateinit var accountFieldAdapter: AccountFieldAdapter
 
-    private var followState: FollowState = FollowState.NOT_FOLLOWING
+    private var followState = FollowState.NOT_FOLLOWING
     private var blocking: Boolean = false
     private var muting: Boolean = false
     private var blockingDomain: Boolean = false
@@ -182,12 +183,6 @@ class AccountActivity :
     @Px
     private var titleVisibleHeight: Int = 0
     private lateinit var domain: String
-
-    private enum class FollowState {
-        NOT_FOLLOWING,
-        FOLLOWING,
-        REQUESTED,
-    }
 
     private lateinit var adapter: AccountPagerAdapter
 
@@ -727,11 +722,7 @@ class AccountActivity :
     }
 
     private fun onRelationshipChanged(relation: Relationship) {
-        followState = when {
-            relation.following -> FollowState.FOLLOWING
-            relation.requested -> FollowState.REQUESTED
-            else -> FollowState.NOT_FOLLOWING
-        }
+        followState = relation.followState
         blocking = relation.blocking
         muting = relation.muting
         blockingDomain = relation.blockingDomain
