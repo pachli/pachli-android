@@ -722,11 +722,7 @@ class AccountActivity :
     }
 
     private fun onRelationshipChanged(relation: Relationship) {
-        followState = when {
-            relation.following -> FollowState.FOLLOWING
-            relation.requested -> FollowState.REQUESTED
-            else -> FollowState.NOT_FOLLOWING
-        }
+        followState = relation.followState
         blocking = relation.blocking
         muting = relation.muting
         blockingDomain = relation.blockingDomain
