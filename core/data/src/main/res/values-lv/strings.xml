@@ -14,4 +14,5 @@
     <string name="server_repository_error_validate_node_info">%1$s mezgla informācijas pārbaude neizdevās: %2$s</string>
     <string name="server_repository_error_get_instance_info">/api/v1/instance iegūšana neizdevās: %1$s</string>
     <string name="server_repository_error_capabilities">servera spēju apstrāde neizdevās: %1$s</string>
+    <string name="server_repository_error_get_emojis">pieprasījums /api/v1/custom_emojis neizdevās: %1$s</string>
 </resources>
