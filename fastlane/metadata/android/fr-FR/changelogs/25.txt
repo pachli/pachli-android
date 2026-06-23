@@ -1,0 +1,16 @@
+Pachli 2.9.1
+
+Nouveautés :
+
+- Messages qui mentionnent un lien en tendance
+- Méthodes et URL des erreurs ApiResult
+- Norvégien Nynorsk
+
+Corrections :
+
+- Erreur de connexion "KeyStoreException : BKS not found"
+- Types de notification inconnus montrés
+- Mise à jour des éléments du tiroir principal
+- Changement de l'option "Montrer les partages"
+- Changements dans les avertissements de contenu
+- Mise à jour des traductions finnoise, irlandaise, norvégienne Nynorsk, espagnole et suédoise
