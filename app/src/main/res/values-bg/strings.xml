@@ -179,8 +179,6 @@
     <string name="action_mention">Споменаване</string>
     <string name="action_unmute_conversation">Раззаглушаване на разговор</string>
     <string name="action_mute_conversation">Заглушаване на разговор</string>
-    <string name="action_unmute_domain">Раззаглушаване на %1$s</string>
-    <string name="action_mute_domain">Заглушаване на %1$s</string>
     <string name="action_unmute_desc">Раззаглушаване на %1$s</string>
     <string name="action_unmute">Раззаглушаване</string>
     <string name="action_mute">Заглушаване</string>

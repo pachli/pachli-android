@@ -182,4 +182,6 @@
     <string name="action_unfollow">Berhenti Mengikuti</string>
     <string name="state_follow_requested">Ikuti yang diminta</string>
     <string name="action_block">Blokir</string>
+    <string name="action_mute_domain">Bisukan %1$s</string>
+    <string name="action_unmute_domain">Batalkan bisukan %1$s</string>
 </resources>

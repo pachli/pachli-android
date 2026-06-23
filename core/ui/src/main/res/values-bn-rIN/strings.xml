@@ -101,4 +101,6 @@
     <string name="action_unfollow">অনুসরণ করা বন্ধ করুন</string>
     <string name="state_follow_requested">অনুরোধ অনুসরণ করুন</string>
     <string name="action_block">অবরুদ্ধ</string>
+    <string name="action_mute_domain">নিঃশব্দ %1$s</string>
+    <string name="action_unmute_domain">আনমিউট %1$s</string>
 </resources>

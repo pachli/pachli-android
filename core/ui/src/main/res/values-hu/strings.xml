@@ -118,4 +118,6 @@
     <string name="action_unfollow">Követés vége</string>
     <string name="state_follow_requested">Követés kérelmezve</string>
     <string name="action_block">Letiltás</string>
+    <string name="action_mute_domain">%1$s némítása</string>
+    <string name="action_unmute_domain">%1$s némításának feloldása</string>
 </resources>

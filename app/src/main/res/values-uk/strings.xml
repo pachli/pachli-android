@@ -44,7 +44,6 @@
     <string name="action_edit_own_profile">Змінити</string>
     <string name="action_save">Зберегти</string>
     <string name="action_mention">Згадати</string>
-    <string name="action_mute_domain">Приховати %1$s</string>
     <string name="action_mute">Приховати</string>
     <string name="action_share">Поділитися</string>
     <string name="action_photo_take">Сфотографувати</string>
@@ -98,7 +97,6 @@
     <string name="action_open_reblogged_by">Показати поширення</string>
     <string name="pref_title_show_boosts">Показати поширення</string>
     <string name="pref_title_post_tabs">Вкладки</string>
-    <string name="action_unmute_domain">Не приховувати %1$s</string>
     <string name="action_toggle_visibility">Видимість дописів</string>
     <string name="wellbeing_mode_notice">Деякі відомості, які можуть вплинути на ваше психічний стан, буде приховано. Це включає:
 \n

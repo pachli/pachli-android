@@ -118,4 +118,6 @@
     <string name="action_unfollow">ناپیگیری</string>
     <string name="state_follow_requested">تقاضای پیگیری شد</string>
     <string name="action_block">انسداد</string>
+    <string name="action_mute_domain">خموشی %1$s</string>
+    <string name="action_unmute_domain">ناخموشی %1$s</string>
 </resources>

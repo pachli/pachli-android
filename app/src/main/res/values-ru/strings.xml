@@ -229,7 +229,6 @@
     <string name="hint_additional_info">Дополнительные комментарии</string>
     <string name="title_domain_mutes">Скрытые домены</string>
     <string name="action_view_domain_mutes">Скрытые области</string>
-    <string name="action_mute_domain">Заглушить %1$s</string>
     <string name="confirmation_domain_unmuted">%1$s показывается</string>
     <string name="mute_domain_warning">Вы уверены, что хотите заблокировать %1$s целиком\? Вы перестанете видеть посты из того домена во всех публичных лентах и уведомлениях. Все ваши подписчики из того домена будут удалены.</string>
     <string name="mute_domain_warning_dialog_ok">Скрыть домен целиком</string>
@@ -277,7 +276,6 @@
     <string name="add_hashtag_title">Добавить хэштэг</string>
     <string name="pref_title_gradient_for_media">Отображать цветные градиенты для скрытых изображений</string>
     <string name="pref_main_nav_position">Расположение панели навигации</string>
-    <string name="action_unmute_domain">Отменить глушение %1$s</string>
     <string name="dialog_mute_hide_notifications">Скрыть уведомления</string>
     <string name="action_unmute_desc">Разблокировать %1$s</string>
     <string name="account_note_saved">Сохранено!</string>

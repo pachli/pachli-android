@@ -45,8 +45,6 @@
     <string name="action_share">Bagikan</string>
     <string name="action_mute">Bisukan</string>
     <string name="action_unmute_desc">Batalkan bisukan %1$s</string>
-    <string name="action_mute_domain">Bisukan %1$s</string>
-    <string name="action_unmute_domain">Batalkan bisukan %1$s</string>
     <string name="action_unmute_conversation">Jangan bisukan percakapan</string>
     <string name="action_save">Simpan</string>
     <string name="action_edit_profile">Ubah profil</string>

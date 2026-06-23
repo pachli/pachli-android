@@ -63,7 +63,6 @@
     <string name="action_share">Deila</string>
     <string name="action_mute">Þagga niður</string>
     <string name="action_unmute">Ekki þagga</string>
-    <string name="action_mute_domain">Þagga niður í %1$s</string>
     <string name="action_mention">Tilvísun</string>
     <string name="action_hide_media">Fela myndefni</string>
     <string name="action_open_drawer">Opna sleða</string>
@@ -276,7 +275,6 @@
     <string name="dialog_block_warning">Loka á @%1$s\?</string>
     <string name="action_unmute_conversation">Hætta að þagga niður í samtali</string>
     <string name="action_mute_conversation">Þagga niður í samtali</string>
-    <string name="action_unmute_domain">Afþagga %1$s</string>
     <string name="action_unmute_desc">Afþagga %1$s</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; bað um að fylgjast með þér</string>
     <string name="title_announcements">Tilkynningar</string>

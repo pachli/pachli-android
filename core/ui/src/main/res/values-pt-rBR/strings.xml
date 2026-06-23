@@ -128,4 +128,6 @@
     <string name="action_unfollow">Deixar de seguir</string>
     <string name="state_follow_requested">Solicitação enviada</string>
     <string name="action_block">Bloquear</string>
+    <string name="action_mute_domain">Bloquear %1$s</string>
+    <string name="action_unmute_domain">Desbloquear %1$s</string>
 </resources>

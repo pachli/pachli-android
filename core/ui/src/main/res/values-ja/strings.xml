@@ -115,4 +115,6 @@
     <string name="action_unfollow">フォロー解除</string>
     <string name="state_follow_requested">フォローリクエスト中</string>
     <string name="action_block">ブロック</string>
+    <string name="action_mute_domain">%1$sをミュート</string>
+    <string name="action_unmute_domain">%1$sのミュートを解除</string>
 </resources>

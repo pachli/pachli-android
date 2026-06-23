@@ -198,7 +198,6 @@
     <string name="action_delete_and_redraft">Ezabatu eta zirriborroa berriro egin</string>
     <string name="action_view_domain_mutes">Ezkutuko domeinuak</string>
     <string name="action_add_poll">Galdeketa gehitu</string>
-    <string name="action_mute_domain">Mututu %1$s</string>
     <string name="action_access_scheduled_posts">Programatutako tutak</string>
     <string name="action_schedule_post">Tuta programatu</string>
     <string name="action_reset_schedule">Berrezarri</string>
@@ -282,7 +281,6 @@
     <string name="pref_title_gradient_for_media">Gradiente koloretsuak erakutsi ezkutuko mediaren lekuan</string>
     <string name="pref_title_notification_filter_follow_requests">jarraitzeko eskaera jasotzean</string>
     <string name="action_unmute_conversation">Elkarrizketa desmututu</string>
-    <string name="action_unmute_domain">Desmututu %1$s</string>
     <string name="review_notifications">Jakinarazpenak berrikusi</string>
     <string name="pref_title_confirm_favourites">Erakutsi baieztapen elkarrizketa-koadroa gogokoenetara gehitu aurretik</string>
     <string name="follow_requests_info">Zure kontua blokeatuta ez badago ere, %1$s-ko langileek kontu hauetako eskaerak eskuz berrikusi nahi dituzula pentsatu dute.</string>

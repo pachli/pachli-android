@@ -231,7 +231,6 @@
     <string name="action_open_reblogged_by">Mostrar impulsos</string>
     <string name="title_domain_mutes">Dominios ocultos</string>
     <string name="action_view_domain_mutes">Dominios ocultos</string>
-    <string name="action_mute_domain">Silenciar %1$s</string>
     <string name="confirmation_domain_unmuted">%1$s visible</string>
     <string name="mute_domain_warning">¿Confirmas que quieres bloquear todo %1$s? No verás contenido de ese dominio en ninguna cronología pública ni en tus notificaciones. Tus seguidores de ese dominio serán eliminados.</string>
     <string name="mute_domain_warning_dialog_ok">Ocultar dominio completo</string>
@@ -279,7 +278,6 @@
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; solicita seguirte</string>
     <string name="pref_main_nav_position">Posición de navegación principal</string>
     <string name="pref_title_gradient_for_media">Mostrar difuminados coloridos para la multimedia oculta</string>
-    <string name="action_unmute_domain">Dejar de silenciar %1$s</string>
     <string name="action_unmute_desc">Dejar de silenciar a %1$s</string>
     <string name="dialog_mute_hide_notifications">Ocultar notificaciones</string>
     <string name="pref_title_hide_top_toolbar">Ocultar el título de la barra de herramientas superior</string>

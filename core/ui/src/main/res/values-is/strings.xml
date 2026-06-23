@@ -118,4 +118,6 @@
     <string name="action_unfollow">Hætta að fylgjast með</string>
     <string name="state_follow_requested">Beðið um að fylgja</string>
     <string name="action_block">Útiloka</string>
+    <string name="action_mute_domain">Þagga niður í %1$s</string>
+    <string name="action_unmute_domain">Afþagga %1$s</string>
 </resources>

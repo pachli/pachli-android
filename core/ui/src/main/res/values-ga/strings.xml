@@ -222,4 +222,6 @@
     <string name="action_unfollow">Stop ag leanúint</string>
     <string name="state_follow_requested">Lean iarrtha</string>
     <string name="action_block">Bac</string>
+    <string name="action_mute_domain">Balbhaigh %1$s</string>
+    <string name="action_unmute_domain">Díbhalbhaigh %1$s</string>
 </resources>

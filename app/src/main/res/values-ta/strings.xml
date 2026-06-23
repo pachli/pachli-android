@@ -451,8 +451,6 @@
     <string name="pref_title_show_self_boosts">தன்வய பூச்ட்களைக் காட்டு</string>
     <string name="action_delete_and_redraft">நீக்கு மற்றும் மீண்டும் வரைவு</string>
     <string name="action_discard">மாற்றங்களை நிராகரிக்கவும்</string>
-    <string name="action_mute_domain">முடக்கு %1$s</string>
-    <string name="action_unmute_domain">இயக்க %1$s</string>
     <string name="action_mute_conversation">முடக்கு உரையாடல்</string>
     <string name="confirmation_hashtag_unmuted">#%1$s மறைநீக்கம்</string>
     <string name="dialog_mute_hide_notifications">அறிவிப்புகளை மறைக்கவும்</string>

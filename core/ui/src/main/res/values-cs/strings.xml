@@ -119,4 +119,6 @@
     <string name="action_unfollow">Přestat sledovat</string>
     <string name="state_follow_requested">Vyžádáno sledování</string>
     <string name="action_block">Blokovat</string>
+    <string name="action_mute_domain">Skrýt doménu %1$s</string>
+    <string name="action_unmute_domain">Zrušit skrytí domény %1$s</string>
 </resources>

@@ -232,7 +232,6 @@
     <string name="poll_ended_created">Eine Umfrage, die du erstellt hast, ist vorbei</string>
     <string name="title_domain_mutes">Ausgeblendete Domains</string>
     <string name="action_view_domain_mutes">Ausgeblendete Domains</string>
-    <string name="action_mute_domain">%1$s stummschalten</string>
     <string name="confirmation_domain_unmuted">%1$s nicht mehr ausgeblendet</string>
     <string name="mute_domain_warning">Bist du dir sicher, dass du alles von %1$s blockieren möchtest\? Du wirst keine Inhalte dieser Domain in irgendwelchen öffentlichen Timelines oder in deinen Benachrichtigungen sehen. Deine Follower von dieser Domain werden entfernt.</string>
     <string name="mute_domain_warning_dialog_ok">Gesamte Domain ausblenden</string>
@@ -282,7 +281,6 @@
     <string name="pref_title_show_cards_in_timelines">Linkvorschau in Timelines anzeigen</string>
     <string name="pref_title_enable_swipe_for_tabs">Wischgeste zum Wechseln zwischen Tabs aktivieren</string>
     <string name="pref_title_gradient_for_media">Farbverlauf für verborgene Medien anzeigen</string>
-    <string name="action_unmute_domain">%1$s nicht mehr stummschalten</string>
     <string name="pref_main_nav_position">Position der Hauptnavigation</string>
     <string name="dialog_mute_hide_notifications">Benachrichtigungen ausblenden</string>
     <string name="action_unmute_desc">%1$s nicht mehr stummschalten</string>

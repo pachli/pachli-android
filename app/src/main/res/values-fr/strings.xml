@@ -233,7 +233,6 @@
     <string name="poll_ended_voted">Un sondage auquel vous avez participé vient de se terminer</string>
     <string name="title_domain_mutes">Domaines cachés</string>
     <string name="action_view_domain_mutes">Domaines cachés</string>
-    <string name="action_mute_domain">Masquer %1$s</string>
     <string name="confirmation_domain_unmuted">%1$s n’est plus masqué·e</string>
     <string name="mute_domain_warning_dialog_ok">Masquer le domaine entier</string>
     <string name="button_back">Retour</string>
@@ -280,7 +279,6 @@
     <string name="add_hashtag_title">Ajouter un hashtag</string>
     <string name="pref_title_gradient_for_media">Afficher des dégradés en couleur pour les médias cachés</string>
     <string name="pref_main_nav_position">Position de navigation principale</string>
-    <string name="action_unmute_domain">Ne plus masquer %1$s</string>
     <string name="dialog_mute_hide_notifications">Cacher les notifications</string>
     <string name="action_unmute_desc">Ne plus masquer %1$s</string>
     <string name="pref_title_hide_top_toolbar">Cacher le titre de la barre d’outils supérieure</string>

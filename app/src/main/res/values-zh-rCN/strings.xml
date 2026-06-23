@@ -277,8 +277,6 @@
     <string name="mute_domain_warning">确定要完全屏蔽 %1$s 吗？您将不能在公共时间轴和通知内看见来自此域名的内容，且您在此域名上的关注者将会被移除。</string>
     <string name="action_unmute_conversation">取消隐藏会话</string>
     <string name="action_mute_conversation">隐藏会话</string>
-    <string name="action_unmute_domain">取消隐藏 %1$s</string>
-    <string name="action_mute_domain">隐藏 %1$s</string>
     <string name="action_unmute_desc">取消隐藏 %1$s</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; 请求关注你</string>
     <string name="pref_main_nav_position">导航栏位置</string>

@@ -94,4 +94,6 @@
     <string name="action_unfollow">بەدوادانەچو</string>
     <string name="state_follow_requested">بەدواداچوونەوەی داواکراو</string>
     <string name="action_block">بلۆک</string>
+    <string name="action_mute_domain">بێدەنگکردن %1$s</string>
+    <string name="action_unmute_domain">نابێدەنگ کردن %1$s</string>
 </resources>

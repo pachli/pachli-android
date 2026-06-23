@@ -203,4 +203,6 @@
     <string name="action_unfollow">Prestať sledovať</string>
     <string name="state_follow_requested">Sledovanie vyžiadané</string>
     <string name="action_block">Blokovať</string>
+    <string name="action_mute_domain">Stlmiť %1$s</string>
+    <string name="action_unmute_domain">Zrušiť stlmenie %1$s</string>
 </resources>

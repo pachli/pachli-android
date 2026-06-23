@@ -28,7 +28,6 @@
     <string name="title_notifications">Tilɣa</string>
     <string name="title_bookmarks">Ticraḍ</string>
     <string name="action_view_bookmarks">Ticraḍ</string>
-    <string name="action_mute_domain">Sgugem %1$s</string>
     <string name="action_mention">Bder</string>
     <string name="action_save">Sekles</string>
     <string name="action_edit_own_profile">Ẓreg</string>

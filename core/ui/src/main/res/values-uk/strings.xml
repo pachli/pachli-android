@@ -134,4 +134,6 @@
     <string name="action_unfollow">Відписатися</string>
     <string name="state_follow_requested">Запит на підписку надіслано</string>
     <string name="action_block">Заблокувати</string>
+    <string name="action_mute_domain">Приховати %1$s</string>
+    <string name="action_unmute_domain">Не приховувати %1$s</string>
 </resources>

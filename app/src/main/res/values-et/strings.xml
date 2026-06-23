@@ -135,8 +135,6 @@
     <string name="action_unmute">Lõpeta summutamine</string>
     <string name="notification_report_format">Uus teatis: %1$s</string>
     <string name="action_unmute_desc">Lõpeta kasutaja %1$s summutamine</string>
-    <string name="action_mute_domain">Summuta %1$s</string>
-    <string name="action_unmute_domain">Lõpeta %1$s domeeni summutamine</string>
     <string name="action_mute_conversation">Summuta vestlus</string>
     <string name="action_unmute_conversation">Lõpeta vestluse summutamine</string>
     <string name="action_mention">Maini</string>

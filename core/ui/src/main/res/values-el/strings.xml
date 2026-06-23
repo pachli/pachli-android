@@ -23,4 +23,6 @@
     <string name="action_follow">Ακολουθήστε</string>
     <string name="action_unfollow">Μην ακολουθείτε</string>
     <string name="action_block">Αποκλεισμός</string>
+    <string name="action_mute_domain">Σίγαση του %1$s</string>
+    <string name="action_unmute_domain">Άρση σίγασης του %1$s</string>
 </resources>

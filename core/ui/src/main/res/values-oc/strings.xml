@@ -118,4 +118,6 @@
     <string name="action_unfollow">Quitar de seguir</string>
     <string name="state_follow_requested">Demanda d’abonament</string>
     <string name="action_block">Blocar</string>
+    <string name="action_mute_domain">Rescondre %1$s</string>
+    <string name="action_unmute_domain">Amagar pas mai a %1$s</string>
 </resources>

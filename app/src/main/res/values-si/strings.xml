@@ -87,7 +87,6 @@
     <string name="pref_title_post_filter">කාලරේඛාව පෙරීම</string>
     <string name="conversation_more_recipients">%1$s, %2$s සහ තවත් %3$d</string>
     <string name="pref_title_timelines">කාලරේඛා</string>
-    <string name="action_mute_domain">%1$s නිහඬ කරන්න</string>
     <string name="download_media">මාධ්‍ය බාගන්න</string>
     <string name="action_view_domain_mutes">සැඟවුනු වසම්</string>
     <string name="post_text_size_small">කුඩා</string>

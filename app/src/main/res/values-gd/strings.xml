@@ -263,8 +263,6 @@
     <string name="action_mention">Iomradh</string>
     <string name="action_unmute_conversation">Dì-mhùch an còmhradh</string>
     <string name="action_mute_conversation">Mùch an còmhradh</string>
-    <string name="action_unmute_domain">Dì-mhùch %1$s</string>
-    <string name="action_mute_domain">Mùch %1$s</string>
     <string name="action_unmute">Dì-mhùch</string>
     <string name="action_mute">Mùch</string>
     <string name="action_share">Co-roinn</string>

@@ -190,7 +190,6 @@
     <string name="title_domain_mutes">Ukryte domeny</string>
     <string name="action_view_domain_mutes">Ukryte domeny</string>
     <string name="action_add_poll">Dodaj ankietę</string>
-    <string name="action_mute_domain">Wycisz %1$s</string>
     <string name="action_add_tab">Dodaj zakładkę</string>
     <string name="action_open_reblogger">Otwórz konto osoby podbijającej</string>
     <string name="action_open_reblogged_by">Pokaż podbicia</string>
@@ -277,7 +276,6 @@
     <string name="pref_title_show_cards_in_timelines">Pokazuj podglądy odnośników na osiach czasu</string>
     <string name="pref_title_gradient_for_media">Pokazuj kolorowe gradienty dla ukrytej zawartości multimedialnej</string>
     <string name="dialog_mute_hide_notifications">Ukryj powiadomienia</string>
-    <string name="action_unmute_domain">Cofnij wyciszenie %1$s</string>
     <string name="action_unmute_desc">Cofnij wyciszenie %1$s</string>
     <string name="pref_title_hide_top_toolbar">Ukryj tytuł górnego paska narzędzi</string>
     <plurals name="error_upload_max_media_reached">

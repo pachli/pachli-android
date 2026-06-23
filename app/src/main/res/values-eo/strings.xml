@@ -232,7 +232,6 @@
     <string name="poll_ended_created">Enketo, kiun vi kreis, finiĝis</string>
     <string name="title_domain_mutes">Kaŝitaj domajnoj</string>
     <string name="action_view_domain_mutes">Kaŝitaj domajnoj</string>
-    <string name="action_mute_domain">Silentigi %1$s</string>
     <string name="confirmation_domain_unmuted">%1$s malsilentigita</string>
     <string name="mute_domain_warning">Ĉu vi certas ke vi volas tute bloki %1$s\? Vi ne vidos enhavon de tiu domajno en publika tempolinio aŭ en viaj sciigoj. Viaj sekvantoj el tiu domajno estos forigitaj.</string>
     <string name="mute_domain_warning_dialog_ok">Kaŝi la tutan domajnon</string>
@@ -273,7 +272,6 @@
     <string name="dialog_block_warning">Ĉu bloki @%1$s\?</string>
     <string name="action_unmute_conversation">Malsilentigi la konversacion</string>
     <string name="action_mute_conversation">Silentigi la konversacion</string>
-    <string name="action_unmute_domain">Malsilentigi %1$s</string>
     <string name="action_unmute_desc">Malsilentigi %1$s</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; petis sekvi vin</string>
     <string name="title_announcements">Anoncoj</string>

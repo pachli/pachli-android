@@ -121,4 +121,6 @@
     <string name="action_unfollow">Ontvolgen</string>
     <string name="state_follow_requested">Volgverzoek verzonden</string>
     <string name="action_block">Blokkeren</string>
+    <string name="action_mute_domain">%1$s negeren</string>
+    <string name="action_unmute_domain">%1$s niet meer negeren</string>
 </resources>

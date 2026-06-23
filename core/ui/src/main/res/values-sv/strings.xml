@@ -161,4 +161,6 @@
     <string name="action_unfollow">Avfölj</string>
     <string name="state_follow_requested">Följarförfrågan</string>
     <string name="action_block">Blockera</string>
+    <string name="action_mute_domain">Tysta %1$s</string>
+    <string name="action_unmute_domain">Ta bort tystad %1$s</string>
 </resources>

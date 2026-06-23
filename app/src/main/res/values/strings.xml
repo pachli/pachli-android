@@ -169,8 +169,6 @@
     <string name="action_mute_hashtag">Mute #%1$s</string>
     <string name="action_unmute_hashtag">Unmute #%1$s</string>
     <string name="action_unmute_desc">Unmute %1$s</string>
-    <string name="action_mute_domain">Mute %1$s</string>
-    <string name="action_unmute_domain">Unmute %1$s</string>
     <string name="action_mute_conversation">Mute conversation</string>
     <string name="action_unmute_conversation">Unmute conversation</string>
     <string name="action_mention">Mention</string>

@@ -163,9 +163,7 @@
     <string name="notification_severed_relationships_account_suspension_body">Moderátor pozastavil účet</string>
     <string name="action_unmute">Zrušiť stlmenie</string>
     <string name="action_unmute_desc">Zrušiť stlmenie %1$s</string>
-    <string name="action_mute_domain">Stlmiť %1$s</string>
     <string name="action_add_poll">Pridať anketu</string>
-    <string name="action_unmute_domain">Zrušiť stlmenie %1$s</string>
     <string name="action_unmute_conversation">Zrušiť stlmenie konverzácie</string>
     <string name="action_emoji_keyboard">Emoji klávesnica</string>
     <string name="action_translate_undo">Vrátiť späť preklad</string>

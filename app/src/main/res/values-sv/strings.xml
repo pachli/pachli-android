@@ -232,7 +232,6 @@
     <string name="pref_title_animate_gif_avatars">Animera profil gifar</string>
     <string name="title_domain_mutes">Dolda domäner</string>
     <string name="action_view_domain_mutes">Dolda domäner</string>
-    <string name="action_mute_domain">Tysta %1$s</string>
     <string name="confirmation_domain_unmuted">%1$s inte tystad längre</string>
     <string name="mute_domain_warning">Är du säker på att du vill blockera allt från %1$s\? Du kommer inte kunna se något innehåll från denna domän i publika tidslinjer eller i dina notifieringar. Dina följare på domänen kommer inte att bli borttagna.</string>
     <string name="mute_domain_warning_dialog_ok">Dölj hela domänen</string>
@@ -279,7 +278,6 @@
     <string name="hashtags">Hashtaggar</string>
     <string name="pref_main_nav_position">Standard navigationsposition</string>
     <string name="pref_title_gradient_for_media">Visa färgglada gradienter för gömd media</string>
-    <string name="action_unmute_domain">Ta bort tystad %1$s</string>
     <string name="action_unmute_desc">Ta bort tystad %1$s</string>
     <string name="pref_title_hide_top_toolbar">Dölj titeln i övre verktygsfältet</string>
     <string name="dialog_mute_hide_notifications">Dölj aviseringar</string>

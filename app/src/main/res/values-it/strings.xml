@@ -238,7 +238,6 @@
     <string name="dialog_redraft_post_warning">Cancellare e riscrivere questo messaggio?</string>
     <string name="title_domain_mutes">Domini nascosti</string>
     <string name="action_view_domain_mutes">Domini nascosti</string>
-    <string name="action_mute_domain">Silenzia %1$s</string>
     <string name="confirmation_domain_unmuted">%1$s mostrati</string>
     <string name="mute_domain_warning">Sei sicuro di voler bloccare tutto %1$s? Non vedrai nessun contenuto da quel dominio in nessuna timeline pubblica o nelle tue notifiche. I tuoi seguaci che stanno in quel dominio saranno rimossi.</string>
     <string name="mute_domain_warning_dialog_ok">Nascondi l\'intero dominio</string>
@@ -279,7 +278,6 @@
     <string name="add_hashtag_title">Aggiungi hashtag</string>
     <string name="dialog_mute_warning">Silenziare @%1$s?</string>
     <string name="dialog_block_warning">Bloccare @%1$s?</string>
-    <string name="action_unmute_domain">Smetti di silenziare %1$s</string>
     <string name="action_unmute_conversation">Smetti di silenziare la conversazione</string>
     <string name="action_mute_conversation">Silenzia conversazione</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; ha chiesto di seguirti</string>

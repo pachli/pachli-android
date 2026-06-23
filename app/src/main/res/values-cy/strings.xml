@@ -193,7 +193,6 @@
     <string name="action_delete_and_redraft">Dileu ac ailddrafftio</string>
     <string name="action_view_account_preferences">Dewisiadau\'ch cyfrif</string>
     <string name="action_view_domain_mutes">Parthau cudd</string>
-    <string name="action_mute_domain">Tewi %1$s</string>
     <string name="action_add_tab">Ychwanegu tab</string>
     <string name="action_open_reblogged_by">Dangos hybiau</string>
     <string name="notification_follow_request_name">Ceisiadau i\'ch dilyn</string>
@@ -213,7 +212,6 @@
     <string name="notification_clear_text">Ydych chi\'n siŵr eich bod chi am glirio\'ch holl hysbysiadau\'n barhaol\?</string>
     <string name="error_following_hashtag_format">Gwall wrth ddilyn #%1$s</string>
     <string name="error_unfollowing_hashtag_format">Gwall wrth ddad-ddilyn #%1$s</string>
-    <string name="action_unmute_domain">Dad-dewi %1$s</string>
     <string name="notification_subscription_format">Postiodd &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="action_delete_conversation">Dileu\'r sgwrs</string>
     <string name="action_view_bookmarks">Tudalnodau</string>

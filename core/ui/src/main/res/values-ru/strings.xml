@@ -180,4 +180,6 @@
     <string name="action_unfollow">Отписаться</string>
     <string name="state_follow_requested">Запрошенные подписки</string>
     <string name="action_block">Заблокировать</string>
+    <string name="action_mute_domain">Заглушить %1$s</string>
+    <string name="action_unmute_domain">Отменить глушение %1$s</string>
 </resources>

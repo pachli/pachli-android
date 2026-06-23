@@ -57,7 +57,6 @@
     <string name="action_share">공유</string>
     <string name="action_mute">뮤트</string>
     <string name="action_unmute">뮤트 해제</string>
-    <string name="action_mute_domain">%1$s 전체를 숨김</string>
     <string name="action_mention">멘션</string>
     <string name="action_hide_media">미디어 숨기기</string>
     <string name="action_open_drawer">메뉴 열기</string>

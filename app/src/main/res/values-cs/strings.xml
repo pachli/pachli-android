@@ -233,7 +233,6 @@
     <string name="pref_title_animate_gif_avatars">Animovat GIF avatary</string>
     <string name="title_domain_mutes">Skryté domény</string>
     <string name="action_view_domain_mutes">Skryté domény</string>
-    <string name="action_mute_domain">Skrýt doménu %1$s</string>
     <string name="confirmation_domain_unmuted">Skrytí domény %1$s bylo zrušeno</string>
     <string name="mute_domain_warning">Jste si jistý/á, že chcete zablokovat vše z domény %1$s\? Z této domény neuvidíte obsah v žádné veřejné časové ose ani v oznámeních. Vaši sledující z této domény budou odstraněni.</string>
     <string name="mute_domain_warning_dialog_ok">Skrýt celou doménu</string>
@@ -277,7 +276,6 @@
     <string name="pref_main_nav_position">Umístění hlavní navigační lišty</string>
     <string name="hashtags">Hashtagy</string>
     <string name="dialog_block_warning">Zablokovat @%1$s\?</string>
-    <string name="action_unmute_domain">Zrušit skrytí domény %1$s</string>
     <string name="action_unmute_desc">Zrušit skrytí %1$s</string>
     <string name="dialog_mute_warning">Skrýt @%1$s\?</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; požádal/a aby vás mohl/a sledovat</string>

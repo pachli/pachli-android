@@ -81,4 +81,6 @@
     <string name="action_unfollow">अनफ़ॉलो</string>
     <string name="state_follow_requested">फ़ॉलो करने का अनुरोध किया हुआ</string>
     <string name="action_block">ब्लॉक</string>
+    <string name="action_mute_domain">म्यूट %1$s</string>
+    <string name="action_unmute_domain">अनम्यूट %1$s</string>
 </resources>

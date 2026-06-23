@@ -115,4 +115,6 @@
     <string name="action_unfollow">अनुसरणं अपाकुरुताम्</string>
     <string name="state_follow_requested">अनुसरणं निवेदितम्</string>
     <string name="action_block">अवरुध्यताम्</string>
+    <string name="action_mute_domain">%1$s निःशब्दं क्रियताम्</string>
+    <string name="action_unmute_domain">%1$s सशब्दं क्रियताम्</string>
 </resources>

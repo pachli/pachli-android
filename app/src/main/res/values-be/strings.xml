@@ -156,8 +156,6 @@
     <string name="action_mute">Ігнараваць</string>
     <string name="action_unmute">Скасаваць ігнараванне</string>
     <string name="action_unmute_desc">Скасаваць ігнараванне %1$s</string>
-    <string name="action_mute_domain">Ігнараваць %1$s</string>
-    <string name="action_unmute_domain">Адмяніць ігнараванне %1$s</string>
     <string name="action_mute_conversation">Ігнараваць размову</string>
     <string name="action_unmute_conversation">Паказаць размову</string>
     <string name="action_mention">Згадаць</string>

@@ -91,4 +91,5 @@
     <string name="action_follow">Ḍfeṛ</string>
     <string name="action_unfollow">Ur ṭṭafar ara</string>
     <string name="action_block">Cekkel</string>
+    <string name="action_mute_domain">Sgugem %1$s</string>
 </resources>

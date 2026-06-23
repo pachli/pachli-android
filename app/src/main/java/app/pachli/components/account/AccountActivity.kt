@@ -892,10 +892,10 @@ class AccountActivity :
                         menu.removeItem(R.id.action_mute_domain)
                     }
                     blockingDomain -> {
-                        muteDomain.title = getString(R.string.action_unmute_domain, domain)
+                        muteDomain.title = getString(app.pachli.core.ui.R.string.action_unmute_domain, domain)
                     }
                     else -> {
-                        muteDomain.title = getString(R.string.action_mute_domain, domain)
+                        muteDomain.title = getString(app.pachli.core.ui.R.string.action_mute_domain, domain)
                     }
                 }
             }

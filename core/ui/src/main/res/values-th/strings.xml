@@ -95,4 +95,6 @@
     <string name="action_unfollow">เลิกติดตาม</string>
     <string name="state_follow_requested">กำลังขอติดตาม</string>
     <string name="action_block">บล็อก</string>
+    <string name="action_mute_domain">ปิดเสียง %1$s</string>
+    <string name="action_unmute_domain">เลิกปิดเสียง %1$s</string>
 </resources>

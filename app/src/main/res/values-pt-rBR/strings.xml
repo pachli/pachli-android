@@ -241,7 +241,6 @@
     <string name="report_description_remote_instance">A conta está em outra instância. Enviar uma cópia anônima da denúncia para lá também?</string>
     <string name="title_domain_mutes">Instâncias ocultas</string>
     <string name="action_view_domain_mutes">Instâncias ocultas</string>
-    <string name="action_mute_domain">Bloquear %1$s</string>
     <string name="confirmation_domain_unmuted">%1$s reexibido</string>
     <string name="mute_domain_warning">Tem certeza de que deseja bloquear tudo de %1$s? Você não verá mais o conteúdo desta instância em nenhuma linha do tempo pública ou nas tuas notificações. Teus seguidores desta instância serão removidos.</string>
     <string name="mute_domain_warning_dialog_ok">Bloquear instância</string>
@@ -281,7 +280,6 @@
     <string name="pref_title_gradient_for_media">Desfocar mídia sensível</string>
     <string name="pref_main_nav_position">Posição do menu</string>
     <string name="dialog_mute_hide_notifications">Ocultar notificações</string>
-    <string name="action_unmute_domain">Desbloquear %1$s</string>
     <string name="action_unmute_desc">Dessilenciar %1$s</string>
     <string name="pref_title_hide_top_toolbar">Ocultar o título da barra superior de tarefas</string>
     <string name="notification_subscription_description">Notificações quando alguém que eu sigo publicar uma novo Toot</string>

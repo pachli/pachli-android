@@ -118,4 +118,6 @@
     <string name="action_unfollow">Deixa de seguir</string>
     <string name="state_follow_requested">Petició enviada</string>
     <string name="action_block">Bloca</string>
+    <string name="action_mute_domain">Silenciar %1$s</string>
+    <string name="action_unmute_domain">Deixar de silenciar %1$s</string>
 </resources>

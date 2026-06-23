@@ -134,4 +134,6 @@
     <string name="action_unfollow">Адпісацца</string>
     <string name="state_follow_requested">Запыт на падпіску</string>
     <string name="action_block">Заблакаваць</string>
+    <string name="action_mute_domain">Ігнараваць %1$s</string>
+    <string name="action_unmute_domain">Адмяніць ігнараванне %1$s</string>
 </resources>

@@ -200,7 +200,6 @@
     <string name="conversation_more_recipients">%1$s, %2$s ve %3$d dahası</string>
     <string name="title_domain_mutes">Gizli alan adları</string>
     <string name="action_view_domain_mutes">Gizli alan adları</string>
-    <string name="action_mute_domain">%1$s alan adını sessize al</string>
     <string name="action_open_faved_by">Gözdeleri göster</string>
     <string name="download_media">Medya indir</string>
     <string name="downloading_media">Medya indiriliyor</string>
@@ -273,7 +272,6 @@
     <string name="dialog_mute_hide_notifications">Bildirimleri gizle</string>
     <string name="dialog_mute_warning">\@%1$s sessize al\?</string>
     <string name="dialog_block_warning">\@%1$s engellensin mi\?</string>
-    <string name="action_unmute_domain">%1$s alan adının sesini aç</string>
     <string name="action_unmute_desc">%1$s sesini aç</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; seni takip etmek istiyor</string>
     <string name="action_unmute_conversation">Sohbetin sesini aç</string>

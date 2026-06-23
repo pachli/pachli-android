@@ -82,7 +82,6 @@
     <string name="action_mention">Nhắc tới</string>
     <string name="action_unmute_conversation">Mở lại thông báo</string>
     <string name="action_mute_conversation">Tắt thông báo</string>
-    <string name="action_mute_domain">Ẩn %1$s</string>
     <string name="action_unmute">Bỏ ẩn</string>
     <string name="action_mute">Ẩn</string>
     <string name="action_share">Chia sẻ</string>
@@ -273,7 +272,6 @@
     <string name="filter_dialog_whole_word_description">Chỉ có tác dụng nếu cụm từ là chữ-số trùng khớp, viết liền không dấu cách</string>
     <string name="dialog_mute_hide_notifications">Ẩn thông báo</string>
     <string name="action_unmute_desc">Bỏ ẩn %1$s</string>
-    <string name="action_unmute_domain">Bỏ ẩn %1$s</string>
     <string name="pref_title_hide_top_toolbar">Ẩn tiêu đề tab</string>
     <string name="account_note_saved">Đã lưu!</string>
     <string name="account_note_hint">Ghi chú về người này</string>

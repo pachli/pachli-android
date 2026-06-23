@@ -185,4 +185,6 @@
     <string name="action_unfollow">Avfylg</string>
     <string name="state_follow_requested">Fylgjeførespurnad send</string>
     <string name="action_block">Blokker</string>
+    <string name="action_mute_domain">Demp %1$s</string>
+    <string name="action_unmute_domain">Fjern dempinga på %1$s</string>
 </resources>

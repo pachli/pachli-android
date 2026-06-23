@@ -16,8 +16,6 @@
     <string name="action_mention">Mencionar</string>
     <string name="action_unmute_conversation">Reactivar conversa</string>
     <string name="action_mute_conversation">Acalar conversa</string>
-    <string name="action_unmute_domain">Reactivar %1$s</string>
-    <string name="action_mute_domain">Acalar %1$s</string>
     <string name="action_unmute_desc">Reactivar %1$s</string>
     <string name="action_unmute">Desacalar</string>
     <string name="action_mute">Acalar</string>

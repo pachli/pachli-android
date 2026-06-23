@@ -208,7 +208,6 @@
     <string name="filter_add_description">Szűrendő kifejezés</string>
     <string name="title_domain_mutes">Rejtett domainek</string>
     <string name="action_view_domain_mutes">Rejtett domainek</string>
-    <string name="action_mute_domain">%1$s némítása</string>
     <string name="action_open_reblogger">Megtolás szerkesztő megnyitása</string>
     <string name="action_open_reblogged_by">Megtolások mutatása</string>
     <string name="confirmation_domain_unmuted">%1$s elrejtése feloldva</string>
@@ -279,7 +278,6 @@
     <string name="dialog_mute_warning">Elnémítsuk @%1$s fiókot\?</string>
     <string name="action_unmute_conversation">Beszélgetés némításának feloldása</string>
     <string name="action_mute_conversation">Beszélgetés némítása</string>
-    <string name="action_unmute_domain">%1$s némításának feloldása</string>
     <string name="action_unmute_desc">%1$s némításának feloldása</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; kéri, hogy követhessen</string>
     <string name="pref_title_hide_top_toolbar">Felső eszköztár címének elrejtése</string>

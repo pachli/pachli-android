@@ -192,4 +192,6 @@
     <string name="action_unfollow">Lõpeta jälgimine</string>
     <string name="state_follow_requested">Oled saanud jälgimispäringu</string>
     <string name="action_block">Blokeeri</string>
+    <string name="action_mute_domain">Summuta %1$s</string>
+    <string name="action_unmute_domain">Lõpeta %1$s domeeni summutamine</string>
 </resources>

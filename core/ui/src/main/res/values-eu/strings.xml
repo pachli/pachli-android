@@ -105,4 +105,6 @@
     <string name="action_unfollow">Jarraitzeari utzi</string>
     <string name="state_follow_requested">Eskaera bidalita</string>
     <string name="action_block">Blokeatu</string>
+    <string name="action_mute_domain">Mututu %1$s</string>
+    <string name="action_unmute_domain">Desmututu %1$s</string>
 </resources>

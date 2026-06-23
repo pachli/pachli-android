@@ -94,8 +94,6 @@
     <string name="action_mention">उल्लिख्यताम्</string>
     <string name="action_unmute_conversation">सशब्द आलापः क्रियताम्</string>
     <string name="action_mute_conversation">तूष्णीमालापः क्रियताम्</string>
-    <string name="action_unmute_domain">%1$s सशब्दं क्रियताम्</string>
-    <string name="action_mute_domain">%1$s निःशब्दं क्रियताम्</string>
     <string name="confirmation_unmuted">भोक्ता सशब्दः कृतः</string>
     <string name="confirmation_unblocked">निरवरोधः कृतः</string>
     <string name="confirmation_reported">प्रेषितम्!</string>

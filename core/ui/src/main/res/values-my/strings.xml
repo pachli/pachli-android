@@ -19,4 +19,6 @@
     <string name="action_follow">စောင့်ကြည့်မည်</string>
     <string name="action_unfollow">မစောင့်ကြည့်တော့ပါ</string>
     <string name="action_block">ဘလော့ခ်</string>
+    <string name="action_mute_domain">%1$s အားကန့်သတ်မည်</string>
+    <string name="action_unmute_domain">%1$s အားမကန့်သတ်တော့</string>
 </resources>

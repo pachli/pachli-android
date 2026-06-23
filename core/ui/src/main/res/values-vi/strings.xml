@@ -110,4 +110,6 @@
     <string name="action_unfollow">Bỏ theo dõi</string>
     <string name="state_follow_requested">Yêu cầu theo dõi</string>
     <string name="action_block">Chặn</string>
+    <string name="action_mute_domain">Ẩn %1$s</string>
+    <string name="action_unmute_domain">Bỏ ẩn %1$s</string>
 </resources>

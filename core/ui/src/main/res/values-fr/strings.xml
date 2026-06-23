@@ -203,4 +203,6 @@
     <string name="action_unfollow">Ne plus suivre</string>
     <string name="state_follow_requested">Demande d’abonnement effectuée</string>
     <string name="action_block">Bloquer</string>
+    <string name="action_mute_domain">Masquer %1$s</string>
+    <string name="action_unmute_domain">Ne plus masquer %1$s</string>
 </resources>

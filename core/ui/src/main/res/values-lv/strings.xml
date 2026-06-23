@@ -202,4 +202,6 @@
     <string name="action_unfollow">Pārtraukt sekošanu</string>
     <string name="state_follow_requested">Sekošana pieprasīta</string>
     <string name="action_block">Liegt</string>
+    <string name="action_mute_domain">Apklusināt %1$s</string>
+    <string name="action_unmute_domain">Atcelt %1$s apklusināšanu</string>
 </resources>

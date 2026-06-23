@@ -211,4 +211,6 @@
     <string name="action_unfollow">Przestań obserwować</string>
     <string name="state_follow_requested">Wysłano prośbę o obserwację</string>
     <string name="action_block">Zablokuj</string>
+    <string name="action_mute_domain">Wycisz %1$s</string>
+    <string name="action_unmute_domain">Cofnij wyciszenie %1$s</string>
 </resources>

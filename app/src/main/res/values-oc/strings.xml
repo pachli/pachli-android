@@ -240,7 +240,6 @@
     <string name="report_description_remote_instance">Aqueste compte es en un autre servidor. Enviar una còpia anonimizada del senhalament \?</string>
     <string name="title_domain_mutes">Domenis resconduts</string>
     <string name="action_view_domain_mutes">Domenis resconduts</string>
-    <string name="action_mute_domain">Rescondre %1$s</string>
     <string name="confirmation_domain_unmuted">%1$s es pas mai rescondut</string>
     <string name="mute_domain_warning">Volètz vertadièrament blocar complètament %1$s \? Veiretz pas mai de contengut venent d’aqueste domeni, nimai los flux d’actualitat o las notificacion. Vòstres seguidors d’aqueste domeni seràn tirats.</string>
     <string name="mute_domain_warning_dialog_ok">Rescondre tot lo domeni</string>
@@ -293,7 +292,6 @@
     <string name="dialog_mute_hide_notifications">Amagar las notificacions</string>
     <string name="action_unmute_conversation">Amagar pas mai la conversacion</string>
     <string name="action_mute_conversation">Amagar la conversacion</string>
-    <string name="action_unmute_domain">Amagar pas mai a %1$s</string>
     <string name="action_delete_conversation">Suprimir la conversacion</string>
     <string name="title_announcements">Anóncias</string>
     <plurals name="error_upload_max_media_reached">

@@ -191,4 +191,6 @@
     <string name="action_unfollow">பின்பற்றாதே</string>
     <string name="state_follow_requested">கோரிக்கையைப் பின்பற்றவும்</string>
     <string name="action_block">தடை</string>
+    <string name="action_mute_domain">முடக்கு %1$s</string>
+    <string name="action_unmute_domain">இயக்க %1$s</string>
 </resources>

@@ -117,4 +117,6 @@
     <string name="action_unfollow">Ne plu sekvi</string>
     <string name="state_follow_requested">Sekvado petita</string>
     <string name="action_block">Bloki</string>
+    <string name="action_mute_domain">Silentigi %1$s</string>
+    <string name="action_unmute_domain">Malsilentigi %1$s</string>
 </resources>

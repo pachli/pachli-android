@@ -232,4 +232,6 @@
     <string name="action_unfollow">Unfollow</string>
     <string name="state_follow_requested">Follow requested</string>
     <string name="action_block">Block</string>
+    <string name="action_mute_domain">Mute %1$s</string>
+    <string name="action_unmute_domain">Unmute %1$s</string>
 </resources>

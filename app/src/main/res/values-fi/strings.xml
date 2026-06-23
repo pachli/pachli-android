@@ -127,7 +127,6 @@
     <string name="report_username_format">Ilmianna @%1$s</string>
     <string name="report_comment_hint">Lisähuomautuksia\?</string>
     <string name="error_media_upload_permission">Tiedostojen lähettäminen vaatii lukuoikeuden.</string>
-    <string name="action_unmute_domain">Poista mykistys verkkonimeltä %1$s</string>
     <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; on maininnut sinut</string>
     <string name="error_media_upload_opening">Tiedoston lataaminen epäonnistui.</string>
     <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; jakoi julkaisusi</string>
@@ -135,7 +134,6 @@
     <string name="action_unmute_conversation">Poista keskustelun mykistys</string>
     <string name="download_image">Ladataan kuvaa %1$s</string>
     <string name="action_mute_conversation">Mykistä keskustelu</string>
-    <string name="action_mute_domain">Mykistä %1$s</string>
     <string name="action_view_domain_mutes">Piilotetut verkkonimet</string>
     <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; lisäsi julkaisusi suosikkeihinsa</string>
     <string name="action_open_reblogged_by">Näytä jaot</string>

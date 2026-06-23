@@ -101,8 +101,6 @@
     <string name="action_mute">Demp</string>
     <string name="action_unmute">Fjern demping</string>
     <string name="action_unmute_desc">Fjern dempinga på %1$s</string>
-    <string name="action_mute_domain">Demp %1$s</string>
-    <string name="action_unmute_domain">Fjern dempinga på %1$s</string>
     <string name="action_mute_conversation">Demp samtale</string>
     <string name="action_unmute_conversation">Fjern dempinga på samtale</string>
     <string name="action_mention">Nemn</string>
