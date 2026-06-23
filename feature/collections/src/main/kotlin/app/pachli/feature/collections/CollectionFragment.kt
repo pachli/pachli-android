@@ -28,6 +28,7 @@ import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
+import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -81,6 +82,7 @@ import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.extensions.contentDescription
 import app.pachli.core.ui.loadAvatar
+import app.pachli.feature.collections.AccountViewHolder.ChangePayload
 import app.pachli.feature.collections.ICollectionViewModel.AccountAction
 import app.pachli.feature.collections.ICollectionViewModel.CollectionViewData
 import app.pachli.feature.collections.ICollectionViewModel.NavigationAction
@@ -333,6 +335,18 @@ internal class CollectionAccountsAdapter(
         return AccountViewHolder(binding, glide, setContent, accept)
     }
 
+    override fun onBindViewHolder(holder: AccountViewHolder, position: Int, payloads: List<Any?>) {
+        if (payloads.isEmpty()) {
+            onBindViewHolder(holder, position)
+        } else {
+            payloads.filterIsInstance<ChangePayload>().forEach { payload ->
+                when (payload) {
+                    is ChangePayload.IsEnabled -> holder.bindIsEnabled(payload.isEnabled)
+                }
+            }
+        }
+    }
+
     override fun onBindViewHolder(holder: AccountViewHolder, position: Int) {
         holder.bind(
             currentList[position],
@@ -374,6 +388,10 @@ internal class AccountViewHolder(
 
     private val avatarRadius: Int
 
+    internal sealed interface ChangePayload {
+        data class IsEnabled(val isEnabled: Boolean) : ChangePayload
+    }
+
     /**
      * Link listener for [setClickableText] that generates the appropriate
      * navigation actions.
@@ -409,7 +427,7 @@ internal class AccountViewHolder(
             bindShowBotOverlay(viewData, showBotOverlay)
             bindShowPronouns(viewData, showPronouns)
             bindPostStatistics(viewData)
-//            bindIsEnabled(viewData.isEnabled)
+            bindIsEnabled(viewData.isEnabled)
 
             // Bind the controls
             //
@@ -436,6 +454,12 @@ internal class AccountViewHolder(
             // and let RecyclerView ask for a new delegate.
             root.accessibilityDelegate = null
         }
+    }
+
+    /** Enables or disables all views depending on [isEnabled]. */
+    fun bindIsEnabled(isEnabled: Boolean) = with(binding) {
+        (root as? ViewGroup)?.children?.forEach { it.isEnabled = isEnabled }
+        root.isEnabled = isEnabled
     }
 
     /** Binds the avatar image, respecting [animateAvatars]. */
@@ -661,8 +685,14 @@ internal class AccountViewHolder(
 
 private object AccountInCollectionViewDataDiffer : DiffUtil.ItemCallback<AccountViewData>() {
     override fun areItemsTheSame(oldItem: AccountViewData, newItem: AccountViewData) = oldItem.account.id == newItem.account.id
-
     override fun areContentsTheSame(oldItem: AccountViewData, newItem: AccountViewData) = oldItem == newItem
+
+    override fun getChangePayload(oldItem: AccountViewData, newItem: AccountViewData): Any? {
+        return when {
+            oldItem.isEnabled != newItem.isEnabled -> ChangePayload.IsEnabled(newItem.isEnabled)
+            else -> super.getChangePayload(oldItem, newItem)
+        }
+    }
 }
 
 internal data class UiOptions(
