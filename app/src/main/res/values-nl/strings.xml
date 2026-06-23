@@ -36,7 +36,6 @@
     <string name="report_comment_hint">Extra opmerkingen\?</string>
     <string name="action_quick_reply">Snelle reactie</string>
     <string name="action_compose">Bericht schrijven</string>
-    <string name="action_block">Blokkeren</string>
     <string name="action_hide_reblogs">Boosts verbergen</string>
     <string name="action_show_reblogs">Boosts tonen</string>
     <string name="action_report">Rapporteren</string>

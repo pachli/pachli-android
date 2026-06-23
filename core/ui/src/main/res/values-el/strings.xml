@@ -22,4 +22,5 @@
     <string name="action_unblock">Άρση αποκλεισμού</string>
     <string name="action_follow">Ακολουθήστε</string>
     <string name="action_unfollow">Μην ακολουθείτε</string>
+    <string name="action_block">Αποκλεισμός</string>
 </resources>

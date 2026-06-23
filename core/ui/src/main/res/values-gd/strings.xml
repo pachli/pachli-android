@@ -133,4 +133,5 @@
     <string name="action_follow">Lean</string>
     <string name="action_unfollow">Na lean tuilleadh</string>
     <string name="state_follow_requested">Iarrtas leantainn air</string>
+    <string name="action_block">Bac</string>
 </resources>

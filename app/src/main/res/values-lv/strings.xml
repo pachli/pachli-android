@@ -114,7 +114,6 @@
     <string name="error_media_upload_sending">Augšupielāde neizdevās.</string>
     <string name="edit_poll">Labot</string>
     <string name="action_access_drafts">Melnraksti</string>
-    <string name="action_block">Liegt</string>
     <string name="action_report">Ziņot</string>
     <string name="action_open_in_web">Atvērt pārlūkā</string>
     <string name="hint_search">Meklēt…</string>

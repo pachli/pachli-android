@@ -108,4 +108,5 @@
     <string name="action_follow">Sledi</string>
     <string name="action_unfollow">Prenehaj slediti</string>
     <string name="state_follow_requested">Prošnja za sledenje</string>
+    <string name="action_block">Blokiraj</string>
 </resources>

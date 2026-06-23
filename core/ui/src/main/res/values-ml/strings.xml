@@ -30,4 +30,5 @@
     <string name="action_unblock">നിരോധനം നീക്കുക</string>
     <string name="action_follow">പിന്തുടരുക</string>
     <string name="action_unfollow">പിന്‍തുടരുന്നത് അവസാനിപ്പിക്കുക</string>
+    <string name="action_block">നിരോധിക്കുക</string>
 </resources>

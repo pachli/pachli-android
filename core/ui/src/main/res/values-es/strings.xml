@@ -201,4 +201,5 @@
     <string name="action_follow">Seguir</string>
     <string name="action_unfollow">Dejar de seguir</string>
     <string name="state_follow_requested">Solicitud enviada</string>
+    <string name="action_block">Bloquear</string>
 </resources>

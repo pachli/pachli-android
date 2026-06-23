@@ -62,7 +62,6 @@
     <string name="action_quick_reply">Resposta Rápida</string>
     <string name="action_unbookmark">Remover dos itens guardados</string>
     <string name="action_compose">Escrever</string>
-    <string name="action_block">Bloquear</string>
     <string name="action_hide_reblogs">Esconder boosts</string>
     <string name="action_show_reblogs">Mostrar boosts</string>
     <string name="action_report">Denunciar</string>

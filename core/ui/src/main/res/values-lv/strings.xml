@@ -201,4 +201,5 @@
     <string name="action_follow">Sekot</string>
     <string name="action_unfollow">Pārtraukt sekošanu</string>
     <string name="state_follow_requested">Sekošana pieprasīta</string>
+    <string name="action_block">Liegt</string>
 </resources>

@@ -36,7 +36,6 @@
     <string name="report_comment_hint">تعليقات إضافية؟</string>
     <string name="action_quick_reply">رد سريع</string>
     <string name="action_compose">حرر</string>
-    <string name="action_block">قم بحظره</string>
     <string name="action_hide_reblogs">إخفاء المشاركات</string>
     <string name="action_show_reblogs">إظهار المشاركات</string>
     <string name="action_report">أبلغ عنه</string>

@@ -36,7 +36,6 @@
     <string name="report_comment_hint">Dodatni komentarji\?</string>
     <string name="action_quick_reply">Hiter odgovor</string>
     <string name="action_compose">Sestavi</string>
-    <string name="action_block">Blokiraj</string>
     <string name="action_hide_reblogs">Skirj spodbude</string>
     <string name="action_show_reblogs">Prikaži spodbude</string>
     <string name="action_report">Prijavi</string>

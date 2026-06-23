@@ -117,4 +117,5 @@
     <string name="action_follow">پیگیری</string>
     <string name="action_unfollow">ناپیگیری</string>
     <string name="state_follow_requested">تقاضای پیگیری شد</string>
+    <string name="action_block">انسداد</string>
 </resources>

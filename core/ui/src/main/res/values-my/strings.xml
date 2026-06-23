@@ -18,4 +18,5 @@
     <string name="action_unblock">ဘလော့ခ်ဖြည်မည်</string>
     <string name="action_follow">စောင့်ကြည့်မည်</string>
     <string name="action_unfollow">မစောင့်ကြည့်တော့ပါ</string>
+    <string name="action_block">ဘလော့ခ်</string>
 </resources>

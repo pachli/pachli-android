@@ -36,7 +36,6 @@
     <string name="report_comment_hint">Дополнительные комментарии?</string>
     <string name="action_quick_reply">Быстрый ответ</string>
     <string name="action_compose">Сочинить</string>
-    <string name="action_block">Заблокировать</string>
     <string name="action_hide_reblogs">Скрыть продвижения</string>
     <string name="action_show_reblogs">Показать продвижения</string>
     <string name="action_report">Пожаловаться</string>

@@ -202,4 +202,5 @@
     <string name="action_follow">Suivre</string>
     <string name="action_unfollow">Ne plus suivre</string>
     <string name="state_follow_requested">Demande d’abonnement effectuée</string>
+    <string name="action_block">Bloquer</string>
 </resources>

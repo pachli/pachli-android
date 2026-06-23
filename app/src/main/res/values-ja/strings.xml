@@ -36,7 +36,6 @@
     <string name="report_comment_hint">コメント</string>
     <string name="action_quick_reply">クイック返信</string>
     <string name="action_compose">投稿する</string>
-    <string name="action_block">ブロック</string>
     <string name="action_hide_reblogs">ブーストを非表示</string>
     <string name="action_show_reblogs">ブーストを表示</string>
     <string name="action_report">通報</string>

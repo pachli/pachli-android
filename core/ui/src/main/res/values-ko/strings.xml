@@ -87,4 +87,5 @@
     <string name="action_follow">팔로우</string>
     <string name="action_unfollow">팔로우 해제</string>
     <string name="state_follow_requested">팔로우 요청함</string>
+    <string name="action_block">차단</string>
 </resources>

@@ -116,4 +116,5 @@
     <string name="action_follow">Sekvi</string>
     <string name="action_unfollow">Ne plu sekvi</string>
     <string name="state_follow_requested">Sekvado petita</string>
+    <string name="action_block">Bloki</string>
 </resources>

@@ -80,4 +80,5 @@
     <string name="action_follow">फ़ॉलो</string>
     <string name="action_unfollow">अनफ़ॉलो</string>
     <string name="state_follow_requested">फ़ॉलो करने का अनुरोध किया हुआ</string>
+    <string name="action_block">ब्लॉक</string>
 </resources>

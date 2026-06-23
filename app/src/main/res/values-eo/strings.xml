@@ -36,7 +36,6 @@
     <string name="report_comment_hint">Ĉu pliaj komentoj\?</string>
     <string name="action_quick_reply">Rapida respondo</string>
     <string name="action_compose">Verki</string>
-    <string name="action_block">Bloki</string>
     <string name="action_hide_reblogs">Kaŝi diskonigojn</string>
     <string name="action_show_reblogs">Montri diskonigojn</string>
     <string name="action_report">Signali</string>

@@ -120,4 +120,5 @@
     <string name="action_follow">Volgen</string>
     <string name="action_unfollow">Ontvolgen</string>
     <string name="state_follow_requested">Volgverzoek verzonden</string>
+    <string name="action_block">Blokkeren</string>
 </resources>

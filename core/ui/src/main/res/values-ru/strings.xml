@@ -179,4 +179,5 @@
     <string name="action_follow">Подписаться</string>
     <string name="action_unfollow">Отписаться</string>
     <string name="state_follow_requested">Запрошенные подписки</string>
+    <string name="action_block">Заблокировать</string>
 </resources>

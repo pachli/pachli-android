@@ -100,7 +100,6 @@
     <string name="action_quick_reply">Kiirvastus</string>
     <string name="action_unbookmark">Eemalda järjehoidja</string>
     <string name="action_compose">Koosta postitus</string>
-    <string name="action_block">Blokeeri</string>
     <string name="action_share_account_link">Jaga kasutajakonto linki</string>
     <string name="action_share_account_username">Jaga konto kasutajanime</string>
     <string name="action_hide_reblogs">Peida hoo lisamised</string>

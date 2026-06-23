@@ -102,4 +102,5 @@
     <string name="action_follow">Последване</string>
     <string name="action_unfollow">Отследване</string>
     <string name="state_follow_requested">Заявено последване</string>
+    <string name="action_block">Блокиране</string>
 </resources>

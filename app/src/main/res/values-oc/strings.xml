@@ -32,7 +32,6 @@
     <string name="report_comment_hint">Cap comentari addicional ?</string>
     <string name="action_quick_reply">Responsa rapida</string>
     <string name="action_compose">Redactar</string>
-    <string name="action_block">Blocar</string>
     <string name="action_hide_reblogs">Rescondre los partatges</string>
     <string name="action_show_reblogs">Mostrar los retuts</string>
     <string name="action_report">Senhalar</string>

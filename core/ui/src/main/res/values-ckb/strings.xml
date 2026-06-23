@@ -93,4 +93,5 @@
     <string name="action_follow">شوێنی بکەوە</string>
     <string name="action_unfollow">بەدوادانەچو</string>
     <string name="state_follow_requested">بەدواداچوونەوەی داواکراو</string>
+    <string name="action_block">بلۆک</string>
 </resources>

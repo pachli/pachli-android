@@ -36,7 +36,6 @@
     <string name="report_comment_hint">Commentaires additionnels \?</string>
     <string name="action_quick_reply">Réponse rapide</string>
     <string name="action_compose">Écrire</string>
-    <string name="action_block">Bloquer</string>
     <string name="action_hide_reblogs">Cacher les partages</string>
     <string name="action_show_reblogs">Afficher les partages</string>
     <string name="action_report">Signaler</string>

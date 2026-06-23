@@ -117,4 +117,5 @@
     <string name="action_follow">Fylgja</string>
     <string name="action_unfollow">Hætta að fylgjast með</string>
     <string name="state_follow_requested">Beðið um að fylgja</string>
+    <string name="action_block">Útiloka</string>
 </resources>

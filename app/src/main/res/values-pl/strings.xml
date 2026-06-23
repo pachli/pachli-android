@@ -33,7 +33,6 @@
     <string name="report_comment_hint">Dodatkowe komentarze?</string>
     <string name="action_quick_reply">Szybka odpowiedź</string>
     <string name="action_compose">Napisz</string>
-    <string name="action_block">Zablokuj</string>
     <string name="action_hide_reblogs">Ukryj podbicia</string>
     <string name="action_show_reblogs">Pokaż podbicia</string>
     <string name="action_report">Zgłoś</string>

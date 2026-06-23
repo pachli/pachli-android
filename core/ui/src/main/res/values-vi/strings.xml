@@ -109,4 +109,5 @@
     <string name="action_follow">Theo dõi</string>
     <string name="action_unfollow">Bỏ theo dõi</string>
     <string name="state_follow_requested">Yêu cầu theo dõi</string>
+    <string name="action_block">Chặn</string>
 </resources>

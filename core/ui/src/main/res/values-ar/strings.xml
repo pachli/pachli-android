@@ -151,4 +151,5 @@
     <string name="action_follow">إتبع</string>
     <string name="action_unfollow">إلغاء المتابعة</string>
     <string name="state_follow_requested">طلب متابعة</string>
+    <string name="action_block">قم بحظره</string>
 </resources>

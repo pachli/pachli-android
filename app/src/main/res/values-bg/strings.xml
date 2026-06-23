@@ -204,7 +204,6 @@
     <string name="action_report">Докладване</string>
     <string name="action_show_reblogs">Показване на споделяния</string>
     <string name="action_hide_reblogs">Скриване на споделяния</string>
-    <string name="action_block">Блокиране</string>
     <string name="action_compose">Композиране</string>
     <string name="action_quick_reply">Бърз отговор</string>
     <string name="report_comment_hint">Допълнителни коментари\?</string>

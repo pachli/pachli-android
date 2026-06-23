@@ -71,7 +71,6 @@
     <string name="report_comment_hint">Har du fleire kommentarar?</string>
     <string name="action_quick_reply">Hurtigsvar</string>
     <string name="action_unbookmark">Fjern bokmerke</string>
-    <string name="action_block">Blokker</string>
     <string name="action_share_account_link">Del lenkja til kontoen</string>
     <string name="action_share_account_username">Del brukarnamnet for kontoen</string>
     <string name="action_hide_reblogs">Døl delingar</string>

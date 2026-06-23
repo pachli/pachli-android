@@ -210,4 +210,5 @@
     <string name="action_follow">Obserwuj</string>
     <string name="action_unfollow">Przestań obserwować</string>
     <string name="state_follow_requested">Wysłano prośbę o obserwację</string>
+    <string name="action_block">Zablokuj</string>
 </resources>

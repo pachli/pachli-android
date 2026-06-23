@@ -51,7 +51,6 @@
     <string name="action_report">അറിയിക്കുക</string>
     <string name="action_show_reblogs">ബൂട്ട്‌സ് കാണിക്കുക</string>
     <string name="action_hide_reblogs">ബൂട്ട്‌സ് മറയ്‌ക്കുക</string>
-    <string name="action_block">നിരോധിക്കുക</string>
     <string name="action_compose">എഴുതുക</string>
     <string name="action_quick_reply">പെട്ടന്നുള്ള മറുപടി</string>
     <string name="report_comment_hint">കൂടുതൽ പറയാൻ ഉണ്ടോ\?</string>

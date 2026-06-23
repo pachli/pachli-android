@@ -131,7 +131,6 @@
     <string name="action_delete_conversation">Petear fuortsmite</string>
     <string name="action_delete">Fuortsmite</string>
     <string name="action_report">Oanjaan</string>
-    <string name="action_block">Blokkearje</string>
     <string name="action_compose">Gearstelle</string>
     <string name="action_quick_reply">Flugge Reaksje</string>
     <string name="report_comment_hint">Oanfoljende opmerkingen\?</string>

@@ -31,7 +31,6 @@
     <string name="report_comment_hint">கூடுதல் கருத்துரைகள்?</string>
     <string name="action_quick_reply">உடனடி பதிலளி</string>
     <string name="action_compose">எழுது</string>
-    <string name="action_block">தடை</string>
     <string name="action_hide_reblogs">மேலேற்றத்தை மறை</string>
     <string name="action_show_reblogs">மேலேற்றத்தை காட்டு</string>
     <string name="action_report">புகார்</string>

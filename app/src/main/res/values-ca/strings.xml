@@ -30,7 +30,6 @@
     <string name="report_username_format">Denuncia @%1$s</string>
     <string name="report_comment_hint">Cap comentari addicional?</string>
     <string name="action_compose">Escriure</string>
-    <string name="action_block">Bloca</string>
     <string name="action_report">Denuncia</string>
     <string name="action_delete">Elimina</string>
     <string name="action_send">PUBLICA</string>

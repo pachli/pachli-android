@@ -36,7 +36,6 @@
     <string name="report_comment_hint">Ytterligere kommentarer\?</string>
     <string name="action_quick_reply">Hurtigsvar</string>
     <string name="action_compose">Skriv</string>
-    <string name="action_block">Blokkér</string>
     <string name="action_hide_reblogs">Skjul delinger</string>
     <string name="action_show_reblogs">Vis delte innlegg</string>
     <string name="action_report">Rapporter</string>

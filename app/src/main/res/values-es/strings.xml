@@ -36,7 +36,6 @@
     <string name="report_comment_hint">¿Información adicional?</string>
     <string name="action_quick_reply">Respuesta rápida</string>
     <string name="action_compose">Redactar</string>
-    <string name="action_block">Bloquear</string>
     <string name="action_hide_reblogs">Ocultar impulsos</string>
     <string name="action_show_reblogs">Mostrar impulsos</string>
     <string name="action_report">Denunciar</string>

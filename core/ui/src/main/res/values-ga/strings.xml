@@ -221,4 +221,5 @@
     <string name="action_follow">Lean</string>
     <string name="action_unfollow">Stop ag leanúint</string>
     <string name="state_follow_requested">Lean iarrtha</string>
+    <string name="action_block">Bac</string>
 </resources>

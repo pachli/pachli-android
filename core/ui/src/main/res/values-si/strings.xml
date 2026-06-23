@@ -77,4 +77,5 @@
     <string name="duration_3_days">දවස් 3</string>
     <string name="duration_7_days">දවස් 7</string>
     <string name="action_unblock">අනවහිර</string>
+    <string name="action_block">අවහිර</string>
 </resources>

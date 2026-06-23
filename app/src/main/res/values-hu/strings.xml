@@ -36,7 +36,6 @@
     <string name="report_comment_hint">Egyéb megjegyzés?</string>
     <string name="action_quick_reply">Gyors válasz</string>
     <string name="action_compose">Szerkesztés</string>
-    <string name="action_block">Letiltás</string>
     <string name="action_hide_reblogs">Megtolások elrejtése</string>
     <string name="action_show_reblogs">Megtolások mutatása</string>
     <string name="action_report">Bejelentés</string>

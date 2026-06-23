@@ -102,4 +102,5 @@
     <string name="action_follow">অনুসরণ কর</string>
     <string name="action_unfollow">অনুসরণ করা বন্ধ করুন</string>
     <string name="state_follow_requested">অনুরোধ অনুসরণ করুন</string>
+    <string name="action_block">অবরুদ্ধ</string>
 </resources>

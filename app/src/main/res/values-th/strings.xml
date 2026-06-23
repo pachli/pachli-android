@@ -217,7 +217,6 @@
     <string name="action_report">รายงาน</string>
     <string name="action_show_reblogs">แสดงการดัน</string>
     <string name="action_hide_reblogs">ซ่อนการดัน</string>
-    <string name="action_block">บล็อก</string>
     <string name="action_compose">เขียนโพสต์ใหม่</string>
     <string name="action_quick_reply">ตอบกลับด่วน</string>
     <string name="report_comment_hint">ความคิดเห็นเพิ่มเติม</string>

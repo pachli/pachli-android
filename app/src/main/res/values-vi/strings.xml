@@ -101,7 +101,6 @@
     <string name="action_report">Báo cáo</string>
     <string name="action_show_reblogs">Hiện lượt đăng lại</string>
     <string name="action_hide_reblogs">Ẩn lượt đăng lại</string>
-    <string name="action_block">Chặn</string>
     <string name="action_compose">Soạn tút</string>
     <string name="action_quick_reply">Trả lời nhanh</string>
     <string name="report_comment_hint">Ghi chú\?</string>

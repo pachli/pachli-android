@@ -181,4 +181,5 @@
     <string name="action_follow">Ikuti</string>
     <string name="action_unfollow">Berhenti Mengikuti</string>
     <string name="state_follow_requested">Ikuti yang diminta</string>
+    <string name="action_block">Blokir</string>
 </resources>

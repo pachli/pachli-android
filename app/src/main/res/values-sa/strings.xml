@@ -42,7 +42,6 @@
     <string name="action_report">आवेद्यताम्</string>
     <string name="action_show_reblogs">प्रकाशनानि दृश्यन्ताम्</string>
     <string name="action_hide_reblogs">प्रकाशनानि छाद्यन्ताम्</string>
-    <string name="action_block">अवरुध्यताम्</string>
     <string name="action_compose">रच्यताम्</string>
     <string name="action_quick_reply">त्वरितप्रत्युत्तरं दीयताम्</string>
     <string name="report_comment_hint">अन्यटिप्पण्यः \?</string>

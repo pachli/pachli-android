@@ -160,4 +160,5 @@
     <string name="action_follow">Följ</string>
     <string name="action_unfollow">Avfölj</string>
     <string name="state_follow_requested">Följarförfrågan</string>
+    <string name="action_block">Blockera</string>
 </resources>

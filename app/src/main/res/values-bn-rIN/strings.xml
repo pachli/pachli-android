@@ -36,7 +36,6 @@
     <string name="report_comment_hint">অতিরিক্ত মন্তব্যগুলি\?</string>
     <string name="action_quick_reply">দ্রুত উত্তর</string>
     <string name="action_compose">রচনা</string>
-    <string name="action_block">অবরুদ্ধ</string>
     <string name="action_hide_reblogs">সমর্থন লুকান</string>
     <string name="action_show_reblogs">সমর্থন দেখান</string>
     <string name="action_report">রিপোর্ট</string>

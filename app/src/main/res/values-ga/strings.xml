@@ -117,7 +117,6 @@
     <string name="action_report">Tuairiscigh</string>
     <string name="action_show_reblogs">Taispeáin athchraolta</string>
     <string name="action_hide_reblogs">Folaigh athchraolta</string>
-    <string name="action_block">Bac</string>
     <string name="action_compose">Cum</string>
     <string name="error_media_upload_type">Ní féidir an cineál comhaid sin a uaslódáil.</string>
     <string name="error_compose_character_limit">Tá an stádas ró-fhada!</string>

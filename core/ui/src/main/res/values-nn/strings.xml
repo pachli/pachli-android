@@ -184,4 +184,5 @@
     <string name="action_follow">Fylg</string>
     <string name="action_unfollow">Avfylg</string>
     <string name="state_follow_requested">Fylgjeførespurnad send</string>
+    <string name="action_block">Blokker</string>
 </resources>

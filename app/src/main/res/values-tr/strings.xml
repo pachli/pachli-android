@@ -36,7 +36,6 @@
     <string name="report_comment_hint">Daha fazla yorum?</string>
     <string name="action_quick_reply">Hızlı yanıt</string>
     <string name="action_compose">Oluştur</string>
-    <string name="action_block">Engelle</string>
     <string name="action_hide_reblogs">Yeniden gönderiyi gizle</string>
     <string name="action_show_reblogs">Yeniden gönderileri göster</string>
     <string name="action_report">Bildir</string>

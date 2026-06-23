@@ -40,7 +40,6 @@
     <string name="report_comment_hint">Commenti aggiuntivi?</string>
     <string name="action_quick_reply">Risposta veloce</string>
     <string name="action_compose">Componi</string>
-    <string name="action_block">Blocca</string>
     <string name="action_hide_reblogs">Nascondi condivisioni</string>
     <string name="action_show_reblogs">Mostra condivisioni</string>
     <string name="pref_title_show_self_boosts">Mostra ricondivisioni</string>

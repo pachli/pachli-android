@@ -190,4 +190,5 @@
     <string name="action_follow">பின்பற்று</string>
     <string name="action_unfollow">பின்பற்றாதே</string>
     <string name="state_follow_requested">கோரிக்கையைப் பின்பற்றவும்</string>
+    <string name="action_block">தடை</string>
 </resources>

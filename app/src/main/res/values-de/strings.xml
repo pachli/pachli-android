@@ -36,7 +36,6 @@
     <string name="report_comment_hint">Zusätzliche Anmerkungen\?</string>
     <string name="action_quick_reply">Schnell antworten</string>
     <string name="action_compose">Beitrag erstellen</string>
-    <string name="action_block">Blockieren</string>
     <string name="action_hide_reblogs">Geteilte Beiträge ausblenden</string>
     <string name="action_show_reblogs">Geteilte Beiträge anzeigen</string>
     <string name="action_report">Melden</string>

@@ -36,7 +36,6 @@
     <string name="report_comment_hint">Další komentáře\?</string>
     <string name="action_quick_reply">Rychlá odpověď</string>
     <string name="action_compose">Napsat</string>
-    <string name="action_block">Blokovat</string>
     <string name="action_hide_reblogs">Skrýt boosty</string>
     <string name="action_show_reblogs">Zobrazit boosty</string>
     <string name="action_report">Nahlásit</string>

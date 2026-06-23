@@ -36,7 +36,6 @@
     <string name="report_comment_hint">报告更多信息</string>
     <string name="action_quick_reply">快速回复</string>
     <string name="action_compose">新嘟文</string>
-    <string name="action_block">屏蔽</string>
     <string name="action_hide_reblogs">隐藏转嘟</string>
     <string name="action_show_reblogs">显示转嘟</string>
     <string name="action_report">报告</string>

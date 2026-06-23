@@ -37,7 +37,6 @@
     <string name="report_comment_hint">코멘트</string>
     <string name="action_quick_reply">빠른 답장</string>
     <string name="action_compose">작성</string>
-    <string name="action_block">차단</string>
     <string name="action_hide_reblogs">이 유저의 부스트 숨기기</string>
     <string name="action_show_reblogs">부스트한 유저 보이기</string>
     <string name="action_report">신고</string>

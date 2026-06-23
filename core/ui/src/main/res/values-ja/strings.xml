@@ -114,4 +114,5 @@
     <string name="action_follow">フォローする</string>
     <string name="action_unfollow">フォロー解除</string>
     <string name="state_follow_requested">フォローリクエスト中</string>
+    <string name="action_block">ブロック</string>
 </resources>

@@ -24,7 +24,6 @@
     <string name="action_report">Dèan gearan</string>
     <string name="action_hide_reblogs">Falaich na brosnachaidhean</string>
     <string name="action_show_reblogs">Seall na brosnachaidhean</string>
-    <string name="action_block">Bac</string>
     <string name="action_compose">Sgrìobh</string>
     <string name="action_content_warning">Rabhadh susbaint</string>
     <string name="action_compose_shortcut">Sgrìobh</string>

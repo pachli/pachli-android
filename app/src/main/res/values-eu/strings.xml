@@ -33,7 +33,6 @@
     <string name="report_comment_hint">Informazio gehigarria?</string>
     <string name="action_quick_reply">Erantzun azkarra</string>
     <string name="action_compose">Idatzi</string>
-    <string name="action_block">Blokeatu</string>
     <string name="action_hide_reblogs">Bultzadak ezkutatu</string>
     <string name="action_show_reblogs">Bultzadak erakutsi</string>
     <string name="action_report">Salatu</string>

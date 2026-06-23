@@ -117,4 +117,5 @@
     <string name="action_follow">Takip et</string>
     <string name="action_unfollow">Takibi bırak</string>
     <string name="state_follow_requested">Takip istenen</string>
+    <string name="action_block">Engelle</string>
 </resources>

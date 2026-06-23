@@ -133,4 +133,5 @@
     <string name="action_follow">Падпісацца</string>
     <string name="action_unfollow">Адпісацца</string>
     <string name="state_follow_requested">Запыт на падпіску</string>
+    <string name="action_block">Заблакаваць</string>
 </resources>

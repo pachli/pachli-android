@@ -60,7 +60,6 @@
     <string name="action_report">گوزارشەکان</string>
     <string name="action_show_reblogs">پۆستکردنەوەکان نیشان بدە</string>
     <string name="action_hide_reblogs">شاردنەوەی بەهێزکردنەکان</string>
-    <string name="action_block">بلۆک</string>
     <string name="action_compose">دروستکردن</string>
     <string name="action_quick_reply">وەڵامدانەوەی خێرا</string>
     <string name="report_comment_hint">سەرنجەکانی تر؟</string>

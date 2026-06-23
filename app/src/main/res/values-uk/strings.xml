@@ -58,7 +58,6 @@
     <string name="action_delete_and_redraft">Видалити та перестворити</string>
     <string name="action_delete">Видалити</string>
     <string name="action_report">Поскаржитися</string>
-    <string name="action_block">Заблокувати</string>
     <string name="action_compose">Написати</string>
     <string name="action_quick_reply">Швидка відповідь</string>
     <string name="report_comment_hint">Додаткові коментарі\?</string>

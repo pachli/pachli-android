@@ -36,7 +36,6 @@
     <string name="report_comment_hint">Ytterligare kommentarer?</string>
     <string name="action_quick_reply">Snabbsvar</string>
     <string name="action_compose">Skriv</string>
-    <string name="action_block">Blockera</string>
     <string name="action_hide_reblogs">Dölj knuffar</string>
     <string name="action_show_reblogs">Visa knuffar</string>
     <string name="action_report">Rapportera</string>

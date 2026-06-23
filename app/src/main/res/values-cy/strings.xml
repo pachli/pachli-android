@@ -33,7 +33,6 @@
     <string name="report_comment_hint">Sylwadau ychwanegol?</string>
     <string name="action_quick_reply">Ymateb yn gyflym</string>
     <string name="action_compose">Creu</string>
-    <string name="action_block">Blocio</string>
     <string name="action_hide_reblogs">Cuddio hybiau</string>
     <string name="action_show_reblogs">Dangos hybiau</string>
     <string name="action_report">Adrodd</string>

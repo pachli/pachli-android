@@ -43,7 +43,6 @@
     <string name="report_comment_hint">Aðrar athugasemdir\?</string>
     <string name="action_quick_reply">Snöggt svar</string>
     <string name="action_compose">Semja skilaboð</string>
-    <string name="action_block">Útiloka</string>
     <string name="action_hide_reblogs">Fela endurbirtingar</string>
     <string name="action_show_reblogs">Sýna endurbirtingar</string>
     <string name="action_report">Tilkynna</string>

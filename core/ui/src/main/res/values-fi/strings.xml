@@ -190,4 +190,5 @@
     <string name="action_follow">Seuraa</string>
     <string name="action_unfollow">Seurataan</string>
     <string name="state_follow_requested">Seuraamista pyydetty</string>
+    <string name="action_block">Estä</string>
 </resources>

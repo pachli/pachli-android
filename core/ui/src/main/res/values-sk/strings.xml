@@ -202,4 +202,5 @@
     <string name="action_follow">Sledovať</string>
     <string name="action_unfollow">Prestať sledovať</string>
     <string name="state_follow_requested">Sledovanie vyžiadané</string>
+    <string name="action_block">Blokovať</string>
 </resources>

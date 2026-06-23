@@ -133,7 +133,6 @@
     <string name="action_quick_reply">Quick Reply</string>
     <string name="action_unbookmark">Remove bookmark</string>
     <string name="action_compose">Compose</string>
-    <string name="action_block">Block</string>
     <string name="action_share_account_link">Share link to account</string>
     <string name="action_share_account_username">Share username of account</string>
     <string name="action_hide_reblogs">Hide boosts</string>

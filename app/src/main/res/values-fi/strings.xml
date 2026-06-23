@@ -96,7 +96,6 @@
     <string name="action_send">TUUT</string>
     <string name="action_delete">Poista</string>
     <string name="action_report">Ilmianna</string>
-    <string name="action_block">Estä</string>
     <string name="action_send_public">TUUT!</string>
     <string name="title_view_thread">Ketju</string>
     <string name="title_scheduled_posts">Ajastetut tuuttaukset</string>

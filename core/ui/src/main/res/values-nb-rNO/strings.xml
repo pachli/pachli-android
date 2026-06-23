@@ -140,4 +140,5 @@
     <string name="action_follow">Følg</string>
     <string name="action_unfollow">Slutt å følge</string>
     <string name="state_follow_requested">Forespørsel sendt</string>
+    <string name="action_block">Blokkér</string>
 </resources>

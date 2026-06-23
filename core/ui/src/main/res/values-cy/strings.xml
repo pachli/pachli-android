@@ -149,4 +149,5 @@
     <string name="action_follow">Dilyn</string>
     <string name="action_unfollow">Dad-ddilyn</string>
     <string name="state_follow_requested">Ceisiwyd</string>
+    <string name="action_block">Blocio</string>
 </resources>

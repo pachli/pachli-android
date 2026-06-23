@@ -117,4 +117,5 @@
     <string name="action_follow">關注</string>
     <string name="action_unfollow">取消關注</string>
     <string name="state_follow_requested">已請求關注</string>
+    <string name="action_block">封鎖</string>
 </resources>

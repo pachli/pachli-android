@@ -117,4 +117,5 @@
     <string name="action_follow">Követés</string>
     <string name="action_unfollow">Követés vége</string>
     <string name="state_follow_requested">Követés kérelmezve</string>
+    <string name="action_block">Letiltás</string>
 </resources>

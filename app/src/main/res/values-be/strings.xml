@@ -133,7 +133,6 @@
     <string name="description_account_locked">Заблакаваны ўліковы запіс</string>
     <string name="action_unbookmark">Выдаліць з закладак</string>
     <string name="action_compose">Напісаць</string>
-    <string name="action_block">Заблакаваць</string>
     <string name="action_hide_reblogs">Схаваць пашырэнні</string>
     <string name="action_show_reblogs">Паказаць пашырэнні</string>
     <string name="action_report">Паскардзіцца</string>

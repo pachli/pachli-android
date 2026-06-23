@@ -33,7 +33,6 @@
     <string name="report_comment_hint">نظرهای اضافی؟</string>
     <string name="action_quick_reply">پاسخ سریع</string>
     <string name="action_compose">ایجاد</string>
-    <string name="action_block">انسداد</string>
     <string name="action_hide_reblogs">نهفتن تقویت‌ها</string>
     <string name="action_show_reblogs">نمایش تقویت‌ها</string>
     <string name="action_report">گزارش</string>

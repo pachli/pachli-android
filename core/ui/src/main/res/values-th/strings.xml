@@ -94,4 +94,5 @@
     <string name="action_follow">ติดตาม</string>
     <string name="action_unfollow">เลิกติดตาม</string>
     <string name="state_follow_requested">กำลังขอติดตาม</string>
+    <string name="action_block">บล็อก</string>
 </resources>

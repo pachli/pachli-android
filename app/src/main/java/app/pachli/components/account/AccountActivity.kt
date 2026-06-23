@@ -872,7 +872,7 @@ class AccountActivity :
             block.title = if (blocking) {
                 getString(app.pachli.core.ui.R.string.action_unblock)
             } else {
-                getString(R.string.action_block)
+                getString(app.pachli.core.ui.R.string.action_block)
             }
 
             val mute = menu.findItem(R.id.action_mute)

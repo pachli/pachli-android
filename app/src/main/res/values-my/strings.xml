@@ -77,7 +77,6 @@
     <string name="report_username_format">\@%1$s အားတိုင်ကြားမည်</string>
     <string name="action_quick_reply">အမြန်ပြန်စာ</string>
     <string name="action_unbookmark">သိမ်ဆည်းမှုဖယ်ရှားမည်</string>
-    <string name="action_block">ဘလော့ခ်</string>
     <plurals name="notification_severed_relationships_summary_followers_fmt">
         <item quantity="other">%1$s စောင့်ကြည့်သူများအားဖယ်ရှားပြီး</item>
     </plurals>
