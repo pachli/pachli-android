@@ -189,6 +189,6 @@
     <string name="ui_error_follow_account_fmt">%1$s jälgimise alustamine ei õnnestunud: %2$s</string>
     <string name="action_unblock">Lõpeta blokeerimine</string>
     <string name="action_follow">Jälgi</string>
-    <string name="action_unfollow_account">Lõpeta jälgimine</string>
+    <string name="action_unfollow">Lõpeta jälgimine</string>
     <string name="state_follow_requested">Oled saanud jälgimispäringu</string>
 </resources>

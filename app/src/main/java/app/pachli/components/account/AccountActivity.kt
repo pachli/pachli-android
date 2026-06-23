@@ -780,7 +780,7 @@ class AccountActivity :
                 binding.accountFollowButton.setText(app.pachli.core.ui.R.string.state_follow_requested)
             }
             FollowState.FOLLOWING -> {
-                binding.accountFollowButton.setText(app.pachli.core.ui.R.string.action_unfollow_account)
+                binding.accountFollowButton.setText(app.pachli.core.ui.R.string.action_unfollow)
             }
         }
     }

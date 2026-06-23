@@ -125,6 +125,6 @@
     <string name="duration_365_days">365 dias</string>
     <string name="action_unblock">Desbloquear</string>
     <string name="action_follow">Seguir</string>
-    <string name="action_unfollow_account">Deixar de seguir</string>
+    <string name="action_unfollow">Deixar de seguir</string>
     <string name="state_follow_requested">Solicitação enviada</string>
 </resources>

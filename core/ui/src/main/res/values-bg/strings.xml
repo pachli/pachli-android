@@ -100,6 +100,6 @@
     <string name="duration_7_days">7 дни</string>
     <string name="action_unblock">Деблокиране</string>
     <string name="action_follow">Последване</string>
-    <string name="action_unfollow_account">Отследване</string>
+    <string name="action_unfollow">Отследване</string>
     <string name="state_follow_requested">Заявено последване</string>
 </resources>

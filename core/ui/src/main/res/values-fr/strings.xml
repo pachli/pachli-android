@@ -200,6 +200,6 @@
     <string name="ui_error_follow_account_fmt">Le suivi de %1$s a échoué : %2$s</string>
     <string name="action_unblock">Débloquer</string>
     <string name="action_follow">Suivre</string>
-    <string name="action_unfollow_account">Ne plus suivre</string>
+    <string name="action_unfollow">Ne plus suivre</string>
     <string name="state_follow_requested">Demande d’abonnement effectuée</string>
 </resources>

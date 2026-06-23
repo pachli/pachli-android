@@ -179,6 +179,6 @@
     <string name="ui_error_follow_account_fmt">Mengikuti %1$s failed: %2$s</string>
     <string name="action_unblock">Buka blokir</string>
     <string name="action_follow">Ikuti</string>
-    <string name="action_unfollow_account">Berhenti Mengikuti</string>
+    <string name="action_unfollow">Berhenti Mengikuti</string>
     <string name="state_follow_requested">Ikuti yang diminta</string>
 </resources>

@@ -116,6 +116,6 @@
     <string name="duration_365_days">365 dní</string>
     <string name="action_unblock">Odblokovat</string>
     <string name="action_follow">Sledovat</string>
-    <string name="action_unfollow_account">Přestat sledovat</string>
+    <string name="action_unfollow">Přestat sledovat</string>
     <string name="state_follow_requested">Vyžádáno sledování</string>
 </resources>

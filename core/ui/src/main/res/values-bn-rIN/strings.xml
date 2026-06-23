@@ -98,6 +98,6 @@
     <string name="duration_7_days">৭ দিন</string>
     <string name="action_unblock">অবরোধ মুক্ত</string>
     <string name="action_follow">অনুসরণ কর</string>
-    <string name="action_unfollow_account">অনুসরণ করা বন্ধ করুন</string>
+    <string name="action_unfollow">অনুসরণ করা বন্ধ করুন</string>
     <string name="state_follow_requested">অনুরোধ অনুসরণ করুন</string>
 </resources>

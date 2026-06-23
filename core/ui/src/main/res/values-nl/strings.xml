@@ -118,6 +118,6 @@
     <string name="duration_365_days">365 dagen</string>
     <string name="action_unblock">Deblokkeren</string>
     <string name="action_follow">Volgen</string>
-    <string name="action_unfollow_account">Ontvolgen</string>
+    <string name="action_unfollow">Ontvolgen</string>
     <string name="state_follow_requested">Volgverzoek verzonden</string>
 </resources>

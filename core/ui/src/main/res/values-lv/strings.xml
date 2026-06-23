@@ -199,6 +199,6 @@
     <string name="ui_error_follow_account_fmt">Sekošana %1$s neizdevās: %2$s</string>
     <string name="action_unblock">Atcelt liegumu</string>
     <string name="action_follow">Sekot</string>
-    <string name="action_unfollow_account">Pārtraukt sekošanu</string>
+    <string name="action_unfollow">Pārtraukt sekošanu</string>
     <string name="state_follow_requested">Sekošana pieprasīta</string>
 </resources>

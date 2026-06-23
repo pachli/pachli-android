@@ -188,6 +188,6 @@
     <string name="ui_error_follow_account_fmt">பின்வரும் %1$s தோல்வியடைந்தது: %2$s</string>
     <string name="action_unblock">தடை நீக்கு</string>
     <string name="action_follow">பின்பற்று</string>
-    <string name="action_unfollow_account">பின்பற்றாதே</string>
+    <string name="action_unfollow">பின்பற்றாதே</string>
     <string name="state_follow_requested">கோரிக்கையைப் பின்பற்றவும்</string>
 </resources>

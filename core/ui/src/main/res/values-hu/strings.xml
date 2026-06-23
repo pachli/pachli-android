@@ -115,6 +115,6 @@
     <string name="duration_365_days">365 nap</string>
     <string name="action_unblock">Letiltás feloldása</string>
     <string name="action_follow">Követés</string>
-    <string name="action_unfollow_account">Követés vége</string>
+    <string name="action_unfollow">Követés vége</string>
     <string name="state_follow_requested">Követés kérelmezve</string>
 </resources>

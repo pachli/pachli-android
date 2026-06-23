@@ -182,6 +182,6 @@
     <string name="ui_error_follow_account_fmt">Mislukkast i å fylgje %1$s: %2$s</string>
     <string name="action_unblock">Fjern blokkering</string>
     <string name="action_follow">Fylg</string>
-    <string name="action_unfollow_account">Avfylg</string>
+    <string name="action_unfollow">Avfylg</string>
     <string name="state_follow_requested">Fylgjeførespurnad send</string>
 </resources>

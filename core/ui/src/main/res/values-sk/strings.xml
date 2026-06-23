@@ -200,6 +200,6 @@
     <string name="ui_error_follow_account_fmt">Sledovanie účtu %1$s zlyhalo: %2$s</string>
     <string name="action_unblock">Odblokovať</string>
     <string name="action_follow">Sledovať</string>
-    <string name="action_unfollow_account">Prestať sledovať</string>
+    <string name="action_unfollow">Prestať sledovať</string>
     <string name="state_follow_requested">Sledovanie vyžiadané</string>
 </resources>

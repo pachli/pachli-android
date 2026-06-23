@@ -107,6 +107,6 @@
     <string name="duration_365_days">365 ngày</string>
     <string name="action_unblock">Bỏ chặn</string>
     <string name="action_follow">Theo dõi</string>
-    <string name="action_unfollow_account">Bỏ theo dõi</string>
+    <string name="action_unfollow">Bỏ theo dõi</string>
     <string name="state_follow_requested">Yêu cầu theo dõi</string>
 </resources>

@@ -188,6 +188,6 @@
     <string name="ui_error_follow_account_fmt">Tilin %1$s seuraaminen epäonnistui: %2$s</string>
     <string name="action_unblock">Poista esto</string>
     <string name="action_follow">Seuraa</string>
-    <string name="action_unfollow_account">Seurataan</string>
+    <string name="action_unfollow">Seurataan</string>
     <string name="state_follow_requested">Seuraamista pyydetty</string>
 </resources>

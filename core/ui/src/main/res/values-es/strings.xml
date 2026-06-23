@@ -199,6 +199,6 @@
     <string name="ui_error_follow_account_fmt">Fallo al seguir a %1$s: %2$s</string>
     <string name="action_unblock">Desbloquear</string>
     <string name="action_follow">Seguir</string>
-    <string name="action_unfollow_account">Dejar de seguir</string>
+    <string name="action_unfollow">Dejar de seguir</string>
     <string name="state_follow_requested">Solicitud enviada</string>
 </resources>

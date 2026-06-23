@@ -112,6 +112,6 @@
     <string name="duration_365_days">३६५ दिनानि</string>
     <string name="action_unblock">अवरोधो नश्यताम्</string>
     <string name="action_follow">अनुस्रियताम्</string>
-    <string name="action_unfollow_account">अनुसरणं अपाकुरुताम्</string>
+    <string name="action_unfollow">अनुसरणं अपाकुरुताम्</string>
     <string name="state_follow_requested">अनुसरणं निवेदितम्</string>
 </resources>

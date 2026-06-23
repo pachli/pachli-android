@@ -149,6 +149,6 @@
     <string name="duration_365_days">365 يومًا</string>
     <string name="action_unblock">إلغاء الحظر</string>
     <string name="action_follow">إتبع</string>
-    <string name="action_unfollow_account">إلغاء المتابعة</string>
+    <string name="action_unfollow">إلغاء المتابعة</string>
     <string name="state_follow_requested">طلب متابعة</string>
 </resources>

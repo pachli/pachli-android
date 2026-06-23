@@ -131,6 +131,6 @@
     <string name="duration_365_days">365 днів</string>
     <string name="action_unblock">Розблокувати</string>
     <string name="action_follow">Підписатися</string>
-    <string name="action_unfollow_account">Відписатися</string>
+    <string name="action_unfollow">Відписатися</string>
     <string name="state_follow_requested">Запит на підписку надіслано</string>
 </resources>

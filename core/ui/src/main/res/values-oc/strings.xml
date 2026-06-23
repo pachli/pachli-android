@@ -115,6 +115,6 @@
     <string name="duration_365_days">365 jorns</string>
     <string name="action_unblock">Quitar de blocar</string>
     <string name="action_follow">Seguir</string>
-    <string name="action_unfollow_account">Quitar de seguir</string>
+    <string name="action_unfollow">Quitar de seguir</string>
     <string name="state_follow_requested">Demanda d’abonament</string>
 </resources>

@@ -115,6 +115,6 @@
     <string name="duration_365_days">۳۶۵ روز</string>
     <string name="action_unblock">رفع انسداد</string>
     <string name="action_follow">پیگیری</string>
-    <string name="action_unfollow_account">ناپیگیری</string>
+    <string name="action_unfollow">ناپیگیری</string>
     <string name="state_follow_requested">تقاضای پیگیری شد</string>
 </resources>

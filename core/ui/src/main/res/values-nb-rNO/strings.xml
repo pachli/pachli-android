@@ -138,6 +138,6 @@
     <string name="ui_error_follow_account_fmt">Følging av %1$s mislyktes: %2$s</string>
     <string name="action_unblock">Fjern blokkering</string>
     <string name="action_follow">Følg</string>
-    <string name="action_unfollow_account">Slutt å følge</string>
+    <string name="action_unfollow">Slutt å følge</string>
     <string name="state_follow_requested">Forespørsel sendt</string>
 </resources>

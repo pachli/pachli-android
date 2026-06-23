@@ -115,6 +115,6 @@
     <string name="duration_365_days">365 dies</string>
     <string name="action_unblock">Deixa de blocar</string>
     <string name="action_follow">Segueix</string>
-    <string name="action_unfollow_account">Deixa de seguir</string>
+    <string name="action_unfollow">Deixa de seguir</string>
     <string name="state_follow_requested">Petició enviada</string>
 </resources>

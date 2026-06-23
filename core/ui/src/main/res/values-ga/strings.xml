@@ -219,6 +219,6 @@
     <string name="ui_error_follow_account_fmt">Theip ar %1$s a leanúint: %2$s</string>
     <string name="action_unblock">Ná bac</string>
     <string name="action_follow">Lean</string>
-    <string name="action_unfollow_account">Stop ag leanúint</string>
+    <string name="action_unfollow">Stop ag leanúint</string>
     <string name="state_follow_requested">Lean iarrtha</string>
 </resources>

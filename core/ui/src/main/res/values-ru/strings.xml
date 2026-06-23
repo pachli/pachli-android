@@ -177,6 +177,6 @@
     <string name="ui_error_follow_account_fmt">Не удалось подписаться на %1$s: ошибка %2$s</string>
     <string name="action_unblock">Разблокировать</string>
     <string name="action_follow">Подписаться</string>
-    <string name="action_unfollow_account">Отписаться</string>
+    <string name="action_unfollow">Отписаться</string>
     <string name="state_follow_requested">Запрошенные подписки</string>
 </resources>

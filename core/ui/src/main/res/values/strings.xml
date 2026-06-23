@@ -229,6 +229,6 @@
     <string name="ui_error_follow_account_fmt">Following %1$s failed: %2$s</string>
     <string name="action_unblock">Unblock</string>
     <string name="action_follow">Follow</string>
-    <string name="action_unfollow_account">Unfollow</string>
+    <string name="action_unfollow">Unfollow</string>
     <string name="state_follow_requested">Follow requested</string>
 </resources>

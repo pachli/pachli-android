@@ -115,6 +115,6 @@
     <string name="duration_365_days">365 dagar</string>
     <string name="action_unblock">Aflétta útilokun</string>
     <string name="action_follow">Fylgja</string>
-    <string name="action_unfollow_account">Hætta að fylgjast með</string>
+    <string name="action_unfollow">Hætta að fylgjast með</string>
     <string name="state_follow_requested">Beðið um að fylgja</string>
 </resources>

@@ -92,6 +92,6 @@
     <string name="duration_7_days">7 วัน</string>
     <string name="action_unblock">เลิกบล็อก</string>
     <string name="action_follow">ติดตาม</string>
-    <string name="action_unfollow_account">เลิกติดตาม</string>
+    <string name="action_unfollow">เลิกติดตาม</string>
     <string name="state_follow_requested">กำลังขอติดตาม</string>
 </resources>

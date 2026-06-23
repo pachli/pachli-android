@@ -158,6 +158,6 @@
     <string name="duration_365_days">365 dagar</string>
     <string name="action_unblock">Avblockera</string>
     <string name="action_follow">Följ</string>
-    <string name="action_unfollow_account">Avfölj</string>
+    <string name="action_unfollow">Avfölj</string>
     <string name="state_follow_requested">Följarförfrågan</string>
 </resources>

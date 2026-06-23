@@ -585,7 +585,7 @@ internal class AccountViewHolder(
 
             Relationship.FollowState.FOLLOWING -> {
                 // TODO: Move string action_unfollow
-                binding.actionButton.setText(app.pachli.core.ui.R.string.action_unfollow_account)
+                binding.actionButton.setText(app.pachli.core.ui.R.string.action_unfollow)
                 // TODO: Set click handler
             }
 

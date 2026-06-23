@@ -131,6 +131,6 @@
     <string name="duration_365_days">365 дзён</string>
     <string name="action_unblock">Разблакаваць</string>
     <string name="action_follow">Падпісацца</string>
-    <string name="action_unfollow_account">Адпісацца</string>
+    <string name="action_unfollow">Адпісацца</string>
     <string name="state_follow_requested">Запыт на падпіску</string>
 </resources>

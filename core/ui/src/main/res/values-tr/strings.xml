@@ -115,6 +115,6 @@
     <string name="duration_365_days">365 gün</string>
     <string name="action_unblock">Engeli kaldır</string>
     <string name="action_follow">Takip et</string>
-    <string name="action_unfollow_account">Takibi bırak</string>
+    <string name="action_unfollow">Takibi bırak</string>
     <string name="state_follow_requested">Takip istenen</string>
 </resources>

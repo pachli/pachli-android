@@ -91,6 +91,6 @@
     <string name="create_poll_title">ڕاپرسی</string>
     <string name="action_unblock">بەربەست کردن لاببە</string>
     <string name="action_follow">شوێنی بکەوە</string>
-    <string name="action_unfollow_account">بەدوادانەچو</string>
+    <string name="action_unfollow">بەدوادانەچو</string>
     <string name="state_follow_requested">بەدواداچوونەوەی داواکراو</string>
 </resources>

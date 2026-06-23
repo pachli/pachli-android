@@ -189,6 +189,6 @@
     <string name="ui_error_follow_account_fmt">Fehler beim Folgen von %1$s: %2$s</string>
     <string name="action_unblock">Blockierung aufheben</string>
     <string name="action_follow">Folgen</string>
-    <string name="action_unfollow_account">Entfolgen</string>
+    <string name="action_unfollow">Entfolgen</string>
     <string name="state_follow_requested">Folgeanfrage gesendet</string>
 </resources>
