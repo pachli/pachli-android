@@ -36,10 +36,7 @@
     <string name="report_comment_hint">Ĉu pliaj komentoj\?</string>
     <string name="action_quick_reply">Rapida respondo</string>
     <string name="action_compose">Verki</string>
-    <string name="action_follow">Sekvi</string>
-    <string name="action_unfollow">Ne plu sekvi</string>
     <string name="action_block">Bloki</string>
-    <string name="action_unblock">Malbloki</string>
     <string name="action_hide_reblogs">Kaŝi diskonigojn</string>
     <string name="action_show_reblogs">Montri diskonigojn</string>
     <string name="action_report">Signali</string>
@@ -173,7 +170,6 @@
     -->
     <string name="post_share_content">Konigi enhavon de la mesaĝo</string>
     <string name="post_share_link">Konigi ligilon al mesaĝo</string>
-    <string name="state_follow_requested">Sekvado petita</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Sekvas vin</string>
     <string name="pref_title_alway_show_sensitive_media">Ĉiam montri tiklan enhavon</string>

@@ -72,7 +72,6 @@
     <string name="pref_title_alway_open_spoiler">ขยาย Toot ที่มีเครื่องหมายเนื้อหาอ่อนไหวเสมอ</string>
     <string name="pref_title_alway_show_sensitive_media">แสดงเนื้อหาอ่อนไหวเสมอ</string>
     <string name="follows_you">กำลังติดตามคุณ</string>
-    <string name="state_follow_requested">กำลังขอติดตาม</string>
     <string name="post_share_link">แบ่งปันลิงก์ Toot</string>
     <string name="post_share_content">แบ่งปันเนื้อหา Toot</string>
     <string name="description_account_locked">บัญชีไม่สาธารณะ</string>
@@ -218,10 +217,7 @@
     <string name="action_report">รายงาน</string>
     <string name="action_show_reblogs">แสดงการดัน</string>
     <string name="action_hide_reblogs">ซ่อนการดัน</string>
-    <string name="action_unblock">เลิกบล็อก</string>
     <string name="action_block">บล็อก</string>
-    <string name="action_unfollow">เลิกติดตาม</string>
-    <string name="action_follow">ติดตาม</string>
     <string name="action_compose">เขียนโพสต์ใหม่</string>
     <string name="action_quick_reply">ตอบกลับด่วน</string>
     <string name="report_comment_hint">ความคิดเห็นเพิ่มเติม</string>

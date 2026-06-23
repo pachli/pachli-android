@@ -15,4 +15,7 @@
     <string name="post_content_show_less">ဖြန့်မည်</string>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; တစ်ဆင့်မျှဝေပြီး</string>
     <string name="post_edited">ပြုပြင်ထား %1$s</string>
+    <string name="action_unblock">ဘလော့ခ်ဖြည်မည်</string>
+    <string name="action_follow">စောင့်ကြည့်မည်</string>
+    <string name="action_unfollow_account">မစောင့်ကြည့်တော့ပါ</string>
 </resources>

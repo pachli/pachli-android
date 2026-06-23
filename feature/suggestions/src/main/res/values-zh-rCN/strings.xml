@@ -8,7 +8,6 @@
     <string name="sources_unknown">（服务器返回无法识别的源）</string>
     <string name="action_dismiss_follow_suggestion">取消</string>
     <string name="ui_error_delete_suggestion_fmt">取消对%1$s的建议失败：%2$s</string>
-    <string name="ui_error_follow_account_fmt">关注%1$s失败：%2$s</string>
     <string name="sources_similar_to_recently_followed">类似于您最近关注的帐户</string>
     <string name="sources_most_interactions">在您的服务器上获得大量关注</string>
 </resources>

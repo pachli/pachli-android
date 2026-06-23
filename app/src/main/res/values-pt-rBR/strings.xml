@@ -35,10 +35,7 @@
     <string name="report_comment_hint">Comentários adicionais?</string>
     <string name="action_quick_reply">Resposta rápida</string>
     <string name="action_compose">Compor</string>
-    <string name="action_follow">Seguir</string>
-    <string name="action_unfollow">Deixar de seguir</string>
     <string name="action_block">Bloquear</string>
-    <string name="action_unblock">Desbloquear</string>
     <string name="action_hide_reblogs">Ocultar Boosts</string>
     <string name="action_show_reblogs">Mostrar Boosts</string>
     <string name="action_report">Denunciar</string>
@@ -165,7 +162,6 @@
     -->
     <string name="post_share_content">Compartilhar conteúdo do Toot</string>
     <string name="post_share_link">Compartilhar URL do Toot</string>
-    <string name="state_follow_requested">Solicitação enviada</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">te segue</string>
     <string name="pref_title_alway_show_sensitive_media">Sempre mostrar mídia sensível</string>

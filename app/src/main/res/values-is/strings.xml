@@ -43,10 +43,7 @@
     <string name="report_comment_hint">Aðrar athugasemdir\?</string>
     <string name="action_quick_reply">Snöggt svar</string>
     <string name="action_compose">Semja skilaboð</string>
-    <string name="action_follow">Fylgja</string>
-    <string name="action_unfollow">Hætta að fylgjast með</string>
     <string name="action_block">Útiloka</string>
-    <string name="action_unblock">Aflétta útilokun</string>
     <string name="action_hide_reblogs">Fela endurbirtingar</string>
     <string name="action_show_reblogs">Sýna endurbirtingar</string>
     <string name="action_report">Tilkynna</string>
@@ -187,7 +184,6 @@
     <string name="description_account_locked">Læstur notandaaðgangur</string>
     <string name="post_share_content">Deila efni úr færslu</string>
     <string name="post_share_link">Deila tengli á færslu</string>
-    <string name="state_follow_requested">Beðið um að fylgja</string>
     <string name="follows_you">Fylgir þér</string>
     <string name="pref_title_alway_show_sensitive_media">Alltaf birta myndefni sem merkt er viðkvæmt</string>
     <string name="pref_title_alway_open_spoiler">Alltaf fletta út færslum sem eru með aðvörun vegna efnis</string>

@@ -36,10 +36,7 @@
     <string name="report_comment_hint">Dodatni komentarji\?</string>
     <string name="action_quick_reply">Hiter odgovor</string>
     <string name="action_compose">Sestavi</string>
-    <string name="action_follow">Sledi</string>
-    <string name="action_unfollow">Prenehaj slediti</string>
     <string name="action_block">Blokiraj</string>
-    <string name="action_unblock">Odblokiraj</string>
     <string name="action_hide_reblogs">Skirj spodbude</string>
     <string name="action_show_reblogs">Prikaži spodbude</string>
     <string name="action_report">Prijavi</string>
@@ -158,7 +155,6 @@
     <string name="description_account_locked">Zaklenjen račun</string>
     <string name="post_share_content">Deli vsebino tuta</string>
     <string name="post_share_link">Deli povezavo do tuta</string>
-    <string name="state_follow_requested">Prošnja za sledenje</string>
     <string name="follows_you">Vam sledi</string>
     <string name="pref_title_alway_show_sensitive_media">Vedno prikaži občutljivo vsebino</string>
     <string name="title_media">Mediji</string>

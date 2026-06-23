@@ -42,10 +42,7 @@
     <string name="action_report">आवेद्यताम्</string>
     <string name="action_show_reblogs">प्रकाशनानि दृश्यन्ताम्</string>
     <string name="action_hide_reblogs">प्रकाशनानि छाद्यन्ताम्</string>
-    <string name="action_unblock">अवरोधो नश्यताम्</string>
     <string name="action_block">अवरुध्यताम्</string>
-    <string name="action_unfollow">अनुसरणं अपाकुरुताम्</string>
-    <string name="action_follow">अनुस्रियताम्</string>
     <string name="action_compose">रच्यताम्</string>
     <string name="action_quick_reply">त्वरितप्रत्युत्तरं दीयताम्</string>
     <string name="report_comment_hint">अन्यटिप्पण्यः \?</string>
@@ -149,7 +146,6 @@
     <string name="pref_title_alway_open_spoiler">सर्वदा विषयसतर्कतयाऽङ्कितं दौत्यं विस्तार्यताम्</string>
     <string name="pref_title_alway_show_sensitive_media">सर्वदा संवेदनशीलविषयो दृश्यताम्</string>
     <string name="follows_you">त्वामनुसरति</string>
-    <string name="state_follow_requested">अनुसरणं निवेदितम्</string>
     <string name="post_share_link">दौत्याय जालस्थानं विभाज्यताम्</string>
     <string name="post_share_content">दौत्यविषयो विभाज्यताम्</string>
     <string name="description_account_locked">कपाटितव्यक्तिविवरणलेखः</string>

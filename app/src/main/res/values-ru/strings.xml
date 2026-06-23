@@ -36,10 +36,7 @@
     <string name="report_comment_hint">Дополнительные комментарии?</string>
     <string name="action_quick_reply">Быстрый ответ</string>
     <string name="action_compose">Сочинить</string>
-    <string name="action_follow">Подписаться</string>
-    <string name="action_unfollow">Отписаться</string>
     <string name="action_block">Заблокировать</string>
-    <string name="action_unblock">Разблокировать</string>
     <string name="action_hide_reblogs">Скрыть продвижения</string>
     <string name="action_show_reblogs">Показать продвижения</string>
     <string name="action_report">Пожаловаться</string>
@@ -174,7 +171,6 @@
     <!-- note to translators: the url can be changed to link to the localized version of the license -->
     <string name="post_share_content">Поделиться содержанием гудка</string>
     <string name="post_share_link">Поделиться ссылкой на гудок</string>
-    <string name="state_follow_requested">Запрошенные подписки</string>
     <!--Отметки времени у постов: "16s" or "2d"-->
     <!--Оставшееся время в опросах -->
     <string name="follows_you">Подписан(а) на вас</string>

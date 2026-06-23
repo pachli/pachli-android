@@ -145,4 +145,8 @@
     <string name="duration_90_days">90 diwrnod</string>
     <string name="duration_180_days">180 diwrnod</string>
     <string name="duration_365_days">Blwyddyn</string>
+    <string name="action_unblock">Dadflocio</string>
+    <string name="action_follow">Dilyn</string>
+    <string name="action_unfollow_account">Dad-ddilyn</string>
+    <string name="state_follow_requested">Ceisiwyd</string>
 </resources>

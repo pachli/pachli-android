@@ -76,4 +76,8 @@
     <string name="duration_1_day">1 दिन</string>
     <string name="duration_3_days">3 दिन</string>
     <string name="duration_7_days">7 दिन</string>
+    <string name="action_unblock">अनब्लॉक</string>
+    <string name="action_follow">फ़ॉलो</string>
+    <string name="action_unfollow_account">अनफ़ॉलो</string>
+    <string name="state_follow_requested">फ़ॉलो करने का अनुरोध किया हुआ</string>
 </resources>

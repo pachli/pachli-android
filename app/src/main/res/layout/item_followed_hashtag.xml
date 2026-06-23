@@ -43,7 +43,7 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/action_unfollow"
+        android:contentDescription="@string/action_unfollow_account"
         android:padding="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

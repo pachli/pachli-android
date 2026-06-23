@@ -14,8 +14,6 @@
     <string name="title_edit_profile">Ẓreg amaɣnu-ik</string>
     <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; yeṭṭafar-ik·ikem-id</string>
     <string name="action_compose">Azen</string>
-    <string name="action_follow">Ḍfeṛ</string>
-    <string name="action_unfollow">Ur ṭṭafar ara</string>
     <string name="action_delete">Kkes</string>
     <string name="action_delete_and_redraft">Kkes tɛiwdeḍ tira</string>
     <string name="action_send">Jewweq</string>
@@ -150,7 +148,6 @@
     <string name="label_header">Tugna n yiɣef n umaɣnu</string>
     <string name="error_empty">Ur ilaq ara ad yili d ilem.</string>
     <string name="action_block">Cekkel</string>
-    <string name="action_unblock">Kkes tacekkalt</string>
     <string name="confirmation_unblocked">Tettwakkes tacekkalt ɣef umiḍan-nni</string>
     <string name="report_remote_instance">Bren-it ɣer %1$s</string>
     <string name="pref_title_app_theme">Asentel n wesnas</string>

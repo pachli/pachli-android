@@ -10,5 +10,4 @@
     <string name="sources_unknown">(server vrátil nerozpoznané zdroje)</string>
     <string name="action_dismiss_follow_suggestion">Zavrieť</string>
     <string name="ui_error_delete_suggestion_fmt">Odmietnutie návrhu pre %1$s zlyhalo: %2$s</string>
-    <string name="ui_error_follow_account_fmt">Sledovanie účtu %1$s zlyhalo: %2$s</string>
 </resources>

@@ -26,9 +26,6 @@
     <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; laboja savu ierakstu</string>
     <string name="action_quick_reply">Ātrā atbilde</string>
     <string name="action_unbookmark">Noņemt grāmatzīmi</string>
-    <string name="action_follow">Sekot</string>
-    <string name="action_unblock">Atcelt liegumu</string>
-    <string name="action_unfollow">Pārtraukt sekošanu</string>
     <string name="action_delete">Dzēst</string>
     <string name="action_delete_conversation">Dzēst sarunu</string>
     <string name="action_view_preferences">Iestatījumi</string>
@@ -79,7 +76,6 @@
     <string name="post_text_size_largest">Lielākais</string>
     <string name="notification_poll_name">Aptaujas</string>
     <string name="notification_report_name">Ziņojumi</string>
-    <string name="state_follow_requested">Sekošana pieprasīta</string>
     <string name="pref_title_public_filter_keywords">Publiskās laika līnijas</string>
     <string name="filter_addition_title">Pievienot filtru</string>
     <string name="pref_title_thread_filter_keywords">Sarunas</string>

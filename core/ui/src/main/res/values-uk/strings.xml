@@ -129,4 +129,8 @@
     <string name="duration_90_days">90 днів</string>
     <string name="duration_180_days">180 днів</string>
     <string name="duration_365_days">365 днів</string>
+    <string name="action_unblock">Розблокувати</string>
+    <string name="action_follow">Підписатися</string>
+    <string name="action_unfollow_account">Відписатися</string>
+    <string name="state_follow_requested">Запит на підписку надіслано</string>
 </resources>

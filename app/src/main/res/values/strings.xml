@@ -133,10 +133,7 @@
     <string name="action_quick_reply">Quick Reply</string>
     <string name="action_unbookmark">Remove bookmark</string>
     <string name="action_compose">Compose</string>
-    <string name="action_follow">Follow</string>
-    <string name="action_unfollow">Unfollow</string>
     <string name="action_block">Block</string>
-    <string name="action_unblock">Unblock</string>
     <string name="action_share_account_link">Share link to account</string>
     <string name="action_share_account_username">Share username of account</string>
     <string name="action_hide_reblogs">Hide boosts</string>
@@ -379,7 +376,6 @@
     -->
     <string name="post_share_content">Share content of post</string>
     <string name="post_share_link">Share link to post</string>
-    <string name="state_follow_requested">Follow requested</string>
     <!--These are for timestamps on posts. For example: "16s" or "2d"-->
     <string name="follows_you">Follows you</string>
     <string name="pref_title_alway_show_sensitive_media">Always show sensitive content</string>

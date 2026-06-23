@@ -84,4 +84,8 @@
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; 转嘟了</string>
     <string name="filter_edit_title">编辑过滤器</string>
+    <string name="action_unblock">取消屏蔽</string>
+    <string name="action_follow">关注</string>
+    <string name="action_unfollow_account">取消关注</string>
+    <string name="state_follow_requested">已发送关注请求</string>
 </resources>

@@ -113,4 +113,8 @@
     <string name="duration_90_days">90 nap</string>
     <string name="duration_180_days">180 nap</string>
     <string name="duration_365_days">365 nap</string>
+    <string name="action_unblock">Letiltás feloldása</string>
+    <string name="action_follow">Követés</string>
+    <string name="action_unfollow_account">Követés vége</string>
+    <string name="state_follow_requested">Követés kérelmezve</string>
 </resources>

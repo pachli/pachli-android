@@ -186,4 +186,9 @@
     <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> Beiträge (&lt;b>%2$d&lt;/b> pro Woche)</string>
     <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> Beiträge (&lt;b>%2$d&lt;/b> pro Woche, letzter am &lt;b>%3$s&lt;/b>)</string>
     <string name="action_follow_account">Folgen</string>
+    <string name="ui_error_follow_account_fmt">Fehler beim Folgen von %1$s: %2$s</string>
+    <string name="action_unblock">Blockierung aufheben</string>
+    <string name="action_follow">Folgen</string>
+    <string name="action_unfollow_account">Entfolgen</string>
+    <string name="state_follow_requested">Folgeanfrage gesendet</string>
 </resources>

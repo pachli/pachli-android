@@ -36,10 +36,7 @@
     <string name="report_comment_hint">¿Información adicional?</string>
     <string name="action_quick_reply">Respuesta rápida</string>
     <string name="action_compose">Redactar</string>
-    <string name="action_follow">Seguir</string>
-    <string name="action_unfollow">Dejar de seguir</string>
     <string name="action_block">Bloquear</string>
-    <string name="action_unblock">Desbloquear</string>
     <string name="action_hide_reblogs">Ocultar impulsos</string>
     <string name="action_show_reblogs">Mostrar impulsos</string>
     <string name="action_report">Denunciar</string>
@@ -165,7 +162,6 @@
     -->
     <string name="post_share_content">Compartir contenido</string>
     <string name="post_share_link">Compartir enlace</string>
-    <string name="state_follow_requested">Solicitud enviada</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Te sigue</string>
     <string name="pref_title_alway_show_sensitive_media">Mostrar contenido sensible</string>

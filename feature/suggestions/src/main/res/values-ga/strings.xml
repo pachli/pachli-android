@@ -10,5 +10,4 @@
     <string name="action_dismiss_follow_suggestion">Díbhe</string>
     <string name="ui_error_delete_suggestion_fmt">Theip ar mholadh le haghaidh %1$s a dhíbhe: %2$s</string>
     <string name="sources_similar_to_recently_followed">Cosúil le cuntais a lean tú le déanaí</string>
-    <string name="ui_error_follow_account_fmt">Theip ar %1$s a leanúint: %2$s</string>
 </resources>

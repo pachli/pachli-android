@@ -155,6 +155,9 @@ class CollectionActivity : ViewUrlActivity() {
             viewModel.uiOptions.value.animateAvatars,
         )
         binding.avatarBadge.visible(owner.account.bot && viewModel.uiOptions.value.showBotOverlay)
+
+        binding.roleChipGroup.setRoles(owner.account.roles)
+
         binding.displayName.text = owner.account.name.unicodeWrap().emojify(
             glide,
             owner.account.emojis,

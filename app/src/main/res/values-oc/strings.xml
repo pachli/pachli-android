@@ -32,10 +32,7 @@
     <string name="report_comment_hint">Cap comentari addicional ?</string>
     <string name="action_quick_reply">Responsa rapida</string>
     <string name="action_compose">Redactar</string>
-    <string name="action_follow">Seguir</string>
-    <string name="action_unfollow">Quitar de seguir</string>
     <string name="action_block">Blocar</string>
-    <string name="action_unblock">Quitar de blocar</string>
     <string name="action_hide_reblogs">Rescondre los partatges</string>
     <string name="action_show_reblogs">Mostrar los retuts</string>
     <string name="action_report">Senhalar</string>
@@ -154,7 +151,6 @@
     -->
     <string name="post_share_content">Partejar lo contengut del tut</string>
     <string name="post_share_link">Partejar lo ligam del tut</string>
-    <string name="state_follow_requested">Demanda d’abonament</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Vos sèc</string>
     <string name="pref_title_alway_show_sensitive_media">Mostrar lo contengut sensible (NSFW)</string>

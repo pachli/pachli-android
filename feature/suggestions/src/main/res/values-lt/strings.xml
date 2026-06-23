@@ -10,5 +10,4 @@
     <string name="sources_similar_to_recently_followed">Panašus į paskyras, kurias neseniai sekėte</string>
     <string name="sources_unknown">(serveris grąžino neatpažintus šaltinius)</string>
     <string name="ui_error_delete_suggestion_fmt">Nepavyko atmesti pasiūlymo dėl %1$s: %2$s.</string>
-    <string name="ui_error_follow_account_fmt">Nepavyko sekti %1$s: %2$s.</string>
 </resources>

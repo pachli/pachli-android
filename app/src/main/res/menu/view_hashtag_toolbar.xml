@@ -12,7 +12,7 @@
 
     <item
         android:id="@+id/action_unfollow_hashtag"
-        android:title="@string/action_unfollow"
+        android:title="@string/action_unfollow_account"
         app:showAsAction="ifRoom"
         app:iconTint="?attr/colorControlNormal"
         android:icon="@drawable/ic_person_remove_24dp" />

@@ -36,10 +36,7 @@
     <string name="report_comment_hint">تعليقات إضافية؟</string>
     <string name="action_quick_reply">رد سريع</string>
     <string name="action_compose">حرر</string>
-    <string name="action_follow">إتبع</string>
-    <string name="action_unfollow">إلغاء المتابعة</string>
     <string name="action_block">قم بحظره</string>
-    <string name="action_unblock">إلغاء الحظر</string>
     <string name="action_hide_reblogs">إخفاء المشاركات</string>
     <string name="action_show_reblogs">إظهار المشاركات</string>
     <string name="action_report">أبلغ عنه</string>
@@ -173,7 +170,6 @@
     -->
     <string name="post_share_content">شارك محتوى التبويق</string>
     <string name="post_share_link">شارك الرابط إلى التبويق</string>
-    <string name="state_follow_requested">طلب متابعة</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">يتبعك الآن</string>
     <string name="pref_title_alway_show_sensitive_media">أظهر دائما المحتوى الحساس</string>

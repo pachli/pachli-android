@@ -36,10 +36,7 @@
     <string name="report_comment_hint">Zusätzliche Anmerkungen\?</string>
     <string name="action_quick_reply">Schnell antworten</string>
     <string name="action_compose">Beitrag erstellen</string>
-    <string name="action_follow">Folgen</string>
-    <string name="action_unfollow">Entfolgen</string>
     <string name="action_block">Blockieren</string>
-    <string name="action_unblock">Blockierung aufheben</string>
     <string name="action_hide_reblogs">Geteilte Beiträge ausblenden</string>
     <string name="action_show_reblogs">Geteilte Beiträge anzeigen</string>
     <string name="action_report">Melden</string>
@@ -172,7 +169,6 @@
     -->
     <string name="post_share_content">Inhalt des Beitrags teilen</string>
     <string name="post_share_link">Link zum Beitrag teilen</string>
-    <string name="state_follow_requested">Folgeanfrage gesendet</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Folgt dir</string>
     <string name="pref_title_alway_show_sensitive_media">Mediendateien mit Inhaltswarnung immer anzeigen</string>

@@ -196,4 +196,9 @@
     <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> publicaciones (&lt;b>%2$d&lt;/b> por semana)</string>
     <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> publicaciones (&lt;b>%2$d&lt;/b> por semana; última: &lt;b>%3$s&lt;/b>)</string>
     <string name="action_follow_account">Seguir</string>
+    <string name="ui_error_follow_account_fmt">Fallo al seguir a %1$s: %2$s</string>
+    <string name="action_unblock">Desbloquear</string>
+    <string name="action_follow">Seguir</string>
+    <string name="action_unfollow_account">Dejar de seguir</string>
+    <string name="state_follow_requested">Solicitud enviada</string>
 </resources>

@@ -39,43 +39,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <!-- Collection details here
-             - name
-             - description
-             - owner handle
-
-             -->
-            <TextView
-                android:id="@+id/collection_name"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:scrollbars="vertical"
+                tools:listitem="@layout/item_account_in_collection" />
 
-            <FrameLayout
+            <app.pachli.core.ui.BackgroundMessageView
+                android:id="@+id/messageView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="8dp"
-                    android:scrollbars="vertical"
-                    tools:listitem="@layout/item_account_in_collection" />
-
-                <app.pachli.core.ui.BackgroundMessageView
-                    android:id="@+id/messageView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@android:color/transparent"
-                    android:visibility="gone"
-                    tools:src="@drawable/errorphant_error"
-                    tools:visibility="gone" />
-            </FrameLayout>
-        </LinearLayout>
+                android:layout_height="match_parent"
+                android:src="@android:color/transparent"
+                android:visibility="gone"
+                tools:src="@drawable/errorphant_error"
+                tools:visibility="gone" />
+        </FrameLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

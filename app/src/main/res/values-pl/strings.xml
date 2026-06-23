@@ -33,10 +33,7 @@
     <string name="report_comment_hint">Dodatkowe komentarze?</string>
     <string name="action_quick_reply">Szybka odpowiedź</string>
     <string name="action_compose">Napisz</string>
-    <string name="action_follow">Obserwuj</string>
-    <string name="action_unfollow">Przestań obserwować</string>
     <string name="action_block">Zablokuj</string>
-    <string name="action_unblock">Odblokuj</string>
     <string name="action_hide_reblogs">Ukryj podbicia</string>
     <string name="action_show_reblogs">Pokaż podbicia</string>
     <string name="action_report">Zgłoś</string>
@@ -156,7 +153,6 @@
     -->
     <string name="post_share_content">Udostępnij zawartość wpisu</string>
     <string name="post_share_link">Udostępnij odnośnik do wpisu</string>
-    <string name="state_follow_requested">Wysłano prośbę o obserwację</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Obserwuje cię</string>
     <string name="pref_title_alway_show_sensitive_media">Zawsze wyświetlaj drażliwą zawartość</string>

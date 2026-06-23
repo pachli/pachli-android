@@ -36,10 +36,7 @@
     <string name="report_comment_hint">Daha fazla yorum?</string>
     <string name="action_quick_reply">Hızlı yanıt</string>
     <string name="action_compose">Oluştur</string>
-    <string name="action_follow">Takip et</string>
-    <string name="action_unfollow">Takibi bırak</string>
     <string name="action_block">Engelle</string>
-    <string name="action_unblock">Engeli kaldır</string>
     <string name="action_hide_reblogs">Yeniden gönderiyi gizle</string>
     <string name="action_show_reblogs">Yeniden gönderileri göster</string>
     <string name="action_report">Bildir</string>
@@ -165,7 +162,6 @@
     -->
     <string name="post_share_content">Gönderinin içeriğini paylaş</string>
     <string name="post_share_link">Gönderinin adresini paylaş</string>
-    <string name="state_follow_requested">Takip istenen</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Seni takip ediyor</string>
     <string name="pref_title_alway_show_sensitive_media">Her zaman hassas içerikleri göster</string>

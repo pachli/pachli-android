@@ -93,6 +93,19 @@ by [avatar] [owner display name]
                     app:layout_constraintBottom_toBottomOf="@id/avatar"
                     app:layout_constraintEnd_toEndOf="@id/avatar" />
 
+                <app.pachli.core.ui.RoleChipGroup
+                    android:id="@+id/roleChipGroup"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="4dp"
+                    app:chipSpacingVertical="4dp"
+                    app:layout_constraintStart_toStartOf="@id/displayName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/avatar"
+                    android:importantForAccessibility="no"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
                 <TextView
                     android:id="@+id/displayName"
                     android:layout_width="0dp"
@@ -104,9 +117,9 @@ by [avatar] [owner display name]
                     android:textColor="?android:textColorPrimary"
                     android:textSize="?attr/status_text_medium"
                     android:textStyle="normal|bold"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/avatar"
-                    app:layout_constraintTop_toTopOf="@+id/avatar"
+                    app:layout_constraintTop_toBottomOf="@id/roleChipGroup"
+                    app:layout_constraintEnd_toEndOf="parent"
                     tools:text="Display name" />
 
                 <TextView
@@ -193,7 +206,7 @@ by [avatar] [owner display name]
                     android:layout_marginTop="6dp"
                     android:importantForAccessibility="no"
                     android:minHeight="48dp"
-                    android:text="@string/collection_remove_self"
+                    android:text="@string/action_collection_remove_self"
                     android:textSize="?attr/status_text_medium"
                     android:textAllCaps="false"
                     app:layout_constraintStart_toStartOf="parent"

@@ -129,4 +129,8 @@
     <string name="duration_90_days">90 latha</string>
     <string name="duration_180_days">180 latha</string>
     <string name="duration_365_days">365 latha</string>
+    <string name="action_unblock">Dì-bhac</string>
+    <string name="action_follow">Lean</string>
+    <string name="action_unfollow_account">Na lean tuilleadh</string>
+    <string name="state_follow_requested">Iarrtas leantainn air</string>
 </resources>

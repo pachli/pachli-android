@@ -37,9 +37,6 @@
     </plurals>
     <string name="report_comment_hint">ဖြည့်စွက်မှတ်ချက်များရှိပါသလား</string>
     <string name="action_compose">စာစီမည်</string>
-    <string name="action_follow">စောင့်ကြည့်မည်</string>
-    <string name="action_unfollow">မစောင့်ကြည့်တော့ပါ</string>
-    <string name="action_unblock">ဘလော့ခ်ဖြည်မည်</string>
     <string name="action_share_account_link">အကောင့်လင်ခ့်မျှဝေမည်</string>
     <string name="action_share_account_username">အကောင့်၏ Username မျှဝေမည်</string>
     <string name="action_hide_reblogs">တစ်ဆင့်မျှဝေမှုများဖျောက်မည်</string>

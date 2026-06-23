@@ -101,10 +101,7 @@
     <string name="action_report">Báo cáo</string>
     <string name="action_show_reblogs">Hiện lượt đăng lại</string>
     <string name="action_hide_reblogs">Ẩn lượt đăng lại</string>
-    <string name="action_unblock">Bỏ chặn</string>
     <string name="action_block">Chặn</string>
-    <string name="action_unfollow">Bỏ theo dõi</string>
-    <string name="action_follow">Theo dõi</string>
     <string name="action_compose">Soạn tút</string>
     <string name="action_quick_reply">Trả lời nhanh</string>
     <string name="report_comment_hint">Ghi chú\?</string>
@@ -207,7 +204,6 @@
     <string name="pref_title_alway_open_spoiler">Hiện nội dung ẩn</string>
     <string name="pref_title_alway_show_sensitive_media">Hiện nội dung nhạy cảm</string>
     <string name="follows_you">Đang theo dõi bạn</string>
-    <string name="state_follow_requested">Yêu cầu theo dõi</string>
     <string name="post_share_link">URL tút</string>
     <string name="post_share_content">Nội dung tút</string>
     <string name="pref_title_confirm_reblogs">Hỏi trước khi đăng lại tút</string>

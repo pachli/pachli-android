@@ -87,4 +87,7 @@
     <string name="duration_1_day">1 n wass</string>
     <string name="duration_3_days">3 n wussan</string>
     <string name="duration_7_days">7 n wussan</string>
+    <string name="action_unblock">Kkes tacekkalt</string>
+    <string name="action_follow">Ḍfeṛ</string>
+    <string name="action_unfollow_account">Ur ṭṭafar ara</string>
 </resources>

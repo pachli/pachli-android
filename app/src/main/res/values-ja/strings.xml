@@ -36,10 +36,7 @@
     <string name="report_comment_hint">コメント</string>
     <string name="action_quick_reply">クイック返信</string>
     <string name="action_compose">投稿する</string>
-    <string name="action_follow">フォローする</string>
-    <string name="action_unfollow">フォロー解除</string>
     <string name="action_block">ブロック</string>
-    <string name="action_unblock">ブロック解除</string>
     <string name="action_hide_reblogs">ブーストを非表示</string>
     <string name="action_show_reblogs">ブーストを表示</string>
     <string name="action_report">通報</string>
@@ -167,7 +164,6 @@
     -->
     <string name="post_share_content">投稿の内容を共有</string>
     <string name="post_share_link">投稿へのリンクを共有</string>
-    <string name="state_follow_requested">フォローリクエスト中</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">あなたをフォロー中</string>
     <string name="pref_title_alway_show_sensitive_media">閲覧注意のメディアを常に表示</string>

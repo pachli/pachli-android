@@ -37,4 +37,18 @@ data class Relationship(
     val note: String?,
     // since 3.3.0rc
     val notifying: Boolean?,
-)
+) {
+    enum class FollowState {
+        NOT_FOLLOWING,
+        FOLLOWING,
+        REQUESTED,
+    }
+
+    /** How/if the user is following the account. */
+    val followState: FollowState
+        get() = when {
+            following -> FollowState.FOLLOWING
+            requested -> FollowState.REQUESTED
+            else -> FollowState.NOT_FOLLOWING
+        }
+}

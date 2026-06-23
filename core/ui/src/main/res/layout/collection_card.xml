@@ -146,7 +146,7 @@
             android:layout_marginTop="6dp"
             android:importantForAccessibility="no"
             android:minHeight="48dp"
-            android:text="@string/collection_remove_self"
+            android:text="@string/action_collection_remove_self"
             android:textSize="?attr/status_text_small"
             android:textAllCaps="false"
             app:layout_constraintStart_toStartOf="@+id/avatar_grid"

@@ -66,6 +66,7 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Account
 import app.pachli.core.model.Draft
 import app.pachli.core.model.Relationship
+import app.pachli.core.model.Relationship.FollowState
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AccountListActivityIntent
@@ -153,7 +154,7 @@ class AccountActivity :
 
     private lateinit var accountFieldAdapter: AccountFieldAdapter
 
-    private var followState: FollowState = FollowState.NOT_FOLLOWING
+    private var followState = FollowState.NOT_FOLLOWING
     private var blocking: Boolean = false
     private var muting: Boolean = false
     private var blockingDomain: Boolean = false
@@ -182,12 +183,6 @@ class AccountActivity :
     @Px
     private var titleVisibleHeight: Int = 0
     private lateinit var domain: String
-
-    private enum class FollowState {
-        NOT_FOLLOWING,
-        FOLLOWING,
-        REQUESTED,
-    }
 
     private lateinit var adapter: AccountPagerAdapter
 
@@ -778,18 +773,18 @@ class AccountActivity :
             return
         }
         if (blocking) {
-            binding.accountFollowButton.setText(R.string.action_unblock)
+            binding.accountFollowButton.setText(app.pachli.core.ui.R.string.action_unblock)
             return
         }
         when (followState) {
             FollowState.NOT_FOLLOWING -> {
-                binding.accountFollowButton.setText(R.string.action_follow)
+                binding.accountFollowButton.setText(app.pachli.core.ui.R.string.action_follow_account)
             }
             FollowState.REQUESTED -> {
-                binding.accountFollowButton.setText(R.string.state_follow_requested)
+                binding.accountFollowButton.setText(app.pachli.core.ui.R.string.state_follow_requested)
             }
             FollowState.FOLLOWING -> {
-                binding.accountFollowButton.setText(R.string.action_unfollow)
+                binding.accountFollowButton.setText(app.pachli.core.ui.R.string.action_unfollow_account)
             }
         }
     }
@@ -855,7 +850,7 @@ class AccountActivity :
         // Display badges for any roles. Per the API spec this should only include
         // roles with a true `highlighted` property, but the web UI doesn't do that,
         // so follow suit for the moment, https://github.com/mastodon/mastodon/issues/28327
-        account.roles?.forEach { role ->
+        account.roles.forEach { role ->
             val badgeView = getBadge(app.pachli.core.ui.R.drawable.profile_role_badge).apply {
                 bind(role, viewModel.domain)
             }
@@ -879,7 +874,7 @@ class AccountActivity :
         if (!viewModel.isSelf.value) {
             val block = menu.findItem(R.id.action_block)
             block.title = if (blocking) {
-                getString(R.string.action_unblock)
+                getString(app.pachli.core.ui.R.string.action_unblock)
             } else {
                 getString(R.string.action_block)
             }

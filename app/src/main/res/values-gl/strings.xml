@@ -41,10 +41,7 @@
     <string name="action_report">Denunciar</string>
     <string name="action_show_reblogs">Mostrar promocións</string>
     <string name="action_hide_reblogs">Agochar promocións</string>
-    <string name="action_unblock">Desbloquear</string>
     <string name="action_block">Bloquear</string>
-    <string name="action_unfollow">Deixar de seguir</string>
-    <string name="action_follow">Seguir</string>
     <string name="action_compose">Redactar</string>
     <string name="action_quick_reply">Resposta rápida</string>
     <string name="report_comment_hint">Comentarios adicionais\?</string>
@@ -162,7 +159,6 @@
     <string name="pref_title_alway_open_spoiler">Despregar sempre publicacións marcadas con avisos sobre o contido</string>
     <string name="pref_title_alway_show_sensitive_media">Mostrar sempre contido sensible</string>
     <string name="follows_you">Séguete</string>
-    <string name="state_follow_requested">Seguimento solicitado</string>
     <string name="post_share_link">Compartir ligazón ao toot</string>
     <string name="post_share_content">Compartir contido do toot</string>
     <string name="description_account_locked">Conta bloqueada</string>

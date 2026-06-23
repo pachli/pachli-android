@@ -24,6 +24,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.accessibility.AccessibilityManager
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
@@ -54,12 +55,16 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.ICollectionsRepository
 import app.pachli.core.data.repository.Loadable
+import app.pachli.core.data.repository.RelationshipsRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.getOrNull
+import app.pachli.core.data.repository.mapLoaded
 import app.pachli.core.designsystem.R
+import app.pachli.core.domain.accounts.FollowAccountUseCase
 import app.pachli.core.model.Account
 import app.pachli.core.model.Collection
 import app.pachli.core.model.ICollection
+import app.pachli.core.model.Relationship
 import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.ui.LinkListener
@@ -69,7 +74,7 @@ import app.pachli.core.ui.SetContentAsMarkdown
 import app.pachli.core.ui.SetContentAsMastodonHtml
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
-import app.pachli.core.ui.extensions.nameContentDescription
+import app.pachli.core.ui.extensions.contentDescription
 import app.pachli.core.ui.loadAvatar
 import app.pachli.feature.collections.ICollectionViewModel.AccountAction
 import app.pachli.feature.collections.ICollectionViewModel.CollectionViewData
@@ -82,7 +87,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.map
 import com.github.michaelbull.result.mapEither
+import com.github.michaelbull.result.mapError
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.google.android.material.color.MaterialColors
@@ -98,8 +105,8 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -110,6 +117,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /**
  * Displays the details for a single [Collection] and its
@@ -307,13 +315,18 @@ internal class CollectionAccountsAdapter(
  * Data to show an account in a collection.
  *
  * @property account The account.
+ * @property relationship Relationship to the current user. Null if fetching
+ * the relationship failed.
  * @property isEnabled If false the user should not be able to interact with
  * the account (e.g., because there is an active network operation going on
  * that affects this account).
+ * @property isSelf True if this is the user's account.
  */
 internal data class AccountViewData(
     val account: Account,
-    val isEnabled: Boolean = true,
+    val relationship: Relationship?,
+    val isEnabled: Boolean,
+    val isSelf: Boolean,
 )
 
 /** Displays an account in a collection. */
@@ -345,12 +358,13 @@ internal class AccountViewHolder(
     fun bind(viewData: AccountViewData, animateEmojis: Boolean, animateAvatars: Boolean, showBotOverlay: Boolean, showPronouns: Boolean, linksToUnderline: Set<LinksToUnderline>) {
         val account = viewData.account
 
+        Timber.d("relationship: ${viewData.relationship}")
+
         with(binding) {
             username.text = username.context.getString(R.string.post_username_format, account.username)
 
             bindAvatar(viewData, animateAvatars)
-            // TODO: bindRole()
-            // Roles aren't displayed here and should be.
+            bindRoles(viewData)
             bindDisplayName(viewData, animateEmojis)
             bindNote(viewData, animateEmojis, linksToUnderline)
             bindShowBotOverlay(viewData, showBotOverlay)
@@ -364,11 +378,12 @@ internal class AccountViewHolder(
             //   - Show if not following the account
             // - "Remove me" button
             //   - Show if this is me
+            bindControls(viewData)
 
             // Build an accessible content description.
             root.contentDescription = root.context.getString(
                 app.pachli.core.ui.R.string.account_content_description_fmt,
-                account.nameContentDescription(root.context),
+                account.contentDescription(root.context),
                 followerCount.text,
                 followsCount.text,
                 statusesCount.text,
@@ -393,6 +408,11 @@ internal class AccountViewHolder(
             avatarRadius,
             animateAvatars,
         )
+    }
+
+    /** Binds the account's [roles][app.pachli.core.model.Account.roles]. */
+    private fun bindRoles(viewData: AccountViewData) = with(binding) {
+        roleChipGroup.setRoles(viewData.account.roles)
     }
 
     /**
@@ -520,6 +540,84 @@ internal class AccountViewHolder(
             }
         }
     }
+
+    private fun bindControls(viewData: AccountViewData) {
+        val relationship = viewData.relationship
+
+        if (relationship == null) {
+            // Hide controls, show error message
+            binding.actionButton.hide()
+            // TODO: Show error message
+            return
+        }
+
+        binding.actionButton.show()
+
+        if (relationship.blocking) {
+            // TODO: Move string action_unblock
+            binding.actionButton.setText(app.pachli.core.ui.R.string.action_unblock)
+            // TODO: Set click handler
+            return
+        }
+
+        if (relationship.blockingDomain) {
+            // TODO: This should show the actual domain, which needs to be
+            // accessible from ITimelineAccount
+            binding.actionButton.setText("Unblock domin")
+            // TODO: Set click handler
+            return
+        }
+
+        // TODO: If this is us, button should be "Remove me"
+        if (viewData.isSelf) {
+            // TODO: String name should be action_collection_remove_self
+            binding.actionButton.setText(app.pachli.core.ui.R.string.action_collection_remove_self)
+            // TODO: Set click handler
+            return
+        }
+
+        when (relationship.followState) {
+            Relationship.FollowState.NOT_FOLLOWING -> {
+                // TODO: Move string action_follow
+                binding.actionButton.setText(app.pachli.core.ui.R.string.action_follow_account)
+                // TODO: Set click handler
+            }
+
+            Relationship.FollowState.FOLLOWING -> {
+                // TODO: Move string action_unfollow
+                binding.actionButton.setText(app.pachli.core.ui.R.string.action_unfollow_account)
+                // TODO: Set click handler
+            }
+
+            Relationship.FollowState.REQUESTED -> {
+                // TODO: Move string state_follow_requested
+                binding.actionButton.setText(app.pachli.core.ui.R.string.state_follow_requested)
+                // TODO: Set click handler
+            }
+        }
+
+        // Relationship options
+        // - following, true/false
+        // - followedBy, true/false (shows as chip in AccountActivity)
+        // - blocking, true/false
+        // - blockedBy, true/false
+        // - muting, true/false
+        // - requested (pending follow request), true/false
+        // - domainBlocking, true/false
+
+        // Possible buttons to show
+        // - Follow
+        // - Unfollow
+        // - Request follow
+        // - Cancel follow request
+        // - Block
+        // - Unblock
+        // - Mute
+        // - Unmute
+
+        // Should be similar logic in AccountActivity
+        // AccountActivity.updateFollowButton
+    }
 }
 
 private object AccountInCollectionViewDataDiffer : DiffUtil.ItemCallback<AccountViewData>() {
@@ -565,15 +663,30 @@ internal interface ICollectionViewModel {
     sealed interface CollectionAction : UiAction
 
     sealed interface AccountAction : CollectionAction {
-        val accountId: String
+        val pachliAccountId: Long
+        val account: Account
 
-        data class FollowAccount(override val accountId: String) : AccountAction
+        data class FollowAccount(
+            override val pachliAccountId: Long,
+            override val account: Account,
+        ) : AccountAction
     }
 
     sealed interface UiSuccess {
         val action: CollectionAction
+
+        data class FollowAccount(override val action: AccountAction.FollowAccount) : UiSuccess
+
+        companion object {
+            fun from(action: AccountAction) = when (action) {
+                is AccountAction.FollowAccount -> FollowAccount(action)
+            }
+        }
     }
 
+    /**
+     * @property isMember True if the user's account is a member of this collection.
+     */
     data class CollectionViewData(
         val collection: ICollection,
         val owner: AccountViewData?,
@@ -581,9 +694,25 @@ internal interface ICollectionViewModel {
         val isMember: Boolean,
     )
 
-    sealed interface UiError : PachliError {
+    sealed class UiError(
+        @StringRes override val resourceId: Int,
+        open val action: AccountAction,
+        override val cause: PachliError,
+        override val formatArgs: Array<out String>? = arrayOf(action.account.name),
+    ) : PachliError {
         @JvmInline
-        value class GetCollection(private val error: ICollectionsRepository.Error.GetCollection) : UiError, PachliError by error
+        value class GetCollection(private val error: ICollectionsRepository.Error.GetCollection) : PachliError by error
+
+        data class FollowAccount(
+            override val action: AccountAction.FollowAccount,
+            override val cause: PachliError,
+        ) : UiError(app.pachli.core.ui.R.string.ui_error_follow_account_fmt, action, cause)
+
+        companion object {
+            fun make(error: UiError, action: AccountAction) = when (action) {
+                is AccountAction.FollowAccount -> FollowAccount(action, error)
+            }
+        }
     }
 
     val accept: (UiAction) -> Unit
@@ -592,7 +721,7 @@ internal interface ICollectionViewModel {
 
     val operationCount: Flow<Int>
 
-    val collectionViewData: SharedFlow<Result<Loadable<CollectionViewData>, UiError.GetCollection>>
+    val collectionViewData: StateFlow<Result<Loadable<CollectionViewData>, UiError.GetCollection>>
 
     val uiOptions: Flow<UiOptions>
 }
@@ -601,6 +730,8 @@ internal interface ICollectionViewModel {
 internal class CollectionViewModel @Inject constructor(
     private val accountManager: AccountManager,
     private val collectionsRepository: ICollectionsRepository,
+    private val relationshipsRepository: RelationshipsRepository,
+    private val followAccountUseCase: FollowAccountUseCase,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
 ) : ViewModel(), ICollectionViewModel {
     private val uiAction = MutableSharedFlow<UiAction>()
@@ -622,7 +753,13 @@ internal class CollectionViewModel @Inject constructor(
             .flowWhileShared(SharingStarted.WhileSubscribed(5000))
     }
 
-    private val collection = MutableSharedFlow<Result<Pair<Collection, List<Account>>, ICollectionsRepository.Error.GetCollection>>(replay = 1)
+    private val collection = MutableStateFlow<Result<Loadable<Pair<Collection, List<Account>>>, ICollectionsRepository.Error.GetCollection>>(Ok(Loadable.Loading))
+
+    /**
+     * Map from [account IDs][app.pachli.core.model.ITimelineAccount.id] to the
+     * [Relationship] to that account.
+     */
+    private val relationships = MutableStateFlow<Map<String, Relationship>>(emptyMap())
 
     /**
      * IDs of accounts the user can't interact with (e.g., because they have active
@@ -630,44 +767,47 @@ internal class CollectionViewModel @Inject constructor(
      */
     private val disabledAccountIds = MutableStateFlow<Set<String>>(emptySet())
 
-    // Combines the most recent collection load with the current PachliAccount
-    // in order to populate the `CollectionViewData.isMember` property.
+    // Combines the pachliAccount, the most recent collection data, relationships, and
+    // disabled accounts to produce the CollectionViewData.
     override val collectionViewData = stateFlow(viewModelScope, Ok(Loadable.Loading)) {
-        combine(pachliAccount, collection, disabledAccountIds) { pachliAccount, collection, disabledAccountIds ->
-            collection.mapEither(
-                { (collection, accounts) ->
-                    // Per the API spec, `accounts` always contains the owner as the
-                    // first item, the remaining items are members of the collection.
+        combine(pachliAccount.distinctUntilChanged(), collection, relationships, disabledAccountIds) { pachliAccount, collectionResult, relationships, disabledAccountIds ->
+            collectionResult.map {
+                it.mapLoaded { (collection, accounts) ->
                     val owner = accounts.firstOrNull()
                     val members = accounts.drop(1)
-                    Loadable.Loaded(
-                        CollectionViewData(
-                            collection = collection,
-                            owner = owner?.let { AccountViewData(owner) },
-                            accounts = members.map {
-                                AccountViewData(
-                                    account = it,
-                                    isEnabled = !disabledAccountIds.contains(it.id),
-                                )
-                            },
-                            isMember = members.any { it.id == pachliAccount.accountId },
-                        ),
+                    CollectionViewData(
+                        collection = collection,
+                        owner = owner?.let {
+                            AccountViewData(
+                                account = owner,
+                                relationship = relationships[owner.id],
+                                isEnabled = !disabledAccountIds.contains(it.id),
+                                isSelf = owner.id == pachliAccount.accountId,
+                            )
+                        },
+                        accounts = members.map {
+                            AccountViewData(
+                                account = it,
+                                relationship = relationships[it.id],
+                                isEnabled = !disabledAccountIds.contains(it.id),
+                                isSelf = it.id == pachliAccount.accountId,
+                            )
+                        },
+                        isMember = members.any { it.id == pachliAccount.accountId },
                     )
-                },
-                { UiError.GetCollection(it) },
-            )
+                }
+            }.mapError { UiError.GetCollection(it) }
         }.flowWhileShared(SharingStarted.WhileSubscribed(5000))
     }
 
     init {
         viewModelScope.launch {
-            uiAction.filterIsInstance<UiAction.GetCollection>().collect {
-                launch { onGetCollection(it) }
-            }
+//            uiAction.filterIsInstance<UiAction.GetCollection>().collect {
+//                launch { onGetCollection(it) }
+//            }
 
-            uiAction.filterIsInstance<AccountAction.FollowAccount>().collect {
-                launch { onFollowAccount(it) }
-            }
+            uiAction.filterIsInstance<UiAction.GetCollection>().collect(::onGetCollection)
+            uiAction.filterIsInstance<AccountAction>().collect(::onAccountAction)
         }
     }
 
@@ -675,15 +815,41 @@ internal class CollectionViewModel @Inject constructor(
         operationCounter {
             pachliAccountId.emit(action.pachliAccountId)
 
+            collection.emit(Ok(Loadable.Loading))
+            collectionsRepository.getCollection(action.pachliAccountId, action.collectionId)
+                .onSuccess { (_, accounts) ->
+                    relationshipsRepository.getRelationships(
+                        action.pachliAccountId,
+                        accounts.map { it.id },
+                    ).onSuccess { relationships ->
+                        this.relationships.update { relationships.associateBy { it.id } }
+                    }
+                }
             collection.emit(
-                collectionsRepository.getCollection(action.pachliAccountId, action.collectionId),
+                collectionsRepository.getCollection(action.pachliAccountId, action.collectionId)
+                    .map { Loadable.Loaded(it) },
             )
         }
     }
 
-    private suspend fun onFollowAccount(action: AccountAction.FollowAccount) {
-        operationCounter {
-            disabledAccountIds.update { it + action.accountId }
-        }
+    private suspend fun onAccountAction(action: AccountAction) {
+        disabledAccountIds.update { it + action.account.id }
+
+        val result = when (action) {
+            is AccountAction.FollowAccount -> onFollowAccount(action)
+        }.onSuccess { relationship ->
+            relationships.update { it + (action.account.id to relationship) }
+        }.mapEither(
+            { UiSuccess.from(action) },
+            { UiError.make(it, action) },
+        )
+
+        _uiResult.send(result)
+        disabledAccountIds.update { it - action.account.id }
+    }
+
+    private suspend fun onFollowAccount(action: AccountAction.FollowAccount) = operationCounter {
+        followAccountUseCase(action.pachliAccountId, action.account.id)
+            .mapError { UiError.FollowAccount(action, it) }
     }
 }

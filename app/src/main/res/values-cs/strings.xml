@@ -36,10 +36,7 @@
     <string name="report_comment_hint">Další komentáře\?</string>
     <string name="action_quick_reply">Rychlá odpověď</string>
     <string name="action_compose">Napsat</string>
-    <string name="action_follow">Sledovat</string>
-    <string name="action_unfollow">Přestat sledovat</string>
     <string name="action_block">Blokovat</string>
-    <string name="action_unblock">Odblokovat</string>
     <string name="action_hide_reblogs">Skrýt boosty</string>
     <string name="action_show_reblogs">Zobrazit boosty</string>
     <string name="action_report">Nahlásit</string>
@@ -174,7 +171,6 @@
     -->
     <string name="post_share_content">Sdílet obsah příspěvku</string>
     <string name="post_share_link">Sdílet odkaz na příspěvek</string>
-    <string name="state_follow_requested">Vyžádáno sledování</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Sleduje vás</string>
     <string name="pref_title_alway_show_sensitive_media">Vždy zobrazovat citlivý obsah</string>

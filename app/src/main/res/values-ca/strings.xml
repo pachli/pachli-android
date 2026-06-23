@@ -30,10 +30,7 @@
     <string name="report_username_format">Denuncia @%1$s</string>
     <string name="report_comment_hint">Cap comentari addicional?</string>
     <string name="action_compose">Escriure</string>
-    <string name="action_follow">Segueix</string>
-    <string name="action_unfollow">Deixa de seguir</string>
     <string name="action_block">Bloca</string>
-    <string name="action_unblock">Deixa de blocar</string>
     <string name="action_report">Denuncia</string>
     <string name="action_delete">Elimina</string>
     <string name="action_send">PUBLICA</string>
@@ -147,7 +144,6 @@
     <string name="action_open_faved_by">Mostra els favorits</string>
     <string name="download_media">Baixa el fitxer</string>
     <string name="send_media_to">Compartir la imatge a …</string>
-    <string name="state_follow_requested">Petició enviada</string>
     <string name="title_posts_with_replies">Amb respostes</string>
     <string name="action_emoji_keyboard">Teclat d\'emojis</string>
     <string name="action_open_media_n">Obrir el media #%1$d</string>

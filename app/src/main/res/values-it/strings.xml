@@ -40,10 +40,7 @@
     <string name="report_comment_hint">Commenti aggiuntivi?</string>
     <string name="action_quick_reply">Risposta veloce</string>
     <string name="action_compose">Componi</string>
-    <string name="action_follow">Segui</string>
-    <string name="action_unfollow">Smetti di seguire</string>
     <string name="action_block">Blocca</string>
-    <string name="action_unblock">Sblocca</string>
     <string name="action_hide_reblogs">Nascondi condivisioni</string>
     <string name="action_show_reblogs">Mostra condivisioni</string>
     <string name="pref_title_show_self_boosts">Mostra ricondivisioni</string>
@@ -184,7 +181,6 @@
     -->
     <string name="post_share_content">Condividi contenuto</string>
     <string name="post_share_link">Condividi collegamento</string>
-    <string name="state_follow_requested">Richiesta inviata</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Ti segue</string>
     <string name="pref_title_alway_show_sensitive_media">Mostra sempre i contenuti sensibili</string>

@@ -110,4 +110,8 @@
     <string name="duration_90_days">90日間</string>
     <string name="duration_180_days">180日間</string>
     <string name="duration_365_days">365日間</string>
+    <string name="action_unblock">ブロック解除</string>
+    <string name="action_follow">フォローする</string>
+    <string name="action_unfollow_account">フォロー解除</string>
+    <string name="state_follow_requested">フォローリクエスト中</string>
 </resources>

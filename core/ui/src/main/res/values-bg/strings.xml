@@ -98,4 +98,8 @@
     <string name="duration_1_day">1 ден</string>
     <string name="duration_3_days">3 дни</string>
     <string name="duration_7_days">7 дни</string>
+    <string name="action_unblock">Деблокиране</string>
+    <string name="action_follow">Последване</string>
+    <string name="action_unfollow_account">Отследване</string>
+    <string name="state_follow_requested">Заявено последване</string>
 </resources>

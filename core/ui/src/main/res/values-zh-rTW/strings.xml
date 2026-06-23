@@ -113,4 +113,8 @@
     <string name="duration_90_days">90 天</string>
     <string name="duration_180_days">180 天</string>
     <string name="duration_365_days">365 天</string>
+    <string name="action_unblock">取消封鎖</string>
+    <string name="action_follow">關注</string>
+    <string name="action_unfollow_account">取消關注</string>
+    <string name="state_follow_requested">已請求關注</string>
 </resources>

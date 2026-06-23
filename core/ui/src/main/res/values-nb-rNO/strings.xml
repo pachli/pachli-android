@@ -135,4 +135,9 @@
     <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> innlegg (&lt;b>%2$d&lt;/b> om uken)</string>
     <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> innlegg (&lt;b>%2$d&lt;/b> om uken, siste uke &lt;b>%3$s&lt;/b>)</string>
     <string name="action_follow_account">Følg</string>
+    <string name="ui_error_follow_account_fmt">Følging av %1$s mislyktes: %2$s</string>
+    <string name="action_unblock">Fjern blokkering</string>
+    <string name="action_follow">Følg</string>
+    <string name="action_unfollow_account">Slutt å følge</string>
+    <string name="state_follow_requested">Forespørsel sendt</string>
 </resources>

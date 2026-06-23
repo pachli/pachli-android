@@ -36,10 +36,7 @@
     <string name="report_comment_hint">Extra opmerkingen\?</string>
     <string name="action_quick_reply">Snelle reactie</string>
     <string name="action_compose">Bericht schrijven</string>
-    <string name="action_follow">Volgen</string>
-    <string name="action_unfollow">Ontvolgen</string>
     <string name="action_block">Blokkeren</string>
-    <string name="action_unblock">Deblokkeren</string>
     <string name="action_hide_reblogs">Boosts verbergen</string>
     <string name="action_show_reblogs">Boosts tonen</string>
     <string name="action_report">Rapporteren</string>
@@ -170,7 +167,6 @@
     -->
     <string name="post_share_content">Inhoud van bericht delen</string>
     <string name="post_share_link">Link van het bericht delen</string>
-    <string name="state_follow_requested">Volgverzoek verzonden</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Volgt jou</string>
     <string name="pref_title_alway_show_sensitive_media">Altijd gevoelige inhoud (nsfw) tonen</string>

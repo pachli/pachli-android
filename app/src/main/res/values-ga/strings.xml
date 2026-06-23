@@ -117,10 +117,7 @@
     <string name="action_report">Tuairiscigh</string>
     <string name="action_show_reblogs">Taispeáin athchraolta</string>
     <string name="action_hide_reblogs">Folaigh athchraolta</string>
-    <string name="action_unblock">Ná bac</string>
     <string name="action_block">Bac</string>
-    <string name="action_unfollow">Stop ag leanúint</string>
-    <string name="action_follow">Lean</string>
     <string name="action_compose">Cum</string>
     <string name="error_media_upload_type">Ní féidir an cineál comhaid sin a uaslódáil.</string>
     <string name="error_compose_character_limit">Tá an stádas ró-fhada!</string>
@@ -198,7 +195,6 @@
     <string name="notification_favourite_format">Chuir &lt;b&gt;%1$s&lt;/b&gt; do phost i bhfabhar</string>
     <string name="action_unmute_desc">Díbhalbhaigh %1$s</string>
     <string name="action_mute_conversation">Comhrá balbhaigh</string>
-    <string name="state_follow_requested">Lean iarrtha</string>
     <string name="follows_you">Leanann tú</string>
     <string name="pref_title_alway_show_sensitive_media">Taispeáin ábhar íogair i gcónaí</string>
     <string name="filter_dialog_update_button">Nuashonrú</string>

@@ -33,10 +33,7 @@
     <string name="report_comment_hint">Sylwadau ychwanegol?</string>
     <string name="action_quick_reply">Ymateb yn gyflym</string>
     <string name="action_compose">Creu</string>
-    <string name="action_follow">Dilyn</string>
-    <string name="action_unfollow">Dad-ddilyn</string>
     <string name="action_block">Blocio</string>
-    <string name="action_unblock">Dadflocio</string>
     <string name="action_hide_reblogs">Cuddio hybiau</string>
     <string name="action_show_reblogs">Dangos hybiau</string>
     <string name="action_report">Adrodd</string>
@@ -161,7 +158,6 @@
     -->
     <string name="post_share_content">Rhannu cynnwys y neges</string>
     <string name="post_share_link">Rhannu dolen i\'r neges</string>
-    <string name="state_follow_requested">Ceisiwyd</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Yn eich dilyn chi</string>
     <string name="pref_title_alway_show_sensitive_media">Dangos cynnwys sensitif bob tro</string>

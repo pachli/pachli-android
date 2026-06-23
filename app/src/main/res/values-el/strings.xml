@@ -10,7 +10,6 @@
     <string name="action_reset_schedule">Επαναφορά</string>
     <string name="notification_follow_format">ο/η &lt;b&gt;%1$s&lt;/b&gt; σας ακολούθησε</string>
     <string name="action_view_mutes">Χρήστες σε σίγαση</string>
-    <string name="action_unfollow">Μην ακολουθείτε</string>
     <string name="action_unmute_domain">Άρση σίγασης του %1$s</string>
     <string name="action_delete_and_redraft">Διαγραφή και αναδιατύπωση</string>
     <string name="action_edit_profile">Επεξεργασία προφίλ</string>
@@ -20,7 +19,6 @@
     <string name="action_view_bookmarks">Σελιδοδείκτες</string>
     <string name="title_bookmarks">Σελιδοδείκτες</string>
     <string name="title_followers">Ακόλουθοι</string>
-    <string name="action_unblock">Άρση αποκλεισμού</string>
     <string name="title_favourites">Αγαπημένα</string>
     <string name="error_compose_character_limit">Η δημοσίευση είναι πολύ μεγάλη!</string>
     <string name="action_emoji_keyboard">Πληκτρολόγιο emoji</string>
@@ -35,7 +33,6 @@
     <string name="title_tab_preferences">Καρτέλες</string>
     <string name="notification_reblog_format">ο/η &lt;b&gt;%1$s&lt;/b&gt; προώθησε τη δημοσίευσή σας</string>
     <string name="notification_favourite_format">στον/στην &lt;b&gt;%1$s&lt;/b&gt; άρεσε η δημοσίευσή σας</string>
-    <string name="action_follow">Ακολουθήστε</string>
     <string name="action_report">Αναφορά</string>
     <string name="action_mute">Σίγαση</string>
     <string name="report_username_format">Αναφορά του/της %1$s</string>

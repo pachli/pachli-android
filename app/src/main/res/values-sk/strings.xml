@@ -18,10 +18,7 @@
     <string name="error_media_upload_opening">Súbor sa nepodarilo otvoriť.</string>
     <string name="title_home">Domov</string>
     <string name="title_tab_preferences">Panely</string>
-    <string name="action_follow">Sledovať</string>
-    <string name="action_unfollow">Prestať sledovať</string>
     <string name="action_block">Blokovať</string>
-    <string name="action_unblock">Odblokovať</string>
     <string name="action_report">Nahlásiť</string>
     <string name="action_delete">Vymazať</string>
     <string name="action_delete_and_redraft">Vymazať a prepísať</string>
@@ -286,7 +283,6 @@
     <string name="notification_poll_description">Upozornenia na ukončené ankety</string>
     <string name="notification_subscription_name">Nové príspevky</string>
     <string name="notification_sign_up_name">Registrácia</string>
-    <string name="state_follow_requested">Sledovanie vyžiadané</string>
     <string name="post_text_size_smallest">Najmenšie</string>
     <string name="notification_mention_descriptions">Upozornenia na nové zmienenia</string>
     <string name="notification_follow_request_description">Upozornenia na žiadosti o sledovanie</string>

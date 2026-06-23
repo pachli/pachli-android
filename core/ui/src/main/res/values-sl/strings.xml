@@ -104,4 +104,8 @@
     <string name="duration_1_day">1 dan</string>
     <string name="duration_3_days">3 dni</string>
     <string name="duration_7_days">7 dni</string>
+    <string name="action_unblock">Odblokiraj</string>
+    <string name="action_follow">Sledi</string>
+    <string name="action_unfollow_account">Prenehaj slediti</string>
+    <string name="state_follow_requested">Prošnja za sledenje</string>
 </resources>

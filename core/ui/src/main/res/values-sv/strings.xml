@@ -156,4 +156,8 @@
     <string name="duration_90_days">90 dagar</string>
     <string name="duration_180_days">180 dagar</string>
     <string name="duration_365_days">365 dagar</string>
+    <string name="action_unblock">Avblockera</string>
+    <string name="action_follow">Följ</string>
+    <string name="action_unfollow_account">Avfölj</string>
+    <string name="state_follow_requested">Följarförfrågan</string>
 </resources>

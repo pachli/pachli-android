@@ -36,10 +36,7 @@
     <string name="report_comment_hint">Ytterligare kommentarer?</string>
     <string name="action_quick_reply">Snabbsvar</string>
     <string name="action_compose">Skriv</string>
-    <string name="action_follow">Följ</string>
-    <string name="action_unfollow">Avfölj</string>
     <string name="action_block">Blockera</string>
-    <string name="action_unblock">Avblockera</string>
     <string name="action_hide_reblogs">Dölj knuffar</string>
     <string name="action_show_reblogs">Visa knuffar</string>
     <string name="action_report">Rapportera</string>
@@ -171,7 +168,6 @@
     -->
     <string name="post_share_content">Dela innehåll av toot</string>
     <string name="post_share_link">Dela länk till toot</string>
-    <string name="state_follow_requested">Följarförfrågan</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Följer dig</string>
     <string name="pref_title_alway_show_sensitive_media">Visa alltid allt innehåll (inkl. känsligt)</string>

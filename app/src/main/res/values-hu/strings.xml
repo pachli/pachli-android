@@ -36,10 +36,7 @@
     <string name="report_comment_hint">Egyéb megjegyzés?</string>
     <string name="action_quick_reply">Gyors válasz</string>
     <string name="action_compose">Szerkesztés</string>
-    <string name="action_follow">Követés</string>
-    <string name="action_unfollow">Követés vége</string>
     <string name="action_block">Letiltás</string>
-    <string name="action_unblock">Letiltás feloldása</string>
     <string name="action_hide_reblogs">Megtolások elrejtése</string>
     <string name="action_show_reblogs">Megtolások mutatása</string>
     <string name="action_report">Bejelentés</string>
@@ -163,7 +160,6 @@
     -->
     <string name="post_share_content">Bejegyzés tartalmának megosztása</string>
     <string name="post_share_link">Bejegyzés hivatkozásának megosztása</string>
-    <string name="state_follow_requested">Követés kérelmezve</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Követ téged</string>
     <string name="pref_title_alway_show_sensitive_media">Mindig mutassa a kényes tartalmat</string>

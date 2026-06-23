@@ -83,4 +83,8 @@
     <string name="duration_1_day">1일</string>
     <string name="duration_3_days">3일</string>
     <string name="duration_7_days">7일</string>
+    <string name="action_unblock">차단 해제</string>
+    <string name="action_follow">팔로우</string>
+    <string name="action_unfollow_account">팔로우 해제</string>
+    <string name="state_follow_requested">팔로우 요청함</string>
 </resources>

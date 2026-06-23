@@ -31,10 +31,7 @@
     <string name="report_comment_hint">கூடுதல் கருத்துரைகள்?</string>
     <string name="action_quick_reply">உடனடி பதிலளி</string>
     <string name="action_compose">எழுது</string>
-    <string name="action_follow">பின்பற்று</string>
-    <string name="action_unfollow">பின்பற்றாதே</string>
     <string name="action_block">தடை</string>
-    <string name="action_unblock">தடை நீக்கு</string>
     <string name="action_hide_reblogs">மேலேற்றத்தை மறை</string>
     <string name="action_show_reblogs">மேலேற்றத்தை காட்டு</string>
     <string name="action_report">புகார்</string>
@@ -146,7 +143,6 @@
     -->
     <string name="post_share_content">Toot உள்ளடக்கத்தைப் பகிர்</string>
     <string name="post_share_link">Toot இணைப்பைப் பகிர்</string>
-    <string name="state_follow_requested">கோரிக்கையைப் பின்பற்றவும்</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">நீங்கள் பின் தொடரபடுகிறீர்கள்</string>
     <string name="pref_title_alway_show_sensitive_media">எல்லா nsfw(உணர்ச்சிகரமான) உள்ளடக்கத்தையும் எப்போதும் காண்பி</string>

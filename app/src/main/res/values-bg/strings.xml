@@ -74,7 +74,6 @@
     <string name="pref_title_alway_open_spoiler">Винаги разгъване на публикации, маркирани с предупреждения за съдържание</string>
     <string name="pref_title_alway_show_sensitive_media">Винаги показване на деликатно съдържание</string>
     <string name="follows_you">Следва ви</string>
-    <string name="state_follow_requested">Заявено последване</string>
     <string name="post_share_link">Споделяне на връзка към публикация</string>
     <string name="post_share_content">Споделяне на съдържание на публикация</string>
     <string name="description_account_locked">Заключен акаунт</string>
@@ -205,10 +204,7 @@
     <string name="action_report">Докладване</string>
     <string name="action_show_reblogs">Показване на споделяния</string>
     <string name="action_hide_reblogs">Скриване на споделяния</string>
-    <string name="action_unblock">Деблокиране</string>
     <string name="action_block">Блокиране</string>
-    <string name="action_unfollow">Отследване</string>
-    <string name="action_follow">Последване</string>
     <string name="action_compose">Композиране</string>
     <string name="action_quick_reply">Бърз отговор</string>
     <string name="report_comment_hint">Допълнителни коментари\?</string>
