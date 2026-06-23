@@ -98,20 +98,6 @@ class CollectionNotificationViewHolder(
 
         binding.roleChipGroup.setRoles(account.roles)
 
-//        setContent(
-//            glide = glide,
-//            textView = binding.notificationAccountNote,
-//            content = account.note,
-//            emojis = account.emojis.orEmpty(),
-//            animateEmojis = statusDisplayOptions.animateEmojis,
-//            removeQuoteInline = false,
-//            linksToUnderline = statusDisplayOptions.linksToUnderline,
-//            linkListener = linkListener,
-//        )
-
-//        binding.notificationAccountNote.setOnClickListener { linkListener.onViewAccount(account.id) }
-//        itemView.setOnClickListener { linkListener.onViewAccount(account.id) }
-
         binding.collectionCard.bind(
             glide,
             viewData.timelineCollection,
@@ -121,5 +107,7 @@ class CollectionNotificationViewHolder(
         )
 
         binding.collectionCard.setOnClickListener { collectionListener.onOpenCollection(viewData.timelineCollection) }
+
+        itemView.setOnClickListener { linkListener.onViewAccount(account.id) }
     }
 }

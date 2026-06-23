@@ -17,9 +17,11 @@
 
 package app.pachli.feature.collections
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewGroupCompat
 import androidx.core.view.updateLayoutParams
@@ -35,6 +37,7 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.unicodeWrap
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.getOrNull
 import app.pachli.core.designsystem.R as DR
@@ -42,12 +45,14 @@ import app.pachli.core.model.ICollection
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.CollectionActivityIntent
 import app.pachli.core.navigation.pachliAccountId
+import app.pachli.core.ui.AlertSuspendDialogFragment
 import app.pachli.core.ui.appbar.FadeChildScrollEffect
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.InsetType
 import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.makeIcon
+import app.pachli.feature.collections.ICollectionViewModel.CollectionAction
 import app.pachli.feature.collections.databinding.ActivityCollectionBinding
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.get
@@ -69,6 +74,8 @@ class CollectionActivity : ViewUrlActivity() {
     private val viewModel by viewModels<CollectionViewModel>()
 
     private var avatarRadius by Delegates.notNull<Int>()
+
+    private val pachliAccountId by unsafeLazy { intent.pachliAccountId }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -104,7 +111,6 @@ class CollectionActivity : ViewUrlActivity() {
             binding.fragmentContainer.getFragment<CollectionFragment?>()?.onReselect()
         }
 
-        val pachliAccountId = intent.pachliAccountId
         val collection = CollectionActivityIntent.getCollection(intent)
         val collectionId = collection.serverId
 
@@ -178,7 +184,24 @@ class CollectionActivity : ViewUrlActivity() {
             binding.accountPronouns.hide()
         }
 
-        binding.collectionRemoveSelf.visible(collectionViewData.isMember)
+        collectionViewData.isMember?.let { accountId ->
+            binding.collectionRemoveSelf.setOnClickListener {
+                lifecycleScope.launch {
+                    val button = newConfirmRevokeDialogFragment().await(supportFragmentManager)
+                    if (button == AlertDialog.BUTTON_POSITIVE) {
+                        binding.collectionRemoveSelf.hide()
+                        viewModel.accept(
+                            CollectionAction.Revoke(
+                                pachliAccountId = pachliAccountId,
+                                collectionId = collectionViewData.collection.serverId,
+                                accountId = accountId,
+                            ),
+                        )
+                    }
+                }
+            }
+            binding.collectionRemoveSelf.show()
+        } ?: binding.collectionRemoveSelf.hide()
     }
 
     private fun bindCollection(collection: ICollection) {
@@ -225,3 +248,14 @@ class CollectionActivity : ViewUrlActivity() {
         }
     }
 }
+
+/**
+ * Creates a dialog allowing the user to confirm their account should
+ * be removed from a collection.
+ */
+internal fun Activity.newConfirmRevokeDialogFragment() = AlertSuspendDialogFragment.newInstance(
+    title = getString(R.string.title_confirm_collection_revoke),
+    message = getString(R.string.confirm_collection_revoke_msg),
+    positiveText = getString(android.R.string.ok),
+    negativeText = getString(android.R.string.cancel),
+)

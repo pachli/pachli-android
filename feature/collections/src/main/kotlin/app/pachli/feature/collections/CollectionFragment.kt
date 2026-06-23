@@ -25,6 +25,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.accessibility.AccessibilityManager
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
@@ -63,7 +64,7 @@ import app.pachli.core.data.repository.RelationshipsRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.getOrNull
 import app.pachli.core.data.repository.mapLoaded
-import app.pachli.core.designsystem.R
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.domain.accounts.FollowAccountUseCase
 import app.pachli.core.model.Account
 import app.pachli.core.model.Collection
@@ -137,7 +138,7 @@ import timber.log.Timber
  */
 @AndroidEntryPoint
 class CollectionFragment :
-    Fragment(app.pachli.feature.collections.R.layout.fragment_collection),
+    Fragment(R.layout.fragment_collection),
     SwipeRefreshLayout.OnRefreshListener,
     ReselectableFragment {
     private val binding by viewBinding(FragmentCollectionBinding::bind)
@@ -247,6 +248,18 @@ class CollectionFragment :
                         pachliAccountId,
                         uiAction.url,
                     )
+
+                    is NavigationAction.ConfirmCollectionRevoke -> {
+                        lifecycleScope.launch {
+                            val button = requireActivity()
+                                .newConfirmRevokeDialogFragment()
+                                .await(childFragmentManager)
+
+                            if (button == AlertDialog.BUTTON_POSITIVE) {
+                                viewModel.accept(uiAction.action)
+                            }
+                        }
+                    }
                 }
             }
 
@@ -415,7 +428,7 @@ internal class AccountViewHolder(
             accountNote.setOnClickListener { accept(NavigationAction.ViewAccount(viewData.account.id)) }
             root.setOnClickListener { accept(NavigationAction.ViewAccount(viewData.account.id)) }
 
-            avatarRadius = avatar.context.resources.getDimensionPixelSize(R.dimen.avatar_radius_48dp)
+            avatarRadius = avatar.context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
         }
     }
 
@@ -426,7 +439,7 @@ internal class AccountViewHolder(
         Timber.d("relationship: ${viewData.relationship}")
 
         with(binding) {
-            username.text = username.context.getString(R.string.post_username_format, account.username)
+            username.text = username.context.getString(DR.string.post_username_format, account.username)
 
             bindAvatar(viewData, animateAvatars)
             bindRoles(viewData)
@@ -642,12 +655,13 @@ internal class AccountViewHolder(
         if (viewData.isSelf) {
             binding.actionButton.setText(app.pachli.core.ui.R.string.action_collection_remove_self)
             binding.actionButton.setOnClickListener {
-                Timber.d("click")
                 accept(
-                    CollectionAction.Revoke(
-                        viewData.pachliAccountId,
-                        viewData.collectionId,
-                        viewData.account.id,
+                    NavigationAction.ConfirmCollectionRevoke(
+                        CollectionAction.Revoke(
+                            viewData.pachliAccountId,
+                            viewData.collectionId,
+                            viewData.account.id,
+                        ),
                     ),
                 )
             }
@@ -714,8 +728,11 @@ internal interface ICollectionViewModel {
         data class ViewAccount(val accountId: String) : NavigationAction
         data class ViewHashtag(val hashtag: String) : NavigationAction
         data class ViewUrl(val url: String) : NavigationAction
+
+        data class ConfirmCollectionRevoke(val action: CollectionAction.Revoke) : NavigationAction
     }
 
+    /** Actions that operate on the collection. */
     sealed interface CollectionAction : UiAction {
         val pachliAccountId: Long
         val collectionId: String
@@ -725,9 +742,7 @@ internal interface ICollectionViewModel {
             override val collectionId: String,
         ) : CollectionAction
 
-        /**
-         * Remove's the user from the collection.
-         */
+        /** Remove's the user from the collection. */
         data class Revoke(
             override val pachliAccountId: Long,
             override val collectionId: String,
@@ -735,6 +750,7 @@ internal interface ICollectionViewModel {
         ) : CollectionAction
     }
 
+    /** Actions that operate on an account in the collection. */
     sealed interface AccountAction : UiAction {
         val pachliAccountId: Long
         val account: Account
@@ -758,13 +774,19 @@ internal interface ICollectionViewModel {
     }
 
     /**
-     * @property isMember True if the user's account is a member of this collection.
+     * @property collection
+     * @property owner [AccountViewData] for the owner of the collection. If null
+     * the owner's account data could not be fetched.
+     * @property accounts [AccountViewData] for each account in the collection.
+     * @property isMember If non-null, the user is a member of this collection,
+     * and [isMember] is their account ID. If null the user is not a member of
+     * the collection.
      */
     data class CollectionViewData(
         val collection: ICollection,
         val owner: AccountViewData?,
         val accounts: List<AccountViewData>,
-        val isMember: Boolean,
+        val isMember: String?,
     )
 
     sealed class UiError(
@@ -890,7 +912,7 @@ internal class CollectionViewModel @Inject constructor(
                                 isSelf = it.id == pachliAccount.accountId,
                             )
                         },
-                        isMember = members.any { it.id == pachliAccount.accountId },
+                        isMember = members.firstOrNull { it.id == pachliAccount.accountId }?.id,
                     )
                 }
             }.mapError { UiError.GetCollection(it) }
