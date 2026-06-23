@@ -36,10 +36,6 @@
     <string name="report_comment_hint">更多評論？</string>
     <string name="action_quick_reply">快速回覆</string>
     <string name="action_compose">撰寫嘟文</string>
-    <string name="action_follow">關注</string>
-    <string name="action_unfollow">取消關注</string>
-    <string name="action_block">封鎖</string>
-    <string name="action_unblock">取消封鎖</string>
     <string name="action_hide_reblogs">隱藏轉嘟</string>
     <string name="action_show_reblogs">顯示轉嘟</string>
     <string name="action_report">檢舉</string>
@@ -57,8 +53,6 @@
     <string name="action_add_media">從相簿中選擇</string>
     <string name="action_photo_take">拍照</string>
     <string name="action_share">分享</string>
-    <string name="action_mute">靜音</string>
-    <string name="action_unmute">取消靜音</string>
     <string name="action_mention">提及</string>
     <string name="action_hide_media">隱藏媒體檔案</string>
     <string name="action_open_drawer">打開應用抽屜</string>
@@ -177,7 +171,6 @@
     -->
     <string name="post_share_content">分享嘟文內容</string>
     <string name="post_share_link">分享嘟文連結</string>
-    <string name="state_follow_requested">已請求關注</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">關注了你</string>
     <string name="pref_title_alway_show_sensitive_media">總是顯示所有敏感媒體內容</string>
@@ -235,7 +228,6 @@
     <!--These are for timestamps on polls -->
     <string name="title_domain_mutes">隱藏域名</string>
     <string name="action_view_domain_mutes">隱藏域名</string>
-    <string name="action_mute_domain">靜音 %1$s</string>
     <string name="confirmation_domain_unmuted">%1$s 已解除靜音</string>
     <string name="mute_domain_warning">你確定要封鎖 %1$s 域名嗎？您將不會在任何聯邦時間軸或通知中看到該域名中的內容，且來自該域名的關注者將被移除。</string>
     <string name="mute_domain_warning_dialog_ok">隱藏整個域名</string>
@@ -284,7 +276,6 @@
     <string name="pref_title_hide_top_toolbar">隱藏頂端工具列的標題</string>
     <string name="dialog_mute_hide_notifications">隱藏通知</string>
     <string name="action_unmute_desc">取消靜音 %1$s</string>
-    <string name="action_unmute_domain">取消靜音 %1$s</string>
     <string name="pref_main_nav_position">主要導覽列的位置</string>
     <string name="pref_title_gradient_for_media">在隱藏的媒體上使用漸變色彩</string>
     <string name="add_hashtag_title">加上話題標籤</string>

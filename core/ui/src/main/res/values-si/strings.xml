@@ -76,4 +76,8 @@
     <string name="duration_1_day">දවස් 1</string>
     <string name="duration_3_days">දවස් 3</string>
     <string name="duration_7_days">දවස් 7</string>
+    <string name="action_unblock">අනවහිර</string>
+    <string name="action_block">අවහිර</string>
+    <string name="action_mute_domain">%1$s නිහඬ කරන්න</string>
+    <string name="action_mute">නිහඬ කරන්න</string>
 </resources>

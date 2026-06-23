@@ -31,8 +31,6 @@
     <string name="title_blocks">നിരോധിച്ച ഉപയോഗതാക്കൾ</string>
     <string name="title_follow_requests">പിന്തുടാനുള്ള അപേക്ഷകൾ</string>
     <string name="title_edit_profile">പ്രൊഫൈൽ തിരുത്തുക</string>
-    <string name="action_follow">പിന്തുടരുക</string>
-    <string name="action_unfollow">പിന്‍തുടരുന്നത് അവസാനിപ്പിക്കുക</string>
     <string name="action_view_follow_requests">പിന്‍തുടരുവാനുള്ള അഭ്യര്‍ത്ഥനകള്‍</string>
     <string name="title_domain_mutes">മറച്ചുവെച്ച ഡൊമൈനുകൾ</string>
     <string name="footer_empty">പുതിയത് ലഭിക്കാൻ താഴേക്ക് വലിക്കുക</string>
@@ -53,8 +51,6 @@
     <string name="action_report">അറിയിക്കുക</string>
     <string name="action_show_reblogs">ബൂട്ട്‌സ് കാണിക്കുക</string>
     <string name="action_hide_reblogs">ബൂട്ട്‌സ് മറയ്‌ക്കുക</string>
-    <string name="action_unblock">നിരോധനം നീക്കുക</string>
-    <string name="action_block">നിരോധിക്കുക</string>
     <string name="action_compose">എഴുതുക</string>
     <string name="action_quick_reply">പെട്ടന്നുള്ള മറുപടി</string>
     <string name="report_comment_hint">കൂടുതൽ പറയാൻ ഉണ്ടോ\?</string>

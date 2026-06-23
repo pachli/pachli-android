@@ -36,10 +36,6 @@
     <string name="report_comment_hint">Commentaires additionnels \?</string>
     <string name="action_quick_reply">Réponse rapide</string>
     <string name="action_compose">Écrire</string>
-    <string name="action_follow">Suivre</string>
-    <string name="action_unfollow">Ne plus suivre</string>
-    <string name="action_block">Bloquer</string>
-    <string name="action_unblock">Débloquer</string>
     <string name="action_hide_reblogs">Cacher les partages</string>
     <string name="action_show_reblogs">Afficher les partages</string>
     <string name="action_report">Signaler</string>
@@ -56,8 +52,6 @@
     <string name="action_add_media">Ajouter un média</string>
     <string name="action_photo_take">Prendre une photo</string>
     <string name="action_share">Partager</string>
-    <string name="action_mute">Masquer</string>
-    <string name="action_unmute">Ne plus masquer</string>
     <string name="action_mention">Mentionner</string>
     <string name="action_hide_media">Cacher les médias</string>
     <string name="action_open_drawer">Ouvrir le menu</string>
@@ -174,7 +168,6 @@
     -->
     <string name="post_share_content">Partager le contenu du message</string>
     <string name="post_share_link">Partager le lien du message</string>
-    <string name="state_follow_requested">Demande d’abonnement effectuée</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Vous suit</string>
     <string name="pref_title_alway_show_sensitive_media">Toujours afficher les contenus sensibles</string>
@@ -238,7 +231,6 @@
     <string name="poll_ended_voted">Un sondage auquel vous avez participé vient de se terminer</string>
     <string name="title_domain_mutes">Domaines cachés</string>
     <string name="action_view_domain_mutes">Domaines cachés</string>
-    <string name="action_mute_domain">Masquer %1$s</string>
     <string name="confirmation_domain_unmuted">%1$s n’est plus masqué·e</string>
     <string name="mute_domain_warning_dialog_ok">Masquer le domaine entier</string>
     <string name="button_back">Retour</string>
@@ -285,7 +277,6 @@
     <string name="add_hashtag_title">Ajouter un hashtag</string>
     <string name="pref_title_gradient_for_media">Afficher des dégradés en couleur pour les médias cachés</string>
     <string name="pref_main_nav_position">Position de navigation principale</string>
-    <string name="action_unmute_domain">Ne plus masquer %1$s</string>
     <string name="dialog_mute_hide_notifications">Cacher les notifications</string>
     <string name="action_unmute_desc">Ne plus masquer %1$s</string>
     <string name="pref_title_hide_top_toolbar">Cacher le titre de la barre d’outils supérieure</string>

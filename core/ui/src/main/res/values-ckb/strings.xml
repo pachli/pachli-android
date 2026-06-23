@@ -89,4 +89,13 @@
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; پۆستی کردەوە</string>
     <string name="filter_edit_title">دەستکاریکردنی فلتەر</string>
     <string name="create_poll_title">ڕاپرسی</string>
+    <string name="action_unfollow">بەدوادانەچو</string>
+    <string name="action_unblock">بەربەست کردن لاببە</string>
+    <string name="state_follow_requested">بەدواداچوونەوەی داواکراو</string>
+    <string name="action_block">بلۆک</string>
+    <string name="action_mute_domain">بێدەنگکردن %1$s</string>
+    <string name="action_unmute_domain">نابێدەنگ کردن %1$s</string>
+    <string name="action_mute">بێدەنگ</string>
+    <string name="action_unmute">بێدەنگی لابردن</string>
+    <string name="action_follow">شوێنی بکەوە</string>
 </resources>

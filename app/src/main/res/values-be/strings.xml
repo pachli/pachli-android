@@ -133,10 +133,6 @@
     <string name="description_account_locked">Заблакаваны ўліковы запіс</string>
     <string name="action_unbookmark">Выдаліць з закладак</string>
     <string name="action_compose">Напісаць</string>
-    <string name="action_follow">Падпісацца</string>
-    <string name="action_unfollow">Адпісацца</string>
-    <string name="action_block">Заблакаваць</string>
-    <string name="action_unblock">Разблакаваць</string>
     <string name="action_hide_reblogs">Схаваць пашырэнні</string>
     <string name="action_show_reblogs">Паказаць пашырэнні</string>
     <string name="action_report">Паскардзіцца</string>
@@ -157,11 +153,7 @@
     <string name="action_add_poll">Дадаць апытанне</string>
     <string name="action_photo_take">Зрабіць здымак</string>
     <string name="action_share">Абагуліць</string>
-    <string name="action_mute">Ігнараваць</string>
-    <string name="action_unmute">Скасаваць ігнараванне</string>
     <string name="action_unmute_desc">Скасаваць ігнараванне %1$s</string>
-    <string name="action_mute_domain">Ігнараваць %1$s</string>
-    <string name="action_unmute_domain">Адмяніць ігнараванне %1$s</string>
     <string name="action_mute_conversation">Ігнараваць размову</string>
     <string name="action_unmute_conversation">Паказаць размову</string>
     <string name="action_mention">Згадаць</string>
@@ -238,7 +230,6 @@
     <string name="notification_summary_small">%1$s ды %2$s</string>
     <string name="post_share_content">Падзяліцца зместам допісу</string>
     <string name="post_share_link">Падзяліцца спасылкай на допіс</string>
-    <string name="state_follow_requested">Запыт на падпіску</string>
     <string name="title_media">Медыя</string>
     <string name="pref_title_alway_open_spoiler">Заўсёды разгортваць допіс з далікатным зместам</string>
     <string name="pref_title_public_filter_keywords">Публічныя стужкі</string>

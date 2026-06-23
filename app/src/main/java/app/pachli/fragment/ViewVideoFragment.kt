@@ -512,12 +512,12 @@ class ViewVideoFragment : ViewMediaFragment() {
             when (currentAudioPlaybackState) {
                 is AudioPlaybackState.Muted -> {
                     setImageDrawable(drawableMute)
-                    contentDescription = getString(R.string.action_unmute)
+                    contentDescription = getString(app.pachli.core.ui.R.string.action_unmute)
                 }
 
                 is AudioPlaybackState.Unmuted -> {
                     setImageDrawable(drawableUnmute)
-                    contentDescription = getString(R.string.action_mute)
+                    contentDescription = getString(app.pachli.core.ui.R.string.action_mute)
                 }
             }
         }

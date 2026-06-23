@@ -18,16 +18,12 @@
     <string name="hint_search">Lorg…</string>
     <string name="action_send_public">POSTAICH!</string>
     <string name="action_emoji_keyboard">Meur-chlàr Emoji</string>
-    <string name="action_unfollow">Na lean tuilleadh</string>
-    <string name="action_follow">Lean</string>
     <string name="action_send">POSTAICH</string>
     <string name="action_delete">Sguab às</string>
     <string name="action_delete_and_redraft">Sguab às is dèan dreachd ùr air</string>
     <string name="action_report">Dèan gearan</string>
-    <string name="action_unblock">Dì-bhac</string>
     <string name="action_hide_reblogs">Falaich na brosnachaidhean</string>
     <string name="action_show_reblogs">Seall na brosnachaidhean</string>
-    <string name="action_block">Bac</string>
     <string name="action_compose">Sgrìobh</string>
     <string name="action_content_warning">Rabhadh susbaint</string>
     <string name="action_compose_shortcut">Sgrìobh</string>
@@ -164,7 +160,6 @@
     <string name="title_media">Meadhanan</string>
     <string name="pref_title_alway_show_sensitive_media">Seall susbaint fhrionasach an-còmhnaidh</string>
     <string name="follows_you">’Gad leantainn</string>
-    <string name="state_follow_requested">Iarrtas leantainn air</string>
     <string name="description_account_locked">Cunntas glaiste</string>
     <plurals name="notification_title_summary">
         <item quantity="one">%d chonaltradh ùr</item>
@@ -268,10 +263,6 @@
     <string name="action_mention">Iomradh</string>
     <string name="action_unmute_conversation">Dì-mhùch an còmhradh</string>
     <string name="action_mute_conversation">Mùch an còmhradh</string>
-    <string name="action_unmute_domain">Dì-mhùch %1$s</string>
-    <string name="action_mute_domain">Mùch %1$s</string>
-    <string name="action_unmute">Dì-mhùch</string>
-    <string name="action_mute">Mùch</string>
     <string name="action_share">Co-roinn</string>
     <string name="action_photo_take">Tog dealbh</string>
     <string name="action_add_poll">Cuir cunntas-bheachd ris</string>

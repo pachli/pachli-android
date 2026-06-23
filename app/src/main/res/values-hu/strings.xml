@@ -36,10 +36,6 @@
     <string name="report_comment_hint">Egyéb megjegyzés?</string>
     <string name="action_quick_reply">Gyors válasz</string>
     <string name="action_compose">Szerkesztés</string>
-    <string name="action_follow">Követés</string>
-    <string name="action_unfollow">Követés vége</string>
-    <string name="action_block">Letiltás</string>
-    <string name="action_unblock">Letiltás feloldása</string>
     <string name="action_hide_reblogs">Megtolások elrejtése</string>
     <string name="action_show_reblogs">Megtolások mutatása</string>
     <string name="action_report">Bejelentés</string>
@@ -56,8 +52,6 @@
     <string name="action_add_media">Média csatolása</string>
     <string name="action_photo_take">Kép készítése</string>
     <string name="action_share">Megosztás</string>
-    <string name="action_mute">Némítás</string>
-    <string name="action_unmute">Némítás feloldása</string>
     <string name="action_mention">Megemlítés</string>
     <string name="action_hide_media">Média elrejtése</string>
     <string name="action_open_drawer">Menü megnyitása</string>
@@ -163,7 +157,6 @@
     -->
     <string name="post_share_content">Bejegyzés tartalmának megosztása</string>
     <string name="post_share_link">Bejegyzés hivatkozásának megosztása</string>
-    <string name="state_follow_requested">Követés kérelmezve</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Követ téged</string>
     <string name="pref_title_alway_show_sensitive_media">Mindig mutassa a kényes tartalmat</string>
@@ -213,7 +206,6 @@
     <string name="filter_add_description">Szűrendő kifejezés</string>
     <string name="title_domain_mutes">Rejtett domainek</string>
     <string name="action_view_domain_mutes">Rejtett domainek</string>
-    <string name="action_mute_domain">%1$s némítása</string>
     <string name="action_open_reblogger">Megtolás szerkesztő megnyitása</string>
     <string name="action_open_reblogged_by">Megtolások mutatása</string>
     <string name="confirmation_domain_unmuted">%1$s elrejtése feloldva</string>
@@ -284,7 +276,6 @@
     <string name="dialog_mute_warning">Elnémítsuk @%1$s fiókot\?</string>
     <string name="action_unmute_conversation">Beszélgetés némításának feloldása</string>
     <string name="action_mute_conversation">Beszélgetés némítása</string>
-    <string name="action_unmute_domain">%1$s némításának feloldása</string>
     <string name="action_unmute_desc">%1$s némításának feloldása</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; kéri, hogy követhessen</string>
     <string name="pref_title_hide_top_toolbar">Felső eszköztár címének elrejtése</string>

@@ -32,10 +32,6 @@
     <string name="report_comment_hint">Cap comentari addicional ?</string>
     <string name="action_quick_reply">Responsa rapida</string>
     <string name="action_compose">Redactar</string>
-    <string name="action_follow">Seguir</string>
-    <string name="action_unfollow">Quitar de seguir</string>
-    <string name="action_block">Blocar</string>
-    <string name="action_unblock">Quitar de blocar</string>
     <string name="action_hide_reblogs">Rescondre los partatges</string>
     <string name="action_show_reblogs">Mostrar los retuts</string>
     <string name="action_report">Senhalar</string>
@@ -51,8 +47,6 @@
     <string name="action_add_media">Ajustar un mèdia</string>
     <string name="action_photo_take">Prendre una fotografia</string>
     <string name="action_share">Partejar</string>
-    <string name="action_mute">Silenciar</string>
-    <string name="action_unmute">Quitar de silenciar</string>
     <string name="action_mention">Mencionar</string>
     <string name="action_hide_media">Amagar los mèdias</string>
     <string name="action_open_drawer">Dobrir lo repertòri</string>
@@ -154,7 +148,6 @@
     -->
     <string name="post_share_content">Partejar lo contengut del tut</string>
     <string name="post_share_link">Partejar lo ligam del tut</string>
-    <string name="state_follow_requested">Demanda d’abonament</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Vos sèc</string>
     <string name="pref_title_alway_show_sensitive_media">Mostrar lo contengut sensible (NSFW)</string>
@@ -245,7 +238,6 @@
     <string name="report_description_remote_instance">Aqueste compte es en un autre servidor. Enviar una còpia anonimizada del senhalament \?</string>
     <string name="title_domain_mutes">Domenis resconduts</string>
     <string name="action_view_domain_mutes">Domenis resconduts</string>
-    <string name="action_mute_domain">Rescondre %1$s</string>
     <string name="confirmation_domain_unmuted">%1$s es pas mai rescondut</string>
     <string name="mute_domain_warning">Volètz vertadièrament blocar complètament %1$s \? Veiretz pas mai de contengut venent d’aqueste domeni, nimai los flux d’actualitat o las notificacion. Vòstres seguidors d’aqueste domeni seràn tirats.</string>
     <string name="mute_domain_warning_dialog_ok">Rescondre tot lo domeni</string>
@@ -298,7 +290,6 @@
     <string name="dialog_mute_hide_notifications">Amagar las notificacions</string>
     <string name="action_unmute_conversation">Amagar pas mai la conversacion</string>
     <string name="action_mute_conversation">Amagar la conversacion</string>
-    <string name="action_unmute_domain">Amagar pas mai a %1$s</string>
     <string name="action_delete_conversation">Suprimir la conversacion</string>
     <string name="title_announcements">Anóncias</string>
     <plurals name="error_upload_max_media_reached">

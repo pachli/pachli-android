@@ -43,10 +43,6 @@
     <string name="report_comment_hint">Aðrar athugasemdir\?</string>
     <string name="action_quick_reply">Snöggt svar</string>
     <string name="action_compose">Semja skilaboð</string>
-    <string name="action_follow">Fylgja</string>
-    <string name="action_unfollow">Hætta að fylgjast með</string>
-    <string name="action_block">Útiloka</string>
-    <string name="action_unblock">Aflétta útilokun</string>
     <string name="action_hide_reblogs">Fela endurbirtingar</string>
     <string name="action_show_reblogs">Sýna endurbirtingar</string>
     <string name="action_report">Tilkynna</string>
@@ -65,9 +61,6 @@
     <string name="action_add_poll">Bæta við könnun</string>
     <string name="action_photo_take">Taka ljósmynd</string>
     <string name="action_share">Deila</string>
-    <string name="action_mute">Þagga niður</string>
-    <string name="action_unmute">Ekki þagga</string>
-    <string name="action_mute_domain">Þagga niður í %1$s</string>
     <string name="action_mention">Tilvísun</string>
     <string name="action_hide_media">Fela myndefni</string>
     <string name="action_open_drawer">Opna sleða</string>
@@ -187,7 +180,6 @@
     <string name="description_account_locked">Læstur notandaaðgangur</string>
     <string name="post_share_content">Deila efni úr færslu</string>
     <string name="post_share_link">Deila tengli á færslu</string>
-    <string name="state_follow_requested">Beðið um að fylgja</string>
     <string name="follows_you">Fylgir þér</string>
     <string name="pref_title_alway_show_sensitive_media">Alltaf birta myndefni sem merkt er viðkvæmt</string>
     <string name="pref_title_alway_open_spoiler">Alltaf fletta út færslum sem eru með aðvörun vegna efnis</string>
@@ -281,7 +273,6 @@
     <string name="dialog_block_warning">Loka á @%1$s\?</string>
     <string name="action_unmute_conversation">Hætta að þagga niður í samtali</string>
     <string name="action_mute_conversation">Þagga niður í samtali</string>
-    <string name="action_unmute_domain">Afþagga %1$s</string>
     <string name="action_unmute_desc">Afþagga %1$s</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; bað um að fylgjast með þér</string>
     <string name="title_announcements">Tilkynningar</string>

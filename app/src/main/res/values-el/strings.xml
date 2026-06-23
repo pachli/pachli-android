@@ -10,8 +10,6 @@
     <string name="action_reset_schedule">Επαναφορά</string>
     <string name="notification_follow_format">ο/η &lt;b&gt;%1$s&lt;/b&gt; σας ακολούθησε</string>
     <string name="action_view_mutes">Χρήστες σε σίγαση</string>
-    <string name="action_unfollow">Μην ακολουθείτε</string>
-    <string name="action_unmute_domain">Άρση σίγασης του %1$s</string>
     <string name="action_delete_and_redraft">Διαγραφή και αναδιατύπωση</string>
     <string name="action_edit_profile">Επεξεργασία προφίλ</string>
     <string name="action_share">Κοινοποίηση</string>
@@ -20,7 +18,6 @@
     <string name="action_view_bookmarks">Σελιδοδείκτες</string>
     <string name="title_bookmarks">Σελιδοδείκτες</string>
     <string name="title_followers">Ακόλουθοι</string>
-    <string name="action_unblock">Άρση αποκλεισμού</string>
     <string name="title_favourites">Αγαπημένα</string>
     <string name="error_compose_character_limit">Η δημοσίευση είναι πολύ μεγάλη!</string>
     <string name="action_emoji_keyboard">Πληκτρολόγιο emoji</string>
@@ -28,16 +25,12 @@
     <string name="label_quick_reply">Απάντηση…</string>
     <string name="action_reject">Απόρριψη</string>
     <string name="title_blocks">Αποκλεισμένοι χρήστες</string>
-    <string name="action_mute_domain">Σίγαση του %1$s</string>
-    <string name="action_block">Αποκλεισμός</string>
     <string name="action_undo">Αναίρεση</string>
     <string name="notification_follow_request_format">ο/η &lt;b&gt;%1$s&lt;/b&gt; ζήτησε να σας ακολουθήσει</string>
     <string name="title_tab_preferences">Καρτέλες</string>
     <string name="notification_reblog_format">ο/η &lt;b&gt;%1$s&lt;/b&gt; προώθησε τη δημοσίευσή σας</string>
     <string name="notification_favourite_format">στον/στην &lt;b&gt;%1$s&lt;/b&gt; άρεσε η δημοσίευσή σας</string>
-    <string name="action_follow">Ακολουθήστε</string>
     <string name="action_report">Αναφορά</string>
-    <string name="action_mute">Σίγαση</string>
     <string name="report_username_format">Αναφορά του/της %1$s</string>
     <string name="action_view_account_preferences">Προτιμήσεις Λογαριασμού</string>
     <string name="action_add_tab">Προσθήκη καρτέλας</string>
@@ -59,7 +52,6 @@
     <string name="action_access_drafts">Προσχέδια</string>
     <string name="notification_sign_up_format">ο/η &lt;b&gt;%1$s&lt;/b&gt; έκανε εγγραφή</string>
     <string name="dialog_delete_post_warning">Διαγραφή αυτής της δημοσίευσης;</string>
-    <string name="action_unmute">Άρση σίγασης</string>
     <string name="title_notifications">Ειδοποιήσεις</string>
     <string name="action_compose">Γράψτε</string>
     <string name="action_edit_own_profile">Επεξεργασία</string>

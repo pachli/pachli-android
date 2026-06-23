@@ -133,10 +133,6 @@
     <string name="action_quick_reply">Quick Reply</string>
     <string name="action_unbookmark">Remove bookmark</string>
     <string name="action_compose">Compose</string>
-    <string name="action_follow">Follow</string>
-    <string name="action_unfollow">Unfollow</string>
-    <string name="action_block">Block</string>
-    <string name="action_unblock">Unblock</string>
     <string name="action_share_account_link">Share link to account</string>
     <string name="action_share_account_username">Share username of account</string>
     <string name="action_hide_reblogs">Hide boosts</string>
@@ -168,13 +164,9 @@
     <string name="action_add_poll">Add poll</string>
     <string name="action_photo_take">Take photo</string>
     <string name="action_share">Share</string>
-    <string name="action_mute">Mute</string>
-    <string name="action_unmute">Unmute</string>
     <string name="action_mute_hashtag">Mute #%1$s</string>
     <string name="action_unmute_hashtag">Unmute #%1$s</string>
     <string name="action_unmute_desc">Unmute %1$s</string>
-    <string name="action_mute_domain">Mute %1$s</string>
-    <string name="action_unmute_domain">Unmute %1$s</string>
     <string name="action_mute_conversation">Mute conversation</string>
     <string name="action_unmute_conversation">Unmute conversation</string>
     <string name="action_mention">Mention</string>
@@ -373,7 +365,6 @@
     -->
     <string name="post_share_content">Share content of post</string>
     <string name="post_share_link">Share link to post</string>
-    <string name="state_follow_requested">Follow requested</string>
     <!--These are for timestamps on posts. For example: "16s" or "2d"-->
     <string name="follows_you">Follows you</string>
     <string name="pref_title_alway_show_sensitive_media">Always show sensitive content</string>

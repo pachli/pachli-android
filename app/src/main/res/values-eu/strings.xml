@@ -33,10 +33,6 @@
     <string name="report_comment_hint">Informazio gehigarria?</string>
     <string name="action_quick_reply">Erantzun azkarra</string>
     <string name="action_compose">Idatzi</string>
-    <string name="action_follow">Jarraitu</string>
-    <string name="action_unfollow">Jarraitzeari utzi</string>
-    <string name="action_block">Blokeatu</string>
-    <string name="action_unblock">Desblokeatu</string>
     <string name="action_hide_reblogs">Bultzadak ezkutatu</string>
     <string name="action_show_reblogs">Bultzadak erakutsi</string>
     <string name="action_report">Salatu</string>
@@ -53,8 +49,6 @@
     <string name="action_add_media">Multimedia erantsi</string>
     <string name="action_photo_take">Argazkia atera</string>
     <string name="action_share">Partekatu</string>
-    <string name="action_mute">Mututu</string>
-    <string name="action_unmute">Desmututu</string>
     <string name="action_mention">Aipatu</string>
     <string name="action_hide_media">Multimedia ezkutatu</string>
     <string name="action_open_drawer">Tiradera ireki</string>
@@ -161,7 +155,6 @@
     -->
     <string name="post_share_content">Tutaren edukia partekatu</string>
     <string name="post_share_link">Tutaren esteka partekatu</string>
-    <string name="state_follow_requested">Eskaera bidalita</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Jarraitzen zaitu</string>
     <string name="pref_title_alway_show_sensitive_media">Eduki mingarria erakutsi</string>
@@ -203,7 +196,6 @@
     <string name="action_delete_and_redraft">Ezabatu eta zirriborroa berriro egin</string>
     <string name="action_view_domain_mutes">Ezkutuko domeinuak</string>
     <string name="action_add_poll">Galdeketa gehitu</string>
-    <string name="action_mute_domain">Mututu %1$s</string>
     <string name="action_access_scheduled_posts">Programatutako tutak</string>
     <string name="action_schedule_post">Tuta programatu</string>
     <string name="action_reset_schedule">Berrezarri</string>
@@ -287,7 +279,6 @@
     <string name="pref_title_gradient_for_media">Gradiente koloretsuak erakutsi ezkutuko mediaren lekuan</string>
     <string name="pref_title_notification_filter_follow_requests">jarraitzeko eskaera jasotzean</string>
     <string name="action_unmute_conversation">Elkarrizketa desmututu</string>
-    <string name="action_unmute_domain">Desmututu %1$s</string>
     <string name="review_notifications">Jakinarazpenak berrikusi</string>
     <string name="pref_title_confirm_favourites">Erakutsi baieztapen elkarrizketa-koadroa gogokoenetara gehitu aurretik</string>
     <string name="follow_requests_info">Zure kontua blokeatuta ez badago ere, %1$s-ko langileek kontu hauetako eskaerak eskuz berrikusi nahi dituzula pentsatu dute.</string>

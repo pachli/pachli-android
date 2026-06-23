@@ -36,10 +36,6 @@
     <string name="report_comment_hint">Další komentáře\?</string>
     <string name="action_quick_reply">Rychlá odpověď</string>
     <string name="action_compose">Napsat</string>
-    <string name="action_follow">Sledovat</string>
-    <string name="action_unfollow">Přestat sledovat</string>
-    <string name="action_block">Blokovat</string>
-    <string name="action_unblock">Odblokovat</string>
     <string name="action_hide_reblogs">Skrýt boosty</string>
     <string name="action_show_reblogs">Zobrazit boosty</string>
     <string name="action_report">Nahlásit</string>
@@ -56,8 +52,6 @@
     <string name="action_add_media">Přidat média</string>
     <string name="action_photo_take">Pořídit fotku</string>
     <string name="action_share">Sdílet</string>
-    <string name="action_mute">Skrýt</string>
-    <string name="action_unmute">Zrušit skrytí</string>
     <string name="action_mention">Zmínit</string>
     <string name="action_hide_media">Skrýt média</string>
     <string name="action_open_drawer">Otevřít menu</string>
@@ -174,7 +168,6 @@
     -->
     <string name="post_share_content">Sdílet obsah příspěvku</string>
     <string name="post_share_link">Sdílet odkaz na příspěvek</string>
-    <string name="state_follow_requested">Vyžádáno sledování</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Sleduje vás</string>
     <string name="pref_title_alway_show_sensitive_media">Vždy zobrazovat citlivý obsah</string>
@@ -238,7 +231,6 @@
     <string name="pref_title_animate_gif_avatars">Animovat GIF avatary</string>
     <string name="title_domain_mutes">Skryté domény</string>
     <string name="action_view_domain_mutes">Skryté domény</string>
-    <string name="action_mute_domain">Skrýt doménu %1$s</string>
     <string name="confirmation_domain_unmuted">Skrytí domény %1$s bylo zrušeno</string>
     <string name="mute_domain_warning">Jste si jistý/á, že chcete zablokovat vše z domény %1$s\? Z této domény neuvidíte obsah v žádné veřejné časové ose ani v oznámeních. Vaši sledující z této domény budou odstraněni.</string>
     <string name="mute_domain_warning_dialog_ok">Skrýt celou doménu</string>
@@ -282,7 +274,6 @@
     <string name="pref_main_nav_position">Umístění hlavní navigační lišty</string>
     <string name="hashtags">Hashtagy</string>
     <string name="dialog_block_warning">Zablokovat @%1$s\?</string>
-    <string name="action_unmute_domain">Zrušit skrytí domény %1$s</string>
     <string name="action_unmute_desc">Zrušit skrytí %1$s</string>
     <string name="dialog_mute_warning">Skrýt @%1$s\?</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; požádal/a aby vás mohl/a sledovat</string>

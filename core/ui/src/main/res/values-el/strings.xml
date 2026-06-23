@@ -19,4 +19,12 @@
     <string name="post_content_warning_show_less">Δείτε λιγότερα</string>
     <string name="post_content_warning_show_more">Δείτε περισσότερα</string>
     <string name="post_boosted_fmt">ο/η &lt;b&gt;%1$s&lt;/b&gt; το προώθησε</string>
+    <string name="action_unfollow">Μην ακολουθείτε</string>
+    <string name="action_unblock">Άρση αποκλεισμού</string>
+    <string name="action_block">Αποκλεισμός</string>
+    <string name="action_mute_domain">Σίγαση του %1$s</string>
+    <string name="action_unmute_domain">Άρση σίγασης του %1$s</string>
+    <string name="action_mute">Σίγαση</string>
+    <string name="action_unmute">Άρση σίγασης</string>
+    <string name="action_follow">Ακολουθήστε</string>
 </resources>

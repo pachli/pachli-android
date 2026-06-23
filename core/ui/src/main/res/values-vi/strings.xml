@@ -105,4 +105,13 @@
     <string name="duration_90_days">90 ngày</string>
     <string name="duration_180_days">180 ngày</string>
     <string name="duration_365_days">365 ngày</string>
+    <string name="action_unfollow">Bỏ theo dõi</string>
+    <string name="action_unblock">Bỏ chặn</string>
+    <string name="state_follow_requested">Yêu cầu theo dõi</string>
+    <string name="action_block">Chặn</string>
+    <string name="action_mute_domain">Ẩn %1$s</string>
+    <string name="action_unmute_domain">Bỏ ẩn %1$s</string>
+    <string name="action_mute">Ẩn</string>
+    <string name="action_unmute">Bỏ ẩn</string>
+    <string name="action_follow">Theo dõi</string>
 </resources>

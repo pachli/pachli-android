@@ -44,8 +44,6 @@
     <string name="action_edit_own_profile">Змінити</string>
     <string name="action_save">Зберегти</string>
     <string name="action_mention">Згадати</string>
-    <string name="action_mute_domain">Приховати %1$s</string>
-    <string name="action_mute">Приховати</string>
     <string name="action_share">Поділитися</string>
     <string name="action_photo_take">Сфотографувати</string>
     <string name="action_add_poll">Додати опитування</string>
@@ -58,10 +56,6 @@
     <string name="action_delete_and_redraft">Видалити та перестворити</string>
     <string name="action_delete">Видалити</string>
     <string name="action_report">Поскаржитися</string>
-    <string name="action_unblock">Розблокувати</string>
-    <string name="action_block">Заблокувати</string>
-    <string name="action_unfollow">Відписатися</string>
-    <string name="action_follow">Підписатися</string>
     <string name="action_compose">Написати</string>
     <string name="action_quick_reply">Швидка відповідь</string>
     <string name="report_comment_hint">Додаткові коментарі\?</string>
@@ -84,7 +78,6 @@
     <string name="notification_favourite_name">Вподобане</string>
     <string name="notification_follow_request_name">Запити на стеження</string>
     <string name="action_unmute_desc">Не приховувати %1$s</string>
-    <string name="action_unmute">Не приховувати</string>
     <string name="action_view_domain_mutes">Приховані домени</string>
     <string name="action_view_mutes">Приховувані користувачі</string>
     <string name="action_send_public">ПОШИРИТИ!</string>
@@ -102,7 +95,6 @@
     <string name="action_open_reblogged_by">Показати поширення</string>
     <string name="pref_title_show_boosts">Показати поширення</string>
     <string name="pref_title_post_tabs">Вкладки</string>
-    <string name="action_unmute_domain">Не приховувати %1$s</string>
     <string name="action_toggle_visibility">Видимість дописів</string>
     <string name="wellbeing_mode_notice">Деякі відомості, які можуть вплинути на ваше психічний стан, буде приховано. Це включає:
 \n
@@ -162,7 +154,6 @@
     <string name="pref_title_alway_open_spoiler">Завжди розгортати допис, з попередженнями про вміст</string>
     <string name="follows_you">Підписники</string>
     <string name="pref_title_alway_show_sensitive_media">Завжди показувати делікатний вміст</string>
-    <string name="state_follow_requested">Запит на підписку надіслано</string>
     <string name="post_share_link">Поділитися посиланням на допис</string>
     <string name="post_share_content">Поділитися вмістом допису</string>
     <string name="description_account_locked">Заблокований обліковий запис</string>

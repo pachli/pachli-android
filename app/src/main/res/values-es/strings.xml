@@ -36,10 +36,6 @@
     <string name="report_comment_hint">¿Información adicional?</string>
     <string name="action_quick_reply">Respuesta rápida</string>
     <string name="action_compose">Redactar</string>
-    <string name="action_follow">Seguir</string>
-    <string name="action_unfollow">Dejar de seguir</string>
-    <string name="action_block">Bloquear</string>
-    <string name="action_unblock">Desbloquear</string>
     <string name="action_hide_reblogs">Ocultar impulsos</string>
     <string name="action_show_reblogs">Mostrar impulsos</string>
     <string name="action_report">Denunciar</string>
@@ -56,8 +52,6 @@
     <string name="action_add_media">Añadir multimedia</string>
     <string name="action_photo_take">Tomar foto</string>
     <string name="action_share">Compartir</string>
-    <string name="action_mute">Silenciar</string>
-    <string name="action_unmute">Dejar de silenciar</string>
     <string name="action_mention">Mencionar</string>
     <string name="action_hide_media">Ocultar multimedia</string>
     <string name="action_open_drawer">Abrir menu</string>
@@ -165,7 +159,6 @@
     -->
     <string name="post_share_content">Compartir contenido</string>
     <string name="post_share_link">Compartir enlace</string>
-    <string name="state_follow_requested">Solicitud enviada</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Te sigue</string>
     <string name="pref_title_alway_show_sensitive_media">Mostrar contenido sensible</string>
@@ -236,7 +229,6 @@
     <string name="action_open_reblogged_by">Mostrar impulsos</string>
     <string name="title_domain_mutes">Dominios ocultos</string>
     <string name="action_view_domain_mutes">Dominios ocultos</string>
-    <string name="action_mute_domain">Silenciar %1$s</string>
     <string name="confirmation_domain_unmuted">%1$s visible</string>
     <string name="mute_domain_warning">¿Confirmas que quieres bloquear todo %1$s? No verás contenido de ese dominio en ninguna cronología pública ni en tus notificaciones. Tus seguidores de ese dominio serán eliminados.</string>
     <string name="mute_domain_warning_dialog_ok">Ocultar dominio completo</string>
@@ -284,7 +276,6 @@
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; solicita seguirte</string>
     <string name="pref_main_nav_position">Posición de navegación principal</string>
     <string name="pref_title_gradient_for_media">Mostrar difuminados coloridos para la multimedia oculta</string>
-    <string name="action_unmute_domain">Dejar de silenciar %1$s</string>
     <string name="action_unmute_desc">Dejar de silenciar a %1$s</string>
     <string name="dialog_mute_hide_notifications">Ocultar notificaciones</string>
     <string name="pref_title_hide_top_toolbar">Ocultar el título de la barra de herramientas superior</string>
