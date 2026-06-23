@@ -125,31 +125,23 @@ class CollectionCardView @JvmOverloads constructor(
 
         val avatarIcons = collection.itemIconUrls.filterNotNull().take(4)
 
+        // TODO: Respect animateIcons
+
         avatarIcons.getOrNull(0)?.let {
-            loadAvatar(glide, it, binding.avatar1, avatarRadius, false)
-            binding.avatar1.show()
-        } ?: {
-            binding.avatar1.hide()
-        }
+            loadAvatar(glide, it, avatar1, avatarRadius, false)
+        } ?: avatar1.setImageDrawable(null)
 
         avatarIcons.getOrNull(1)?.let {
-            loadAvatar(glide, it, binding.avatar2, avatarRadius, false)
-            binding.avatar2.show()
-        } ?: {
-            binding.avatar2.hide()
-        }
+            loadAvatar(glide, it, avatar2, avatarRadius, false)
+        } ?: avatar2.setImageDrawable(null)
+
         avatarIcons.getOrNull(2)?.let {
-            loadAvatar(glide, it, binding.avatar3, avatarRadius, false)
-            binding.avatar3.show()
-        } ?: {
-            binding.avatar3.hide()
-        }
+            loadAvatar(glide, it, avatar3, avatarRadius, false)
+        } ?: avatar3.setImageDrawable(null)
+
         avatarIcons.getOrNull(3)?.let {
-            loadAvatar(glide, it, binding.avatar4, avatarRadius, false)
-            binding.avatar4.show()
-        } ?: {
-            binding.avatar4.hide()
-        }
+            loadAvatar(glide, it, avatar4, avatarRadius, false)
+        } ?: avatar4.setImageDrawable(null)
 
         name.text = collection.name
 
@@ -166,6 +158,7 @@ class CollectionCardView @JvmOverloads constructor(
         if (collection.description.isBlank()) {
             description.hide()
         } else {
+            // TODO: SetContent to set clickable text
             description.text = collection.description
             description.show()
         }
@@ -177,9 +170,9 @@ class CollectionCardView @JvmOverloads constructor(
         )
 
         val showDivider = isMember
-        binding.controlDivider.visible(showDivider)
+        controlDivider.visible(showDivider)
 
-        binding.collectionRemoveSelf.setOnClickListener { listener.onRemoveUserFromCollection(collection) }
-        binding.collectionRemoveSelf.visible(isMember)
+        collectionRemoveSelf.setOnClickListener { listener.onRemoveUserFromCollection(collection) }
+        collectionRemoveSelf.visible(isMember)
     }
 }
