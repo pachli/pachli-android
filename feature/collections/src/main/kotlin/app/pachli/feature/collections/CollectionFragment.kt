@@ -84,10 +84,12 @@ import app.pachli.core.ui.extensions.contentDescription
 import app.pachli.core.ui.loadAvatar
 import app.pachli.feature.collections.AccountViewHolder.ChangePayload
 import app.pachli.feature.collections.ICollectionViewModel.AccountAction
+import app.pachli.feature.collections.ICollectionViewModel.CollectionAction
 import app.pachli.feature.collections.ICollectionViewModel.CollectionViewData
 import app.pachli.feature.collections.ICollectionViewModel.NavigationAction
 import app.pachli.feature.collections.ICollectionViewModel.UiAction
 import app.pachli.feature.collections.ICollectionViewModel.UiError
+import app.pachli.feature.collections.ICollectionViewModel.UiOptions
 import app.pachli.feature.collections.ICollectionViewModel.UiSuccess
 import app.pachli.feature.collections.databinding.FragmentCollectionBinding
 import app.pachli.feature.collections.databinding.ItemAccountInCollectionBinding
@@ -109,7 +111,9 @@ import java.time.Duration
 import java.time.Instant
 import javax.inject.Inject
 import kotlin.math.roundToInt
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -195,7 +199,7 @@ class CollectionFragment :
 
         bind()
 
-        viewModel.accept(UiAction.GetCollection(pachliAccountId, collectionId))
+        viewModel.accept(CollectionAction.GetCollection(pachliAccountId, collectionId))
     }
 
     private fun bind() {
@@ -256,7 +260,7 @@ class CollectionFragment :
         result.onFailure {
             binding.messageView.show()
             binding.recyclerView.hide()
-            binding.messageView.setup(it) { viewModel.accept(UiAction.GetCollection(pachliAccountId, collectionId)) }
+            binding.messageView.setup(it) { viewModel.accept(CollectionAction.GetCollection(pachliAccountId, collectionId)) }
         }
 
         result.onSuccess {
@@ -284,7 +288,7 @@ class CollectionFragment :
 
     override fun onRefresh() {
         snackbar?.dismiss()
-        viewModel.accept(UiAction.GetCollection(pachliAccountId, collectionId))
+        viewModel.accept(CollectionAction.GetCollection(pachliAccountId, collectionId))
     }
 
     override fun onReselect() {
@@ -362,6 +366,8 @@ internal class CollectionAccountsAdapter(
 /**
  * Data to show an account in a collection.
  *
+ * @property pachliAccountId
+ * @propert collectionId ID of the collection the account is in.
  * @property account The account.
  * @property relationship Relationship to the current user. Null if fetching
  * the relationship failed.
@@ -371,6 +377,8 @@ internal class CollectionAccountsAdapter(
  * @property isSelf True if this is the user's account.
  */
 internal data class AccountViewData(
+    val pachliAccountId: Long,
+    val collectionId: String,
     val account: Account,
     val relationship: Relationship?,
     val isEnabled: Boolean,
@@ -633,7 +641,16 @@ internal class AccountViewHolder(
         // TODO: If this is us, button should be "Remove me"
         if (viewData.isSelf) {
             binding.actionButton.setText(app.pachli.core.ui.R.string.action_collection_remove_self)
-            // TODO: Set click handler
+            binding.actionButton.setOnClickListener {
+                Timber.d("click")
+                accept(
+                    CollectionAction.Revoke(
+                        viewData.pachliAccountId,
+                        viewData.collectionId,
+                        viewData.account.id,
+                    ),
+                )
+            }
             return
         }
 
@@ -690,33 +707,8 @@ private object AccountInCollectionViewDataDiffer : DiffUtil.ItemCallback<Account
     }
 }
 
-internal data class UiOptions(
-    val animateEmojis: Boolean = false,
-    val animateAvatars: Boolean = false,
-    val showBotOverlay: Boolean = false,
-    val showPronouns: Boolean = false,
-    val linksToUnderline: Set<LinksToUnderline> = emptySet(),
-    val renderMarkdown: Boolean = false,
-) {
-    companion object {
-        fun from(statusDisplayOptions: StatusDisplayOptions) = UiOptions(
-            animateEmojis = statusDisplayOptions.animateEmojis,
-            animateAvatars = statusDisplayOptions.animateAvatars,
-            showBotOverlay = statusDisplayOptions.showBotOverlay,
-            showPronouns = statusDisplayOptions.pronounDisplay == PronounDisplay.EVERYWHERE,
-            linksToUnderline = statusDisplayOptions.linksToUnderline,
-            renderMarkdown = statusDisplayOptions.renderMarkdown,
-        )
-    }
-}
-
 internal interface ICollectionViewModel {
-    sealed interface UiAction {
-        data class GetCollection(
-            val pachliAccountId: Long,
-            val collectionId: String,
-        ) : UiAction
-    }
+    sealed interface UiAction
 
     sealed interface NavigationAction : UiAction {
         data class ViewAccount(val accountId: String) : NavigationAction
@@ -724,9 +716,26 @@ internal interface ICollectionViewModel {
         data class ViewUrl(val url: String) : NavigationAction
     }
 
-    sealed interface CollectionAction : UiAction
+    sealed interface CollectionAction : UiAction {
+        val pachliAccountId: Long
+        val collectionId: String
 
-    sealed interface AccountAction : CollectionAction {
+        data class GetCollection(
+            override val pachliAccountId: Long,
+            override val collectionId: String,
+        ) : CollectionAction
+
+        /**
+         * Remove's the user from the collection.
+         */
+        data class Revoke(
+            override val pachliAccountId: Long,
+            override val collectionId: String,
+            val accountId: String,
+        ) : CollectionAction
+    }
+
+    sealed interface AccountAction : UiAction {
         val pachliAccountId: Long
         val account: Account
 
@@ -737,7 +746,7 @@ internal interface ICollectionViewModel {
     }
 
     sealed interface UiSuccess {
-        val action: CollectionAction
+        val action: UiAction
 
         data class FollowAccount(override val action: AccountAction.FollowAccount) : UiSuccess
 
@@ -786,6 +795,26 @@ internal interface ICollectionViewModel {
     val operationCount: Flow<Int>
 
     val collectionViewData: StateFlow<Result<Loadable<CollectionViewData>, UiError.GetCollection>>
+
+    data class UiOptions(
+        val animateEmojis: Boolean = false,
+        val animateAvatars: Boolean = false,
+        val showBotOverlay: Boolean = false,
+        val showPronouns: Boolean = false,
+        val linksToUnderline: Set<LinksToUnderline> = emptySet(),
+        val renderMarkdown: Boolean = false,
+    ) {
+        companion object {
+            fun from(statusDisplayOptions: StatusDisplayOptions) = UiOptions(
+                animateEmojis = statusDisplayOptions.animateEmojis,
+                animateAvatars = statusDisplayOptions.animateAvatars,
+                showBotOverlay = statusDisplayOptions.showBotOverlay,
+                showPronouns = statusDisplayOptions.pronounDisplay == PronounDisplay.EVERYWHERE,
+                linksToUnderline = statusDisplayOptions.linksToUnderline,
+                renderMarkdown = statusDisplayOptions.renderMarkdown,
+            )
+        }
+    }
 
     val uiOptions: Flow<UiOptions>
 }
@@ -843,6 +872,8 @@ internal class CollectionViewModel @Inject constructor(
                         collection = collection,
                         owner = owner?.let {
                             AccountViewData(
+                                pachliAccountId = pachliAccount.id,
+                                collectionId = collection.serverId,
                                 account = owner,
                                 relationship = relationships[owner.id],
                                 isEnabled = !disabledAccountIds.contains(it.id),
@@ -851,6 +882,8 @@ internal class CollectionViewModel @Inject constructor(
                         },
                         accounts = members.map {
                             AccountViewData(
+                                pachliAccountId = pachliAccount.id,
+                                collectionId = collection.serverId,
                                 account = it,
                                 relationship = relationships[it.id],
                                 isEnabled = !disabledAccountIds.contains(it.id),
@@ -866,34 +899,57 @@ internal class CollectionViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-//            uiAction.filterIsInstance<UiAction.GetCollection>().collect {
-//                launch { onGetCollection(it) }
-//            }
+            uiAction.filterIsInstance<CollectionAction>().collect(::onCollectionAction)
+        }
 
-            uiAction.filterIsInstance<UiAction.GetCollection>().collect(::onGetCollection)
-            uiAction.filterIsInstance<AccountAction>().collect(::onAccountAction)
+        viewModelScope.launch {
+            uiAction.filterIsInstance<AccountAction>().throttleFirst().collect(::onAccountAction)
         }
     }
 
-    private suspend fun onGetCollection(action: UiAction.GetCollection) {
-        operationCounter {
-            pachliAccountId.emit(action.pachliAccountId)
-
-            collection.emit(Ok(Loadable.Loading))
-            collectionsRepository.getCollection(action.pachliAccountId, action.collectionId)
-                .onSuccess { (_, accounts) ->
-                    relationshipsRepository.getRelationships(
-                        action.pachliAccountId,
-                        accounts.map { it.id },
-                    ).onSuccess { relationships ->
-                        this.relationships.update { relationships.associateBy { it.id } }
-                    }
-                }
-            collection.emit(
-                collectionsRepository.getCollection(action.pachliAccountId, action.collectionId)
-                    .map { Loadable.Loaded(it) },
-            )
+    private suspend fun onCollectionAction(action: CollectionAction) {
+        when (action) {
+            is CollectionAction.GetCollection -> onGetCollection(action)
+            is CollectionAction.Revoke -> onRevokeCollection(action)
         }
+    }
+
+    private suspend fun onGetCollection(action: CollectionAction.GetCollection) = operationCounter {
+        pachliAccountId.emit(action.pachliAccountId)
+
+        collection.emit(Ok(Loadable.Loading))
+        collectionsRepository.getCollection(action.pachliAccountId, action.collectionId)
+            .onSuccess { (_, accounts) ->
+                relationshipsRepository.getRelationships(
+                    action.pachliAccountId,
+                    accounts.map { it.id },
+                ).onSuccess { relationships ->
+                    this.relationships.update { relationships.associateBy { it.id } }
+                }
+            }
+        collection.emit(
+            collectionsRepository.getCollection(action.pachliAccountId, action.collectionId)
+                .map { Loadable.Loaded(it) },
+        )
+    }
+
+    private suspend fun onRevokeCollection(action: CollectionAction.Revoke) = operationCounter {
+        Timber.d("onRevokeCollection")
+        disabledAccountIds.update { it + action.accountId }
+
+        Timber.d("Pretending to revoke")
+        delay(5.seconds)
+
+        // onSuccess block
+        collection.update {
+            it.map {
+                it.mapLoaded { (collection, accounts) ->
+                    Pair(collection, accounts.filterNot { it.id == action.accountId })
+                }
+            }
+        }
+
+        disabledAccountIds.update { it - action.accountId }
     }
 
     private suspend fun onAccountAction(action: AccountAction) {

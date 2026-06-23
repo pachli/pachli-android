@@ -43,9 +43,14 @@ interface ICollectionsRepository {
     sealed interface Error : PachliError {
         @JvmInline
         value class GetCollection(private val error: ApiError) : Error, PachliError by error
+
+        @JvmInline
+        value class RevokeFromCollection(private val error: ApiError) : Error, PachliError by error
     }
 
     suspend fun getCollection(pachliAccountId: Long, collectionId: String): Result<Pair<Collection, List<Account>>, Error.GetCollection>
+
+    suspend fun revokeFromCollection(pachliAccountId: Long, collectionId: String, accountId: String): Result<Unit, Error.RevokeFromCollection>
 }
 
 @Singleton
@@ -75,8 +80,16 @@ internal class OfflineFirstCollectionsRepository @Inject constructor(
                 { Error.GetCollection(it) },
             )
     }
+
+    override suspend fun revokeFromCollection(pachliAccountId: Long, collectionId: String, accountId: String): Result<Unit, Error.RevokeFromCollection> {
+        return remoteDataSource.revokeFromCollection(pachliAccountId, collectionId, accountId).mapEither(
+            { it.body },
+            { Error.RevokeFromCollection(it) },
+        )
+    }
 }
 
+@Singleton
 internal class CollectionsLocalDataSource @Inject constructor(
     private val transactionProvider: TransactionProvider,
     private val collectionsDao: CollectionsDao,
@@ -86,10 +99,15 @@ internal class CollectionsLocalDataSource @Inject constructor(
     }
 }
 
+@Singleton
 internal class CollectionsRemoteDataSource @Inject constructor(
     private val mastodonApi: MastodonApi,
 ) {
     suspend fun getCollection(pachliAccountId: Long, collectionId: String): ApiResult<CollectionWithAccounts> {
         return mastodonApi.getCollectionWithAccounts(collectionId)
+    }
+
+    suspend fun revokeFromCollection(pachliAccountId: Long, collectionId: String, accountId: String): ApiResult<Unit> {
+        return mastodonApi.revokeItemInCollection(collectionId, accountId)
     }
 }

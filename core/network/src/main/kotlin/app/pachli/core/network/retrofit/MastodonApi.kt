@@ -871,6 +871,12 @@ interface MastodonApi {
     suspend fun getCollectionWithAccounts(
         @Path("collectionId") collectionId: String,
     ): ApiResult<CollectionWithAccounts>
+
+    @POST("api/v1/collections/{collectionId}/items/{accountId}/revoke")
+    suspend fun revokeItemInCollection(
+        @Path("collectionId") collectionId: String,
+        @Path("accountId") accountId: String,
+    ): ApiResult<Unit>
 }
 
 /**
