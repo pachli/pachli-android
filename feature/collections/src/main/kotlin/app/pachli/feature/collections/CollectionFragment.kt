@@ -617,7 +617,6 @@ internal class AccountViewHolder(
         binding.actionButton.show()
 
         if (relationship.blocking) {
-            // TODO: Move string action_unblock
             binding.actionButton.setText(app.pachli.core.ui.R.string.action_unblock)
             // TODO: Set click handler
             return
@@ -633,7 +632,6 @@ internal class AccountViewHolder(
 
         // TODO: If this is us, button should be "Remove me"
         if (viewData.isSelf) {
-            // TODO: String name should be action_collection_remove_self
             binding.actionButton.setText(app.pachli.core.ui.R.string.action_collection_remove_self)
             // TODO: Set click handler
             return
@@ -641,19 +639,16 @@ internal class AccountViewHolder(
 
         when (relationship.followState) {
             Relationship.FollowState.NOT_FOLLOWING -> {
-                // TODO: Move string action_follow
                 binding.actionButton.setText(app.pachli.core.ui.R.string.action_follow_account)
                 // TODO: Set click handler
             }
 
             Relationship.FollowState.FOLLOWING -> {
-                // TODO: Move string action_unfollow
                 binding.actionButton.setText(app.pachli.core.ui.R.string.action_unfollow)
                 // TODO: Set click handler
             }
 
             Relationship.FollowState.REQUESTED -> {
-                // TODO: Move string state_follow_requested
                 binding.actionButton.setText(app.pachli.core.ui.R.string.state_follow_requested)
                 // TODO: Set click handler
             }
