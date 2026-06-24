@@ -47,7 +47,11 @@ data class NotificationData(
     @Embedded(prefix = "rse_") val relationshipSeveranceEvent: NotificationRelationshipSeveranceEventEntity?,
     @Embedded(prefix = "warn_") val accountWarning: NotificationAccountWarningEntity?,
 ) {
-    fun asModel(): Notification {
+    fun asModel(): Notification? {
+        // TODO: Shouldn't need to return null here, as this should be restoring
+        // data stored by NotificationsRemoteMediator. But there are occasional
+        // reports of NPEs when `status` is asserted non-null with `!!`, so err
+        // on the side of caution and return null in these and similar cases.
         return when (notification.type) {
             NotificationEntity.Type.UNKNOWN -> Notification.Unknown(
                 id = notification.serverId,
@@ -57,26 +61,32 @@ data class NotificationData(
                 networkType = notification.type.toString(),
             )
 
-            NotificationEntity.Type.MENTION -> Notification.Mention(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                status = status!!.toStatus(),
-            )
+            NotificationEntity.Type.MENTION -> status?.let {
+                Notification.Mention(
+                    id = notification.serverId,
+                    createdAt = notification.createdAt,
+                    account = account.asModel(),
+                    status = status.toStatus(),
+                )
+            }
 
-            NotificationEntity.Type.REBLOG -> Notification.Reblog(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                status = status!!.toStatus(),
-            )
+            NotificationEntity.Type.REBLOG -> status?.let {
+                Notification.Reblog(
+                    id = notification.serverId,
+                    createdAt = notification.createdAt,
+                    account = account.asModel(),
+                    status = status.toStatus(),
+                )
+            }
 
-            NotificationEntity.Type.FAVOURITE -> Notification.Favourite(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                status = status!!.toStatus(),
-            )
+            NotificationEntity.Type.FAVOURITE -> status?.let {
+                Notification.Favourite(
+                    id = notification.serverId,
+                    createdAt = notification.createdAt,
+                    account = account.asModel(),
+                    status = status.toStatus(),
+                )
+            }
 
             NotificationEntity.Type.FOLLOW -> Notification.Follow(
                 id = notification.serverId,
@@ -90,19 +100,23 @@ data class NotificationData(
                 account = account.asModel(),
             )
 
-            NotificationEntity.Type.POLL -> Notification.Poll(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                status = status!!.toStatus(),
-            )
+            NotificationEntity.Type.POLL -> status?.let {
+                Notification.Poll(
+                    id = notification.serverId,
+                    createdAt = notification.createdAt,
+                    account = account.asModel(),
+                    status = status.toStatus(),
+                )
+            }
 
-            NotificationEntity.Type.STATUS -> Notification.Status(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                status = status!!.toStatus(),
-            )
+            NotificationEntity.Type.STATUS -> status?.let {
+                Notification.Status(
+                    id = notification.serverId,
+                    createdAt = notification.createdAt,
+                    account = account.asModel(),
+                    status = status.toStatus(),
+                )
+            }
 
             NotificationEntity.Type.SIGN_UP -> Notification.SignUp(
                 id = notification.serverId,
@@ -110,47 +124,59 @@ data class NotificationData(
                 account = account.asModel(),
             )
 
-            NotificationEntity.Type.UPDATE -> Notification.Update(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                status = status!!.toStatus(),
-            )
+            NotificationEntity.Type.UPDATE -> status?.let {
+                Notification.Update(
+                    id = notification.serverId,
+                    createdAt = notification.createdAt,
+                    account = account.asModel(),
+                    status = status.toStatus(),
+                )
+            }
 
-            NotificationEntity.Type.REPORT -> Notification.Report(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                report = report!!.asModel(),
-            )
+            NotificationEntity.Type.REPORT -> report?.let {
+                Notification.Report(
+                    id = notification.serverId,
+                    createdAt = notification.createdAt,
+                    account = account.asModel(),
+                    report = report.asModel(),
+                )
+            }
 
-            NotificationEntity.Type.SEVERED_RELATIONSHIPS -> Notification.SeveredRelationships(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                relationshipSeveranceEvent = relationshipSeveranceEvent!!.asModel(),
-            )
+            NotificationEntity.Type.SEVERED_RELATIONSHIPS -> relationshipSeveranceEvent?.let {
+                Notification.SeveredRelationships(
+                    id = notification.serverId,
+                    createdAt = notification.createdAt,
+                    account = account.asModel(),
+                    relationshipSeveranceEvent = relationshipSeveranceEvent.asModel(),
+                )
+            }
 
-            NotificationEntity.Type.MODERATION_WARNING -> Notification.ModerationWarning(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                accountWarning = accountWarning!!.asModel(),
-            )
+            NotificationEntity.Type.MODERATION_WARNING -> accountWarning?.let {
+                Notification.ModerationWarning(
+                    id = notification.serverId,
+                    createdAt = notification.createdAt,
+                    account = account.asModel(),
+                    accountWarning = accountWarning.asModel(),
+                )
+            }
 
-            NotificationEntity.Type.QUOTE -> Notification.Quote(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                status = status!!.toStatus(),
-            )
+            NotificationEntity.Type.QUOTE -> status?.let {
+                Notification.Quote(
+                    id = notification.serverId,
+                    createdAt = notification.createdAt,
+                    account = account.asModel(),
+                    status = status.toStatus(),
+                )
+            }
 
-            NotificationEntity.Type.QUOTED_UPDATE -> Notification.QuotedUpdate(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                status = status!!.toStatus(),
-            )
+            NotificationEntity.Type.QUOTED_UPDATE -> status?.let {
+                Notification.QuotedUpdate(
+                    id = notification.serverId,
+                    createdAt = notification.createdAt,
+                    account = account.asModel(),
+                    status = status.toStatus(),
+                )
+            }
         }
     }
 
