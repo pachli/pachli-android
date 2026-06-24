@@ -23,6 +23,7 @@ import androidx.core.text.htmlEncode
 import app.pachli.R
 import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.adapter.StatusViewHolder
+import app.pachli.core.common.extensions.flatten
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.model.NotificationViewData.WithStatus
 import app.pachli.core.data.model.NotificationViewData.WithStatus.FavouriteNotificationViewData
@@ -57,10 +58,10 @@ internal class StatusNotificationViewHolder(
 ) : NotificationsPagingAdapter.ViewHolder<WithStatus>, StatusViewHolder<WithStatus>(binding, glide, setContent) {
     override fun bind(
         viewData: WithStatus,
-        payloads: List<List<Any?>>?,
+        payloads: List<Any?>,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
-        if (payloads.isNullOrEmpty()) {
+        if (payloads.isEmpty()) {
             binding.statusInfo.setOnClickListener {
                 notificationActionListener.onViewAccount(viewData.account.id)
             }

@@ -46,13 +46,13 @@ class SearchStatusesAdapter(
 
     override fun onBindViewHolder(holder: StatusViewHolder<StatusItemViewData>, position: Int) {
         getItem(position)?.let { item ->
-            holder.setupWithStatus(item, statusListener, statusDisplayOptions, null)
+            holder.setupWithStatus(item, statusListener, statusDisplayOptions, emptyList())
         }
     }
 
     override fun onBindViewHolder(holder: StatusViewHolder<StatusItemViewData>, position: Int, payloads: List<Any?>) {
         getItem(position)?.let { item ->
-            holder.setupWithStatus(item, statusListener, statusDisplayOptions, payloads as? List<List<Any?>>?)
+            holder.setupWithStatus(item, statusListener, statusDisplayOptions, payloads)
         }
     }
 

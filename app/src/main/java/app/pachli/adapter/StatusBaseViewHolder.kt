@@ -23,6 +23,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
+import app.pachli.core.common.extensions.flatten
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusItemViewData
@@ -52,9 +53,9 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         viewData: T,
         listener: StatusActionListener,
         statusDisplayOptions: StatusDisplayOptions,
-        payloads: List<List<Any?>>?,
+        payloads: List<Any?>,
     ) {
-        if (payloads.isNullOrEmpty()) {
+        if (payloads.isEmpty()) {
             val actionable = viewData.actionable
 
             // Set the status
