@@ -95,7 +95,6 @@
     <string name="dialog_message_uploading_media">正在上传…</string>
     <string name="dialog_download_image">下载</string>
     <string name="dialog_message_cancel_follow_request">移除关注请求？</string>
-    <string name="dialog_unfollow_warning">不再关注此用户？</string>
     <string name="dialog_delete_post_warning">删除这条嘟文？</string>
     <string name="dialog_redraft_post_warning">删除并重新编辑这条嘟文？</string>
     <string name="visibility_public">公开：所有人可见，并会出现在公共时间轴上</string>

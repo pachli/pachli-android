@@ -202,7 +202,6 @@
     <string name="action_continue_edit">Turpināt labošanu</string>
     <string name="pref_title_notification_alert_vibrate">Paziņot ar vibrāciju</string>
     <string name="pref_title_notification_alert_light">Paziņot ar gaismu</string>
-    <string name="dialog_unfollow_warning">Vai pārtraukt sekot šim kontam\?</string>
     <string name="pref_title_appearance_settings">Izskats</string>
     <string name="pref_title_timelines">Laika līnijas</string>
     <string name="pref_title_app_theme">Lietotnes tēma</string>

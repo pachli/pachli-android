@@ -941,7 +941,7 @@ class AccountActivity :
 
     private fun showUnfollowWarningDialog() {
         AlertDialog.Builder(this)
-            .setMessage(R.string.dialog_unfollow_warning)
+            .setMessage(app.pachli.core.ui.R.string.dialog_unfollow_warning)
             .setPositiveButton(android.R.string.ok) { _, _ -> viewModel.changeFollowState(accountId) }
             .setNegativeButton(android.R.string.cancel, null)
             .show()

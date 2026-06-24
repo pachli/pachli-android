@@ -227,6 +227,7 @@
 
     <string name="action_collection_remove_self">Remove me</string>
     <string name="ui_error_follow_account_fmt">Following %1$s failed: %2$s</string>
+    <string name="ui_error_unfollow_account_fmt">Unfollowing %1$s failed: %2$s</string>
     <string name="action_unblock">Unblock</string>
     <string name="action_follow">Follow</string>
     <string name="action_unfollow">Unfollow</string>
@@ -236,4 +237,5 @@
     <string name="action_unmute_domain">Unmute %1$s</string>
     <string name="action_mute">Mute</string>
     <string name="action_unmute">Unmute</string>
+    <string name="dialog_unfollow_warning">Unfollow this account?</string>
 </resources>

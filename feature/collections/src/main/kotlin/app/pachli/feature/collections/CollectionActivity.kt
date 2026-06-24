@@ -52,7 +52,7 @@ import app.pachli.core.ui.extensions.InsetType
 import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.makeIcon
-import app.pachli.feature.collections.ICollectionViewModel.CollectionAction
+import app.pachli.feature.collections.ICollectionViewModel.AccountAction
 import app.pachli.feature.collections.databinding.ActivityCollectionBinding
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.get
@@ -184,17 +184,17 @@ class CollectionActivity : ViewUrlActivity() {
             binding.accountPronouns.hide()
         }
 
-        collectionViewData.isMember?.let { accountId ->
+        collectionViewData.isMember?.let { account ->
             binding.collectionRemoveSelf.setOnClickListener {
                 lifecycleScope.launch {
                     val button = newConfirmRevokeDialogFragment().await(supportFragmentManager)
                     if (button == AlertDialog.BUTTON_POSITIVE) {
                         binding.collectionRemoveSelf.hide()
                         viewModel.accept(
-                            CollectionAction.Revoke(
+                            AccountAction.Revoke(
                                 pachliAccountId = pachliAccountId,
-                                collectionId = collectionViewData.collection.serverId,
-                                accountId = accountId,
+                                collection = collectionViewData.collection,
+                                account = account,
                             ),
                         )
                     }
@@ -256,6 +256,13 @@ class CollectionActivity : ViewUrlActivity() {
 internal fun Activity.newConfirmRevokeDialogFragment() = AlertSuspendDialogFragment.newInstance(
     title = getString(R.string.title_confirm_collection_revoke),
     message = getString(R.string.confirm_collection_revoke_msg),
+    positiveText = getString(android.R.string.ok),
+    negativeText = getString(android.R.string.cancel),
+)
+
+internal fun Activity.newConfirmUnfollowAccountDialogFragment() = AlertSuspendDialogFragment.newInstance(
+    title = null, // getString(R.string.title_confirm_collection_revoke),
+    message = getString(app.pachli.core.ui.R.string.dialog_unfollow_warning),
     positiveText = getString(android.R.string.ok),
     negativeText = getString(android.R.string.cancel),
 )

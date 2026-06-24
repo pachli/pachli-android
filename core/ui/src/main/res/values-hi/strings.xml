@@ -85,4 +85,5 @@
     <string name="action_unmute_domain">अनम्यूट %1$s</string>
     <string name="action_mute">म्यूट</string>
     <string name="action_unmute">अनम्यूट</string>
+    <string name="dialog_unfollow_warning">इस खाते को अनफ़ॉलो करें\?</string>
 </resources>

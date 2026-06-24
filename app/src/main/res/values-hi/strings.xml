@@ -234,7 +234,6 @@
     <string name="notification_follow_name">नए फ़ॉलोअर</string>
     <string name="post_privacy_followers_only">केवल फ़ॉलोअर के लिए</string>
     <string name="pref_title_notification_filter_follows">ने फ़ॉलो किया</string>
-    <string name="dialog_unfollow_warning">इस खाते को अनफ़ॉलो करें\?</string>
     <string name="dialog_message_cancel_follow_request">फ़ॉलो अनुरोध को रद्द करें\?</string>
     <string name="action_view_follow_requests">फ़ॉलो अनुरोध</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; ने आपको फ़ॉलो करने का अनुरोध किया</string>

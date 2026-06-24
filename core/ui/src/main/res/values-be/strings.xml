@@ -138,4 +138,5 @@
     <string name="action_unmute_domain">Адмяніць ігнараванне %1$s</string>
     <string name="action_mute">Ігнараваць</string>
     <string name="action_unmute">Скасаваць ігнараванне</string>
+    <string name="dialog_unfollow_warning">Адпісацца ад гэтага ўліковага запісу\?</string>
 </resources>

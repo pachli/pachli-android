@@ -156,4 +156,5 @@
     <string name="action_unmute_domain">إلغاء كتم %1$s</string>
     <string name="action_mute">أكتم</string>
     <string name="action_unmute">إلغاء الكتم</string>
+    <string name="dialog_unfollow_warning">هل تود إلغاء متابعة هذا الحساب؟</string>
 </resources>

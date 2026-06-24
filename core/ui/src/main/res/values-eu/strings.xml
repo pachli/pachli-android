@@ -109,4 +109,5 @@
     <string name="action_unmute_domain">Desmututu %1$s</string>
     <string name="action_mute">Mututu</string>
     <string name="action_unmute">Desmututu</string>
+    <string name="dialog_unfollow_warning">Kontu hau jarraitzeari utzi\?</string>
 </resources>

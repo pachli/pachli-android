@@ -196,4 +196,5 @@
     <string name="action_unmute_domain">%1$s nicht mehr stummschalten</string>
     <string name="action_mute">Stummschalten</string>
     <string name="action_unmute">Stummschaltung aufheben</string>
+    <string name="dialog_unfollow_warning">Dieses Profil entfolgen\?</string>
 </resources>

@@ -154,7 +154,6 @@
     <string name="pref_title_notifications_enabled">Pemberitahuan</string>
     <string name="pref_title_notification_alerts">Peringatan</string>
     <string name="action_add_reaction">tambah reaksi</string>
-    <string name="dialog_unfollow_warning">Unfollow akun ini\?</string>
     <string name="pref_title_notification_filter_favourites">Postingan saya disukai</string>
     <string name="dialog_delete_post_warning">Hapus post ini\?</string>
     <string name="dialog_redraft_post_warning">Hapus dan draf ulang post ini\?</string>

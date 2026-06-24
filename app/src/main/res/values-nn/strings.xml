@@ -248,7 +248,6 @@
     <string name="hint_content_warning">Innhaldsåtvaring</string>
     <string name="dialog_download_image">Lad ned</string>
     <string name="dialog_message_cancel_follow_request">Trekk atter fylgjeførespurnaden?</string>
-    <string name="dialog_unfollow_warning">Avfylg denne kontoen?</string>
     <string name="dialog_delete_post_warning">Slett dette innlegget?</string>
     <string name="dialog_delete_conversation_warning">Slett denne samtalen?</string>
     <string name="mute_domain_warning_dialog_ok">Døl heile domenet</string>

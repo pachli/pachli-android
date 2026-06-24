@@ -182,7 +182,6 @@
     <string name="dialog_message_uploading_media">Запампоўваецца…</string>
     <string name="dialog_download_image">Спампаваць</string>
     <string name="dialog_message_cancel_follow_request">Адклікаць запыт на падпіску\?</string>
-    <string name="dialog_unfollow_warning">Адпісацца ад гэтага ўліковага запісу\?</string>
     <string name="dialog_delete_post_warning">Выдаліць гэты допіс\?</string>
     <string name="dialog_redraft_post_warning">Выдаліць і перапісаць гэты допіс\?</string>
     <string name="dialog_delete_conversation_warning">Выдаліць гэтую размову\?</string>

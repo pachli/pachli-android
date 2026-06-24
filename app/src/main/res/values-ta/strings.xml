@@ -78,7 +78,6 @@
     <string name="dialog_title_finishing_media_upload">மீடியா பதிவேற்றம் முடிகிறது</string>
     <string name="dialog_message_uploading_media">ஏற்றுகிறது …</string>
     <string name="dialog_download_image">பதிவிறக்க</string>
-    <string name="dialog_unfollow_warning">இந்த கணக்கை பின்பற்ற வேண்டாமா?</string>
     <string name="visibility_public">அனைவருக்கும் காண்பி</string>
     <string name="visibility_unlisted">அனைவருக்கும் காட்டாதே</string>
     <string name="visibility_private">பின்பற்றுபவர்களுக்கு மட்டும் காண்பி</string>

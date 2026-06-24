@@ -207,4 +207,5 @@
     <string name="action_unmute_domain">Zrušiť stlmenie %1$s</string>
     <string name="action_mute">Stlmiť</string>
     <string name="action_unmute">Zrušiť stlmenie</string>
+    <string name="dialog_unfollow_warning">Prestať sledovať tento účet?</string>
 </resources>

@@ -107,4 +107,5 @@
     <string name="action_unmute_domain">Раззаглушаване на %1$s</string>
     <string name="action_mute">Заглушаване</string>
     <string name="action_unmute">Раззаглушаване</string>
+    <string name="dialog_unfollow_warning">Отследване на този акаунт\?</string>
 </resources>

@@ -215,4 +215,5 @@
     <string name="action_unmute_domain">Cofnij wyciszenie %1$s</string>
     <string name="action_mute">Wycisz</string>
     <string name="action_unmute">Cofnij wyciszenie</string>
+    <string name="dialog_unfollow_warning">Czy chcesz przestać obserwować to konto\?</string>
 </resources>

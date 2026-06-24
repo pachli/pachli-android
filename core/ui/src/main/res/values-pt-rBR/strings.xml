@@ -132,4 +132,5 @@
     <string name="action_unmute_domain">Desbloquear %1$s</string>
     <string name="action_mute">Silenciar</string>
     <string name="action_unmute">Dessilenciar</string>
+    <string name="dialog_unfollow_warning">Deixar de seguir esta conta?</string>
 </resources>

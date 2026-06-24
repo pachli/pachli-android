@@ -189,4 +189,5 @@
     <string name="action_unmute_domain">Fjern dempinga på %1$s</string>
     <string name="action_mute">Demp</string>
     <string name="action_unmute">Fjern demping</string>
+    <string name="dialog_unfollow_warning">Avfylg denne kontoen?</string>
 </resources>

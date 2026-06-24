@@ -94,7 +94,6 @@
     <string name="dialog_message_uploading_media">Laster opp…</string>
     <string name="dialog_download_image">Last ned</string>
     <string name="dialog_message_cancel_follow_request">Trekk tilbake følgeforespørselen\?</string>
-    <string name="dialog_unfollow_warning">Slutt å følge denne kontoen\?</string>
     <string name="dialog_delete_post_warning">Slett dette innlegget\?</string>
     <string name="visibility_public">Offentlig: Vis i offentlige tidslinjer</string>
     <string name="visibility_unlisted">Ikke oppført: Ikke vis i offentlige tidslinjer</string>

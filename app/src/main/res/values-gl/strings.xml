@@ -240,7 +240,6 @@
     <string name="mute_domain_warning">Tes a certeza de querer bloquear a todo %1$s\? Non verás o contido dese dominio en ningunha cronoloxía pública ou nas notificacións. As túas seguidoras nese dominio serán eliminadas.</string>
     <string name="dialog_redraft_post_warning">Eliminar e reescribir esta publicación\?</string>
     <string name="dialog_delete_post_warning">Eliminar esta publicación\?</string>
-    <string name="dialog_unfollow_warning">Deixar de seguir esta conta\?</string>
     <string name="dialog_message_cancel_follow_request">Revogar a solicitude de seguimento\?</string>
     <string name="dialog_download_image">Descargar</string>
     <string name="dialog_message_uploading_media">Subindo…</string>

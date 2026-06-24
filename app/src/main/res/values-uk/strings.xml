@@ -237,7 +237,6 @@
     <string name="mute_domain_warning">Ви впевнені, що хочете заблокувати все з %1$s\? Ви не побачите вміст із цього домену в жодних загальнодоступних стрічках або у своїх сповіщеннях. Ваших підписників з цього домену буде видалено.</string>
     <string name="dialog_redraft_post_warning">Видалити й переписати цей допис\?</string>
     <string name="dialog_delete_post_warning">Видалити цей допис\?</string>
-    <string name="dialog_unfollow_warning">Не стежити за цим обліковим записом\?</string>
     <string name="dialog_message_cancel_follow_request">Відкликати запит на підписку\?</string>
     <string name="dialog_download_image">Завантаження</string>
     <string name="dialog_message_uploading_media">Відвантаження…</string>

@@ -186,4 +186,5 @@
     <string name="action_unmute_domain">Batalkan bisukan %1$s</string>
     <string name="action_mute">Bisukan</string>
     <string name="action_unmute">Jangan bisukan</string>
+    <string name="dialog_unfollow_warning">Unfollow akun ini\?</string>
 </resources>

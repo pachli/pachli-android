@@ -84,7 +84,6 @@
     <string name="dialog_message_uploading_media">Igotzen…</string>
     <string name="dialog_download_image">Jaitsi</string>
     <string name="dialog_message_cancel_follow_request">Jarraipenaren eskakizunari uko egin\?</string>
-    <string name="dialog_unfollow_warning">Kontu hau jarraitzeari utzi\?</string>
     <string name="dialog_delete_post_warning">Tut hau ezabatu\?</string>
     <string name="visibility_public">Publikoa: Istorio publikoetan erakutsi</string>
     <string name="visibility_unlisted">Ezkutukoa: Ez erakutsi istorio publikoetan</string>

@@ -123,4 +123,5 @@
     <string name="action_unmute_domain">Zrušit skrytí domény %1$s</string>
     <string name="action_mute">Skrýt</string>
     <string name="action_unmute">Zrušit skrytí</string>
+    <string name="dialog_unfollow_warning">Přestat sledovat tento účet?</string>
 </resources>

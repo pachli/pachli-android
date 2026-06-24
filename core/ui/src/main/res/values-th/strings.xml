@@ -99,4 +99,5 @@
     <string name="action_unmute_domain">เลิกปิดเสียง %1$s</string>
     <string name="action_mute">ปิดเสียง</string>
     <string name="action_unmute">เลิกปิดเสียง</string>
+    <string name="dialog_unfollow_warning">เลิกติดตามผู้ใช้นี้\?</string>
 </resources>

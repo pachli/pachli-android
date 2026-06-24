@@ -107,4 +107,5 @@
     <string name="action_unmute_domain">আনমিউট %1$s</string>
     <string name="action_mute">শব্দ বন্ধ</string>
     <string name="action_unmute">সশব্দ</string>
+    <string name="dialog_unfollow_warning">এই অ্যাকাউন্টটি অনুসরণ করবেন না\?</string>
 </resources>

@@ -145,7 +145,6 @@
     <string name="mute_domain_warning">ئایا دڵنیایت لەوەی دەتەوێت هەموو %1$s بلۆک بکەیت؟ تۆ ناوەڕۆکێک نابینیت لە دۆمەینەکە لە هیچ هێڵی کاتی گشتی یان لە ئاگانامەکانت. شوێنکەوتوانی تۆ لەو دۆمەینەوە لادەبرێن.</string>
     <string name="dialog_redraft_post_warning">ئەم دووانە بسڕەوە و دووبارە ڕەشنووس یان دەکەیتەوە؟</string>
     <string name="dialog_delete_post_warning">ئەم توتە بسڕەوە؟</string>
-    <string name="dialog_unfollow_warning">شوێن نەکەوتنی ئەم هەژمارە؟</string>
     <string name="dialog_message_cancel_follow_request">داواکاری بەدوادا چوەکان هەڵوەشانەوە؟</string>
     <string name="dialog_download_image">داگرتن</string>
     <string name="dialog_message_uploading_media">بارکردن…</string>

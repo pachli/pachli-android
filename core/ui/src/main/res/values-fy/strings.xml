@@ -39,4 +39,5 @@
     <string name="action_unmute_domain">%1$s net mear negearre</string>
     <string name="action_mute">Negearre</string>
     <string name="action_unmute">Net mear negearre</string>
+    <string name="dialog_unfollow_warning">Dit account net mear folgje\?</string>
 </resources>

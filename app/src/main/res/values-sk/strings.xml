@@ -172,7 +172,6 @@
     <string name="pref_title_public_filter_keywords">Verejné časové osi</string>
     <string name="action_hide_reblogs">Skryť zdieľania</string>
     <string name="action_show_reblogs">Zobraziť zdieľania</string>
-    <string name="dialog_unfollow_warning">Prestať sledovať tento účet?</string>
     <string name="pref_title_notification_alerts">Upozornenia</string>
     <string name="pref_title_notification_alert_sound">Upozorniť zvukom</string>
     <string name="notification_favourite_description">Upozornenia, keď sú tvoje príspevky označené ako obľúbené</string>

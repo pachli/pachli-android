@@ -54,7 +54,6 @@
     <string name="mute_domain_warning">An bhfuil tú cinnte gur mian leat gach duine de %1$s a bhac? Ní fheicfidh tú ábhar ón bhfearann sin in aon amlínte poiblí ná i do fhógraí. Bainfear do leanúna ón bhfearann sin.</string>
     <string name="dialog_redraft_post_warning">Scrios agus athdhréachtaigh an postáil seo\?</string>
     <string name="dialog_delete_post_warning">Scrios an postáil seo\?</string>
-    <string name="dialog_unfollow_warning">An cuntas seo a scaoileadh\?</string>
     <string name="dialog_message_cancel_follow_request">An iarraidh seo a leanas a chúlghairm\?</string>
     <string name="dialog_download_image">Íoslódáil</string>
     <string name="dialog_message_uploading_media">Uaslódáil…</string>

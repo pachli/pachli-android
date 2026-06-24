@@ -143,4 +143,5 @@
     <string name="action_unmute_domain">Reactivar %1$s</string>
     <string name="action_mute">Acalar</string>
     <string name="action_unmute">Desacalar</string>
+    <string name="dialog_unfollow_warning">Deixar de seguir esta conta\?</string>
 </resources>

@@ -36,7 +36,6 @@
     <string name="action_send">ĐĂNG</string>
     <string name="dialog_redraft_post_warning">Xóa và viết lại tút này\?</string>
     <string name="dialog_delete_post_warning">Xóa tút này\?</string>
-    <string name="dialog_unfollow_warning">Bỏ theo dõi người này\?</string>
     <string name="dialog_message_cancel_follow_request">Hủy yêu cầu theo dõi\?</string>
     <string name="dialog_download_image">Tải về</string>
     <string name="dialog_message_uploading_media">Đang tải…</string>

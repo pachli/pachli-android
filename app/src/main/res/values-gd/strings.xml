@@ -233,7 +233,6 @@
     <string name="dialog_block_warning">A bheil thu airson @%1$s a bhacadh\?</string>
     <string name="mute_domain_warning_dialog_ok">Falaich an àrainn uile gu lèir</string>
     <string name="mute_domain_warning">A bheil thu cinnteach gu bheil thu airson %1$s a bhacadh uile gu lèir\? Chan fhaic thu susbaint on àrainn ud air loidhne-ama phoblach sam bith no am measg nam brathan agad. Thèid an luchd-leantainn agad on àrainn ud a thoirt air falbh.</string>
-    <string name="dialog_unfollow_warning">A bheil thu airson sgur de leantainn air a’ chunntas seo\?</string>
     <string name="dialog_message_cancel_follow_request">A bheil thu airson an t-iarrtas leantainn a chùl-ghairm\?</string>
     <string name="dialog_download_image">Luchdaich a-nuas</string>
     <string name="dialog_message_uploading_media">’Ga luchdadh suas…</string>

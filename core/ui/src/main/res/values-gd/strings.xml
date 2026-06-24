@@ -138,4 +138,5 @@
     <string name="action_unmute_domain">Dì-mhùch %1$s</string>
     <string name="action_mute">Mùch</string>
     <string name="action_unmute">Dì-mhùch</string>
+    <string name="dialog_unfollow_warning">A bheil thu airson sgur de leantainn air a’ chunntas seo\?</string>
 </resources>

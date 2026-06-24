@@ -116,4 +116,5 @@
     <string name="action_unmute_domain">取消靜音 %1$s</string>
     <string name="action_mute">靜音</string>
     <string name="action_unmute">取消靜音</string>
+    <string name="dialog_unfollow_warning">停止關注此使用者？</string>
 </resources>

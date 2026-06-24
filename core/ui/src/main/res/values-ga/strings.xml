@@ -226,4 +226,5 @@
     <string name="action_unmute_domain">Díbhalbhaigh %1$s</string>
     <string name="action_mute">Balbhaigh</string>
     <string name="action_unmute">Díbhalbhaigh</string>
+    <string name="dialog_unfollow_warning">An cuntas seo a scaoileadh\?</string>
 </resources>

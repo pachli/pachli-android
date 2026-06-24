@@ -150,7 +150,6 @@
     <string name="mute_domain_warning">ต้องการบล็อกทุกอย่างจาก %1$s \? คุณจะไม่เห็นเนื้อหาจากโดเมนนั้นในไทม์ไลน์สาธารณะหรือในการแจ้งเตือน ผู้ติดตามของคุณจากโดเมนนั้นจะถูกลบออก</string>
     <string name="dialog_redraft_post_warning">ลบ แล้ว ร่าง Toot นี้ใหม่\?</string>
     <string name="dialog_delete_post_warning">ลบ Toot นี้\?</string>
-    <string name="dialog_unfollow_warning">เลิกติดตามผู้ใช้นี้\?</string>
     <string name="dialog_message_cancel_follow_request">ยกเลิกคำขอติดตาม\?</string>
     <string name="dialog_download_image">ดาวน์โหลด</string>
     <string name="dialog_message_uploading_media">กำลังอัปโหลด…</string>

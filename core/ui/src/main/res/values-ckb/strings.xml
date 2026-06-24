@@ -98,4 +98,5 @@
     <string name="action_unmute_domain">نابێدەنگ کردن %1$s</string>
     <string name="action_mute">بێدەنگ</string>
     <string name="action_unmute">بێدەنگی لابردن</string>
+    <string name="dialog_unfollow_warning">شوێن نەکەوتنی ئەم هەژمارە؟</string>
 </resources>

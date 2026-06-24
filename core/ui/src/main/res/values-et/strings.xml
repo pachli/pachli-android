@@ -196,4 +196,5 @@
     <string name="action_unmute_domain">Lõpeta %1$s domeeni summutamine</string>
     <string name="action_mute">Summuta</string>
     <string name="action_unmute">Lõpeta summutamine</string>
+    <string name="dialog_unfollow_warning">Kas lõpetad kasutaja jälgimise?</string>
 </resources>

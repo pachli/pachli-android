@@ -206,4 +206,5 @@
     <string name="action_unmute_domain">Dejar de silenciar %1$s</string>
     <string name="action_mute">Silenciar</string>
     <string name="action_unmute">Dejar de silenciar</string>
+    <string name="dialog_unfollow_warning">¿Dejar de seguir esta cuenta?</string>
 </resources>

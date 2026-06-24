@@ -195,4 +195,5 @@
     <string name="action_unmute_domain">Poista mykistys verkkonimeltä %1$s</string>
     <string name="action_mute">Mykistä</string>
     <string name="action_unmute">Poista mykistys</string>
+    <string name="dialog_unfollow_warning">Lopeta tilin seuraaminen\?</string>
 </resources>
