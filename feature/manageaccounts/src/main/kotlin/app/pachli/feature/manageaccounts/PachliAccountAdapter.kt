@@ -25,6 +25,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import app.pachli.core.common.extensions.flatten
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
@@ -168,7 +169,7 @@ internal class PachliAccountViewHolder(
         animateEmojis: Boolean,
         animateAvatars: Boolean,
         showBotOverlay: Boolean,
-        payloads: List<Any?>? = null,
+        payloads: List<Any?> = emptyList(),
     ) = with(binding) {
         this@PachliAccountViewHolder.account = account
 
@@ -177,7 +178,7 @@ internal class PachliAccountViewHolder(
             return@with
         }
 
-        payloads.forEach { payload ->
+        payloads.flatten().forEach { payload ->
             when (payload) {
                 is ChangePayload.AnimateAvatars -> bindAvatar(account, animateAvatars)
                 is ChangePayload.AnimateEmojis -> bindAnimateEmojis(account, animateEmojis)

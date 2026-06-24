@@ -27,6 +27,7 @@ import androidx.core.view.children
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import app.pachli.core.common.extensions.flatten
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
@@ -106,7 +107,7 @@ internal class SuggestionsAdapter(
         if (payloads.isEmpty()) {
             onBindViewHolder(holder, position)
         } else {
-            payloads.filterIsInstance<ChangePayload>().forEach { payload ->
+            payloads.flatten().filterIsInstance<ChangePayload>().forEach { payload ->
                 when (payload) {
                     is ChangePayload.IsEnabled -> holder.bindIsEnabled(payload.isEnabled)
                     is ChangePayload.AnimateAvatars -> holder.bindAvatar(viewData, payload.animateAvatars)

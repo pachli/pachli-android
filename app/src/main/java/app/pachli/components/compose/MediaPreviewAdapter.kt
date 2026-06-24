@@ -40,6 +40,7 @@ import app.pachli.components.compose.MediaPreviewAdapter.MediaAction.EDIT_IMAGE
 import app.pachli.components.compose.MediaPreviewAdapter.MediaAction.MOVE_DOWN
 import app.pachli.components.compose.MediaPreviewAdapter.MediaAction.MOVE_UP
 import app.pachli.components.compose.MediaPreviewAdapter.MediaAction.REMOVE
+import app.pachli.core.common.extensions.flatten
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
@@ -348,15 +349,15 @@ class AttachmentViewHolder(
         )
     }
 
-    fun bind(item: QueuedMedia, payloads: List<Any?>? = null) {
+    fun bind(item: QueuedMedia, payloads: List<Any?> = emptyList()) {
         this.item = item
 
-        if (payloads.isNullOrEmpty()) {
+        if (payloads.isEmpty()) {
             bindAll(item)
             return
         }
 
-        payloads.forEach { payload ->
+        payloads.flatten().forEach { payload ->
             when (payload) {
                 Payload.URI -> bindUri(item)
                 Payload.DESCRIPTION -> {

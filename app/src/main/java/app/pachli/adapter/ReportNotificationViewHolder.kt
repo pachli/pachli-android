@@ -47,12 +47,12 @@ class ReportNotificationViewHolder(
 
     override fun bind(
         viewData: ReportNotificationViewData,
-        payloads: List<List<Any?>>?,
+        payloads: List<Any?>,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
         // Skip updates with payloads. That indicates a timestamp update, and
         // this view does not have timestamps.
-        if (!payloads.isNullOrEmpty()) return
+        if (payloads.isNotEmpty()) return
 
         setupWithReport(
             viewData.account,

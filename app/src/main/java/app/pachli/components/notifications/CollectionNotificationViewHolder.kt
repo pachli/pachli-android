@@ -51,7 +51,7 @@ class CollectionNotificationViewHolder(
 
     override fun bind(
         viewData: NotificationViewData.WithCollection,
-        payloads: List<List<Any?>>?,
+        payloads: List<Any?>,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
         val account = viewData.account

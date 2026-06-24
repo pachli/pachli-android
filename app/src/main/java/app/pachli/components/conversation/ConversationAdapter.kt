@@ -49,7 +49,7 @@ internal class ConversationAdapter(
         /** Bind the data from the notification and payloads to the view. */
         fun bind(
             viewData: ConversationViewData,
-            payloads: List<List<Any?>>?,
+            payloads: List<Any?>,
             statusDisplayOptions: StatusDisplayOptions,
         )
     }
@@ -112,7 +112,7 @@ internal class ConversationAdapter(
         payloads: List<Any?>,
     ) {
         getItem(position)?.let { conversationViewData ->
-            (holder as ViewHolder).bind(conversationViewData, payloads as? List<List<Any?>>, statusDisplayOptions)
+            (holder as ViewHolder).bind(conversationViewData, payloads, statusDisplayOptions)
         }
     }
 
@@ -166,8 +166,8 @@ class FilterableConversationStatusViewHolder internal constructor(
     setContent: SetContent,
     private val listener: StatusActionListener,
 ) : ConversationAdapter.ViewHolder, FilterableStatusViewHolder<ConversationViewData>(binding, glide, setContent) {
-    override fun bind(viewData: ConversationViewData, payloads: List<List<Any?>>?, statusDisplayOptions: StatusDisplayOptions) {
-        if (payloads.isNullOrEmpty()) {
+    override fun bind(viewData: ConversationViewData, payloads: List<Any?>, statusDisplayOptions: StatusDisplayOptions) {
+        if (payloads.isEmpty()) {
             showStatusContent(true)
         }
         setupWithStatus(
@@ -222,7 +222,7 @@ class FilterableConversationViewHolder internal constructor(
         }
     }
 
-    override fun bind(viewData: ConversationViewData, payloads: List<List<Any?>>?, statusDisplayOptions: StatusDisplayOptions) {
+    override fun bind(viewData: ConversationViewData, payloads: List<Any?>, statusDisplayOptions: StatusDisplayOptions) {
         this.viewData = viewData
         binding.accountFilterDomain.text = HtmlCompat.fromHtml(
             context.getString(
