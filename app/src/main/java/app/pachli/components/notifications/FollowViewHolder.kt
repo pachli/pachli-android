@@ -50,12 +50,12 @@ class FollowViewHolder(
 
     override fun bind(
         viewData: NotificationViewData,
-        payloads: List<List<Any?>>?,
+        payloads: List<Any?>,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
         // Skip updates with payloads. That indicates a timestamp update, and
         // this view does not have timestamps.
-        if (!payloads.isNullOrEmpty()) return
+        if (payloads.isNotEmpty()) return
 
         setMessage(
             viewData.account,

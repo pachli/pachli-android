@@ -34,10 +34,10 @@ class FilterableStatusNotificationViewHolder(
     // Note: Identical to bind() in StatusViewHolder above
     override fun bind(
         viewData: WithStatus,
-        payloads: List<List<Any?>>?,
+        payloads: List<Any?>,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
-        if (payloads.isNullOrEmpty()) {
+        if (payloads.isEmpty()) {
             showStatusContent(true)
         }
         setupWithStatus(

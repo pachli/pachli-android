@@ -34,7 +34,7 @@ class StatusDetailedViewHolder(
         viewData: StatusItemViewData,
         listener: StatusActionListener,
         statusDisplayOptions: StatusDisplayOptions,
-        payloads: List<List<Any?>>?,
+        payloads: List<Any?>,
     ) {
         // Hide statistics on the controls in detailed view, statistics are (optionally) shown
         // elsewhere in the UI.

@@ -75,9 +75,9 @@ open class StatusViewHolder<T : IStatusViewData>(
         viewData: T,
         listener: StatusActionListener,
         statusDisplayOptions: StatusDisplayOptions,
-        payloads: List<List<Any?>>?,
+        payloads: List<Any?>,
     ) {
-        if (payloads.isNullOrEmpty()) {
+        if (payloads.isEmpty()) {
             setStatusInfo(binding.statusInfo, viewData, statusDisplayOptions, listener)
         }
         super.setupWithStatus(viewData, listener, statusDisplayOptions, payloads)
