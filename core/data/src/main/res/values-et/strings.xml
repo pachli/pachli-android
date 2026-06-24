@@ -14,4 +14,5 @@
     <string name="server_repository_error_validate_node_info">%1$s sõlme teabe õigsuse kontrollimine ei õnnestunud: %2$s</string>
     <string name="server_repository_error_get_instance_info">/api/v1/instance laadimine ei õnnestunud: %1$s</string>
     <string name="server_repository_error_capabilities">serveri suutlikkuse andmete töötlemine ei õnnestunud: %1$s</string>
+    <string name="server_repository_error_get_emojis">/api/v1/custom_emojis laadimisel tekkis viga: %1$s</string>
 </resources>
