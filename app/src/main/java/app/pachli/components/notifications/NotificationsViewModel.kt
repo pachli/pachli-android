@@ -647,7 +647,9 @@ class NotificationsViewModel @AssistedInject constructor(
                         val isAboutSelf = notification.account.serverId == pachliAccount.accountId
                         val accountFilterDecision =
                             notification.viewData?.accountFilterDecision
-                                ?: filterNotificationByAccount(pachliAccount, notification.asModel())
+                                ?: notification.asModel()?.let { modelNotification ->
+                                    filterNotificationByAccount(pachliAccount, modelNotification)
+                                } ?: AccountFilterDecision.None
 
                         NotificationViewData.make(
                             pachliAccount,
