@@ -36,7 +36,7 @@
     <string name="pref_summary_export_settings">Tapáil chun socruithe aip agus cuntais a shábháil chuig comhad áitiúil</string>
     <string name="pref_title_import_settings">Socruithe allmhairithe</string>
     <string name="pref_summary_import_settings">Tapáil chun socruithe a athbhunú ó chomhad a cruthaíodh ag baint úsáide as \"Socruithe easpórtála\"</string>
-    <string name="pref_default_audio_playback_option_unmuted">Díbhalbhaigh</string>
+    <string name="pref_default_audio_playback_option_unmuted">Gan bhalbhú</string>
     <string name="pref_default_audio_playback_option_muted">Balbhaithe</string>
     <string name="pref_title_translation">Aistriúchán</string>
     <string name="pref_translation_backend">Conas a aistriú</string>
