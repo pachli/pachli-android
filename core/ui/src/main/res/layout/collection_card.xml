@@ -151,7 +151,6 @@
             android:textAllCaps="false"
             app:layout_constraintStart_toStartOf="@+id/avatar_grid"
             app:layout_constraintTop_toBottomOf="@id/control_divider"
-            tools:text="Detach quote"
             tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </merge>
