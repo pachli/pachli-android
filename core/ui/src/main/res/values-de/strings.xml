@@ -180,11 +180,11 @@
     <string name="pref_summary_none">Keine</string>
     <string name="action_add_to_tab">Zum Tab hinzufügen</string>
     <string name="action_add_to_tab_success">\'%1$s\' zu Tabs hinzugefügt</string>
-    <string name="follower_count_fmt">&lt;b>%1$s&lt;/b> Follower</string>
-    <string name="follows_count_fmt">&lt;b>%1$s&lt;/b> folgen</string>
-    <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> Beiträge</string>
-    <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> Beiträge (&lt;b>%2$d&lt;/b> pro Woche)</string>
-    <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> Beiträge (&lt;b>%2$d&lt;/b> pro Woche, letzter am &lt;b>%3$s&lt;/b>)</string>
+    <string name="follower_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; Follower</string>
+    <string name="follows_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; folgen</string>
+    <string name="statuses_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; Beiträge</string>
+    <string name="statuses_count_per_week_fmt">&lt;b&gt;%1$s&lt;/b&gt; Beiträge (&lt;b&gt;%2$d&lt;/b&gt; pro Woche)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b&gt;%1$s&lt;/b&gt; Beiträge (&lt;b&gt;%2$d&lt;/b&gt; pro Woche, letzter am &lt;b&gt;%3$s&lt;/b&gt;)</string>
     <string name="action_follow_account">Folgen</string>
     <string name="ui_error_follow_account_fmt">Fehler beim Folgen von %1$s: %2$s</string>
     <string name="action_unblock">Blockierung aufheben</string>

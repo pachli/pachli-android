@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="server_error_unparseable_version">Konnte \"%1$s\" nicht als Version analysieren: %2$s</string>
+    <string name="server_error_unparseable_version">\"%1$s\" konnte nicht als Version interpretiert werden: %2$s</string>
 </resources>
