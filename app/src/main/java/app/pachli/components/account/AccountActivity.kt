@@ -787,7 +787,7 @@ class AccountActivity :
 
     private fun updateMuteButton() {
         if (muting) {
-            binding.accountMuteButton.setIconResource(R.drawable.ic_unmute_24dp)
+            binding.accountMuteButton.setIconResource(app.pachli.core.ui.R.drawable.ic_unmute_24dp)
         } else {
             binding.accountMuteButton.hide()
         }

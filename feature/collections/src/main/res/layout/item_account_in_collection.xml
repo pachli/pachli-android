@@ -158,41 +158,7 @@
         app:layout_constraintTop_toBottomOf="@id/follower_count"
         tools:text="46 posts (4.6 per week)" />
 
-    <!-- TODO
-
-    - Show if they follow you.
-    -->
-
-    <!-- End of account details -->
-
-    <!-- Start of controls -->
-
-    <!-- TODO
-    - "..." menu for other options?
-      - Mute
-      - Block
-      - Report
-    ?
-    -->
-    <Button
-        android:id="@+id/unfollowAccount"
-        style="@style/AppButton.Outlined"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:minHeight="48dp"
-        android:paddingStart="16dp"
-        android:paddingTop="4dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="4dp"
-        android:text="[placeholder]"
-        android:textAllCaps="true"
-        android:textSize="?attr/status_text_medium"
-        android:importantForAccessibility="no"
-        app:layout_constraintStart_toStartOf="@id/displayName"
-        app:layout_constraintTop_toBottomOf="@id/statuses_count" />
-
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/actionButton"
         style="@style/AppButton"
         android:layout_width="wrap_content"
@@ -207,9 +173,8 @@
         android:textAllCaps="true"
         android:textSize="?attr/status_text_medium"
         android:importantForAccessibility="no"
-        app:layout_constraintStart_toEndOf="@id/unfollowAccount"
-        app:layout_constraintTop_toTopOf="@+id/unfollowAccount"
+        app:layout_constraintTop_toBottomOf="@id/statuses_count"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:drawableTint="?colorOnPrimarySurface"
         android:text="@string/action_follow_account" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

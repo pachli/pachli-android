@@ -18,12 +18,14 @@
 package app.pachli.feature.collections
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.accessibility.AccessibilityManager
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -663,20 +665,50 @@ internal class AccountViewHolder(
         if (primaryAction == null) {
             // Hide controls, show error message
             binding.actionButton.hide()
+            // TODO: Show error message.
             return
         }
 
-        @StringRes val buttonText = when (primaryAction) {
-            is AccountAction.UnblockAccount -> app.pachli.core.ui.R.string.action_unblock
-            is AccountAction.UnblockDomain -> app.pachli.core.ui.R.string.action_unmute_domain
-            is AccountAction.CancelFollowRequest -> app.pachli.core.ui.R.string.state_follow_requested
-            is AccountAction.FollowAccount -> app.pachli.core.ui.R.string.action_follow_account
-            is AccountAction.Revoke -> app.pachli.core.ui.R.string.action_collection_remove_self
-            is AccountAction.UnfollowAccount -> app.pachli.core.ui.R.string.action_unfollow
-            is AccountAction.UnmuteAccount -> app.pachli.core.ui.R.string.action_unmute
-        }
+        val buttonText = primaryAction.text(binding.actionButton.context)
 
-        binding.actionButton.setText(buttonText)
+        binding.actionButton.text = buttonText
+        binding.actionButton.setIconResource(primaryAction.getDrawableRes())
+    }
+
+    /**
+     * @return Text to use on the action button, derived from [AccountAction].
+     */
+    private fun AccountAction.text(context: Context) = when (this) {
+        is AccountAction.UnblockAccount -> context.getString(app.pachli.core.ui.R.string.action_unblock)
+        is AccountAction.UnblockDomain -> context.getString(
+            app.pachli.core.ui.R.string.action_unmute_domain,
+            this.account.domain,
+        )
+
+        is AccountAction.CancelFollowRequest -> context.getString(
+            app.pachli.core.ui.R.string.state_follow_requested,
+        )
+
+        is AccountAction.FollowAccount -> context.getString(app.pachli.core.ui.R.string.action_follow_account)
+        is AccountAction.Revoke -> context.getString(app.pachli.core.ui.R.string.action_collection_remove_self)
+        is AccountAction.UnfollowAccount -> context.getString(app.pachli.core.ui.R.string.action_unfollow)
+        is AccountAction.UnmuteAccount -> context.getString(app.pachli.core.ui.R.string.action_unmute)
+    }
+
+    /**
+     * @return Drawable resource to use on the action button, derived from
+     * [AccountAction]. Returns 0 if there is no icon associated with the
+     * action.
+     */
+    @DrawableRes
+    private fun AccountAction.getDrawableRes() = when (this) {
+        is AccountAction.CancelFollowRequest -> 0
+        is AccountAction.FollowAccount -> app.pachli.core.ui.R.drawable.ic_person_add_24dp
+        is AccountAction.Revoke -> app.pachli.core.ui.R.drawable.outline_delete_24
+        is AccountAction.UnblockAccount -> 0
+        is AccountAction.UnblockDomain -> 0
+        is AccountAction.UnfollowAccount -> app.pachli.core.ui.R.drawable.ic_person_remove_24dp
+        is AccountAction.UnmuteAccount -> app.pachli.core.ui.R.drawable.ic_unmute_24dp
     }
 }
 
