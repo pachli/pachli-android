@@ -25,6 +25,7 @@ import androidx.room.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.CollectionEntity
 import app.pachli.core.database.model.CollectionItemEntity
+import app.pachli.core.database.model.CollectionViewDataEntity
 import app.pachli.core.database.model.CollectionWithAccountsData
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineCollectionEntity
@@ -41,6 +42,9 @@ interface CollectionsDao {
 
     @Upsert
     suspend fun upsertTimelineCollections(timelineCollections: Collection<TimelineCollectionEntity>)
+
+    @Upsert
+    suspend fun upsertCollectionViewData(entity: CollectionViewDataEntity)
 
     @Transaction
     @Query(

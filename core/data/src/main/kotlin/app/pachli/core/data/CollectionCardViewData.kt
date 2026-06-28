@@ -15,29 +15,13 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.core.ui
+package app.pachli.core.data
 
-import app.pachli.core.data.CollectionCardViewData
 import app.pachli.core.model.ICollection
+import app.pachli.core.model.TimelineCollection
 import app.pachli.core.model.collection.CollectionDisplayAction
 
-/** Actions the user can take on a [CollectionCardView]. */
-interface CollectionCardActionListener : OnOpenCollection, OnRemoveUserFromCollection, OnCollectionDisplayActionChange
-
-fun interface OnOpenCollection {
-    fun onOpenCollection(collection: ICollection)
-}
-fun interface OnRemoveUserFromCollection {
-    fun onRemoveUserFromCollection(collection: ICollection)
-}
-
-fun interface OnCollectionDisplayActionChange {
-    /**
-     * Function to call when the user wants to change how a collection
-     * is displayed.
-     *
-     * @param viewData
-     * @param action The new [CollectionDisplayAction]
-     */
-    fun onCollectionDisplayActionChange(viewData: CollectionCardViewData, action: CollectionDisplayAction)
-}
+data class CollectionCardViewData(
+    val timelineCollection: TimelineCollection,
+    val displayAction: CollectionDisplayAction,
+) : ICollection by timelineCollection

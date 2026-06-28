@@ -41,6 +41,7 @@ import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
 import app.pachli.core.model.TranslatedAttachment
 import app.pachli.core.model.TranslatedPoll
+import app.pachli.core.model.collection.CollectionDisplayAction
 import com.squareup.moshi.JsonDataException
 import com.squareup.moshi.JsonEncodingException
 import com.squareup.moshi.Moshi
@@ -340,4 +341,10 @@ class Converters @Inject constructor(
 
     @TypeConverter
     fun jsonToCollectionItems(s: String?) = fromJson<List<CollectionItem>>(s)
+
+    @TypeConverter
+    fun collectionDisplayActionToJson(collectionDisplayAction: CollectionDisplayAction) = toJson(collectionDisplayAction)
+
+    @TypeConverter
+    fun jsonToCollectionDisplayAction(s: String?) = fromJson<CollectionDisplayAction>(s)
 }

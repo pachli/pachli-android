@@ -173,9 +173,9 @@ by [avatar] [owner display name]
                     android:textDirection="firstStrong"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/label_description"
-                    tools:text="@tools:sample/lorem[100]" />
+                    tools:text="@tools:sample/lorem[10]" />
 
-                <TextView
+                <app.pachli.core.ui.TextViewWithVerticallyAlignedDrawable
                     android:id="@+id/collection_discoverable"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
@@ -187,11 +187,12 @@ by [avatar] [owner display name]
                     tools:drawableStartCompat="@drawable/ic_public_24dp"
                     tools:text="Discoverable" />
 
-                <TextView
+                <app.pachli.core.ui.TextViewWithVerticallyAlignedDrawable
                     android:id="@+id/collection_sensitive"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:textSize="?attr/status_text_small"
+                    android:paddingTop="4dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/collection_discoverable"
                     android:drawablePadding="4dp"

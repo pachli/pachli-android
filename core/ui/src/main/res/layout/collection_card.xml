@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) 2025 Pachli Association
+  ~ Copyright (c) 2026 Pachli Association
   ~
   ~ This file is a part of Pachli.
   ~
@@ -19,8 +19,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:parentTag="android.widget.FrameLayout">
-
-    <!-- avatar in here -->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/content"
@@ -124,11 +122,33 @@
             android:layout_height="wrap_content"
             android:importantForAccessibility="no"
             android:textSize="?status_text_small"
+            android:paddingTop="4dp"
             app:layout_constraintStart_toStartOf="@id/name"
             app:layout_constraintTop_toBottomOf="@id/description"
             app:layout_constraintEnd_toEndOf="@id/name"
             tools:text="2 accounts"
             tools:ignore="SelectableText" />
+
+        <app.pachli.core.ui.TextViewWithVerticallyAlignedDrawable
+            android:id="@+id/discoverable"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="?attr/status_text_small"
+            android:paddingTop="4dp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toStartOf="@id/name"
+            app:layout_constraintTop_toBottomOf="@id/item_count"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:drawablePadding="4dp"
+            tools:drawableStartCompat="@drawable/ic_public_24dp"
+            tools:text="Discoverable" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/content_barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="avatar_grid,discoverable" />
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/control_divider"
@@ -136,12 +156,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/item_count" />
+            app:layout_constraintTop_toBottomOf="@id/content_barrier" />
 
         <Button
             android:id="@+id/collection_remove_self"
             style="@style/AppButton.Outlined"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:importantForAccessibility="no"
@@ -151,6 +171,21 @@
             android:textAllCaps="false"
             app:layout_constraintStart_toStartOf="@+id/avatar_grid"
             app:layout_constraintTop_toBottomOf="@id/control_divider"
+            tools:visibility="visible" />
+
+        <Button
+            android:id="@+id/hide_collection_button"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:minHeight="48dp"
+            android:contentDescription="@null"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/control_divider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:icon="@drawable/ic_eye_24dp"
+            app:tint="?android:attr/textColorSecondary"
             tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </merge>

@@ -17,6 +17,7 @@
 
 package app.pachli.core.ui.extensions
 
+import app.pachli.core.data.CollectionCardViewData
 import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.data.model.NotificationViewData.FollowNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.FollowRequestNotificationViewData
@@ -40,6 +41,7 @@ import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
+import app.pachli.core.model.collection.make
 
 /**
  *
@@ -77,7 +79,10 @@ fun NotificationViewData.Companion.make(
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
-        timelineCollection = data.timelineCollection!!.asModel(),
+        collectionCardViewData = CollectionCardViewData(
+            timelineCollection = data.timelineCollection!!.asModel(),
+            displayAction = data.collectionViewData?.displayAction.make(data.timelineCollection!!.sensitive, showSensitiveMedia),
+        ),
     )
 
     NotificationEntity.Type.COLLECTION_UPDATE -> NotificationViewData.WithCollection.CollectionUpdateNotificationViewData(
@@ -87,7 +92,10 @@ fun NotificationViewData.Companion.make(
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
-        timelineCollection = data.timelineCollection!!.asModel(),
+        collectionCardViewData = CollectionCardViewData(
+            timelineCollection = data.timelineCollection!!.asModel(),
+            displayAction = data.collectionViewData?.displayAction.make(data.timelineCollection!!.sensitive, showSensitiveMedia),
+        ),
     )
 
     NotificationEntity.Type.MENTION -> MentionNotificationViewData(

@@ -51,6 +51,7 @@ import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.model.AnnouncementEntity
 import app.pachli.core.database.model.CollectionEntity
 import app.pachli.core.database.model.CollectionItemEntity
+import app.pachli.core.database.model.CollectionViewDataEntity
 import app.pachli.core.database.model.ContentFiltersEntity
 import app.pachli.core.database.model.ConversationEntity
 import app.pachli.core.database.model.ConversationViewDataEntity
@@ -84,6 +85,7 @@ import java.util.TimeZone
     entities = [
         CollectionEntity::class,
         CollectionItemEntity::class,
+        CollectionViewDataEntity::class,
         TimelineCollectionEntity::class,
         DraftEntity::class,
         PachliAccountEntity::class,

@@ -225,11 +225,11 @@ class CollectionActivity : ViewUrlActivity() {
 
         with(binding.collectionDiscoverable) {
             if (collection.discoverable) {
-                text = "Discoverable"
+                text = context.getString(app.pachli.core.ui.R.string.collection_discoverable_true_label)
                 val icon = makeIcon(context, GoogleMaterial.Icon.gmd_public, textSize.toInt())
                 setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
             } else {
-                text = "Private"
+                text = context.getString(app.pachli.core.ui.R.string.collection_discoverable_false_label)
                 val icon = makeIcon(context, GoogleMaterial.Icon.gmd_lock, textSize.toInt())
                 setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
             }
@@ -237,7 +237,7 @@ class CollectionActivity : ViewUrlActivity() {
 
         with(binding.collectionSensitive) {
             if (collection.sensitive) {
-                text = "Sensitive"
+                text = context.getString(app.pachli.core.ui.R.string.collection_sensitive_label)
                 val icon = makeIcon(context, GoogleMaterial.Icon.gmd_visibility_off, textSize.toInt())
                 setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
             } else {

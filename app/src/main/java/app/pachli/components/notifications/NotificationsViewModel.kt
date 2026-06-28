@@ -31,6 +31,7 @@ import app.pachli.core.data.model.ContentFilterModel
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.ICollectionsRepository
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
@@ -46,6 +47,7 @@ import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
 import app.pachli.core.model.Notification
 import app.pachli.core.model.Poll
+import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.TabTapBehaviour
@@ -181,6 +183,13 @@ sealed interface InfallibleUiAction : UiAction {
         val pachliAccountId: Long,
         val notificationId: String,
         val accountFilterDecision: AccountFilterDecision,
+    ) : InfallibleUiAction
+
+    /** Override the current [CollectionDisplayAction] for [collectionId]. */
+    data class OverrideCollectionDisplayAction(
+        val pachliAccountId: Long,
+        val collectionId: String,
+        val collectionDisplayAction: CollectionDisplayAction,
     ) : InfallibleUiAction
 }
 
@@ -395,6 +404,7 @@ class NotificationsViewModel @AssistedInject constructor(
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     private val statusRepository: OfflineFirstStatusRepository,
+    private val collectionRepository: ICollectionsRepository,
     @Assisted val pachliAccountId: Long,
 ) : ViewModel() {
     private val accountFlow = accountManager.getPachliAccountFlow(pachliAccountId)
@@ -466,6 +476,11 @@ class NotificationsViewModel @AssistedInject constructor(
         viewModelScope.launch {
             uiAction.filterIsInstance<InfallibleUiAction.OverrideAccountFilter>()
                 .collectLatest(::onOverrideAccountFilter)
+        }
+
+        viewModelScope.launch {
+            uiAction.filterIsInstance<InfallibleUiAction.OverrideCollectionDisplayAction>()
+                .collectLatest(::onOverrideCollectionDisplayAction)
         }
 
         // Save the visible notification ID
@@ -700,6 +715,16 @@ class NotificationsViewModel @AssistedInject constructor(
             action.notificationId,
             AccountFilterDecision.Override(action.accountFilterDecision),
         )
+    }
+
+    private fun onOverrideCollectionDisplayAction(action: InfallibleUiAction.OverrideCollectionDisplayAction) {
+        viewModelScope.launch {
+            collectionRepository.setCollectionDisplayAction(
+                action.pachliAccountId,
+                action.collectionId,
+                action.collectionDisplayAction,
+            )
+        }
     }
 
     @AssistedFactory

@@ -133,13 +133,14 @@ class CollectionNotificationViewHolder(
 
         binding.collectionCard.bind(
             glide,
-            viewData.timelineCollection,
+            viewData.collectionCardViewData,
+            statusDisplayOptions,
             false,
             true,
             listener = collectionListener,
         )
 
-        binding.collectionCard.setOnClickListener { collectionListener.onOpenCollection(viewData.timelineCollection) }
+        binding.collectionCard.setOnClickListener { collectionListener.onOpenCollection(viewData.collectionCardViewData.timelineCollection) }
 
         itemView.setOnClickListener { linkListener.onViewAccount(account.id) }
     }

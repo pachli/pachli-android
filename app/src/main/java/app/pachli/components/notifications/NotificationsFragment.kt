@@ -55,6 +55,7 @@ import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.data.CollectionCardViewData
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.model.AttachmentDisplayAction
@@ -63,6 +64,7 @@ import app.pachli.core.model.IStatus
 import app.pachli.core.model.Notification
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
+import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.navigation.AttachmentViewData.Companion.list
 import app.pachli.core.navigation.CollectionActivityIntent
 import app.pachli.core.navigation.EditContentFilterActivityIntent
@@ -689,6 +691,17 @@ class NotificationsFragment :
 
     override fun onRemoveUserFromCollection(collection: ICollection) {
         Timber.e("onRemoveMe: $collection")
+    }
+
+    override fun onCollectionDisplayActionChange(viewData: CollectionCardViewData, action: CollectionDisplayAction) {
+        // TODO("Not yet implemented")
+        viewModel.accept(
+            InfallibleUiAction.OverrideCollectionDisplayAction(
+                pachliAccountId,
+                viewData.timelineCollection.serverId,
+                action,
+            ),
+        )
     }
 
     companion object {

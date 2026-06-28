@@ -17,19 +17,22 @@
 
 package app.pachli.core.data.model
 
+import app.pachli.core.data.CollectionCardViewData
 import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountWarning
 import app.pachli.core.model.RelationshipSeveranceEvent
 import app.pachli.core.model.Status
 import app.pachli.core.model.TimelineAccount
-import app.pachli.core.model.TimelineCollection
 
 /**
  * Data necessary to show a single notification.
  *
  * See [NotificationViewData.WithStatus] for notifications that reference a
  * status.
+ *
+ * See [NotificationViewData.WithCollection] for notificatoins that reference
+ * a [app.pachli.core.model.Collection].
  *
  * @property pachliAccountId
  * @property localDomain Local domain of the logged in user's account (e.g., "mastodon.social").
@@ -272,7 +275,7 @@ sealed interface NotificationViewData {
     ) : NotificationViewData
 
     sealed interface WithCollection : NotificationViewData {
-        val timelineCollection: TimelineCollection
+        val collectionCardViewData: CollectionCardViewData
 
         data class CollectionAddNotificationViewData(
             override val pachliAccountId: Long,
@@ -281,7 +284,7 @@ sealed interface NotificationViewData {
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
-            override val timelineCollection: TimelineCollection,
+            override val collectionCardViewData: CollectionCardViewData,
         ) : NotificationViewData, WithCollection
 
         data class CollectionUpdateNotificationViewData(
@@ -291,7 +294,7 @@ sealed interface NotificationViewData {
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
-            override val timelineCollection: TimelineCollection,
+            override val collectionCardViewData: CollectionCardViewData,
         ) : NotificationViewData, WithCollection
     }
 

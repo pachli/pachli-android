@@ -47,6 +47,7 @@ data class NotificationData(
     @Embedded(prefix = "rse_") val relationshipSeveranceEvent: NotificationRelationshipSeveranceEventEntity?,
     @Embedded(prefix = "warn_") val accountWarning: NotificationAccountWarningEntity?,
     @Embedded(prefix = "timelineCollection_") val timelineCollection: TimelineCollectionEntity?,
+    @Embedded(prefix = "collectionViewData_") val collectionViewData: CollectionViewDataEntity?,
 ) {
     fun asModel(): Notification? {
         // TODO: Shouldn't need to return null here, as this should be restoring
@@ -82,7 +83,7 @@ data class NotificationData(
                 createdAt = notification.createdAt,
                 account = account.asModel(),
                 collection = timelineCollection!!.asCollectionModel(),
-            )            
+            )
 
             NotificationEntity.Type.MENTION -> status?.let {
                 Notification.Mention(

@@ -311,7 +311,12 @@ SELECT
     timelineCollection.owner_bot AS 'timelineCollection_owner_bot',
     timelineCollection.owner_createdAt AS 'timelineCollection_owner_createdAt',
     timelineCollection.owner_limited AS 'timelineCollection_owner_limited',
-    timelineCollection.owner_note AS 'timelineCollection_owner_note'
+    timelineCollection.owner_note AS 'timelineCollection_owner_note',
+
+    -- Collection view data
+    collectionViewData.pachliAccountId AS 'collectionViewData_pachliAccountId',
+    collectionViewData.serverId AS 'collectionViewData_serverId',
+    collectionViewData.displayAction AS 'collectionViewData_displayAction'
 FROM NotificationEntity AS n
 LEFT JOIN TimelineAccountEntity AS a ON (n.pachliAccountId = a.timelineUserId AND n.accountServerId = a.serverId)
 LEFT JOIN TimelineStatusWithAccount AS s ON (n.pachliAccountId = s.timelineUserId AND n.statusServerId = s.serverId)
@@ -329,7 +334,10 @@ LEFT JOIN
     ON (n.pachliAccountId = warn.pachliAccountId AND n.serverId = warn.serverId)
 LEFT JOIN
     TimelineCollectionEntity AS timelineCollection
-    ON (n.pachliAccountId = timelineCollection.pachliAccountId and n.collectionServerId = timelineCollection.serverId)
+    ON (n.pachliAccountId = timelineCollection.pachliAccountId AND n.collectionServerId = timelineCollection.serverId)
+LEFT JOIN
+    CollectionViewDataEntity AS collectionViewData
+    ON (n.pachliAccountId = collectionViewData.pachliAccountId AND n.collectionServerId = collectionViewData.serverId)
 WHERE n.pachliAccountId = :pachliAccountId
 ORDER BY LENGTH(n.serverId) DESC, n.serverId DESC
 """,
@@ -720,7 +728,12 @@ SELECT
     timelineCollection.owner_bot AS 'timelineCollection_owner_bot',
     timelineCollection.owner_createdAt AS 'timelineCollection_owner_createdAt',
     timelineCollection.owner_limited AS 'timelineCollection_owner_limited',
-    timelineCollection.owner_note AS 'timelineCollection_owner_note'
+    timelineCollection.owner_note AS 'timelineCollection_owner_note',
+
+    -- Collection view data
+    collectionViewData.pachliAccountId AS 'collectionViewData_pachliAccountId',
+    collectionViewData.serverId AS 'collectionViewData_serverId',
+    collectionViewData.displayAction AS 'collectionViewData_displayAction'
 FROM NotificationEntity AS n
 LEFT JOIN TimelineAccountEntity AS a ON (n.pachliAccountId = a.timelineUserId AND n.accountServerId = a.serverId)
 LEFT JOIN TimelineStatusWithAccount AS s ON (n.pachliAccountId = s.timelineUserId AND n.statusServerId = s.serverId)
@@ -739,6 +752,9 @@ LEFT JOIN
 LEFT JOIN
     TimelineCollectionEntity AS timelineCollection
     ON (n.pachliAccountId = timelineCollection.pachliAccountId and n.collectionServerId = timelineCollection.serverId)
+LEFT JOIN
+    CollectionViewDataEntity AS collectionViewData
+    ON (n.pachliAccountId = collectionViewData.pachliAccountId AND n.collectionServerId = collectionViewData.serverId)
 WHERE n.pachliAccountId = :pachliAccountId
 ORDER BY LENGTH(n.serverId) DESC, n.serverId DESC
 """,

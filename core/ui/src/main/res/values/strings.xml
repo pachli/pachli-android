@@ -238,4 +238,7 @@
     <string name="action_mute">Mute</string>
     <string name="action_unmute">Unmute</string>
     <string name="dialog_unfollow_warning">Unfollow this account?</string>
+    <string name="collection_discoverable_true_label">Discoverable in search results and other areas where recommendations appear.</string>
+    <string name="collection_discoverable_false_label">Visible to anyone with a link. Hidden from search results and recommendations.</string>
+    <string name="collection_sensitive_label">Include\'s sensitive content</string>
 </resources>

@@ -24,6 +24,7 @@ import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
 import app.pachli.core.model.CollectionItem
 import app.pachli.core.model.TimelineCollection
+import app.pachli.core.model.collection.CollectionDisplayAction
 import java.time.Instant
 
 /**
@@ -235,3 +236,32 @@ fun CollectionItem.State.asEntity() = when (this) {
 }
 
 fun Iterable<CollectionItem>.asEntity(pachliAccountId: Long, collectionServerId: String) = map { it.asEntity(pachliAccountId, collectionServerId) }
+
+/**
+ * Pachli-specific viewdata for the collection.
+ *
+ * @property pachliAccountId
+ * @property serverId Collection's remote server ID.
+ * @property displayAction The user's [CollectionDisplayAction] for
+ * this collection.
+ */
+@Entity(
+    primaryKeys = ["pachliAccountId", "serverId"],
+    foreignKeys = (
+        [
+            ForeignKey(
+                entity = PachliAccountEntity::class,
+                parentColumns = ["id"],
+                childColumns = ["pachliAccountId"],
+                onDelete = ForeignKey.CASCADE,
+                deferred = true,
+            ),
+        ]
+        ),
+)
+@TypeConverters(Converters::class)
+data class CollectionViewDataEntity(
+    val pachliAccountId: Long,
+    val serverId: String,
+    val displayAction: CollectionDisplayAction? = null,
+)

@@ -22,10 +22,12 @@ import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.repository.ICollectionsRepository.Error
 import app.pachli.core.database.dao.CollectionsDao
 import app.pachli.core.database.di.TransactionProvider
+import app.pachli.core.database.model.CollectionViewDataEntity
 import app.pachli.core.database.model.CollectionWithAccountsData
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.model.Account
 import app.pachli.core.model.Collection
+import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.network.model.CollectionWithAccounts
 import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
@@ -38,6 +40,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 
 interface ICollectionsRepository {
     sealed interface Error : PachliError {
@@ -51,6 +54,11 @@ interface ICollectionsRepository {
     suspend fun getCollection(pachliAccountId: Long, collectionId: String): Result<Pair<Collection, List<Account>>, Error.GetCollection>
 
     suspend fun revokeFromCollection(pachliAccountId: Long, collectionId: String, accountId: String): Result<Unit, Error.RevokeFromCollection>
+
+    /**
+     *
+     */
+    fun setCollectionDisplayAction(pachliAccountId: Long, collectionId: String, collectionDisplayAction: CollectionDisplayAction)
 }
 
 @Singleton
@@ -87,6 +95,12 @@ internal class OfflineFirstCollectionsRepository @Inject constructor(
             { Error.RevokeFromCollection(it) },
         )
     }
+
+    override fun setCollectionDisplayAction(pachliAccountId: Long, collectionId: String, collectionDisplayAction: CollectionDisplayAction) {
+        externalScope.launch {
+            localDataSource.setCollectionDisplayAction(pachliAccountId, collectionId, collectionDisplayAction)
+        }
+    }
 }
 
 @Singleton
@@ -96,6 +110,12 @@ internal class CollectionsLocalDataSource @Inject constructor(
 ) {
     fun getCollection(pachliAccountId: Long, collectionId: String): Flow<Map<CollectionWithAccountsData, List<TimelineAccountEntity>>> {
         return collectionsDao.getCollection(pachliAccountId, collectionId)
+    }
+
+    suspend fun setCollectionDisplayAction(pachliAccountId: Long, collectionId: String, collectionDisplayAction: CollectionDisplayAction) {
+        collectionsDao.upsertCollectionViewData(
+            CollectionViewDataEntity(pachliAccountId, collectionId, collectionDisplayAction),
+        )
     }
 }
 

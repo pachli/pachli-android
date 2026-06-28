@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 43,
-    "identityHash": "6fe0cb37ee7efd7f17eab7d98599ee08",
+    "identityHash": "4b33d75f3e71fff1b224a3d8ede97157",
     "entities": [
       {
         "tableName": "CollectionEntity",
@@ -156,6 +156,49 @@
             "referencedColumns": [
               "pachliAccountId",
               "serverId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "CollectionViewDataEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `displayAction` TEXT, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `PachliAccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
+        "fields": [
+          {
+            "fieldPath": "pachliAccountId",
+            "columnName": "pachliAccountId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "serverId",
+            "columnName": "serverId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "displayAction",
+            "columnName": "displayAction",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "pachliAccountId",
+            "serverId"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "PachliAccountEntity",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "pachliAccountId"
+            ],
+            "referencedColumns": [
+              "id"
             ]
           }
         ]
@@ -2367,7 +2410,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6fe0cb37ee7efd7f17eab7d98599ee08')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4b33d75f3e71fff1b224a3d8ede97157')"
     ]
   }
 }

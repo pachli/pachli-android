@@ -25,12 +25,16 @@ import android.widget.FrameLayout
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
+import app.pachli.core.data.CollectionCardViewData
+import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Collection
-import app.pachli.core.model.TimelineCollection
+import app.pachli.core.model.collection.CollectionDisplayAction
+import app.pachli.core.model.collection.CollectionDisplayReason
 import app.pachli.core.ui.databinding.CollectionCardBinding
 import app.pachli.core.ui.extensions.useInPlace
 import com.bumptech.glide.RequestManager
+import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 
 /**
  * Compound view that displays [Collection].
@@ -108,7 +112,8 @@ class CollectionCardView @JvmOverloads constructor(
      */
     fun bind(
         glide: RequestManager,
-        collection: TimelineCollection,
+        viewData: CollectionCardViewData,
+        statusDisplayOptions: StatusDisplayOptions,
         showOwner: Boolean,
         isMember: Boolean,
         listener: CollectionCardActionListener,
@@ -123,7 +128,23 @@ class CollectionCardView @JvmOverloads constructor(
         // Distinguish between "User owns the collection" or not
         // Show created/updated information?
 
-        val avatarIcons = collection.itemIconUrls.filterNotNull().take(4)
+//        val hide = (viewData.sensitive && !statusDisplayOptions.showSensitiveMedia) || viewData.displayAction is CollectionDisplayAction.Hide
+//        val show = viewData.displayAction is CollectionDisplayAction.Show
+//
+//        // if ((viewData.sensitive && !statusDisplayOptions.showSensitiveMedia) && viewData.displayAction !is CollectionDisplayAction.Show) {
+//        if (hide && !show) {
+//            bindSensitive(viewData, listener)
+//            return
+//        }
+
+        if (viewData.displayAction is CollectionDisplayAction.Hide) {
+            bindSensitive(viewData, listener)
+            return
+        }
+
+        val timelineCollection = viewData.timelineCollection
+
+        val avatarIcons = timelineCollection.itemIconUrls.filterNotNull().take(4)
 
         // TODO: Respect animateIcons
 
@@ -143,10 +164,10 @@ class CollectionCardView @JvmOverloads constructor(
             loadAvatar(glide, it, avatar4, avatarRadius, false)
         } ?: avatar4.setImageDrawable(null)
 
-        name.text = collection.name
+        name.text = viewData.name
 
         if (showOwner) {
-            ownerHandle.text = collection.ownerAccount?.let {
+            ownerHandle.text = timelineCollection.ownerAccount?.let {
                 // TODO: Emojify, etc.
                 it.name
             } ?: "Unknown user"
@@ -155,24 +176,79 @@ class CollectionCardView @JvmOverloads constructor(
             ownerHandle.hide()
         }
 
-        if (collection.description.isBlank()) {
+        if (viewData.description.isBlank()) {
             description.hide()
         } else {
             // TODO: SetContent to set clickable text
-            description.text = collection.description
+            description.text = viewData.description
             description.show()
         }
 
         itemCount.text = resources.getQuantityString(
             R.plurals.collection_item_count,
-            collection.itemIconUrls.size,
-            collection.itemIconUrls.size,
+            timelineCollection.itemIconUrls.size,
+            timelineCollection.itemIconUrls.size,
         )
+        itemCount.show()
 
-        val showDivider = isMember
+        // TODO: Copied from CollectionActivity
+        with(binding.discoverable) {
+            if (viewData.discoverable) {
+                text = context.getString(app.pachli.core.ui.R.string.collection_discoverable_true_label)
+                val icon = makeIcon(context, GoogleMaterial.Icon.gmd_public, textSize.toInt())
+                setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
+            } else {
+                text = context.getString(app.pachli.core.ui.R.string.collection_discoverable_false_label)
+                val icon = makeIcon(context, GoogleMaterial.Icon.gmd_lock, textSize.toInt())
+                setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
+            }
+            show()
+        }
+
+        val showDivider = isMember || viewData.sensitive
         controlDivider.visible(showDivider)
 
-        collectionRemoveSelf.setOnClickListener { listener.onRemoveUserFromCollection(collection) }
+        collectionRemoveSelf.setOnClickListener { listener.onRemoveUserFromCollection(viewData) }
         collectionRemoveSelf.visible(isMember)
+
+        hideCollectionButton.show()
+        hideCollectionButton.setOnClickListener {
+            listener.onCollectionDisplayActionChange(
+                viewData,
+                (viewData.displayAction as? CollectionDisplayAction.Show)?.originalAction ?: CollectionDisplayAction.Hide(CollectionDisplayReason.UserAction),
+            )
+        }
+    }
+
+    private fun bindSensitive(viewData: CollectionCardViewData, listener: CollectionCardActionListener): Unit = with(binding) {
+        avatar1.setImageDrawable(null)
+        avatar2.setImageDrawable(null)
+        avatar3.setImageDrawable(null)
+        avatar4.setImageDrawable(null)
+
+        name.text = viewData.name
+
+        ownerHandle.hide()
+        // description.hide()
+        description.text = when (viewData.displayAction) {
+            is CollectionDisplayAction.Hide -> (viewData.displayAction as CollectionDisplayAction.Hide).reason.getFormattedDescription(description.context)
+            is CollectionDisplayAction.Show -> "displayaction.show"
+            null -> "null displayaction"
+        }
+        description.setOnClickListener {
+            listener.onCollectionDisplayActionChange(
+                viewData,
+                CollectionDisplayAction.Show(originalAction = viewData.displayAction as CollectionDisplayAction.Hide?),
+            )
+        }
+        itemCount.hide()
+        discoverable.hide()
+        hideCollectionButton.hide()
+    }
+
+    /** @return UX string explaining why a collection has been hidden. */
+    private fun CollectionDisplayReason.getFormattedDescription(context: Context) = when (this) {
+        CollectionDisplayReason.Sensitive -> "Sensitive content. Tap to show."
+        CollectionDisplayReason.UserAction -> "You hid this. Tap to show."
     }
 }
