@@ -86,7 +86,7 @@
     <string name="dialog_title_finishing_media_upload">Terminando de subir multimedia</string>
     <string name="dialog_message_uploading_media">Subiendo…</string>
     <string name="dialog_download_image">Descargar</string>
-    <string name="dialog_message_cancel_follow_request">¿Cancelar petición de amistad?</string>
+    <string name="dialog_message_cancel_follow_request">¿Cancelar solicitud de seguimiento?</string>
     <string name="dialog_unfollow_warning">¿Dejar de seguir esta cuenta?</string>
     <string name="dialog_delete_post_warning">¿Eliminar esta publicación?</string>
     <string name="visibility_public">Público: Mostrar en cronologías públicas</string>
