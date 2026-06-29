@@ -17,6 +17,8 @@
 
 package app.pachli.core.ui
 
+import android.R.attr.height
+import android.R.attr.lineSpacingExtra
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Rect
@@ -69,16 +71,21 @@ class TextViewWithVerticallyAlignedDrawable @JvmOverloads constructor(
      * @param lineHeight the height of the first line of text
      */
     private fun alignDrawableWithFirstLine(drawable: Drawable, centreTextView: Int, lineHeight: Int) {
+        // Drawable's height and width as they will be drawn (i.e., from the bounds,
+        // **not** the intrinsic height and width).
+        val height = drawable.bounds.height()
+        val width = drawable.bounds.width()
+
         // Difference between the height of the drawable and the height of the line.
         // Positive if the line is taller than the drawable, negative otherwise
-        val heightDiff = lineHeight - drawable.intrinsicHeight
+        val heightDiff = lineHeight - height
 
         // The drawable's "natural" Y position, vertically centred
-        val naturalY = centreTextView - (drawable.intrinsicHeight / 2)
+        val naturalY = centreTextView - (height / 2)
 
         // Offset the drawable to the top of the view plus heightDiff. Coerce heightDiff to at
         // least 0 so if the drawable is taller than the line it is not clipped off the top.
         val offsetY = -naturalY + heightDiff.coerceAtLeast(0)
-        drawable.setBounds(0, offsetY, drawable.intrinsicWidth, drawable.intrinsicHeight + offsetY)
+        drawable.setBounds(0, offsetY, width, height + offsetY)
     }
 }
