@@ -31,6 +31,7 @@ import kotlinx.parcelize.Parcelize
  * @property local
  * @property sensitive
  * @property discoverable
+ * @property hashtag
  * @property createdAt
  * @property updatedAt
  */
@@ -42,6 +43,7 @@ interface ICollection : Parcelable {
     val local: Boolean
     val sensitive: Boolean
     val discoverable: Boolean
+    val hashtag: ShallowHashtag?
     val createdAt: Instant
     val updatedAt: Instant
 }
@@ -57,6 +59,7 @@ data class Collection(
     override val local: Boolean,
     override val sensitive: Boolean,
     override val discoverable: Boolean,
+    override val hashtag: ShallowHashtag?,
     override val createdAt: Instant,
     override val updatedAt: Instant,
     @IgnoredOnParcel
@@ -107,6 +110,7 @@ data class TimelineCollection(
     override val local: Boolean,
     override val sensitive: Boolean,
     override val discoverable: Boolean,
+    override val hashtag: ShallowHashtag?,
     override val createdAt: Instant,
     override val updatedAt: Instant,
     @IgnoredOnParcel
@@ -125,6 +129,7 @@ fun Collection.asTimelineCollection(accounts: Map<String, TimelineAccount>) = Ti
     local = local,
     sensitive = sensitive,
     discoverable = discoverable,
+    hashtag = hashtag,
     createdAt = createdAt,
     updatedAt = updatedAt,
     items = items,

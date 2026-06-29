@@ -23,6 +23,7 @@ import androidx.room.ForeignKey
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
 import app.pachli.core.model.CollectionItem
+import app.pachli.core.model.ShallowHashtag
 import app.pachli.core.model.TimelineCollection
 import app.pachli.core.model.collection.CollectionDisplayAction
 import java.time.Instant
@@ -64,6 +65,7 @@ data class CollectionEntity(
     val local: Boolean,
     val sensitive: Boolean,
     val discoverable: Boolean,
+    val hashtag: ShallowHashtag?,
     val createdAt: Instant,
     val updatedAt: Instant,
     val items: List<CollectionItem>,
@@ -76,6 +78,7 @@ data class CollectionEntity(
         local = local,
         sensitive = sensitive,
         discoverable = discoverable,
+        hashtag = hashtag,
         createdAt = createdAt,
         updatedAt = updatedAt,
         items = items,
@@ -91,6 +94,7 @@ fun app.pachli.core.model.Collection.asEntity(pachliAccountId: Long) = Collectio
     local = local,
     sensitive = sensitive,
     discoverable = discoverable,
+    hashtag = hashtag,
     createdAt = createdAt,
     updatedAt = updatedAt,
     items = items,
@@ -122,6 +126,7 @@ data class TimelineCollectionEntity(
     val local: Boolean,
     val sensitive: Boolean,
     val discoverable: Boolean,
+    val hashtag: ShallowHashtag?,
     val createdAt: Instant,
     val updatedAt: Instant,
     val items: List<CollectionItem>,
@@ -136,6 +141,7 @@ data class TimelineCollectionEntity(
         local = local,
         sensitive = sensitive,
         discoverable = discoverable,
+        hashtag = hashtag,
         createdAt = createdAt,
         updatedAt = updatedAt,
         items = items,
@@ -152,6 +158,7 @@ data class TimelineCollectionEntity(
         local = local,
         sensitive = sensitive,
         discoverable = discoverable,
+        hashtag = hashtag,
         createdAt = createdAt,
         updatedAt = updatedAt,
         items = items,
@@ -168,6 +175,7 @@ fun TimelineCollection.asEntity(pachliAccountId: Long) = TimelineCollectionEntit
     local = local,
     sensitive = sensitive,
     discoverable = discoverable,
+    hashtag = hashtag,
     createdAt = createdAt,
     updatedAt = updatedAt,
     items = items,

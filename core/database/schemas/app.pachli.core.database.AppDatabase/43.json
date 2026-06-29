@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 43,
-    "identityHash": "4b33d75f3e71fff1b224a3d8ede97157",
+    "identityHash": "4f3e1a1686b95b83c6293c592ce10231",
     "entities": [
       {
         "tableName": "CollectionEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `accountId` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `local` INTEGER NOT NULL, `sensitive` INTEGER NOT NULL, `discoverable` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `items` TEXT NOT NULL, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `PachliAccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `accountId` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `local` INTEGER NOT NULL, `sensitive` INTEGER NOT NULL, `discoverable` INTEGER NOT NULL, `hashtag` TEXT, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `items` TEXT NOT NULL, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `PachliAccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
         "fields": [
           {
             "fieldPath": "pachliAccountId",
@@ -55,6 +55,11 @@
             "columnName": "discoverable",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "hashtag",
+            "columnName": "hashtag",
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "createdAt",
@@ -205,7 +210,7 @@
       },
       {
         "tableName": "TimelineCollectionEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `ownerAccountId` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `local` INTEGER NOT NULL, `sensitive` INTEGER NOT NULL, `discoverable` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `items` TEXT NOT NULL, `itemIconUrls` TEXT NOT NULL, `owner_serverId` TEXT, `owner_timelineUserId` INTEGER, `owner_localUsername` TEXT, `owner_username` TEXT, `owner_displayName` TEXT, `owner_url` TEXT, `owner_avatar` TEXT, `owner_emojis` TEXT, `owner_bot` INTEGER, `owner_createdAt` INTEGER, `owner_limited` INTEGER DEFAULT false, `owner_note` TEXT DEFAULT '', `owner_roles` TEXT DEFAULT '', `owner_pronouns` TEXT DEFAULT '', PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `PachliAccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `ownerAccountId` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `local` INTEGER NOT NULL, `sensitive` INTEGER NOT NULL, `discoverable` INTEGER NOT NULL, `hashtag` TEXT, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `items` TEXT NOT NULL, `itemIconUrls` TEXT NOT NULL, `owner_serverId` TEXT, `owner_timelineUserId` INTEGER, `owner_localUsername` TEXT, `owner_username` TEXT, `owner_displayName` TEXT, `owner_url` TEXT, `owner_avatar` TEXT, `owner_emojis` TEXT, `owner_bot` INTEGER, `owner_createdAt` INTEGER, `owner_limited` INTEGER DEFAULT false, `owner_note` TEXT DEFAULT '', `owner_roles` TEXT DEFAULT '', `owner_pronouns` TEXT DEFAULT '', PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `PachliAccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
         "fields": [
           {
             "fieldPath": "pachliAccountId",
@@ -254,6 +259,11 @@
             "columnName": "discoverable",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "hashtag",
+            "columnName": "hashtag",
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "createdAt",
@@ -2410,7 +2420,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4b33d75f3e71fff1b224a3d8ede97157')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4f3e1a1686b95b83c6293c592ce10231')"
     ]
   }
 }

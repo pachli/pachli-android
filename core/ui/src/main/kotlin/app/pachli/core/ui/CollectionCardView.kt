@@ -98,7 +98,7 @@ class CollectionCardView @JvmOverloads constructor(
                 setTextColor(it.getColor(DR.styleable.CollectionCardView_collectionCardDescriptionTextColor, 0))
             }
 
-            with(binding.itemCount) {
+            with(binding.remainingItems) {
                 setTextSize(
                     TypedValue.COMPLEX_UNIT_PX,
                     it.getDimension(DR.styleable.CollectionCardView_collectionCardItemCountTextSize, 0f),
@@ -144,23 +144,6 @@ class CollectionCardView @JvmOverloads constructor(
 
         val displayAction = viewData.displayAction
         val hide = displayAction is CollectionDisplayAction.Hide
-
-        val avatarIconUrls = timelineCollection.itemIconUrls.filterNotNull().take(4)
-
-        avatarImageViews.forEachIndexed { index, view ->
-            val iconUrl = avatarIconUrls.getOrNull(index)
-            if (iconUrl == null) {
-                view.hide()
-                return@forEachIndexed
-            }
-
-            if (hide) {
-                view.setImageDrawable(AppCompatResources.getDrawable(view.context, DR.drawable.avatar_default))
-            } else {
-                loadAvatar(glide, iconUrl, view, avatarCornerRadius, statusDisplayOptions.animateAvatars)
-            }
-            view.show()
-        }
 
         val remainingItems = timelineCollection.items.size - 4
         if (remainingItems > 0) {
@@ -218,12 +201,29 @@ class CollectionCardView @JvmOverloads constructor(
             description.setOnClickListener(null)
         }
 
-        itemCount.text = resources.getQuantityString(
-            R.plurals.collection_item_count,
-            timelineCollection.itemIconUrls.size,
-            timelineCollection.itemIconUrls.size,
-        )
-        itemCount.show()
+        val avatarIconUrls = timelineCollection.itemIconUrls.filterNotNull().take(4)
+
+        avatarImageViews.forEachIndexed { index, view ->
+            val iconUrl = avatarIconUrls.getOrNull(index)
+            if (iconUrl == null) {
+                view.hide()
+                return@forEachIndexed
+            }
+
+            if (hide) {
+                view.setImageDrawable(AppCompatResources.getDrawable(view.context, DR.drawable.avatar_default))
+            } else {
+                loadAvatar(glide, iconUrl, view, avatarCornerRadius, statusDisplayOptions.animateAvatars)
+            }
+            view.show()
+        }
+
+//        itemCount.text = resources.getQuantityString(
+//            R.plurals.collection_item_count,
+//            timelineCollection.itemIconUrls.size,
+//            timelineCollection.itemIconUrls.size,
+//        )
+//        itemCount.show()
 
         // TODO: Copied from CollectionActivity
         with(binding.discoverable) {

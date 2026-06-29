@@ -17,7 +17,9 @@
 
 package app.pachli.core.model
 
+import android.os.Parcelable
 import com.squareup.moshi.JsonClass
+import kotlinx.parcelize.Parcelize
 
 /**
  * @property name Hashtag name, without the leading `#`.
@@ -36,3 +38,10 @@ data class HashtagHistory(
     val accounts: Int,
     val uses: Int,
 )
+
+@JsonClass(generateAdapter = true)
+@Parcelize
+data class ShallowHashtag(
+    val name: String,
+    val url: String,
+) : Parcelable

@@ -69,6 +69,7 @@ data class Collection(
         local = local,
         sensitive = sensitive,
         discoverable = discoverable,
+        hashtag = tag?.asModel(),
         createdAt = createdAt,
         updatedAt = updatedAt,
         items = items.asModel(),
@@ -82,7 +83,12 @@ data class Collection(
 data class ShallowTag(
     val name: String,
     val url: String,
-)
+) {
+    fun asModel() = app.pachli.core.model.ShallowHashtag(
+        name = name,
+        url = url,
+    )
+}
 
 /**
  * CollectionItem.

@@ -27,14 +27,67 @@
         android:paddingStart="14dp"
         android:paddingBottom="6dp">
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/change_display_action_button"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:contentDescription="@null"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:icon="@drawable/ic_eye_24dp"
+            app:tint="?android:attr/textColorSecondary" />
+
+        <TextView
+            android:id="@+id/collection_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:importantForAccessibility="no"
+            android:textSize="?status_text_medium"
+            android:textStyle="normal|bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/marginEnd"
+            tools:ignore="SelectableText"
+            tools:text="Collection name" />
+
+        <TextView
+            android:id="@+id/owner_handle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:importantForAccessibility="no"
+            android:textSize="?status_text_small"
+            app:layout_constraintStart_toStartOf="@id/collection_name"
+            app:layout_constraintTop_toBottomOf="@id/collection_name"
+            app:layout_constraintEnd_toEndOf="@id/collection_name"
+            tools:text="by foo@bar"
+            tools:ignore="SelectableText" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hyphenationFrequency="full"
+            android:importantForAccessibility="no"
+            android:lineSpacingMultiplier="1.1"
+            android:textSize="?status_text_medium"
+            android:layout_marginTop="6dp"
+            app:layout_constraintStart_toStartOf="@id/collection_name"
+            app:layout_constraintTop_toBottomOf="@id/owner_handle"
+            app:layout_constraintEnd_toStartOf="@id/marginEnd"
+            tools:ignore="SelectableText"
+            tools:text="@tools:sample/lorem[10]" />
+
         <ImageView
             android:id="@+id/avatar_1"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:scaleType="centerCrop"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="6dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/description"
             tools:src="@tools:sample/avatars" />
 
         <ImageView
@@ -75,87 +128,20 @@
             android:gravity="center_vertical"
             android:importantForAccessibility="no"
             android:textSize="?status_text_small"
-            app:layout_constraintEnd_toStartOf="@+id/change_display_action_button"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/avatar_4"
             app:layout_constraintTop_toTopOf="@id/avatar_4"
             tools:text="+ 2 more" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/change_display_action_button"
-            style="@style/Widget.Material3.Button.IconButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:contentDescription="@null"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:icon="@drawable/ic_eye_24dp"
-            app:tint="?android:attr/textColorSecondary" />
-
-
-        <TextView
-            android:id="@+id/collection_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:importantForAccessibility="no"
-            android:textSize="?status_text_medium"
-            android:textStyle="normal|bold"
-            app:layout_constraintEnd_toStartOf="@+id/marginEnd"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/avatar_1"
-            tools:ignore="SelectableText"
-            tools:text="Collection name" />
-
-        <TextView
-            android:id="@+id/owner_handle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:importantForAccessibility="no"
-            android:textSize="?status_text_small"
-            app:layout_constraintStart_toStartOf="@id/collection_name"
-            app:layout_constraintEnd_toEndOf="@id/collection_name"
-            app:layout_constraintTop_toBottomOf="@id/collection_name"
-            tools:text="by foo@bar"
-            tools:ignore="SelectableText" />
-
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hyphenationFrequency="full"
-            android:importantForAccessibility="no"
-            android:lineSpacingMultiplier="1.1"
-            android:textSize="?status_text_medium"
-            android:layout_marginTop="6dp"
-            app:layout_constraintStart_toStartOf="@id/collection_name"
-            app:layout_constraintTop_toBottomOf="@id/owner_handle"
-            app:layout_constraintEnd_toStartOf="@id/marginEnd"
-            tools:ignore="SelectableText"
-            tools:text="@tools:sample/lorem[10]" />
-
-        <TextView
-            android:id="@+id/item_count"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:importantForAccessibility="no"
-            android:layout_marginTop="4dp"
-            android:textSize="?status_text_small"
-            app:layout_constraintStart_toStartOf="@id/collection_name"
-            app:layout_constraintTop_toBottomOf="@id/description"
-            app:layout_constraintEnd_toStartOf="@id/marginEnd"
-            tools:ignore="SelectableText"
-            tools:text="6 accounts" />
 
         <app.pachli.core.ui.TextViewWithVerticallyAlignedDrawable
             android:id="@+id/discoverable"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textSize="?attr/status_text_small"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             app:layout_constrainedWidth="true"
             app:layout_constraintStart_toStartOf="@id/collection_name"
-            app:layout_constraintTop_toBottomOf="@id/item_count"
+            app:layout_constraintTop_toBottomOf="@id/avatar_1"
             app:layout_constraintEnd_toStartOf="@id/marginEnd"
             android:drawablePadding="4dp"
             tools:drawableStartCompat="@drawable/ic_public_24dp"

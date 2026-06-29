@@ -37,6 +37,7 @@ import app.pachli.core.model.Poll
 import app.pachli.core.model.Role
 import app.pachli.core.model.ServerLimits
 import app.pachli.core.model.ServerOperation
+import app.pachli.core.model.ShallowHashtag
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
 import app.pachli.core.model.TranslatedAttachment
@@ -347,4 +348,10 @@ class Converters @Inject constructor(
 
     @TypeConverter
     fun jsonToCollectionDisplayAction(s: String?) = fromJson<CollectionDisplayAction>(s)
+
+    @TypeConverter
+    fun shallowHashtagToJson(shallowHashtag: ShallowHashtag) = toJson(shallowHashtag)
+
+    @TypeConverter
+    fun jsonToShallowHashtag(s: String?) = fromJson<ShallowHashtag>(s)
 }
