@@ -14,4 +14,5 @@
     <string name="error_preference_importer_null_on_import">importar el archivo devolvió null</string>
     <string name="error_preference_importer_missing_schema_version">el archivo no contiene una versión de esquema</string>
     <string name="error_preference_importer_wrong_version_fmt">el archivo es de versión desconocida: %1$s</string>
+    <string name="server_repository_error_get_emojis">fallo al obtener /api/v1/custom_emojis: %1$s</string>
 </resources>
