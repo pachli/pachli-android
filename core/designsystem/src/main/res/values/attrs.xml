@@ -82,14 +82,6 @@
         <!-- Background of the "info" part of the collection (contains the text
              content. -->
         <attr name="collectionCardBackground" format="reference|color" />
-        <!-- Height of the collection image, if the image is stacked vertically above
-             the collection content. -->
-        <!--        <attr name="collectionCardImageVerticalHeight" format="reference|dimension" />-->
-        <!-- Width of the collection image, if the image is laid out horizontally next
-             to the collection content. -->
-        <!--        <attr name="collectionCardImageHorizontalWidth" format="reference|dimension" />-->
-
-        <attr name="collectionCardAvatarBackground" format="reference|color" />
 
         <attr name="collectionCardNameTextColor" format="reference|color" />
         <attr name="collectionCardNameTextSize" format="reference|dimension" />

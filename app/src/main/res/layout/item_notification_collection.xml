@@ -43,52 +43,15 @@
         app:layout_constraintTop_toBottomOf="@+id/notification_text"
         tools:src="@drawable/avatar_default" />
 
-    <app.pachli.core.ui.RoleChipGroup
-        android:id="@+id/roleChipGroup"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingBottom="4dp"
-        app:chipSpacingVertical="4dp"
-        app:layout_constraintStart_toStartOf="@id/notification_username"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/notification_avatar"
-        android:importantForAccessibility="no" />
-
-    <TextView
-        android:id="@+id/notification_username"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textSize="?attr/status_text_medium"
-        android:importantForAccessibility="no"
-        app:layout_constraintStart_toEndOf="@id/notification_avatar"
-        app:layout_constraintEnd_toStartOf="@id/account_pronouns"
-        app:layout_constraintTop_toBottomOf="@+id/roleChipGroup"
-        tools:text="\@testuser" />
-
-    <app.pachli.core.ui.PronounsChip
-        android:id="@+id/account_pronouns"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:importantForAccessibility="no"
-        app:layout_constraintBaseline_toBaselineOf="@id/notification_username"
-        app:layout_constraintStart_toEndOf="@id/notification_username"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_max="@dimen/pronounChip_maxWidth"
-        tools:ignore="SelectableText"
-        tools:text="he/him" />
-
     <app.pachli.core.ui.CollectionCardView
         android:id="@+id/collection_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
+        android:layout_marginStart="14dp"
         android:importantForAccessibility="noHideDescendants"
         app:layout_constrainedWidth="true"
-        app:layout_constraintStart_toStartOf="@id/notification_username"
-        app:layout_constraintTop_toBottomOf="@id/notification_username"
+        app:layout_constraintStart_toEndOf="@id/notification_avatar"
+        app:layout_constraintTop_toTopOf="@id/notification_avatar"
         app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

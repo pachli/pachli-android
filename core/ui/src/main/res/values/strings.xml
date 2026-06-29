@@ -224,6 +224,10 @@
         <item quantity="one">%1$d account</item>
         <item quantity="other">%1$d accounts</item>
     </plurals>
+    <plurals name="collection_item_n_more">
+        <item quantity="one">+ %1$d more</item>
+        <item quantity="other">+ %1$d more</item>
+    </plurals>
 
     <string name="action_collection_remove_self">Remove me</string>
     <string name="ui_error_follow_account_fmt">Following %1$s failed: %2$s</string>
@@ -240,5 +244,5 @@
     <string name="dialog_unfollow_warning">Unfollow this account?</string>
     <string name="collection_discoverable_true_label">Discoverable in search results and other areas where recommendations appear.</string>
     <string name="collection_discoverable_false_label">Visible to anyone with a link. Hidden from search results and recommendations.</string>
-    <string name="collection_sensitive_label">Include\'s sensitive content</string>
+    <string name="collection_sensitive_label">Includes sensitive content</string>
 </resources>

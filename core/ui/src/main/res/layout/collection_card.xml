@@ -24,71 +24,88 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="6dp">
+        android:paddingStart="14dp"
+        android:paddingBottom="6dp">
 
-        <GridLayout
-            android:id="@+id/avatar_grid"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:columnCount="2"
-            android:rowCount="2"
-            android:alignmentMode="alignMargins"
-            android:columnOrderPreserved="false"
+        <ImageView
+            android:id="@+id/avatar_1"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="14dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
 
-            <ImageView
-                android:id="@+id/avatar_1"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="2dp"
-                android:scaleType="centerCrop" />
+        <ImageView
+            android:id="@+id/avatar_2"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:scaleType="centerCrop"
+            android:layout_marginStart="4dp"
+            app:layout_constraintStart_toEndOf="@id/avatar_1"
+            app:layout_constraintTop_toTopOf="@id/avatar_1"
+            tools:src="@tools:sample/avatars" />
 
-            <ImageView
-                android:id="@+id/avatar_2"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="2dp"
-                android:scaleType="centerCrop" />
+        <ImageView
+            android:id="@+id/avatar_3"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:scaleType="centerCrop"
+            android:layout_marginStart="4dp"
+            app:layout_constraintStart_toEndOf="@id/avatar_2"
+            app:layout_constraintTop_toTopOf="@id/avatar_2"
+            tools:src="@tools:sample/avatars" />
 
-            <ImageView
-                android:id="@+id/avatar_3"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="2dp"
-                android:scaleType="centerCrop" />
-
-            <ImageView
-                android:id="@+id/avatar_4"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="2dp"
-                android:scaleType="centerCrop" />
-
-        </GridLayout>
+        <ImageView
+            android:id="@+id/avatar_4"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:scaleType="centerCrop"
+            android:layout_marginStart="4dp"
+            app:layout_constraintStart_toEndOf="@id/avatar_3"
+            app:layout_constraintTop_toTopOf="@id/avatar_3"
+            tools:src="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/name"
+            android:id="@+id/remaining_items"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="4dp"
+            android:gravity="center_vertical"
+            android:importantForAccessibility="no"
+            android:textSize="?status_text_small"
+            app:layout_constraintEnd_toStartOf="@+id/change_display_action_button"
+            app:layout_constraintStart_toEndOf="@id/avatar_4"
+            app:layout_constraintTop_toTopOf="@id/avatar_4"
+            tools:text="+ 2 more" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/change_display_action_button"
+            style="@style/Widget.Material3.Button.IconButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:contentDescription="@null"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:icon="@drawable/ic_eye_24dp"
+            app:tint="?android:attr/textColorSecondary" />
+
+
+        <TextView
+            android:id="@+id/collection_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
             android:importantForAccessibility="no"
             android:textSize="?status_text_medium"
             android:textStyle="normal|bold"
-            android:layout_marginStart="7dp"
-            android:layout_marginEnd="4dp"
-            app:layout_constraintStart_toEndOf="@id/avatar_grid"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Collection name"
-            tools:ignore="SelectableText" />
+            app:layout_constraintEnd_toStartOf="@+id/marginEnd"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/avatar_1"
+            tools:ignore="SelectableText"
+            tools:text="Collection name" />
 
         <TextView
             android:id="@+id/owner_handle"
@@ -96,9 +113,9 @@
             android:layout_height="wrap_content"
             android:importantForAccessibility="no"
             android:textSize="?status_text_small"
-            app:layout_constraintStart_toStartOf="@id/name"
-            app:layout_constraintEnd_toEndOf="@id/name"
-            app:layout_constraintTop_toBottomOf="@id/name"
+            app:layout_constraintStart_toStartOf="@id/collection_name"
+            app:layout_constraintEnd_toEndOf="@id/collection_name"
+            app:layout_constraintTop_toBottomOf="@id/collection_name"
             tools:text="by foo@bar"
             tools:ignore="SelectableText" />
 
@@ -106,57 +123,66 @@
             android:id="@+id/description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:importantForAccessibility="no"
-            android:textSize="?status_text_medium"
             android:hyphenationFrequency="full"
+            android:importantForAccessibility="no"
             android:lineSpacingMultiplier="1.1"
-            app:layout_constraintStart_toStartOf="@id/name"
+            android:textSize="?status_text_medium"
+            android:layout_marginTop="6dp"
+            app:layout_constraintStart_toStartOf="@id/collection_name"
             app:layout_constraintTop_toBottomOf="@id/owner_handle"
-            app:layout_constraintEnd_toEndOf="@id/name"
-            tools:text="@tools:sample/lorem"
-            tools:ignore="SelectableText" />
+            app:layout_constraintEnd_toStartOf="@id/marginEnd"
+            tools:ignore="SelectableText"
+            tools:text="@tools:sample/lorem[10]" />
 
         <TextView
             android:id="@+id/item_count"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:importantForAccessibility="no"
+            android:layout_marginTop="4dp"
             android:textSize="?status_text_small"
-            android:paddingTop="4dp"
-            app:layout_constraintStart_toStartOf="@id/name"
+            app:layout_constraintStart_toStartOf="@id/collection_name"
             app:layout_constraintTop_toBottomOf="@id/description"
-            app:layout_constraintEnd_toEndOf="@id/name"
-            tools:text="2 accounts"
-            tools:ignore="SelectableText" />
+            app:layout_constraintEnd_toStartOf="@id/marginEnd"
+            tools:ignore="SelectableText"
+            tools:text="6 accounts" />
 
         <app.pachli.core.ui.TextViewWithVerticallyAlignedDrawable
             android:id="@+id/discoverable"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textSize="?attr/status_text_small"
-            android:paddingTop="4dp"
+            android:layout_marginTop="4dp"
             app:layout_constrainedWidth="true"
-            app:layout_constraintStart_toStartOf="@id/name"
+            app:layout_constraintStart_toStartOf="@id/collection_name"
             app:layout_constraintTop_toBottomOf="@id/item_count"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/marginEnd"
             android:drawablePadding="4dp"
             tools:drawableStartCompat="@drawable/ic_public_24dp"
-            tools:text="Discoverable" />
+            tools:text="@string/collection_discoverable_true_label" />
 
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/content_barrier"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:barrierDirection="bottom"
-            app:constraint_referenced_ids="avatar_grid,discoverable" />
+        <app.pachli.core.ui.TextViewWithVerticallyAlignedDrawable
+            android:id="@+id/sensitive"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:drawablePadding="4dp"
+            android:textSize="?attr/status_text_small"
+            android:text="@string/collection_sensitive_label"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toStartOf="@id/marginEnd"
+            app:layout_constraintStart_toStartOf="@id/collection_name"
+            app:layout_constraintTop_toBottomOf="@id/discoverable"
+            app:drawableStartCompat="@drawable/ic_cw_24dp" />
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/control_divider"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/content_barrier" />
+            app:layout_constraintTop_toBottomOf="@id/sensitive"
+            app:layout_constraintEnd_toStartOf="@id/marginEnd" />
 
         <Button
             android:id="@+id/collection_remove_self"
@@ -169,23 +195,16 @@
             android:text="@string/action_collection_remove_self"
             android:textSize="?attr/status_text_small"
             android:textAllCaps="false"
-            app:layout_constraintStart_toStartOf="@+id/avatar_grid"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/control_divider"
             tools:visibility="visible" />
 
-        <Button
-            android:id="@+id/hide_collection_button"
-            style="@style/Widget.Material3.Button.IconButton"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/marginEnd"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:minHeight="48dp"
-            android:contentDescription="@null"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/control_divider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:icon="@drawable/ic_eye_24dp"
-            app:tint="?android:attr/textColorSecondary"
-            tools:visibility="visible" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="14dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </merge>

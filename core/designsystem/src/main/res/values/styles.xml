@@ -263,23 +263,18 @@
     <style name="Pachli.Widget.CollectionCardView" parent="">
         <item name="android:background">@drawable/card_frame</item>
         <item name="android:foreground">?selectableItemBackground</item>
-        <item name="collectionCardBackground">?colorSurfaceContainerHigh</item>
-        <!--        <item name="collectionCardInfoBackground">?colorSurfaceContainerHigh</item>-->
-        <!--        <item name="collectionCardImageVerticalHeight">@dimen/card_image_vertical_height</item>-->
-        <!--        <item name="collectionCardImageHorizontalWidth">@dimen/card_image_horizontal_width</item>-->
-        <item name="collectionCardAvatarBackground">?colorSurfaceContainer</item>
-        <item name="collectionCardNameTextColor">?colorOnSurface</item>
+        <item name="collectionCardBackground">?colorSecondaryContainer</item>
+        <item name="collectionCardNameTextColor">?colorOnSecondaryContainer</item>
         <item name="collectionCardNameTextSize">?status_text_large</item>
-        <item name="collectionCardDescriptionTextColor">?colorOnSurface</item>
+        <item name="collectionCardDescriptionTextColor">?colorOnSecondaryContainer</item>
         <item name="collectionCardDescriptionTextSize">?status_text_medium</item>
-        <item name="collectionCardOwnerTextColor">?colorOnSurface</item>
-        <item name="collectionCardOwnerTextSize">?status_text_medium</item>
-        <item name="collectionCardItemCountTextColor">?colorOnSurface</item>
+        <item name="collectionCardOwnerTextColor">?colorOnSecondaryContainer</item>
+        <item name="collectionCardOwnerTextSize">?status_text_small</item>
+        <item name="collectionCardItemCountTextColor">?colorOnSecondaryContainer</item>
         <item name="collectionCardItemCountTextSize">?status_text_small</item>
-        <item name="collectionCardAvatarSize">@dimen/card_byline_avatar_dimen</item>
-        <item name="collectionCardAvatarCornerRadius">@dimen/avatar_radius_36dp</item>
+        <item name="collectionCardAvatarSize">@dimen/collection_card_avatar_size</item>
+        <item name="collectionCardAvatarCornerRadius">@dimen/collection_card_avatar_radius</item>
     </style>
-
 
     <style name="Pachli.Widget.PreviewCardView.Quoted">
         <item name="previewCardInfoBackground">?colorSurfaceVariant</item>

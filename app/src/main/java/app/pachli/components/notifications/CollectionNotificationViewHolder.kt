@@ -28,19 +28,16 @@ import androidx.core.text.htmlEncode
 import androidx.core.util.TypedValueCompat.dpToPx
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
-import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithCollection.CollectionAddNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithCollection.CollectionUpdateNotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.ui.CollectionCardActionListener
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.emojify
-import app.pachli.core.ui.extensions.handleContentDescription
 import app.pachli.core.ui.loadAvatar
 import app.pachli.databinding.ItemNotificationCollectionBinding
 import com.bumptech.glide.RequestManager
@@ -113,10 +110,6 @@ class CollectionNotificationViewHolder(
 
         setNotificationTextDrawableRes(iconResource, binding.notificationText)
 
-        val username = context.getString(DR.string.post_username_format, account.username)
-        binding.notificationUsername.text = username
-        binding.notificationUsername.contentDescription = account.handleContentDescription(context)
-
         loadAvatar(
             glide,
             account.avatar,
@@ -124,12 +117,6 @@ class CollectionNotificationViewHolder(
             avatarRadius48dp,
             statusDisplayOptions.animateAvatars,
         )
-
-        val showPronouns = statusDisplayOptions.pronounDisplay == PronounDisplay.EVERYWHERE
-        if (showPronouns) binding.accountPronouns.text = account.pronouns
-        binding.accountPronouns.visible(showPronouns && account.pronouns?.isBlank() == false)
-
-        binding.roleChipGroup.setRoles(account.roles)
 
         binding.collectionCard.bind(
             glide,
