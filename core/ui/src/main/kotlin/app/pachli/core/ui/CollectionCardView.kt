@@ -201,7 +201,7 @@ class CollectionCardView @JvmOverloads constructor(
                 description.text = viewData.description
                 description.show()
             }
-            description.setOnClickListener(null)
+            description.isClickable = false
         }
 
         val shallowTag = viewData.hashtag

@@ -19,6 +19,8 @@ package app.pachli.feature.collections
 
 import android.app.Activity
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -31,6 +33,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.activity.extensions.TransitionKind
+import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -44,12 +47,16 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.ICollection
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.CollectionActivityIntent
+import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.pachliAccountId
+import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.ui.AlertSuspendDialogFragment
+import app.pachli.core.ui.HashtagSpan
 import app.pachli.core.ui.appbar.FadeChildScrollEffect
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.InsetType
 import app.pachli.core.ui.extensions.applyWindowInsets
+import app.pachli.core.ui.extensions.setMinimumTouchTarget
 import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.makeIcon
 import app.pachli.feature.collections.ICollectionViewModel.AccountAction
@@ -103,6 +110,7 @@ class CollectionActivity : ViewUrlActivity() {
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {
+            setTitle(R.string.title_collection)
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
         }
@@ -116,9 +124,8 @@ class CollectionActivity : ViewUrlActivity() {
 
         val fragmentTag = CollectionFragment.fragmentTag(pachliAccountId, collectionId)
 
-        val fragment =
-            supportFragmentManager.findFragmentByTag(fragmentTag) as CollectionFragment?
-                ?: CollectionFragment.newInstance(pachliAccountId, collectionId)
+        val fragment = supportFragmentManager.findFragmentByTag(fragmentTag) as CollectionFragment?
+            ?: CollectionFragment.newInstance(pachliAccountId, collectionId)
 
         supportFragmentManager.commit {
             replace(R.id.fragment_container, fragment, fragmentTag)
@@ -143,10 +150,31 @@ class CollectionActivity : ViewUrlActivity() {
 
     private fun bindCollectionViewData(result: Result<Loadable<ICollectionViewModel.CollectionViewData>, ICollectionViewModel.UiError.GetCollection>) {
         // Only update on success
-        val collectionViewData = result.get()?.getOrNull() ?: return
-        bindCollection(collectionViewData.collection)
+        val viewData = result.get()?.getOrNull() ?: return
+        bindCollection(viewData.collection)
 
-        val owner = collectionViewData.owner
+        binding.collectionName.text = viewData.collection.name.unicodeWrap()
+
+        val shallowTag = viewData.collection.hashtag
+        if (shallowTag == null || shallowTag.name.isBlank()) {
+            binding.collectionHashtag.hide()
+            binding.root.touchDelegate = null
+            binding.collectionHashtag.setOnClickListener(null)
+        } else {
+            val spannable = SpannableString("#${shallowTag.name}")
+            val hashtagSpan = HashtagSpan(shallowTag.name, viewModel.uiOptions.value.linksToUnderline.contains(LinksToUnderline.HASHTAGS), shallowTag.url, null)
+            spannable.setSpan(hashtagSpan, 0, spannable.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            binding.collectionHashtag.text = spannable
+
+            binding.collectionHashtag.setMinimumTouchTarget()
+            binding.collectionHashtag.setOnClickListener {
+                val intent = TimelineActivityIntent.hashtag(this, intent.pachliAccountId, shallowTag.name)
+                startActivityWithDefaultTransition(intent)
+            }
+            binding.collectionHashtag.show()
+        }
+
+        val owner = viewData.owner
         if (owner == null) {
             binding.avatar.setImageDrawable(AppCompatResources.getDrawable(binding.avatar.context, DR.drawable.avatar_default))
             binding.avatarBadge.hide()
@@ -184,7 +212,7 @@ class CollectionActivity : ViewUrlActivity() {
             binding.accountPronouns.hide()
         }
 
-        collectionViewData.isMember?.let { account ->
+        viewData.isMember?.let { account ->
             binding.collectionRemoveSelf.setOnClickListener {
                 lifecycleScope.launch {
                     val button = newConfirmRevokeDialogFragment().await(supportFragmentManager)
@@ -193,7 +221,7 @@ class CollectionActivity : ViewUrlActivity() {
                         viewModel.accept(
                             AccountAction.Revoke(
                                 pachliAccountId = pachliAccountId,
-                                collection = collectionViewData.collection,
+                                collection = viewData.collection,
                                 account = account,
                             ),
                         )
@@ -205,8 +233,6 @@ class CollectionActivity : ViewUrlActivity() {
     }
 
     private fun bindCollection(collection: ICollection) {
-        supportActionBar?.title = collection.name
-
         binding.collectionInfoContainer.setOnClickListener {
             startActivityWithTransition(
                 AccountActivityIntent(this, intent.pachliAccountId, collection.accountId),
@@ -220,8 +246,7 @@ class CollectionActivity : ViewUrlActivity() {
             )
         }
 
-        // TODO: Make description clickable (links, mentions, hashtags)
-        binding.collectionDescription.text = collection.description
+        binding.collectionDescription.text = collection.description.unicodeWrap()
 
         with(binding.collectionDiscoverable) {
             if (collection.discoverable) {
@@ -240,10 +265,9 @@ class CollectionActivity : ViewUrlActivity() {
                 text = context.getString(app.pachli.core.ui.R.string.collection_sensitive_label)
                 val icon = makeIcon(context, GoogleMaterial.Icon.gmd_visibility_off, textSize.toInt())
                 setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
+                show()
             } else {
-                text = "Not sensitive"
-                val icon = makeIcon(context, GoogleMaterial.Icon.gmd_visibility, textSize.toInt())
-                setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
+                hide()
             }
         }
     }

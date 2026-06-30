@@ -62,26 +62,39 @@ by [avatar] [owner display name]
                 android:paddingEnd="16dp">
 
                 <TextView
-                    android:id="@+id/label_owner"
-                    style="@style/TextAppearance.Material3.TitleSmall"
-                    android:layout_width="match_parent"
+                    android:id="@+id/collection_name"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Owner"
-                    android:textColor="?attr/colorAccent"
+                    android:textSize="?status_text_large"
+                    android:textStyle="bold"
+                    android:textIsSelectable="true"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Collection name" />
+
+                <TextView
+                    android:id="@+id/collection_hashtag"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/collection_description"
+                    tools:text="#SomeHashTag" />
 
                 <ImageView
                     android:id="@+id/avatar"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_centerVertical="false"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:contentDescription="@string/action_view_profile"
                     android:importantForAccessibility="no"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/label_owner"
-                    tools:src="@drawable/avatar_default" />
+                    app:layout_constraintTop_toBottomOf="@+id/collection_hashtag"
+                    tools:src="@drawable/avatar_default"
+                    tools:srcCompat="@tools:sample/avatars[0]" />
 
                 <ImageView
                     android:id="@+id/avatarBadge"
@@ -90,8 +103,10 @@ by [avatar] [owner display name]
                     android:contentDescription="@string/profile_badge_bot_text"
                     android:src="@drawable/bot_badge"
                     android:importantForAccessibility="no"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@id/avatar"
-                    app:layout_constraintEnd_toEndOf="@id/avatar" />
+                    app:layout_constraintEnd_toEndOf="@id/avatar"
+                    tools:visibility="visible" />
 
                 <app.pachli.core.ui.RoleChipGroup
                     android:id="@+id/roleChipGroup"
@@ -114,12 +129,11 @@ by [avatar] [owner display name]
                     android:ellipsize="end"
                     android:importantForAccessibility="no"
                     android:maxLines="1"
-                    android:textColor="?android:textColorPrimary"
                     android:textSize="?attr/status_text_medium"
                     android:textStyle="normal|bold"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/avatar"
                     app:layout_constraintTop_toBottomOf="@id/roleChipGroup"
-                    app:layout_constraintEnd_toEndOf="parent"
                     tools:text="Display name" />
 
                 <TextView
@@ -150,52 +164,42 @@ by [avatar] [owner display name]
                     tools:text="he/him" />
 
                 <TextView
-                    android:id="@+id/label_description"
-                    style="@style/TextAppearance.Material3.TitleSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Description"
-                    android:textColor="?attr/colorAccent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/avatarBadge" />
-
-
-                <app.pachli.core.ui.ClickableSpanTextView
                     android:id="@+id/collection_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hyphenationFrequency="full"
                     android:lineSpacingMultiplier="1.1"
                     android:paddingTop="2dp"
+                    android:textDirection="firstStrong"
                     android:textIsSelectable="true"
                     android:textSize="?attr/status_text_medium"
-                    android:textDirection="firstStrong"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/label_description"
+                    app:layout_constraintTop_toBottomOf="@+id/collection_name"
                     tools:text="@tools:sample/lorem[10]" />
 
                 <app.pachli.core.ui.TextViewWithVerticallyAlignedDrawable
                     android:id="@+id/collection_discoverable"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="16dp"
-                    android:textSize="?attr/status_text_small"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/collection_description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:drawablePadding="4dp"
+                    android:textSize="?attr/status_text_small"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/avatar"
                     tools:drawableStartCompat="@drawable/ic_public_24dp"
                     tools:text="Discoverable" />
 
                 <app.pachli.core.ui.TextViewWithVerticallyAlignedDrawable
                     android:id="@+id/collection_sensitive"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:textSize="?attr/status_text_small"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="4dp"
                     android:paddingTop="4dp"
+                    android:textSize="?attr/status_text_small"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/collection_discoverable"
-                    android:drawablePadding="4dp"
                     tools:drawableStartCompat="@drawable/ic_eye_24dp"
                     tools:text="Not sensitive" />
 
@@ -234,8 +238,7 @@ by [avatar] [owner display name]
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="8dp"
+                android:layout_height="?attr/actionBarSize"
                 android:background="@android:color/transparent"
                 app:layout_scrollFlags="scroll|enterAlways" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>

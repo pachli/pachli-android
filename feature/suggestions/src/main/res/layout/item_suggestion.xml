@@ -88,14 +88,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
         android:ellipsize="end"
+        android:importantForAccessibility="no"
         android:maxLines="1"
-        android:textColor="?android:textColorPrimary"
         android:textSize="?attr/status_text_medium"
         android:textStyle="normal|bold"
-        android:importantForAccessibility="no"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/avatar"
         app:layout_constraintTop_toBottomOf="@id/roleChipGroup"
-        app:layout_constraintEnd_toEndOf="parent"
         tools:text="Display name" />
 
     <TextView
