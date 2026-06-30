@@ -1,5 +1,30 @@
 # Pachli changelog
 
+## v3.7.1
+
+See https://pachli.app/pachli/2026/06/30/3.7.1-release.html for full details and credits.
+
+### Significant bug fixes
+
+- Show roles on any suggested accounts (#[2352](https://github.com/pachli/pachli-android/pull/2352), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Update "following" relationships when following suggested accounts (#[2350](https://github.com/pachli/pachli-android/pull/2350), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show polls attached to boosted posts (#[2317](https://github.com/pachli/pachli-android/pull/2317), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Chinese (Simplified Han script) translations ([reducedradius](https://github.com/pachli/pachli-android/commits?author=feixiang512@outlook.com))
+- Update Estonian translations ([Priit Jõerüüt](https://github.com/pachli/pachli-android/commits?author=jrthwlate@users.noreply.hosted.weblate.org))
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update French translations ([Terry L](https://github.com/pachli/pachli-android/commits?author=terrylaire@gmail.com))
+- Update German translations ([vinz](https://github.com/pachli/pachli-android/commits?author=vv@muibox.de))
+- Update German translations ([Kachelkaiser](https://github.com/pachli/pachli-android/commits?author=kachelkaiser@htpst.de))
+- Update Indonesian translations ([Doctorredits_here](https://github.com/pachli/pachli-android/commits?author=182783629+doctorreditshere@users.noreply.github.com))
+- Update Indonesian translations ([Arif Budiman](https://github.com/pachli/pachli-android/commits?author=arifpedia@gmail.com))
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+- Update Latvian translations ([Edgars Andersons](https://github.com/pachli/pachli-android/commits?author=Edgars+Weblate@gaitenis.id.lv))
+- Update Polish translations ([Łukasz Horodecki](https://github.com/pachli/pachli-android/commits?author=lukasz@horodecki.net))
+- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+
 ## v3.7.0
 
 See https://pachli.app/pachli/2026/05/30/3.7.0-release.html for full details and credits.
