@@ -18,6 +18,8 @@
 package app.pachli.core.ui
 
 import android.content.Context
+import android.text.Spannable
+import android.text.SpannableString
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -34,7 +36,9 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Collection
 import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.model.collection.CollectionDisplayReason
+import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.ui.databinding.CollectionCardBinding
+import app.pachli.core.ui.extensions.setMinimumTouchTarget
 import app.pachli.core.ui.extensions.useInPlace
 import com.bumptech.glide.RequestManager
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
@@ -194,20 +198,27 @@ class CollectionCardView @JvmOverloads constructor(
             if (viewData.description.isBlank()) {
                 description.hide()
             } else {
-                // TODO: SetContent to set clickable text
                 description.text = viewData.description
                 description.show()
             }
             description.setOnClickListener(null)
         }
 
-        // TODO: Clickable
-        // TODO: Underline tags preference
         val shallowTag = viewData.hashtag
-        if (shallowTag == null || shallowTag.name.isBlank()) {
+        if (hide || shallowTag == null || shallowTag.name.isBlank()) {
             hashtag.hide()
+            touchDelegate = null
+            hashtag.setOnClickListener(null)
         } else {
-            hashtag.text = "#${shallowTag.name}"
+            val spannable = SpannableString("#${shallowTag.name}")
+            val hashtagSpan = HashtagSpan(shallowTag.name, statusDisplayOptions.linksToUnderline.contains(LinksToUnderline.HASHTAGS), shallowTag.url, null)
+            spannable.setSpan(hashtagSpan, 0, spannable.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            hashtag.text = spannable
+
+            hashtag.setMinimumTouchTarget()
+            hashtag.setOnClickListener {
+                listener.onViewTag(shallowTag.name)
+            }
             hashtag.show()
         }
 
