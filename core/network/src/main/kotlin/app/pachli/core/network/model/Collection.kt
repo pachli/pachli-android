@@ -52,7 +52,8 @@ data class Collection(
     val local: Boolean = false,
     val sensitive: Boolean = false,
     val discoverable: Boolean = true,
-    val tag: ShallowTag? = null,
+    @Json(name = "tag")
+    val hashtag: ShallowTag? = null,
     @Json(name = "created_at")
     val createdAt: Instant,
     @Json(name = "updated_at")
@@ -69,7 +70,7 @@ data class Collection(
         local = local,
         sensitive = sensitive,
         discoverable = discoverable,
-        hashtag = tag?.asModel(),
+        hashtag = hashtag?.asModel(),
         createdAt = createdAt,
         updatedAt = updatedAt,
         items = items.asModel(),

@@ -80,6 +80,21 @@
             tools:ignore="SelectableText"
             tools:text="@tools:sample/lorem[10]" />
 
+        <TextView
+            android:id="@+id/hashtag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hyphenationFrequency="full"
+            android:importantForAccessibility="no"
+            android:lineSpacingMultiplier="1.1"
+            android:textSize="?status_text_medium"
+            android:layout_marginTop="6dp"
+            app:layout_constraintStart_toStartOf="@id/collection_name"
+            app:layout_constraintTop_toBottomOf="@id/description"
+            app:layout_constraintEnd_toStartOf="@id/marginEnd"
+            tools:ignore="SelectableText"
+            tools:text="#SomeHashTag" />
+
         <ImageView
             android:id="@+id/avatar_1"
             android:layout_width="24dp"
@@ -87,7 +102,7 @@
             android:scaleType="centerCrop"
             android:layout_marginTop="6dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/description"
+            app:layout_constraintTop_toBottomOf="@id/hashtag"
             tools:src="@tools:sample/avatars" />
 
         <ImageView

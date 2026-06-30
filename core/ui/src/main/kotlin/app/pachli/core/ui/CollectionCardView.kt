@@ -201,8 +201,17 @@ class CollectionCardView @JvmOverloads constructor(
             description.setOnClickListener(null)
         }
 
-        val avatarIconUrls = timelineCollection.itemIconUrls.filterNotNull().take(4)
+        // TODO: Clickable
+        // TODO: Underline tags preference
+        val shallowTag = viewData.hashtag
+        if (shallowTag == null || shallowTag.name.isBlank()) {
+            hashtag.hide()
+        } else {
+            hashtag.text = "#${shallowTag.name}"
+            hashtag.show()
+        }
 
+        val avatarIconUrls = timelineCollection.itemIconUrls.filterNotNull().take(4)
         avatarImageViews.forEachIndexed { index, view ->
             val iconUrl = avatarIconUrls.getOrNull(index)
             if (iconUrl == null) {
