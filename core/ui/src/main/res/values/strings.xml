@@ -245,4 +245,6 @@
     <string name="collection_discoverable_true_label">Discoverable in search results and other areas where recommendations appear.</string>
     <string name="collection_discoverable_false_label">Visible to anyone with a link. Hidden from search results and recommendations.</string>
     <string name="collection_sensitive_label">Includes sensitive content</string>
+    <string name="collection_hidden_sensitive_title">Sensitive content. Tap to show.</string>
+    <string name="collection_hidden_user_action_title">You hid this. Tap to show.</string>
 </resources>

@@ -26,10 +26,10 @@ import android.view.LayoutInflater
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.annotation.Px
-import androidx.appcompat.content.res.AppCompatResources
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
+import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.CollectionCardViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
@@ -147,7 +147,6 @@ class CollectionCardView @JvmOverloads constructor(
         val timelineCollection = viewData.timelineCollection
 
         val displayAction = viewData.displayAction
-        val hide = displayAction is CollectionDisplayAction.Hide
 
         val remainingItems = timelineCollection.items.size - 4
         if (remainingItems > 0) {
@@ -162,21 +161,11 @@ class CollectionCardView @JvmOverloads constructor(
         }
 
         // Toggle display button
-        val icon = if (hide) DR.drawable.ic_hide_media_24dp else R.drawable.ic_eye_24dp
-        changeDisplayActionButton.icon = AppCompatResources.getDrawable(changeDisplayActionButton.context, icon)
-        changeDisplayActionButton.show()
         changeDisplayActionButton.setOnClickListener {
-            if (hide) {
-                listener.onCollectionDisplayActionChange(
-                    viewData,
-                    CollectionDisplayAction.Show(originalAction = displayAction),
-                )
-            } else {
-                listener.onCollectionDisplayActionChange(
-                    viewData,
-                    (displayAction as? CollectionDisplayAction.Show)?.originalAction ?: CollectionDisplayAction.Hide(reason = CollectionDisplayReason.UserAction),
-                )
-            }
+            listener.onCollectionDisplayActionChange(
+                viewData,
+                (displayAction as? CollectionDisplayAction.Show)?.originalAction ?: CollectionDisplayAction.Hide(reason = CollectionDisplayReason.UserAction),
+            )
         }
 
         collectionName.text = viewData.name
@@ -186,26 +175,15 @@ class CollectionCardView @JvmOverloads constructor(
         } ?: "Unknown user"
         ownerHandle.show()
 
-        if (hide) {
-            description.text = displayAction.reason.getFormattedDescription(description.context)
-            description.setOnClickListener {
-                listener.onCollectionDisplayActionChange(
-                    viewData,
-                    CollectionDisplayAction.Show(originalAction = viewData.displayAction as CollectionDisplayAction.Hide?),
-                )
-            }
+        if (viewData.description.isBlank()) {
+            description.hide()
         } else {
-            if (viewData.description.isBlank()) {
-                description.hide()
-            } else {
-                description.text = viewData.description
-                description.show()
-            }
-            description.isClickable = false
+            description.text = viewData.description
+            description.show()
         }
 
         val shallowTag = viewData.hashtag
-        if (hide || shallowTag == null || shallowTag.name.isBlank()) {
+        if (shallowTag == null || shallowTag.name.isBlank()) {
             hashtag.hide()
             touchDelegate = null
             hashtag.setOnClickListener(null)
@@ -216,9 +194,7 @@ class CollectionCardView @JvmOverloads constructor(
             hashtag.text = spannable
 
             hashtag.setMinimumTouchTarget()
-            hashtag.setOnClickListener {
-                listener.onViewTag(shallowTag.name)
-            }
+            hashtag.setOnClickListener { listener.onViewTag(shallowTag.name) }
             hashtag.show()
         }
 
@@ -230,20 +206,9 @@ class CollectionCardView @JvmOverloads constructor(
                 return@forEachIndexed
             }
 
-            if (hide) {
-                view.setImageDrawable(AppCompatResources.getDrawable(view.context, DR.drawable.avatar_default))
-            } else {
-                loadAvatar(glide, iconUrl, view, avatarCornerRadius, statusDisplayOptions.animateAvatars)
-            }
+            loadAvatar(glide, iconUrl, view, avatarCornerRadius, statusDisplayOptions.animateAvatars)
             view.show()
         }
-
-//        itemCount.text = resources.getQuantityString(
-//            R.plurals.collection_item_count,
-//            timelineCollection.itemIconUrls.size,
-//            timelineCollection.itemIconUrls.size,
-//        )
-//        itemCount.show()
 
         // TODO: Copied from CollectionActivity
         with(binding.discoverable) {
@@ -266,11 +231,36 @@ class CollectionCardView @JvmOverloads constructor(
 
         collectionRemoveSelf.setOnClickListener { listener.onRemoveUserFromCollection(viewData) }
         collectionRemoveSelf.visible(isMember)
+
+        if (displayAction is CollectionDisplayAction.Hide) {
+            blurView.setupWith(binding.blurTarget).setBlurRadius(4f)
+
+            collectionHiddenName.text = viewData.timelineCollection.name.unicodeWrap()
+            collectionHiddenAction.text = displayAction.reason.getFormattedDescription(collectionHiddenAction.context)
+            collectionHidden.setOnClickListener {
+                listener.onCollectionDisplayActionChange(
+                    viewData,
+                    CollectionDisplayAction.Show(originalAction = displayAction),
+                )
+            }
+            // Capture all other clicks. This is different behaviour to sensitive media
+            // display, where clicking anywhere on the blurred image will show it. Might
+            // change this based on user feedback.
+            blurView.setOnClickListener { /* Capture all other clicks */ }
+            blurView.show()
+
+            // Need to invalidate otherwise the blur is not calculated for some reason.
+            blurView.invalidate()
+        } else {
+            blurView.hide()
+            blurView.setOnClickListener(null)
+            collectionHidden.setOnClickListener(null)
+        }
     }
 }
 
 /** @return UX string explaining why a collection has been hidden. */
 private fun CollectionDisplayReason.getFormattedDescription(context: Context) = when (this) {
-    CollectionDisplayReason.Sensitive -> "Sensitive content. Tap to show."
-    CollectionDisplayReason.UserAction -> "You hid this. Tap to show."
+    CollectionDisplayReason.Sensitive -> context.getString(R.string.collection_hidden_sensitive_title)
+    CollectionDisplayReason.UserAction -> context.getString(R.string.collection_hidden_user_action_title)
 }

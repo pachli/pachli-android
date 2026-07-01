@@ -20,192 +20,240 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:parentTag="android.widget.FrameLayout">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/content"
+    <eightbitlab.com.blurview.BlurTarget
+        android:id="@+id/blur_target"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="14dp"
-        android:paddingBottom="6dp">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/change_display_action_button"
-            style="@style/Widget.Material3.Button.IconButton"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:contentDescription="@null"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:icon="@drawable/ic_eye_24dp"
-            app:tint="?android:attr/textColorSecondary" />
+            android:paddingStart="14dp"
+            android:paddingBottom="6dp">
 
-        <TextView
-            android:id="@+id/collection_name"
-            android:layout_width="0dp"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/change_display_action_button"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:contentDescription="@null"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:icon="@drawable/ic_eye_24dp"
+                app:tint="?android:attr/textColorSecondary" />
+
+            <TextView
+                android:id="@+id/collection_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:importantForAccessibility="no"
+                android:textSize="?status_text_medium"
+                android:textStyle="normal|bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/marginEnd"
+                tools:ignore="SelectableText"
+                tools:text="Collection name" />
+
+            <TextView
+                android:id="@+id/owner_handle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:importantForAccessibility="no"
+                android:textSize="?status_text_small"
+                app:layout_constraintStart_toStartOf="@id/collection_name"
+                app:layout_constraintTop_toBottomOf="@id/collection_name"
+                app:layout_constraintEnd_toEndOf="@id/collection_name"
+                tools:text="by foo@bar"
+                tools:ignore="SelectableText" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hyphenationFrequency="full"
+                android:importantForAccessibility="no"
+                android:lineSpacingMultiplier="1.1"
+                android:textSize="?status_text_medium"
+                android:layout_marginTop="6dp"
+                app:layout_constraintStart_toStartOf="@id/collection_name"
+                app:layout_constraintTop_toBottomOf="@id/owner_handle"
+                app:layout_constraintEnd_toStartOf="@id/marginEnd"
+                tools:ignore="SelectableText"
+                tools:text="@tools:sample/lorem[10]" />
+
+            <TextView
+                android:id="@+id/hashtag"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hyphenationFrequency="full"
+                android:importantForAccessibility="no"
+                android:lineSpacingMultiplier="1.1"
+                android:textSize="?status_text_small"
+                android:layout_marginTop="6dp"
+                app:layout_constraintStart_toStartOf="@id/collection_name"
+                app:layout_constraintTop_toBottomOf="@id/description"
+                app:layout_constraintEnd_toStartOf="@id/marginEnd"
+                tools:ignore="SelectableText"
+                tools:text="#SomeHashTag" />
+
+            <ImageView
+                android:id="@+id/avatar_1"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:scaleType="centerCrop"
+                android:layout_marginTop="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/hashtag"
+                tools:src="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/avatar_2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:scaleType="centerCrop"
+                android:layout_marginStart="4dp"
+                app:layout_constraintStart_toEndOf="@id/avatar_1"
+                app:layout_constraintTop_toTopOf="@id/avatar_1"
+                tools:src="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/avatar_3"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:scaleType="centerCrop"
+                android:layout_marginStart="4dp"
+                app:layout_constraintStart_toEndOf="@id/avatar_2"
+                app:layout_constraintTop_toTopOf="@id/avatar_2"
+                tools:src="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/avatar_4"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:scaleType="centerCrop"
+                android:layout_marginStart="4dp"
+                app:layout_constraintStart_toEndOf="@id/avatar_3"
+                app:layout_constraintTop_toTopOf="@id/avatar_3"
+                tools:src="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/remaining_items"
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="4dp"
+                android:gravity="center_vertical"
+                android:importantForAccessibility="no"
+                android:textSize="?status_text_small"
+                app:layout_constraintEnd_toStartOf="@+id/marginEnd"
+                app:layout_constraintStart_toEndOf="@id/avatar_4"
+                app:layout_constraintTop_toTopOf="@id/avatar_4"
+                tools:text="+ 2 more" />
+
+            <app.pachli.core.ui.TextViewWithVerticallyAlignedDrawable
+                android:id="@+id/discoverable"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="?attr/status_text_small"
+                android:layout_marginTop="8dp"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintStart_toStartOf="@id/collection_name"
+                app:layout_constraintTop_toBottomOf="@id/avatar_1"
+                app:layout_constraintEnd_toStartOf="@id/marginEnd"
+                android:drawablePadding="4dp"
+                tools:drawableStartCompat="@drawable/ic_public_24dp"
+                tools:text="@string/collection_discoverable_true_label" />
+
+            <app.pachli.core.ui.TextViewWithVerticallyAlignedDrawable
+                android:id="@+id/sensitive"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:drawablePadding="4dp"
+                android:textSize="?attr/status_text_small"
+                android:text="@string/collection_sensitive_label"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toStartOf="@id/marginEnd"
+                app:layout_constraintStart_toStartOf="@id/collection_name"
+                app:layout_constraintTop_toBottomOf="@id/discoverable"
+                app:drawableStartCompat="@drawable/ic_cw_24dp" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/control_divider"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sensitive"
+                app:layout_constraintEnd_toStartOf="@id/marginEnd" />
+
+            <Button
+                android:id="@+id/collection_remove_self"
+                style="@style/AppButton.Outlined"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:importantForAccessibility="no"
+                android:minHeight="48dp"
+                android:text="@string/action_collection_remove_self"
+                android:textSize="?attr/status_text_small"
+                android:textAllCaps="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/control_divider"
+                tools:visibility="visible" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/marginEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="14dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </eightbitlab.com.blurview.BlurTarget>
+
+    <eightbitlab.com.blurview.BlurView
+        android:id="@+id/blurView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:blurOverlayColor="@color/color_background_transparent_60">
+
+        <LinearLayout
+            android:id="@+id/collection_hidden"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:importantForAccessibility="no"
-            android:textSize="?status_text_medium"
-            android:textStyle="normal|bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/marginEnd"
-            tools:ignore="SelectableText"
-            tools:text="Collection name" />
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/owner_handle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:importantForAccessibility="no"
-            android:textSize="?status_text_small"
-            app:layout_constraintStart_toStartOf="@id/collection_name"
-            app:layout_constraintTop_toBottomOf="@id/collection_name"
-            app:layout_constraintEnd_toEndOf="@id/collection_name"
-            tools:text="by foo@bar"
-            tools:ignore="SelectableText" />
+            <TextView
+                android:id="@+id/collection_hidden_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="?status_text_medium"
+                android:textStyle="normal|bold"
+                android:gravity="center" />
 
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hyphenationFrequency="full"
-            android:importantForAccessibility="no"
-            android:lineSpacingMultiplier="1.1"
-            android:textSize="?status_text_medium"
-            android:layout_marginTop="6dp"
-            app:layout_constraintStart_toStartOf="@id/collection_name"
-            app:layout_constraintTop_toBottomOf="@id/owner_handle"
-            app:layout_constraintEnd_toStartOf="@id/marginEnd"
-            tools:ignore="SelectableText"
-            tools:text="@tools:sample/lorem[10]" />
+            <TextView
+                android:id="@+id/collection_hidden_action"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
-        <TextView
-            android:id="@+id/hashtag"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hyphenationFrequency="full"
-            android:importantForAccessibility="no"
-            android:lineSpacingMultiplier="1.1"
-            android:textSize="?status_text_small"
-            android:layout_marginTop="6dp"
-            app:layout_constraintStart_toStartOf="@id/collection_name"
-            app:layout_constraintTop_toBottomOf="@id/description"
-            app:layout_constraintEnd_toStartOf="@id/marginEnd"
-            tools:ignore="SelectableText"
-            tools:text="#SomeHashTag" />
+                android:background="@drawable/media_warning_bg"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.2"
+                android:orientation="vertical"
+                android:layout_margin="8dp"
+                android:paddingStart="12dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="8dp"
+                android:textAlignment="center"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="?attr/status_text_medium"
 
-        <ImageView
-            android:id="@+id/avatar_1"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:scaleType="centerCrop"
-            android:layout_marginTop="6dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/hashtag"
-            tools:src="@tools:sample/avatars" />
-
-        <ImageView
-            android:id="@+id/avatar_2"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:scaleType="centerCrop"
-            android:layout_marginStart="4dp"
-            app:layout_constraintStart_toEndOf="@id/avatar_1"
-            app:layout_constraintTop_toTopOf="@id/avatar_1"
-            tools:src="@tools:sample/avatars" />
-
-        <ImageView
-            android:id="@+id/avatar_3"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:scaleType="centerCrop"
-            android:layout_marginStart="4dp"
-            app:layout_constraintStart_toEndOf="@id/avatar_2"
-            app:layout_constraintTop_toTopOf="@id/avatar_2"
-            tools:src="@tools:sample/avatars" />
-
-        <ImageView
-            android:id="@+id/avatar_4"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:scaleType="centerCrop"
-            android:layout_marginStart="4dp"
-            app:layout_constraintStart_toEndOf="@id/avatar_3"
-            app:layout_constraintTop_toTopOf="@id/avatar_3"
-            tools:src="@tools:sample/avatars" />
-
-        <TextView
-            android:id="@+id/remaining_items"
-            android:layout_width="0dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="4dp"
-            android:gravity="center_vertical"
-            android:importantForAccessibility="no"
-            android:textSize="?status_text_small"
-            app:layout_constraintEnd_toStartOf="@+id/marginEnd"
-            app:layout_constraintStart_toEndOf="@id/avatar_4"
-            app:layout_constraintTop_toTopOf="@id/avatar_4"
-            tools:text="+ 2 more" />
-
-        <app.pachli.core.ui.TextViewWithVerticallyAlignedDrawable
-            android:id="@+id/discoverable"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="?attr/status_text_small"
-            android:layout_marginTop="8dp"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintStart_toStartOf="@id/collection_name"
-            app:layout_constraintTop_toBottomOf="@id/avatar_1"
-            app:layout_constraintEnd_toStartOf="@id/marginEnd"
-            android:drawablePadding="4dp"
-            tools:drawableStartCompat="@drawable/ic_public_24dp"
-            tools:text="@string/collection_discoverable_true_label" />
-
-        <app.pachli.core.ui.TextViewWithVerticallyAlignedDrawable
-            android:id="@+id/sensitive"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:drawablePadding="4dp"
-            android:textSize="?attr/status_text_small"
-            android:text="@string/collection_sensitive_label"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintEnd_toStartOf="@id/marginEnd"
-            app:layout_constraintStart_toStartOf="@id/collection_name"
-            app:layout_constraintTop_toBottomOf="@id/discoverable"
-            app:drawableStartCompat="@drawable/ic_cw_24dp" />
-
-        <com.google.android.material.divider.MaterialDivider
-            android:id="@+id/control_divider"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sensitive"
-            app:layout_constraintEnd_toStartOf="@id/marginEnd" />
-
-        <Button
-            android:id="@+id/collection_remove_self"
-            style="@style/AppButton.Outlined"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:importantForAccessibility="no"
-            android:minHeight="48dp"
-            android:text="@string/action_collection_remove_self"
-            android:textSize="?attr/status_text_small"
-            android:textAllCaps="false"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/control_divider"
-            tools:visibility="visible" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/marginEnd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="14dp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+                tools:text="@string/post_sensitive_media_title" />
+        </LinearLayout>
+    </eightbitlab.com.blurview.BlurView>
 </merge>
