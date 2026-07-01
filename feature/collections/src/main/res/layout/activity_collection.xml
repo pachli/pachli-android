@@ -74,13 +74,29 @@ by [avatar] [owner display name]
                     tools:text="Collection name" />
 
                 <TextView
+                    android:id="@+id/collection_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hyphenationFrequency="full"
+                    android:lineSpacingMultiplier="1.1"
+                    android:paddingTop="2dp"
+                    android:textDirection="firstStrong"
+                    android:textIsSelectable="true"
+                    android:textSize="?attr/status_text_medium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/collection_name"
+                    tools:text="@tools:sample/lorem[10]" />
+
+                <TextView
                     android:id="@+id/collection_hashtag"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/collection_description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintHorizontal_bias="0.0"
                     tools:text="#SomeHashTag" />
 
                 <ImageView
@@ -162,20 +178,6 @@ by [avatar] [owner display name]
                     app:layout_constraintWidth_max="@dimen/pronounChip_maxWidth"
                     tools:ignore="SelectableText"
                     tools:text="he/him" />
-
-                <TextView
-                    android:id="@+id/collection_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hyphenationFrequency="full"
-                    android:lineSpacingMultiplier="1.1"
-                    android:paddingTop="2dp"
-                    android:textDirection="firstStrong"
-                    android:textIsSelectable="true"
-                    android:textSize="?attr/status_text_medium"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/collection_name"
-                    tools:text="@tools:sample/lorem[10]" />
 
                 <app.pachli.core.ui.TextViewWithVerticallyAlignedDrawable
                     android:id="@+id/collection_discoverable"

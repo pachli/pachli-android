@@ -928,6 +928,7 @@ internal class CollectionViewModel @Inject constructor(
     override val operationCount = operationCounter.count
 
     private val pachliAccountId = MutableSharedFlow<Long>(replay = 1)
+
     private val pachliAccount = pachliAccountId.distinctUntilChanged().flatMapLatest {
         accountManager.getPachliAccountFlow(it).filterNotNull()
     }
@@ -955,7 +956,6 @@ internal class CollectionViewModel @Inject constructor(
     // disabled accounts to produce the CollectionViewData.
     override val collectionViewData = stateFlow(viewModelScope, Ok(Loadable.Loading)) {
         combine(pachliAccount.distinctUntilChanged(), collection, relationships, disabledAccountIds) { pachliAccount, collectionResult, relationships, disabledAccountIds ->
-            Timber.d("Generating new CollectionViewData")
             collectionResult.map {
                 it.mapLoaded { (collection, accounts) ->
                     val owner = accounts.firstOrNull()

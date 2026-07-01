@@ -31,6 +31,7 @@ interface CollectionCardActionListener :
 fun interface OnOpenCollection {
     fun onOpenCollection(collection: ICollection)
 }
+
 fun interface OnRemoveUserFromCollection {
     fun onRemoveUserFromCollection(collection: ICollection)
 }

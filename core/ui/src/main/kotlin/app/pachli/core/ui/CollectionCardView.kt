@@ -60,7 +60,7 @@ class CollectionCardView @JvmOverloads constructor(
     private val avatarDimen: Int
 
     @Px
-    private val avatarCornerRadius: Int // = context.resources.getDimensionPixelSize(DR.dimen.collection_card_avatar_radius)
+    private val avatarCornerRadius: Int
 
     private val avatarImageViews: List<ImageView>
 

@@ -682,9 +682,8 @@ class NotificationsFragment :
     }
 
     override fun onOpenCollection(collection: ICollection) {
-        // Timber.e("onOpenCollection: $collection")
         startActivityWithTransition(
-            CollectionActivityIntent(requireContext(), pachliAccountId, collection),
+            CollectionActivityIntent(requireContext(), pachliAccountId, collection.serverId),
             TransitionKind.SLIDE_FROM_END,
         )
     }
@@ -694,7 +693,6 @@ class NotificationsFragment :
     }
 
     override fun onCollectionDisplayActionChange(viewData: CollectionCardViewData, action: CollectionDisplayAction) {
-        // TODO("Not yet implemented")
         viewModel.accept(
             InfallibleUiAction.OverrideCollectionDisplayAction(
                 pachliAccountId,

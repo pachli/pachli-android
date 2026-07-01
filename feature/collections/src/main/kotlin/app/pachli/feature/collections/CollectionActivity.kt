@@ -21,6 +21,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -44,7 +45,6 @@ import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.getOrNull
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.model.ICollection
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.CollectionActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
@@ -60,6 +60,7 @@ import app.pachli.core.ui.extensions.setMinimumTouchTarget
 import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.makeIcon
 import app.pachli.feature.collections.ICollectionViewModel.AccountAction
+import app.pachli.feature.collections.ICollectionViewModel.UiAction
 import app.pachli.feature.collections.databinding.ActivityCollectionBinding
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.get
@@ -83,6 +84,20 @@ class CollectionActivity : ViewUrlActivity() {
     private var avatarRadius by Delegates.notNull<Int>()
 
     private val pachliAccountId by unsafeLazy { intent.pachliAccountId }
+
+    /** True when the transition to this activity has completed. */
+    private var transitionComplete = false
+
+    private var ownerAccountId: String? = null
+
+    private val accountClickListener: View.OnClickListener = {
+        ownerAccountId?.let { ownerAccountId ->
+            startActivityWithTransition(
+                AccountActivityIntent(this, intent.pachliAccountId, ownerAccountId),
+                TransitionKind.SLIDE_FROM_END,
+            )
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -119,8 +134,7 @@ class CollectionActivity : ViewUrlActivity() {
             binding.fragmentContainer.getFragment<CollectionFragment?>()?.onReselect()
         }
 
-        val collection = CollectionActivityIntent.getCollection(intent)
-        val collectionId = collection.serverId
+        val collectionId = CollectionActivityIntent.getCollectionId(intent)
 
         val fragmentTag = CollectionFragment.fragmentTag(pachliAccountId, collectionId)
 
@@ -133,29 +147,54 @@ class CollectionActivity : ViewUrlActivity() {
 
         avatarRadius = binding.avatar.context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
 
-        // Populate the UI from the data in the intent. It will update with fresh
-        // data from the repository when the fetch completes.
-        bindCollection(collection)
+        binding.avatar.setOnClickListener(accountClickListener)
+        binding.avatarBadge.setOnClickListener(accountClickListener)
+        binding.roleChipGroup.setOnClickListener(accountClickListener)
+        binding.displayName.setOnClickListener(accountClickListener)
+        binding.username.setOnClickListener(accountClickListener)
+        binding.accountPronouns.setOnClickListener(accountClickListener)
+
+        supportPostponeEnterTransition()
 
         bind()
+
+        viewModel.accept(UiAction.GetCollection(pachliAccountId, collectionId))
     }
 
     private fun bind() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.collectionViewData.collectLatest(::bindCollectionViewData)
+                viewModel.collectionViewData.collectLatest {
+                    bindCollectionViewData(it)
+
+                    // Delay transition until the first data load.
+                    if (!transitionComplete) {
+                        transitionComplete = true
+                        supportStartPostponedEnterTransition()
+                    }
+                }
             }
         }
     }
 
     private fun bindCollectionViewData(result: Result<Loadable<ICollectionViewModel.CollectionViewData>, ICollectionViewModel.UiError.GetCollection>) {
         // Only update on success
+        // TODO: Show error state.
         val viewData = result.get()?.getOrNull() ?: return
-        bindCollection(viewData.collection)
 
-        binding.collectionName.text = viewData.collection.name.unicodeWrap()
+        val collection = viewData.collection
+        ownerAccountId = collection.accountId
 
-        val shallowTag = viewData.collection.hashtag
+        binding.collectionName.text = collection.name.unicodeWrap()
+
+        if (collection.description.isBlank()) {
+            binding.collectionDescription.hide()
+        } else {
+            binding.collectionDescription.text = collection.description.unicodeWrap()
+            binding.collectionDescription.show()
+        }
+
+        val shallowTag = collection.hashtag
         if (shallowTag == null || shallowTag.name.isBlank()) {
             binding.collectionHashtag.hide()
             binding.root.touchDelegate = null
@@ -181,72 +220,35 @@ class CollectionActivity : ViewUrlActivity() {
             binding.displayName.text = "?"
             binding.username.text = "?"
             binding.accountPronouns.hide()
-            return
-        }
-
-        loadAvatar(
-            glide,
-            owner.account.avatar,
-            binding.avatar,
-            avatarRadius,
-            viewModel.uiOptions.value.animateAvatars,
-        )
-        binding.avatarBadge.visible(owner.account.bot && viewModel.uiOptions.value.showBotOverlay)
-
-        binding.roleChipGroup.setRoles(owner.account.roles)
-
-        binding.displayName.text = owner.account.name.unicodeWrap().emojify(
-            glide,
-            owner.account.emojis,
-            binding.displayName,
-            viewModel.uiOptions.value.animateEmojis,
-        )
-        binding.username.text = getString(
-            DR.string.post_username_format,
-            owner.account.username,
-        )
-        if (viewModel.uiOptions.value.showPronouns) {
-            binding.accountPronouns.text = owner.account.pronouns
-            binding.accountPronouns.show()
         } else {
-            binding.accountPronouns.hide()
-        }
+            loadAvatar(
+                glide,
+                owner.account.avatar,
+                binding.avatar,
+                avatarRadius,
+                viewModel.uiOptions.value.animateAvatars,
+            )
+            binding.avatarBadge.visible(owner.account.bot && viewModel.uiOptions.value.showBotOverlay)
 
-        viewData.isMember?.let { account ->
-            binding.collectionRemoveSelf.setOnClickListener {
-                lifecycleScope.launch {
-                    val button = newConfirmRevokeDialogFragment().await(supportFragmentManager)
-                    if (button == AlertDialog.BUTTON_POSITIVE) {
-                        binding.collectionRemoveSelf.hide()
-                        viewModel.accept(
-                            AccountAction.Revoke(
-                                pachliAccountId = pachliAccountId,
-                                collection = viewData.collection,
-                                account = account,
-                            ),
-                        )
-                    }
-                }
+            binding.roleChipGroup.setRoles(owner.account.roles)
+
+            binding.displayName.text = owner.account.name.unicodeWrap().emojify(
+                glide,
+                owner.account.emojis,
+                binding.displayName,
+                viewModel.uiOptions.value.animateEmojis,
+            )
+            binding.username.text = getString(
+                DR.string.post_username_format,
+                owner.account.username,
+            )
+            if (viewModel.uiOptions.value.showPronouns) {
+                binding.accountPronouns.text = owner.account.pronouns
+                binding.accountPronouns.show()
+            } else {
+                binding.accountPronouns.hide()
             }
-            binding.collectionRemoveSelf.show()
-        } ?: binding.collectionRemoveSelf.hide()
-    }
-
-    private fun bindCollection(collection: ICollection) {
-        binding.collectionInfoContainer.setOnClickListener {
-            startActivityWithTransition(
-                AccountActivityIntent(this, intent.pachliAccountId, collection.accountId),
-                TransitionKind.SLIDE_FROM_END,
-            )
         }
-        binding.collectionDescription.setOnClickListener {
-            startActivityWithTransition(
-                AccountActivityIntent(this, intent.pachliAccountId, collection.accountId),
-                TransitionKind.SLIDE_FROM_END,
-            )
-        }
-
-        binding.collectionDescription.text = collection.description.unicodeWrap()
 
         with(binding.collectionDiscoverable) {
             if (collection.discoverable) {
@@ -270,6 +272,25 @@ class CollectionActivity : ViewUrlActivity() {
                 hide()
             }
         }
+
+        viewData.isMember?.let { account ->
+            binding.collectionRemoveSelf.setOnClickListener {
+                lifecycleScope.launch {
+                    val button = newConfirmRevokeDialogFragment().await(supportFragmentManager)
+                    if (button == AlertDialog.BUTTON_POSITIVE) {
+                        binding.collectionRemoveSelf.hide()
+                        viewModel.accept(
+                            AccountAction.Revoke(
+                                pachliAccountId = pachliAccountId,
+                                collection = collection,
+                                account = account,
+                            ),
+                        )
+                    }
+                }
+            }
+            binding.collectionRemoveSelf.show()
+        } ?: binding.collectionRemoveSelf.hide()
     }
 }
 

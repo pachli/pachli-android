@@ -52,9 +52,9 @@
                 android:importantForAccessibility="no"
                 android:textSize="?status_text_medium"
                 android:textStyle="normal|bold"
+                app:layout_constraintEnd_toStartOf="@+id/change_display_action_button"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/marginEnd"
                 tools:ignore="SelectableText"
                 tools:text="Collection name" />
 
@@ -87,16 +87,15 @@
 
             <TextView
                 android:id="@+id/hashtag"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hyphenationFrequency="full"
-                android:importantForAccessibility="no"
-                android:lineSpacingMultiplier="1.1"
-                android:textSize="?status_text_small"
                 android:layout_marginTop="6dp"
+                android:textSize="?status_text_small"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toStartOf="@id/marginEnd"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@id/collection_name"
                 app:layout_constraintTop_toBottomOf="@id/description"
-                app:layout_constraintEnd_toStartOf="@id/marginEnd"
                 tools:ignore="SelectableText"
                 tools:text="#SomeHashTag" />
 
@@ -231,20 +230,20 @@
                 android:id="@+id/collection_hidden_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:textSize="?status_text_medium"
-                android:textStyle="normal|bold"
-                android:gravity="center" />
+                android:textStyle="normal|bold" />
 
             <TextView
                 android:id="@+id/collection_hidden_action"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
+                android:layout_margin="8dp"
                 android:background="@drawable/media_warning_bg"
                 android:gravity="center"
                 android:lineSpacingMultiplier="1.2"
                 android:orientation="vertical"
-                android:layout_margin="8dp"
                 android:paddingStart="12dp"
                 android:paddingTop="8dp"
                 android:paddingEnd="12dp"
