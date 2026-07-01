@@ -46,6 +46,14 @@ interface CollectionsDao {
     @Upsert
     suspend fun upsertCollectionViewData(entity: CollectionViewDataEntity)
 
+    @Query(
+        """
+DELETE FROM CollectionItemEntity
+WHERE pachliAccountId = :pachliAccountId AND collectionServerId = :collectionId AND accountId = :accountId
+        """,
+    )
+    suspend fun removeAccountFromCollection(pachliAccountId: Long, collectionId: String, accountId: String)
+
     @Transaction
     @Query(
         """

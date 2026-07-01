@@ -36,6 +36,7 @@ import app.pachli.core.network.retrofit.apiresult.ApiResult
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.map
 import com.github.michaelbull.result.mapEither
+import com.github.michaelbull.result.onSuccess
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
@@ -93,7 +94,9 @@ internal class OfflineFirstCollectionsRepository @Inject constructor(
         return remoteDataSource.revokeFromCollection(pachliAccountId, collectionId, accountId).mapEither(
             { it.body },
             { Error.RevokeFromCollection(it) },
-        )
+        ).onSuccess {
+            localDataSource.removeAccountFromCollection(pachliAccountId, collectionId, accountId)
+        }
     }
 
     override fun setCollectionDisplayAction(pachliAccountId: Long, collectionId: String, collectionDisplayAction: CollectionDisplayAction) {
@@ -116,6 +119,10 @@ internal class CollectionsLocalDataSource @Inject constructor(
         collectionsDao.upsertCollectionViewData(
             CollectionViewDataEntity(pachliAccountId, collectionId, collectionDisplayAction),
         )
+    }
+
+    suspend fun removeAccountFromCollection(pachliAccountId: Long, collectionId: String, accountId: String) {
+        collectionsDao.removeAccountFromCollection(pachliAccountId, collectionId, accountId)
     }
 }
 

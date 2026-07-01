@@ -18,6 +18,7 @@
 package app.pachli.feature.collections
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -298,7 +299,7 @@ class CollectionActivity : ViewUrlActivity() {
  * Creates a dialog allowing the user to confirm their account should
  * be removed from a collection.
  */
-internal fun Activity.newConfirmRevokeDialogFragment() = AlertSuspendDialogFragment.newInstance(
+fun Context.newConfirmRevokeDialogFragment() = AlertSuspendDialogFragment.newInstance(
     title = getString(R.string.title_confirm_collection_revoke),
     message = getString(R.string.confirm_collection_revoke_msg),
     positiveText = getString(android.R.string.ok),

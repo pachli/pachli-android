@@ -314,6 +314,26 @@ sealed interface StatusActionSuccess : UiSuccess {
     }
 }
 
+sealed interface CollectionAction : FallibleUiAction {
+    data class Revoke(
+        val pachliAccountId: Long,
+        val collectionId: String,
+        val accountId: String,
+    ) : CollectionAction
+}
+
+sealed interface CollectionActionSuccess : UiSuccess {
+    val action: CollectionAction
+
+    data class Revoke(override val action: CollectionAction.Revoke) : CollectionActionSuccess
+
+    companion object {
+        fun from(action: CollectionAction) = when (action) {
+            is CollectionAction.Revoke -> Revoke(action)
+        }
+    }
+}
+
 /** Errors from fallible view model actions that the UI will need to show */
 sealed interface UiError {
     /** The error associated with the error */
@@ -380,6 +400,12 @@ sealed interface UiError {
         override val message: Int = R.string.ui_error_filter_v1_load_fmt,
     ) : UiError
 
+    data class Revoke(
+        override val error: PachliError,
+        override val action: CollectionAction.Revoke,
+        override val message: Int = app.pachli.feature.collections.R.string.ui_error_collection_revoke_fmt,
+    ) : UiError
+
     companion object {
         fun make(error: PachliError, action: FallibleUiAction) = when (action) {
             is FallibleStatusAction.Bookmark -> Bookmark(error, action)
@@ -390,6 +416,7 @@ sealed interface UiError {
             is NotificationAction.AcceptFollowRequest -> AcceptFollowRequest(error, action)
             is NotificationAction.RejectFollowRequest -> RejectFollowRequest(error, action)
             is FallibleUiAction.ClearNotifications -> ClearNotifications(error, action)
+            is CollectionAction.Revoke -> Revoke(error, action)
         }
     }
 }
@@ -404,7 +431,7 @@ class NotificationsViewModel @AssistedInject constructor(
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     private val statusRepository: OfflineFirstStatusRepository,
-    private val collectionRepository: ICollectionsRepository,
+    private val collectionsRepository: ICollectionsRepository,
     @Assisted val pachliAccountId: Long,
 ) : ViewModel() {
     private val accountFlow = accountManager.getPachliAccountFlow(pachliAccountId)
@@ -549,6 +576,20 @@ class NotificationsViewModel @AssistedInject constructor(
                         is FallibleStatusAction.Translate -> timelineCases.translate(action.statusViewData)
                     }.mapEither(
                         { StatusActionSuccess.from(action) },
+                        { UiError.make(it, action) },
+                    )
+                    _uiResult.send(result)
+                }
+        }
+
+        viewModelScope.launch {
+            uiAction.filterIsInstance<CollectionAction>()
+                .throttleFirst()
+                .collect { action ->
+                    val result = when (action) {
+                        is CollectionAction.Revoke -> onRevokeCollection(action)
+                    }.mapEither(
+                        { CollectionActionSuccess.from(action) },
                         { UiError.make(it, action) },
                     )
                     _uiResult.send(result)
@@ -717,14 +758,20 @@ class NotificationsViewModel @AssistedInject constructor(
         )
     }
 
-    private fun onOverrideCollectionDisplayAction(action: InfallibleUiAction.OverrideCollectionDisplayAction) {
-        viewModelScope.launch {
-            collectionRepository.setCollectionDisplayAction(
-                action.pachliAccountId,
-                action.collectionId,
-                action.collectionDisplayAction,
-            )
-        }
+    private suspend fun onOverrideCollectionDisplayAction(action: InfallibleUiAction.OverrideCollectionDisplayAction) {
+        collectionsRepository.setCollectionDisplayAction(
+            action.pachliAccountId,
+            action.collectionId,
+            action.collectionDisplayAction,
+        )
+    }
+
+    private suspend fun onRevokeCollection(action: CollectionAction.Revoke): Result<Unit, ICollectionsRepository.Error.RevokeFromCollection> {
+        return collectionsRepository.revokeFromCollection(
+            action.pachliAccountId,
+            action.collectionId,
+            action.accountId,
+        )
     }
 
     @AssistedFactory

@@ -76,6 +76,7 @@ import app.pachli.core.ui.SetContentAsMastodonHtml
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.FragmentTimelineNotificationsBinding
+import app.pachli.feature.collections.newConfirmRevokeDialogFragment
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.ActionButtonActivity
@@ -689,7 +690,18 @@ class NotificationsFragment :
     }
 
     override fun onRemoveUserFromCollection(collection: ICollection) {
-        Timber.e("onRemoveMe: $collection")
+        lifecycleScope.launch {
+            val button = requireContext().newConfirmRevokeDialogFragment().await(parentFragmentManager)
+            if (button == AlertDialog.BUTTON_POSITIVE) {
+                viewModel.accept(
+                    CollectionAction.Revoke(
+                        pachliAccountId = pachliAccountId,
+                        collectionId = collection.serverId,
+                        accountId = viewModel.pachliAccount.accountId,
+                    ),
+                )
+            }
+        }
     }
 
     override fun onCollectionDisplayActionChange(viewData: CollectionCardViewData, action: CollectionDisplayAction) {
