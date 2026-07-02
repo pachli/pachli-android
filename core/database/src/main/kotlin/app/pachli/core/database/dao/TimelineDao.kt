@@ -154,6 +154,22 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
     s.t_attachments AS 's_t_attachments',
     s.t_provider AS 's_t_provider',
 
+    -- Reply account
+    s.reply_serverId AS 's_reply_serverId',
+    s.reply_timelineUserId AS 's_reply_timelineUserId',
+    s.reply_localUsername AS 's_reply_localUsername',
+    s.reply_username AS 's_reply_username',
+    s.reply_displayName AS 's_reply_displayName',
+    s.reply_url AS 's_reply_url',
+    s.reply_avatar AS 's_reply_avatar',
+    s.reply_emojis AS 's_reply_emojis',
+    s.reply_bot AS 's_reply_bot',
+    s.reply_createdAt AS 's_reply_createdAt',
+    s.reply_limited AS 's_reply_limited',
+    s.reply_note AS 's_reply_note',
+    s.reply_roles AS 's_reply_roles',
+    s.reply_pronouns AS 's_reply_pronouns',
+
     -- Quoted status (if any)
     -- TimelineStatusWithAccount
     q.serverId AS 'q_serverId',
@@ -239,7 +255,23 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
     q.t_spoilerText AS 'q_t_spoilerText',
     q.t_poll AS 'q_t_poll',
     q.t_attachments AS 'q_t_attachments',
-    q.t_provider AS 'q_t_provider'
+    q.t_provider AS 'q_t_provider',
+
+    -- Reply account
+    q.reply_serverId AS 'q_reply_serverId',
+    q.reply_timelineUserId AS 'q_reply_timelineUserId',
+    q.reply_localUsername AS 'q_reply_localUsername',
+    q.reply_username AS 'q_reply_username',
+    q.reply_displayName AS 'q_reply_displayName',
+    q.reply_url AS 'q_reply_url',
+    q.reply_avatar AS 'q_reply_avatar',
+    q.reply_emojis AS 'q_reply_emojis',
+    q.reply_bot AS 'q_reply_bot',
+    q.reply_createdAt AS 'q_reply_createdAt',
+    q.reply_limited AS 'q_reply_limited',
+    q.reply_note AS 'q_reply_note',
+    q.reply_roles AS 'q_reply_roles',
+    q.reply_pronouns AS 'q_reply_pronouns'
   FROM TimelineStatusEntity AS t
  LEFT JOIN TimelineStatusWithAccount AS s
     ON (t.pachliAccountId = :account AND (s.timelineUserId = :account AND t.statusId = s.serverId))
@@ -386,6 +418,22 @@ SELECT
     s.t_attachments AS 's_t_attachments',
     s.t_provider AS 's_t_provider',
 
+    -- Reply account
+    s.reply_serverId AS 's_reply_serverId',
+    s.reply_timelineUserId AS 's_reply_timelineUserId',
+    s.reply_localUsername AS 's_reply_localUsername',
+    s.reply_username AS 's_reply_username',
+    s.reply_displayName AS 's_reply_displayName',
+    s.reply_url AS 's_reply_url',
+    s.reply_avatar AS 's_reply_avatar',
+    s.reply_emojis AS 's_reply_emojis',
+    s.reply_bot AS 's_reply_bot',
+    s.reply_createdAt AS 's_reply_createdAt',
+    s.reply_limited AS 's_reply_limited',
+    s.reply_note AS 's_reply_note',
+    s.reply_roles AS 's_reply_roles',
+    s.reply_pronouns AS 's_reply_pronouns',
+
     -- Quoted status (if any)
     -- TimelineStatusWithAccount
     q.serverId AS 'q_serverId',
@@ -471,7 +519,23 @@ SELECT
     q.t_spoilerText AS 'q_t_spoilerText',
     q.t_poll AS 'q_t_poll',
     q.t_attachments AS 'q_t_attachments',
-    q.t_provider AS 'q_t_provider'
+    q.t_provider AS 'q_t_provider',
+
+    -- Reply account
+    q.reply_serverId AS 'q_reply_serverId',
+    q.reply_timelineUserId AS 'q_reply_timelineUserId',
+    q.reply_localUsername AS 'q_reply_localUsername',
+    q.reply_username AS 'q_reply_username',
+    q.reply_displayName AS 'q_reply_displayName',
+    q.reply_url AS 'q_reply_url',
+    q.reply_avatar AS 'q_reply_avatar',
+    q.reply_emojis AS 'q_reply_emojis',
+    q.reply_bot AS 'q_reply_bot',
+    q.reply_createdAt AS 'q_reply_createdAt',
+    q.reply_limited AS 'q_reply_limited',
+    q.reply_note AS 'q_reply_note',
+    q.reply_roles AS 'q_reply_roles',
+    q.reply_pronouns AS 'q_reply_pronouns'
 FROM TimelineStatusWithAccount AS s
  LEFT JOIN TimelineStatusWithAccount AS q
     ON (s.timelineUserId = q.timelineUserId AND s.quoteServerId = q.serverId)
@@ -576,6 +640,22 @@ SELECT
     s.t_attachments AS 's_t_attachments',
     s.t_provider AS 's_t_provider',
 
+    -- Reply account
+    s.reply_serverId AS 's_reply_serverId',
+    s.reply_timelineUserId AS 's_reply_timelineUserId',
+    s.reply_localUsername AS 's_reply_localUsername',
+    s.reply_username AS 's_reply_username',
+    s.reply_displayName AS 's_reply_displayName',
+    s.reply_url AS 's_reply_url',
+    s.reply_avatar AS 's_reply_avatar',
+    s.reply_emojis AS 's_reply_emojis',
+    s.reply_bot AS 's_reply_bot',
+    s.reply_createdAt AS 's_reply_createdAt',
+    s.reply_limited AS 's_reply_limited',
+    s.reply_note AS 's_reply_note',
+    s.reply_roles AS 's_reply_roles',
+    s.reply_pronouns AS 's_reply_pronouns',
+
     -- Quoted status (if any)
     -- TimelineStatusWithAccount
     q.serverId AS 'q_serverId',
@@ -661,7 +741,23 @@ SELECT
     q.t_spoilerText AS 'q_t_spoilerText',
     q.t_poll AS 'q_t_poll',
     q.t_attachments AS 'q_t_attachments',
-    q.t_provider AS 'q_t_provider'
+    q.t_provider AS 'q_t_provider',
+
+    -- Reply account
+    q.reply_serverId AS 'q_reply_serverId',
+    q.reply_timelineUserId AS 'q_reply_timelineUserId',
+    q.reply_localUsername AS 'q_reply_localUsername',
+    q.reply_username AS 'q_reply_username',
+    q.reply_displayName AS 'q_reply_displayName',
+    q.reply_url AS 'q_reply_url',
+    q.reply_avatar AS 'q_reply_avatar',
+    q.reply_emojis AS 'q_reply_emojis',
+    q.reply_bot AS 'q_reply_bot',
+    q.reply_createdAt AS 'q_reply_createdAt',
+    q.reply_limited AS 'q_reply_limited',
+    q.reply_note AS 'q_reply_note',
+    q.reply_roles AS 'q_reply_roles',
+    q.reply_pronouns AS 'q_reply_pronouns'
 FROM TimelineStatusWithAccount AS s
  LEFT JOIN TimelineStatusWithAccount AS q
     ON (s.timelineUserId = q.timelineUserId AND s.quoteServerId = q.serverId)
@@ -1005,6 +1101,22 @@ WHERE timelineUserId = :pachliAccountId
     s.t_attachments AS 's_t_attachments',
     s.t_provider AS 's_t_provider',
 
+    -- Reply account
+    s.reply_serverId AS 's_reply_serverId',
+    s.reply_timelineUserId AS 's_reply_timelineUserId',
+    s.reply_localUsername AS 's_reply_localUsername',
+    s.reply_username AS 's_reply_username',
+    s.reply_displayName AS 's_reply_displayName',
+    s.reply_url AS 's_reply_url',
+    s.reply_avatar AS 's_reply_avatar',
+    s.reply_emojis AS 's_reply_emojis',
+    s.reply_bot AS 's_reply_bot',
+    s.reply_createdAt AS 's_reply_createdAt',
+    s.reply_limited AS 's_reply_limited',
+    s.reply_note AS 's_reply_note',
+    s.reply_roles AS 's_reply_roles',
+    s.reply_pronouns AS 's_reply_pronouns',
+
     -- Quoted status (if any)
     -- TimelineStatusWithAccount
     q.serverId AS 'q_serverId',
@@ -1090,7 +1202,23 @@ WHERE timelineUserId = :pachliAccountId
     q.t_spoilerText AS 'q_t_spoilerText',
     q.t_poll AS 'q_t_poll',
     q.t_attachments AS 'q_t_attachments',
-    q.t_provider AS 'q_t_provider'
+    q.t_provider AS 'q_t_provider',
+
+    -- Reply account
+    q.reply_serverId AS 'q_reply_serverId',
+    q.reply_timelineUserId AS 'q_reply_timelineUserId',
+    q.reply_localUsername AS 'q_reply_localUsername',
+    q.reply_username AS 'q_reply_username',
+    q.reply_displayName AS 'q_reply_displayName',
+    q.reply_url AS 'q_reply_url',
+    q.reply_avatar AS 'q_reply_avatar',
+    q.reply_emojis AS 'q_reply_emojis',
+    q.reply_bot AS 'q_reply_bot',
+    q.reply_createdAt AS 'q_reply_createdAt',
+    q.reply_limited AS 'q_reply_limited',
+    q.reply_note AS 'q_reply_note',
+    q.reply_roles AS 'q_reply_roles',
+    q.reply_pronouns AS 'q_reply_pronouns'
   FROM TimelineStatusEntity AS t
  LEFT JOIN TimelineStatusWithAccount AS s
     ON (t.pachliAccountId = :account AND (s.timelineUserId = :account AND t.statusId = s.serverId))
