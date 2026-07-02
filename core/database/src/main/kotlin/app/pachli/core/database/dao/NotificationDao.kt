@@ -151,6 +151,22 @@ SELECT
     s.t_attachments AS 's_s_t_attachments',
     s.t_provider AS 's_s_t_provider',
 
+    -- Reply account
+    s.reply_serverId AS 's_s_reply_serverId',
+    s.reply_timelineUserId AS 's_s_reply_timelineUserId',
+    s.reply_localUsername AS 's_s_reply_localUsername',
+    s.reply_username AS 's_s_reply_username',
+    s.reply_displayName AS 's_s_reply_displayName',
+    s.reply_url AS 's_s_reply_url',
+    s.reply_avatar AS 's_s_reply_avatar',
+    s.reply_emojis AS 's_s_reply_emojis',
+    s.reply_bot AS 's_s_reply_bot',
+    s.reply_createdAt AS 's_s_reply_createdAt',
+    s.reply_limited AS 's_s_reply_limited',
+    s.reply_note AS 's_s_reply_note',
+    s.reply_roles AS 's_s_reply_roles',
+    s.reply_pronouns AS 's_s_reply_pronouns',
+
     -- Quoted status (if any)
     -- TimelineStatusWithAccount
     q.serverId AS 's_q_serverId',
@@ -238,6 +254,22 @@ SELECT
     q.t_attachments AS 's_q_t_attachments',
     q.t_provider AS 's_q_t_provider',
 
+    -- Reply account
+    q.reply_serverId AS 's_q_reply_serverId',
+    q.reply_timelineUserId AS 's_q_reply_timelineUserId',
+    q.reply_localUsername AS 's_q_reply_localUsername',
+    q.reply_username AS 's_q_reply_username',
+    q.reply_displayName AS 's_q_reply_displayName',
+    q.reply_url AS 's_q_reply_url',
+    q.reply_avatar AS 's_q_reply_avatar',
+    q.reply_emojis AS 's_q_reply_emojis',
+    q.reply_bot AS 's_q_reply_bot',
+    q.reply_createdAt AS 's_q_reply_createdAt',
+    q.reply_limited AS 's_q_reply_limited',
+    q.reply_note AS 's_q_reply_note',
+    q.reply_roles AS 's_q_reply_roles',
+    q.reply_pronouns AS 's_q_reply_pronouns',
+
     -- NotificationViewData
     nvd.pachliAccountId AS 'nvd_pachliAccountId',
     nvd.serverId AS 'nvd_serverId',
@@ -267,6 +299,8 @@ SELECT
     report.target_createdAt AS 'report_target_createdAt',
     report.target_limited AS 'report_target_limited',
     report.target_note AS 'report_target_note',
+    report.target_roles AS 'report_target_roles',
+    report.target_pronouns AS 'report_target_pronouns',
 
     -- NotificationRelationshipSeveranceEvent
     rse.pachliAccountId AS 'rse_pachliAccountId',
@@ -288,18 +322,16 @@ SELECT
     warn.createdAt AS 'warn_createdAt'
 FROM NotificationEntity AS n
 LEFT JOIN TimelineAccountEntity AS a ON (n.pachliAccountId = a.timelineUserId AND n.accountServerId = a.serverId)
-LEFT JOIN TimelineStatusWithAccount AS s ON (n.pachliAccountId = s.timelineUserId AND n.statusServerId = s.serverId)
- LEFT JOIN TimelineStatusWithAccount AS q
+LEFT JOIN TimelineStatusWithAccount AS s
+    ON (n.pachliAccountId = s.timelineUserId AND n.statusServerId = s.serverId)
+LEFT JOIN TimelineStatusWithAccount AS q
     ON (n.pachliAccountId = :pachliAccountId AND (q.timelineUserId = :pachliAccountId AND s.quoteServerId = q.serverId))
 LEFT JOIN NotificationViewDataEntity AS nvd ON (n.pachliAccountId = nvd.pachliAccountId AND n.serverId = nvd.serverId)
-LEFT JOIN
-    NotificationReportEntity AS report
+LEFT JOIN NotificationReportEntity AS report
     ON (n.pachliAccountId = report.pachliAccountId AND n.serverId = report.serverId)
-LEFT JOIN
-    NotificationRelationshipSeveranceEventEntity AS rse
+LEFT JOIN NotificationRelationshipSeveranceEventEntity AS rse
     ON (n.pachliAccountId = rse.pachliAccountId AND n.serverId = rse.serverId)
-LEFT JOIN
-    NotificationAccountWarningEntity AS warn
+LEFT JOIN NotificationAccountWarningEntity AS warn
     ON (n.pachliAccountId = warn.pachliAccountId AND n.serverId = warn.serverId)
 WHERE n.pachliAccountId = :pachliAccountId
 ORDER BY LENGTH(n.serverId) DESC, n.serverId DESC
@@ -531,6 +563,22 @@ SELECT
     s.t_attachments AS 's_s_t_attachments',
     s.t_provider AS 's_s_t_provider',
 
+    -- Reply account
+    s.reply_serverId AS 's_s_reply_serverId',
+    s.reply_timelineUserId AS 's_s_reply_timelineUserId',
+    s.reply_localUsername AS 's_s_reply_localUsername',
+    s.reply_username AS 's_s_reply_username',
+    s.reply_displayName AS 's_s_reply_displayName',
+    s.reply_url AS 's_s_reply_url',
+    s.reply_avatar AS 's_s_reply_avatar',
+    s.reply_emojis AS 's_s_reply_emojis',
+    s.reply_bot AS 's_s_reply_bot',
+    s.reply_createdAt AS 's_s_reply_createdAt',
+    s.reply_limited AS 's_s_reply_limited',
+    s.reply_note AS 's_s_reply_note',
+    s.reply_roles AS 's_s_reply_roles',
+    s.reply_pronouns AS 's_s_reply_pronouns',
+
     -- Quoted status (if any)
     -- TimelineStatusWithAccount
     q.serverId AS 's_q_serverId',
@@ -618,6 +666,22 @@ SELECT
     q.t_attachments AS 's_q_t_attachments',
     q.t_provider AS 's_q_t_provider',
 
+    -- Reply account
+    q.reply_serverId AS 's_q_reply_serverId',
+    q.reply_timelineUserId AS 's_q_reply_timelineUserId',
+    q.reply_localUsername AS 's_q_reply_localUsername',
+    q.reply_username AS 's_q_reply_username',
+    q.reply_displayName AS 's_q_reply_displayName',
+    q.reply_url AS 's_q_reply_url',
+    q.reply_avatar AS 's_q_reply_avatar',
+    q.reply_emojis AS 's_q_reply_emojis',
+    q.reply_bot AS 's_q_reply_bot',
+    q.reply_createdAt AS 's_q_reply_createdAt',
+    q.reply_limited AS 's_q_reply_limited',
+    q.reply_note AS 's_q_reply_note',
+    q.reply_roles AS 's_q_reply_roles',
+    q.reply_pronouns AS 's_q_reply_pronouns',
+
     -- NotificationViewData
     nvd.pachliAccountId AS 'nvd_pachliAccountId',
     nvd.serverId AS 'nvd_serverId',
@@ -647,6 +711,8 @@ SELECT
     report.target_createdAt AS 'report_target_createdAt',
     report.target_limited AS 'report_target_limited',
     report.target_note AS 'report_target_note',
+    report.target_roles AS 'report_target_roles',
+    report.target_pronouns AS 'report_target_pronouns',
 
     -- NotificationRelationshipSeveranceEvent
     rse.pachliAccountId AS 'rse_pachliAccountId',
@@ -669,17 +735,14 @@ SELECT
 FROM NotificationEntity AS n
 LEFT JOIN TimelineAccountEntity AS a ON (n.pachliAccountId = a.timelineUserId AND n.accountServerId = a.serverId)
 LEFT JOIN TimelineStatusWithAccount AS s ON (n.pachliAccountId = s.timelineUserId AND n.statusServerId = s.serverId)
- LEFT JOIN TimelineStatusWithAccount AS q
+LEFT JOIN TimelineStatusWithAccount AS q
     ON (n.pachliAccountId = :pachliAccountId AND (q.timelineUserId = :pachliAccountId AND s.quoteServerId = q.serverId))
 LEFT JOIN NotificationViewDataEntity AS nvd ON (n.pachliAccountId = nvd.pachliAccountId AND n.serverId = nvd.serverId)
-LEFT JOIN
-    NotificationReportEntity AS report
+LEFT JOIN NotificationReportEntity AS report
     ON (n.pachliAccountId = report.pachliAccountId AND n.serverId = report.serverId)
-LEFT JOIN
-    NotificationRelationshipSeveranceEventEntity AS rse
+LEFT JOIN NotificationRelationshipSeveranceEventEntity AS rse
     ON (n.pachliAccountId = rse.pachliAccountId AND n.serverId = rse.serverId)
-LEFT JOIN
-    NotificationAccountWarningEntity AS warn
+LEFT JOIN NotificationAccountWarningEntity AS warn
     ON (n.pachliAccountId = warn.pachliAccountId AND n.serverId = warn.serverId)
 WHERE n.pachliAccountId = :pachliAccountId
 ORDER BY LENGTH(n.serverId) DESC, n.serverId DESC
