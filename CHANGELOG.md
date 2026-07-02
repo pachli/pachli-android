@@ -1,5 +1,18 @@
 # Pachli changelog
 
+## v3.7.2
+
+See https://pachli.app/pachli/2026/07/02/3.7.2-release.html for full details and credits.
+
+### Significant bug fixes
+
+- Check for null status in NotificationViewData.make, return null (#[2368](https://github.com/pachli/pachli-android/pull/2368), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show data about the account being replied to in more cases (#[2367](https://github.com/pachli/pachli-android/pull/2367), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Kabyle translations ([ButterflyOfFire](https://github.com/pachli/pachli-android/commits?author=boffire@users.noreply.hosted.weblate.org))
+
 ## v3.7.1
 
 See https://pachli.app/pachli/2026/06/30/3.7.1-release.html for full details and credits.
