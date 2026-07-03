@@ -147,14 +147,14 @@
     <string name="duration_90_days">90 يومًا</string>
     <string name="duration_180_days">180 يومًا</string>
     <string name="duration_365_days">365 يومًا</string>
-    <string name="action_unblock">إلغاء الحظر</string>
-    <string name="action_follow">إتبع</string>
     <string name="action_unfollow">إلغاء المتابعة</string>
+    <string name="action_unblock">إلغاء الحظر</string>
     <string name="state_follow_requested">طلب متابعة</string>
     <string name="action_block">قم بحظره</string>
     <string name="action_mute_domain">اكتم %1$s</string>
     <string name="action_unmute_domain">إلغاء كتم %1$s</string>
     <string name="action_mute">أكتم</string>
     <string name="action_unmute">إلغاء الكتم</string>
+    <string name="action_follow">إتبع</string>
     <string name="dialog_unfollow_warning">هل تود إلغاء متابعة هذا الحساب؟</string>
 </resources>

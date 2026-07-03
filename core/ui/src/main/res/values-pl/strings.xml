@@ -206,14 +206,14 @@
     <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> wpisów (&lt;b>%2$d&lt;/b> na tydzień, ostatni &lt;b>%3$s&lt;/b>)</string>
     <string name="action_follow_account">Obserwuj</string>
     <string name="ui_error_follow_account_fmt">Obserwowanie %1$s się nie powiodło: %2$s</string>
-    <string name="action_unblock">Odblokuj</string>
-    <string name="action_follow">Obserwuj</string>
     <string name="action_unfollow">Przestań obserwować</string>
+    <string name="action_unblock">Odblokuj</string>
     <string name="state_follow_requested">Wysłano prośbę o obserwację</string>
     <string name="action_block">Zablokuj</string>
     <string name="action_mute_domain">Wycisz %1$s</string>
     <string name="action_unmute_domain">Cofnij wyciszenie %1$s</string>
     <string name="action_mute">Wycisz</string>
     <string name="action_unmute">Cofnij wyciszenie</string>
+    <string name="action_follow">Obserwuj</string>
     <string name="dialog_unfollow_warning">Czy chcesz przestać obserwować to konto\?</string>
 </resources>

@@ -76,14 +76,14 @@
     <string name="duration_1_day">1 दिन</string>
     <string name="duration_3_days">3 दिन</string>
     <string name="duration_7_days">7 दिन</string>
-    <string name="action_unblock">अनब्लॉक</string>
-    <string name="action_follow">फ़ॉलो</string>
     <string name="action_unfollow">अनफ़ॉलो</string>
+    <string name="action_unblock">अनब्लॉक</string>
     <string name="state_follow_requested">फ़ॉलो करने का अनुरोध किया हुआ</string>
     <string name="action_block">ब्लॉक</string>
     <string name="action_mute_domain">म्यूट %1$s</string>
     <string name="action_unmute_domain">अनम्यूट %1$s</string>
     <string name="action_mute">म्यूट</string>
     <string name="action_unmute">अनम्यूट</string>
+    <string name="action_follow">फ़ॉलो</string>
     <string name="dialog_unfollow_warning">इस खाते को अनफ़ॉलो करें\?</string>
 </resources>

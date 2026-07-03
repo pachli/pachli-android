@@ -87,13 +87,13 @@
     <string name="duration_1_day">1 n wass</string>
     <string name="duration_3_days">3 n wussan</string>
     <string name="duration_7_days">7 n wussan</string>
-    <string name="action_unblock">Kkes tacekkalt</string>
-    <string name="action_follow">Ḍfeṛ</string>
     <string name="action_unfollow">Ur ṭṭafar ara</string>
+    <string name="action_unblock">Kkes tacekkalt</string>
     <string name="action_block">Cekkel</string>
     <string name="action_mute_domain">Sgugem %1$s</string>
     <string name="action_mute">Sgugem</string>
     <string name="action_unmute">Ur sgugum ara</string>
+    <string name="action_follow">Ḍfeṛ</string>
     <string name="description_visibility_public">Azayez</string>
     <string name="pref_summary_none">Ula d yiwen</string>
     <string name="action_follow_account">Ḍfeṛ</string>

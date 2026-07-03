@@ -145,14 +145,14 @@
     <string name="duration_90_days">90 diwrnod</string>
     <string name="duration_180_days">180 diwrnod</string>
     <string name="duration_365_days">Blwyddyn</string>
-    <string name="action_unblock">Dadflocio</string>
-    <string name="action_follow">Dilyn</string>
     <string name="action_unfollow">Dad-ddilyn</string>
+    <string name="action_unblock">Dadflocio</string>
     <string name="state_follow_requested">Ceisiwyd</string>
     <string name="action_block">Blocio</string>
     <string name="action_mute_domain">Tewi %1$s</string>
     <string name="action_unmute_domain">Dad-dewi %1$s</string>
     <string name="action_mute">Tewi</string>
     <string name="action_unmute">Dad-dewi</string>
+    <string name="action_follow">Dilyn</string>
     <string name="dialog_unfollow_warning">Dad-ddilyn y cyfrif hwn?</string>
 </resources>

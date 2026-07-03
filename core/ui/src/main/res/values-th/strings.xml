@@ -90,14 +90,14 @@
     <string name="duration_1_day">1 วัน</string>
     <string name="duration_3_days">3 วัน</string>
     <string name="duration_7_days">7 วัน</string>
-    <string name="action_unblock">เลิกบล็อก</string>
-    <string name="action_follow">ติดตาม</string>
     <string name="action_unfollow">เลิกติดตาม</string>
+    <string name="action_unblock">เลิกบล็อก</string>
     <string name="state_follow_requested">กำลังขอติดตาม</string>
     <string name="action_block">บล็อก</string>
     <string name="action_mute_domain">ปิดเสียง %1$s</string>
     <string name="action_unmute_domain">เลิกปิดเสียง %1$s</string>
     <string name="action_mute">ปิดเสียง</string>
     <string name="action_unmute">เลิกปิดเสียง</string>
+    <string name="action_follow">ติดตาม</string>
     <string name="dialog_unfollow_warning">เลิกติดตามผู้ใช้นี้\?</string>
 </resources>

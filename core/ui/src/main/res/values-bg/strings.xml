@@ -98,14 +98,14 @@
     <string name="duration_1_day">1 ден</string>
     <string name="duration_3_days">3 дни</string>
     <string name="duration_7_days">7 дни</string>
-    <string name="action_unblock">Деблокиране</string>
-    <string name="action_follow">Последване</string>
     <string name="action_unfollow">Отследване</string>
+    <string name="action_unblock">Деблокиране</string>
     <string name="state_follow_requested">Заявено последване</string>
     <string name="action_block">Блокиране</string>
     <string name="action_mute_domain">Заглушаване на %1$s</string>
     <string name="action_unmute_domain">Раззаглушаване на %1$s</string>
     <string name="action_mute">Заглушаване</string>
     <string name="action_unmute">Раззаглушаване</string>
+    <string name="action_follow">Последване</string>
     <string name="dialog_unfollow_warning">Отследване на този акаунт\?</string>
 </resources>

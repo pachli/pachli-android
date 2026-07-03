@@ -114,14 +114,14 @@
     <string name="duration_90_days">90 dní</string>
     <string name="duration_180_days">180 dní</string>
     <string name="duration_365_days">365 dní</string>
-    <string name="action_unblock">Odblokovat</string>
-    <string name="action_follow">Sledovat</string>
     <string name="action_unfollow">Přestat sledovat</string>
+    <string name="action_unblock">Odblokovat</string>
     <string name="state_follow_requested">Vyžádáno sledování</string>
     <string name="action_block">Blokovat</string>
     <string name="action_mute_domain">Skrýt doménu %1$s</string>
     <string name="action_unmute_domain">Zrušit skrytí domény %1$s</string>
     <string name="action_mute">Skrýt</string>
     <string name="action_unmute">Zrušit skrytí</string>
+    <string name="action_follow">Sledovat</string>
     <string name="dialog_unfollow_warning">Přestat sledovat tento účet?</string>
 </resources>

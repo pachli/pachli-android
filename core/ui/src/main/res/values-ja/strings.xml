@@ -110,14 +110,14 @@
     <string name="duration_90_days">90日間</string>
     <string name="duration_180_days">180日間</string>
     <string name="duration_365_days">365日間</string>
-    <string name="action_unblock">ブロック解除</string>
-    <string name="action_follow">フォローする</string>
     <string name="action_unfollow">フォロー解除</string>
+    <string name="action_unblock">ブロック解除</string>
     <string name="state_follow_requested">フォローリクエスト中</string>
     <string name="action_block">ブロック</string>
     <string name="action_mute_domain">%1$sをミュート</string>
     <string name="action_unmute_domain">%1$sのミュートを解除</string>
     <string name="action_mute">ミュート</string>
     <string name="action_unmute">ミュート解除</string>
+    <string name="action_follow">フォローする</string>
     <string name="dialog_unfollow_warning">このアカウントをフォロー解除しますか？</string>
 </resources>

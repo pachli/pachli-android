@@ -217,14 +217,14 @@
     <string name="statuses_count_per_week_last_fmt">&lt;b&gt;%1$s&lt;/b&gt; postáil (&lt;b&gt;%2$d&lt;/b&gt; sa tseachtain, an &lt;b&gt;%3$s&lt;/b&gt; deireanach)</string>
     <string name="action_follow_account">Lean</string>
     <string name="ui_error_follow_account_fmt">Theip ar %1$s a leanúint: %2$s</string>
-    <string name="action_unblock">Ná bac</string>
-    <string name="action_follow">Lean</string>
-    <string name="action_unfollow">Stop ag leanúint</string>
-    <string name="state_follow_requested">Lean iarrtha</string>
-    <string name="action_block">Bac</string>
+    <string name="action_unfollow">Díleanúint</string>
+    <string name="action_unblock">Díbhlocáil</string>
+    <string name="state_follow_requested">Iarradh leanúint</string>
+    <string name="action_block">Bloc</string>
     <string name="action_mute_domain">Balbhaigh %1$s</string>
     <string name="action_unmute_domain">Díbhalbhaigh %1$s</string>
     <string name="action_mute">Balbhaigh</string>
     <string name="action_unmute">Díbhalbhaigh</string>
+    <string name="action_follow">Lean</string>
     <string name="dialog_unfollow_warning">An cuntas seo a scaoileadh\?</string>
 </resources>

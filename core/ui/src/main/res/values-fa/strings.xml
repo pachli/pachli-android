@@ -113,14 +113,14 @@
     <string name="duration_90_days">۹۰ روز</string>
     <string name="duration_180_days">۱۸۰ روز</string>
     <string name="duration_365_days">۳۶۵ روز</string>
-    <string name="action_unblock">رفع انسداد</string>
-    <string name="action_follow">پیگیری</string>
     <string name="action_unfollow">ناپیگیری</string>
+    <string name="action_unblock">رفع انسداد</string>
     <string name="state_follow_requested">تقاضای پیگیری شد</string>
     <string name="action_block">انسداد</string>
     <string name="action_mute_domain">خموشی %1$s</string>
     <string name="action_unmute_domain">ناخموشی %1$s</string>
     <string name="action_mute">خموشی</string>
     <string name="action_unmute">ناخموشی</string>
+    <string name="action_follow">پیگیری</string>
     <string name="dialog_unfollow_warning">ناپیگیری این حساب؟</string>
 </resources>

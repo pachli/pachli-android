@@ -129,14 +129,14 @@
     <string name="duration_90_days">90 latha</string>
     <string name="duration_180_days">180 latha</string>
     <string name="duration_365_days">365 latha</string>
-    <string name="action_unblock">Dì-bhac</string>
-    <string name="action_follow">Lean</string>
     <string name="action_unfollow">Na lean tuilleadh</string>
+    <string name="action_unblock">Dì-bhac</string>
     <string name="state_follow_requested">Iarrtas leantainn air</string>
     <string name="action_block">Bac</string>
     <string name="action_mute_domain">Mùch %1$s</string>
     <string name="action_unmute_domain">Dì-mhùch %1$s</string>
     <string name="action_mute">Mùch</string>
     <string name="action_unmute">Dì-mhùch</string>
+    <string name="action_follow">Lean</string>
     <string name="dialog_unfollow_warning">A bheil thu airson sgur de leantainn air a’ chunntas seo\?</string>
 </resources>

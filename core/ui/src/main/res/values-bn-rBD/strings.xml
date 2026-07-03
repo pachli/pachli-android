@@ -98,14 +98,14 @@
     <string name="duration_1_day">১ দিন</string>
     <string name="duration_3_days">৩ দিন</string>
     <string name="duration_7_days">৭ দিন</string>
-    <string name="action_unblock">অবরোধ মুক্ত</string>
-    <string name="action_follow">অনুসরণ কর</string>
     <string name="action_unfollow">অনুসরণ করা বন্ধ করুন</string>
+    <string name="action_unblock">অবরোধ মুক্ত</string>
     <string name="state_follow_requested">অনুরোধ অনুসরণ করুন</string>
     <string name="action_block">অবরুদ্ধ</string>
     <string name="action_mute_domain">নিঃশব্দ %1$s</string>
     <string name="action_unmute_domain">আনমিউট %1$s</string>
     <string name="action_mute">শব্দ বন্ধ</string>
     <string name="action_unmute">সশব্দ</string>
+    <string name="action_follow">অনুসরণ কর</string>
     <string name="dialog_unfollow_warning">এই অ্যাকাউন্টটি অনুসরণ করবেন না\?</string>
 </resources>

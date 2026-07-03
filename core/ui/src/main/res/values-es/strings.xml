@@ -197,14 +197,14 @@
     <string name="statuses_count_per_week_last_fmt">&lt;b&gt;%1$s&lt;/b&gt; publicaciones (&lt;b&gt;%2$d&lt;/b&gt; por semana; última: &lt;b&gt;%3$s&lt;/b&gt;)</string>
     <string name="action_follow_account">Seguir</string>
     <string name="ui_error_follow_account_fmt">Fallo al seguir a %1$s: %2$s</string>
-    <string name="action_unblock">Desbloquear</string>
-    <string name="action_follow">Seguir</string>
     <string name="action_unfollow">Dejar de seguir</string>
+    <string name="action_unblock">Desbloquear</string>
     <string name="state_follow_requested">Solicitud enviada</string>
     <string name="action_block">Bloquear</string>
     <string name="action_mute_domain">Silenciar %1$s</string>
     <string name="action_unmute_domain">Dejar de silenciar %1$s</string>
     <string name="action_mute">Silenciar</string>
     <string name="action_unmute">Dejar de silenciar</string>
+    <string name="action_follow">Seguir</string>
     <string name="dialog_unfollow_warning">¿Dejar de seguir esta cuenta?</string>
 </resources>

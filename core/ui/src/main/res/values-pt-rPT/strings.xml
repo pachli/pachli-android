@@ -116,14 +116,14 @@
     <string name="duration_90_days">90 dias</string>
     <string name="duration_180_days">180 dias</string>
     <string name="duration_365_days">365 dias</string>
-    <string name="action_unblock">Desbloquear</string>
-    <string name="action_follow">Seguir</string>
     <string name="action_unfollow">Deixar de seguir</string>
+    <string name="action_unblock">Desbloquear</string>
     <string name="state_follow_requested">Pedido para seguir enviado</string>
     <string name="action_block">Bloquear</string>
     <string name="action_mute_domain">Silenciar %1$s</string>
     <string name="action_unmute_domain">Remover %1$s do silêncio</string>
     <string name="action_mute">Silenciar</string>
     <string name="action_unmute">Remover silêncio</string>
+    <string name="action_follow">Seguir</string>
     <string name="dialog_unfollow_warning">Deixar de seguir esta conta\?</string>
 </resources>

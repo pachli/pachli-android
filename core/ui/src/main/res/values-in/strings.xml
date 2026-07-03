@@ -177,14 +177,14 @@
     <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> postingan (&lt;b>%2$d&lt;/b> per minggu, terakhir &lt;b>%3$s&lt;/b>)</string>
     <string name="action_follow_account">Ikuti</string>
     <string name="ui_error_follow_account_fmt">Mengikuti %1$s failed: %2$s</string>
-    <string name="action_unblock">Buka blokir</string>
-    <string name="action_follow">Ikuti</string>
     <string name="action_unfollow">Berhenti Mengikuti</string>
+    <string name="action_unblock">Buka blokir</string>
     <string name="state_follow_requested">Ikuti yang diminta</string>
     <string name="action_block">Blokir</string>
     <string name="action_mute_domain">Bisukan %1$s</string>
     <string name="action_unmute_domain">Batalkan bisukan %1$s</string>
     <string name="action_mute">Bisukan</string>
     <string name="action_unmute">Jangan bisukan</string>
+    <string name="action_follow">Ikuti</string>
     <string name="dialog_unfollow_warning">Unfollow akun ini\?</string>
 </resources>

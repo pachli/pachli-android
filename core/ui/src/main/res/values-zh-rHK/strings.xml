@@ -107,14 +107,14 @@
     <string name="duration_1_day">1 天</string>
     <string name="duration_3_days">3 天</string>
     <string name="duration_7_days">7 天</string>
-    <string name="action_unblock">取消封鎖</string>
-    <string name="action_follow">關注</string>
     <string name="action_unfollow">取消關注</string>
+    <string name="action_unblock">取消封鎖</string>
     <string name="state_follow_requested">已請求關注</string>
     <string name="action_block">封鎖</string>
     <string name="action_mute_domain">靜音 %1$s</string>
     <string name="action_unmute_domain">取消靜音 %1$s</string>
     <string name="action_mute">靜音</string>
     <string name="action_unmute">取消靜音</string>
+    <string name="action_follow">關注</string>
     <string name="dialog_unfollow_warning">停止關注此使用者？</string>
 </resources>

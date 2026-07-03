@@ -31,13 +31,13 @@
     <string name="post_content_warning_show_more">Mear sjen litte</string>
     <string name="post_content_show_less">Yntearre</string>
     <string name="filter_edit_title">Filter oanpasse</string>
-    <string name="action_unblock">Net mear blokkearje</string>
-    <string name="action_follow">Folgje</string>
     <string name="action_unfollow">Net mear folgje</string>
+    <string name="action_unblock">Net mear blokkearje</string>
     <string name="action_block">Blokkearje</string>
     <string name="action_mute_domain">%1$s negearre</string>
     <string name="action_unmute_domain">%1$s net mear negearre</string>
     <string name="action_mute">Negearre</string>
     <string name="action_unmute">Net mear negearre</string>
+    <string name="action_follow">Folgje</string>
     <string name="dialog_unfollow_warning">Dit account net mear folgje\?</string>
 </resources>

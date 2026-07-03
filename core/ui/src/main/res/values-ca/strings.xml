@@ -113,14 +113,14 @@
     <string name="duration_90_days">90 dies</string>
     <string name="duration_180_days">180 dies</string>
     <string name="duration_365_days">365 dies</string>
-    <string name="action_unblock">Deixa de blocar</string>
-    <string name="action_follow">Segueix</string>
     <string name="action_unfollow">Deixa de seguir</string>
+    <string name="action_unblock">Deixa de blocar</string>
     <string name="state_follow_requested">Petició enviada</string>
     <string name="action_block">Bloca</string>
     <string name="action_mute_domain">Silenciar %1$s</string>
     <string name="action_unmute_domain">Deixar de silenciar %1$s</string>
     <string name="action_mute">Silencia</string>
     <string name="action_unmute">Deixa de silenciar</string>
+    <string name="action_follow">Segueix</string>
     <string name="dialog_unfollow_warning">Vols deixar de seguir aquest compte?</string>
 </resources>

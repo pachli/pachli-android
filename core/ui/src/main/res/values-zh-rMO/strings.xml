@@ -86,12 +86,12 @@
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; 轉嘟了</string>
     <string name="filter_edit_title">編輯過濾器</string>
-    <string name="action_unblock">取消封鎖</string>
-    <string name="action_follow">關注</string>
     <string name="action_unfollow">取消關注</string>
+    <string name="action_unblock">取消封鎖</string>
     <string name="state_follow_requested">已請求關注</string>
     <string name="action_block">封鎖</string>
     <string name="action_mute">靜音</string>
     <string name="action_unmute">取消靜音</string>
+    <string name="action_follow">關注</string>
     <string name="dialog_unfollow_warning">停止關注此使用者？</string>
 </resources>
