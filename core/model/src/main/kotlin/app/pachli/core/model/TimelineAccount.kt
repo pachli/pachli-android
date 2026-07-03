@@ -17,7 +17,6 @@
 
 package app.pachli.core.model
 
-import app.pachli.core.common.util.unsafeLazy
 import com.squareup.moshi.JsonClass
 import java.time.Instant
 
@@ -43,6 +42,8 @@ import java.time.Instant
  * @property pronouns Optional pronouns, derived from the account's fields.
  * @property name The account's [displayName], falling back to [localUsername] if
  * [displayName] is null or empty.
+ * @property domain The account's domain (excluding the `@`), empty string if
+ * the account is local.
  */
 interface ITimelineAccount {
     val id: String
@@ -66,16 +67,19 @@ interface ITimelineAccount {
     val roles: List<Role>
     val pronouns: String?
 
-    /**
-     * The account's [displayName], falling back to [localUsername] if
-     * [displayName] is null or empty.
-     */
     @Suppress("DEPRECATION")
     val name: String
         get() = if (displayName.isNullOrEmpty()) {
             localUsername
         } else {
             displayName!!
+        }
+
+    val domain: String
+        get() {
+            return username.indexOf('@').takeIf { it != -1 }?.let { index ->
+                username.substring(index + 1)
+            } ?: ""
         }
 }
 
@@ -104,11 +108,4 @@ data class TimelineAccount(
     override val limited: Boolean = false,
     override val roles: List<Role>,
     override val pronouns: String?,
-) : ITimelineAccount {
-    /** The domain of the account (excluding the '@'), empty string if local. */
-    val domain: String by unsafeLazy {
-        username.indexOf('@').takeIf { it != -1 }?.let { index ->
-            username.substring(index + 1)
-        } ?: ""
-    }
-}
+) : ITimelineAccount
