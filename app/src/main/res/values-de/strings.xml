@@ -93,7 +93,6 @@
     <string name="dialog_message_uploading_media">Wird hochgeladen …</string>
     <string name="dialog_download_image">Herunterladen</string>
     <string name="dialog_message_cancel_follow_request">Folgeanfrage zurückziehen?</string>
-    <string name="dialog_unfollow_warning">Dieses Profil entfolgen\?</string>
     <string name="dialog_delete_post_warning">Diesen Beitrag löschen?</string>
     <string name="visibility_public">Öffentlich: Für alle sichtbar</string>
     <string name="visibility_unlisted">Nicht gelistet: Nicht in der öffentlichen Timeline sichtbar</string>

@@ -122,4 +122,5 @@
     <string name="action_mute">Silenciar</string>
     <string name="action_unmute">Quitar de silenciar</string>
     <string name="action_follow">Seguir</string>
+    <string name="dialog_unfollow_warning">Volètz quitar de seguir aqueste compte ?</string>
 </resources>

@@ -206,4 +206,5 @@
     <string name="action_mute">Masquer</string>
     <string name="action_unmute">Ne plus masquer</string>
     <string name="action_follow">Suivre</string>
+    <string name="dialog_unfollow_warning">Ne plus suivre ce compte ?</string>
 </resources>

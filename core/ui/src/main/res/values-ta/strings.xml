@@ -194,4 +194,5 @@
     <string name="action_mute">ஒலி நீக்கு</string>
     <string name="action_unmute">ஒலிக்க செய்</string>
     <string name="action_follow">பின்பற்று</string>
+    <string name="dialog_unfollow_warning">இந்த கணக்கை பின்பற்ற வேண்டாமா?</string>
 </resources>

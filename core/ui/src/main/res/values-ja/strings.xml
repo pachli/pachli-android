@@ -119,4 +119,5 @@
     <string name="action_mute">ミュート</string>
     <string name="action_unmute">ミュート解除</string>
     <string name="action_follow">フォローする</string>
+    <string name="dialog_unfollow_warning">このアカウントをフォロー解除しますか？</string>
 </resources>

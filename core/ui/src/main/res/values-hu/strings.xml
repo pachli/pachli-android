@@ -122,4 +122,5 @@
     <string name="action_mute">Némítás</string>
     <string name="action_unmute">Némítás feloldása</string>
     <string name="action_follow">Követés</string>
+    <string name="dialog_unfollow_warning">Követés megszüntetése?</string>
 </resources>

@@ -126,7 +126,6 @@
     <string name="dialog_message_uploading_media">A enviar…</string>
     <string name="dialog_download_image">Descarregar</string>
     <string name="dialog_message_cancel_follow_request">Cancelar o pedido para seguir\?</string>
-    <string name="dialog_unfollow_warning">Deixar de seguir esta conta\?</string>
     <string name="dialog_delete_post_warning">Apagar este toot\?</string>
     <string name="dialog_redraft_post_warning">Apagar e rescrever este toot\?</string>
     <string name="dialog_delete_conversation_warning">Apagar esta conversa\?</string>

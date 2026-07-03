@@ -90,7 +90,6 @@
     <string name="dialog_message_uploading_media">الإرسال جارٍ…</string>
     <string name="dialog_download_image">تنزيل</string>
     <string name="dialog_message_cancel_follow_request">هل تريد رفض طلب المتابعة؟</string>
-    <string name="dialog_unfollow_warning">هل تود إلغاء متابعة هذا الحساب؟</string>
     <string name="dialog_delete_post_warning">هل تريد حذف هذا التبويق؟</string>
     <string name="visibility_public">للعامة: ينشر على الخيوط العمومية</string>
     <string name="visibility_unlisted">غير مدرج: لا يُعرَض على الخيوط العمومية</string>

@@ -105,7 +105,6 @@
     <string name="dialog_message_uploading_media">Sendi inn…</string>
     <string name="dialog_download_image">Sækja</string>
     <string name="dialog_message_cancel_follow_request">Afturkalla beiðni um að fylgjast með\?</string>
-    <string name="dialog_unfollow_warning">Hætta að fylgjast með þessum aðgangi\?</string>
     <string name="dialog_delete_post_warning">Eyða þessari færslu\?</string>
     <string name="dialog_redraft_post_warning">Eyða og endurvinna þessa færslu\?</string>
     <string name="mute_domain_warning">Ertu alveg algjörlega viss um að þú viljir loka á allt %1$s\? Þú munt ekki sjá efni frá þessu léni í neinum opinberum tímalínum eða í tilkynningunum þínum. Fylgjendur þínir frá þessu léni verða fjarlægðir.</string>

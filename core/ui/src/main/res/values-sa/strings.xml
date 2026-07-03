@@ -119,4 +119,5 @@
     <string name="action_mute">निःशब्दम्</string>
     <string name="action_unmute">सशब्दम्</string>
     <string name="action_follow">अनुस्रियताम्</string>
+    <string name="dialog_unfollow_warning">व्यक्तित्वविवरणलेखायाः अनुसरणम् अपाकरणीयं किम् \?</string>
 </resources>

@@ -83,7 +83,6 @@
     <string name="dialog_message_uploading_media">Yn lanlwytho…</string>
     <string name="dialog_download_image">Lawrlwytho</string>
     <string name="dialog_message_cancel_follow_request">Gwrthod y cais i ddilyn\?</string>
-    <string name="dialog_unfollow_warning">Dad-ddilyn y cyfrif hwn?</string>
     <string name="dialog_delete_post_warning">Dileu\'r neges hon\?</string>
     <string name="visibility_public">Cyhoeddus: Postio i ffrydiau cyhoeddus</string>
     <string name="visibility_unlisted">Heb restru: Peidio â dangos ar ffrydiau cyhoeddus</string>

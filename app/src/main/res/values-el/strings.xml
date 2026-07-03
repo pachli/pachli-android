@@ -55,7 +55,6 @@
     <string name="title_notifications">Ειδοποιήσεις</string>
     <string name="action_compose">Γράψτε</string>
     <string name="action_edit_own_profile">Επεξεργασία</string>
-    <string name="dialog_unfollow_warning">Άρση ακολούθησης αυτού του λογαριασμού;</string>
     <string name="dialog_mute_hide_notifications">Απόκρυψη ειδοποιήσεων</string>
     <string name="action_unbookmark">Αφαίρεση σελιδοδείκτη</string>
     <string name="action_content_warning">Προειδοποίηση περιεχομένου</string>

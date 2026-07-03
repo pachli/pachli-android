@@ -123,4 +123,5 @@
     <string name="action_mute">Skrýt</string>
     <string name="action_unmute">Zrušit skrytí</string>
     <string name="action_follow">Sledovat</string>
+    <string name="dialog_unfollow_warning">Přestat sledovat tento účet?</string>
 </resources>

@@ -122,4 +122,5 @@
     <string name="action_mute">خموشی</string>
     <string name="action_unmute">ناخموشی</string>
     <string name="action_follow">پیگیری</string>
+    <string name="dialog_unfollow_warning">ناپیگیری این حساب؟</string>
 </resources>

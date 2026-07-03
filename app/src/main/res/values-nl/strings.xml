@@ -92,7 +92,6 @@
     <string name="dialog_message_uploading_media">Aan het uploaden…</string>
     <string name="dialog_download_image">Downloaden</string>
     <string name="dialog_message_cancel_follow_request">Het volgverzoek intrekken?</string>
-    <string name="dialog_unfollow_warning">Dit account ontvolgen?</string>
     <string name="dialog_delete_post_warning">Dit bericht verwijderen\?</string>
     <string name="visibility_public">Openbaar: op openbare tijdlijnen tonen</string>
     <string name="visibility_unlisted">Minder openbaar: niet op openbare tijdlijnen tonen</string>

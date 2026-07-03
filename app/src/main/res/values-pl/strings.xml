@@ -82,7 +82,6 @@
     <string name="dialog_message_uploading_media">Wysyłanie…</string>
     <string name="dialog_download_image">Pobierz</string>
     <string name="dialog_message_cancel_follow_request">Czy chcesz cofnąć prośbę o obserwację?</string>
-    <string name="dialog_unfollow_warning">Czy chcesz przestać obserwować to konto\?</string>
     <string name="visibility_public">Publiczny: Widoczny na publicznych osiach czasu</string>
     <string name="visibility_unlisted">Niepubliczny: Niewidoczny na publicznych osiach czasu</string>
     <string name="visibility_private">Tylko dla obserwujących: Widoczny tylko dla osób, które cię obserwują</string>

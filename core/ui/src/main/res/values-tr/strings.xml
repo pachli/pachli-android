@@ -122,4 +122,5 @@
     <string name="action_mute">Sessize al</string>
     <string name="action_unmute">Sessizden çıkar</string>
     <string name="action_follow">Takip et</string>
+    <string name="dialog_unfollow_warning">Takibi bırakmak istiyor musunuz\?</string>
 </resources>

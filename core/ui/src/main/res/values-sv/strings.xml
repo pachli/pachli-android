@@ -165,4 +165,5 @@
     <string name="action_mute">Tysta</string>
     <string name="action_unmute">Ta bort tystade användare</string>
     <string name="action_follow">Följ</string>
+    <string name="dialog_unfollow_warning">Sluta följ detta konto\?</string>
 </resources>

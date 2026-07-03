@@ -88,7 +88,6 @@
     <string name="dialog_message_uploading_media">Feltöltés…</string>
     <string name="dialog_download_image">Letöltés</string>
     <string name="dialog_message_cancel_follow_request">Visszavonod a követési kérelmet?</string>
-    <string name="dialog_unfollow_warning">Követés megszüntetése?</string>
     <string name="dialog_delete_post_warning">Törlöd ezt a bejegyzést\?</string>
     <string name="visibility_public">Nyilvános: Bejegyzés nyilvános idővonalra</string>
     <string name="visibility_unlisted">Listázatlan: Nem jelenik meg a nyilvános idővonalon</string>

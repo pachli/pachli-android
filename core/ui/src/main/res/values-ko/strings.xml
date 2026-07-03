@@ -91,4 +91,5 @@
     <string name="action_mute">뮤트</string>
     <string name="action_unmute">뮤트 해제</string>
     <string name="action_follow">팔로우</string>
+    <string name="dialog_unfollow_warning">이 계정을 팔로우 해제하시겠습니까\?</string>
 </resources>
