@@ -343,7 +343,7 @@ fun updateSummaryNotifications(
             members.size,
         )
         val text = joinNames(context, members)
-        val summaryBuilder = NotificationCompat.Builder(context, channelId!!)
+        val summaryBuilder = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(app.pachli.core.common.R.drawable.ic_notify)
             .setContentIntent(summaryResultPendingIntent)
             .setColor(context.getColor(DR.color.notification_color))
@@ -779,7 +779,7 @@ private fun titleForType(
         is Notification.SeveredRelationships -> {
             context.getString(
                 R.string.notification_severed_relationships_format,
-                notification.relationshipSeveranceEvent?.targetName,
+                notification.relationshipSeveranceEvent.targetName,
             )
         }
 
