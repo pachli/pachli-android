@@ -791,7 +791,7 @@ private fun titleForType(
         is Notification.SeveredRelationships -> {
             context.getString(
                 R.string.notification_severed_relationships_format,
-                notification.relationshipSeveranceEvent?.targetName,
+                notification.relationshipSeveranceEvent.targetName,
             )
         }
 
