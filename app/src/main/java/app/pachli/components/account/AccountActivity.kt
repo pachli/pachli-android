@@ -846,7 +846,7 @@ class AccountActivity :
         // Display badges for any roles. Per the API spec this should only include
         // roles with a true `highlighted` property, but the web UI doesn't do that,
         // so follow suit for the moment, https://github.com/mastodon/mastodon/issues/28327
-        account.roles?.forEach { role ->
+        account.roles.forEach { role ->
             val badgeView = getBadge(app.pachli.core.ui.R.drawable.profile_role_badge).apply {
                 bind(role, viewModel.domain)
             }
