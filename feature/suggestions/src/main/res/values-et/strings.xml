@@ -10,5 +10,4 @@
     <string name="sources_unknown">(serveri vastuses on tuvastamatud allikad)</string>
     <string name="action_dismiss_follow_suggestion">Loobu</string>
     <string name="ui_error_delete_suggestion_fmt">%1$s soovitusest loobumine ei õnnestunud: %2$s</string>
-    <string name="ui_error_follow_account_fmt">%1$s jälgimise alustamine ei õnnestunud: %2$s</string>
 </resources>

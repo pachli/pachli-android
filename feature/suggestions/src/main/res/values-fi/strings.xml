@@ -10,5 +10,4 @@
     <string name="source_unknown">(palvelimen vastauksessa tunnistamaton lähde)</string>
     <string name="action_dismiss_follow_suggestion">Hylkää</string>
     <string name="ui_error_delete_suggestion_fmt">Ehdotuksen %1$s hylkääminen epäonnistui: %2$s</string>
-    <string name="ui_error_follow_account_fmt">Tilin %1$s seuraaminen epäonnistui: %2$s</string>
 </resources>

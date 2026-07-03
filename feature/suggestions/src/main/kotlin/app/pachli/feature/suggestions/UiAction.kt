@@ -99,7 +99,7 @@ internal sealed class UiError(
     data class AcceptSuggestion(
         override val action: SuggestionAction.AcceptSuggestion,
         override val cause: FollowAccountError,
-    ) : UiError(R.string.ui_error_follow_account_fmt, action, cause)
+    ) : UiError(app.pachli.core.ui.R.string.ui_error_follow_account_fmt, action, cause)
 
     companion object {
         /** Create a [UiError] from the [SuggestionAction] and [SuggestionsError]. */
