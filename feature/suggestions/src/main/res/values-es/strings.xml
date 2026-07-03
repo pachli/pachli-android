@@ -10,5 +10,4 @@
     <string name="sources_unknown">(el servidor devolvió fuentes no reconocidas)</string>
     <string name="action_dismiss_follow_suggestion">Descartar</string>
     <string name="ui_error_delete_suggestion_fmt">Fallo al descartar la sugerencia para %1$s: %2$s</string>
-    <string name="ui_error_follow_account_fmt">Fallo al seguir a %1$s: %2$s</string>
 </resources>

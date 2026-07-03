@@ -137,4 +137,5 @@
     <string name="action_unmute">取消隐藏</string>
     <string name="action_follow">关注</string>
     <string name="dialog_unfollow_warning">不再关注此用户？</string>
+    <string name="ui_error_follow_account_fmt">关注%1$s失败：%2$s</string>
 </resources>

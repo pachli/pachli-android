@@ -145,4 +145,5 @@
     <string name="action_unmute">Fjern demping</string>
     <string name="action_follow">Følg</string>
     <string name="dialog_unfollow_warning">Slutt å følge denne kontoen\?</string>
+    <string name="ui_error_follow_account_fmt">Følging av %1$s mislyktes: %2$s</string>
 </resources>

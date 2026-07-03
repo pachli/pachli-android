@@ -196,4 +196,5 @@
     <string name="action_unmute">Stummschaltung aufheben</string>
     <string name="action_follow">Folgen</string>
     <string name="dialog_unfollow_warning">Dieses Profil entfolgen\?</string>
+    <string name="ui_error_follow_account_fmt">Fehler beim Folgen von %1$s: %2$s</string>
 </resources>

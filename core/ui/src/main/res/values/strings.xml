@@ -230,4 +230,5 @@
     <string name="action_unmute">Unmute</string>
     <string name="action_follow">Follow</string>
     <string name="dialog_unfollow_warning">Unfollow this account?</string>
+    <string name="ui_error_follow_account_fmt">Following %1$s failed: %2$s</string>
 </resources>

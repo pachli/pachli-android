@@ -207,4 +207,5 @@
     <string name="action_unmute">Zrušiť stlmenie</string>
     <string name="action_follow">Sledovať</string>
     <string name="dialog_unfollow_warning">Prestať sledovať tento účet?</string>
+    <string name="ui_error_follow_account_fmt">Sledovanie účtu %1$s zlyhalo: %2$s</string>
 </resources>

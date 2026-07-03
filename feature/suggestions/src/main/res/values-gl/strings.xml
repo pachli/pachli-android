@@ -10,5 +10,4 @@
     <string name="sources_unknown">(o servidor devolveu orixes non recoñecidas)</string>
     <string name="action_dismiss_follow_suggestion">Desbotar</string>
     <string name="ui_error_delete_suggestion_fmt">Fallou o rexeitamento da suxestión %1$s: %2$s</string>
-    <string name="ui_error_follow_account_fmt">Fallou o seguimento de %1$s: %2$s</string>
 </resources>

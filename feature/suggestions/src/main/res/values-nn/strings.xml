@@ -10,5 +10,4 @@
     <string name="source_unknown">(tenar gav uattkjend kjelde)</string>
     <string name="action_dismiss_follow_suggestion">Avvis</string>
     <string name="ui_error_delete_suggestion_fmt">Mislukkast i å avvise forslag til %1$s: %2$s</string>
-    <string name="ui_error_follow_account_fmt">Mislukkast i å fylgje %1$s: %2$s</string>
 </resources>
