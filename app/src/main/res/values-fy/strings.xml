@@ -65,7 +65,6 @@
     <string name="dialog_delete_conversation_warning">Dit petear fuortsmite\?</string>
     <string name="dialog_redraft_post_warning">Dizze toot fuortsmite en opnij opstelle\?</string>
     <string name="dialog_delete_post_warning">Dizze toot fuortsmite\?</string>
-    <string name="dialog_unfollow_warning">Dit account net mear folgje\?</string>
     <string name="dialog_message_cancel_follow_request">Folgfersyk ynlûke\?</string>
     <string name="dialog_download_image">Delhelje</string>
     <string name="dialog_message_uploading_media">Oan it uploaden…</string>

@@ -27,4 +27,5 @@
     <string name="action_mute">Σίγαση</string>
     <string name="action_unmute">Άρση σίγασης</string>
     <string name="action_follow">Ακολουθήστε</string>
+    <string name="dialog_unfollow_warning">Άρση ακολούθησης αυτού του λογαριασμού;</string>
 </resources>

@@ -95,7 +95,6 @@
     <string name="dialog_message_uploading_media">Загружается…</string>
     <string name="dialog_download_image">Скачать</string>
     <string name="dialog_message_cancel_follow_request">Отозвать запрос на подписку\?</string>
-    <string name="dialog_unfollow_warning">Отписаться от этого аккаунта?</string>
     <string name="dialog_delete_post_warning">Удалить гудок\?</string>
     <string name="dialog_redraft_post_warning">Удалить гудок и превратить его в черновик\?</string>
     <string name="visibility_public">Публичный: Показать в публичных лентах</string>

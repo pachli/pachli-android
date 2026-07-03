@@ -95,7 +95,6 @@
     <string name="dialog_message_uploading_media">আপলোড হচ্ছে …</string>
     <string name="dialog_download_image">ডাউনলোড</string>
     <string name="dialog_message_cancel_follow_request">অনুসরণ অনুরোধ প্রত্যাহার\?</string>
-    <string name="dialog_unfollow_warning">এই অ্যাকাউন্টটি অনুসরণ করবেন না\?</string>
     <string name="dialog_delete_post_warning">এই টুট টি মুছে ফেলবেন\?</string>
     <string name="dialog_redraft_post_warning">এই টুট টি মুছে ফেলবেন এবং পুনরায় ড্রাফট করবেন\?</string>
     <string name="visibility_public">সর্বজনীন: পাবলিক টাইমলাইনে পোস্ট কর</string>

@@ -183,4 +183,5 @@
     <string name="action_mute">Заглушить</string>
     <string name="action_unmute">Отменить глушение</string>
     <string name="action_follow">Подписаться</string>
+    <string name="dialog_unfollow_warning">Отписаться от этого аккаунта?</string>
 </resources>

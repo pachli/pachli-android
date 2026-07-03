@@ -101,7 +101,6 @@
     <string name="dialog_message_uploading_media">Caricamento…</string>
     <string name="dialog_download_image">Scarica</string>
     <string name="dialog_message_cancel_follow_request">Revocare la richiesta di seguire?</string>
-    <string name="dialog_unfollow_warning">Smettere di seguire questo account?</string>
     <string name="dialog_delete_post_warning">Eliminare questo messaggio?</string>
     <string name="visibility_public">Pubblico: visibile sulle timeline pubbliche</string>
     <string name="visibility_unlisted">Non in elenco: non visibile sulle timeline pubbliche</string>

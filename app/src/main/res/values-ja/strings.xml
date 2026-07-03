@@ -89,7 +89,6 @@
     <string name="dialog_message_uploading_media">アップロード中…</string>
     <string name="dialog_download_image">ダウンロード</string>
     <string name="dialog_message_cancel_follow_request">フォローリクエストを取り消しますか？</string>
-    <string name="dialog_unfollow_warning">このアカウントをフォロー解除しますか？</string>
     <string name="dialog_delete_post_warning">本当に削除しますか？</string>
     <string name="visibility_public">公開：公開タイムラインに投稿する</string>
     <string name="visibility_unlisted">未収載：公開タイムラインには表示しない</string>

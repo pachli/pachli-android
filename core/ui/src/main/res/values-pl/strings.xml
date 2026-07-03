@@ -214,4 +214,5 @@
     <string name="action_mute">Wycisz</string>
     <string name="action_unmute">Cofnij wyciszenie</string>
     <string name="action_follow">Obserwuj</string>
+    <string name="dialog_unfollow_warning">Czy chcesz przestać obserwować to konto\?</string>
 </resources>

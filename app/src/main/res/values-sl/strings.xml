@@ -94,7 +94,6 @@
     <string name="dialog_message_uploading_media">Pošiljanje…</string>
     <string name="dialog_download_image">Prejmi</string>
     <string name="dialog_message_cancel_follow_request">Želite preklicati to zahtevo\?</string>
-    <string name="dialog_unfollow_warning">Prenehajte slediti temu računu\?</string>
     <string name="dialog_delete_post_warning">Želite izbrisati ta tut\?</string>
     <string name="visibility_public">Javno: Objavi v javnih časovnicah</string>
     <string name="visibility_unlisted">Ni prikazano: Ne prikaže v javnih časovnicah</string>

@@ -194,4 +194,5 @@
     <string name="action_mute">Mykistä</string>
     <string name="action_unmute">Poista mykistys</string>
     <string name="action_follow">Seuraa</string>
+    <string name="dialog_unfollow_warning">Lopeta tilin seuraaminen\?</string>
 </resources>

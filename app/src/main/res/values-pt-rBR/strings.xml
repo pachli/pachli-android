@@ -88,7 +88,6 @@
     <string name="dialog_message_uploading_media">Enviando…</string>
     <string name="dialog_download_image">Baixar</string>
     <string name="dialog_message_cancel_follow_request">Cancelar solicitação para seguir\?</string>
-    <string name="dialog_unfollow_warning">Deixar de seguir esta conta?</string>
     <string name="dialog_delete_post_warning">Excluir este Toot?</string>
     <string name="visibility_public">Público: Postar em linhas públicas</string>
     <string name="visibility_unlisted">Não-listado: Não postar em linhas públicas</string>

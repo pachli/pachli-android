@@ -138,4 +138,5 @@
     <string name="action_mute">Приховати</string>
     <string name="action_unmute">Не приховувати</string>
     <string name="action_follow">Підписатися</string>
+    <string name="dialog_unfollow_warning">Не стежити за цим обліковим записом\?</string>
 </resources>

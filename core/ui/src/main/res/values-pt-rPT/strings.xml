@@ -125,4 +125,5 @@
     <string name="action_mute">Silenciar</string>
     <string name="action_unmute">Remover silêncio</string>
     <string name="action_follow">Seguir</string>
+    <string name="dialog_unfollow_warning">Deixar de seguir esta conta\?</string>
 </resources>

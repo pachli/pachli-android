@@ -81,7 +81,6 @@
     <string name="dialog_message_uploading_media">Mandadís…</string>
     <string name="dialog_download_image">Telecargar</string>
     <string name="dialog_message_cancel_follow_request">Anullar la demandar d’abonament ?</string>
-    <string name="dialog_unfollow_warning">Volètz quitar de seguir aqueste compte ?</string>
     <string name="dialog_delete_post_warning">Suprimir aqueste tut \?</string>
     <string name="visibility_public">Publica : es visibla a la cronologia publica</string>
     <string name="visibility_unlisted">Pas listada :es pas visibla a las cronologias publicas</string>

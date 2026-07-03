@@ -114,4 +114,5 @@
     <string name="action_mute">Ẩn</string>
     <string name="action_unmute">Bỏ ẩn</string>
     <string name="action_follow">Theo dõi</string>
+    <string name="dialog_unfollow_warning">Bỏ theo dõi người này\?</string>
 </resources>

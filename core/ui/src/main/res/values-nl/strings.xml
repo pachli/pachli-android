@@ -125,4 +125,5 @@
     <string name="action_mute">Negeren</string>
     <string name="action_unmute">Niet langer negeren</string>
     <string name="action_follow">Volgen</string>
+    <string name="dialog_unfollow_warning">Dit account ontvolgen?</string>
 </resources>

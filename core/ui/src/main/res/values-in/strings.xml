@@ -185,4 +185,5 @@
     <string name="action_mute">Bisukan</string>
     <string name="action_unmute">Jangan bisukan</string>
     <string name="action_follow">Ikuti</string>
+    <string name="dialog_unfollow_warning">Unfollow akun ini\?</string>
 </resources>

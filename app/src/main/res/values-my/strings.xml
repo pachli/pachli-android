@@ -176,7 +176,6 @@
     <string name="dialog_message_uploading_media">ပေးပို့နေသည်…</string>
     <string name="dialog_download_image">ဒေါင်းလုဒ်</string>
     <string name="dialog_message_cancel_follow_request">စောင့်ကြည့်ရန်တောင်းဆိုမှုအားပယ်ဖျက်မည်လား?</string>
-    <string name="dialog_unfollow_warning">ဤအကောင့်အားစောင့်ကြည့်မှုပယ်ဖျက်မည်လား?</string>
     <string name="dialog_delete_post_warning">ပိုစ့်ဖျက်မည်လား?</string>
     <string name="dialog_redraft_post_warning">ပိုစ့်အားဖျက်ပြီးပြန်ပြင်ဆင်မလား?</string>
     <string name="pref_title_notification_filter_mentions">မန်းရှင်းထားသည်</string>

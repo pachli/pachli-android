@@ -191,7 +191,6 @@
     <string name="dialog_message_uploading_media">Laadin üles…</string>
     <string name="dialog_download_image">Laadi alla</string>
     <string name="dialog_message_cancel_follow_request">Kas tühistad jälgimispäringu?</string>
-    <string name="dialog_unfollow_warning">Kas lõpetad kasutaja jälgimise?</string>
     <string name="dialog_delete_post_warning">Kas kustutame postituse?</string>
     <string name="dialog_redraft_post_warning">Kas kustutad selle postituse ja koostad uuesti?</string>
     <string name="dialog_delete_conversation_warning">Kas kustutame vestluse?</string>

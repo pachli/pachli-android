@@ -94,7 +94,6 @@
     <string name="dialog_message_uploading_media">Téléversement en cours…</string>
     <string name="dialog_download_image">Télécharger</string>
     <string name="dialog_message_cancel_follow_request">Révoquer la demande d’abonnement ?</string>
-    <string name="dialog_unfollow_warning">Ne plus suivre ce compte ?</string>
     <string name="dialog_delete_post_warning">Supprimer ce message \?</string>
     <string name="visibility_public">Public : afficher dans les fils publics</string>
     <string name="visibility_unlisted">Non listé : ne pas afficher dans les fils publics</string>
