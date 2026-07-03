@@ -86,6 +86,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 data class UiState(
     /** Filtered notification types */
@@ -716,7 +717,17 @@ class NotificationsViewModel @AssistedInject constructor(
                             quoteContentFilterAction = quoteContentFilterAction,
                             accountFilterDecision = accountFilterDecision,
                             isAboutSelf = isAboutSelf,
-                        )
+                        ) ?: run {
+                            Timber.wtf("NotificationViewData.make returned null")
+                            NotificationViewData.UnknownNotificationViewData(
+                                pachliAccountId = pachliAccount.id,
+                                localDomain = pachliAccount.domain,
+                                notificationId = notification.notification.serverId,
+                                account = notification.account.asModel(),
+                                isAboutSelf = isAboutSelf,
+                                accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
+                            )
+                        }
                     }
                     .filter { it !is NotificationViewData.WithStatus || it.statusItemViewData.contentFilterAction != FilterAction.HIDE }
                     .filter { it.accountFilterDecision !is AccountFilterDecision.Hide }
