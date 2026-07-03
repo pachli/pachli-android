@@ -1,6 +1,5 @@
 package app.pachli.components.followedtags
 
-import android.content.Context
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -21,7 +20,6 @@ import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.mapEither
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.channels.Channel
@@ -93,7 +91,6 @@ internal sealed class UiError(
 
 @HiltViewModel
 class FollowedTagsViewModel @Inject constructor(
-    @ApplicationContext private val context: Context,
     private val hashtagsRepository: HashtagsRepository,
     private val api: MastodonApi,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
