@@ -573,14 +573,13 @@ fun filterNotification(
 }
 
 /**
- * Returns the [AccountFilterDecision] for [notificationData] based on the notification
+ * Returns the [AccountFilterDecision] for [notification] based on the notification
  * filters in [accountWithFilters].
  *
  * @return The most severe [AccountFilterDecision], in order [Hide][AccountFilterDecision.Hide],
  * [Warn][AccountFilterDecision.Warn], or [None][AccountFilterDecision.None].
  */
-fun filterNotificationByAccount(accountWithFilters: app.pachli.core.data.repository.PachliAccount, notificationData: Notification): AccountFilterDecision {
-    val notification = notificationData // .notification
+fun filterNotificationByAccount(accountWithFilters: app.pachli.core.data.repository.PachliAccount, notification: Notification): AccountFilterDecision {
     // Some notifications are never filtered, irrespective of the account that
     // sent them.
     when (notification) {
@@ -606,7 +605,7 @@ fun filterNotificationByAccount(accountWithFilters: app.pachli.core.data.reposit
     }
 
     // The account that generated the notification.
-    val accountToTest = notificationData.account
+    val accountToTest = notification.account
 
     // Any notifications from our own activity are not filtered.
     if (accountWithFilters.accountId == accountToTest.id) return AccountFilterDecision.None
