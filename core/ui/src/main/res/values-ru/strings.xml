@@ -174,7 +174,6 @@
     <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> записей (&lt;b>%2$d&lt;/b> в неделю)</string>
     <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> записей (&lt;b>%2$d&lt;/b> в неделю, последние &lt;b>%3$s&lt;/b>)</string>
     <string name="action_follow_account">Подписаться</string>
-    <string name="ui_error_follow_account_fmt">Не удалось подписаться на %1$s: ошибка %2$s</string>
     <string name="action_unfollow">Отписаться</string>
     <string name="action_unblock">Разблокировать</string>
     <string name="state_follow_requested">Запрошенные подписки</string>

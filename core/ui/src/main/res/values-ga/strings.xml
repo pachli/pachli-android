@@ -216,7 +216,6 @@
     <string name="statuses_count_per_week_fmt">&lt;b&gt;%1$s&lt;/b&gt; postáil (&lt;b&gt;%2$d&lt;/b&gt; in aghaidh na seachtaine)</string>
     <string name="statuses_count_per_week_last_fmt">&lt;b&gt;%1$s&lt;/b&gt; postáil (&lt;b&gt;%2$d&lt;/b&gt; sa tseachtain, an &lt;b&gt;%3$s&lt;/b&gt; deireanach)</string>
     <string name="action_follow_account">Lean</string>
-    <string name="ui_error_follow_account_fmt">Theip ar %1$s a leanúint: %2$s</string>
     <string name="action_unfollow">Díleanúint</string>
     <string name="action_unblock">Díbhlocáil</string>
     <string name="state_follow_requested">Iarradh leanúint</string>

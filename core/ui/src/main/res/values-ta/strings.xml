@@ -185,7 +185,6 @@
     <string name="statuses_count_per_week_fmt">&lt;b&gt;%1$s&lt;/&gt; இடுகைகள் (வாரத்திற்கு &lt;b&gt;%2$d&lt;/&gt;)</string>
     <string name="statuses_count_per_week_last_fmt">&lt;b&gt;%1$s&lt;/&gt; இடுகைகள் (வாரத்திற்கு &lt;b&gt;%2$d&lt;/&gt;, கடந்த &lt;b&gt;%3$s&lt;/&gt;)</string>
     <string name="action_follow_account">பின்பற்றவும்</string>
-    <string name="ui_error_follow_account_fmt">பின்வரும் %1$s தோல்வியடைந்தது: %2$s</string>
     <string name="action_unfollow">பின்பற்றாதே</string>
     <string name="action_unblock">தடை நீக்கு</string>
     <string name="state_follow_requested">கோரிக்கையைப் பின்பற்றவும்</string>

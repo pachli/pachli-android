@@ -186,7 +186,6 @@
     <string name="statuses_count_per_week_fmt">&lt;b&gt;%1$s&lt;/b&gt; postitust (&lt;b&gt;%2$d&lt;/b&gt; nädalas)</string>
     <string name="statuses_count_per_week_last_fmt">&lt;b&gt;%1$s&lt;/b&gt; postitust (&lt;b&gt;%2$d&lt;/b&gt; nädalas, viimati &lt;b&gt;%3$s&lt;/b&gt;)</string>
     <string name="action_follow_account">Jälgi</string>
-    <string name="ui_error_follow_account_fmt">%1$s jälgimise alustamine ei õnnestunud: %2$s</string>
     <string name="action_unfollow">Lõpeta jälgimine</string>
     <string name="action_unblock">Lõpeta blokeerimine</string>
     <string name="state_follow_requested">Oled saanud jälgimispäringu</string>
