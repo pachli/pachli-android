@@ -185,4 +185,5 @@
     <string name="action_unmute">Отменить глушение</string>
     <string name="action_follow">Подписаться</string>
     <string name="dialog_unfollow_warning">Отписаться от этого аккаунта?</string>
+    <string name="ui_error_follow_account_fmt">Не удалось подписаться на %1$s: ошибка %2$s</string>
 </resources>

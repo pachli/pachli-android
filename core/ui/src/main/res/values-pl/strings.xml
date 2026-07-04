@@ -216,4 +216,5 @@
     <string name="action_unmute">Cofnij wyciszenie</string>
     <string name="action_follow">Obserwuj</string>
     <string name="dialog_unfollow_warning">Czy chcesz przestać obserwować to konto\?</string>
+    <string name="ui_error_follow_account_fmt">Obserwowanie %1$s się nie powiodło: %2$s</string>
 </resources>

@@ -187,4 +187,5 @@
     <string name="action_unmute">Jangan bisukan</string>
     <string name="action_follow">Ikuti</string>
     <string name="dialog_unfollow_warning">Unfollow akun ini\?</string>
+    <string name="ui_error_follow_account_fmt">Mengikuti %1$s failed: %2$s</string>
 </resources>

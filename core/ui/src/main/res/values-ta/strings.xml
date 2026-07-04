@@ -196,4 +196,5 @@
     <string name="action_unmute">ஒலிக்க செய்</string>
     <string name="action_follow">பின்பற்று</string>
     <string name="dialog_unfollow_warning">இந்த கணக்கை பின்பற்ற வேண்டாமா?</string>
+    <string name="ui_error_follow_account_fmt">பின்வரும் %1$s தோல்வியடைந்தது: %2$s</string>
 </resources>

@@ -208,4 +208,5 @@
     <string name="action_unmute">Ne plus masquer</string>
     <string name="action_follow">Suivre</string>
     <string name="dialog_unfollow_warning">Ne plus suivre ce compte ?</string>
+    <string name="ui_error_follow_account_fmt">Le suivi de %1$s a échoué : %2$s</string>
 </resources>

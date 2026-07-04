@@ -207,4 +207,5 @@
     <string name="action_unmute">Atcelt apklusināšanu</string>
     <string name="action_follow">Sekot</string>
     <string name="dialog_unfollow_warning">Vai pārtraukt sekot šim kontam\?</string>
+    <string name="ui_error_follow_account_fmt">Sekošana %1$s neizdevās: %2$s</string>
 </resources>

@@ -197,4 +197,5 @@
     <string name="action_unmute">Lõpeta summutamine</string>
     <string name="action_follow">Jälgi</string>
     <string name="dialog_unfollow_warning">Kas lõpetad kasutaja jälgimise?</string>
+    <string name="ui_error_follow_account_fmt">%1$s jälgimise alustamine ei õnnestunud: %2$s</string>
 </resources>

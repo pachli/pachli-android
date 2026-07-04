@@ -207,4 +207,5 @@
     <string name="action_unmute">Dejar de silenciar</string>
     <string name="action_follow">Seguir</string>
     <string name="dialog_unfollow_warning">¿Dejar de seguir esta cuenta?</string>
+    <string name="ui_error_follow_account_fmt">Fallo al seguir a %1$s: %2$s</string>
 </resources>
