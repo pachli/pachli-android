@@ -315,22 +315,24 @@ sealed interface StatusActionSuccess : UiSuccess {
     }
 }
 
-sealed interface CollectionAction : FallibleUiAction {
+/** Actions the user can trigger on a collection. */
+sealed interface FallibleCollectionAction : FallibleUiAction {
+    /** Revoke permission for [accountId] to appear in [collectionId]. */
     data class Revoke(
         val pachliAccountId: Long,
         val collectionId: String,
         val accountId: String,
-    ) : CollectionAction
+    ) : FallibleCollectionAction
 }
 
 sealed interface CollectionActionSuccess : UiSuccess {
-    val action: CollectionAction
+    val action: FallibleCollectionAction
 
-    data class Revoke(override val action: CollectionAction.Revoke) : CollectionActionSuccess
+    data class Revoke(override val action: FallibleCollectionAction.Revoke) : CollectionActionSuccess
 
     companion object {
-        fun from(action: CollectionAction) = when (action) {
-            is CollectionAction.Revoke -> Revoke(action)
+        fun from(action: FallibleCollectionAction) = when (action) {
+            is FallibleCollectionAction.Revoke -> Revoke(action)
         }
     }
 }
@@ -403,7 +405,7 @@ sealed interface UiError {
 
     data class Revoke(
         override val error: PachliError,
-        override val action: CollectionAction.Revoke,
+        override val action: FallibleCollectionAction.Revoke,
         override val message: Int = app.pachli.feature.collections.R.string.ui_error_collection_revoke_fmt,
     ) : UiError
 
@@ -417,7 +419,7 @@ sealed interface UiError {
             is NotificationAction.AcceptFollowRequest -> AcceptFollowRequest(error, action)
             is NotificationAction.RejectFollowRequest -> RejectFollowRequest(error, action)
             is FallibleUiAction.ClearNotifications -> ClearNotifications(error, action)
-            is CollectionAction.Revoke -> Revoke(error, action)
+            is FallibleCollectionAction.Revoke -> Revoke(error, action)
         }
     }
 }
@@ -584,11 +586,11 @@ class NotificationsViewModel @AssistedInject constructor(
         }
 
         viewModelScope.launch {
-            uiAction.filterIsInstance<CollectionAction>()
+            uiAction.filterIsInstance<FallibleCollectionAction>()
                 .throttleFirst()
                 .collect { action ->
                     val result = when (action) {
-                        is CollectionAction.Revoke -> onRevokeCollection(action)
+                        is FallibleCollectionAction.Revoke -> onRevokeCollection(action)
                     }.mapEither(
                         { CollectionActionSuccess.from(action) },
                         { UiError.make(it, action) },
@@ -777,7 +779,7 @@ class NotificationsViewModel @AssistedInject constructor(
         )
     }
 
-    private suspend fun onRevokeCollection(action: CollectionAction.Revoke): Result<Unit, ICollectionsRepository.Error.RevokeFromCollection> {
+    private suspend fun onRevokeCollection(action: FallibleCollectionAction.Revoke): Result<Unit, ICollectionsRepository.Error.RevokeFromCollection> {
         return collectionsRepository.revokeFromCollection(
             action.pachliAccountId,
             action.collectionId,

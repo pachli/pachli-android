@@ -222,16 +222,6 @@ class NotificationsPagingAdapter(
         val inflater = LayoutInflater.from(parent.context)
 
         return when (NotificationViewKind.entries[viewType]) {
-            NotificationViewKind.COLLECTION -> {
-                CollectionNotificationViewHolder(
-                    ItemNotificationCollectionBinding.inflate(inflater, parent, false),
-                    glide,
-                    setContent,
-                    notificationActionListener,
-                    collectionListener = notificationActionListener,
-                )
-            }
-
             NotificationViewKind.STATUS -> {
                 StatusNotificationViewHolder(
                     ItemStatusBinding.inflate(inflater, parent, false),
@@ -289,6 +279,16 @@ class NotificationsPagingAdapter(
             NotificationViewKind.MODERATION_WARNING -> {
                 ModerationWarningViewHolder(
                     ItemModerationWarningBinding.inflate(inflater, parent, false),
+                )
+            }
+
+            NotificationViewKind.COLLECTION -> {
+                CollectionNotificationViewHolder(
+                    ItemNotificationCollectionBinding.inflate(inflater, parent, false),
+                    glide,
+                    setContent,
+                    notificationActionListener,
+                    collectionListener = notificationActionListener,
                 )
             }
 

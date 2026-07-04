@@ -240,6 +240,12 @@ class NotificationsRemoteMediator(
         /** Unique collections referenced in this batch of notifications. */
         val collections = mutableSetOf<app.pachli.core.model.Collection>()
 
+        /**
+         * Account IDs that have been seen in collections. These must be resolved
+         * to full [TimelineAccount]s.
+         */
+        val accountIdsInCollections = mutableSetOf<String>()
+
         // Convert to core.model.Notification to ensure the notifications are valid.
         val validNotifications = notifications.asModel(accountId)
         if (validNotifications.isEmpty()) return
@@ -265,13 +271,17 @@ class NotificationsRemoteMediator(
 
             (notification as? app.pachli.core.model.Notification.WithCollection)?.collection?.let { collection ->
                 collections.add(collection)
+                accountIdsInCollections.addAll(collection.allAccountIds())
             }
+
             (notification as? app.pachli.core.model.Notification.Report)?.let {
                 reports.add(it.report.asEntity(pachliAccountId, notification.id))
             }
+
             (notification as? app.pachli.core.model.Notification.SeveredRelationships)?.let {
                 severanceEvents.add(it.relationshipSeveranceEvent.asEntity(pachliAccountId, notification.id))
             }
+
             (notification as? app.pachli.core.model.Notification.ModerationWarning)?.let {
                 accountWarnings.add(it.accountWarning.asEntity(pachliAccountId, notification.id))
             }
@@ -280,9 +290,7 @@ class NotificationsRemoteMediator(
         // Get all the accounts referenced in any collections so:
         // 1. The accounts can be saved.
         // 2. The accounts can be used to create TimelineCollectionEntity objects.
-        val accountsInCollections = resolveAccountsInCollections(
-            collections = notifications.mapNotNull { it.collection },
-        )
+        val accountsInCollections = resolveAccounts(accountIdsInCollections)
 
         // Bulk upsert the discovered items.
         timelineDao.upsertAccounts(
@@ -307,18 +315,16 @@ class NotificationsRemoteMediator(
      * @return All the account IDs referenced in [Collection]. The account ID of the owner
      * and of all items in the collection.
      */
-    private fun app.pachli.core.network.model.Collection.allAccountIds(): List<String> {
+    private fun app.pachli.core.model.Collection.allAccountIds(): List<String> {
         return items.mapNotNull { it.accountId } + accountId
     }
 
     /**
-     * Calls the server to convert all account IDs referenced in [collections] to
-     * the full [TimelineAccount] details.
+     * Calls the server to convert all [accountIds] the full [TimelineAccount] details.
      *
      * @return Map between the server's ID for the account and the [TimelineAccount].
      */
-    private suspend fun resolveAccountsInCollections(collections: List<app.pachli.core.network.model.Collection>): Map<String, TimelineAccount> {
-        val accountIds = collections.flatMap { it.allAccountIds() }
+    private suspend fun resolveAccounts(accountIds: Collection<String>): Map<String, TimelineAccount> {
         if (accountIds.isEmpty()) return emptyMap()
 
         return mastodonApi.accounts(accountIds)

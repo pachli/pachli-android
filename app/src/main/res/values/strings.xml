@@ -122,6 +122,8 @@
     <string name="notification_moderation_warning_tap_for_more">Tap to see more details on your server.</string>
     <string name="notification_quote_format">&lt;b&gt;%1$s&lt;/b&gt; quoted your post</string>
     <string name="notification_quoted_update_format">&lt;b&gt;%1$s&lt;/b&gt; updated the post you quoted</string>
+    <string name="notification_collection_add_body_format">%1$s. %2$s</string>
+    <string name="notification_collection_update_body_format">%1$s. %2$s</string>
     <string name="notification_unknown">Unknown notification type</string>
     <string name="notification_header_report_format">%1$s reported %2$s</string>
     <plurals name="notification_summary_report_format">

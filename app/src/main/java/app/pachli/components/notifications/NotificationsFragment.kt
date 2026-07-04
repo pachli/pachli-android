@@ -694,7 +694,7 @@ class NotificationsFragment :
             val button = requireContext().newConfirmRevokeDialogFragment().await(parentFragmentManager)
             if (button == AlertDialog.BUTTON_POSITIVE) {
                 viewModel.accept(
-                    CollectionAction.Revoke(
+                    FallibleCollectionAction.Revoke(
                         pachliAccountId = pachliAccountId,
                         collectionId = collection.serverId,
                         accountId = viewModel.pachliAccount.accountId,
@@ -789,8 +789,6 @@ class FilterDialogFragment(
 @StringRes
 fun Notification.Type.uiString(): Int = when (this) {
     Notification.Type.UNKNOWN -> R.string.notification_unknown_name
-    Notification.Type.COLLECTION_ADD -> R.string.notification_collection_add_name
-    Notification.Type.COLLECTION_UPDATE -> R.string.notification_collection_update_name
     Notification.Type.MENTION -> R.string.notification_mention_name
     Notification.Type.REBLOG -> R.string.notification_boost_name
     Notification.Type.FAVOURITE -> R.string.notification_favourite_name
@@ -805,4 +803,6 @@ fun Notification.Type.uiString(): Int = when (this) {
     Notification.Type.MODERATION_WARNING -> R.string.notification_moderation_warnings_name
     Notification.Type.QUOTE -> R.string.notification_quote_name
     Notification.Type.QUOTED_UPDATE -> R.string.notification_quoted_update_name
+    Notification.Type.COLLECTION_ADD -> R.string.notification_collection_add_name
+    Notification.Type.COLLECTION_UPDATE -> R.string.notification_collection_update_name
 }

@@ -277,6 +277,9 @@ sealed interface NotificationViewData {
     sealed interface WithCollection : NotificationViewData {
         val collectionCardViewData: CollectionCardViewData
 
+        /**
+         * The user's account has been added to a collection.
+         */
         data class CollectionAddNotificationViewData(
             override val pachliAccountId: Long,
             override val localDomain: String,
@@ -287,6 +290,9 @@ sealed interface NotificationViewData {
             override val collectionCardViewData: CollectionCardViewData,
         ) : NotificationViewData, WithCollection
 
+        /**
+         * A collection the user's account is in has been updated.
+         */
         data class CollectionUpdateNotificationViewData(
             override val pachliAccountId: Long,
             override val localDomain: String,

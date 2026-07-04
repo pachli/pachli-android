@@ -17,12 +17,10 @@
 
 package app.pachli.components.notifications
 
-import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.annotation.Px
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.text.HtmlCompat
 import androidx.core.text.htmlEncode
 import androidx.core.util.TypedValueCompat.dpToPx
@@ -43,6 +41,11 @@ import app.pachli.databinding.ItemNotificationCollectionBinding
 import com.bumptech.glide.RequestManager
 import kotlin.math.roundToInt
 
+/**
+ * Displays any [NotificationViewData.WithCollection].
+ *
+ * Shows the notification creator, and the collection card.
+ */
 class CollectionNotificationViewHolder(
     private val binding: ItemNotificationCollectionBinding,
     private val glide: RequestManager,
@@ -56,21 +59,13 @@ class CollectionNotificationViewHolder(
 
     /**
      * The start padding (pixels) necessary to align the start of text in
-     * statusInfo with the start of text in statusDisplayName.
+     * [ItemNotificationCollectionBinding.notificationText] with the start of text in
+     * [ItemNotificationCollectionBinding.collectionCard].
      *
      * See [setStatusInfoDrawableRes].
      */
     @Px
     private val defaultNotificationInfoPaddingStart: Int = dpToPx(56f, binding.root.context.resources.displayMetrics).roundToInt()
-
-    /**
-     * The bounds (pixels) for the drawable to show in the "start" slot of
-     * statusInfo.
-     */
-    private val notificationInfoStartCompoundDrawableBounds = run {
-        val size = (binding.notificationText.lineHeight * 1.29).roundToInt()
-        Rect(0, 0, size, size)
-    }
 
     override fun bind(
         viewData: NotificationViewData.WithCollection,
@@ -94,8 +89,7 @@ class CollectionNotificationViewHolder(
             }
         }
 
-        val wholeMessage = HtmlCompat.fromHtml(msg, HtmlCompat.FROM_HTML_MODE_LEGACY)
-        val emojifiedMessage = wholeMessage.emojify(
+        val emojifiedMessage = HtmlCompat.fromHtml(msg, HtmlCompat.FROM_HTML_MODE_LEGACY).emojify(
             glide,
             account.emojis,
             binding.notificationText,
@@ -132,36 +126,23 @@ class CollectionNotificationViewHolder(
         itemView.setOnClickListener { linkListener.onViewAccount(account.id) }
     }
 
+    /**
+     * Sets [drawableRes] as the "start" drawable in [textView], and
+     * adjusts the textView's start padding as necessary.*
+     */
+    // TODO: Identical to setStatusInfoDrawableRes, consider removing the duplication.
+    private fun setNotificationTextDrawableRes(@DrawableRes drawableRes: Int, textView: TextView) {
+        setNotificationTextDrawable(getDrawableSizedForTextviewLineHeight(drawableRes, textView), textView)
+    }
+
     // TODO: Identical to setStatusInfoDrawable, consider removing the duplication.
     private fun setNotificationTextDrawable(drawable: Drawable?, textView: TextView) {
-        drawable?.apply {
-            bounds = notificationInfoStartCompoundDrawableBounds
-        }
         textView.setPaddingRelative(
-            defaultNotificationInfoPaddingStart - notificationInfoStartCompoundDrawableBounds.width(),
+            defaultNotificationInfoPaddingStart - (drawable?.bounds?.width() ?: 0),
             textView.paddingTop,
             textView.paddingEnd,
             textView.paddingBottom,
         )
         textView.setCompoundDrawablesRelative(drawable, null, null, null)
-    }
-
-    /**
-     * Sets [drawableRes] as the "start" drawable in the statusInfo [textView], and
-     * adjusts the textView's start padding as necessary.*
-     */
-    // TODO: Identical to setStatusInfoDrawableRes, consider removing the duplication.
-    private fun setNotificationTextDrawableRes(@DrawableRes drawableRes: Int, textView: TextView) {
-        setNotificationTextDrawable(getNotificationTextDrawable(drawableRes, textView), textView)
-    }
-
-    /**
-     * Gets [drawableRes], scaled to 129% the line height of [textView].
-     */
-    // TODO: Identical to getStatusInfoDrawable, consider removing the duplication.
-    private fun getNotificationTextDrawable(@DrawableRes drawableRes: Int, textView: TextView): Drawable? {
-        return AppCompatResources.getDrawable(textView.context, drawableRes)?.apply {
-            bounds = notificationInfoStartCompoundDrawableBounds
-        }
     }
 }

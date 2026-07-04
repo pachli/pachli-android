@@ -29,18 +29,15 @@ import app.pachli.core.model.collection.CollectionDisplayAction
 import java.time.Instant
 
 /**
- * Data about a Collection
+ * Data about a collection and it's owner.
+ *
+ * @property collection The collection
+ * @property ownerAccount The collection's owner account.
  */
-data class CollectionWithAccountsData(
+data class CollectionAndOwner(
     @Embedded val collection: CollectionEntity,
     @Embedded(prefix = "owner_") val ownerAccount: TimelineAccountEntity,
-
 )
-
-// data class CollectionViewData(
-//    val collection: Collection,
-//    val accounts
-// )
 
 @Entity(
     primaryKeys = ["pachliAccountId", "serverId"],
@@ -53,7 +50,6 @@ data class CollectionWithAccountsData(
             deferred = true,
         ),
     ],
-//    indices = [Index(value = ["pachliAccountId", "serverId"])],
 )
 @TypeConverters(Converters::class)
 data class CollectionEntity(
