@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="server_error_unparseable_version">nepodarilo sa analyzovať \"%1$s\" ako verziu: %2$s</string>
+    <string name="server_error_unparseable_version">nepodarilo sa spracovať \"%1$s\" ako verziu: %2$s</string>
 </resources>
