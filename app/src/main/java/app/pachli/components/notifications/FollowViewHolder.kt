@@ -17,8 +17,13 @@
 
 package app.pachli.components.notifications
 
+import android.graphics.drawable.Drawable
+import android.widget.TextView
+import androidx.annotation.DrawableRes
+import androidx.annotation.Px
 import androidx.core.text.HtmlCompat
 import androidx.core.text.htmlEncode
+import androidx.core.util.TypedValueCompat.dpToPx
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.core.common.extensions.visible
@@ -37,6 +42,7 @@ import app.pachli.core.ui.extensions.handleContentDescription
 import app.pachli.core.ui.loadAvatar
 import app.pachli.databinding.ItemFollowBinding
 import com.bumptech.glide.RequestManager
+import kotlin.math.roundToInt
 
 class FollowViewHolder(
     private val binding: ItemFollowBinding,
@@ -44,9 +50,19 @@ class FollowViewHolder(
     private val setContent: SetContent,
     private val linkListener: LinkListener,
 ) : NotificationsPagingAdapter.ViewHolder<NotificationViewData>, RecyclerView.ViewHolder(binding.root) {
-    private val avatarRadius42dp = itemView.context.resources.getDimensionPixelSize(
-        DR.dimen.avatar_radius_42dp,
+    private val avatarRadius48dp = itemView.context.resources.getDimensionPixelSize(
+        DR.dimen.avatar_radius_48dp,
     )
+
+    /**
+     * The start padding (pixels) necessary to align the start of text in
+     * [ItemNotificationCollectionBinding.notificationText] with the start of text in
+     * [ItemNotificationCollectionBinding.collectionCard].
+     *
+     * See [setStatusInfoDrawableRes].
+     */
+    @Px
+    private val defaultNotificationInfoPaddingStart: Int = dpToPx(56f, binding.root.context.resources.displayMetrics).roundToInt()
 
     override fun bind(
         viewData: NotificationViewData,
@@ -93,6 +109,9 @@ class FollowViewHolder(
             animateEmojis,
         )
         binding.notificationText.text = emojifiedMessage
+
+        setNotificationTextDrawableRes(app.pachli.core.ui.R.drawable.ic_person_add_24dp, binding.notificationText)
+
         val username = context.getString(DR.string.post_username_format, account.username)
         binding.notificationUsername.text = username
         binding.notificationUsername.contentDescription = account.handleContentDescription(context)
@@ -100,7 +119,7 @@ class FollowViewHolder(
             glide,
             account.avatar,
             binding.notificationAvatar,
-            avatarRadius42dp,
+            avatarRadius48dp,
             animateAvatars,
         )
         if (showPronouns) binding.accountPronouns.text = account.pronouns
@@ -123,5 +142,25 @@ class FollowViewHolder(
         itemView.setOnClickListener { linkListener.onViewAccount(account.id) }
 
         binding.root.contentDescription = "$emojifiedMessage.\n\n${account.handleContentDescription(context)}.\n\n${account.note.parseAsMastodonHtml()}"
+    }
+
+    /**
+     * Sets [drawableRes] as the "start" drawable in [textView], and
+     * adjusts the textView's start padding as necessary.*
+     */
+    // TODO: Identical to setStatusInfoDrawableRes, consider removing the duplication.
+    private fun setNotificationTextDrawableRes(@DrawableRes drawableRes: Int, textView: TextView) {
+        setNotificationTextDrawable(getDrawableSizedForTextviewLineHeight(drawableRes, textView), textView)
+    }
+
+    // TODO: Identical to setStatusInfoDrawable, consider removing the duplication.
+    private fun setNotificationTextDrawable(drawable: Drawable?, textView: TextView) {
+        textView.setPaddingRelative(
+            defaultNotificationInfoPaddingStart - (drawable?.bounds?.width() ?: 0),
+            textView.paddingTop,
+            textView.paddingEnd,
+            textView.paddingBottom,
+        )
+        textView.setCompoundDrawablesRelative(drawable, null, null, null)
     }
 }
