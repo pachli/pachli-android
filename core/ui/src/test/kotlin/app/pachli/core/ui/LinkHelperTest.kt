@@ -34,7 +34,7 @@ import org.junit.runner.RunWith
 class LinkHelperTest {
     private val listener = object : LinkListener {
         override fun onViewTag(tag: String) { }
-        override fun onViewAccount(id: String) { }
+        override fun onViewAccount(accountId: String) {}
         override fun onViewUrl(url: String) { }
     }
 

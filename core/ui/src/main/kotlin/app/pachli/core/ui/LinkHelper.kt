@@ -52,11 +52,22 @@ fun interface OnViewTag {
 
 /** See [onViewAccount]. */
 fun interface OnViewAccount {
-    fun onViewAccount(id: String)
+    /**
+     * User wants to view details for the account identified
+     * by [accountId].
+     *
+     * @param accountId Server ID of the account to view.
+     */
+    fun onViewAccount(accountId: String)
 }
 
 /** See [onViewUrl]. */
 fun interface OnViewUrl {
+    /**
+     * User wants to open [url].
+     *
+     * @param url URL to open.
+     */
     fun onViewUrl(url: String)
 }
 
