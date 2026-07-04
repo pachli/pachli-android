@@ -31,7 +31,7 @@ import app.pachli.core.model.TimelineAccount
  * See [NotificationViewData.WithStatus] for notifications that reference a
  * status.
  *
- * See [NotificationViewData.WithCollection] for notificatoins that reference
+ * See [NotificationViewData.WithCollection] for notifications that reference
  * a [app.pachli.core.model.Collection].
  *
  * @property pachliAccountId

@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Pachli Association
+ * Copyright (c) 2026 Pachli Association
  *
  * This file is a part of Pachli.
  *
