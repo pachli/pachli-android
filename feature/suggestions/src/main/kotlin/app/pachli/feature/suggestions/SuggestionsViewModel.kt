@@ -158,7 +158,7 @@ internal class SuggestionsViewModel @Inject constructor(
     // a suggestion, as refreshing on each network operation could return a
     // completely different list of suggestions, losing the user's place in
     // the list.
-    private var _suggestions = MutableStateFlow<Result<Loadable<List<Suggestion>>, GetSuggestionsError>>(Ok(Loadable.Loading))
+    private val _suggestions = MutableStateFlow<Result<Loadable<List<Suggestion>>, GetSuggestionsError>>(Ok(Loadable.Loading))
 
     override val suggestions = stateFlow(viewModelScope, Ok(Loadable.Loading)) {
         combine(pachliAccountId, _suggestions, disabledSuggestions) { pachliAccountId, suggestionsResult, disabled ->
