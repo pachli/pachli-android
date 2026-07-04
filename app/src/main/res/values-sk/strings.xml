@@ -80,10 +80,10 @@
     <string name="error_media_upload_permission">Vyžaduje sa povolenie na čítanie médií.</string>
     <string name="error_media_download_permission">Vyžaduje sa povolenie na ukladanie médií.</string>
     <string name="error_media_upload_image_or_video">obrázky a videá nemôžu byť pripojené k rovnakému príspevku.</string>
-    <string name="error_following_hashtag_format">Chyba pri sledovaní #%1$s</string>
+    <string name="error_following_hashtag_format">Chyba pri sledovaní #%1$s: %2$s</string>
     <string name="error_image_edit_failed">Obrázok sa nepodarilo upraviť.</string>
     <string name="error_media_upload_sending">Nahrávanie zlyhalo.</string>
-    <string name="error_unfollowing_hashtag_format">Chyba pri zrušení sledovania #%1$s</string>
+    <string name="error_unfollowing_hashtag_format">Chyba pri zrušení sledovania #%1$s: %2$s</string>
     <string name="error_following_hashtags_unsupported">Táto inštancia nepodporuje nasledujúce hashtagy.</string>
     <string name="footer_empty">Zatiaľ žiadne príspevky. Obnov potiahnutím nadol!</string>
     <string name="action_compose">Napísať</string>
@@ -721,4 +721,6 @@
     <string name="title_delete_scheduled_statuses">Vymazať plánované príspevky?</string>
     <string name="delete_scheduled_statuses_msg">Týmto sa natrvalo odstránia plánované príspevky.</string>
     <string name="action_delete_scheduled_statuses">Vymazať vybrané príspevky</string>
+    <string name="action_mute_hashtag">Stlmiť #%1$s</string>
+    <string name="action_unmute_hashtag">Zrušiť stlmenie #%1$s</string>
 </resources>
