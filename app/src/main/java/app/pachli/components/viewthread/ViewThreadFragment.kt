@@ -435,8 +435,8 @@ class ViewThreadFragment :
         super.viewTag(tag)
     }
 
-    override fun onViewAccount(id: String) {
-        super.viewAccount(id)
+    override fun onViewAccount(accountId: String) {
+        super.viewAccount(accountId)
     }
 
     public override fun removeItem(viewData: IStatusViewData) {

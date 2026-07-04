@@ -205,9 +205,9 @@ class ViewEditsFragment :
         viewModel.loadEdits(statusId, force = true, refreshing = true)
     }
 
-    override fun onViewAccount(id: String) {
+    override fun onViewAccount(accountId: String) {
         startActivityWithDefaultTransition(
-            AccountActivityIntent(requireContext(), pachliAccountId, id),
+            AccountActivityIntent(requireContext(), pachliAccountId, accountId),
         )
     }
 

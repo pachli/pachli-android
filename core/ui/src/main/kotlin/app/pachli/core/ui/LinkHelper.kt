@@ -34,9 +34,40 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.color
 import com.mikepenz.iconics.utils.size
 
-interface LinkListener {
+/**
+ * Collect common interfaces for viewing links to things typically
+ * found in statuses.
+ */
+interface LinkListener : OnViewTag, OnViewAccount, OnViewUrl
+
+/** See [onViewTag]. */
+fun interface OnViewTag {
+    /**
+     * User wants to view the timeline for [tag].
+     *
+     * @param tag Name of the hashtag, without the leading `#`.
+     */
     fun onViewTag(tag: String)
-    fun onViewAccount(id: String)
+}
+
+/** See [onViewAccount]. */
+fun interface OnViewAccount {
+    /**
+     * User wants to view details for the account identified
+     * by [accountId].
+     *
+     * @param accountId Server ID of the account to view.
+     */
+    fun onViewAccount(accountId: String)
+}
+
+/** See [onViewUrl]. */
+fun interface OnViewUrl {
+    /**
+     * User wants to open [url].
+     *
+     * @param url URL to open.
+     */
     fun onViewUrl(url: String)
 }
 

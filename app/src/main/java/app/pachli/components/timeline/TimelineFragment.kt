@@ -710,11 +710,11 @@ class TimelineFragment :
         super.viewTag(tag)
     }
 
-    override fun onViewAccount(id: String) {
+    override fun onViewAccount(accountId: String) {
         // Ignore request to view the account page we're currently viewing
-        (timeline as? Timeline.User)?.let { if (it.id == id) return }
+        (timeline as? Timeline.User)?.let { if (it.id == accountId) return }
 
-        super.viewAccount(id)
+        super.viewAccount(accountId)
     }
 
     /**

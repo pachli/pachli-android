@@ -641,8 +641,8 @@ class NotificationsFragment :
         super.viewTag(tag)
     }
 
-    override fun onViewAccount(id: String) {
-        super.viewAccount(id)
+    override fun onViewAccount(accountId: String) {
+        super.viewAccount(accountId)
     }
 
     override fun onMute(mute: Boolean, id: String, position: Int, notifications: Boolean) {

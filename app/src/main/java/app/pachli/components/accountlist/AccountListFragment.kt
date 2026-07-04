@@ -228,9 +228,9 @@ class AccountListFragment :
         )
     }
 
-    override fun onViewAccount(id: String) {
+    override fun onViewAccount(accountId: String) {
         startActivityWithDefaultTransition(
-            AccountActivityIntent(requireContext(), pachliAccountId, id),
+            AccountActivityIntent(requireContext(), pachliAccountId, accountId),
         )
     }
 
