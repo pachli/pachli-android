@@ -1007,8 +1007,8 @@ class AccountActivity :
         startActivityWithDefaultTransition(intent)
     }
 
-    override fun onViewAccount(id: String) {
-        val intent = AccountActivityIntent(this, intent.pachliAccountId, id)
+    override fun onViewAccount(accountId: String) {
+        val intent = AccountActivityIntent(this, intent.pachliAccountId, accountId)
         startActivityWithDefaultTransition(intent)
     }
 

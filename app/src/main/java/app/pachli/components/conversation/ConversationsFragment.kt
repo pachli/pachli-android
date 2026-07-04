@@ -427,8 +427,8 @@ class ConversationsFragment :
         viewModel.collapseLongStatus(viewData.pachliAccountId, isCollapsed, viewData.actionableId)
     }
 
-    override fun onViewAccount(id: String) {
-        val intent = AccountActivityIntent(requireContext(), pachliAccountId, id)
+    override fun onViewAccount(accountId: String) {
+        val intent = AccountActivityIntent(requireContext(), pachliAccountId, accountId)
         startActivityWithDefaultTransition(intent)
     }
 

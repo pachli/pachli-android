@@ -285,8 +285,8 @@ class ReportStatusesFragment :
         )
     }
 
-    override fun onViewAccount(id: String) = startActivityWithDefaultTransition(
-        AccountActivityIntent(requireContext(), pachliAccountId, id),
+    override fun onViewAccount(accountId: String) = startActivityWithDefaultTransition(
+        AccountActivityIntent(requireContext(), pachliAccountId, accountId),
     )
 
     override fun onViewTag(tag: String) = startActivityWithDefaultTransition(

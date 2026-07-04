@@ -182,7 +182,7 @@ internal class SuggestionViewHolder(
      */
     private val linkListener = object : LinkListener {
         override fun onViewTag(tag: String) = accept(NavigationAction.ViewHashtag(tag))
-        override fun onViewAccount(id: String) = accept(NavigationAction.ViewAccount(id))
+        override fun onViewAccount(accountId: String) = accept(NavigationAction.ViewAccount(accountId))
         override fun onViewUrl(url: String) = accept(NavigationAction.ViewUrl(url))
     }
 

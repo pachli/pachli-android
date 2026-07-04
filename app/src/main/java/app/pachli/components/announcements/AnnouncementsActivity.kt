@@ -207,8 +207,8 @@ class AnnouncementsActivity :
         startActivityWithDefaultTransition(intent)
     }
 
-    override fun onViewAccount(id: String) {
-        viewAccount(intent.pachliAccountId, id)
+    override fun onViewAccount(accountId: String) {
+        viewAccount(intent.pachliAccountId, accountId)
     }
 
     override fun onViewUrl(url: String) {
