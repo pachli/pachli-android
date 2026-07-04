@@ -115,7 +115,7 @@ class ViewVideoFragment : ViewMediaFragment() {
     private val drawableMute by unsafeLazy { AppCompatResources.getDrawable(requireContext(), R.drawable.ic_mute_24dp) }
 
     /** Drawable for the "unmute" icon. */
-    private val drawableUnmute by unsafeLazy { AppCompatResources.getDrawable(requireContext(), R.drawable.ic_unmute_24dp) }
+    private val drawableUnmute by unsafeLazy { AppCompatResources.getDrawable(requireContext(), app.pachli.core.ui.R.drawable.ic_unmute_24dp) }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
