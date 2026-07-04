@@ -14,4 +14,5 @@
     <string name="error_preference_importer_missing_schema_version">súbor neobsahuje verziu schémy</string>
     <string name="error_preference_importer_null_on_import">importovanie súboru vrátilo null</string>
     <string name="error_preference_importer_wrong_version_fmt">súbor neznámej verzie: %1$s</string>
+    <string name="server_repository_error_get_emojis">načítanie /api/v1/custom_emojis zlyhalo: %1$s</string>
 </resources>
