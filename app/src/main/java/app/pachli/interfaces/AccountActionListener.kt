@@ -17,8 +17,9 @@
 
 package app.pachli.interfaces
 
-interface AccountActionListener {
-    fun onViewAccount(id: String)
+import app.pachli.core.ui.OnViewAccount
+
+interface AccountActionListener : OnViewAccount {
     fun onMute(mute: Boolean, id: String, position: Int, notifications: Boolean)
     fun onBlock(block: Boolean, id: String, position: Int)
     fun onRespondToFollowRequest(accept: Boolean, accountId: String, position: Int)
