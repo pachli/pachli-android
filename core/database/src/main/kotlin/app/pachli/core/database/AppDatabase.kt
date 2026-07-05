@@ -105,7 +105,7 @@ import java.util.TimeZone
         TimelineStatusWithAccount::class,
         ReferencedStatusId::class,
     ],
-    version = 42,
+    version = 43,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -166,6 +166,8 @@ import java.util.TimeZone
         AutoMigration(from = 40, to = 41, spec = AppDatabase.MIGRATE_40_41::class),
         // Store emojis directly in the Server class.
         AutoMigration(from = 41, to = 42, spec = AppDatabase.MIGRATE_41_42::class),
+        // Clear NotificationEntity ahead of a migration
+        AutoMigration(from = 42, to = 43, spec = AppDatabase.MIGRATE_42_43::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -374,6 +376,22 @@ abstract class AppDatabase : RoomDatabase() {
 
     @DeleteTable("EmojisEntity")
     class MIGRATE_41_42 : AutoMigrationSpec
+
+    class MIGRATE_42_43 : AutoMigrationSpec {
+        override fun onPostMigrate(connection: SQLiteConnection) {
+            super.onPostMigrate(connection)
+            // Delete notifications before the 43->44 migration, as that migration
+            // modifies FK constraints which won't hold with the existing data.
+            connection.execSQL("DELETE FROM NotificationEntity")
+
+            // Delete cached preview cards. TimelineAccount.id was renamed to
+            // TimelineAccount.serverId, which is persisted as JSON in
+            // Status.card.authors[].account. Clear the cards to prevent a
+            // JSON decoding error. They're recreated as soon as the user
+            // refreshes.
+            connection.execSQL("UPDATE StatusEntity SET card = NULL")
+        }
+    }
 }
 
 val MIGRATE_8_9 = object : Migration(8, 9) {
