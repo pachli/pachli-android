@@ -229,7 +229,7 @@ fun Notification.Type.asEntity() = when (this) {
  */
 fun TimelineAccount.asEntity(pachliAccountId: Long) = TimelineAccountEntity(
     serverId = id,
-    timelineUserId = pachliAccountId,
+    pachliAccountId = pachliAccountId,
     localUsername = localUsername,
     username = username,
     displayName = name,

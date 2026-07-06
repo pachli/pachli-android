@@ -377,6 +377,11 @@ abstract class AppDatabase : RoomDatabase() {
     @DeleteTable("EmojisEntity")
     class MIGRATE_41_42 : AutoMigrationSpec
 
+    @RenameColumn("NotificationEntity", "timelineUserId", "pachliAccountId")
+    @RenameColumn("StatusEntity", "timelineUserId", "pachliAccountId")
+    @RenameColumn("TimelineAccountEntity", "timelineUserId", "pachliAccountId")
+    @RenameColumn("TranslatedStatusEntity", "timelineUserId", "pachliAccountId")
+    @RenameColumn("NotificationReportEntity", "target_timelineUserId", "target_pachliAccountId")
     class MIGRATE_42_43 : AutoMigrationSpec {
         override fun onPostMigrate(connection: SQLiteConnection) {
             super.onPostMigrate(connection)
@@ -543,7 +548,7 @@ val MIGRATE_12_13 = object : Migration(12, 13) {
 
 /**
  * Removes any StatusEntity that reference a non-existent [PachliAccountEntity.id] in
- * [StatusEntity.timelineUserId].
+ * [StatusEntity.pachliAccountId].
  *
  * Version 20 introduces that as an FK constraint, this ensures that any statuses
  * in the cache that break that constraint are removed.

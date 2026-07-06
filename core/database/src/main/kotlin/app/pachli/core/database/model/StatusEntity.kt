@@ -54,35 +54,35 @@ import java.util.Date
  * the ID of the reblog status*, that is still [serverId]). Also referred to as the
  * *actionable* ID.
  * @property reblogAccountId If this is a reblog, the ID of the account doing the reblogging.
- * @property reblogged True if [timelineUserId] reblogged this status.
+ * @property reblogged True if [pachliAccountId] reblogged this status.
  * @property isReblog True if this status is a reblog of another status (see
  * [reblogServerId] and [reblogAccountId])
  * @property isReply True if this status is a reply to another status (see
  * [inReplyToId] and [inReplyToAccountId])
  */
 @Entity(
-    primaryKeys = ["serverId", "timelineUserId"],
+    primaryKeys = ["serverId", "pachliAccountId"],
     foreignKeys = (
         [
             ForeignKey(
                 entity = PachliAccountEntity::class,
                 parentColumns = ["id"],
-                childColumns = ["timelineUserId"],
+                childColumns = ["pachliAccountId"],
                 onDelete = ForeignKey.CASCADE,
                 deferred = true,
             ),
             ForeignKey(
                 entity = TimelineAccountEntity::class,
-                parentColumns = ["serverId", "timelineUserId"],
-                childColumns = ["authorServerId", "timelineUserId"],
+                parentColumns = ["serverId", "pachliAccountId"],
+                childColumns = ["authorServerId", "pachliAccountId"],
                 deferred = true,
             ),
         ]
         ),
     // Avoiding rescanning status table when accounts table changes. Recommended by Room(c).
     indices = [
-        Index("authorServerId", "timelineUserId"),
-        Index("timelineUserId"),
+        Index("authorServerId", "pachliAccountId"),
+        Index("pachliAccountId"),
     ],
 )
 @TypeConverters(Converters::class)
@@ -90,8 +90,7 @@ data class StatusEntity(
     // id never flips: we need it for sorting so it's a real id
     val serverId: String,
     val url: String?,
-    // our local id for the logged in user in case there are multiple accounts per instance
-    val timelineUserId: Long,
+    val pachliAccountId: Long,
     val authorServerId: String,
     val inReplyToId: String?,
     val inReplyToAccountId: String?,
@@ -138,7 +137,7 @@ data class StatusEntity(
 fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
     serverId = statusId,
     url = actionableStatus.url,
-    timelineUserId = pachliAccountId,
+    pachliAccountId = pachliAccountId,
     authorServerId = actionableStatus.account.serverId,
     inReplyToId = actionableStatus.inReplyToId,
     inReplyToAccountId = actionableStatus.inReplyToAccountId,
@@ -186,7 +185,7 @@ fun Iterable<Status>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliA
  * account the user is following).
  *
  * @property serverId
- * @property timelineUserId The pachliAccountId for the logged-in account related
+ * @property pachliAccountId The pachliAccountId for the logged-in account related
  * to this account.
  * @property localUsername
  * @property username
@@ -199,22 +198,22 @@ fun Iterable<Status>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliA
  * @property note
  */
 @Entity(
-    primaryKeys = ["serverId", "timelineUserId"],
+    primaryKeys = ["serverId", "pachliAccountId"],
     foreignKeys = [
         ForeignKey(
             entity = PachliAccountEntity::class,
             parentColumns = arrayOf("id"),
-            childColumns = arrayOf("timelineUserId"),
+            childColumns = arrayOf("pachliAccountId"),
             onDelete = ForeignKey.CASCADE,
             deferred = true,
         ),
     ],
-    indices = [Index(value = ["timelineUserId"])],
+    indices = [Index(value = ["pachliAccountId"])],
 )
 @TypeConverters(Converters::class)
 data class TimelineAccountEntity(
     val serverId: String,
-    val timelineUserId: Long,
+    val pachliAccountId: Long,
     val localUsername: String,
     val username: String,
     val displayName: String,
@@ -251,7 +250,7 @@ data class TimelineAccountEntity(
 
 fun TimelineAccount.asEntity(pachliAccountId: Long) = TimelineAccountEntity(
     serverId = serverId,
-    timelineUserId = pachliAccountId,
+    pachliAccountId = pachliAccountId,
     localUsername = localUsername,
     username = username,
     displayName = name,

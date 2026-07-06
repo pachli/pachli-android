@@ -246,7 +246,7 @@ data class NotificationAccountFilterDecisionUpdate(
             ),
             ForeignKey(
                 entity = TimelineAccountEntity::class,
-                parentColumns = ["serverId", "timelineUserId"],
+                parentColumns = ["serverId", "pachliAccountId"],
                 childColumns = ["accountServerId", "pachliAccountId"],
                 deferred = true,
             ),

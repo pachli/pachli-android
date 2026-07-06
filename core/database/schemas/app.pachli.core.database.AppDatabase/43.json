@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 43,
-    "identityHash": "d6e8d2db1dd387d7ccebfae32403a627",
+    "identityHash": "11ca8ae45cbd49c4ee96f24326ebac1c",
     "entities": [
       {
         "tableName": "DraftEntity",
@@ -499,7 +499,7 @@
       },
       {
         "tableName": "StatusEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`serverId` TEXT NOT NULL, `url` TEXT, `timelineUserId` INTEGER NOT NULL, `authorServerId` TEXT NOT NULL, `inReplyToId` TEXT, `inReplyToAccountId` TEXT, `content` TEXT, `createdAt` INTEGER NOT NULL, `editedAt` INTEGER, `emojis` TEXT, `reblogsCount` INTEGER NOT NULL, `favouritesCount` INTEGER NOT NULL, `repliesCount` INTEGER NOT NULL, `quotesCount` INTEGER NOT NULL DEFAULT 0, `reblogged` INTEGER NOT NULL, `bookmarked` INTEGER NOT NULL, `favourited` INTEGER NOT NULL, `sensitive` INTEGER NOT NULL, `spoilerText` TEXT NOT NULL, `visibility` INTEGER NOT NULL, `attachments` TEXT, `mentions` TEXT, `tags` TEXT, `application` TEXT, `reblogServerId` TEXT, `reblogAccountId` TEXT, `poll` TEXT, `muted` INTEGER, `pinned` INTEGER NOT NULL, `card` TEXT, `quoteState` TEXT, `quoteServerId` TEXT, `quoteApproval` TEXT NOT NULL DEFAULT '{\"automatic\":[], \"manual\":[], \"currentUser\":\"UNKNOWN\"}', `language` TEXT, `filtered` TEXT, PRIMARY KEY(`serverId`, `timelineUserId`), FOREIGN KEY(`timelineUserId`) REFERENCES `PachliAccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED, FOREIGN KEY(`authorServerId`, `timelineUserId`) REFERENCES `TimelineAccountEntity`(`serverId`, `timelineUserId`) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`serverId` TEXT NOT NULL, `url` TEXT, `pachliAccountId` INTEGER NOT NULL, `authorServerId` TEXT NOT NULL, `inReplyToId` TEXT, `inReplyToAccountId` TEXT, `content` TEXT, `createdAt` INTEGER NOT NULL, `editedAt` INTEGER, `emojis` TEXT, `reblogsCount` INTEGER NOT NULL, `favouritesCount` INTEGER NOT NULL, `repliesCount` INTEGER NOT NULL, `quotesCount` INTEGER NOT NULL DEFAULT 0, `reblogged` INTEGER NOT NULL, `bookmarked` INTEGER NOT NULL, `favourited` INTEGER NOT NULL, `sensitive` INTEGER NOT NULL, `spoilerText` TEXT NOT NULL, `visibility` INTEGER NOT NULL, `attachments` TEXT, `mentions` TEXT, `tags` TEXT, `application` TEXT, `reblogServerId` TEXT, `reblogAccountId` TEXT, `poll` TEXT, `muted` INTEGER, `pinned` INTEGER NOT NULL, `card` TEXT, `quoteState` TEXT, `quoteServerId` TEXT, `quoteApproval` TEXT NOT NULL DEFAULT '{\"automatic\":[], \"manual\":[], \"currentUser\":\"UNKNOWN\"}', `language` TEXT, `filtered` TEXT, PRIMARY KEY(`serverId`, `pachliAccountId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `PachliAccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED, FOREIGN KEY(`authorServerId`, `pachliAccountId`) REFERENCES `TimelineAccountEntity`(`serverId`, `pachliAccountId`) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED)",
         "fields": [
           {
             "fieldPath": "serverId",
@@ -513,8 +513,8 @@
             "affinity": "TEXT"
           },
           {
-            "fieldPath": "timelineUserId",
-            "columnName": "timelineUserId",
+            "fieldPath": "pachliAccountId",
+            "columnName": "pachliAccountId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -699,28 +699,28 @@
           "autoGenerate": false,
           "columnNames": [
             "serverId",
-            "timelineUserId"
+            "pachliAccountId"
           ]
         },
         "indices": [
           {
-            "name": "index_StatusEntity_authorServerId_timelineUserId",
+            "name": "index_StatusEntity_authorServerId_pachliAccountId",
             "unique": false,
             "columnNames": [
               "authorServerId",
-              "timelineUserId"
+              "pachliAccountId"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_StatusEntity_authorServerId_timelineUserId` ON `${TABLE_NAME}` (`authorServerId`, `timelineUserId`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_StatusEntity_authorServerId_pachliAccountId` ON `${TABLE_NAME}` (`authorServerId`, `pachliAccountId`)"
           },
           {
-            "name": "index_StatusEntity_timelineUserId",
+            "name": "index_StatusEntity_pachliAccountId",
             "unique": false,
             "columnNames": [
-              "timelineUserId"
+              "pachliAccountId"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_StatusEntity_timelineUserId` ON `${TABLE_NAME}` (`timelineUserId`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_StatusEntity_pachliAccountId` ON `${TABLE_NAME}` (`pachliAccountId`)"
           }
         ],
         "foreignKeys": [
@@ -729,7 +729,7 @@
             "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
-              "timelineUserId"
+              "pachliAccountId"
             ],
             "referencedColumns": [
               "id"
@@ -741,18 +741,18 @@
             "onUpdate": "NO ACTION",
             "columns": [
               "authorServerId",
-              "timelineUserId"
+              "pachliAccountId"
             ],
             "referencedColumns": [
               "serverId",
-              "timelineUserId"
+              "pachliAccountId"
             ]
           }
         ]
       },
       {
         "tableName": "TimelineAccountEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`serverId` TEXT NOT NULL, `timelineUserId` INTEGER NOT NULL, `localUsername` TEXT NOT NULL, `username` TEXT NOT NULL, `displayName` TEXT NOT NULL, `url` TEXT NOT NULL, `avatar` TEXT NOT NULL, `emojis` TEXT NOT NULL, `bot` INTEGER NOT NULL, `createdAt` INTEGER, `limited` INTEGER NOT NULL DEFAULT false, `note` TEXT NOT NULL DEFAULT '', `roles` TEXT DEFAULT '', `pronouns` TEXT DEFAULT '', PRIMARY KEY(`serverId`, `timelineUserId`), FOREIGN KEY(`timelineUserId`) REFERENCES `PachliAccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`serverId` TEXT NOT NULL, `pachliAccountId` INTEGER NOT NULL, `localUsername` TEXT NOT NULL, `username` TEXT NOT NULL, `displayName` TEXT NOT NULL, `url` TEXT NOT NULL, `avatar` TEXT NOT NULL, `emojis` TEXT NOT NULL, `bot` INTEGER NOT NULL, `createdAt` INTEGER, `limited` INTEGER NOT NULL DEFAULT false, `note` TEXT NOT NULL DEFAULT '', `roles` TEXT DEFAULT '', `pronouns` TEXT DEFAULT '', PRIMARY KEY(`serverId`, `pachliAccountId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `PachliAccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
         "fields": [
           {
             "fieldPath": "serverId",
@@ -761,8 +761,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "timelineUserId",
-            "columnName": "timelineUserId",
+            "fieldPath": "pachliAccountId",
+            "columnName": "pachliAccountId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -844,18 +844,18 @@
           "autoGenerate": false,
           "columnNames": [
             "serverId",
-            "timelineUserId"
+            "pachliAccountId"
           ]
         },
         "indices": [
           {
-            "name": "index_TimelineAccountEntity_timelineUserId",
+            "name": "index_TimelineAccountEntity_pachliAccountId",
             "unique": false,
             "columnNames": [
-              "timelineUserId"
+              "pachliAccountId"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_TimelineAccountEntity_timelineUserId` ON `${TABLE_NAME}` (`timelineUserId`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_TimelineAccountEntity_pachliAccountId` ON `${TABLE_NAME}` (`pachliAccountId`)"
           }
         ],
         "foreignKeys": [
@@ -864,7 +864,7 @@
             "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
-              "timelineUserId"
+              "pachliAccountId"
             ],
             "referencedColumns": [
               "id"
@@ -1070,7 +1070,7 @@
       },
       {
         "tableName": "TranslatedStatusEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`serverId` TEXT NOT NULL, `timelineUserId` INTEGER NOT NULL, `content` TEXT NOT NULL, `spoilerText` TEXT NOT NULL, `poll` TEXT, `attachments` TEXT NOT NULL, `provider` TEXT NOT NULL, PRIMARY KEY(`serverId`, `timelineUserId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`serverId` TEXT NOT NULL, `pachliAccountId` INTEGER NOT NULL, `content` TEXT NOT NULL, `spoilerText` TEXT NOT NULL, `poll` TEXT, `attachments` TEXT NOT NULL, `provider` TEXT NOT NULL, PRIMARY KEY(`serverId`, `pachliAccountId`))",
         "fields": [
           {
             "fieldPath": "serverId",
@@ -1079,8 +1079,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "timelineUserId",
-            "columnName": "timelineUserId",
+            "fieldPath": "pachliAccountId",
+            "columnName": "pachliAccountId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -1118,7 +1118,7 @@
           "autoGenerate": false,
           "columnNames": [
             "serverId",
-            "timelineUserId"
+            "pachliAccountId"
           ]
         }
       },
@@ -1419,7 +1419,7 @@
       },
       {
         "tableName": "NotificationEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `type` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `accountServerId` TEXT NOT NULL, `statusServerId` TEXT, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `PachliAccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED, FOREIGN KEY(`accountServerId`, `pachliAccountId`) REFERENCES `TimelineAccountEntity`(`serverId`, `timelineUserId`) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `type` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `accountServerId` TEXT NOT NULL, `statusServerId` TEXT, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `PachliAccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED, FOREIGN KEY(`accountServerId`, `pachliAccountId`) REFERENCES `TimelineAccountEntity`(`serverId`, `pachliAccountId`) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED)",
         "fields": [
           {
             "fieldPath": "pachliAccountId",
@@ -1498,14 +1498,14 @@
             ],
             "referencedColumns": [
               "serverId",
-              "timelineUserId"
+              "pachliAccountId"
             ]
           }
         ]
       },
       {
         "tableName": "NotificationReportEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `reportId` TEXT NOT NULL, `actionTaken` INTEGER NOT NULL, `actionTakenAt` INTEGER, `category` TEXT NOT NULL, `comment` TEXT NOT NULL, `forwarded` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `statusIds` TEXT, `ruleIds` TEXT, `target_serverId` TEXT NOT NULL, `target_timelineUserId` INTEGER NOT NULL, `target_localUsername` TEXT NOT NULL, `target_username` TEXT NOT NULL, `target_displayName` TEXT NOT NULL, `target_url` TEXT NOT NULL, `target_avatar` TEXT NOT NULL, `target_emojis` TEXT NOT NULL, `target_bot` INTEGER NOT NULL, `target_createdAt` INTEGER, `target_limited` INTEGER NOT NULL DEFAULT false, `target_note` TEXT NOT NULL DEFAULT '', `target_roles` TEXT DEFAULT '', `target_pronouns` TEXT DEFAULT '', PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`, `serverId`) REFERENCES `NotificationEntity`(`pachliAccountId`, `serverId`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `reportId` TEXT NOT NULL, `actionTaken` INTEGER NOT NULL, `actionTakenAt` INTEGER, `category` TEXT NOT NULL, `comment` TEXT NOT NULL, `forwarded` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `statusIds` TEXT, `ruleIds` TEXT, `target_serverId` TEXT NOT NULL, `target_pachliAccountId` INTEGER NOT NULL, `target_localUsername` TEXT NOT NULL, `target_username` TEXT NOT NULL, `target_displayName` TEXT NOT NULL, `target_url` TEXT NOT NULL, `target_avatar` TEXT NOT NULL, `target_emojis` TEXT NOT NULL, `target_bot` INTEGER NOT NULL, `target_createdAt` INTEGER, `target_limited` INTEGER NOT NULL DEFAULT false, `target_note` TEXT NOT NULL DEFAULT '', `target_roles` TEXT DEFAULT '', `target_pronouns` TEXT DEFAULT '', PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`, `serverId`) REFERENCES `NotificationEntity`(`pachliAccountId`, `serverId`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
         "fields": [
           {
             "fieldPath": "pachliAccountId",
@@ -1577,8 +1577,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "targetAccount.timelineUserId",
-            "columnName": "target_timelineUserId",
+            "fieldPath": "targetAccount.pachliAccountId",
+            "columnName": "target_pachliAccountId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -2011,16 +2011,16 @@
     "views": [
       {
         "viewName": "TimelineStatusWithAccount",
-        "createSql": "CREATE VIEW `${VIEW_NAME}` AS SELECT\n    s.serverId,\n    s.url,\n    s.timelineUserId,\n    s.authorServerId,\n    s.inReplyToId,\n    s.inReplyToAccountId,\n    s.createdAt,\n    s.editedAt,\n    s.emojis,\n    s.reblogsCount,\n    s.favouritesCount,\n    s.repliesCount,\n    s.quotesCount,\n    s.reblogged,\n    s.favourited,\n    s.bookmarked,\n    s.sensitive,\n    s.spoilerText,\n    s.visibility,\n    s.mentions,\n    s.tags,\n    s.application,\n    s.reblogServerId,\n    s.reblogAccountId,\n    s.content,\n    s.attachments,\n    s.poll,\n    s.card,\n    s.muted,\n    s.pinned,\n    s.language,\n    s.filtered,\n    s.quoteState,\n    s.quoteServerId,\n    s.quoteApproval,\n    a.serverId AS 'a_serverId',\n    a.timelineUserId AS 'a_timelineUserId',\n    a.localUsername AS 'a_localUsername',\n    a.username AS 'a_username',\n    a.displayName AS 'a_displayName',\n    a.url AS 'a_url',\n    a.avatar AS 'a_avatar',\n    a.emojis AS 'a_emojis',\n    a.bot AS 'a_bot',\n    a.createdAt AS 'a_createdAt',\n    a.limited AS 'a_limited',\n    a.note AS 'a_note',\n    a.roles AS 'a_roles',\n    a.pronouns AS 'a_pronouns',\n    rb.serverId AS 'rb_serverId',\n    rb.timelineUserId AS 'rb_timelineUserId',\n    rb.localUsername AS 'rb_localUsername',\n    rb.username AS 'rb_username',\n    rb.displayName AS 'rb_displayName',\n    rb.url AS 'rb_url',\n    rb.avatar AS 'rb_avatar',\n    rb.emojis AS 'rb_emojis',\n    rb.bot AS 'rb_bot',\n    rb.createdAt AS 'rb_createdAt',\n    rb.limited AS 'rb_limited',\n    rb.note AS 'rb_note',\n    rb.roles AS 'rb_roles',\n    rb.pronouns AS 'rb_pronouns',\n    svd.serverId AS 'svd_serverId',\n    svd.pachliAccountId AS 'svd_pachliAccountId',\n    svd.expanded AS 'svd_expanded',\n    svd.contentCollapsed AS 'svd_contentCollapsed',\n    svd.translationState AS 'svd_translationState',\n    svd.attachmentDisplayAction AS 'svd_attachmentDisplayAction',\n    tr.serverId AS 't_serverId',\n    tr.timelineUserId AS 't_timelineUserId',\n    tr.content AS 't_content',\n    tr.spoilerText AS 't_spoilerText',\n    tr.poll AS 't_poll',\n    tr.attachments AS 't_attachments',\n    tr.provider AS 't_provider',\n    reply.serverId AS 'reply_serverId',\n    reply.timelineUserId AS 'reply_timelineUserId',\n    reply.localUsername AS 'reply_localUsername',\n    reply.username AS 'reply_username',\n    reply.displayName AS 'reply_displayName',\n    reply.url AS 'reply_url',\n    reply.avatar AS 'reply_avatar',\n    reply.emojis AS 'reply_emojis',\n    reply.bot AS 'reply_bot',\n    reply.createdAt AS 'reply_createdAt',\n    reply.limited AS 'reply_limited',\n    reply.note AS 'reply_note',\n    reply.roles AS 'reply_roles',\n    reply.pronouns AS 'reply_pronouns'\nFROM StatusEntity AS s\nLEFT JOIN TimelineAccountEntity AS a ON (s.timelineUserId = a.timelineUserId AND s.authorServerId = a.serverId)\nLEFT JOIN TimelineAccountEntity AS rb ON (s.timelineUserId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)\nLEFT JOIN\n    StatusViewDataEntity AS svd\n    ON (s.timelineUserId = svd.pachliAccountId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))\nLEFT JOIN\n    TranslatedStatusEntity AS tr\n    ON (s.timelineUserId = tr.timelineUserId AND (s.serverId = tr.serverId OR s.reblogServerId = tr.serverId))\nLEFT JOIN TimelineAccountEntity AS reply ON (s.timelineUserId = reply.timelineUserId AND s.inReplyToAccountId = reply.serverId)"
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS SELECT\n    s.serverId,\n    s.url,\n    s.pachliAccountId,\n    s.authorServerId,\n    s.inReplyToId,\n    s.inReplyToAccountId,\n    s.createdAt,\n    s.editedAt,\n    s.emojis,\n    s.reblogsCount,\n    s.favouritesCount,\n    s.repliesCount,\n    s.quotesCount,\n    s.reblogged,\n    s.favourited,\n    s.bookmarked,\n    s.sensitive,\n    s.spoilerText,\n    s.visibility,\n    s.mentions,\n    s.tags,\n    s.application,\n    s.reblogServerId,\n    s.reblogAccountId,\n    s.content,\n    s.attachments,\n    s.poll,\n    s.card,\n    s.muted,\n    s.pinned,\n    s.language,\n    s.filtered,\n    s.quoteState,\n    s.quoteServerId,\n    s.quoteApproval,\n    a.serverId AS 'a_serverId',\n    a.pachliAccountId AS 'a_pachliAccountId',\n    a.localUsername AS 'a_localUsername',\n    a.username AS 'a_username',\n    a.displayName AS 'a_displayName',\n    a.url AS 'a_url',\n    a.avatar AS 'a_avatar',\n    a.emojis AS 'a_emojis',\n    a.bot AS 'a_bot',\n    a.createdAt AS 'a_createdAt',\n    a.limited AS 'a_limited',\n    a.note AS 'a_note',\n    a.roles AS 'a_roles',\n    a.pronouns AS 'a_pronouns',\n    rb.serverId AS 'rb_serverId',\n    rb.pachliAccountId AS 'rb_pachliAccountId',\n    rb.localUsername AS 'rb_localUsername',\n    rb.username AS 'rb_username',\n    rb.displayName AS 'rb_displayName',\n    rb.url AS 'rb_url',\n    rb.avatar AS 'rb_avatar',\n    rb.emojis AS 'rb_emojis',\n    rb.bot AS 'rb_bot',\n    rb.createdAt AS 'rb_createdAt',\n    rb.limited AS 'rb_limited',\n    rb.note AS 'rb_note',\n    rb.roles AS 'rb_roles',\n    rb.pronouns AS 'rb_pronouns',\n    svd.serverId AS 'svd_serverId',\n    svd.pachliAccountId AS 'svd_pachliAccountId',\n    svd.expanded AS 'svd_expanded',\n    svd.contentCollapsed AS 'svd_contentCollapsed',\n    svd.translationState AS 'svd_translationState',\n    svd.attachmentDisplayAction AS 'svd_attachmentDisplayAction',\n    tr.serverId AS 't_serverId',\n    tr.pachliAccountId AS 't_pachliAccountId',\n    tr.content AS 't_content',\n    tr.spoilerText AS 't_spoilerText',\n    tr.poll AS 't_poll',\n    tr.attachments AS 't_attachments',\n    tr.provider AS 't_provider',\n    reply.serverId AS 'reply_serverId',\n    reply.pachliAccountId AS 'reply_pachliAccountId',\n    reply.localUsername AS 'reply_localUsername',\n    reply.username AS 'reply_username',\n    reply.displayName AS 'reply_displayName',\n    reply.url AS 'reply_url',\n    reply.avatar AS 'reply_avatar',\n    reply.emojis AS 'reply_emojis',\n    reply.bot AS 'reply_bot',\n    reply.createdAt AS 'reply_createdAt',\n    reply.limited AS 'reply_limited',\n    reply.note AS 'reply_note',\n    reply.roles AS 'reply_roles',\n    reply.pronouns AS 'reply_pronouns'\nFROM StatusEntity AS s\nLEFT JOIN TimelineAccountEntity AS a ON (s.pachliAccountId = a.pachliAccountId AND s.authorServerId = a.serverId)\nLEFT JOIN TimelineAccountEntity AS rb ON (s.pachliAccountId = rb.pachliAccountId AND s.reblogAccountId = rb.serverId)\nLEFT JOIN\n    StatusViewDataEntity AS svd\n    ON (s.pachliAccountId = svd.pachliAccountId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))\nLEFT JOIN\n    TranslatedStatusEntity AS tr\n    ON (s.pachliAccountId = tr.pachliAccountId AND (s.serverId = tr.serverId OR s.reblogServerId = tr.serverId))\nLEFT JOIN TimelineAccountEntity AS reply ON (s.pachliAccountId = reply.pachliAccountId AND s.inReplyToAccountId = reply.serverId)"
       },
       {
         "viewName": "ReferencedStatusId",
-        "createSql": "CREATE VIEW `${VIEW_NAME}` AS WITH RECURSIVE\n-- CTEs to normalise the column names and restrict to just rows with\n-- non-null references to status IDs, for use in the refId CTE.\ntimelineStatusId(pachliAccountId, statusId) AS (\n    SELECT\n        pachliAccountId,\n        statusId\n    FROM TimelineStatusEntity\n),\n\nnotificationStatusId(pachliAccountId, statusId) AS (\n    SELECT\n        pachliAccountId,\n        statusServerId AS statusId\n    FROM NotificationEntity\n    WHERE statusServerId IS NOT NULL\n),\n\nconversationStatusId(pachliAccountId, statusId) AS (\n    SELECT\n        pachliAccountId,\n        lastStatusServerId AS statusId\n    FROM ConversationEntity\n    WHERE lastStatusServerId IS NOT NULL\n),\n\ndraftStatusId(pachliAccountId, statusId) AS (\n    SELECT\n        pachliAccountId AS pachliAccountId,\n        inReplyToId AS statusId\n    FROM DraftEntity\n    WHERE inReplyToId IS NOT NULL\n),\n\n--\n-- refId is a table of all referenced statusIds. A statusId is referenced\n-- if it is either (a) directly referenced by one of the CTEs above, or\n-- (b) referenced by a reply, reblog, or quote in any of the statuses\n-- from \"a\".\n--\nrefId(pachliAccountId, statusId) AS (\n    --\n    -- Find all the \"root\" statusId. These are the IDs that\n    -- are referenced by tables containing \"live\" data.\n    --\n    SELECT\n        pachliAccountId,\n        statusId\n    FROM timelineStatusId\n    UNION\n    SELECT\n        pachliAccountId,\n        statusId\n    FROM notificationStatusId\n    UNION\n    SELECT\n        pachliAccountId,\n        statusId\n    FROM conversationStatusId\n    UNION\n    SELECT\n        pachliAccountId,\n        statusId\n    FROM draftStatusId\n\n    -- Recursively chase down all the references to replies, reblogs, and\n    -- quotes, emitting the `inReblogId`, `inReplyToId`, or `quoteServerId`\n    -- columns renamed to `statusId` as extra rows.\n    UNION\n    SELECT\n        s.timelineUserId AS pachliAccountId,\n        s.reblogServerId AS statusId\n    FROM StatusEntity AS s, refId AS r\n    WHERE\n        s.reblogServerId IS NOT NULL\n        AND s.timelineUserId = r.pachliAccountId\n        AND s.serverId = r.statusID\n\n    UNION\n    SELECT\n        s.timelineUserId AS pachliAccountId,\n        s.inReplyToId AS statusId\n    FROM StatusEntity AS s, refId AS r\n    WHERE\n        s.inReplyToId IS NOT NULL\n        AND s.timelineUserId = r.pachliAccountId\n        AND s.serverId = r.statusID\n\n    UNION\n    SELECT\n        s.timelineUserId AS pachliAccountId,\n        s.quoteServerId AS statusId\n    FROM StatusEntity AS s, refId AS r\n    WHERE\n        s.quoteServerId IS NOT NULL\n        AND s.timelineUserId = r.pachliAccountId\n        AND s.serverId = r.statusID\n)\n\nSELECT\n    pachliAccountId,\n    statusId\nFROM refId"
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS WITH RECURSIVE\n-- CTEs to normalise the column names and restrict to just rows with\n-- non-null references to status IDs, for use in the refId CTE.\ntimelineStatusId(pachliAccountId, statusId) AS (\n    SELECT\n        pachliAccountId,\n        statusId\n    FROM TimelineStatusEntity\n),\n\nnotificationStatusId(pachliAccountId, statusId) AS (\n    SELECT\n        pachliAccountId,\n        statusServerId AS statusId\n    FROM NotificationEntity\n    WHERE statusServerId IS NOT NULL\n),\n\nconversationStatusId(pachliAccountId, statusId) AS (\n    SELECT\n        pachliAccountId,\n        lastStatusServerId AS statusId\n    FROM ConversationEntity\n    WHERE lastStatusServerId IS NOT NULL\n),\n\ndraftStatusId(pachliAccountId, statusId) AS (\n    SELECT\n        pachliAccountId AS pachliAccountId,\n        inReplyToId AS statusId\n    FROM DraftEntity\n    WHERE inReplyToId IS NOT NULL\n),\n\n--\n-- refId is a table of all referenced statusIds. A statusId is referenced\n-- if it is either (a) directly referenced by one of the CTEs above, or\n-- (b) referenced by a reply, reblog, or quote in any of the statuses\n-- from \"a\".\n--\nrefId(pachliAccountId, statusId) AS (\n    --\n    -- Find all the \"root\" statusId. These are the IDs that\n    -- are referenced by tables containing \"live\" data.\n    --\n    SELECT\n        pachliAccountId,\n        statusId\n    FROM timelineStatusId\n    UNION\n    SELECT\n        pachliAccountId,\n        statusId\n    FROM notificationStatusId\n    UNION\n    SELECT\n        pachliAccountId,\n        statusId\n    FROM conversationStatusId\n    UNION\n    SELECT\n        pachliAccountId,\n        statusId\n    FROM draftStatusId\n\n    -- Recursively chase down all the references to replies, reblogs, and\n    -- quotes, emitting the `inReblogId`, `inReplyToId`, or `quoteServerId`\n    -- columns renamed to `statusId` as extra rows.\n    UNION\n    SELECT\n        s.pachliAccountId AS pachliAccountId,\n        s.reblogServerId AS statusId\n    FROM StatusEntity AS s, refId AS r\n    WHERE\n        s.reblogServerId IS NOT NULL\n        AND s.pachliAccountId = r.pachliAccountId\n        AND s.serverId = r.statusID\n\n    UNION\n    SELECT\n        s.pachliAccountId AS pachliAccountId,\n        s.inReplyToId AS statusId\n    FROM StatusEntity AS s, refId AS r\n    WHERE\n        s.inReplyToId IS NOT NULL\n        AND s.pachliAccountId = r.pachliAccountId\n        AND s.serverId = r.statusID\n\n    UNION\n    SELECT\n        s.pachliAccountId AS pachliAccountId,\n        s.quoteServerId AS statusId\n    FROM StatusEntity AS s, refId AS r\n    WHERE\n        s.quoteServerId IS NOT NULL\n        AND s.pachliAccountId = r.pachliAccountId\n        AND s.serverId = r.statusID\n)\n\nSELECT\n    pachliAccountId,\n    statusId\nFROM refId"
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd6e8d2db1dd387d7ccebfae32403a627')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '11ca8ae45cbd49c4ee96f24326ebac1c')"
     ]
   }
 }

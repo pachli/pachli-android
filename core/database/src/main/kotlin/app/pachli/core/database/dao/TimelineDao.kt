@@ -55,7 +55,7 @@ abstract class TimelineDao {
 SELECT s.*
   FROM TimelineStatusEntity AS t
 LEFT JOIN TimelineStatusWithAccount AS s
-    ON (t.pachliAccountId = :account AND (s.timelineUserId = :account AND t.statusId = s.serverId))
+    ON (t.pachliAccountId = :account AND (s.pachliAccountId = :account AND t.statusId = s.serverId))
 WHERE t.kind = :timelineKind AND t.pachliAccountId = :account
 ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
         """,
@@ -71,7 +71,7 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
      -- TimelineStatusWithAccount
     s.serverId AS 's_serverId',
     s.url AS 's_url',
-    s.timelineUserId AS 's_timelineUserId',
+    s.pachliAccountId AS 's_pachliAccountId',
     s.authorServerId AS 's_authorServerId',
     s.inReplyToId AS 's_inReplyToId',
     s.inReplyToAccountId AS 's_inReplyToAccountId',
@@ -107,7 +107,7 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
 
     -- The status' account (if any)
     s.a_serverId AS 's_a_serverId',
-    s.a_timelineUserId AS 's_a_timelineUserId',
+    s.a_pachliAccountId AS 's_a_pachliAccountId',
     s.a_localUsername AS 's_a_localUsername',
     s.a_username AS 's_a_username',
     s.a_displayName AS 's_a_displayName',
@@ -123,7 +123,7 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
 
     -- The status's reblog account (if any)
     s.rb_serverId AS 's_rb_serverId',
-    s.rb_timelineUserId AS 's_rb_timelineUserId',
+    s.rb_pachliAccountId AS 's_rb_pachliAccountId',
     s.rb_localUsername AS 's_rb_localUsername',
     s.rb_username AS 's_rb_username',
     s.rb_displayName AS 's_rb_displayName',
@@ -147,7 +147,7 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
 
     -- Translation
     s.t_serverId AS 's_t_serverId',
-    s.t_timelineUserId AS 's_t_timelineUserId',
+    s.t_pachliAccountId AS 's_t_pachliAccountId',
     s.t_content AS 's_t_content',
     s.t_spoilerText AS 's_t_spoilerText',
     s.t_poll AS 's_t_poll',
@@ -156,7 +156,7 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
 
     -- Reply account
     s.reply_serverId AS 's_reply_serverId',
-    s.reply_timelineUserId AS 's_reply_timelineUserId',
+    s.reply_pachliAccountId AS 's_reply_pachliAccountId',
     s.reply_localUsername AS 's_reply_localUsername',
     s.reply_username AS 's_reply_username',
     s.reply_displayName AS 's_reply_displayName',
@@ -174,7 +174,7 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
     -- TimelineStatusWithAccount
     q.serverId AS 'q_serverId',
     q.url AS 'q_url',
-    q.timelineUserId AS 'q_timelineUserId',
+    q.pachliAccountId AS 'q_pachliAccountId',
     q.authorServerId AS 'q_authorServerId',
     q.inReplyToId AS 'q_inReplyToId',
     q.inReplyToAccountId AS 'q_inReplyToAccountId',
@@ -210,7 +210,7 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
 
     -- The status' account (if any)
     q.a_serverId AS 'q_a_serverId',
-    q.a_timelineUserId AS 'q_a_timelineUserId',
+    q.a_pachliAccountId AS 'q_a_pachliAccountId',
     q.a_localUsername AS 'q_a_localUsername',
     q.a_username AS 'q_a_username',
     q.a_displayName AS 'q_a_displayName',
@@ -226,7 +226,7 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
 
     -- The status's reblog account (if any)
     q.rb_serverId AS 'q_rb_serverId',
-    q.rb_timelineUserId AS 'q_rb_timelineUserId',
+    q.rb_pachliAccountId AS 'q_rb_pachliAccountId',
     q.rb_localUsername AS 'q_rb_localUsername',
     q.rb_username AS 'q_rb_username',
     q.rb_displayName AS 'q_rb_displayName',
@@ -250,7 +250,7 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
 
     -- Translation
     q.t_serverId AS 'q_t_serverId',
-    q.t_timelineUserId AS 'q_t_timelineUserId',
+    q.t_pachliAccountId AS 'q_t_pachliAccountId',
     q.t_content AS 'q_t_content',
     q.t_spoilerText AS 'q_t_spoilerText',
     q.t_poll AS 'q_t_poll',
@@ -259,7 +259,7 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
 
     -- Reply account
     q.reply_serverId AS 'q_reply_serverId',
-    q.reply_timelineUserId AS 'q_reply_timelineUserId',
+    q.reply_pachliAccountId AS 'q_reply_pachliAccountId',
     q.reply_localUsername AS 'q_reply_localUsername',
     q.reply_username AS 'q_reply_username',
     q.reply_displayName AS 'q_reply_displayName',
@@ -274,9 +274,9 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
     q.reply_pronouns AS 'q_reply_pronouns'
   FROM TimelineStatusEntity AS t
  LEFT JOIN TimelineStatusWithAccount AS s
-    ON (t.pachliAccountId = :account AND (s.timelineUserId = :account AND t.statusId = s.serverId))
+    ON (t.pachliAccountId = :account AND (s.pachliAccountId = :account AND t.statusId = s.serverId))
  LEFT JOIN TimelineStatusWithAccount AS q
-    ON (t.pachliAccountId = :account AND (q.timelineUserId = :account AND s.quoteServerId = q.serverId))
+    ON (t.pachliAccountId = :account AND (q.pachliAccountId = :account AND s.quoteServerId = q.serverId))
  WHERE t.kind = :timelineKind AND t.pachliAccountId = :account
  ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
         """,
@@ -300,7 +300,7 @@ SELECT rownum
 FROM (
     WITH statuses (timelineUserId, serverId) AS (
         SELECT
-            s.timelineUserId,
+            s.pachliAccountId,
             s.serverId
         FROM TimelineStatusEntity AS t
         LEFT JOIN StatusEntity AS s ON (t.statusId = s.serverId)
@@ -335,7 +335,7 @@ SELECT
      -- TimelineStatusWithAccount
     s.serverId AS 's_serverId',
     s.url AS 's_url',
-    s.timelineUserId AS 's_timelineUserId',
+    s.pachliAccountId AS 's_pachliAccountId',
     s.authorServerId AS 's_authorServerId',
     s.inReplyToId AS 's_inReplyToId',
     s.inReplyToAccountId AS 's_inReplyToAccountId',
@@ -371,7 +371,7 @@ SELECT
 
     -- The status' account (if any)
     s.a_serverId AS 's_a_serverId',
-    s.a_timelineUserId AS 's_a_timelineUserId',
+    s.a_pachliAccountId AS 's_a_pachliAccountId',
     s.a_localUsername AS 's_a_localUsername',
     s.a_username AS 's_a_username',
     s.a_displayName AS 's_a_displayName',
@@ -387,7 +387,7 @@ SELECT
 
     -- The status's reblog account (if any)
     s.rb_serverId AS 's_rb_serverId',
-    s.rb_timelineUserId AS 's_rb_timelineUserId',
+    s.rb_pachliAccountId AS 's_rb_pachliAccountId',
     s.rb_localUsername AS 's_rb_localUsername',
     s.rb_username AS 's_rb_username',
     s.rb_displayName AS 's_rb_displayName',
@@ -411,7 +411,7 @@ SELECT
 
     -- Translation
     s.t_serverId AS 's_t_serverId',
-    s.t_timelineUserId AS 's_t_timelineUserId',
+    s.t_pachliAccountId AS 's_t_pachliAccountId',
     s.t_content AS 's_t_content',
     s.t_spoilerText AS 's_t_spoilerText',
     s.t_poll AS 's_t_poll',
@@ -420,7 +420,7 @@ SELECT
 
     -- Reply account
     s.reply_serverId AS 's_reply_serverId',
-    s.reply_timelineUserId AS 's_reply_timelineUserId',
+    s.reply_pachliAccountId AS 's_reply_pachliAccountId',
     s.reply_localUsername AS 's_reply_localUsername',
     s.reply_username AS 's_reply_username',
     s.reply_displayName AS 's_reply_displayName',
@@ -438,7 +438,7 @@ SELECT
     -- TimelineStatusWithAccount
     q.serverId AS 'q_serverId',
     q.url AS 'q_url',
-    q.timelineUserId AS 'q_timelineUserId',
+    q.pachliAccountId AS 'q_pachliAccountId',
     q.authorServerId AS 'q_authorServerId',
     q.inReplyToId AS 'q_inReplyToId',
     q.inReplyToAccountId AS 'q_inReplyToAccountId',
@@ -474,7 +474,7 @@ SELECT
 
     -- The status' account (if any)
     q.a_serverId AS 'q_a_serverId',
-    q.a_timelineUserId AS 'q_a_timelineUserId',
+    q.a_pachliAccountId AS 'q_a_pachliAccountId',
     q.a_localUsername AS 'q_a_localUsername',
     q.a_username AS 'q_a_username',
     q.a_displayName AS 'q_a_displayName',
@@ -490,7 +490,7 @@ SELECT
 
     -- The status's reblog account (if any)
     q.rb_serverId AS 'q_rb_serverId',
-    q.rb_timelineUserId AS 'q_rb_timelineUserId',
+    q.rb_pachliAccountId AS 'q_rb_pachliAccountId',
     q.rb_localUsername AS 'q_rb_localUsername',
     q.rb_username AS 'q_rb_username',
     q.rb_displayName AS 'q_rb_displayName',
@@ -514,7 +514,7 @@ SELECT
 
     -- Translation
     q.t_serverId AS 'q_t_serverId',
-    q.t_timelineUserId AS 'q_t_timelineUserId',
+    q.t_pachliAccountId AS 'q_t_pachliAccountId',
     q.t_content AS 'q_t_content',
     q.t_spoilerText AS 'q_t_spoilerText',
     q.t_poll AS 'q_t_poll',
@@ -523,7 +523,7 @@ SELECT
 
     -- Reply account
     q.reply_serverId AS 'q_reply_serverId',
-    q.reply_timelineUserId AS 'q_reply_timelineUserId',
+    q.reply_pachliAccountId AS 'q_reply_pachliAccountId',
     q.reply_localUsername AS 'q_reply_localUsername',
     q.reply_username AS 'q_reply_username',
     q.reply_displayName AS 'q_reply_displayName',
@@ -538,9 +538,9 @@ SELECT
     q.reply_pronouns AS 'q_reply_pronouns'
 FROM TimelineStatusWithAccount AS s
  LEFT JOIN TimelineStatusWithAccount AS q
-    ON (s.timelineUserId = q.timelineUserId AND s.quoteServerId = q.serverId)
+    ON (s.pachliAccountId = q.pachliAccountId AND s.quoteServerId = q.serverId)
  WHERE
-    s.timelineUserId == :pachliAccountId
+    s.pachliAccountId == :pachliAccountId
     AND (s.serverId = :statusId OR s.reblogServerId = :statusId)
     AND s.authorServerId IS NOT NULL
 """,
@@ -557,7 +557,7 @@ SELECT
      -- TimelineStatusWithAccount
     s.serverId AS 's_serverId',
     s.url AS 's_url',
-    s.timelineUserId AS 's_timelineUserId',
+    s.pachliAccountId AS 's_pachliAccountId',
     s.authorServerId AS 's_authorServerId',
     s.inReplyToId AS 's_inReplyToId',
     s.inReplyToAccountId AS 's_inReplyToAccountId',
@@ -593,7 +593,7 @@ SELECT
 
     -- The status' account (if any)
     s.a_serverId AS 's_a_serverId',
-    s.a_timelineUserId AS 's_a_timelineUserId',
+    s.a_pachliAccountId AS 's_a_pachliAccountId',
     s.a_localUsername AS 's_a_localUsername',
     s.a_username AS 's_a_username',
     s.a_displayName AS 's_a_displayName',
@@ -609,7 +609,7 @@ SELECT
 
     -- The status's reblog account (if any)
     s.rb_serverId AS 's_rb_serverId',
-    s.rb_timelineUserId AS 's_rb_timelineUserId',
+    s.rb_pachliAccountId AS 's_rb_pachliAccountId',
     s.rb_localUsername AS 's_rb_localUsername',
     s.rb_username AS 's_rb_username',
     s.rb_displayName AS 's_rb_displayName',
@@ -633,7 +633,7 @@ SELECT
 
     -- Translation
     s.t_serverId AS 's_t_serverId',
-    s.t_timelineUserId AS 's_t_timelineUserId',
+    s.t_pachliAccountId AS 's_t_pachliAccountId',
     s.t_content AS 's_t_content',
     s.t_spoilerText AS 's_t_spoilerText',
     s.t_poll AS 's_t_poll',
@@ -642,7 +642,7 @@ SELECT
 
     -- Reply account
     s.reply_serverId AS 's_reply_serverId',
-    s.reply_timelineUserId AS 's_reply_timelineUserId',
+    s.reply_pachliAccountId AS 's_reply_pachliAccountId',
     s.reply_localUsername AS 's_reply_localUsername',
     s.reply_username AS 's_reply_username',
     s.reply_displayName AS 's_reply_displayName',
@@ -660,7 +660,7 @@ SELECT
     -- TimelineStatusWithAccount
     q.serverId AS 'q_serverId',
     q.url AS 'q_url',
-    q.timelineUserId AS 'q_timelineUserId',
+    q.pachliAccountId AS 'q_pachliAccountId',
     q.authorServerId AS 'q_authorServerId',
     q.inReplyToId AS 'q_inReplyToId',
     q.inReplyToAccountId AS 'q_inReplyToAccountId',
@@ -696,7 +696,7 @@ SELECT
 
     -- The status' account (if any)
     q.a_serverId AS 'q_a_serverId',
-    q.a_timelineUserId AS 'q_a_timelineUserId',
+    q.a_pachliAccountId AS 'q_a_pachliAccountId',
     q.a_localUsername AS 'q_a_localUsername',
     q.a_username AS 'q_a_username',
     q.a_displayName AS 'q_a_displayName',
@@ -712,7 +712,7 @@ SELECT
 
     -- The status's reblog account (if any)
     q.rb_serverId AS 'q_rb_serverId',
-    q.rb_timelineUserId AS 'q_rb_timelineUserId',
+    q.rb_pachliAccountId AS 'q_rb_pachliAccountId',
     q.rb_localUsername AS 'q_rb_localUsername',
     q.rb_username AS 'q_rb_username',
     q.rb_displayName AS 'q_rb_displayName',
@@ -736,7 +736,7 @@ SELECT
 
     -- Translation
     q.t_serverId AS 'q_t_serverId',
-    q.t_timelineUserId AS 'q_t_timelineUserId',
+    q.t_pachliAccountId AS 'q_t_pachliAccountId',
     q.t_content AS 'q_t_content',
     q.t_spoilerText AS 'q_t_spoilerText',
     q.t_poll AS 'q_t_poll',
@@ -745,7 +745,7 @@ SELECT
 
     -- Reply account
     q.reply_serverId AS 'q_reply_serverId',
-    q.reply_timelineUserId AS 'q_reply_timelineUserId',
+    q.reply_pachliAccountId AS 'q_reply_pachliAccountId',
     q.reply_localUsername AS 'q_reply_localUsername',
     q.reply_username AS 'q_reply_username',
     q.reply_displayName AS 'q_reply_displayName',
@@ -760,9 +760,9 @@ SELECT
     q.reply_pronouns AS 'q_reply_pronouns'
 FROM TimelineStatusWithAccount AS s
  LEFT JOIN TimelineStatusWithAccount AS q
-    ON (s.timelineUserId = q.timelineUserId AND s.quoteServerId = q.serverId)
+    ON (s.pachliAccountId = q.pachliAccountId AND s.quoteServerId = q.serverId)
  WHERE
-    s.timelineUserId == :pachliAccountId
+    s.pachliAccountId == :pachliAccountId
     AND s.serverId = :actionableStatusId
     AND s.authorServerId IS NOT NULL
 """,
@@ -773,7 +773,7 @@ FROM TimelineStatusWithAccount AS s
         """
 DELETE
 FROM StatusEntity
-WHERE timelineUserId = :accountId
+WHERE pachliAccountId = :accountId
     AND (LENGTH(serverId) < LENGTH(:maxId) OR LENGTH(serverId) == LENGTH(:maxId) AND serverId <= :maxId)
     AND (LENGTH(serverId) > LENGTH(:minId) OR LENGTH(serverId) == LENGTH(:minId) AND serverId >= :minId)
 """,
@@ -792,7 +792,7 @@ WHERE
         SELECT serverId
         FROM StatusEntity
         WHERE
-            timelineUserId = :pachliAccountId
+            pachliAccountId = :pachliAccountId
             AND (authorServerId = :userId OR reblogAccountId = :userId)
     )
 """,
@@ -850,13 +850,13 @@ WHERE pachliAccountId = :accountId
 DELETE
 FROM StatusEntity
 WHERE
-    StatusEntity.timelineUserId = :accountId
+    StatusEntity.pachliAccountId = :accountId
     AND NOT EXISTS (
         SELECT 1
         FROM ReferencedStatusId AS r
         WHERE
             r.pachliAccountId = :accountId
-            AND StatusEntity.timelineUserId = r.pachliAccountId
+            AND StatusEntity.pachliAccountId = r.pachliAccountId
             AND StatusEntity.serverId = r.statusId
     )
 """,
@@ -874,16 +874,16 @@ WHERE
 DELETE
 FROM TimelineAccountEntity
 WHERE
-    timelineUserId = :accountId
+    pachliAccountId = :accountId
     AND serverId NOT IN (
         SELECT authorServerId
         FROM StatusEntity
-        WHERE timelineUserId = :accountId
+        WHERE pachliAccountId = :accountId
     )
     AND serverId NOT IN (
         SELECT reblogAccountId
         FROM StatusEntity
-        WHERE timelineUserId = :accountId AND reblogAccountId IS NOT NULL
+        WHERE pachliAccountId = :accountId AND reblogAccountId IS NOT NULL
     )
     AND serverId NOT IN (
         SELECT accountServerId
@@ -925,13 +925,13 @@ WHERE
 DELETE
 FROM TranslatedStatusEntity
 WHERE
-    TranslatedStatusEntity.timelineUserId = :accountId
+    TranslatedStatusEntity.pachliAccountId = :accountId
     AND NOT EXISTS (
         SELECT 1
         FROM ReferencedStatusId AS r
         WHERE
             r.pachliAccountId = :accountId
-            AND TranslatedStatusEntity.timelineUserId = r.pachliAccountId
+            AND TranslatedStatusEntity.pachliAccountId = r.pachliAccountId
             AND TranslatedStatusEntity.serverId = r.statusId
     )
 """,
@@ -946,8 +946,8 @@ WITH statuses (serverId) AS (
     FROM StatusEntity AS s
     LEFT JOIN
         TimelineAccountEntity AS a
-        ON (s.timelineUserId = a.timelineUserId AND (s.authorServerId = a.serverId OR s.reblogAccountId = a.serverId))
-    WHERE s.timelineUserId = :accountId AND a.username LIKE '%@' || :instanceDomain
+        ON (s.pachliAccountId = a.pachliAccountId AND (s.authorServerId = a.serverId OR s.reblogAccountId = a.serverId))
+    WHERE s.pachliAccountId = :accountId AND a.username LIKE '%@' || :instanceDomain
 )
 
 DELETE
@@ -986,7 +986,7 @@ WHERE
         """
 SELECT serverId
 FROM StatusEntity
-WHERE timelineUserId = :accountId
+WHERE pachliAccountId = :accountId
 ORDER BY LENGTH(serverId) DESC, serverId DESC
 LIMIT :count
 """,
@@ -999,7 +999,7 @@ LIMIT :count
         """
 SELECT *
 FROM TimelineAccountEntity
-WHERE timelineUserId = :pachliAccountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
     abstract suspend fun loadTimelineAccountsForAccount(pachliAccountId: Long): List<TimelineAccountEntity>
@@ -1018,7 +1018,7 @@ WHERE timelineUserId = :pachliAccountId
      -- TimelineStatusWithAccount
     s.serverId AS 's_serverId',
     s.url AS 's_url',
-    s.timelineUserId AS 's_timelineUserId',
+    s.pachliAccountId AS 's_pachliAccountId',
     s.authorServerId AS 's_authorServerId',
     s.inReplyToId AS 's_inReplyToId',
     s.inReplyToAccountId AS 's_inReplyToAccountId',
@@ -1054,7 +1054,7 @@ WHERE timelineUserId = :pachliAccountId
 
     -- The status' account (if any)
     s.a_serverId AS 's_a_serverId',
-    s.a_timelineUserId AS 's_a_timelineUserId',
+    s.a_pachliAccountId AS 's_a_pachliAccountId',
     s.a_localUsername AS 's_a_localUsername',
     s.a_username AS 's_a_username',
     s.a_displayName AS 's_a_displayName',
@@ -1070,7 +1070,7 @@ WHERE timelineUserId = :pachliAccountId
 
     -- The status's reblog account (if any)
     s.rb_serverId AS 's_rb_serverId',
-    s.rb_timelineUserId AS 's_rb_timelineUserId',
+    s.rb_pachliAccountId AS 's_rb_pachliAccountId',
     s.rb_localUsername AS 's_rb_localUsername',
     s.rb_username AS 's_rb_username',
     s.rb_displayName AS 's_rb_displayName',
@@ -1094,7 +1094,7 @@ WHERE timelineUserId = :pachliAccountId
 
     -- Translation
     s.t_serverId AS 's_t_serverId',
-    s.t_timelineUserId AS 's_t_timelineUserId',
+    s.t_pachliAccountId AS 's_t_pachliAccountId',
     s.t_content AS 's_t_content',
     s.t_spoilerText AS 's_t_spoilerText',
     s.t_poll AS 's_t_poll',
@@ -1103,7 +1103,7 @@ WHERE timelineUserId = :pachliAccountId
 
     -- Reply account
     s.reply_serverId AS 's_reply_serverId',
-    s.reply_timelineUserId AS 's_reply_timelineUserId',
+    s.reply_pachliAccountId AS 's_reply_pachliAccountId',
     s.reply_localUsername AS 's_reply_localUsername',
     s.reply_username AS 's_reply_username',
     s.reply_displayName AS 's_reply_displayName',
@@ -1121,7 +1121,7 @@ WHERE timelineUserId = :pachliAccountId
     -- TimelineStatusWithAccount
     q.serverId AS 'q_serverId',
     q.url AS 'q_url',
-    q.timelineUserId AS 'q_timelineUserId',
+    q.pachliAccountId AS 'q_pachliAccountId',
     q.authorServerId AS 'q_authorServerId',
     q.inReplyToId AS 'q_inReplyToId',
     q.inReplyToAccountId AS 'q_inReplyToAccountId',
@@ -1157,7 +1157,7 @@ WHERE timelineUserId = :pachliAccountId
 
     -- The status' account (if any)
     q.a_serverId AS 'q_a_serverId',
-    q.a_timelineUserId AS 'q_a_timelineUserId',
+    q.a_pachliAccountId AS 'q_a_pachliAccountId',
     q.a_localUsername AS 'q_a_localUsername',
     q.a_username AS 'q_a_username',
     q.a_displayName AS 'q_a_displayName',
@@ -1173,7 +1173,7 @@ WHERE timelineUserId = :pachliAccountId
 
     -- The status's reblog account (if any)
     q.rb_serverId AS 'q_rb_serverId',
-    q.rb_timelineUserId AS 'q_rb_timelineUserId',
+    q.rb_pachliAccountId AS 'q_rb_pachliAccountId',
     q.rb_localUsername AS 'q_rb_localUsername',
     q.rb_username AS 'q_rb_username',
     q.rb_displayName AS 'q_rb_displayName',
@@ -1197,7 +1197,7 @@ WHERE timelineUserId = :pachliAccountId
 
     -- Translation
     q.t_serverId AS 'q_t_serverId',
-    q.t_timelineUserId AS 'q_t_timelineUserId',
+    q.t_pachliAccountId AS 'q_t_pachliAccountId',
     q.t_content AS 'q_t_content',
     q.t_spoilerText AS 'q_t_spoilerText',
     q.t_poll AS 'q_t_poll',
@@ -1206,7 +1206,7 @@ WHERE timelineUserId = :pachliAccountId
 
     -- Reply account
     q.reply_serverId AS 'q_reply_serverId',
-    q.reply_timelineUserId AS 'q_reply_timelineUserId',
+    q.reply_pachliAccountId AS 'q_reply_pachliAccountId',
     q.reply_localUsername AS 'q_reply_localUsername',
     q.reply_username AS 'q_reply_username',
     q.reply_displayName AS 'q_reply_displayName',
@@ -1221,9 +1221,9 @@ WHERE timelineUserId = :pachliAccountId
     q.reply_pronouns AS 'q_reply_pronouns'
   FROM TimelineStatusEntity AS t
  LEFT JOIN TimelineStatusWithAccount AS s
-    ON (t.pachliAccountId = :account AND (s.timelineUserId = :account AND t.statusId = s.serverId))
+    ON (t.pachliAccountId = :account AND (s.pachliAccountId = :account AND t.statusId = s.serverId))
  LEFT JOIN TimelineStatusWithAccount AS q
-    ON (t.pachliAccountId = :account AND (q.timelineUserId = :account AND s.quoteServerId = q.serverId))
+    ON (t.pachliAccountId = :account AND (q.pachliAccountId = :account AND s.quoteServerId = q.serverId))
  WHERE t.kind = :timelineKind AND t.pachliAccountId = :account
  ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
         """,

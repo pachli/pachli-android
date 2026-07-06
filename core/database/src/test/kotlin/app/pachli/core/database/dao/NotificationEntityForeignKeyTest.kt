@@ -82,7 +82,7 @@ class NotificationEntityForeignKeyTest {
      */
     private val timelineAccount = TimelineAccountEntity(
         serverId = "1",
-        timelineUserId = pachliAccountId,
+        pachliAccountId = pachliAccountId,
         localUsername = "example",
         username = "example",
         displayName = "Example",
@@ -135,7 +135,7 @@ class NotificationEntityForeignKeyTest {
             ruleIds = null,
             targetAccount = TimelineAccountEntity(
                 serverId = "1",
-                timelineUserId = pachliAccountId,
+                pachliAccountId = pachliAccountId,
                 localUsername = "foo@bar",
                 username = "foo",
                 displayName = "Foo",

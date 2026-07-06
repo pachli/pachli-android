@@ -43,7 +43,7 @@ suspend fun AppDatabase.insertStatuses(statuses: Iterable<TimelineStatusWithAcco
     timelineDao().upsertStatuses(
         statuses.map {
             TimelineStatusEntity(
-                pachliAccountId = it.status.timelineUserId,
+                pachliAccountId = it.status.pachliAccountId,
                 kind = TimelineStatusEntity.Kind.Home,
                 statusId = it.status.serverId,
             )

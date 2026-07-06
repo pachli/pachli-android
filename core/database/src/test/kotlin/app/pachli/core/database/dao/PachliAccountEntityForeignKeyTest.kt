@@ -123,7 +123,7 @@ class PachliAccountEntityForeignKeyTest {
      */
     private val timelineAccount = TimelineAccountEntity(
         serverId = "1",
-        timelineUserId = pachliAccountId,
+        pachliAccountId = pachliAccountId,
         localUsername = "example",
         username = "example",
         displayName = "Example",
@@ -426,7 +426,7 @@ class PachliAccountEntityForeignKeyTest {
     fun `deleting account deletes TimelineAccountEntity`() = runTest {
         val timelineAccount = TimelineAccountEntity(
             serverId = "1",
-            timelineUserId = pachliAccountId,
+            pachliAccountId = pachliAccountId,
             localUsername = "foo@bar",
             username = "foo",
             displayName = "Foo",
@@ -457,7 +457,7 @@ class PachliAccountEntityForeignKeyTest {
     fun `deleting account deletes TranslatedStatusEntity`() = runTest {
         val translatedStatus = TranslatedStatusEntity(
             serverId = "1",
-            timelineUserId = pachliAccountId,
+            pachliAccountId = pachliAccountId,
             content = "",
             spoilerText = "",
             poll = null,

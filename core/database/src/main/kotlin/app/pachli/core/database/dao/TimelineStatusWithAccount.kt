@@ -38,7 +38,7 @@ import java.util.Date
 SELECT
     s.serverId,
     s.url,
-    s.timelineUserId,
+    s.pachliAccountId,
     s.authorServerId,
     s.inReplyToId,
     s.inReplyToAccountId,
@@ -72,7 +72,7 @@ SELECT
     s.quoteServerId,
     s.quoteApproval,
     a.serverId AS 'a_serverId',
-    a.timelineUserId AS 'a_timelineUserId',
+    a.pachliAccountId AS 'a_pachliAccountId',
     a.localUsername AS 'a_localUsername',
     a.username AS 'a_username',
     a.displayName AS 'a_displayName',
@@ -86,7 +86,7 @@ SELECT
     a.roles AS 'a_roles',
     a.pronouns AS 'a_pronouns',
     rb.serverId AS 'rb_serverId',
-    rb.timelineUserId AS 'rb_timelineUserId',
+    rb.pachliAccountId AS 'rb_pachliAccountId',
     rb.localUsername AS 'rb_localUsername',
     rb.username AS 'rb_username',
     rb.displayName AS 'rb_displayName',
@@ -106,14 +106,14 @@ SELECT
     svd.translationState AS 'svd_translationState',
     svd.attachmentDisplayAction AS 'svd_attachmentDisplayAction',
     tr.serverId AS 't_serverId',
-    tr.timelineUserId AS 't_timelineUserId',
+    tr.pachliAccountId AS 't_pachliAccountId',
     tr.content AS 't_content',
     tr.spoilerText AS 't_spoilerText',
     tr.poll AS 't_poll',
     tr.attachments AS 't_attachments',
     tr.provider AS 't_provider',
     reply.serverId AS 'reply_serverId',
-    reply.timelineUserId AS 'reply_timelineUserId',
+    reply.pachliAccountId AS 'reply_pachliAccountId',
     reply.localUsername AS 'reply_localUsername',
     reply.username AS 'reply_username',
     reply.displayName AS 'reply_displayName',
@@ -127,15 +127,15 @@ SELECT
     reply.roles AS 'reply_roles',
     reply.pronouns AS 'reply_pronouns'
 FROM StatusEntity AS s
-LEFT JOIN TimelineAccountEntity AS a ON (s.timelineUserId = a.timelineUserId AND s.authorServerId = a.serverId)
-LEFT JOIN TimelineAccountEntity AS rb ON (s.timelineUserId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
+LEFT JOIN TimelineAccountEntity AS a ON (s.pachliAccountId = a.pachliAccountId AND s.authorServerId = a.serverId)
+LEFT JOIN TimelineAccountEntity AS rb ON (s.pachliAccountId = rb.pachliAccountId AND s.reblogAccountId = rb.serverId)
 LEFT JOIN
     StatusViewDataEntity AS svd
-    ON (s.timelineUserId = svd.pachliAccountId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
+    ON (s.pachliAccountId = svd.pachliAccountId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
 LEFT JOIN
     TranslatedStatusEntity AS tr
-    ON (s.timelineUserId = tr.timelineUserId AND (s.serverId = tr.serverId OR s.reblogServerId = tr.serverId))
-LEFT JOIN TimelineAccountEntity AS reply ON (s.timelineUserId = reply.timelineUserId AND s.inReplyToAccountId = reply.serverId)
+    ON (s.pachliAccountId = tr.pachliAccountId AND (s.serverId = tr.serverId OR s.reblogServerId = tr.serverId))
+LEFT JOIN TimelineAccountEntity AS reply ON (s.pachliAccountId = reply.pachliAccountId AND s.inReplyToAccountId = reply.serverId)
 """,
 )
 data class TimelineStatusWithAccount(
