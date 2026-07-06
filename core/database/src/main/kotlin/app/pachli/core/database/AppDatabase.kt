@@ -47,6 +47,7 @@ import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.dao.TranslatedStatusDao
+import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.AnnouncementEntity
 import app.pachli.core.database.model.ContentFiltersEntity
 import app.pachli.core.database.model.ConversationEntity
@@ -78,6 +79,7 @@ import java.util.TimeZone
 @Suppress("ClassName")
 @Database(
     entities = [
+        AccountEntity::class,
         DraftEntity::class,
         PachliAccountEntity::class,
         StatusEntity::class,
@@ -168,6 +170,7 @@ import java.util.TimeZone
         AutoMigration(from = 41, to = 42, spec = AppDatabase.MIGRATE_41_42::class),
         // Clear NotificationEntity ahead of a migration
         AutoMigration(from = 42, to = 43, spec = AppDatabase.MIGRATE_42_43::class),
+//        AutoMigration(from = 43, to = 44, spec = AppDatabase.MIGRATE_43_44::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -382,11 +385,21 @@ abstract class AppDatabase : RoomDatabase() {
     @RenameColumn("TimelineAccountEntity", "timelineUserId", "pachliAccountId")
     @RenameColumn("TranslatedStatusEntity", "timelineUserId", "pachliAccountId")
     @RenameColumn("NotificationReportEntity", "target_timelineUserId", "target_pachliAccountId")
+    @DeleteColumn("TimelineAccountEntity", "note")
+    @DeleteColumn("NotificationReportEntity", "pachliAccountId")
+    @DeleteColumn("NotificationReportEntity", "serverId")
+    @DeleteColumn("NotificationReportEntity", "target_serverId")
+    @DeleteColumn("NotificationRelationshipSeveranceEventEntity", "pachliAccountId")
+    @DeleteColumn("NotificationRelationshipSeveranceEventEntity", "serverId")
+    @DeleteColumn("NotificationAccountWarningEntity", "pachliAccountId")
+    @DeleteColumn("NotificationAccountWarningEntity", "serverId")
     class MIGRATE_42_43 : AutoMigrationSpec {
         override fun onPostMigrate(connection: SQLiteConnection) {
             super.onPostMigrate(connection)
-            // Delete notifications before the 43->44 migration, as that migration
-            // modifies FK constraints which won't hold with the existing data.
+            // Delete notifications, the schema changes cause things like
+            // NotificationReportEntity to have invalid values, which breaks the
+            // first load from the database. Clearing the notifications forces
+            // an immediate refresh to get valid data.
             connection.execSQL("DELETE FROM NotificationEntity")
 
             // Delete cached preview cards. TimelineAccount.id was renamed to
@@ -559,7 +572,7 @@ val MIGRATE_18_19 = object : Migration(18, 19) {
             """
 DELETE
 FROM StatusEntity
-WHERE timelineUserId NOT IN (SELECT id FROM AccountEntity)
+WHERE timelineUserId NOT IN (MessagePattern.ArgType.SELECT id FROM AccountEntity)
             """.trimIndent(),
         )
     }

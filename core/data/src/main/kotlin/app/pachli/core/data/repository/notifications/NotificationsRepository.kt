@@ -202,6 +202,10 @@ fun Notification.asEntity(pachliAccountId: Long) = NotificationEntity(
     createdAt = createdAt,
     accountServerId = account.serverId,
     statusServerId = (this as? Notification.WithStatus)?.status?.statusId,
+    note = (this as? Notification.Follow)?.note,
+    report = (this as? Notification.Report)?.report?.asEntity(pachliAccountId),
+    relationshipSeveranceEvent = (this as? Notification.SeveredRelationships)?.relationshipSeveranceEvent?.asEntity(),
+    accountWarning = (this as? Notification.ModerationWarning)?.accountWarning?.asEntity(),
 )
 
 fun Iterable<Notification>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }
@@ -233,7 +237,6 @@ fun TimelineAccount.asEntity(pachliAccountId: Long) = TimelineAccountEntity(
     localUsername = localUsername,
     username = username,
     displayName = name,
-    note = note,
     url = url,
     avatar = avatar,
     emojis = emojis.orEmpty().asModel(),

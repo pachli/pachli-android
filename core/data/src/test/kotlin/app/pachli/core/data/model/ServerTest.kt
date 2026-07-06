@@ -125,7 +125,7 @@ class ServerTest(
             contact = Contact(
                 email = "",
                 account = Account(
-                    id = "1",
+                    serverId = "1",
                     localUsername = "",
                     username = "",
                     displayName = null,

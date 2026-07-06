@@ -26,7 +26,7 @@ import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.model.TimelineAccount
+import app.pachli.core.model.ITimelineAccount
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.preferences.PronounDisplay
@@ -43,13 +43,13 @@ class FollowViewHolder(
     private val glide: RequestManager,
     private val setContent: SetContent,
     private val linkListener: LinkListener,
-) : NotificationsPagingAdapter.ViewHolder<NotificationViewData>, RecyclerView.ViewHolder(binding.root) {
+) : NotificationsPagingAdapter.ViewHolder<NotificationViewData.FollowNotificationViewData>, RecyclerView.ViewHolder(binding.root) {
     private val avatarRadius42dp = itemView.context.resources.getDimensionPixelSize(
         DR.dimen.avatar_radius_42dp,
     )
 
     override fun bind(
-        viewData: NotificationViewData,
+        viewData: NotificationViewData.FollowNotificationViewData,
         payloads: List<Any?>,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
@@ -59,6 +59,7 @@ class FollowViewHolder(
 
         setMessage(
             viewData.account,
+            viewData.note,
             viewData is NotificationViewData.SignupNotificationViewData,
             statusDisplayOptions.animateAvatars,
             statusDisplayOptions.animateEmojis,
@@ -68,7 +69,8 @@ class FollowViewHolder(
     }
 
     private fun setMessage(
-        account: TimelineAccount,
+        account: ITimelineAccount,
+        note: String,
         isSignUp: Boolean,
         animateAvatars: Boolean,
         animateEmojis: Boolean,
@@ -111,7 +113,7 @@ class FollowViewHolder(
         setContent(
             glide = glide,
             textView = binding.notificationAccountNote,
-            content = account.note,
+            content = note,
             emojis = account.emojis.orEmpty(),
             animateEmojis = animateEmojis,
             removeQuoteInline = false,
@@ -122,6 +124,6 @@ class FollowViewHolder(
         binding.notificationAccountNote.setOnClickListener { linkListener.onViewAccount(account.serverId) }
         itemView.setOnClickListener { linkListener.onViewAccount(account.serverId) }
 
-        binding.root.contentDescription = "$emojifiedMessage.\n\n${account.handleContentDescription(context)}.\n\n${account.note.parseAsMastodonHtml()}"
+        binding.root.contentDescription = "$emojifiedMessage.\n\n${account.handleContentDescription(context)}.\n\n${note.parseAsMastodonHtml()}"
     }
 }

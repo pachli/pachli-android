@@ -26,11 +26,8 @@ import androidx.room.TypeConverters
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.NotificationAccountFilterDecisionUpdate
-import app.pachli.core.database.model.NotificationAccountWarningEntity
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
-import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
-import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.NotificationViewDataEntity
 
 @Dao
@@ -41,26 +38,20 @@ interface NotificationDao {
         """
 SELECT
     -- Basic notification info
-    n.pachliAccountId,
-    n.serverId,
-    n.type,
-    n.createdAt,
-    n.accountServerId,
-    n.statusServerId,
+    n.*,
 
     -- The account that triggered the notification
-    a.serverId AS 'a_serverId',
     a.pachliAccountId AS 'a_pachliAccountId',
+    a.serverId AS 'a_serverId',
     a.localUsername AS 'a_localUsername',
     a.username AS 'a_username',
     a.displayName AS 'a_displayName',
+    a.createdAt AS 'a_createdAt',
     a.url AS 'a_url',
     a.avatar AS 'a_avatar',
-    a.emojis AS 'a_emojis',
     a.bot AS 'a_bot',
-    a.createdAt AS 'a_createdAt',
+    a.emojis AS 'a_emojis',
     a.limited AS 'a_limited',
-    a.note AS 'a_note',
     a.roles AS 'a_roles',
     a.pronouns AS 'a_pronouns',
 
@@ -114,7 +105,6 @@ SELECT
     s.a_bot AS 's_s_a_bot',
     s.a_createdAt AS 's_s_a_createdAt',
     s.a_limited AS 's_s_a_limited',
-    s.a_note AS 's_s_a_note',
     s.a_roles AS 's_s_a_roles',
     s.a_pronouns AS 's_s_a_pronouns',
 
@@ -130,7 +120,6 @@ SELECT
     s.rb_bot AS 's_s_rb_bot',
     s.rb_createdAt AS 's_s_rb_createdAt',
     s.rb_limited AS 's_s_rb_limited',
-    s.rb_note AS 's_s_rb_note',
     s.rb_roles AS 's_s_rb_roles',
     s.rb_pronouns AS 's_s_rb_pronouns',
 
@@ -163,7 +152,6 @@ SELECT
     s.reply_bot AS 's_s_reply_bot',
     s.reply_createdAt AS 's_s_reply_createdAt',
     s.reply_limited AS 's_s_reply_limited',
-    s.reply_note AS 's_s_reply_note',
     s.reply_roles AS 's_s_reply_roles',
     s.reply_pronouns AS 's_s_reply_pronouns',
 
@@ -217,7 +205,6 @@ SELECT
     q.a_bot AS 's_q_a_bot',
     q.a_createdAt AS 's_q_a_createdAt',
     q.a_limited AS 's_q_a_limited',
-    q.a_note AS 's_q_a_note',
     q.a_roles AS 's_q_a_roles',
     q.a_pronouns AS 's_q_a_pronouns',
 
@@ -233,7 +220,6 @@ SELECT
     q.rb_bot AS 's_q_rb_bot',
     q.rb_createdAt AS 's_q_rb_createdAt',
     q.rb_limited AS 's_q_rb_limited',
-    q.rb_note AS 's_q_rb_note',
     q.rb_roles AS 's_q_rb_roles',
     q.rb_pronouns AS 's_q_rb_pronouns',
 
@@ -266,60 +252,13 @@ SELECT
     q.reply_bot AS 's_q_reply_bot',
     q.reply_createdAt AS 's_q_reply_createdAt',
     q.reply_limited AS 's_q_reply_limited',
-    q.reply_note AS 's_q_reply_note',
     q.reply_roles AS 's_q_reply_roles',
     q.reply_pronouns AS 's_q_reply_pronouns',
 
     -- NotificationViewData
     nvd.pachliAccountId AS 'nvd_pachliAccountId',
     nvd.serverId AS 'nvd_serverId',
-    nvd.accountFilterDecision AS 'nvd_accountFilterDecision',
-
-    -- NotificationReportEntity
-    report.pachliAccountId AS 'report_pachliAccountId',
-    report.serverId AS 'report_serverId',
-    report.reportId AS 'report_reportId',
-    report.actionTaken AS 'report_actionTaken',
-    report.actionTakenAt AS 'report_actionTakenAt',
-    report.category AS 'report_category',
-    report.comment AS 'report_comment',
-    report.forwarded AS 'report_forwarded',
-    report.createdAt AS 'report_createdAt',
-    report.statusIds AS 'report_statusIds',
-    report.ruleIds AS 'report_ruleIds',
-    report.target_serverId AS 'report_target_serverId',
-    report.target_pachliAccountId AS 'report_target_pachliAccountId',
-    report.target_localUsername AS 'report_target_localUsername',
-    report.target_username AS 'report_target_username',
-    report.target_displayName AS 'report_target_displayName',
-    report.target_url AS 'report_target_url',
-    report.target_avatar AS 'report_target_avatar',
-    report.target_emojis AS 'report_target_emojis',
-    report.target_bot AS 'report_target_bot',
-    report.target_createdAt AS 'report_target_createdAt',
-    report.target_limited AS 'report_target_limited',
-    report.target_note AS 'report_target_note',
-    report.target_roles AS 'report_target_roles',
-    report.target_pronouns AS 'report_target_pronouns',
-
-    -- NotificationRelationshipSeveranceEvent
-    rse.pachliAccountId AS 'rse_pachliAccountId',
-    rse.serverId AS 'rse_serverId',
-    rse.eventId AS 'rse_eventId',
-    rse.type AS 'rse_type',
-    rse.purged AS 'rse_purged',
-    rse.targetName AS 'rse_targetName',
-    rse.followersCount AS 'rse_followersCount',
-    rse.followingCount AS 'rse_followingCount',
-    rse.createdAt AS 'rse_createdAt',
-
-    -- AccountWarning
-    warn.pachliAccountId as 'warn_pachliAccountId',
-    warn.serverId AS 'warn_serverId',
-    warn.accountWarningId AS 'warn_accountWarningId',
-    warn.text AS 'warn_text',
-    warn."action" AS "warn_action",
-    warn.createdAt AS 'warn_createdAt'
+    nvd.accountFilterDecision AS 'nvd_accountFilterDecision'
 FROM NotificationEntity AS n
 LEFT JOIN TimelineAccountEntity AS a ON (n.pachliAccountId = a.pachliAccountId AND n.accountServerId = a.serverId)
 LEFT JOIN TimelineStatusWithAccount AS s
@@ -327,12 +266,6 @@ LEFT JOIN TimelineStatusWithAccount AS s
 LEFT JOIN TimelineStatusWithAccount AS q
     ON (n.pachliAccountId = :pachliAccountId AND (q.pachliAccountId = :pachliAccountId AND s.quoteServerId = q.serverId))
 LEFT JOIN NotificationViewDataEntity AS nvd ON (n.pachliAccountId = nvd.pachliAccountId AND n.serverId = nvd.serverId)
-LEFT JOIN NotificationReportEntity AS report
-    ON (n.pachliAccountId = report.pachliAccountId AND n.serverId = report.serverId)
-LEFT JOIN NotificationRelationshipSeveranceEventEntity AS rse
-    ON (n.pachliAccountId = rse.pachliAccountId AND n.serverId = rse.serverId)
-LEFT JOIN NotificationAccountWarningEntity AS warn
-    ON (n.pachliAccountId = warn.pachliAccountId AND n.serverId = warn.serverId)
 WHERE n.pachliAccountId = :pachliAccountId
 ORDER BY LENGTH(n.serverId) DESC, n.serverId DESC
 """,
@@ -379,15 +312,6 @@ WHERE pachliAccountId = :pachliAccountId
     @Upsert
     suspend fun upsertNotifications(notifications: Collection<NotificationEntity>)
 
-    @Upsert
-    suspend fun upsertReports(reports: Collection<NotificationReportEntity>)
-
-    @Upsert
-    suspend fun upsertEvents(events: Collection<NotificationRelationshipSeveranceEventEntity>)
-
-    @Upsert
-    suspend fun upsertAccountWarnings(accountWarnings: Collection<NotificationAccountWarningEntity>)
-
     @Upsert(entity = NotificationViewDataEntity::class)
     suspend fun upsert(notificationAccountFilterDecisionUpdate: NotificationAccountFilterDecisionUpdate)
 
@@ -416,30 +340,6 @@ WHERE
     @Delete
     suspend fun deleteNotification(notification: NotificationEntity)
 
-    @Deprecated("Only present for use in tests")
-    @Query(
-        """
-SELECT *
-FROM NotificationReportEntity
-WHERE
-    pachliAccountId = :pachliAccountId
-    AND reportId = :reportId
-""",
-    )
-    suspend fun loadReportById(pachliAccountId: Long, reportId: String): NotificationReportEntity?
-
-    @Deprecated("Only present for use in tests")
-    @Query(
-        """
-SELECT *
-FROM NotificationRelationshipSeveranceEventEntity
-WHERE
-    pachliAccountId = :pachliAccountId
-    AND eventId = :eventId
-""",
-    )
-    suspend fun loadRelationshipSeveranceeventById(pachliAccountId: Long, eventId: String): NotificationRelationshipSeveranceEventEntity?
-
     // Debug queries
     //
     // Used in feature.about.DatabaseFragment
@@ -453,26 +353,20 @@ WHERE
         """
 SELECT
     -- Basic notification info
-    n.pachliAccountId,
-    n.serverId,
-    n.type,
-    n.createdAt,
-    n.accountServerId,
-    n.statusServerId,
+    n.*,
 
     -- The account that triggered the notification
-    a.serverId AS 'a_serverId',
     a.pachliAccountId AS 'a_pachliAccountId',
+    a.serverId AS 'a_serverId',
     a.localUsername AS 'a_localUsername',
     a.username AS 'a_username',
     a.displayName AS 'a_displayName',
+    a.createdAt AS 'a_createdAt',
     a.url AS 'a_url',
     a.avatar AS 'a_avatar',
-    a.emojis AS 'a_emojis',
     a.bot AS 'a_bot',
-    a.createdAt AS 'a_createdAt',
+    a.emojis AS 'a_emojis',
     a.limited AS 'a_limited',
-    a.note AS 'a_note',
     a.roles AS 'a_roles',
     a.pronouns AS 'a_pronouns',
 
@@ -526,7 +420,6 @@ SELECT
     s.a_bot AS 's_s_a_bot',
     s.a_createdAt AS 's_s_a_createdAt',
     s.a_limited AS 's_s_a_limited',
-    s.a_note AS 's_s_a_note',
     s.a_roles AS 's_s_a_roles',
     s.a_pronouns AS 's_s_a_pronouns',
 
@@ -542,7 +435,6 @@ SELECT
     s.rb_bot AS 's_s_rb_bot',
     s.rb_createdAt AS 's_s_rb_createdAt',
     s.rb_limited AS 's_s_rb_limited',
-    s.rb_note AS 's_s_rb_note',
     s.rb_roles AS 's_s_rb_roles',
     s.rb_pronouns AS 's_s_rb_pronouns',
 
@@ -575,7 +467,6 @@ SELECT
     s.reply_bot AS 's_s_reply_bot',
     s.reply_createdAt AS 's_s_reply_createdAt',
     s.reply_limited AS 's_s_reply_limited',
-    s.reply_note AS 's_s_reply_note',
     s.reply_roles AS 's_s_reply_roles',
     s.reply_pronouns AS 's_s_reply_pronouns',
 
@@ -629,7 +520,6 @@ SELECT
     q.a_bot AS 's_q_a_bot',
     q.a_createdAt AS 's_q_a_createdAt',
     q.a_limited AS 's_q_a_limited',
-    q.a_note AS 's_q_a_note',
     q.a_roles AS 's_q_a_roles',
     q.a_pronouns AS 's_q_a_pronouns',
 
@@ -645,7 +535,6 @@ SELECT
     q.rb_bot AS 's_q_rb_bot',
     q.rb_createdAt AS 's_q_rb_createdAt',
     q.rb_limited AS 's_q_rb_limited',
-    q.rb_note AS 's_q_rb_note',
     q.rb_roles AS 's_q_rb_roles',
     q.rb_pronouns AS 's_q_rb_pronouns',
 
@@ -678,72 +567,19 @@ SELECT
     q.reply_bot AS 's_q_reply_bot',
     q.reply_createdAt AS 's_q_reply_createdAt',
     q.reply_limited AS 's_q_reply_limited',
-    q.reply_note AS 's_q_reply_note',
     q.reply_roles AS 's_q_reply_roles',
     q.reply_pronouns AS 's_q_reply_pronouns',
 
     -- NotificationViewData
     nvd.pachliAccountId AS 'nvd_pachliAccountId',
     nvd.serverId AS 'nvd_serverId',
-    nvd.accountFilterDecision AS 'nvd_accountFilterDecision',
-
-    -- NotificationReportEntity
-    report.pachliAccountId AS 'report_pachliAccountId',
-    report.serverId AS 'report_serverId',
-    report.reportId AS 'report_reportId',
-    report.actionTaken AS 'report_actionTaken',
-    report.actionTakenAt AS 'report_actionTakenAt',
-    report.category AS 'report_category',
-    report.comment AS 'report_comment',
-    report.forwarded AS 'report_forwarded',
-    report.createdAt AS 'report_createdAt',
-    report.statusIds AS 'report_statusIds',
-    report.ruleIds AS 'report_ruleIds',
-    report.target_serverId AS 'report_target_serverId',
-    report.target_pachliAccountId AS 'report_target_pachliAccountId',
-    report.target_localUsername AS 'report_target_localUsername',
-    report.target_username AS 'report_target_username',
-    report.target_displayName AS 'report_target_displayName',
-    report.target_url AS 'report_target_url',
-    report.target_avatar AS 'report_target_avatar',
-    report.target_emojis AS 'report_target_emojis',
-    report.target_bot AS 'report_target_bot',
-    report.target_createdAt AS 'report_target_createdAt',
-    report.target_limited AS 'report_target_limited',
-    report.target_note AS 'report_target_note',
-    report.target_roles AS 'report_target_roles',
-    report.target_pronouns AS 'report_target_pronouns',
-
-    -- NotificationRelationshipSeveranceEvent
-    rse.pachliAccountId AS 'rse_pachliAccountId',
-    rse.serverId AS 'rse_serverId',
-    rse.eventId AS 'rse_eventId',
-    rse.type AS 'rse_type',
-    rse.purged AS 'rse_purged',
-    rse.targetName AS 'rse_targetName',
-    rse.followersCount AS 'rse_followersCount',
-    rse.followingCount AS 'rse_followingCount',
-    rse.createdAt AS 'rse_createdAt',
-
-    -- AccountWarning
-    warn.pachliAccountId as 'warn_pachliAccountId',
-    warn.serverId AS 'warn_serverId',
-    warn.accountWarningId AS 'warn_accountWarningId',
-    warn.text AS 'warn_text',
-    warn."action" AS "warn_action",
-    warn.createdAt AS 'warn_createdAt'
+    nvd.accountFilterDecision AS 'nvd_accountFilterDecision'
 FROM NotificationEntity AS n
 LEFT JOIN TimelineAccountEntity AS a ON (n.pachliAccountId = a.pachliAccountId AND n.accountServerId = a.serverId)
 LEFT JOIN TimelineStatusWithAccount AS s ON (n.pachliAccountId = s.pachliAccountId AND n.statusServerId = s.serverId)
 LEFT JOIN TimelineStatusWithAccount AS q
     ON (n.pachliAccountId = :pachliAccountId AND (q.pachliAccountId = :pachliAccountId AND s.quoteServerId = q.serverId))
 LEFT JOIN NotificationViewDataEntity AS nvd ON (n.pachliAccountId = nvd.pachliAccountId AND n.serverId = nvd.serverId)
-LEFT JOIN NotificationReportEntity AS report
-    ON (n.pachliAccountId = report.pachliAccountId AND n.serverId = report.serverId)
-LEFT JOIN NotificationRelationshipSeveranceEventEntity AS rse
-    ON (n.pachliAccountId = rse.pachliAccountId AND n.serverId = rse.serverId)
-LEFT JOIN NotificationAccountWarningEntity AS warn
-    ON (n.pachliAccountId = warn.pachliAccountId AND n.serverId = warn.serverId)
 WHERE n.pachliAccountId = :pachliAccountId
 ORDER BY LENGTH(n.serverId) DESC, n.serverId DESC
 """,

@@ -34,6 +34,7 @@ import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.asEntity
+import app.pachli.core.model.Account
 import app.pachli.core.model.AccountWarning
 import app.pachli.core.model.RelationshipSeveranceEvent
 import app.pachli.core.model.Report
@@ -218,61 +219,41 @@ class NotificationsRemoteMediator(
     private suspend fun upsertNotifications(pachliAccountId: Long, notifications: List<Notification>) {
         check(transactionProvider.inTransaction())
 
-        /** Unique accounts referenced in this batch of notifications. */
-        val accounts = mutableSetOf<TimelineAccount>()
+        /** Unique accounts referenced in this batch of notificati  ons. */
+        val accounts = mutableSetOf<Account>()
+        val timelineAccounts = mutableSetOf<TimelineAccount>()
 
         /** Unique statuses referenced in this batch of notifications. */
         val statuses = mutableSetOf<Status>()
-
-        /** Unique reports referenced in this batch of notifications. */
-        val reports = mutableSetOf<NotificationReportEntity>()
-
-        /** Unique relationship severance events referenced in this batch of notifications. */
-        val severanceEvents = mutableSetOf<NotificationRelationshipSeveranceEventEntity>()
-
-        /** Unique account warnings referenced in this batch of notifications. */
-        val accountWarnings = mutableSetOf<NotificationAccountWarningEntity>()
 
         // Convert to core.model.Notification to ensure the notifications are valid.
         val validNotifications = notifications.asModel(accountId)
         if (validNotifications.isEmpty()) return
 
         validNotifications.forEach { notification ->
-            accounts.add(notification.account)
+            timelineAccounts.add(notification.account)
 
             (notification as? app.pachli.core.model.Notification.WithStatus)?.status?.let { status ->
-                accounts.add(status.account)
-                status.reblog?.account?.let { accounts.add(it) }
+                timelineAccounts.add(status.account)
+                status.reblog?.account?.let { timelineAccounts.add(it) }
 
                 statuses.add(status)
 
                 (status.quote as? Status.Quote.FullQuote)?.status?.let {
-                    accounts.add(it.account)
+                    timelineAccounts.add(it.account)
                     it.reblog?.let {
-                        accounts.add(it.account)
+                        timelineAccounts.add(it.account)
                         statuses.add(it)
                     }
                     statuses.add(it)
                 }
             }
-
-            (notification as? app.pachli.core.model.Notification.Report)?.let {
-                reports.add(it.report.asEntity(pachliAccountId, notification.id))
-            }
-            (notification as? app.pachli.core.model.Notification.SeveredRelationships)?.let {
-                severanceEvents.add(it.relationshipSeveranceEvent.asEntity(pachliAccountId, notification.id))
-            }
-            (notification as? app.pachli.core.model.Notification.ModerationWarning)?.let {
-                accountWarnings.add(it.accountWarning.asEntity(pachliAccountId, notification.id))
-            }
         }
 
         // Bulk upsert the discovered items.
-        timelineDao.upsertAccounts(accounts.asEntity(pachliAccountId))
+//        timelineDao.upsertAccounts(accounts.asEntity(pachliAccountId))
+        timelineDao.upsertTimelineAccounts(timelineAccounts.asEntity(pachliAccountId))
         statusDao.upsertStatuses(statuses.asEntity(pachliAccountId))
-        notificationDao.upsertReports(reports)
-        notificationDao.upsertEvents(severanceEvents)
-        notificationDao.upsertAccountWarnings(accountWarnings)
         notificationDao.upsertNotifications(validNotifications.asEntity(pachliAccountId))
     }
 }
@@ -280,13 +261,8 @@ class NotificationsRemoteMediator(
 /**
  * @return A [NotificationReportEntity] from a network [Notification] for [pachliAccountId].
  */
-fun Report.asEntity(
-    pachliAccountId: Long,
-    notificationId: String,
-) = NotificationReportEntity(
-    pachliAccountId = pachliAccountId,
-    serverId = notificationId,
-    reportId = id,
+fun Report.asEntity(pachliAccountId: Long) = NotificationReportEntity(
+    reportId = serverId,
     actionTaken = actionTaken,
     actionTakenAt = actionTakenAt,
     category = when (category) {
@@ -303,12 +279,9 @@ fun Report.asEntity(
 )
 
 /**
- * @return A [NotificationRelationshipSeveranceEventEntity] from a network [Notification]
- * for [pachliAccountId].
+ * @return A [NotificationRelationshipSeveranceEventEntity].
  */
-fun RelationshipSeveranceEvent.asEntity(pachliAccountId: Long, notificationId: String) = NotificationRelationshipSeveranceEventEntity(
-    pachliAccountId = pachliAccountId,
-    serverId = notificationId,
+fun RelationshipSeveranceEvent.asEntity() = NotificationRelationshipSeveranceEventEntity(
     eventId = id,
     type = when (type) {
         RelationshipSeveranceEvent.Type.DOMAIN_BLOCK -> NotificationRelationshipSeveranceEventEntity.Type.DOMAIN_BLOCK
@@ -324,12 +297,9 @@ fun RelationshipSeveranceEvent.asEntity(pachliAccountId: Long, notificationId: S
 )
 
 /**
- * @return A [NotificationAccountWarningEntity] from a network [Notification]
- * for [pachliAccountId].
+ * @return A [NotificationAccountWarningEntity].
  */
-fun AccountWarning.asEntity(pachliAccountId: Long, notificationId: String) = NotificationAccountWarningEntity(
-    pachliAccountId = pachliAccountId,
-    serverId = notificationId,
+fun AccountWarning.asEntity() = NotificationAccountWarningEntity(
     accountWarningId = id,
     text = text,
     action = when (action) {

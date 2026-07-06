@@ -19,7 +19,7 @@ package app.pachli.core.database.model
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import app.pachli.core.model.TimelineAccount
+import app.pachli.core.model.ITimelineAccount
 
 /**
  * An account the user is following.
@@ -45,9 +45,9 @@ data class FollowingAccountEntity(
     val serverId: String,
 ) {
     companion object {
-        fun from(pachliAccountId: Long, timelineAccount: TimelineAccount) = FollowingAccountEntity(
+        fun from(pachliAccountId: Long, account: ITimelineAccount) = FollowingAccountEntity(
             pachliAccountId = pachliAccountId,
-            serverId = timelineAccount.serverId,
+            serverId = account.serverId,
         )
     }
 }

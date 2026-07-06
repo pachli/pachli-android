@@ -31,7 +31,7 @@ interface IStatus {
 
     // not present if it's reblog
     val url: String?
-    val account: TimelineAccount
+    val account: ITimelineAccount
     val inReplyToId: String?
     val inReplyToAccountId: String?
     val reblog: Status?
@@ -82,9 +82,9 @@ data class Status(
     override val favouritesCount: Int,
     override val repliesCount: Int,
     override val quotesCount: Int,
-    override val reblogged: Boolean = false,
-    override val favourited: Boolean = false,
-    override val bookmarked: Boolean = false,
+    override val reblogged: Boolean,
+    override val favourited: Boolean,
+    override val bookmarked: Boolean,
     override val sensitive: Boolean,
     override val spoilerText: String,
     override val visibility: Visibility,

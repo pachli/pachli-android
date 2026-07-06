@@ -32,10 +32,7 @@ import app.pachli.core.model.Emoji
 import app.pachli.core.model.FilterResult
 import app.pachli.core.model.Hashtag
 import app.pachli.core.model.Poll
-import app.pachli.core.model.Role
 import app.pachli.core.model.Status
-import app.pachli.core.model.TimelineAccount
-import java.time.Instant
 import java.util.Date
 
 /**
@@ -179,93 +176,6 @@ fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
 
 @JvmName("IterableStatus")
 fun Iterable<Status>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }
-
-/**
- * An account associated with a status on a timeline or similar (e.g., an
- * account the user is following).
- *
- * @property serverId
- * @property pachliAccountId The pachliAccountId for the logged-in account related
- * to this account.
- * @property localUsername
- * @property username
- * @property displayName
- * @property url
- * @property avatar
- * @property emojis
- * @property bot
- * @property createdAt
- * @property note
- */
-@Entity(
-    primaryKeys = ["serverId", "pachliAccountId"],
-    foreignKeys = [
-        ForeignKey(
-            entity = PachliAccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("pachliAccountId"),
-            onDelete = ForeignKey.CASCADE,
-            deferred = true,
-        ),
-    ],
-    indices = [Index(value = ["pachliAccountId"])],
-)
-@TypeConverters(Converters::class)
-data class TimelineAccountEntity(
-    val serverId: String,
-    val pachliAccountId: Long,
-    val localUsername: String,
-    val username: String,
-    val displayName: String,
-    val url: String,
-    val avatar: String,
-    val emojis: List<Emoji>,
-    val bot: Boolean,
-    val createdAt: Instant?,
-    @ColumnInfo(defaultValue = "false")
-    val limited: Boolean = false,
-    @ColumnInfo(defaultValue = "")
-    val note: String,
-    @ColumnInfo(defaultValue = "")
-    val roles: List<Role>?,
-    @ColumnInfo(defaultValue = "")
-    val pronouns: String?,
-) {
-    fun asModel() = TimelineAccount(
-        serverId = serverId,
-        localUsername = localUsername,
-        username = username,
-        displayName = displayName,
-        url = url,
-        avatar = avatar,
-        note = note,
-        bot = bot,
-        emojis = emojis,
-        createdAt = createdAt,
-        limited = limited,
-        roles = roles.orEmpty(),
-        pronouns = pronouns,
-    )
-}
-
-fun TimelineAccount.asEntity(pachliAccountId: Long) = TimelineAccountEntity(
-    serverId = serverId,
-    pachliAccountId = pachliAccountId,
-    localUsername = localUsername,
-    username = username,
-    displayName = name,
-    note = note,
-    url = url,
-    avatar = avatar,
-    emojis = emojis.orEmpty(),
-    bot = bot,
-    createdAt = createdAt,
-    limited = limited,
-    roles = roles,
-    pronouns = pronouns,
-)
-
-fun Iterable<TimelineAccount>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }
 
 /**
  * A complete [TimelineStatusWithAccount], and the (optional) status it quotes.

@@ -92,7 +92,7 @@ class ConversationsRemoteMediator(
                 )
             }
 
-            timelineDao.upsertAccounts(accounts.asEntity(pachliAccountId))
+            timelineDao.upsertTimelineAccounts(accounts.asEntity(pachliAccountId))
             statusDao.upsertStatuses(statuses.map { it.actionableStatus.asEntity(pachliAccountId) })
             conversationsDao.upsert(conversationEntities)
         }

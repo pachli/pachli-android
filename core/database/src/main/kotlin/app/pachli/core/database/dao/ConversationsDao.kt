@@ -115,7 +115,6 @@ SELECT
     s.a_bot AS 's_s_a_bot',
     s.a_createdAt AS 's_s_a_createdAt',
     s.a_limited AS 's_s_a_limited',
-    s.a_note AS 's_s_a_note',
     s.a_roles AS 's_s_a_roles',
     s.a_pronouns AS 's_s_a_pronouns',
 
@@ -131,7 +130,6 @@ SELECT
     s.rb_bot AS 's_s_rb_bot',
     s.rb_createdAt AS 's_s_rb_createdAt',
     s.rb_limited AS 's_s_rb_limited',
-    s.rb_note AS 's_s_rb_note',
     s.rb_roles AS 's_s_rb_roles',
     s.rb_pronouns AS 's_s_rb_pronouns',
 
@@ -164,7 +162,6 @@ SELECT
     s.reply_bot AS 's_s_reply_bot',
     s.reply_createdAt AS 's_s_reply_createdAt',
     s.reply_limited AS 's_s_reply_limited',
-    s.reply_note AS 's_s_reply_note',
     s.reply_roles AS 's_s_reply_roles',
     s.reply_pronouns AS 's_s_reply_pronouns',
 
@@ -218,7 +215,6 @@ SELECT
     q.a_bot AS 's_q_a_bot',
     q.a_createdAt AS 's_q_a_createdAt',
     q.a_limited AS 's_q_a_limited',
-    q.a_note AS 's_q_a_note',
     q.a_roles AS 's_q_a_roles',
     q.a_pronouns AS 's_q_a_pronouns',
 
@@ -234,7 +230,6 @@ SELECT
     q.rb_bot AS 's_q_rb_bot',
     q.rb_createdAt AS 's_q_rb_createdAt',
     q.rb_limited AS 's_q_rb_limited',
-    q.rb_note AS 's_q_rb_note',
     q.rb_roles AS 's_q_rb_roles',
     q.rb_pronouns AS 's_q_rb_pronouns',
 
@@ -267,7 +262,6 @@ SELECT
     q.reply_bot AS 's_q_reply_bot',
     q.reply_createdAt AS 's_q_reply_createdAt',
     q.reply_limited AS 's_q_reply_limited',
-    q.reply_note AS 's_q_reply_note',
     q.reply_roles AS 's_q_reply_roles',
     q.reply_pronouns AS 's_q_reply_pronouns',
 
@@ -374,7 +368,6 @@ SELECT
     s.a_bot AS 's_s_a_bot',
     s.a_createdAt AS 's_s_a_createdAt',
     s.a_limited AS 's_s_a_limited',
-    s.a_note AS 's_s_a_note',
     s.a_roles AS 's_s_a_roles',
     s.a_pronouns AS 's_s_a_pronouns',
 
@@ -390,7 +383,6 @@ SELECT
     s.rb_bot AS 's_s_rb_bot',
     s.rb_createdAt AS 's_s_rb_createdAt',
     s.rb_limited AS 's_s_rb_limited',
-    s.rb_note AS 's_s_rb_note',
     s.rb_roles AS 's_s_rb_roles',
     s.rb_pronouns AS 's_s_rb_pronouns',
 
@@ -423,7 +415,6 @@ SELECT
     s.reply_bot AS 's_s_reply_bot',
     s.reply_createdAt AS 's_s_reply_createdAt',
     s.reply_limited AS 's_s_reply_limited',
-    s.reply_note AS 's_s_reply_note',
     s.reply_roles AS 's_s_reply_roles',
     s.reply_pronouns AS 's_s_reply_pronouns',
 
@@ -477,7 +468,6 @@ SELECT
     q.a_bot AS 's_q_a_bot',
     q.a_createdAt AS 's_q_a_createdAt',
     q.a_limited AS 's_q_a_limited',
-    q.a_note AS 's_q_a_note',
     q.a_roles AS 's_q_a_roles',
     q.a_pronouns AS 's_q_a_pronouns',
 
@@ -493,7 +483,6 @@ SELECT
     q.rb_bot AS 's_q_rb_bot',
     q.rb_createdAt AS 's_q_rb_createdAt',
     q.rb_limited AS 's_q_rb_limited',
-    q.rb_note AS 's_q_rb_note',
     q.rb_roles AS 's_q_rb_roles',
     q.rb_pronouns AS 's_q_rb_pronouns',
 
@@ -526,7 +515,6 @@ SELECT
     q.reply_bot AS 's_q_reply_bot',
     q.reply_createdAt AS 's_q_reply_createdAt',
     q.reply_limited AS 's_q_reply_limited',
-    q.reply_note AS 's_q_reply_note',
     q.reply_roles AS 's_q_reply_roles',
     q.reply_pronouns AS 's_q_reply_pronouns',
 

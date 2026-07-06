@@ -16,6 +16,7 @@
 
 package app.pachli.core.network.model
 
+import app.pachli.core.model.MovedAccount
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.time.Instant
@@ -47,9 +48,7 @@ data class Account(
     @Json(name = "following_count") val followingCount: Int = 0,
     @Json(name = "statuses_count") val statusesCount: Int = 0,
     val bot: Boolean = false,
-    // nullable for backward compatibility
     val emojis: List<Emoji>? = emptyList(),
-    // nullable for backward compatibility
     val fields: List<Field>? = emptyList(),
     val moved: Account? = null,
     val limited: Boolean = false,
@@ -59,7 +58,7 @@ data class Account(
         serverId = id,
         localUsername = localUsername,
         username = username,
-        displayName = displayName,
+        displayName = displayName.orEmpty(),
         createdAt = createdAt,
         note = note,
         url = url,
@@ -71,20 +70,31 @@ data class Account(
         followingCount = followingCount,
         statusesCount = statusesCount,
         bot = bot,
-        emojis = emojis?.asModel(),
-        fields = fields?.asModel(),
-        moved = moved?.asModel(),
+        emojis = emojis.orEmpty().asModel(),
+        fields = fields.orEmpty().asModel(),
+        movedAccount = moved?.asMovedAccountModel(),
         limited = limited,
         roles = roles.orEmpty().asModel(),
         pronouns = fields?.pronouns(),
     )
+
+    private fun asMovedAccountModel() = MovedAccount(
+        serverId = id,
+        localUsername = localUsername,
+        username = username,
+        displayName = displayName.orEmpty(),
+        avatar = avatar,
+        emojis = emojis.orEmpty().asModel(),
+    )
 }
+
+fun Iterable<Account>.asModel() = map { it.asModel() }
 
 @JsonClass(generateAdapter = true)
 data class Field(
     val name: String,
     val value: String,
-    @Json(name = "verified_at") val verifiedAt: Date?,
+    @Json(name = "verified_at") val verifiedAt: Instant?,
 ) {
     fun asModel() = app.pachli.core.model.Field(
         name = name,

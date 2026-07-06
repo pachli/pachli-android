@@ -17,9 +17,11 @@
 
 package app.pachli.core.model
 
+import com.squareup.moshi.JsonClass
 import java.time.Instant
 
 // Some network fields are ignored, as they are not used in the UI.
+@JsonClass(generateAdapter = true)
 data class AccountWarning(
     val id: String,
     val action: Action,

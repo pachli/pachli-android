@@ -82,7 +82,6 @@ SELECT
     a.bot AS 'a_bot',
     a.createdAt AS 'a_createdAt',
     a.limited AS 'a_limited',
-    a.note AS 'a_note',
     a.roles AS 'a_roles',
     a.pronouns AS 'a_pronouns',
     rb.serverId AS 'rb_serverId',
@@ -96,7 +95,6 @@ SELECT
     rb.bot AS 'rb_bot',
     rb.createdAt AS 'rb_createdAt',
     rb.limited AS 'rb_limited',
-    rb.note AS 'rb_note',
     rb.roles AS 'rb_roles',
     rb.pronouns AS 'rb_pronouns',
     svd.serverId AS 'svd_serverId',
@@ -123,7 +121,6 @@ SELECT
     reply.bot AS 'reply_bot',
     reply.createdAt AS 'reply_createdAt',
     reply.limited AS 'reply_limited',
-    reply.note AS 'reply_note',
     reply.roles AS 'reply_roles',
     reply.pronouns AS 'reply_pronouns'
 FROM StatusEntity AS s

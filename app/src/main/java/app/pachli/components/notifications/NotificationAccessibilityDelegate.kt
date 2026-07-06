@@ -155,7 +155,7 @@ class NotificationAccessibilityDelegate<T : NotificationViewData>(
                 openReport.id -> {
                     interrupt()
                     (notification as? NotificationViewData.ReportNotificationViewData)?.let {
-                        notificationActionListener.onViewReport(notification.report.reportId)
+                        notificationActionListener.onViewReport(notification.report.serverId)
                     }
                 }
 

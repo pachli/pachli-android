@@ -18,7 +18,7 @@ package app.pachli.components.accountlist.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import app.pachli.core.model.TimelineAccount
+import app.pachli.core.model.Account
 import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemFooterBinding
@@ -35,7 +35,7 @@ abstract class AccountAdapter<AVH : RecyclerView.ViewHolder> internal constructo
     protected val linksToUnderline: Set<LinksToUnderline>,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder?>() {
 
-    protected var accountList: MutableList<TimelineAccount> = mutableListOf()
+    protected var accountList: MutableList<Account> = mutableListOf()
     private var bottomLoading: Boolean = false
 
     override fun getItemCount(): Int {
@@ -79,12 +79,12 @@ abstract class AccountAdapter<AVH : RecyclerView.ViewHolder> internal constructo
         }
     }
 
-    fun update(newAccounts: List<TimelineAccount>) {
+    fun update(newAccounts: List<Account>) {
         accountList = newAccounts.removeDuplicatesTo(ArrayList())
         notifyDataSetChanged()
     }
 
-    fun addItems(newAccounts: List<TimelineAccount>) {
+    fun addItems(newAccounts: List<Account>) {
         val end = accountList.size
         val last = accountList[end - 1]
         if (newAccounts.none { it.serverId == last.serverId }) {
@@ -106,7 +106,7 @@ abstract class AccountAdapter<AVH : RecyclerView.ViewHolder> internal constructo
         }
     }
 
-    fun removeItem(position: Int): TimelineAccount? {
+    fun removeItem(position: Int): Account? {
         if (position < 0 || position >= accountList.size) {
             return null
         }
@@ -115,7 +115,7 @@ abstract class AccountAdapter<AVH : RecyclerView.ViewHolder> internal constructo
         return account
     }
 
-    fun addItem(account: TimelineAccount, position: Int) {
+    fun addItem(account: Account, position: Int) {
         if (position < 0 || position > accountList.size) {
             return
         }

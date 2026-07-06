@@ -31,7 +31,6 @@ import java.time.Instant
  * @property displayName
  * @property url
  * @property avatar
- * @property note
  * @property bot
  * @property emojis
  * @property createdAt When the account was created, if known. May not be
@@ -50,16 +49,14 @@ interface ITimelineAccount {
     val localUsername: String
     val username: String
 
-    // should never be null per Api definition, but some servers break the contract
-    @Deprecated("prefer the `name` property, which is not-null and not-empty")
-    val displayName: String?
+    @Deprecated("prefer the `name` property, which is not empty")
+    val displayName: String
     val url: String
     val avatar: String
-    val note: String
     val bot: Boolean
 
     // nullable for backward compatibility
-    val emojis: List<Emoji>?
+    val emojis: List<Emoji>
 
     // Should never be null per API definition, but some servers break the contract
     val createdAt: Instant?
@@ -69,11 +66,7 @@ interface ITimelineAccount {
 
     @Suppress("DEPRECATION")
     val name: String
-        get() = if (displayName.isNullOrEmpty()) {
-            localUsername
-        } else {
-            displayName!!
-        }
+        get() = displayName.ifEmpty { localUsername }
 
     val domain: String
         get() {
@@ -96,16 +89,31 @@ data class TimelineAccount(
     override val localUsername: String,
     override val username: String,
 
-    @Deprecated("prefer the `name` property, which is not-null and not-empty")
-    override val displayName: String?,
+    @Deprecated("prefer the `name` property, which is not empty")
+    override val displayName: String,
     override val url: String,
     override val avatar: String,
-    override val note: String,
-    override val bot: Boolean = false,
-    // nullable for backward compatibility
-    override val emojis: List<Emoji>? = emptyList(),
+    override val bot: Boolean,
+    override val emojis: List<Emoji> = emptyList(),
     override val createdAt: Instant?,
-    override val limited: Boolean = false,
+    override val limited: Boolean,
     override val roles: List<Role>,
     override val pronouns: String?,
 ) : ITimelineAccount
+
+fun Account.asTimelineAccount() = TimelineAccount(
+    serverId = serverId,
+    localUsername = localUsername,
+    username = username,
+    displayName = displayName,
+    url = url,
+    avatar = avatar,
+    bot = bot,
+    emojis = emojis,
+    createdAt = createdAt,
+    limited = limited,
+    roles = roles,
+    pronouns = pronouns,
+)
+
+fun Iterable<Account>.asTimelineAccount() = map { it.asTimelineAccount() }
