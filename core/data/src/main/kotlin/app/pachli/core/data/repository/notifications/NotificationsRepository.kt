@@ -200,7 +200,7 @@ fun Notification.asEntity(pachliAccountId: Long) = NotificationEntity(
     serverId = id,
     type = type.asEntity(),
     createdAt = createdAt,
-    accountServerId = account.id,
+    accountServerId = account.serverId,
     statusServerId = (this as? Notification.WithStatus)?.status?.statusId,
 )
 

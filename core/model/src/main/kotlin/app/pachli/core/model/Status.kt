@@ -108,7 +108,7 @@ data class Status(
         get() = reblog ?: this
 
     val isSelfReply: Boolean
-        get() = inReplyToAccountId != null && inReplyToAccountId == account.id
+        get() = inReplyToAccountId != null && inReplyToAccountId == account.serverId
 
     // Note: These are deliberately listed in order, most public to least public.
     // These are currently serialised to the database by the ordinal value, and

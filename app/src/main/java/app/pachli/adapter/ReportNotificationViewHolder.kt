@@ -63,7 +63,7 @@ class ReportNotificationViewHolder(
         setupActionListener(
             notificationActionListener,
             viewData.report.targetAccount.serverId,
-            viewData.account.id,
+            viewData.account.serverId,
             viewData.report.reportId,
         )
     }

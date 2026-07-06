@@ -24,7 +24,7 @@ import java.util.Date
  * @property note (HTML) The profile’s bio or description.
  */
 data class Account(
-    override val id: String,
+    override val serverId: String,
     override val localUsername: String,
     override val username: String,
     // should never be null per API definition, but some servers break the contract

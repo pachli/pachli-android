@@ -60,7 +60,7 @@ class MutesAdapter(
         val binding = viewHolder.binding
         val context = binding.root.context
 
-        val mutingNotifications = mutingNotificationsMap[account.id]
+        val mutingNotifications = mutingNotificationsMap[account.serverId]
 
         val emojifiedName = account.name.emojify(glide, account.emojis, binding.mutedUserDisplayName, animateEmojis)
         binding.mutedUserDisplayName.text = emojifiedName
@@ -93,7 +93,7 @@ class MutesAdapter(
         binding.mutedUserUnmute.setOnClickListener {
             accountActionListener.onMute(
                 false,
-                account.id,
+                account.serverId,
                 viewHolder.bindingAdapterPosition,
                 false,
             )
@@ -101,12 +101,12 @@ class MutesAdapter(
         binding.mutedUserMuteNotifications.setOnCheckedChangeListener { _, isChecked ->
             accountActionListener.onMute(
                 true,
-                account.id,
+                account.serverId,
                 viewHolder.bindingAdapterPosition,
                 isChecked,
             )
         }
-        binding.root.setOnClickListener { accountActionListener.onViewAccount(account.id) }
+        binding.root.setOnClickListener { accountActionListener.onViewAccount(account.serverId) }
     }
 
     fun updateMutingNotifications(id: String, mutingNotifications: Boolean, position: Int) {

@@ -139,7 +139,7 @@ fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
     serverId = statusId,
     url = actionableStatus.url,
     timelineUserId = pachliAccountId,
-    authorServerId = actionableStatus.account.id,
+    authorServerId = actionableStatus.account.serverId,
     inReplyToId = actionableStatus.inReplyToId,
     inReplyToAccountId = actionableStatus.inReplyToAccountId,
     content = actionableStatus.content,
@@ -160,7 +160,7 @@ fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
     tags = actionableStatus.tags,
     application = actionableStatus.application,
     reblogServerId = reblog?.statusId,
-    reblogAccountId = reblog?.let { account.id },
+    reblogAccountId = reblog?.let { account.serverId },
     poll = actionableStatus.poll,
     muted = actionableStatus.muted,
     pinned = actionableStatus.pinned == true,
@@ -233,7 +233,7 @@ data class TimelineAccountEntity(
     val pronouns: String?,
 ) {
     fun asModel() = TimelineAccount(
-        id = serverId,
+        serverId = serverId,
         localUsername = localUsername,
         username = username,
         displayName = displayName,
@@ -250,7 +250,7 @@ data class TimelineAccountEntity(
 }
 
 fun TimelineAccount.asEntity(pachliAccountId: Long) = TimelineAccountEntity(
-    serverId = id,
+    serverId = serverId,
     timelineUserId = pachliAccountId,
     localUsername = localUsername,
     username = username,

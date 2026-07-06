@@ -126,14 +126,14 @@ class NotificationAccessibilityDelegate<T : NotificationViewData>(
 
                 openProfileAction.id -> {
                     interrupt()
-                    notificationActionListener.onViewAccount(notification.account.id)
+                    notificationActionListener.onViewAccount(notification.account.serverId)
                 }
 
                 acceptFollowRequestAction.id -> {
                     interrupt()
                     accountActionListener.onRespondToFollowRequest(
                         true,
-                        notification.account.id,
+                        notification.account.serverId,
                         pos,
                     )
                 }
@@ -142,7 +142,7 @@ class NotificationAccessibilityDelegate<T : NotificationViewData>(
                     interrupt()
                     accountActionListener.onRespondToFollowRequest(
                         false,
-                        notification.account.id,
+                        notification.account.serverId,
                         pos,
                     )
                 }

@@ -47,7 +47,7 @@ data class FollowingAccountEntity(
     companion object {
         fun from(pachliAccountId: Long, timelineAccount: TimelineAccount) = FollowingAccountEntity(
             pachliAccountId = pachliAccountId,
-            serverId = timelineAccount.id,
+            serverId = timelineAccount.serverId,
         )
     }
 }

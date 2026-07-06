@@ -74,7 +74,7 @@ class FollowRequestViewHolder(
             statusDisplayOptions.linksToUnderline,
         )
 
-        setupActionListener(accountActionListener, viewData.account.id)
+        setupActionListener(accountActionListener, viewData.account.serverId)
     }
 
     fun setupWithAccount(

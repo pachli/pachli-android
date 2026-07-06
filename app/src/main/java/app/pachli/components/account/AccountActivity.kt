@@ -655,7 +655,7 @@ class AccountActivity :
         binding.accountMovedView.show()
 
         binding.accountMovedView.setOnClickListener {
-            onViewAccount(account.id)
+            onViewAccount(account.serverId)
         }
 
         binding.accountMovedDisplayName.text = account.name

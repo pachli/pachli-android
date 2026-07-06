@@ -350,7 +350,7 @@ data class StatusViewData(
                 attachmentDisplayAction = attachmentDisplayAction,
                 replyToAccount = replyToAccount,
                 isDetailed = isDetailed,
-                isUsersStatus = pachliAccount.accountId == status.actionableStatus.account.id,
+                isUsersStatus = pachliAccount.accountId == status.actionableStatus.account.serverId,
             )
         }
     }

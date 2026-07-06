@@ -71,6 +71,6 @@ class FollowRequestsAdapter(
             showPronouns = showPronouns,
             linksToUnderline = linksToUnderline,
         )
-        viewHolder.setupActionListener(accountActionListener, accountList[position].id)
+        viewHolder.setupActionListener(accountActionListener, accountList[position].serverId)
     }
 }

@@ -119,8 +119,8 @@ class FollowViewHolder(
             linkListener = linkListener,
         )
 
-        binding.notificationAccountNote.setOnClickListener { linkListener.onViewAccount(account.id) }
-        itemView.setOnClickListener { linkListener.onViewAccount(account.id) }
+        binding.notificationAccountNote.setOnClickListener { linkListener.onViewAccount(account.serverId) }
+        itemView.setOnClickListener { linkListener.onViewAccount(account.serverId) }
 
         binding.root.contentDescription = "$emojifiedMessage.\n\n${account.handleContentDescription(context)}.\n\n${account.note.parseAsMastodonHtml()}"
     }

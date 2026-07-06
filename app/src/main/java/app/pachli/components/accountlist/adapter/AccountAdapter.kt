@@ -87,7 +87,7 @@ abstract class AccountAdapter<AVH : RecyclerView.ViewHolder> internal constructo
     fun addItems(newAccounts: List<TimelineAccount>) {
         val end = accountList.size
         val last = accountList[end - 1]
-        if (newAccounts.none { it.id == last.id }) {
+        if (newAccounts.none { it.serverId == last.serverId }) {
             accountList.addAll(newAccounts)
             notifyItemRangeInserted(end, newAccounts.size)
         }

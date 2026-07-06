@@ -56,7 +56,7 @@ data class Account(
     val roles: List<Role>? = emptyList(),
 ) {
     fun asModel(): app.pachli.core.model.Account = app.pachli.core.model.Account(
-        id = id,
+        serverId = id,
         localUsername = localUsername,
         username = username,
         displayName = displayName,

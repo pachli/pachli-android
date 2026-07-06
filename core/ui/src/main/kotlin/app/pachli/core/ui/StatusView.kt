@@ -605,7 +605,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         setupButtons(
             viewData,
             listener,
-            actionable.account.id,
+            actionable.account.serverId,
         )
         val sensitive = !TextUtils.isEmpty(viewData.actionable.spoilerText)
         setupCollapsedState(viewData, sensitive, listener)
@@ -778,7 +778,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
 
         cardView.bind(glide, card, sensitive, statusDisplayOptions, false) { card, target ->
             if (target == PreviewCardView.Target.BYLINE) {
-                card.authors?.firstOrNull()?.account?.id?.let { listener.onViewAccount(it) }
+                card.authors?.firstOrNull()?.account?.serverId?.let { listener.onViewAccount(it) }
                 return@bind
             }
 

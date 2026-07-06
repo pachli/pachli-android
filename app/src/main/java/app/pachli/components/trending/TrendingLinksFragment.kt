@@ -296,7 +296,7 @@ class TrendingLinksFragment :
         when (target) {
             Target.CARD -> openUrl(card.url)
             Target.IMAGE -> openUrl(card.url)
-            Target.BYLINE -> card.authors?.firstOrNull()?.account?.id?.let {
+            Target.BYLINE -> card.authors?.firstOrNull()?.account?.serverId?.let {
                 startActivityWithTransition(
                     AccountActivityIntent(requireContext(), pachliAccountId, it),
                     TransitionKind.SLIDE_FROM_END,
