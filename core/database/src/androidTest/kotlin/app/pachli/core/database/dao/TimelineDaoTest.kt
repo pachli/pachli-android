@@ -183,10 +183,10 @@ class TimelineDaoTest {
         assertStatuses(wantAccount2StatusesAfterCleanup, gotAccount2StatusesAfterCleanup)
 
         val loadedAccounts: MutableList<Pair<Long, String>> = mutableListOf()
-        val accountCursor = db.getSupportWrapper().query("SELECT timelineUserId, serverId FROM TimelineAccountEntity ORDER BY timelineUserId, serverId")
+        val accountCursor = db.getSupportWrapper().query("SELECT pachliAccountId, serverId FROM TimelineAccountEntity ORDER BY pachliAccountId, serverId")
         accountCursor.moveToFirst()
         while (!accountCursor.isAfterLast) {
-            val accountId: Long = accountCursor.getLong(accountCursor.getColumnIndex("timelineUserId"))
+            val accountId: Long = accountCursor.getLong(accountCursor.getColumnIndex("pachliAccountId"))
             val serverId: String = accountCursor.getString(accountCursor.getColumnIndex("serverId"))
             loadedAccounts.add(accountId to serverId)
             accountCursor.moveToNext()
@@ -408,7 +408,6 @@ class TimelineDaoTest {
             emojis = listOf(Emoji("pachli", "http://pachli.cool/emoji.jpg", "", null)),
             bot = false,
             createdAt = null,
-            note = "",
             roles = null,
             pronouns = null,
         )
@@ -425,7 +424,6 @@ class TimelineDaoTest {
                 emojis = emptyList(),
                 bot = false,
                 createdAt = null,
-                note = "",
                 roles = null,
                 pronouns = null,
             )

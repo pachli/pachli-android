@@ -267,9 +267,9 @@ data class NotificationEntity(
     val statusServerId: String?,
     val note: String?,
 
-    @Embedded(prefix = "report_") val report: NotificationReportEntity?,
-    @Embedded(prefix = "rse_") val relationshipSeveranceEvent: NotificationRelationshipSeveranceEventEntity?,
-    @Embedded(prefix = "warn_") val accountWarning: NotificationAccountWarningEntity?,
+    @Embedded(prefix = "report_") val report: NotificationReport?,
+    @Embedded(prefix = "rse_") val relationshipSeveranceEvent: NotificationRelationshipSeveranceEvent?,
+    @Embedded(prefix = "warn_") val accountWarning: NotificationAccountWarning?,
 ) {
     enum class Type {
         /** Unknown notification. */
@@ -330,7 +330,7 @@ data class NotificationEntity(
  * @property reportId Server ID for the report
  * @property actionTaken True if action has been taken about this report.
  * @property actionTakenAt When action was taken. Null if no action has been taken.
- * @property category The [Category][NotificationReportEntity.Category] for the report.
+ * @property category The [Category][NotificationReport.Category] for the report.
  * @property comment The reason for the report.
  * @property forwarded True if the report was forwarded to the remote domain.
  * @property createdAt When the report was created.
@@ -339,9 +339,8 @@ data class NotificationEntity(
  * @property ruleIds Optional list of server rule IDs referenced in the report. Null if
  * no rules were listed.
  */
-@Entity(primaryKeys = ["reportId"])
 @TypeConverters(Converters::class)
-data class NotificationReportEntity(
+data class NotificationReport(
     val reportId: String,
     val actionTaken: Boolean,
     val actionTakenAt: Instant?,
@@ -393,15 +392,14 @@ data class NotificationReportEntity(
  * Data about a relationship severance event.
  *
  * @property eventId Server's ID for this severance event.
- * @property type The event's [Type][NotificationRelationshipSeveranceEventEntity.Type].
+ * @property type The event's [Type][NotificationRelationshipSeveranceEvent.Type].
  * @property purged True if the list of severed relationships is unavailable.
  * @property followersCount How many follower relationships are broken due to this event.
  * @property followingCount How many following relationships are broken due to this event.
  * @property createdAt When the relationships were severed.
  */
-@Entity(primaryKeys = ["eventId"])
 @TypeConverters(Converters::class)
-data class NotificationRelationshipSeveranceEventEntity(
+data class NotificationRelationshipSeveranceEvent(
     val eventId: String,
     val type: Type,
     val purged: Boolean,
@@ -440,9 +438,7 @@ data class NotificationRelationshipSeveranceEventEntity(
  * Note: Should only be used as an @Embedded entity, as the primary key will not
  * distinguish warnings across different servers.
  */
-@Entity(primaryKeys = ["accountWarningId"])
-@TypeConverters(Converters::class)
-data class NotificationAccountWarningEntity(
+data class NotificationAccountWarning(
     val accountWarningId: String,
     val text: String,
     val action: Action,

@@ -133,7 +133,6 @@ class PachliAccountEntityForeignKeyTest {
         bot = false,
         createdAt = Instant.now(),
         limited = false,
-        note = "",
         roles = null,
         pronouns = null,
     )
@@ -323,6 +322,10 @@ class PachliAccountEntityForeignKeyTest {
             createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
             accountServerId = "1",
             statusServerId = "1",
+            note = "",
+            report = null,
+            relationshipSeveranceEvent = null,
+            accountWarning = null,
         )
 
         notificationDao.upsertNotifications(listOf(notification))
@@ -436,7 +439,6 @@ class PachliAccountEntityForeignKeyTest {
             bot = false,
             createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
             limited = false,
-            note = "",
             roles = null,
             pronouns = null,
         )

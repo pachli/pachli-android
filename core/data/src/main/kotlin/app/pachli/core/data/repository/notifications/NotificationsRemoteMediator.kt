@@ -27,14 +27,13 @@ import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider
-import app.pachli.core.database.model.NotificationAccountWarningEntity
+import app.pachli.core.database.model.NotificationAccountWarning
 import app.pachli.core.database.model.NotificationData
-import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
-import app.pachli.core.database.model.NotificationReportEntity
+import app.pachli.core.database.model.NotificationRelationshipSeveranceEvent
+import app.pachli.core.database.model.NotificationReport
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.asEntity
-import app.pachli.core.model.Account
 import app.pachli.core.model.AccountWarning
 import app.pachli.core.model.RelationshipSeveranceEvent
 import app.pachli.core.model.Report
@@ -219,8 +218,7 @@ class NotificationsRemoteMediator(
     private suspend fun upsertNotifications(pachliAccountId: Long, notifications: List<Notification>) {
         check(transactionProvider.inTransaction())
 
-        /** Unique accounts referenced in this batch of notificati  ons. */
-        val accounts = mutableSetOf<Account>()
+        /** Unique accounts referenced in this batch of notifications. */
         val timelineAccounts = mutableSetOf<TimelineAccount>()
 
         /** Unique statuses referenced in this batch of notifications. */
@@ -251,7 +249,6 @@ class NotificationsRemoteMediator(
         }
 
         // Bulk upsert the discovered items.
-//        timelineDao.upsertAccounts(accounts.asEntity(pachliAccountId))
         timelineDao.upsertTimelineAccounts(timelineAccounts.asEntity(pachliAccountId))
         statusDao.upsertStatuses(statuses.asEntity(pachliAccountId))
         notificationDao.upsertNotifications(validNotifications.asEntity(pachliAccountId))
@@ -259,16 +256,16 @@ class NotificationsRemoteMediator(
 }
 
 /**
- * @return A [NotificationReportEntity] from a network [Notification] for [pachliAccountId].
+ * @return A [NotificationReport] from a network [Notification] for [pachliAccountId].
  */
-fun Report.asEntity(pachliAccountId: Long) = NotificationReportEntity(
+fun Report.asEntity(pachliAccountId: Long) = NotificationReport(
     reportId = serverId,
     actionTaken = actionTaken,
     actionTakenAt = actionTakenAt,
     category = when (category) {
-        Report.Category.SPAM -> NotificationReportEntity.Category.SPAM
-        Report.Category.VIOLATION -> NotificationReportEntity.Category.VIOLATION
-        Report.Category.OTHER -> NotificationReportEntity.Category.OTHER
+        Report.Category.SPAM -> NotificationReport.Category.SPAM
+        Report.Category.VIOLATION -> NotificationReport.Category.VIOLATION
+        Report.Category.OTHER -> NotificationReport.Category.OTHER
     },
     comment = comment,
     forwarded = forwarded,
@@ -279,15 +276,15 @@ fun Report.asEntity(pachliAccountId: Long) = NotificationReportEntity(
 )
 
 /**
- * @return A [NotificationRelationshipSeveranceEventEntity].
+ * @return A [NotificationRelationshipSeveranceEvent].
  */
-fun RelationshipSeveranceEvent.asEntity() = NotificationRelationshipSeveranceEventEntity(
+fun RelationshipSeveranceEvent.asEntity() = NotificationRelationshipSeveranceEvent(
     eventId = id,
     type = when (type) {
-        RelationshipSeveranceEvent.Type.DOMAIN_BLOCK -> NotificationRelationshipSeveranceEventEntity.Type.DOMAIN_BLOCK
-        RelationshipSeveranceEvent.Type.USER_DOMAIN_BLOCK -> NotificationRelationshipSeveranceEventEntity.Type.USER_DOMAIN_BLOCK
-        RelationshipSeveranceEvent.Type.ACCOUNT_SUSPENSION -> NotificationRelationshipSeveranceEventEntity.Type.ACCOUNT_SUSPENSION
-        RelationshipSeveranceEvent.Type.UNKNOWN -> NotificationRelationshipSeveranceEventEntity.Type.UNKNOWN
+        RelationshipSeveranceEvent.Type.DOMAIN_BLOCK -> NotificationRelationshipSeveranceEvent.Type.DOMAIN_BLOCK
+        RelationshipSeveranceEvent.Type.USER_DOMAIN_BLOCK -> NotificationRelationshipSeveranceEvent.Type.USER_DOMAIN_BLOCK
+        RelationshipSeveranceEvent.Type.ACCOUNT_SUSPENSION -> NotificationRelationshipSeveranceEvent.Type.ACCOUNT_SUSPENSION
+        RelationshipSeveranceEvent.Type.UNKNOWN -> NotificationRelationshipSeveranceEvent.Type.UNKNOWN
     },
     purged = purged,
     targetName = targetName,
@@ -297,19 +294,19 @@ fun RelationshipSeveranceEvent.asEntity() = NotificationRelationshipSeveranceEve
 )
 
 /**
- * @return A [NotificationAccountWarningEntity].
+ * @return A [NotificationAccountWarning].
  */
-fun AccountWarning.asEntity() = NotificationAccountWarningEntity(
+fun AccountWarning.asEntity() = NotificationAccountWarning(
     accountWarningId = id,
     text = text,
     action = when (action) {
-        AccountWarning.Action.NONE -> NotificationAccountWarningEntity.Action.NONE
-        AccountWarning.Action.DISABLE -> NotificationAccountWarningEntity.Action.DISABLE
-        AccountWarning.Action.MARK_STATUSES_AS_SENSITIVE -> NotificationAccountWarningEntity.Action.MARK_STATUSES_AS_SENSITIVE
-        AccountWarning.Action.DELETE_STATUSES -> NotificationAccountWarningEntity.Action.DELETE_STATUSES
-        AccountWarning.Action.SILENCE -> NotificationAccountWarningEntity.Action.SILENCE
-        AccountWarning.Action.SUSPEND -> NotificationAccountWarningEntity.Action.SUSPEND
-        AccountWarning.Action.UNKNOWN -> NotificationAccountWarningEntity.Action.UNKNOWN
+        AccountWarning.Action.NONE -> NotificationAccountWarning.Action.NONE
+        AccountWarning.Action.DISABLE -> NotificationAccountWarning.Action.DISABLE
+        AccountWarning.Action.MARK_STATUSES_AS_SENSITIVE -> NotificationAccountWarning.Action.MARK_STATUSES_AS_SENSITIVE
+        AccountWarning.Action.DELETE_STATUSES -> NotificationAccountWarning.Action.DELETE_STATUSES
+        AccountWarning.Action.SILENCE -> NotificationAccountWarning.Action.SILENCE
+        AccountWarning.Action.SUSPEND -> NotificationAccountWarning.Action.SUSPEND
+        AccountWarning.Action.UNKNOWN -> NotificationAccountWarning.Action.UNKNOWN
     },
     createdAt = createdAt,
 )

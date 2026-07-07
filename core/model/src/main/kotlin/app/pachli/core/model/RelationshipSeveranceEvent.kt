@@ -17,13 +17,11 @@
 
 package app.pachli.core.model
 
-import com.squareup.moshi.JsonClass
 import java.time.Instant
 
 /**
  * Summary of a moderation or block event that caused follow relationships to be severed.
  */
-@JsonClass(generateAdapter = true)
 data class RelationshipSeveranceEvent(
     /** The ID of the relationship severance event in the database. */
     val id: String,

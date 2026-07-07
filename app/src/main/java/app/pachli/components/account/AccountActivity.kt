@@ -672,7 +672,7 @@ class AccountActivity :
 
         loadAvatar(glide, movedAccount.avatar, binding.accountMovedAvatar, avatarRadius, animateAvatar)
 
-        binding.accountMovedText.text = getString(R.string.account_moved_description, movedAccount.name)
+        binding.accountMovedText.text = getString(R.string.account_moved_description, account.name)
     }
 
     /**

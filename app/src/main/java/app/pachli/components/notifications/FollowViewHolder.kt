@@ -24,6 +24,7 @@ import app.pachli.R
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.model.NotificationViewData
+import app.pachli.core.data.model.NotificationViewData.FollowNotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.ITimelineAccount
@@ -43,13 +44,13 @@ class FollowViewHolder(
     private val glide: RequestManager,
     private val setContent: SetContent,
     private val linkListener: LinkListener,
-) : NotificationsPagingAdapter.ViewHolder<NotificationViewData.FollowNotificationViewData>, RecyclerView.ViewHolder(binding.root) {
+) : NotificationsPagingAdapter.ViewHolder<NotificationViewData>, RecyclerView.ViewHolder(binding.root) {
     private val avatarRadius42dp = itemView.context.resources.getDimensionPixelSize(
         DR.dimen.avatar_radius_42dp,
     )
 
     override fun bind(
-        viewData: NotificationViewData.FollowNotificationViewData,
+        viewData: NotificationViewData,
         payloads: List<Any?>,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
@@ -59,7 +60,7 @@ class FollowViewHolder(
 
         setMessage(
             viewData.account,
-            viewData.note,
+            (viewData as? FollowNotificationViewData)?.note.orEmpty(),
             viewData is NotificationViewData.SignupNotificationViewData,
             statusDisplayOptions.animateAvatars,
             statusDisplayOptions.animateEmojis,

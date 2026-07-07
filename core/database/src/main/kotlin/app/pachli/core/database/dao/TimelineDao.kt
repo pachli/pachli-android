@@ -296,7 +296,7 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
         """
 SELECT rownum
 FROM (
-    WITH statuses (timelineUserId, serverId) AS (
+    WITH statuses (pachliAccountId, serverId) AS (
         SELECT
             s.pachliAccountId,
             s.serverId
@@ -305,16 +305,16 @@ FROM (
         WHERE t.kind = :timelineKind AND t.pachliAccountId = :pachliAccountId
     )
     SELECT
-        t1.timelineUserId,
+        t1.pachliAccountId,
         t1.serverId,
         COUNT(t2.serverId) - 1 AS rownum
     FROM statuses AS t1
     INNER JOIN
         statuses AS t2
         ON
-            t1.timelineUserId = t2.timelineUserId
+            t1.pachliAccountId = t2.pachliAccountId
             AND (LENGTH(t1.serverId) <= LENGTH(t2.serverId) AND t1.serverId <= t2.serverId)
-    WHERE t1.timelineUserId = :pachliAccountId
+    WHERE t1.pachliAccountId = :pachliAccountId
     GROUP BY t1.serverId
     ORDER BY LENGTH(t1.serverId) DESC, t1.serverId DESC
 )

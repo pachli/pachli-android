@@ -17,10 +17,8 @@
 
 package app.pachli.core.model
 
-import com.squareup.moshi.JsonClass
 import java.time.Instant
 
-@JsonClass(generateAdapter = true)
 data class Report(
     val serverId: String,
     val category: Category,

@@ -57,10 +57,7 @@ import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.database.model.HashtagEntity
 import app.pachli.core.database.model.LogEntryEntity
 import app.pachli.core.database.model.MastodonListEntity
-import app.pachli.core.database.model.NotificationAccountWarningEntity
 import app.pachli.core.database.model.NotificationEntity
-import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
-import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.NotificationViewDataEntity
 import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.database.model.ReferencedStatusId
@@ -95,10 +92,7 @@ import java.util.TimeZone
         AnnouncementEntity::class,
         FollowingAccountEntity::class,
         NotificationEntity::class,
-        NotificationReportEntity::class,
         NotificationViewDataEntity::class,
-        NotificationRelationshipSeveranceEventEntity::class,
-        NotificationAccountWarningEntity::class,
         TimelineStatusEntity::class,
         ConversationViewDataEntity::class,
         HashtagEntity::class,
@@ -170,7 +164,6 @@ import java.util.TimeZone
         AutoMigration(from = 41, to = 42, spec = AppDatabase.MIGRATE_41_42::class),
         // Clear NotificationEntity ahead of a migration
         AutoMigration(from = 42, to = 43, spec = AppDatabase.MIGRATE_42_43::class),
-//        AutoMigration(from = 43, to = 44, spec = AppDatabase.MIGRATE_43_44::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -384,15 +377,10 @@ abstract class AppDatabase : RoomDatabase() {
     @RenameColumn("StatusEntity", "timelineUserId", "pachliAccountId")
     @RenameColumn("TimelineAccountEntity", "timelineUserId", "pachliAccountId")
     @RenameColumn("TranslatedStatusEntity", "timelineUserId", "pachliAccountId")
-    @RenameColumn("NotificationReportEntity", "target_timelineUserId", "target_pachliAccountId")
     @DeleteColumn("TimelineAccountEntity", "note")
-    @DeleteColumn("NotificationReportEntity", "pachliAccountId")
-    @DeleteColumn("NotificationReportEntity", "serverId")
-    @DeleteColumn("NotificationReportEntity", "target_serverId")
-    @DeleteColumn("NotificationRelationshipSeveranceEventEntity", "pachliAccountId")
-    @DeleteColumn("NotificationRelationshipSeveranceEventEntity", "serverId")
-    @DeleteColumn("NotificationAccountWarningEntity", "pachliAccountId")
-    @DeleteColumn("NotificationAccountWarningEntity", "serverId")
+    @DeleteTable("NotificationReportEntity")
+    @DeleteTable("NotificationRelationshipSeveranceEventEntity")
+    @DeleteTable("NotificationAccountWarningEntity")
     class MIGRATE_42_43 : AutoMigrationSpec {
         override fun onPostMigrate(connection: SQLiteConnection) {
             super.onPostMigrate(connection)
