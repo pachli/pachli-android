@@ -549,7 +549,7 @@ val MIGRATE_12_13 = object : Migration(12, 13) {
 
 /**
  * Removes any StatusEntity that reference a non-existent [PachliAccountEntity.id] in
- * [StatusEntity.pachliAccountId].
+ * [StatusEntity.timelineUserId].
  *
  * Version 20 introduces that as an FK constraint, this ensures that any statuses
  * in the cache that break that constraint are removed.
@@ -560,7 +560,7 @@ val MIGRATE_18_19 = object : Migration(18, 19) {
             """
 DELETE
 FROM StatusEntity
-WHERE timelineUserId NOT IN (MessagePattern.ArgType.SELECT id FROM AccountEntity)
+WHERE timelineUserId NOT IN (SELECT id FROM AccountEntity)
             """.trimIndent(),
         )
     }
