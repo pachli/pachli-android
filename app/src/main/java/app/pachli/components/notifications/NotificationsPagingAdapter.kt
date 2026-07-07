@@ -17,8 +17,15 @@
 
 package app.pachli.components.notifications
 
+import android.graphics.Rect
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.annotation.DrawableRes
+import androidx.annotation.Px
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.util.TypedValueCompat.dpToPx
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -57,6 +64,7 @@ import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.databinding.ItemUnknownNotificationBinding
 import app.pachli.interfaces.AccountActionListener
 import com.bumptech.glide.RequestManager
+import kotlin.math.roundToInt
 
 /** How to present the notification in the UI */
 enum class NotificationViewKind {
@@ -166,6 +174,14 @@ class NotificationsPagingAdapter(
             payloads: List<Any?>,
             statusDisplayOptions: StatusDisplayOptions,
         )
+
+        /**
+         * Gets [drawableRes], scaled to [scaleFactor] of the line height of [textView].
+         */
+        fun getDrawableSizedForTextviewLineHeight(@DrawableRes drawableRes: Int, textView: TextView, scaleFactor: Float = 1.29f) = AppCompatResources.getDrawable(textView.context, drawableRes)?.apply {
+            val size = (textView.lineHeight * scaleFactor).roundToInt()
+            bounds = Rect(0, 0, size, size)
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -289,12 +305,43 @@ class NotificationsPagingAdapter(
     private class FallbackNotificationViewHolder(
         val binding: ItemUnknownNotificationBinding,
     ) : ViewHolder<UnknownNotificationViewData>, RecyclerView.ViewHolder(binding.root) {
+        /**
+         * The start padding (pixels) necessary to align the start of text in
+         * [ItemNotificationCollectionBinding.notificationText] with the start of text in
+         * [ItemNotificationCollectionBinding.collectionCard].
+         *
+         * See [setStatusInfoDrawableRes].
+         */
+        @Px
+        private val defaultNotificationInfoPaddingStart: Int = dpToPx(70f, binding.root.context.resources.displayMetrics).roundToInt()
+
         override fun bind(
             viewData: UnknownNotificationViewData,
             payloads: List<Any?>,
             statusDisplayOptions: StatusDisplayOptions,
         ) {
-            binding.text1.text = binding.root.context.getString(R.string.notification_unknown)
+            binding.notificationText.text = binding.root.context.getString(R.string.notification_unknown)
+            setNotificationTextDrawableRes(R.drawable.ic_indeterminate_question_box_24, binding.notificationText)
+        }
+
+        /**
+         * Sets [drawableRes] as the "start" drawable in [textView], and
+         * adjusts the textView's start padding as necessary.*
+         */
+        // TODO: Identical to setStatusInfoDrawableRes, consider removing the duplication.
+        private fun setNotificationTextDrawableRes(@DrawableRes drawableRes: Int, textView: TextView) {
+            setNotificationTextDrawable(getDrawableSizedForTextviewLineHeight(drawableRes, textView), textView)
+        }
+
+        // TODO: Identical to setStatusInfoDrawable, consider removing the duplication.
+        private fun setNotificationTextDrawable(drawable: Drawable?, textView: TextView) {
+            textView.setPaddingRelative(
+                defaultNotificationInfoPaddingStart - (drawable?.bounds?.width() ?: 0),
+                textView.paddingTop,
+                textView.paddingEnd,
+                textView.paddingBottom,
+            )
+            textView.setCompoundDrawablesRelative(drawable, null, null, null)
         }
     }
 }
