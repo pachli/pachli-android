@@ -43,7 +43,6 @@ import app.pachli.core.domain.accounts.BlockAccountUseCase
 import app.pachli.core.domain.accounts.MuteAccountUseCase
 import app.pachli.core.domain.accounts.UnblockAccountUseCase
 import app.pachli.core.domain.accounts.UnmuteAccountUseCase
-import app.pachli.core.model.Account
 import app.pachli.core.model.Relationship
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AccountListActivityIntent.Kind
@@ -55,6 +54,7 @@ import app.pachli.core.navigation.AccountListActivityIntent.Kind.FOLLOW_REQUESTS
 import app.pachli.core.navigation.AccountListActivityIntent.Kind.MUTES
 import app.pachli.core.navigation.AccountListActivityIntent.Kind.REBLOGGED
 import app.pachli.core.navigation.TimelineActivityIntent
+import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.HttpHeaderLink
 import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
@@ -343,7 +343,7 @@ class AccountListFragment :
         followRequestsAdapter.removeItem(position)
     }
 
-    private suspend fun getFetchCallByListType(fromId: String?): ApiResult<List<app.pachli.core.network.model.Account>> {
+    private suspend fun getFetchCallByListType(fromId: String?): ApiResult<List<Account>> {
         return when (kind) {
             FOLLOWS -> {
                 val accountId = requireId(kind, id)
@@ -391,7 +391,7 @@ class AccountListFragment :
 
             val accountList = response.body
             val linkHeader = response.headers["Link"]
-            onFetchAccountsSuccess(accountList.asModel(), linkHeader)
+            onFetchAccountsSuccess(accountList, linkHeader)
         }
     }
 
@@ -404,13 +404,13 @@ class AccountListFragment :
         val fromId = next?.uri?.getQueryParameter("max_id")
 
         if (adapter.itemCount > 0) {
-            adapter.addItems(accounts)
+            adapter.addItems(accounts.asModel())
         } else {
-            adapter.update(accounts)
+            adapter.update(accounts.asModel())
         }
 
         if (adapter is MutesAdapter) {
-            fetchRelationships(accounts.map { it.serverId })
+            fetchRelationships(accounts.map { it.id })
         }
 
         bottomId = fromId

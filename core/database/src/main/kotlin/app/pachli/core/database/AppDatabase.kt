@@ -162,7 +162,7 @@ import java.util.TimeZone
         AutoMigration(from = 40, to = 41, spec = AppDatabase.MIGRATE_40_41::class),
         // Store emojis directly in the Server class.
         AutoMigration(from = 41, to = 42, spec = AppDatabase.MIGRATE_41_42::class),
-        // Clear NotificationEntity ahead of a migration
+        // Renames, removal of NotificationReportEntity, etc.
         AutoMigration(from = 42, to = 43, spec = AppDatabase.MIGRATE_42_43::class),
     ],
 )

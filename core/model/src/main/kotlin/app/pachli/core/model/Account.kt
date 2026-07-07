@@ -22,6 +22,7 @@ import java.time.Instant
 import java.util.Date
 
 /**
+ * @property note (HTML) The profile’s bio or description.
  * @property movedAccount If non-null, this account has been moved
  * to [movedAccount].
  */
@@ -36,7 +37,6 @@ data class Account(
     override val url: String,
     override val avatar: String,
     val note: String,
-    // Pixelfed might omit `header`
     val header: String,
     val locked: Boolean,
     val lastStatusAt: Date?,
@@ -44,9 +44,7 @@ data class Account(
     val followingCount: Int,
     val statusesCount: Int,
     override val bot: Boolean,
-    // nullable for backward compatibility
     override val emojis: List<Emoji>,
-    // nullable for backward compatibility
     val fields: List<Field>,
     val movedAccount: MovedAccount?,
     override val limited: Boolean,

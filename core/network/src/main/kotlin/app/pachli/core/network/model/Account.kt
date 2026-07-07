@@ -48,7 +48,9 @@ data class Account(
     @Json(name = "following_count") val followingCount: Int = 0,
     @Json(name = "statuses_count") val statusesCount: Int = 0,
     val bot: Boolean = false,
+    // nullable for backward compatibility
     val emojis: List<Emoji>? = emptyList(),
+    // nullable for backward compatibility
     val fields: List<Field>? = emptyList(),
     val moved: Account? = null,
     val limited: Boolean = false,
