@@ -47,7 +47,7 @@ import kotlin.math.roundToInt
 /**
  * Compound view that displays [Collection].
  *
- * Classes hosting this should provide a [CollectionCardView.OnClickListener]
+ * Classes hosting this should provide a [CollectionCardActionListener]
  * to be notified when the user clicks on parts of the collection.
  */
 class CollectionCardView @JvmOverloads constructor(
@@ -141,7 +141,6 @@ class CollectionCardView @JvmOverloads constructor(
         viewData: CollectionCardViewData,
         statusDisplayOptions: StatusDisplayOptions,
         showOwner: Boolean,
-        isMember: Boolean,
         listener: CollectionCardActionListener,
     ): Unit = with(binding) {
         val timelineCollection = viewData.timelineCollection
@@ -226,11 +225,11 @@ class CollectionCardView @JvmOverloads constructor(
 
         binding.sensitive.visible(viewData.sensitive)
 
-        val showDivider = isMember
+        val showDivider = viewData.isMember
         controlDivider.visible(showDivider)
 
         collectionRemoveSelf.setOnClickListener { listener.onRemoveUserFromCollection(viewData) }
-        collectionRemoveSelf.visible(isMember)
+        collectionRemoveSelf.visible(viewData.isMember)
 
         if (displayAction is CollectionDisplayAction.Hide) {
             blurView.setupWith(binding.blurTarget).setBlurRadius(4f)

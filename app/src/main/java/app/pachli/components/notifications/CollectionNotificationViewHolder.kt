@@ -117,7 +117,6 @@ class CollectionNotificationViewHolder(
             viewData.collectionCardViewData,
             statusDisplayOptions,
             false,
-            true,
             listener = collectionListener,
         )
 

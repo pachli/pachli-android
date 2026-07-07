@@ -91,4 +91,16 @@
     <item name="action_open_reportee_profile" type="id" />
     <!-- Open a report about an account in a ReportNotification. -->
     <item name="action_open_report" type="id" />
+
+    <!-- Show a hidden collection. -->
+    <item name="action_collection_show" type="id" />
+    <!-- Hide a visible collection. -->
+    <item name="action_collection_hide" type="id" />
+    <!-- Open a collection. -->
+    <item name="action_collection_open" type="id" />
+    <!-- Revoke permisson to be in a collection. -->
+    <item name="action_collection_revoke" type="id" />
+    <!-- View the timeline of a collection's tag. -->
+    <item name="action_collection_view_tag" type="id" />
+
 </resources>

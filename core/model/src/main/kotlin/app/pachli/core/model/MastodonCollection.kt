@@ -17,11 +17,8 @@
 
 package app.pachli.core.model
 
-import android.os.Parcelable
 import com.squareup.moshi.JsonClass
 import java.time.Instant
-import kotlinx.parcelize.IgnoredOnParcel
-import kotlinx.parcelize.Parcelize
 
 /**
  * @property serverId
@@ -35,7 +32,7 @@ import kotlinx.parcelize.Parcelize
  * @property createdAt
  * @property updatedAt
  */
-interface ICollection : Parcelable {
+interface ICollection {
     val serverId: String
     val accountId: String
     val name: String
@@ -48,9 +45,6 @@ interface ICollection : Parcelable {
     val updatedAt: Instant
 }
 
-// TODO: Maybe don't need to parcelize this, since the data can
-// always (?) be loaded from the database.
-@Parcelize
 data class Collection(
     override val serverId: String,
     override val accountId: String,
@@ -62,7 +56,6 @@ data class Collection(
     override val hashtag: ShallowHashtag?,
     override val createdAt: Instant,
     override val updatedAt: Instant,
-    @IgnoredOnParcel
     val items: List<CollectionItem> = emptyList(),
 ) : ICollection
 
@@ -99,11 +92,9 @@ data class CollectionItem(
  * could not be fetched. This ensures [itemIconUrls] is the same size as
  * [Collection.items] in the [Collection] it was created from.
  */
-@Parcelize
 data class TimelineCollection(
     override val serverId: String,
     val ownerAccountId: String,
-    @IgnoredOnParcel
     val ownerAccount: TimelineAccount? = null,
     override val name: String,
     override val description: String,
@@ -113,7 +104,6 @@ data class TimelineCollection(
     override val hashtag: ShallowHashtag?,
     override val createdAt: Instant,
     override val updatedAt: Instant,
-    @IgnoredOnParcel
     val items: List<CollectionItem> = emptyList(),
     val itemIconUrls: List<String?>,
 ) : ICollection {

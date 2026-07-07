@@ -21,7 +21,13 @@ import app.pachli.core.model.ICollection
 import app.pachli.core.model.TimelineCollection
 import app.pachli.core.model.collection.CollectionDisplayAction
 
+/**
+ * @property timelineCollection
+ * @property displayAction How to display the collection.
+ * @property isMember True if [timelineCollection] contains the current user.
+ */
 data class CollectionCardViewData(
     val timelineCollection: TimelineCollection,
     val displayAction: CollectionDisplayAction,
+    val isMember: Boolean,
 ) : ICollection by timelineCollection

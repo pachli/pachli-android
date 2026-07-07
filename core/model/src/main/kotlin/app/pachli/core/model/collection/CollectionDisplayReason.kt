@@ -38,6 +38,8 @@ sealed class CollectionDisplayReason(val type: String) {
 
 /**
  * How a collection should be displayed.
+ *
+ * See [Show], [Hide].
  */
 @JsonClass(generateAdapter = true, generator = "sealed:type")
 sealed interface CollectionDisplayAction {

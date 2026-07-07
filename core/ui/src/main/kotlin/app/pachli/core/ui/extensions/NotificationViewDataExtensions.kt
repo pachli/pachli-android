@@ -79,32 +79,6 @@ fun NotificationViewData.Companion.make(
         accountFilterDecision = accountFilterDecision,
     )
 
-    NotificationEntity.Type.COLLECTION_ADD -> NotificationViewData.WithCollection.CollectionAddNotificationViewData(
-        pachliAccountId = pachliAccount.id,
-        localDomain = pachliAccount.domain,
-        notificationId = data.notification.serverId,
-        account = data.account.asModel(),
-        isAboutSelf = isAboutSelf,
-        accountFilterDecision = accountFilterDecision,
-        collectionCardViewData = CollectionCardViewData(
-            timelineCollection = data.timelineCollection!!.asModel(),
-            displayAction = data.collectionViewData?.displayAction.make(data.timelineCollection!!.sensitive, showSensitiveMedia),
-        ),
-    )
-
-    NotificationEntity.Type.COLLECTION_UPDATE -> NotificationViewData.WithCollection.CollectionUpdateNotificationViewData(
-        pachliAccountId = pachliAccount.id,
-        localDomain = pachliAccount.domain,
-        notificationId = data.notification.serverId,
-        account = data.account.asModel(),
-        isAboutSelf = isAboutSelf,
-        accountFilterDecision = accountFilterDecision,
-        collectionCardViewData = CollectionCardViewData(
-            timelineCollection = data.timelineCollection!!.asModel(),
-            displayAction = data.collectionViewData?.displayAction.make(data.timelineCollection!!.sensitive, showSensitiveMedia),
-        ),
-    )
-
     NotificationEntity.Type.MENTION -> data.status?.let { status ->
         MentionNotificationViewData(
             pachliAccountId = pachliAccount.id,
@@ -334,6 +308,38 @@ fun NotificationViewData.Companion.make(
                 quoteContentFilterAction = quoteContentFilterAction,
                 showSensitiveMedia = showSensitiveMedia,
                 filterContext = FilterContext.NOTIFICATIONS,
+            ),
+        )
+    }
+
+    NotificationEntity.Type.COLLECTION_ADD -> data.timelineCollection?.let { timelineCollection ->
+        NotificationViewData.WithCollection.CollectionAddNotificationViewData(
+            pachliAccountId = pachliAccount.id,
+            localDomain = pachliAccount.domain,
+            notificationId = data.notification.serverId,
+            account = data.account.asModel(),
+            isAboutSelf = isAboutSelf,
+            accountFilterDecision = accountFilterDecision,
+            collectionCardViewData = CollectionCardViewData(
+                timelineCollection = timelineCollection.asModel(),
+                displayAction = data.collectionViewData?.displayAction.make(data.timelineCollection!!.sensitive, showSensitiveMedia),
+                isMember = timelineCollection.items.any { it.accountId == pachliAccount.accountId },
+            ),
+        )
+    }
+
+    NotificationEntity.Type.COLLECTION_UPDATE -> data.timelineCollection?.let { timelineCollection ->
+        NotificationViewData.WithCollection.CollectionUpdateNotificationViewData(
+            pachliAccountId = pachliAccount.id,
+            localDomain = pachliAccount.domain,
+            notificationId = data.notification.serverId,
+            account = data.account.asModel(),
+            isAboutSelf = isAboutSelf,
+            accountFilterDecision = accountFilterDecision,
+            collectionCardViewData = CollectionCardViewData(
+                timelineCollection = timelineCollection.asModel(),
+                displayAction = data.collectionViewData?.displayAction.make(data.timelineCollection!!.sensitive, showSensitiveMedia),
+                isMember = timelineCollection.items.any { it.accountId == pachliAccount.accountId },
             ),
         )
     }
