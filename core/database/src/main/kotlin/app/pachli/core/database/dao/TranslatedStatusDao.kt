@@ -36,7 +36,7 @@ interface TranslatedStatusDao {
 SELECT *
 FROM TranslatedStatusEntity
 WHERE
-    timelineUserId = :accountId
+    pachliAccountId = :accountId
     AND serverId IN (:serverIds)
 """,
     )
@@ -57,7 +57,7 @@ WHERE
 SELECT *
 FROM TranslatedStatusEntity
 WHERE
-    timelineUserId = :accountId
+    pachliAccountId = :accountId
     AND serverId = :serverId
 """,
     )

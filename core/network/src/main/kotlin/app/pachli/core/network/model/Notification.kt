@@ -215,12 +215,14 @@ data class Notification(
                 id = id,
                 createdAt = createdAt.toInstant(),
                 account = account.asModel(),
+                note = account.note,
             )
 
             Type.FOLLOW_REQUEST -> app.pachli.core.model.Notification.FollowRequest(
                 id = id,
                 createdAt = createdAt.toInstant(),
                 account = account.asModel(),
+                note = account.note,
             )
 
             Type.POLL -> status?.let {

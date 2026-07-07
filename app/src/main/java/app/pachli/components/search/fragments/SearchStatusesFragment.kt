@@ -192,7 +192,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
     }
 
     override fun onOpenReblog(status: IStatus) {
-        viewUrlActivity?.viewAccount(pachliAccountId, status.account.id)
+        viewUrlActivity?.viewAccount(pachliAccountId, status.account.serverId)
     }
 
     override fun onExpandedChange(viewData: IStatusViewData, expanded: Boolean) {
@@ -267,7 +267,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
     override fun onMore(view: View, statusViewData: IStatusViewData) {
         val id = statusViewData.actionableId
         val status = statusViewData.actionable
-        val accountId = status.account.id
+        val accountId = status.account.serverId
         val accountUsername = status.account.username
         val statusUrl = status.url
         val loggedInAccountId = viewModel.pachliAccount.value!!.accountId

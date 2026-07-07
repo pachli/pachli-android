@@ -104,14 +104,14 @@ class TimelineDaoTest {
                 listOf(
                     TimelineStatusEntity(
                         kind = TimelineStatusEntity.Kind.Home,
-                        pachliAccountId = status.timelineUserId,
+                        pachliAccountId = status.pachliAccountId,
                         statusId = status.serverId,
                     ),
                 ),
             )
         }
 
-        val pagingSource = timelineDao.getStatuses(setOne.first.timelineUserId)
+        val pagingSource = timelineDao.getStatuses(setOne.first.pachliAccountId)
 
         val loadResult = pagingSource.load(PagingSource.LoadParams.Refresh(null, 2, false))
 
@@ -142,7 +142,7 @@ class TimelineDaoTest {
             timelineDao.upsertStatuses(
                 listOf(
                     TimelineStatusEntity(
-                        pachliAccountId = status.timelineUserId,
+                        pachliAccountId = status.pachliAccountId,
                         kind = TimelineStatusEntity.Kind.Home,
                         statusId = status.serverId,
                     ),
@@ -183,10 +183,10 @@ class TimelineDaoTest {
         assertStatuses(wantAccount2StatusesAfterCleanup, gotAccount2StatusesAfterCleanup)
 
         val loadedAccounts: MutableList<Pair<Long, String>> = mutableListOf()
-        val accountCursor = db.getSupportWrapper().query("SELECT timelineUserId, serverId FROM TimelineAccountEntity ORDER BY timelineUserId, serverId")
+        val accountCursor = db.getSupportWrapper().query("SELECT pachliAccountId, serverId FROM TimelineAccountEntity ORDER BY pachliAccountId, serverId")
         accountCursor.moveToFirst()
         while (!accountCursor.isAfterLast) {
-            val accountId: Long = accountCursor.getLong(accountCursor.getColumnIndex("timelineUserId"))
+            val accountId: Long = accountCursor.getLong(accountCursor.getColumnIndex("pachliAccountId"))
             val serverId: String = accountCursor.getString(accountCursor.getColumnIndex("serverId"))
             loadedAccounts.add(accountId to serverId)
             accountCursor.moveToNext()
@@ -370,7 +370,7 @@ class TimelineDaoTest {
             timelineDao.upsertStatuses(
                 listOf(
                     TimelineStatusEntity(
-                        pachliAccountId = status.timelineUserId,
+                        pachliAccountId = status.pachliAccountId,
                         kind = TimelineStatusEntity.Kind.Home,
                         statusId = status.serverId,
                     ),
@@ -378,7 +378,7 @@ class TimelineDaoTest {
             )
         }
 
-        val pagingSource = timelineDao.getStatuses(setOne.first.timelineUserId)
+        val pagingSource = timelineDao.getStatuses(setOne.first.pachliAccountId)
 
         val loadResult = pagingSource.load(PagingSource.LoadParams.Refresh(null, 2, false))
 
@@ -399,7 +399,7 @@ class TimelineDaoTest {
     ): Triple<StatusEntity, TimelineAccountEntity, TimelineAccountEntity?> {
         val author = TimelineAccountEntity(
             serverId = authorServerId,
-            timelineUserId = accountId,
+            pachliAccountId = accountId,
             localUsername = "localUsername@$domain",
             username = "username@$domain",
             displayName = "displayName",
@@ -408,7 +408,6 @@ class TimelineDaoTest {
             emojis = listOf(Emoji("pachli", "http://pachli.cool/emoji.jpg", "", null)),
             bot = false,
             createdAt = null,
-            note = "",
             roles = null,
             pronouns = null,
         )
@@ -416,7 +415,7 @@ class TimelineDaoTest {
         val reblogAuthor = if (reblog) {
             TimelineAccountEntity(
                 serverId = "R$authorServerId",
-                timelineUserId = accountId,
+                pachliAccountId = accountId,
                 localUsername = "RlocalUsername",
                 username = "Rusername",
                 displayName = "RdisplayName",
@@ -425,7 +424,6 @@ class TimelineDaoTest {
                 emojis = emptyList(),
                 bot = false,
                 createdAt = null,
-                note = "",
                 roles = null,
                 pronouns = null,
             )
@@ -441,7 +439,7 @@ class TimelineDaoTest {
         val status = StatusEntity(
             serverId = statusId.toString(),
             url = "https://$domain/whatever/$statusId",
-            timelineUserId = accountId,
+            pachliAccountId = accountId,
             authorServerId = authorServerId,
             inReplyToId = "inReplyToId$statusId",
             inReplyToAccountId = "inReplyToAccountId$statusId",

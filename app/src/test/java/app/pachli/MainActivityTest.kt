@@ -38,7 +38,7 @@ import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.network.model.AccountSource
 import app.pachli.core.network.model.CredentialAccount
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.core.testing.fakes.fakeAccount
+import app.pachli.core.testing.fakes.fakeTimelineAccount
 import app.pachli.core.testing.rules.lazyActivityScenarioRule
 import app.pachli.core.testing.success
 import dagger.hilt.android.testing.CustomTestApplication
@@ -146,7 +146,8 @@ class MainActivityTest {
             Notification.Follow(
                 id = "id",
                 createdAt = Instant.now(),
-                account = fakeAccount().asModel(),
+                account = fakeTimelineAccount().asModel(),
+                note = fakeTimelineAccount().note,
             ),
         )
         rule.launch(intent)
@@ -166,7 +167,8 @@ class MainActivityTest {
             Notification.FollowRequest(
                 id = "id",
                 createdAt = Instant.now(),
-                account = fakeAccount().asModel(),
+                account = fakeTimelineAccount().asModel(),
+                note = fakeTimelineAccount().note,
             ),
         )
 

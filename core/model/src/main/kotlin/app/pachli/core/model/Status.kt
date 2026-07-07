@@ -31,7 +31,7 @@ interface IStatus {
 
     // not present if it's reblog
     val url: String?
-    val account: TimelineAccount
+    val account: ITimelineAccount
     val inReplyToId: String?
     val inReplyToAccountId: String?
     val reblog: Status?
@@ -82,9 +82,9 @@ data class Status(
     override val favouritesCount: Int,
     override val repliesCount: Int,
     override val quotesCount: Int,
-    override val reblogged: Boolean = false,
-    override val favourited: Boolean = false,
-    override val bookmarked: Boolean = false,
+    override val reblogged: Boolean,
+    override val favourited: Boolean,
+    override val bookmarked: Boolean,
     override val sensitive: Boolean,
     override val spoilerText: String,
     override val visibility: Visibility,
@@ -108,7 +108,7 @@ data class Status(
         get() = reblog ?: this
 
     val isSelfReply: Boolean
-        get() = inReplyToAccountId != null && inReplyToAccountId == account.id
+        get() = inReplyToAccountId != null && inReplyToAccountId == account.serverId
 
     // Note: These are deliberately listed in order, most public to least public.
     // These are currently serialised to the database by the ordinal value, and

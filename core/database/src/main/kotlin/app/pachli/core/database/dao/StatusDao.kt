@@ -56,7 +56,7 @@ abstract class StatusDao {
         """
 SELECT *
 FROM StatusEntity
-WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId)
+WHERE pachliAccountId = :pachliAccountId AND (serverId = :statusId)
         """,
     )
     abstract suspend fun getStatus(pachliAccountId: Long, statusId: String): StatusEntity?
@@ -67,7 +67,7 @@ UPDATE StatusEntity
 SET
     favourited = :favourited,
     favouritesCount = favouritesCount + CASE WHEN :favourited THEN 1 ELSE -1 END
-WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
+WHERE pachliAccountId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
 """,
     )
     abstract suspend fun setFavourited(pachliAccountId: Long, statusId: String, favourited: Boolean)
@@ -77,7 +77,7 @@ WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServe
 UPDATE StatusEntity
 SET
     bookmarked = :bookmarked
-WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
+WHERE pachliAccountId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
 """,
     )
     abstract suspend fun setBookmarked(pachliAccountId: Long, statusId: String, bookmarked: Boolean)
@@ -88,7 +88,7 @@ UPDATE StatusEntity
 SET
     reblogged = :reblogged,
     reblogsCount = reblogsCount + CASE WHEN :reblogged THEN 1 ELSE -1 END
-WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
+WHERE pachliAccountId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
 """,
     )
     abstract suspend fun setReblogged(pachliAccountId: Long, statusId: String, reblogged: Boolean)
@@ -98,7 +98,7 @@ WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServe
 UPDATE StatusEntity
 SET
     muted = :muted
-WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
+WHERE pachliAccountId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
         """,
     )
     abstract suspend fun setMuted(pachliAccountId: Long, statusId: String, muted: Boolean)
@@ -108,7 +108,7 @@ WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServe
 DELETE
 FROM StatusEntity
 WHERE
-    timelineUserId = :accountId
+    pachliAccountId = :accountId
     AND serverId = :statusId
 """,
     )
@@ -119,7 +119,7 @@ WHERE
 UPDATE StatusEntity
 SET
     poll = :poll
-WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)
+WHERE pachliAccountId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)
 """,
     )
     abstract suspend fun setPoll(accountId: Long, statusId: String, poll: Poll)
@@ -129,7 +129,7 @@ WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = 
 UPDATE StatusEntity
 SET
     pinned = :pinned
-WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)
+WHERE pachliAccountId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)
 """,
     )
     abstract suspend fun setPinned(accountId: Long, statusId: String, pinned: Boolean)
@@ -139,7 +139,7 @@ WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = 
 UPDATE StatusEntity
 SET
     filtered = NULL
-WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)
+WHERE pachliAccountId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)
 """,
     )
     abstract suspend fun clearWarning(accountId: Long, statusId: String): Int

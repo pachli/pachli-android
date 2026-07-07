@@ -236,7 +236,7 @@ class CachedTimelineRemoteMediator(
             }
         }
 
-        timelineDao.upsertAccounts(accounts.map { it.asEntity(pachliAccountId) })
+        timelineDao.upsertTimelineAccounts(accounts.map { it.asEntity(pachliAccountId) })
         statusDao.upsertStatuses(statuses.flatMap { it.asEntities(pachliAccountId) })
         timelineDao.upsertStatuses(
             statuses.map {

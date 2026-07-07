@@ -54,8 +54,8 @@ import app.pachli.core.navigation.AccountListActivityIntent.Kind.FOLLOW_REQUESTS
 import app.pachli.core.navigation.AccountListActivityIntent.Kind.MUTES
 import app.pachli.core.navigation.AccountListActivityIntent.Kind.REBLOGGED
 import app.pachli.core.navigation.TimelineActivityIntent
+import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.HttpHeaderLink
-import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiResult
@@ -343,7 +343,7 @@ class AccountListFragment :
         followRequestsAdapter.removeItem(position)
     }
 
-    private suspend fun getFetchCallByListType(fromId: String?): ApiResult<List<TimelineAccount>> {
+    private suspend fun getFetchCallByListType(fromId: String?): ApiResult<List<Account>> {
         return when (kind) {
             FOLLOWS -> {
                 val accountId = requireId(kind, id)
@@ -395,7 +395,7 @@ class AccountListFragment :
         }
     }
 
-    private fun onFetchAccountsSuccess(accounts: List<TimelineAccount>, linkHeader: String?) {
+    private fun onFetchAccountsSuccess(accounts: List<Account>, linkHeader: String?) {
         adapter.setBottomLoading(false)
         binding.swipeRefreshLayout.isRefreshing = false
 

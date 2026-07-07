@@ -58,6 +58,7 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
+import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.createDraft
 import app.pachli.core.data.repository.createDraftMention
@@ -647,7 +648,8 @@ class AccountActivity :
      * Update moved account info
      */
     private fun updateMovedAccount(account: Account) {
-        if (account.moved == null) {
+        val movedAccount = account.movedAccount
+        if (movedAccount == null) {
             binding.accountMovedView.hide()
             return
         }
@@ -655,15 +657,20 @@ class AccountActivity :
         binding.accountMovedView.show()
 
         binding.accountMovedView.setOnClickListener {
-            onViewAccount(account.id)
+            onViewAccount(movedAccount.serverId)
         }
 
-        binding.accountMovedDisplayName.text = account.name
-        binding.accountMovedUsername.text = getString(DR.string.post_username_format, account.username)
+        binding.accountMovedDisplayName.text = movedAccount.name.unicodeWrap().emojify(
+            glide,
+            movedAccount.emojis,
+            binding.accountMovedDisplayName,
+            animateEmojis,
+        )
+        binding.accountMovedUsername.text = getString(DR.string.post_username_format, movedAccount.username)
 
         val avatarRadius = resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
 
-        loadAvatar(glide, account.avatar, binding.accountMovedAvatar, avatarRadius, animateAvatar)
+        loadAvatar(glide, movedAccount.avatar, binding.accountMovedAvatar, avatarRadius, animateAvatar)
 
         binding.accountMovedText.text = getString(R.string.account_moved_description, account.name)
     }
@@ -812,7 +819,7 @@ class AccountActivity :
 
         val loadedAccount = viewModel.accountData.value.get()?.getOrNull() ?: return
 
-        if (loadedAccount.moved == null) {
+        if (loadedAccount.movedAccount == null) {
             binding.accountFollowButton.show()
             updateFollowButton()
             updateSubscribeButton()

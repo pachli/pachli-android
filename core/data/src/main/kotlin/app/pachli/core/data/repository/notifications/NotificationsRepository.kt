@@ -203,8 +203,12 @@ fun Notification.asEntity(pachliAccountId: Long) = NotificationEntity(
     serverId = id,
     type = type.asEntity(),
     createdAt = createdAt,
-    accountServerId = account.id,
+    accountServerId = account.serverId,
     statusServerId = (this as? Notification.WithStatus)?.status?.statusId,
+    note = (this as? Notification.Follow)?.note,
+    report = (this as? Notification.Report)?.report?.asEntity(pachliAccountId),
+    relationshipSeveranceEvent = (this as? Notification.SeveredRelationships)?.relationshipSeveranceEvent?.asEntity(),
+    accountWarning = (this as? Notification.ModerationWarning)?.accountWarning?.asEntity(),
     collectionServerId = (this as? Notification.WithCollection)?.collection?.serverId,
 )
 
@@ -235,11 +239,10 @@ fun Notification.Type.asEntity() = when (this) {
  */
 fun TimelineAccount.asEntity(pachliAccountId: Long) = TimelineAccountEntity(
     serverId = id,
-    timelineUserId = pachliAccountId,
+    pachliAccountId = pachliAccountId,
     localUsername = localUsername,
     username = username,
     displayName = name,
-    note = note,
     url = url,
     avatar = avatar,
     emojis = emojis.orEmpty().asModel(),

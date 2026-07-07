@@ -22,8 +22,8 @@ import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.repository.ICollectionsRepository.Error
 import app.pachli.core.database.dao.CollectionsDao
 import app.pachli.core.database.di.TransactionProvider
+import app.pachli.core.database.model.CollectionAndOwner
 import app.pachli.core.database.model.CollectionViewDataEntity
-import app.pachli.core.database.model.CollectionWithAccountsData
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.model.Account
 import app.pachli.core.model.Collection
@@ -111,7 +111,7 @@ internal class CollectionsLocalDataSource @Inject constructor(
     private val transactionProvider: TransactionProvider,
     private val collectionsDao: CollectionsDao,
 ) {
-    fun getCollection(pachliAccountId: Long, collectionId: String): Flow<Map<CollectionWithAccountsData, List<TimelineAccountEntity>>> {
+    fun getCollection(pachliAccountId: Long, collectionId: String): Flow<Map<CollectionAndOwner, List<TimelineAccountEntity>>> {
         return collectionsDao.getCollection(pachliAccountId, collectionId)
     }
 

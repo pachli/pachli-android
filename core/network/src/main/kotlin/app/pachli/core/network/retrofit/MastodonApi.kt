@@ -284,13 +284,13 @@ interface MastodonApi {
     suspend fun statusRebloggedBy(
         @Path("id") statusId: String,
         @Query("max_id") maxId: String?,
-    ): ApiResult<List<TimelineAccount>>
+    ): ApiResult<List<Account>>
 
     @GET("api/v1/statuses/{id}/favourited_by")
     suspend fun statusFavouritedBy(
         @Path("id") statusId: String,
         @Query("max_id") maxId: String?,
-    ): ApiResult<List<TimelineAccount>>
+    ): ApiResult<List<Account>>
 
     @DELETE("api/v1/statuses/{id}")
     suspend fun deleteStatus(
@@ -460,14 +460,14 @@ interface MastodonApi {
     suspend fun accountFollowers(
         @Path("id") accountId: String,
         @Query("max_id") maxId: String?,
-    ): ApiResult<List<TimelineAccount>>
+    ): ApiResult<List<Account>>
 
     @GET("api/v1/accounts/{id}/following")
     suspend fun accountFollowing(
         @Path("id") accountId: String,
         @Query("max_id") maxId: String? = null,
         @Query("limit") limit: Int = 80,
-    ): ApiResult<List<TimelineAccount>>
+    ): ApiResult<List<Account>>
 
     @UseCaseOnly
     @FormUrlEncoded
@@ -531,12 +531,12 @@ interface MastodonApi {
     @GET("api/v1/blocks")
     suspend fun blocks(
         @Query("max_id") maxId: String?,
-    ): ApiResult<List<TimelineAccount>>
+    ): ApiResult<List<Account>>
 
     @GET("api/v1/mutes")
     suspend fun mutes(
         @Query("max_id") maxId: String?,
-    ): ApiResult<List<TimelineAccount>>
+    ): ApiResult<List<Account>>
 
     @GET("api/v1/domain_blocks")
     suspend fun domainBlocks(
@@ -575,7 +575,7 @@ interface MastodonApi {
     @GET("api/v1/follow_requests")
     suspend fun followRequests(
         @Query("max_id") maxId: String?,
-    ): ApiResult<List<TimelineAccount>>
+    ): ApiResult<List<Account>>
 
     @POST("api/v1/follow_requests/{id}/authorize")
     suspend fun authorizeFollowRequest(

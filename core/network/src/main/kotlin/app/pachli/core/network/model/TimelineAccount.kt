@@ -64,7 +64,6 @@ data class TimelineAccount(
 
     val fields: List<Field>? = emptyList(),
 ) {
-
     /**
      * The account's [displayName], falling back to [localUsername] if
      * [displayName] is null or empty.
@@ -78,15 +77,14 @@ data class TimelineAccount(
         }
 
     fun asModel() = app.pachli.core.model.TimelineAccount(
-        id = id,
+        serverId = id,
         localUsername = localUsername,
         username = username,
-        displayName = displayName,
+        displayName = displayName.orEmpty(),
         url = url,
         avatar = avatar,
-        note = note,
         bot = bot,
-        emojis = emojis?.asModel(),
+        emojis = emojis.orEmpty().asModel(),
         createdAt = createdAt,
         limited = limited,
         roles = roles.orEmpty().asModel(),

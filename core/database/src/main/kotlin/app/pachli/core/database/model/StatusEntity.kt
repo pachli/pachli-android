@@ -32,10 +32,7 @@ import app.pachli.core.model.Emoji
 import app.pachli.core.model.FilterResult
 import app.pachli.core.model.Hashtag
 import app.pachli.core.model.Poll
-import app.pachli.core.model.Role
 import app.pachli.core.model.Status
-import app.pachli.core.model.TimelineAccount
-import java.time.Instant
 import java.util.Date
 
 /**
@@ -54,35 +51,35 @@ import java.util.Date
  * the ID of the reblog status*, that is still [serverId]). Also referred to as the
  * *actionable* ID.
  * @property reblogAccountId If this is a reblog, the ID of the account doing the reblogging.
- * @property reblogged True if [timelineUserId] reblogged this status.
+ * @property reblogged True if [pachliAccountId] reblogged this status.
  * @property isReblog True if this status is a reblog of another status (see
  * [reblogServerId] and [reblogAccountId])
  * @property isReply True if this status is a reply to another status (see
  * [inReplyToId] and [inReplyToAccountId])
  */
 @Entity(
-    primaryKeys = ["serverId", "timelineUserId"],
+    primaryKeys = ["serverId", "pachliAccountId"],
     foreignKeys = (
         [
             ForeignKey(
                 entity = PachliAccountEntity::class,
                 parentColumns = ["id"],
-                childColumns = ["timelineUserId"],
+                childColumns = ["pachliAccountId"],
                 onDelete = ForeignKey.CASCADE,
                 deferred = true,
             ),
             ForeignKey(
                 entity = TimelineAccountEntity::class,
-                parentColumns = ["serverId", "timelineUserId"],
-                childColumns = ["authorServerId", "timelineUserId"],
+                parentColumns = ["serverId", "pachliAccountId"],
+                childColumns = ["authorServerId", "pachliAccountId"],
                 deferred = true,
             ),
         ]
         ),
     // Avoiding rescanning status table when accounts table changes. Recommended by Room(c).
     indices = [
-        Index("authorServerId", "timelineUserId"),
-        Index("timelineUserId"),
+        Index("authorServerId", "pachliAccountId"),
+        Index("pachliAccountId"),
     ],
 )
 @TypeConverters(Converters::class)
@@ -90,8 +87,7 @@ data class StatusEntity(
     // id never flips: we need it for sorting so it's a real id
     val serverId: String,
     val url: String?,
-    // our local id for the logged in user in case there are multiple accounts per instance
-    val timelineUserId: Long,
+    val pachliAccountId: Long,
     val authorServerId: String,
     val inReplyToId: String?,
     val inReplyToAccountId: String?,
@@ -138,8 +134,8 @@ data class StatusEntity(
 fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
     serverId = statusId,
     url = actionableStatus.url,
-    timelineUserId = pachliAccountId,
-    authorServerId = actionableStatus.account.id,
+    pachliAccountId = pachliAccountId,
+    authorServerId = actionableStatus.account.serverId,
     inReplyToId = actionableStatus.inReplyToId,
     inReplyToAccountId = actionableStatus.inReplyToAccountId,
     content = actionableStatus.content,
@@ -160,7 +156,7 @@ fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
     tags = actionableStatus.tags,
     application = actionableStatus.application,
     reblogServerId = reblog?.statusId,
-    reblogAccountId = reblog?.let { account.id },
+    reblogAccountId = reblog?.let { account.serverId },
     poll = actionableStatus.poll,
     muted = actionableStatus.muted,
     pinned = actionableStatus.pinned == true,
@@ -180,93 +176,6 @@ fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
 
 @JvmName("IterableStatus")
 fun Iterable<Status>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }
-
-/**
- * An account associated with a status on a timeline or similar (e.g., an
- * account the user is following).
- *
- * @property serverId
- * @property timelineUserId The pachliAccountId for the logged-in account related
- * to this account.
- * @property localUsername
- * @property username
- * @property displayName
- * @property url
- * @property avatar
- * @property emojis
- * @property bot
- * @property createdAt
- * @property note
- */
-@Entity(
-    primaryKeys = ["serverId", "timelineUserId"],
-    foreignKeys = [
-        ForeignKey(
-            entity = PachliAccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("timelineUserId"),
-            onDelete = ForeignKey.CASCADE,
-            deferred = true,
-        ),
-    ],
-    indices = [Index(value = ["timelineUserId"])],
-)
-@TypeConverters(Converters::class)
-data class TimelineAccountEntity(
-    val serverId: String,
-    val timelineUserId: Long,
-    val localUsername: String,
-    val username: String,
-    val displayName: String,
-    val url: String,
-    val avatar: String,
-    val emojis: List<Emoji>,
-    val bot: Boolean,
-    val createdAt: Instant?,
-    @ColumnInfo(defaultValue = "false")
-    val limited: Boolean = false,
-    @ColumnInfo(defaultValue = "")
-    val note: String,
-    @ColumnInfo(defaultValue = "")
-    val roles: List<Role>?,
-    @ColumnInfo(defaultValue = "")
-    val pronouns: String?,
-) {
-    fun asModel() = TimelineAccount(
-        id = serverId,
-        localUsername = localUsername,
-        username = username,
-        displayName = displayName,
-        url = url,
-        avatar = avatar,
-        note = note,
-        bot = bot,
-        emojis = emojis,
-        createdAt = createdAt,
-        limited = limited,
-        roles = roles.orEmpty(),
-        pronouns = pronouns,
-    )
-}
-
-fun TimelineAccount.asEntity(pachliAccountId: Long) = TimelineAccountEntity(
-    serverId = id,
-    timelineUserId = pachliAccountId,
-    localUsername = localUsername,
-    username = username,
-    displayName = name,
-    note = note,
-    url = url,
-    avatar = avatar,
-    emojis = emojis.orEmpty(),
-    bot = bot,
-    createdAt = createdAt,
-    limited = limited,
-    roles = roles,
-    pronouns = pronouns,
-)
-
-fun Iterable<TimelineAccount>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }
 
 /**
  * A complete [TimelineStatusWithAccount], and the (optional) status it quotes.

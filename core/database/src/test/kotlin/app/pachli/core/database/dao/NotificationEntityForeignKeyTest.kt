@@ -21,8 +21,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.model.NotificationAccountFilterDecisionUpdate
 import app.pachli.core.database.model.NotificationEntity
-import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
-import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.NotificationViewDataEntity
 import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.database.model.TimelineAccountEntity
@@ -82,7 +80,7 @@ class NotificationEntityForeignKeyTest {
      */
     private val timelineAccount = TimelineAccountEntity(
         serverId = "1",
-        timelineUserId = pachliAccountId,
+        pachliAccountId = pachliAccountId,
         localUsername = "example",
         username = "example",
         displayName = "Example",
@@ -92,7 +90,6 @@ class NotificationEntityForeignKeyTest {
         bot = false,
         createdAt = Instant.now(),
         limited = false,
-        note = "",
         roles = null,
         pronouns = null,
     )
@@ -109,110 +106,11 @@ class NotificationEntityForeignKeyTest {
         }
     }
 
-    @Suppress("DEPRECATION")
-    @Test
-    fun `deleting notification deletes notification and NotificationReportEntity`() = runTest {
-        val notification = NotificationEntity(
-            pachliAccountId = pachliAccountId,
-            serverId = "1",
-            type = NotificationEntity.Type.REPORT,
-            createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
-            accountServerId = "1",
-            statusServerId = null,
-            collectionServerId = null,
-        )
-        notificationDao.upsertNotifications(listOf(notification))
-        val notificationReport = NotificationReportEntity(
-            pachliAccountId = pachliAccountId,
-            serverId = "1",
-            reportId = "1",
-            actionTaken = true,
-            actionTakenAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
-            category = NotificationReportEntity.Category.SPAM,
-            comment = "",
-            forwarded = false,
-            createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
-            statusIds = null,
-            ruleIds = null,
-            targetAccount = TimelineAccountEntity(
-                serverId = "1",
-                timelineUserId = pachliAccountId,
-                localUsername = "foo@bar",
-                username = "foo",
-                displayName = "Foo",
-                url = "",
-                avatar = "",
-                emojis = emptyList(),
-                bot = false,
-                createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
-                limited = false,
-                note = "",
-                roles = null,
-                pronouns = null,
-            ),
-        )
-        notificationDao.upsertReports(listOf(notificationReport))
-
-        // Check everything is as expected.
-        assertThat(notificationDao.loadAllForAccount(pachliAccountId)).containsExactly(notification)
-        assertThat(notificationDao.loadReportById(pachliAccountId, "1")).isEqualTo(notificationReport)
-
-        // When -- Delete the notification, not the account
-        notificationDao.deleteNotification(notification)
-
-        // Then
-        assertThat(notificationDao.loadAllForAccount(pachliAccountId)).isEmpty()
-        assertThat(notificationDao.loadReportById(pachliAccountId, "1")).isNull()
-    }
-
-    // TODO: Deleting Notification with NotifcationRelationshipSeveranceEntity
-    @Suppress("DEPRECATION")
-    @Test
-    fun `deleting notification deletes notification and NotificationRelationshipSeveranceEventEntity`() = runTest {
-        val notification = NotificationEntity(
-            pachliAccountId = pachliAccountId,
-            serverId = "1",
-            type = NotificationEntity.Type.REPORT,
-            createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
-            accountServerId = "1",
-            statusServerId = null,
-            collectionServerId = null,
-        )
-        notificationDao.upsertNotifications(listOf(notification))
-
-        val notificationRelationShipSeveranceEvent = NotificationRelationshipSeveranceEventEntity(
-            pachliAccountId = pachliAccountId,
-            serverId = "1",
-            eventId = "1",
-            type = NotificationRelationshipSeveranceEventEntity.Type.DOMAIN_BLOCK,
-            purged = false,
-            targetName = "test",
-            followersCount = 1,
-            followingCount = 1,
-            createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
-        )
-        notificationDao.upsertEvents(listOf(notificationRelationShipSeveranceEvent))
-
-        // Check everything is as expected.
-        assertThat(notificationDao.loadAllForAccount(pachliAccountId)).containsExactly(notification)
-        assertThat(notificationDao.loadRelationshipSeveranceeventById(pachliAccountId, "1")).isEqualTo(notificationRelationShipSeveranceEvent)
-
-        // When -- Delete the notification, not the account.
-        notificationDao.deleteNotification(notification)
-
-        // Then -- notification and event should be deleted.
-        assertThat(notificationDao.loadAllForAccount(pachliAccountId)).isEmpty()
-        assertThat(notificationDao.loadRelationshipSeveranceeventById(pachliAccountId, "1")).isNull()
-    }
-
     /**
      * [NotificationViewDataEntity] **does not** have a cascading delete relationship
      * with [NotificationEntity]. If it did, every time notifications were deleted
      * (e.g., when refreshing) the user's notification view data would also be deleted,
      * rendering it useless.
-     *
-     * This test is the inverse of the previous two -- it verifies the data is
-     * not deleted.
      *
      * The data is deleted when the account is deleted, see [AccountEntityForeignKeyTest.deleting account deletes notification and viewdata].
      */
@@ -226,7 +124,10 @@ class NotificationEntityForeignKeyTest {
             createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
             accountServerId = "1",
             statusServerId = "1",
-            collectionServerId = null,
+            note = "",
+            report = null,
+            relationshipSeveranceEvent = null,
+            accountWarning = null,
         )
         notificationDao.upsertNotifications(listOf(notification))
 

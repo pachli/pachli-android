@@ -223,7 +223,7 @@ class AccountsInListFragment : AppCompatDialogFragment() {
 
     private object AccountDiffer : DiffUtil.ItemCallback<TimelineAccount>() {
         override fun areItemsTheSame(oldItem: TimelineAccount, newItem: TimelineAccount): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.serverId == newItem.serverId
         }
 
         override fun areContentsTheSame(oldItem: TimelineAccount, newItem: TimelineAccount): Boolean {
@@ -240,7 +240,7 @@ class AccountsInListFragment : AppCompatDialogFragment() {
 
             binding.checkBox.setOnCheckedChangeListener { _, isChecked ->
                 if (!isChecked) {
-                    onRemoveFromList(getItem(holder.bindingAdapterPosition).id)
+                    onRemoveFromList(getItem(holder.bindingAdapterPosition).serverId)
                 }
             }
             binding.checkBox.contentDescription =
@@ -270,7 +270,7 @@ class AccountsInListFragment : AppCompatDialogFragment() {
 
     private object SearchDiffer : DiffUtil.ItemCallback<AccountInfo>() {
         override fun areItemsTheSame(oldItem: AccountInfo, newItem: AccountInfo): Boolean {
-            return oldItem.first.id == newItem.first.id
+            return oldItem.first.serverId == newItem.first.serverId
         }
 
         override fun areContentsTheSame(oldItem: AccountInfo, newItem: AccountInfo): Boolean {
@@ -291,7 +291,7 @@ class AccountsInListFragment : AppCompatDialogFragment() {
                 if (isChecked) {
                     onAddToList(account)
                 } else {
-                    onRemoveFromList(account.id)
+                    onRemoveFromList(account.serverId)
                 }
             }
 

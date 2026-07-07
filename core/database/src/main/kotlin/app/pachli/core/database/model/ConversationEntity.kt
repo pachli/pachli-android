@@ -148,7 +148,7 @@ data class ConversationEntity(
 }
 
 fun TimelineAccount.asConversationAccount() = ConversationAccount(
-    id = id,
+    id = serverId,
     localUsername = localUsername,
     username = username,
     displayName = name,

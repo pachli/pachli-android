@@ -78,6 +78,7 @@ sealed interface Notification {
         override val id: String,
         override val createdAt: Instant,
         override val account: TimelineAccount,
+        val note: String,
     ) : Notification
 
     /** [account] requested to follow the user. */
@@ -85,6 +86,7 @@ sealed interface Notification {
         override val id: String,
         override val createdAt: Instant,
         override val account: TimelineAccount,
+        val note: String,
     ) : Notification
 
     /** [account] quoted the user in [status]. */

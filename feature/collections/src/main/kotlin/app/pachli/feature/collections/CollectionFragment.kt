@@ -448,8 +448,8 @@ internal class AccountViewHolder(
 
     init {
         with(binding) {
-            accountNote.setOnClickListener { accept(NavigationAction.ViewAccount(viewData.account.id)) }
-            root.setOnClickListener { accept(NavigationAction.ViewAccount(viewData.account.id)) }
+            accountNote.setOnClickListener { accept(NavigationAction.ViewAccount(viewData.account.serverId)) }
+            root.setOnClickListener { accept(NavigationAction.ViewAccount(viewData.account.serverId)) }
 
             avatarRadius = avatar.context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
 
@@ -713,7 +713,7 @@ internal class AccountViewHolder(
 }
 
 private object AccountInCollectionViewDataDiffer : DiffUtil.ItemCallback<AccountViewData>() {
-    override fun areItemsTheSame(oldItem: AccountViewData, newItem: AccountViewData) = oldItem.account.id == newItem.account.id
+    override fun areItemsTheSame(oldItem: AccountViewData, newItem: AccountViewData) = oldItem.account.serverId == newItem.account.serverId
     override fun areContentsTheSame(oldItem: AccountViewData, newItem: AccountViewData) = oldItem == newItem
 
     override fun getChangePayload(oldItem: AccountViewData, newItem: AccountViewData): Any? {
@@ -967,15 +967,15 @@ internal class CollectionViewModel @Inject constructor(
                                 pachliAccountId = pachliAccount.id,
                                 collectionId = collection.serverId,
                                 account = owner,
-                                relationship = relationships[owner.id],
-                                isEnabled = !disabledAccountIds.contains(it.id),
-                                isSelf = owner.id == pachliAccount.accountId,
+                                relationship = relationships[owner.serverId],
+                                isEnabled = !disabledAccountIds.contains(it.serverId),
+                                isSelf = owner.serverId == pachliAccount.accountId,
                                 primaryAction = makePrimaryAction(
                                     pachliAccountId = pachliAccount.id,
                                     collection = collection,
                                     account = owner,
-                                    isSelf = owner.id == pachliAccount.accountId,
-                                    relationship = relationships[it.id],
+                                    isSelf = owner.serverId == pachliAccount.accountId,
+                                    relationship = relationships[it.serverId],
                                 ),
                             )
                         },
@@ -984,19 +984,19 @@ internal class CollectionViewModel @Inject constructor(
                                 pachliAccountId = pachliAccount.id,
                                 collectionId = collection.serverId,
                                 account = it,
-                                relationship = relationships[it.id],
-                                isEnabled = !disabledAccountIds.contains(it.id),
-                                isSelf = it.id == pachliAccount.accountId,
+                                relationship = relationships[it.serverId],
+                                isEnabled = !disabledAccountIds.contains(it.serverId),
+                                isSelf = it.serverId == pachliAccount.accountId,
                                 primaryAction = makePrimaryAction(
                                     pachliAccountId = pachliAccount.id,
                                     collection = collection,
                                     account = it,
-                                    isSelf = it.id == pachliAccount.accountId,
-                                    relationship = relationships[it.id],
+                                    isSelf = it.serverId == pachliAccount.accountId,
+                                    relationship = relationships[it.serverId],
                                 ),
                             )
                         },
-                        isMember = members.firstOrNull { it.id == pachliAccount.accountId },
+                        isMember = members.firstOrNull { it.serverId == pachliAccount.accountId },
                     )
                 }
             }
@@ -1080,7 +1080,7 @@ internal class CollectionViewModel @Inject constructor(
         collection.update { Ok(Loadable.Loading) }
         collectionsRepository.getCollection(action.pachliAccountId, action.collectionId)
             .andThen { (collection, accounts) ->
-                relationshipsRepository.getRelationships(action.pachliAccountId, accounts.map { it.id })
+                relationshipsRepository.getRelationships(action.pachliAccountId, accounts.map { it.serverId })
                     .map { Triple(collection, accounts, it) }
             }
             .mapError { UiError.GetCollection(it) }
@@ -1092,7 +1092,7 @@ internal class CollectionViewModel @Inject constructor(
     }
 
     private suspend fun onAccountAction(action: AccountAction) {
-        disabledAccountIds.update { it + action.account.id }
+        disabledAccountIds.update { it + action.account.serverId }
 
         val result = when (action) {
             is AccountAction.FollowAccount -> onFollowAccount(action)
@@ -1103,32 +1103,32 @@ internal class CollectionViewModel @Inject constructor(
             is AccountAction.UnmuteAccount -> TODO()
             is AccountAction.Revoke -> onRevokeCollection(action)
         }.onSuccess { relationship ->
-            relationship?.let { relationships.update { it + (action.account.id to relationship) } }
+            relationship?.let { relationships.update { it + (action.account.serverId to relationship) } }
         }.mapEither(
             { UiSuccess.from(action) },
             { UiError.make(it, action) },
         )
 
         _uiResult.send(result)
-        disabledAccountIds.update { it - action.account.id }
+        disabledAccountIds.update { it - action.account.serverId }
     }
 
     private suspend fun onFollowAccount(action: AccountAction.FollowAccount) = operationCounter {
-        followAccountUseCase(action.pachliAccountId, action.account.id)
+        followAccountUseCase(action.pachliAccountId, action.account.serverId)
             .mapError { UiError.FollowAccount(action, it) }
     }
 
     private suspend fun onUnfollowAccount(action: AccountAction.UnfollowAccount) = operationCounter {
-        unfollowAccountUseCase(action.pachliAccountId, action.account.id)
+        unfollowAccountUseCase(action.pachliAccountId, action.account.serverId)
             .mapError { UiError.UnfollowAccount(action, it) }
     }
 
     private suspend fun onRevokeCollection(action: AccountAction.Revoke) = operationCounter {
-        collectionsRepository.revokeFromCollection(action.pachliAccountId, action.collection.serverId, action.account.id).onSuccess {
+        collectionsRepository.revokeFromCollection(action.pachliAccountId, action.collection.serverId, action.account.serverId).onSuccess {
             collection.update {
                 it.map { loadable ->
                     loadable.mapLoaded { (collection, accounts) ->
-                        Pair(collection, accounts.filterNot { it.id == action.account.id })
+                        Pair(collection, accounts.filterNot { it.serverId == action.account.serverId })
                     }
                 }
             }

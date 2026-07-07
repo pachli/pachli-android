@@ -43,9 +43,6 @@ data class NotificationData(
     @Embedded(prefix = "a_") val account: TimelineAccountEntity,
     @Embedded(prefix = "s_") val status: TimelineStatusWithQuote?,
     @Embedded(prefix = "nvd_") val viewData: NotificationViewDataEntity?,
-    @Embedded(prefix = "report_") val report: NotificationReportEntity?,
-    @Embedded(prefix = "rse_") val relationshipSeveranceEvent: NotificationRelationshipSeveranceEventEntity?,
-    @Embedded(prefix = "warn_") val accountWarning: NotificationAccountWarningEntity?,
     @Embedded(prefix = "timelineCollection_") val timelineCollection: TimelineCollectionEntity?,
     @Embedded(prefix = "collectionViewData_") val collectionViewData: CollectionViewDataEntity?,
 ) {
@@ -116,12 +113,14 @@ data class NotificationData(
                 id = notification.serverId,
                 createdAt = notification.createdAt,
                 account = account.asModel(),
+                note = notification.note.orEmpty(),
             )
 
             NotificationEntity.Type.FOLLOW_REQUEST -> Notification.FollowRequest(
                 id = notification.serverId,
                 createdAt = notification.createdAt,
                 account = account.asModel(),
+                note = notification.note.orEmpty(),
             )
 
             NotificationEntity.Type.POLL -> status?.let {
@@ -157,30 +156,30 @@ data class NotificationData(
                 )
             }
 
-            NotificationEntity.Type.REPORT -> report?.let {
+            NotificationEntity.Type.REPORT -> notification.report?.let {
                 Notification.Report(
                     id = notification.serverId,
                     createdAt = notification.createdAt,
                     account = account.asModel(),
-                    report = report.asModel(),
+                    report = it.asModel(),
                 )
             }
 
-            NotificationEntity.Type.SEVERED_RELATIONSHIPS -> relationshipSeveranceEvent?.let {
+            NotificationEntity.Type.SEVERED_RELATIONSHIPS -> notification.relationshipSeveranceEvent?.let {
                 Notification.SeveredRelationships(
                     id = notification.serverId,
                     createdAt = notification.createdAt,
                     account = account.asModel(),
-                    relationshipSeveranceEvent = relationshipSeveranceEvent.asModel(),
+                    relationshipSeveranceEvent = it.asModel(),
                 )
             }
 
-            NotificationEntity.Type.MODERATION_WARNING -> accountWarning?.let {
+            NotificationEntity.Type.MODERATION_WARNING -> notification.accountWarning?.let {
                 Notification.ModerationWarning(
                     id = notification.serverId,
                     createdAt = notification.createdAt,
                     account = account.asModel(),
-                    accountWarning = accountWarning.asModel(),
+                    accountWarning = it.asModel(),
                 )
             }
 
@@ -256,6 +255,10 @@ data class NotificationAccountFilterDecisionUpdate(
  * @property accountServerId ID of the account that generated this notification.
  * @property statusServerId (optional) ID of the status this notification is about.
  * Null if the notification is not about a particular status.
+ * @property note (optional) Note/bio for the account identified by accountServerId.
+ * The account will be a TimelineAccount which has no note property. The note is
+ * only needed for [NotificationEntity.Type.FOLLOW] and
+ * [NotificationEntity.Type.FOLLOW_REQUEST], so is only persisted for those types.
  * @property collectionServerId (optional) ID of the collection contained in this
  * notification. Null if this notification does not reference a collection.
  */
@@ -272,8 +275,8 @@ data class NotificationAccountFilterDecisionUpdate(
             ),
             ForeignKey(
                 entity = TimelineAccountEntity::class,
-                parentColumns = ["serverId", "timelineUserId"],
-                childColumns = ["accountServerId", "pachliAccountId"],
+                parentColumns = ["pachliAccountId", "serverId"],
+                childColumns = ["pachliAccountId", "accountServerId"],
                 deferred = true,
             ),
         ]
@@ -288,6 +291,11 @@ data class NotificationEntity(
     val createdAt: Instant,
     val accountServerId: String,
     val statusServerId: String?,
+    val note: String?,
+
+    @Embedded(prefix = "report_") val report: NotificationReport?,
+    @Embedded(prefix = "rse_") val relationshipSeveranceEvent: NotificationRelationshipSeveranceEvent?,
+    @Embedded(prefix = "warn_") val accountWarning: NotificationAccountWarning?,
     val collectionServerId: String?,
 ) {
     enum class Type {
@@ -352,12 +360,10 @@ data class NotificationEntity(
 /**
  * Data about a report associated with a notification.
  *
- * @property pachliAccountId
- * @property serverId Server ID for the notification this relates to.
  * @property reportId Server ID for the report
  * @property actionTaken True if action has been taken about this report.
  * @property actionTakenAt When action was taken. Null if no action has been taken.
- * @property category The [Category][NotificationReportEntity.Category] for the report.
+ * @property category The [Category][NotificationReport.Category] for the report.
  * @property comment The reason for the report.
  * @property forwarded True if the report was forwarded to the remote domain.
  * @property createdAt When the report was created.
@@ -366,24 +372,8 @@ data class NotificationEntity(
  * @property ruleIds Optional list of server rule IDs referenced in the report. Null if
  * no rules were listed.
  */
-@Entity(
-    primaryKeys = ["pachliAccountId", "serverId"],
-    foreignKeys = (
-        [
-            ForeignKey(
-                entity = NotificationEntity::class,
-                parentColumns = ["pachliAccountId", "serverId"],
-                childColumns = ["pachliAccountId", "serverId"],
-                onDelete = ForeignKey.CASCADE,
-                deferred = true,
-            ),
-        ]
-        ),
-)
 @TypeConverters(Converters::class)
-data class NotificationReportEntity(
-    val pachliAccountId: Long,
-    val serverId: String,
+data class NotificationReport(
     val reportId: String,
     val actionTaken: Boolean,
     val actionTakenAt: Instant?,
@@ -393,7 +383,8 @@ data class NotificationReportEntity(
     val createdAt: Instant,
     val statusIds: List<String>?,
     val ruleIds: List<String>?,
-    @Embedded(prefix = "target_") val targetAccount: TimelineAccountEntity,
+    @Embedded(prefix = "target_")
+    val targetAccount: AccountEntity,
 ) {
     enum class Category {
         /** Unwanted or repetitive content. */
@@ -415,7 +406,7 @@ data class NotificationReportEntity(
     }
 
     fun asModel() = app.pachli.core.model.Report(
-        id = reportId,
+        serverId = reportId,
         category = category.asModel(),
         actionTaken = actionTaken,
         actionTakenAt = actionTakenAt,
@@ -433,33 +424,15 @@ data class NotificationReportEntity(
 /**
  * Data about a relationship severance event.
  *
- * @property pachliAccountId
- * @property serverId Server ID for the notification this relates to.
  * @property eventId Server's ID for this severance event.
- * @property type The event's [Type][NotificationRelationshipSeveranceEventEntity.Type].
+ * @property type The event's [Type][NotificationRelationshipSeveranceEvent.Type].
  * @property purged True if the list of severed relationships is unavailable.
  * @property followersCount How many follower relationships are broken due to this event.
  * @property followingCount How many following relationships are broken due to this event.
  * @property createdAt When the relationships were severed.
  */
-@Entity(
-    primaryKeys = ["pachliAccountId", "serverId", "eventId"],
-    foreignKeys = (
-        [
-            ForeignKey(
-                entity = NotificationEntity::class,
-                parentColumns = ["pachliAccountId", "serverId"],
-                childColumns = ["pachliAccountId", "serverId"],
-                onDelete = ForeignKey.CASCADE,
-                deferred = true,
-            ),
-        ]
-        ),
-)
 @TypeConverters(Converters::class)
-data class NotificationRelationshipSeveranceEventEntity(
-    val pachliAccountId: Long,
-    val serverId: String,
+data class NotificationRelationshipSeveranceEvent(
     val eventId: String,
     val type: Type,
     val purged: Boolean,
@@ -477,7 +450,7 @@ data class NotificationRelationshipSeveranceEventEntity(
     }
 
     fun asModel() = app.pachli.core.model.RelationshipSeveranceEvent(
-        id = serverId,
+        id = eventId,
         type = when (type) {
             Type.DOMAIN_BLOCK -> app.pachli.core.model.RelationshipSeveranceEvent.Type.DOMAIN_BLOCK
             Type.USER_DOMAIN_BLOCK -> app.pachli.core.model.RelationshipSeveranceEvent.Type.USER_DOMAIN_BLOCK
@@ -490,27 +463,15 @@ data class NotificationRelationshipSeveranceEventEntity(
         followingCount = followingCount,
         createdAt = createdAt,
     )
+
     companion object
 }
 
-@Entity(
-    primaryKeys = ["pachliAccountId", "serverId", "accountWarningId"],
-    foreignKeys = (
-        [
-            ForeignKey(
-                entity = NotificationEntity::class,
-                parentColumns = ["pachliAccountId", "serverId"],
-                childColumns = ["pachliAccountId", "serverId"],
-                onDelete = ForeignKey.CASCADE,
-                deferred = true,
-            ),
-        ]
-        ),
-)
-@TypeConverters(Converters::class)
-data class NotificationAccountWarningEntity(
-    val pachliAccountId: Long,
-    val serverId: String,
+/**
+ * Note: Should only be used as an @Embedded entity, as the primary key will not
+ * distinguish warnings across different servers.
+ */
+data class NotificationAccountWarning(
     val accountWarningId: String,
     val text: String,
     val action: Action,

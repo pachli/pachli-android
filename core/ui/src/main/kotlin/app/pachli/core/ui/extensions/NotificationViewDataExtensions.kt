@@ -175,6 +175,7 @@ fun NotificationViewData.Companion.make(
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision,
         account = data.account.asModel(),
+        note = data.notification.note.orEmpty(),
     )
 
     NotificationEntity.Type.FOLLOW_REQUEST -> FollowRequestNotificationViewData(
@@ -184,6 +185,7 @@ fun NotificationViewData.Companion.make(
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision,
         account = data.account.asModel(),
+        note = data.notification.note.orEmpty(),
     )
 
     NotificationEntity.Type.POLL -> data.status?.let { status ->
@@ -258,35 +260,41 @@ fun NotificationViewData.Companion.make(
         )
     }
 
-    NotificationEntity.Type.REPORT -> ReportNotificationViewData(
-        pachliAccountId = pachliAccount.id,
-        localDomain = pachliAccount.domain,
-        notificationId = data.notification.serverId,
-        account = data.account.asModel(),
-        isAboutSelf = isAboutSelf,
-        accountFilterDecision = accountFilterDecision,
-        report = data.report!!,
-    )
+    NotificationEntity.Type.REPORT -> data.notification.report?.let {
+        ReportNotificationViewData(
+            pachliAccountId = pachliAccount.id,
+            localDomain = pachliAccount.domain,
+            notificationId = data.notification.serverId,
+            account = data.account.asModel(),
+            isAboutSelf = isAboutSelf,
+            accountFilterDecision = accountFilterDecision,
+            report = it.asModel(),
+        )
+    }
 
-    NotificationEntity.Type.SEVERED_RELATIONSHIPS -> SeveredRelationshipsNotificationViewData(
-        pachliAccountId = pachliAccount.id,
-        localDomain = pachliAccount.domain,
-        notificationId = data.notification.serverId,
-        account = data.account.asModel(),
-        isAboutSelf = isAboutSelf,
-        accountFilterDecision = accountFilterDecision,
-        relationshipSeveranceEvent = data.relationshipSeveranceEvent!!.asModel(),
-    )
+    NotificationEntity.Type.SEVERED_RELATIONSHIPS -> data.notification.relationshipSeveranceEvent?.let {
+        SeveredRelationshipsNotificationViewData(
+            pachliAccountId = pachliAccount.id,
+            localDomain = pachliAccount.domain,
+            notificationId = data.notification.serverId,
+            account = data.account.asModel(),
+            isAboutSelf = isAboutSelf,
+            accountFilterDecision = accountFilterDecision,
+            relationshipSeveranceEvent = it.asModel(),
+        )
+    }
 
-    NotificationEntity.Type.MODERATION_WARNING -> ModerationWarningNotificationViewData(
-        pachliAccountId = pachliAccount.id,
-        localDomain = pachliAccount.domain,
-        notificationId = data.notification.serverId,
-        account = data.account.asModel(),
-        isAboutSelf = isAboutSelf,
-        accountFilterDecision = accountFilterDecision,
-        accountWarning = data.accountWarning!!.asModel(),
-    )
+    NotificationEntity.Type.MODERATION_WARNING -> data.notification.accountWarning?.let {
+        ModerationWarningNotificationViewData(
+            pachliAccountId = pachliAccount.id,
+            localDomain = pachliAccount.domain,
+            notificationId = data.notification.serverId,
+            account = data.account.asModel(),
+            isAboutSelf = isAboutSelf,
+            accountFilterDecision = accountFilterDecision,
+            accountWarning = it.asModel(),
+        )
+    }
 
     NotificationEntity.Type.QUOTE -> data.status?.let { status ->
         QuoteNotificationViewData(

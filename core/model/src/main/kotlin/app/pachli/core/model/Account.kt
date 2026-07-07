@@ -16,38 +16,37 @@
 
 package app.pachli.core.model
 
+import app.pachli.core.common.util.unsafeLazy
 import com.squareup.moshi.JsonClass
 import java.time.Instant
 import java.util.Date
 
 /**
  * @property note (HTML) The profile’s bio or description.
+ * @property movedAccount If non-null, this account has been moved
+ * to [movedAccount].
  */
 data class Account(
-    override val id: String,
+    override val serverId: String,
     override val localUsername: String,
     override val username: String,
-    // should never be null per API definition, but some servers break the contract
-    @Deprecated("prefer the `name` property, which is not-null and not-empty")
-    override val displayName: String?,
+    @Deprecated("prefer the `name` property, which is not empty")
+    override val displayName: String,
     // should never be null per API definition, but some servers break the contract
     override val createdAt: Instant?,
-    override val note: String,
     override val url: String,
     override val avatar: String,
-    // Pixelfed might omit `header`
-    val header: String = "",
-    val locked: Boolean = false,
-    val lastStatusAt: Date? = null,
-    val followersCount: Int = 0,
-    val followingCount: Int = 0,
-    val statusesCount: Int = 0,
-    override val bot: Boolean = false,
-    // nullable for backward compatibility
-    override val emojis: List<Emoji>? = emptyList(),
-    // nullable for backward compatibility
-    val fields: List<Field>? = emptyList(),
-    val moved: Account? = null,
+    val note: String,
+    val header: String,
+    val locked: Boolean,
+    val lastStatusAt: Date?,
+    val followersCount: Int,
+    val followingCount: Int,
+    val statusesCount: Int,
+    override val bot: Boolean,
+    override val emojis: List<Emoji>,
+    val fields: List<Field>,
+    val movedAccount: MovedAccount?,
     override val limited: Boolean,
     override val roles: List<Role>,
     override val pronouns: String?,
@@ -55,10 +54,28 @@ data class Account(
     fun isRemote(): Boolean = this.username != this.localUsername
 }
 
+/**
+ * Data necessary to show information about a moved account.
+ */
+@JsonClass(generateAdapter = true)
+data class MovedAccount(
+    val serverId: String,
+    val localUsername: String,
+    val username: String,
+    val displayName: String,
+    val avatar: String,
+    val emojis: List<Emoji>,
+) {
+    val name: String by unsafeLazy {
+        displayName.ifEmpty { localUsername }
+    }
+}
+
+@JsonClass(generateAdapter = true)
 data class Field(
     val name: String,
     val value: String,
-    val verifiedAt: Date?,
+    val verifiedAt: Instant?,
 )
 
 data class StringField(

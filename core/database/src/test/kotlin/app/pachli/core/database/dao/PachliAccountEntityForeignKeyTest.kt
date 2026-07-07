@@ -123,7 +123,7 @@ class PachliAccountEntityForeignKeyTest {
      */
     private val timelineAccount = TimelineAccountEntity(
         serverId = "1",
-        timelineUserId = pachliAccountId,
+        pachliAccountId = pachliAccountId,
         localUsername = "example",
         username = "example",
         displayName = "Example",
@@ -133,7 +133,6 @@ class PachliAccountEntityForeignKeyTest {
         bot = false,
         createdAt = Instant.now(),
         limited = false,
-        note = "",
         roles = null,
         pronouns = null,
     )
@@ -323,6 +322,10 @@ class PachliAccountEntityForeignKeyTest {
             createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
             accountServerId = "1",
             statusServerId = "1",
+            note = "",
+            report = null,
+            relationshipSeveranceEvent = null,
+            accountWarning = null,
             collectionServerId = null,
         )
 
@@ -427,7 +430,7 @@ class PachliAccountEntityForeignKeyTest {
     fun `deleting account deletes TimelineAccountEntity`() = runTest {
         val timelineAccount = TimelineAccountEntity(
             serverId = "1",
-            timelineUserId = pachliAccountId,
+            pachliAccountId = pachliAccountId,
             localUsername = "foo@bar",
             username = "foo",
             displayName = "Foo",
@@ -437,7 +440,6 @@ class PachliAccountEntityForeignKeyTest {
             bot = false,
             createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
             limited = false,
-            note = "",
             roles = null,
             pronouns = null,
         )
@@ -458,7 +460,7 @@ class PachliAccountEntityForeignKeyTest {
     fun `deleting account deletes TranslatedStatusEntity`() = runTest {
         val translatedStatus = TranslatedStatusEntity(
             serverId = "1",
-            timelineUserId = pachliAccountId,
+            pachliAccountId = pachliAccountId,
             content = "",
             spoilerText = "",
             poll = null,

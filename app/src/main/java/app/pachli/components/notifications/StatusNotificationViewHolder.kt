@@ -63,7 +63,7 @@ internal class StatusNotificationViewHolder(
     ) {
         if (payloads.isEmpty()) {
             binding.statusInfo.setOnClickListener {
-                notificationActionListener.onViewAccount(viewData.account.id)
+                notificationActionListener.onViewAccount(viewData.account.serverId)
             }
             showStatusContent(true)
         } else {

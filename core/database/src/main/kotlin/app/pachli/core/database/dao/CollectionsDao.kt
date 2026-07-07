@@ -23,10 +23,10 @@ import androidx.room.Transaction
 import androidx.room.TypeConverters
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
+import app.pachli.core.database.model.CollectionAndOwner
 import app.pachli.core.database.model.CollectionEntity
 import app.pachli.core.database.model.CollectionItemEntity
 import app.pachli.core.database.model.CollectionViewDataEntity
-import app.pachli.core.database.model.CollectionWithAccountsData
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineCollectionEntity
 import kotlinx.coroutines.flow.Flow
@@ -60,7 +60,7 @@ WHERE pachliAccountId = :pachliAccountId AND collectionServerId = :collectionId 
 SELECT
     collection.*,
     owner.serverId AS 'owner_serverId',
-    owner.timelineUserId AS 'owner_timelineUserId',
+    owner.pachliAccountId AS 'owner_pachliAccountId',
     owner.localUsername AS 'owner_localUsername',
     owner.username AS 'owner_username',
     owner.displayName AS 'owner_displayName',
@@ -70,7 +70,6 @@ SELECT
     owner.bot AS 'owner_bot',
     owner.createdAt AS 'owner_createdAt',
     owner.limited AS 'owner_limited',
-    owner.note AS 'owner_note',
     owner.roles AS 'owner_roles',
     owner.pronouns AS 'owner_pronouns'
 FROM CollectionEntity AS collection
@@ -79,7 +78,7 @@ JOIN TimelineAccountEntity owner
 WHERE collection.pachliAccountId = :pachliAccountId AND collection.serverId = :collectionId
         """,
     )
-    fun getCollection2(pachliAccountId: Long, collectionId: String): Flow<CollectionWithAccountsData>
+    fun getCollection2(pachliAccountId: Long, collectionId: String): Flow<CollectionAndOwner>
 
     @Transaction
     @Query(
@@ -88,7 +87,7 @@ WITH CollectionWithAccount AS (
 SELECT
     collection.*,
     owner.serverId AS 'owner_serverId',
-    owner.timelineUserId AS 'owner_timelineUserId',
+    owner.pachliAccountId AS 'owner_pachliAccountId',
     owner.localUsername AS 'owner_localUsername',
     owner.username AS 'owner_username',
     owner.displayName AS 'owner_displayName',
@@ -98,7 +97,6 @@ SELECT
     owner.bot AS 'owner_bot',
     owner.createdAt AS 'owner_createdAt',
     owner.limited AS 'owner_limited',
-    owner.note AS 'owner_note',
     owner.roles AS 'owner_roles',
     owner.pronouns AS 'owner_pronouns'
  FROM CollectionEntity AS collection
@@ -112,5 +110,5 @@ SELECT * FROM CollectionWithAccount collection
  WHERE collection.pachliAccountId = :pachliAccountId AND collection.serverId = :collectionId
         """,
     )
-    fun getCollection(pachliAccountId: Long, collectionId: String): Flow<Map<CollectionWithAccountsData, List<TimelineAccountEntity>>>
+    fun getCollection(pachliAccountId: Long, collectionId: String): Flow<Map<CollectionAndOwner, List<TimelineAccountEntity>>>
 }
