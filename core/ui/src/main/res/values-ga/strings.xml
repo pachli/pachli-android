@@ -225,6 +225,6 @@
     <string name="action_mute">Balbhaigh</string>
     <string name="action_unmute">Díbhalbhaigh</string>
     <string name="action_follow">Lean</string>
-    <string name="dialog_unfollow_warning">An cuntas seo a scaoileadh\?</string>
+    <string name="dialog_unfollow_warning">An cuntas seo a dhíleanúint?</string>
     <string name="ui_error_follow_account_fmt">Theip ar %1$s a leanúint: %2$s</string>
 </resources>
