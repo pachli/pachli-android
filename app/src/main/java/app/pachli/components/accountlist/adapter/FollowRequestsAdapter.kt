@@ -65,12 +65,13 @@ class FollowRequestsAdapter(
     override fun onBindAccountViewHolder(viewHolder: FollowRequestViewHolder, position: Int) {
         viewHolder.setupWithAccount(
             account = accountList[position],
+            note = accountList[position].note,
             animateAvatar = animateAvatar,
             animateEmojis = animateEmojis,
             showBotOverlay = showBotOverlay,
             showPronouns = showPronouns,
             linksToUnderline = linksToUnderline,
         )
-        viewHolder.setupActionListener(accountActionListener, accountList[position].id)
+        viewHolder.setupActionListener(accountActionListener, accountList[position].serverId)
     }
 }

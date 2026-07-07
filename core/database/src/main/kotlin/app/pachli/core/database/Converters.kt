@@ -28,9 +28,11 @@ import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.ConversationAccount
 import app.pachli.core.model.DraftAttachment
 import app.pachli.core.model.Emoji
+import app.pachli.core.model.Field
 import app.pachli.core.model.FilterResult
 import app.pachli.core.model.Hashtag
 import app.pachli.core.model.HashtagHistory
+import app.pachli.core.model.MovedAccount
 import app.pachli.core.model.NewPoll
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Role
@@ -327,4 +329,16 @@ class Converters @Inject constructor(
 
     @TypeConverter
     fun jsonToServerLimits(s: String?) = fromJson<ServerLimits>(s)
+
+    @TypeConverter
+    fun listFieldToJson(fields: List<Field>) = toJson(fields)
+
+    @TypeConverter
+    fun jsonToListField(s: String?) = fromJson<List<Field>>(s)
+
+    @TypeConverter
+    fun movedAccountToJson(movedAccount: MovedAccount) = toJson(movedAccount)
+
+    @TypeConverter
+    fun jsonToMovedAccount(s: String?) = fromJson<MovedAccount>(s)
 }

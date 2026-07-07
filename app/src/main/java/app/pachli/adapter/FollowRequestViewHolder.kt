@@ -29,7 +29,7 @@ import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.model.NotificationViewData.FollowRequestNotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.model.TimelineAccount
+import app.pachli.core.model.ITimelineAccount
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.preferences.PronounDisplay
@@ -62,6 +62,7 @@ class FollowRequestViewHolder(
 
         setupWithAccount(
             viewData.account,
+            viewData.note,
             statusDisplayOptions.animateAvatars,
             statusDisplayOptions.animateEmojis,
             statusDisplayOptions.showBotOverlay,
@@ -74,11 +75,12 @@ class FollowRequestViewHolder(
             statusDisplayOptions.linksToUnderline,
         )
 
-        setupActionListener(accountActionListener, viewData.account.id)
+        setupActionListener(accountActionListener, viewData.account.serverId)
     }
 
     fun setupWithAccount(
-        account: TimelineAccount,
+        account: ITimelineAccount,
+        note: String,
         animateAvatar: Boolean,
         animateEmojis: Boolean,
         showBotOverlay: Boolean,
@@ -110,9 +112,9 @@ class FollowRequestViewHolder(
 
             binding.notificationTextView.text = emojifiedMessage
 
-            binding.root.contentDescription = "$emojifiedMessage.\n\n${account.handleContentDescription(itemView.context)}.\n\n${account.note.parseAsMastodonHtml()}"
+            binding.root.contentDescription = "$emojifiedMessage.\n\n${account.handleContentDescription(itemView.context)}.\n\n${note.parseAsMastodonHtml()}"
         } else {
-            binding.root.contentDescription = "${account.handleContentDescription(itemView.context)}.\n\n${account.note.parseAsMastodonHtml()}"
+            binding.root.contentDescription = "${account.handleContentDescription(itemView.context)}.\n\n${note.parseAsMastodonHtml()}"
         }
         binding.notificationTextView.visible(showHeader)
 
@@ -121,14 +123,14 @@ class FollowRequestViewHolder(
 
         val formattedUsername = itemView.context.getString(DR.string.post_username_format, account.username)
         binding.usernameTextView.text = formattedUsername
-        if (account.note.isBlank()) {
+        if (note.isBlank()) {
             binding.accountNote.hide()
         } else {
             setContent(
                 glide = glide,
                 textView = binding.accountNote,
-                content = account.note,
-                emojis = account.emojis.orEmpty(),
+                content = note,
+                emojis = account.emojis,
                 animateEmojis = animateEmojis,
                 removeQuoteInline = false,
                 linksToUnderline = linksToUnderline,

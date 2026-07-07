@@ -525,7 +525,7 @@ class AccountManager @Inject constructor(
         transactionProvider {
             val existingAccount = accountDao.getPachliAccountEntityById(pachliAccountId) ?: return@transactionProvider
             val updatedAccount = existingAccount.copy(
-                displayName = newAccount.displayName ?: existingAccount.displayName,
+                displayName = newAccount.displayName.ifEmpty { existingAccount.displayName },
                 profilePictureUrl = newAccount.avatar,
                 profileHeaderPictureUrl = newAccount.header,
                 locked = newAccount.locked,

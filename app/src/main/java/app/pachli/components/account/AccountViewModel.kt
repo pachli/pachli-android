@@ -106,7 +106,7 @@ class AccountViewModel @AssistedInject constructor(
             accountId,
             eventHub.events.filterIsInstance<ProfileEditedEvent>(),
         ) { accountId, event ->
-            if (event.newProfileData.id == accountId) {
+            if (event.newProfileData.serverId == accountId) {
                 Ok(Loadable.Loaded(event.newProfileData))
             } else {
                 null
@@ -137,7 +137,7 @@ class AccountViewModel @AssistedInject constructor(
 
     /** True if the laoded account in [accountData] is the user's account. */
     val isSelf = combine(accountData, pachliAccount) { accountData, pachliAccount ->
-        pachliAccount.accountId == accountData.get()?.getOrNull()?.id
+        pachliAccount.accountId == accountData.get()?.getOrNull()?.serverId
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
 
     private fun obtainRelationship(accountId: String, reload: Boolean = false) {

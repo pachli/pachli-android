@@ -40,7 +40,7 @@ data class Report(
     @Json(name = "status_ids") val statusIds: List<String>?,
     @Json(name = "created_at") val createdAt: Instant,
     @Json(name = "rule_ids") val ruleIds: List<String>?,
-    @Json(name = "target_account") val targetAccount: TimelineAccount,
+    @Json(name = "target_account") val targetAccount: Account,
 ) {
     @HasDefault
     enum class Category {
@@ -67,7 +67,7 @@ data class Report(
     }
 
     fun asModel() = app.pachli.core.model.Report(
-        id = id,
+        serverId = id,
         category = category.asModel(),
         actionTaken = actionTaken,
         actionTakenAt = actionTakenAt,

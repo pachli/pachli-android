@@ -608,12 +608,12 @@ fun filterNotificationByAccount(accountWithFilters: app.pachli.core.data.reposit
     val accountToTest = notification.account
 
     // Any notifications from our own activity are not filtered.
-    if (accountWithFilters.accountId == accountToTest.id) return AccountFilterDecision.None
+    if (accountWithFilters.accountId == accountToTest.serverId) return AccountFilterDecision.None
 
     val decisions = buildList {
         // Check the following relationship.
         if (accountWithFilters.notificationAccountFilterNotFollowed != FilterAction.NONE) {
-            if (accountWithFilters.following.none { it.serverId == accountToTest.id }) {
+            if (accountWithFilters.following.none { it.serverId == accountToTest.serverId }) {
                 add(
                     AccountFilterDecision.make(
                         accountWithFilters.notificationAccountFilterNotFollowed,
@@ -756,7 +756,7 @@ private fun titleForType(
 
         is Notification.Poll -> {
             val status = notification.status
-            if (status.account.id == account.accountId) {
+            if (status.account.serverId == account.accountId) {
                 context.getString(R.string.poll_ended_created)
             } else {
                 context.getString(R.string.poll_ended_voted)

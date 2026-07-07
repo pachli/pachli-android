@@ -26,6 +26,7 @@ import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.AttachmentDisplayReason
+import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.PollOption
@@ -35,16 +36,49 @@ import java.util.Date
 
 private val fixedDate = Date(1638889052000)
 
-fun fakeAccount() = TimelineAccount(
+/** Canonical fake account for testing. */
+fun fakeAccount() = Account(
     id = "2",
     localUsername = "connyduck",
     username = "connyduck@mastodon.example",
     displayName = "Conny Duck",
+    createdAt = null,
     note = "This is their bio",
     url = "https://mastodon.example/@ConnyDuck",
     avatar = "https://mastodon.example/system/accounts/avatars/000/150/486/original/ab27d7ddd18a10ea.jpg",
-    createdAt = null,
+    header = "",
+    locked = false,
+    lastStatusAt = null,
+    followersCount = 10,
+    followingCount = 10,
+    statusesCount = 10,
+    bot = false,
+    emojis = emptyList(),
+    fields = emptyList(),
+    moved = null,
+    limited = false,
+    roles = emptyList(),
 )
+
+/** Canonical fake TimelineAccount for testing. */
+fun fakeTimelineAccount(): TimelineAccount {
+    val account = fakeAccount()
+    return TimelineAccount(
+        id = account.id,
+        localUsername = account.localUsername,
+        username = account.username,
+        displayName = account.displayName,
+        url = account.url,
+        avatar = account.avatar,
+        note = account.note,
+        bot = account.bot,
+        emojis = account.emojis,
+        createdAt = account.createdAt,
+        limited = account.limited,
+        roles = account.roles,
+        fields = account.fields,
+    )
+}
 
 fun fakeStatus(
     id: String = "100",
@@ -57,11 +91,11 @@ fun fakeStatus(
     content: String = "Test",
     pollOptions: List<String>? = null,
     attachmentsDescriptions: List<String>? = null,
-    makeFakeAccount: () -> TimelineAccount = ::fakeAccount,
+    timelineAccountFactory: () -> TimelineAccount = ::fakeTimelineAccount,
 ) = Status(
     id = id,
     url = "https://mastodon.example/@ConnyDuck/$id",
-    account = makeFakeAccount(),
+    account = timelineAccountFactory(),
     inReplyToId = inReplyToId,
     inReplyToAccountId = inReplyToAccountId,
     reblog = null,

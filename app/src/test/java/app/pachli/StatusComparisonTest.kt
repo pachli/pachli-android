@@ -52,11 +52,6 @@ class StatusComparisonTest {
     }
 
     @Test
-    fun `accounts with different notes in json - should not be equal`() {
-        assertNotEquals(createStatus(note = "Test"), createStatus(note = "Test 123456"))
-    }
-
-    @Test
     fun `two equal status view data - should be equal`() {
         val viewdata1 = StatusViewData(
             pachliAccountId = 1L,
@@ -137,7 +132,6 @@ class StatusComparisonTest {
         content: String = """
             \u003cp\u003e\u003cspan class=\"h-card\"\u003e\u003ca href=\"https://mastodon.social/@ConnyDuck\" class=\"u-url mention\" rel=\"nofollow noopener noreferrer\" target=\"_blank\"\u003e@\u003cspan\u003eConnyDuck@mastodon.social\u003c/span\u003e\u003c/a\u003e\u003c/span\u003e Hi\u003c/p\u003e
         """.trimIndent(),
-        note: String = "",
     ): app.pachli.core.model.Status {
         val statusJson = """
             {
@@ -171,7 +165,7 @@ class StatusComparisonTest {
                     "discoverable": false,
                     "group": false,
                     "created_at": "2018-08-14T00:00:00.000Z",
-                    "note": "$note",
+                    "note": "",
                     "url": "https://pixelfed.social/connyduck",
                     "avatar": "https://files.mastodon.social/cache/accounts/avatars/000/419/352/original/31ce660c53962e0c.jpeg",
                     "avatar_static": "https://files.mastodon.social/cache/accounts/avatars/000/419/352/original/31ce660c53962e0c.jpeg",

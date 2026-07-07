@@ -104,32 +104,32 @@ refId(pachliAccountId, statusId) AS (
     -- columns renamed to `statusId` as extra rows.
     UNION
     SELECT
-        s.timelineUserId AS pachliAccountId,
+        s.pachliAccountId AS pachliAccountId,
         s.reblogServerId AS statusId
     FROM StatusEntity AS s, refId AS r
     WHERE
         s.reblogServerId IS NOT NULL
-        AND s.timelineUserId = r.pachliAccountId
+        AND s.pachliAccountId = r.pachliAccountId
         AND s.serverId = r.statusID
 
     UNION
     SELECT
-        s.timelineUserId AS pachliAccountId,
+        s.pachliAccountId AS pachliAccountId,
         s.inReplyToId AS statusId
     FROM StatusEntity AS s, refId AS r
     WHERE
         s.inReplyToId IS NOT NULL
-        AND s.timelineUserId = r.pachliAccountId
+        AND s.pachliAccountId = r.pachliAccountId
         AND s.serverId = r.statusID
 
     UNION
     SELECT
-        s.timelineUserId AS pachliAccountId,
+        s.pachliAccountId AS pachliAccountId,
         s.quoteServerId AS statusId
     FROM StatusEntity AS s, refId AS r
     WHERE
         s.quoteServerId IS NOT NULL
-        AND s.timelineUserId = r.pachliAccountId
+        AND s.pachliAccountId = r.pachliAccountId
         AND s.serverId = r.statusID
 )
 

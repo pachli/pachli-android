@@ -168,7 +168,7 @@ internal class SuggestionsViewModel @Inject constructor(
                         SuggestionViewData(
                             pachliAccountId = pachliAccountId,
                             suggestion = it,
-                            isEnabled = !disabled.contains(it.account.id),
+                            isEnabled = !disabled.contains(it.account.serverId),
                         )
                     }
                 }
@@ -216,7 +216,7 @@ internal class SuggestionsViewModel @Inject constructor(
      */
     private suspend fun onSuggestionAction(suggestionAction: SuggestionAction) {
         // Mark this suggestion as disabled for the duration of the operation.
-        disabledSuggestions.update { it.plus(suggestionAction.suggestion.account.id) }
+        disabledSuggestions.update { it.plus(suggestionAction.suggestion.account.serverId) }
 
         // Process the suggestion, and handle the success/failure
         val result = when (suggestionAction) {
@@ -228,7 +228,7 @@ internal class SuggestionsViewModel @Inject constructor(
                 suggestions.map { loadable ->
                     loadable.mapLoaded { suggestions ->
                         suggestions.filterNot { suggestion ->
-                            suggestion.account.id == suggestionAction.suggestion.account.id
+                            suggestion.account.serverId == suggestionAction.suggestion.account.serverId
                         }
                     }
                 }
@@ -239,13 +239,13 @@ internal class SuggestionsViewModel @Inject constructor(
         )
 
         // Re-enable the suggestion.
-        disabledSuggestions.update { it.minus(suggestionAction.suggestion.account.id) }
+        disabledSuggestions.update { it.minus(suggestionAction.suggestion.account.serverId) }
         _uiResult.send(result)
     }
 
     /** Delete a suggestion from the repository. */
     private suspend fun deleteSuggestion(action: DeleteSuggestion): Result<Unit, DeleteSuggestionError> = operationCounter {
-        suggestionsRepository.deleteSuggestion(action.suggestion.account.id)
+        suggestionsRepository.deleteSuggestion(action.suggestion.account.serverId)
     }
 
     /**
@@ -255,7 +255,7 @@ internal class SuggestionsViewModel @Inject constructor(
      * @return Result with the new relationship, or an error.
      */
     private suspend fun acceptSuggestion(action: AcceptSuggestion): Result<Relationship, FollowAccountError> = operationCounter {
-        followAccountUseCase(action.pachliAccountId, action.suggestion.account.id)
+        followAccountUseCase(action.pachliAccountId, action.suggestion.account.serverId)
             .mapError { FollowAccountError(it) }
     }
 }

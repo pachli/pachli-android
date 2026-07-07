@@ -30,8 +30,8 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.model.NotificationViewData.ReportNotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.Report
 import app.pachli.core.model.TimelineAccount
 import app.pachli.core.ui.getRelativeTimeSpanString
 import app.pachli.core.ui.loadAvatar
@@ -63,14 +63,14 @@ class ReportNotificationViewHolder(
         setupActionListener(
             notificationActionListener,
             viewData.report.targetAccount.serverId,
-            viewData.account.id,
-            viewData.report.reportId,
+            viewData.account.serverId,
+            viewData.report.serverId,
         )
     }
 
     private fun setupWithReport(
         reporter: TimelineAccount,
-        report: NotificationReportEntity,
+        report: Report,
         animateAvatar: Boolean,
         animateEmojis: Boolean,
     ) {
@@ -150,9 +150,9 @@ class ReportNotificationViewHolder(
         itemView.setOnClickListener { listener.onViewReport(reportId) }
     }
 
-    private fun getTranslatedCategory(context: Context, category: NotificationReportEntity.Category) = when (category) {
-        NotificationReportEntity.Category.SPAM -> context.getString(R.string.report_category_spam)
-        NotificationReportEntity.Category.VIOLATION -> context.getString(R.string.report_category_violation)
-        NotificationReportEntity.Category.OTHER -> context.getString(R.string.report_category_other)
+    private fun getTranslatedCategory(context: Context, category: Report.Category) = when (category) {
+        Report.Category.SPAM -> context.getString(R.string.report_category_spam)
+        Report.Category.VIOLATION -> context.getString(R.string.report_category_violation)
+        Report.Category.OTHER -> context.getString(R.string.report_category_other)
     }
 }

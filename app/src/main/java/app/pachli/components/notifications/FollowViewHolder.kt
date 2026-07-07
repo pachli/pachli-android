@@ -24,9 +24,10 @@ import app.pachli.R
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.model.NotificationViewData
+import app.pachli.core.data.model.NotificationViewData.FollowNotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.model.TimelineAccount
+import app.pachli.core.model.ITimelineAccount
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.preferences.PronounDisplay
@@ -59,6 +60,7 @@ class FollowViewHolder(
 
         setMessage(
             viewData.account,
+            (viewData as? FollowNotificationViewData)?.note.orEmpty(),
             viewData is NotificationViewData.SignupNotificationViewData,
             statusDisplayOptions.animateAvatars,
             statusDisplayOptions.animateEmojis,
@@ -68,7 +70,8 @@ class FollowViewHolder(
     }
 
     private fun setMessage(
-        account: TimelineAccount,
+        account: ITimelineAccount,
+        note: String,
         isSignUp: Boolean,
         animateAvatars: Boolean,
         animateEmojis: Boolean,
@@ -111,7 +114,7 @@ class FollowViewHolder(
         setContent(
             glide = glide,
             textView = binding.notificationAccountNote,
-            content = account.note,
+            content = note,
             emojis = account.emojis.orEmpty(),
             animateEmojis = animateEmojis,
             removeQuoteInline = false,
@@ -119,9 +122,9 @@ class FollowViewHolder(
             linkListener = linkListener,
         )
 
-        binding.notificationAccountNote.setOnClickListener { linkListener.onViewAccount(account.id) }
-        itemView.setOnClickListener { linkListener.onViewAccount(account.id) }
+        binding.notificationAccountNote.setOnClickListener { linkListener.onViewAccount(account.serverId) }
+        itemView.setOnClickListener { linkListener.onViewAccount(account.serverId) }
 
-        binding.root.contentDescription = "$emojifiedMessage.\n\n${account.handleContentDescription(context)}.\n\n${account.note.parseAsMastodonHtml()}"
+        binding.root.contentDescription = "$emojifiedMessage.\n\n${account.handleContentDescription(context)}.\n\n${note.parseAsMastodonHtml()}"
     }
 }

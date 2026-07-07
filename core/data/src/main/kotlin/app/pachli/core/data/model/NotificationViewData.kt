@@ -17,10 +17,10 @@
 
 package app.pachli.core.data.model
 
-import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountWarning
 import app.pachli.core.model.RelationshipSeveranceEvent
+import app.pachli.core.model.Report
 import app.pachli.core.model.Status
 import app.pachli.core.model.TimelineAccount
 
@@ -201,6 +201,7 @@ sealed interface NotificationViewData {
         override val account: TimelineAccount,
         override val isAboutSelf: Boolean,
         override val accountFilterDecision: AccountFilterDecision,
+        val note: String,
     ) : NotificationViewData
 
     /** An [account] has requested to follow the user. */
@@ -211,6 +212,7 @@ sealed interface NotificationViewData {
         override val account: TimelineAccount,
         override val isAboutSelf: Boolean,
         override val accountFilterDecision: AccountFilterDecision,
+        val note: String,
     ) : NotificationViewData
 
     /** A new [account] has signed up. */
@@ -235,7 +237,7 @@ sealed interface NotificationViewData {
         override val account: TimelineAccount,
         override val isAboutSelf: Boolean,
         override val accountFilterDecision: AccountFilterDecision,
-        val report: NotificationReportEntity,
+        val report: Report,
     ) : NotificationViewData
 
     /**

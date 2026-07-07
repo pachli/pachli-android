@@ -123,7 +123,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
     }
 
     protected fun openReblog(status: IStatus) {
-        val intent = AccountActivityIntent(requireActivity(), pachliAccountId, status.account.id)
+        val intent = AccountActivityIntent(requireActivity(), pachliAccountId, status.account.serverId)
         startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 
@@ -170,7 +170,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
      */
     override fun onMore(view: View, viewData: IStatusViewData) {
         val status = viewData.status
-        val accountId = viewData.actionable.account.id
+        val accountId = viewData.actionable.account.serverId
         var loggedInAccountId: String? = null
         val activeAccount = accountManager.activeAccount
         if (activeAccount != null) {
@@ -275,7 +275,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
     protected open fun onMoreMenuItemClick(item: MenuItem, viewData: IStatusViewData): Boolean {
         val status = viewData.status
         val actionableId = viewData.actionableId
-        val accountId = viewData.actionable.account.id
+        val accountId = viewData.actionable.account.serverId
         val accountUsername = viewData.actionable.account.username
         val statusUrl = viewData.actionable.url
 

@@ -561,7 +561,7 @@ class NotificationsFragment :
     }
 
     override fun onOpenReblog(status: IStatus) {
-        onViewAccount(status.account.id)
+        onViewAccount(status.account.serverId)
     }
 
     override fun onExpandedChange(viewData: IStatusViewData, expanded: Boolean) {

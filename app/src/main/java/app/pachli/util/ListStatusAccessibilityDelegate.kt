@@ -164,7 +164,7 @@ class ListStatusAccessibilityDelegate<T : IStatusItemViewData>(
                 unreblogAction.id -> statusActionListener.onReblog(status, false)
                 openProfileAction.id -> {
                     interrupt()
-                    statusActionListener.onViewAccount(status.actionable.account.id)
+                    statusActionListener.onViewAccount(status.actionable.account.serverId)
                 }
 
                 app.pachli.core.ui.R.id.action_open_media_1 -> {
@@ -245,7 +245,7 @@ class ListStatusAccessibilityDelegate<T : IStatusItemViewData>(
                 openBylineAccountAction.id -> {
                     status.actionable.card?.authors?.firstOrNull()?.account?.let {
                         interrupt()
-                        statusActionListener.onViewAccount(it.id)
+                        statusActionListener.onViewAccount(it.serverId)
                     }
                 }
 

@@ -47,6 +47,7 @@ import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.dao.TranslatedStatusDao
+import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.AnnouncementEntity
 import app.pachli.core.database.model.ContentFiltersEntity
 import app.pachli.core.database.model.ConversationEntity
@@ -56,10 +57,7 @@ import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.database.model.HashtagEntity
 import app.pachli.core.database.model.LogEntryEntity
 import app.pachli.core.database.model.MastodonListEntity
-import app.pachli.core.database.model.NotificationAccountWarningEntity
 import app.pachli.core.database.model.NotificationEntity
-import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
-import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.NotificationViewDataEntity
 import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.database.model.ReferencedStatusId
@@ -78,6 +76,7 @@ import java.util.TimeZone
 @Suppress("ClassName")
 @Database(
     entities = [
+        AccountEntity::class,
         DraftEntity::class,
         PachliAccountEntity::class,
         StatusEntity::class,
@@ -93,10 +92,7 @@ import java.util.TimeZone
         AnnouncementEntity::class,
         FollowingAccountEntity::class,
         NotificationEntity::class,
-        NotificationReportEntity::class,
         NotificationViewDataEntity::class,
-        NotificationRelationshipSeveranceEventEntity::class,
-        NotificationAccountWarningEntity::class,
         TimelineStatusEntity::class,
         ConversationViewDataEntity::class,
         HashtagEntity::class,
@@ -105,7 +101,7 @@ import java.util.TimeZone
         TimelineStatusWithAccount::class,
         ReferencedStatusId::class,
     ],
-    version = 42,
+    version = 43,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -166,6 +162,8 @@ import java.util.TimeZone
         AutoMigration(from = 40, to = 41, spec = AppDatabase.MIGRATE_40_41::class),
         // Store emojis directly in the Server class.
         AutoMigration(from = 41, to = 42, spec = AppDatabase.MIGRATE_41_42::class),
+        // Renames, removal of NotificationReportEntity, etc.
+        AutoMigration(from = 42, to = 43, spec = AppDatabase.MIGRATE_42_43::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -374,6 +372,32 @@ abstract class AppDatabase : RoomDatabase() {
 
     @DeleteTable("EmojisEntity")
     class MIGRATE_41_42 : AutoMigrationSpec
+
+    @RenameColumn("NotificationEntity", "timelineUserId", "pachliAccountId")
+    @RenameColumn("StatusEntity", "timelineUserId", "pachliAccountId")
+    @RenameColumn("TimelineAccountEntity", "timelineUserId", "pachliAccountId")
+    @RenameColumn("TranslatedStatusEntity", "timelineUserId", "pachliAccountId")
+    @DeleteColumn("TimelineAccountEntity", "note")
+    @DeleteTable("NotificationReportEntity")
+    @DeleteTable("NotificationRelationshipSeveranceEventEntity")
+    @DeleteTable("NotificationAccountWarningEntity")
+    class MIGRATE_42_43 : AutoMigrationSpec {
+        override fun onPostMigrate(connection: SQLiteConnection) {
+            super.onPostMigrate(connection)
+            // Delete notifications, the schema changes cause things like
+            // NotificationReportEntity to have invalid values, which breaks the
+            // first load from the database. Clearing the notifications forces
+            // an immediate refresh to get valid data.
+            connection.execSQL("DELETE FROM NotificationEntity")
+
+            // Delete cached preview cards. TimelineAccount.id was renamed to
+            // TimelineAccount.serverId, which is persisted as JSON in
+            // Status.card.authors[].account. Clear the cards to prevent a
+            // JSON decoding error. They're recreated as soon as the user
+            // refreshes.
+            connection.execSQL("UPDATE StatusEntity SET card = NULL")
+        }
+    }
 }
 
 val MIGRATE_8_9 = object : Migration(8, 9) {

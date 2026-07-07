@@ -33,7 +33,7 @@ import app.pachli.core.model.translation.TranslatedStatus
  * a refresh operation).
  */
 @Entity(
-    primaryKeys = ["serverId", "timelineUserId"],
+    primaryKeys = ["serverId", "pachliAccountId"],
 )
 @TypeConverters(Converters::class)
 data class TranslatedStatusEntity(
@@ -41,7 +41,7 @@ data class TranslatedStatusEntity(
     val serverId: String,
 
     /** Pachli ID for the logged in user, in case there are multiple accounts per instance */
-    val timelineUserId: Long,
+    val pachliAccountId: Long,
 
     /** The translated text of the status (HTML), equivalent to [Status.content] */
     val content: String,
@@ -74,7 +74,7 @@ data class TranslatedStatusEntity(
 
 fun TranslatedStatus.toEntity(pachliAccountId: Long, serverId: String) = TranslatedStatusEntity(
     serverId = serverId,
-    timelineUserId = pachliAccountId,
+    pachliAccountId = pachliAccountId,
     content = content,
     spoilerText = spoilerText,
     poll = poll?.asNetworkModel(),

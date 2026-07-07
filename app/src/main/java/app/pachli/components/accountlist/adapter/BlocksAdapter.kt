@@ -70,10 +70,10 @@ class BlocksAdapter(
         binding.accountPronouns.visible(showPronouns && account.pronouns?.isBlank() == false)
 
         binding.blockedUserUnblock.setOnClickListener {
-            accountActionListener.onBlock(false, account.id, position)
+            accountActionListener.onBlock(false, account.serverId, position)
         }
         binding.root.setOnClickListener {
-            accountActionListener.onViewAccount(account.id)
+            accountActionListener.onViewAccount(account.serverId)
         }
     }
 }

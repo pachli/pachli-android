@@ -423,7 +423,7 @@ class ViewThreadViewModel @Inject constructor(
         updateSuccess { uiState ->
             uiState.copy(
                 statusViewData = uiState.statusViewData.filter { viewData ->
-                    viewData.status.account.id != accountId
+                    viewData.status.account.serverId != accountId
                 },
             )
         }
