@@ -22,6 +22,9 @@ import android.content.Context
 import android.os.Bundle
 import android.text.format.DateUtils
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.accessibility.AccessibilityManager
@@ -30,6 +33,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
+import androidx.core.view.MenuProvider
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -40,7 +44,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
+import app.pachli.core.activity.RefreshableFragment
 import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.activity.extensions.TransitionKind
@@ -58,7 +63,6 @@ import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.getOrNull
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Account
-import app.pachli.core.model.Collection
 import app.pachli.core.model.Relationship
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
@@ -71,6 +75,7 @@ import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.extensions.contentDescription
 import app.pachli.core.ui.loadAvatar
+import app.pachli.core.ui.makeIcon
 import app.pachli.feature.collections.AccountViewHolder.ChangePayload
 import app.pachli.feature.collections.ICollectionViewModel.AccountAction
 import app.pachli.feature.collections.ICollectionViewModel.CollectionViewData
@@ -89,6 +94,7 @@ import com.github.michaelbull.result.onSuccess
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
+import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.Duration
 import java.time.Instant
@@ -99,13 +105,14 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
- * Displays the details for a single [Collection] and its
- * members.
+ * Displays the members of a single collection.
  */
 @AndroidEntryPoint
 class CollectionFragment :
     Fragment(R.layout.fragment_collection),
-    SwipeRefreshLayout.OnRefreshListener,
+    MenuProvider,
+    OnRefreshListener,
+    RefreshableFragment,
     ReselectableFragment {
     private val binding by viewBinding(FragmentCollectionBinding::bind)
 
@@ -119,6 +126,8 @@ class CollectionFragment :
 
     private var talkBackWasEnabled = false
 
+    private val iconSize by unsafeLazy { resources.getDimensionPixelSize(app.pachli.core.designsystem.R.dimen.preference_icon_size) }
+
     /** Flow of actions the user has taken in the UI */
     private val uiAction = MutableSharedFlow<UiAction>()
 
@@ -131,6 +140,8 @@ class CollectionFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.applyDefaultWindowInsets()
+
+        requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         val setContent = if (viewModel.uiOptions.value.renderMarkdown) {
             SetContentAsMarkdown(requireContext())
@@ -298,6 +309,29 @@ class CollectionFragment :
     private fun bindUiResult(uiResult: Result<UiSuccess, UiError>) {}
 
     private fun bindUiResult() {}
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.fragment_collection, menu)
+        menu.findItem(R.id.action_refresh)?.apply {
+            icon = makeIcon(requireContext(), GoogleMaterial.Icon.gmd_refresh, iconSize)
+        }
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        return when (menuItem.itemId) {
+            R.id.action_refresh -> {
+                refreshContent()
+                true
+            }
+
+            else -> false
+        }
+    }
+
+    override fun refreshContent() {
+        binding.swipeRefreshLayout.isRefreshing = true
+        onRefresh()
+    }
 
     override fun onRefresh() {
         snackbar?.dismiss()
