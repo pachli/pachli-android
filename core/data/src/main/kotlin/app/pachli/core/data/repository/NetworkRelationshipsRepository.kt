@@ -17,7 +17,7 @@
 
 package app.pachli.core.data.repository
 
-import app.pachli.core.data.repository.RelationshipError.GetRelationshipsError
+import app.pachli.core.data.repository.RelationshipsRepository.RelationshipError.GetRelationshipsError
 import app.pachli.core.model.Relationship
 import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi

@@ -18,21 +18,21 @@
 package app.pachli.core.data.repository
 
 import app.pachli.core.common.PachliError
-import app.pachli.core.data.repository.RelationshipError.GetRelationshipsError
+import app.pachli.core.data.repository.RelationshipsRepository.RelationshipError.GetRelationshipsError
 import app.pachli.core.model.Relationship
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Result
 
-/** Errors that can be returned from this repository. */
-sealed interface RelationshipError : PachliError {
-    @JvmInline
-    value class GetRelationshipsError(private val error: ApiError) :
-        RelationshipError,
-        PachliError by error
-}
-
 /** Operations that can be performed on this repository. */
 interface RelationshipsRepository {
+    /** Errors that can be returned from this repository. */
+    sealed interface RelationshipError : PachliError {
+        @JvmInline
+        value class GetRelationshipsError(private val error: ApiError) :
+            RelationshipError,
+            PachliError by error
+    }
+
     /**
      * Fetches the relationships between the user and [accountIds].
      *
