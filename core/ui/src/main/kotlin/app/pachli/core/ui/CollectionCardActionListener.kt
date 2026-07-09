@@ -21,13 +21,23 @@ import app.pachli.core.data.CollectionCardViewData
 import app.pachli.core.model.ICollection
 import app.pachli.core.model.collection.CollectionDisplayAction
 
-/** Actions the user can take on a [CollectionCardView]. */
+/**
+ * Actions the user can take on a [CollectionCardView].
+ *
+ * See
+ *
+ * - [OnViewCollection.onViewCollection]
+ * - [OnRevokeUserFromCollection.onRevokeUserFromCollection]
+ * - [OnCollectionDisplayActionChange.onCollectionDisplayActionChange]
+ * - [OnViewTag.onViewTag]
+ */
 interface CollectionCardActionListener :
     OnViewCollection,
-    OnRemoveUserFromCollection,
+    OnRevokeUserFromCollection,
     OnCollectionDisplayActionChange,
     OnViewTag
 
+/** See [onViewCollection]. */
 fun interface OnViewCollection {
     /**
      * Function to call when the user wants to view a collection.
@@ -37,10 +47,18 @@ fun interface OnViewCollection {
     fun onViewCollection(collection: ICollection)
 }
 
-fun interface OnRemoveUserFromCollection {
-    fun onRemoveUserFromCollection(collection: ICollection)
+/** See [onRevokeUserFromCollection]. */
+fun interface OnRevokeUserFromCollection {
+    /**
+     * Function to call when the user wants to revoke their
+     * membership of a collection.
+     *
+     * @param collection [ICollection] to revoke the user from.
+     */
+    fun onRevokeUserFromCollection(collection: ICollection)
 }
 
+/** See [onCollectionDisplayActionChange]. */
 fun interface OnCollectionDisplayActionChange {
     /**
      * Function to call when the user wants to change how a collection

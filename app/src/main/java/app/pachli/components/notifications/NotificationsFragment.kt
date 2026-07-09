@@ -689,7 +689,7 @@ class NotificationsFragment :
         )
     }
 
-    override fun onRemoveUserFromCollection(collection: ICollection) {
+    override fun onRevokeUserFromCollection(collection: ICollection) {
         lifecycleScope.launch {
             val button = requireContext().newConfirmRevokeDialogFragment().await(parentFragmentManager)
             if (button == AlertDialog.BUTTON_POSITIVE) {

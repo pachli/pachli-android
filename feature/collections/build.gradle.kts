@@ -41,6 +41,7 @@ dependencies {
     implementation(projects.core.model)
     implementation(projects.core.navigation)
     implementation(projects.core.network)
+        ?.because("FollowAccountUseCase incorrectly exposes ApiError in its Result")
     implementation(projects.core.ui)
 
     implementation(libs.bundles.androidx)

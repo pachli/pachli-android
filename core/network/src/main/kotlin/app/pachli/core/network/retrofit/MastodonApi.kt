@@ -423,7 +423,7 @@ interface MastodonApi {
     ): ApiResult<Account>
 
     /**
-     * Resolve multiple accounts, by their [Account.id].
+     * Resolve multiple [Account], by their [Account.id].
      *
      * See https://docs.joinmastodon.org/methods/accounts/#index
      */
@@ -433,7 +433,7 @@ interface MastodonApi {
     ): ApiResult<List<Account>>
 
     /**
-     * Resolve multiple accounts, by their [Account.id].
+     * Resolve multiple [TimelineAccount], by their [Account.id].
      *
      * See https://docs.joinmastodon.org/methods/accounts/#index
      */

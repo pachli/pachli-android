@@ -171,7 +171,7 @@ class CollectionCardView @JvmOverloads constructor(
 
         ownerHandle.text = timelineCollection.account?.username?.let {
             context.getString(DR.string.post_username_format, it)
-        } ?: "Unknown user"
+        } ?: timelineCollection.accountId
         ownerHandle.show()
 
         if (viewData.description.isBlank()) {
@@ -209,7 +209,6 @@ class CollectionCardView @JvmOverloads constructor(
             view.show()
         }
 
-        // TODO: Copied from CollectionActivity
         with(binding.discoverable) {
             if (viewData.discoverable) {
                 text = context.getString(app.pachli.core.ui.R.string.collection_discoverable_true_label)
@@ -228,7 +227,7 @@ class CollectionCardView @JvmOverloads constructor(
         val showDivider = viewData.isMember
         controlDivider.visible(showDivider)
 
-        collectionRemoveSelf.setOnClickListener { listener.onRemoveUserFromCollection(viewData) }
+        collectionRemoveSelf.setOnClickListener { listener.onRevokeUserFromCollection(viewData) }
         collectionRemoveSelf.visible(viewData.isMember)
 
         if (displayAction is CollectionDisplayAction.Hide) {

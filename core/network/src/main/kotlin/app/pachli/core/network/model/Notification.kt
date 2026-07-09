@@ -23,6 +23,11 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.util.Date
 
+/**
+ * @property collection (optional) [Collection] that is the subject
+ * of this notification. Should be present if [type] is [Type.COLLECTION_ADD]
+ * or [Type.COLLECTION_UPDATE].
+ */
 // TODO: These should be different subclasses per type, so that each subclass can
 // carry the non-null data that it needs.
 @JsonClass(generateAdapter = true)
@@ -104,11 +109,11 @@ data class Notification(
         @Json(name = "quoted_update")
         QUOTED_UPDATE("quoted_update"),
 
-        /** Added to a collection. */
+        /** User was added to a collection. */
         @Json(name = "added_to_collection")
         COLLECTION_ADD("added_to_collection"),
 
-        /** Collection was updated. */
+        /** Collection the user is in was updated. */
         @Json(name = "collection_update")
         COLLECTION_UPDATE("collection_update"),
 
@@ -165,24 +170,6 @@ data class Notification(
                 // and convert to the internal model Type later.
                 networkType = type.presentation,
             )
-
-            Type.COLLECTION_ADD -> collection?.let {
-                app.pachli.core.model.Notification.CollectionAdd(
-                    id = id,
-                    createdAt = createdAt.toInstant(),
-                    account = account.asModel(),
-                    collection = collection.asModel(),
-                )
-            }
-
-            Type.COLLECTION_UPDATE -> collection?.let {
-                app.pachli.core.model.Notification.CollectionUpdate(
-                    id = id,
-                    createdAt = createdAt.toInstant(),
-                    account = account.asModel(),
-                    collection = collection.asModel(),
-                )
-            }
 
             Type.MENTION -> status?.let {
                 app.pachli.core.model.Notification.Mention(
@@ -300,6 +287,24 @@ data class Notification(
                     createdAt = createdAt.toInstant(),
                     account = account.asModel(),
                     status = status.asModel(),
+                )
+            }
+
+            Type.COLLECTION_ADD -> collection?.let {
+                app.pachli.core.model.Notification.CollectionAdd(
+                    id = id,
+                    createdAt = createdAt.toInstant(),
+                    account = account.asModel(),
+                    collection = collection.asModel(),
+                )
+            }
+
+            Type.COLLECTION_UPDATE -> collection?.let {
+                app.pachli.core.model.Notification.CollectionUpdate(
+                    id = id,
+                    createdAt = createdAt.toInstant(),
+                    account = account.asModel(),
+                    collection = collection.asModel(),
                 )
             }
         }

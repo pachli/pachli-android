@@ -238,7 +238,7 @@ class NotificationAccessibilityDelegate<T : NotificationViewData>(
 
                 collectionRevoke.id -> (notification as? NotificationViewData.WithCollection)?.let {
                     interrupt()
-                    notificationActionListener.onRemoveUserFromCollection(notification.collectionCardViewData)
+                    notificationActionListener.onRevokeUserFromCollection(notification.collectionCardViewData)
                 }
 
                 else -> return if (notification is NotificationViewData.WithStatus) {

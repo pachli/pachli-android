@@ -22,7 +22,7 @@ import com.squareup.moshi.JsonClass
 import java.time.Instant
 
 /**
- * Collection.
+ * Collection. See https://docs.joinmastodon.org/entities/Collection/
  *
  * @property id The server ID of the collection.
  * @property accountId The server ID of the account that owns the collection.
@@ -36,8 +36,11 @@ import java.time.Instant
  * @property sensitive True if the collection is marked as sensitive.
  * @property discoverable True if the collection should appear on the owner's
  * profile, in search results, and recommendations.
- *
- * See https://docs.joinmastodon.org/entities/Collection/
+ * @property hashtag (optional) Shallow hashtag for this collection.
+ * @property createdAt When the collection was created.
+ * @property updatedAt When the collection was last updated.
+ * @property itemCount Number of items in the collection.
+ * @property items Items in the collection.
  */
 @JsonClass(generateAdapter = true)
 data class Collection(
@@ -119,6 +122,12 @@ data class CollectionItem(
 
 fun Iterable<CollectionItem>.asModel() = map { it.asModel() }
 
+/**
+ * A [collection] and the [accounts] referenced by the collection. The
+ * collection owner's account identified by
+ * [collection.accountId][Collection.accountId] is the first account
+ * in [accounts].
+ */
 @JsonClass(generateAdapter = true)
 data class CollectionWithAccounts(
     val accounts: List<Account>,

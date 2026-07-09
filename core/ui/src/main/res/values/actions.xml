@@ -98,7 +98,7 @@
     <item name="action_collection_hide" type="id" />
     <!-- View a collection. -->
     <item name="action_collection_view" type="id" />
-    <!-- Revoke permisson to be in a collection. -->
+    <!-- Revoke permission to be in a collection. -->
     <item name="action_collection_revoke" type="id" />
     <!-- View the timeline of a collection's tag. -->
     <item name="action_collection_view_tag" type="id" />
