@@ -1,0 +1,9 @@
+Pachli 2.9.2
+
+Nouveautés :
+
+- Listes triées par titre
+- Nouvelles capacités du serveur avec les filtres en V1 sur Akkoma
+- Retrait de "dummy.placeholder" des messages d'erreur réseau
+- Message d'erreur si une erreur Dao arrive à la connexion
+- Mise à jour des traductions birmane, irlandaise, norvégienne Nynorsk, espagnole, suédoise et tamoule
