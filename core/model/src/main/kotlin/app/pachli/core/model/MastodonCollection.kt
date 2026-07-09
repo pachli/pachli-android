@@ -110,6 +110,13 @@ data class TimelineCollection(
     val itemIconUrls: List<String?>,
 ) : ICollection
 
+/**
+ * Converts a [Collection] to a [TimelineCollection] using [accounts] to
+ * populate the [TimelineCollection.account] and
+ * [TimelineCollection.itemIconUrls] properties.
+ *
+ * @property accounts Map from [Account.serverId] to [Account].
+ */
 fun Collection.asTimelineCollection(accounts: Map<String, Account>) = TimelineCollection(
     serverId = serverId,
     accountId = accountId,

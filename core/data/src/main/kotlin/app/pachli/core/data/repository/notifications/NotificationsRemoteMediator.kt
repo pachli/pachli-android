@@ -234,7 +234,7 @@ class NotificationsRemoteMediator(
 
         /**
          * Account IDs that have been seen in collections. These must be resolved
-         * to full [TimelineAccount]s.
+         * to full [Account]s.
          */
         val accountIdsInCollections = mutableSetOf<String>()
 
@@ -267,7 +267,8 @@ class NotificationsRemoteMediator(
             }
         }
 
-        // Get all the accounts referenced in any collections so:
+        // Resolve all the account IDs referenced in any collection to full accounts
+        // so:
         // 1. The accounts can be saved.
         // 2. The accounts can be used to create TimelineCollectionEntity objects.
         val accountsInCollections = resolveAccounts(accountIdsInCollections)
@@ -277,6 +278,7 @@ class NotificationsRemoteMediator(
         timelineDao.upsertAccounts(accountsInCollections.values.asEntity(pachliAccountId))
         statusDao.upsertStatuses(statuses.map { it.asEntity(pachliAccountId) })
         notificationDao.upsertNotifications(notifications.asModel(accountId).asEntity(pachliAccountId))
+
         collectionsDao.upsertCollections(collections.asEntity(pachliAccountId))
         collectionsDao.upsertCollectionItems(
             collections.flatMap { it.items.asEntity(pachliAccountId, it.serverId) },

@@ -179,7 +179,7 @@ data class TimelineCollectionEntity(
     )
 
     /**
-     * @return [this] as a [Collection][app.pachli.core.model.Collection].
+     * @return as a [Collection][app.pachli.core.model.Collection].
      */
     fun asCollectionModel() = app.pachli.core.model.Collection(
         serverId = serverId,
