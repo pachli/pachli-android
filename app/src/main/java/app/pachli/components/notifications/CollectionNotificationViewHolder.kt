@@ -34,7 +34,6 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.ui.CollectionCardActionListener
 import app.pachli.core.ui.LinkListener
-import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.loadAvatar
 import app.pachli.databinding.ItemNotificationCollectionBinding
@@ -49,7 +48,6 @@ import kotlin.math.roundToInt
 class CollectionNotificationViewHolder(
     private val binding: ItemNotificationCollectionBinding,
     private val glide: RequestManager,
-    private val setContent: SetContent,
     private val linkListener: LinkListener,
     private val collectionListener: CollectionCardActionListener,
 ) : NotificationsPagingAdapter.ViewHolder<NotificationViewData.WithCollection>, RecyclerView.ViewHolder(binding.root) {
@@ -120,7 +118,7 @@ class CollectionNotificationViewHolder(
             listener = collectionListener,
         )
 
-        binding.collectionCard.setOnClickListener { collectionListener.onOpenCollection(viewData.collectionCardViewData.timelineCollection) }
+        binding.collectionCard.setOnClickListener { collectionListener.onViewCollection(viewData.collectionCardViewData.timelineCollection) }
 
         itemView.setOnClickListener { linkListener.onViewAccount(account.serverId) }
     }

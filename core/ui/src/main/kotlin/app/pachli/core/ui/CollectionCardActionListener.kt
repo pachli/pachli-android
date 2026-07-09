@@ -23,13 +23,18 @@ import app.pachli.core.model.collection.CollectionDisplayAction
 
 /** Actions the user can take on a [CollectionCardView]. */
 interface CollectionCardActionListener :
-    OnOpenCollection,
+    OnViewCollection,
     OnRemoveUserFromCollection,
     OnCollectionDisplayActionChange,
     OnViewTag
 
-fun interface OnOpenCollection {
-    fun onOpenCollection(collection: ICollection)
+fun interface OnViewCollection {
+    /**
+     * Function to call when the user wants to view a collection.
+     *
+     * @param collection [ICollection] to view.
+     */
+    fun onViewCollection(collection: ICollection)
 }
 
 fun interface OnRemoveUserFromCollection {

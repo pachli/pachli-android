@@ -289,7 +289,6 @@ class NotificationsPagingAdapter(
                 CollectionNotificationViewHolder(
                     ItemNotificationCollectionBinding.inflate(inflater, parent, false),
                     glide,
-                    setContent,
                     notificationActionListener,
                     collectionListener = notificationActionListener,
                 )

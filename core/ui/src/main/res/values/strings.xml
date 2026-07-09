@@ -241,10 +241,15 @@
     <string name="action_mute">Mute</string>
     <string name="action_unmute">Unmute</string>
     <string name="dialog_unfollow_warning">Unfollow this account?</string>
-    <string name="ui_error_follow_account_fmt">Following %1$s failed: %2$s</string>    
+    <string name="ui_error_follow_account_fmt">Following %1$s failed: %2$s</string>
     <string name="collection_discoverable_true_label">Discoverable in search results and other areas where recommendations appear.</string>
     <string name="collection_discoverable_false_label">Visible to anyone with a link. Hidden from search results and recommendations.</string>
     <string name="collection_sensitive_label">Includes sensitive content</string>
     <string name="collection_hidden_sensitive_title">Sensitive content. Tap to show.</string>
     <string name="collection_hidden_user_action_title">You hid this. Tap to show.</string>
+    <string name="action_collection_show">Show collection</string>
+    <string name="action_collection_hide">Hide collection</string>
+    <string name="action_collection_view">View collection</string>
+    <string name="action_collection_revoke">Remove me</string>
+    <string name="action_collection_view_tag">View tag</string>
 </resources>

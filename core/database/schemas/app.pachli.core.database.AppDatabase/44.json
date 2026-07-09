@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 44,
-    "identityHash": "279a12557885471c1996dea01eeef93d",
+    "identityHash": "e145260247084f00b3b7a569c0298165",
     "entities": [
       {
         "tableName": "AccountEntity",
@@ -370,7 +370,7 @@
       },
       {
         "tableName": "TimelineCollectionEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `ownerAccountId` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `local` INTEGER NOT NULL, `sensitive` INTEGER NOT NULL, `discoverable` INTEGER NOT NULL, `hashtag` TEXT, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `items` TEXT NOT NULL, `itemIconUrls` TEXT NOT NULL, `owner_serverId` TEXT, `owner_pachliAccountId` INTEGER, `owner_localUsername` TEXT, `owner_username` TEXT, `owner_displayName` TEXT, `owner_url` TEXT, `owner_avatar` TEXT, `owner_emojis` TEXT, `owner_bot` INTEGER, `owner_createdAt` INTEGER, `owner_limited` INTEGER DEFAULT false, `owner_roles` TEXT DEFAULT '', `owner_pronouns` TEXT DEFAULT '', PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `PachliAccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `accountId` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `local` INTEGER NOT NULL, `sensitive` INTEGER NOT NULL, `discoverable` INTEGER NOT NULL, `hashtag` TEXT, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `items` TEXT NOT NULL, `itemIconUrls` TEXT NOT NULL, `owner_serverId` TEXT, `owner_pachliAccountId` INTEGER, `owner_localUsername` TEXT, `owner_username` TEXT, `owner_displayName` TEXT, `owner_url` TEXT, `owner_avatar` TEXT, `owner_emojis` TEXT, `owner_bot` INTEGER, `owner_createdAt` INTEGER, `owner_limited` INTEGER DEFAULT false, `owner_roles` TEXT DEFAULT '', `owner_pronouns` TEXT DEFAULT '', PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `PachliAccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
         "fields": [
           {
             "fieldPath": "pachliAccountId",
@@ -385,8 +385,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "ownerAccountId",
-            "columnName": "ownerAccountId",
+            "fieldPath": "accountId",
+            "columnName": "accountId",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -671,7 +671,7 @@
       },
       {
         "tableName": "PachliAccountEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `domain` TEXT NOT NULL, `accessToken` TEXT NOT NULL, `clientId` TEXT NOT NULL, `clientSecret` TEXT NOT NULL, `isActive` INTEGER NOT NULL, `accountId` TEXT NOT NULL, `username` TEXT NOT NULL, `displayName` TEXT NOT NULL, `profilePictureUrl` TEXT NOT NULL, `profileHeaderPictureUrl` TEXT NOT NULL DEFAULT '', `notificationsEnabled` INTEGER NOT NULL, `notificationsCollectionAdd` INTEGER NOT NULL DEFAULT true, `notificationsCollectionUpdate` INTEGER NOT NULL DEFAULT true, `notificationsMentioned` INTEGER NOT NULL, `notificationsFollowed` INTEGER NOT NULL, `notificationsFollowRequested` INTEGER NOT NULL, `notificationsReblogged` INTEGER NOT NULL, `notificationsFavorited` INTEGER NOT NULL, `notificationsPolls` INTEGER NOT NULL, `notificationsSubscriptions` INTEGER NOT NULL, `notificationsSignUps` INTEGER NOT NULL, `notificationsUpdates` INTEGER NOT NULL, `notificationsReports` INTEGER NOT NULL, `notificationsSeveredRelationships` INTEGER NOT NULL DEFAULT true, `notificationsModerationWarnings` INTEGER NOT NULL DEFAULT true, `notificationsQuotes` INTEGER NOT NULL DEFAULT true, `notificationsQuotedUpdates` INTEGER NOT NULL DEFAULT true, `notificationSound` INTEGER NOT NULL, `notificationVibration` INTEGER NOT NULL, `notificationLight` INTEGER NOT NULL, `defaultPostPrivacy` INTEGER NOT NULL, `defaultMediaSensitivity` INTEGER NOT NULL, `defaultPostLanguage` TEXT NOT NULL, `defaultQuotePolicy` TEXT NOT NULL DEFAULT 'NOBODY', `alwaysShowSensitiveMedia` INTEGER NOT NULL, `alwaysOpenSpoiler` INTEGER NOT NULL, `mediaPreviewEnabled` INTEGER NOT NULL, `notificationMarkerId` TEXT NOT NULL DEFAULT '0', `emojis` TEXT NOT NULL, `tabPreferences` TEXT NOT NULL, `notificationsFilter` TEXT NOT NULL, `oauthScopes` TEXT NOT NULL, `unifiedPushUrl` TEXT NOT NULL, `pushPubKey` TEXT NOT NULL, `pushPrivKey` TEXT NOT NULL, `pushAuth` TEXT NOT NULL, `pushServerKey` TEXT NOT NULL, `locked` INTEGER NOT NULL DEFAULT 0, `notificationAccountFilterNotFollowed` TEXT NOT NULL DEFAULT 'NONE', `notificationAccountFilterYounger30d` TEXT NOT NULL DEFAULT 'NONE', `notificationAccountFilterLimitedByServer` TEXT NOT NULL DEFAULT 'NONE', `conversationAccountFilterNotFollowed` TEXT NOT NULL DEFAULT 'NONE', `conversationAccountFilterYounger30d` TEXT NOT NULL DEFAULT 'NONE', `conversationAccountFilterLimitedByServer` TEXT NOT NULL DEFAULT 'NONE', `isBot` INTEGER NOT NULL DEFAULT 0)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `domain` TEXT NOT NULL, `accessToken` TEXT NOT NULL, `clientId` TEXT NOT NULL, `clientSecret` TEXT NOT NULL, `isActive` INTEGER NOT NULL, `accountId` TEXT NOT NULL, `username` TEXT NOT NULL, `displayName` TEXT NOT NULL, `profilePictureUrl` TEXT NOT NULL, `profileHeaderPictureUrl` TEXT NOT NULL DEFAULT '', `notificationsEnabled` INTEGER NOT NULL, `notificationsMentioned` INTEGER NOT NULL, `notificationsFollowed` INTEGER NOT NULL, `notificationsFollowRequested` INTEGER NOT NULL, `notificationsReblogged` INTEGER NOT NULL, `notificationsFavorited` INTEGER NOT NULL, `notificationsPolls` INTEGER NOT NULL, `notificationsSubscriptions` INTEGER NOT NULL, `notificationsSignUps` INTEGER NOT NULL, `notificationsUpdates` INTEGER NOT NULL, `notificationsReports` INTEGER NOT NULL, `notificationsSeveredRelationships` INTEGER NOT NULL DEFAULT true, `notificationsModerationWarnings` INTEGER NOT NULL DEFAULT true, `notificationsQuotes` INTEGER NOT NULL DEFAULT true, `notificationsQuotedUpdates` INTEGER NOT NULL DEFAULT true, `notificationsCollectionAdd` INTEGER NOT NULL DEFAULT true, `notificationsCollectionUpdate` INTEGER NOT NULL DEFAULT true, `notificationSound` INTEGER NOT NULL, `notificationVibration` INTEGER NOT NULL, `notificationLight` INTEGER NOT NULL, `defaultPostPrivacy` INTEGER NOT NULL, `defaultMediaSensitivity` INTEGER NOT NULL, `defaultPostLanguage` TEXT NOT NULL, `defaultQuotePolicy` TEXT NOT NULL DEFAULT 'NOBODY', `alwaysShowSensitiveMedia` INTEGER NOT NULL, `alwaysOpenSpoiler` INTEGER NOT NULL, `mediaPreviewEnabled` INTEGER NOT NULL, `notificationMarkerId` TEXT NOT NULL DEFAULT '0', `emojis` TEXT NOT NULL, `tabPreferences` TEXT NOT NULL, `notificationsFilter` TEXT NOT NULL, `oauthScopes` TEXT NOT NULL, `unifiedPushUrl` TEXT NOT NULL, `pushPubKey` TEXT NOT NULL, `pushPrivKey` TEXT NOT NULL, `pushAuth` TEXT NOT NULL, `pushServerKey` TEXT NOT NULL, `locked` INTEGER NOT NULL DEFAULT 0, `notificationAccountFilterNotFollowed` TEXT NOT NULL DEFAULT 'NONE', `notificationAccountFilterYounger30d` TEXT NOT NULL DEFAULT 'NONE', `notificationAccountFilterLimitedByServer` TEXT NOT NULL DEFAULT 'NONE', `conversationAccountFilterNotFollowed` TEXT NOT NULL DEFAULT 'NONE', `conversationAccountFilterYounger30d` TEXT NOT NULL DEFAULT 'NONE', `conversationAccountFilterLimitedByServer` TEXT NOT NULL DEFAULT 'NONE', `isBot` INTEGER NOT NULL DEFAULT 0)",
         "fields": [
           {
             "fieldPath": "id",
@@ -745,20 +745,6 @@
             "columnName": "notificationsEnabled",
             "affinity": "INTEGER",
             "notNull": true
-          },
-          {
-            "fieldPath": "notificationsCollectionAdd",
-            "columnName": "notificationsCollectionAdd",
-            "affinity": "INTEGER",
-            "notNull": true,
-            "defaultValue": "true"
-          },
-          {
-            "fieldPath": "notificationsCollectionUpdate",
-            "columnName": "notificationsCollectionUpdate",
-            "affinity": "INTEGER",
-            "notNull": true,
-            "defaultValue": "true"
           },
           {
             "fieldPath": "notificationsMentioned",
@@ -844,6 +830,20 @@
           {
             "fieldPath": "notificationsQuotedUpdates",
             "columnName": "notificationsQuotedUpdates",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "true"
+          },
+          {
+            "fieldPath": "notificationsCollectionAdd",
+            "columnName": "notificationsCollectionAdd",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "true"
+          },
+          {
+            "fieldPath": "notificationsCollectionUpdate",
+            "columnName": "notificationsCollectionUpdate",
             "affinity": "INTEGER",
             "notNull": true,
             "defaultValue": "true"
@@ -2464,7 +2464,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '279a12557885471c1996dea01eeef93d')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e145260247084f00b3b7a569c0298165')"
     ]
   }
 }

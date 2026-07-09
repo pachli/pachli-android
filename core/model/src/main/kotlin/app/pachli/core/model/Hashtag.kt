@@ -39,6 +39,13 @@ data class HashtagHistory(
     val uses: Int,
 )
 
+/**
+ * Shallow hashtag, like [Hashtag], but without the `history` or
+ * `following` properties.
+ *
+ * @property name: Hashtag name, without the leading `#`.
+ * @property url
+ */
 @JsonClass(generateAdapter = true)
 @Parcelize
 data class ShallowHashtag(

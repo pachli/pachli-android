@@ -682,7 +682,7 @@ class NotificationsFragment :
         }
     }
 
-    override fun onOpenCollection(collection: ICollection) {
+    override fun onViewCollection(collection: ICollection) {
         startActivityWithTransition(
             CollectionActivityIntent(requireContext(), pachliAccountId, collection.serverId),
             TransitionKind.SLIDE_FROM_END,

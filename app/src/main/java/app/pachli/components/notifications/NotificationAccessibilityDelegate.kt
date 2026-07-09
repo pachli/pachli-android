@@ -110,7 +110,7 @@ class NotificationAccessibilityDelegate<T : NotificationViewData>(
                     if (collectionCardViewData.displayAction is CollectionDisplayAction.Hide) {
                         info.addAction(collectionShow)
                     } else {
-                        info.addAction(collectionOpen)
+                        info.addAction(collectionView)
                         collectionCardViewData.hashtag?.let {
                             info.addAction(collectionViewTag)
                         }
@@ -126,7 +126,7 @@ class NotificationAccessibilityDelegate<T : NotificationViewData>(
                     if (collectionCardViewData.displayAction is CollectionDisplayAction.Hide) {
                         info.addAction(collectionShow)
                     } else {
-                        info.addAction(collectionOpen)
+                        info.addAction(collectionView)
                         collectionCardViewData.hashtag?.let {
                             info.addAction(collectionViewTag)
                         }
@@ -200,7 +200,7 @@ class NotificationAccessibilityDelegate<T : NotificationViewData>(
                     )
                 }
 
-                collectionShow.id -> (notification as? NotificationViewData.WithCollection)?.let {
+                collectionView.id -> (notification as? NotificationViewData.WithCollection)?.let {
                     interrupt()
                     notificationActionListener.onCollectionDisplayActionChange(
                         notification.collectionCardViewData,
@@ -222,9 +222,9 @@ class NotificationAccessibilityDelegate<T : NotificationViewData>(
                     )
                 }
 
-                collectionOpen.id -> (notification as? NotificationViewData.WithCollection)?.let {
+                collectionView.id -> (notification as? NotificationViewData.WithCollection)?.let {
                     interrupt()
-                    notificationActionListener.onOpenCollection(
+                    notificationActionListener.onViewCollection(
                         notification.collectionCardViewData,
                     )
                 }
@@ -294,26 +294,26 @@ class NotificationAccessibilityDelegate<T : NotificationViewData>(
 
     private val collectionShow = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_collection_show,
-        "Show collection",
+        context.getString(app.pachli.core.ui.R.string.action_collection_show),
     )
 
     private val collectionHide = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_collection_hide,
-        "Hide collection",
+        context.getString(app.pachli.core.ui.R.string.action_collection_hide),
     )
 
-    private val collectionOpen = AccessibilityActionCompat(
-        app.pachli.core.ui.R.id.action_collection_open,
-        "Open collection",
+    private val collectionView = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_collection_view,
+        context.getString(app.pachli.core.ui.R.string.action_collection_view),
     )
 
     private val collectionRevoke = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_collection_revoke,
-        "Remove me",
+        context.getString(app.pachli.core.ui.R.string.action_collection_revoke),
     )
 
     private val collectionViewTag = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_collection_view_tag,
-        "View tag",
+        context.getString(app.pachli.core.ui.R.string.action_collection_view_tag),
     )
 }

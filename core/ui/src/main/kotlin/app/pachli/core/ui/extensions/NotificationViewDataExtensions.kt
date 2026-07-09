@@ -322,7 +322,7 @@ fun NotificationViewData.Companion.make(
             accountFilterDecision = accountFilterDecision,
             collectionCardViewData = CollectionCardViewData(
                 timelineCollection = timelineCollection.asModel(),
-                displayAction = data.collectionViewData?.displayAction.make(data.timelineCollection!!.sensitive, showSensitiveMedia),
+                displayAction = data.collectionViewData?.displayAction.make(timelineCollection.sensitive, showSensitiveMedia),
                 isMember = timelineCollection.items.any { it.accountId == pachliAccount.accountId },
             ),
         )
@@ -338,7 +338,7 @@ fun NotificationViewData.Companion.make(
             accountFilterDecision = accountFilterDecision,
             collectionCardViewData = CollectionCardViewData(
                 timelineCollection = timelineCollection.asModel(),
-                displayAction = data.collectionViewData?.displayAction.make(data.timelineCollection!!.sensitive, showSensitiveMedia),
+                displayAction = data.collectionViewData?.displayAction.make(timelineCollection.sensitive, showSensitiveMedia),
                 isMember = timelineCollection.items.any { it.accountId == pachliAccount.accountId },
             ),
         )

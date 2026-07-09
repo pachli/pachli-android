@@ -169,7 +169,7 @@ class CollectionCardView @JvmOverloads constructor(
 
         collectionName.text = viewData.name
 
-        ownerHandle.text = timelineCollection.ownerAccount?.username?.let {
+        ownerHandle.text = timelineCollection.account?.username?.let {
             context.getString(DR.string.post_username_format, it)
         } ?: "Unknown user"
         ownerHandle.show()

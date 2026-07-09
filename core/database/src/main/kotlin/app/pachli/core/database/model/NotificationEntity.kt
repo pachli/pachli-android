@@ -60,28 +60,6 @@ data class NotificationData(
                 networkType = notification.type.toString(),
             )
 
-            NotificationEntity.Type.COLLECTION_ADD -> timelineCollection?.let {
-                Notification.CollectionAdd(
-                    id = notification.serverId,
-                    createdAt = notification.createdAt,
-                    account = account.asModel(),
-                    collection = timelineCollection.asCollectionModel(),
-                )
-            } ?: Notification.Unknown(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                // TODO: This is wrong, the remoteType is not currently persisted.
-                networkType = "added_to_collection",
-            )
-
-            NotificationEntity.Type.COLLECTION_UPDATE -> Notification.CollectionUpdate(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                collection = timelineCollection!!.asCollectionModel(),
-            )
-
             NotificationEntity.Type.MENTION -> status?.let {
                 Notification.Mention(
                     id = notification.serverId,
@@ -200,6 +178,28 @@ data class NotificationData(
                     status = status.toStatus(),
                 )
             }
+
+            NotificationEntity.Type.COLLECTION_ADD -> timelineCollection?.let {
+                Notification.CollectionAdd(
+                    id = notification.serverId,
+                    createdAt = notification.createdAt,
+                    account = account.asModel(),
+                    collection = timelineCollection.asCollectionModel(),
+                )
+            } ?: Notification.Unknown(
+                id = notification.serverId,
+                createdAt = notification.createdAt,
+                account = account.asModel(),
+                // TODO: This is wrong, the remoteType is not currently persisted.
+                networkType = "added_to_collection",
+            )
+
+            NotificationEntity.Type.COLLECTION_UPDATE -> Notification.CollectionUpdate(
+                id = notification.serverId,
+                createdAt = notification.createdAt,
+                account = account.asModel(),
+                collection = timelineCollection!!.asCollectionModel(),
+            )
         }
     }
 

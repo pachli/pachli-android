@@ -263,6 +263,7 @@ SELECT
     -- Collection
     timelineCollection.pachliAccountId AS 'timelineCollection_pachliAccountId',
     timelineCollection.serverId AS 'timelineCollection_serverId',
+    timelineCollection.accountId AS 'timelineCollection_accountId',
     timelineCollection.name AS 'timelineCollection_name',
     timelineCollection.description AS 'timelineCollection_description',
     timelineCollection.local AS 'timelineCollection_local',
@@ -273,7 +274,6 @@ SELECT
     timelineCollection.updatedAt AS 'timelineCollection_updatedAt',
     timelineCollection.items AS 'timelineCollection_items',
     timelineCollection.itemIconUrls AS 'timelineCollection_itemIconUrls',
-    timelineCollection.ownerAccountId AS 'timelineCollection_ownerAccountId',
     timelineCollection.owner_serverId AS 'timelineCollection_owner_serverId',
     timelineCollection.owner_pachliAccountId AS 'timelineCollection_owner_pachliAccountId',
     timelineCollection.owner_localUsername AS 'timelineCollection_owner_localUsername',
@@ -617,6 +617,7 @@ SELECT
     -- Collection
     timelineCollection.pachliAccountId AS 'timelineCollection_pachliAccountId',
     timelineCollection.serverId AS 'timelineCollection_serverId',
+    timelineCollection.accountId AS 'timelineCollection_accountId',
     timelineCollection.name AS 'timelineCollection_name',
     timelineCollection.description AS 'timelineCollection_description',
     timelineCollection.local AS 'timelineCollection_local',
@@ -627,7 +628,6 @@ SELECT
     timelineCollection.updatedAt AS 'timelineCollection_updatedAt',
     timelineCollection.items AS 'timelineCollection_items',
     timelineCollection.itemIconUrls AS 'timelineCollection_itemIconUrls',
-    timelineCollection.ownerAccountId AS 'timelineCollection_ownerAccountId',
     timelineCollection.owner_serverId AS 'timelineCollection_owner_serverId',
     timelineCollection.owner_pachliAccountId AS 'timelineCollection_owner_pachliAccountId',
     timelineCollection.owner_localUsername AS 'timelineCollection_owner_localUsername',

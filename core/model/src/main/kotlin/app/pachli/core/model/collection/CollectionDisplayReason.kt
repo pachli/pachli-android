@@ -58,6 +58,10 @@ sealed interface CollectionDisplayAction {
     data class Hide(val reason: CollectionDisplayReason) : CollectionDisplayAction
 }
 
+/**
+ * @return A [CollectionDisplayAction] based on whether the collection is
+ * marked [sensitive] and the user is/not [showing sensitive content][showSensitive].
+ */
 fun CollectionDisplayAction?.make(
     sensitive: Boolean,
     showSensitive: Boolean,
