@@ -34,9 +34,9 @@ import java.time.Instant
  * @property collection The collection
  * @property ownerAccount The collection's owner account.
  */
-data class CollectionAndOwner(
+data class CollectionAndOwnerEntities(
     @Embedded val collection: CollectionEntity,
-    @Embedded(prefix = "owner_") val ownerAccount: TimelineAccountEntity,
+    @Embedded(prefix = "owner_") val ownerAccount: AccountEntity?,
 )
 
 @Entity(

@@ -430,6 +430,16 @@ interface MastodonApi {
     @GET("api/v1/accounts")
     suspend fun accounts(
         @Query("id[]") ids: Collection<String>,
+    ): ApiResult<List<Account>>
+
+    /**
+     * Resolve multiple accounts, by their [Account.id].
+     *
+     * See https://docs.joinmastodon.org/methods/accounts/#index
+     */
+    @GET("api/v1/accounts")
+    suspend fun timelineAccounts(
+        @Query("id[]") ids: Collection<String>,
     ): ApiResult<List<TimelineAccount>>
 
     /**

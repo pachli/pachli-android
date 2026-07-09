@@ -21,9 +21,9 @@ import app.pachli.core.data.repository.AccountRepository
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.ICollectionsRepository
 import app.pachli.core.data.repository.ListsRepository
-import app.pachli.core.data.repository.NetworkAccountRepository
 import app.pachli.core.data.repository.NetworkRelationshipsRepository
 import app.pachli.core.data.repository.NetworkSuggestionsRepository
+import app.pachli.core.data.repository.OfflineFirstAccountRepository
 import app.pachli.core.data.repository.OfflineFirstCollectionsRepository
 import app.pachli.core.data.repository.OfflineFirstContentFiltersRepository
 import app.pachli.core.data.repository.OfflineFirstListRepository
@@ -41,7 +41,7 @@ import dagger.hilt.components.SingletonComponent
 abstract class DataModule {
     @Binds
     internal abstract fun bindsAccountRepository(
-        accountRepository: NetworkAccountRepository,
+        accountRepository: OfflineFirstAccountRepository,
     ): AccountRepository
 
     @Binds

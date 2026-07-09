@@ -61,6 +61,7 @@ import app.pachli.core.ui.extensions.setMinimumTouchTarget
 import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.makeIcon
 import app.pachli.feature.collections.ICollectionViewModel.AccountAction
+import app.pachli.feature.collections.ICollectionViewModel.CollectionViewData
 import app.pachli.feature.collections.ICollectionViewModel.UiAction
 import app.pachli.feature.collections.databinding.ActivityCollectionBinding
 import com.github.michaelbull.result.Result
@@ -136,6 +137,7 @@ class CollectionActivity : ViewUrlActivity() {
         }
 
         val collectionId = CollectionActivityIntent.getCollectionId(intent)
+        viewModel.accept(UiAction.GetCollection(pachliAccountId, collectionId))
 
         val fragmentTag = CollectionFragment.fragmentTag(pachliAccountId, collectionId)
 
@@ -159,7 +161,7 @@ class CollectionActivity : ViewUrlActivity() {
 
         bind()
 
-        viewModel.accept(UiAction.GetCollection(pachliAccountId, collectionId))
+//        viewModel.accept(UiAction.GetCollection(pachliAccountId, collectionId))
     }
 
     private fun bind() {
@@ -178,10 +180,12 @@ class CollectionActivity : ViewUrlActivity() {
         }
     }
 
-    private fun bindCollectionViewData(result: Result<Loadable<ICollectionViewModel.CollectionViewData>, ICollectionViewModel.UiError.GetCollection>) {
+    private fun bindCollectionViewData(result: Result<Loadable<CollectionViewData>, ICollectionViewModel.UiError.GetCollection>) {
+//    private fun bindCollectionViewData(viewData: ICollectionViewModel.CollectionViewData?) {
         // Only update on success
         // TODO: Show error state.
         val viewData = result.get()?.getOrNull() ?: return
+//        if (viewData == null) return
 
         val collection = viewData.collection
         ownerAccountId = collection.accountId

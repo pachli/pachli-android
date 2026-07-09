@@ -22,25 +22,27 @@ import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.repository.ICollectionsRepository.Error
 import app.pachli.core.database.dao.CollectionsDao
 import app.pachli.core.database.di.TransactionProvider
-import app.pachli.core.database.model.CollectionAndOwner
 import app.pachli.core.database.model.CollectionViewDataEntity
-import app.pachli.core.database.model.TimelineAccountEntity
-import app.pachli.core.model.Account
-import app.pachli.core.model.Collection
+import app.pachli.core.database.model.asEntity
+import app.pachli.core.database.model.asModel
+import app.pachli.core.model.CollectionWithAccounts
+import app.pachli.core.model.asTimelineAccount
 import app.pachli.core.model.collection.CollectionDisplayAction
-import app.pachli.core.network.model.CollectionWithAccounts
-import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.core.network.retrofit.apiresult.ApiResult
 import com.github.michaelbull.result.Result
-import com.github.michaelbull.result.map
+import com.github.michaelbull.result.coroutines.binding.binding
 import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.onSuccess
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 interface ICollectionsRepository {
@@ -52,7 +54,9 @@ interface ICollectionsRepository {
         value class RevokeFromCollection(private val error: ApiError) : Error, PachliError by error
     }
 
-    suspend fun getCollection(pachliAccountId: Long, collectionId: String): Result<Pair<Collection, List<Account>>, Error.GetCollection>
+    fun getCollection(pachliAccountId: Long, collectionId: String): Flow<CollectionWithAccounts?>
+
+    suspend fun reloadCollection(pachliAccountId: Long, collectionId: String): Result<CollectionWithAccounts, Error.GetCollection>
 
     suspend fun revokeFromCollection(pachliAccountId: Long, collectionId: String, accountId: String): Result<Unit, Error.RevokeFromCollection>
 
@@ -69,27 +73,34 @@ internal class OfflineFirstCollectionsRepository @Inject constructor(
     private val remoteDataSource: CollectionsRemoteDataSource,
 ) : ICollectionsRepository {
     /**
-     * Makes a **network** request for [collectionId].
+     * Returns a flow of the local cached copy of [collectionId] as a
+     * [CollectionWithAccounts]. Returns null if there is no local cached copy
+     * of [collectionId].
      */
-    override suspend fun getCollection(pachliAccountId: Long, collectionId: String): Result<Pair<Collection, List<Account>>, Error.GetCollection> {
-        // TODO: This should probably return a flow from the database, and kick off
-        // an async network request.
+    override fun getCollection(pachliAccountId: Long, collectionId: String): Flow<CollectionWithAccounts?> =
+        localDataSource.getCollection(pachliAccountId, collectionId)
 
-//        return localDataSource.getCollection(pachliAccountId, collectionId).map {
-//            val firstEntry = it.entries.firstOrNull() ?: return@map null
-//            val collection = firstEntry.key.collection.asModel()
-//            val accounts = firstEntry.value.map { it.asModel() }
-//
-//            Pair(collection, accounts)
-//        }
-        return remoteDataSource.getCollection(pachliAccountId, collectionId)
-            .map { it.body }
-            .mapEither(
-                { Pair(it.collection.asModel(), it.accounts.asModel()) },
-                { Error.GetCollection(it) },
-            )
+    /**
+     * Fetches [collectionId] from the server and if successful, updates the local copy
+     * with the result.
+     *
+     * @return The reloaded [CollectionWithAccounts], or the error that occurred
+     * performing the reload.
+     */
+    override suspend fun reloadCollection(pachliAccountId: Long, collectionId: String) = binding {
+        externalScope.async {
+            remoteDataSource.getCollection(pachliAccountId, collectionId)
+                .onSuccess {
+                    localDataSource.saveCollection(pachliAccountId, it)
+                }
+        }.await().bind()
     }
 
+    /**
+     * Calls the server to revoke [accountId] from [collectionId]. On success removes
+     * [accountId] from the cached copy of [collectionId], on failure returns the
+     * error.
+     */
     override suspend fun revokeFromCollection(pachliAccountId: Long, collectionId: String, accountId: String): Result<Unit, Error.RevokeFromCollection> {
         return remoteDataSource.revokeFromCollection(pachliAccountId, collectionId, accountId).mapEither(
             { it.body },
@@ -97,6 +108,8 @@ internal class OfflineFirstCollectionsRepository @Inject constructor(
         ).onSuccess {
             localDataSource.removeAccountFromCollection(pachliAccountId, collectionId, accountId)
         }
+//        localDataSource.removeAccountFromCollection(pachliAccountId, collectionId, accountId)
+//        return Ok(Unit)
     }
 
     override fun setCollectionDisplayAction(pachliAccountId: Long, collectionId: String, collectionDisplayAction: CollectionDisplayAction) {
@@ -106,21 +119,77 @@ internal class OfflineFirstCollectionsRepository @Inject constructor(
     }
 }
 
+/**
+ * Data source for locally cached [Collection] data.
+ */
 @Singleton
 internal class CollectionsLocalDataSource @Inject constructor(
     private val transactionProvider: TransactionProvider,
     private val collectionsDao: CollectionsDao,
+    private val accountRepository: AccountRepository,
 ) {
-    fun getCollection(pachliAccountId: Long, collectionId: String): Flow<Map<CollectionAndOwner, List<TimelineAccountEntity>>> {
+    /**
+     * @return Flow of
+     */
+    fun getCollection(pachliAccountId: Long, collectionId: String): Flow<CollectionWithAccounts?> {
         return collectionsDao.getCollection(pachliAccountId, collectionId)
+            .map {
+                it.firstNotNullOfOrNull { (collectionAndOwner, accounts) ->
+                    CollectionWithAccounts(
+                        collection = collectionAndOwner.collection.asModel(),
+                        owner = collectionAndOwner.ownerAccount?.asModel(),
+                        accounts = accounts.asModel(),
+                    )
+                }
+            }
     }
 
+    /**
+     * Saves the collection and accounts in [collectionWithAccounts] locally.
+     *
+     * @param pachliAccountId
+     * @param collectionWithAccounts
+     */
+    suspend fun saveCollection(pachliAccountId: Long, collectionWithAccounts: CollectionWithAccounts) {
+        transactionProvider {
+            collectionsDao.upsertCollection(collectionWithAccounts.collection.asEntity(pachliAccountId))
+            collectionsDao.upsertCollectionItems(
+                collectionWithAccounts.collection.items.asEntity(
+                    pachliAccountId,
+                    collectionWithAccounts.collection.serverId,
+                ),
+            )
+            accountRepository.saveAccounts(
+                pachliAccountId,
+                buildSet {
+                    collectionWithAccounts.owner?.let { add(it) }
+                    addAll(collectionWithAccounts.accounts)
+                },
+            )
+            // Save owner account as `TimelineAccount`, as `TimelineCollection` uses
+            // `TimelineAccount` for the `ownerAccount` property.
+            collectionWithAccounts.owner?.let {
+                accountRepository.saveTimelineAccount(pachliAccountId, it.asTimelineAccount())
+            }
+        }
+    }
+
+    /**
+     * Sets the [collectionDisplayAction] for [collectionId].
+     *
+     * @param pachliAccountId
+     * @param collectionId
+     * @param collectionDisplayAction New [CollectionDisplayAction].
+     */
     suspend fun setCollectionDisplayAction(pachliAccountId: Long, collectionId: String, collectionDisplayAction: CollectionDisplayAction) {
         collectionsDao.upsertCollectionViewData(
             CollectionViewDataEntity(pachliAccountId, collectionId, collectionDisplayAction),
         )
     }
 
+    /**
+     * Removes [accountId] from the cached copy of [collectionId].
+     */
     suspend fun removeAccountFromCollection(pachliAccountId: Long, collectionId: String, accountId: String) {
         collectionsDao.removeAccountFromCollection(pachliAccountId, collectionId, accountId)
     }
@@ -130,11 +199,67 @@ internal class CollectionsLocalDataSource @Inject constructor(
 internal class CollectionsRemoteDataSource @Inject constructor(
     private val mastodonApi: MastodonApi,
 ) {
-    suspend fun getCollection(pachliAccountId: Long, collectionId: String): ApiResult<CollectionWithAccounts> {
-        return mastodonApi.getCollectionWithAccounts(collectionId)
+    suspend fun getCollection(pachliAccountId: Long, collectionId: String) = binding {
+        mastodonApi.getCollectionWithAccounts(collectionId)
+            .mapEither(
+                { it.body.asModel() },
+                { Error.GetCollection(it) },
+            )
+            .bind()
     }
 
     suspend fun revokeFromCollection(pachliAccountId: Long, collectionId: String, accountId: String): ApiResult<Unit> {
         return mastodonApi.revokeItemInCollection(collectionId, accountId)
+    }
+}
+
+fun <T1, T2, R> combineFlatMapLatest(
+    flow1: Flow<T1>,
+    flow2: Flow<T2>,
+    transform: suspend (T1, T2) -> Flow<R>,
+): Flow<R> {
+    return combine(flow1, flow2) { first, second -> first to second }.flatMapLatest { pair ->
+        transform(pair.first, pair.second)
+    }
+}
+
+fun <T1, T2, T3, R> combineFlatMapLatest(
+    flow1: Flow<T1>,
+    flow2: Flow<T2>,
+    flow3: Flow<T3>,
+    transform: suspend (T1, T2, T3) -> Flow<R>,
+): Flow<R> {
+    return combine(flow1, flow2, flow3) { first, second, third -> Triple(first, second, third) }.flatMapLatest { triple ->
+        transform(triple.first, triple.second, triple.third)
+    }
+}
+
+fun <T1, T2, T3, T4, T5, R> combineFlatMapLatest(
+    flow1: Flow<T1>,
+    flow2: Flow<T2>,
+    flow3: Flow<T3>,
+    flow4: Flow<T4>,
+    flow5: Flow<T5>,
+    transform: suspend (T1, T2, T3, T4, T5) -> Flow<R>,
+): Flow<R> {
+    data class Tuple5<T1, T2, T3, T4, T5>(
+        val v1: T1,
+        val v2: T2,
+        val v3: T3,
+        val v4: T4,
+        val v5: T5,
+    )
+
+    return combine(flow1, flow2, flow3, flow4, flow5) { array ->
+        @Suppress("UNCHECKED_CAST")
+        Tuple5(
+            array[0] as T1,
+            array[1] as T2,
+            array[2] as T3,
+            array[3] as T4,
+            array[4] as T5,
+        )
+    }.flatMapLatest { tuple ->
+        transform(tuple.v1, tuple.v2, tuple.v3, tuple.v4, tuple.v5)
     }
 }

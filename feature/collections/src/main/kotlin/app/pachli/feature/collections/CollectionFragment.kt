@@ -72,6 +72,7 @@ import app.pachli.core.domain.accounts.FollowAccountUseCase
 import app.pachli.core.domain.accounts.UnfollowAccountUseCase
 import app.pachli.core.model.Account
 import app.pachli.core.model.Collection
+import app.pachli.core.model.CollectionWithAccounts
 import app.pachli.core.model.ICollection
 import app.pachli.core.model.Relationship
 import app.pachli.core.navigation.AccountActivityIntent
@@ -100,9 +101,9 @@ import app.pachli.feature.collections.databinding.FragmentCollectionBinding
 import app.pachli.feature.collections.databinding.ItemAccountInCollectionBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
+import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
-import com.github.michaelbull.result.andThen
 import com.github.michaelbull.result.map
 import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.mapError
@@ -131,6 +132,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -213,7 +215,12 @@ class CollectionFragment :
 
                 launch { uiAction.throttleFirst().collect(::bindUiAction) }
 
-                launch { viewModel.collectionViewData.collectLatest(::bindCollection) }
+                launch { viewModel.collectionViewData.collectLatest(::bindCollectionViewData) }
+//                launch {
+//                    viewModel.collectionViewData.collectLatest {
+//                        it
+//                    }
+//                }
 
                 launch { viewModel.uiResult.collect(::bindUiResult) }
 
@@ -282,8 +289,21 @@ class CollectionFragment :
         }
     }
 
-    private fun bindCollection(result: Result<Loadable<CollectionViewData>, UiError.GetCollection>) {
+//    private fun bindCollectionViewData(viewData: ICollectionViewModel.CollectionViewData?) {
+//        if (viewData == null) {
+//            binding.progressIndicator.show()
+//            return
+//        }
+//
+//        binding.progressIndicator.hide()
+//        collectionAdapter.submitList(viewData.accounts)
+//        binding.messageView.hide()
+//        binding.recyclerView.show()
+//    }
+
+    private fun bindCollectionViewData(result: Result<Loadable<CollectionViewData>, UiError.GetCollection>) {
         binding.swipeRefreshLayout.isRefreshing = false
+        Timber.d("bindCollectionViewData: $result")
 
         result.onFailure {
             binding.messageView.show()
@@ -292,21 +312,25 @@ class CollectionFragment :
         }
 
         result.onSuccess {
-            it.getOrNull()?.let { collectionViewData ->
-                // Update toolbar
-                // - Owner avatar
-                // - Collection name
-                // - Collection owner handle
-
-                // Update description, above the list
-                // Update hashtag, above the list
-
-                // Control to-reorder list?
-
-                collectionAdapter.submitList(collectionViewData.accounts)
-                binding.messageView.hide()
-                binding.recyclerView.show()
+            val collectionViewData = it.getOrNull()
+            if (collectionViewData == null) {
+                binding.progressIndicator.show()
+                return
             }
+            binding.progressIndicator.hide()
+            // Update toolbar
+            // - Owner avatar
+            // - Collection name
+            // - Collection owner handle
+
+            // Update description, above the list
+            // Update hashtag, above the list
+
+            // Control to-reorder list?
+
+            collectionAdapter.submitList(collectionViewData.accounts)
+            binding.messageView.hide()
+            binding.recyclerView.show()
         }
     }
 
@@ -316,7 +340,8 @@ class CollectionFragment :
 
     override fun onRefresh() {
         snackbar?.dismiss()
-        viewModel.accept(UiAction.GetCollection(pachliAccountId, collectionId))
+        // viewModel.accept(UiAction.GetCollection(pachliAccountId, collectionId))
+        viewModel.accept(UiAction.Refresh(pachliAccountId, collectionId))
     }
 
     override fun onReselect() {
@@ -729,6 +754,11 @@ private object AccountInCollectionViewDataDiffer : DiffUtil.ItemCallback<Account
 internal interface ICollectionViewModel {
     sealed interface UiAction {
         /** Get the most recent version of [collectionId] from the server. */
+        data class Refresh(
+            val pachliAccountId: Long,
+            val collectionId: String,
+        ) : UiAction
+
         data class GetCollection(
             val pachliAccountId: Long,
             val collectionId: String,
@@ -884,7 +914,7 @@ internal interface ICollectionViewModel {
 
     val operationCount: Flow<Int>
 
-    val collectionViewData: StateFlow<Result<Loadable<CollectionViewData>, UiError.GetCollection>>
+    val collectionViewData: StateFlow<Result<Loadable<CollectionViewData>, PachliError>>
 
     data class UiOptions(
         val animateEmojis: Boolean = false,
@@ -927,10 +957,21 @@ internal class CollectionViewModel @Inject constructor(
     private val operationCounter = OperationCounter()
     override val operationCount = operationCounter.count
 
+    private val reload = MutableSharedFlow<Unit>(replay = 1) // .apply { tryEmit(Unit) }
+
     private val pachliAccountId = MutableSharedFlow<Long>(replay = 1)
 
     private val pachliAccount = pachliAccountId.distinctUntilChanged().flatMapLatest {
         accountManager.getPachliAccountFlow(it).filterNotNull()
+    }.shareIn(viewModelScope, SharingStarted.Eagerly, replay = 1)
+
+    private val collectionId = MutableSharedFlow<String>(replay = 1)
+
+    private val collectionAndOwner = combine(pachliAccountId, collectionId) { pachliAccountId, collectionId ->
+        pachliAccountId to collectionId
+    }.flatMapLatest { (pachliAccountId, collectionId) ->
+        collectionsRepository.getCollection(pachliAccountId, collectionId)
+            .map { Triple(pachliAccountId, collectionId, it) }
     }
 
     override val uiOptions = stateFlow(viewModelScope, UiOptions.from(statusDisplayOptionsRepository.flow.value)) {
@@ -938,11 +979,10 @@ internal class CollectionViewModel @Inject constructor(
             .flowWhileShared(SharingStarted.WhileSubscribed(5000))
     }
 
-    private val collection = MutableStateFlow<Result<Loadable<Pair<Collection, List<Account>>>, UiError.GetCollection>>(Ok(Loadable.Loading))
-
     /**
-     * Map from [account IDs][app.pachli.core.model.ITimelineAccount.id] to the
-     * [Relationship] to that account.
+     * Map from [account IDs][app.pachli.core.model.ITimelineAccount.serverId] to the
+     * user's [Relationship] to that account, so that appropriate actions (follow,
+     * unfollow, etc) can be shown in the UI.
      */
     private val relationships = MutableStateFlow<Map<String, Relationship>>(emptyMap())
 
@@ -952,14 +992,21 @@ internal class CollectionViewModel @Inject constructor(
      */
     private val disabledAccountIds = MutableStateFlow<Set<String>>(emptySet())
 
+    /**
+     * Either successfully loaded [CollectionWithAccounts], or the error from the
+     * most recent attempt to reload from the server.
+     */
+    private val _collectionWithAccounts = MutableStateFlow<Result<Loadable<CollectionWithAccounts>, UiError.GetCollection>>(Ok(Loadable.Loading))
+
     // Combines the pachliAccount, the most recent collection data, relationships, and
     // disabled accounts to produce the CollectionViewData.
     override val collectionViewData = stateFlow(viewModelScope, Ok(Loadable.Loading)) {
-        combine(pachliAccount.distinctUntilChanged(), collection, relationships, disabledAccountIds) { pachliAccount, collectionResult, relationships, disabledAccountIds ->
-            collectionResult.map {
-                it.mapLoaded { (collection, accounts) ->
-                    val owner = accounts.firstOrNull()
-                    val members = accounts.drop(1)
+        combine(pachliAccount, _collectionWithAccounts, relationships, disabledAccountIds) { pachliAccount, collectionWithAccounts, relationships, disabledAccountIds ->
+            collectionWithAccounts.map {
+                it.mapLoaded { collectionWithAccounts ->
+                    val collection = collectionWithAccounts.collection
+                    val owner = collectionWithAccounts.owner
+                    val accounts = collectionWithAccounts.accounts
                     CollectionViewData(
                         collection = collection,
                         owner = owner?.let {
@@ -979,7 +1026,7 @@ internal class CollectionViewModel @Inject constructor(
                                 ),
                             )
                         },
-                        accounts = members.map {
+                        accounts = accounts.map {
                             AccountViewData(
                                 pachliAccountId = pachliAccount.id,
                                 collectionId = collection.serverId,
@@ -996,7 +1043,7 @@ internal class CollectionViewModel @Inject constructor(
                                 ),
                             )
                         },
-                        isMember = members.firstOrNull { it.serverId == pachliAccount.accountId },
+                        isMember = accounts.firstOrNull { it.serverId == pachliAccount.accountId },
                     )
                 }
             }
@@ -1004,6 +1051,37 @@ internal class CollectionViewModel @Inject constructor(
     }
 
     init {
+        viewModelScope.launch {
+            combine(reload, pachliAccountId, collectionId) { _, pachliAccountId, collectionId ->
+                Pair(pachliAccountId, collectionId)
+            }.collect { (pachliAccountId, collectionId) ->
+                _collectionWithAccounts.value = Ok(Loadable.Loading)
+                collectionsRepository.reloadCollection(pachliAccountId, collectionId)
+                    .mapError { UiError.GetCollection(it) }
+                    .onFailure { _collectionWithAccounts.value = Err(it) }
+            }
+        }
+
+        viewModelScope.launch {
+            collectionAndOwner.collect { (pachliAccountId, collectionId, collectionWithAccounts) ->
+                _collectionWithAccounts.value = Ok(Loadable.Loading)
+                if (collectionWithAccounts != null) {
+                    _collectionWithAccounts.value = Ok(Loadable.Loaded(collectionWithAccounts))
+                    return@collect
+                }
+
+                reload.emit(Unit)
+//                collectionsRepository.reloadCollection(pachliAccountId, collectionId)
+//                    .mapError { UiError.GetCollection(it) }
+//                    .onFailure { _cwa.value = Err(it) }
+            }
+        }
+
+        viewModelScope.launch {
+            uiAction.filterIsInstance<UiAction.Refresh>().collect {
+                reload.emit(Unit)
+            }
+        }
         viewModelScope.launch {
             uiAction.filterIsInstance<UiAction.GetCollection>().collect(::onGetCollection)
         }
@@ -1071,24 +1149,12 @@ internal class CollectionViewModel @Inject constructor(
     }
 
     /**
-     * Gets the most recent collection and relationship data, updating [collection]
+     * Gets the most recent collection and relationship data, updating [collectionAndOwner]
      * and [relationships].
      */
     private suspend fun onGetCollection(action: UiAction.GetCollection) = operationCounter {
         pachliAccountId.emit(action.pachliAccountId)
-
-        collection.update { Ok(Loadable.Loading) }
-        collectionsRepository.getCollection(action.pachliAccountId, action.collectionId)
-            .andThen { (collection, accounts) ->
-                relationshipsRepository.getRelationships(action.pachliAccountId, accounts.map { it.serverId })
-                    .map { Triple(collection, accounts, it) }
-            }
-            .mapError { UiError.GetCollection(it) }
-            .onSuccess { (collection, accounts, relationships) ->
-                this.relationships.update { relationships.associateBy { it.id } }
-                this.collection.update { Ok(Loadable.Loaded(Pair(collection, accounts))) }
-            }
-            .onFailure { this.collection.update { it } }
+        collectionId.emit(action.collectionId)
     }
 
     private suspend fun onAccountAction(action: AccountAction) {
@@ -1124,20 +1190,22 @@ internal class CollectionViewModel @Inject constructor(
     }
 
     private suspend fun onRevokeCollection(action: AccountAction.Revoke) = operationCounter {
-        collectionsRepository.revokeFromCollection(action.pachliAccountId, action.collection.serverId, action.account.serverId).onSuccess {
-            collection.update {
-                it.map { loadable ->
-                    loadable.mapLoaded { (collection, accounts) ->
-                        Pair(collection, accounts.filterNot { it.serverId == action.account.serverId })
-                    }
-                }
-            }
-        }.mapEither(
-            // Other account actions return a Relationship. We can't here, so return null
-            // cast to the correct value, so the return type of this method matches the
-            // other on... methods that operate on AccountAction.
-            { null as Relationship? },
-            { UiError.make(it, action) },
-        )
+        collectionsRepository.revokeFromCollection(action.pachliAccountId, action.collection.serverId, action.account.serverId)
+//            .onSuccess {
+//            collection.update {
+//                it.map { loadable ->
+//                    loadable.mapLoaded { (collection, accounts) ->
+//                        Pair(collection, accounts.filterNot { it.serverId == action.account.serverId })
+//                    }
+//                }
+//            }
+//        }
+            .mapEither(
+                // Other account actions return a Relationship. We can't here, so return null
+                // cast to the correct value, so the return type of this method matches the
+                // other on... methods that operate on AccountAction.
+                { null as Relationship? },
+                { UiError.make(it, action) },
+            )
     }
 }

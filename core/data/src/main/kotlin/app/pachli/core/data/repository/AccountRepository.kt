@@ -18,22 +18,43 @@
 package app.pachli.core.data.repository
 
 import app.pachli.core.common.PachliError
-import app.pachli.core.data.repository.AccountError.GetAccountError
+import app.pachli.core.data.repository.AccountRepository.AccountError.GetAccountError
+import app.pachli.core.data.repository.AccountRepository.AccountError.GetAccountsError
 import app.pachli.core.model.Account
+import app.pachli.core.model.TimelineAccount
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Result
 
-sealed interface AccountError : PachliError {
-    @JvmInline
-    value class GetAccountError(private val error: ApiError) :
-        AccountError, PachliError by error
-}
-
 interface AccountRepository {
+    sealed interface AccountError : PachliError {
+        @JvmInline
+        value class GetAccountError(private val error: ApiError) :
+            AccountError, PachliError by error
+
+        @JvmInline
+        value class GetAccountsError(private val error: ApiError) :
+            AccountError, PachliError by error
+    }
+
     /**
      * Get the data for [accountId].
      *
+     * @param pachliAccountId
      * @param accountId Server ID of the account to fetch.
      */
-    suspend fun getAccount(accountId: String): Result<Account, GetAccountError>
+    suspend fun getAccount(pachliAccountId: Long, accountId: String): Result<Account, GetAccountError>
+
+    /**
+     * Get the data for multiple [accountIds].
+     *
+     * May not return data for all the accounts, if some of them are missing.
+     *
+     * @param pachliAccountId
+     * @param accountIds Collection of server IDs of accounts to fetch
+     */
+    suspend fun getAccounts(pachliAccountId: Long, accountIds: Collection<String>): Result<List<Account>, GetAccountsError>
+
+    suspend fun saveAccounts(pachliAccountId: Long, accounts: Collection<Account>)
+
+    suspend fun saveTimelineAccount(pachliAccountId: Long, timelineAccount: TimelineAccount)
 }

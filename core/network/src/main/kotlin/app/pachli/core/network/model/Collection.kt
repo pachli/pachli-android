@@ -123,4 +123,10 @@ fun Iterable<CollectionItem>.asModel() = map { it.asModel() }
 data class CollectionWithAccounts(
     val accounts: List<Account>,
     val collection: Collection,
-)
+) {
+    fun asModel() = app.pachli.core.model.CollectionWithAccounts(
+        collection = collection.asModel(),
+        owner = accounts.firstOrNull()?.asModel(),
+        accounts = accounts.drop(1).asModel(),
+    )
+}

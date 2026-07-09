@@ -23,17 +23,20 @@ import androidx.room.Transaction
 import androidx.room.TypeConverters
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
-import app.pachli.core.database.model.CollectionAndOwner
+import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.CollectionAndOwnerEntities
 import app.pachli.core.database.model.CollectionEntity
 import app.pachli.core.database.model.CollectionItemEntity
 import app.pachli.core.database.model.CollectionViewDataEntity
-import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineCollectionEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 @TypeConverters(Converters::class)
 interface CollectionsDao {
+    @Upsert
+    suspend fun upsertCollection(collection: CollectionEntity)
+
     @Upsert
     suspend fun upsertCollections(collections: Collection<CollectionEntity>)
 
@@ -57,58 +60,42 @@ WHERE pachliAccountId = :pachliAccountId AND collectionServerId = :collectionId 
     @Transaction
     @Query(
         """
-SELECT
-    collection.*,
-    owner.serverId AS 'owner_serverId',
-    owner.pachliAccountId AS 'owner_pachliAccountId',
-    owner.localUsername AS 'owner_localUsername',
-    owner.username AS 'owner_username',
-    owner.displayName AS 'owner_displayName',
-    owner.url AS 'owner_url',
-    owner.avatar AS 'owner_avatar',
-    owner.emojis AS 'owner_emojis',
-    owner.bot AS 'owner_bot',
-    owner.createdAt AS 'owner_createdAt',
-    owner.limited AS 'owner_limited',
-    owner.roles AS 'owner_roles',
-    owner.pronouns AS 'owner_pronouns'
-FROM CollectionEntity AS collection
-JOIN TimelineAccountEntity owner
-  ON collection.accountId = owner.serverId
-WHERE collection.pachliAccountId = :pachliAccountId AND collection.serverId = :collectionId
-        """,
-    )
-    fun getCollection2(pachliAccountId: Long, collectionId: String): Flow<CollectionAndOwner>
-
-    @Transaction
-    @Query(
-        """
 WITH CollectionWithAccount AS (
 SELECT
     collection.*,
     owner.serverId AS 'owner_serverId',
     owner.pachliAccountId AS 'owner_pachliAccountId',
+    owner.serverId AS 'owner_serverId',
     owner.localUsername AS 'owner_localUsername',
     owner.username AS 'owner_username',
     owner.displayName AS 'owner_displayName',
+    owner.createdAt AS 'owner_createdAt',
     owner.url AS 'owner_url',
     owner.avatar AS 'owner_avatar',
-    owner.emojis AS 'owner_emojis',
+    owner.note AS 'owner_note',
+    owner.header AS 'owner_header',
+    owner.locked AS 'owner_locked',
+    owner.lastStatusAt AS 'owner_lastStatusAt',
+    owner.followersCount AS 'owner_followersCount',
+    owner.followingCount AS 'owner_followingCount',
+    owner.statusesCount AS 'owner_statusesCount',
     owner.bot AS 'owner_bot',
-    owner.createdAt AS 'owner_createdAt',
+    owner.emojis AS 'owner_emojis',
+    owner.fields AS 'owner_fields',
+    owner.movedAccount AS 'owner_movedAccount',
     owner.limited AS 'owner_limited',
     owner.roles AS 'owner_roles',
     owner.pronouns AS 'owner_pronouns'
  FROM CollectionEntity AS collection
- JOIN TimelineAccountEntity owner
+ JOIN AccountEntity owner
   ON collection.accountId = owner.serverId
 )
 SELECT * FROM CollectionWithAccount collection
- JOIN TimelineAccountEntity account
+ JOIN AccountEntity account
  JOIN CollectionItemEntity item
   ON item.collectionServerId = collection.serverId AND account.serverId = item.accountId
  WHERE collection.pachliAccountId = :pachliAccountId AND collection.serverId = :collectionId
         """,
     )
-    fun getCollection(pachliAccountId: Long, collectionId: String): Flow<Map<CollectionAndOwner, List<TimelineAccountEntity>>>
+    fun getCollection(pachliAccountId: Long, collectionId: String): Flow<Map<CollectionAndOwnerEntities, List<AccountEntity>>>
 }

@@ -141,3 +141,5 @@ fun Account.asEntity(pachliAccountId: Long) = AccountEntity(
 )
 
 fun Iterable<Account>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }
+
+fun Iterable<AccountEntity>.asModel() = map { it.asModel() }

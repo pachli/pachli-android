@@ -35,6 +35,7 @@ import app.pachli.core.database.model.NotificationReport
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.asEntity
+import app.pachli.core.model.Account
 import app.pachli.core.model.AccountWarning
 import app.pachli.core.model.RelationshipSeveranceEvent
 import app.pachli.core.model.Report
@@ -272,9 +273,8 @@ class NotificationsRemoteMediator(
         val accountsInCollections = resolveAccounts(accountIdsInCollections)
 
         // Bulk upsert the discovered items.
-        timelineDao.upsertTimelineAccounts(
-            timelineAccounts.asEntity(pachliAccountId) + accountsInCollections.values.asEntity(pachliAccountId),
-        )
+        timelineDao.upsertTimelineAccounts(timelineAccounts.asEntity(pachliAccountId))
+        timelineDao.upsertAccounts(accountsInCollections.values.asEntity(pachliAccountId))
         statusDao.upsertStatuses(statuses.map { it.asEntity(pachliAccountId) })
         notificationDao.upsertNotifications(notifications.asModel(accountId).asEntity(pachliAccountId))
         collectionsDao.upsertCollections(collections.asEntity(pachliAccountId))
@@ -295,11 +295,11 @@ class NotificationsRemoteMediator(
     }
 
     /**
-     * Calls the server to convert all [accountIds] to the full [TimelineAccount] details.
+     * Calls the server to convert all [accountIds] to the full [Account] details.
      *
-     * @return Map between the server's ID for the account and the [TimelineAccount].
+     * @return Map between the server's ID for the account and the [Account].
      */
-    private suspend fun resolveAccounts(accountIds: Collection<String>): Map<String, TimelineAccount> {
+    private suspend fun resolveAccounts(accountIds: Collection<String>): Map<String, Account> {
         if (accountIds.isEmpty()) return emptyMap()
 
         return mastodonApi.accounts(accountIds)

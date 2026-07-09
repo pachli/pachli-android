@@ -115,7 +115,7 @@ class AccountViewModel @AssistedInject constructor(
 
         // ... with the result from the API...
         val remoteAccount = combine(reload, pachliAccount, accountId) { _, pachliAccount, accountId ->
-            accountRepository.getAccount(accountId)
+            accountRepository.getAccount(pachliAccount.id, accountId)
                 .onSuccess { account ->
                     domain = getDomain(account.url)
                     isFromOwnDomain = domain == pachliAccount.domain

@@ -45,8 +45,29 @@ abstract class TimelineDao {
     @Delete
     abstract suspend fun delete(entities: List<TimelineStatusEntity>)
 
+    @Query(
+        """
+SELECT *
+FROM AccountEntity
+WHERE pachliAccountId = :pachliAccountId AND serverId = :serverId
+    """,
+    )
+    abstract suspend fun getAccount(pachliAccountId: Long, serverId: String): AccountEntity?
+
+    @Query(
+        """
+SELECT *
+FROM AccountEntity
+WHERE pachliAccountId = :pachliAccountId AND serverId IN (:serverIds)
+        """,
+    )
+    abstract suspend fun getAccounts(pachliAccountId: Long, serverIds: Collection<String>): List<AccountEntity>
+
     @Insert(onConflict = REPLACE)
     abstract suspend fun insertAccount(timelineAccountEntity: TimelineAccountEntity): Long
+
+    @Upsert
+    abstract suspend fun upsertAccount(accounts: AccountEntity)
 
     @Upsert
     abstract suspend fun upsertAccounts(accounts: Collection<AccountEntity>)
@@ -822,7 +843,7 @@ WHERE pachliAccountId = :accountId
         val countStatus = cleanupStatuses(accountId)
         val countStatusViewData = cleanupStatusViewData(accountId)
         val countTranslatedStatus = cleanupTranslatedStatus(accountId)
-        val countAccounts = cleanupAccounts(accountId)
+        val countAccounts = cleanupTimelineAccounts(accountId)
         return countStatus + countStatusViewData + countTranslatedStatus + countAccounts + 0L
     }
 
@@ -878,7 +899,7 @@ WHERE
     )
 """,
     )
-    abstract suspend fun cleanupAccounts(accountId: Long): Int
+    abstract suspend fun cleanupTimelineAccounts(accountId: Long): Int
 
     /**
      * Removes rows from StatusViewDataEntity that reference statuses are that not

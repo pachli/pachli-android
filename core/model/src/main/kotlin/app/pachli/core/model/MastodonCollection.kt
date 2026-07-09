@@ -110,10 +110,10 @@ data class TimelineCollection(
     override val accountId = ownerAccountId
 }
 
-fun Collection.asTimelineCollection(accounts: Map<String, TimelineAccount>) = TimelineCollection(
+fun Collection.asTimelineCollection(accounts: Map<String, Account>) = TimelineCollection(
     serverId = serverId,
     ownerAccountId = accountId,
-    ownerAccount = accounts[accountId],
+    ownerAccount = accounts[accountId]?.asTimelineAccount(),
     name = name,
     description = description,
     local = local,
@@ -124,4 +124,24 @@ fun Collection.asTimelineCollection(accounts: Map<String, TimelineAccount>) = Ti
     updatedAt = updatedAt,
     items = items,
     itemIconUrls = items.map { accounts[it.accountId]?.avatar },
+)
+
+/**
+ * A [Collection], its [owner][Account] account, and the [accounts][Account]
+ * in the collection.
+ *
+ * Note: The network model keeps the collection owner as the first account,
+ * this model keeps the owner as a separate property.
+ *
+ * @property collection
+ * @property owner [Account] that owns the collection. May be null if that
+ * couldn't be determined.
+ * @property accounts The (resolved) accounts in the collection. May be empty,
+ * or not equal the size of [collection.items][Collection.items] if some
+ * accounts could not be resolved.
+ */
+data class CollectionWithAccounts(
+    val collection: Collection,
+    val owner: Account?,
+    val accounts: List<Account>,
 )
