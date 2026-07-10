@@ -19,9 +19,8 @@ package app.pachli.core.domain.accounts
 
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.database.dao.FollowingAccountDao
-import app.pachli.core.eventhub.BlockEvent
+import app.pachli.core.eventhub.DomainMuteEvent
 import app.pachli.core.eventhub.EventHub
-import app.pachli.core.model.Relationship
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.UseCaseOnly
 import app.pachli.core.network.retrofit.apiresult.ApiError
@@ -34,29 +33,31 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 
 /**
- * Block [accountId].
+ * Block [domain].
  *
  * On success:
  *
- * - [BlockEvent] is dispatched.
+ * - [DomainMuteEvent] is dispatched.
+ * - Local cached following relationships in [FollowingAccountDao]
+ * are cleared.
  */
 @Singleton
-class BlockAccountUseCase @Inject constructor(
+class BlockDomainUseCase @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
     private val mastodonApi: MastodonApi,
-    private val followingAccountDao: FollowingAccountDao,
     private val eventHub: EventHub,
+    private val followingAccountDao: FollowingAccountDao,
 ) {
     /**
      * @param pachliAccountId
-     * @param accountId ID of the account to block.
+     * @param domain Domain of the account to block.
      */
     @OptIn(UseCaseOnly::class)
-    suspend operator fun invoke(pachliAccountId: Long, accountId: String): Result<Relationship, ApiError> = externalScope.async {
-        mastodonApi.blockAccount(accountId).map { it.body.asModel() }
+    suspend operator fun invoke(pachliAccountId: Long, domain: String): Result<Unit, ApiError> = externalScope.async {
+        mastodonApi.blockDomain(domain).map { it.body }
             .onSuccess {
-                followingAccountDao.delete(pachliAccountId, accountId)
-                eventHub.dispatch(BlockEvent(pachliAccountId, accountId))
+                eventHub.dispatch(DomainMuteEvent(pachliAccountId, domain))
+                followingAccountDao.deleteAllByDomain(pachliAccountId, domain)
             }
     }.await()
 }

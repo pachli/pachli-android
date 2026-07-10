@@ -534,6 +534,7 @@ interface MastodonApi {
         @Query("limit") limit: Int? = null,
     ): ApiResult<List<String>>
 
+    @UseCaseOnly
     @FormUrlEncoded
     @POST("api/v1/domain_blocks")
     suspend fun blockDomain(

@@ -17,6 +17,7 @@
 
 package app.pachli.core.database.model
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import app.pachli.core.model.ITimelineAccount
@@ -27,6 +28,8 @@ import app.pachli.core.model.ITimelineAccount
  * @property pachliAccountId ID of the local account that is following this account.
  * @property serverId Server's identifier for the account. Unique within a single server,
  * but not unique across the federated network.
+ * @property domain The domain of the account identified by [serverId]. Allows for bulk
+ * delete of all relationships on a particular domain, if the user blocks the domain.
  */
 @Entity(
     primaryKeys = ["pachliAccountId", "serverId"],
@@ -43,11 +46,14 @@ import app.pachli.core.model.ITimelineAccount
 data class FollowingAccountEntity(
     val pachliAccountId: Long,
     val serverId: String,
+    @ColumnInfo(defaultValue = "")
+    val domain: String,
 ) {
     companion object {
         fun from(pachliAccountId: Long, account: ITimelineAccount) = FollowingAccountEntity(
             pachliAccountId = pachliAccountId,
             serverId = account.serverId,
+            domain = account.domain,
         )
     }
 }

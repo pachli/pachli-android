@@ -274,6 +274,7 @@ class PachliAccountEntityForeignKeyTest {
         val followingAccount = FollowingAccountEntity(
             pachliAccountId = pachliAccountId,
             serverId = "2",
+            domain = "example.com",
         )
         followingAccountDao.upsert(followingAccount)
 

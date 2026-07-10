@@ -48,10 +48,31 @@ WHERE pachliAccountId = :accountId
 
     @Query(
         """
+DELETE
+FROM FollowingAccountEntity
+WHERE pachliAccountId = :pachliAccountId AND serverId = :accountId
+    """,
+    )
+    suspend fun delete(pachliAccountId: Long, accountId: String)
+
+    @Query(
+        """
 SELECT *
 FROM FollowingAccountEntity
 WHERE pachliAccountId = :pachliAccountId
 """,
     )
     suspend fun loadAllForAccount(pachliAccountId: Long): List<FollowingAccountEntity>
+
+    /**
+     * Delete cached following relationships with [domain].
+     */
+    @Query(
+        """
+DELETE
+FROM FollowingAccountEntity
+WHERE pachliAccountId = :pachliAccountId AND domain = :domain
+    """,
+    )
+    suspend fun deleteAllByDomain(pachliAccountId: Long, domain: String)
 }
