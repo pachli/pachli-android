@@ -742,8 +742,8 @@ class AccountActivity :
         binding.accountFollowsYouChip.visible(relation.followedBy && !wellbeingEnabled)
 
         // because subscribing is Pleroma extension, enable it __only__ when we
-        //  have non-null subscribing field. It's also now supported in Mastodon
-        //  3.3.0rc but called notifying and use different API call
+        // have non-null subscribing field. It's also now supported in Mastodon
+        // 3.3.0rc but called notifying and use different API call
         if (!viewModel.isSelf.value &&
             followState == FollowState.FOLLOWING &&
             (relation.subscribing != null || relation.notifying != null)
