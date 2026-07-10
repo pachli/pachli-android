@@ -135,7 +135,7 @@ class AccountViewModel @AssistedInject constructor(
         merge(reload.map { Ok(Loadable.Loading) }, profileUpdates, remoteAccount).flowWhileShared(SharingStarted.WhileSubscribed(5000))
     }
 
-    /** True if the laoded account in [accountData] is the user's account. */
+    /** True if the loaded account in [accountData] is the user's account. */
     val isSelf = combine(accountData, pachliAccount) { accountData, pachliAccount ->
         pachliAccount.accountId == accountData.get()?.getOrNull()?.serverId
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
@@ -158,40 +158,40 @@ class AccountViewModel @AssistedInject constructor(
         }
     }
 
-    fun changeFollowState(accountId: String) {
+    fun changeFollowState(account: Account) {
         val relationship = relationshipData.value?.data
         if (relationship?.following == true || relationship?.requested == true) {
-            changeRelationship(accountId, RelationShipAction.UNFOLLOW)
+            changeRelationship(account, RelationShipAction.UNFOLLOW)
         } else {
-            changeRelationship(accountId, RelationShipAction.FOLLOW)
+            changeRelationship(account, RelationShipAction.FOLLOW)
         }
     }
 
-    fun changeBlockState(accountId: String) {
+    fun changeBlockState(account: Account) {
         if (relationshipData.value?.data?.blocking == true) {
-            changeRelationship(accountId, RelationShipAction.UNBLOCK)
+            changeRelationship(account, RelationShipAction.UNBLOCK)
         } else {
-            changeRelationship(accountId, RelationShipAction.BLOCK)
+            changeRelationship(account, RelationShipAction.BLOCK)
         }
     }
 
-    fun muteAccount(accountId: String, notifications: Boolean, duration: Int?) {
-        changeRelationship(accountId, RelationShipAction.MUTE, notifications, duration)
+    fun muteAccount(account: Account, notifications: Boolean, duration: Int?) {
+        changeRelationship(account, RelationShipAction.MUTE, notifications, duration)
     }
 
-    fun unmuteAccount(accountId: String) {
-        changeRelationship(accountId, RelationShipAction.UNMUTE)
+    fun unmuteAccount(account: Account) {
+        changeRelationship(account, RelationShipAction.UNMUTE)
     }
 
-    fun changeSubscribingState(accountId: String) {
+    fun changeSubscribingState(account: Account) {
         val relationship = relationshipData.value?.data
         if (relationship?.notifying == true ||
             // Mastodon 3.3.0rc1
             relationship?.subscribing == true // Pleroma
         ) {
-            changeRelationship(accountId, RelationShipAction.UNSUBSCRIBE)
+            changeRelationship(account, RelationShipAction.UNSUBSCRIBE)
         } else {
-            changeRelationship(accountId, RelationShipAction.SUBSCRIBE)
+            changeRelationship(account, RelationShipAction.SUBSCRIBE)
         }
     }
 
@@ -226,35 +226,35 @@ class AccountViewModel @AssistedInject constructor(
         }
     }
 
-    fun changeShowReblogsState(accountId: String) {
+    fun changeShowReblogsState(account: Account) {
         if (relationshipData.value?.data?.showingReblogs == true) {
-            changeRelationship(accountId, RelationShipAction.HIDE_REBLOGS)
+            changeRelationship(account, RelationShipAction.HIDE_REBLOGS)
         } else {
-            changeRelationship(accountId, RelationShipAction.SHOW_REBLOGS)
+            changeRelationship(account, RelationShipAction.SHOW_REBLOGS)
         }
     }
 
     /**
-     * @param accountId ID of the account that is the target of [relationshipAction].
+     * @param account ID of the account that is the target of [relationshipAction].
      * @param relationshipAction The action to take.
      * @param parameter showReblogs if RelationShipAction.FOLLOW, notifications if MUTE
      */
     private fun changeRelationship(
-        accountId: String,
+        account: Account,
         relationshipAction: RelationShipAction,
         parameter: Boolean? = null,
         duration: Int? = null,
     ) = viewModelScope.launch {
         val relation = relationshipData.value?.data
-        val account = accountData.value.get()?.getOrNull()
+        val cachedAccount = accountData.value.get()?.getOrNull()
         val isMastodon = relationshipData.value?.data?.notifying != null
 
-        if (relation != null && account != null) {
+        if (relation != null && cachedAccount != null) {
             // optimistically post new state for faster response
 
             val newRelation = when (relationshipAction) {
                 RelationShipAction.FOLLOW -> {
-                    if (account.locked) {
+                    if (cachedAccount.locked) {
                         relation.copy(requested = true)
                     } else {
                         relation.copy(following = true)
@@ -287,35 +287,35 @@ class AccountViewModel @AssistedInject constructor(
         }
 
         val response = when (relationshipAction) {
-            RelationShipAction.FOLLOW -> followAccountUseCase(pachliAccountId, accountId, showReblogs = true)
-            RelationShipAction.UNFOLLOW -> unfollowAccountUseCase(pachliAccountId, accountId)
-            RelationShipAction.BLOCK -> blockAccountUseCase(pachliAccountId, accountId)
-            RelationShipAction.UNBLOCK -> unblockAccountUseCase(pachliAccountId, accountId)
+            RelationShipAction.FOLLOW -> followAccountUseCase(pachliAccountId, account, showReblogs = true)
+            RelationShipAction.UNFOLLOW -> unfollowAccountUseCase(pachliAccountId, account.serverId)
+            RelationShipAction.BLOCK -> blockAccountUseCase(pachliAccountId, account.serverId)
+            RelationShipAction.UNBLOCK -> unblockAccountUseCase(pachliAccountId, account.serverId)
             RelationShipAction.MUTE -> muteAccountUseCase(
                 pachliAccountId,
-                accountId,
+                account.serverId,
                 notifications = parameter ?: true,
                 duration,
             )
 
-            RelationShipAction.UNMUTE -> unmuteAccountUseCase(pachliAccountId, accountId)
+            RelationShipAction.UNMUTE -> unmuteAccountUseCase(pachliAccountId, account.serverId)
             RelationShipAction.SUBSCRIBE -> {
                 if (isMastodon) {
-                    followAccountUseCase(pachliAccountId, accountId, notify = true)
+                    followAccountUseCase(pachliAccountId, account, notify = true)
                 } else {
-                    subscribeAccountUseCase(pachliAccountId, accountId)
+                    subscribeAccountUseCase(pachliAccountId, account.serverId)
                 }
             }
             RelationShipAction.UNSUBSCRIBE -> {
                 if (isMastodon) {
-                    followAccountUseCase(pachliAccountId, accountId, notify = false)
+                    followAccountUseCase(pachliAccountId, account, notify = false)
                 } else {
-                    unsubscribeAccountUseCase(pachliAccountId, accountId)
+                    unsubscribeAccountUseCase(pachliAccountId, account.serverId)
                 }
             }
 
-            RelationShipAction.SHOW_REBLOGS -> followAccountUseCase(pachliAccountId, accountId, showReblogs = true)
-            RelationShipAction.HIDE_REBLOGS -> followAccountUseCase(pachliAccountId, accountId, showReblogs = false)
+            RelationShipAction.SHOW_REBLOGS -> followAccountUseCase(pachliAccountId, account, showReblogs = true)
+            RelationShipAction.HIDE_REBLOGS -> followAccountUseCase(pachliAccountId, account, showReblogs = false)
         }
 
         response

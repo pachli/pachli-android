@@ -37,19 +37,23 @@ internal interface ICollectionViewModel {
             val collectionId: String,
         ) : UiAction
 
-        data class GetCollection(
+        /** Load the local copy of [collectionId]. */
+        data class LoadCollection(
             val pachliAccountId: Long,
             val collectionId: String,
         ) : UiAction
     }
 
+    /** Actions that navigate the user elsewhere. */
     sealed interface NavigationAction : UiAction {
         data class ViewAccount(val accountId: String) : NavigationAction
         data class ViewHashtag(val hashtag: String) : NavigationAction
         data class ViewUrl(val url: String) : NavigationAction
 
+        /** Confirm the user wants to revoke their membership. */
         data class ConfirmCollectionRevoke(val action: AccountAction.Revoke) : NavigationAction
 
+        /** Confirm the user wants to unfollow an account. */
         data class ConfirmUnfollowAccount(val action: AccountAction.UnfollowAccount) : NavigationAction
     }
 
@@ -64,37 +68,43 @@ internal interface ICollectionViewModel {
         val pachliAccountId: Long
         val account: Account
 
+        /** Follow [account]. */
         data class FollowAccount(
             override val pachliAccountId: Long,
             override val account: Account,
         ) : AccountAction
 
+        /** Unfollow [account]. */
         data class UnfollowAccount(
             override val pachliAccountId: Long,
             override val account: Account,
         ) : AccountAction
 
+        /** Cancel active follow request for [account]. */
         data class CancelFollowRequest(
             override val pachliAccountId: Long,
             override val account: Account,
         ) : AccountAction
 
+        /** Unblock [account]. */
         data class UnblockAccount(
             override val pachliAccountId: Long,
             override val account: Account,
         ) : AccountAction
 
-        data class UnblockDomain(
+        /** Block the domain associated with [account]. */
+        data class BlockDomain(
             override val pachliAccountId: Long,
             override val account: Account,
         ) : AccountAction
 
+        /** Unmute [account]. */
         data class UnmuteAccount(
             override val pachliAccountId: Long,
             override val account: Account,
         ) : AccountAction
 
-        /** Remove the user from the collection. */
+        /** Revoke permission for the user to be in the collection. */
         data class Revoke(
             override val pachliAccountId: Long,
             override val account: Account,
@@ -105,20 +115,23 @@ internal interface ICollectionViewModel {
     sealed interface UiSuccess {
         val action: UiAction
 
-        data class Revoke(override val action: AccountAction.Revoke) : UiSuccess
-
         data class FollowAccount(override val action: AccountAction.FollowAccount) : UiSuccess
         data class UnfollowAccount(override val action: AccountAction.UnfollowAccount) : UiSuccess
+        data class CancelFollowRequest(override val action: AccountAction.CancelFollowRequest) : UiSuccess
+        data class UnblockAccount(override val action: AccountAction.UnblockAccount) : UiSuccess
+        data class UnblockDomain(override val action: AccountAction.BlockDomain) : UiSuccess
+        data class UnmuteAccount(override val action: AccountAction.UnmuteAccount) : UiSuccess
+        data class Revoke(override val action: AccountAction.Revoke) : UiSuccess
 
         companion object {
             fun from(action: AccountAction) = when (action) {
                 is AccountAction.Revoke -> Revoke(action)
                 is AccountAction.FollowAccount -> FollowAccount(action)
                 is AccountAction.UnfollowAccount -> UnfollowAccount(action)
-                is AccountAction.CancelFollowRequest -> TODO()
-                is AccountAction.UnblockAccount -> TODO()
-                is AccountAction.UnblockDomain -> TODO()
-                is AccountAction.UnmuteAccount -> TODO()
+                is AccountAction.CancelFollowRequest -> CancelFollowRequest(action)
+                is AccountAction.UnblockAccount -> UnblockAccount(action)
+                is AccountAction.BlockDomain -> UnblockDomain(action)
+                is AccountAction.UnmuteAccount -> UnmuteAccount(action)
             }
         }
     }
@@ -168,6 +181,46 @@ internal interface ICollectionViewModel {
             arrayOf(action.account.name),
         )
 
+        data class CancelFollowRequest(
+            override val action: AccountAction.CancelFollowRequest,
+            override val cause: PachliError,
+        ) : UiError(
+            app.pachli.core.ui.R.string.ui_error_cancel_follow_request_fmt,
+            action,
+            cause,
+            arrayOf(action.account.name),
+        )
+
+        data class UnblockAccount(
+            override val action: AccountAction.UnblockAccount,
+            override val cause: PachliError,
+        ) : UiError(
+            app.pachli.core.ui.R.string.ui_error_unblock_account_fmt,
+            action,
+            cause,
+            arrayOf(action.account.name),
+        )
+
+        data class BlockDomain(
+            override val action: AccountAction.BlockDomain,
+            override val cause: PachliError,
+        ) : UiError(
+            app.pachli.core.ui.R.string.ui_error_unblock_domain_fmt,
+            action,
+            cause,
+            arrayOf(action.account.domain),
+        )
+
+        data class UnmuteAccount(
+            override val action: AccountAction.UnmuteAccount,
+            override val cause: PachliError,
+        ) : UiError(
+            app.pachli.core.ui.R.string.ui_error_unmute_account_fmt,
+            action,
+            cause,
+            arrayOf(action.account.name),
+        )
+
         data class Revoke(
             override val action: AccountAction.Revoke,
             override val cause: PachliError,
@@ -178,10 +231,10 @@ internal interface ICollectionViewModel {
                 is AccountAction.Revoke -> Revoke(action, error)
                 is AccountAction.FollowAccount -> FollowAccount(action, error)
                 is AccountAction.UnfollowAccount -> UnfollowAccount(action, error)
-                is AccountAction.CancelFollowRequest -> TODO()
-                is AccountAction.UnblockAccount -> TODO()
-                is AccountAction.UnblockDomain -> TODO()
-                is AccountAction.UnmuteAccount -> TODO()
+                is AccountAction.CancelFollowRequest -> CancelFollowRequest(action, error)
+                is AccountAction.UnblockAccount -> UnblockAccount(action, error)
+                is AccountAction.BlockDomain -> BlockDomain(action, error)
+                is AccountAction.UnmuteAccount -> UnmuteAccount(action, error)
             }
         }
     }

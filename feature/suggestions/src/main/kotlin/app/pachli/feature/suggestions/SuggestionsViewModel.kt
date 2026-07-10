@@ -255,7 +255,7 @@ internal class SuggestionsViewModel @Inject constructor(
      * @return Result with the new relationship, or an error.
      */
     private suspend fun acceptSuggestion(action: AcceptSuggestion): Result<Relationship, FollowAccountError> = operationCounter {
-        followAccountUseCase(action.pachliAccountId, action.suggestion.account.serverId)
+        followAccountUseCase(action.pachliAccountId, action.suggestion.account)
             .mapError { FollowAccountError(it) }
     }
 }

@@ -177,7 +177,7 @@ class CollectionFragment :
 
         bind()
 
-        viewModel.accept(UiAction.GetCollection(pachliAccountId, collectionId))
+        viewModel.accept(UiAction.LoadCollection(pachliAccountId, collectionId))
     }
 
     private fun bind() {
@@ -188,11 +188,6 @@ class CollectionFragment :
                 launch { uiAction.throttleFirst().collect(::bindUiAction) }
 
                 launch { viewModel.collectionViewData.collectLatest(::bindCollectionViewData) }
-//                launch {
-//                    viewModel.collectionViewData.collectLatest {
-//                        it
-//                    }
-//                }
 
                 launch { viewModel.uiResult.collect(::bindUiResult) }
 
@@ -261,18 +256,6 @@ class CollectionFragment :
         }
     }
 
-//    private fun bindCollectionViewData(viewData: ICollectionViewModel.CollectionViewData?) {
-//        if (viewData == null) {
-//            binding.progressIndicator.show()
-//            return
-//        }
-//
-//        binding.progressIndicator.hide()
-//        collectionAdapter.submitList(viewData.accounts)
-//        binding.messageView.hide()
-//        binding.recyclerView.show()
-//    }
-
     private fun bindCollectionViewData(result: Result<Loadable<CollectionViewData>, UiError.GetCollection>) {
         binding.swipeRefreshLayout.isRefreshing = false
         Timber.d("bindCollectionViewData: $result")
@@ -280,25 +263,11 @@ class CollectionFragment :
         result.onFailure {
             binding.messageView.show()
             binding.recyclerView.hide()
-            binding.messageView.setup(it) { viewModel.accept(UiAction.GetCollection(pachliAccountId, collectionId)) }
+            binding.messageView.setup(it) { viewModel.accept(UiAction.LoadCollection(pachliAccountId, collectionId)) }
         }
 
         result.onSuccess {
-            val collectionViewData = it.getOrNull()
-            if (collectionViewData == null) {
-                binding.progressIndicator.show()
-                return
-            }
-            binding.progressIndicator.hide()
-            // Update toolbar
-            // - Owner avatar
-            // - Collection name
-            // - Collection owner handle
-
-            // Update description, above the list
-            // Update hashtag, above the list
-
-            // Control to-reorder list?
+            val collectionViewData = it.getOrNull() ?: return
 
             collectionAdapter.submitList(collectionViewData.accounts)
             binding.messageView.hide()
@@ -335,7 +304,6 @@ class CollectionFragment :
 
     override fun onRefresh() {
         snackbar?.dismiss()
-        // viewModel.accept(UiAction.GetCollection(pachliAccountId, collectionId))
         viewModel.accept(UiAction.Refresh(pachliAccountId, collectionId))
     }
 
@@ -371,6 +339,10 @@ class CollectionFragment :
     }
 }
 
+/**
+ * Manage a list of accounts from a collection, with actions the user
+ * can perform on the accounts (follow, etc).
+ */
 // TODO: Very similar to SuggestionsAdapter
 internal class CollectionAccountsAdapter(
     private val glide: RequestManager,
@@ -419,8 +391,8 @@ internal class CollectionAccountsAdapter(
  * @property pachliAccountId
  * @property collectionId ID of the collection the account is in.
  * @property account The account.
- * @property relationship Relationship to the current user. Null if fetching
- * the relationship failed.
+ * @property relationship The current user's relationship to the account.
+ * Null if fetching the relationship data failed.
  * @property isEnabled If false the user should not be able to interact with
  * the account (e.g., because there is an active network operation going on
  * that affects this account).
@@ -438,7 +410,7 @@ internal data class AccountViewData(
     val primaryAction: AccountAction?,
 )
 
-/** Displays an account in a collection. */
+/** Displays a single account in a collection. */
 internal class AccountViewHolder(
     internal val binding: ItemAccountInCollectionBinding,
     private val glide: RequestManager,
@@ -490,8 +462,6 @@ internal class AccountViewHolder(
         this.viewData = viewData
         val account = viewData.account
 
-        Timber.d("relationship: ${viewData.relationship}")
-
         with(binding) {
             username.text = username.context.getString(DR.string.post_username_format, account.username)
 
@@ -504,12 +474,6 @@ internal class AccountViewHolder(
             bindPostStatistics(viewData)
             bindIsEnabled(viewData.isEnabled)
 
-            // Bind the controls
-            //
-            // - Follow button
-            //   - Show if not following the account
-            // - "Remove me" button
-            //   - Show if this is me
             bindControls(viewData.primaryAction)
 
             // Build an accessible content description.
@@ -539,13 +503,7 @@ internal class AccountViewHolder(
 
     /** Binds the avatar image, respecting [animateAvatars]. */
     private fun bindAvatar(viewData: AccountViewData, animateAvatars: Boolean) = with(binding) {
-        loadAvatar(
-            glide,
-            viewData.account.avatar,
-            avatar,
-            avatarRadius,
-            animateAvatars,
-        )
+        loadAvatar(glide, viewData.account.avatar, avatar, avatarRadius, animateAvatars)
     }
 
     /** Binds the account's [roles][Account.roles]. */
@@ -559,12 +517,7 @@ internal class AccountViewHolder(
      */
     private fun bindDisplayName(viewData: AccountViewData, animateEmojis: Boolean) = with(binding) {
         val account = viewData.account
-        displayName.text = account.name.unicodeWrap().emojify(
-            glide,
-            account.emojis,
-            itemView,
-            animateEmojis,
-        )
+        displayName.text = account.name.unicodeWrap().emojify(glide, account.emojis, itemView, animateEmojis)
     }
 
     /**
@@ -583,7 +536,7 @@ internal class AccountViewHolder(
                 glide = glide,
                 textView = accountNote,
                 content = account.note,
-                emojis = account.emojis.orEmpty(),
+                emojis = account.emojis,
                 animateEmojis = animateEmojis,
                 removeQuoteInline = false,
                 linksToUnderline = linksToUnderline,
@@ -610,10 +563,6 @@ internal class AccountViewHolder(
     /** Bind's the account's post statistics. */
     private fun bindPostStatistics(viewData: AccountViewData) = with(binding) {
         val account = viewData.account
-
-        // Strings all have embedded HTML `<b>...</b>` to render different sections in bold
-        // without needing to compute spannable widths from arbitrary content. The `<b>` in
-        // the resource strings must have the leading `<` escaped as `&lt;`.
 
         followerCount.text = HtmlCompat.fromHtml(
             followerCount.context.getString(
@@ -685,7 +634,6 @@ internal class AccountViewHolder(
         if (primaryAction == null) {
             // Hide controls, show error message
             binding.actionButton.hide()
-            // TODO: Show error message.
             return
         }
 
@@ -700,7 +648,7 @@ internal class AccountViewHolder(
      */
     private fun AccountAction.text(context: Context) = when (this) {
         is AccountAction.UnblockAccount -> context.getString(app.pachli.core.ui.R.string.action_unblock)
-        is AccountAction.UnblockDomain -> context.getString(
+        is AccountAction.BlockDomain -> context.getString(
             app.pachli.core.ui.R.string.action_unmute_domain,
             this.account.domain,
         )
@@ -726,7 +674,7 @@ internal class AccountViewHolder(
         is AccountAction.FollowAccount -> app.pachli.core.ui.R.drawable.ic_person_add_24dp
         is AccountAction.Revoke -> app.pachli.core.ui.R.drawable.outline_delete_24
         is AccountAction.UnblockAccount -> 0
-        is AccountAction.UnblockDomain -> 0
+        is AccountAction.BlockDomain -> 0
         is AccountAction.UnfollowAccount -> app.pachli.core.ui.R.drawable.ic_person_remove_24dp
         is AccountAction.UnmuteAccount -> app.pachli.core.ui.R.drawable.ic_unmute_24dp
     }

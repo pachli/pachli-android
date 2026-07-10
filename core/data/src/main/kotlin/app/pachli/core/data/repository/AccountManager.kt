@@ -752,12 +752,12 @@ class AccountManager @Inject constructor(
     }
 
     // -- Following
-    suspend fun followAccount(pachliAccountId: Long, serverId: String) {
-        followingAccountDao.upsert(FollowingAccountEntity(pachliAccountId, serverId))
+    suspend fun followAccount(pachliAccountId: Long, serverId: String, domain: String) {
+        followingAccountDao.upsert(FollowingAccountEntity(pachliAccountId, serverId, domain))
     }
 
     suspend fun unfollowAccount(pachliAccountId: Long, serverId: String) {
-        followingAccountDao.delete(FollowingAccountEntity(pachliAccountId, serverId))
+        followingAccountDao.delete(pachliAccountId, serverId)
     }
 
     // Note: Can't use a Room partial update here because RedactedAccount doesn't

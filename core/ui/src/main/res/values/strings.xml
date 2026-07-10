@@ -231,6 +231,10 @@
 
     <string name="action_collection_remove_self">Remove me</string>
     <string name="ui_error_unfollow_account_fmt">Unfollowing %1$s failed: %2$s</string>
+    <string name="ui_error_cancel_follow_request_fmt">Canceling follow request of %1$s failed: %2$s</string>
+    <string name="ui_error_unblock_account_fmt">Unblocking %1$s failed: %2$s</string>
+    <string name="ui_error_unblock_domain_fmt">Unblocking %1$s failed: %2$s</string>
+    <string name="ui_error_unmute_account_fmt">Unmuting %1$s failed: %2$s</string>
     <string name="action_unblock">Unblock</string>
     <string name="action_follow">Follow</string>
     <string name="action_unfollow">Unfollow</string>

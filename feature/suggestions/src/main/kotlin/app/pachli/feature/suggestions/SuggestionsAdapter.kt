@@ -291,7 +291,7 @@ internal class SuggestionViewHolder(
                 glide = glide,
                 textView = accountNote,
                 content = account.note,
-                emojis = account.emojis.orEmpty(),
+                emojis = account.emojis,
                 animateEmojis = animateEmojis,
                 removeQuoteInline = false,
                 linksToUnderline = linksToUnderline,

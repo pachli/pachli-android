@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 44,
-    "identityHash": "e145260247084f00b3b7a569c0298165",
+    "identityHash": "8ee6cb24a70a3b3d9918ca962c7ffe5f",
     "entities": [
       {
         "tableName": "AccountEntity",
@@ -1923,7 +1923,7 @@
       },
       {
         "tableName": "FollowingAccountEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `PachliAccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `domain` TEXT NOT NULL DEFAULT '', PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `PachliAccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
         "fields": [
           {
             "fieldPath": "pachliAccountId",
@@ -1936,6 +1936,13 @@
             "columnName": "serverId",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "domain",
+            "columnName": "domain",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
           }
         ],
         "primaryKey": {
@@ -2464,7 +2471,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e145260247084f00b3b7a569c0298165')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8ee6cb24a70a3b3d9918ca962c7ffe5f')"
     ]
   }
 }

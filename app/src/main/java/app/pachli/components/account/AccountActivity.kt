@@ -508,8 +508,9 @@ class AccountActivity :
 
         viewModel.relationshipData.observe(this) {
             val relation = it?.data
-            if (relation != null) {
-                onRelationshipChanged(relation)
+            val account = viewModel.accountData.value.get()?.getOrNull()
+            if (relation != null && account != null) {
+                onRelationshipChanged(account, relation)
             }
 
             if (it is Error) {
@@ -558,15 +559,15 @@ class AccountActivity :
             glide = glide,
             textView = binding.accountNoteTextView,
             content = account.note,
-            emojis = account.emojis.orEmpty(),
+            emojis = account.emojis,
             animateEmojis = viewModel.statusDisplayOptions.value.animateEmojis,
             removeQuoteInline = false,
             linksToUnderline = viewModel.statusDisplayOptions.value.linksToUnderline,
             linkListener = this,
         )
 
-        accountFieldAdapter.fields = account.fields.orEmpty()
-        accountFieldAdapter.emojis = account.emojis.orEmpty()
+        accountFieldAdapter.fields = account.fields
+        accountFieldAdapter.emojis = account.emojis
         accountFieldAdapter.notifyDataSetChanged()
 
         binding.accountLockedImageView.visible(account.locked)
@@ -581,7 +582,7 @@ class AccountActivity :
         invalidateOptionsMenu()
 
         binding.accountMuteButton.setOnClickListener {
-            viewModel.unmuteAccount(accountId)
+            viewModel.unmuteAccount(account)
             updateMuteButton()
         }
     }
@@ -706,21 +707,21 @@ class AccountActivity :
             }
 
             if (blocking) {
-                viewModel.changeBlockState(accountId)
+                viewModel.changeBlockState(account)
                 return@setOnClickListener
             }
 
             when (followState) {
                 FollowState.NOT_FOLLOWING -> {
-                    viewModel.changeFollowState(accountId)
+                    viewModel.changeFollowState(account)
                 }
 
                 FollowState.REQUESTED -> {
-                    showFollowRequestPendingDialog()
+                    showFollowRequestPendingDialog(account)
                 }
 
                 FollowState.FOLLOWING -> {
-                    showUnfollowWarningDialog()
+                    showUnfollowWarningDialog(account)
                 }
             }
             updateFollowButton()
@@ -728,7 +729,7 @@ class AccountActivity :
         }
     }
 
-    private fun onRelationshipChanged(relation: Relationship) {
+    private fun onRelationshipChanged(account: Account, relation: Relationship) {
         followState = relation.followState
         blocking = relation.blocking
         muting = relation.muting
@@ -740,15 +741,16 @@ class AccountActivity :
 
         binding.accountFollowsYouChip.visible(relation.followedBy && !wellbeingEnabled)
 
-        // because subscribing is Pleroma extension, enable it __only__ when we have non-null subscribing field
-        // it's also now supported in Mastodon 3.3.0rc but called notifying and use different API call
+        // because subscribing is Pleroma extension, enable it __only__ when we
+        //  have non-null subscribing field. It's also now supported in Mastodon
+        //  3.3.0rc but called notifying and use different API call
         if (!viewModel.isSelf.value &&
             followState == FollowState.FOLLOWING &&
             (relation.subscribing != null || relation.notifying != null)
         ) {
             binding.accountSubscribeButton.show()
             binding.accountSubscribeButton.setOnClickListener {
-                viewModel.changeSubscribingState(accountId)
+                viewModel.changeSubscribingState(account)
             }
             if (relation.notifying != null) {
                 subscribing = relation.notifying!!
@@ -938,18 +940,20 @@ class AccountActivity :
         }
     }
 
-    private fun showFollowRequestPendingDialog() {
+    private fun showFollowRequestPendingDialog(account: Account) {
         AlertDialog.Builder(this)
             .setMessage(R.string.dialog_message_cancel_follow_request)
-            .setPositiveButton(android.R.string.ok) { _, _ -> viewModel.changeFollowState(accountId) }
+            .setPositiveButton(android.R.string.ok) { _, _ -> viewModel.changeFollowState(account) }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
     }
 
-    private fun showUnfollowWarningDialog() {
+    // See also CollectionActivity.newConfirmUnfollowAccountDialogFragment
+    // TODO: Move common dialog function to core.ui
+    private fun showUnfollowWarningDialog(account: Account) {
         AlertDialog.Builder(this)
             .setMessage(app.pachli.core.ui.R.string.dialog_unfollow_warning)
-            .setPositiveButton(android.R.string.ok) { _, _ -> viewModel.changeFollowState(accountId) }
+            .setPositiveButton(android.R.string.ok) { _, _ -> viewModel.changeFollowState(account) }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
     }
@@ -970,11 +974,11 @@ class AccountActivity :
         if (viewModel.relationshipData.value?.data?.blocking != true) {
             AlertDialog.Builder(this)
                 .setMessage(getString(R.string.dialog_block_warning, account.username))
-                .setPositiveButton(android.R.string.ok) { _, _ -> viewModel.changeBlockState(accountId) }
+                .setPositiveButton(android.R.string.ok) { _, _ -> viewModel.changeBlockState(account) }
                 .setNegativeButton(android.R.string.cancel, null)
                 .show()
         } else {
-            viewModel.changeBlockState(accountId)
+            viewModel.changeBlockState(account)
         }
     }
 
@@ -984,10 +988,10 @@ class AccountActivity :
                 this,
                 account.username,
             ) { notifications, duration ->
-                viewModel.muteAccount(accountId, notifications, duration)
+                viewModel.muteAccount(account, notifications, duration)
             }
         } else {
-            viewModel.unmuteAccount(accountId)
+            viewModel.unmuteAccount(account)
         }
     }
 
@@ -1085,7 +1089,9 @@ class AccountActivity :
                 return true
             }
             R.id.action_show_reblogs -> {
-                viewModel.changeShowReblogsState(accountId)
+                viewModel.accountData.value.get()?.getOrNull()?.let {
+                    viewModel.changeShowReblogsState(it)
+                }
                 return true
             }
             R.id.action_refresh_account -> {

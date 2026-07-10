@@ -87,9 +87,6 @@ class CollectionActivity : ViewUrlActivity() {
 
     private val pachliAccountId by unsafeLazy { intent.pachliAccountId }
 
-    /** True when the transition to this activity has completed. */
-    private var transitionComplete = false
-
     private var ownerAccountId: String? = null
 
     private val accountClickListener: View.OnClickListener = {
@@ -137,7 +134,7 @@ class CollectionActivity : ViewUrlActivity() {
         }
 
         val collectionId = CollectionActivityIntent.getCollectionId(intent)
-        viewModel.accept(UiAction.GetCollection(pachliAccountId, collectionId))
+        viewModel.accept(UiAction.LoadCollection(pachliAccountId, collectionId))
 
         val fragmentTag = CollectionFragment.fragmentTag(pachliAccountId, collectionId)
 
@@ -160,8 +157,6 @@ class CollectionActivity : ViewUrlActivity() {
         supportPostponeEnterTransition()
 
         bind()
-
-//        viewModel.accept(UiAction.GetCollection(pachliAccountId, collectionId))
     }
 
     private fun bind() {
@@ -169,23 +164,15 @@ class CollectionActivity : ViewUrlActivity() {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.collectionViewData.collectLatest {
                     bindCollectionViewData(it)
-
-                    // Delay transition until the first data load.
-                    if (!transitionComplete) {
-                        transitionComplete = true
-                        supportStartPostponedEnterTransition()
-                    }
                 }
             }
         }
     }
 
     private fun bindCollectionViewData(result: Result<Loadable<CollectionViewData>, ICollectionViewModel.UiError.GetCollection>) {
-//    private fun bindCollectionViewData(viewData: ICollectionViewModel.CollectionViewData?) {
-        // Only update on success
-        // TODO: Show error state.
+        // Only update on success. If there's an error it's shown by
+        // CollectionFragment.
         val viewData = result.get()?.getOrNull() ?: return
-//        if (viewData == null) return
 
         val collection = viewData.collection
         ownerAccountId = collection.accountId
@@ -310,8 +297,10 @@ fun Context.newConfirmRevokeDialogFragment() = AlertSuspendDialogFragment.newIns
     negativeText = getString(android.R.string.cancel),
 )
 
+// Similar functionality as AccountActivity.showUnfollowWarningDialog.
+// TODO: Move common dialog function to core.ui.
 internal fun Activity.newConfirmUnfollowAccountDialogFragment() = AlertSuspendDialogFragment.newInstance(
-    title = null, // getString(R.string.title_confirm_collection_revoke),
+    title = null,
     message = getString(app.pachli.core.ui.R.string.dialog_unfollow_warning),
     positiveText = getString(android.R.string.ok),
     negativeText = getString(android.R.string.cancel),

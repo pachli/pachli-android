@@ -18,9 +18,9 @@
 package app.pachli.core.domain.accounts
 
 import app.pachli.core.common.di.ApplicationScope
-import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.model.ITimelineAccount
-import app.pachli.core.model.Relationship
+import app.pachli.core.database.dao.FollowingAccountDao
+import app.pachli.core.eventhub.DomainMuteEvent
+import app.pachli.core.eventhub.EventHub
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.UseCaseOnly
 import app.pachli.core.network.retrofit.apiresult.ApiError
@@ -33,29 +33,31 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 
 /**
- * Sends a follow request for [accountId] to the server for [pachliAccountId].
+ * Block [domain].
  *
  * On success:
  *
- * - The following relationship is added to [AccountManager].
+ * - [DomainMuteEvent] is dispatched.
+ * - Local cached following relationships in [FollowingAccountDao]
+ * are cleared.
  */
 @Singleton
-class FollowAccountUseCase @Inject constructor(
+class BlockDomainUseCase @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
     private val mastodonApi: MastodonApi,
-    private val accountManager: AccountManager,
+    private val eventHub: EventHub,
+    private val followingAccountDao: FollowingAccountDao,
 ) {
     /**
      * @param pachliAccountId
-     * @param accountId
-     * @param showReblogs True if the boosts of posts made by the account
-     * should be shown.
-     * @param notify True if the user should be notified when this account
-     * posts.
+     * @param domain Domain of the account to block.
      */
     @OptIn(UseCaseOnly::class)
-    suspend operator fun invoke(pachliAccountId: Long, account: ITimelineAccount, showReblogs: Boolean? = null, notify: Boolean? = null): Result<Relationship, ApiError> = externalScope.async {
-        mastodonApi.followAccount(account.serverId, showReblogs, notify).map { it.body.asModel() }
-            .onSuccess { accountManager.followAccount(pachliAccountId, account.serverId, account.domain) }
+    suspend operator fun invoke(pachliAccountId: Long, domain: String): Result<Unit, ApiError> = externalScope.async {
+        mastodonApi.blockDomain(domain).map { it.body }
+            .onSuccess {
+                eventHub.dispatch(DomainMuteEvent(pachliAccountId, domain))
+                followingAccountDao.deleteAllByDomain(pachliAccountId, domain)
+            }
     }.await()
 }
