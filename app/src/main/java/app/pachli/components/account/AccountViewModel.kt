@@ -10,6 +10,7 @@ import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.getOrNull
 import app.pachli.core.domain.accounts.BlockAccountUseCase
+import app.pachli.core.domain.accounts.BlockDomainUseCase
 import app.pachli.core.domain.accounts.FollowAccountUseCase
 import app.pachli.core.domain.accounts.MuteAccountUseCase
 import app.pachli.core.domain.accounts.SubscribeAccountUseCase
@@ -17,7 +18,6 @@ import app.pachli.core.domain.accounts.UnblockAccountUseCase
 import app.pachli.core.domain.accounts.UnfollowAccountUseCase
 import app.pachli.core.domain.accounts.UnmuteAccountUseCase
 import app.pachli.core.domain.accounts.UnsubscribeAccountUseCase
-import app.pachli.core.eventhub.DomainMuteEvent
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.ProfileEditedEvent
 import app.pachli.core.model.Account
@@ -66,6 +66,7 @@ class AccountViewModel @AssistedInject constructor(
     private val unmuteAccountUseCase: UnmuteAccountUseCase,
     private val subscribeAccountUseCase: SubscribeAccountUseCase,
     private val unsubscribeAccountUseCase: UnsubscribeAccountUseCase,
+    private val blockDomainUseCase: BlockDomainUseCase,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val accountRepository: AccountRepository,
 ) : ViewModel() {
@@ -197,9 +198,8 @@ class AccountViewModel @AssistedInject constructor(
 
     fun blockDomain(instance: String) {
         viewModelScope.launch {
-            mastodonApi.blockDomain(instance)
+            blockDomainUseCase(pachliAccountId, instance)
                 .onSuccess {
-                    eventHub.dispatch(DomainMuteEvent(pachliAccountId, instance))
                     val relation = relationshipData.value?.data
                     if (relation != null) {
                         relationshipData.postValue(Success(relation.copy(blockingDomain = true)))

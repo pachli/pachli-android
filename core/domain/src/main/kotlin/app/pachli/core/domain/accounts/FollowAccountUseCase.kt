@@ -19,6 +19,8 @@ package app.pachli.core.domain.accounts
 
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.database.dao.FollowingAccountDao
+import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.model.ITimelineAccount
 import app.pachli.core.model.Relationship
 import app.pachli.core.network.retrofit.MastodonApi
@@ -43,7 +45,7 @@ import kotlinx.coroutines.async
 class FollowAccountUseCase @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
     private val mastodonApi: MastodonApi,
-    private val accountManager: AccountManager,
+    private val followingAccountDao: FollowingAccountDao,
 ) {
     /**
      * @param pachliAccountId
@@ -56,6 +58,8 @@ class FollowAccountUseCase @Inject constructor(
     @OptIn(UseCaseOnly::class)
     suspend operator fun invoke(pachliAccountId: Long, account: ITimelineAccount, showReblogs: Boolean? = null, notify: Boolean? = null): Result<Relationship, ApiError> = externalScope.async {
         mastodonApi.followAccount(account.serverId, showReblogs, notify).map { it.body.asModel() }
-            .onSuccess { accountManager.followAccount(pachliAccountId, account.serverId, account.domain) }
+            .onSuccess {
+                followingAccountDao.upsert(FollowingAccountEntity(pachliAccountId, account.serverId, account.domain))
+            }
     }.await()
 }

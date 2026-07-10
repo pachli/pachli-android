@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 44,
-    "identityHash": "8ee6cb24a70a3b3d9918ca962c7ffe5f",
+    "identityHash": "fba8559381a1ebfe55aa956b70c8ee45",
     "entities": [
       {
         "tableName": "AccountEntity",
@@ -165,381 +165,6 @@
         ]
       },
       {
-        "tableName": "CollectionEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `accountId` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `local` INTEGER NOT NULL, `sensitive` INTEGER NOT NULL, `discoverable` INTEGER NOT NULL, `hashtag` TEXT, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `items` TEXT NOT NULL, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `PachliAccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
-        "fields": [
-          {
-            "fieldPath": "pachliAccountId",
-            "columnName": "pachliAccountId",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "serverId",
-            "columnName": "serverId",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "accountId",
-            "columnName": "accountId",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "name",
-            "columnName": "name",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "description",
-            "columnName": "description",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "local",
-            "columnName": "local",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "sensitive",
-            "columnName": "sensitive",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "discoverable",
-            "columnName": "discoverable",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "hashtag",
-            "columnName": "hashtag",
-            "affinity": "TEXT"
-          },
-          {
-            "fieldPath": "createdAt",
-            "columnName": "createdAt",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "updatedAt",
-            "columnName": "updatedAt",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "items",
-            "columnName": "items",
-            "affinity": "TEXT",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "autoGenerate": false,
-          "columnNames": [
-            "pachliAccountId",
-            "serverId"
-          ]
-        },
-        "foreignKeys": [
-          {
-            "table": "PachliAccountEntity",
-            "onDelete": "CASCADE",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "pachliAccountId"
-            ],
-            "referencedColumns": [
-              "id"
-            ]
-          }
-        ]
-      },
-      {
-        "tableName": "CollectionItemEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `collectionServerId` TEXT NOT NULL, `serverId` TEXT NOT NULL, `accountId` TEXT, `state` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, PRIMARY KEY(`pachliAccountId`, `collectionServerId`, `serverId`), FOREIGN KEY(`pachliAccountId`, `collectionServerId`) REFERENCES `CollectionEntity`(`pachliAccountId`, `serverId`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
-        "fields": [
-          {
-            "fieldPath": "pachliAccountId",
-            "columnName": "pachliAccountId",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "collectionServerId",
-            "columnName": "collectionServerId",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "serverId",
-            "columnName": "serverId",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "accountId",
-            "columnName": "accountId",
-            "affinity": "TEXT"
-          },
-          {
-            "fieldPath": "state",
-            "columnName": "state",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "createdAt",
-            "columnName": "createdAt",
-            "affinity": "INTEGER",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "autoGenerate": false,
-          "columnNames": [
-            "pachliAccountId",
-            "collectionServerId",
-            "serverId"
-          ]
-        },
-        "foreignKeys": [
-          {
-            "table": "CollectionEntity",
-            "onDelete": "CASCADE",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "pachliAccountId",
-              "collectionServerId"
-            ],
-            "referencedColumns": [
-              "pachliAccountId",
-              "serverId"
-            ]
-          }
-        ]
-      },
-      {
-        "tableName": "CollectionViewDataEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `displayAction` TEXT, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `PachliAccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
-        "fields": [
-          {
-            "fieldPath": "pachliAccountId",
-            "columnName": "pachliAccountId",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "serverId",
-            "columnName": "serverId",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "displayAction",
-            "columnName": "displayAction",
-            "affinity": "TEXT"
-          }
-        ],
-        "primaryKey": {
-          "autoGenerate": false,
-          "columnNames": [
-            "pachliAccountId",
-            "serverId"
-          ]
-        },
-        "foreignKeys": [
-          {
-            "table": "PachliAccountEntity",
-            "onDelete": "CASCADE",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "pachliAccountId"
-            ],
-            "referencedColumns": [
-              "id"
-            ]
-          }
-        ]
-      },
-      {
-        "tableName": "TimelineCollectionEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `accountId` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `local` INTEGER NOT NULL, `sensitive` INTEGER NOT NULL, `discoverable` INTEGER NOT NULL, `hashtag` TEXT, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `items` TEXT NOT NULL, `itemIconUrls` TEXT NOT NULL, `owner_serverId` TEXT, `owner_pachliAccountId` INTEGER, `owner_localUsername` TEXT, `owner_username` TEXT, `owner_displayName` TEXT, `owner_url` TEXT, `owner_avatar` TEXT, `owner_emojis` TEXT, `owner_bot` INTEGER, `owner_createdAt` INTEGER, `owner_limited` INTEGER DEFAULT false, `owner_roles` TEXT DEFAULT '', `owner_pronouns` TEXT DEFAULT '', PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `PachliAccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
-        "fields": [
-          {
-            "fieldPath": "pachliAccountId",
-            "columnName": "pachliAccountId",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "serverId",
-            "columnName": "serverId",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "accountId",
-            "columnName": "accountId",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "name",
-            "columnName": "name",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "description",
-            "columnName": "description",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "local",
-            "columnName": "local",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "sensitive",
-            "columnName": "sensitive",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "discoverable",
-            "columnName": "discoverable",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "hashtag",
-            "columnName": "hashtag",
-            "affinity": "TEXT"
-          },
-          {
-            "fieldPath": "createdAt",
-            "columnName": "createdAt",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "updatedAt",
-            "columnName": "updatedAt",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "items",
-            "columnName": "items",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "itemIconUrls",
-            "columnName": "itemIconUrls",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "ownerAccount.serverId",
-            "columnName": "owner_serverId",
-            "affinity": "TEXT"
-          },
-          {
-            "fieldPath": "ownerAccount.pachliAccountId",
-            "columnName": "owner_pachliAccountId",
-            "affinity": "INTEGER"
-          },
-          {
-            "fieldPath": "ownerAccount.localUsername",
-            "columnName": "owner_localUsername",
-            "affinity": "TEXT"
-          },
-          {
-            "fieldPath": "ownerAccount.username",
-            "columnName": "owner_username",
-            "affinity": "TEXT"
-          },
-          {
-            "fieldPath": "ownerAccount.displayName",
-            "columnName": "owner_displayName",
-            "affinity": "TEXT"
-          },
-          {
-            "fieldPath": "ownerAccount.url",
-            "columnName": "owner_url",
-            "affinity": "TEXT"
-          },
-          {
-            "fieldPath": "ownerAccount.avatar",
-            "columnName": "owner_avatar",
-            "affinity": "TEXT"
-          },
-          {
-            "fieldPath": "ownerAccount.emojis",
-            "columnName": "owner_emojis",
-            "affinity": "TEXT"
-          },
-          {
-            "fieldPath": "ownerAccount.bot",
-            "columnName": "owner_bot",
-            "affinity": "INTEGER"
-          },
-          {
-            "fieldPath": "ownerAccount.createdAt",
-            "columnName": "owner_createdAt",
-            "affinity": "INTEGER"
-          },
-          {
-            "fieldPath": "ownerAccount.limited",
-            "columnName": "owner_limited",
-            "affinity": "INTEGER",
-            "defaultValue": "false"
-          },
-          {
-            "fieldPath": "ownerAccount.roles",
-            "columnName": "owner_roles",
-            "affinity": "TEXT",
-            "defaultValue": "''"
-          },
-          {
-            "fieldPath": "ownerAccount.pronouns",
-            "columnName": "owner_pronouns",
-            "affinity": "TEXT",
-            "defaultValue": "''"
-          }
-        ],
-        "primaryKey": {
-          "autoGenerate": false,
-          "columnNames": [
-            "pachliAccountId",
-            "serverId"
-          ]
-        },
-        "foreignKeys": [
-          {
-            "table": "PachliAccountEntity",
-            "onDelete": "CASCADE",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "pachliAccountId"
-            ],
-            "referencedColumns": [
-              "id"
-            ]
-          }
-        ]
-      },
-      {
         "tableName": "DraftEntity",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `pachliAccountId` INTEGER NOT NULL, `inReplyToId` TEXT, `content` TEXT, `contentWarning` TEXT, `sensitive` INTEGER NOT NULL, `visibility` INTEGER NOT NULL, `attachments` TEXT NOT NULL, `poll` TEXT, `failureMessage` TEXT, `scheduledAt` INTEGER, `language` TEXT, `statusId` TEXT, `quotePolicy` TEXT, `quotedStatusId` TEXT, `cursorPosition` INTEGER NOT NULL DEFAULT 0, `state` TEXT NOT NULL DEFAULT 'DEFAULT', FOREIGN KEY(`pachliAccountId`) REFERENCES `PachliAccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
         "fields": [
@@ -671,7 +296,7 @@
       },
       {
         "tableName": "PachliAccountEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `domain` TEXT NOT NULL, `accessToken` TEXT NOT NULL, `clientId` TEXT NOT NULL, `clientSecret` TEXT NOT NULL, `isActive` INTEGER NOT NULL, `accountId` TEXT NOT NULL, `username` TEXT NOT NULL, `displayName` TEXT NOT NULL, `profilePictureUrl` TEXT NOT NULL, `profileHeaderPictureUrl` TEXT NOT NULL DEFAULT '', `notificationsEnabled` INTEGER NOT NULL, `notificationsMentioned` INTEGER NOT NULL, `notificationsFollowed` INTEGER NOT NULL, `notificationsFollowRequested` INTEGER NOT NULL, `notificationsReblogged` INTEGER NOT NULL, `notificationsFavorited` INTEGER NOT NULL, `notificationsPolls` INTEGER NOT NULL, `notificationsSubscriptions` INTEGER NOT NULL, `notificationsSignUps` INTEGER NOT NULL, `notificationsUpdates` INTEGER NOT NULL, `notificationsReports` INTEGER NOT NULL, `notificationsSeveredRelationships` INTEGER NOT NULL DEFAULT true, `notificationsModerationWarnings` INTEGER NOT NULL DEFAULT true, `notificationsQuotes` INTEGER NOT NULL DEFAULT true, `notificationsQuotedUpdates` INTEGER NOT NULL DEFAULT true, `notificationsCollectionAdd` INTEGER NOT NULL DEFAULT true, `notificationsCollectionUpdate` INTEGER NOT NULL DEFAULT true, `notificationSound` INTEGER NOT NULL, `notificationVibration` INTEGER NOT NULL, `notificationLight` INTEGER NOT NULL, `defaultPostPrivacy` INTEGER NOT NULL, `defaultMediaSensitivity` INTEGER NOT NULL, `defaultPostLanguage` TEXT NOT NULL, `defaultQuotePolicy` TEXT NOT NULL DEFAULT 'NOBODY', `alwaysShowSensitiveMedia` INTEGER NOT NULL, `alwaysOpenSpoiler` INTEGER NOT NULL, `mediaPreviewEnabled` INTEGER NOT NULL, `notificationMarkerId` TEXT NOT NULL DEFAULT '0', `emojis` TEXT NOT NULL, `tabPreferences` TEXT NOT NULL, `notificationsFilter` TEXT NOT NULL, `oauthScopes` TEXT NOT NULL, `unifiedPushUrl` TEXT NOT NULL, `pushPubKey` TEXT NOT NULL, `pushPrivKey` TEXT NOT NULL, `pushAuth` TEXT NOT NULL, `pushServerKey` TEXT NOT NULL, `locked` INTEGER NOT NULL DEFAULT 0, `notificationAccountFilterNotFollowed` TEXT NOT NULL DEFAULT 'NONE', `notificationAccountFilterYounger30d` TEXT NOT NULL DEFAULT 'NONE', `notificationAccountFilterLimitedByServer` TEXT NOT NULL DEFAULT 'NONE', `conversationAccountFilterNotFollowed` TEXT NOT NULL DEFAULT 'NONE', `conversationAccountFilterYounger30d` TEXT NOT NULL DEFAULT 'NONE', `conversationAccountFilterLimitedByServer` TEXT NOT NULL DEFAULT 'NONE', `isBot` INTEGER NOT NULL DEFAULT 0)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `domain` TEXT NOT NULL, `accessToken` TEXT NOT NULL, `clientId` TEXT NOT NULL, `clientSecret` TEXT NOT NULL, `isActive` INTEGER NOT NULL, `accountId` TEXT NOT NULL, `username` TEXT NOT NULL, `displayName` TEXT NOT NULL, `profilePictureUrl` TEXT NOT NULL, `profileHeaderPictureUrl` TEXT NOT NULL DEFAULT '', `notificationsEnabled` INTEGER NOT NULL, `notificationsMentioned` INTEGER NOT NULL, `notificationsFollowed` INTEGER NOT NULL, `notificationsFollowRequested` INTEGER NOT NULL, `notificationsReblogged` INTEGER NOT NULL, `notificationsFavorited` INTEGER NOT NULL, `notificationsPolls` INTEGER NOT NULL, `notificationsSubscriptions` INTEGER NOT NULL, `notificationsSignUps` INTEGER NOT NULL, `notificationsUpdates` INTEGER NOT NULL, `notificationsReports` INTEGER NOT NULL, `notificationsSeveredRelationships` INTEGER NOT NULL DEFAULT true, `notificationsModerationWarnings` INTEGER NOT NULL DEFAULT true, `notificationsQuotes` INTEGER NOT NULL DEFAULT true, `notificationsQuotedUpdates` INTEGER NOT NULL DEFAULT true, `notificationSound` INTEGER NOT NULL, `notificationVibration` INTEGER NOT NULL, `notificationLight` INTEGER NOT NULL, `defaultPostPrivacy` INTEGER NOT NULL, `defaultMediaSensitivity` INTEGER NOT NULL, `defaultPostLanguage` TEXT NOT NULL, `defaultQuotePolicy` TEXT NOT NULL DEFAULT 'NOBODY', `alwaysShowSensitiveMedia` INTEGER NOT NULL, `alwaysOpenSpoiler` INTEGER NOT NULL, `mediaPreviewEnabled` INTEGER NOT NULL, `notificationMarkerId` TEXT NOT NULL DEFAULT '0', `emojis` TEXT NOT NULL, `tabPreferences` TEXT NOT NULL, `notificationsFilter` TEXT NOT NULL, `oauthScopes` TEXT NOT NULL, `unifiedPushUrl` TEXT NOT NULL, `pushPubKey` TEXT NOT NULL, `pushPrivKey` TEXT NOT NULL, `pushAuth` TEXT NOT NULL, `pushServerKey` TEXT NOT NULL, `locked` INTEGER NOT NULL DEFAULT 0, `notificationAccountFilterNotFollowed` TEXT NOT NULL DEFAULT 'NONE', `notificationAccountFilterYounger30d` TEXT NOT NULL DEFAULT 'NONE', `notificationAccountFilterLimitedByServer` TEXT NOT NULL DEFAULT 'NONE', `conversationAccountFilterNotFollowed` TEXT NOT NULL DEFAULT 'NONE', `conversationAccountFilterYounger30d` TEXT NOT NULL DEFAULT 'NONE', `conversationAccountFilterLimitedByServer` TEXT NOT NULL DEFAULT 'NONE', `isBot` INTEGER NOT NULL DEFAULT 0)",
         "fields": [
           {
             "fieldPath": "id",
@@ -830,20 +455,6 @@
           {
             "fieldPath": "notificationsQuotedUpdates",
             "columnName": "notificationsQuotedUpdates",
-            "affinity": "INTEGER",
-            "notNull": true,
-            "defaultValue": "true"
-          },
-          {
-            "fieldPath": "notificationsCollectionAdd",
-            "columnName": "notificationsCollectionAdd",
-            "affinity": "INTEGER",
-            "notNull": true,
-            "defaultValue": "true"
-          },
-          {
-            "fieldPath": "notificationsCollectionUpdate",
-            "columnName": "notificationsCollectionUpdate",
             "affinity": "INTEGER",
             "notNull": true,
             "defaultValue": "true"
@@ -1968,7 +1579,7 @@
       },
       {
         "tableName": "NotificationEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `type` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `accountServerId` TEXT NOT NULL, `statusServerId` TEXT, `note` TEXT, `collectionServerId` TEXT, `report_reportId` TEXT, `report_actionTaken` INTEGER, `report_actionTakenAt` INTEGER, `report_category` TEXT, `report_comment` TEXT, `report_forwarded` INTEGER, `report_createdAt` INTEGER, `report_statusIds` TEXT, `report_ruleIds` TEXT, `report_target_pachliAccountId` INTEGER, `report_target_serverId` TEXT, `report_target_localUsername` TEXT, `report_target_username` TEXT, `report_target_displayName` TEXT, `report_target_createdAt` INTEGER, `report_target_url` TEXT, `report_target_avatar` TEXT, `report_target_note` TEXT, `report_target_header` TEXT DEFAULT '', `report_target_locked` INTEGER DEFAULT 0, `report_target_lastStatusAt` INTEGER, `report_target_followersCount` INTEGER DEFAULT 0, `report_target_followingCount` INTEGER DEFAULT 0, `report_target_statusesCount` INTEGER DEFAULT 0, `report_target_bot` INTEGER, `report_target_emojis` TEXT, `report_target_fields` TEXT DEFAULT '', `report_target_movedAccount` TEXT, `report_target_limited` INTEGER, `report_target_roles` TEXT, `report_target_pronouns` TEXT, `rse_eventId` TEXT, `rse_type` TEXT, `rse_purged` INTEGER, `rse_targetName` TEXT DEFAULT '', `rse_followersCount` INTEGER, `rse_followingCount` INTEGER, `rse_createdAt` INTEGER, `warn_accountWarningId` TEXT, `warn_text` TEXT, `warn_action` TEXT, `warn_createdAt` INTEGER, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `PachliAccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED, FOREIGN KEY(`pachliAccountId`, `accountServerId`) REFERENCES `TimelineAccountEntity`(`pachliAccountId`, `serverId`) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `type` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `accountServerId` TEXT NOT NULL, `statusServerId` TEXT, `note` TEXT, `report_reportId` TEXT, `report_actionTaken` INTEGER, `report_actionTakenAt` INTEGER, `report_category` TEXT, `report_comment` TEXT, `report_forwarded` INTEGER, `report_createdAt` INTEGER, `report_statusIds` TEXT, `report_ruleIds` TEXT, `report_target_pachliAccountId` INTEGER, `report_target_serverId` TEXT, `report_target_localUsername` TEXT, `report_target_username` TEXT, `report_target_displayName` TEXT, `report_target_createdAt` INTEGER, `report_target_url` TEXT, `report_target_avatar` TEXT, `report_target_note` TEXT, `report_target_header` TEXT DEFAULT '', `report_target_locked` INTEGER DEFAULT 0, `report_target_lastStatusAt` INTEGER, `report_target_followersCount` INTEGER DEFAULT 0, `report_target_followingCount` INTEGER DEFAULT 0, `report_target_statusesCount` INTEGER DEFAULT 0, `report_target_bot` INTEGER, `report_target_emojis` TEXT, `report_target_fields` TEXT DEFAULT '', `report_target_movedAccount` TEXT, `report_target_limited` INTEGER, `report_target_roles` TEXT, `report_target_pronouns` TEXT, `rse_eventId` TEXT, `rse_type` TEXT, `rse_purged` INTEGER, `rse_targetName` TEXT DEFAULT '', `rse_followersCount` INTEGER, `rse_followingCount` INTEGER, `rse_createdAt` INTEGER, `warn_accountWarningId` TEXT, `warn_text` TEXT, `warn_action` TEXT, `warn_createdAt` INTEGER, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `PachliAccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED, FOREIGN KEY(`pachliAccountId`, `accountServerId`) REFERENCES `TimelineAccountEntity`(`pachliAccountId`, `serverId`) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED)",
         "fields": [
           {
             "fieldPath": "pachliAccountId",
@@ -2008,11 +1619,6 @@
           {
             "fieldPath": "note",
             "columnName": "note",
-            "affinity": "TEXT"
-          },
-          {
-            "fieldPath": "collectionServerId",
-            "columnName": "collectionServerId",
             "affinity": "TEXT"
           },
           {
@@ -2471,7 +2077,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8ee6cb24a70a3b3d9918ca962c7ffe5f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fba8559381a1ebfe55aa956b70c8ee45')"
     ]
   }
 }

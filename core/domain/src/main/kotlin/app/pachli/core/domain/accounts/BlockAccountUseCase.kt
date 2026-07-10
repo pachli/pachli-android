@@ -18,7 +18,7 @@
 package app.pachli.core.domain.accounts
 
 import app.pachli.core.common.di.ApplicationScope
-import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.database.dao.FollowingAccountDao
 import app.pachli.core.eventhub.BlockEvent
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.Relationship
@@ -44,7 +44,7 @@ import kotlinx.coroutines.async
 class BlockAccountUseCase @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
     private val mastodonApi: MastodonApi,
-    private val accountManager: AccountManager,
+    private val followingAccountDao: FollowingAccountDao,
     private val eventHub: EventHub,
 ) {
     /**
@@ -55,7 +55,7 @@ class BlockAccountUseCase @Inject constructor(
     suspend operator fun invoke(pachliAccountId: Long, accountId: String): Result<Relationship, ApiError> = externalScope.async {
         mastodonApi.blockAccount(accountId).map { it.body.asModel() }
             .onSuccess {
-                accountManager.unfollowAccount(pachliAccountId, accountId)
+                followingAccountDao.delete(pachliAccountId, accountId)
                 eventHub.dispatch(BlockEvent(pachliAccountId, accountId))
             }
     }.await()

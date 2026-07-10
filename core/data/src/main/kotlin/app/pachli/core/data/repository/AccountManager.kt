@@ -751,15 +751,6 @@ class AccountManager @Inject constructor(
         announcementsDao.deleteForAccount(accountId, announcementId)
     }
 
-    // -- Following
-    suspend fun followAccount(pachliAccountId: Long, serverId: String, domain: String) {
-        followingAccountDao.upsert(FollowingAccountEntity(pachliAccountId, serverId, domain))
-    }
-
-    suspend fun unfollowAccount(pachliAccountId: Long, serverId: String) {
-        followingAccountDao.delete(pachliAccountId, serverId)
-    }
-
     // Note: Can't use a Room partial update here because RedactedAccount doesn't
     // contain an ID. And you can't pass an object to a Room query and then
     // reference the object properties in the query.

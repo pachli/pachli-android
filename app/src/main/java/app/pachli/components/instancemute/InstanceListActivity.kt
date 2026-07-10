@@ -8,6 +8,8 @@ import app.pachli.R
 import app.pachli.components.instancemute.fragment.InstanceListFragment
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.util.unsafeLazy
+import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.ui.appbar.FadeChildScrollEffect
 import app.pachli.core.ui.extensions.addScrollEffect
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
@@ -17,6 +19,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class InstanceListActivity : BaseActivity() {
     private val binding by viewBinding(ActivityAccountListBinding::inflate)
+
+    private val pachliAccountId by unsafeLazy { intent.pachliAccountId }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -35,7 +39,7 @@ class InstanceListActivity : BaseActivity() {
         }
 
         supportFragmentManager.commit {
-            replace(R.id.fragment_container, InstanceListFragment())
+            replace(R.id.fragment_container, InstanceListFragment.newInstance(pachliAccountId))
         }
     }
 }

@@ -220,7 +220,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 setTitle(R.string.title_domain_mutes)
                 setIcon(R.drawable.ic_mute_24dp)
                 setOnPreferenceClickListener {
-                    val intent = InstanceListActivityIntent(context)
+                    val intent = InstanceListActivityIntent(context, pachliAccountId)
                     startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
                     true
                 }
