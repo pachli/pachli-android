@@ -1007,9 +1007,10 @@ class FollowedTagsActivityIntent(context: Context, pachliAccountId: Long) : Inte
     }
 }
 
-class InstanceListActivityIntent(context: Context) : Intent() {
+class InstanceListActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.INSTANCE_LIST_ACTIVITY)
+        this.pachliAccountId = pachliAccountId
     }
 }
 

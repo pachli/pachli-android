@@ -12,6 +12,8 @@ import app.pachli.components.instancemute.interfaces.InstanceActionListener
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.util.unsafeLazy
+import app.pachli.core.domain.accounts.BlockDomainUseCase
 import app.pachli.core.network.model.HttpHeaderLink
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.BackgroundMessage
@@ -35,7 +37,12 @@ class InstanceListFragment :
     @Inject
     lateinit var api: MastodonApi
 
+    @Inject
+    lateinit var blockDomainUseCase: BlockDomainUseCase
+
     private val binding by viewBinding(FragmentInstanceListBinding::bind)
+
+    private val pachliAccountId by unsafeLazy { requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID) }
 
     private var fetching = false
     private var bottomId: String? = null
@@ -72,7 +79,7 @@ class InstanceListFragment :
     override fun mute(mute: Boolean, instance: String, position: Int) {
         viewLifecycleOwner.lifecycleScope.launch {
             if (mute) {
-                api.blockDomain(instance)
+                blockDomainUseCase(pachliAccountId, instance)
                     .onSuccess { adapter.addItem(instance) }
                     .onFailure { Timber.e(it.throwable, "Error muting domain %s", instance) }
             } else {
@@ -139,6 +146,18 @@ class InstanceListFragment :
             binding.messageView.setup(throwable) {
                 binding.messageView.hide()
                 this.fetchInstances(null)
+            }
+        }
+    }
+
+    companion object {
+        private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"
+
+        fun newInstance(pachliAccountId: Long): InstanceListFragment {
+            return InstanceListFragment().apply {
+                arguments = Bundle(1).apply {
+                    putLong(ARG_PACHLI_ACCOUNT_ID, pachliAccountId)
+                }
             }
         }
     }

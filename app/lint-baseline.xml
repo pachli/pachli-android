@@ -121,7 +121,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="828"
+            line="830"
             column="17"/>
     </issue>
 
@@ -132,7 +132,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="831"
+            line="833"
             column="17"/>
     </issue>
 
@@ -143,7 +143,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="836"
+            line="838"
             column="13"/>
     </issue>
 
@@ -497,6 +497,17 @@
             file="src/main/java/app/pachli/components/viewthread/ViewThreadFragment.kt"
             line="268"
             column="21"/>
+    </issue>
+
+    <issue
+        id="NoOp"
+        message="This reference is unused: body"
+        errorLine1="        mastodonApi.blockDomain(domain).map { it.body }"
+        errorLine2="                                                 ~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/core/domain/accounts/BlockDomainUseCase.kt"
+            line="57"
+            column="50"/>
     </issue>
 
     <issue
@@ -2004,7 +2015,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="570"
+            line="571"
             column="9"/>
     </issue>
 

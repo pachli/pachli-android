@@ -101,7 +101,7 @@ import java.util.TimeZone
         TimelineStatusWithAccount::class,
         ReferencedStatusId::class,
     ],
-    version = 43,
+    version = 44,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -164,6 +164,8 @@ import java.util.TimeZone
         AutoMigration(from = 41, to = 42, spec = AppDatabase.MIGRATE_41_42::class),
         // Renames, removal of NotificationReportEntity, etc.
         AutoMigration(from = 42, to = 43, spec = AppDatabase.MIGRATE_42_43::class),
+        // Add .domain to FollowingAccountEntity
+        AutoMigration(from = 43, to = 44),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
