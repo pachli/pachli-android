@@ -722,4 +722,5 @@
     <string name="search_operator_quote_dialog_no_quotes">Tikai ieraksti bez citātiem</string>
     <string name="ui_error_sending_post_fmt">Ierakstu nevarēja nosūtīt: %1$s</string>
     <string name="ui_error_saving_post_fmt">Ierakstu evarēja saglabāt: %1$s</string>
+    <string name="ui_error_delete_scheduled_status_fmt">nevarēja izdzēst ierindoto ierakstu, lai to aizstātu: %1$s</string>
 </resources>
