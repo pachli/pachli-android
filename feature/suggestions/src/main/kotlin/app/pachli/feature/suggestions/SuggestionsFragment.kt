@@ -248,7 +248,7 @@ class SuggestionsFragment :
             snackbar?.dismiss()
             try {
                 Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE).apply {
-                    uiError.action.let { uiAction -> setAction(app.pachli.core.ui.R.string.action_retry) { viewModel.accept(uiAction) } }
+                    setAction(app.pachli.core.ui.R.string.action_retry) { viewModel.accept(uiError.action) }
                     show()
                     snackbar = this
                 }

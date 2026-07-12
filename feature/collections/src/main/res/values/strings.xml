@@ -20,4 +20,5 @@
     <string name="title_confirm_collection_revoke">Remove yourself from this collection?</string>
     <string name="confirm_collection_revoke_msg">The collection owner won\'t be able to re-add you to this collection for 24 hours.\n\nTo prevent them from adding you to collections permanently you can block them.</string>
     <string name="ui_error_collection_revoke_fmt">Removing your account failed: %1$s</string>
+    <string name="ui_error_load_relationship_fmt">Loading relationship data failed: %1$s</string>
 </resources>

@@ -21,6 +21,7 @@ import androidx.annotation.StringRes
 import app.pachli.core.common.PachliError
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.repository.Loadable
+import app.pachli.core.data.repository.RelationshipsRepository
 import app.pachli.core.model.Account
 import app.pachli.core.model.ICollection
 import app.pachli.core.preferences.LinksToUnderline
@@ -32,13 +33,19 @@ import kotlinx.coroutines.flow.StateFlow
 internal interface ICollectionViewModel {
     sealed interface UiAction {
         /** Get the most recent version of [collectionId] from the server. */
-        data class Refresh(
+        data class Reload(
             val pachliAccountId: Long,
             val collectionId: String,
         ) : UiAction
 
         /** Load the local copy of [collectionId]. */
         data class LoadCollection(
+            val pachliAccountId: Long,
+            val collectionId: String,
+        ) : UiAction
+
+        /** Load the relationships for the current collection. */
+        data class LoadRelationships(
             val pachliAccountId: Long,
             val collectionId: String,
         ) : UiAction
@@ -225,6 +232,11 @@ internal interface ICollectionViewModel {
             override val action: AccountAction.Revoke,
             override val cause: PachliError,
         ) : UiError(R.string.ui_error_collection_revoke_fmt, action, cause)
+
+        data class LoadRelationship(
+            override val action: UiAction.LoadRelationships,
+            override val cause: RelationshipsRepository.RelationshipError,
+        ) : UiError(R.string.ui_error_load_relationship_fmt, action, cause)
 
         companion object {
             fun make(error: PachliError, action: AccountAction) = when (action) {

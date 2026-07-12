@@ -275,8 +275,24 @@ class CollectionFragment :
         }
     }
 
-    // TODO: Implement, snackbar for failure.
-    private fun bindUiResult(uiResult: Result<UiSuccess, UiError>) {}
+    private fun bindUiResult(uiResult: Result<UiSuccess, UiError>) {
+        uiResult.onFailure { uiError ->
+            val message = uiError.fmt(requireContext())
+            snackbar?.dismiss()
+            try {
+                Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE).apply {
+                    setAction(app.pachli.core.ui.R.string.action_retry) { viewModel.accept(uiError.action) }
+                    show()
+                    snackbar = this
+                }
+            } catch (_: IllegalArgumentException) {
+                // On rare occasions this code is running before the fragment's
+                // view is connected to the parent. This causes Snackbar.make()
+                // to crash.  See https://issuetracker.google.com/issues/228215869.
+                // For now, swallow the exception.
+            }
+        }
+    }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.fragment_collection, menu)
@@ -303,7 +319,7 @@ class CollectionFragment :
 
     override fun onRefresh() {
         snackbar?.dismiss()
-        viewModel.accept(UiAction.Refresh(pachliAccountId, collectionId))
+        viewModel.accept(UiAction.Reload(pachliAccountId, collectionId))
     }
 
     override fun onReselect() {

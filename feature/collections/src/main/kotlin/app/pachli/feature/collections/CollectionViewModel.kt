@@ -26,6 +26,8 @@ import app.pachli.core.data.repository.ICollectionsRepository
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.RelationshipsRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.data.repository.combineFlatMapLatest
+import app.pachli.core.data.repository.getOrNull
 import app.pachli.core.data.repository.mapLoaded
 import app.pachli.core.domain.accounts.BlockDomainUseCase
 import app.pachli.core.domain.accounts.FollowAccountUseCase
@@ -38,12 +40,12 @@ import app.pachli.core.model.CollectionWithAccounts
 import app.pachli.core.model.Relationship
 import app.pachli.core.ui.OperationCounter
 import app.pachli.feature.collections.ICollectionViewModel.AccountAction
-import app.pachli.feature.collections.ICollectionViewModel.CollectionAction
 import app.pachli.feature.collections.ICollectionViewModel.UiAction
 import app.pachli.feature.collections.ICollectionViewModel.UiError
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.get
 import com.github.michaelbull.result.map
 import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.mapError
@@ -65,7 +67,6 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @HiltViewModel
 internal class CollectionViewModel @Inject constructor(
@@ -92,6 +93,9 @@ internal class CollectionViewModel @Inject constructor(
     /** Emit in to this flow to trigger a full reload of the collection. */
     private val reload = MutableSharedFlow<Unit>(replay = 1)
 
+    /** Emit in to this flow to trigger a full reload of the relationships for the collection. */
+    private val reloadRelationships = MutableSharedFlow<Unit>(replay = 1).apply { tryEmit(Unit) }
+
     private val pachliAccountId = MutableSharedFlow<Long>(replay = 1)
 
     private val pachliAccount = pachliAccountId.distinctUntilChanged().flatMapLatest {
@@ -100,16 +104,8 @@ internal class CollectionViewModel @Inject constructor(
 
     private val collectionId = MutableSharedFlow<String>(replay = 1)
 
-    /**
-     * The most recent cached collection details, with the pachliAccountId and
-     * collectionId
-     */
-    private val collectionWithAccounts = combine(
-        pachliAccountId,
-        collectionId,
-    ) { pachliAccountId, collectionId ->
-        pachliAccountId to collectionId
-    }.flatMapLatest { (pachliAccountId, collectionId) ->
+    /** The most recent cached collection details. */
+    private val collectionWithAccounts = combineFlatMapLatest(pachliAccountId, collectionId) { pachliAccountId, collectionId ->
         collectionsRepository.getCollection(pachliAccountId, collectionId)
     }
 
@@ -128,7 +124,7 @@ internal class CollectionViewModel @Inject constructor(
      *
      * If null the relationship data hasn't been loaded yet.
      */
-    private val relationships = MutableStateFlow<Map<String, Relationship>?>(null)
+    private val relationships = MutableStateFlow<Result<Loadable<Map<String, Relationship>>, RelationshipsRepository.RelationshipError>>(Ok(Loadable.Loading))
 
     /**
      * IDs of accounts the user can't interact with (e.g., because they have active
@@ -151,14 +147,16 @@ internal class CollectionViewModel @Inject constructor(
         combine(
             pachliAccount,
             _collectionWithAccounts,
-            relationships.filterNotNull(),
+            relationships,
             disabledAccountIds,
         ) { pachliAccount, collectionWithAccounts, relationships, disabledAccountIds ->
-            collectionWithAccounts.map {
-                it.mapLoaded { collectionWithAccounts ->
+            collectionWithAccounts.map { loadable ->
+                loadable.mapLoaded { collectionWithAccounts ->
                     val collection = collectionWithAccounts.collection
                     val owner = collectionWithAccounts.owner
                     val accounts = collectionWithAccounts.accounts
+                    val relationships = relationships.get()?.getOrNull().orEmpty()
+
                     ICollectionViewModel.CollectionViewData(
                         collection = collection,
                         owner = owner?.let {
@@ -178,20 +176,20 @@ internal class CollectionViewModel @Inject constructor(
                                 ),
                             )
                         },
-                        accounts = accounts.map {
+                        accounts = accounts.map { account ->
                             AccountViewData(
                                 pachliAccountId = pachliAccount.id,
                                 collectionId = collection.serverId,
-                                account = it,
-                                relationship = relationships[it.serverId],
-                                isEnabled = !disabledAccountIds.contains(it.serverId),
-                                isSelf = it.serverId == pachliAccount.accountId,
+                                account = account,
+                                relationship = relationships[account.serverId],
+                                isEnabled = !disabledAccountIds.contains(account.serverId),
+                                isSelf = account.serverId == pachliAccount.accountId,
                                 primaryAction = makePrimaryAction(
                                     pachliAccountId = pachliAccount.id,
                                     collection = collection,
-                                    account = it,
-                                    isSelf = it.serverId == pachliAccount.accountId,
-                                    relationship = relationships[it.serverId],
+                                    account = account,
+                                    isSelf = account.serverId == pachliAccount.accountId,
+                                    relationship = relationships[account.serverId],
                                 ),
                             )
                         },
@@ -226,38 +224,42 @@ internal class CollectionViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            combine(pachliAccountId, collectionWithAccounts.filterNotNull()) { pachliAccountId, collectionWithAccounts ->
-                pachliAccountId to collectionWithAccounts.accounts.map { it.serverId } + collectionWithAccounts.owner!!.serverId
-            }.collect { (pachliAccountId, accountIds) ->
-                relationshipsRepository.getRelationships(pachliAccountId, accountIds)
+            combine(reloadRelationships, pachliAccountId, collectionWithAccounts.filterNotNull()) { _, pachliAccountId, collectionWithAccounts ->
+                Triple(pachliAccountId, collectionWithAccounts.collection.serverId, collectionWithAccounts.accounts.map { it.serverId } + collectionWithAccounts.owner?.serverId)
+            }.collect { (pachliAccountId, collectionId, accountIds) ->
+                relationshipsRepository.getRelationships(pachliAccountId, accountIds.filterNotNull())
                     .onSuccess { relationships ->
-                        this@CollectionViewModel.relationships.update { relationships.associateBy { it.id } }
+                        this@CollectionViewModel.relationships.value = Ok(Loadable.Loaded(relationships.associateBy { it.id }))
                     }
                     .onFailure {
-                        this@CollectionViewModel.relationships.value = emptyMap()
+                        _uiResult.send(
+                            Err(
+                                UiError.LoadRelationship(
+                                    UiAction.LoadRelationships(pachliAccountId, collectionId),
+                                    it,
+                                ),
+                            ),
+                        )
+                        this@CollectionViewModel.relationships.value = Err(it)
                     }
             }
         }
 
         viewModelScope.launch {
-            uiAction.filterIsInstance<UiAction.Refresh>().collect {
-                reload.emit(Unit)
-            }
+            uiAction.filterIsInstance<UiAction.Reload>().collect { reload.emit(Unit) }
         }
+
+        viewModelScope.launch {
+            uiAction.filterIsInstance<UiAction.LoadRelationships>().collect { reloadRelationships.emit(Unit) }
+        }
+
         viewModelScope.launch {
             uiAction.filterIsInstance<UiAction.LoadCollection>().collect(::onGetCollection)
         }
 
         viewModelScope.launch {
-            uiAction.filterIsInstance<CollectionAction>().collect(::onCollectionAction)
-        }
-
-        viewModelScope.launch {
             uiAction.filterIsInstance<AccountAction>().throttleFirst().collect(::onAccountAction)
         }
-    }
-
-    private suspend fun onCollectionAction(action: CollectionAction) {
     }
 
     private fun makePrimaryAction(pachliAccountId: Long, collection: Collection, account: Account, isSelf: Boolean, relationship: Relationship?): AccountAction? {
@@ -323,15 +325,22 @@ internal class CollectionViewModel @Inject constructor(
         disabledAccountIds.update { it + action.account.serverId }
 
         val result = when (action) {
-            is AccountAction.FollowAccount -> onFollowAccount(action)
-            is AccountAction.UnfollowAccount -> onUnfollowAccount(action)
-            is AccountAction.CancelFollowRequest -> onCancelFollowRequest(action)
-            is AccountAction.UnblockAccount -> onUnblockAccount(action)
-            is AccountAction.BlockDomain -> onBlockDomain(action)
-            is AccountAction.UnmuteAccount -> onUnmuteAccount(action)
-            is AccountAction.Revoke -> onRevokeCollection(action)
+            is AccountAction.FollowAccount -> followAccountUseCase(action.pachliAccountId, action.account)
+            is AccountAction.UnfollowAccount -> unfollowAccountUseCase(action.pachliAccountId, action.account.serverId)
+            is AccountAction.CancelFollowRequest -> unfollowAccountUseCase(action.pachliAccountId, action.account.serverId)
+            is AccountAction.UnblockAccount -> unblockAccountUseCase(action.pachliAccountId, action.account.serverId)
+            is AccountAction.BlockDomain -> blockDomainUseCase(action.pachliAccountId, action.account.domain).map { null as Relationship? }
+            is AccountAction.UnmuteAccount -> unmuteAccountUseCase(action.pachliAccountId, action.account.serverId)
+            is AccountAction.Revoke -> collectionsRepository.revokeFromCollection(action.pachliAccountId, action.collection.serverId, action.account.serverId)
+                .map { null as Relationship? }
         }.onSuccess { relationship ->
-            relationship?.let { relationships.update { it.orEmpty() + (action.account.serverId to relationship) } }
+            relationship ?: return@onSuccess
+
+            relationships.update { result ->
+                result.map { loadable ->
+                    loadable.mapLoaded { r -> r + (action.account.serverId to relationship) }
+                }
+            }
         }.mapEither(
             { ICollectionViewModel.UiSuccess.from(action) },
             { UiError.make(it, action) },
@@ -339,49 +348,5 @@ internal class CollectionViewModel @Inject constructor(
 
         _uiResult.send(result)
         disabledAccountIds.update { it - action.account.serverId }
-    }
-
-    private suspend fun onFollowAccount(action: AccountAction.FollowAccount) = operationCounter {
-        followAccountUseCase(action.pachliAccountId, action.account)
-            .mapError { UiError.FollowAccount(action, it) }
-    }
-
-    private suspend fun onUnfollowAccount(action: AccountAction.UnfollowAccount) = operationCounter {
-        unfollowAccountUseCase(action.pachliAccountId, action.account.serverId)
-            .mapError { UiError.UnfollowAccount(action, it) }
-    }
-
-    private suspend fun onCancelFollowRequest(action: AccountAction.CancelFollowRequest) = operationCounter {
-        unfollowAccountUseCase(action.pachliAccountId, action.account.serverId)
-            .mapError { UiError.CancelFollowRequest(action, it) }
-    }
-
-    private suspend fun onUnblockAccount(action: AccountAction.UnblockAccount) = operationCounter {
-        unblockAccountUseCase(action.pachliAccountId, action.account.serverId)
-            .mapError { UiError.UnblockAccount(action, it) }
-    }
-
-    private suspend fun onBlockDomain(action: AccountAction.BlockDomain) = operationCounter {
-        blockDomainUseCase(action.pachliAccountId, action.account.domain)
-            .mapEither(
-                { null as Relationship? },
-                { UiError.make(it, action) },
-            )
-    }
-
-    private suspend fun onUnmuteAccount(action: AccountAction.UnmuteAccount) = operationCounter {
-        unmuteAccountUseCase(action.pachliAccountId, action.account.serverId)
-            .mapError { UiError.UnmuteAccount(action, it) }
-    }
-
-    private suspend fun onRevokeCollection(action: AccountAction.Revoke) = operationCounter {
-        collectionsRepository.revokeFromCollection(action.pachliAccountId, action.collection.serverId, action.account.serverId)
-            .mapEither(
-                // Other account actions return a Relationship. We can't here, so return null
-                // cast to the correct value, so the return type of this method matches the
-                // other on... methods that operate on AccountAction.
-                { null as Relationship? },
-                { UiError.make(it, action) },
-            )
     }
 }
