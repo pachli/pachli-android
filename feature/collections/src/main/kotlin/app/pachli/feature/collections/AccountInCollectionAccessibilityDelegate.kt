@@ -25,6 +25,7 @@ import android.view.View
 import androidx.core.text.getSpans
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.core.ui.accessibility.PachliRecyclerViewAccessibilityDelegate
 import app.pachli.feature.collections.ICollectionViewModel.NavigationAction
@@ -33,22 +34,22 @@ internal class AccountInCollectionAccessibilityDelegate(
     private val recyclerView: RecyclerView,
     private val accept: (ICollectionViewModel.UiAction) -> Unit,
 ) : PachliRecyclerViewAccessibilityDelegate(recyclerView) {
-    private val openProfileAction = AccessibilityNodeInfoCompat.AccessibilityActionCompat(
+    private val openProfileAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_open_profile,
         context.getString(app.pachli.core.ui.R.string.action_view_profile),
     )
 
-    private val linksAction = AccessibilityNodeInfoCompat.AccessibilityActionCompat(
+    private val linksAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_links,
         context.getString(app.pachli.core.ui.R.string.action_links),
     )
 
-    private val mentionsAction = AccessibilityNodeInfoCompat.AccessibilityActionCompat(
+    private val mentionsAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_mentions,
         context.getString(app.pachli.core.ui.R.string.action_mentions),
     )
 
-    private val hashtagsAction = AccessibilityNodeInfoCompat.AccessibilityActionCompat(
+    private val hashtagsAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_hashtags,
         context.getString(app.pachli.core.ui.R.string.action_hashtags),
     )
@@ -62,10 +63,18 @@ internal class AccountInCollectionAccessibilityDelegate(
             val viewHolder = recyclerView.findContainingViewHolder(host) as AccountInCollectionViewHolder
 
             if (!viewHolder.viewData.isEnabled) return
+            val viewData = viewHolder.viewData
 
             info.addAction(openProfileAction)
 
-            // TODO: Add the primary action.
+            viewHolder.primaryAction?.let { primaryAction ->
+                info.addAction(
+                    AccessibilityActionCompat(
+                        app.pachli.core.ui.R.id.action_follow_account,
+                        primaryAction.text(context),
+                    ),
+                )
+            }
 
             // The profile's bio or description. Might not be spannable (e.g., if empty).
             (viewHolder.binding.accountNote.text as? Spannable)?.let { accountNote ->
@@ -88,17 +97,13 @@ internal class AccountInCollectionAccessibilityDelegate(
                     true
                 }
 
-//                app.pachli.core.ui.R.id.action_dismiss_follow_suggestion -> {
-//                    interrupt()
-//                    accept(UiAction.SuggestionAction.DeleteSuggestion(viewData.pachliAccountId, viewData.suggestion))
-//                    true
-//                }
-//
-//                app.pachli.core.ui.R.id.action_follow_account -> {
-//                    interrupt()
-//                    accept(UiAction.SuggestionAction.AcceptSuggestion(viewData.pachliAccountId, viewData.suggestion))
-//                    true
-//                }
+                app.pachli.core.ui.R.id.action_follow_account -> {
+                    viewData.primaryAction?.let {
+                        interrupt()
+                        accept(viewData.primaryAction)
+                    }
+                    true
+                }
 
                 app.pachli.core.ui.R.id.action_links -> {
                     val text = viewHolder.binding.accountNote.text as? Spannable ?: return false
