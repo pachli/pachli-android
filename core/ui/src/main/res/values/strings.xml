@@ -256,4 +256,14 @@
     <string name="action_collection_view">View collection</string>
     <string name="action_collection_revoke">Remove me</string>
     <string name="action_collection_view_tag">View tag</string>
+    <string name="collection_content_description_name_and_owner">Collection %1$s, by %2$s.</string>
+    <string name="collection_content_description_name">Collection %1$s.</string>
+    <plurals name="collection_content_description_accounts_is_member">
+        <item quantity="one">Contains %1$d account, yours.</item>
+        <item quantity="other">Contents %1$d accounts, including yours.</item>
+    </plurals>
+    <plurals name="collection_content_description_accounts_is_not_member">
+        <item quantity="one">Contains %1$d account.</item>
+        <item quantity="other">Contents %1$d accounts.</item>
+    </plurals>
 </resources>

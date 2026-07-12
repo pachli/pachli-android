@@ -38,6 +38,7 @@ import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.model.collection.CollectionDisplayReason
 import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.ui.databinding.CollectionCardBinding
+import app.pachli.core.ui.extensions.contentDescription
 import app.pachli.core.ui.extensions.setMinimumTouchTarget
 import app.pachli.core.ui.extensions.useInPlace
 import com.bumptech.glide.RequestManager
@@ -211,11 +212,11 @@ class CollectionCardView @JvmOverloads constructor(
 
         with(binding.discoverable) {
             if (viewData.discoverable) {
-                text = context.getString(app.pachli.core.ui.R.string.collection_discoverable_true_label)
+                text = context.getString(R.string.collection_discoverable_true_label)
                 val icon = makeIcon(context, GoogleMaterial.Icon.gmd_public, textSize.toInt())
                 setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
             } else {
-                text = context.getString(app.pachli.core.ui.R.string.collection_discoverable_false_label)
+                text = context.getString(R.string.collection_discoverable_false_label)
                 val icon = makeIcon(context, GoogleMaterial.Icon.gmd_lock, textSize.toInt())
                 setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
             }
@@ -234,7 +235,7 @@ class CollectionCardView @JvmOverloads constructor(
             blurView.setupWith(binding.blurTarget).setBlurRadius(4f)
 
             collectionHiddenName.text = viewData.timelineCollection.name.unicodeWrap()
-            collectionHiddenAction.text = displayAction.reason.getFormattedDescription(collectionHiddenAction.context)
+            collectionHiddenAction.text = displayAction.reason.getFormattedDescription(context)
             collectionHidden.setOnClickListener {
                 listener.onCollectionDisplayActionChange(
                     viewData,
@@ -253,6 +254,77 @@ class CollectionCardView @JvmOverloads constructor(
             blurView.hide()
             blurView.setOnClickListener(null)
             collectionHidden.setOnClickListener(null)
+        }
+
+        contentDescription = when (displayAction) {
+            is CollectionDisplayAction.Hide -> buildString {
+                // Hidden?
+                // "Collection X, by Y."
+                // "Contains sensitive content." or "You hid this."
+                append(
+                    viewData.timelineCollection.account?.let { ownerAccount ->
+                        context.getString(
+                            R.string.collection_content_description_name_and_owner,
+                            viewData.name,
+                            ownerAccount.contentDescription(context),
+                        )
+                    } ?: context.getString(R.string.collection_content_description_name, viewData.name),
+                )
+                append("\n")
+                append(displayAction.reason.getFormattedDescription(context))
+            }
+
+            is CollectionDisplayAction.Show -> buildString {
+                // Not hidden?
+                //
+                // "Collection X, by Y."
+                // "(optional) <description>."
+                // "(optional) #hashtag"
+                // "Contains X accounts, (including yours)."
+                // "Discoverable in search results..."
+                viewData.timelineCollection.account?.let { ownerAccount ->
+                    context.getString(
+                        R.string.collection_content_description_name_and_owner,
+                        viewData.name,
+                        ownerAccount.contentDescription(context),
+                    )
+                } ?: context.getString(R.string.collection_content_description_name, viewData.name)
+
+                if (viewData.description.isNotBlank()) {
+                    append("\n")
+                    append(viewData.description)
+                }
+
+                if (viewData.timelineCollection.hashtag?.name?.isNotBlank() == true) {
+                    append("\n")
+                    append("#${viewData.timelineCollection.hashtag?.name}")
+                }
+
+                if (viewData.isMember) {
+                    append("\n")
+                    append(
+                        context.resources.getQuantityString(
+                            R.plurals.collection_content_description_accounts_is_member,
+                            viewData.timelineCollection.items.size,
+                            viewData.timelineCollection.items.size,
+                        ),
+                    )
+                } else {
+                    append("\n")
+                    append(
+                        context.resources.getQuantityString(
+                            R.plurals.collection_content_description_accounts_is_not_member,
+                            viewData.timelineCollection.items.size,
+                            viewData.timelineCollection.items.size,
+                        ),
+                    )
+                }
+
+                if (viewData.discoverable) {
+                    append("\n")
+                    append(context.getString(R.string.collection_discoverable_true_label))
+                }
+            }
         }
     }
 }

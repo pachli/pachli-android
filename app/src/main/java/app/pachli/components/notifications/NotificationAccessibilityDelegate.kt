@@ -200,7 +200,7 @@ class NotificationAccessibilityDelegate<T : NotificationViewData>(
                     )
                 }
 
-                collectionView.id -> (notification as? NotificationViewData.WithCollection)?.let {
+                collectionShow.id -> (notification as? NotificationViewData.WithCollection)?.let {
                     interrupt()
                     notificationActionListener.onCollectionDisplayActionChange(
                         notification.collectionCardViewData,
@@ -292,6 +292,7 @@ class NotificationAccessibilityDelegate<T : NotificationViewData>(
         context.getString(app.pachli.core.ui.R.string.action_open_report),
     )
 
+    /** Show a hidden collection. */
     private val collectionShow = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_collection_show,
         context.getString(app.pachli.core.ui.R.string.action_collection_show),
@@ -302,6 +303,7 @@ class NotificationAccessibilityDelegate<T : NotificationViewData>(
         context.getString(app.pachli.core.ui.R.string.action_collection_hide),
     )
 
+    /** View a collection's members. */
     private val collectionView = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_collection_view,
         context.getString(app.pachli.core.ui.R.string.action_collection_view),

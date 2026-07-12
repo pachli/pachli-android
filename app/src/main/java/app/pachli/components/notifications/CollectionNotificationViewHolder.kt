@@ -118,6 +118,12 @@ class CollectionNotificationViewHolder(
             listener = collectionListener,
         )
 
+        binding.root.contentDescription = buildString {
+            append(HtmlCompat.fromHtml(msg, HtmlCompat.FROM_HTML_MODE_LEGACY))
+            append("\n")
+            append(binding.collectionCard.contentDescription)
+        }
+
         binding.collectionCard.setOnClickListener { collectionListener.onViewCollection(viewData.collectionCardViewData.timelineCollection) }
 
         itemView.setOnClickListener { linkListener.onViewAccount(account.serverId) }
