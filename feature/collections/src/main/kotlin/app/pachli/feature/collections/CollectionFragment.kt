@@ -76,7 +76,7 @@ import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.extensions.contentDescription
 import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.makeIcon
-import app.pachli.feature.collections.AccountViewHolder.ChangePayload
+import app.pachli.feature.collections.AccountInCollectionViewHolder.ChangePayload
 import app.pachli.feature.collections.ICollectionViewModel.AccountAction
 import app.pachli.feature.collections.ICollectionViewModel.CollectionViewData
 import app.pachli.feature.collections.ICollectionViewModel.NavigationAction
@@ -172,7 +172,7 @@ class CollectionFragment :
             addItemDecoration(MaterialDividerItemDecoration(context, MaterialDividerItemDecoration.VERTICAL))
             setHasFixedSize(true)
 
-//            setAccessibilityDelegateCompat(SuggestionAccessibilityDelegate(this, accept))
+            setAccessibilityDelegateCompat(AccountInCollectionAccessibilityDelegate(this, accept))
         }
 
         bind()
@@ -368,13 +368,13 @@ internal class CollectionAccountsAdapter(
     private var showPronouns: Boolean,
     private var linksToUnderline: Set<LinksToUnderline>,
     private val accept: (UiAction) -> Unit,
-) : ListAdapter<AccountViewData, AccountViewHolder>(AccountInCollectionViewDataDiffer) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AccountViewHolder {
+) : ListAdapter<AccountViewData, AccountInCollectionViewHolder>(AccountInCollectionViewDataDiffer) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AccountInCollectionViewHolder {
         val binding = ItemAccountInCollectionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return AccountViewHolder(binding, glide, setContent, accept)
+        return AccountInCollectionViewHolder(binding, glide, setContent, accept)
     }
 
-    override fun onBindViewHolder(holder: AccountViewHolder, position: Int, payloads: List<Any?>) {
+    override fun onBindViewHolder(holder: AccountInCollectionViewHolder, position: Int, payloads: List<Any?>) {
         if (payloads.isEmpty()) {
             onBindViewHolder(holder, position)
             return
@@ -388,7 +388,7 @@ internal class CollectionAccountsAdapter(
         }
     }
 
-    override fun onBindViewHolder(holder: AccountViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AccountInCollectionViewHolder, position: Int) {
         holder.bind(
             currentList[position],
             animateEmojis,
@@ -426,13 +426,13 @@ internal data class AccountViewData(
 )
 
 /** Displays a single account in a collection. */
-internal class AccountViewHolder(
+internal class AccountInCollectionViewHolder(
     internal val binding: ItemAccountInCollectionBinding,
     private val glide: RequestManager,
     private val setContent: SetContent,
     private val accept: (UiAction) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
-    private lateinit var viewData: AccountViewData
+    internal lateinit var viewData: AccountViewData
 
     private val avatarRadius: Int
 
@@ -461,7 +461,7 @@ internal class AccountViewHolder(
             avatarRadius = avatar.context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
 
             actionButton.setOnClickListener {
-                val primaryAction = this@AccountViewHolder.primaryAction ?: return@setOnClickListener
+                val primaryAction = this@AccountInCollectionViewHolder.primaryAction ?: return@setOnClickListener
 
                 when (primaryAction) {
                     is AccountAction.CancelFollowRequest -> TODO()
