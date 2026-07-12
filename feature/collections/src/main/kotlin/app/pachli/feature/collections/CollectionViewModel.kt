@@ -24,6 +24,7 @@ import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.ICollectionsRepository
 import app.pachli.core.data.repository.Loadable
+import app.pachli.core.data.repository.RelationshipsRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.mapLoaded
 import app.pachli.core.domain.accounts.BlockDomainUseCase
@@ -64,11 +65,13 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @HiltViewModel
 internal class CollectionViewModel @Inject constructor(
     private val accountManager: AccountManager,
     private val collectionsRepository: ICollectionsRepository,
+    private val relationshipsRepository: RelationshipsRepository,
     private val followAccountUseCase: FollowAccountUseCase,
     private val unfollowAccountUseCase: UnfollowAccountUseCase,
     private val unblockAccountUseCase: UnblockAccountUseCase,
@@ -93,7 +96,7 @@ internal class CollectionViewModel @Inject constructor(
 
     private val pachliAccount = pachliAccountId.distinctUntilChanged().flatMapLatest {
         accountManager.getPachliAccountFlow(it).filterNotNull()
-    }.shareIn(viewModelScope, SharingStarted.Companion.Eagerly, replay = 1)
+    }.shareIn(viewModelScope, SharingStarted.Eagerly, replay = 1)
 
     private val collectionId = MutableSharedFlow<String>(replay = 1)
 
@@ -112,18 +115,20 @@ internal class CollectionViewModel @Inject constructor(
 
     override val uiOptions = stateFlow(
         viewModelScope,
-        ICollectionViewModel.UiOptions.Companion.from(statusDisplayOptionsRepository.flow.value),
+        ICollectionViewModel.UiOptions.from(statusDisplayOptionsRepository.flow.value),
     ) {
-        statusDisplayOptionsRepository.flow.map { ICollectionViewModel.UiOptions.Companion.from(it) }
-            .flowWhileShared(SharingStarted.Companion.WhileSubscribed(5000))
+        statusDisplayOptionsRepository.flow.map { ICollectionViewModel.UiOptions.from(it) }
+            .flowWhileShared(SharingStarted.WhileSubscribed(5000))
     }
 
     /**
      * Map from [account IDs][app.pachli.core.model.ITimelineAccount.serverId] to the
      * user's [app.pachli.core.model.Relationship] to that account, so that appropriate actions (follow,
      * unfollow, etc) can be shown in the UI.
+     *
+     * If null the relationship data hasn't been loaded yet.
      */
-    private val relationships = MutableStateFlow<Map<String, Relationship>>(emptyMap())
+    private val relationships = MutableStateFlow<Map<String, Relationship>?>(null)
 
     /**
      * IDs of accounts the user can't interact with (e.g., because they have active
@@ -146,7 +151,7 @@ internal class CollectionViewModel @Inject constructor(
         combine(
             pachliAccount,
             _collectionWithAccounts,
-            relationships,
+            relationships.filterNotNull(),
             disabledAccountIds,
         ) { pachliAccount, collectionWithAccounts, relationships, disabledAccountIds ->
             collectionWithAccounts.map {
@@ -194,7 +199,7 @@ internal class CollectionViewModel @Inject constructor(
                     )
                 }
             }
-        }.flowWhileShared(SharingStarted.Companion.WhileSubscribed(5000))
+        }.flowWhileShared(SharingStarted.WhileSubscribed(5000))
     }
 
     init {
@@ -217,6 +222,20 @@ internal class CollectionViewModel @Inject constructor(
                     _collectionWithAccounts.value = Ok(Loadable.Loaded(it))
                     return@collect
                 }
+            }
+        }
+
+        viewModelScope.launch {
+            combine(pachliAccountId, collectionWithAccounts.filterNotNull()) { pachliAccountId, collectionWithAccounts ->
+                pachliAccountId to collectionWithAccounts.accounts.map { it.serverId } + collectionWithAccounts.owner!!.serverId
+            }.collect { (pachliAccountId, accountIds) ->
+                relationshipsRepository.getRelationships(pachliAccountId, accountIds)
+                    .onSuccess { relationships ->
+                        this@CollectionViewModel.relationships.update { relationships.associateBy { it.id } }
+                    }
+                    .onFailure {
+                        this@CollectionViewModel.relationships.value = emptyMap()
+                    }
             }
         }
 
@@ -312,7 +331,7 @@ internal class CollectionViewModel @Inject constructor(
             is AccountAction.UnmuteAccount -> onUnmuteAccount(action)
             is AccountAction.Revoke -> onRevokeCollection(action)
         }.onSuccess { relationship ->
-            relationship?.let { relationships.update { it + (action.account.serverId to relationship) } }
+            relationship?.let { relationships.update { it.orEmpty() + (action.account.serverId to relationship) } }
         }.mapEither(
             { ICollectionViewModel.UiSuccess.from(action) },
             { UiError.make(it, action) },

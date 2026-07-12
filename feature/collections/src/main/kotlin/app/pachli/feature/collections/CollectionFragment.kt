@@ -275,9 +275,8 @@ class CollectionFragment :
         }
     }
 
+    // TODO: Implement, snackbar for failure.
     private fun bindUiResult(uiResult: Result<UiSuccess, UiError>) {}
-
-    private fun bindUiResult() {}
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.fragment_collection, menu)
@@ -473,7 +472,6 @@ internal class AccountViewHolder(
             bindShowPronouns(viewData, showPronouns)
             bindPostStatistics(viewData)
             bindIsEnabled(viewData.isEnabled)
-
             bindControls(viewData.primaryAction)
 
             // Build an accessible content description.
@@ -637,10 +635,9 @@ internal class AccountViewHolder(
             return
         }
 
-        val buttonText = primaryAction.text(binding.actionButton.context)
-
-        binding.actionButton.text = buttonText
+        binding.actionButton.text = primaryAction.text(binding.actionButton.context)
         binding.actionButton.setIconResource(primaryAction.getDrawableRes())
+        binding.actionButton.show()
     }
 
     /**
@@ -652,11 +649,9 @@ internal class AccountViewHolder(
             app.pachli.core.ui.R.string.action_unmute_domain,
             this.account.domain,
         )
-
         is AccountAction.CancelFollowRequest -> context.getString(
             app.pachli.core.ui.R.string.state_follow_requested,
         )
-
         is AccountAction.FollowAccount -> context.getString(app.pachli.core.ui.R.string.action_follow_account)
         is AccountAction.Revoke -> context.getString(app.pachli.core.ui.R.string.action_collection_remove_self)
         is AccountAction.UnfollowAccount -> context.getString(app.pachli.core.ui.R.string.action_unfollow)
