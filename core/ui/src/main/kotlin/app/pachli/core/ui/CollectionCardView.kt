@@ -111,13 +111,27 @@ class CollectionCardView @JvmOverloads constructor(
                 setTextColor(it.getColor(DR.styleable.CollectionCardView_collectionCardItemCountTextColor, 0))
             }
 
+            with(binding.discoverable) {
+                setTextSize(
+                    TypedValue.COMPLEX_UNIT_PX,
+                    it.getDimension(DR.styleable.CollectionCardView_collectionCardDiscoverableTextSize, 0f),
+                )
+                setTextColor(it.getColor(DR.styleable.CollectionCardView_collectionCardDiscoverableTextColor, 0))
+            }
+
             avatarDimen = it.getDimensionPixelSize(DR.styleable.CollectionCardView_collectionCardAvatarSize, -1)
             avatarCornerRadius = it.getDimensionPixelSize(DR.styleable.CollectionCardView_collectionCardAvatarCornerRadius, -1)
 
             avatarImageViews = listOf(binding.avatar1, binding.avatar2, binding.avatar3, binding.avatar4)
 
-            // Update the size of the drawable in binding.sensitive to match the text size.
             with(binding.sensitive) {
+                setTextSize(
+                    TypedValue.COMPLEX_UNIT_PX,
+                    it.getDimension(DR.styleable.CollectionCardView_collectionCardSensitiveTextSize, 0f),
+                )
+                setTextColor(it.getColor(DR.styleable.CollectionCardView_collectionCardSensitiveTextColor, 0))
+
+                // Update the size of the drawable in binding.sensitive to match the text size.
                 post {
                     compoundDrawablesRelative.getOrNull(0)?.let { drawable ->
                         val textSize = textSize.roundToInt()

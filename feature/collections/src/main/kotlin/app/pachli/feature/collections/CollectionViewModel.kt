@@ -22,7 +22,7 @@ import androidx.lifecycle.viewModelScope
 import app.pachli.core.common.extensions.stateFlow
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.data.repository.ICollectionsRepository
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.RelationshipsRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
@@ -72,7 +72,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 internal class CollectionViewModel @Inject constructor(
     private val accountManager: AccountManager,
-    private val collectionsRepository: ICollectionsRepository,
+    private val collectionsRepository: CollectionsRepository,
     private val relationshipsRepository: RelationshipsRepository,
     private val followAccountUseCase: FollowAccountUseCase,
     private val unfollowAccountUseCase: UnfollowAccountUseCase,

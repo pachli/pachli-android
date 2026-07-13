@@ -18,14 +18,14 @@
 package app.pachli.core.data.repository
 
 import app.pachli.core.common.PachliError
-import app.pachli.core.data.repository.IAccountRepository.AccountError.GetAccountError
-import app.pachli.core.data.repository.IAccountRepository.AccountError.GetAccountsError
+import app.pachli.core.data.repository.AccountRepository.AccountError.GetAccountError
+import app.pachli.core.data.repository.AccountRepository.AccountError.GetAccountsError
 import app.pachli.core.model.Account
 import app.pachli.core.model.TimelineAccount
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Result
 
-interface IAccountRepository {
+interface AccountRepository {
     sealed interface AccountError : PachliError {
         @JvmInline
         value class GetAccountError(private val error: ApiError) :

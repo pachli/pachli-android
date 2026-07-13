@@ -24,7 +24,7 @@ import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Result
 import kotlinx.coroutines.flow.Flow
 
-interface ICollectionsRepository {
+interface CollectionsRepository {
     sealed interface Error : PachliError {
         @JvmInline
         value class GetCollection(private val error: ApiError) : Error, PachliError by error

@@ -272,6 +272,10 @@
         <item name="collectionCardOwnerTextSize">?status_text_small</item>
         <item name="collectionCardItemCountTextColor">?colorOnSecondaryContainer</item>
         <item name="collectionCardItemCountTextSize">?status_text_small</item>
+        <item name="collectionCardDiscoverableTextColor">?colorOnSecondaryContainer</item>
+        <item name="collectionCardDiscoverableTextSize">?status_text_small</item>
+        <item name="collectionCardSensitiveTextColor">?colorOnSecondaryContainer</item>
+        <item name="collectionCardSensitiveTextSize">?status_text_small</item>
         <item name="collectionCardAvatarSize">@dimen/collection_card_avatar_size</item>
         <item name="collectionCardAvatarCornerRadius">@dimen/collection_card_avatar_radius</item>
     </style>

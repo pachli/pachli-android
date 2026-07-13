@@ -95,6 +95,12 @@
         <attr name="collectionCardItemCountTextColor" format="reference|color" />
         <attr name="collectionCardItemCountTextSize" format="reference|dimension" />
 
+        <attr name="collectionCardDiscoverableTextColor" format="reference|color" />
+        <attr name="collectionCardDiscoverableTextSize" format="reference|dimension" />
+
+        <attr name="collectionCardSensitiveTextColor" format="reference|color" />
+        <attr name="collectionCardSensitiveTextSize" format="reference|dimension" />
+
         <attr name="collectionCardAvatarSize" format="reference|dimension" />
         <attr name="collectionCardAvatarCornerRadius" format="reference|dimension" />
     </declare-styleable>

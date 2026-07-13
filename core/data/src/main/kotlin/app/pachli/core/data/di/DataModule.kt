@@ -17,9 +17,9 @@
 
 package app.pachli.core.data.di
 
+import app.pachli.core.data.repository.AccountRepository
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.ContentFiltersRepository
-import app.pachli.core.data.repository.IAccountRepository
-import app.pachli.core.data.repository.ICollectionsRepository
 import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.data.repository.NetworkRelationshipsRepository
 import app.pachli.core.data.repository.NetworkSuggestionsRepository
@@ -42,12 +42,12 @@ abstract class DataModule {
     @Binds
     internal abstract fun bindsAccountRepository(
         accountRepository: OfflineFirstAccountRepository,
-    ): IAccountRepository
+    ): AccountRepository
 
     @Binds
     internal abstract fun bindsCollectionsRepository(
         collectionsRepository: OfflineFirstCollectionsRepository,
-    ): ICollectionsRepository
+    ): CollectionsRepository
 
     @Binds
     internal abstract fun bindsContentFiltersRepository(

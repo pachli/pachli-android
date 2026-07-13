@@ -47,7 +47,7 @@ internal class OfflineFirstCollectionsRepository @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
     private val localDataSource: CollectionsLocalDataSource,
     private val remoteDataSource: CollectionsRemoteDataSource,
-) : ICollectionsRepository {
+) : CollectionsRepository {
     /**
      * Returns a flow of the local cached copy of [collectionId] as a
      * [app.pachli.core.model.CollectionWithAccounts]. Returns null if there is no local cached copy
@@ -77,10 +77,10 @@ internal class OfflineFirstCollectionsRepository @Inject constructor(
      * [accountId] from the cached copy of [collectionId], on failure returns the
      * error.
      */
-    override suspend fun revokeFromCollection(pachliAccountId: Long, collectionId: String, accountId: String): Result<Unit, ICollectionsRepository.Error.RevokeFromCollection> {
+    override suspend fun revokeFromCollection(pachliAccountId: Long, collectionId: String, accountId: String): Result<Unit, CollectionsRepository.Error.RevokeFromCollection> {
         return remoteDataSource.revokeFromCollection(pachliAccountId, collectionId, accountId).mapEither(
             { it.body },
-            { ICollectionsRepository.Error.RevokeFromCollection(it) },
+            { CollectionsRepository.Error.RevokeFromCollection(it) },
         ).onSuccess {
             localDataSource.removeAccountFromCollection(pachliAccountId, collectionId, accountId)
         }
@@ -102,7 +102,7 @@ internal class OfflineFirstCollectionsRepository @Inject constructor(
 internal class CollectionsLocalDataSource @Inject constructor(
     private val transactionProvider: TransactionProvider,
     private val collectionsDao: CollectionsDao,
-    private val accountRepository: IAccountRepository,
+    private val accountRepository: AccountRepository,
 ) {
     /**
      * @return Flow of [CollectionWithAccounts] for [collectionId].
@@ -179,7 +179,7 @@ internal class CollectionsRemoteDataSource @Inject constructor(
         mastodonApi.getCollectionWithAccounts(collectionId)
             .mapEither(
                 { it.body.asModel() },
-                { ICollectionsRepository.Error.GetCollection(it) },
+                { CollectionsRepository.Error.GetCollection(it) },
             )
             .bind()
     }

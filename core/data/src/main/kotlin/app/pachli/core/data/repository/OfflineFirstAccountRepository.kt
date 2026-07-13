@@ -18,9 +18,9 @@
 package app.pachli.core.data.repository
 
 import app.pachli.core.common.di.ApplicationScope
-import app.pachli.core.data.repository.IAccountRepository.AccountError
-import app.pachli.core.data.repository.IAccountRepository.AccountError.GetAccountError
-import app.pachli.core.data.repository.IAccountRepository.AccountError.GetAccountsError
+import app.pachli.core.data.repository.AccountRepository.AccountError
+import app.pachli.core.data.repository.AccountRepository.AccountError.GetAccountError
+import app.pachli.core.data.repository.AccountRepository.AccountError.GetAccountsError
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.model.asEntity
 import app.pachli.core.database.model.asModel
@@ -48,7 +48,7 @@ import kotlinx.coroutines.CoroutineScope
 class OfflineFirstAccountRepository @Inject internal constructor(
     private val localDataSource: AccountLocalDataSource,
     private val remoteDataSource: AccountRemoteDataSource,
-) : IAccountRepository {
+) : AccountRepository {
     /**
      * Returns [Account] with [accountId] from the local cache. If the account
      * is not in the local cache then makes a network request for the account

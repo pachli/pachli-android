@@ -84,8 +84,14 @@ data class CollectionItem(
 }
 
 /**
+ * Sufficient information to show a collection on a timeline (e.g., in
+ * a collection card).
+ *
+ * @property serverId See [ICollection.serverId]
+ * @property accountId See [ICollection.accountId]
  * @property account Account that owns the collection. Nullable because
  * the call to retrieve owner account information may fail.
+ * @property name See [ICollection.name]
  * @property items Same as [Collection.items]. This needs to be stored so
  * a [TimelineCollection] can be converted back to a [Collection] in
  * [NotificationData.asModel].

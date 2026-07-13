@@ -31,7 +31,7 @@ import app.pachli.core.data.model.ContentFilterModel
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.data.repository.ICollectionsRepository
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
@@ -434,7 +434,7 @@ class NotificationsViewModel @AssistedInject constructor(
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     private val statusRepository: OfflineFirstStatusRepository,
-    private val collectionsRepository: ICollectionsRepository,
+    private val collectionsRepository: CollectionsRepository,
     @Assisted val pachliAccountId: Long,
 ) : ViewModel() {
     private val accountFlow = accountManager.getPachliAccountFlow(pachliAccountId)
@@ -727,7 +727,7 @@ class NotificationsViewModel @AssistedInject constructor(
                                 notificationId = notification.notification.serverId,
                                 account = notification.account.asModel(),
                                 isAboutSelf = isAboutSelf,
-                                accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
+                                accountFilterDecision = accountFilterDecision,
                             )
                         }
                     }
@@ -779,7 +779,7 @@ class NotificationsViewModel @AssistedInject constructor(
         )
     }
 
-    private suspend fun onRevokeCollection(action: FallibleCollectionAction.Revoke): Result<Unit, ICollectionsRepository.Error.RevokeFromCollection> {
+    private suspend fun onRevokeCollection(action: FallibleCollectionAction.Revoke): Result<Unit, CollectionsRepository.Error.RevokeFromCollection> {
         return collectionsRepository.revokeFromCollection(
             action.pachliAccountId,
             action.collectionId,
