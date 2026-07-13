@@ -102,7 +102,7 @@ internal class OfflineFirstCollectionsRepository @Inject constructor(
 internal class CollectionsLocalDataSource @Inject constructor(
     private val transactionProvider: TransactionProvider,
     private val collectionsDao: CollectionsDao,
-    private val accountRepository: AccountRepository,
+    private val accountRepository: IAccountRepository,
 ) {
     /**
      * @return Flow of [CollectionWithAccounts] for [collectionId].

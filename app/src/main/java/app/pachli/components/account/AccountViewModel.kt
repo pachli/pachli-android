@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.core.common.extensions.stateFlow
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.data.repository.AccountRepository
+import app.pachli.core.data.repository.IAccountRepository
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.getOrNull
@@ -68,7 +68,7 @@ class AccountViewModel @AssistedInject constructor(
     private val unsubscribeAccountUseCase: UnsubscribeAccountUseCase,
     private val blockDomainUseCase: BlockDomainUseCase,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
-    private val accountRepository: AccountRepository,
+    private val accountRepository: IAccountRepository,
 ) : ViewModel() {
     val relationshipData = MutableLiveData<Resource<Relationship>>()
 
