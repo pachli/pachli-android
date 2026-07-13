@@ -27,6 +27,7 @@ import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.RelationshipsRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.combineFlatMapLatest
+import app.pachli.core.data.repository.filterNotLoading
 import app.pachli.core.data.repository.getOrNull
 import app.pachli.core.data.repository.mapLoaded
 import app.pachli.core.domain.accounts.BlockDomainUseCase
@@ -147,7 +148,7 @@ internal class CollectionViewModel @Inject constructor(
         combine(
             pachliAccount,
             _collectionWithAccounts,
-            relationships,
+            relationships.filterNotLoading(),
             disabledAccountIds,
         ) { pachliAccount, collectionWithAccounts, relationships, disabledAccountIds ->
             collectionWithAccounts.map { loadable ->
