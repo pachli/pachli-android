@@ -93,7 +93,7 @@ SELECT
 SELECT * FROM CollectionWithAccount collection
  JOIN AccountEntity account
  JOIN CollectionItemEntity item
-  ON item.collectionServerId = collection.serverId AND account.serverId = item.accountId
+  ON item.pachliAccountId = :pachliAccountId AND item.collectionServerId = collection.serverId AND account.pachliAccountId = :pachliAccountId AND account.serverId = item.accountId
  WHERE collection.pachliAccountId = :pachliAccountId AND collection.serverId = :collectionId
         """,
     )
