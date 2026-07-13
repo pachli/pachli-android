@@ -57,6 +57,7 @@ import app.pachli.core.ui.appbar.FadeChildScrollEffect
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.InsetType
 import app.pachli.core.ui.extensions.applyWindowInsets
+import app.pachli.core.ui.extensions.contentDescription
 import app.pachli.core.ui.extensions.setMinimumTouchTarget
 import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.makeIcon
@@ -283,6 +284,61 @@ class CollectionActivity : ViewUrlActivity() {
             }
             binding.collectionRemoveSelf.show()
         } ?: binding.collectionRemoveSelf.hide()
+
+        binding.collectionInfoContainer.contentDescription = buildString {
+            owner?.let { ownerAccount ->
+                append(
+                    getString(
+                        app.pachli.core.ui.R.string.collection_content_description_name_and_owner,
+                        collection.name,
+                        ownerAccount.account.contentDescription(this@CollectionActivity),
+                    ),
+                )
+            } ?: append(getString(app.pachli.core.ui.R.string.collection_content_description_name, collection.name))
+
+            if (collection.description.isNotBlank()) {
+                append("\n")
+                append(collection.description)
+            }
+
+            if (shallowTag?.name?.isNotBlank() == true) {
+                append("\n")
+                append("#${shallowTag.name}")
+            }
+
+            if (viewData.isMember != null) {
+                append("\n")
+                append(
+                    resources.getQuantityString(
+                        app.pachli.core.ui.R.plurals.collection_content_description_accounts_is_member,
+                        viewData.accounts.size,
+                        viewData.accounts.size,
+                    ),
+                )
+            } else {
+                append("\n")
+                append(
+                    resources.getQuantityString(
+                        app.pachli.core.ui.R.plurals.collection_content_description_accounts_is_not_member,
+                        viewData.accounts.size,
+                        viewData.accounts.size,
+                    ),
+                )
+            }
+
+            if (collection.discoverable) {
+                append("\n")
+                append(getString(app.pachli.core.ui.R.string.collection_discoverable_true_label))
+            } else {
+                append("\n")
+                append(getString(app.pachli.core.ui.R.string.collection_discoverable_false_label))
+            }
+
+            if (collection.sensitive) {
+                append("\n")
+                append(getString(app.pachli.core.ui.R.string.collection_sensitive_label))
+            }
+        }
     }
 }
 

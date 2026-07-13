@@ -135,7 +135,6 @@ class CollectionCardView @JvmOverloads constructor(
      * @param showOwner True if the collection owner's information should be shown.
      * Some displays may not need this (e.g., in a notification about a collection,
      * the owner's information is already shown in the notification).
-     * @param isMember True if the user is a member of this collection.
      */
     fun bind(
         glide: RequestManager,
@@ -288,7 +287,8 @@ class CollectionCardView @JvmOverloads constructor(
                 // "(optional) <description>."
                 // "(optional) #hashtag"
                 // "Contains X accounts, (including yours)."
-                // "Discoverable in search results..."
+                // "(optional) Discoverable in search results..."
+                // "(optional) Includes sensitive content..."
                 val ownerAccount = viewData.timelineCollection.account
                 if (ownerAccount != null && showOwner) {
                     append(
@@ -335,6 +335,14 @@ class CollectionCardView @JvmOverloads constructor(
                 if (viewData.discoverable) {
                     append("\n")
                     append(context.getString(R.string.collection_discoverable_true_label))
+                } else {
+                    append("\n")
+                    append(context.getString(R.string.collection_discoverable_false_label))
+                }
+
+                if (viewData.sensitive) {
+                    append("\n")
+                    append(context.getString(R.string.collection_sensitive_label))
                 }
             }
         }
