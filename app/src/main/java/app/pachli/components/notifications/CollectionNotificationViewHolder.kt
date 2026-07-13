@@ -114,7 +114,7 @@ class CollectionNotificationViewHolder(
             glide,
             viewData.collectionCardViewData,
             statusDisplayOptions,
-            false,
+            showOwner = false,
             listener = collectionListener,
         )
 

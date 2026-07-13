@@ -170,10 +170,14 @@ class CollectionCardView @JvmOverloads constructor(
 
         collectionName.text = viewData.name
 
-        ownerHandle.text = timelineCollection.account?.username?.let {
-            context.getString(DR.string.post_username_format, it)
-        } ?: timelineCollection.accountId
-        ownerHandle.show()
+        if (showOwner) {
+            ownerHandle.text = timelineCollection.account?.username?.let {
+                context.getString(DR.string.post_username_format, it)
+            } ?: timelineCollection.accountId
+            ownerHandle.show()
+        } else {
+            ownerHandle.hide()
+        }
 
         if (viewData.description.isBlank()) {
             description.hide()
@@ -259,17 +263,20 @@ class CollectionCardView @JvmOverloads constructor(
         contentDescription = when (displayAction) {
             is CollectionDisplayAction.Hide -> buildString {
                 // Hidden?
-                // "Collection X, by Y."
+                // "Collection X (optional), by Y."
                 // "Contains sensitive content." or "You hid this."
-                append(
-                    viewData.timelineCollection.account?.let { ownerAccount ->
+                val ownerAccount = viewData.timelineCollection.account
+                if (ownerAccount != null && showOwner) {
+                    append(
                         context.getString(
                             R.string.collection_content_description_name_and_owner,
                             viewData.name,
                             ownerAccount.contentDescription(context),
-                        )
-                    } ?: context.getString(R.string.collection_content_description_name, viewData.name),
-                )
+                        ),
+                    )
+                } else {
+                    append(context.getString(R.string.collection_content_description_name, viewData.name))
+                }
                 append("\n")
                 append(displayAction.reason.getFormattedDescription(context))
             }
@@ -277,18 +284,23 @@ class CollectionCardView @JvmOverloads constructor(
             is CollectionDisplayAction.Show -> buildString {
                 // Not hidden?
                 //
-                // "Collection X, by Y."
+                // "Collection X (optional), by Y."
                 // "(optional) <description>."
                 // "(optional) #hashtag"
                 // "Contains X accounts, (including yours)."
                 // "Discoverable in search results..."
-                viewData.timelineCollection.account?.let { ownerAccount ->
-                    context.getString(
-                        R.string.collection_content_description_name_and_owner,
-                        viewData.name,
-                        ownerAccount.contentDescription(context),
+                val ownerAccount = viewData.timelineCollection.account
+                if (ownerAccount != null && showOwner) {
+                    append(
+                        context.getString(
+                            R.string.collection_content_description_name_and_owner,
+                            viewData.name,
+                            ownerAccount.contentDescription(context),
+                        ),
                     )
-                } ?: context.getString(R.string.collection_content_description_name, viewData.name)
+                } else {
+                    append(context.getString(R.string.collection_content_description_name, viewData.name))
+                }
 
                 if (viewData.description.isNotBlank()) {
                     append("\n")

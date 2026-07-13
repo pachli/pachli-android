@@ -260,10 +260,10 @@
     <string name="collection_content_description_name">Collection %1$s.</string>
     <plurals name="collection_content_description_accounts_is_member">
         <item quantity="one">Contains %1$d account, yours.</item>
-        <item quantity="other">Contents %1$d accounts, including yours.</item>
+        <item quantity="other">Contains %1$d accounts, including yours.</item>
     </plurals>
     <plurals name="collection_content_description_accounts_is_not_member">
         <item quantity="one">Contains %1$d account.</item>
-        <item quantity="other">Contents %1$d accounts.</item>
+        <item quantity="other">Contains %1$d accounts.</item>
     </plurals>
 </resources>
