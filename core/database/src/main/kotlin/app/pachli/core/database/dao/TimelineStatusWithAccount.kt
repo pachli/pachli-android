@@ -19,6 +19,7 @@ package app.pachli.core.database.dao
 
 import androidx.room3.DatabaseView
 import androidx.room3.Embedded
+import androidx.room3.Ignore
 import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
@@ -31,8 +32,15 @@ import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Status.Quote.HiddenQuote
 import app.pachli.core.model.Status.Quote.ShallowQuote
+import app.pachli.core.model.collection.CollectionCardViewData
 import java.util.Date
 
+/**
+ * @property collectionCards Any collection cards associated with this
+ * status. **Not** returned by this query, has to be resolved by the
+ * caller, normally using [ResolveCollectionCardsPagingSource]. See
+ * documentation in that class for more details.
+ */
 @DatabaseView(
     """
 SELECT
@@ -71,6 +79,7 @@ SELECT
     s.quoteState,
     s.quoteStatusId,
     s.quoteApproval,
+    s.taggedCollections,
     a.accountId AS 'a_accountId',
     a.pachliAccountId AS 'a_pachliAccountId',
     a.localUsername AS 'a_localUsername',
@@ -123,6 +132,7 @@ SELECT
     reply.limited AS 'reply_limited',
     reply.roles AS 'reply_roles',
     reply.pronouns AS 'reply_pronouns'
+
 FROM StatusEntity AS s
 LEFT JOIN TimelineAccountEntity AS a ON (s.pachliAccountId = a.pachliAccountId AND s.accountId = a.accountId)
 LEFT JOIN TimelineAccountEntity AS rb ON (s.pachliAccountId = rb.pachliAccountId AND s.reblogAccountId = rb.accountId)
@@ -148,11 +158,13 @@ data class TimelineStatusWithAccount(
     val translatedStatus: TranslatedStatusEntity? = null,
     @Embedded(prefix = "reply_")
     val replyAccount: TimelineAccountEntity? = null,
+    @Ignore
+    val collectionCards: List<CollectionCardViewData>? = null,
 ) {
     /**
-     * Returns a [app.pachli.core.model.Status] from [this].
+     * Returns a [Status] from [this].
      *
-     * Any embedded quotes are returned as a [app.pachli.core.model.Status.Quote.ShallowQuote]. Use
+     * Any embedded quotes are returned as a [ShallowQuote]. Use
      * [app.pachli.core.database.model.TimelineStatusWithQuote] to retain quotes.
      */
     fun toStatus(): Status {
@@ -198,6 +210,7 @@ data class TimelineStatusWithAccount(
                 repliesCount = status.repliesCount,
                 language = status.language,
                 filtered = status.filtered,
+                taggedCollections = status.taggedCollections,
             )
         }
         return if (reblog != null) {
@@ -236,6 +249,7 @@ data class TimelineStatusWithAccount(
                 repliesCount = status.repliesCount,
                 language = status.language,
                 filtered = status.filtered,
+                taggedCollections = status.taggedCollections,
             )
         } else {
             Status(
@@ -271,6 +285,7 @@ data class TimelineStatusWithAccount(
                 repliesCount = status.repliesCount,
                 language = status.language,
                 filtered = status.filtered,
+                taggedCollections = status.taggedCollections,
             )
         }
     }

@@ -23,6 +23,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -37,18 +38,23 @@ import app.pachli.components.report.ReportViewModel
 import app.pachli.components.report.Screen
 import app.pachli.components.report.adapter.ReportStatusActionListener
 import app.pachli.components.report.adapter.ReportStatusesAdapter
+import app.pachli.components.timeline.viewmodel.FallibleCollectionAction
 import app.pachli.components.timeline.viewmodel.InfallibleUiAction
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.ICollection
 import app.pachli.core.model.IStatus
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
+import app.pachli.core.model.collection.CollectionCardViewData
+import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.EditContentFilterActivityIntent
@@ -56,6 +62,7 @@ import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.ui.SetContentAsMarkdown
 import app.pachli.core.ui.SetContentAsMastodonHtml
 import app.pachli.databinding.FragmentReportStatusesBinding
+import app.pachli.feature.collections.newConfirmRevokeDialogFragment
 import app.pachli.fragment.SFragment
 import app.pachli.util.ListStatusAccessibilityDelegate
 import com.bumptech.glide.Glide
@@ -67,7 +74,6 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
@@ -212,7 +218,7 @@ class ReportStatusesFragment :
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.statuses.collectLatest { pagingData ->
                     adapter.submitData(pagingData)
                 }
@@ -305,6 +311,31 @@ class ReportStatusesFragment :
     override fun onVoteInPoll(viewData: IStatusViewData, poll: Poll, choices: List<Int>) = Unit
     override fun onTranslate(viewData: IStatusViewData) = Unit
     override fun onTranslateUndo(viewData: IStatusViewData) = Unit
+
+    override fun onRevokeUserFromCollection(collection: ICollection) {
+        lifecycleScope.launch {
+            val button = requireContext().newConfirmRevokeDialogFragment().await(parentFragmentManager)
+            if (button == AlertDialog.BUTTON_POSITIVE) {
+                viewModel.accept(
+                    FallibleCollectionAction.Revoke(
+                        pachliAccountId = pachliAccountId,
+                        collectionId = collection.collectionId,
+                        accountId = viewModel.pachliAccount.accountId,
+                    ),
+                )
+            }
+        }
+    }
+
+    override fun onCollectionDisplayActionChange(viewData: CollectionCardViewData, collectionDisplayAction: CollectionDisplayAction) {
+        viewModel.accept(
+            InfallibleUiAction.OverrideCollectionDisplayAction(
+                pachliAccountId,
+                viewData.timelineCollection.collectionId,
+                collectionDisplayAction,
+            ),
+        )
+    }
 
     companion object {
         private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"

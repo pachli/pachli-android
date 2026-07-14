@@ -26,6 +26,10 @@ import app.pachli.core.model.Status.Visibility
 import com.squareup.moshi.JsonClass
 import java.util.Date
 
+/**
+ * @property taggedCollections Possibly empty list of [Collection] linked
+ * to in this status.
+ */
 interface IStatus {
     val statusId: String
 
@@ -61,6 +65,7 @@ interface IStatus {
     val quoteApproval: QuoteApproval
     val language: String?
     val filtered: List<FilterResult>
+    val taggedCollections: List<Collection>
 }
 
 /**
@@ -100,6 +105,7 @@ data class Status(
     override val quoteApproval: QuoteApproval,
     override val language: String?,
     override val filtered: List<FilterResult>,
+    override val taggedCollections: List<Collection>,
 ) : IStatus {
     val actionableId: String
         get() = reblog?.statusId ?: statusId

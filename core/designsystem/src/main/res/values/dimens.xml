@@ -60,6 +60,9 @@
     <dimen name="collection_card_avatar_size">24dp</dimen>
     <dimen name="collection_card_avatar_radius">3dp</dimen>
 
+    <!-- Top margin between successive CollectionCardView in StatusView. -->
+    <dimen name="collection_card_top_margin">8dp</dimen>
+
     <dimen name="poll_preview_padding">12dp</dimen>
     <dimen name="poll_preview_min_width">120dp</dimen>
 

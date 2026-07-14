@@ -32,7 +32,9 @@ import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
+import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusActionError
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.dao.TimelineStatusWithAccount
@@ -57,6 +59,7 @@ import app.pachli.core.model.FilterContext
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
+import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.model.translation.TranslatedStatus
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
@@ -81,6 +84,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.fold
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -141,6 +145,13 @@ sealed interface InfallibleUiAction : UiAction {
     // infallible. Reloading the data may fail, but that's handled by the paging system /
     // adapter refresh logic.
     data class LoadNewest(val pachliAccountId: Long) : InfallibleUiAction
+
+    /** Override the current [CollectionDisplayAction] for [collectionId]. */
+    data class OverrideCollectionDisplayAction(
+        val pachliAccountId: Long,
+        val collectionId: String,
+        val collectionDisplayAction: CollectionDisplayAction,
+    ) : InfallibleUiAction
 }
 
 sealed interface UiSuccess {
@@ -212,6 +223,28 @@ sealed interface FallibleStatusAction : FallibleUiAction, StatusAction {
 
     /** Translate a status */
     data class Translate(override val statusViewData: IStatusViewData) : FallibleStatusAction
+}
+
+/** Actions the user can trigger on a collection. */
+sealed interface FallibleCollectionAction : FallibleUiAction {
+    /** Revoke permission for [accountId] to appear in [collectionId]. */
+    data class Revoke(
+        val pachliAccountId: Long,
+        val collectionId: String,
+        val accountId: String,
+    ) : FallibleCollectionAction
+}
+
+sealed interface CollectionActionSuccess : UiSuccess {
+    val action: FallibleCollectionAction
+
+    data class Revoke(override val action: FallibleCollectionAction.Revoke) : CollectionActionSuccess
+
+    companion object {
+        fun from(action: FallibleCollectionAction) = when (action) {
+            is FallibleCollectionAction.Revoke -> Revoke(action)
+        }
+    }
 }
 
 /** Changes to a status' visible state after API calls */
@@ -295,6 +328,12 @@ sealed interface UiError {
         override val message: Int = R.string.ui_error_filter_v1_load_fmt,
     ) : UiError
 
+    data class Revoke(
+        override val error: PachliError,
+        override val action: FallibleCollectionAction.Revoke,
+        override val message: Int = app.pachli.feature.collections.R.string.ui_error_collection_revoke_fmt,
+    ) : UiError
+
     companion object {
         fun make(error: PachliError, action: FallibleUiAction) = when (action) {
             is FallibleStatusAction.Bookmark -> Bookmark(error, action)
@@ -302,6 +341,7 @@ sealed interface UiError {
             is FallibleStatusAction.Reblog -> Reblog(error, action)
             is FallibleStatusAction.VoteInPoll -> VoteInPoll(error, action)
             is FallibleStatusAction.Translate -> TranslateStatus(error, action)
+            is FallibleCollectionAction.Revoke -> Revoke(error, action)
         }
     }
 }
@@ -366,6 +406,10 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
     protected val pachliAccountFlow = pachliAccountId.distinctUntilChanged().flatMapLatest { pachliAccountId ->
         accountManager.getPachliAccountFlow(pachliAccountId)
     }.filterNotNull()
+        .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
+
+    val pachliAccount: PachliAccount
+        get() = pachliAccountFlow.replayCache.first()
 
     protected var contentFilterModel: ContentFilterModel? = null
 
@@ -479,9 +523,28 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
                 }
         }
 
+        viewModelScope.launch {
+            uiAction.filterIsInstance<FallibleCollectionAction>()
+                .throttleFirst()
+                .collect { action ->
+                    val result = when (action) {
+                        is FallibleCollectionAction.Revoke -> onRevokeCollection(action)
+                    }.mapEither(
+                        { CollectionActionSuccess.from(action) },
+                        { UiError.make(it, action) },
+                    )
+                    _uiResult.send(result)
+                }
+        }
+
         // Undo status translations
         viewModelScope.launch {
             uiAction.filterIsInstance<InfallibleStatusAction.TranslateUndo>().collectLatest(::onUndoTranslate)
+        }
+
+        viewModelScope.launch {
+            uiAction.filterIsInstance<InfallibleUiAction.OverrideCollectionDisplayAction>()
+                .collectLatest(::onOverrideCollectionDisplayAction)
         }
 
         viewModelScope.launch { eventHub.events.collect { handleEvent(it) } }
@@ -689,6 +752,10 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
             }
         }
     }
+
+    abstract suspend fun onOverrideCollectionDisplayAction(action: InfallibleUiAction.OverrideCollectionDisplayAction)
+
+    abstract suspend fun onRevokeCollection(action: FallibleCollectionAction.Revoke): Result<Unit, CollectionsRepository.Error.RevokeFromCollection>
 
     companion object {
         /** Tag for the timelineKind in `savedStateHandle` */

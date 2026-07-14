@@ -56,7 +56,6 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
-import app.pachli.core.data.CollectionCardViewData
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.model.AttachmentDisplayAction
@@ -65,9 +64,9 @@ import app.pachli.core.model.IStatus
 import app.pachli.core.model.Notification
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
+import app.pachli.core.model.collection.CollectionCardViewData
 import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.navigation.AttachmentViewData.Companion.list
-import app.pachli.core.navigation.CollectionActivityIntent
 import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.preferences.TabTapBehaviour
 import app.pachli.core.ui.ActionButtonScrollListener
@@ -674,13 +673,6 @@ class NotificationsFragment :
                 TabTapBehaviour.JUMP_TO_NEWEST -> viewModel.accept(InfallibleUiAction.LoadNewest)
             }
         }
-    }
-
-    override fun onViewCollection(collection: ICollection) {
-        startActivityWithTransition(
-            CollectionActivityIntent(requireContext(), pachliAccountId, collection.collectionId),
-            TransitionKind.SLIDE_FROM_END,
-        )
     }
 
     override fun onRevokeUserFromCollection(collection: ICollection) {

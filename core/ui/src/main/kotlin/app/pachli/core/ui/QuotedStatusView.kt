@@ -56,6 +56,7 @@ class QuotedStatusView @JvmOverloads constructor(
     override val contentWarningButton = binding.quotedStatusContainer.quoteStatusContentWarningButton
     override val content = binding.quotedStatusContainer.quoteStatusContent
     override val buttonToggleContent = binding.quotedStatusContainer.quoteButtonToggleContent
+    override val collectionsContainer = null
     override val attachmentsView = binding.quotedStatusContainer.quoteAttachmentGrid
     override val pollView = binding.quotedStatusContainer.quoteStatusPoll
     override val cardView = binding.quotedStatusContainer.quoteStatusCardView

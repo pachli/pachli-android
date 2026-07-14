@@ -28,6 +28,7 @@ import app.pachli.core.database.Converters
 import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.Card
+import app.pachli.core.model.Collection
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.FilterResult
 import app.pachli.core.model.Hashtag
@@ -122,7 +123,12 @@ data class StatusEntity(
     val quoteApproval: Status.QuoteApproval,
     val language: String?,
     val filtered: List<FilterResult>,
+    @ColumnInfo(defaultValue = "[]")
+    val taggedCollections: List<Collection>,
 ) {
+    @Ignore
+    val actionableId = reblogStatusId ?: statusId
+
     @Ignore
     val isReblog = reblogStatusId != null
 
@@ -171,10 +177,48 @@ fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
     repliesCount = actionableStatus.repliesCount,
     language = actionableStatus.language,
     filtered = actionableStatus.filtered,
+    taggedCollections = actionableStatus.taggedCollections,
 )
 
 @JvmName("IterableStatus")
 fun Iterable<Status>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }
+
+/**
+ * M:N association between [StatusEntity] and [TimelineCollectionEntity].
+ */
+@Entity(
+    primaryKeys = ["pachliAccountId", "statusId", "collectionId"],
+    foreignKeys = (
+        [
+            ForeignKey(
+                entity = PachliAccountEntity::class,
+                parentColumns = ["pachliAccountId"],
+                childColumns = ["pachliAccountId"],
+                onDelete = ForeignKey.CASCADE,
+                deferred = true,
+            ),
+            ForeignKey(
+                entity = StatusEntity::class,
+                parentColumns = ["pachliAccountId", "statusId"],
+                childColumns = ["pachliAccountId", "statusId"],
+                onDelete = ForeignKey.CASCADE,
+                deferred = true,
+            ),
+            ForeignKey(
+                entity = TimelineCollectionEntity::class,
+                parentColumns = ["pachliAccountId", "collectionId"],
+                childColumns = ["pachliAccountId", "collectionId"],
+                onDelete = ForeignKey.CASCADE,
+                deferred = true,
+            ),
+        ]
+        ),
+)
+data class StatusToTimelineCollectionEntity(
+    val pachliAccountId: Long,
+    val statusId: String,
+    val collectionId: String,
+)
 
 /**
  * A complete [TimelineStatusWithAccount], and the (optional) status it quotes.
@@ -244,6 +288,7 @@ data class TimelineStatusWithQuote(
                 repliesCount = status.repliesCount,
                 language = status.language,
                 filtered = status.filtered,
+                taggedCollections = status.taggedCollections,
             )
         }
         return if (reblog != null) {
@@ -289,6 +334,7 @@ data class TimelineStatusWithQuote(
                 repliesCount = status.repliesCount,
                 language = status.language,
                 filtered = status.filtered,
+                taggedCollections = status.taggedCollections,
             )
         } else {
             Status(
@@ -329,6 +375,7 @@ data class TimelineStatusWithQuote(
                 repliesCount = status.repliesCount,
                 language = status.language,
                 filtered = status.filtered,
+                taggedCollections = status.taggedCollections,
             )
         }
     }

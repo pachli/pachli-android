@@ -164,7 +164,7 @@ class TransactionProvider(private val appDatabase: AppDatabase) {
  * the full [AppDatabase].
  */
 class InvalidationTracker(private val appDatabase: AppDatabase) {
-    /** @see [androidx.room.InvalidationTracker.createFlow] */
+    /** @see [androidx.room3.InvalidationTracker.createFlow] */
     fun createFlow(
         vararg tables: String,
         emitInitialState: Boolean,

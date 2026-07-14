@@ -62,6 +62,7 @@ class StatusComparisonTest {
             attachmentDisplayAction = AttachmentDisplayAction.Show(),
             replyToAccount = null,
             isUsersStatus = false,
+            collectionCardViewData = emptyList(),
         )
         val viewdata2 = StatusViewData(
             pachliAccountId = 1L,
@@ -72,6 +73,7 @@ class StatusComparisonTest {
             attachmentDisplayAction = AttachmentDisplayAction.Show(),
             replyToAccount = null,
             isUsersStatus = false,
+            collectionCardViewData = emptyList(),
         )
         assertEquals(viewdata1, viewdata2)
     }
@@ -87,6 +89,7 @@ class StatusComparisonTest {
             attachmentDisplayAction = AttachmentDisplayAction.Show(),
             replyToAccount = null,
             isUsersStatus = false,
+            collectionCardViewData = emptyList(),
         )
         val viewdata2 = StatusViewData(
             pachliAccountId = 1L,
@@ -97,6 +100,7 @@ class StatusComparisonTest {
             attachmentDisplayAction = AttachmentDisplayAction.Show(),
             replyToAccount = null,
             isUsersStatus = false,
+            collectionCardViewData = emptyList(),
         )
         assertNotEquals(viewdata1, viewdata2)
     }
@@ -112,6 +116,7 @@ class StatusComparisonTest {
             attachmentDisplayAction = AttachmentDisplayAction.Show(),
             replyToAccount = null,
             isUsersStatus = false,
+            collectionCardViewData = emptyList(),
         )
         val viewdata2 = StatusViewData(
             pachliAccountId = 1L,
@@ -122,6 +127,7 @@ class StatusComparisonTest {
             attachmentDisplayAction = AttachmentDisplayAction.Show(),
             replyToAccount = null,
             isUsersStatus = false,
+            collectionCardViewData = emptyList(),
         )
         assertNotEquals(viewdata1, viewdata2)
     }

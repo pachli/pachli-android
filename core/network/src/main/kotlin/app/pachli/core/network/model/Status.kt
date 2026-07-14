@@ -70,6 +70,8 @@ data class Status(
     @Json(name = "quote_approval") val quoteApproval: QuoteApproval? = null,
     val language: String?,
     val filtered: List<FilterResult>?,
+    @Json(name = "tagged_collections")
+    val taggedCollections: List<Collection>? = null,
 ) {
     val actionableStatus: Status
         get() = reblog ?: this
@@ -142,6 +144,7 @@ data class Status(
         quoteApproval = quoteApproval?.asModel() ?: app.pachli.core.model.Status.QuoteApproval(),
         language = language,
         filtered = filtered.orEmpty().asModel(),
+        taggedCollections = taggedCollections.orEmpty().asModel(),
     )
 
     @JsonClass(generateAdapter = true)

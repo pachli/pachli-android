@@ -67,6 +67,7 @@ import app.pachli.core.database.model.ReferencedStatusId
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.ServerEntity
 import app.pachli.core.database.model.StatusEntity
+import app.pachli.core.database.model.StatusToTimelineCollectionEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineCollectionEntity
@@ -101,6 +102,7 @@ import java.util.TimeZone
         FollowingAccountEntity::class,
         NotificationEntity::class,
         NotificationViewDataEntity::class,
+        StatusToTimelineCollectionEntity::class,
         TimelineStatusEntity::class,
         ConversationViewDataEntity::class,
         HashtagEntity::class,
@@ -109,7 +111,7 @@ import java.util.TimeZone
         TimelineStatusWithAccount::class,
         ReferencedStatusId::class,
     ],
-    version = 47,
+    version = 48,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -179,6 +181,8 @@ import java.util.TimeZone
         // Make some Status(Entity) properties non-null
         AutoMigration(from = 45, to = 46),
         AutoMigration(from = 46, to = 47, spec = AppDatabase.MIGRATE_46_47::class),
+        // Status.taggedCollection property
+        AutoMigration(from = 47, to = 48),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {

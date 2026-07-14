@@ -17,7 +17,6 @@
 
 package app.pachli.core.ui.extensions
 
-import app.pachli.core.data.CollectionCardViewData
 import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.data.model.NotificationViewData.FollowNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.FollowRequestNotificationViewData
@@ -41,6 +40,7 @@ import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
+import app.pachli.core.model.collection.CollectionCardViewData
 import app.pachli.core.model.collection.make
 
 /**
