@@ -31,6 +31,7 @@ import app.pachli.core.data.model.ContentFilterModel
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
@@ -46,6 +47,7 @@ import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
 import app.pachli.core.model.Notification
 import app.pachli.core.model.Poll
+import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.TabTapBehaviour
@@ -183,6 +185,13 @@ sealed interface InfallibleUiAction : UiAction {
         val notificationId: String,
         val accountFilterDecision: AccountFilterDecision,
     ) : InfallibleUiAction
+
+    /** Override the current [CollectionDisplayAction] for [collectionId]. */
+    data class OverrideCollectionDisplayAction(
+        val pachliAccountId: Long,
+        val collectionId: String,
+        val collectionDisplayAction: CollectionDisplayAction,
+    ) : InfallibleUiAction
 }
 
 /** Actions the user can trigger on an individual notification. These may fail. */
@@ -306,6 +315,28 @@ sealed interface StatusActionSuccess : UiSuccess {
     }
 }
 
+/** Actions the user can trigger on a collection. */
+sealed interface FallibleCollectionAction : FallibleUiAction {
+    /** Revoke permission for [accountId] to appear in [collectionId]. */
+    data class Revoke(
+        val pachliAccountId: Long,
+        val collectionId: String,
+        val accountId: String,
+    ) : FallibleCollectionAction
+}
+
+sealed interface CollectionActionSuccess : UiSuccess {
+    val action: FallibleCollectionAction
+
+    data class Revoke(override val action: FallibleCollectionAction.Revoke) : CollectionActionSuccess
+
+    companion object {
+        fun from(action: FallibleCollectionAction) = when (action) {
+            is FallibleCollectionAction.Revoke -> Revoke(action)
+        }
+    }
+}
+
 /** Errors from fallible view model actions that the UI will need to show */
 sealed interface UiError {
     /** The error associated with the error */
@@ -372,6 +403,12 @@ sealed interface UiError {
         override val message: Int = R.string.ui_error_filter_v1_load_fmt,
     ) : UiError
 
+    data class Revoke(
+        override val error: PachliError,
+        override val action: FallibleCollectionAction.Revoke,
+        override val message: Int = app.pachli.feature.collections.R.string.ui_error_collection_revoke_fmt,
+    ) : UiError
+
     companion object {
         fun make(error: PachliError, action: FallibleUiAction) = when (action) {
             is FallibleStatusAction.Bookmark -> Bookmark(error, action)
@@ -382,6 +419,7 @@ sealed interface UiError {
             is NotificationAction.AcceptFollowRequest -> AcceptFollowRequest(error, action)
             is NotificationAction.RejectFollowRequest -> RejectFollowRequest(error, action)
             is FallibleUiAction.ClearNotifications -> ClearNotifications(error, action)
+            is FallibleCollectionAction.Revoke -> Revoke(error, action)
         }
     }
 }
@@ -396,6 +434,7 @@ class NotificationsViewModel @AssistedInject constructor(
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     private val statusRepository: OfflineFirstStatusRepository,
+    private val collectionsRepository: CollectionsRepository,
     @Assisted val pachliAccountId: Long,
 ) : ViewModel() {
     private val accountFlow = accountManager.getPachliAccountFlow(pachliAccountId)
@@ -469,6 +508,11 @@ class NotificationsViewModel @AssistedInject constructor(
                 .collectLatest(::onOverrideAccountFilter)
         }
 
+        viewModelScope.launch {
+            uiAction.filterIsInstance<InfallibleUiAction.OverrideCollectionDisplayAction>()
+                .collectLatest(::onOverrideCollectionDisplayAction)
+        }
+
         // Save the visible notification ID
         viewModelScope.launch {
             uiAction
@@ -535,6 +579,20 @@ class NotificationsViewModel @AssistedInject constructor(
                         is FallibleStatusAction.Translate -> timelineCases.translate(action.statusViewData)
                     }.mapEither(
                         { StatusActionSuccess.from(action) },
+                        { UiError.make(it, action) },
+                    )
+                    _uiResult.send(result)
+                }
+        }
+
+        viewModelScope.launch {
+            uiAction.filterIsInstance<FallibleCollectionAction>()
+                .throttleFirst()
+                .collect { action ->
+                    val result = when (action) {
+                        is FallibleCollectionAction.Revoke -> onRevokeCollection(action)
+                    }.mapEither(
+                        { CollectionActionSuccess.from(action) },
                         { UiError.make(it, action) },
                     )
                     _uiResult.send(result)
@@ -710,6 +768,22 @@ class NotificationsViewModel @AssistedInject constructor(
             action.pachliAccountId,
             action.notificationId,
             AccountFilterDecision.Override(action.accountFilterDecision),
+        )
+    }
+
+    private suspend fun onOverrideCollectionDisplayAction(action: InfallibleUiAction.OverrideCollectionDisplayAction) {
+        collectionsRepository.setCollectionDisplayAction(
+            action.pachliAccountId,
+            action.collectionId,
+            action.collectionDisplayAction,
+        )
+    }
+
+    private suspend fun onRevokeCollection(action: FallibleCollectionAction.Revoke): Result<Unit, CollectionsRepository.Error.RevokeFromCollection> {
+        return collectionsRepository.revokeFromCollection(
+            action.pachliAccountId,
+            action.collectionId,
+            action.accountId,
         )
     }
 

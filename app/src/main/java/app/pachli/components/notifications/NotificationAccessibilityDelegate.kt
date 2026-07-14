@@ -25,6 +25,8 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.Accessibilit
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.data.model.NotificationViewData
+import app.pachli.core.model.collection.CollectionDisplayAction
+import app.pachli.core.model.collection.CollectionDisplayReason
 import app.pachli.core.ui.accessibility.PachliRecyclerViewAccessibilityDelegate
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.util.ListStatusAccessibilityDelegate
@@ -103,6 +105,38 @@ class NotificationAccessibilityDelegate<T : NotificationViewData>(
                     info.addAction(openProfileAction)
                 }
 
+                is NotificationViewData.WithCollection.CollectionAddNotificationViewData -> {
+                    val collectionCardViewData = notification.collectionCardViewData
+                    if (collectionCardViewData.displayAction is CollectionDisplayAction.Hide) {
+                        info.addAction(collectionShow)
+                    } else {
+                        info.addAction(collectionView)
+                        collectionCardViewData.hashtag?.let {
+                            info.addAction(collectionViewTag)
+                        }
+                        info.addAction(collectionHide)
+                        if (collectionCardViewData.isMember) {
+                            info.addAction(collectionRevoke)
+                        }
+                    }
+                }
+
+                is NotificationViewData.WithCollection.CollectionUpdateNotificationViewData -> {
+                    val collectionCardViewData = notification.collectionCardViewData
+                    if (collectionCardViewData.displayAction is CollectionDisplayAction.Hide) {
+                        info.addAction(collectionShow)
+                    } else {
+                        info.addAction(collectionView)
+                        collectionCardViewData.hashtag?.let {
+                            info.addAction(collectionViewTag)
+                        }
+                        info.addAction(collectionHide)
+                        if (collectionCardViewData.isMember) {
+                            info.addAction(collectionRevoke)
+                        }
+                    }
+                }
+
                 is NotificationViewData.UnknownNotificationViewData -> {
                     // No actions.
                 }
@@ -166,6 +200,47 @@ class NotificationAccessibilityDelegate<T : NotificationViewData>(
                     )
                 }
 
+                collectionShow.id -> (notification as? NotificationViewData.WithCollection)?.let {
+                    interrupt()
+                    notificationActionListener.onCollectionDisplayActionChange(
+                        notification.collectionCardViewData,
+                        CollectionDisplayAction.Show(
+                            notification.collectionCardViewData.displayAction as? CollectionDisplayAction.Hide,
+                        ),
+                    )
+                }
+
+                collectionHide.id -> (notification as? NotificationViewData.WithCollection)?.let {
+                    interrupt()
+                    val displayAction = notification.collectionCardViewData.displayAction
+
+                    notificationActionListener.onCollectionDisplayActionChange(
+                        notification.collectionCardViewData,
+                        CollectionDisplayAction.Hide(
+                            (displayAction as? CollectionDisplayAction.Show)?.originalAction?.reason ?: CollectionDisplayReason.UserAction,
+                        ),
+                    )
+                }
+
+                collectionView.id -> (notification as? NotificationViewData.WithCollection)?.let {
+                    interrupt()
+                    notificationActionListener.onViewCollection(
+                        notification.collectionCardViewData,
+                    )
+                }
+
+                collectionViewTag.id -> (notification as? NotificationViewData.WithCollection)?.let {
+                    notification.collectionCardViewData.hashtag?.name?.let {
+                        interrupt()
+                        notificationActionListener.onViewTag(it)
+                    }
+                }
+
+                collectionRevoke.id -> (notification as? NotificationViewData.WithCollection)?.let {
+                    interrupt()
+                    notificationActionListener.onRevokeUserFromCollection(notification.collectionCardViewData)
+                }
+
                 else -> return if (notification is NotificationViewData.WithStatus) {
                     statusAccessibilityDelegate.itemDelegate.performAccessibilityAction(host, action, args)
                 } else {
@@ -215,5 +290,35 @@ class NotificationAccessibilityDelegate<T : NotificationViewData>(
     private val openReport = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_open_report,
         context.getString(app.pachli.core.ui.R.string.action_open_report),
+    )
+
+    /** Show a hidden collection. */
+    private val collectionShow = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_collection_show,
+        context.getString(app.pachli.core.ui.R.string.action_collection_show),
+    )
+
+    /** Hide a visible collection. */
+    private val collectionHide = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_collection_hide,
+        context.getString(app.pachli.core.ui.R.string.action_collection_hide),
+    )
+
+    /** View a collection's members. */
+    private val collectionView = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_collection_view,
+        context.getString(app.pachli.core.ui.R.string.action_collection_view),
+    )
+
+    /** Revoke permission for the user's account in a collection. */
+    private val collectionRevoke = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_collection_revoke,
+        context.getString(app.pachli.core.ui.R.string.action_collection_revoke),
+    )
+
+    /* View the hashtag associated with a collection. */
+    private val collectionViewTag = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_collection_view_tag,
+        context.getString(app.pachli.core.ui.R.string.action_collection_view_tag),
     )
 }

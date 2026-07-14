@@ -22,6 +22,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import app.pachli.core.database.dao.CollectionsDao
 import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
@@ -34,12 +35,14 @@ import app.pachli.core.database.model.NotificationReport
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.asEntity
+import app.pachli.core.model.Account
 import app.pachli.core.model.AccountWarning
 import app.pachli.core.model.RelationshipSeveranceEvent
 import app.pachli.core.model.Report
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
 import app.pachli.core.model.TimelineAccount
+import app.pachli.core.model.asTimelineCollection
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.asModel
@@ -50,6 +53,7 @@ import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getOrElse
+import com.github.michaelbull.result.map
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import okhttp3.Headers
@@ -78,6 +82,7 @@ class NotificationsRemoteMediator(
     private val remoteKeyDao: RemoteKeyDao,
     private val notificationDao: NotificationDao,
     private val statusDao: StatusDao,
+    private val collectionsDao: CollectionsDao,
     private val excludeTypes: Iterable<Notification.Type>,
 ) : RemoteMediator<Int, NotificationData>() {
     private val remoteKeyTimelineId = Timeline.Notifications.remoteKeyTimelineId
@@ -224,6 +229,15 @@ class NotificationsRemoteMediator(
         /** Unique statuses referenced in this batch of notifications. */
         val statuses = mutableSetOf<Status>()
 
+        /** Unique collections referenced in this batch of notifications. */
+        val collections = mutableSetOf<app.pachli.core.model.Collection>()
+
+        /**
+         * Account IDs that have been seen in collections. These must be resolved
+         * to full [Account]s.
+         */
+        val accountIdsInCollections = mutableSetOf<String>()
+
         // Convert to core.model.Notification to ensure the notifications are valid.
         val validNotifications = notifications.asModel(accountId)
         if (validNotifications.isEmpty()) return
@@ -246,12 +260,53 @@ class NotificationsRemoteMediator(
                     statuses.add(it)
                 }
             }
+
+            (notification as? app.pachli.core.model.Notification.WithCollection)?.collection?.let { collection ->
+                collections.add(collection)
+                accountIdsInCollections.addAll(collection.allAccountIds())
+            }
         }
+
+        // Resolve all the account IDs referenced in any collection to full accounts
+        // so:
+        // 1. The accounts can be saved.
+        // 2. The accounts can be used to create TimelineCollectionEntity objects.
+        val accountsInCollections = resolveAccounts(accountIdsInCollections)
 
         // Bulk upsert the discovered items.
         timelineDao.upsertTimelineAccounts(timelineAccounts.asEntity(pachliAccountId))
-        statusDao.upsertStatuses(statuses.asEntity(pachliAccountId))
-        notificationDao.upsertNotifications(validNotifications.asEntity(pachliAccountId))
+        timelineDao.upsertAccounts(accountsInCollections.values.asEntity(pachliAccountId))
+        statusDao.upsertStatuses(statuses.map { it.asEntity(pachliAccountId) })
+        notificationDao.upsertNotifications(notifications.asModel(accountId).asEntity(pachliAccountId))
+
+        collectionsDao.upsertCollections(collections.asEntity(pachliAccountId))
+        collectionsDao.upsertCollectionItems(
+            collections.flatMap { it.items.asEntity(pachliAccountId, it.serverId) },
+        )
+        collectionsDao.upsertTimelineCollections(
+            collections.map { it.asTimelineCollection(accountsInCollections) }.asEntity(pachliAccountId),
+        )
+    }
+
+    /**
+     * @return All the account IDs referenced in [Collection]. The account ID of the owner
+     * and of all items in the collection.
+     */
+    private fun app.pachli.core.model.Collection.allAccountIds(): List<String> {
+        return items.mapNotNull { it.accountId } + accountId
+    }
+
+    /**
+     * Calls the server to convert all [accountIds] to the full [Account] details.
+     *
+     * @return Map between the server's ID for the account and the [Account].
+     */
+    private suspend fun resolveAccounts(accountIds: Collection<String>): Map<String, Account> {
+        if (accountIds.isEmpty()) return emptyMap()
+
+        return mastodonApi.accounts(accountIds)
+            .map { it.body.asModel().associateBy { it.serverId } }
+            .getOrElse { emptyMap() }
     }
 }
 

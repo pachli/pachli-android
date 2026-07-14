@@ -43,6 +43,8 @@ data class NotificationData(
     @Embedded(prefix = "a_") val account: TimelineAccountEntity,
     @Embedded(prefix = "s_") val status: TimelineStatusWithQuote?,
     @Embedded(prefix = "nvd_") val viewData: NotificationViewDataEntity?,
+    @Embedded(prefix = "timelineCollection_") val timelineCollection: TimelineCollectionEntity?,
+    @Embedded(prefix = "collectionViewData_") val collectionViewData: CollectionViewDataEntity?,
 ) {
     fun asModel(): Notification? {
         // TODO: Shouldn't need to return null here, as this should be restoring
@@ -176,6 +178,24 @@ data class NotificationData(
                     status = status.toStatus(),
                 )
             }
+
+            NotificationEntity.Type.COLLECTION_ADD -> timelineCollection?.let {
+                Notification.CollectionAdd(
+                    id = notification.serverId,
+                    createdAt = notification.createdAt,
+                    account = account.asModel(),
+                    collection = timelineCollection.asCollectionModel(),
+                )
+            }
+
+            NotificationEntity.Type.COLLECTION_UPDATE -> timelineCollection?.let {
+                Notification.CollectionUpdate(
+                    id = notification.serverId,
+                    createdAt = notification.createdAt,
+                    account = account.asModel(),
+                    collection = timelineCollection!!.asCollectionModel(),
+                )
+            }
         }
     }
 
@@ -235,6 +255,8 @@ data class NotificationAccountFilterDecisionUpdate(
  * The account will be a TimelineAccount which has no note property. The note is
  * only needed for [NotificationEntity.Type.FOLLOW] and
  * [NotificationEntity.Type.FOLLOW_REQUEST], so is only persisted for those types.
+ * @property collectionServerId (optional) ID of the collection contained in this
+ * notification. Null if this notification does not reference a collection.
  */
 @Entity(
     primaryKeys = ["pachliAccountId", "serverId"],
@@ -270,6 +292,7 @@ data class NotificationEntity(
     @Embedded(prefix = "report_") val report: NotificationReport?,
     @Embedded(prefix = "rse_") val relationshipSeveranceEvent: NotificationRelationshipSeveranceEvent?,
     @Embedded(prefix = "warn_") val accountWarning: NotificationAccountWarning?,
+    val collectionServerId: String?,
 ) {
     enum class Type {
         /** Unknown notification. */
@@ -316,6 +339,12 @@ data class NotificationEntity(
 
         /** A post you quoted has been updated. */
         QUOTED_UPDATE,
+
+        /** Added to a collection. */
+        COLLECTION_ADD,
+
+        /** Collection was updated. */
+        COLLECTION_UPDATE,
         ;
 
         companion object

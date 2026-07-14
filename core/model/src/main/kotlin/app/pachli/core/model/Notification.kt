@@ -34,6 +34,11 @@ sealed interface Notification {
         val status: app.pachli.core.model.Status
     }
 
+    /** Notification that references a [Collection]. */
+    sealed interface WithCollection : Notification {
+        val collection: Collection
+    }
+
     /**
      * @property networkType The type of the notification returned by
      * the API.
@@ -159,6 +164,22 @@ sealed interface Notification {
         val accountWarning: AccountWarning,
     ) : Notification
 
+    /** User's account was added to a collection. */
+    data class CollectionAdd(
+        override val id: String,
+        override val createdAt: Instant,
+        override val account: TimelineAccount,
+        override val collection: Collection,
+    ) : Notification, WithCollection
+
+    /** Collection the user's account is in was updated. */
+    data class CollectionUpdate(
+        override val id: String,
+        override val createdAt: Instant,
+        override val account: TimelineAccount,
+        override val collection: Collection,
+    ) : Notification, WithCollection
+
     /**
      * Notification types.
      *
@@ -215,6 +236,12 @@ sealed interface Notification {
 
         /** A moderator has taken action against your account or has sent you a warning. */
         MODERATION_WARNING("moderation_warning"),
+
+        /** Added to a collection. */
+        COLLECTION_ADD("collection_add"),
+
+        /** Collection was updated. */
+        COLLECTION_UPDATE("collection_update"),
         ;
 
         companion object {
@@ -253,6 +280,8 @@ sealed interface Notification {
             is SeveredRelationships -> Type.SEVERED_RELATIONSHIPS
             is SignUp -> Type.SIGN_UP
             is Status -> Type.STATUS
+            is CollectionAdd -> Type.COLLECTION_ADD
+            is CollectionUpdate -> Type.COLLECTION_UPDATE
             is Unknown -> Type.UNKNOWN
             is Update -> Type.UPDATE
         }

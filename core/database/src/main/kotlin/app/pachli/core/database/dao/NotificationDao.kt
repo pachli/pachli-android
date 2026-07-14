@@ -258,7 +258,40 @@ SELECT
     -- NotificationViewData
     nvd.pachliAccountId AS 'nvd_pachliAccountId',
     nvd.serverId AS 'nvd_serverId',
-    nvd.accountFilterDecision AS 'nvd_accountFilterDecision'
+    nvd.accountFilterDecision AS 'nvd_accountFilterDecision',
+
+    -- Collection
+    timelineCollection.pachliAccountId AS 'timelineCollection_pachliAccountId',
+    timelineCollection.serverId AS 'timelineCollection_serverId',
+    timelineCollection.accountId AS 'timelineCollection_accountId',
+    timelineCollection.name AS 'timelineCollection_name',
+    timelineCollection.description AS 'timelineCollection_description',
+    timelineCollection.local AS 'timelineCollection_local',
+    timelineCollection.sensitive AS 'timelineCollection_sensitive',
+    timelineCollection.discoverable AS 'timelineCollection_discoverable',
+    timelineCollection.hashtag AS 'timelineCollection_hashtag',
+    timelineCollection.createdAt AS 'timelineCollection_createdAt',
+    timelineCollection.updatedAt AS 'timelineCollection_updatedAt',
+    timelineCollection.items AS 'timelineCollection_items',
+    timelineCollection.itemIconUrls AS 'timelineCollection_itemIconUrls',
+    timelineCollection.owner_serverId AS 'timelineCollection_owner_serverId',
+    timelineCollection.owner_pachliAccountId AS 'timelineCollection_owner_pachliAccountId',
+    timelineCollection.owner_localUsername AS 'timelineCollection_owner_localUsername',
+    timelineCollection.owner_username AS 'timelineCollection_owner_username',
+    timelineCollection.owner_displayName AS 'timelineCollection_owner_displayName',
+    timelineCollection.owner_url AS 'timelineCollection_owner_url',
+    timelineCollection.owner_avatar AS 'timelineCollection_owner_avatar',
+    timelineCollection.owner_emojis AS 'timelineCollection_owner_emojis',
+    timelineCollection.owner_bot AS 'timelineCollection_owner_bot',
+    timelineCollection.owner_createdAt AS 'timelineCollection_owner_createdAt',
+    timelineCollection.owner_limited AS 'timelineCollection_owner_limited',
+    timelineCollection.owner_roles AS 'timelineCollection_owner_roles',
+    timelineCollection.owner_pronouns AS 'timelineCollection_owner_pronouns',
+
+    -- Collection view data
+    collectionViewData.pachliAccountId AS 'collectionViewData_pachliAccountId',
+    collectionViewData.serverId AS 'collectionViewData_serverId',
+    collectionViewData.displayAction AS 'collectionViewData_displayAction'
 FROM NotificationEntity AS n
 LEFT JOIN TimelineAccountEntity AS a ON (n.pachliAccountId = a.pachliAccountId AND n.accountServerId = a.serverId)
 LEFT JOIN TimelineStatusWithAccount AS s
@@ -266,6 +299,12 @@ LEFT JOIN TimelineStatusWithAccount AS s
 LEFT JOIN TimelineStatusWithAccount AS q
     ON (n.pachliAccountId = :pachliAccountId AND (q.pachliAccountId = :pachliAccountId AND s.quoteServerId = q.serverId))
 LEFT JOIN NotificationViewDataEntity AS nvd ON (n.pachliAccountId = nvd.pachliAccountId AND n.serverId = nvd.serverId)
+LEFT JOIN
+    TimelineCollectionEntity AS timelineCollection
+    ON (n.pachliAccountId = timelineCollection.pachliAccountId AND n.collectionServerId = timelineCollection.serverId)
+LEFT JOIN
+    CollectionViewDataEntity AS collectionViewData
+    ON (n.pachliAccountId = collectionViewData.pachliAccountId AND n.collectionServerId = collectionViewData.serverId)
 WHERE n.pachliAccountId = :pachliAccountId
 ORDER BY LENGTH(n.serverId) DESC, n.serverId DESC
 """,
@@ -573,13 +612,52 @@ SELECT
     -- NotificationViewData
     nvd.pachliAccountId AS 'nvd_pachliAccountId',
     nvd.serverId AS 'nvd_serverId',
-    nvd.accountFilterDecision AS 'nvd_accountFilterDecision'
+    nvd.accountFilterDecision AS 'nvd_accountFilterDecision',
+
+    -- Collection
+    timelineCollection.pachliAccountId AS 'timelineCollection_pachliAccountId',
+    timelineCollection.serverId AS 'timelineCollection_serverId',
+    timelineCollection.accountId AS 'timelineCollection_accountId',
+    timelineCollection.name AS 'timelineCollection_name',
+    timelineCollection.description AS 'timelineCollection_description',
+    timelineCollection.local AS 'timelineCollection_local',
+    timelineCollection.sensitive AS 'timelineCollection_sensitive',
+    timelineCollection.discoverable AS 'timelineCollection_discoverable',
+    timelineCollection.hashtag AS 'timelineCollection_hashtag',
+    timelineCollection.createdAt AS 'timelineCollection_createdAt',
+    timelineCollection.updatedAt AS 'timelineCollection_updatedAt',
+    timelineCollection.items AS 'timelineCollection_items',
+    timelineCollection.itemIconUrls AS 'timelineCollection_itemIconUrls',
+    timelineCollection.owner_serverId AS 'timelineCollection_owner_serverId',
+    timelineCollection.owner_pachliAccountId AS 'timelineCollection_owner_pachliAccountId',
+    timelineCollection.owner_localUsername AS 'timelineCollection_owner_localUsername',
+    timelineCollection.owner_username AS 'timelineCollection_owner_username',
+    timelineCollection.owner_displayName AS 'timelineCollection_owner_displayName',
+    timelineCollection.owner_url AS 'timelineCollection_owner_url',
+    timelineCollection.owner_avatar AS 'timelineCollection_owner_avatar',
+    timelineCollection.owner_emojis AS 'timelineCollection_owner_emojis',
+    timelineCollection.owner_bot AS 'timelineCollection_owner_bot',
+    timelineCollection.owner_createdAt AS 'timelineCollection_owner_createdAt',
+    timelineCollection.owner_limited AS 'timelineCollection_owner_limited',
+    timelineCollection.owner_roles AS 'timelineCollection_owner_roles',
+    timelineCollection.owner_pronouns AS 'timelineCollection_owner_pronouns',
+
+    -- Collection view data
+    collectionViewData.pachliAccountId AS 'collectionViewData_pachliAccountId',
+    collectionViewData.serverId AS 'collectionViewData_serverId',
+    collectionViewData.displayAction AS 'collectionViewData_displayAction'
 FROM NotificationEntity AS n
 LEFT JOIN TimelineAccountEntity AS a ON (n.pachliAccountId = a.pachliAccountId AND n.accountServerId = a.serverId)
 LEFT JOIN TimelineStatusWithAccount AS s ON (n.pachliAccountId = s.pachliAccountId AND n.statusServerId = s.serverId)
 LEFT JOIN TimelineStatusWithAccount AS q
     ON (n.pachliAccountId = :pachliAccountId AND (q.pachliAccountId = :pachliAccountId AND s.quoteServerId = q.serverId))
 LEFT JOIN NotificationViewDataEntity AS nvd ON (n.pachliAccountId = nvd.pachliAccountId AND n.serverId = nvd.serverId)
+LEFT JOIN
+    TimelineCollectionEntity AS timelineCollection
+    ON (n.pachliAccountId = timelineCollection.pachliAccountId and n.collectionServerId = timelineCollection.serverId)
+LEFT JOIN
+    CollectionViewDataEntity AS collectionViewData
+    ON (n.pachliAccountId = collectionViewData.pachliAccountId AND n.collectionServerId = collectionViewData.serverId)
 WHERE n.pachliAccountId = :pachliAccountId
 ORDER BY LENGTH(n.serverId) DESC, n.serverId DESC
 """,

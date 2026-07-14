@@ -18,12 +18,16 @@
 package app.pachli.core.data.di
 
 import app.pachli.core.data.repository.AccountRepository
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.ListsRepository
-import app.pachli.core.data.repository.NetworkAccountRepository
+import app.pachli.core.data.repository.NetworkRelationshipsRepository
 import app.pachli.core.data.repository.NetworkSuggestionsRepository
+import app.pachli.core.data.repository.OfflineFirstAccountRepository
+import app.pachli.core.data.repository.OfflineFirstCollectionsRepository
 import app.pachli.core.data.repository.OfflineFirstContentFiltersRepository
 import app.pachli.core.data.repository.OfflineFirstListRepository
+import app.pachli.core.data.repository.RelationshipsRepository
 import app.pachli.core.data.repository.SuggestionsRepository
 import app.pachli.core.data.repository.hashtags.HashtagsRepository
 import app.pachli.core.data.repository.hashtags.OfflineFirstHashtagsRepository
@@ -37,8 +41,13 @@ import dagger.hilt.components.SingletonComponent
 abstract class DataModule {
     @Binds
     internal abstract fun bindsAccountRepository(
-        accountRepository: NetworkAccountRepository,
+        accountRepository: OfflineFirstAccountRepository,
     ): AccountRepository
+
+    @Binds
+    internal abstract fun bindsCollectionsRepository(
+        collectionsRepository: OfflineFirstCollectionsRepository,
+    ): CollectionsRepository
 
     @Binds
     internal abstract fun bindsContentFiltersRepository(
@@ -49,6 +58,11 @@ abstract class DataModule {
     internal abstract fun bindsListsRepository(
         listsRepository: OfflineFirstListRepository,
     ): ListsRepository
+
+    @Binds
+    internal abstract fun bindsRelationshipsRepository(
+        relationshipsRepository: NetworkRelationshipsRepository,
+    ): RelationshipsRepository
 
     @Binds
     internal abstract fun bindsSuggestionsRepository(

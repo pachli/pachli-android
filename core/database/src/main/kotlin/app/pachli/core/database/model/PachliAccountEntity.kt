@@ -70,6 +70,10 @@ data class PachliAccountEntity(
     override val notificationsQuotes: Boolean = true,
     @ColumnInfo(defaultValue = "true")
     override val notificationsQuotedUpdates: Boolean = true,
+    @ColumnInfo(defaultValue = "true")
+    override val notificationsCollectionAdd: Boolean = true,
+    @ColumnInfo(defaultValue = "true")
+    override val notificationsCollectionUpdate: Boolean = true,
     override val notificationSound: Boolean = true,
     override val notificationVibration: Boolean = true,
     override val notificationLight: Boolean = true,

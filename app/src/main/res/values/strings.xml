@@ -122,6 +122,8 @@
     <string name="notification_moderation_warning_tap_for_more">Tap to see more details on your server.</string>
     <string name="notification_quote_format">&lt;b&gt;%1$s&lt;/b&gt; quoted your post</string>
     <string name="notification_quoted_update_format">&lt;b&gt;%1$s&lt;/b&gt; updated the post you quoted</string>
+    <string name="notification_collection_add_body_format">%1$s. %2$s</string>
+    <string name="notification_collection_update_body_format">%1$s. %2$s</string>
     <string name="notification_unknown">Unknown notification type</string>
     <string name="notification_header_report_format">%1$s reported %2$s</string>
     <plurals name="notification_summary_report_format">
@@ -317,6 +319,10 @@
     <string name="post_text_size_medium">Medium</string>
     <string name="post_text_size_large">Large</string>
     <string name="post_text_size_largest">Largest</string>
+    <string name="notification_collection_add_name">Added to collection</string>
+    <string name="notification_collection_add_description">Notifications when added to someone else\'s collection</string>
+    <string name="notification_collection_update_name">Collection is updated</string>
+    <string name="notification_collection_update_description">Notifications when a collection you\'re in is updated</string>
     <string name="notification_mention_name">New mentions</string>
     <string name="notification_mention_descriptions">Notifications about new mentions</string>
     <string name="notification_follow_name">New followers</string>
@@ -346,6 +352,8 @@
     <string name="notification_quoted_update_name">Quoted post edits</string>
     <string name="notification_quoted_update_description">Notifications when posts you\'ve quoted are edited</string>
     <string name="notification_unknown_name">Unknown</string>
+    <string name="notification_collection_add_format">&lt;b&gt;%1$s&lt;/b&gt; added you to a collection</string>
+    <string name="notification_collection_update_format">&lt;b&gt;%1$s&lt;/b&gt; updated a collection you\'re in</string>
     <string name="notification_mention_format">&lt;b&gt;%1$s&lt;/b&gt; mentioned you</string>
     <string name="notification_summary_large" tools:ignore="PluralsCandidate">%1$s, %2$s, %3$s and %4$d others</string>
     <string name="notification_summary_medium">%1$s, %2$s, and %3$s</string>

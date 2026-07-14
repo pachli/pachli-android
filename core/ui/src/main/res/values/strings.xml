@@ -220,15 +220,46 @@
         %1$s; %2$s; %3$s; %4$s. %5$s
     </string>
     <string name="action_follow_account">Follow</string>
-    <string name="action_unfollow">Unfollow</string>
+    <plurals name="collection_item_n_more">
+        <item quantity="one">+ %1$d more</item>
+        <item quantity="other">+ %1$d more</item>
+    </plurals>
+
+    <string name="action_collection_remove_self">Remove me</string>
+    <string name="ui_error_unfollow_account_fmt">Unfollowing %1$s failed: %2$s</string>
+    <string name="ui_error_cancel_follow_request_fmt">Canceling follow request of %1$s failed: %2$s</string>
+    <string name="ui_error_unblock_account_fmt">Unblocking %1$s failed: %2$s</string>
+    <string name="ui_error_unblock_domain_fmt">Unblocking %1$s failed: %2$s</string>
+    <string name="ui_error_unmute_account_fmt">Unmuting %1$s failed: %2$s</string>
     <string name="action_unblock">Unblock</string>
+    <string name="action_follow">Follow</string>
+    <string name="action_unfollow">Unfollow</string>
     <string name="state_follow_requested">Follow requested</string>
     <string name="action_block">Block</string>
     <string name="action_mute_domain">Mute %1$s</string>
     <string name="action_unmute_domain">Unmute %1$s</string>
     <string name="action_mute">Mute</string>
     <string name="action_unmute">Unmute</string>
-    <string name="action_follow">Follow</string>
     <string name="dialog_unfollow_warning">Unfollow this account?</string>
     <string name="ui_error_follow_account_fmt">Following %1$s failed: %2$s</string>
+    <string name="collection_discoverable_true_label">Discoverable in search results and other areas where recommendations appear.</string>
+    <string name="collection_discoverable_false_label">Visible to anyone with a link. Hidden from search results and recommendations.</string>
+    <string name="collection_sensitive_label">Includes sensitive content</string>
+    <string name="collection_hidden_sensitive_title">Sensitive content. Tap to show.</string>
+    <string name="collection_hidden_user_action_title">You hid this. Tap to show.</string>
+    <string name="action_collection_show">Show collection</string>
+    <string name="action_collection_hide">Hide collection</string>
+    <string name="action_collection_view">View collection</string>
+    <string name="action_collection_revoke">Remove me</string>
+    <string name="action_collection_view_tag">View tag</string>
+    <string name="collection_content_description_name_and_owner">Collection %1$s, by %2$s.</string>
+    <string name="collection_content_description_name">Collection %1$s.</string>
+    <plurals name="collection_content_description_accounts_is_member">
+        <item quantity="one">Contains %1$d account, yours.</item>
+        <item quantity="other">Contains %1$d accounts, including yours.</item>
+    </plurals>
+    <plurals name="collection_content_description_accounts_is_not_member">
+        <item quantity="one">Contains %1$d account.</item>
+        <item quantity="other">Contains %1$d accounts.</item>
+    </plurals>
 </resources>

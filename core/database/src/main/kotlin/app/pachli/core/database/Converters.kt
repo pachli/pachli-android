@@ -24,6 +24,7 @@ import app.pachli.core.model.Announcement
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Card
+import app.pachli.core.model.CollectionItem
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.ConversationAccount
 import app.pachli.core.model.DraftAttachment
@@ -38,10 +39,12 @@ import app.pachli.core.model.Poll
 import app.pachli.core.model.Role
 import app.pachli.core.model.ServerLimits
 import app.pachli.core.model.ServerOperation
+import app.pachli.core.model.ShallowHashtag
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
 import app.pachli.core.model.TranslatedAttachment
 import app.pachli.core.model.TranslatedPoll
+import app.pachli.core.model.collection.CollectionDisplayAction
 import com.squareup.moshi.JsonDataException
 import com.squareup.moshi.JsonEncodingException
 import com.squareup.moshi.Moshi
@@ -283,6 +286,12 @@ class Converters @Inject constructor(
     fun stringToListString(s: String?) = fromJson<List<String>>(s)
 
     @TypeConverter
+    fun listNullableStringToJson(l: List<String?>) = toJson(l)
+
+    @TypeConverter
+    fun stringToListNullableString(s: String?) = fromJson<List<String?>>(s)
+
+    @TypeConverter
     fun accountFilterDecisionToJson(accountFilterDecision: AccountFilterDecision) = toJson(accountFilterDecision)
 
     @TypeConverter
@@ -341,4 +350,22 @@ class Converters @Inject constructor(
 
     @TypeConverter
     fun jsonToMovedAccount(s: String?) = fromJson<MovedAccount>(s)
+
+    @TypeConverter
+    fun collectionItemsToJson(collectionItems: List<CollectionItem>) = toJson(collectionItems)
+
+    @TypeConverter
+    fun jsonToCollectionItems(s: String?) = fromJson<List<CollectionItem>>(s)
+
+    @TypeConverter
+    fun collectionDisplayActionToJson(collectionDisplayAction: CollectionDisplayAction) = toJson(collectionDisplayAction)
+
+    @TypeConverter
+    fun jsonToCollectionDisplayAction(s: String?) = fromJson<CollectionDisplayAction>(s)
+
+    @TypeConverter
+    fun shallowHashtagToJson(shallowHashtag: ShallowHashtag) = toJson(shallowHashtag)
+
+    @TypeConverter
+    fun jsonToShallowHashtag(s: String?) = fromJson<ShallowHashtag>(s)
 }

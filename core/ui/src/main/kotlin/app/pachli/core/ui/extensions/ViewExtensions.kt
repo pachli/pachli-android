@@ -18,10 +18,12 @@
 package app.pachli.core.ui.extensions
 
 import android.graphics.Rect
+import android.view.TouchDelegate
 import android.view.View
 import android.view.ViewGroup.MarginLayoutParams
 import androidx.appcompat.widget.Toolbar
 import androidx.core.graphics.Insets
+import androidx.core.util.TypedValueCompat.dpToPx
 import androidx.core.view.OnApplyWindowInsetsListener
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsAnimationCompat
@@ -32,6 +34,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlin.math.roundToInt
 
 /**
  * Defines the operation to be performed with the inset.
@@ -303,4 +306,48 @@ fun View.setStartMargin(start: Float) {
     val lp = layoutParams as? MarginLayoutParams ?: return
     lp.marginStart = start.toInt()
     layoutParams = lp
+}
+
+/**
+ * Ensures [this] view's touch target is at least [minWidthDp] wide
+ * and [minHeightDp] high, by adding a [TouchDelegate] to [this]
+ * view's parent if appropriate.
+ *
+ * Caution: This overwrites any other [TouchDelegate]s attached to
+ * [this] view's parent. See [CompositeTouchDelegate] for a solution.
+ *
+ * Does nothing if:
+ *
+ * 1. This view's parent is not a view.
+ * 2. This view's [hit rect][getHitRect] is equal to or larger
+ * than [minWidthDp] and [minHeightDp].
+ *
+ * @param minWidthDp Minimum width of touchable area, in dp.
+ * @param minHeightDp Minimum height of touchable area, in dp.
+ */
+fun View.setMinimumTouchTarget(minWidthDp: Float = 48f, minHeightDp: Float = 48f) {
+    post {
+        val parentView = parent as? View ?: return@post
+
+        val delegateRect = Rect()
+        getHitRect(delegateRect)
+
+        val displayMetrics = context.resources.displayMetrics
+        val minWidthPx = dpToPx(minWidthDp, displayMetrics)
+        val minHeightPx = dpToPx(minHeightDp, displayMetrics)
+
+        val heightPx = delegateRect.height()
+        val widthPx = delegateRect.width()
+
+        // Calculate how much width and height to add to each side.
+        val dx = ((minWidthPx - widthPx) / 2).roundToInt().coerceAtLeast(0)
+        val dy = ((minHeightPx - heightPx) / 2).roundToInt().coerceAtLeast(0)
+
+        if (dx == 0 && dy == 0) return@post
+
+        // Rect.inset() needs negative numbers to move the sides outwards.
+        delegateRect.inset(-dx, -dy)
+
+        parentView.touchDelegate = TouchDelegate(delegateRect, this)
+    }
 }

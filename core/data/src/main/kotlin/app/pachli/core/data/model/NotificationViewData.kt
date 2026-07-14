@@ -17,6 +17,7 @@
 
 package app.pachli.core.data.model
 
+import app.pachli.core.data.CollectionCardViewData
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountWarning
 import app.pachli.core.model.RelationshipSeveranceEvent
@@ -29,6 +30,9 @@ import app.pachli.core.model.TimelineAccount
  *
  * See [NotificationViewData.WithStatus] for notifications that reference a
  * status.
+ *
+ * See [NotificationViewData.WithCollection] for notifications that reference
+ * a [app.pachli.core.model.Collection].
  *
  * @property pachliAccountId
  * @property localDomain Local domain of the logged in user's account (e.g., "mastodon.social").
@@ -271,6 +275,43 @@ sealed interface NotificationViewData {
         override val accountFilterDecision: AccountFilterDecision,
         val accountWarning: AccountWarning,
     ) : NotificationViewData
+
+    /**
+     * Additional data to show a notification that references a
+     * [Collection][app.pachli.core.model.Collection].
+     *
+     * @property collectionCardViewData [CollectionCardViewData] for
+     * the referenced [Collection][app.pachli.core.model.Collection].
+     */
+    sealed interface WithCollection : NotificationViewData {
+        val collectionCardViewData: CollectionCardViewData
+
+        /**
+         * The user's account has been added to a collection.
+         */
+        data class CollectionAddNotificationViewData(
+            override val pachliAccountId: Long,
+            override val localDomain: String,
+            override val notificationId: String,
+            override val account: TimelineAccount,
+            override val isAboutSelf: Boolean,
+            override val accountFilterDecision: AccountFilterDecision,
+            override val collectionCardViewData: CollectionCardViewData,
+        ) : NotificationViewData, WithCollection
+
+        /**
+         * A collection the user's account is in has been updated.
+         */
+        data class CollectionUpdateNotificationViewData(
+            override val pachliAccountId: Long,
+            override val localDomain: String,
+            override val notificationId: String,
+            override val account: TimelineAccount,
+            override val isAboutSelf: Boolean,
+            override val accountFilterDecision: AccountFilterDecision,
+            override val collectionCardViewData: CollectionCardViewData,
+        ) : NotificationViewData, WithCollection
+    }
 
     companion object
 }

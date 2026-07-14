@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2026 Pachli Association
+  ~
+  ~ This file is a part of Pachli.
+  ~
+  ~ This program is free software; you can redistribute it and/or modify it under the terms of the
+  ~ GNU General Public License as published by the Free Software Foundation; either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+  ~ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+  ~ Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with Pachli; if not,
+  ~ see <http://www.gnu.org/licenses>.
+  -->
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="app.pachli.feature.collections.CollectionActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_collapseMode="pin">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentScrim="@android:color/transparent"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:titleEnabled="false">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/collectionInfoContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="?actionBarSize"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+
+                <TextView
+                    android:id="@+id/collection_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="?status_text_large"
+                    android:textStyle="bold"
+                    android:textIsSelectable="true"
+                    android:importantForAccessibility="no"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Collection name" />
+
+                <TextView
+                    android:id="@+id/collection_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hyphenationFrequency="full"
+                    android:lineSpacingMultiplier="1.1"
+                    android:paddingTop="2dp"
+                    android:textDirection="firstStrong"
+                    android:textIsSelectable="true"
+                    android:textSize="?attr/status_text_medium"
+                    android:importantForAccessibility="no"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/collection_name"
+                    tools:text="@tools:sample/lorem[10]" />
+
+                <TextView
+                    android:id="@+id/collection_hashtag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:textIsSelectable="true"
+                    android:importantForAccessibility="no"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/collection_description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    tools:text="#SomeHashTag" />
+
+                <ImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_centerVertical="false"
+                    android:layout_marginTop="8dp"
+                    android:contentDescription="@string/action_view_profile"
+                    android:importantForAccessibility="no"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/collection_hashtag"
+                    tools:src="@drawable/avatar_default"
+                    tools:srcCompat="@tools:sample/avatars[0]" />
+
+                <ImageView
+                    android:id="@+id/avatarBadge"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="@string/profile_badge_bot_text"
+                    android:src="@drawable/bot_badge"
+                    android:importantForAccessibility="no"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/avatar"
+                    app:layout_constraintEnd_toEndOf="@id/avatar"
+                    tools:visibility="visible" />
+
+                <app.pachli.core.ui.RoleChipGroup
+                    android:id="@+id/roleChipGroup"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="4dp"
+                    android:importantForAccessibility="no"
+                    app:chipSpacingVertical="4dp"
+                    app:layout_constraintStart_toStartOf="@id/displayName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/avatar"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/displayName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textSize="?attr/status_text_medium"
+                    android:textStyle="normal|bold"
+                    android:textIsSelectable="false"
+                    android:importantForAccessibility="no"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/avatar"
+                    app:layout_constraintTop_toBottomOf="@id/roleChipGroup"
+                    tools:text="Display name" />
+
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="?attr/status_text_small"
+                    android:textIsSelectable="false"
+                    android:importantForAccessibility="no"
+                    app:layout_constraintStart_toEndOf="@id/avatar"
+                    app:layout_constraintTop_toBottomOf="@id/displayName"
+                    app:layout_constraintEnd_toStartOf="@id/account_pronouns"
+                    tools:text="\@username" />
+
+                <app.pachli.core.ui.PronounsChip
+                    android:id="@+id/account_pronouns"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:importantForAccessibility="no"
+                    app:layout_constraintBaseline_toBaselineOf="@id/username"
+                    app:layout_constraintStart_toEndOf="@id/username"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintWidth_max="@dimen/pronounChip_maxWidth"
+                    tools:ignore="SelectableText"
+                    tools:text="he/him" />
+
+                <app.pachli.core.ui.TextViewWithVerticallyAlignedDrawable
+                    android:id="@+id/collection_discoverable"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:drawablePadding="4dp"
+                    android:textSize="?attr/status_text_small"
+                    android:textIsSelectable="false"
+                    android:importantForAccessibility="no"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/avatar"
+                    tools:drawableStartCompat="@drawable/ic_public_24dp"
+                    tools:text="Discoverable" />
+
+                <app.pachli.core.ui.TextViewWithVerticallyAlignedDrawable
+                    android:id="@+id/collection_sensitive"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="4dp"
+                    android:paddingTop="4dp"
+                    android:textSize="?attr/status_text_small"
+                    android:textIsSelectable="false"
+                    android:importantForAccessibility="no"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/collection_discoverable"
+                    tools:drawableStartCompat="@drawable/ic_eye_24dp"
+                    tools:text="Not sensitive" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/collection_remove_self"
+                    style="@style/AppButton.Outlined"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:minHeight="48dp"
+                    android:text="@string/action_collection_remove_self"
+                    android:textSize="?attr/status_text_medium"
+                    android:textAllCaps="false"
+                    app:icon="@drawable/outline_delete_24"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/collection_sensitive"
+                    tools:visibility="visible" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/control_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/collection_remove_self" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--
+                 Set paddingBottom to work around a bug where the height is not
+                 set correctly by CollapsingToolbarLayout after enabling edge
+                 to edge. Otherwise the bottom of the toolbar subtitle runs into
+                 the bottom edge of the toolbar.
+
+                 See https://github.com/material-components/material-components-android/issues/3661 -->
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent"
+                app:layout_scrollFlags="scroll|enterAlways" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -57,6 +57,9 @@
     <dimen name="card_byline_avatar_dimen">36dp</dimen>
     <dimen name="card_byline_avatar_dimen_quoted">27dp</dimen>
 
+    <dimen name="collection_card_avatar_size">24dp</dimen>
+    <dimen name="collection_card_avatar_radius">3dp</dimen>
+
     <dimen name="poll_preview_padding">12dp</dimen>
     <dimen name="poll_preview_min_width">120dp</dimen>
 

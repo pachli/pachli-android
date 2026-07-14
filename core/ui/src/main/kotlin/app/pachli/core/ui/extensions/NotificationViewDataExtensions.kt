@@ -17,6 +17,7 @@
 
 package app.pachli.core.ui.extensions
 
+import app.pachli.core.data.CollectionCardViewData
 import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.data.model.NotificationViewData.FollowNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.FollowRequestNotificationViewData
@@ -40,6 +41,7 @@ import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
+import app.pachli.core.model.collection.make
 
 /**
  * Returns a [NotificationViewData] from a [NotificationData] and
@@ -306,6 +308,38 @@ fun NotificationViewData.Companion.make(
                 quoteContentFilterAction = quoteContentFilterAction,
                 showSensitiveMedia = showSensitiveMedia,
                 filterContext = FilterContext.NOTIFICATIONS,
+            ),
+        )
+    }
+
+    NotificationEntity.Type.COLLECTION_ADD -> data.timelineCollection?.let { timelineCollection ->
+        NotificationViewData.WithCollection.CollectionAddNotificationViewData(
+            pachliAccountId = pachliAccount.id,
+            localDomain = pachliAccount.domain,
+            notificationId = data.notification.serverId,
+            account = data.account.asModel(),
+            isAboutSelf = isAboutSelf,
+            accountFilterDecision = accountFilterDecision,
+            collectionCardViewData = CollectionCardViewData(
+                timelineCollection = timelineCollection.asModel(),
+                displayAction = data.collectionViewData?.displayAction.make(timelineCollection.sensitive, showSensitiveMedia),
+                isMember = timelineCollection.items.any { it.accountId == pachliAccount.accountId },
+            ),
+        )
+    }
+
+    NotificationEntity.Type.COLLECTION_UPDATE -> data.timelineCollection?.let { timelineCollection ->
+        NotificationViewData.WithCollection.CollectionUpdateNotificationViewData(
+            pachliAccountId = pachliAccount.id,
+            localDomain = pachliAccount.domain,
+            notificationId = data.notification.serverId,
+            account = data.account.asModel(),
+            isAboutSelf = isAboutSelf,
+            accountFilterDecision = accountFilterDecision,
+            collectionCardViewData = CollectionCardViewData(
+                timelineCollection = timelineCollection.asModel(),
+                displayAction = data.collectionViewData?.displayAction.make(timelineCollection.sensitive, showSensitiveMedia),
+                isMember = timelineCollection.items.any { it.accountId == pachliAccount.accountId },
             ),
         )
     }

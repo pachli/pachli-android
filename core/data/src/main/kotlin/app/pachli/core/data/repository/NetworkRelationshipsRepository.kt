@@ -17,27 +17,25 @@
 
 package app.pachli.core.data.repository
 
-import app.pachli.core.common.di.ApplicationScope
-import app.pachli.core.model.Account
+import app.pachli.core.data.repository.RelationshipsRepository.RelationshipError.GetRelationshipsError
+import app.pachli.core.model.Relationship
+import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.coroutines.binding.binding
 import com.github.michaelbull.result.map
 import com.github.michaelbull.result.mapError
 import javax.inject.Inject
-import kotlinx.coroutines.CoroutineScope
+import javax.inject.Singleton
 
-/**
- * Repository for account data, data is always fetched from the user's server.
- */
-class NetworkAccountRepository @Inject constructor(
-    @ApplicationScope private val externalScope: CoroutineScope,
+@Singleton
+class NetworkRelationshipsRepository @Inject constructor(
     private val api: MastodonApi,
-) : AccountRepository {
-    override suspend fun getAccount(accountId: String): Result<Account, AccountError.GetAccountError> = binding {
-        api.account(accountId)
+) : RelationshipsRepository {
+    override suspend fun getRelationships(pachliAccountId: Long, accountIds: List<String>): Result<List<Relationship>, GetRelationshipsError> = binding {
+        api.relationships(accountIds)
             .map { it.body.asModel() }
-            .mapError { AccountError.GetAccountError(it) }
+            .mapError { GetRelationshipsError(it) }
             .bind()
     }
 }

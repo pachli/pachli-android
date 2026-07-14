@@ -44,6 +44,10 @@ package app.pachli.core.model
  * @property notificationsModerationWarnings
  * @property notificationsQuotes
  * @property notificationsQuotedUpdates
+ * @property notificationsCollectionAdd User wants Android notifications when added
+ * to a collection.
+ * @property notificationsCollectionUpdate User wants Android notifications when a
+ * collection they're in is updated.
  * @property notificationSound
  * @property notificationVibration
  * @property notificationLight
@@ -117,6 +121,8 @@ interface PachliAccount {
     val notificationsModerationWarnings: Boolean
     val notificationsQuotes: Boolean
     val notificationsQuotedUpdates: Boolean
+    val notificationsCollectionAdd: Boolean
+    val notificationsCollectionUpdate: Boolean
     val notificationSound: Boolean
     val notificationVibration: Boolean
     val notificationLight: Boolean

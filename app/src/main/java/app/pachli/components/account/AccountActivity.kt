@@ -948,6 +948,8 @@ class AccountActivity :
             .show()
     }
 
+    // See also CollectionActivity.newConfirmUnfollowAccountDialogFragment
+    // TODO: Move common dialog function to core.ui
     private fun showUnfollowWarningDialog(account: Account) {
         AlertDialog.Builder(this)
             .setMessage(app.pachli.core.ui.R.string.dialog_unfollow_warning)

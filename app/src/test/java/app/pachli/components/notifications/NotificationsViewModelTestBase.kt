@@ -21,6 +21,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.PachliApplication
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.AccountPreferenceDataStore
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
@@ -98,6 +99,9 @@ abstract class NotificationsViewModelTestBase {
 
     @Inject
     lateinit var statusRepository: OfflineFirstStatusRepository
+
+    @Inject
+    lateinit var collectionsRepository: CollectionsRepository
 
     @Inject
     lateinit var accountDao: AccountDao
@@ -192,6 +196,7 @@ abstract class NotificationsViewModelTestBase {
             statusDisplayOptionsRepository,
             sharedPreferencesRepository,
             statusRepository,
+            collectionsRepository,
             pachliAccountId,
         )
     }

@@ -32,6 +32,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.execSQL
 import app.pachli.core.database.dao.AccountDao
 import app.pachli.core.database.dao.AnnouncementsDao
+import app.pachli.core.database.dao.CollectionsDao
 import app.pachli.core.database.dao.ContentFiltersDao
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.dao.DebugDao
@@ -49,6 +50,9 @@ import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.AnnouncementEntity
+import app.pachli.core.database.model.CollectionEntity
+import app.pachli.core.database.model.CollectionItemEntity
+import app.pachli.core.database.model.CollectionViewDataEntity
 import app.pachli.core.database.model.ContentFiltersEntity
 import app.pachli.core.database.model.ConversationEntity
 import app.pachli.core.database.model.ConversationViewDataEntity
@@ -66,6 +70,7 @@ import app.pachli.core.database.model.ServerEntity
 import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
+import app.pachli.core.database.model.TimelineCollectionEntity
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.model.ContentFilterVersion
@@ -77,6 +82,10 @@ import java.util.TimeZone
 @Database(
     entities = [
         AccountEntity::class,
+        CollectionEntity::class,
+        CollectionItemEntity::class,
+        CollectionViewDataEntity::class,
+        TimelineCollectionEntity::class,
         DraftEntity::class,
         PachliAccountEntity::class,
         StatusEntity::class,
@@ -101,7 +110,7 @@ import java.util.TimeZone
         TimelineStatusWithAccount::class,
         ReferencedStatusId::class,
     ],
-    version = 44,
+    version = 45,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -166,10 +175,13 @@ import java.util.TimeZone
         AutoMigration(from = 42, to = 43, spec = AppDatabase.MIGRATE_42_43::class),
         // Add .domain to FollowingAccountEntity
         AutoMigration(from = 43, to = 44),
+        // Support Mastodon Collections.
+        AutoMigration(from = 44, to = 45),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun accountDao(): AccountDao
+    abstract fun collectionsDao(): CollectionsDao
     abstract fun serverDao(): ServerDao
     abstract fun conversationDao(): ConversationsDao
     abstract fun timelineDao(): TimelineDao

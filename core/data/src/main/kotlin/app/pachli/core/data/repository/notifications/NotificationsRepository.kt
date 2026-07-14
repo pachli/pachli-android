@@ -26,6 +26,7 @@ import androidx.paging.PagingData
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusRepository
+import app.pachli.core.database.dao.CollectionsDao
 import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
@@ -73,6 +74,7 @@ class NotificationsRepository @Inject constructor(
     private val notificationDao: NotificationDao,
     private val remoteKeyDao: RemoteKeyDao,
     private val statusDao: StatusDao,
+    private val collectionsDao: CollectionsDao,
     statusRepository: OfflineFirstStatusRepository,
 ) : StatusRepository by statusRepository {
     private var factory: InvalidatingPagingSourceFactory<Int, NotificationData>? = null
@@ -111,6 +113,7 @@ class NotificationsRepository @Inject constructor(
                 remoteKeyDao,
                 notificationDao,
                 statusDao,
+                collectionsDao,
                 excludeTypes.asNetworkModel(),
             ),
             pagingSourceFactory = factory!!,
@@ -206,6 +209,7 @@ fun Notification.asEntity(pachliAccountId: Long) = NotificationEntity(
     report = (this as? Notification.Report)?.report?.asEntity(pachliAccountId),
     relationshipSeveranceEvent = (this as? Notification.SeveredRelationships)?.relationshipSeveranceEvent?.asEntity(),
     accountWarning = (this as? Notification.ModerationWarning)?.accountWarning?.asEntity(),
+    collectionServerId = (this as? Notification.WithCollection)?.collection?.serverId,
 )
 
 fun Iterable<Notification>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }
@@ -226,6 +230,8 @@ fun Notification.Type.asEntity() = when (this) {
     Notification.Type.MODERATION_WARNING -> NotificationEntity.Type.MODERATION_WARNING
     Notification.Type.QUOTE -> NotificationEntity.Type.QUOTE
     Notification.Type.QUOTED_UPDATE -> NotificationEntity.Type.QUOTED_UPDATE
+    Notification.Type.COLLECTION_ADD -> NotificationEntity.Type.COLLECTION_ADD
+    Notification.Type.COLLECTION_UPDATE -> NotificationEntity.Type.COLLECTION_UPDATE
 }
 
 /**

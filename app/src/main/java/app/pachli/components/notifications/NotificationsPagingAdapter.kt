@@ -40,6 +40,8 @@ import app.pachli.core.data.model.NotificationViewData.ReportNotificationViewDat
 import app.pachli.core.data.model.NotificationViewData.SeveredRelationshipsNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.SignupNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.UnknownNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithCollection.CollectionAddNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithCollection.CollectionUpdateNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.FavouriteNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.MentionNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.PollNotificationViewData
@@ -51,11 +53,13 @@ import app.pachli.core.data.model.NotificationViewData.WithStatus.UpdateNotifica
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
+import app.pachli.core.ui.CollectionCardActionListener
 import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.databinding.ItemFollowBinding
 import app.pachli.databinding.ItemFollowRequestBinding
 import app.pachli.databinding.ItemModerationWarningBinding
+import app.pachli.databinding.ItemNotificationCollectionBinding
 import app.pachli.databinding.ItemNotificationFilteredBinding
 import app.pachli.databinding.ItemReportNotificationBinding
 import app.pachli.databinding.ItemSeveredRelationshipsBinding
@@ -93,6 +97,9 @@ enum class NotificationViewKind {
     /** View details of the moderation warning. */
     MODERATION_WARNING,
 
+    /** View details of the collection (added or updated). */
+    COLLECTION,
+
     UNKNOWN,
     ;
 
@@ -117,14 +124,20 @@ enum class NotificationViewKind {
                 is ReportNotificationViewData -> REPORT
                 is SeveredRelationshipsNotificationViewData -> SEVERED_RELATIONSHIPS
                 is ModerationWarningNotificationViewData -> MODERATION_WARNING
+
+                is CollectionAddNotificationViewData,
+                is CollectionUpdateNotificationViewData,
+                -> COLLECTION
+
                 is UnknownNotificationViewData -> UNKNOWN
+
                 null -> UNKNOWN
             }
         }
     }
 }
 
-interface NotificationActionListener : StatusActionListener {
+interface NotificationActionListener : StatusActionListener, CollectionCardActionListener {
     fun onViewReport(reportId: String)
 
     /**
@@ -269,6 +282,15 @@ class NotificationsPagingAdapter(
             NotificationViewKind.MODERATION_WARNING -> {
                 ModerationWarningViewHolder(
                     ItemModerationWarningBinding.inflate(inflater, parent, false),
+                )
+            }
+
+            NotificationViewKind.COLLECTION -> {
+                CollectionNotificationViewHolder(
+                    ItemNotificationCollectionBinding.inflate(inflater, parent, false),
+                    glide,
+                    notificationActionListener,
+                    collectionListener = notificationActionListener,
                 )
             }
 

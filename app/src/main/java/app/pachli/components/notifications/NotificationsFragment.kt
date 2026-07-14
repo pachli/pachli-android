@@ -55,14 +55,18 @@ import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.data.CollectionCardViewData
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.ICollection
 import app.pachli.core.model.IStatus
 import app.pachli.core.model.Notification
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
+import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.navigation.AttachmentViewData.Companion.list
+import app.pachli.core.navigation.CollectionActivityIntent
 import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.preferences.TabTapBehaviour
 import app.pachli.core.ui.ActionButtonScrollListener
@@ -72,6 +76,7 @@ import app.pachli.core.ui.SetContentAsMastodonHtml
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.FragmentTimelineNotificationsBinding
+import app.pachli.feature.collections.newConfirmRevokeDialogFragment
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.ActionButtonActivity
@@ -677,6 +682,38 @@ class NotificationsFragment :
         }
     }
 
+    override fun onViewCollection(collection: ICollection) {
+        startActivityWithTransition(
+            CollectionActivityIntent(requireContext(), pachliAccountId, collection.serverId),
+            TransitionKind.SLIDE_FROM_END,
+        )
+    }
+
+    override fun onRevokeUserFromCollection(collection: ICollection) {
+        lifecycleScope.launch {
+            val button = requireContext().newConfirmRevokeDialogFragment().await(parentFragmentManager)
+            if (button == AlertDialog.BUTTON_POSITIVE) {
+                viewModel.accept(
+                    FallibleCollectionAction.Revoke(
+                        pachliAccountId = pachliAccountId,
+                        collectionId = collection.serverId,
+                        accountId = viewModel.pachliAccount.accountId,
+                    ),
+                )
+            }
+        }
+    }
+
+    override fun onCollectionDisplayActionChange(viewData: CollectionCardViewData, action: CollectionDisplayAction) {
+        viewModel.accept(
+            InfallibleUiAction.OverrideCollectionDisplayAction(
+                pachliAccountId,
+                viewData.timelineCollection.serverId,
+                action,
+            ),
+        )
+    }
+
     companion object {
         private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"
 
@@ -766,4 +803,6 @@ fun Notification.Type.uiString(): Int = when (this) {
     Notification.Type.MODERATION_WARNING -> R.string.notification_moderation_warnings_name
     Notification.Type.QUOTE -> R.string.notification_quote_name
     Notification.Type.QUOTED_UPDATE -> R.string.notification_quoted_update_name
+    Notification.Type.COLLECTION_ADD -> R.string.notification_collection_add_name
+    Notification.Type.COLLECTION_UPDATE -> R.string.notification_collection_update_name
 }

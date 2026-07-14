@@ -327,6 +327,7 @@ class PachliAccountEntityForeignKeyTest {
             report = null,
             relationshipSeveranceEvent = null,
             accountWarning = null,
+            collectionServerId = null,
         )
 
         notificationDao.upsertNotifications(listOf(notification))

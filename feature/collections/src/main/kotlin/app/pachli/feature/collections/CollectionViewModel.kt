@@ -1,0 +1,365 @@
+/*
+ * Copyright (c) 2026 Pachli Association
+ *
+ * This file is a part of Pachli.
+ *
+ * This program is free software; you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation; either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+ * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with Pachli; if not,
+ * see <http://www.gnu.org/licenses>.
+ */
+
+package app.pachli.feature.collections
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import app.pachli.core.common.extensions.stateFlow
+import app.pachli.core.common.extensions.throttleFirst
+import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.CollectionsRepository
+import app.pachli.core.data.repository.Loadable
+import app.pachli.core.data.repository.RelationshipsRepository
+import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.data.repository.filterNotLoading
+import app.pachli.core.data.repository.getOrNull
+import app.pachli.core.data.repository.mapLoaded
+import app.pachli.core.domain.accounts.BlockDomainUseCase
+import app.pachli.core.domain.accounts.FollowAccountUseCase
+import app.pachli.core.domain.accounts.UnblockAccountUseCase
+import app.pachli.core.domain.accounts.UnfollowAccountUseCase
+import app.pachli.core.domain.accounts.UnmuteAccountUseCase
+import app.pachli.core.model.Account
+import app.pachli.core.model.Collection
+import app.pachli.core.model.CollectionWithAccounts
+import app.pachli.core.model.Relationship
+import app.pachli.core.ui.OperationCounter
+import app.pachli.feature.collections.ICollectionViewModel.AccountAction
+import app.pachli.feature.collections.ICollectionViewModel.UiAction
+import app.pachli.feature.collections.ICollectionViewModel.UiError
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.get
+import com.github.michaelbull.result.map
+import com.github.michaelbull.result.mapEither
+import com.github.michaelbull.result.mapError
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.combineTransform
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+
+@HiltViewModel
+internal class CollectionViewModel @Inject constructor(
+    private val accountManager: AccountManager,
+    private val collectionsRepository: CollectionsRepository,
+    private val relationshipsRepository: RelationshipsRepository,
+    private val followAccountUseCase: FollowAccountUseCase,
+    private val unfollowAccountUseCase: UnfollowAccountUseCase,
+    private val unblockAccountUseCase: UnblockAccountUseCase,
+    private val unmuteAccountUseCase: UnmuteAccountUseCase,
+    private val blockDomainUseCase: BlockDomainUseCase,
+    statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
+) : ViewModel(), ICollectionViewModel {
+    private val uiAction = MutableSharedFlow<UiAction>()
+    override val accept: (UiAction) -> Unit = { viewModelScope.launch { uiAction.emit(it) } }
+
+    private val _uiResult = Channel<Result<ICollectionViewModel.UiSuccess, UiError>>()
+    override val uiResult = _uiResult.receiveAsFlow()
+
+    private val operationCounter = OperationCounter()
+    override val operationCount = operationCounter.count
+
+    /** Emit in to this flow to trigger a full reload of the collection. */
+    private val reload = MutableSharedFlow<Unit>(replay = 1)
+
+    /** Emit in to this flow to trigger a full reload of the relationships for the collection. */
+    private val reloadRelationships = MutableSharedFlow<Unit>(replay = 1).apply { tryEmit(Unit) }
+
+    private val pachliAccountId = MutableSharedFlow<Long>(replay = 1)
+
+    private val pachliAccount = pachliAccountId.distinctUntilChanged().flatMapLatest {
+        accountManager.getPachliAccountFlow(it).filterNotNull()
+    }.shareIn(viewModelScope, SharingStarted.Eagerly, replay = 1)
+
+    private val collectionId = MutableSharedFlow<String>(replay = 1)
+
+    /** The most recent cached collection details. */
+    private val localCollectionWithAccounts = combineTransform(pachliAccountId, collectionId) { pachliAccountId, collectionId ->
+        emitAll(collectionsRepository.getCollection(pachliAccountId, collectionId))
+    }
+
+    override val uiOptions = stateFlow(
+        viewModelScope,
+        ICollectionViewModel.UiOptions.from(statusDisplayOptionsRepository.flow.value),
+    ) {
+        statusDisplayOptionsRepository.flow.map { ICollectionViewModel.UiOptions.from(it) }
+            .flowWhileShared(SharingStarted.WhileSubscribed(5000))
+    }
+
+    /**
+     * Map from [account IDs][app.pachli.core.model.ITimelineAccount.serverId]
+     * to the user's [app.pachli.core.model.Relationship] to that account, so
+     * that appropriate actions (follow, unfollow, etc) can be shown in the UI.
+     */
+    private val relationships = MutableStateFlow<Result<Loadable<Map<String, Relationship>>, RelationshipsRepository.RelationshipError>>(Ok(Loadable.Loading))
+
+    /**
+     * IDs of accounts the user can't interact with (e.g., because they have active
+     * network operations).
+     */
+    private val disabledAccountIds = MutableStateFlow<Set<String>>(emptySet())
+
+    /**
+     * Either successfully loaded [app.pachli.core.model.CollectionWithAccounts], or the error from the
+     * most recent attempt to reload from the server.
+     */
+    private val collectionWithAccounts =
+        MutableStateFlow<Result<Loadable<CollectionWithAccounts>, UiError.GetCollection>>(
+            Ok(Loadable.Loading),
+        )
+
+    // Combines the pachliAccount, the most recent collection data, relationships, and
+    // disabled accounts to produce the CollectionViewData.
+    override val collectionViewData = stateFlow(viewModelScope, Ok(Loadable.Loading)) {
+        combine(
+            pachliAccount,
+            collectionWithAccounts,
+            relationships.filterNotLoading(),
+            disabledAccountIds,
+        ) { pachliAccount, collectionWithAccounts, relationships, disabledAccountIds ->
+            collectionWithAccounts.map { loadable ->
+                loadable.mapLoaded { collectionWithAccounts ->
+                    val collection = collectionWithAccounts.collection
+                    val owner = collectionWithAccounts.owner
+                    val accounts = collectionWithAccounts.accounts
+                    val relationships = relationships.get()?.getOrNull().orEmpty()
+
+                    ICollectionViewModel.CollectionViewData(
+                        collection = collection,
+                        owner = owner?.let {
+                            AccountViewData(
+                                pachliAccountId = pachliAccount.id,
+                                collectionId = collection.serverId,
+                                account = owner,
+                                relationship = relationships[owner.serverId],
+                                isEnabled = !disabledAccountIds.contains(it.serverId),
+                                isSelf = owner.serverId == pachliAccount.accountId,
+                                primaryAction = makePrimaryAction(
+                                    pachliAccountId = pachliAccount.id,
+                                    collection = collection,
+                                    account = owner,
+                                    isSelf = owner.serverId == pachliAccount.accountId,
+                                    relationship = relationships[it.serverId],
+                                ),
+                            )
+                        },
+                        accounts = accounts.map { account ->
+                            AccountViewData(
+                                pachliAccountId = pachliAccount.id,
+                                collectionId = collection.serverId,
+                                account = account,
+                                relationship = relationships[account.serverId],
+                                isEnabled = !disabledAccountIds.contains(account.serverId),
+                                isSelf = account.serverId == pachliAccount.accountId,
+                                primaryAction = makePrimaryAction(
+                                    pachliAccountId = pachliAccount.id,
+                                    collection = collection,
+                                    account = account,
+                                    isSelf = account.serverId == pachliAccount.accountId,
+                                    relationship = relationships[account.serverId],
+                                ),
+                            )
+                        },
+                        isMember = accounts.firstOrNull { it.serverId == pachliAccount.accountId },
+                    )
+                }
+            }
+        }.flowWhileShared(SharingStarted.WhileSubscribed(5000))
+    }
+
+    init {
+        viewModelScope.launch {
+            // Wait for a reload collection, trigger, then reload the collection from the server.
+            combine(reload, pachliAccountId, collectionId) { _, pachliAccountId, collectionId ->
+                Pair(pachliAccountId, collectionId)
+            }.collect { (pachliAccountId, collectionId) ->
+                collectionWithAccounts.value = Ok(Loadable.Loading)
+                collectionsRepository.reloadCollection(pachliAccountId, collectionId)
+                    .mapError { UiError.GetCollection(it) }
+                    .onFailure { collectionWithAccounts.value = Err(it) }
+            }
+        }
+
+        viewModelScope.launch {
+            localCollectionWithAccounts.collect {
+                collectionWithAccounts.value = Ok(Loadable.Loading)
+                if (it != null) {
+                    collectionWithAccounts.value = Ok(Loadable.Loaded(it))
+                    return@collect
+                }
+            }
+        }
+
+        viewModelScope.launch {
+            // Wait for a reloadRelationships trigger, then reload relationships from
+            // the server.
+            combine(reloadRelationships, pachliAccountId, localCollectionWithAccounts.filterNotNull()) { _, pachliAccountId, collectionWithAccounts ->
+                Triple(pachliAccountId, collectionWithAccounts.collection.serverId, collectionWithAccounts.accounts.map { it.serverId } + collectionWithAccounts.owner?.serverId)
+            }.collect { (pachliAccountId, collectionId, accountIds) ->
+                relationshipsRepository.getRelationships(pachliAccountId, accountIds.filterNotNull())
+                    .onSuccess { relationships ->
+                        this@CollectionViewModel.relationships.value = Ok(Loadable.Loaded(relationships.associateBy { it.id }))
+                    }
+                    .onFailure {
+                        _uiResult.send(
+                            Err(
+                                UiError.LoadRelationship(
+                                    UiAction.LoadRelationships(pachliAccountId, collectionId),
+                                    it,
+                                ),
+                            ),
+                        )
+                        this@CollectionViewModel.relationships.value = Err(it)
+                    }
+            }
+        }
+
+        viewModelScope.launch {
+            uiAction.filterIsInstance<UiAction.Reload>().collect { reload.emit(Unit) }
+        }
+
+        viewModelScope.launch {
+            uiAction.filterIsInstance<UiAction.LoadRelationships>().collect { reloadRelationships.emit(Unit) }
+        }
+
+        viewModelScope.launch {
+            uiAction.filterIsInstance<UiAction.LoadCollection>().collect(::onGetCollection)
+        }
+
+        viewModelScope.launch {
+            uiAction.filterIsInstance<AccountAction>().throttleFirst().collect(::onAccountAction)
+        }
+    }
+
+    /**
+     * @return The primary [AccountAction] for [account] in [collection],
+     * based on the user's relationship to the [account] (is it them, are
+     * they already following it, etc).
+     */
+    private fun makePrimaryAction(pachliAccountId: Long, collection: Collection, account: Account, isSelf: Boolean, relationship: Relationship?): AccountAction? {
+        relationship ?: return null
+
+        if (isSelf) {
+            return AccountAction.Revoke(
+                pachliAccountId = pachliAccountId,
+                account = account,
+                collection = collection,
+            )
+        }
+
+        if (relationship.blocking) {
+            return AccountAction.UnblockAccount(
+                pachliAccountId = pachliAccountId,
+                account = account,
+            )
+        }
+
+        if (relationship.blockingDomain) {
+            return AccountAction.BlockDomain(
+                pachliAccountId = pachliAccountId,
+                account = account,
+            )
+        }
+
+        if (relationship.muting) {
+            return AccountAction.UnmuteAccount(
+                pachliAccountId = pachliAccountId,
+                account = account,
+            )
+        }
+
+        return when (relationship.followState) {
+            Relationship.FollowState.NOT_FOLLOWING -> AccountAction.FollowAccount(
+                pachliAccountId = pachliAccountId,
+                account = account,
+            )
+
+            Relationship.FollowState.FOLLOWING -> AccountAction.UnfollowAccount(
+                pachliAccountId = pachliAccountId,
+                account = account,
+            )
+
+            Relationship.FollowState.REQUESTED -> AccountAction.CancelFollowRequest(
+                pachliAccountId = pachliAccountId,
+                account = account,
+            )
+        }
+    }
+
+    /**
+     * Gets the most recent collection and relationship data, updating
+     * [localCollectionWithAccounts] and [relationships].
+     */
+    private suspend fun onGetCollection(action: UiAction.LoadCollection) = operationCounter {
+        pachliAccountId.emit(action.pachliAccountId)
+        collectionId.emit(action.collectionId)
+    }
+
+    /**
+     * Performs [action]. During the action the account is marked as disabled
+     * to prevent additional user interaction with it.
+     *
+     * Any relationship changes as a result of [action] are used to update
+     * [relationships].
+     */
+    private suspend fun onAccountAction(action: AccountAction) = operationCounter {
+        disabledAccountIds.update { it + action.account.serverId }
+
+        val result = when (action) {
+            is AccountAction.FollowAccount -> followAccountUseCase(action.pachliAccountId, action.account)
+            is AccountAction.UnfollowAccount -> unfollowAccountUseCase(action.pachliAccountId, action.account.serverId)
+            is AccountAction.CancelFollowRequest -> unfollowAccountUseCase(action.pachliAccountId, action.account.serverId)
+            is AccountAction.UnblockAccount -> unblockAccountUseCase(action.pachliAccountId, action.account.serverId)
+            is AccountAction.BlockDomain -> blockDomainUseCase(action.pachliAccountId, action.account.domain).map { null as Relationship? }
+            is AccountAction.UnmuteAccount -> unmuteAccountUseCase(action.pachliAccountId, action.account.serverId)
+            is AccountAction.Revoke -> collectionsRepository.revokeFromCollection(action.pachliAccountId, action.collection.serverId, action.account.serverId)
+                .map { null as Relationship? }
+        }.onSuccess { relationship ->
+            relationship ?: return@onSuccess
+
+            relationships.update { result ->
+                result.map { loadable ->
+                    loadable.mapLoaded { it + (action.account.serverId to relationship) }
+                }
+            }
+        }.mapEither(
+            { ICollectionViewModel.UiSuccess.from(action) },
+            { UiError.make(it, action) },
+        )
+
+        _uiResult.send(result)
+        disabledAccountIds.update { it - action.account.serverId }
+    }
+}

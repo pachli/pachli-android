@@ -1068,6 +1068,21 @@ class TrendingActivityIntent(context: Context, accountId: Long) : Intent() {
     }
 }
 
+class CollectionActivityIntent(context: Context, accountId: Long, collectionId: String) : Intent() {
+    init {
+        setClassName(context, QuadrantConstants.COLLECTION_ACTIVITY)
+        pachliAccountId = accountId
+        putExtra(EXTRA_COLLECTION_ID, collectionId)
+    }
+
+    companion object {
+        private const val EXTRA_COLLECTION_ID = "app.pachli.EXTRA_COLLECTION_ID"
+
+        /** @return the `collection` passed to this intent */
+        fun getCollectionId(intent: Intent) = intent.getStringExtra(EXTRA_COLLECTION_ID)!!
+    }
+}
+
 fun pendingIntentFlags(mutable: Boolean): Int {
     return if (mutable) {
         PendingIntent.FLAG_UPDATE_CURRENT or if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_MUTABLE else 0

@@ -19,9 +19,15 @@ package app.pachli.core.data.repository
 
 import app.pachli.core.data.repository.Loadable.Loaded
 import app.pachli.core.data.repository.Loadable.Loading
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.get
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.transform
 
 /**
  * Generic interface for loadable content.
@@ -70,4 +76,15 @@ fun <T, R> Loadable<T>.mapLoaded(transform: (T) -> R): Loadable<R> {
         is Loading -> this
         is Loaded -> Loaded(transform(data))
     }
+}
+
+/**
+ * Returns a flow containing only values of the original `Result<Loadable<T>, E>`
+ * that are either errors, or [Loadable.Loaded], filtering out the
+ * [Loadable.Loading] state.
+ */
+fun <T : Any, E : Any> Flow<Result<Loadable<T>, E>>.filterNotLoading(): Flow<Result<Loaded<T>, E>> = transform { value ->
+    if (value is Err) return@transform emit(value)
+
+    value.get()?.getOrNull()?.let { return@transform emit(Ok(Loaded(it))) }
 }
