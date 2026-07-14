@@ -338,7 +338,7 @@ data class StatusViewData(
                 status = status.copy(
                     // Ensure the tags have the `following` property set correctly,
                     // the property is typically null/missing from the server.
-                    tags = status.tags?.map {
+                    tags = status.tags.map {
                         it.copy(following = pachliAccount.followedHashtags.contains(it.name))
                     },
                 ),

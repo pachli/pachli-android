@@ -94,7 +94,7 @@ data class StatusEntity(
     val content: String?,
     val createdAt: Long,
     val editedAt: Long?,
-    val emojis: List<Emoji>?,
+    val emojis: List<Emoji>,
     val reblogsCount: Int,
     val favouritesCount: Int,
     val repliesCount: Int,
@@ -108,13 +108,13 @@ data class StatusEntity(
     val visibility: Status.Visibility,
     val attachments: List<Attachment>?,
     val mentions: List<Status.Mention>?,
-    val tags: List<Hashtag>?,
+    val tags: List<Hashtag>,
     val application: Status.Application?,
     // if it has a reblogged status, it's id is stored here
     val reblogServerId: String?,
     val reblogAccountId: String?,
     val poll: Poll?,
-    val muted: Boolean?,
+    val muted: Boolean,
     val pinned: Boolean,
     val card: Card?,
     val quoteState: Status.QuoteState?,
@@ -122,7 +122,7 @@ data class StatusEntity(
     @ColumnInfo(defaultValue = "{\"automatic\":[], \"manual\":[], \"currentUser\":\"UNKNOWN\"}")
     val quoteApproval: Status.QuoteApproval,
     val language: String?,
-    val filtered: List<FilterResult>?,
+    val filtered: List<FilterResult>,
 ) {
     @Ignore
     val isReblog = reblogServerId != null
@@ -159,7 +159,7 @@ fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
     reblogAccountId = reblog?.let { account.serverId },
     poll = actionableStatus.poll,
     muted = actionableStatus.muted,
-    pinned = actionableStatus.pinned == true,
+    pinned = actionableStatus.pinned,
     card = actionableStatus.card,
     quoteState = actionableStatus.quote?.state,
     quoteServerId = when (actionableStatus.quote) {
@@ -197,9 +197,9 @@ data class TimelineStatusWithQuote(
 
         val attachments: List<Attachment> = status.attachments.orEmpty()
         val mentions: List<Status.Mention> = status.mentions.orEmpty()
-        val tags: List<Hashtag>? = status.tags
+        val tags: List<Hashtag> = status.tags
         val application = status.application
-        val emojis: List<Emoji> = status.emojis.orEmpty()
+        val emojis: List<Emoji> = status.emojis
         val poll: Poll? = status.poll
         val card: Card? = status.card
 
