@@ -135,7 +135,7 @@ internal class CollectionViewModel @Inject constructor(
      * Either successfully loaded [app.pachli.core.model.CollectionWithAccounts], or the error from the
      * most recent attempt to reload from the server.
      */
-    private val _collectionWithAccounts =
+    private val collectionWithAccounts =
         MutableStateFlow<Result<Loadable<CollectionWithAccounts>, UiError.GetCollection>>(
             Ok(Loadable.Loading),
         )
@@ -145,7 +145,7 @@ internal class CollectionViewModel @Inject constructor(
     override val collectionViewData = stateFlow(viewModelScope, Ok(Loadable.Loading)) {
         combine(
             pachliAccount,
-            _collectionWithAccounts,
+            collectionWithAccounts,
             relationships.filterNotLoading(),
             disabledAccountIds,
         ) { pachliAccount, collectionWithAccounts, relationships, disabledAccountIds ->
@@ -205,18 +205,18 @@ internal class CollectionViewModel @Inject constructor(
             combine(reload, pachliAccountId, collectionId) { _, pachliAccountId, collectionId ->
                 Pair(pachliAccountId, collectionId)
             }.collect { (pachliAccountId, collectionId) ->
-                _collectionWithAccounts.value = Ok(Loadable.Loading)
+                collectionWithAccounts.value = Ok(Loadable.Loading)
                 collectionsRepository.reloadCollection(pachliAccountId, collectionId)
                     .mapError { UiError.GetCollection(it) }
-                    .onFailure { _collectionWithAccounts.value = Err(it) }
+                    .onFailure { collectionWithAccounts.value = Err(it) }
             }
         }
 
         viewModelScope.launch {
             localCollectionWithAccounts.collect {
-                _collectionWithAccounts.value = Ok(Loadable.Loading)
+                collectionWithAccounts.value = Ok(Loadable.Loading)
                 if (it != null) {
-                    _collectionWithAccounts.value = Ok(Loadable.Loaded(it))
+                    collectionWithAccounts.value = Ok(Loadable.Loaded(it))
                     return@collect
                 }
             }
