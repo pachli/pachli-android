@@ -843,8 +843,9 @@ WHERE pachliAccountId = :accountId
         val countStatus = cleanupStatuses(accountId)
         val countStatusViewData = cleanupStatusViewData(accountId)
         val countTranslatedStatus = cleanupTranslatedStatus(accountId)
-        val countAccounts = cleanupTimelineAccounts(accountId)
-        return countStatus + countStatusViewData + countTranslatedStatus + countAccounts + 0L
+        val countTimelineAccounts = cleanupTimelineAccountEntity(accountId)
+        val countAccounts = cleanupAccountEntity(accountId)
+        return countStatus + countStatusViewData + countTranslatedStatus + countTimelineAccounts + countAccounts + 0L
     }
 
     /**
@@ -872,34 +873,85 @@ WHERE
 
     /**
      * Cleans the TimelineAccountEntity table from accounts that are no longer
-     * referenced in the StatusEntity table
+     * referenced in other tables.
      *
-     * @param accountId id of the user account for which to clean timeline accounts
+     * @param pachliAccountId id of the user account for which to clean timeline accounts
      */
     @Query(
         """
 DELETE
 FROM TimelineAccountEntity
 WHERE
-    pachliAccountId = :accountId
+    pachliAccountId = :pachliAccountId
     AND serverId NOT IN (
         SELECT authorServerId
         FROM StatusEntity
-        WHERE pachliAccountId = :accountId
+        WHERE pachliAccountId = :pachliAccountId
     )
     AND serverId NOT IN (
         SELECT reblogAccountId
         FROM StatusEntity
-        WHERE pachliAccountId = :accountId AND reblogAccountId IS NOT NULL
+        WHERE pachliAccountId = :pachliAccountId AND reblogAccountId IS NOT NULL
     )
     AND serverId NOT IN (
         SELECT accountServerId
         FROM NotificationEntity
-        WHERE pachliAccountId = :accountId
+        WHERE pachliAccountId = :pachliAccountId
+    )
+    AND serverId NOT IN (
+        SELECT accountId
+        FROM CollectionEntity
+        WHERE pachliAccountId = :pachliAccountId
+    )
+    AND serverId NOT IN (
+        SELECT accountId
+        FROM CollectionItemEntity
+        WHERE pachliAccountId = :pachliAccountId
     )
 """,
     )
-    abstract suspend fun cleanupTimelineAccounts(accountId: Long): Int
+    abstract suspend fun cleanupTimelineAccountEntity(pachliAccountId: Long): Int
+
+    /**
+     * Cleans the AccountEntity table from accounts that are no longer
+     * referenced in other tables.
+     *
+     * @param pachliAccountId id of the user account for which to clean timeline accounts
+     */
+    @Query(
+        """
+DELETE
+FROM AccountEntity
+WHERE
+    pachliAccountId = :pachliAccountId
+    AND serverId NOT IN (
+        SELECT authorServerId
+        FROM StatusEntity
+        WHERE pachliAccountId = :pachliAccountId
+    )
+    AND serverId NOT IN (
+        SELECT reblogAccountId
+        FROM StatusEntity
+        WHERE pachliAccountId = :pachliAccountId AND reblogAccountId IS NOT NULL
+    )
+    AND serverId NOT IN (
+        SELECT accountServerId
+        FROM NotificationEntity
+        WHERE pachliAccountId = :pachliAccountId
+    )
+    AND serverId NOT IN (
+        SELECT accountId
+        FROM CollectionEntity
+        WHERE pachliAccountId = :pachliAccountId
+    )
+    AND serverId NOT IN (
+        SELECT accountId
+        FROM CollectionItemEntity
+        WHERE pachliAccountId = :pachliAccountId
+    )
+""",
+    )
+    abstract suspend fun cleanupAccountEntity(pachliAccountId: Long): Int
 
     /**
      * Removes rows from StatusViewDataEntity that reference statuses are that not
