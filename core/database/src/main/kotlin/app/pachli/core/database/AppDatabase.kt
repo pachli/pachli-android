@@ -110,7 +110,7 @@ import java.util.TimeZone
         TimelineStatusWithAccount::class,
         ReferencedStatusId::class,
     ],
-    version = 45,
+    version = 46,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -177,6 +177,8 @@ import java.util.TimeZone
         AutoMigration(from = 43, to = 44),
         // Support Mastodon Collections.
         AutoMigration(from = 44, to = 45),
+        // Make some Status(Entity) properties non-null
+        AutoMigration(from = 45, to = 46),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {

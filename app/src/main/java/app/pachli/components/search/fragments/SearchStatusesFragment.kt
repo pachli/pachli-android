@@ -281,7 +281,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
             menu.findItem(R.id.status_open_as).isVisible = !statusUrl.isNullOrBlank()
             when (status.visibility) {
                 Status.Visibility.PUBLIC, Status.Visibility.UNLISTED -> {
-                    val textId = getString(if (status.isPinned()) R.string.unpin_action else R.string.pin_action)
+                    val textId = getString(if (status.pinned) R.string.unpin_action else R.string.pin_action)
                     menu.add(0, R.id.pin, 1, textId)
                 }
                 Status.Visibility.PRIVATE -> {
@@ -313,7 +313,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         }
         if (mutable) {
             muteConversationItem.setTitle(
-                if (status.muted == true) {
+                if (status.muted) {
                     R.string.action_unmute_conversation
                 } else {
                     R.string.action_mute_conversation
@@ -358,7 +358,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_mute_conversation -> {
-                    viewModel.muteConversation(statusViewData, status.muted != true)
+                    viewModel.muteConversation(statusViewData, !status.muted)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_mute -> {
@@ -394,7 +394,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
                     return@setOnMenuItemClickListener true
                 }
                 R.id.pin -> {
-                    viewModel.pinStatus(statusViewData, !status.isPinned())
+                    viewModel.pinStatus(statusViewData, !status.pinned)
                     return@setOnMenuItemClickListener true
                 }
             }

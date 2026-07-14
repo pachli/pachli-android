@@ -201,7 +201,7 @@ class ViewThreadViewModel @Inject constructor(
                     detailedStatus = detailedStatus.copy(
                         statusViewData = detailedStatus.statusViewData.copy(
                             status = status.copy(
-                                tags = status.tags?.map {
+                                tags = status.tags.map {
                                     it.copy(following = account.followedHashtags.contains(it.name))
                                 },
                             ),
@@ -209,7 +209,7 @@ class ViewThreadViewModel @Inject constructor(
                         quotedViewData = (status.quote as? Status.Quote.FullQuote)?.status?.let {
                             detailedStatus.quotedViewData?.copy(
                                 status = it.copy(
-                                    tags = it.tags?.map {
+                                    tags = it.tags.map {
                                         it.copy(following = account.followedHashtags.contains(it.name))
                                     },
                                 ),
