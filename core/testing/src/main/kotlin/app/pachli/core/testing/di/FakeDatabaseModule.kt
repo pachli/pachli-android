@@ -18,7 +18,7 @@
 package app.pachli.core.testing.di
 
 import android.os.Build
-import androidx.room.Room
+import androidx.room3.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.core.database.AppDatabase

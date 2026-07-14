@@ -17,10 +17,10 @@
 
 package app.pachli.core.database.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.TypeConverters
+import androidx.room3.ColumnInfo
+import androidx.room3.ColumnTypeConverters
+import androidx.room3.Entity
+import androidx.room3.ForeignKey
 import app.pachli.core.database.Converters
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.Server
@@ -55,7 +55,7 @@ import io.github.z4kn4fein.semver.Version
         ),
     ],
 )
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 data class ServerEntity(
     val accountId: Long,
     val serverKind: ServerKind,

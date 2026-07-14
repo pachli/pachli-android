@@ -29,6 +29,7 @@ androidx-viewpager2 = "1.1.0"
 androidx-webkit = "1.15.0"
 androidx-work = "2.11.1"
 androidx-room = "2.8.4"
+androidx-room3 = "3.0.0"
 app-update = "2.1.0"
 apollographql = "3.8.6"
 blurview = "version-3.2.0"
@@ -157,12 +158,17 @@ androidx-media3-datasource-okhttp = { module = "androidx.media3:media3-datasourc
 androidx-media3-ui = { module = "androidx.media3:media3-ui", version.ref = "androidx-media3" }
 androidx-paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "androidx-paging" }
 androidx-preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "androidx-preference" }
-androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "androidx-room" }
-androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
-androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "androidx-room" }
-androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
-androidx-room-sqlite-wrapper = { module = "androidx.room:room-sqlite-wrapper", version.ref = "androidx-room" }
-androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "androidx-room" }
+#androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "androidx-room" }
+#androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
+#androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "androidx-room" }
+#androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
+#androidx-room-sqlite-wrapper = { module = "androidx.room:room-sqlite-wrapper", version.ref = "androidx-room" }
+#androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "androidx-room" }
+androidx-room3-runtime = { module = "androidx.room3:room3-runtime", version.ref = "androidx-room3" }
+androidx-room3-compiler = { module = "androidx.room3:room3-compiler", version.ref = "androidx-room3" }
+androidx-room3-paging = { module = "androidx.room3:room3-paging", version.ref = "androidx-room3" }
+androidx-room3-sqlite-wrapper = { module = "androidx.room3:room3-sqlite-wrapper", version.ref = "androidx-room3" }
+androidx-room3-testing = { module = "androidx.room3:room3-testing", version.ref = "androidx-room3" }
 androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "androidx-recyclerview" }
 androidx-runtime-tracing = { module = "androidx.compose.runtime:runtime-tracing" }
 androidx-sharetarget = { module = "androidx.sharetarget:sharetarget", version.ref = "androidx-sharetarget" }
@@ -294,5 +300,6 @@ material-drawer = ["material-drawer-core", "material-drawer-iconics"]
 mockito = ["mockito-kotlin", "mockito-inline"]
 okhttp = ["okhttp-core", "okhttp-logging-interceptor", "okhttp-tls"]
 retrofit = ["retrofit-core", "retrofit-converter-moshi"]
-room = ["androidx-room-ktx", "androidx-room-paging", "androidx-sqlite-bundled", "androidx-room-sqlite-wrapper"]
+#room = ["androidx-room-ktx", "androidx-room-paging", "androidx-sqlite-bundled", "androidx-room-sqlite-wrapper"]
+room3 = ["androidx-room3-runtime", "androidx-room3-paging", "androidx-sqlite-bundled", "androidx-room3-sqlite-wrapper"]
 xmldiff = ["diffx", "xmlwriter"]

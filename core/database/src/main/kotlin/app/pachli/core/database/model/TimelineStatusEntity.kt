@@ -17,8 +17,8 @@
 
 package app.pachli.core.database.model
 
-import androidx.room.Entity
-import androidx.room.TypeConverters
+import androidx.room3.ColumnTypeConverters
+import androidx.room3.Entity
 import app.pachli.core.database.Converters
 import com.squareup.moshi.JsonClass
 import dev.zacsweers.moshix.sealed.annotations.DefaultNull
@@ -31,7 +31,7 @@ import dev.zacsweers.moshix.sealed.annotations.TypeLabel
 @Entity(
     primaryKeys = ["kind", "pachliAccountId", "statusId"],
 )
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 data class TimelineStatusEntity(
     val kind: Kind,
     val pachliAccountId: Long,

@@ -17,10 +17,10 @@
 
 package app.pachli.core.database.model
 
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.TypeConverters
+import androidx.room3.ColumnTypeConverters
+import androidx.room3.Embedded
+import androidx.room3.Entity
+import androidx.room3.ForeignKey
 import app.pachli.core.database.Converters
 import app.pachli.core.model.CollectionItem
 import app.pachli.core.model.ShallowHashtag
@@ -67,7 +67,7 @@ data class CollectionAndOwnerEntities(
         ),
     ],
 )
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 data class CollectionEntity(
     val pachliAccountId: Long,
     val serverId: String,
@@ -145,7 +145,7 @@ fun Iterable<app.pachli.core.model.Collection>.asEntity(pachliAccountId: Long) =
         ),
     ],
 )
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 data class TimelineCollectionEntity(
     val pachliAccountId: Long,
     val serverId: String,
@@ -235,7 +235,7 @@ fun Iterable<TimelineCollection>.asEntity(pachliAccountId: Long) = map { it.asEn
         ),
     ],
 )
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 data class CollectionItemEntity(
     val pachliAccountId: Long,
     val collectionServerId: String,
@@ -298,7 +298,7 @@ fun Iterable<CollectionItem>.asEntity(pachliAccountId: Long, collectionServerId:
         ]
         ),
 )
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 data class CollectionViewDataEntity(
     val pachliAccountId: Long,
     val serverId: String,

@@ -17,11 +17,11 @@
 
 package app.pachli.core.database.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.Index
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
+import androidx.room3.ColumnInfo
+import androidx.room3.ColumnTypeConverters
+import androidx.room3.Entity
+import androidx.room3.Index
+import androidx.room3.PrimaryKey
 import app.pachli.core.database.Converters
 import app.pachli.core.model.AccountSource
 import app.pachli.core.model.Emoji
@@ -37,7 +37,7 @@ import app.pachli.core.model.Timeline
         ),
     ],
 )
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 data class PachliAccountEntity(
     @field:PrimaryKey(autoGenerate = true) override var id: Long,
     override val domain: String,

@@ -18,10 +18,10 @@
 package app.pachli.core.database.di
 
 import android.content.Context
-import androidx.room.Room
-import androidx.room.immediateTransaction
-import androidx.room.useReaderConnection
-import androidx.room.useWriterConnection
+import androidx.room3.Room
+import androidx.room3.immediateTransaction
+import androidx.room3.useReaderConnection
+import androidx.room3.useWriterConnection
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.BuildConfig
@@ -50,7 +50,7 @@ object DatabaseModule {
     ): AppDatabase {
         return Room.databaseBuilder(appContext, AppDatabase::class.java, "pachliDB")
             .setDriver(BundledSQLiteDriver())
-            .addTypeConverter(converters)
+            .addColumnTypeConverter(converters)
             .addMigrations(MIGRATE_8_9)
             .addMigrations(MIGRATE_10_11)
             .addMigrations(MIGRATE_12_13)

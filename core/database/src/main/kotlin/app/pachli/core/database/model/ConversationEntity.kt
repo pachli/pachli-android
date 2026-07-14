@@ -17,12 +17,12 @@
 
 package app.pachli.core.database.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Index
-import androidx.room.TypeConverters
+import androidx.room3.ColumnInfo
+import androidx.room3.ColumnTypeConverters
+import androidx.room3.Embedded
+import androidx.room3.Entity
+import androidx.room3.ForeignKey
+import androidx.room3.Index
 import app.pachli.core.database.Converters
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.Conversation
@@ -36,7 +36,7 @@ import app.pachli.core.model.TimelineAccount
  * The result of joining [ConversationEntity] with the last status and
  * any other necessary data.
  */
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 data class ConversationData(
     val pachliAccountId: Long,
     val id: String,
@@ -66,7 +66,7 @@ data class ConversationData(
         ]
         ),
 )
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 data class ConversationViewDataEntity(
     val pachliAccountId: Long,
     val serverId: String,
@@ -116,7 +116,7 @@ data class ConversationAccountFilterDecisionUpdate(
     ],
     indices = [Index(value = ["pachliAccountId"])],
 )
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 data class ConversationEntity(
     val pachliAccountId: Long,
     val id: String,

@@ -18,14 +18,16 @@
 package app.pachli.core.database.dao
 
 import androidx.paging.PagingSource
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy.Companion.REPLACE
-import androidx.room.Query
-import androidx.room.Transaction
-import androidx.room.TypeConverters
-import androidx.room.Upsert
+import androidx.room3.ColumnTypeConverters
+import androidx.room3.Dao
+import androidx.room3.DaoReturnTypeConverters
+import androidx.room3.Delete
+import androidx.room3.Insert
+import androidx.room3.OnConflictStrategy.Companion.REPLACE
+import androidx.room3.Query
+import androidx.room3.Transaction
+import androidx.room3.Upsert
+import androidx.room3.paging.PagingSourceDaoReturnTypeConverter
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.StatusEntity
@@ -34,7 +36,8 @@ import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithQuote
 
 @Dao
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
+@DaoReturnTypeConverters(PagingSourceDaoReturnTypeConverter::class)
 abstract class TimelineDao {
     @Upsert
     abstract suspend fun upsertStatuses(entities: List<TimelineStatusEntity>)

@@ -17,8 +17,8 @@
 
 package app.pachli.core.database.dao
 
-import androidx.room.DatabaseView
-import androidx.room.Embedded
+import androidx.room3.DatabaseView
+import androidx.room3.Embedded
 import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
