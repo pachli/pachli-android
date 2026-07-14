@@ -220,10 +220,6 @@
         %1$s; %2$s; %3$s; %4$s. %5$s
     </string>
     <string name="action_follow_account">Follow</string>
-    <plurals name="collection_item_count">
-        <item quantity="one">%1$d account</item>
-        <item quantity="other">%1$d accounts</item>
-    </plurals>
     <plurals name="collection_item_n_more">
         <item quantity="one">+ %1$d more</item>
         <item quantity="other">+ %1$d more</item>

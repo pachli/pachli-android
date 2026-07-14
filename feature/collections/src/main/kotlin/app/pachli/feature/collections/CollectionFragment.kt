@@ -17,7 +17,6 @@
 
 package app.pachli.feature.collections
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.text.format.DateUtils
@@ -412,7 +411,7 @@ internal class CollectionAccountsAdapter(
  * the account (e.g., because there is an active network operation going on
  * that affects this account).
  * @property isSelf True if this is the user's account.
- * @property primaryAction If non-null, the primary [UiAction] for this
+ * @property primaryAction If non-null, the primary [AccountAction] for this
  * item. If null this item has no action.
  */
 internal data class AccountViewData(
@@ -542,8 +541,6 @@ internal class AccountInCollectionViewHolder(
         val account = viewData.account
 
         if (account.note.isBlank()) {
-            @SuppressLint("SetTextI18n")
-            accountNote.text = ""
             accountNote.hide()
         } else {
             setContent(

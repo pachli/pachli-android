@@ -24,7 +24,7 @@ import java.time.Instant
  * @property serverId Server's ID for this collection.
  * @property accountId Server's ID of the account that owns the collection.
  * @property name Collection's name, plain text.
- * @property description (optional) Collection's description, plain text.
+ * @property description Collection's description, plain text, may be empty.
  * @property local True if the collection is local to the user's server.
  * @property sensitive True if the collection contains sensitive accounts.
  * @property discoverable True if the collection is discoverable.

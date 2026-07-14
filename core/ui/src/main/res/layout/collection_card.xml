@@ -50,10 +50,10 @@
                 android:layout_marginTop="6dp"
                 android:textSize="?status_text_medium"
                 android:textStyle="normal|bold"
+                android:textIsSelectable="false"
                 app:layout_constraintEnd_toStartOf="@+id/change_display_action_button"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="SelectableText"
                 tools:text="Collection name" />
 
             <TextView
@@ -61,11 +61,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textSize="?status_text_small"
+                android:textIsSelectable="false"
                 app:layout_constraintStart_toStartOf="@id/collection_name"
                 app:layout_constraintTop_toBottomOf="@id/collection_name"
                 app:layout_constraintEnd_toEndOf="@id/collection_name"
-                tools:text="by foo@bar"
-                tools:ignore="SelectableText" />
+                tools:text="by foo@bar" />
 
             <TextView
                 android:id="@+id/description"
@@ -75,10 +75,10 @@
                 android:lineSpacingMultiplier="1.1"
                 android:textSize="?status_text_medium"
                 android:layout_marginTop="6dp"
+                android:textIsSelectable="false"
                 app:layout_constraintStart_toStartOf="@id/collection_name"
                 app:layout_constraintTop_toBottomOf="@id/owner_handle"
                 app:layout_constraintEnd_toStartOf="@id/marginEnd"
-                tools:ignore="SelectableText"
                 tools:text="@tools:sample/lorem[10]" />
 
             <TextView
@@ -87,12 +87,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:textSize="?status_text_small"
+                android:textIsSelectable="false"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintEnd_toStartOf="@id/marginEnd"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@id/collection_name"
                 app:layout_constraintTop_toBottomOf="@id/description"
-                tools:ignore="SelectableText"
                 tools:text="#SomeHashTag" />
 
             <ImageView
@@ -101,6 +101,7 @@
                 android:layout_height="24dp"
                 android:scaleType="centerCrop"
                 android:layout_marginTop="6dp"
+                android:contentDescription="@null"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/hashtag"
                 tools:src="@tools:sample/avatars" />
@@ -111,6 +112,7 @@
                 android:layout_height="24dp"
                 android:scaleType="centerCrop"
                 android:layout_marginStart="4dp"
+                android:contentDescription="@null"
                 app:layout_constraintStart_toEndOf="@id/avatar_1"
                 app:layout_constraintTop_toTopOf="@id/avatar_1"
                 tools:src="@tools:sample/avatars" />
@@ -121,6 +123,7 @@
                 android:layout_height="24dp"
                 android:scaleType="centerCrop"
                 android:layout_marginStart="4dp"
+                android:contentDescription="@null"
                 app:layout_constraintStart_toEndOf="@id/avatar_2"
                 app:layout_constraintTop_toTopOf="@id/avatar_2"
                 tools:src="@tools:sample/avatars" />
@@ -131,6 +134,7 @@
                 android:layout_height="24dp"
                 android:scaleType="centerCrop"
                 android:layout_marginStart="4dp"
+                android:contentDescription="@null"
                 app:layout_constraintStart_toEndOf="@id/avatar_3"
                 app:layout_constraintTop_toTopOf="@id/avatar_3"
                 tools:src="@tools:sample/avatars" />
@@ -142,6 +146,7 @@
                 android:layout_marginStart="4dp"
                 android:gravity="center_vertical"
                 android:textSize="?status_text_small"
+                android:textIsSelectable="false"
                 app:layout_constraintEnd_toStartOf="@+id/marginEnd"
                 app:layout_constraintStart_toEndOf="@id/avatar_4"
                 app:layout_constraintTop_toTopOf="@id/avatar_4"
@@ -153,6 +158,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="?attr/status_text_small"
                 android:layout_marginTop="8dp"
+                android:textIsSelectable="false"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintStart_toStartOf="@id/collection_name"
                 app:layout_constraintTop_toBottomOf="@id/avatar_1"
@@ -169,6 +175,7 @@
                 android:drawablePadding="4dp"
                 android:textSize="?attr/status_text_small"
                 android:text="@string/collection_sensitive_label"
+                android:textIsSelectable="false"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintEnd_toStartOf="@id/marginEnd"
                 app:layout_constraintStart_toStartOf="@id/collection_name"
@@ -227,13 +234,13 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textSize="?status_text_medium"
-                android:textStyle="normal|bold" />
+                android:textStyle="normal|bold"
+                android:textIsSelectable="false" />
 
             <TextView
                 android:id="@+id/collection_hidden_action"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:layout_margin="8dp"
                 android:background="@drawable/media_warning_bg"
                 android:gravity="center"
@@ -246,7 +253,7 @@
                 android:textAlignment="center"
                 android:textColor="?android:attr/textColorSecondary"
                 android:textSize="?attr/status_text_medium"
-
+                android:textIsSelectable="false"
                 tools:text="@string/post_sensitive_media_title" />
         </LinearLayout>
     </eightbitlab.com.blurview.BlurView>

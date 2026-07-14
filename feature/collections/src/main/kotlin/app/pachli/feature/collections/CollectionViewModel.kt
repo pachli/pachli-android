@@ -85,8 +85,7 @@ internal class CollectionViewModel @Inject constructor(
     private val uiAction = MutableSharedFlow<UiAction>()
     override val accept: (UiAction) -> Unit = { viewModelScope.launch { uiAction.emit(it) } }
 
-    private val _uiResult =
-        Channel<Result<ICollectionViewModel.UiSuccess, UiError>>()
+    private val _uiResult = Channel<Result<ICollectionViewModel.UiSuccess, UiError>>()
     override val uiResult = _uiResult.receiveAsFlow()
 
     private val operationCounter = OperationCounter()

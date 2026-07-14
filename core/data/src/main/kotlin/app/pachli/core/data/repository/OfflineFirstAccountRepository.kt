@@ -73,9 +73,10 @@ class OfflineFirstAccountRepository @Inject internal constructor(
      *
      * @param pachliAccountId
      * @param accountIds
-     * @return The accounts, or the error if a network request had to be made.
+     * @return The accounts, or the error if a network request had to be made
+     * and it failed.
      */
-    // TODO: Maybe the resturn should be a List<Result<Account, Error>>, to report
+    // TODO: Maybe the return should be a List<Result<Account, Error>>, to report
     // the errors on a per-account basis?
     override suspend fun getAccounts(pachliAccountId: Long, accountIds: Collection<String>): Result<List<Account>, GetAccountsError> {
         val accounts = localDataSource.getAccounts(pachliAccountId, accountIds)

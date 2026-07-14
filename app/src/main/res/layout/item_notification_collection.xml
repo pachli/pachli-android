@@ -38,6 +38,7 @@
         android:maxLines="2"
         android:paddingStart="28dp"
         android:textSize="?attr/status_text_small"
+        android:textIsSelectable="false"
         android:importantForAccessibility="no"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

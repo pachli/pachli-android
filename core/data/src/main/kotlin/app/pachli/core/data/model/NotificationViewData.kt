@@ -276,6 +276,13 @@ sealed interface NotificationViewData {
         val accountWarning: AccountWarning,
     ) : NotificationViewData
 
+    /**
+     * Additional data to show a notification that references a
+     * [Collection][app.pachli.core.model.Collection].
+     *
+     * @property collectionCardViewData [CollectionCardViewData] for
+     * the referenced [Collection][app.pachli.core.model.Collection].
+     */
     sealed interface WithCollection : NotificationViewData {
         val collectionCardViewData: CollectionCardViewData
 

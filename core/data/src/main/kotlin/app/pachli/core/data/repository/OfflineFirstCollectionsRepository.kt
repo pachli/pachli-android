@@ -78,13 +78,11 @@ internal class OfflineFirstCollectionsRepository @Inject constructor(
      */
     override suspend fun revokeFromCollection(pachliAccountId: Long, collectionId: String, accountId: String): Result<Unit, CollectionsRepository.Error.RevokeFromCollection> {
         return remoteDataSource.revokeFromCollection(pachliAccountId, collectionId, accountId).mapEither(
-            { it.body },
+            { },
             { CollectionsRepository.Error.RevokeFromCollection(it) },
         ).onSuccess {
             localDataSource.removeAccountFromCollection(pachliAccountId, collectionId, accountId)
         }
-//        localDataSource.removeAccountFromCollection(pachliAccountId, collectionId, accountId)
-//        return Ok(Unit)
     }
 
     override fun setCollectionDisplayAction(pachliAccountId: Long, collectionId: String, collectionDisplayAction: CollectionDisplayAction) {
