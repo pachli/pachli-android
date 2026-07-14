@@ -18,7 +18,7 @@
 package app.pachli.core.database.dao
 
 import androidx.paging.PagingSource
-import androidx.room.support.getSupportWrapper
+import androidx.room3.support.getSupportWrapper
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.model.PachliAccountEntity

@@ -17,13 +17,13 @@
 
 package app.pachli.core.database.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Ignore
-import androidx.room.Index
-import androidx.room.TypeConverters
+import androidx.room3.ColumnInfo
+import androidx.room3.ColumnTypeConverters
+import androidx.room3.Embedded
+import androidx.room3.Entity
+import androidx.room3.ForeignKey
+import androidx.room3.Ignore
+import androidx.room3.Index
 import app.pachli.core.database.Converters
 import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.model.Attachment
@@ -82,7 +82,7 @@ import java.util.Date
         Index("pachliAccountId"),
     ],
 )
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 data class StatusEntity(
     // id never flips: we need it for sorting so it's a real id
     val serverId: String,

@@ -17,7 +17,7 @@
 
 package app.pachli.core.database.model
 
-import androidx.room.DatabaseView
+import androidx.room3.DatabaseView
 
 /**
  * StatusIDs that are actively referenced by other entities.

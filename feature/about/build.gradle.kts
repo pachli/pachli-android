@@ -82,6 +82,6 @@ dependencies {
     implementation(libs.markwon)
     implementation(libs.markwon.tables)
 
-    implementation(libs.bundles.room)
+    implementation(libs.bundles.room3)
         ?.because("DatabaseFragmentViewModel needs RoomDatabase type.")
 }

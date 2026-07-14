@@ -17,8 +17,8 @@
 
 package app.pachli.core.database.model
 
-import androidx.room.Entity
-import androidx.room.TypeConverters
+import androidx.room3.ColumnTypeConverters
+import androidx.room3.Entity
 import app.pachli.core.database.Converters
 import app.pachli.core.model.TranslatedAttachment
 import app.pachli.core.model.TranslatedPoll
@@ -35,7 +35,7 @@ import app.pachli.core.model.translation.TranslatedStatus
 @Entity(
     primaryKeys = ["serverId", "pachliAccountId"],
 )
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 data class TranslatedStatusEntity(
     /** ID of the status as it appeared on the original server */
     val serverId: String,

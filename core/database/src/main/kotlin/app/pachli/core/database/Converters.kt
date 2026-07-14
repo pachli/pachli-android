@@ -16,8 +16,8 @@
 
 package app.pachli.core.database
 
-import androidx.room.ProvidedTypeConverter
-import androidx.room.TypeConverter
+import androidx.room3.ColumnTypeConverter
+import androidx.room3.ProvidedColumnTypeConverter
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.Announcement
@@ -77,7 +77,7 @@ data class BetterJsonException(
 }
 
 @OptIn(ExperimentalStdlibApi::class)
-@ProvidedTypeConverter
+@ProvidedColumnTypeConverter
 @Singleton
 class Converters @Inject constructor(
     private val moshi: Moshi,
@@ -100,23 +100,23 @@ class Converters @Inject constructor(
         }
     }
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToEmojiList(json: String?): List<Emoji>? = fromJson(json)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun emojiListToJson(emojiList: List<Emoji>?) = toJson(emojiList)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun visibilityToInt(visibility: Status.Visibility?): Int {
         return visibility?.ordinal ?: Status.Visibility.UNKNOWN.ordinal
     }
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun intToVisibility(visibility: Int): Status.Visibility {
         return Status.Visibility.getOrUnknown(visibility)
     }
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun stringToTimeline(str: String?): List<Timeline>? {
         str ?: return null
 
@@ -156,216 +156,216 @@ class Converters @Inject constructor(
         }
     }
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun timelineToString(timelines: List<Timeline>?) = toJson(timelines)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun accountToJson(account: ConversationAccount?) = toJson(account)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToAccount(accountJson: String?) = fromJson<ConversationAccount>(accountJson)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun accountListToJson(accountList: List<ConversationAccount>?) = toJson(accountList)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToAccountList(accountListJson: String?) = fromJson<List<ConversationAccount>>(accountListJson)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun attachmentListToJson(attachmentList: List<Attachment>?) = toJson(attachmentList)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToAttachmentList(attachmentListJson: String?) = fromJson<List<Attachment>>(attachmentListJson)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun mentionListToJson(mentionArray: List<Status.Mention>?) = toJson(mentionArray)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToMentionArray(mentionListJson: String?) = fromJson<List<Status.Mention>>(mentionListJson)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun tagListToJson(tagArray: List<Hashtag>?) = toJson(tagArray)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToTagArray(tagListJson: String?) = fromJson<List<Hashtag>>(tagListJson)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun dateToLong(date: Date?) = date?.time
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun longToDate(date: Long?) = date?.let { Date(it) }
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun instantToEpochMilli(instant: Instant?) = instant?.toEpochMilli()
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun epochMilliToInstant(epochMilli: Long?) = epochMilli?.let { Instant.ofEpochMilli(it) }
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun pollToJson(poll: Poll?) = toJson(poll)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToPoll(pollJson: String?) = fromJson<Poll>(pollJson)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun newPollToJson(newPoll: NewPoll?) = toJson(newPoll)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToNewPoll(newPollJson: String?) = fromJson<NewPoll>(newPollJson)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun draftAttachmentListToJson(draftAttachments: List<DraftAttachment>?) = toJson(draftAttachments)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToDraftAttachmentList(draftAttachmentListJson: String?) = fromJson<List<DraftAttachment>>(draftAttachmentListJson)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun filterResultListToJson(filterResults: List<FilterResult>?) = toJson(filterResults)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToFilterResultList(filterResultListJson: String?) = fromJson<List<FilterResult>>(filterResultListJson)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun translatedPolltoJson(translatedPoll: TranslatedPoll?) = toJson(translatedPoll)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToTranslatedPoll(translatedPollJson: String?) = fromJson<TranslatedPoll>(translatedPollJson)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun translatedAttachmentToJson(translatedAttachment: List<TranslatedAttachment>?) = toJson(translatedAttachment)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToTranslatedAttachment(translatedAttachmentJson: String) = fromJson<List<TranslatedAttachment>>(translatedAttachmentJson)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun throwableToString(t: Throwable) = t.message
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun stringToThrowable(s: String) = Throwable(message = s)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun capabilitiesMapToJson(capabilities: Map<ServerOperation, Version>) = toJson(capabilities)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToCapabiltiesMap(capabilitiesJson: String?) = fromJson<Map<ServerOperation, Version>>(capabilitiesJson)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun contentFiltersToJson(contentFilters: List<ContentFilter>) = toJson(contentFilters)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToContentFilters(s: String?) = fromJson<List<ContentFilter>>(s)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun versionToString(version: Version): String = version.toString()
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun stringToVersion(s: String?) = s?.let { Version.parse(it) }
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun announcementToJson(announcement: Announcement) = toJson(announcement)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToAnnouncement(s: String?) = fromJson<Announcement>(s)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun applicationToJson(application: Status.Application) = toJson(application)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToApplication(s: String?) = fromJson<Status.Application>(s)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun cardToJson(card: Card) = toJson(card)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToCard(s: String?) = fromJson<Card>(s)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun listStringToJson(l: List<String>) = toJson(l)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun stringToListString(s: String?) = fromJson<List<String>>(s)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun listNullableStringToJson(l: List<String?>) = toJson(l)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun stringToListNullableString(s: String?) = fromJson<List<String?>>(s)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun accountFilterDecisionToJson(accountFilterDecision: AccountFilterDecision) = toJson(accountFilterDecision)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToAccountFilterDecision(s: String?) = fromJson<AccountFilterDecision>(s)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun timelineKindToJson(kind: TimelineStatusEntity.Kind) = toJson(kind)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToTimelineKind(s: String?) = fromJson<TimelineStatusEntity.Kind>(s)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun draftAttachmentToJson(a: DraftAttachment) = toJson(a)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToDraftAttachment(s: String?) = fromJson<DraftAttachment>(s)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun listRoleToJson(roles: List<Role>) = toJson(roles)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToListRoles(s: String?) = fromJson<List<Role>>(s)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun attachmentDisplayActionToJson(attachmentDisplayAction: AttachmentDisplayAction) = toJson(attachmentDisplayAction)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToAttachmentDisplayAction(s: String?) = fromJson<AttachmentDisplayAction>(s)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun quoteApprovalToJson(quoteApproval: Status.QuoteApproval) = toJson(quoteApproval)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToQuoteApproval(s: String?) = fromJson<Status.QuoteApproval>(s)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun hashtagHistoryToJson(hashtagHistory: List<HashtagHistory>) = toJson(hashtagHistory)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToHashtagHistory(s: String?) = fromJson<List<HashtagHistory>>(s)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun serverLimitsToJson(serverLimits: ServerLimits) = toJson(serverLimits)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToServerLimits(s: String?) = fromJson<ServerLimits>(s)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun listFieldToJson(fields: List<Field>) = toJson(fields)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToListField(s: String?) = fromJson<List<Field>>(s)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun movedAccountToJson(movedAccount: MovedAccount) = toJson(movedAccount)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToMovedAccount(s: String?) = fromJson<MovedAccount>(s)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun collectionItemsToJson(collectionItems: List<CollectionItem>) = toJson(collectionItems)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToCollectionItems(s: String?) = fromJson<List<CollectionItem>>(s)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun collectionDisplayActionToJson(collectionDisplayAction: CollectionDisplayAction) = toJson(collectionDisplayAction)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToCollectionDisplayAction(s: String?) = fromJson<CollectionDisplayAction>(s)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun shallowHashtagToJson(shallowHashtag: ShallowHashtag) = toJson(shallowHashtag)
 
-    @TypeConverter
+    @ColumnTypeConverter
     fun jsonToShallowHashtag(s: String?) = fromJson<ShallowHashtag>(s)
 }

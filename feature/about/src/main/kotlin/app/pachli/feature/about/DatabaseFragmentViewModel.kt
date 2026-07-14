@@ -19,7 +19,7 @@ package app.pachli.feature.about
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.room.support.getSupportWrapper
+import androidx.room3.support.getSupportWrapper
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.dao.ConversationsDao
