@@ -26,7 +26,6 @@ import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.RelationshipsRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.data.repository.combineFlatMapLatest
 import app.pachli.core.data.repository.filterNotLoading
 import app.pachli.core.data.repository.getOrNull
 import app.pachli.core.data.repository.mapLoaded
@@ -59,7 +58,9 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.combineTransform
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
@@ -106,8 +107,8 @@ internal class CollectionViewModel @Inject constructor(
     private val collectionId = MutableSharedFlow<String>(replay = 1)
 
     /** The most recent cached collection details. */
-    private val collectionWithAccounts = combineFlatMapLatest(pachliAccountId, collectionId) { pachliAccountId, collectionId ->
-        collectionsRepository.getCollection(pachliAccountId, collectionId)
+    private val collectionWithAccounts = combineTransform(pachliAccountId, collectionId) { pachliAccountId, collectionId ->
+        emitAll(collectionsRepository.getCollection(pachliAccountId, collectionId))
     }
 
     override val uiOptions = stateFlow(

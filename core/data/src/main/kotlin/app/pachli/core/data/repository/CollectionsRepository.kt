@@ -26,21 +26,27 @@ import kotlinx.coroutines.flow.Flow
 
 interface CollectionsRepository {
     sealed interface Error : PachliError {
+        /** Network error occurred getting the collection. */
         @JvmInline
         value class GetCollection(private val error: ApiError) : Error, PachliError by error
 
+        /** Revoking permission for the user's account failed. */
         @JvmInline
         value class RevokeFromCollection(private val error: ApiError) : Error, PachliError by error
     }
 
+    /**
+     * Returns a flow of [CollectionWithAccounts], representing the current content of
+     * [collectionId].
+     */
     fun getCollection(pachliAccountId: Long, collectionId: String): Flow<CollectionWithAccounts?>
 
+    /** Reloads [collectionId] from the server. */
     suspend fun reloadCollection(pachliAccountId: Long, collectionId: String): Result<CollectionWithAccounts, Error.GetCollection>
 
+    /** Revokes permission for [accountId] in [collectionId]. */
     suspend fun revokeFromCollection(pachliAccountId: Long, collectionId: String, accountId: String): Result<Unit, Error.RevokeFromCollection>
 
-    /**
-     *
-     */
+    /** Sets [collectionDisplayAction] for [collectionId]. */
     fun setCollectionDisplayAction(pachliAccountId: Long, collectionId: String, collectionDisplayAction: CollectionDisplayAction)
 }

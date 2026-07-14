@@ -37,11 +37,10 @@ import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
+/** [CollectionsRepository] that caches collection data locally. */
 @Singleton
 internal class OfflineFirstCollectionsRepository @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
@@ -95,9 +94,7 @@ internal class OfflineFirstCollectionsRepository @Inject constructor(
     }
 }
 
-/**
- * Data source for locally cached [Collection] data.
- */
+/** Data source for locally cached [Collection] data. */
 @Singleton
 internal class CollectionsLocalDataSource @Inject constructor(
     private val transactionProvider: TransactionProvider,
@@ -171,10 +168,15 @@ internal class CollectionsLocalDataSource @Inject constructor(
     }
 }
 
+/** Data source for [Collection] data fetched from the server. */
 @Singleton
 internal class CollectionsRemoteDataSource @Inject constructor(
     private val mastodonApi: MastodonApi,
 ) {
+    /**
+     * Returns the most recent version of [collectionId] from the server, or
+     * the error that occurred.
+     */
     suspend fun getCollection(pachliAccountId: Long, collectionId: String) = binding {
         mastodonApi.getCollectionWithAccounts(collectionId)
             .mapEither(
@@ -186,56 +188,5 @@ internal class CollectionsRemoteDataSource @Inject constructor(
 
     suspend fun revokeFromCollection(pachliAccountId: Long, collectionId: String, accountId: String): ApiResult<Unit> {
         return mastodonApi.revokeItemInCollection(collectionId, accountId)
-    }
-}
-
-fun <T1, T2, R> combineFlatMapLatest(
-    flow1: Flow<T1>,
-    flow2: Flow<T2>,
-    transform: suspend (T1, T2) -> Flow<R>,
-): Flow<R> {
-    return combine(flow1, flow2) { first, second -> first to second }.flatMapLatest { pair ->
-        transform(pair.first, pair.second)
-    }
-}
-
-fun <T1, T2, T3, R> combineFlatMapLatest(
-    flow1: Flow<T1>,
-    flow2: Flow<T2>,
-    flow3: Flow<T3>,
-    transform: suspend (T1, T2, T3) -> Flow<R>,
-): Flow<R> {
-    return combine(flow1, flow2, flow3) { first, second, third -> Triple(first, second, third) }.flatMapLatest { triple ->
-        transform(triple.first, triple.second, triple.third)
-    }
-}
-
-fun <T1, T2, T3, T4, T5, R> combineFlatMapLatest(
-    flow1: Flow<T1>,
-    flow2: Flow<T2>,
-    flow3: Flow<T3>,
-    flow4: Flow<T4>,
-    flow5: Flow<T5>,
-    transform: suspend (T1, T2, T3, T4, T5) -> Flow<R>,
-): Flow<R> {
-    data class Tuple5<T1, T2, T3, T4, T5>(
-        val v1: T1,
-        val v2: T2,
-        val v3: T3,
-        val v4: T4,
-        val v5: T5,
-    )
-
-    return combine(flow1, flow2, flow3, flow4, flow5) { array ->
-        @Suppress("UNCHECKED_CAST")
-        Tuple5(
-            array[0] as T1,
-            array[1] as T2,
-            array[2] as T3,
-            array[3] as T4,
-            array[4] as T5,
-        )
-    }.flatMapLatest { tuple ->
-        transform(tuple.v1, tuple.v2, tuple.v3, tuple.v4, tuple.v5)
     }
 }
