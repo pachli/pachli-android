@@ -25,6 +25,7 @@ import app.pachli.components.timeline.NetworkTimelineRepository
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.StatusActionError
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.TimelineStatusWithQuote
@@ -45,6 +46,7 @@ import app.pachli.translation.TranslatorError
 import app.pachli.usecase.TimelineCases
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -68,6 +70,7 @@ open class NetworkTimelineViewModel @AssistedInject constructor(
     accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
+    private val collectionsRepository: CollectionsRepository,
 ) : TimelineViewModel<TimelineStatusWithQuote, NetworkTimelineRepository>(
     timeline,
     timelineCases,
@@ -235,6 +238,23 @@ open class NetworkTimelineViewModel @AssistedInject constructor(
 
     override suspend fun invalidate(pachliAccountId: Long) {
         repository.invalidate()
+    }
+
+    override suspend fun onOverrideCollectionDisplayAction(action: InfallibleUiAction.OverrideCollectionDisplayAction) {
+        collectionsRepository.setCollectionDisplayAction(
+            action.pachliAccountId,
+            action.collectionId,
+            action.collectionDisplayAction,
+        )
+        repository.invalidate()
+    }
+
+    override suspend fun onRevokeCollection(action: FallibleCollectionAction.Revoke): Result<Unit, CollectionsRepository.Error.RevokeFromCollection> {
+        return collectionsRepository.revokeFromCollection(
+            action.pachliAccountId,
+            action.collectionId,
+            action.accountId,
+        ).onSuccess { repository.invalidate() }
     }
 
     @AssistedFactory

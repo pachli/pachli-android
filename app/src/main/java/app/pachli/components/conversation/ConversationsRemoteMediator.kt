@@ -5,6 +5,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
@@ -32,6 +33,7 @@ class ConversationsRemoteMediator(
     private val conversationsDao: ConversationsDao,
     private val statusDao: StatusDao,
     private val timelineDao: TimelineDao,
+    private val collectionsRepository: CollectionsRepository,
 ) : RemoteMediator<Int, ConversationData>() {
 
     private var nextKey: String? = null
@@ -43,7 +45,6 @@ class ConversationsRemoteMediator(
         if (loadType == LoadType.PREPEND) {
             return MediatorResult.Success(endOfPaginationReached = true)
         }
-
         if (loadType == LoadType.REFRESH) {
             nextKey = null
         }
@@ -60,6 +61,7 @@ class ConversationsRemoteMediator(
         val accounts = mutableSetOf<TimelineAccount>()
         val conversationEntities = mutableSetOf<ConversationEntity>()
         val statuses = mutableSetOf<Status>()
+        val collectionIds = mutableSetOf<String>()
 
         val conversationStarter = isConversationStarter(conversations.map { it.lastStatus!! })
 
@@ -86,6 +88,11 @@ class ConversationsRemoteMediator(
                     conversationStarter[it.lastStatus!!.statusId] == true,
                 )!!,
             )
+
+            collectionIds.addAll(lastStatus.taggedCollections.map { it.collectionId })
+            (lastStatus.quote as? Status.Quote.FullQuote)?.let {
+                collectionIds.addAll(it.status.taggedCollections.map { it.collectionId })
+            }
         }
 
         transactionProvider {
@@ -96,6 +103,11 @@ class ConversationsRemoteMediator(
             timelineDao.upsertTimelineAccounts(accounts.asEntity(pachliAccountId))
             statusDao.upsertStatuses(statuses.map { it.actionableStatus.asEntity(pachliAccountId) })
             conversationsDao.upsert(conversationEntities)
+
+            // Cache all the collections mentioned in this page, so they're readable
+            // by ResolveCollectionCardsPagingSource.
+            Timber.d("reloading collections: $collectionIds")
+            collectionsRepository.reloadCollections(pachliAccountId, collectionIds)
         }
 
         return MediatorResult.Success(endOfPaginationReached = nextKey == null)
@@ -163,10 +175,12 @@ class ConversationsRemoteMediator(
                 .map { it.body.asModel() }
                 .onSuccess {
                     it.forEach { parentStatus ->
-                        val childStatusId = statusesToCheck[parentStatus.statusId]
-                        result[childStatusId!!] = parentStatus.visibility != Status.Visibility.DIRECT
+                        statusesToCheck[parentStatus.statusId]?.let { childStatusId ->
+                            result[childStatusId] = parentStatus.visibility != Status.Visibility.DIRECT
+                        }
                     }
-                }.onFailure { Timber.e("Failed: $it") }
+                }
+                .onFailure { Timber.e("Failed: $it") }
         }
 
         return result

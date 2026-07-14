@@ -179,7 +179,6 @@ fun fakeStatusViewData(
         ).asModel(),
         isExpanded = isExpanded,
         isCollapsed = isCollapsed,
-        isDetailed = isDetailed,
         translationState = TranslationState.SHOW_ORIGINAL,
         attachmentDisplayAction = if (isShowingContent) {
             AttachmentDisplayAction.Show(originalAction = AttachmentDisplayAction.Hide(AttachmentDisplayReason.Sensitive))
@@ -187,7 +186,8 @@ fun fakeStatusViewData(
             AttachmentDisplayAction.Hide(reason = AttachmentDisplayReason.Sensitive)
         },
         replyToAccount = null,
-        isUsersStatus = false,
+        isDetailed = isDetailed,
+        isUsersStatus = false,,
     ),
 )
 

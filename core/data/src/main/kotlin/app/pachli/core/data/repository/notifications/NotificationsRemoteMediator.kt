@@ -289,14 +289,6 @@ class NotificationsRemoteMediator(
     }
 
     /**
-     * @return All the account IDs referenced in [Collection]. The account ID of the owner
-     * and of all items in the collection.
-     */
-    private fun app.pachli.core.model.Collection.allAccountIds(): List<String> {
-        return items.mapNotNull { it.accountId } + accountId
-    }
-
-    /**
      * Calls the server to convert all [accountIds] to the full [Account] details.
      *
      * @return Map between the server's ID for the account and the [Account].

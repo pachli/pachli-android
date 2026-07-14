@@ -28,6 +28,7 @@ import app.pachli.components.timeline.TimelineRepository.Companion.PAGE_SIZE
 import app.pachli.components.timeline.viewmodel.NetworkTimelinePagingSource
 import app.pachli.components.timeline.viewmodel.NetworkTimelineRemoteMediator
 import app.pachli.components.timeline.viewmodel.PageCache
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusActionError
 import app.pachli.core.data.repository.StatusRepository
@@ -45,8 +46,8 @@ import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
-import kotlin.coroutines.coroutineContext
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -92,6 +93,7 @@ class NetworkTimelineRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val remoteKeyDao: RemoteKeyDao,
     private val statusRepository: OfflineFirstStatusRepository,
+    private val collectionsRepository: CollectionsRepository,
 ) : TimelineRepository<TimelineStatusWithQuote>, StatusRepository by statusRepository {
     private val pageCache = PageCache()
 
@@ -138,15 +140,19 @@ class NetworkTimelineRepository @Inject constructor(
 
         Timber.d("timeline: $timeline, initialKey: $initialKey")
         factory = InvalidatingPagingSourceFactory {
-            NetworkTimelinePagingSource(pachliAccountId, statusRepository, pageCache, initialKey)
+            NetworkTimelinePagingSource(pachliAccountId, statusRepository, collectionsRepository, pageCache, initialKey)
         }
 
         // Track changes to tables that might be changed by user actions. Changes to
         // these tables have to invalidate the paging source so the `map` that runs
         // on the `Pager.flow` below can re-run and reflect the changes in the data.
         // This shouldn't outlive the viewmodel scope that called `getStatusStream()`.
-        CoroutineScope(coroutineContext).launch {
-            invalidationTracker.createFlow("StatusViewDataEntity", emitInitialState = false)
+        CoroutineScope(currentCoroutineContext()).launch {
+            invalidationTracker.createFlow(
+                "CollectionViewDataEntity",
+                "StatusViewDataEntity",
+                emitInitialState = false,
+            )
                 .collect {
                     Timber.d("timeline: $timeline, tables changed: $it")
                     factory?.invalidate()
@@ -168,6 +174,7 @@ class NetworkTimelineRepository @Inject constructor(
                 pageCache,
                 timeline,
                 remoteKeyDao,
+                collectionsRepository,
             ),
             pagingSourceFactory = factory!!,
         ).flow

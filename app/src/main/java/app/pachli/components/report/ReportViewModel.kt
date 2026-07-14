@@ -21,6 +21,7 @@ import app.pachli.components.timeline.NetworkTimelineRepository
 import app.pachli.components.timeline.viewmodel.NetworkTimelineViewModel
 import app.pachli.core.common.PachliError
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.getOrNull
@@ -95,6 +96,7 @@ class ReportViewModel @AssistedInject constructor(
     private val unmuteAccountUseCase: UnmuteAccountUseCase,
     accountManager: AccountManager,
     sharedPreferencesRepository: SharedPreferencesRepository,
+    collectionsRepository: CollectionsRepository,
 ) : NetworkTimelineViewModel(
     timeline = Timeline.User.Replies(reportedAccountId, excludeReblogs = true),
     repository = repository,
@@ -103,6 +105,7 @@ class ReportViewModel @AssistedInject constructor(
     accountManager = accountManager,
     statusDisplayOptionsRepository = statusDisplayOptionsRepository,
     sharedPreferencesRepository = sharedPreferencesRepository,
+    collectionsRepository = collectionsRepository,
 ) {
     override val initialRefreshStatusId = flowOf(reportedStatusId)
 
