@@ -18,9 +18,9 @@
 package app.pachli.core.database.model
 
 import android.util.Log
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
+import androidx.room3.ColumnTypeConverters
+import androidx.room3.Entity
+import androidx.room3.PrimaryKey
 import app.pachli.core.database.Converters
 import java.time.Instant
 
@@ -55,7 +55,7 @@ interface LogEntry {
  * @see [LogEntry]
  */
 @Entity
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 data class LogEntryEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     override val instant: Instant,

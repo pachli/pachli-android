@@ -17,10 +17,10 @@
 
 package app.pachli.core.database.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.TypeConverters
+import androidx.room3.ColumnTypeConverters
+import androidx.room3.Dao
+import androidx.room3.Insert
+import androidx.room3.Query
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.LogEntryEntity
 import java.time.Instant
@@ -56,7 +56,7 @@ ORDER BY id ASC
     fun loadAllByTag(tag: String): Flow<List<LogEntryEntity>>
 
     /** Delete all [LogEntryEntity] older than [cutoff] */
-    @TypeConverters(Converters::class)
+    @ColumnTypeConverters(Converters::class)
     @Query(
         """
 DELETE

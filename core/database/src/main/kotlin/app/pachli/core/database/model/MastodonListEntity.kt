@@ -17,8 +17,8 @@
 
 package app.pachli.core.database.model
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
+import androidx.room3.Entity
+import androidx.room3.ForeignKey
 import app.pachli.core.model.MastodonList
 import app.pachli.core.model.UserListRepliesPolicy
 

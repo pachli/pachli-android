@@ -17,14 +17,14 @@
 
 package app.pachli.core.database.dao
 
-import androidx.room.Dao
-import androidx.room.Query
-import androidx.room.Transaction
-import androidx.room.TypeConverters
+import androidx.room3.ColumnTypeConverters
+import androidx.room3.Dao
+import androidx.room3.Query
+import androidx.room3.Transaction
 import app.pachli.core.database.Converters
 
 @Dao
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 interface DebugDao {
     @Transaction
     suspend fun clearCache() {

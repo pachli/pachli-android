@@ -43,6 +43,6 @@ dependencies {
     implementation(projects.core.ui)
     implementation(libs.bundles.androidx)
 
-    implementation(libs.bundles.room)
+    implementation(libs.bundles.room3)
         ?.because("Possible cache pruning on startup")
 }
