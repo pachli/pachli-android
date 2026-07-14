@@ -134,7 +134,7 @@ class FollowViewHolder(
             glide = glide,
             textView = binding.notificationAccountNote,
             content = note,
-            emojis = account.emojis.orEmpty(),
+            emojis = account.emojis,
             animateEmojis = animateEmojis,
             removeQuoteInline = false,
             linksToUnderline = linksToUnderline,

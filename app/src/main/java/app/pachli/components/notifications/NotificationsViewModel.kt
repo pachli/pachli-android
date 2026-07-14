@@ -669,7 +669,7 @@ class NotificationsViewModel @AssistedInject constructor(
                                 notificationId = notification.notification.serverId,
                                 account = notification.account.asModel(),
                                 isAboutSelf = isAboutSelf,
-                                accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
+                                accountFilterDecision = accountFilterDecision,
                             )
                         }
                     }

@@ -153,7 +153,7 @@ fun TimelineAccount.asConversationAccount() = ConversationAccount(
     username = username,
     displayName = name,
     avatar = avatar,
-    emojis = emojis.orEmpty(),
+    emojis = emojis,
     createdAt = createdAt,
 )
 
