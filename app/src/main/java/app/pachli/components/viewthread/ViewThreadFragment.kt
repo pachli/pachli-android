@@ -23,6 +23,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
@@ -49,9 +50,12 @@ import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.ICollection
 import app.pachli.core.model.IStatus
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
+import app.pachli.core.model.collection.CollectionCardViewData
+import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.EditContentFilterActivityIntent
@@ -62,6 +66,7 @@ import app.pachli.core.ui.SetContentAsMastodonHtml
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentViewThreadBinding
+import app.pachli.feature.collections.newConfirmRevokeDialogFragment
 import app.pachli.fragment.SFragment
 import app.pachli.util.ListStatusAccessibilityDelegate
 import com.bumptech.glide.Glide
@@ -73,7 +78,6 @@ import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import kotlin.properties.Delegates
 import kotlin.time.Duration.Companion.minutes
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
@@ -472,6 +476,27 @@ class ViewThreadFragment :
 
     override fun onReselect() {
         binding.recyclerView.scrollToPosition(0)
+    }
+
+    override fun onRevokeUserFromCollection(collection: ICollection) {
+        lifecycleScope.launch {
+            val button = requireContext().newConfirmRevokeDialogFragment().await(parentFragmentManager)
+            if (button == AlertDialog.BUTTON_POSITIVE) {
+                viewModel.onRevokeUserFromCollection(
+                    pachliAccountId,
+                    collection.collectionId,
+                    accountManager.activeAccount!!.accountId,
+                )
+            }
+        }
+    }
+
+    override fun onCollectionDisplayActionChange(viewData: CollectionCardViewData, collectionDisplayAction: CollectionDisplayAction) {
+        viewModel.onOverrideCollectionDisplayAction(
+            pachliAccountId,
+            viewData.timelineCollection.collectionId,
+            collectionDisplayAction,
+        )
     }
 
     companion object {

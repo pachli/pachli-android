@@ -21,6 +21,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.paging.PagingSource
 import androidx.paging.PagingSource.LoadResult
 import androidx.paging.PagingState
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.model.TimelineStatusWithQuote
@@ -40,6 +41,7 @@ private val INVALID = LoadResult.Invalid<String, TimelineStatusWithQuote>()
 class NetworkTimelinePagingSource(
     private val pachliAccountId: Long,
     private val statusRepository: StatusRepository,
+    private val collectionsRepository: CollectionsRepository,
     private val pageCache: PageCache,
     private val initialKey: String? = null,
 ) : PagingSource<String, TimelineStatusWithQuote>() {
@@ -120,7 +122,7 @@ class NetworkTimelinePagingSource(
             }
 
             LoadResult.Page(
-                page?.data.orEmpty().asTimelineStatusWithQuote(pachliAccountId, statusRepository),
+                page?.data.orEmpty().asTimelineStatusWithQuote(pachliAccountId, statusRepository, collectionsRepository),
                 nextKey = page?.nextKey,
                 prevKey = page?.prevKey,
             )
@@ -144,9 +146,10 @@ class NetworkTimelinePagingSource(
  *
  * @param pachliAccountId
  * @param statusRepository Repository to fetch viewdata and translations from.
+ * @param collectionsRepository Repository with collection information.
  */
 @VisibleForTesting
-suspend fun Iterable<Status>.asTimelineStatusWithQuote(pachliAccountId: Long, statusRepository: StatusRepository): List<TimelineStatusWithQuote> {
+suspend fun Iterable<Status>.asTimelineStatusWithQuote(pachliAccountId: Long, statusRepository: StatusRepository, collectionsRepository: CollectionsRepository): List<TimelineStatusWithQuote> {
     // Figure out all the status IDs referenced in this iterable.
     val statusIds = buildSet {
         this@asTimelineStatusWithQuote.forEach {
@@ -155,6 +158,19 @@ suspend fun Iterable<Status>.asTimelineStatusWithQuote(pachliAccountId: Long, st
             (it.quote as? Status.Quote.FullQuote)?.let { add(it.status.actionableId) }
         }
     }
+
+    // Fetch the CollectionCardViewData for any tagged collections in these statuses.
+    val collectionIds = buildSet {
+        this@asTimelineStatusWithQuote.forEach { status ->
+            addAll(status.actionableStatus.taggedCollections.map { it.collectionId })
+            (status.actionableStatus.quote as? Status.Quote.FullQuote)?.status?.let {
+                addAll(it.taggedCollections.map { it.collectionId })
+            }
+        }
+    }
+    val collectionCardViewData = collectionsRepository.getCollectionCardViewData(pachliAccountId, collectionIds)
+        .associateBy { it.timelineCollection.collectionId }
+
     // Populate the caches in two database lookups.
     val viewDataCache = statusRepository.getStatusViewData(pachliAccountId, statusIds)
     val translationCache = statusRepository.getTranslations(pachliAccountId, statusIds)
@@ -167,6 +183,7 @@ suspend fun Iterable<Status>.asTimelineStatusWithQuote(pachliAccountId: Long, st
                 reblogAccount = status.reblog?.let { status.account.asEntity(pachliAccountId) },
                 viewData = viewDataCache[status.actionableId],
                 translatedStatus = translationCache[status.actionableId],
+                collectionCards = status.taggedCollections.mapNotNull { collectionCardViewData[it.collectionId] },
             ),
             quotedStatus = (status.actionableStatus.quote as? Status.Quote.FullQuote)?.status?.let { q ->
                 TimelineStatusWithAccount(
@@ -175,6 +192,7 @@ suspend fun Iterable<Status>.asTimelineStatusWithQuote(pachliAccountId: Long, st
                     reblogAccount = null,
                     viewData = viewDataCache[q.actionableId],
                     translatedStatus = translationCache[q.actionableId],
+                    collectionCards = q.taggedCollections.mapNotNull { collectionCardViewData[it.collectionId] },
                 )
             },
         )

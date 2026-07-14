@@ -19,6 +19,7 @@ package app.pachli.core.data.repository
 
 import app.pachli.core.common.PachliError
 import app.pachli.core.model.CollectionWithAccounts
+import app.pachli.core.model.collection.CollectionCardViewData
 import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Result
@@ -39,10 +40,15 @@ interface CollectionsRepository {
      * Returns a flow of [CollectionWithAccounts], representing the current content of
      * [collectionId].
      */
-    fun getCollection(pachliAccountId: Long, collectionId: String): Flow<CollectionWithAccounts?>
+    fun getCollectionFlow(pachliAccountId: Long, collectionId: String): Flow<CollectionWithAccounts>
+
+    suspend fun getCollectionCardViewData(pachliAccountId: Long, collectionIds: Collection<String>): List<CollectionCardViewData>
 
     /** Reloads [collectionId] from the server. */
     suspend fun reloadCollection(pachliAccountId: Long, collectionId: String): Result<CollectionWithAccounts, Error.GetCollection>
+
+    /** Reloads [collectionIds] from the server. */
+    suspend fun reloadCollections(pachliAccountId: Long, collectionIds: Collection<String>): List<Result<CollectionWithAccounts, Error.GetCollection>>
 
     /** Revokes permission for [accountId] in [collectionId]. */
     suspend fun revokeFromCollection(pachliAccountId: Long, collectionId: String, accountId: String): Result<Unit, Error.RevokeFromCollection>

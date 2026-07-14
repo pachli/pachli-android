@@ -52,10 +52,12 @@ import app.pachli.core.domain.accounts.BlockAccountUseCase
 import app.pachli.core.domain.accounts.MuteAccountUseCase
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.Draft
+import app.pachli.core.model.ICollection
 import app.pachli.core.model.IStatus
 import app.pachli.core.model.Status
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
+import app.pachli.core.navigation.CollectionActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ReferencingStatus
@@ -139,6 +141,13 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
 
     override fun onViewUrl(url: String) {
         (requireActivity() as? ViewUrlActivity)?.viewUrl(pachliAccountId, url)
+    }
+
+    override fun onViewCollection(collection: ICollection) {
+        startActivityWithTransition(
+            CollectionActivityIntent(requireContext(), pachliAccountId, collection.collectionId),
+            TransitionKind.SLIDE_FROM_END,
+        )
     }
 
     protected fun reply(pachliAccountId: Long, status: Status) {

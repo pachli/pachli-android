@@ -20,14 +20,15 @@ package app.pachli.core.database.dao
 import androidx.room3.ColumnTypeConverters
 import androidx.room3.Dao
 import androidx.room3.Query
-import androidx.room3.Transaction
 import androidx.room3.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.CollectionAndOwnerEntities
+import app.pachli.core.database.model.CollectionCardViewData
 import app.pachli.core.database.model.CollectionEntity
 import app.pachli.core.database.model.CollectionItemEntity
 import app.pachli.core.database.model.CollectionViewDataEntity
+import app.pachli.core.database.model.StatusToTimelineCollectionEntity
 import app.pachli.core.database.model.TimelineCollectionEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -44,6 +45,9 @@ interface CollectionsDao {
     suspend fun upsertCollectionItems(collectionItems: Collection<CollectionItemEntity>)
 
     @Upsert
+    suspend fun upsertTimelineCollection(timelineCollection: TimelineCollectionEntity)
+
+    @Upsert
     suspend fun upsertTimelineCollections(timelineCollections: Collection<TimelineCollectionEntity>)
 
     @Upsert
@@ -57,7 +61,6 @@ WHERE pachliAccountId = :pachliAccountId AND collectionId = :collectionId AND ac
     )
     suspend fun removeAccountFromCollection(pachliAccountId: Long, collectionId: String, accountId: String)
 
-    @Transaction
     @Query(
         """
 WITH CollectionWithAccount AS (
@@ -89,12 +92,68 @@ SELECT
  JOIN AccountEntity owner
   ON collection.accountId = owner.accountId
 )
-SELECT * FROM CollectionWithAccount collection
- JOIN AccountEntity account
- JOIN CollectionItemEntity item
-  ON item.pachliAccountId = :pachliAccountId AND item.collectionId = collection.collectionId AND account.pachliAccountId = :pachliAccountId AND account.accountId = item.accountId
- WHERE collection.pachliAccountId = :pachliAccountId AND collection.collectionId = :collectionId
+SELECT * FROM CollectionWithAccount AS collection
+LEFT JOIN CollectionItemEntity AS item ON item.pachliAccountId = :pachliAccountId AND item.collectionId = :collectionId
+LEFT JOIN AccountEntity AS account ON account.pachliAccountId = :pachliAccountId AND item.accountId = account.accountId
+WHERE collection.pachliAccountId = :pachliAccountId AND collection.collectionId = :collectionId
         """,
     )
-    fun getCollection(pachliAccountId: Long, collectionId: String): Flow<Map<CollectionAndOwnerEntities, List<AccountEntity>>>
+    fun getCollectionFlow(pachliAccountId: Long, collectionId: String): Flow<Map<CollectionAndOwnerEntities, List<AccountEntity>>>
+
+    @Upsert
+    suspend fun saveStatusToCollectionAssociation(statusToTimelineCollectionEntities: List<StatusToTimelineCollectionEntity>)
+
+    @Query(
+        """
+SELECT *
+FROM TimelineCollectionEntity
+WHERE pachliAccountId = :pachliAccountId AND collectionId = :collectionId
+    """,
+    )
+    suspend fun getTimelineCollection(pachliAccountId: Long, collectionId: String): TimelineCollectionEntity?
+
+    @Query(
+        """
+SELECT *
+FROM TimelineCollectionEntity
+WHERE pachliAccountId = :pachliAccountId AND collectionId IN (:collectionIds)
+    """,
+    )
+    suspend fun getTimelineCollections(
+        pachliAccountId: Long,
+        collectionIds: List<String>,
+    ): List<TimelineCollectionEntity>
+
+    @Query(
+        """
+WITH MemberOf AS (
+  SELECT cie.pachliAccountId, cie.collectionId
+  FROM CollectionItemEntity AS cie
+  WHERE cie.accountId = (
+    SELECT accountId
+    FROM PachliAccountEntity
+    WHERE cie.pachliAccountId = PachliAccountEntity.pachliAccountId
+  )
+)
+SELECT c.*,
+IFNULL(
+  vd.displayAction,
+  CASE
+    WHEN NOT c.sensitive THEN '{"type":"show","originalAction":null}'
+    WHEN c.sensitive AND p.alwaysShowSensitiveMedia THEN '{"type":"show","originalAction":{"reason":{"type":"sensitive"}}}'
+    ELSE '{"type":"hide","reason":{"type":"sensitive"}}'
+  END
+) AS displayAction,
+m.collectionId IS NOT NULL AS isMember
+FROM TimelineCollectionEntity AS c
+LEFT JOIN PachliAccountEntity AS p ON (c.pachliAccountId = p.pachliAccountId)
+LEFT JOIN CollectionViewDataEntity AS vd ON (c.pachliAccountId = vd.pachliAccountId AND c.collectionId = vd.collectionId)
+LEFT JOIN MemberOf AS m ON (c.pachliAccountId = m.pachliAccountId AND c.collectionId = m.collectionId)
+WHERE c.pachliAccountId = :pachliAccountId AND c.collectionId IN (:collectionIds)
+        """,
+    )
+    suspend fun getCollectionCardViewData(
+        pachliAccountId: Long,
+        collectionIds: Collection<String>,
+    ): List<CollectionCardViewData>
 }

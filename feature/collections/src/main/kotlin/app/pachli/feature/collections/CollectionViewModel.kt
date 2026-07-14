@@ -58,9 +58,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.combineTransform
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
@@ -106,9 +104,8 @@ internal class CollectionViewModel @Inject constructor(
     private val collectionId = MutableSharedFlow<String>(replay = 1)
 
     /** The most recent cached collection details. */
-    private val localCollectionWithAccounts = combineTransform(pachliAccountId, collectionId) { pachliAccountId, collectionId ->
-        emitAll(collectionsRepository.getCollection(pachliAccountId, collectionId))
-    }
+    private val localCollectionWithAccounts = combine(pachliAccountId, collectionId) { pachliAccountId, collectionId -> pachliAccountId to collectionId }
+        .flatMapLatest { collectionsRepository.getCollectionFlow(it.first, it.second) }
 
     override val uiOptions = stateFlow(
         viewModelScope,
@@ -215,10 +212,7 @@ internal class CollectionViewModel @Inject constructor(
         viewModelScope.launch {
             localCollectionWithAccounts.collect {
                 collectionWithAccounts.value = Ok(Loadable.Loading)
-                if (it != null) {
-                    collectionWithAccounts.value = Ok(Loadable.Loaded(it))
-                    return@collect
-                }
+                collectionWithAccounts.value = Ok(Loadable.Loaded(it))
             }
         }
 

@@ -27,6 +27,7 @@ import android.view.ViewGroup
 import android.view.accessibility.AccessibilityManager
 import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.util.TypedValueCompat.dpToPx
 import androidx.core.view.MenuProvider
@@ -47,6 +48,7 @@ import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.components.timeline.viewmodel.CachedTimelineViewModel
+import app.pachli.components.timeline.viewmodel.FallibleCollectionAction
 import app.pachli.components.timeline.viewmodel.FallibleStatusAction
 import app.pachli.components.timeline.viewmodel.InfallibleStatusAction
 import app.pachli.components.timeline.viewmodel.InfallibleUiAction
@@ -67,10 +69,13 @@ import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.ICollection
 import app.pachli.core.model.IStatus
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
+import app.pachli.core.model.collection.CollectionCardViewData
+import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.EditContentFilterActivityIntent
@@ -82,6 +87,7 @@ import app.pachli.core.ui.SetContentAsMarkdown
 import app.pachli.core.ui.SetContentAsMastodonHtml
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentTimelineBinding
+import app.pachli.feature.collections.newConfirmRevokeDialogFragment
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.util.ListStatusAccessibilityDelegate
@@ -795,6 +801,31 @@ class TimelineFragment :
                 TabTapBehaviour.JUMP_TO_NEWEST -> viewModel.accept(InfallibleUiAction.LoadNewest(pachliAccountId))
             }
         }
+    }
+
+    override fun onRevokeUserFromCollection(collection: ICollection) {
+        lifecycleScope.launch {
+            val button = requireContext().newConfirmRevokeDialogFragment().await(parentFragmentManager)
+            if (button == AlertDialog.BUTTON_POSITIVE) {
+                viewModel.accept(
+                    FallibleCollectionAction.Revoke(
+                        pachliAccountId = pachliAccountId,
+                        collectionId = collection.collectionId,
+                        accountId = viewModel.pachliAccount.accountId,
+                    ),
+                )
+            }
+        }
+    }
+
+    override fun onCollectionDisplayActionChange(viewData: CollectionCardViewData, collectionDisplayAction: CollectionDisplayAction) {
+        viewModel.accept(
+            InfallibleUiAction.OverrideCollectionDisplayAction(
+                pachliAccountId,
+                viewData.timelineCollection.collectionId,
+                collectionDisplayAction,
+            ),
+        )
     }
 
     companion object {

@@ -24,6 +24,7 @@ import app.pachli.core.model.Announcement
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Card
+import app.pachli.core.model.Collection
 import app.pachli.core.model.CollectionItem
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.ConversationAccount
@@ -368,4 +369,10 @@ class Converters @Inject constructor(
 
     @ColumnTypeConverter
     fun jsonToShallowHashtag(s: String?) = fromJson<ShallowHashtag>(s)
+
+    @ColumnTypeConverter
+    fun listCollectionToJson(collections: List<Collection>) = toJson(collections)
+
+    @ColumnTypeConverter
+    fun jsonToListCollection(s: String?) = fromJson<List<Collection>>(s)
 }

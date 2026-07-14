@@ -17,8 +17,8 @@
 
 package app.pachli.core.ui
 
-import app.pachli.core.data.CollectionCardViewData
 import app.pachli.core.model.ICollection
+import app.pachli.core.model.collection.CollectionCardViewData
 import app.pachli.core.model.collection.CollectionDisplayAction
 
 /**

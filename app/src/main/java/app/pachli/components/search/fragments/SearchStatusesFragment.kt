@@ -51,12 +51,16 @@ import app.pachli.core.domain.DownloadUrlUseCase
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Draft
+import app.pachli.core.model.ICollection
 import app.pachli.core.model.IStatus
 import app.pachli.core.model.PachliAccount
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Status.Mention
+import app.pachli.core.model.collection.CollectionCardViewData
+import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.navigation.AttachmentViewData
+import app.pachli.core.navigation.CollectionActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ReferencingStatus
@@ -67,6 +71,7 @@ import app.pachli.core.ui.ClipboardUseCase
 import app.pachli.core.ui.SetContentAsMarkdown
 import app.pachli.core.ui.SetContentAsMastodonHtml
 import app.pachli.core.ui.StatusActionListener
+import app.pachli.feature.collections.newConfirmRevokeDialogFragment
 import app.pachli.usecase.TimelineCases
 import app.pachli.view.showMuteAccountDialog
 import com.bumptech.glide.Glide
@@ -574,6 +579,34 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
             }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
+    }
+
+    override fun onViewCollection(collection: ICollection) {
+        startActivityWithTransition(
+            CollectionActivityIntent(requireContext(), pachliAccountId, collection.collectionId),
+            TransitionKind.SLIDE_FROM_END,
+        )
+    }
+
+    override fun onRevokeUserFromCollection(collection: ICollection) {
+        lifecycleScope.launch {
+            val button = requireContext().newConfirmRevokeDialogFragment().await(parentFragmentManager)
+            if (button == AlertDialog.BUTTON_POSITIVE) {
+                viewModel.onRevokeUserFromCollection(
+                    pachliAccountId,
+                    collection.collectionId,
+                    viewModel.pachliAccount.replayCache.last()!!.accountId,
+                )
+            }
+        }
+    }
+
+    override fun onCollectionDisplayActionChange(viewData: CollectionCardViewData, collectionDisplayAction: CollectionDisplayAction) {
+        viewModel.onOverrideCollectionDisplayAction(
+            pachliAccountId,
+            viewData.timelineCollection.collectionId,
+            collectionDisplayAction,
+        )
     }
 
     companion object {

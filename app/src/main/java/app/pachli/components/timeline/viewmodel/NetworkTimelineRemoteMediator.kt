@@ -24,10 +24,12 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import app.pachli.BuildConfig
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.TimelineStatusWithQuote
+import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Status as NetworkStatus
 import app.pachli.core.network.retrofit.MastodonApi
@@ -64,6 +66,7 @@ class NetworkTimelineRemoteMediator(
     private val pageCache: PageCache,
     private val timeline: Timeline,
     private val remoteKeyDao: RemoteKeyDao,
+    private val collectionsRepository: CollectionsRepository,
 ) : RemoteMediator<String, TimelineStatusWithQuote>() {
     override suspend fun load(loadType: LoadType, state: PagingState<String, TimelineStatusWithQuote>): MediatorResult {
         Timber.d("timeline: $timeline, load(), type: $loadType")
@@ -165,6 +168,16 @@ class NetworkTimelineRemoteMediator(
                 pageCache.size,
             )
             pageCache.debug()
+
+            // Cache all the collections mentioned in this page, so they're readable
+            // by NetworkTimelinePagingSource.
+            val collectionIds = buildSet {
+                page.data.forEach {
+                    addAll(it.actionableStatus.taggedCollections.map { it.collectionId })
+                    (it.actionableStatus.quote as? Status.Quote.FullQuote)?.let { addAll(it.status.taggedCollections.map { it.collectionId }) }
+                }
+            }
+            collectionsRepository.reloadCollections(pachliAccountId, collectionIds)
 
             Timber.d("  Invalidating paging source")
             factory.invalidate()

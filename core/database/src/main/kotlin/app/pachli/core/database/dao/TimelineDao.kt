@@ -129,6 +129,7 @@ ORDER BY LENGTH(s.statusId) DESC, s.statusId DESC
     s.pinned AS 's_pinned',
     s.language AS 's_language',
     s.filtered AS 's_filtered',
+    s.taggedCollections AS 's_taggedCollections',
     s.quoteState AS 's_quoteState',
     s.quoteStatusId AS 's_quoteStatusId',
     s.quoteApproval AS 's_quoteApproval',
@@ -229,6 +230,7 @@ ORDER BY LENGTH(s.statusId) DESC, s.statusId DESC
     q.pinned AS 'q_pinned',
     q.language AS 'q_language',
     q.filtered AS 'q_filtered',
+    q.taggedCollections AS 'q_taggedCollections',
     q.quoteState AS 'q_quoteState',
     q.quoteStatusId AS 'q_quoteStatusId',
     q.quoteApproval AS 'q_quoteApproval',
@@ -294,8 +296,9 @@ ORDER BY LENGTH(s.statusId) DESC, s.statusId DESC
     q.reply_limited AS 'q_reply_limited',
     q.reply_roles AS 'q_reply_roles',
     q.reply_pronouns AS 'q_reply_pronouns'
+
   FROM TimelineStatusEntity AS t
- LEFT JOIN TimelineStatusWithAccount AS s
+  JOIN TimelineStatusWithAccount AS s
     ON (t.pachliAccountId = :account AND (s.pachliAccountId = :account AND t.statusId = s.statusId))
  LEFT JOIN TimelineStatusWithAccount AS q
     ON (t.pachliAccountId = :account AND (q.pachliAccountId = :account AND s.quoteStatusId = q.statusId))
@@ -387,6 +390,7 @@ SELECT
     s.pinned AS 's_pinned',
     s.language AS 's_language',
     s.filtered AS 's_filtered',
+    s.taggedCollections AS 's_taggedCollections',
     s.quoteState AS 's_quoteState',
     s.quoteStatusId AS 's_quoteStatusId',
     s.quoteApproval AS 's_quoteApproval',
@@ -487,6 +491,7 @@ SELECT
     q.pinned AS 'q_pinned',
     q.language AS 'q_language',
     q.filtered AS 'q_filtered',
+    q.taggedCollections AS 'q_taggedCollections',
     q.quoteState AS 'q_quoteState',
     q.quoteStatusId AS 'q_quoteStatusId',
     q.quoteApproval AS 'q_quoteApproval',
@@ -603,6 +608,7 @@ SELECT
     s.pinned AS 's_pinned',
     s.language AS 's_language',
     s.filtered AS 's_filtered',
+    s.taggedCollections AS 's_taggedCollections',
     s.quoteState AS 's_quoteState',
     s.quoteStatusId AS 's_quoteStatusId',
     s.quoteApproval AS 's_quoteApproval',
@@ -703,6 +709,7 @@ SELECT
     q.pinned AS 'q_pinned',
     q.language AS 'q_language',
     q.filtered AS 'q_filtered',
+    q.taggedCollections AS 'q_taggedCollections',
     q.quoteState AS 'q_quoteState',
     q.quoteStatusId AS 'q_quoteStatusId',
     q.quoteApproval AS 'q_quoteApproval',
@@ -1110,6 +1117,7 @@ WHERE pachliAccountId = :pachliAccountId
     s.pinned AS 's_pinned',
     s.language AS 's_language',
     s.filtered AS 's_filtered',
+    s.taggedCollections AS 's_taggedCollections',
     s.quoteState AS 's_quoteState',
     s.quoteStatusId AS 's_quoteStatusId',
     s.quoteApproval AS 's_quoteApproval',
@@ -1210,6 +1218,7 @@ WHERE pachliAccountId = :pachliAccountId
     q.pinned AS 'q_pinned',
     q.language AS 'q_language',
     q.filtered AS 'q_filtered',
+    q.taggedCollections AS 'q_taggedCollections',
     q.quoteState AS 'q_quoteState',
     q.quoteStatusId AS 'q_quoteStatusId',
     q.quoteApproval AS 'q_quoteApproval',

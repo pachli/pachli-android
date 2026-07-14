@@ -196,6 +196,8 @@ data class TimelineCollectionEntity(
     )
 }
 
+fun Iterable<TimelineCollectionEntity>.asModel() = map { it.asModel() }
+
 fun TimelineCollection.asEntity(pachliAccountId: Long) = TimelineCollectionEntity(
     pachliAccountId = pachliAccountId,
     collectionId = collectionId,
@@ -304,3 +306,16 @@ data class CollectionViewDataEntity(
     val collectionId: String,
     val displayAction: CollectionDisplayAction? = null,
 )
+
+data class CollectionCardViewData(
+    @Embedded
+    val timelineCollectionEntity: TimelineCollectionEntity,
+    val displayAction: CollectionDisplayAction,
+    val isMember: Boolean,
+) {
+    fun asModel() = app.pachli.core.model.collection.CollectionCardViewData(
+        timelineCollection = timelineCollectionEntity.asModel(),
+        displayAction = displayAction,
+        isMember = isMember,
+    )
+}

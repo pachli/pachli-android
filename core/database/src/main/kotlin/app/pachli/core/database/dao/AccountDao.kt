@@ -21,7 +21,6 @@ import androidx.room3.ColumnTypeConverters
 import androidx.room3.Dao
 import androidx.room3.Delete
 import androidx.room3.Query
-import androidx.room3.Transaction
 import androidx.room3.Update
 import androidx.room3.Upsert
 import app.pachli.core.database.Converters
@@ -36,7 +35,6 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 @ColumnTypeConverters(Converters::class)
 interface AccountDao {
-    @Transaction
     @Query(
         """
 SELECT *
@@ -46,7 +44,6 @@ WHERE pachliAccountId = :pachliAccountId
     )
     suspend fun getPachliAccount(pachliAccountId: Long): PachliAccountWithRelations?
 
-    @Transaction
     @Query(
         """
 SELECT *
@@ -56,7 +53,6 @@ WHERE pachliAccountId = :pachliAccountId
     )
     fun getPachliAccountFlow(pachliAccountId: Long): Flow<PachliAccountWithRelations?>
 
-    @Transaction
     @Query(
         """
 SELECT *
@@ -66,7 +62,6 @@ WHERE isActive = 1
     )
     fun getActivePachliAccountFlow(): Flow<PachliAccountWithRelations?>
 
-    @Transaction
     @Query(
         """
 SELECT *
@@ -76,7 +71,6 @@ WHERE isActive = 1
     )
     fun getActivePachliAccount(): PachliAccountWithRelations?
 
-    @Transaction
     @Query(
         """
 SELECT *

@@ -23,16 +23,21 @@ import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import androidx.paging.filter
 import app.pachli.components.timeline.TimelineRepository.Companion.PAGE_SIZE
 import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator
 import app.pachli.core.common.di.ApplicationScope
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusRepository
+import app.pachli.core.database.dao.CollectionsDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.dao.TranslatedStatusDao
+import app.pachli.core.database.di.InvalidationTracker
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.StatusViewDataEntity
@@ -45,6 +50,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -61,12 +67,14 @@ import timber.log.Timber
 @Singleton
 class CachedTimelineRepository @Inject constructor(
     @ApplicationContext private val context: Context,
+    private val invalidationTracker: InvalidationTracker,
     private val mastodonApi: MastodonApi,
     private val transactionProvider: TransactionProvider,
-    val timelineDao: TimelineDao,
+    private val timelineDao: TimelineDao,
     private val remoteKeyDao: RemoteKeyDao,
     private val translatedStatusDao: TranslatedStatusDao,
     private val statusDao: StatusDao,
+    private val collectionsDao: CollectionsDao,
     @ApplicationScope private val externalScope: CoroutineScope,
     statusRepository: OfflineFirstStatusRepository,
 ) : TimelineRepository<TimelineStatusWithQuote>, StatusRepository by statusRepository {
@@ -105,7 +113,9 @@ class CachedTimelineRepository @Inject constructor(
         pachliAccountId: Long,
         timeline: Timeline,
     ): Flow<PagingData<TimelineStatusWithQuote>> {
-        factory = InvalidatingPagingSourceFactory { timelineDao.getStatusesWithQuote(pachliAccountId) }
+        factory = InvalidatingPagingSourceFactory {
+            ResolveCollectionCardsPagingSource(pachliAccountId, timelineDao, collectionsDao)
+        }
 
         val initialKey = timeline.remoteKeyTimelineId?.let { timelineId ->
             remoteKeyDao.remoteKeyForKind(pachliAccountId, timelineId, RemoteKeyKind.REFRESH)?.key
@@ -118,6 +128,19 @@ class CachedTimelineRepository @Inject constructor(
         hiddenDomains.clear()
         hiddenStatuses.clear()
         hiddenAccounts.clear()
+
+        // The custom paging source means Room doesn't know there's a relationship
+        // between the tables. Manually track changes to relevant tables and invalidate
+        // invalidate the paging source to ensure the user's clicks to show/hide
+        // collections, collection membership changes, etc, are reflected in the UI.
+        CoroutineScope(currentCoroutineContext()).launch {
+            invalidationTracker.createFlow(
+                "TimelineCollectionEntity",
+                "CollectionItemEntity",
+                "CollectionViewDataEntity",
+                emitInitialState = false,
+            ).collect { factory?.invalidate() }
+        }
 
         return Pager(
             initialKey = row,
@@ -133,6 +156,7 @@ class CachedTimelineRepository @Inject constructor(
                 timelineDao,
                 remoteKeyDao,
                 statusDao,
+                collectionsDao,
             ),
             pagingSourceFactory = factory!!,
         ).flow.map { pagingData ->
@@ -193,4 +217,124 @@ class CachedTimelineRepository @Inject constructor(
     suspend fun clearStatusWarning(pachliAccountId: Long, statusId: String) = externalScope.launch {
         statusDao.clearWarning(pachliAccountId, statusId)
     }.join()
+}
+
+/**
+ * PagingSource for [TimelineStatusWithQuote] that resolves the
+ * [Status.taggedCollections][app.pachli.core.model.Status.taggedCollections]
+ * property and populates the
+ * [TimelineStatusWithAccount.collectionCards][app.pachli.core.database.dao.TimelineStatusWithAccount.collectionCards]
+ * property.
+ *
+ * This works around a Room limitation -- a paging source can't have a many-many
+ * relation where that relationship might appear at multiple levels of results.
+ *
+ * From a modeling perspective there's a many-many relationship between the
+ * collection IDs in the `taggedCollections` property and the `CollectionEntity`
+ * table.
+ *
+ * However, Room can't represent that relationship.
+ *
+ * Using a multi-map doesn't work because Paging3 doesn't support them. The
+ * many-many relationship would return multiple rows for a single item, which
+ * breaks the "limit offset" paging Paging3 uses, as Paging3 expects one row per
+ * result.
+ *
+ * Using Room's [@Relation] annotation and a junction/association table doesn't
+ * work because the annotation expects the columns in the results to have
+ * consistent names. They don't, because a
+ * [TimelineStatusWithAccount][app.pachli.core.database.dao.TimelineStatusWithAccount]
+ * might be used on its own (1 level deep, columns have a `s_` prefix), or in a
+ * [TimelineStatusWithQuote] (2 levels deep, columns have a `s_s_` prefix) and
+ * Room can't figure out how to match them together.
+ *
+ * To fix this, this paging source wraps [TimelineDao.getStatusWithQuote]. When
+ * each page of [TimelineStatusWithQuote] is returned it is checked for collections
+ * referenced in the
+ * [Status.taggedCollections][app.pachli.core.model.Status.taggedCollections]
+ * properties.
+ *
+ * If any collections are found an additional query is made to fetch all the
+ * [CollectionCardViewData][app.pachli.core.database.model.CollectionCardViewData]
+ * referenced by the statuses in this page. A modified copy of the page is
+ * made that adds the
+ * [CollectionCardViewData][app.pachli.core.database.model.CollectionCardViewData]
+ * to each page, and the modified page is returned.
+ */
+private class ResolveCollectionCardsPagingSource(
+    private val pachliAccountId: Long,
+    private val timelineDao: TimelineDao,
+    private val collectionsDao: CollectionsDao,
+) : PagingSource<Int, TimelineStatusWithQuote>() {
+    val delegate by unsafeLazy { timelineDao.getStatusesWithQuote(pachliAccountId) }
+
+    override fun getRefreshKey(state: PagingState<Int, TimelineStatusWithQuote>): Int? = delegate.getRefreshKey(state)
+
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TimelineStatusWithQuote> {
+        val result = delegate.load(params)
+
+        if (result !is LoadResult.Page) return result
+
+        // Fetch any missing collections and add them to data.
+
+        // Map from statusID to list of collection IDs referenced by that status, in
+        // the order the collections are referenced.
+        val statusIdToCollectionIds = buildMap {
+            result.data.forEach { tsq ->
+                put(tsq.timelineStatus.status.actionableId, tsq.timelineStatus.status.taggedCollections.map { it.collectionId })
+                tsq.quotedStatus?.let { q ->
+                    put(q.status.actionableId, q.status.taggedCollections.map { it.collectionId })
+                }
+            }
+        }
+
+        // Return early if there are no collections.
+        if (statusIdToCollectionIds.isEmpty()) return result
+
+        // Fetch the missing collections. Map from collectionId to collection.
+        val collectionCardViewData = collectionsDao.getCollectionCardViewData(
+            pachliAccountId,
+            statusIdToCollectionIds.values.flatten().distinct(),
+        ).map { it.asModel() }.associateBy { it.collectionId }
+
+        // Build the modified data for this page.
+        //
+        // Any TimelineStatusWithAccount that doesn't have taggedCollections is
+        // passed through unchanged.
+        //
+        // For the others, the collectionCards property is set to the collection
+        // cards for those tagged collections.
+        val modifiedData = result.data.map { tsq ->
+            val statusId = tsq.timelineStatus.status.actionableId
+            val quotedStatusId = tsq.quotedStatus?.status?.actionableId
+
+            val newTimelineStatusCollectionIds = statusIdToCollectionIds[statusId].orEmpty()
+            val newQuotedStatusCollectionIds = quotedStatusId?.let { statusIdToCollectionIds[quotedStatusId] }.orEmpty()
+
+            // Bail early if this status has no collections.
+            if (newTimelineStatusCollectionIds.isEmpty() && newQuotedStatusCollectionIds.isEmpty()) return@map tsq
+
+            val newTimelineStatus = if (newTimelineStatusCollectionIds.isEmpty()) {
+                tsq.timelineStatus
+            } else {
+                tsq.timelineStatus.copy(
+                    collectionCards = newTimelineStatusCollectionIds.mapNotNull { collectionCardViewData[it] },
+                )
+            }
+            val newQuotedStatus = if (newQuotedStatusCollectionIds.isEmpty()) {
+                tsq.quotedStatus
+            } else {
+                tsq.quotedStatus?.copy(
+                    collectionCards = newQuotedStatusCollectionIds.mapNotNull { collectionCardViewData[it] },
+                )
+            }
+
+            tsq.copy(
+                timelineStatus = newTimelineStatus,
+                quotedStatus = newQuotedStatus,
+            )
+        }
+
+        return result.copy(data = modifiedData)
+    }
 }

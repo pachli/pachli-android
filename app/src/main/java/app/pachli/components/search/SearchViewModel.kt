@@ -39,6 +39,7 @@ import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.dao.TimelineStatusWithAccount
@@ -68,6 +69,7 @@ import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_RE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE
 import app.pachli.core.model.Status
+import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.usecase.TimelineCases
@@ -105,6 +107,7 @@ class SearchViewModel @Inject constructor(
     accountManager: AccountManager,
     private val statusRepository: OfflineFirstStatusRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
+    private val collectionsRepository: CollectionsRepository,
 ) : ViewModel() {
     private val pachliAccountId = MutableSharedFlow<Long>(replay = 1)
 
@@ -456,6 +459,24 @@ class SearchViewModel @Inject constructor(
             updateStatusViewData(statusViewData) {
                 it.copy(statusViewData = it.statusViewData.copy(status = newStatus))
             }
+        }
+    }
+
+    // TODO: No visible effect, as collection card data is not shown in search results yet.
+    fun onOverrideCollectionDisplayAction(pachliAccountId: Long, collectionId: String, collectionDisplayAction: CollectionDisplayAction) {
+        viewModelScope.launch {
+            collectionsRepository.setCollectionDisplayAction(
+                pachliAccountId,
+                collectionId,
+                collectionDisplayAction,
+            )
+        }
+    }
+
+    // TODO: No visible effect, as collection card data is not shown in search results yet.
+    fun onRevokeUserFromCollection(pachliAccountId: Long, collectionId: String, accountId: String) {
+        viewModelScope.launch {
+            collectionsRepository.revokeFromCollection(pachliAccountId, collectionId, accountId)
         }
     }
 

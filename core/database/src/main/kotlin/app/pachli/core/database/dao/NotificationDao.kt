@@ -95,6 +95,7 @@ SELECT
     s.pinned AS 's_s_pinned',
     s.language AS 's_s_language',
     s.filtered AS 's_s_filtered',
+    s.taggedCollections AS 's_s_taggedCollections',
 
     -- The status' account (if any)
     s.a_accountId AS 's_s_a_accountId',
@@ -192,6 +193,7 @@ SELECT
     q.pinned AS 's_q_pinned',
     q.language AS 's_q_language',
     q.filtered AS 's_q_filtered',
+    q.taggedCollections AS 's_q_taggedCollections',
     q.quoteState AS 's_q_quoteState',
     q.quoteStatusId AS 's_q_quoteStatusId',
     q.quoteApproval AS 's_q_quoteApproval',
@@ -449,6 +451,7 @@ SELECT
     s.pinned AS 's_s_pinned',
     s.language AS 's_s_language',
     s.filtered AS 's_s_filtered',
+    s.taggedCollections AS 's_s_taggedCollections',
 
     -- The status' account (if any)
     s.a_accountId AS 's_s_a_accountId',
@@ -546,6 +549,7 @@ SELECT
     q.pinned AS 's_q_pinned',
     q.language AS 's_q_language',
     q.filtered AS 's_q_filtered',
+    q.taggedCollections AS 's_q_taggedCollections',
     q.quoteState AS 's_q_quoteState',
     q.quoteStatusId AS 's_q_quoteStatusId',
     q.quoteApproval AS 's_q_quoteApproval',
