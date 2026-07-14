@@ -51,16 +51,16 @@ interface IStatus {
     val visibility: Visibility
     val attachments: List<Attachment>
     val mentions: List<Mention>
-    val tags: List<Hashtag>?
+    val tags: List<Hashtag>
     val application: Application?
-    val pinned: Boolean?
-    val muted: Boolean?
+    val pinned: Boolean
+    val muted: Boolean
     val poll: Poll?
     val card: Card?
     val quote: Quote?
     val quoteApproval: QuoteApproval
     val language: String?
-    val filtered: List<FilterResult>?
+    val filtered: List<FilterResult>
 }
 
 /**
@@ -90,16 +90,16 @@ data class Status(
     override val visibility: Visibility,
     override val attachments: List<Attachment>,
     override val mentions: List<Mention>,
-    override val tags: List<Hashtag>?,
+    override val tags: List<Hashtag>,
     override val application: Application?,
-    override val pinned: Boolean?,
-    override val muted: Boolean?,
+    override val pinned: Boolean,
+    override val muted: Boolean,
     override val poll: Poll?,
     override val card: Card?,
     override val quote: Quote?,
     override val quoteApproval: QuoteApproval,
     override val language: String?,
-    override val filtered: List<FilterResult>?,
+    override val filtered: List<FilterResult>,
 ) : IStatus {
     val actionableId: String
         get() = reblog?.statusId ?: statusId
@@ -186,10 +186,6 @@ data class Status(
      * @see [Status.Visibility.allowsReblog]
      */
     fun rebloggingAllowed() = visibility.allowsReblog
-
-    fun isPinned(): Boolean {
-        return pinned ?: false
-    }
 
     @JsonClass(generateAdapter = true)
     data class Mention(
