@@ -34,6 +34,7 @@ sealed interface Notification {
         val status: app.pachli.core.model.Status
     }
 
+    /** Notification that references a [Collection]. */
     sealed interface WithCollection : Notification {
         val collection: Collection
     }
@@ -266,8 +267,6 @@ sealed interface Notification {
      */
     val type: Type
         get() = when (this) {
-            is CollectionAdd -> Type.COLLECTION_ADD
-            is CollectionUpdate -> Type.COLLECTION_UPDATE
             is Favourite -> Type.FAVOURITE
             is Follow -> Type.FOLLOW
             is FollowRequest -> Type.FOLLOW_REQUEST
@@ -281,6 +280,8 @@ sealed interface Notification {
             is SeveredRelationships -> Type.SEVERED_RELATIONSHIPS
             is SignUp -> Type.SIGN_UP
             is Status -> Type.STATUS
+            is CollectionAdd -> Type.COLLECTION_ADD
+            is CollectionUpdate -> Type.COLLECTION_UPDATE
             is Unknown -> Type.UNKNOWN
             is Update -> Type.UPDATE
         }

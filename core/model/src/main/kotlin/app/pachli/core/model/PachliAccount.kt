@@ -30,10 +30,6 @@ package app.pachli.core.model
  * @property profilePictureUrl
  * @property profileHeaderPictureUrl
  * @property notificationsEnabled User wants Android notifications enabled for this account
- * @property notificationsCollectionAdd User wants Android notifications when added
- * to a collection.
- * @property notificationsCollectionUpdate User wants Android notifications when a
- * collection they're in is updated.
  * @property notificationsMentioned
  * @property notificationsFollowed
  * @property notificationsFollowRequested
@@ -48,6 +44,10 @@ package app.pachli.core.model
  * @property notificationsModerationWarnings
  * @property notificationsQuotes
  * @property notificationsQuotedUpdates
+ * @property notificationsCollectionAdd User wants Android notifications when added
+ * to a collection.
+ * @property notificationsCollectionUpdate User wants Android notifications when a
+ * collection they're in is updated.
  * @property notificationSound
  * @property notificationVibration
  * @property notificationLight
@@ -107,8 +107,6 @@ interface PachliAccount {
     val profilePictureUrl: String
     val profileHeaderPictureUrl: String
     val notificationsEnabled: Boolean
-    val notificationsCollectionAdd: Boolean
-    val notificationsCollectionUpdate: Boolean
     val notificationsMentioned: Boolean
     val notificationsFollowed: Boolean
     val notificationsFollowRequested: Boolean
@@ -123,6 +121,8 @@ interface PachliAccount {
     val notificationsModerationWarnings: Boolean
     val notificationsQuotes: Boolean
     val notificationsQuotedUpdates: Boolean
+    val notificationsCollectionAdd: Boolean
+    val notificationsCollectionUpdate: Boolean
     val notificationSound: Boolean
     val notificationVibration: Boolean
     val notificationLight: Boolean

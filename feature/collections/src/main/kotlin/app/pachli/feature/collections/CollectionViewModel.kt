@@ -107,7 +107,7 @@ internal class CollectionViewModel @Inject constructor(
     private val collectionId = MutableSharedFlow<String>(replay = 1)
 
     /** The most recent cached collection details. */
-    private val collectionWithAccounts = combineTransform(pachliAccountId, collectionId) { pachliAccountId, collectionId ->
+    private val localCollectionWithAccounts = combineTransform(pachliAccountId, collectionId) { pachliAccountId, collectionId ->
         emitAll(collectionsRepository.getCollection(pachliAccountId, collectionId))
     }
 
@@ -120,11 +120,9 @@ internal class CollectionViewModel @Inject constructor(
     }
 
     /**
-     * Map from [account IDs][app.pachli.core.model.ITimelineAccount.serverId] to the
-     * user's [app.pachli.core.model.Relationship] to that account, so that appropriate actions (follow,
-     * unfollow, etc) can be shown in the UI.
-     *
-     * If null the relationship data hasn't been loaded yet.
+     * Map from [account IDs][app.pachli.core.model.ITimelineAccount.serverId]
+     * to the user's [app.pachli.core.model.Relationship] to that account, so
+     * that appropriate actions (follow, unfollow, etc) can be shown in the UI.
      */
     private val relationships = MutableStateFlow<Result<Loadable<Map<String, Relationship>>, RelationshipsRepository.RelationshipError>>(Ok(Loadable.Loading))
 
@@ -204,7 +202,7 @@ internal class CollectionViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            // Wait for a reload trigger, then reload the collection from the server.
+            // Wait for a reload collection, trigger, then reload the collection from the server.
             combine(reload, pachliAccountId, collectionId) { _, pachliAccountId, collectionId ->
                 Pair(pachliAccountId, collectionId)
             }.collect { (pachliAccountId, collectionId) ->
@@ -216,7 +214,7 @@ internal class CollectionViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            collectionWithAccounts.collect {
+            localCollectionWithAccounts.collect {
                 _collectionWithAccounts.value = Ok(Loadable.Loading)
                 if (it != null) {
                     _collectionWithAccounts.value = Ok(Loadable.Loaded(it))
@@ -226,7 +224,9 @@ internal class CollectionViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            combine(reloadRelationships, pachliAccountId, collectionWithAccounts.filterNotNull()) { _, pachliAccountId, collectionWithAccounts ->
+            // Wait for a reloadRelationships trigger, then reload relationships from
+            // the server.
+            combine(reloadRelationships, pachliAccountId, localCollectionWithAccounts.filterNotNull()) { _, pachliAccountId, collectionWithAccounts ->
                 Triple(pachliAccountId, collectionWithAccounts.collection.serverId, collectionWithAccounts.accounts.map { it.serverId } + collectionWithAccounts.owner?.serverId)
             }.collect { (pachliAccountId, collectionId, accountIds) ->
                 relationshipsRepository.getRelationships(pachliAccountId, accountIds.filterNotNull())
@@ -264,6 +264,11 @@ internal class CollectionViewModel @Inject constructor(
         }
     }
 
+    /**
+     * @return The primary [AccountAction] for [account] in [collection],
+     * based on the user's relationship to the [account] (is it them, are
+     * they already following it, etc).
+     */
     private fun makePrimaryAction(pachliAccountId: Long, collection: Collection, account: Account, isSelf: Boolean, relationship: Relationship?): AccountAction? {
         relationship ?: return null
 
@@ -315,15 +320,22 @@ internal class CollectionViewModel @Inject constructor(
     }
 
     /**
-     * Gets the most recent collection and relationship data, updating [collectionWithAccounts]
-     * and [relationships].
+     * Gets the most recent collection and relationship data, updating
+     * [localCollectionWithAccounts] and [relationships].
      */
     private suspend fun onGetCollection(action: UiAction.LoadCollection) = operationCounter {
         pachliAccountId.emit(action.pachliAccountId)
         collectionId.emit(action.collectionId)
     }
 
-    private suspend fun onAccountAction(action: AccountAction) {
+    /**
+     * Performs [action]. During the action the account is marked as disabled
+     * to prevent additional user interaction with it.
+     *
+     * Any relationship changes as a result of [action] are used to update
+     * [relationships].
+     */
+    private suspend fun onAccountAction(action: AccountAction) = operationCounter {
         disabledAccountIds.update { it + action.account.serverId }
 
         val result = when (action) {
@@ -340,7 +352,7 @@ internal class CollectionViewModel @Inject constructor(
 
             relationships.update { result ->
                 result.map { loadable ->
-                    loadable.mapLoaded { r -> r + (action.account.serverId to relationship) }
+                    loadable.mapLoaded { it + (action.account.serverId to relationship) }
                 }
             }
         }.mapEither(

@@ -27,6 +27,7 @@ import com.github.michaelbull.result.Result
 interface RelationshipsRepository {
     /** Errors that can be returned from this repository. */
     sealed interface RelationshipError : PachliError {
+        /** Fetching relationships failed. */
         @JvmInline
         value class GetRelationshipsError(private val error: ApiError) :
             RelationshipError,
@@ -37,7 +38,7 @@ interface RelationshipsRepository {
      * Fetches the relationships between the user and [accountIds].
      *
      * @param pachliAccountId
-     * @param accountIds List of [account IDs][app.pachli.core.model.ITimelineAccount.id]
+     * @param accountIds List of [account IDs][app.pachli.core.model.ITimelineAccount.serverId]
      */
     suspend fun getRelationships(
         pachliAccountId: Long,

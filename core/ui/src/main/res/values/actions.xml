@@ -102,5 +102,4 @@
     <item name="action_collection_revoke" type="id" />
     <!-- View the timeline of a collection's tag. -->
     <item name="action_collection_view_tag" type="id" />
-
 </resources>

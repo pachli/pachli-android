@@ -38,3 +38,20 @@ data class HashTagHistory(
 
 @JvmName("iterableHashTagHistoryAsModel")
 fun Iterable<HashTagHistory>.asModel() = map { it.asModel() }
+
+/**
+ * See https://docs.joinmastodon.org/entities/ShallowTag/
+ *
+ * @property name Hashtag name, without the leading `#`.
+ * @property url URL for the hashtag on the user's server.
+ */
+@JsonClass(generateAdapter = true)
+data class ShallowTag(
+    val name: String,
+    val url: String,
+) {
+    fun asModel() = app.pachli.core.model.ShallowHashtag(
+        name = name,
+        url = url,
+    )
+}

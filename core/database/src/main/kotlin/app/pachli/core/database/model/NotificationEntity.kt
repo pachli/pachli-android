@@ -186,20 +186,16 @@ data class NotificationData(
                     account = account.asModel(),
                     collection = timelineCollection.asCollectionModel(),
                 )
-            } ?: Notification.Unknown(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                // TODO: This is wrong, the remoteType is not currently persisted.
-                networkType = "added_to_collection",
-            )
+            }
 
-            NotificationEntity.Type.COLLECTION_UPDATE -> Notification.CollectionUpdate(
-                id = notification.serverId,
-                createdAt = notification.createdAt,
-                account = account.asModel(),
-                collection = timelineCollection!!.asCollectionModel(),
-            )
+            NotificationEntity.Type.COLLECTION_UPDATE -> timelineCollection?.let {
+                Notification.CollectionUpdate(
+                    id = notification.serverId,
+                    createdAt = notification.createdAt,
+                    account = account.asModel(),
+                    collection = timelineCollection!!.asCollectionModel(),
+                )
+            }
         }
     }
 

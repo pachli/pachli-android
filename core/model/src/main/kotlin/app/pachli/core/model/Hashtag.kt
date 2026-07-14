@@ -44,7 +44,7 @@ data class HashtagHistory(
  * `following` properties.
  *
  * @property name: Hashtag name, without the leading `#`.
- * @property url
+ * @property url URL for the hashtag on the user's server.
  */
 @JsonClass(generateAdapter = true)
 @Parcelize

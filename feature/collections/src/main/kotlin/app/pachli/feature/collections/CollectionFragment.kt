@@ -102,7 +102,6 @@ import kotlin.math.roundToInt
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 /**
  * Displays the members of a single collection.
@@ -200,7 +199,9 @@ class CollectionFragment :
         }
     }
 
-    private fun bindUiOptions(uiOptions: UiOptions) {}
+    private fun bindUiOptions(uiOptions: UiOptions) {
+        // do nothing for the moment.
+    }
 
     /** Process user actions. */
     private fun bindUiAction(uiAction: UiAction) {
@@ -258,7 +259,6 @@ class CollectionFragment :
 
     private fun bindCollectionViewData(result: Result<Loadable<CollectionViewData>, UiError.GetCollection>) {
         binding.swipeRefreshLayout.isRefreshing = false
-        Timber.d("bindCollectionViewData: $result")
 
         result.onFailure {
             binding.messageView.show()

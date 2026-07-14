@@ -86,5 +86,5 @@ fun <T, R> Loadable<T>.mapLoaded(transform: (T) -> R): Loadable<R> {
 fun <T : Any, E : Any> Flow<Result<Loadable<T>, E>>.filterNotLoading(): Flow<Result<Loaded<T>, E>> = transform { value ->
     if (value is Err) return@transform emit(value)
 
-    value.get()?.getOrNull()?.let { return@transform emit(Ok(Loadable.Loaded(it))) }
+    value.get()?.getOrNull()?.let { return@transform emit(Ok(Loaded(it))) }
 }

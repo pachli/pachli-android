@@ -81,20 +81,6 @@ data class Collection(
 }
 
 /**
- * See https://docs.joinmastodon.org/entities/ShallowTag/
- */
-@JsonClass(generateAdapter = true)
-data class ShallowTag(
-    val name: String,
-    val url: String,
-) {
-    fun asModel() = app.pachli.core.model.ShallowHashtag(
-        name = name,
-        url = url,
-    )
-}
-
-/**
  * CollectionItem.
  *
  * See https://docs.joinmastodon.org/entities/CollectionItem/

@@ -255,6 +255,7 @@ internal interface ICollectionViewModel {
 
     val uiResult: Flow<Result<UiSuccess, UiError>>
 
+    /** Count of ongoing network operations, see [OperationCounter]. */
     val operationCount: Flow<Int>
 
     val collectionViewData: StateFlow<Result<Loadable<CollectionViewData>, PachliError>>

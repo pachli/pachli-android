@@ -90,16 +90,10 @@ class OfflineFirstAccountRepository @Inject internal constructor(
             .map { it + accounts }
     }
 
-    /**
-     * Saves [accounts] to the local cache.
-     */
     override suspend fun saveAccounts(pachliAccountId: Long, accounts: Collection<Account>) {
         localDataSource.saveAccounts(pachliAccountId, accounts)
     }
 
-    /**
-     * Saves [timelineAccount] to the local cache.
-     */
     override suspend fun saveTimelineAccount(pachliAccountId: Long, timelineAccount: TimelineAccount) {
         localDataSource.saveTimelineAccount(pachliAccountId, timelineAccount)
     }

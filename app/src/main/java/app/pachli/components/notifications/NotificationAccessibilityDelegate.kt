@@ -298,6 +298,7 @@ class NotificationAccessibilityDelegate<T : NotificationViewData>(
         context.getString(app.pachli.core.ui.R.string.action_collection_show),
     )
 
+    /** Hide a visible collection. */
     private val collectionHide = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_collection_hide,
         context.getString(app.pachli.core.ui.R.string.action_collection_hide),
@@ -309,11 +310,13 @@ class NotificationAccessibilityDelegate<T : NotificationViewData>(
         context.getString(app.pachli.core.ui.R.string.action_collection_view),
     )
 
+    /** Revoke permission for the user's account in a collection. */
     private val collectionRevoke = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_collection_revoke,
         context.getString(app.pachli.core.ui.R.string.action_collection_revoke),
     )
 
+    /* View the hashtag associated with a collection. */
     private val collectionViewTag = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_collection_view_tag,
         context.getString(app.pachli.core.ui.R.string.action_collection_view_tag),

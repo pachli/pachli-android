@@ -63,11 +63,13 @@ internal class AccountInCollectionAccessibilityDelegate(
             val viewHolder = recyclerView.findContainingViewHolder(host) as AccountInCollectionViewHolder
 
             if (!viewHolder.viewData.isEnabled) return
-            val viewData = viewHolder.viewData
 
             info.addAction(openProfileAction)
 
             viewHolder.primaryAction?.let { primaryAction ->
+                // Note: Using R.id.action_follow_account here is technically
+                // incorrect, as it might not be a "follow" action. However, it's
+                // a unique ID, which is all we need here.
                 info.addAction(
                     AccessibilityActionCompat(
                         app.pachli.core.ui.R.id.action_follow_account,

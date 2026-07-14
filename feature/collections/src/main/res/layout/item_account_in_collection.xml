@@ -28,8 +28,6 @@
     android:importantForAccessibility="yes"
     tools:ignore="SelectableText">
 
-    <!-- Start of account details -->
-
     <ImageView
         android:id="@+id/avatar"
         android:layout_width="48dp"
