@@ -128,7 +128,7 @@ class QuotedStatusView @JvmOverloads constructor(
             }
 
             FilterAction.WARN -> {
-                val filterResults = viewData.actionable.filtered.orEmpty().groupBy { (filter, _, _) -> filter.filterAction }
+                val filterResults = viewData.actionable.filtered.groupBy { (filter, _, _) -> filter.filterAction }
                 filterResults[FilterAction.WARN]?.let { filters ->
                     binding.quotedStatusContainer.root.hide()
                     binding.quotedStatusHidden.hide()

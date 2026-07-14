@@ -132,16 +132,16 @@ data class Status(
         visibility = visibility.asModel(),
         attachments = attachments.asModel(),
         mentions = mentions.asModel(),
-        tags = tags?.asModel(),
+        tags = tags.orEmpty().asModel(),
         application = application?.asModel(),
-        pinned = pinned,
-        muted = muted,
+        pinned = pinned ?: false,
+        muted = muted ?: false,
         poll = poll?.asModel(),
         card = card?.asModel(),
         quote = quote?.asModel(),
         quoteApproval = quoteApproval?.asModel() ?: app.pachli.core.model.Status.QuoteApproval(),
         language = language,
-        filtered = filtered?.asModel(),
+        filtered = filtered.orEmpty().asModel(),
     )
 
     @JsonClass(generateAdapter = true)

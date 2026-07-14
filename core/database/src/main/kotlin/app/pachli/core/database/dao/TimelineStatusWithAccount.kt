@@ -158,9 +158,9 @@ data class TimelineStatusWithAccount(
     fun toStatus(): Status {
         val attachments: List<Attachment> = status.attachments.orEmpty()
         val mentions: List<Status.Mention> = status.mentions.orEmpty()
-        val tags: List<Hashtag>? = status.tags
+        val tags: List<Hashtag> = status.tags
         val application = status.application
-        val emojis: List<Emoji> = status.emojis.orEmpty()
+        val emojis: List<Emoji> = status.emojis
         val poll: Poll? = status.poll
         val card: Card? = status.card
 

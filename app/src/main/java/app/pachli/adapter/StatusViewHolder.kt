@@ -115,7 +115,7 @@ open class StatusViewHolder<T : IStatusViewData>(
             return
         }
 
-        status.tags?.firstOrNull { it.following == true }?.let { hashtag ->
+        status.tags.firstOrNull { it.following == true }?.let { hashtag ->
             setStatusInfoAsHashtag(statusInfo, hashtag, listener)
             return
         }

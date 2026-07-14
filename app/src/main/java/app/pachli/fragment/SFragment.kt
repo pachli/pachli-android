@@ -184,7 +184,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
             val menu = popup.menu
             when (status.visibility) {
                 Status.Visibility.PUBLIC, Status.Visibility.UNLISTED -> {
-                    menu.add(0, R.id.pin, 1, getString(if (status.isPinned()) R.string.unpin_action else R.string.pin_action))
+                    menu.add(0, R.id.pin, 1, getString(if (status.pinned) R.string.unpin_action else R.string.pin_action))
                 }
 
                 Status.Visibility.PRIVATE -> {
@@ -236,8 +236,8 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
             openAsItem.isVisible = false
         }
 
-        menu.findItem(R.id.status_mute_conversation)?.isVisible = status.muted == false && (statusIsByCurrentUser || accountIsInMentions(activeAccount, status.mentions))
-        menu.findItem(R.id.status_unmute_conversation)?.isVisible = status.muted == true && (statusIsByCurrentUser || accountIsInMentions(activeAccount, status.mentions))
+        menu.findItem(R.id.status_mute_conversation)?.isVisible = !status.muted && (statusIsByCurrentUser || accountIsInMentions(activeAccount, status.mentions))
+        menu.findItem(R.id.status_unmute_conversation)?.isVisible = status.muted && (statusIsByCurrentUser || accountIsInMentions(activeAccount, status.mentions))
 
         onPrepareMoreMenu(menu, viewData)
 
@@ -372,7 +372,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
 
             R.id.pin -> {
                 lifecycleScope.launch {
-                    statusRepository.pin(pachliAccountId, status.actionableId, !status.isPinned()).onFailure { e ->
+                    statusRepository.pin(pachliAccountId, status.actionableId, !status.pinned).onFailure { e ->
                         val message = e.fmt(requireContext())
                         Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG).show()
                     }
