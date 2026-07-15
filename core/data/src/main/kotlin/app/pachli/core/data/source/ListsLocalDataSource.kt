@@ -43,5 +43,5 @@ class ListsLocalDataSource @Inject constructor(
 
     suspend fun updateList(list: MastodonListEntity) = listsDao.upsert(list)
 
-    suspend fun deleteList(list: MastodonListEntity) = listsDao.deleteForAccount(list.accountId, list.listId)
+    suspend fun deleteList(list: MastodonListEntity) = listsDao.deleteForAccount(list.pachliAccountId, list.listId)
 }

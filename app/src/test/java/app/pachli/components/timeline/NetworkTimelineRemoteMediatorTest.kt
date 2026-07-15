@@ -178,7 +178,7 @@ class NetworkTimelineRemoteMediatorTest {
         val remoteMediator = NetworkTimelineRemoteMediator(
             context = context,
             api = mock(defaultAnswer = { failure<Unit>(code = 500) }),
-            pachliAccountId = activeAccount.id,
+            pachliAccountId = activeAccount.pachliAccountId,
             factory = pagingSourceFactory,
             pageCache = PageCache(),
             timeline = Timeline.Home,
@@ -217,7 +217,7 @@ class NetworkTimelineRemoteMediatorTest {
         val remoteMediator = NetworkTimelineRemoteMediator(
             context = context,
             api = mastodonApi,
-            pachliAccountId = activeAccount.id,
+            pachliAccountId = activeAccount.pachliAccountId,
             factory = pagingSourceFactory,
             pageCache = pages,
             timeline = Timeline.Home,
@@ -287,7 +287,7 @@ class NetworkTimelineRemoteMediatorTest {
         val remoteMediator = NetworkTimelineRemoteMediator(
             context = context,
             api = mastodonApi,
-            pachliAccountId = activeAccount.id,
+            pachliAccountId = activeAccount.pachliAccountId,
             factory = pagingSourceFactory,
             pageCache = pages,
             timeline = Timeline.Home,
@@ -298,7 +298,7 @@ class NetworkTimelineRemoteMediatorTest {
             listOf(
                 PagingSource.LoadResult.Page(
                     data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel()
-                        .asTimelineStatusWithQuote(activeAccount.id, statusRepository),
+                        .asTimelineStatusWithQuote(activeAccount.pachliAccountId, statusRepository),
                     prevKey = "7",
                     nextKey = "5",
                 ),
@@ -365,7 +365,7 @@ class NetworkTimelineRemoteMediatorTest {
         val remoteMediator = NetworkTimelineRemoteMediator(
             context = context,
             api = mastodonApi,
-            pachliAccountId = activeAccount.id,
+            pachliAccountId = activeAccount.pachliAccountId,
             factory = pagingSourceFactory,
             pageCache = pages,
             timeline = Timeline.Home,
@@ -375,7 +375,7 @@ class NetworkTimelineRemoteMediatorTest {
         val state = state(
             listOf(
                 PagingSource.LoadResult.Page(
-                    data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel().asTimelineStatusWithQuote(activeAccount.id, statusRepository).toMutableList(),
+                    data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel().asTimelineStatusWithQuote(activeAccount.pachliAccountId, statusRepository).toMutableList(),
                     prevKey = "7",
                     nextKey = "5",
                 ),

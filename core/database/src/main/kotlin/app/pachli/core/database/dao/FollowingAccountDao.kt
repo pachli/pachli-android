@@ -50,7 +50,7 @@ WHERE pachliAccountId = :accountId
         """
 DELETE
 FROM FollowingAccountEntity
-WHERE pachliAccountId = :pachliAccountId AND serverId = :accountId
+WHERE pachliAccountId = :pachliAccountId AND accountId = :accountId
     """,
     )
     suspend fun delete(pachliAccountId: Long, accountId: String)

@@ -89,7 +89,7 @@ const val KEY_SENDER_ACCOUNT_ID = "KEY_SENDER_ACCOUNT_ID"
 const val KEY_SENDER_ACCOUNT_IDENTIFIER = "KEY_SENDER_ACCOUNT_IDENTIFIER"
 const val KEY_SENDER_ACCOUNT_FULL_NAME = "KEY_SENDER_ACCOUNT_FULL_NAME"
 
-/** Key to return the server ID of the notification, equivalent to [Notification.id]. */
+/** Key to return the server ID of the notification, equivalent to [Notification.notificationId]. */
 const val KEY_SERVER_NOTIFICATION_ID = "KEY_SERVER_NOTIFICATION_ID"
 
 /** Key to return the [Draft]. */
@@ -167,8 +167,8 @@ fun makeNotification(
     pachliAccount: PachliAccount,
     isFirstOfBatch: Boolean,
 ): android.app.Notification {
-    val mastodonNotificationId = mastodonNotification.id
-    val accountId = pachliAccount.id.toInt()
+    val mastodonNotificationId = mastodonNotification.notificationId
+    val accountId = pachliAccount.pachliAccountId.toInt()
 
     // Check for an existing notification with this Mastodon Notification ID
     val activeNotifications = notificationManager.activeNotifications
@@ -289,7 +289,7 @@ fun updateSummaryNotifications(
         }
     }
 
-    val accountId = pachliAccount.id.toInt()
+    val accountId = pachliAccount.pachliAccountId.toInt()
 
     // Fetch all existing notifications. Add them to the map, ignoring notifications that:
     // - belong to a different account
@@ -327,7 +327,7 @@ fun updateSummaryNotifications(
         val notificationType = members[0].notification.extras.getEnum<Notification.Type>(EXTRA_NOTIFICATION_TYPE)
         val summaryResultIntent = IntentRouterActivityIntent.fromNotification(
             context,
-            pachliAccount.id,
+            pachliAccount.pachliAccountId,
             -1,
             null,
             notificationType = notificationType,
@@ -336,7 +336,7 @@ fun updateSummaryNotifications(
         summaryStackBuilder.addParentStack(MainActivity::class.java)
         summaryStackBuilder.addNextIntent(summaryResultIntent)
         val summaryResultPendingIntent = summaryStackBuilder.getPendingIntent(
-            (notificationId + pachliAccount.id * 10000).toInt(),
+            (notificationId + pachliAccount.pachliAccountId * 10000).toInt(),
             pendingIntentFlags(false),
         )
         val title = context.resources.getQuantityString(
@@ -350,7 +350,7 @@ fun updateSummaryNotifications(
             .setContentIntent(summaryResultPendingIntent)
             .setColor(context.getColor(DR.color.notification_color))
             .setAutoCancel(true)
-            .setShortcutId(pachliAccount.id.toString())
+            .setShortcutId(pachliAccount.pachliAccountId.toString())
             .setDefaults(0) // So it doesn't ring twice, notify only in Target callback
             .setContentTitle(title)
             .setContentText(text)
@@ -385,16 +385,16 @@ private fun newAndroidNotification(
 ): NotificationCompat.Builder {
     val eventResultIntent = IntentRouterActivityIntent.fromNotification(
         context,
-        pachliAccount.id,
+        pachliAccount.pachliAccountId,
         notificationId,
-        notification.id,
+        notification.notificationId,
         notification.type,
     )
     val eventStackBuilder = TaskStackBuilder.create(context)
     eventStackBuilder.addParentStack(MainActivity::class.java)
     eventStackBuilder.addNextIntent(eventResultIntent)
     val eventResultPendingIntent = eventStackBuilder.getPendingIntent(
-        pachliAccount.id.toInt(),
+        pachliAccount.pachliAccountId.toInt(),
         pendingIntentFlags(false),
     )
     val channelId = getChannelId(pachliAccount, notification)!!
@@ -404,7 +404,7 @@ private fun newAndroidNotification(
         .setColor(context.getColor(DR.color.notification_color))
         .setGroup(channelId)
         .setAutoCancel(true)
-        .setShortcutId(pachliAccount.id.toString())
+        .setShortcutId(pachliAccount.pachliAccountId.toString())
         .setDefaults(0) // So it doesn't ring twice, notify only in Target callback
     setSoundVibrationLight(pachliAccount, builder)
     return builder
@@ -424,11 +424,11 @@ private fun getStatusReplyIntent(
     val replyIntent = Intent(context, SendStatusBroadcastReceiver::class.java)
         .setAction(REPLY_ACTION)
         .putExtra(KEY_DRAFT, draft)
-        .putExtra(KEY_SENDER_ACCOUNT_ID, pachliAccount.id)
+        .putExtra(KEY_SENDER_ACCOUNT_ID, pachliAccount.pachliAccountId)
         // Required
         .putExtra(KEY_SENDER_ACCOUNT_IDENTIFIER, pachliAccount.identifier as Parcelable)
         .putExtra(KEY_SENDER_ACCOUNT_FULL_NAME, pachliAccount.fullName)
-        .putExtra(KEY_SERVER_NOTIFICATION_ID, body.id)
+        .putExtra(KEY_SERVER_NOTIFICATION_ID, body.notificationId)
     return PendingIntent.getBroadcast(
         context.applicationContext,
         notificationId,
@@ -451,10 +451,10 @@ private fun getStatusComposeIntent(
     )
     val composeIntent = IntentRouterActivityIntent.fromNotificationCompose(
         context,
-        pachliAccount.id,
+        pachliAccount.pachliAccountId,
         composeOptions,
-        pachliAccount.id.toInt(),
-        body.id,
+        pachliAccount.pachliAccountId.toInt(),
+        body.notificationId,
     )
     return PendingIntent.getActivity(
         context.applicationContext,
@@ -612,12 +612,12 @@ fun filterNotificationByAccount(accountWithFilters: app.pachli.core.data.reposit
     val accountToTest = notification.account
 
     // Any notifications from our own activity are not filtered.
-    if (accountWithFilters.accountId == accountToTest.serverId) return AccountFilterDecision.None
+    if (accountWithFilters.accountId == accountToTest.accountId) return AccountFilterDecision.None
 
     val decisions = buildList {
         // Check the following relationship.
         if (accountWithFilters.notificationAccountFilterNotFollowed != FilterAction.NONE) {
-            if (accountWithFilters.following.none { it.serverId == accountToTest.serverId }) {
+            if (accountWithFilters.following.none { it.accountId == accountToTest.accountId }) {
                 add(
                     AccountFilterDecision.make(
                         accountWithFilters.notificationAccountFilterNotFollowed,
@@ -762,7 +762,7 @@ private fun titleForType(
 
         is Notification.Poll -> {
             val status = notification.status
-            if (status.account.serverId == account.accountId) {
+            if (status.account.accountId == account.accountId) {
                 context.getString(R.string.poll_ended_created)
             } else {
                 context.getString(R.string.poll_ended_voted)

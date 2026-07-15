@@ -43,7 +43,7 @@ data class CollectionAndOwnerEntities(
  * Represents an [app.pachli.core.model.Collection].
  *
  * @property pachliAccountId
- * @property serverId [app.pachli.core.model.ICollection.serverId]
+ * @property collectionId [app.pachli.core.model.ICollection.collectionId]
  * @property accountId [app.pachli.core.model.ICollection.accountId]
  * @property name [app.pachli.core.model.ICollection.name]
  * @property description [app.pachli.core.model.ICollection.description]
@@ -56,12 +56,12 @@ data class CollectionAndOwnerEntities(
  * @property items [app.pachli.core.model.Collection.items]
  */
 @Entity(
-    primaryKeys = ["pachliAccountId", "serverId"],
+    primaryKeys = ["pachliAccountId", "collectionId"],
     foreignKeys = [
         ForeignKey(
             entity = PachliAccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("pachliAccountId"),
+            parentColumns = ["pachliAccountId"],
+            childColumns = ["pachliAccountId"],
             onDelete = ForeignKey.CASCADE,
             deferred = true,
         ),
@@ -70,7 +70,7 @@ data class CollectionAndOwnerEntities(
 @ColumnTypeConverters(Converters::class)
 data class CollectionEntity(
     val pachliAccountId: Long,
-    val serverId: String,
+    val collectionId: String,
     val accountId: String,
     val name: String,
     val description: String,
@@ -83,7 +83,7 @@ data class CollectionEntity(
     val items: List<CollectionItem>,
 ) {
     fun asModel() = app.pachli.core.model.Collection(
-        serverId = serverId,
+        collectionId = collectionId,
         accountId = accountId,
         name = name,
         description = description,
@@ -99,7 +99,7 @@ data class CollectionEntity(
 
 fun app.pachli.core.model.Collection.asEntity(pachliAccountId: Long) = CollectionEntity(
     pachliAccountId = pachliAccountId,
-    serverId = serverId,
+    collectionId = collectionId,
     accountId = accountId,
     name = name,
     description = description,
@@ -119,7 +119,7 @@ fun Iterable<app.pachli.core.model.Collection>.asEntity(pachliAccountId: Long) =
  * Represents an [app.pachli.core.model.TimelineCollection].
  *
  * @property pachliAccountId
- * @property serverId [app.pachli.core.model.ICollection.serverId]
+ * @property collectionId [app.pachli.core.model.ICollection.collectionId]
  * @property accountId [app.pachli.core.model.TimelineCollection.accountId]
  * @property ownerAccount [app.pachli.core.model.TimelineCollection.account]
  * @property name [app.pachli.core.model.ICollection.name]
@@ -134,12 +134,12 @@ fun Iterable<app.pachli.core.model.Collection>.asEntity(pachliAccountId: Long) =
  * @property itemIconUrls [app.pachli.core.model.TimelineCollection.itemIconUrls]
  */
 @Entity(
-    primaryKeys = ["pachliAccountId", "serverId"],
+    primaryKeys = ["pachliAccountId", "collectionId"],
     foreignKeys = [
         ForeignKey(
             entity = PachliAccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("pachliAccountId"),
+            parentColumns = ["pachliAccountId"],
+            childColumns = ["pachliAccountId"],
             onDelete = ForeignKey.CASCADE,
             deferred = true,
         ),
@@ -148,7 +148,7 @@ fun Iterable<app.pachli.core.model.Collection>.asEntity(pachliAccountId: Long) =
 @ColumnTypeConverters(Converters::class)
 data class TimelineCollectionEntity(
     val pachliAccountId: Long,
-    val serverId: String,
+    val collectionId: String,
     val accountId: String,
     @Embedded(prefix = "owner_") val ownerAccount: TimelineAccountEntity?,
     val name: String,
@@ -163,7 +163,7 @@ data class TimelineCollectionEntity(
     val itemIconUrls: List<String?>,
 ) {
     fun asModel() = TimelineCollection(
-        serverId = serverId,
+        collectionId = collectionId,
         accountId = accountId,
         account = ownerAccount?.asModel(),
         name = name,
@@ -182,7 +182,7 @@ data class TimelineCollectionEntity(
      * @return as a [Collection][app.pachli.core.model.Collection].
      */
     fun asCollectionModel() = app.pachli.core.model.Collection(
-        serverId = serverId,
+        collectionId = collectionId,
         accountId = accountId,
         name = name,
         description = description,
@@ -198,7 +198,7 @@ data class TimelineCollectionEntity(
 
 fun TimelineCollection.asEntity(pachliAccountId: Long) = TimelineCollectionEntity(
     pachliAccountId = pachliAccountId,
-    serverId = serverId,
+    collectionId = collectionId,
     accountId = accountId,
     ownerAccount = account?.asEntity(pachliAccountId),
     name = name,
@@ -217,19 +217,19 @@ fun Iterable<TimelineCollection>.asEntity(pachliAccountId: Long) = map { it.asEn
 
 /**
  * @property pachliAccountId
- * @property collectionServerId [CollectionEntity.serverId] this item belongs to.
- * @property serverId Server ID for this item.
+ * @property collectionId [CollectionEntity.collectionId] this item belongs to.
+ * @property collectionItemId Server ID for this item.
  * @property accountId [CollectionEntity.accountId] for this item.
  * @property state
  * @property createdAt
  */
 @Entity(
-    primaryKeys = ["pachliAccountId", "collectionServerId", "serverId"],
+    primaryKeys = ["pachliAccountId", "collectionId", "collectionItemId"],
     foreignKeys = [
         ForeignKey(
             entity = CollectionEntity::class,
-            parentColumns = arrayOf("pachliAccountId", "serverId"),
-            childColumns = arrayOf("pachliAccountId", "collectionServerId"),
+            parentColumns = ["pachliAccountId", "collectionId"],
+            childColumns = ["pachliAccountId", "collectionId"],
             onDelete = ForeignKey.CASCADE,
             deferred = true,
         ),
@@ -238,8 +238,8 @@ fun Iterable<TimelineCollection>.asEntity(pachliAccountId: Long) = map { it.asEn
 @ColumnTypeConverters(Converters::class)
 data class CollectionItemEntity(
     val pachliAccountId: Long,
-    val collectionServerId: String,
-    val serverId: String,
+    val collectionId: String,
+    val collectionItemId: String,
     val accountId: String?,
     val state: State,
     val createdAt: Instant,
@@ -259,10 +259,10 @@ data class CollectionItemEntity(
     }
 }
 
-fun CollectionItem.asEntity(pachliAccountId: Long, collectionServerId: String) = CollectionItemEntity(
+fun CollectionItem.asEntity(pachliAccountId: Long, collectionId: String) = CollectionItemEntity(
     pachliAccountId = pachliAccountId,
-    collectionServerId = collectionServerId,
-    serverId = serverId,
+    collectionId = collectionId,
+    collectionItemId = collectionItemId,
     accountId = accountId,
     state = state.asEntity(),
     createdAt = createdAt,
@@ -274,23 +274,23 @@ fun CollectionItem.State.asEntity() = when (this) {
     CollectionItem.State.ACCEPTED -> CollectionItemEntity.State.ACCEPTED
 }
 
-fun Iterable<CollectionItem>.asEntity(pachliAccountId: Long, collectionServerId: String) = map { it.asEntity(pachliAccountId, collectionServerId) }
+fun Iterable<CollectionItem>.asEntity(pachliAccountId: Long, collectionId: String) = map { it.asEntity(pachliAccountId, collectionId) }
 
 /**
  * Pachli-specific viewdata for the collection.
  *
  * @property pachliAccountId
- * @property serverId Collection's remote server ID.
+ * @property collectionId Collection's remote server ID.
  * @property displayAction The user's [CollectionDisplayAction] for
  * this collection.
  */
 @Entity(
-    primaryKeys = ["pachliAccountId", "serverId"],
+    primaryKeys = ["pachliAccountId", "collectionId"],
     foreignKeys = (
         [
             ForeignKey(
                 entity = PachliAccountEntity::class,
-                parentColumns = ["id"],
+                parentColumns = ["pachliAccountId"],
                 childColumns = ["pachliAccountId"],
                 onDelete = ForeignKey.CASCADE,
                 deferred = true,
@@ -301,6 +301,6 @@ fun Iterable<CollectionItem>.asEntity(pachliAccountId: Long, collectionServerId:
 @ColumnTypeConverters(Converters::class)
 data class CollectionViewDataEntity(
     val pachliAccountId: Long,
-    val serverId: String,
+    val collectionId: String,
     val displayAction: CollectionDisplayAction? = null,
 )

@@ -41,7 +41,7 @@ interface DraftDao {
 SELECT *
 FROM DraftEntity
 WHERE pachliAccountId = :pachliAccountId
-ORDER BY id ASC
+ORDER BY draftId ASC
 """,
     )
     fun draftsPagingSource(pachliAccountId: Long): PagingSource<Int, DraftEntity>
@@ -59,7 +59,7 @@ WHERE pachliAccountId = :pachliAccountId
         """
 DELETE
 FROM DraftEntity
-WHERE id = :draftId
+WHERE draftId = :draftId
 """,
     )
     suspend fun delete(draftId: Long)
@@ -68,7 +68,7 @@ WHERE id = :draftId
         """
 SELECT *
 FROM DraftEntity
-WHERE id = :draftId
+WHERE draftId = :draftId
 """,
     )
     suspend fun find(draftId: Long): DraftEntity?
@@ -80,7 +80,7 @@ UPDATE DraftEntity
 SET
     failureMessage = :failureMessage,
     state = :state
-WHERE id = :draftId
+WHERE draftId = :draftId
         """,
     )
     suspend fun updateFailureState(
@@ -95,7 +95,7 @@ WHERE id = :draftId
 UPDATE DraftEntity
 SET
     state = :state
-WHERE id = :draftId
+WHERE draftId = :draftId
         """,
     )
     suspend fun updateState(draftId: Long, state: Draft.State)

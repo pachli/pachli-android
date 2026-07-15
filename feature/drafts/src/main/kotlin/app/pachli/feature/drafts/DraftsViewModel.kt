@@ -48,7 +48,7 @@ internal class DraftsViewModel @Inject constructor(
     private val api: MastodonApi,
     private val draftsRepository: DraftsRepository,
 ) : ViewModel() {
-    val drafts = draftsRepository.getDrafts(accountManager.activeAccount?.id!!)
+    val drafts = draftsRepository.getDrafts(accountManager.activeAccount?.pachliAccountId!!)
         .cachedIn(viewModelScope)
 
     private val checkedDrafts = MutableStateFlow<Set<Long>>(emptySet())
@@ -57,7 +57,7 @@ internal class DraftsViewModel @Inject constructor(
         drafts.map {
             DraftViewData(
                 draft = it,
-                isChecked = checkedDrafts.contains(it.id),
+                isChecked = checkedDrafts.contains(it.draftId),
             )
         }
     }.cachedIn(viewModelScope)
@@ -70,9 +70,9 @@ internal class DraftsViewModel @Inject constructor(
     fun checkDraft(draft: Draft, isChecked: Boolean): Int {
         checkedDrafts.update {
             if (isChecked) {
-                it + draft.id
+                it + draft.draftId
             } else {
-                it - draft.id
+                it - draft.draftId
             }
         }
         return countChecked()
@@ -81,12 +81,12 @@ internal class DraftsViewModel @Inject constructor(
     /** Toggles the checked state of [draft]. */
     fun toggleDraftChecked(draft: Draft) {
         checkedDrafts.update {
-            if (it.contains(draft.id)) it - draft.id else it + draft.id
+            if (it.contains(draft.draftId)) it - draft.draftId else it + draft.draftId
         }
     }
 
     /** @return True if [draft] is checked. */
-    fun isDraftChecked(draft: Draft) = checkedDrafts.value.contains(draft.id)
+    fun isDraftChecked(draft: Draft) = checkedDrafts.value.contains(draft.draftId)
 
     /** @return The number of checked drafts. */
     fun countChecked() = checkedDrafts.value.size

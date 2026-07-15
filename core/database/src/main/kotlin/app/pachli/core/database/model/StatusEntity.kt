@@ -43,52 +43,51 @@ import java.util.Date
  * *reblogged* status and we embed "reblog status" into reblogged status. This reversed
  * relationship takes much less space and is much faster to fetch (no N+1 type queries or JSON
  * serialization).
- * "Reblog status", if present, is marked by [reblogServerId], and [reblogAccountId]
+ * "Reblog status", if present, is marked by [reblogStatusId], and [reblogAccountId]
  * fields.
  *
- * @property serverId Status ID (see [reblogServerId])
- * @property reblogServerId If this is a reblog, the ID of the status being reblogged (*not
- * the ID of the reblog status*, that is still [serverId]). Also referred to as the
+ * @property statusId Status ID (see [reblogStatusId])
+ * @property reblogStatusId If this is a reblog, the ID of the status being reblogged (*not
+ * the ID of the reblog status*, that is still [statusId]). Also referred to as the
  * *actionable* ID.
  * @property reblogAccountId If this is a reblog, the ID of the account doing the reblogging.
  * @property reblogged True if [pachliAccountId] reblogged this status.
  * @property isReblog True if this status is a reblog of another status (see
- * [reblogServerId] and [reblogAccountId])
+ * [reblogStatusId] and [reblogAccountId])
  * @property isReply True if this status is a reply to another status (see
  * [inReplyToId] and [inReplyToAccountId])
  */
 @Entity(
-    primaryKeys = ["serverId", "pachliAccountId"],
+    primaryKeys = ["pachliAccountId", "statusId"],
     foreignKeys = (
         [
             ForeignKey(
                 entity = PachliAccountEntity::class,
-                parentColumns = ["id"],
+                parentColumns = ["pachliAccountId"],
                 childColumns = ["pachliAccountId"],
                 onDelete = ForeignKey.CASCADE,
                 deferred = true,
             ),
             ForeignKey(
                 entity = TimelineAccountEntity::class,
-                parentColumns = ["serverId", "pachliAccountId"],
-                childColumns = ["authorServerId", "pachliAccountId"],
+                parentColumns = ["pachliAccountId", "accountId"],
+                childColumns = ["pachliAccountId", "accountId"],
                 deferred = true,
             ),
         ]
         ),
     // Avoiding rescanning status table when accounts table changes. Recommended by Room(c).
     indices = [
-        Index("authorServerId", "pachliAccountId"),
+        Index("pachliAccountId", "accountId"),
         Index("pachliAccountId"),
     ],
 )
 @ColumnTypeConverters(Converters::class)
 data class StatusEntity(
-    // id never flips: we need it for sorting so it's a real id
-    val serverId: String,
-    val url: String?,
     val pachliAccountId: Long,
-    val authorServerId: String,
+    val statusId: String,
+    val url: String?,
+    val accountId: String,
     val inReplyToId: String?,
     val inReplyToAccountId: String?,
     val content: String?,
@@ -111,31 +110,31 @@ data class StatusEntity(
     val tags: List<Hashtag>,
     val application: Status.Application?,
     // if it has a reblogged status, it's id is stored here
-    val reblogServerId: String?,
+    val reblogStatusId: String?,
     val reblogAccountId: String?,
     val poll: Poll?,
     val muted: Boolean,
     val pinned: Boolean,
     val card: Card?,
     val quoteState: Status.QuoteState?,
-    val quoteServerId: String?,
+    val quoteStatusId: String?,
     @ColumnInfo(defaultValue = "{\"automatic\":[], \"manual\":[], \"currentUser\":\"UNKNOWN\"}")
     val quoteApproval: Status.QuoteApproval,
     val language: String?,
     val filtered: List<FilterResult>,
 ) {
     @Ignore
-    val isReblog = reblogServerId != null
+    val isReblog = reblogStatusId != null
 
     @Ignore
     val isReply = inReplyToId != null
 }
 
 fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
-    serverId = statusId,
-    url = actionableStatus.url,
     pachliAccountId = pachliAccountId,
-    authorServerId = actionableStatus.account.serverId,
+    statusId = statusId,
+    url = actionableStatus.url,
+    accountId = actionableStatus.account.accountId,
     inReplyToId = actionableStatus.inReplyToId,
     inReplyToAccountId = actionableStatus.inReplyToAccountId,
     content = actionableStatus.content,
@@ -155,14 +154,14 @@ fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
     mentions = actionableStatus.mentions,
     tags = actionableStatus.tags,
     application = actionableStatus.application,
-    reblogServerId = reblog?.statusId,
-    reblogAccountId = reblog?.let { account.serverId },
+    reblogStatusId = reblog?.statusId,
+    reblogAccountId = reblog?.let { account.accountId },
     poll = actionableStatus.poll,
     muted = actionableStatus.muted,
     pinned = actionableStatus.pinned,
     card = actionableStatus.card,
     quoteState = actionableStatus.quote?.state,
-    quoteServerId = when (actionableStatus.quote) {
+    quoteStatusId = when (actionableStatus.quote) {
         is Status.Quote.FullQuote -> (actionableStatus.quote as Status.Quote.FullQuote).statusId
         is Status.Quote.ShallowQuote -> (actionableStatus.quote as Status.Quote.ShallowQuote).statusId
         is Status.Quote.HiddenQuote -> null
@@ -206,7 +205,7 @@ data class TimelineStatusWithQuote(
         /**
          * If [this] is a reblog, this is the status being reblogged.
          */
-        val reblog = status.reblogServerId?.let { id ->
+        val reblog = status.reblogStatusId?.let { id ->
             Status(
                 statusId = id,
                 url = status.url,
@@ -251,7 +250,7 @@ data class TimelineStatusWithQuote(
             val status = timelineStatus.status
 
             Status(
-                statusId = status.serverId,
+                statusId = status.statusId,
                 // no url for reblogs
                 url = null,
                 account = reblogAccount!!.asModel(),
@@ -293,7 +292,7 @@ data class TimelineStatusWithQuote(
             )
         } else {
             Status(
-                statusId = status.serverId,
+                statusId = status.statusId,
                 url = status.url,
                 account = account.asModel(),
                 inReplyToId = status.inReplyToId,

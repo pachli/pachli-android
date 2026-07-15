@@ -77,7 +77,7 @@ data class TimelineAccount(
         }
 
     fun asModel() = app.pachli.core.model.TimelineAccount(
-        serverId = id,
+        accountId = id,
         localUsername = localUsername,
         username = username,
         displayName = displayName.orEmpty(),

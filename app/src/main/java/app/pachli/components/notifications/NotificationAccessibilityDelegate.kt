@@ -160,14 +160,14 @@ class NotificationAccessibilityDelegate<T : NotificationViewData>(
 
                 openProfileAction.id -> {
                     interrupt()
-                    notificationActionListener.onViewAccount(notification.account.serverId)
+                    notificationActionListener.onViewAccount(notification.account.accountId)
                 }
 
                 acceptFollowRequestAction.id -> {
                     interrupt()
                     accountActionListener.onRespondToFollowRequest(
                         true,
-                        notification.account.serverId,
+                        notification.account.accountId,
                         pos,
                     )
                 }
@@ -176,7 +176,7 @@ class NotificationAccessibilityDelegate<T : NotificationViewData>(
                     interrupt()
                     accountActionListener.onRespondToFollowRequest(
                         false,
-                        notification.account.serverId,
+                        notification.account.accountId,
                         pos,
                     )
                 }
@@ -189,14 +189,14 @@ class NotificationAccessibilityDelegate<T : NotificationViewData>(
                 openReport.id -> {
                     interrupt()
                     (notification as? NotificationViewData.ReportNotificationViewData)?.let {
-                        notificationActionListener.onViewReport(notification.report.serverId)
+                        notificationActionListener.onViewReport(notification.report.reportId)
                     }
                 }
 
                 openReporteeProfile.id -> (notification as? NotificationViewData.ReportNotificationViewData)?.let {
                     interrupt()
                     notificationActionListener.onViewAccount(
-                        notification.report.targetAccount.serverId,
+                        notification.report.targetAccount.accountId,
                     )
                 }
 

@@ -20,7 +20,7 @@ package app.pachli.core.model
 import java.time.Instant
 
 data class Report(
-    val serverId: String,
+    val reportId: String,
     val category: Category,
     val actionTaken: Boolean,
     val actionTakenAt: Instant?,

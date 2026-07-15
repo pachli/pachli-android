@@ -20,12 +20,12 @@ package app.pachli.core.model
 import java.time.Instant
 
 /**
- * @property id The server ID of the notification.
+ * @property notificationId The server ID of the notification.
  * @property createdAt The Instant the notification was created.
  * @property account
  */
 sealed interface Notification {
-    val id: String
+    val notificationId: String
     val createdAt: Instant
     val account: TimelineAccount
 
@@ -44,7 +44,7 @@ sealed interface Notification {
      * the API.
      */
     data class Unknown(
-        override val id: String,
+        override val notificationId: String,
         override val createdAt: Instant,
         override val account: TimelineAccount,
         val networkType: String,
@@ -52,7 +52,7 @@ sealed interface Notification {
 
     /** [account] posted [status] mentioning the user. */
     data class Mention(
-        override val id: String,
+        override val notificationId: String,
         override val createdAt: Instant,
         override val account: TimelineAccount,
         override val status: app.pachli.core.model.Status,
@@ -60,7 +60,7 @@ sealed interface Notification {
 
     /** [account] boosted the user's [status]. */
     data class Reblog(
-        override val id: String,
+        override val notificationId: String,
         override val createdAt: Instant,
         override val account: TimelineAccount,
         override val status: app.pachli.core.model.Status,
@@ -68,7 +68,7 @@ sealed interface Notification {
 
     /** [account] favourited the user's [status]. */
     data class Favourite(
-        override val id: String,
+        override val notificationId: String,
         override val createdAt: Instant,
         override val account: TimelineAccount,
         override val status: app.pachli.core.model.Status,
@@ -76,7 +76,7 @@ sealed interface Notification {
 
     /** [account] followed the user. */
     data class Follow(
-        override val id: String,
+        override val notificationId: String,
         override val createdAt: Instant,
         override val account: TimelineAccount,
         val note: String,
@@ -84,7 +84,7 @@ sealed interface Notification {
 
     /** [account] requested to follow the user. */
     data class FollowRequest(
-        override val id: String,
+        override val notificationId: String,
         override val createdAt: Instant,
         override val account: TimelineAccount,
         val note: String,
@@ -92,7 +92,7 @@ sealed interface Notification {
 
     /** [account] quoted the user in [status]. */
     data class Quote(
-        override val id: String,
+        override val notificationId: String,
         override val createdAt: Instant,
         override val account: TimelineAccount,
         override val status: app.pachli.core.model.Status,
@@ -100,7 +100,7 @@ sealed interface Notification {
 
     /** [account] updated their quote of the user in [status]. */
     data class QuotedUpdate(
-        override val id: String,
+        override val notificationId: String,
         override val createdAt: Instant,
         override val account: TimelineAccount,
         override val status: app.pachli.core.model.Status,
@@ -108,7 +108,7 @@ sealed interface Notification {
 
     /** The poll the user voted on or created in [status] has ended. */
     data class Poll(
-        override val id: String,
+        override val notificationId: String,
         override val createdAt: Instant,
         override val account: TimelineAccount,
         override val status: app.pachli.core.model.Status,
@@ -116,7 +116,7 @@ sealed interface Notification {
 
     /** [account] posted [status], the user has notifications enabled for [account]. */
     data class Status(
-        override val id: String,
+        override val notificationId: String,
         override val createdAt: Instant,
         override val account: TimelineAccount,
         override val status: app.pachli.core.model.Status,
@@ -124,14 +124,14 @@ sealed interface Notification {
 
     /** [account] signed up to the server. */
     data class SignUp(
-        override val id: String,
+        override val notificationId: String,
         override val createdAt: Instant,
         override val account: TimelineAccount,
     ) : Notification
 
     /** The user boosted [status], which has been modified. */
     data class Update(
-        override val id: String,
+        override val notificationId: String,
         override val createdAt: Instant,
         override val account: TimelineAccount,
         override val status: app.pachli.core.model.Status,
@@ -139,7 +139,7 @@ sealed interface Notification {
 
     /** A new [report] has been filed. */
     data class Report(
-        override val id: String,
+        override val notificationId: String,
         override val createdAt: Instant,
         override val account: TimelineAccount,
         val report: app.pachli.core.model.Report,
@@ -150,7 +150,7 @@ sealed interface Notification {
      * or block event.
      */
     data class SeveredRelationships(
-        override val id: String,
+        override val notificationId: String,
         override val createdAt: Instant,
         override val account: TimelineAccount,
         val relationshipSeveranceEvent: RelationshipSeveranceEvent,
@@ -158,7 +158,7 @@ sealed interface Notification {
 
     /** Moderator took action against your account / sent an [accountWarning]. */
     data class ModerationWarning(
-        override val id: String,
+        override val notificationId: String,
         override val createdAt: Instant,
         override val account: TimelineAccount,
         val accountWarning: AccountWarning,
@@ -166,7 +166,7 @@ sealed interface Notification {
 
     /** User's account was added to a collection. */
     data class CollectionAdd(
-        override val id: String,
+        override val notificationId: String,
         override val createdAt: Instant,
         override val account: TimelineAccount,
         override val collection: Collection,
@@ -174,7 +174,7 @@ sealed interface Notification {
 
     /** Collection the user's account is in was updated. */
     data class CollectionUpdate(
-        override val id: String,
+        override val notificationId: String,
         override val createdAt: Instant,
         override val account: TimelineAccount,
         override val collection: Collection,

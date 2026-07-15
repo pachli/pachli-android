@@ -79,7 +79,7 @@ class MainActivityTest {
     )
 
     private val pachliAccountEntity = PachliAccountEntity(
-        id = 1,
+        pachliAccountId = 1,
         domain = "test.domain",
         accessToken = "fakeToken",
         clientId = "fakeId",
@@ -144,7 +144,7 @@ class MainActivityTest {
         val intent = showNotification(
             ApplicationProvider.getApplicationContext(),
             Notification.Follow(
-                id = "id",
+                notificationId = "id",
                 createdAt = Instant.now(),
                 account = fakeTimelineAccount().asModel(),
                 note = fakeTimelineAccount().note,
@@ -165,7 +165,7 @@ class MainActivityTest {
         val intent = showNotification(
             ApplicationProvider.getApplicationContext(),
             Notification.FollowRequest(
-                id = "id",
+                notificationId = "id",
                 createdAt = Instant.now(),
                 account = fakeTimelineAccount().asModel(),
                 note = fakeTimelineAccount().note,

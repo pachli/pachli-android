@@ -141,7 +141,7 @@ class TrendingActivity : ViewUrlActivity(), MenuProvider {
             val timeline = tabViewData.timeline
             accountManager.activeAccount?.let {
                 lifecycleScope.launch(Dispatchers.IO) {
-                    accountManager.setTabPreferences(it.id, it.tabPreferences + timeline)
+                    accountManager.setTabPreferences(it.pachliAccountId, it.tabPreferences + timeline)
                 }
             }
             Toast.makeText(this, getString(app.pachli.core.ui.R.string.action_add_to_tab_success, tabViewData.title(this)), Toast.LENGTH_LONG).show()

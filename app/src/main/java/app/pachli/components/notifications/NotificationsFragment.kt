@@ -566,7 +566,7 @@ class NotificationsFragment :
     }
 
     override fun onOpenReblog(status: IStatus) {
-        onViewAccount(status.account.serverId)
+        onViewAccount(status.account.accountId)
     }
 
     override fun onExpandedChange(viewData: IStatusViewData, expanded: Boolean) {
@@ -684,7 +684,7 @@ class NotificationsFragment :
 
     override fun onViewCollection(collection: ICollection) {
         startActivityWithTransition(
-            CollectionActivityIntent(requireContext(), pachliAccountId, collection.serverId),
+            CollectionActivityIntent(requireContext(), pachliAccountId, collection.collectionId),
             TransitionKind.SLIDE_FROM_END,
         )
     }
@@ -696,7 +696,7 @@ class NotificationsFragment :
                 viewModel.accept(
                     FallibleCollectionAction.Revoke(
                         pachliAccountId = pachliAccountId,
-                        collectionId = collection.serverId,
+                        collectionId = collection.collectionId,
                         accountId = viewModel.pachliAccount.accountId,
                     ),
                 )
@@ -708,7 +708,7 @@ class NotificationsFragment :
         viewModel.accept(
             InfallibleUiAction.OverrideCollectionDisplayAction(
                 pachliAccountId,
-                viewData.timelineCollection.serverId,
+                viewData.timelineCollection.collectionId,
                 action,
             ),
         )

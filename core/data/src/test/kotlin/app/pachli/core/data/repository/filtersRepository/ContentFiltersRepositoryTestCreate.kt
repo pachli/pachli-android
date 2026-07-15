@@ -132,7 +132,7 @@ class ContentFiltersRepositoryTestCreate : V2Test() {
             val entity = contentFiltersDao.getByAccount(pachliAccountId)
             assertThat(entity).isEqualTo(
                 ContentFiltersEntity(
-                    accountId = pachliAccountId,
+                    pachliAccountId = pachliAccountId,
                     contentFilters = listOf(expected),
                     version = ContentFilterVersion.V2,
                 ),
@@ -228,7 +228,7 @@ class ContentFiltersRepositoryTestCreateV1 : V1Test() {
             val entity = contentFiltersDao.getByAccount(pachliAccountId)
             assertThat(entity).isEqualTo(
                 ContentFiltersEntity(
-                    accountId = pachliAccountId,
+                    pachliAccountId = pachliAccountId,
                     contentFilters = listOf(expected),
                     version = ContentFilterVersion.V1,
                 ),

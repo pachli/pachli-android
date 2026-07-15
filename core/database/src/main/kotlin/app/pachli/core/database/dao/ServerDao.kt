@@ -31,7 +31,7 @@ interface ServerDao {
         """
 SELECT *
 FROM ServerEntity
-WHERE accountId = :pachliAccountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
     suspend fun getServer(pachliAccountId: Long): ServerEntity?
