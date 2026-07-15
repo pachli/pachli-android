@@ -65,7 +65,7 @@ class LocaleUtilsTest {
                 return getInitialLanguages(
                     configuredLanguages[0],
                     PachliAccountEntity(
-                        id = 0,
+                        pachliAccountId = 0,
                         domain = "foo.bar",
                         accessToken = "",
                         clientId = "",

@@ -127,7 +127,7 @@ internal class CollectionsLocalDataSource @Inject constructor(
             collectionsDao.upsertCollectionItems(
                 collectionWithAccounts.collection.items.asEntity(
                     pachliAccountId,
-                    collectionWithAccounts.collection.serverId,
+                    collectionWithAccounts.collection.collectionId,
                 ),
             )
             accountRepository.saveAccounts(

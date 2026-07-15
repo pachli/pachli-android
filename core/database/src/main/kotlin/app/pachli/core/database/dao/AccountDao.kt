@@ -41,20 +41,20 @@ interface AccountDao {
         """
 SELECT *
 FROM PachliAccountEntity
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun getPachliAccount(accountId: Long): PachliAccountWithRelations?
+    suspend fun getPachliAccount(pachliAccountId: Long): PachliAccountWithRelations?
 
     @Transaction
     @Query(
         """
 SELECT *
 FROM PachliAccountEntity
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    fun getPachliAccountFlow(accountId: Long): Flow<PachliAccountWithRelations?>
+    fun getPachliAccountFlow(pachliAccountId: Long): Flow<PachliAccountWithRelations?>
 
     @Transaction
     @Query(
@@ -104,7 +104,7 @@ FROM PachliAccountEntity
         """
 DELETE
 FROM PachliAccountEntity
-WHERE id = :pachliAccountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
     suspend fun deleteAccountById(pachliAccountId: Long)
@@ -113,7 +113,7 @@ WHERE id = :pachliAccountId
         """
 SELECT *
 FROM PachliAccountEntity
-ORDER BY id ASC
+ORDER BY pachliAccountId ASC
 """,
     )
     fun loadAllFlow(): Flow<List<PachliAccountEntity>>
@@ -122,14 +122,14 @@ ORDER BY id ASC
         """
 SELECT *
 FROM PachliAccountEntity
-ORDER BY id ASC
+ORDER BY pachliAccountId ASC
 """,
     )
     suspend fun loadAll(): List<PachliAccountEntity>
 
     @Query(
         """
-SELECT id
+SELECT pachliAccountId
 FROM PachliAccountEntity
 WHERE isActive = 1
 """,
@@ -140,7 +140,7 @@ WHERE isActive = 1
         """
 SELECT *
 FROM PachliAccountEntity
-ORDER BY isActive DESC, id ASC
+ORDER BY isActive DESC, pachliAccountId ASC
 """,
     )
     fun getAccountsOrderedByActive(): Flow<List<PachliAccountEntity>>
@@ -176,10 +176,10 @@ SET
         """
 SELECT *
 FROM PachliAccountEntity
-WHERE id = :id
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun getPachliAccountEntityById(id: Long): PachliAccountEntity?
+    suspend fun getPachliAccountEntityById(pachliAccountId: Long): PachliAccountEntity?
 
     @Query(
         """
@@ -192,7 +192,7 @@ WHERE domain = :domain AND accountId = :accountId
 
     @Query(
         """
-SELECT COUNT(id)
+SELECT COUNT(pachliAccountId)
 FROM PachliAccountEntity
 WHERE notificationsEnabled = 1
 """,
@@ -208,11 +208,11 @@ SET
     pushAuth = :pushAuth,
     pushPrivKey = :pushPrivKey,
     pushPubKey = :pushPubKey
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
     suspend fun setPushNotificationData(
-        accountId: Long,
+        pachliAccountId: Long,
         unifiedPushUrl: String,
         pushServerKey: String,
         pushAuth: String,
@@ -225,338 +225,338 @@ WHERE id = :accountId
 UPDATE PachliAccountEntity
 SET
     alwaysShowSensitiveMedia = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setAlwaysShowSensitiveMedia(accountId: Long, value: Boolean)
+    suspend fun setAlwaysShowSensitiveMedia(pachliAccountId: Long, value: Boolean)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     alwaysOpenSpoiler = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setAlwaysOpenSpoiler(accountId: Long, value: Boolean)
+    suspend fun setAlwaysOpenSpoiler(pachliAccountId: Long, value: Boolean)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     mediaPreviewEnabled = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setMediaPreviewEnabled(accountId: Long, value: Boolean)
+    suspend fun setMediaPreviewEnabled(pachliAccountId: Long, value: Boolean)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     tabPreferences = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setTabPreferences(accountId: Long, value: List<Timeline>)
+    suspend fun setTabPreferences(pachliAccountId: Long, value: List<Timeline>)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     notificationMarkerId = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setNotificationMarkerId(accountId: Long, value: String)
+    suspend fun setNotificationMarkerId(pachliAccountId: Long, value: String)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     notificationsFilter = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setNotificationsFilter(accountId: Long, value: String)
+    suspend fun setNotificationsFilter(pachliAccountId: Long, value: String)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     defaultPostPrivacy = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setDefaultPostPrivacy(accountId: Long, value: Status.Visibility)
+    suspend fun setDefaultPostPrivacy(pachliAccountId: Long, value: Status.Visibility)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     defaultMediaSensitivity = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setDefaultMediaSensitivity(accountId: Long, value: Boolean)
+    suspend fun setDefaultMediaSensitivity(pachliAccountId: Long, value: Boolean)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     defaultPostLanguage = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setDefaultPostLanguage(accountId: Long, value: String)
+    suspend fun setDefaultPostLanguage(pachliAccountId: Long, value: String)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     defaultQuotePolicy = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setDefaultQuotePolicy(accountId: Long, value: AccountSource.QuotePolicy)
+    suspend fun setDefaultQuotePolicy(pachliAccountId: Long, value: AccountSource.QuotePolicy)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     notificationsEnabled = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setNotificationsEnabled(accountId: Long, value: Boolean)
+    suspend fun setNotificationsEnabled(pachliAccountId: Long, value: Boolean)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     notificationsMentioned = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setNotificationsMentioned(accountId: Long, value: Boolean)
+    suspend fun setNotificationsMentioned(pachliAccountId: Long, value: Boolean)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     notificationsFollowed = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setNotificationsFollowed(accountId: Long, value: Boolean)
+    suspend fun setNotificationsFollowed(pachliAccountId: Long, value: Boolean)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     notificationsFollowRequested = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setNotificationsFollowRequested(accountId: Long, value: Boolean)
+    suspend fun setNotificationsFollowRequested(pachliAccountId: Long, value: Boolean)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     notificationsReblogged = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setNotificationsReblogged(accountId: Long, value: Boolean)
+    suspend fun setNotificationsReblogged(pachliAccountId: Long, value: Boolean)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     notificationsQuotes = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setNotificationsQuotes(accountId: Long, value: Boolean)
+    suspend fun setNotificationsQuotes(pachliAccountId: Long, value: Boolean)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     notificationsQuotedUpdates = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setNotificationsQuotedUpdate(accountId: Long, value: Boolean)
+    suspend fun setNotificationsQuotedUpdate(pachliAccountId: Long, value: Boolean)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     notificationsFavorited = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setNotificationsFavorited(accountId: Long, value: Boolean)
+    suspend fun setNotificationsFavorited(pachliAccountId: Long, value: Boolean)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     notificationsPolls = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setNotificationsPolls(accountId: Long, value: Boolean)
+    suspend fun setNotificationsPolls(pachliAccountId: Long, value: Boolean)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     notificationsSubscriptions = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setNotificationsSubscriptions(accountId: Long, value: Boolean)
+    suspend fun setNotificationsSubscriptions(pachliAccountId: Long, value: Boolean)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     notificationsSignUps = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setNotificationsSignUps(accountId: Long, value: Boolean)
+    suspend fun setNotificationsSignUps(pachliAccountId: Long, value: Boolean)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     notificationsUpdates = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setNotificationsUpdates(accountId: Long, value: Boolean)
+    suspend fun setNotificationsUpdates(pachliAccountId: Long, value: Boolean)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     notificationsReports = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setNotificationsReports(accountId: Long, value: Boolean)
+    suspend fun setNotificationsReports(pachliAccountId: Long, value: Boolean)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     notificationsSeveredRelationships = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setNotificationsSeveredRelationships(accountId: Long, value: Boolean)
+    suspend fun setNotificationsSeveredRelationships(pachliAccountId: Long, value: Boolean)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     notificationsModerationWarnings = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
         """,
     )
-    suspend fun setNotificationsModerationWarnings(accountId: Long, value: Boolean)
+    suspend fun setNotificationsModerationWarnings(pachliAccountId: Long, value: Boolean)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     notificationSound = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setNotificationSound(accountId: Long, value: Boolean)
+    suspend fun setNotificationSound(pachliAccountId: Long, value: Boolean)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     notificationVibration = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setNotificationVibration(accountId: Long, value: Boolean)
+    suspend fun setNotificationVibration(pachliAccountId: Long, value: Boolean)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     notificationLight = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setNotificationLight(accountId: Long, value: Boolean)
+    suspend fun setNotificationLight(pachliAccountId: Long, value: Boolean)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     notificationAccountFilterNotFollowed = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setNotificationAccountFilterNotFollowed(accountId: Long, value: FilterAction)
+    suspend fun setNotificationAccountFilterNotFollowed(pachliAccountId: Long, value: FilterAction)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     notificationAccountFilterYounger30d = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setNotificationAccountFilterYounger30d(accountId: Long, value: FilterAction)
+    suspend fun setNotificationAccountFilterYounger30d(pachliAccountId: Long, value: FilterAction)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     notificationAccountFilterLimitedByServer = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setNotificationAccountFilterLimitedByServer(accountId: Long, value: FilterAction)
+    suspend fun setNotificationAccountFilterLimitedByServer(pachliAccountId: Long, value: FilterAction)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     conversationAccountFilterNotFollowed = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setConversationAccountFilterNotFollowed(accountId: Long, value: FilterAction)
+    suspend fun setConversationAccountFilterNotFollowed(pachliAccountId: Long, value: FilterAction)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     conversationAccountFilterYounger30d = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setConversationAccountFilterYounger30d(accountId: Long, value: FilterAction)
+    suspend fun setConversationAccountFilterYounger30d(pachliAccountId: Long, value: FilterAction)
 
     @Query(
         """
 UPDATE PachliAccountEntity
 SET
     conversationAccountFilterLimitedByServer = :value
-WHERE id = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setConversationAccountFilterLimitedByServer(accountId: Long, value: FilterAction)
+    suspend fun setConversationAccountFilterLimitedByServer(pachliAccountId: Long, value: FilterAction)
 }

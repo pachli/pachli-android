@@ -33,12 +33,12 @@ import app.pachli.core.model.translation.TranslatedStatus
  * a refresh operation).
  */
 @Entity(
-    primaryKeys = ["serverId", "pachliAccountId"],
+    primaryKeys = ["pachliAccountId", "statusId"],
 )
 @ColumnTypeConverters(Converters::class)
 data class TranslatedStatusEntity(
     /** ID of the status as it appeared on the original server */
-    val serverId: String,
+    val statusId: String,
 
     /** Pachli ID for the logged in user, in case there are multiple accounts per instance */
     val pachliAccountId: Long,
@@ -73,7 +73,7 @@ data class TranslatedStatusEntity(
 )
 
 fun TranslatedStatus.toEntity(pachliAccountId: Long, serverId: String) = TranslatedStatusEntity(
-    serverId = serverId,
+    statusId = serverId,
     pachliAccountId = pachliAccountId,
     content = content,
     spoilerText = spoilerText,

@@ -76,7 +76,7 @@ class ConversationsViewModel @AssistedInject constructor(
     val accept: (UiAction) -> Unit = { action -> viewModelScope.launch { uiAction.emit(action) } }
 
     val conversationFlow = accountFlow.flatMapLatest { pachliAccount ->
-        repository.conversations(pachliAccount.id).map { pagingData ->
+        repository.conversations(pachliAccount.pachliAccountId).map { pagingData ->
             pagingData
                 .map { conversation ->
                     val accountFilterDecision = if (conversation.isConversationStarter) {
@@ -156,12 +156,12 @@ class ConversationsViewModel @AssistedInject constructor(
         val accountToTest = conversationData.lastStatus.timelineStatus.account
 
         // Any conversations where we wrote the last status are not filtered.
-        if (accountWithFilters.accountId == accountToTest.serverId) return AccountFilterDecision.None
+        if (accountWithFilters.accountId == accountToTest.accountId) return AccountFilterDecision.None
 
         val decisions = buildList {
             // Check the following relationship.
             if (accountWithFilters.conversationAccountFilterNotFollowed != FilterAction.NONE) {
-                if (accountWithFilters.following.none { it.serverId == accountToTest.serverId }) {
+                if (accountWithFilters.following.none { it.accountId == accountToTest.accountId }) {
                     add(
                         AccountFilterDecision.make(
                             accountWithFilters.conversationAccountFilterNotFollowed,
@@ -259,8 +259,8 @@ class ConversationsViewModel @AssistedInject constructor(
         viewModelScope.launch {
             api.deleteConversation(conversationId = viewData.conversationId).onSuccess {
                 conversationsDao.delete(
-                    id = viewData.conversationId,
-                    accountId = viewData.pachliAccountId,
+                    pachliAccountId = viewData.pachliAccountId,
+                    conversationId = viewData.conversationId,
                 )
             }
         }

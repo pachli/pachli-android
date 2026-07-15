@@ -176,9 +176,9 @@ class NetworkTimelineRepository @Inject constructor(
         ).flow
             .map { pagingData ->
                 pagingData.filter { status ->
-                    !hiddenStatuses.contains(status.timelineStatus.status.serverId) &&
-                        !hiddenStatuses.contains(status.timelineStatus.status.reblogServerId) &&
-                        !hiddenAccounts.contains(status.timelineStatus.status.authorServerId) &&
+                    !hiddenStatuses.contains(status.timelineStatus.status.statusId) &&
+                        !hiddenStatuses.contains(status.timelineStatus.status.reblogStatusId) &&
+                        !hiddenAccounts.contains(status.timelineStatus.status.accountId) &&
                         !hiddenAccounts.contains(status.timelineStatus.status.reblogAccountId) &&
                         !hiddenDomains.contains(getDomain(status.timelineStatus.account.url)) &&
                         !hiddenDomains.contains(getDomain(status.timelineStatus.reblogAccount?.url))

@@ -78,9 +78,9 @@ open class NetworkTimelineViewModel @AssistedInject constructor(
     sharedPreferencesRepository,
 ) {
     override val statuses = pachliAccountFlow.distinctUntilChanged { old, new ->
-        old.id == new.id && old.followedHashtags == new.followedHashtags
+        old.pachliAccountId == new.pachliAccountId && old.followedHashtags == new.followedHashtags
     }.flatMapLatest { pachliAccount ->
-        repository.getStatusStream(pachliAccount.id, timeline = timeline).map { pagingData ->
+        repository.getStatusStream(pachliAccount.pachliAccountId, timeline = timeline).map { pagingData ->
             pagingData
                 .map { Pair(it, shouldFilterStatus(it.timelineStatus)) }
                 .filter { it.second != FilterAction.HIDE }

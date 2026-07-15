@@ -370,9 +370,9 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                 // been configured.
                 launch {
                     viewModel.uiState.collect { uiState ->
-                        bindMainDrawerSearch(this@MainActivity, initialAccount.id, uiState.hideTopToolbar)
+                        bindMainDrawerSearch(this@MainActivity, initialAccount.pachliAccountId, uiState.hideTopToolbar)
                         bindMainDrawerProfileHeader(uiState)
-                        bindMainDrawerScheduledPosts(this@MainActivity, initialAccount.id, uiState.canSchedulePost)
+                        bindMainDrawerScheduledPosts(this@MainActivity, initialAccount.pachliAccountId, uiState.canSchedulePost)
                     }
                 }
 
@@ -396,7 +396,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                 // Process changes to the account's lists.
                 launch {
                     account.distinctUntilChangedBy { it.lists }.collectLatest { account ->
-                        bindMainDrawerLists(account.id, account.lists)
+                        bindMainDrawerLists(account.pachliAccountId, account.lists)
                     }
                 }
 
@@ -755,7 +755,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
      * See [bindMainDrawerLists] and [bindMainDrawerSearch].
      */
     private suspend fun bindMainDrawerItems(pachliAccount: PachliAccount, savedInstanceState: Bundle?) = drawerMutex.withLock {
-        val pachliAccountId = pachliAccount.id
+        val pachliAccountId = pachliAccount.pachliAccountId
 
         binding.mainDrawer.apply {
             itemAdapter.clear()
@@ -1054,7 +1054,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         val previousTabIndex = binding.viewPager.currentItem
         val previousTab = tabAdapter.tabs.getOrNull(previousTabIndex)
 
-        val tabs = account.tabPreferences.map { TabViewData.from(account.id, it) }
+        val tabs = account.tabPreferences.map { TabViewData.from(account.pachliAccountId, it) }
 
         // Detach any existing mediator before changing tab contents and attaching a new mediator
         tabLayoutMediator?.detach()
@@ -1149,7 +1149,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
     private fun onAccountHeaderClick(pachliAccount: PachliAccount, profile: IProfile, current: Boolean) {
         when {
             current -> startActivityWithDefaultTransition(
-                AccountActivityIntent(this, pachliAccount.id, pachliAccount.accountId),
+                AccountActivityIntent(this, pachliAccount.pachliAccountId, pachliAccount.accountId),
             )
 
             profile.identifier == DRAWER_ITEM_ADD_ACCOUNT -> startActivityWithDefaultTransition(
@@ -1194,7 +1194,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                 // Don't logout in MainActivity as that will change the active account and
                 // trigger operations (e.g., saveVisibleId) in running fragments. Instead,
                 // logging out happens in the IntentRouter.
-                val intent = IntentRouterActivityIntent.logout(this@MainActivity, pachliAccount.id)
+                val intent = IntentRouterActivityIntent.logout(this@MainActivity, pachliAccount.pachliAccountId)
                 val options = Bundle().apply { putInt("android.activity.splashScreenStyle", 1) }
                 startActivity(intent, options)
                 finish()
@@ -1304,7 +1304,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                 nameText = acc.displayName.emojify(glide, acc.emojis, header, animateEmojis)
                 iconUrl = acc.profilePictureUrl
                 isNameShown = true
-                identifier = acc.id
+                identifier = acc.pachliAccountId
                 descriptionText = acc.fullName
             }
         }.toMutableList()
@@ -1321,7 +1321,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         header.clear()
         header.profiles = profiles
         val activeAccount = uiState.accounts.firstOrNull { it.isActive } ?: return
-        header.setActiveProfile(activeAccount.id)
+        header.setActiveProfile(activeAccount.pachliAccountId)
         binding.mainToolbar.subtitle = if (uiState.displaySelfUsername) {
             activeAccount.fullName
         } else {

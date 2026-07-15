@@ -734,7 +734,7 @@ class TimelineFragment :
             is Timeline.PublicFederated,
             is Timeline.PublicLocal,
             -> adapter.refresh()
-            is Timeline.User -> if (status.account.serverId == (timeline as Timeline.User).id) {
+            is Timeline.User -> if (status.account.accountId == (timeline as Timeline.User).id) {
                 adapter.refresh()
             }
             is Timeline.Bookmarks,

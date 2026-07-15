@@ -27,12 +27,12 @@ import app.pachli.core.model.ContentFilterVersion
 // TODO: Redo this. Would be better as one ContentFilter per row,
 
 @Entity(
-    primaryKeys = ["accountId"],
+    primaryKeys = ["pachliAccountId"],
     foreignKeys = [
         ForeignKey(
             entity = PachliAccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("accountId"),
+            parentColumns = ["pachliAccountId"],
+            childColumns = ["pachliAccountId"],
             onDelete = ForeignKey.CASCADE,
             deferred = true,
         ),
@@ -40,7 +40,7 @@ import app.pachli.core.model.ContentFilterVersion
 )
 @ColumnTypeConverters(Converters::class)
 data class ContentFiltersEntity(
-    val accountId: Long,
+    val pachliAccountId: Long,
     val version: ContentFilterVersion,
     val contentFilters: List<ContentFilter>,
 )

@@ -442,7 +442,7 @@ class NotificationsViewModel @AssistedInject constructor(
         .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
 
     val initialRefreshKey = accountFlow.flatMapLatest {
-        flow { emit(repository.getRefreshKey(it.id)) }
+        flow { emit(repository.getRefreshKey(it.pachliAccountId)) }
     }
 
     /** The account to display notifications for */
@@ -673,7 +673,7 @@ class NotificationsViewModel @AssistedInject constructor(
      * [UiSuccess.LoadNewest] so it knows to do that.
      */
     private suspend fun onLoadNewest() {
-        repository.saveRefreshKey(pachliAccount.id, null)
+        repository.saveRefreshKey(pachliAccount.pachliAccountId, null)
         _uiResult.send(Ok(UiSuccess.LoadNewest))
     }
 
@@ -703,7 +703,7 @@ class NotificationsViewModel @AssistedInject constructor(
                                 ?: FilterAction.NONE
                         val quoteContentFilterAction =
                             notification.status?.quotedStatus?.let { contentFilterModel?.filterActionFor(it.status) }
-                        val isAboutSelf = notification.account.serverId == pachliAccount.accountId
+                        val isAboutSelf = notification.account.accountId == pachliAccount.accountId
                         val accountFilterDecision =
                             notification.viewData?.accountFilterDecision
                                 ?: notification.asModel()?.let { modelNotification ->
@@ -722,9 +722,9 @@ class NotificationsViewModel @AssistedInject constructor(
                         ) ?: run {
                             Timber.wtf("NotificationViewData.make returned null")
                             NotificationViewData.UnknownNotificationViewData(
-                                pachliAccountId = pachliAccount.id,
+                                pachliAccountId = pachliAccount.pachliAccountId,
                                 localDomain = pachliAccount.domain,
-                                notificationId = notification.notification.serverId,
+                                notificationId = notification.notification.notificationId,
                                 account = notification.account.asModel(),
                                 isAboutSelf = isAboutSelf,
                                 accountFilterDecision = accountFilterDecision,

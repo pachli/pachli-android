@@ -263,7 +263,7 @@ class DatabaseFragmentViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.update { it?.copy(pruneCacheResult = Ok(null)) }
             val result = runSuspendCatching {
-                accountManager.accounts.forEach { timelineDao.cleanup(it.id) }
+                accountManager.accounts.forEach { timelineDao.cleanup(it.pachliAccountId) }
             }
             logEntryDao.prune(Instant.now().minusMillis(48.hours.inWholeMilliseconds))
             _uiState.update {

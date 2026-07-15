@@ -76,14 +76,14 @@ class RegisterUnifiedPushEndpointUseCase @Inject constructor(
             auth,
             subscriptionData,
         ).onFailure { error ->
-            Timber.w("Error setting push endpoint for account %s %d: %s", account, account.id, error.fmt(context))
+            Timber.w("Error setting push endpoint for account %s %d: %s", account, account.pachliAccountId, error.fmt(context))
             NotificationConfig.notificationMethodAccount[account.fullName] = NotificationConfig.Method.PushError(error.throwable)
             disablePushNotificationsForAccount(account)
         }.onSuccess {
-            Timber.d("UnifiedPush registration succeeded for account %d", account.id)
+            Timber.d("UnifiedPush registration succeeded for account %d", account.pachliAccountId)
 
             accountManager.setPushNotificationData(
-                account.id,
+                account.pachliAccountId,
                 unifiedPushUrl = endpoint.url,
                 pushServerKey = it.body.serverKey,
                 pushAuth = auth,

@@ -45,7 +45,7 @@ SELECT
 
     -- The account that triggered the notification
     a.pachliAccountId AS 'a_pachliAccountId',
-    a.serverId AS 'a_serverId',
+    a.accountId AS 'a_accountId',
     a.localUsername AS 'a_localUsername',
     a.username AS 'a_username',
     a.displayName AS 'a_displayName',
@@ -60,10 +60,10 @@ SELECT
 
     -- The status in the notification (if any)
     -- TimelineStatusWithAccount
-    s.serverId AS 's_s_serverId',
+    s.statusId AS 's_s_statusId',
     s.url AS 's_s_url',
     s.pachliAccountId AS 's_s_pachliAccountId',
-    s.authorServerId AS 's_s_authorServerId',
+    s.accountId AS 's_s_accountId',
     s.inReplyToId AS 's_s_inReplyToId',
     s.inReplyToAccountId AS 's_s_inReplyToAccountId',
     s.createdAt AS 's_s_createdAt',
@@ -82,14 +82,14 @@ SELECT
     s.mentions AS 's_s_mentions',
     s.tags AS 's_s_tags',
     s.application AS 's_s_application',
-    s.reblogServerId AS 's_s_reblogServerId',
+    s.reblogStatusId AS 's_s_reblogStatusId',
     s.reblogAccountId AS 's_s_reblogAccountId',
     s.content AS 's_s_content',
     s.attachments AS 's_s_attachments',
     s.poll AS 's_s_poll',
     s.card AS 's_s_card',
     s.quoteState AS 's_s_quoteState',
-    s.quoteServerId AS 's_s_quoteServerId',
+    s.quoteStatusId AS 's_s_quoteStatusId',
     s.quoteApproval AS 's_s_quoteApproval',
     s.muted AS 's_s_muted',
     s.pinned AS 's_s_pinned',
@@ -97,7 +97,7 @@ SELECT
     s.filtered AS 's_s_filtered',
 
     -- The status' account (if any)
-    s.a_serverId AS 's_s_a_serverId',
+    s.a_accountId AS 's_s_a_accountId',
     s.a_pachliAccountId AS 's_s_a_pachliAccountId',
     s.a_localUsername AS 's_s_a_localUsername',
     s.a_username AS 's_s_a_username',
@@ -112,7 +112,7 @@ SELECT
     s.a_pronouns AS 's_s_a_pronouns',
 
     -- The status's reblog account (if any)
-    s.rb_serverId AS 's_s_rb_serverId',
+    s.rb_accountId AS 's_s_rb_accountId',
     s.rb_pachliAccountId AS 's_s_rb_pachliAccountId',
     s.rb_localUsername AS 's_s_rb_localUsername',
     s.rb_username AS 's_s_rb_username',
@@ -127,7 +127,7 @@ SELECT
     s.rb_pronouns AS 's_s_rb_pronouns',
 
     -- Status view data
-    s.svd_serverId AS 's_s_svd_serverId',
+    s.svd_statusId AS 's_s_svd_statusId',
     s.svd_pachliAccountId AS 's_s_svd_pachliAccountId',
     s.svd_expanded AS 's_s_svd_expanded',
     s.svd_contentCollapsed AS 's_s_svd_contentCollapsed',
@@ -135,7 +135,7 @@ SELECT
     s.svd_attachmentDisplayAction AS 's_s_svd_attachmentDisplayAction',
 
     -- Translation
-    s.t_serverId AS 's_s_t_serverId',
+    s.t_statusId AS 's_s_t_statusId',
     s.t_pachliAccountId AS 's_s_t_pachliAccountId',
     s.t_content AS 's_s_t_content',
     s.t_spoilerText AS 's_s_t_spoilerText',
@@ -144,7 +144,7 @@ SELECT
     s.t_provider AS 's_s_t_provider',
 
     -- Reply account
-    s.reply_serverId AS 's_s_reply_serverId',
+    s.reply_accountId AS 's_s_reply_accountId',
     s.reply_pachliAccountId AS 's_s_reply_pachliAccountId',
     s.reply_localUsername AS 's_s_reply_localUsername',
     s.reply_username AS 's_s_reply_username',
@@ -160,10 +160,10 @@ SELECT
 
     -- Quoted status (if any)
     -- TimelineStatusWithAccount
-    q.serverId AS 's_q_serverId',
+    q.statusId AS 's_q_statusId',
     q.url AS 's_q_url',
     q.pachliAccountId AS 's_q_pachliAccountId',
-    q.authorServerId AS 's_q_authorServerId',
+    q.accountId AS 's_q_accountId',
     q.inReplyToId AS 's_q_inReplyToId',
     q.inReplyToAccountId AS 's_q_inReplyToAccountId',
     q.createdAt AS 's_q_createdAt',
@@ -182,7 +182,7 @@ SELECT
     q.mentions AS 's_q_mentions',
     q.tags AS 's_q_tags',
     q.application AS 's_q_application',
-    q.reblogServerId AS 's_q_reblogServerId',
+    q.reblogStatusId AS 's_q_reblogStatusId',
     q.reblogAccountId AS 's_q_reblogAccountId',
     q.content AS 's_q_content',
     q.attachments AS 's_q_attachments',
@@ -193,11 +193,11 @@ SELECT
     q.language AS 's_q_language',
     q.filtered AS 's_q_filtered',
     q.quoteState AS 's_q_quoteState',
-    q.quoteServerId AS 's_q_quoteServerId',
+    q.quoteStatusId AS 's_q_quoteStatusId',
     q.quoteApproval AS 's_q_quoteApproval',
 
     -- The status' account (if any)
-    q.a_serverId AS 's_q_a_serverId',
+    q.a_accountId AS 's_q_a_accountId',
     q.a_pachliAccountId AS 's_q_a_pachliAccountId',
     q.a_localUsername AS 's_q_a_localUsername',
     q.a_username AS 's_q_a_username',
@@ -212,7 +212,7 @@ SELECT
     q.a_pronouns AS 's_q_a_pronouns',
 
     -- The status's reblog account (if any)
-    q.rb_serverId AS 's_q_rb_serverId',
+    q.rb_accountId AS 's_q_rb_accountId',
     q.rb_pachliAccountId AS 's_q_rb_pachliAccountId',
     q.rb_localUsername AS 's_q_rb_localUsername',
     q.rb_username AS 's_q_rb_username',
@@ -227,7 +227,7 @@ SELECT
     q.rb_pronouns AS 's_q_rb_pronouns',
 
     -- Status view data
-    q.svd_serverId AS 's_q_svd_serverId',
+    q.svd_statusId AS 's_q_svd_statusId',
     q.svd_pachliAccountId AS 's_q_svd_pachliAccountId',
     q.svd_expanded AS 's_q_svd_expanded',
     q.svd_contentCollapsed AS 's_q_svd_contentCollapsed',
@@ -235,7 +235,7 @@ SELECT
     q.svd_attachmentDisplayAction AS 's_q_svd_attachmentDisplayAction',
 
     -- Translation
-    q.t_serverId AS 's_q_t_serverId',
+    q.t_statusId AS 's_q_t_statusId',
     q.t_pachliAccountId AS 's_q_t_pachliAccountId',
     q.t_content AS 's_q_t_content',
     q.t_spoilerText AS 's_q_t_spoilerText',
@@ -244,7 +244,7 @@ SELECT
     q.t_provider AS 's_q_t_provider',
 
     -- Reply account
-    q.reply_serverId AS 's_q_reply_serverId',
+    q.reply_accountId AS 's_q_reply_accountId',
     q.reply_pachliAccountId AS 's_q_reply_pachliAccountId',
     q.reply_localUsername AS 's_q_reply_localUsername',
     q.reply_username AS 's_q_reply_username',
@@ -260,12 +260,12 @@ SELECT
 
     -- NotificationViewData
     nvd.pachliAccountId AS 'nvd_pachliAccountId',
-    nvd.serverId AS 'nvd_serverId',
+    nvd.notificationId AS 'nvd_notificationId',
     nvd.accountFilterDecision AS 'nvd_accountFilterDecision',
 
     -- Collection
     timelineCollection.pachliAccountId AS 'timelineCollection_pachliAccountId',
-    timelineCollection.serverId AS 'timelineCollection_serverId',
+    timelineCollection.collectionId AS 'timelineCollection_collectionId',
     timelineCollection.accountId AS 'timelineCollection_accountId',
     timelineCollection.name AS 'timelineCollection_name',
     timelineCollection.description AS 'timelineCollection_description',
@@ -277,7 +277,7 @@ SELECT
     timelineCollection.updatedAt AS 'timelineCollection_updatedAt',
     timelineCollection.items AS 'timelineCollection_items',
     timelineCollection.itemIconUrls AS 'timelineCollection_itemIconUrls',
-    timelineCollection.owner_serverId AS 'timelineCollection_owner_serverId',
+    timelineCollection.owner_accountId AS 'timelineCollection_owner_accountId',
     timelineCollection.owner_pachliAccountId AS 'timelineCollection_owner_pachliAccountId',
     timelineCollection.owner_localUsername AS 'timelineCollection_owner_localUsername',
     timelineCollection.owner_username AS 'timelineCollection_owner_username',
@@ -293,23 +293,23 @@ SELECT
 
     -- Collection view data
     collectionViewData.pachliAccountId AS 'collectionViewData_pachliAccountId',
-    collectionViewData.serverId AS 'collectionViewData_serverId',
+    collectionViewData.collectionId AS 'collectionViewData_collectionId',
     collectionViewData.displayAction AS 'collectionViewData_displayAction'
 FROM NotificationEntity AS n
-LEFT JOIN TimelineAccountEntity AS a ON (n.pachliAccountId = a.pachliAccountId AND n.accountServerId = a.serverId)
+LEFT JOIN TimelineAccountEntity AS a ON (n.pachliAccountId = a.pachliAccountId AND n.accountId = a.accountId)
 LEFT JOIN TimelineStatusWithAccount AS s
-    ON (n.pachliAccountId = s.pachliAccountId AND n.statusServerId = s.serverId)
+    ON (n.pachliAccountId = s.pachliAccountId AND n.statusId = s.statusId)
 LEFT JOIN TimelineStatusWithAccount AS q
-    ON (n.pachliAccountId = :pachliAccountId AND (q.pachliAccountId = :pachliAccountId AND s.quoteServerId = q.serverId))
-LEFT JOIN NotificationViewDataEntity AS nvd ON (n.pachliAccountId = nvd.pachliAccountId AND n.serverId = nvd.serverId)
+    ON (n.pachliAccountId = :pachliAccountId AND (q.pachliAccountId = :pachliAccountId AND s.quoteStatusId = q.statusId))
+LEFT JOIN NotificationViewDataEntity AS nvd ON (n.pachliAccountId = nvd.pachliAccountId AND n.notificationId = nvd.notificationId)
 LEFT JOIN
     TimelineCollectionEntity AS timelineCollection
-    ON (n.pachliAccountId = timelineCollection.pachliAccountId AND n.collectionServerId = timelineCollection.serverId)
+    ON (n.pachliAccountId = timelineCollection.pachliAccountId AND n.collectionId = timelineCollection.collectionId)
 LEFT JOIN
     CollectionViewDataEntity AS collectionViewData
-    ON (n.pachliAccountId = collectionViewData.pachliAccountId AND n.collectionServerId = collectionViewData.serverId)
+    ON (n.pachliAccountId = collectionViewData.pachliAccountId AND n.collectionId = collectionViewData.collectionId)
 WHERE n.pachliAccountId = :pachliAccountId
-ORDER BY LENGTH(n.serverId) DESC, n.serverId DESC
+ORDER BY LENGTH(n.notificationId) DESC, n.notificationId DESC
 """,
     )
     fun getNotificationsWithQuote(pachliAccountId: Long): PagingSource<Int, NotificationData>
@@ -324,19 +324,19 @@ SELECT rownum
 FROM (
     SELECT
         t1.pachliAccountId,
-        t1.serverId,
-        COUNT(t2.serverId) - 1 AS rownum
+        t1.notificationId,
+        COUNT(t2.notificationId) - 1 AS rownum
     FROM NotificationEntity AS t1
     INNER JOIN
         NotificationEntity AS t2
         ON
             t1.pachliAccountId = t2.pachliAccountId
-            AND (LENGTH(t1.serverId) <= LENGTH(t2.serverId) AND t1.serverId <= t2.serverId)
+            AND (LENGTH(t1.notificationId) <= LENGTH(t2.notificationId) AND t1.notificationId <= t2.notificationId)
     WHERE t1.pachliAccountId = :pachliAccountId
-    GROUP BY t1.serverId
-    ORDER BY LENGTH(t1.serverId) DESC, t1.serverId DESC
+    GROUP BY t1.notificationId
+    ORDER BY LENGTH(t1.notificationId) DESC, t1.notificationId DESC
 )
-WHERE serverId = :notificationId
+WHERE notificationId = :notificationId
 """,
     )
     suspend fun getNotificationRowNumber(pachliAccountId: Long, notificationId: String): Int
@@ -374,10 +374,10 @@ SELECT *
 FROM NotificationViewDataEntity
 WHERE
     pachliAccountId = :pachliAccountId
-    AND serverId = :serverId
+    AND notificationId = :notificationId
 """,
     )
-    suspend fun loadViewData(pachliAccountId: Long, serverId: String): NotificationViewDataEntity?
+    suspend fun loadViewData(pachliAccountId: Long, notificationId: String): NotificationViewDataEntity?
 
     @Delete
     suspend fun deleteNotification(notification: NotificationEntity)
@@ -399,7 +399,7 @@ SELECT
 
     -- The account that triggered the notification
     a.pachliAccountId AS 'a_pachliAccountId',
-    a.serverId AS 'a_serverId',
+    a.accountId AS 'a_accountId',
     a.localUsername AS 'a_localUsername',
     a.username AS 'a_username',
     a.displayName AS 'a_displayName',
@@ -414,10 +414,10 @@ SELECT
 
     -- The status in the notification (if any)
     -- TimelineStatusWithAccount
-    s.serverId AS 's_s_serverId',
+    s.statusId AS 's_s_statusId',
     s.url AS 's_s_url',
     s.pachliAccountId AS 's_s_pachliAccountId',
-    s.authorServerId AS 's_s_authorServerId',
+    s.accountId AS 's_s_accountId',
     s.inReplyToId AS 's_s_inReplyToId',
     s.inReplyToAccountId AS 's_s_inReplyToAccountId',
     s.createdAt AS 's_s_createdAt',
@@ -436,14 +436,14 @@ SELECT
     s.mentions AS 's_s_mentions',
     s.tags AS 's_s_tags',
     s.application AS 's_s_application',
-    s.reblogServerId AS 's_s_reblogServerId',
+    s.reblogStatusId AS 's_s_reblogStatusId',
     s.reblogAccountId AS 's_s_reblogAccountId',
     s.content AS 's_s_content',
     s.attachments AS 's_s_attachments',
     s.poll AS 's_s_poll',
     s.card AS 's_s_card',
     s.quoteState AS 's_s_quoteState',
-    s.quoteServerId AS 's_s_quoteServerId',
+    s.quoteStatusId AS 's_s_quoteStatusId',
     s.quoteApproval AS 's_s_quoteApproval',
     s.muted AS 's_s_muted',
     s.pinned AS 's_s_pinned',
@@ -451,7 +451,7 @@ SELECT
     s.filtered AS 's_s_filtered',
 
     -- The status' account (if any)
-    s.a_serverId AS 's_s_a_serverId',
+    s.a_accountId AS 's_s_a_accountId',
     s.a_pachliAccountId AS 's_s_a_pachliAccountId',
     s.a_localUsername AS 's_s_a_localUsername',
     s.a_username AS 's_s_a_username',
@@ -466,7 +466,7 @@ SELECT
     s.a_pronouns AS 's_s_a_pronouns',
 
     -- The status's reblog account (if any)
-    s.rb_serverId AS 's_s_rb_serverId',
+    s.rb_accountId AS 's_s_rb_accountId',
     s.rb_pachliAccountId AS 's_s_rb_pachliAccountId',
     s.rb_localUsername AS 's_s_rb_localUsername',
     s.rb_username AS 's_s_rb_username',
@@ -481,7 +481,7 @@ SELECT
     s.rb_pronouns AS 's_s_rb_pronouns',
 
     -- Status view data
-    s.svd_serverId AS 's_s_svd_serverId',
+    s.svd_statusId AS 's_s_svd_statusId',
     s.svd_pachliAccountId AS 's_s_svd_pachliAccountId',
     s.svd_expanded AS 's_s_svd_expanded',
     s.svd_contentCollapsed AS 's_s_svd_contentCollapsed',
@@ -489,7 +489,7 @@ SELECT
     s.svd_attachmentDisplayAction AS 's_s_svd_attachmentDisplayAction',
 
     -- Translation
-    s.t_serverId AS 's_s_t_serverId',
+    s.t_statusId AS 's_s_t_statusId',
     s.t_pachliAccountId AS 's_s_t_pachliAccountId',
     s.t_content AS 's_s_t_content',
     s.t_spoilerText AS 's_s_t_spoilerText',
@@ -498,7 +498,7 @@ SELECT
     s.t_provider AS 's_s_t_provider',
 
     -- Reply account
-    s.reply_serverId AS 's_s_reply_serverId',
+    s.reply_accountId AS 's_s_reply_accountId',
     s.reply_pachliAccountId AS 's_s_reply_pachliAccountId',
     s.reply_localUsername AS 's_s_reply_localUsername',
     s.reply_username AS 's_s_reply_username',
@@ -514,10 +514,10 @@ SELECT
 
     -- Quoted status (if any)
     -- TimelineStatusWithAccount
-    q.serverId AS 's_q_serverId',
+    q.statusId AS 's_q_statusId',
     q.url AS 's_q_url',
     q.pachliAccountId AS 's_q_pachliAccountId',
-    q.authorServerId AS 's_q_authorServerId',
+    q.accountId AS 's_q_accountId',
     q.inReplyToId AS 's_q_inReplyToId',
     q.inReplyToAccountId AS 's_q_inReplyToAccountId',
     q.createdAt AS 's_q_createdAt',
@@ -536,7 +536,7 @@ SELECT
     q.mentions AS 's_q_mentions',
     q.tags AS 's_q_tags',
     q.application AS 's_q_application',
-    q.reblogServerId AS 's_q_reblogServerId',
+    q.reblogStatusId AS 's_q_reblogStatusId',
     q.reblogAccountId AS 's_q_reblogAccountId',
     q.content AS 's_q_content',
     q.attachments AS 's_q_attachments',
@@ -547,11 +547,11 @@ SELECT
     q.language AS 's_q_language',
     q.filtered AS 's_q_filtered',
     q.quoteState AS 's_q_quoteState',
-    q.quoteServerId AS 's_q_quoteServerId',
+    q.quoteStatusId AS 's_q_quoteStatusId',
     q.quoteApproval AS 's_q_quoteApproval',
 
     -- The status' account (if any)
-    q.a_serverId AS 's_q_a_serverId',
+    q.a_accountId AS 's_q_a_accountId',
     q.a_pachliAccountId AS 's_q_a_pachliAccountId',
     q.a_localUsername AS 's_q_a_localUsername',
     q.a_username AS 's_q_a_username',
@@ -566,7 +566,7 @@ SELECT
     q.a_pronouns AS 's_q_a_pronouns',
 
     -- The status's reblog account (if any)
-    q.rb_serverId AS 's_q_rb_serverId',
+    q.rb_accountId AS 's_q_rb_accountId',
     q.rb_pachliAccountId AS 's_q_rb_pachliAccountId',
     q.rb_localUsername AS 's_q_rb_localUsername',
     q.rb_username AS 's_q_rb_username',
@@ -581,7 +581,7 @@ SELECT
     q.rb_pronouns AS 's_q_rb_pronouns',
 
     -- Status view data
-    q.svd_serverId AS 's_q_svd_serverId',
+    q.svd_statusId AS 's_q_svd_statusId',
     q.svd_pachliAccountId AS 's_q_svd_pachliAccountId',
     q.svd_expanded AS 's_q_svd_expanded',
     q.svd_contentCollapsed AS 's_q_svd_contentCollapsed',
@@ -589,7 +589,7 @@ SELECT
     q.svd_attachmentDisplayAction AS 's_q_svd_attachmentDisplayAction',
 
     -- Translation
-    q.t_serverId AS 's_q_t_serverId',
+    q.t_statusId AS 's_q_t_statusId',
     q.t_pachliAccountId AS 's_q_t_pachliAccountId',
     q.t_content AS 's_q_t_content',
     q.t_spoilerText AS 's_q_t_spoilerText',
@@ -598,7 +598,7 @@ SELECT
     q.t_provider AS 's_q_t_provider',
 
     -- Reply account
-    q.reply_serverId AS 's_q_reply_serverId',
+    q.reply_accountId AS 's_q_reply_accountId',
     q.reply_pachliAccountId AS 's_q_reply_pachliAccountId',
     q.reply_localUsername AS 's_q_reply_localUsername',
     q.reply_username AS 's_q_reply_username',
@@ -614,12 +614,12 @@ SELECT
 
     -- NotificationViewData
     nvd.pachliAccountId AS 'nvd_pachliAccountId',
-    nvd.serverId AS 'nvd_serverId',
+    nvd.notificationId AS 'nvd_notificationId',
     nvd.accountFilterDecision AS 'nvd_accountFilterDecision',
 
     -- Collection
     timelineCollection.pachliAccountId AS 'timelineCollection_pachliAccountId',
-    timelineCollection.serverId AS 'timelineCollection_serverId',
+    timelineCollection.collectionId AS 'timelineCollection_collectionId',
     timelineCollection.accountId AS 'timelineCollection_accountId',
     timelineCollection.name AS 'timelineCollection_name',
     timelineCollection.description AS 'timelineCollection_description',
@@ -631,7 +631,7 @@ SELECT
     timelineCollection.updatedAt AS 'timelineCollection_updatedAt',
     timelineCollection.items AS 'timelineCollection_items',
     timelineCollection.itemIconUrls AS 'timelineCollection_itemIconUrls',
-    timelineCollection.owner_serverId AS 'timelineCollection_owner_serverId',
+    timelineCollection.owner_accountId AS 'timelineCollection_owner_accountId',
     timelineCollection.owner_pachliAccountId AS 'timelineCollection_owner_pachliAccountId',
     timelineCollection.owner_localUsername AS 'timelineCollection_owner_localUsername',
     timelineCollection.owner_username AS 'timelineCollection_owner_username',
@@ -647,22 +647,22 @@ SELECT
 
     -- Collection view data
     collectionViewData.pachliAccountId AS 'collectionViewData_pachliAccountId',
-    collectionViewData.serverId AS 'collectionViewData_serverId',
+    collectionViewData.collectionId AS 'collectionViewData_collectionId',
     collectionViewData.displayAction AS 'collectionViewData_displayAction'
 FROM NotificationEntity AS n
-LEFT JOIN TimelineAccountEntity AS a ON (n.pachliAccountId = a.pachliAccountId AND n.accountServerId = a.serverId)
-LEFT JOIN TimelineStatusWithAccount AS s ON (n.pachliAccountId = s.pachliAccountId AND n.statusServerId = s.serverId)
+LEFT JOIN TimelineAccountEntity AS a ON (n.pachliAccountId = a.pachliAccountId AND n.accountId = a.accountId)
+LEFT JOIN TimelineStatusWithAccount AS s ON (n.pachliAccountId = s.pachliAccountId AND n.statusId = s.statusId)
 LEFT JOIN TimelineStatusWithAccount AS q
-    ON (n.pachliAccountId = :pachliAccountId AND (q.pachliAccountId = :pachliAccountId AND s.quoteServerId = q.serverId))
-LEFT JOIN NotificationViewDataEntity AS nvd ON (n.pachliAccountId = nvd.pachliAccountId AND n.serverId = nvd.serverId)
+    ON (n.pachliAccountId = :pachliAccountId AND (q.pachliAccountId = :pachliAccountId AND s.quoteStatusId = q.statusId))
+LEFT JOIN NotificationViewDataEntity AS nvd ON (n.pachliAccountId = nvd.pachliAccountId AND n.notificationId = nvd.notificationId)
 LEFT JOIN
     TimelineCollectionEntity AS timelineCollection
-    ON (n.pachliAccountId = timelineCollection.pachliAccountId and n.collectionServerId = timelineCollection.serverId)
+    ON (n.pachliAccountId = timelineCollection.pachliAccountId and n.collectionId = timelineCollection.collectionId)
 LEFT JOIN
     CollectionViewDataEntity AS collectionViewData
-    ON (n.pachliAccountId = collectionViewData.pachliAccountId AND n.collectionServerId = collectionViewData.serverId)
+    ON (n.pachliAccountId = collectionViewData.pachliAccountId AND n.collectionId = collectionViewData.collectionId)
 WHERE n.pachliAccountId = :pachliAccountId
-ORDER BY LENGTH(n.serverId) DESC, n.serverId DESC
+ORDER BY LENGTH(n.notificationId) DESC, n.notificationId DESC
 """,
     )
     suspend fun debugGetNotificationsWithQuote(pachliAccountId: Long): List<NotificationData>

@@ -78,7 +78,7 @@ class NetworkTimelineRemoteMediator(
                     val itemKey = if (remoteKeyTimelineId != null) {
                         remoteKeyDao.remoteKeyForKind(pachliAccountId, remoteKeyTimelineId, RemoteKeyKind.REFRESH)?.key
                     } else {
-                        state.anchorPosition?.let { state.closestItemToPosition(it) }?.timelineStatus?.status?.serverId?.let { ik ->
+                        state.anchorPosition?.let { state.closestItemToPosition(it) }?.timelineStatus?.status?.statusId?.let { ik ->
                             // Find the page that contains the item, so the remote key can be determined
                             val pageContainingItem = pageCache.getPageById(ik)
 

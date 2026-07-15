@@ -281,7 +281,7 @@ class NotificationsRemoteMediator(
 
         collectionsDao.upsertCollections(collections.asEntity(pachliAccountId))
         collectionsDao.upsertCollectionItems(
-            collections.flatMap { it.items.asEntity(pachliAccountId, it.serverId) },
+            collections.flatMap { it.items.asEntity(pachliAccountId, it.collectionId) },
         )
         collectionsDao.upsertTimelineCollections(
             collections.map { it.asTimelineCollection(accountsInCollections) }.asEntity(pachliAccountId),
@@ -305,7 +305,7 @@ class NotificationsRemoteMediator(
         if (accountIds.isEmpty()) return emptyMap()
 
         return mastodonApi.accounts(accountIds)
-            .map { it.body.asModel().associateBy { it.serverId } }
+            .map { it.body.asModel().associateBy { it.accountId } }
             .getOrElse { emptyMap() }
     }
 }
@@ -314,7 +314,7 @@ class NotificationsRemoteMediator(
  * @return A [NotificationReport] from a network [Notification] for [pachliAccountId].
  */
 fun Report.asEntity(pachliAccountId: Long) = NotificationReport(
-    reportId = serverId,
+    reportId = reportId,
     actionTaken = actionTaken,
     actionTakenAt = actionTakenAt,
     category = when (category) {

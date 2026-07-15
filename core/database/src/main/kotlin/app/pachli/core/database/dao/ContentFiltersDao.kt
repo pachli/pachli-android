@@ -32,7 +32,7 @@ interface ContentFiltersDao {
         """
 SELECT *
 FROM ContentFiltersEntity
-WHERE accountId = :pachliAccountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
     suspend fun getByAccount(pachliAccountId: Long): ContentFiltersEntity?
@@ -41,7 +41,7 @@ WHERE accountId = :pachliAccountId
         """
 SELECT *
 FROM ContentFiltersEntity
-WHERE accountId = :pachliAccountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
     fun flowByAccount(pachliAccountId: Long): Flow<ContentFiltersEntity?>

@@ -39,7 +39,7 @@ import app.pachli.core.model.TimelineAccount
 @ColumnTypeConverters(Converters::class)
 data class ConversationData(
     val pachliAccountId: Long,
-    val id: String,
+    val conversationId: String,
     val accounts: List<ConversationAccount>,
     val unread: Boolean,
     @Embedded(prefix = "s_")
@@ -53,12 +53,12 @@ data class ConversationData(
  * statuses in the conversation.
  */
 @Entity(
-    primaryKeys = ["pachliAccountId", "serverId"],
+    primaryKeys = ["pachliAccountId", "conversationId"],
     foreignKeys = (
         [
             ForeignKey(
                 entity = PachliAccountEntity::class,
-                parentColumns = ["id"],
+                parentColumns = ["pachliAccountId"],
                 childColumns = ["pachliAccountId"],
                 onDelete = ForeignKey.CASCADE,
                 deferred = true,
@@ -69,7 +69,7 @@ data class ConversationData(
 @ColumnTypeConverters(Converters::class)
 data class ConversationViewDataEntity(
     val pachliAccountId: Long,
-    val serverId: String,
+    val conversationId: String,
     val contentFilterAction: FilterAction? = null,
     val accountFilterDecision: AccountFilterDecision? = null,
 )
@@ -79,7 +79,7 @@ data class ConversationViewDataEntity(
  */
 data class ConversationContentFilterActionUpdate(
     val pachliAccountId: Long,
-    val serverId: String,
+    val conversationId: String,
     val contentFilterAction: FilterAction,
 )
 
@@ -88,7 +88,7 @@ data class ConversationContentFilterActionUpdate(
  */
 data class ConversationAccountFilterDecisionUpdate(
     val pachliAccountId: Long,
-    val serverId: String,
+    val conversationId: String,
     val accountFilterDecision: AccountFilterDecision?,
 )
 
@@ -96,19 +96,19 @@ data class ConversationAccountFilterDecisionUpdate(
  * Represents a [Conversation].
  *
  * @property pachliAccountId
- * @property id Conversation ID.
+ * @property conversationId Conversation ID.
  * @property accounts List of [ConversationAccount] in the conversation.
  * @property unread True if the conversation is currently marked unread.
- * @property lastStatusServerId Server ID of the most recent status in the conversation.
- * @property isConversationStarter True if the status in [lastStatusServerId] is part
+ * @property lastStatusId Server ID of the most recent status in the conversation.
+ * @property isConversationStarter True if the status in [lastStatusId] is part
  * of the chain of statuses that started the conversation.
  */
 @Entity(
-    primaryKeys = ["id", "pachliAccountId"],
+    primaryKeys = ["pachliAccountId", "conversationId"],
     foreignKeys = [
         ForeignKey(
             entity = PachliAccountEntity::class,
-            parentColumns = ["id"],
+            parentColumns = ["pachliAccountId"],
             childColumns = ["pachliAccountId"],
             onDelete = ForeignKey.CASCADE,
             deferred = true,
@@ -119,11 +119,11 @@ data class ConversationAccountFilterDecisionUpdate(
 @ColumnTypeConverters(Converters::class)
 data class ConversationEntity(
     val pachliAccountId: Long,
-    val id: String,
+    val conversationId: String,
     val accounts: List<ConversationAccount>,
     val unread: Boolean,
     @ColumnInfo(defaultValue = "")
-    val lastStatusServerId: String,
+    val lastStatusId: String,
     @ColumnInfo(defaultValue = "1")
     val isConversationStarter: Boolean,
 ) {
@@ -136,10 +136,10 @@ data class ConversationEntity(
             return conversation.lastStatus?.let {
                 ConversationEntity(
                     pachliAccountId = pachliAccountId,
-                    id = conversation.id,
+                    conversationId = conversation.id,
                     accounts = conversation.accounts.asConversationAccount(),
                     unread = conversation.unread,
-                    lastStatusServerId = it.statusId,
+                    lastStatusId = it.statusId,
                     isConversationStarter = isInitial,
                 )
             }
@@ -148,7 +148,7 @@ data class ConversationEntity(
 }
 
 fun TimelineAccount.asConversationAccount() = ConversationAccount(
-    id = serverId,
+    accountId = accountId,
     localUsername = localUsername,
     username = username,
     displayName = name,
