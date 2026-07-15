@@ -94,7 +94,7 @@ class AccountsInListViewModel @AssistedInject constructor(
      * Add [account] to [listId], refreshing on success, sending [Error.AddAccounts] on failure
      */
     fun addAccountToList(account: TimelineAccount) = viewModelScope.launch {
-        listsRepository.addAccountsToList(pachliAccountId, listId, listOf(account.serverId))
+        listsRepository.addAccountsToList(pachliAccountId, listId, listOf(account.accountId))
             .onSuccess { refresh() }
             .onFailure {
                 Timber.e("Failed to add account to list: %s", account.username)

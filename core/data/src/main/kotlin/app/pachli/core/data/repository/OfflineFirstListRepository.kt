@@ -60,7 +60,7 @@ internal class OfflineFirstListRepository @Inject constructor(
     }
 
     override fun getListsFlow() = localDataSource.getAllLists().map {
-        it.groupBy { it.accountId }.mapValues { it.value.asModel() }
+        it.groupBy { it.pachliAccountId }.mapValues { it.value.asModel() }
     }
 
     override suspend fun createList(pachliAccountId: Long, title: String, exclusive: Boolean, repliesPolicy: UserListRepliesPolicy) = externalScope.async {

@@ -307,14 +307,14 @@ class DraftsFragment :
      * @param intent The intent containing the [app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions] and draft information.
      */
     private fun resumeOrStartComposeActivity(intent: ComposeActivityIntent) {
-        val draftId = ComposeActivityIntent.getComposeOptions(intent).draft.id
+        val draftId = ComposeActivityIntent.getComposeOptions(intent).draft.draftId
 
         ContextCompat.getSystemService(requireContext(), ActivityManager::class.java)?.appTasks?.forEach {
             // No point in looking at anything except ComposeActivity
             if (it.taskInfo.baseActivity?.className != QuadrantConstants.COMPOSE_ACTIVITY) return@forEach
 
             val launchedComposeOptions = ComposeActivityIntent.getComposeOptionsOrNull(it.taskInfo.baseIntent) ?: return@forEach
-            if (launchedComposeOptions.draft.id == draftId) {
+            if (launchedComposeOptions.draft.draftId == draftId) {
                 it.moveToFront()
                 return
             }

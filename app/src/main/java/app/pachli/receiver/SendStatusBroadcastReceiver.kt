@@ -101,7 +101,7 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
         val pendingResult = goAsync()
         externalScope.launch(Dispatchers.IO) {
             val finalDraft = draftsRepository.upsertDraft(
-                account.id,
+                account.pachliAccountId,
                 draft.copy(
                     content = draft.content + (RemoteInput.getResultsFromIntent(intent)?.getCharSequence(KEY_REPLY, "") ?: ""),
                 ),
@@ -111,7 +111,7 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
                 StatusToSend(
                     draft = finalDraft,
                     media = emptyList(),
-                    pachliAccountId = account.id,
+                    pachliAccountId = account.pachliAccountId,
                     idempotencyKey = randomAlphanumericString(16),
                     retries = 0,
                 ),

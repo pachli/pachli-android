@@ -34,13 +34,6 @@ import app.pachli.core.model.Emoji
 import app.pachli.core.model.Notification
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
-import app.pachli.core.navigation.TimelineActivityIntent.Companion.bookmarks
-import app.pachli.core.navigation.TimelineActivityIntent.Companion.conversations
-import app.pachli.core.navigation.TimelineActivityIntent.Companion.favourites
-import app.pachli.core.navigation.TimelineActivityIntent.Companion.hashtag
-import app.pachli.core.navigation.TimelineActivityIntent.Companion.list
-import app.pachli.core.navigation.TimelineActivityIntent.Companion.publicFederated
-import app.pachli.core.navigation.TimelineActivityIntent.Companion.publicLocal
 import app.pachli.core.network.parseAsMastodonHtml
 import com.gaelmarhic.quadrant.QuadrantConstants
 import kotlinx.parcelize.Parcelize
@@ -50,7 +43,7 @@ const val PACHLI_ACCOUNT_ID_ACTIVE = -1L
 
 /**
  * The Pachli Account ID passed to this intent. This is the
- * [id][app.pachli.core.database.model.PachliAccountEntity.id] of the account that is
+ * [id][app.pachli.core.database.model.PachliAccountEntity.pachliAccountId] of the account that is
  * "active" for the purposes of this activity.
  *
  * [PACHLI_ACCOUNT_ID_ACTIVE] is a marker only used by [IntentRouterActivityIntent]
@@ -554,24 +547,26 @@ class EditContentFilterActivityIntent(context: Context, pachliAccountId: Long) :
          *
          * @param context
          * @param contentFilter Content filter to edit
-         * @param accountId The account that owns the filter
+         * @param pachliAccountId The account that owns the filter
          * @see [app.pachli.components.filters.EditContentFilterActivity]
          */
-        fun edit(context: Context, accountId: Long, contentFilter: ContentFilter) = EditContentFilterActivityIntent(context, accountId).apply {
-            putExtra(EXTRA_CONTENT_FILTER_TO_EDIT, contentFilter)
-        }
+        fun edit(context: Context, pachliAccountId: Long, contentFilter: ContentFilter) =
+            EditContentFilterActivityIntent(context, pachliAccountId).apply {
+                putExtra(EXTRA_CONTENT_FILTER_TO_EDIT, contentFilter)
+            }
 
         /**
          * Launch and load [contentFilterId], display it ready to edit.
          *
          * @param context
-         * @param accountId The account that owns the filter
+         * @param pachliAccountId The account that owns the filter
          * @param contentFilterId ID of the content filter to load
          * @see [app.pachli.components.filters.EditContentFilterActivity]
          */
-        fun edit(context: Context, accountId: Long, contentFilterId: String) = EditContentFilterActivityIntent(context, accountId).apply {
-            putExtra(EXTRA_CONTENT_FILTER_ID_TO_LOAD, contentFilterId)
-        }
+        fun edit(context: Context, pachliAccountId: Long, contentFilterId: String) =
+            EditContentFilterActivityIntent(context, pachliAccountId).apply {
+                putExtra(EXTRA_CONTENT_FILTER_ID_TO_LOAD, contentFilterId)
+            }
 
         /** @return the [ContentFilter] passed in this intent, or null */
         fun getContentFilter(intent: Intent) = IntentCompat.getParcelableExtra(intent, EXTRA_CONTENT_FILTER_TO_EDIT, ContentFilter::class.java)
@@ -852,23 +847,23 @@ class TimelineActivityIntent private constructor(context: Context, pachliAccount
     }
 }
 
-class ViewMediaActivityIntent private constructor(context: Context, accountId: Long) : Intent() {
+class ViewMediaActivityIntent private constructor(context: Context, pachliAccountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.VIEW_MEDIA_ACTIVITY)
-        pachliAccountId = accountId
+        this.pachliAccountId = pachliAccountId
     }
 
     /**
      * Show a collection of media attachments.
      *
      * @param context
-     * @param accountId ID of the Pachli account viewing the media
+     * @param pachliAccountId ID of the Pachli account viewing the media
      * @param owningUsername The username that owns the media. See
      * [SFragment.viewMedia][app.pachli.fragment.SFragment.viewMedia].
      * @param attachments The attachments to show
      * @param index The index of the attachment in [attachments] to focus on
      */
-    constructor(context: Context, accountId: Long, owningUsername: String, attachments: List<AttachmentViewData>, index: Int) : this(context, accountId) {
+    constructor(context: Context, pachliAccountId: Long, owningUsername: String, attachments: List<AttachmentViewData>, index: Int) : this(context, pachliAccountId) {
         putExtra(EXTRA_OWNING_USERNAME, owningUsername)
         putParcelableArrayListExtra(EXTRA_ATTACHMENTS, ArrayList(attachments))
         putExtra(EXTRA_ATTACHMENT_INDEX, index)
@@ -878,12 +873,12 @@ class ViewMediaActivityIntent private constructor(context: Context, accountId: L
      * Show a single image identified by a URL
      *
      * @param context
-     * @param accountId ID of the Pachli account viewing the media
+     * @param pachliAccountId ID of the Pachli account viewing the media
      * @param owningUsername The username that owns the media. See
      * [SFragment.viewMedia][app.pachli.fragment.SFragment.viewMedia].
      * @param url The URL of the image
      */
-    constructor(context: Context, accountId: Long, owningUsername: String, url: String) : this(context, accountId) {
+    constructor(context: Context, pachliAccountId: Long, owningUsername: String, url: String) : this(context, pachliAccountId) {
         putExtra(EXTRA_OWNING_USERNAME, owningUsername)
         putExtra(EXTRA_SINGLE_IMAGE_URL, url)
     }
@@ -920,8 +915,8 @@ class ViewMediaActivityIntent private constructor(context: Context, accountId: L
         // This is required because there's no way for a launched activity to determine
         // if it was started with a shared element transition, you have to set a boolean
         // in the intent.
-        fun withSharedElementTransition(activity: Activity, accountId: Long, owningUsername: String, attachments: List<AttachmentViewData>, index: Int, view: View): Pair<ViewMediaActivityIntent, Bundle?> {
-            val intent = ViewMediaActivityIntent(activity, accountId, owningUsername, attachments, index)
+        fun withSharedElementTransition(activity: Activity, pachliAccountId: Long, owningUsername: String, attachments: List<AttachmentViewData>, index: Int, view: View): Pair<ViewMediaActivityIntent, Bundle?> {
+            val intent = ViewMediaActivityIntent(activity, pachliAccountId, owningUsername, attachments, index)
             intent.putExtra(EXTRA_HAS_SHARED_ELEMENT_TRANSITION, true)
 
             val attachment = attachments[index].attachment
@@ -940,15 +935,15 @@ class ViewMediaActivityIntent private constructor(context: Context, accountId: L
 
 /**
  * @param context
- * @param accountId ID of the Pachli account viewing the thread
+ * @param pachliAccountId ID of the Pachli account viewing the thread
  * @param statusId ID of the actionable status to start from (may be in the middle of the thread)
  * @param statusUrl Optional URL of the actionable status in `statusId`
  * @see [app.pachli.components.viewthread.ViewThreadFragment.newInstance]
  */
-class ViewThreadActivityIntent(context: Context, accountId: Long, statusId: String, statusUrl: String? = null) : Intent() {
+class ViewThreadActivityIntent(context: Context, pachliAccountId: Long, statusId: String, statusUrl: String? = null) : Intent() {
     init {
         setClassName(context, QuadrantConstants.VIEW_THREAD_ACTIVITY)
-        pachliAccountId = accountId
+        this.pachliAccountId = pachliAccountId
         putExtra(EXTRA_STATUS_ID, statusId)
         putExtra(EXTRA_STATUS_URL, statusUrl)
     }
@@ -1061,17 +1056,17 @@ class TabPreferenceActivityIntent(context: Context, pachliAccountId: Long) : Int
     }
 }
 
-class TrendingActivityIntent(context: Context, accountId: Long) : Intent() {
+class TrendingActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.TRENDING_ACTIVITY)
-        pachliAccountId = accountId
+        this.pachliAccountId = pachliAccountId
     }
 }
 
-class CollectionActivityIntent(context: Context, accountId: Long, collectionId: String) : Intent() {
+class CollectionActivityIntent(context: Context, pachliAccountId: Long, collectionId: String) : Intent() {
     init {
         setClassName(context, QuadrantConstants.COLLECTION_ACTIVITY)
-        pachliAccountId = accountId
+        this.pachliAccountId = pachliAccountId
         putExtra(EXTRA_COLLECTION_ID, collectionId)
     }
 

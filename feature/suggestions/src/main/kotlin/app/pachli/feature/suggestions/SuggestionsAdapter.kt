@@ -188,8 +188,8 @@ internal class SuggestionViewHolder(
         with(binding) {
             followAccount.setOnClickListener { accept(SuggestionAction.AcceptSuggestion(viewData.pachliAccountId, viewData.suggestion)) }
             deleteSuggestion.setOnClickListener { accept(SuggestionAction.DeleteSuggestion(viewData.pachliAccountId, viewData.suggestion)) }
-            accountNote.setOnClickListener { accept(NavigationAction.ViewAccount(suggestion.account.serverId)) }
-            root.setOnClickListener { accept(NavigationAction.ViewAccount(suggestion.account.serverId)) }
+            accountNote.setOnClickListener { accept(NavigationAction.ViewAccount(suggestion.account.accountId)) }
+            root.setOnClickListener { accept(NavigationAction.ViewAccount(suggestion.account.accountId)) }
 
             avatarRadius = avatar.context.resources.getDimensionPixelSize(app.pachli.core.designsystem.R.dimen.avatar_radius_48dp)
         }
@@ -389,7 +389,7 @@ internal class SuggestionViewHolder(
 }
 
 private object SuggestionDiffer : DiffUtil.ItemCallback<SuggestionViewData>() {
-    override fun areItemsTheSame(oldItem: SuggestionViewData, newItem: SuggestionViewData) = oldItem.suggestion.account.serverId == newItem.suggestion.account.serverId
+    override fun areItemsTheSame(oldItem: SuggestionViewData, newItem: SuggestionViewData) = oldItem.suggestion.account.accountId == newItem.suggestion.account.accountId
     override fun areContentsTheSame(oldItem: SuggestionViewData, newItem: SuggestionViewData) = oldItem == newItem
 
     override fun getChangePayload(oldItem: SuggestionViewData, newItem: SuggestionViewData): Any? {

@@ -25,7 +25,7 @@ import java.time.Instant
  */
 @JsonClass(generateAdapter = true)
 data class ConversationAccount(
-    val id: String,
+    val accountId: String,
     val localUsername: String,
     val username: String,
     val displayName: String,

@@ -200,16 +200,16 @@ class NotificationsRepository @Inject constructor(
  */
 fun Notification.asEntity(pachliAccountId: Long) = NotificationEntity(
     pachliAccountId = pachliAccountId,
-    serverId = id,
+    notificationId = notificationId,
     type = type.asEntity(),
     createdAt = createdAt,
-    accountServerId = account.serverId,
-    statusServerId = (this as? Notification.WithStatus)?.status?.statusId,
+    accountId = account.accountId,
+    statusId = (this as? Notification.WithStatus)?.status?.statusId,
     note = (this as? Notification.Follow)?.note,
     report = (this as? Notification.Report)?.report?.asEntity(pachliAccountId),
     relationshipSeveranceEvent = (this as? Notification.SeveredRelationships)?.relationshipSeveranceEvent?.asEntity(),
     accountWarning = (this as? Notification.ModerationWarning)?.accountWarning?.asEntity(),
-    collectionServerId = (this as? Notification.WithCollection)?.collection?.serverId,
+    collectionId = (this as? Notification.WithCollection)?.collection?.collectionId,
 )
 
 fun Iterable<Notification>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }
@@ -238,7 +238,7 @@ fun Notification.Type.asEntity() = when (this) {
  * Converts a timeline Account to an entity, associated with [pachliAccountId].
  */
 fun TimelineAccount.asEntity(pachliAccountId: Long) = TimelineAccountEntity(
-    serverId = id,
+    accountId = id,
     pachliAccountId = pachliAccountId,
     localUsername = localUsername,
     username = username,

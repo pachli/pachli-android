@@ -57,7 +57,7 @@ data class Account(
     val roles: List<Role>? = emptyList(),
 ) {
     fun asModel(): app.pachli.core.model.Account = app.pachli.core.model.Account(
-        serverId = id,
+        accountId = id,
         localUsername = localUsername,
         username = username,
         displayName = displayName.orEmpty(),
@@ -81,7 +81,7 @@ data class Account(
     )
 
     private fun asMovedAccountModel() = MovedAccount(
-        serverId = id,
+        accountId = id,
         localUsername = localUsername,
         username = username,
         displayName = displayName.orEmpty(),

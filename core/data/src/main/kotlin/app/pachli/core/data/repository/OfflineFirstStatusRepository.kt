@@ -193,7 +193,7 @@ class OfflineFirstStatusRepository @Inject constructor(
         statusDao.setExpanded(
             StatusViewDataExpanded(
                 pachliAccountId = pachliAccountId,
-                serverId = statusId,
+                statusId = statusId,
                 expanded = expanded,
             ),
         )
@@ -203,7 +203,7 @@ class OfflineFirstStatusRepository @Inject constructor(
         statusDao.setAttachmentDisplayAction(
             StatusViewDataAttachmentDisplayAction(
                 pachliAccountId = pachliAccountId,
-                serverId = statusId,
+                statusId = statusId,
                 attachmentDisplayAction = attachmentDisplayAction,
             ),
         )
@@ -213,7 +213,7 @@ class OfflineFirstStatusRepository @Inject constructor(
         statusDao.setContentCollapsed(
             StatusViewDataContentCollapsed(
                 pachliAccountId = pachliAccountId,
-                serverId = statusId,
+                statusId = statusId,
                 contentCollapsed = contentCollapsed,
             ),
         )
@@ -223,7 +223,7 @@ class OfflineFirstStatusRepository @Inject constructor(
         statusDao.setTranslationState(
             StatusViewDataTranslationState(
                 pachliAccountId = pachliAccountId,
-                serverId = statusId,
+                statusId = statusId,
                 translationState = translationState,
             ),
         )

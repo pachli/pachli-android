@@ -29,37 +29,37 @@ data class PachliAccountWithRelations(
     @Embedded val pachliAccountEntity: PachliAccountEntity,
 
     @Relation(
-        parentColumns = ["id"],
-        entityColumns = ["accountId"],
+        parentColumns = ["pachliAccountId"],
+        entityColumns = ["pachliAccountId"],
     )
     val lists: List<MastodonListEntity>?,
 
     @Relation(
-        parentColumns = ["id"],
-        entityColumns = ["accountId"],
+        parentColumns = ["pachliAccountId"],
+        entityColumns = ["pachliAccountId"],
     )
     val server: ServerEntity?,
 
     @Relation(
-        parentColumns = ["id"],
-        entityColumns = ["accountId"],
+        parentColumns = ["pachliAccountId"],
+        entityColumns = ["pachliAccountId"],
     )
     val contentFilters: ContentFiltersEntity?,
 
     @Relation(
-        parentColumns = ["id"],
-        entityColumns = ["accountId"],
+        parentColumns = ["pachliAccountId"],
+        entityColumns = ["pachliAccountId"],
     )
     val announcements: List<AnnouncementEntity>?,
 
     @Relation(
-        parentColumns = ["id"],
+        parentColumns = ["pachliAccountId"],
         entityColumns = ["pachliAccountId"],
     )
     val following: List<FollowingAccountEntity>,
 
     @Relation(
-        parentColumns = ["id"],
+        parentColumns = ["pachliAccountId"],
         entityColumns = ["pachliAccountId"],
     )
     val followedHashtags: List<HashtagEntity>,

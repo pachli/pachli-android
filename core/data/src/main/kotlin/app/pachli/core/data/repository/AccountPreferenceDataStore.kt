@@ -53,9 +53,9 @@ class AccountPreferenceDataStore @Inject constructor(
 
         externalScope.launch {
             when (key) {
-                PrefKeys.ALWAYS_SHOW_SENSITIVE_MEDIA -> accountManager.setAlwaysShowSensitiveMedia(account.id, value)
-                PrefKeys.ALWAYS_OPEN_SPOILER -> accountManager.setAlwaysOpenSpoiler(account.id, value)
-                PrefKeys.MEDIA_PREVIEW_ENABLED -> accountManager.setMediaPreviewEnabled(account.id, value)
+                PrefKeys.ALWAYS_SHOW_SENSITIVE_MEDIA -> accountManager.setAlwaysShowSensitiveMedia(account.pachliAccountId, value)
+                PrefKeys.ALWAYS_OPEN_SPOILER -> accountManager.setAlwaysOpenSpoiler(account.pachliAccountId, value)
+                PrefKeys.MEDIA_PREVIEW_ENABLED -> accountManager.setMediaPreviewEnabled(account.pachliAccountId, value)
             }
 
             _changes.emit(Pair(key, value))

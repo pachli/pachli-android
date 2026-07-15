@@ -204,7 +204,7 @@ fun fakeStatusEntityWithAccount(
             status = status.asEntity(pachliAccountId),
             account = status.account.asEntity(pachliAccountId),
             viewData = StatusViewDataEntity(
-                serverId = status.id,
+                statusId = status.id,
                 pachliAccountId = pachliAccountId,
                 expanded = expanded,
                 contentCollapsed = true,

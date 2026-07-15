@@ -27,12 +27,12 @@ class CacheUpdater @Inject constructor(
     init {
         scope.launch {
             eventHub.events.collect { event ->
-                val accountId = accountManager.activeAccount?.id ?: return@collect
+                val accountId = accountManager.activeAccount?.pachliAccountId ?: return@collect
                 when (event) {
                     is BookmarkEvent ->
                         statusDao.setBookmarked(accountId, event.statusId, event.bookmark)
                     is UnfollowEvent ->
-                        timelineDao.removeAllByUser(accountId, event.accountId)
+                        timelineDao.removeAllByAccount(accountId, event.accountId)
                     is StatusDeletedEvent ->
                         statusDao.delete(accountId, event.statusId)
                     is PollVoteEvent -> {

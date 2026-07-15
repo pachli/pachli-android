@@ -130,7 +130,7 @@ class ComposeActivityTest {
     )
 
     private val draft = Draft(
-        id = 1,
+        draftId = 1,
         contentWarning = "",
         content = "",
         sensitive = false,
@@ -205,7 +205,7 @@ class ComposeActivityTest {
         )
             .andThen { accountManager.setActiveAccount(it) }
             .onSuccess { accountManager.refresh(it) }
-            .get()!!.id
+            .get()!!.pachliAccountId
     }
 
     /**

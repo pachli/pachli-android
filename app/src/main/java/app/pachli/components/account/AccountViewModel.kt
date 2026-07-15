@@ -107,7 +107,7 @@ class AccountViewModel @AssistedInject constructor(
             accountId,
             eventHub.events.filterIsInstance<ProfileEditedEvent>(),
         ) { accountId, event ->
-            if (event.newProfileData.serverId == accountId) {
+            if (event.newProfileData.accountId == accountId) {
                 Ok(Loadable.Loaded(event.newProfileData))
             } else {
                 null
@@ -116,7 +116,7 @@ class AccountViewModel @AssistedInject constructor(
 
         // ... with the result from the API...
         val remoteAccount = combine(reload, pachliAccount, accountId) { _, pachliAccount, accountId ->
-            accountRepository.getAccount(pachliAccount.id, accountId)
+            accountRepository.getAccount(pachliAccount.pachliAccountId, accountId)
                 .onSuccess { account ->
                     domain = getDomain(account.url)
                     isFromOwnDomain = domain == pachliAccount.domain
@@ -138,7 +138,7 @@ class AccountViewModel @AssistedInject constructor(
 
     /** True if the loaded account in [accountData] is the user's account. */
     val isSelf = combine(accountData, pachliAccount) { accountData, pachliAccount ->
-        pachliAccount.accountId == accountData.get()?.getOrNull()?.serverId
+        pachliAccount.accountId == accountData.get()?.getOrNull()?.accountId
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
 
     private fun obtainRelationship(accountId: String, reload: Boolean = false) {
@@ -288,29 +288,29 @@ class AccountViewModel @AssistedInject constructor(
 
         val response = when (relationshipAction) {
             RelationShipAction.FOLLOW -> followAccountUseCase(pachliAccountId, account, showReblogs = true)
-            RelationShipAction.UNFOLLOW -> unfollowAccountUseCase(pachliAccountId, account.serverId)
-            RelationShipAction.BLOCK -> blockAccountUseCase(pachliAccountId, account.serverId)
-            RelationShipAction.UNBLOCK -> unblockAccountUseCase(pachliAccountId, account.serverId)
+            RelationShipAction.UNFOLLOW -> unfollowAccountUseCase(pachliAccountId, account.accountId)
+            RelationShipAction.BLOCK -> blockAccountUseCase(pachliAccountId, account.accountId)
+            RelationShipAction.UNBLOCK -> unblockAccountUseCase(pachliAccountId, account.accountId)
             RelationShipAction.MUTE -> muteAccountUseCase(
                 pachliAccountId,
-                account.serverId,
+                account.accountId,
                 notifications = parameter ?: true,
                 duration,
             )
 
-            RelationShipAction.UNMUTE -> unmuteAccountUseCase(pachliAccountId, account.serverId)
+            RelationShipAction.UNMUTE -> unmuteAccountUseCase(pachliAccountId, account.accountId)
             RelationShipAction.SUBSCRIBE -> {
                 if (isMastodon) {
                     followAccountUseCase(pachliAccountId, account, notify = true)
                 } else {
-                    subscribeAccountUseCase(pachliAccountId, account.serverId)
+                    subscribeAccountUseCase(pachliAccountId, account.accountId)
                 }
             }
             RelationShipAction.UNSUBSCRIBE -> {
                 if (isMastodon) {
                     followAccountUseCase(pachliAccountId, account, notify = false)
                 } else {
-                    unsubscribeAccountUseCase(pachliAccountId, account.serverId)
+                    unsubscribeAccountUseCase(pachliAccountId, account.accountId)
                 }
             }
 

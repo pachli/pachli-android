@@ -190,7 +190,7 @@ class ExportedPreferencesRepository @Inject constructor(
                 // Update any existing accounts from the exported data.
                 importedPrefs.v1.accounts.forEach { redactedAccount ->
                     existingAccounts[redactedAccount.identifier]?.let { existingAccount ->
-                        accountManager.updateFromRedactedAccount(existingAccount.id, redactedAccount)
+                        accountManager.updateFromRedactedAccount(existingAccount.pachliAccountId, redactedAccount)
                     }
                 }
 
