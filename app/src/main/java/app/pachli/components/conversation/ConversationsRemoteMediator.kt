@@ -146,7 +146,7 @@ class ConversationsRemoteMediator(
             // the thread, all posted by the same account.  It doesn't matter that
             // it's multiple statuses, the whole chain is considered to have started
             // the thread.
-            if (status.account.serverId == status.inReplyToAccountId) {
+            if (status.account.accountId == status.inReplyToAccountId) {
                 result[status.statusId] = true
                 continue
             }

@@ -137,9 +137,9 @@ class CachedTimelineRepository @Inject constructor(
             pagingSourceFactory = factory!!,
         ).flow.map { pagingData ->
             pagingData.filter { status ->
-                !hiddenStatuses.contains(status.timelineStatus.status.serverId) &&
-                    !hiddenStatuses.contains(status.timelineStatus.status.reblogServerId) &&
-                    !hiddenAccounts.contains(status.timelineStatus.status.authorServerId) &&
+                !hiddenStatuses.contains(status.timelineStatus.status.statusId) &&
+                    !hiddenStatuses.contains(status.timelineStatus.status.reblogStatusId) &&
+                    !hiddenAccounts.contains(status.timelineStatus.status.accountId) &&
                     !hiddenAccounts.contains(status.timelineStatus.status.reblogAccountId) &&
                     !hiddenDomains.contains(getDomain(status.timelineStatus.account.url)) &&
                     !hiddenDomains.contains(getDomain(status.timelineStatus.reblogAccount?.url))
@@ -175,7 +175,7 @@ class CachedTimelineRepository @Inject constructor(
     /** Remove all statuses authored/boosted by the given account, for the active account */
     suspend fun removeAllByAccountId(pachliAccountId: Long, accountId: String) = externalScope.launch {
         hiddenAccounts.add(accountId)
-        timelineDao.removeAllByUser(pachliAccountId, accountId)
+        timelineDao.removeAllByAccount(pachliAccountId, accountId)
     }.join()
 
     /** Remove all statuses from the given instance, for the active account */

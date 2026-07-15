@@ -36,7 +36,7 @@ import java.util.Date
  *
  * @property pachliAccountId The pachliAccountId for the logged-in account related
  * to this account.
- * @property serverId
+ * @property accountId
  * @property localUsername
  * @property username
  * @property displayName
@@ -48,12 +48,12 @@ import java.util.Date
  * @property note (HTML) The profile’s bio or description.
  */
 @Entity(
-    primaryKeys = ["pachliAccountId", "serverId"],
+    primaryKeys = ["pachliAccountId", "accountId"],
     foreignKeys = [
         ForeignKey(
             entity = PachliAccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("pachliAccountId"),
+            parentColumns = ["pachliAccountId"],
+            childColumns = ["pachliAccountId"],
             onDelete = ForeignKey.CASCADE,
             deferred = true,
         ),
@@ -62,7 +62,7 @@ import java.util.Date
 @ColumnTypeConverters(Converters::class)
 data class AccountEntity(
     val pachliAccountId: Long,
-    val serverId: String,
+    val accountId: String,
     val localUsername: String,
     val username: String,
     val displayName: String,
@@ -91,7 +91,7 @@ data class AccountEntity(
     val pronouns: String?,
 ) {
     fun asModel() = Account(
-        serverId = serverId,
+        accountId = accountId,
         localUsername = localUsername,
         username = username,
         displayName = displayName,
@@ -117,7 +117,7 @@ data class AccountEntity(
 
 fun Account.asEntity(pachliAccountId: Long) = AccountEntity(
     pachliAccountId = pachliAccountId,
-    serverId = serverId,
+    accountId = accountId,
     localUsername = localUsername,
     username = username,
     displayName = displayName,

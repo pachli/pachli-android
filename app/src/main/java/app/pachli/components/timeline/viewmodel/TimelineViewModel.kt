@@ -385,7 +385,7 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
                             ContentFilterVersion.V2 -> ContentFilterModel(filterContext)
                             ContentFilterVersion.V1 -> ContentFilterModel(filterContext, account.contentFilters.contentFilters)
                         }
-                        if (reload) repository.invalidate(account.id)
+                        if (reload) repository.invalidate(account.pachliAccountId)
                         true
                     }
             }
@@ -601,7 +601,7 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
         // Local user preferences first
 
         // Remove self-boosts.
-        if (timelineStatus.account.serverId == timelineStatus.reblogAccount?.serverId && filterRemoveSelfReblogs) {
+        if (timelineStatus.account.accountId == timelineStatus.reblogAccount?.accountId && filterRemoveSelfReblogs) {
             return FilterAction.HIDE
         }
 

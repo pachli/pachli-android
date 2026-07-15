@@ -53,7 +53,7 @@ data class NotificationData(
         // on the side of caution and return null in these and similar cases.
         return when (notification.type) {
             NotificationEntity.Type.UNKNOWN -> Notification.Unknown(
-                id = notification.serverId,
+                notificationId = notification.notificationId,
                 createdAt = notification.createdAt,
                 account = account.asModel(),
                 // TODO: This is wrong, the remoteType is not currently persisted.
@@ -62,7 +62,7 @@ data class NotificationData(
 
             NotificationEntity.Type.MENTION -> status?.let {
                 Notification.Mention(
-                    id = notification.serverId,
+                    notificationId = notification.notificationId,
                     createdAt = notification.createdAt,
                     account = account.asModel(),
                     status = status.toStatus(),
@@ -71,7 +71,7 @@ data class NotificationData(
 
             NotificationEntity.Type.REBLOG -> status?.let {
                 Notification.Reblog(
-                    id = notification.serverId,
+                    notificationId = notification.notificationId,
                     createdAt = notification.createdAt,
                     account = account.asModel(),
                     status = status.toStatus(),
@@ -80,7 +80,7 @@ data class NotificationData(
 
             NotificationEntity.Type.FAVOURITE -> status?.let {
                 Notification.Favourite(
-                    id = notification.serverId,
+                    notificationId = notification.notificationId,
                     createdAt = notification.createdAt,
                     account = account.asModel(),
                     status = status.toStatus(),
@@ -88,14 +88,14 @@ data class NotificationData(
             }
 
             NotificationEntity.Type.FOLLOW -> Notification.Follow(
-                id = notification.serverId,
+                notificationId = notification.notificationId,
                 createdAt = notification.createdAt,
                 account = account.asModel(),
                 note = notification.note.orEmpty(),
             )
 
             NotificationEntity.Type.FOLLOW_REQUEST -> Notification.FollowRequest(
-                id = notification.serverId,
+                notificationId = notification.notificationId,
                 createdAt = notification.createdAt,
                 account = account.asModel(),
                 note = notification.note.orEmpty(),
@@ -103,7 +103,7 @@ data class NotificationData(
 
             NotificationEntity.Type.POLL -> status?.let {
                 Notification.Poll(
-                    id = notification.serverId,
+                    notificationId = notification.notificationId,
                     createdAt = notification.createdAt,
                     account = account.asModel(),
                     status = status.toStatus(),
@@ -112,7 +112,7 @@ data class NotificationData(
 
             NotificationEntity.Type.STATUS -> status?.let {
                 Notification.Status(
-                    id = notification.serverId,
+                    notificationId = notification.notificationId,
                     createdAt = notification.createdAt,
                     account = account.asModel(),
                     status = status.toStatus(),
@@ -120,14 +120,14 @@ data class NotificationData(
             }
 
             NotificationEntity.Type.SIGN_UP -> Notification.SignUp(
-                id = notification.serverId,
+                notificationId = notification.notificationId,
                 createdAt = notification.createdAt,
                 account = account.asModel(),
             )
 
             NotificationEntity.Type.UPDATE -> status?.let {
                 Notification.Update(
-                    id = notification.serverId,
+                    notificationId = notification.notificationId,
                     createdAt = notification.createdAt,
                     account = account.asModel(),
                     status = status.toStatus(),
@@ -136,7 +136,7 @@ data class NotificationData(
 
             NotificationEntity.Type.REPORT -> notification.report?.let {
                 Notification.Report(
-                    id = notification.serverId,
+                    notificationId = notification.notificationId,
                     createdAt = notification.createdAt,
                     account = account.asModel(),
                     report = it.asModel(),
@@ -145,7 +145,7 @@ data class NotificationData(
 
             NotificationEntity.Type.SEVERED_RELATIONSHIPS -> notification.relationshipSeveranceEvent?.let {
                 Notification.SeveredRelationships(
-                    id = notification.serverId,
+                    notificationId = notification.notificationId,
                     createdAt = notification.createdAt,
                     account = account.asModel(),
                     relationshipSeveranceEvent = it.asModel(),
@@ -154,7 +154,7 @@ data class NotificationData(
 
             NotificationEntity.Type.MODERATION_WARNING -> notification.accountWarning?.let {
                 Notification.ModerationWarning(
-                    id = notification.serverId,
+                    notificationId = notification.notificationId,
                     createdAt = notification.createdAt,
                     account = account.asModel(),
                     accountWarning = it.asModel(),
@@ -163,7 +163,7 @@ data class NotificationData(
 
             NotificationEntity.Type.QUOTE -> status?.let {
                 Notification.Quote(
-                    id = notification.serverId,
+                    notificationId = notification.notificationId,
                     createdAt = notification.createdAt,
                     account = account.asModel(),
                     status = status.toStatus(),
@@ -172,7 +172,7 @@ data class NotificationData(
 
             NotificationEntity.Type.QUOTED_UPDATE -> status?.let {
                 Notification.QuotedUpdate(
-                    id = notification.serverId,
+                    notificationId = notification.notificationId,
                     createdAt = notification.createdAt,
                     account = account.asModel(),
                     status = status.toStatus(),
@@ -181,7 +181,7 @@ data class NotificationData(
 
             NotificationEntity.Type.COLLECTION_ADD -> timelineCollection?.let {
                 Notification.CollectionAdd(
-                    id = notification.serverId,
+                    notificationId = notification.notificationId,
                     createdAt = notification.createdAt,
                     account = account.asModel(),
                     collection = timelineCollection.asCollectionModel(),
@@ -190,10 +190,10 @@ data class NotificationData(
 
             NotificationEntity.Type.COLLECTION_UPDATE -> timelineCollection?.let {
                 Notification.CollectionUpdate(
-                    id = notification.serverId,
+                    notificationId = notification.notificationId,
                     createdAt = notification.createdAt,
                     account = account.asModel(),
-                    collection = timelineCollection!!.asCollectionModel(),
+                    collection = timelineCollection.asCollectionModel(),
                 )
             }
         }
@@ -206,18 +206,18 @@ data class NotificationData(
  * Pachli-specific viewdata for the notification.
  *
  * @property pachliAccountId
- * @property serverId Notification's remote server ID.
+ * @property notificationId Notification's remote server ID.
  * @property accountFilterDecision The user's [AccountFilterDecision] for
  * this notification (which may not match the inherent decision if they
  * have chosen to show the notification).
  */
 @Entity(
-    primaryKeys = ["pachliAccountId", "serverId"],
+    primaryKeys = ["pachliAccountId", "notificationId"],
     foreignKeys = (
         [
             ForeignKey(
                 entity = PachliAccountEntity::class,
-                parentColumns = ["id"],
+                parentColumns = ["pachliAccountId"],
                 childColumns = ["pachliAccountId"],
                 onDelete = ForeignKey.CASCADE,
                 deferred = true,
@@ -228,7 +228,7 @@ data class NotificationData(
 @ColumnTypeConverters(Converters::class)
 data class NotificationViewDataEntity(
     val pachliAccountId: Long,
-    val serverId: String,
+    val notificationId: String,
     val accountFilterDecision: AccountFilterDecision? = null,
 )
 
@@ -237,7 +237,7 @@ data class NotificationViewDataEntity(
  */
 data class NotificationAccountFilterDecisionUpdate(
     val pachliAccountId: Long,
-    val serverId: String,
+    val notificationId: String,
     val accountFilterDecision: AccountFilterDecision?,
 )
 
@@ -245,54 +245,54 @@ data class NotificationAccountFilterDecisionUpdate(
  * Cached copy of a notification.
  *
  * @property pachliAccountId
- * @property serverId Server's ID for this notification.
+ * @property notificationId Server's ID for this notification.
  * @property type Notifications [NotificationEntity.Type].
  * @property createdAt When the notification was created.
- * @property accountServerId ID of the account that generated this notification.
- * @property statusServerId (optional) ID of the status this notification is about.
+ * @property accountId ID of the account that generated this notification.
+ * @property statusId (optional) ID of the status this notification is about.
  * Null if the notification is not about a particular status.
  * @property note (optional) Note/bio for the account identified by accountServerId.
  * The account will be a TimelineAccount which has no note property. The note is
  * only needed for [NotificationEntity.Type.FOLLOW] and
  * [NotificationEntity.Type.FOLLOW_REQUEST], so is only persisted for those types.
- * @property collectionServerId (optional) ID of the collection contained in this
+ * @property collectionId (optional) ID of the collection contained in this
  * notification. Null if this notification does not reference a collection.
  */
 @Entity(
-    primaryKeys = ["pachliAccountId", "serverId"],
+    primaryKeys = ["pachliAccountId", "notificationId"],
     foreignKeys = (
         [
             ForeignKey(
                 entity = PachliAccountEntity::class,
-                parentColumns = ["id"],
+                parentColumns = ["pachliAccountId"],
                 childColumns = ["pachliAccountId"],
                 onDelete = ForeignKey.CASCADE,
                 deferred = true,
             ),
             ForeignKey(
                 entity = TimelineAccountEntity::class,
-                parentColumns = ["pachliAccountId", "serverId"],
-                childColumns = ["pachliAccountId", "accountServerId"],
+                parentColumns = ["pachliAccountId", "accountId"],
+                childColumns = ["pachliAccountId", "accountId"],
                 deferred = true,
             ),
         ]
         ),
-    indices = [Index(value = ["accountServerId", "pachliAccountId"])],
+    indices = [Index(value = ["pachliAccountId", "accountId"])],
 )
 @ColumnTypeConverters(Converters::class)
 data class NotificationEntity(
     val pachliAccountId: Long,
-    val serverId: String,
+    val notificationId: String,
     val type: Type,
     val createdAt: Instant,
-    val accountServerId: String,
-    val statusServerId: String?,
+    val accountId: String,
+    val statusId: String?,
     val note: String?,
 
     @Embedded(prefix = "report_") val report: NotificationReport?,
     @Embedded(prefix = "rse_") val relationshipSeveranceEvent: NotificationRelationshipSeveranceEvent?,
     @Embedded(prefix = "warn_") val accountWarning: NotificationAccountWarning?,
-    val collectionServerId: String?,
+    val collectionId: String?,
 ) {
     enum class Type {
         /** Unknown notification. */
@@ -402,7 +402,7 @@ data class NotificationReport(
     }
 
     fun asModel() = app.pachli.core.model.Report(
-        serverId = reportId,
+        reportId = reportId,
         category = category.asModel(),
         actionTaken = actionTaken,
         actionTakenAt = actionTakenAt,

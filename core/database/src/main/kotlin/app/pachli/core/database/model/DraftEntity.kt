@@ -32,9 +32,9 @@ import app.pachli.core.model.Status
 import java.util.Date
 
 /**
- * @property id Unique identifier for this draft (across all drafts, this is
+ * @property draftId Unique identifier for this draft (across all drafts, this is
  * **not** part of a composite key with [pachliAccountId]). See
- * [Draft.id].
+ * [Draft.draftId].
  * @property pachliAccountId Account that owns this draft.
  * @property contentWarning [Draft.contentWarning].
  * @property content [Draft.content].
@@ -56,8 +56,8 @@ import java.util.Date
     foreignKeys = [
         ForeignKey(
             entity = PachliAccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("pachliAccountId"),
+            parentColumns = ["pachliAccountId"],
+            childColumns = ["pachliAccountId"],
             onDelete = ForeignKey.CASCADE,
             deferred = true,
         ),
@@ -66,7 +66,7 @@ import java.util.Date
 )
 @ColumnTypeConverters(Converters::class)
 data class DraftEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    @PrimaryKey(autoGenerate = true) val draftId: Long = 0,
     val pachliAccountId: Long,
     val inReplyToId: String?,
     val content: String?,
@@ -89,7 +89,7 @@ data class DraftEntity(
 
 fun DraftEntity.asModel(): Draft {
     return Draft(
-        id = id,
+        draftId = draftId,
         contentWarning = contentWarning,
         content = content,
         sensitive = sensitive,

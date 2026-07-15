@@ -238,19 +238,19 @@ class SearchViewModel @Inject constructor(
             .map { status ->
                 TimelineStatusWithQuote(
                     timelineStatus = TimelineStatusWithAccount(
-                        status = status.asEntity(pachliAccount.id),
-                        account = status.reblog?.account?.asEntity(pachliAccount.id) ?: status.account.asEntity(pachliAccount.id),
-                        reblogAccount = status.reblog?.let { status.account.asEntity(pachliAccount.id) },
-                        viewData = statusRepository.getStatusViewData(pachliAccount.id, status.actionableId),
-                        translatedStatus = statusRepository.getTranslation(pachliAccount.id, status.actionableId),
+                        status = status.asEntity(pachliAccount.pachliAccountId),
+                        account = status.reblog?.account?.asEntity(pachliAccount.pachliAccountId) ?: status.account.asEntity(pachliAccount.pachliAccountId),
+                        reblogAccount = status.reblog?.let { status.account.asEntity(pachliAccount.pachliAccountId) },
+                        viewData = statusRepository.getStatusViewData(pachliAccount.pachliAccountId, status.actionableId),
+                        translatedStatus = statusRepository.getTranslation(pachliAccount.pachliAccountId, status.actionableId),
                     ),
                     quotedStatus = (status.actionableStatus.quote as? Status.Quote.FullQuote)?.status?.let { q ->
                         TimelineStatusWithAccount(
-                            status = q.asEntity(pachliAccount.id),
-                            account = q.account.asEntity(pachliAccount.id),
+                            status = q.asEntity(pachliAccount.pachliAccountId),
+                            account = q.account.asEntity(pachliAccount.pachliAccountId),
                             reblogAccount = null,
-                            viewData = statusRepository.getStatusViewData(pachliAccount.id, q.actionableId),
-                            translatedStatus = statusRepository.getTranslation(pachliAccount.id, q.actionableId),
+                            viewData = statusRepository.getStatusViewData(pachliAccount.pachliAccountId, q.actionableId),
+                            translatedStatus = statusRepository.getTranslation(pachliAccount.pachliAccountId, q.actionableId),
                         )
                     },
                 )

@@ -21,7 +21,7 @@ import com.squareup.moshi.JsonClass
 import java.time.Instant
 
 /**
- * @property serverId Server's ID for this collection.
+ * @property collectionId Server's ID for this collection.
  * @property accountId Server's ID of the account that owns the collection.
  * @property name Collection's name, plain text.
  * @property description Collection's description, plain text, may be empty.
@@ -34,7 +34,7 @@ import java.time.Instant
  * @property updatedAt When the collection was last updated.
  */
 interface ICollection {
-    val serverId: String
+    val collectionId: String
     val accountId: String
     val name: String
     val description: String
@@ -50,7 +50,7 @@ interface ICollection {
  * @property items Items in this collection (may be empty).
  */
 data class Collection(
-    override val serverId: String,
+    override val collectionId: String,
     override val accountId: String,
     override val name: String,
     override val description: String,
@@ -64,14 +64,14 @@ data class Collection(
 ) : ICollection
 
 /**
- * @property serverId Server ID for this item.
+ * @property collectionItemId Server ID for this item.
  * @property accountId Server ID for the account in this item.
  * @property state
  * @property createdAt
  */
 @JsonClass(generateAdapter = true)
 data class CollectionItem(
-    val serverId: String,
+    val collectionItemId: String,
     val accountId: String?,
     val state: State,
     val createdAt: Instant,
@@ -87,7 +87,7 @@ data class CollectionItem(
  * Sufficient information to show a collection on a timeline (e.g., in
  * a collection card).
  *
- * @property serverId See [ICollection.serverId]
+ * @property collectionId See [ICollection.collectionId]
  * @property accountId See [ICollection.accountId]
  * @property account Account that owns the collection. Nullable because
  * the call to retrieve owner account information may fail.
@@ -101,7 +101,7 @@ data class CollectionItem(
  * [Collection.items] in the [Collection] it was created from.
  */
 data class TimelineCollection(
-    override val serverId: String,
+    override val collectionId: String,
     override val accountId: String,
     val account: TimelineAccount? = null,
     override val name: String,
@@ -121,10 +121,10 @@ data class TimelineCollection(
  * populate the [TimelineCollection.account] and
  * [TimelineCollection.itemIconUrls] properties.
  *
- * @property accounts Map from [Account.serverId] to [Account].
+ * @property accounts Map from [Account.accountId] to [Account].
  */
 fun Collection.asTimelineCollection(accounts: Map<String, Account>) = TimelineCollection(
-    serverId = serverId,
+    collectionId = collectionId,
     accountId = accountId,
     account = accounts[accountId]?.asTimelineAccount(),
     name = name,

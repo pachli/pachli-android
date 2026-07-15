@@ -39,7 +39,7 @@ import app.pachli.core.model.Timeline
 )
 @ColumnTypeConverters(Converters::class)
 data class PachliAccountEntity(
-    @field:PrimaryKey(autoGenerate = true) override var id: Long,
+    @field:PrimaryKey(autoGenerate = true) override var pachliAccountId: Long,
     override val domain: String,
     override val accessToken: String,
     override val clientId: String,

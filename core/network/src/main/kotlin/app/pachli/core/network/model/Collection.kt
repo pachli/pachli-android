@@ -66,7 +66,7 @@ data class Collection(
     val items: List<CollectionItem>,
 ) {
     fun asModel() = app.pachli.core.model.Collection(
-        serverId = id,
+        collectionId = id,
         accountId = accountId,
         name = name,
         description = description,
@@ -95,7 +95,7 @@ data class CollectionItem(
     val createdAt: Instant,
 ) {
     fun asModel() = app.pachli.core.model.CollectionItem(
-        serverId = id,
+        collectionItemId = id,
         accountId = accountId,
         state = when (state) {
             "pending" -> app.pachli.core.model.CollectionItem.State.PENDING

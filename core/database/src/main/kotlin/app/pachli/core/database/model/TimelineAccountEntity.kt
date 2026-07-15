@@ -37,7 +37,7 @@ import java.time.Instant
  *
  * Areas that need more data should use [AccountEntity] instead.
  *
- * @property serverId
+ * @property accountId
  * @property pachliAccountId The pachliAccountId for the logged-in account related
  * to this account.
  * @property localUsername
@@ -50,12 +50,12 @@ import java.time.Instant
  * @property createdAt
  */
 @Entity(
-    primaryKeys = ["serverId", "pachliAccountId"],
+    primaryKeys = ["pachliAccountId", "accountId"],
     foreignKeys = [
         ForeignKey(
             entity = PachliAccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("pachliAccountId"),
+            parentColumns = ["pachliAccountId"],
+            childColumns = ["pachliAccountId"],
             onDelete = ForeignKey.CASCADE,
             deferred = true,
         ),
@@ -64,8 +64,8 @@ import java.time.Instant
 )
 @ColumnTypeConverters(Converters::class)
 data class TimelineAccountEntity(
-    val serverId: String,
     val pachliAccountId: Long,
+    val accountId: String,
     val localUsername: String,
     val username: String,
     val displayName: String,
@@ -82,7 +82,7 @@ data class TimelineAccountEntity(
     val pronouns: String?,
 ) {
     fun asModel() = TimelineAccount(
-        serverId = serverId,
+        accountId = accountId,
         localUsername = localUsername,
         username = username,
         displayName = displayName,
@@ -98,7 +98,7 @@ data class TimelineAccountEntity(
 }
 
 fun TimelineAccount.asEntity(pachliAccountId: Long) = TimelineAccountEntity(
-    serverId = serverId,
+    accountId = accountId,
     pachliAccountId = pachliAccountId,
     localUsername = localUsername,
     username = username,

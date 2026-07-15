@@ -109,7 +109,7 @@ import java.util.TimeZone
         TimelineStatusWithAccount::class,
         ReferencedStatusId::class,
     ],
-    version = 46,
+    version = 47,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -178,6 +178,7 @@ import java.util.TimeZone
         AutoMigration(from = 44, to = 45),
         // Make some Status(Entity) properties non-null
         AutoMigration(from = 45, to = 46),
+        AutoMigration(from = 46, to = 47, spec = AppDatabase.MIGRATE_46_47::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -410,6 +411,40 @@ abstract class AppDatabase : RoomDatabase() {
             connection.execSQL("UPDATE StatusEntity SET card = NULL")
         }
     }
+
+    @RenameColumn(tableName = "NotificationViewDataEntity", fromColumnName = "serverId", toColumnName = "notificationId")
+    @RenameColumn(tableName = "ConversationViewDataEntity", fromColumnName = "serverId", toColumnName = "conversationId")
+    @RenameColumn(tableName = "NotificationEntity", fromColumnName = "report_target_serverId", toColumnName = "report_target_accountId")
+    @RenameColumn(tableName = "NotificationEntity", fromColumnName = "collectionServerId", toColumnName = "collectionId")
+    @RenameColumn(tableName = "NotificationEntity", fromColumnName = "statusServerId", toColumnName = "statusId")
+    @RenameColumn(tableName = "NotificationEntity", fromColumnName = "accountServerId", toColumnName = "accountId")
+    @RenameColumn(tableName = "NotificationEntity", fromColumnName = "serverId", toColumnName = "notificationId")
+    @RenameColumn(tableName = "FollowingAccountEntity", fromColumnName = "serverId", toColumnName = "accountId")
+    @RenameColumn(tableName = "AnnouncementEntity", fromColumnName = "accountId", toColumnName = "pachliAccountId")
+    @RenameColumn(tableName = "AccountEntity", fromColumnName = "serverId", toColumnName = "accountId")
+    @RenameColumn(tableName = "CollectionEntity", fromColumnName = "serverId", toColumnName = "collectionId")
+    @RenameColumn(tableName = "CollectionItemEntity", fromColumnName = "collectionServerId", toColumnName = "collectionId")
+    @RenameColumn(tableName = "CollectionItemEntity", fromColumnName = "serverId", toColumnName = "collectionItemId")
+    @RenameColumn(tableName = "CollectionViewDataEntity", fromColumnName = "serverId", toColumnName = "collectionId")
+    @RenameColumn(tableName = "ConversationEntity", fromColumnName = "id", toColumnName = "conversationId")
+    @RenameColumn(tableName = "ConversationEntity", fromColumnName = "lastStatusServerId", toColumnName = "lastStatusId")
+    @RenameColumn(tableName = "ContentFiltersEntity", fromColumnName = "accountId", toColumnName = "pachliAccountId")
+    @RenameColumn(tableName = "DraftEntity", fromColumnName = "id", toColumnName = "draftId")
+    @RenameColumn(tableName = "MastodonListEntity", fromColumnName = "accountId", toColumnName = "pachliAccountId")
+    @RenameColumn(tableName = "PachliAccountEntity", fromColumnName = "id", toColumnName = "pachliAccountId")
+    @RenameColumn(tableName = "RemoteKeyEntity", fromColumnName = "accountId", toColumnName = "pachliAccountId")
+    @RenameColumn(tableName = "ServerEntity", fromColumnName = "accountId", toColumnName = "pachliAccountId")
+    @RenameColumn(tableName = "StatusEntity", fromColumnName = "authorServerId", toColumnName = "accountId")
+    @RenameColumn(tableName = "StatusEntity", fromColumnName = "reblogServerId", toColumnName = "reblogStatusId")
+    @RenameColumn(tableName = "StatusEntity", fromColumnName = "serverId", toColumnName = "statusId")
+    @RenameColumn(tableName = "StatusEntity", fromColumnName = "quoteServerId", toColumnName = "quoteStatusId")
+    @RenameColumn(tableName = "StatusViewDataEntity", fromColumnName = "serverId", toColumnName = "statusId")
+    @RenameColumn(tableName = "TimelineAccountEntity", fromColumnName = "serverId", toColumnName = "accountId")
+    @RenameColumn(tableName = "TimelineCollectionEntity", fromColumnName = "serverId", toColumnName = "collectionId")
+    @RenameColumn(tableName = "TimelineCollectionEntity", fromColumnName = "owner_serverId", toColumnName = "accountId")
+    @RenameColumn(tableName = "TimelineStatusEntity", fromColumnName = "accountId", toColumnName = "pachliAccountId")
+    @RenameColumn(tableName = "TranslatedStatusEntity", fromColumnName = "serverId", toColumnName = "statusId")
+    class MIGRATE_46_47 : AutoMigrationSpec
 }
 
 val MIGRATE_8_9 = object : Migration(8, 9) {
@@ -560,7 +595,7 @@ val MIGRATE_12_13 = object : Migration(12, 13) {
 }
 
 /**
- * Removes any StatusEntity that reference a non-existent [PachliAccountEntity.id] in
+ * Removes any StatusEntity that reference a non-existent [PachliAccountEntity.pachliAccountId] in
  * [StatusEntity.timelineUserId].
  *
  * Version 20 introduces that as an FK constraint, this ensures that any statuses
@@ -572,7 +607,7 @@ val MIGRATE_18_19 = object : Migration(18, 19) {
             """
 DELETE
 FROM StatusEntity
-WHERE timelineUserId NOT IN (SELECT id FROM AccountEntity)
+WHERE timelineUserId NOT IN (MessagePattern.ArgType.SELECT id FROM AccountEntity)
             """.trimIndent(),
         )
     }

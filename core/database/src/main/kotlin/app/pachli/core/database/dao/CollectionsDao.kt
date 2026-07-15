@@ -52,7 +52,7 @@ interface CollectionsDao {
     @Query(
         """
 DELETE FROM CollectionItemEntity
-WHERE pachliAccountId = :pachliAccountId AND collectionServerId = :collectionId AND accountId = :accountId
+WHERE pachliAccountId = :pachliAccountId AND collectionId = :collectionId AND accountId = :accountId
         """,
     )
     suspend fun removeAccountFromCollection(pachliAccountId: Long, collectionId: String, accountId: String)
@@ -63,9 +63,8 @@ WHERE pachliAccountId = :pachliAccountId AND collectionServerId = :collectionId 
 WITH CollectionWithAccount AS (
 SELECT
     collection.*,
-    owner.serverId AS 'owner_serverId',
     owner.pachliAccountId AS 'owner_pachliAccountId',
-    owner.serverId AS 'owner_serverId',
+    owner.accountId AS 'owner_accountId',
     owner.localUsername AS 'owner_localUsername',
     owner.username AS 'owner_username',
     owner.displayName AS 'owner_displayName',
@@ -88,13 +87,13 @@ SELECT
     owner.pronouns AS 'owner_pronouns'
  FROM CollectionEntity AS collection
  JOIN AccountEntity owner
-  ON collection.accountId = owner.serverId
+  ON collection.accountId = owner.accountId
 )
 SELECT * FROM CollectionWithAccount collection
  JOIN AccountEntity account
  JOIN CollectionItemEntity item
-  ON item.pachliAccountId = :pachliAccountId AND item.collectionServerId = collection.serverId AND account.pachliAccountId = :pachliAccountId AND account.serverId = item.accountId
- WHERE collection.pachliAccountId = :pachliAccountId AND collection.serverId = :collectionId
+  ON item.pachliAccountId = :pachliAccountId AND item.collectionId = collection.collectionId AND account.pachliAccountId = :pachliAccountId AND account.accountId = item.accountId
+ WHERE collection.pachliAccountId = :pachliAccountId AND collection.collectionId = :collectionId
         """,
     )
     fun getCollection(pachliAccountId: Long, collectionId: String): Flow<Map<CollectionAndOwnerEntities, List<AccountEntity>>>

@@ -143,7 +143,7 @@ class ViewThreadViewModel @Inject constructor(
 
             Timber.d("Finding status with: %s", id)
             val contextCall = async { api.statusContext(id) }
-            val timelineStatusWithQuote = timelineDao.getActionableStatusQ(account.id, id)
+            val timelineStatusWithQuote = timelineDao.getActionableStatusQ(account.pachliAccountId, id)
 
             var detailedStatus = if (timelineStatusWithQuote != null) {
                 Timber.d("Loading status from local timeline")
@@ -164,8 +164,8 @@ class ViewThreadViewModel @Inject constructor(
             } else {
                 Timber.d("Loading status from network")
                 val statusCall = async { api.status(id) }
-                val existingViewData = repository.getStatusViewData(account.id, id)
-                val existingTranslation = repository.getTranslation(account.id, id)
+                val existingViewData = repository.getStatusViewData(account.pachliAccountId, id)
+                val existingTranslation = repository.getTranslation(account.pachliAccountId, id)
 
                 val status = statusCall.await()
                     .map { api.resolveShallowQuotes(it.body) }
@@ -227,8 +227,8 @@ class ViewThreadViewModel @Inject constructor(
                     addAll(statusContext.ancestors.flatMap { listOf(it.id, it.quote?.quotedStatusId) }.filterNotNull())
                     addAll(statusContext.descendants.flatMap { listOf(it.id, it.quote?.quotedStatusId) }.filterNotNull())
                 }
-                val cachedViewData = repository.getStatusViewData(account.id, ids)
-                val cachedTranslations = repository.getStatusTranslations(account.id, ids)
+                val cachedViewData = repository.getStatusViewData(account.pachliAccountId, ids)
+                val cachedTranslations = repository.getStatusTranslations(account.pachliAccountId, ids)
                 val ancestors = api.resolveShallowQuotes(statusContext.ancestors).asModel()
                     .map { Pair(it, shouldFilterStatus(it)) }
                     .filter { it.second != FilterAction.HIDE }
@@ -423,7 +423,7 @@ class ViewThreadViewModel @Inject constructor(
         updateSuccess { uiState ->
             uiState.copy(
                 statusViewData = uiState.statusViewData.filter { viewData ->
-                    viewData.status.account.serverId != accountId
+                    viewData.status.account.accountId != accountId
                 },
             )
         }
@@ -490,16 +490,16 @@ class ViewThreadViewModel @Inject constructor(
             pachliAccount = pachliAccount,
             timelineStatusWithQuote = TimelineStatusWithQuote(
                 timelineStatus = TimelineStatusWithAccount(
-                    status = asEntity(pachliAccount.id),
-                    account = reblog?.account?.asEntity(pachliAccount.id) ?: account.asEntity(pachliAccount.id),
-                    reblogAccount = reblog?.let { account.asEntity(pachliAccount.id) },
+                    status = asEntity(pachliAccount.pachliAccountId),
+                    account = reblog?.account?.asEntity(pachliAccount.pachliAccountId) ?: account.asEntity(pachliAccount.pachliAccountId),
+                    reblogAccount = reblog?.let { account.asEntity(pachliAccount.pachliAccountId) },
                     viewData = viewDataCache[actionableId],
                     translatedStatus = translationCache[actionableId],
                 ),
                 quotedStatus = quote?.let { q ->
                     TimelineStatusWithAccount(
-                        status = q.asEntity(pachliAccount.id),
-                        account = q.account.asEntity(pachliAccount.id),
+                        status = q.asEntity(pachliAccount.pachliAccountId),
+                        account = q.account.asEntity(pachliAccount.pachliAccountId),
                         reblogAccount = null,
                         viewData = viewDataCache[actionableId],
                         translatedStatus = translationCache[actionableId],

@@ -50,7 +50,7 @@ const val PACHLI_ACCOUNT_ID_ACTIVE = -1L
 
 /**
  * The Pachli Account ID passed to this intent. This is the
- * [id][app.pachli.core.database.model.PachliAccountEntity.id] of the account that is
+ * [id][app.pachli.core.database.model.PachliAccountEntity.pachliAccountId] of the account that is
  * "active" for the purposes of this activity.
  *
  * [PACHLI_ACCOUNT_ID_ACTIVE] is a marker only used by [IntentRouterActivityIntent]
@@ -855,7 +855,7 @@ class TimelineActivityIntent private constructor(context: Context, pachliAccount
 class ViewMediaActivityIntent private constructor(context: Context, accountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.VIEW_MEDIA_ACTIVITY)
-        pachliAccountId = accountId
+        this@ViewMediaActivityIntent.pachliAccountId = accountId
     }
 
     /**
@@ -948,7 +948,7 @@ class ViewMediaActivityIntent private constructor(context: Context, accountId: L
 class ViewThreadActivityIntent(context: Context, accountId: Long, statusId: String, statusUrl: String? = null) : Intent() {
     init {
         setClassName(context, QuadrantConstants.VIEW_THREAD_ACTIVITY)
-        pachliAccountId = accountId
+        this@ViewThreadActivityIntent.pachliAccountId = accountId
         putExtra(EXTRA_STATUS_ID, statusId)
         putExtra(EXTRA_STATUS_URL, statusUrl)
     }
@@ -1064,14 +1064,14 @@ class TabPreferenceActivityIntent(context: Context, pachliAccountId: Long) : Int
 class TrendingActivityIntent(context: Context, accountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.TRENDING_ACTIVITY)
-        pachliAccountId = accountId
+        this@TrendingActivityIntent.pachliAccountId = accountId
     }
 }
 
 class CollectionActivityIntent(context: Context, accountId: Long, collectionId: String) : Intent() {
     init {
         setClassName(context, QuadrantConstants.COLLECTION_ACTIVITY)
-        pachliAccountId = accountId
+        this@CollectionActivityIntent.pachliAccountId = accountId
         putExtra(EXTRA_COLLECTION_ID, collectionId)
     }
 

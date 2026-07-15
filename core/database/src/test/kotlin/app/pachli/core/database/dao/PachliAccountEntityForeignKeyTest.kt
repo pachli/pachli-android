@@ -109,7 +109,7 @@ class PachliAccountEntityForeignKeyTest {
      * entity under test.
      */
     private val activeAccount = PachliAccountEntity(
-        id = pachliAccountId,
+        pachliAccountId = pachliAccountId,
         domain = "mastodon.example",
         accessToken = "token",
         clientId = "id",
@@ -122,7 +122,7 @@ class PachliAccountEntityForeignKeyTest {
      * referenced in these tests.
      */
     private val timelineAccount = TimelineAccountEntity(
-        serverId = "1",
+        accountId = "1",
         pachliAccountId = pachliAccountId,
         localUsername = "example",
         username = "example",
@@ -161,7 +161,7 @@ class PachliAccountEntityForeignKeyTest {
     @Test
     fun `deleting account deletes AnnouncementEntity`() = runTest {
         val announcement = AnnouncementEntity(
-            accountId = pachliAccountId,
+            pachliAccountId = pachliAccountId,
             announcementId = "1",
             announcement = Announcement(
                 id = "1",
@@ -194,7 +194,7 @@ class PachliAccountEntityForeignKeyTest {
     @Test
     fun `deleting account deletes ContentFiltersEntity`() = runTest {
         val contentFilters = ContentFiltersEntity(
-            accountId = pachliAccountId,
+            pachliAccountId = pachliAccountId,
             version = ContentFilterVersion.V2,
             contentFilters = emptyList(),
         )
@@ -217,10 +217,10 @@ class PachliAccountEntityForeignKeyTest {
 
         val conversation = ConversationEntity(
             pachliAccountId = pachliAccountId,
-            id = "1",
+            conversationId = "1",
             accounts = emptyList(),
             unread = true,
-            lastStatusServerId = status.timelineStatus.status.serverId,
+            lastStatusId = status.timelineStatus.status.statusId,
             isConversationStarter = true,
         )
         conversationDao.upsert(conversation)
@@ -239,7 +239,7 @@ class PachliAccountEntityForeignKeyTest {
     @Test
     fun `deleting account deletes DraftEntity`() = runTest {
         val draft = DraftEntity(
-            id = 1,
+            draftId = 1,
             pachliAccountId = pachliAccountId,
             inReplyToId = null,
             content = null,
@@ -273,7 +273,7 @@ class PachliAccountEntityForeignKeyTest {
     fun `deleting account deletes FollowingAccountEntity`() = runTest {
         val followingAccount = FollowingAccountEntity(
             pachliAccountId = pachliAccountId,
-            serverId = "2",
+            accountId = "2",
             domain = "example.com",
         )
         followingAccountDao.upsert(followingAccount)
@@ -295,7 +295,7 @@ class PachliAccountEntityForeignKeyTest {
     @Test
     fun `deleting account deletes MastodonListEntity`() = runTest {
         val mastodonList = MastodonListEntity(
-            accountId = pachliAccountId,
+            pachliAccountId = pachliAccountId,
             listId = "1",
             title = "Test list",
             repliesPolicy = UserListRepliesPolicy.LIST,
@@ -318,16 +318,16 @@ class PachliAccountEntityForeignKeyTest {
     fun `deleting account deletes notification and viewdata`() = runTest {
         val notification = NotificationEntity(
             pachliAccountId = pachliAccountId,
-            serverId = "1",
+            notificationId = "1",
             type = NotificationEntity.Type.FAVOURITE,
             createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
-            accountServerId = "1",
-            statusServerId = "1",
+            accountId = "1",
+            statusId = "1",
             note = "",
             report = null,
             relationshipSeveranceEvent = null,
             accountWarning = null,
-            collectionServerId = null,
+            collectionId = null,
         )
 
         notificationDao.upsertNotifications(listOf(notification))
@@ -339,7 +339,7 @@ class PachliAccountEntityForeignKeyTest {
 
         val accountFilterAction = NotificationAccountFilterDecisionUpdate(
             pachliAccountId = pachliAccountId,
-            serverId = "1",
+            notificationId = "1",
             accountFilterDecision = accountFilterDecision,
         )
         notificationDao.upsert(accountFilterAction)
@@ -347,7 +347,7 @@ class PachliAccountEntityForeignKeyTest {
         // Check everything is as expected.
         val notificationViewData = NotificationViewDataEntity(
             pachliAccountId = pachliAccountId,
-            serverId = "1",
+            notificationId = "1",
             accountFilterDecision = accountFilterDecision,
         )
         assertThat(notificationDao.loadAllForAccount(pachliAccountId)).containsExactly(notification)
@@ -365,7 +365,7 @@ class PachliAccountEntityForeignKeyTest {
     fun `deleting account deletes RemoteKeyEntity`() = runTest {
         // RemoteKeyEntity
         val remoteKey = RemoteKeyEntity(
-            accountId = pachliAccountId,
+            pachliAccountId = pachliAccountId,
             timelineId = "test",
             kind = RemoteKeyEntity.RemoteKeyKind.NEXT,
             key = "1",
@@ -385,7 +385,7 @@ class PachliAccountEntityForeignKeyTest {
     @Test
     fun `deleting account deletes ServerEntity`() = runTest {
         val server = ServerEntity(
-            accountId = pachliAccountId,
+            pachliAccountId = pachliAccountId,
             serverKind = ServerKind.MASTODON,
             version = Version.parse("1.0.0"),
             rawVersion = "1.0.0",
@@ -430,7 +430,7 @@ class PachliAccountEntityForeignKeyTest {
     @Test
     fun `deleting account deletes TimelineAccountEntity`() = runTest {
         val timelineAccount = TimelineAccountEntity(
-            serverId = "1",
+            accountId = "1",
             pachliAccountId = pachliAccountId,
             localUsername = "foo@bar",
             username = "foo",
@@ -460,7 +460,7 @@ class PachliAccountEntityForeignKeyTest {
     @Test
     fun `deleting account deletes TranslatedStatusEntity`() = runTest {
         val translatedStatus = TranslatedStatusEntity(
-            serverId = "1",
+            statusId = "1",
             pachliAccountId = pachliAccountId,
             content = "",
             spoilerText = "",

@@ -126,7 +126,7 @@ class CollectionNotificationViewHolder(
 
         binding.collectionCard.setOnClickListener { collectionListener.onViewCollection(viewData.collectionCardViewData.timelineCollection) }
 
-        itemView.setOnClickListener { linkListener.onViewAccount(account.serverId) }
+        itemView.setOnClickListener { linkListener.onViewAccount(account.accountId) }
     }
 
     /**

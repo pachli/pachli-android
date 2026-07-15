@@ -26,18 +26,18 @@ import app.pachli.core.model.ITimelineAccount
  * An account the user is following.
  *
  * @property pachliAccountId ID of the local account that is following this account.
- * @property serverId Server's identifier for the account. Unique within a single server,
+ * @property accountId Server's identifier for the account. Unique within a single server,
  * but not unique across the federated network.
- * @property domain The domain of the account identified by [serverId]. Allows for bulk
+ * @property domain The domain of the account identified by [accountId]. Allows for bulk
  * delete of all relationships on a particular domain, if the user blocks the domain.
  */
 @Entity(
-    primaryKeys = ["pachliAccountId", "serverId"],
+    primaryKeys = ["pachliAccountId", "accountId"],
     foreignKeys = [
         ForeignKey(
             entity = PachliAccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("pachliAccountId"),
+            parentColumns = ["pachliAccountId"],
+            childColumns = ["pachliAccountId"],
             onDelete = ForeignKey.CASCADE,
             deferred = true,
         ),
@@ -45,14 +45,14 @@ import app.pachli.core.model.ITimelineAccount
 )
 data class FollowingAccountEntity(
     val pachliAccountId: Long,
-    val serverId: String,
+    val accountId: String,
     @ColumnInfo(defaultValue = "")
     val domain: String,
 ) {
     companion object {
         fun from(pachliAccountId: Long, account: ITimelineAccount) = FollowingAccountEntity(
             pachliAccountId = pachliAccountId,
-            serverId = account.serverId,
+            accountId = account.accountId,
             domain = account.domain,
         )
     }

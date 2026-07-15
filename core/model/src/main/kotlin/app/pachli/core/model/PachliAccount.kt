@@ -18,7 +18,7 @@
 package app.pachli.core.model
 
 /**
- * @property id
+ * @property pachliAccountId
  * @property domain Domain of the account's server (e.g., "mastodon.social")
  * @property accessToken
  * @property clientId Client ID key used for obtaining OAuth tokens.
@@ -95,7 +95,7 @@ package app.pachli.core.model
  * @property notificationMethod The account's [AccountNotificationMethod].
  */
 interface PachliAccount {
-    val id: Long
+    val pachliAccountId: Long
     val domain: String
     val accessToken: String
     val clientId: String
@@ -163,7 +163,7 @@ interface PachliAccount {
         get() = "Bearer $accessToken"
 
     val unifiedPushInstance: String
-        get() = id.toString()
+        get() = pachliAccountId.toString()
 
     val hasPushScope: Boolean
         get() = oauthScopes.contains("push")

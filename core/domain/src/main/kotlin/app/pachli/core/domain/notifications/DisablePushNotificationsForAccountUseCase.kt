@@ -55,7 +55,7 @@ class DisablePushNotificationsForAccountUseCase @Inject constructor(
             .map { }
 
         // Clear the push notification from the account.
-        accountManager.clearPushNotificationData(account.id)
+        accountManager.clearPushNotificationData(account.pachliAccountId)
         NotificationConfig.notificationMethodAccount[account.fullName] = NotificationConfig.Method.Pull
 
         // Unregister from the UnifiedPush provider.

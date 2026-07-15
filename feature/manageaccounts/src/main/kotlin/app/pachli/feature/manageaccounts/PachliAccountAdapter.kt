@@ -280,7 +280,7 @@ internal class PachliAccountViewHolder(
 }
 
 private object PachliAccountDiffer : DiffUtil.ItemCallback<PachliAccount>() {
-    override fun areItemsTheSame(oldItem: PachliAccount, newItem: PachliAccount) = oldItem.id == newItem.id
+    override fun areItemsTheSame(oldItem: PachliAccount, newItem: PachliAccount) = oldItem.pachliAccountId == newItem.pachliAccountId
     override fun areContentsTheSame(oldItem: PachliAccount, newItem: PachliAccount) = oldItem == newItem
 }
 

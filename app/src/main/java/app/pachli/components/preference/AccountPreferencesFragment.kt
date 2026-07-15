@@ -418,13 +418,13 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 .onSuccess { account ->
                     accountManager.activeAccount?.let {
                         accountManager.setDefaultPostPrivacy(
-                            it.id,
+                            it.pachliAccountId,
                             account.source.privacy?.asModel()
                                 ?: Status.Visibility.PUBLIC,
                         )
-                        accountManager.setDefaultMediaSensitivity(it.id, account.source.sensitive ?: false)
-                        accountManager.setDefaultPostLanguage(it.id, language.orEmpty())
-                        accountManager.setDefaultQuotePolicy(it.id, quotePolicy ?: AccountSource.QuotePolicy.NOBODY)
+                        accountManager.setDefaultMediaSensitivity(it.pachliAccountId, account.source.sensitive ?: false)
+                        accountManager.setDefaultPostLanguage(it.pachliAccountId, language.orEmpty())
+                        accountManager.setDefaultQuotePolicy(it.pachliAccountId, quotePolicy ?: AccountSource.QuotePolicy.NOBODY)
                     }
                 }
                 .onFailure {

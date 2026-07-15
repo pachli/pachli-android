@@ -32,10 +32,10 @@ import io.github.z4kn4fein.semver.Version
 /**
  * Represents a Mastodon server's capabilities.
  *
- * Each server is associated with exactly one [PachliAccountEntity] through the [accountId]
+ * Each server is associated with exactly one [PachliAccountEntity] through the [pachliAccountId]
  * property.
  *
- * @property accountId
+ * @property pachliAccountId
  * @property serverKind Server's [ServerKind].
  * @property version Server's version, parsed to a [Version].
  * @property rawVersion Raw server version string, as reported by the server.
@@ -44,12 +44,12 @@ import io.github.z4kn4fein.semver.Version
  * @property emojis Server's [Emoji].
  */
 @Entity(
-    primaryKeys = ["accountId"],
+    primaryKeys = ["pachliAccountId"],
     foreignKeys = [
         ForeignKey(
             entity = PachliAccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("accountId"),
+            parentColumns = ["pachliAccountId"],
+            childColumns = ["pachliAccountId"],
             onDelete = ForeignKey.CASCADE,
             deferred = true,
         ),
@@ -57,7 +57,7 @@ import io.github.z4kn4fein.semver.Version
 )
 @ColumnTypeConverters(Converters::class)
 data class ServerEntity(
-    val accountId: Long,
+    val pachliAccountId: Long,
     val serverKind: ServerKind,
     val version: Version,
     @ColumnInfo(defaultValue = "")
@@ -81,7 +81,7 @@ data class ServerEntity(
 }
 
 fun Server.asEntity(pachliAccountId: Long) = ServerEntity(
-    accountId = pachliAccountId,
+    pachliAccountId = pachliAccountId,
     serverKind = kind,
     version = version,
     rawVersion = rawVersion,
