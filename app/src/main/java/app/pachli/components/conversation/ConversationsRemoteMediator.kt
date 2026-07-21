@@ -142,7 +142,7 @@ class ConversationsRemoteMediator(
             }
 
             // If the account posting this status is also the account that posted
-            // the parent status hen this is part of chain of statuses that started
+            // the parent status then this is part of chain of statuses that started
             // the thread, all posted by the same account.  It doesn't matter that
             // it's multiple statuses, the whole chain is considered to have started
             // the thread.
