@@ -29,6 +29,7 @@ enum class ServerKind {
     GOTOSOCIAL,
     HOMETOWN,
     ICESHRIMP,
+    ICESHRIMP_DOTNET,
     MASTODON,
     PLEROMA,
     PIXELFED,
@@ -50,6 +51,7 @@ enum class ServerKind {
             "gotosocial" -> GOTOSOCIAL
             "hometown" -> HOMETOWN
             "iceshrimp" -> ICESHRIMP
+            "iceshrimp.net" -> ICESHRIMP_DOTNET
             "mastodon" -> {
                 // Glitch doesn't report a different software name it stuffs it
                 // in the version (https://github.com/glitch-soc/mastodon/issues/2582).
