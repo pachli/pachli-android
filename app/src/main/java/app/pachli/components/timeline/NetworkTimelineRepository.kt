@@ -191,7 +191,7 @@ class NetworkTimelineRepository @Inject constructor(
     fun invalidate() = factory?.invalidate()
 
     // Can't update the local cache here, as there's no guarantee the server has
-    // propogated the removal to all timelines, so reloading (via invalidate())
+    // propagated the removal to all timelines, so reloading (via invalidate())
     // risks loading a timeline where the account hasn't yet been removed.
     fun removeAllByAccountId(accountId: String) {
         hiddenAccounts.add(accountId)
@@ -199,7 +199,7 @@ class NetworkTimelineRepository @Inject constructor(
     }
 
     // Can't update the local cache here, as there's no guarantee the server has
-    // propogated the removal to all timelines, so reloading (via invalidate())
+    // propagated the removal to all timelines, so reloading (via invalidate())
     // risks loading a timeline where the domain hasn't yet been removed.
     fun removeAllByInstance(instance: String) {
         hiddenDomains.add(instance)
@@ -207,7 +207,7 @@ class NetworkTimelineRepository @Inject constructor(
     }
 
     // Can't update the local cache here, as there's no guarantee the server has
-    // propogated the removal to all timelines, so reloading (via invalidate())
+    // propagated the removal to all timelines, so reloading (via invalidate())
     // risks loading a timeline where the status hasn't yet been removed.
     fun removeStatusWithId(statusId: String) {
         hiddenStatuses.add(statusId)
