@@ -29,6 +29,7 @@ import app.pachli.core.model.ServerKind.GLITCH
 import app.pachli.core.model.ServerKind.GOTOSOCIAL
 import app.pachli.core.model.ServerKind.HOMETOWN
 import app.pachli.core.model.ServerKind.ICESHRIMP
+import app.pachli.core.model.ServerKind.ICESHRIMP_DOTNET
 import app.pachli.core.model.ServerKind.MASTODON
 import app.pachli.core.model.ServerKind.PIXELFED
 import app.pachli.core.model.ServerKind.PLEROMA
@@ -203,11 +204,11 @@ data class Server(
                         .recover { "0.0.0".toVersion() }
                 }
 
-                // IceShrimp uses "yyyy.mm.dd" with leading zeros in the month and day
-                // components, similar to Friendica.
+                // IceShrimp and its .net rewrite both use "yyyy.mm.dd" with leading zeros
+                // in the month and day components, similar to Friendica.
                 // https://iceshrimp.dev/iceshrimp/iceshrimp/issues/502 and
                 // https://iceshrimp.dev/iceshrimp/iceshrimp-rewrite/issues/1
-                ICESHRIMP -> {
+                ICESHRIMP, ICESHRIMP_DOTNET -> {
                     val rx = """^0*(?<major>\d+)\.0*(?<minor>\d+)\.0*(?<patch>\d+)""".toRegex()
                     rx.find(version).toResultOr { UnparseableVersion(version, ParseException("unexpected null", 0)) }
                         .andThen {
@@ -430,7 +431,7 @@ data class Server(
                     c[ORG_JOINMASTODON_STATUSES_SCHEDULED] = "1.0.0".toVersion()
                 }
 
-                ICESHRIMP -> {
+                ICESHRIMP_DOTNET -> {
                     c[ORG_JOINMASTODON_FILTERS_CLIENT] = "1.1.0".toVersion()
                     c[ORG_JOINMASTODON_FILTERS_SERVER] = "1.0.0".toVersion()
                     
@@ -467,7 +468,7 @@ data class Server(
                 // - no translation
                 //
                 // This may be an incorrect assumption.
-                FEDIBIRD, PIXELFED, UNKNOWN -> {
+                FEDIBIRD, ICESHRIMP, PIXELFED, UNKNOWN -> {
                     c[ORG_JOINMASTODON_FILTERS_SERVER] = "1.0.0".toVersion()
                     c[ORG_JOINMASTODON_STATUSES_SCHEDULED] = "1.0.0".toVersion()
                 }
