@@ -73,6 +73,7 @@ import app.pachli.core.ui.SetContentAsMastodonHtml
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.feature.collections.newConfirmRevokeDialogFragment
 import app.pachli.usecase.TimelineCases
+import app.pachli.util.showUncaptionedMediaWarningDialog
 import app.pachli.view.showMuteAccountDialog
 import com.bumptech.glide.Glide
 import com.github.michaelbull.result.onFailure
@@ -208,6 +209,12 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         viewModel.collapsedChange(viewData, isCollapsed)
     }
 
+    override fun onReblogWarning(viewData: IStatusViewData, reblog: Boolean) {
+        requireContext().showUncaptionedMediaWarningDialog {
+            onReblog(viewData, reblog)
+        }
+    }
+
     override fun onVoteInPoll(viewData: IStatusViewData, poll: Poll, choices: List<Int>) {
         viewModel.voteInPoll(viewData, poll, choices)
     }
@@ -269,7 +276,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 
-    override fun onMore(view: View, statusViewData: IStatusViewData) {
+     override fun onMore(view: View, statusViewData: IStatusViewData) {
         val id = statusViewData.actionableId
         val status = statusViewData.actionable
         val accountId = status.account.accountId
@@ -379,19 +386,19 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_unreblog_private -> {
-                    onReblog(statusViewData, false)
+                    onReblog(viewData, false)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_reblog_private -> {
-                    onReblog(statusViewData, true)
+                    onReblog(viewData, true)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_delete -> {
-                    showConfirmDeleteDialog(statusViewData)
+                    showConfirmDeleteDialog(viewData)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_delete_and_redraft -> {
-                    showConfirmEditDialog(pachliAccountId, statusViewData)
+                    showConfirmEditDialog(pachliAccountId, viewData)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_edit -> {

@@ -311,6 +311,7 @@ class ReportStatusesFragment :
     override fun onVoteInPoll(viewData: IStatusViewData, poll: Poll, choices: List<Int>) = Unit
     override fun onTranslate(viewData: IStatusViewData) = Unit
     override fun onTranslateUndo(viewData: IStatusViewData) = Unit
+    override fun onReblogWarning(viewData: IStatusViewData, reblog: Boolean) = Unit
 
     override fun onRevokeUserFromCollection(collection: ICollection) {
         lifecycleScope.launch {

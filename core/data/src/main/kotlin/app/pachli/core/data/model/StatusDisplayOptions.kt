@@ -81,4 +81,6 @@ data class StatusDisplayOptions(
     val pronounDisplay: PronounDisplay = PronounDisplay.WHEN_COMPOSING,
 
     val linksToUnderline: Set<LinksToUnderline> = emptySet(),
+
+    val warnUncaptionedMedia: Boolean = false,
 )

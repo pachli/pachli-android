@@ -47,6 +47,7 @@ class ConversationViewHolder internal constructor(
                 showCounts = statusDisplayOptions.showStatsInline,
                 confirmReblog = statusDisplayOptions.confirmReblogs,
                 confirmFavourite = statusDisplayOptions.confirmFavourites,
+                warnUncaptionedMedia = statusDisplayOptions.warnUncaptionedMedia,
                 isReply = actionable.inReplyToId != null,
                 isReblogged = actionable.reblogged,
                 isFavourited = actionable.favourited,
@@ -63,7 +64,7 @@ class ConversationViewHolder internal constructor(
                 onFavouriteClick = { favourite -> listener.onFavourite(viewData, favourite) },
                 onBookmarkClick = { bookmark -> listener.onBookmark(viewData, bookmark) },
                 onMoreClick = { view -> listener.onMore(view, viewData) },
-            )
+                onShowReblogWarning = { reblog -> listener.onReblogWarning(viewData, reblog) },            )
             setConversationName(viewData.accounts)
         } else {
             payloads.flatten().forEach { item ->

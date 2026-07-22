@@ -73,6 +73,10 @@ class SharedPreferencesRepository @Inject constructor(
     val confirmReblogs: Boolean
         get() = getBoolean(PrefKeys.CONFIRM_REBLOGS, true)
 
+    /** True to warn the user if the media is uncaptioned/no description. */
+    val warnUncaptionedMedia: Boolean
+        get() = getBoolean(PrefKeys.WARN_UNCAPTIONED_MEDIA, false)
+
     /** True if the status' language should be checked before sending. */
     var confirmStatusLanguage: Boolean
         get() = getBoolean(PrefKeys.CONFIRM_STATUS_LANGUAGE, true)
