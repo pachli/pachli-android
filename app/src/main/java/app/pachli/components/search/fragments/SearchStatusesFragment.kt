@@ -68,6 +68,7 @@ import app.pachli.core.ui.SetContentAsMarkdown
 import app.pachli.core.ui.SetContentAsMastodonHtml
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.usecase.TimelineCases
+import app.pachli.util.showUncaptionedMediaWarningDialog
 import app.pachli.view.showMuteAccountDialog
 import com.bumptech.glide.Glide
 import com.github.michaelbull.result.onFailure
@@ -203,6 +204,12 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         viewModel.collapsedChange(viewData, isCollapsed)
     }
 
+    override fun onReblogWarning(viewData: IStatusViewData, reblog: Boolean) {
+        requireContext().showUncaptionedMediaWarningDialog {
+            onReblog(viewData, reblog)
+        }
+    }
+
     override fun onVoteInPoll(viewData: IStatusViewData, poll: Poll, choices: List<Int>) {
         viewModel.voteInPoll(viewData, poll, choices)
     }
@@ -264,9 +271,9 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 
-    override fun onMore(view: View, statusViewData: IStatusViewData) {
-        val id = statusViewData.actionableId
-        val status = statusViewData.actionable
+    override fun onMore(view: View, viewData: IStatusViewData) {
+        val id = viewData.actionableId
+        val status = viewData.actionable
         val accountId = status.account.serverId
         val accountUsername = status.account.username
         val statusUrl = status.url
@@ -358,7 +365,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_mute_conversation -> {
-                    viewModel.muteConversation(statusViewData, status.muted != true)
+                    viewModel.muteConversation(viewData, status.muted != true)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_mute -> {
@@ -374,19 +381,19 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_unreblog_private -> {
-                    onReblog(statusViewData, false)
+                    onReblog(viewData, false)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_reblog_private -> {
-                    onReblog(statusViewData, true)
+                    onReblog(viewData, true)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_delete -> {
-                    showConfirmDeleteDialog(statusViewData)
+                    showConfirmDeleteDialog(viewData)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_delete_and_redraft -> {
-                    showConfirmEditDialog(pachliAccountId, statusViewData)
+                    showConfirmEditDialog(pachliAccountId, viewData)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_edit -> {
@@ -394,7 +401,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
                     return@setOnMenuItemClickListener true
                 }
                 R.id.pin -> {
-                    viewModel.pinStatus(statusViewData, !status.isPinned())
+                    viewModel.pinStatus(viewData, !status.isPinned())
                     return@setOnMenuItemClickListener true
                 }
             }

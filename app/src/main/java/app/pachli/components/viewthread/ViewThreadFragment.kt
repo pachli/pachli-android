@@ -64,6 +64,7 @@ import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentViewThreadBinding
 import app.pachli.fragment.SFragment
 import app.pachli.util.ListStatusAccessibilityDelegate
+import app.pachli.util.showUncaptionedMediaWarningDialog
 import com.bumptech.glide.Glide
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
@@ -425,6 +426,12 @@ class ViewThreadFragment :
     override fun onShowQuotes(statusId: String) {
         val intent = TimelineActivityIntent.quote(requireContext(), pachliAccountId, statusId)
         startActivityWithDefaultTransition(intent)
+    }
+
+    override fun onReblogWarning(viewData: IStatusViewData, reblog: Boolean) {
+            requireContext().showUncaptionedMediaWarningDialog{
+                onReblog(viewData, reblog)
+            }
     }
 
     override fun onContentCollapsedChange(viewData: IStatusViewData, isCollapsed: Boolean) {
