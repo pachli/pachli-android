@@ -715,4 +715,12 @@
     <string name="action_delete_scheduled_statuses">Kustuta valitud postitused</string>
     <string name="action_mute_hashtag">Summuta #%1$s</string>
     <string name="action_unmute_hashtag">Lõpeta summutamine: #%1$s</string>
+    <string name="notification_collection_add_body_format">%1$s. %2$s</string>
+    <string name="notification_collection_update_body_format">%1$s. %2$s</string>
+    <string name="notification_collection_add_name">Lisatud kogumikku</string>
+    <string name="notification_collection_add_description">Teavitused kellegi kogumikku lisamisel</string>
+    <string name="notification_collection_update_name">Kogumik on uuendunud</string>
+    <string name="notification_collection_update_description">Teavitused kogumiku kohta, mille liiga sa juba oled</string>
+    <string name="notification_collection_add_format">&lt;b&gt;%1$s&lt;/b&gt; lisas sind kogumikku</string>
+    <string name="notification_collection_update_format">&lt;b&gt;%1$s&lt;/b&gt; uuendas kogumikku, mille liige sa oled</string>
 </resources>
