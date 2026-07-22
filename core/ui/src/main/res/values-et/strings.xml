@@ -197,4 +197,34 @@
     <string name="action_follow">Jälgi</string>
     <string name="dialog_unfollow_warning">Kas lõpetad kasutajakonto jälgimise?</string>
     <string name="ui_error_follow_account_fmt">%1$s jälgimise alustamine ei õnnestunud: %2$s</string>
+    <plurals name="collection_item_n_more">
+        <item quantity="one">veel %1$d</item>
+        <item quantity="other">veel %1$d</item>
+    </plurals>
+    <string name="action_collection_remove_self">Eemalda mind</string>
+    <string name="ui_error_unfollow_account_fmt">„%1$s“ kasutaja jälgimise lõpetamine ei õnnestunud: %2$s</string>
+    <plurals name="collection_content_description_accounts_is_member">
+        <item quantity="one">Sisaldub %1$d konto, sinu oma.</item>
+        <item quantity="other">Sisaldab %1$d kontot, sealhulgas sinu oma.</item>
+    </plurals>
+    <plurals name="collection_content_description_accounts_is_not_member">
+        <item quantity="one">Sisaldub %1$d kasutajakonto.</item>
+        <item quantity="other">Sisaldab %1$d kasutajakontot.</item>
+    </plurals>
+    <string name="collection_sensitive_label">Sisaldab delikaatset sisu</string>
+    <string name="collection_hidden_sensitive_title">Delikaatne sisu. Kuvamiseks klõpsa.</string>
+    <string name="collection_hidden_user_action_title">Sina peitsid selle. Kuvamiseks klõpsa.</string>
+    <string name="action_collection_show">Näita kogumikku</string>
+    <string name="action_collection_hide">Peida kogumik</string>
+    <string name="action_collection_view">Vaata kogumikku</string>
+    <string name="action_collection_revoke">Eemalda mind</string>
+    <string name="action_collection_view_tag">Vaata silti</string>
+    <string name="collection_content_description_name_and_owner">„%1$s“ kogumik, mille on k oostanud %2$s.</string>
+    <string name="collection_content_description_name">„%1$s“ kogumik.</string>
+    <string name="ui_error_cancel_follow_request_fmt">„%1$s“ kasutaja jälgimispäringu tühistamine ei õnnestunud: %2$s</string>
+    <string name="ui_error_unblock_account_fmt">„%1$s“ kasutaja blokeerimise lõpetamine ei õnnestunud: %2$s</string>
+    <string name="ui_error_unblock_domain_fmt">„%1$s“ domeeni blokeerimise lõpetamine ei õnnestunud: %2$s</string>
+    <string name="ui_error_unmute_account_fmt">„%1$s“ kasutaja summutamise lõpetamine ei õnnestunud: %2$s</string>
+    <string name="collection_discoverable_true_label">Leitav otsingutulemustes ja muudes kohtades, kus kuvatakse soovitusi.</string>
+    <string name="collection_discoverable_false_label">Nähtav kõigile, kes teab linki. Peidetud otsingutulemustest ja soovitustest.</string>
 </resources>
