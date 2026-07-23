@@ -704,12 +704,12 @@ class NotificationsFragment :
         }
     }
 
-    override fun onCollectionDisplayActionChange(viewData: CollectionCardViewData, action: CollectionDisplayAction) {
+    override fun onCollectionDisplayActionChange(viewData: CollectionCardViewData, collectionDisplayAction: CollectionDisplayAction) {
         viewModel.accept(
             InfallibleUiAction.OverrideCollectionDisplayAction(
                 pachliAccountId,
                 viewData.timelineCollection.collectionId,
-                action,
+                collectionDisplayAction,
             ),
         )
     }
