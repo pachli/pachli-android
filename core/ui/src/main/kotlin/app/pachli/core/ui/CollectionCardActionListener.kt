@@ -65,7 +65,7 @@ fun interface OnCollectionDisplayActionChange {
      * is displayed.
      *
      * @param viewData
-     * @param action The new [CollectionDisplayAction]
+     * @param collectionDisplayAction The new [CollectionDisplayAction]
      */
-    fun onCollectionDisplayActionChange(viewData: CollectionCardViewData, action: CollectionDisplayAction)
+    fun onCollectionDisplayActionChange(viewData: CollectionCardViewData, collectionDisplayAction: CollectionDisplayAction)
 }
