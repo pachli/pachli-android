@@ -81,7 +81,6 @@ import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
 import javax.inject.Inject
-import kotlin.properties.Delegates
 import kotlin.time.Duration.Companion.minutes
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -157,14 +156,9 @@ class ConversationsFragment :
 
     private lateinit var adapter: ConversationAdapter
 
-    override var pachliAccountId by Delegates.notNull<Long>()
+    override val pachliAccountId by unsafeLazy { requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID) }
 
     private val glide by unsafeLazy { Glide.with(this) }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_timeline, container, false)

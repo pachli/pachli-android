@@ -81,7 +81,6 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.z4kn4fein.semver.constraints.toConstraint
 import javax.inject.Inject
-import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -126,12 +125,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
      */
     private lateinit var defaultQuotePolicyPreference: Preference
 
-    private var pachliAccountId by Delegates.notNull<Long>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
-    }
+    private val pachliAccountId by unsafeLazy { requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         listView.applyDefaultWindowInsets()

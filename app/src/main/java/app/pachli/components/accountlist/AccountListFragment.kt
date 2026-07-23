@@ -78,7 +78,6 @@ import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import kotlin.properties.Delegates
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -114,24 +113,17 @@ class AccountListFragment :
 
     private val binding by viewBinding(FragmentAccountListBinding::bind)
 
-    private lateinit var kind: Kind
-    private var id: String? = null
+    private val kind by unsafeLazy { requireArguments().getSerializable(ARG_KIND) as Kind }
+    private val id by unsafeLazy { requireArguments().getString(ARG_ID) }
 
     private lateinit var scrollListener: EndlessOnScrollListener
     private lateinit var adapter: AccountAdapter<*>
     private var fetching = false
     private var bottomId: String? = null
 
-    private var pachliAccountId by Delegates.notNull<Long>()
+    private val pachliAccountId by unsafeLazy { requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID) }
 
     private val glide by unsafeLazy { Glide.with(this) }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
-        kind = requireArguments().getSerializable(ARG_KIND) as Kind
-        id = requireArguments().getString(ARG_ID)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val layoutManager = LinearLayoutManager(view.context)
