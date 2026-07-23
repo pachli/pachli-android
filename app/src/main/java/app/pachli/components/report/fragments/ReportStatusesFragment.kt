@@ -93,11 +93,10 @@ class ReportStatusesFragment :
 
     private var snackbarErrorRetry: Snackbar? = null
 
-    override var pachliAccountId by Delegates.notNull<Long>()
+    override val pachliAccountId by unsafeLazy { requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
 
         val setContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
             SetContentAsMarkdown(requireContext())

@@ -99,7 +99,7 @@ class ViewThreadFragment :
 
     private val thisThreadsUrl by unsafeLazy { requireArguments().getString(ARG_URL) }
 
-    override var pachliAccountId by Delegates.notNull<Long>()
+    override val pachliAccountId by unsafeLazy { requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID) }
 
     /**
      * State of the "reveal" menu item that shows/hides content that is behind a content
@@ -113,7 +113,6 @@ class ViewThreadFragment :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
 
         val setContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
             SetContentAsMarkdown(requireContext())
