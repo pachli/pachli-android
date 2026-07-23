@@ -43,6 +43,7 @@ import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.model.AttachmentDisplayAction
@@ -67,7 +68,6 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
@@ -93,11 +93,10 @@ class ReportStatusesFragment :
 
     private var snackbarErrorRetry: Snackbar? = null
 
-    override var pachliAccountId by Delegates.notNull<Long>()
+    override val pachliAccountId by unsafeLazy { requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
 
         val setContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
             SetContentAsMarkdown(requireContext())

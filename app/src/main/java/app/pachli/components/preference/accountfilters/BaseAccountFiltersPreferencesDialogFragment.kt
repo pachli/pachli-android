@@ -34,12 +34,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import app.pachli.R
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.model.AccountFilterReason
 import app.pachli.core.model.FilterAction
 import app.pachli.databinding.PrefAccountFiltersBinding
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
-import kotlin.properties.Delegates
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -151,13 +151,12 @@ abstract class BaseAccountFiltersPreferencesDialogFragment(
     @StringRes private val labelYounger30d: Int,
     @StringRes private val labelLimitedByServer: Int,
 ) : AppCompatDialogFragment(R.layout.pref_account_filters) {
+    private val pachliAccountId by unsafeLazy { requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID) }
+
     private val viewModel: AccountFiltersPreferenceViewModel by viewModels(
         extrasProducer = {
             defaultViewModelCreationExtras.withCreationCallback<AccountFiltersPreferenceViewModel.Factory> { factory ->
-                factory.create(
-                    requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID),
-                    timeline,
-                )
+                factory.create(pachliAccountId, timeline)
             }
         },
     )
@@ -165,13 +164,6 @@ abstract class BaseAccountFiltersPreferencesDialogFragment(
     private lateinit var binding: PrefAccountFiltersBinding
 
     private lateinit var adapter: ArrayAdapter<FilterAction>
-
-    private var pachliAccountId by Delegates.notNull<Long>()
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
-    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = PrefAccountFiltersBinding.inflate(layoutInflater)
