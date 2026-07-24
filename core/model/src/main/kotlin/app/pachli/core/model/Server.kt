@@ -29,6 +29,7 @@ import app.pachli.core.model.ServerKind.GLITCH
 import app.pachli.core.model.ServerKind.GOTOSOCIAL
 import app.pachli.core.model.ServerKind.HOMETOWN
 import app.pachli.core.model.ServerKind.ICESHRIMP
+import app.pachli.core.model.ServerKind.ICESHRIMP_DOTNET
 import app.pachli.core.model.ServerKind.MASTODON
 import app.pachli.core.model.ServerKind.PIXELFED
 import app.pachli.core.model.ServerKind.PLEROMA
@@ -150,7 +151,7 @@ data class Server(
                 // the server operator has changed them. Try looking for a matching
                 // <major>.<minor>.<patch> somewhere in the version string and hope
                 // it's correct
-                AKKOMA, FEDIBIRD, GLITCH, HOMETOWN, MASTODON, PIXELFED, UNKNOWN -> {
+                AKKOMA, FEDIBIRD, GLITCH, HOMETOWN, ICESHRIMP_DOTNET, MASTODON, PIXELFED, UNKNOWN -> {
                     val rx = """(?<major>\d+)\.(?<minor>\d+).(?<patch>\d+)""".toRegex()
                     rx.find(version)
                         .toResultOr { UnparseableVersion(version, ParseException("unexpected null", 0)) }
@@ -447,6 +448,36 @@ data class Server(
                     // Akkoma only has v1 filters.
                     c[ORG_JOINMASTODON_FILTERS_CLIENT] = "1.1.0".toVersion()
                     c[ORG_JOINMASTODON_STATUSES_SCHEDULED] = "1.0.0".toVersion()
+                }
+
+                ICESHRIMP_DOTNET -> {
+                    c[ORG_JOINMASTODON_FILTERS_CLIENT] = "1.1.0".toVersion()
+                    c[ORG_JOINMASTODON_FILTERS_SERVER] = "1.0.0".toVersion()
+
+                    // https://iceshrimp.dev/iceshrimp/Iceshrimp.NET/src/branch/dev/Iceshrimp.Parsing/SearchQueryParser.cs
+                    c[ORG_JOINMASTODON_SEARCH_QUERY_FROM] = "1.1.0".toVersion()
+                    // no language: filter in iceshrimp
+                    c[ORG_JOINMASTODON_SEARCH_QUERY_HAS_MEDIA] = "1.0.0".toVersion()
+                    c[ORG_JOINMASTODON_SEARCH_QUERY_HAS_IMAGE] = "1.0.0".toVersion()
+                    c[ORG_JOINMASTODON_SEARCH_QUERY_HAS_VIDEO] = "1.0.0".toVersion()
+                    c[ORG_JOINMASTODON_SEARCH_QUERY_HAS_AUDIO] = "1.0.0".toVersion()
+                    c[ORG_JOINMASTODON_SEARCH_QUERY_HAS_POLL] = "1.0.0".toVersion()
+                    // no has:quote,link,embed (https://iceshrimp.dev/iceshrimp/Iceshrimp.NET/src/commit/0e18e2ee4db5a1197b9003f9f4e240081beb7c94/Iceshrimp.Parsing/SearchQueryFilters.cs#L107-L117)
+                    // iceshrimp can do is:reply and is:sensitive but uses different vocab for them
+                    // in:library is not supported, only the specific elements
+                    // likewise, in:public is referred to as visibility:public
+                    // (https://iceshrimp.dev/iceshrimp/Iceshrimp.NET/src/commit/0e18e2ee4db5a1197b9003f9f4e240081beb7c94/Iceshrimp.Parsing/SearchQueryFilters.cs#L65-L89)
+
+                    // partial date support is included (no during/in); however, I think this is what pachli uses rn anyway?
+                    c[ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE] = "1.0.0".toVersion()
+
+                    // https://iceshrimp.dev/iceshrimp/Iceshrimp.NET/src/commit/5202831d4c3cea2eba121f8bfd493b6080d3a82c/Iceshrimp.Backend/Controllers/Mastodon/StatusController.cs#L77-L100
+                    c[ORG_JOINMASTODON_STATUSES_GET] = "1.0.0".toVersion()
+
+                    c[ORG_JOINMASTODON_STATUSES_SCHEDULED] = "1.0.0".toVersion()
+
+                    // quoting but no quote policy yet: for the time being, advertises all posts as quotable (https://iceshrimp.dev/iceshrimp/Iceshrimp.NET/pulls/212)
+                    c[ORG_JOINMASTODON_STATUSES_QUOTE] = "1.0.0".toVersion()
                 }
 
                 // Everything else. Assume:
