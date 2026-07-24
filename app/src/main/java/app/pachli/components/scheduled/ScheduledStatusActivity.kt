@@ -101,7 +101,7 @@ class ScheduledStatusActivity : BaseActivity() {
     private fun addToTab() {
         accountManager.activeAccount?.let {
             lifecycleScope.launch(Dispatchers.IO) {
-                accountManager.setTabPreferences(it.id, it.tabPreferences + Timeline.Scheduled)
+                accountManager.setTabPreferences(it.pachliAccountId, it.tabPreferences + Timeline.Scheduled)
             }
         }
     }

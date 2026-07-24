@@ -42,7 +42,7 @@ class AccountViewHolder(
         showBotOverlay: Boolean,
         showPronouns: Boolean,
     ) {
-        accountId = account.serverId
+        accountId = account.accountId
 
         binding.accountUsername.text = binding.accountUsername.context.getString(
             DR.string.post_username_format,

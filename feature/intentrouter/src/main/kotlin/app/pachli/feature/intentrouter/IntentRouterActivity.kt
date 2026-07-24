@@ -157,7 +157,7 @@ class IntentRouterActivity : BaseActivity() {
                 finish()
                 return
             }
-            account.id
+            account.pachliAccountId
         }
 
         // Determine the payload. If there is no payload then start MainActivity with
@@ -197,12 +197,12 @@ class IntentRouterActivity : BaseActivity() {
         accounts: List<PachliAccount>,
         pachliAccountId: Long,
     ) {
-        val accountToLogout = accounts.find { it.id == pachliAccountId }
+        val accountToLogout = accounts.find { it.pachliAccountId == pachliAccountId }
         if (accountToLogout == null) {
             // can't happen
             return
         }
-        val nextAccount = accounts.firstOrNull { it.id != pachliAccountId }
+        val nextAccount = accounts.firstOrNull { it.pachliAccountId != pachliAccountId }
 
         // No next account? Prompt the user to log in.
         if (nextAccount == null) {
@@ -225,7 +225,7 @@ class IntentRouterActivity : BaseActivity() {
         // is processed in bindUiSuccess.
         viewModel.accept(
             SetActiveAccount(
-                nextAccount.id,
+                nextAccount.pachliAccountId,
                 Payload.MainActivity.start(),
                 logoutAccount = accountToLogout,
             ),
@@ -254,7 +254,7 @@ class IntentRouterActivity : BaseActivity() {
             return
         }
         launchComposeActivityAndExit(
-            account.id,
+            account.pachliAccountId,
             ComposeOptions(Draft.createDraft(this, account, Timeline.Home)),
         )
     }
@@ -293,7 +293,7 @@ class IntentRouterActivity : BaseActivity() {
         }
         account?.let {
             forwardToComposeActivityAndExit(
-                account.id,
+                account.pachliAccountId,
                 intent,
                 ComposeOptions(Draft.createDraft(this, it, Timeline.Home)),
             )
@@ -330,7 +330,7 @@ class IntentRouterActivity : BaseActivity() {
             // and finish this activity.
             is UiSuccess.RefreshAccount -> {
                 val payload = success.action.payload
-                val intent = MainActivityIntent(this, success.action.pachliAccount.id).apply {
+                val intent = MainActivityIntent(this, success.action.pachliAccount.pachliAccountId).apply {
                     putExtra(MainActivityIntent.EXTRA_PAYLOAD, payload.mainActivityPayload)
                     flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
                 }
@@ -355,7 +355,7 @@ class IntentRouterActivity : BaseActivity() {
                             getString(R.string.title_error_dialog),
                             uiError.fmt(this),
                         ).await(supportFragmentManager)?.let { account ->
-                            viewModel.accept(uiError.action.copy(pachliAccountId = account.id))
+                            viewModel.accept(uiError.action.copy(pachliAccountId = account.pachliAccountId))
                         } ?: finish()
                     }
 
@@ -412,7 +412,7 @@ class IntentRouterActivity : BaseActivity() {
                                         getString(R.string.title_choose_account_dialog),
                                         true,
                                     ).await(supportFragmentManager)?.let { account ->
-                                        viewModel.accept(uiError.action.copy(pachliAccountId = account.id))
+                                        viewModel.accept(uiError.action.copy(pachliAccountId = account.pachliAccountId))
                                     } ?: finish()
                                 }
                             }
@@ -424,7 +424,7 @@ class IntentRouterActivity : BaseActivity() {
                                 uiError.cause.wantedAccount.fullName,
                                 uiError.fmt(this),
                             ).await(supportFragmentManager)?.let { account ->
-                                viewModel.accept(uiError.action.copy(pachliAccountId = account.id))
+                                viewModel.accept(uiError.action.copy(pachliAccountId = account.pachliAccountId))
                             } ?: finish()
                         }
                     }
@@ -438,7 +438,7 @@ class IntentRouterActivity : BaseActivity() {
                             uiError.cause.wantedAccount?.fullName ?: getString(R.string.title_error_dialog),
                             uiError.fmt(this),
                         ).await(supportFragmentManager)?.let { account ->
-                            viewModel.accept(uiError.action.copy(pachliAccountId = account.id))
+                            viewModel.accept(uiError.action.copy(pachliAccountId = account.pachliAccountId))
                         } ?: finish()
                     }
 
@@ -448,7 +448,7 @@ class IntentRouterActivity : BaseActivity() {
                             uiError.cause.wantedAccount.fullName,
                             uiError.fmt(this),
                         ).await(supportFragmentManager)?.let { account ->
-                            viewModel.accept(uiError.action.copy(pachliAccountId = account.id))
+                            viewModel.accept(uiError.action.copy(pachliAccountId = account.pachliAccountId))
                         } ?: finish()
                     }
                 }
@@ -492,7 +492,7 @@ class IntentRouterActivity : BaseActivity() {
                             // be helpful). Just start MainActivity for this account.
                             viewModel.accept(
                                 SetActiveAccount(
-                                    pachliAccountId = account.id,
+                                    pachliAccountId = account.pachliAccountId,
                                     payload = Payload.MainActivity.start(),
                                 ),
                             )
@@ -522,10 +522,10 @@ class IntentRouterActivity : BaseActivity() {
      */
     private fun resolvePachliAccountId(pachliAccountId: Long?, accounts: List<PachliAccount>): Long? {
         if (pachliAccountId == null || pachliAccountId == PACHLI_ACCOUNT_ID_ACTIVE) {
-            return accounts.find { it.isActive }?.id
+            return accounts.find { it.isActive }?.pachliAccountId
         }
 
-        return accounts.find { it.id == pachliAccountId }?.id
+        return accounts.find { it.pachliAccountId == pachliAccountId }?.pachliAccountId
     }
 
     /**

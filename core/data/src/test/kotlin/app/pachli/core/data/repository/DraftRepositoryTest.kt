@@ -39,7 +39,7 @@ abstract class BaseDraftCompanionTest {
     protected val context: Context = ApplicationProvider.getApplicationContext()
 
     protected val account = PachliAccountEntity(
-        id = 0L,
+        pachliAccountId = 0L,
         domain = "mastodon.example",
         accessToken = "token",
         clientId = "id",

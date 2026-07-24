@@ -25,6 +25,7 @@ import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.eventhub.BookmarkEvent
@@ -37,6 +38,7 @@ import app.pachli.core.model.FilterAction
 import app.pachli.core.model.Timeline
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.usecase.TimelineCases
+import com.github.michaelbull.result.Result
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -60,6 +62,7 @@ class CachedTimelineViewModel @AssistedInject constructor(
     accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
+    private val collectionsRepository: CollectionsRepository,
 ) : TimelineViewModel<TimelineStatusWithQuote, CachedTimelineRepository>(
     timeline = timeline,
     timelineCases = timelineCases,
@@ -70,9 +73,9 @@ class CachedTimelineViewModel @AssistedInject constructor(
     sharedPreferencesRepository = sharedPreferencesRepository,
 ) {
     override val statuses = pachliAccountFlow.distinctUntilChanged { old, new ->
-        old.id == new.id && old.followedHashtags == new.followedHashtags
+        old.pachliAccountId == new.pachliAccountId && old.followedHashtags == new.followedHashtags
     }.flatMapLatest { pachliAccount ->
-        repository.getStatusStream(pachliAccount.id, timeline).map { pagingData ->
+        repository.getStatusStream(pachliAccount.pachliAccountId, timeline).map { pagingData ->
             pagingData
                 .map { Pair(it, shouldFilterStatus(it.timelineStatus)) }
                 .filter { it.second != FilterAction.HIDE }
@@ -179,6 +182,22 @@ class CachedTimelineViewModel @AssistedInject constructor(
 
     override suspend fun invalidate(pachliAccountId: Long) {
         repository.invalidate(pachliAccountId)
+    }
+
+    override suspend fun onOverrideCollectionDisplayAction(action: InfallibleUiAction.OverrideCollectionDisplayAction) {
+        collectionsRepository.setCollectionDisplayAction(
+            action.pachliAccountId,
+            action.collectionId,
+            action.collectionDisplayAction,
+        )
+    }
+
+    override suspend fun onRevokeCollection(action: FallibleCollectionAction.Revoke): Result<Unit, CollectionsRepository.Error.RevokeFromCollection> {
+        return collectionsRepository.revokeFromCollection(
+            action.pachliAccountId,
+            action.collectionId,
+            action.accountId,
+        )
     }
 
     @AssistedFactory

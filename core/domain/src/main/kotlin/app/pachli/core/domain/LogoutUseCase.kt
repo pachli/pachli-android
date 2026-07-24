@@ -67,8 +67,8 @@ class LogoutUseCase @Inject constructor(
         deleteNotificationChannelsForAccount(account)
 
         // Remove shortcut associated with the account
-        ShortcutManagerCompat.disableShortcuts(context, listOf(account.id.toString()), null)
-        ShortcutManagerCompat.removeDynamicShortcuts(context, listOf(account.id.toString()))
+        ShortcutManagerCompat.disableShortcuts(context, listOf(account.pachliAccountId.toString()), null)
+        ShortcutManagerCompat.removeDynamicShortcuts(context, listOf(account.pachliAccountId.toString()))
 
         accountManager.deleteAccount(account)
         return result

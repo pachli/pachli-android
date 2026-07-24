@@ -70,7 +70,7 @@ class DraftsRepository @Inject constructor(
                 Timber.e("Did not delete file %s", attachment.uri)
             }
         }
-        draftDao.delete(draft.id)
+        draftDao.delete(draft.draftId)
     }
 
     /**
@@ -82,16 +82,16 @@ class DraftsRepository @Inject constructor(
                 Timber.e("Did not delete file %s", attachment.uri)
             }
         }
-        draftDao.delete(draft.id)
+        draftDao.delete(draft.draftId)
     }
 
     /**
      * Upserts [draft] to the local database.
      *
-     * If [draft.id][Draft.id] is `0` the draft is saved as a new draft with a new
+     * If [draft.id][Draft.draftId] is `0` the draft is saved as a new draft with a new
      * ID, otherwise the draft with that ID is overwritten.
      *
-     * @return The saved draft. If [draft.id][Draft.id] was 0 the returned draft
+     * @return The saved draft. If [draft.id][Draft.draftId] was 0 the returned draft
      * contains the new ID, otherwise the draft is returned unchanged.
      */
     suspend fun upsertDraft(pachliAccountId: Long, draft: Draft): Draft = externalScope.async {
@@ -106,7 +106,7 @@ class DraftsRepository @Inject constructor(
         // If this was an insert Room returns the ID, which must be used in a copy
         // of the draft. Otherwise, Room returns -1L, and the original draft can be
         // returned.
-        return@async if (id != -1L) draft.copy(id = id) else draft
+        return@async if (id != -1L) draft.copy(draftId = id) else draft
     }.await()
 
     /** @see [DraftDao.updateFailureState]. */
@@ -129,7 +129,7 @@ class DraftsRepository @Inject constructor(
 
 private fun Draft.asEntity(pachliAccountId: Long) = DraftEntity(
     pachliAccountId = pachliAccountId,
-    id = id,
+    draftId = draftId,
     contentWarning = contentWarning,
     content = content,
     inReplyToId = inReplyToId,
@@ -152,7 +152,7 @@ fun Status.asDraft(source: StatusSource): Draft {
     val actionable = this.actionableStatus
 
     return Draft(
-        id = 0,
+        draftId = 0,
         contentWarning = source.spoilerText,
         content = source.text,
         sensitive = actionable.sensitive,
@@ -174,7 +174,7 @@ fun Status.asDraft(source: StatusSource): Draft {
 // Note: Caller must still set attachments on ComposeOptions
 fun ScheduledStatus.asDraft(): Draft {
     return Draft(
-        id = 0,
+        draftId = 0,
         contentWarning = params.spoilerText,
         content = params.text,
         sensitive = params.sensitive == true,
@@ -195,7 +195,7 @@ fun ScheduledStatus.asDraft(): Draft {
 
 // Note: Caller must still set attachments on ComposeOptions
 fun DeletedStatus.asDraft() = Draft(
-    id = 0,
+    draftId = 0,
     contentWarning = spoilerText,
     content = text.orEmpty(),
     sensitive = sensitive,
@@ -245,7 +245,7 @@ fun Draft.Companion.createDraft(context: Context, pachliAccount: app.pachli.core
     }
 
     val draft = Draft(
-        id = 0,
+        draftId = 0,
         contentWarning = "",
         content = content,
         sensitive = pachliAccount.defaultMediaSensitivity,
@@ -302,7 +302,7 @@ fun Draft.Companion.createDraftReply(pachliAccount: app.pachli.core.model.Pachli
     val visibility = actionable.visibility.coerceAtLeast(pachliAccount.defaultPostPrivacy)
 
     val draft = Draft(
-        id = 0,
+        draftId = 0,
         contentWarning = actionable.spoilerText,
         content = content,
         sensitive = actionable.sensitive || pachliAccount.defaultMediaSensitivity,
@@ -341,7 +341,7 @@ fun Draft.Companion.createDraftQuote(pachliAccount: app.pachli.core.model.Pachli
     val visibility = actionable.visibility.coerceAtLeast(pachliAccount.defaultPostPrivacy)
 
     val draft = Draft(
-        id = 0,
+        draftId = 0,
         contentWarning = actionable.spoilerText,
         content = "",
         sensitive = actionable.sensitive || pachliAccount.defaultMediaSensitivity,

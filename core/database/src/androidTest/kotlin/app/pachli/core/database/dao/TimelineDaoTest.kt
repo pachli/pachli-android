@@ -18,7 +18,7 @@
 package app.pachli.core.database.dao
 
 import androidx.paging.PagingSource
-import androidx.room.support.getSupportWrapper
+import androidx.room3.support.getSupportWrapper
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.model.PachliAccountEntity
@@ -65,7 +65,7 @@ class TimelineDaoTest {
             // Insert two accounts with IDs 1 and 2, which are assumed to exist
             // by the tests.
             val activeAccount = PachliAccountEntity(
-                id = 1L,
+                pachliAccountId = 1L,
                 domain = "mastodon.example",
                 accessToken = "token",
                 clientId = "id",
@@ -79,7 +79,7 @@ class TimelineDaoTest {
             // be unique to match the database constraints.
             val inactiveAccount = activeAccount.copy(
                 isActive = false,
-                id = 2L,
+                pachliAccountId = 2L,
                 domain = "example.com",
             )
 
@@ -105,7 +105,7 @@ class TimelineDaoTest {
                     TimelineStatusEntity(
                         kind = TimelineStatusEntity.Kind.Home,
                         pachliAccountId = status.pachliAccountId,
-                        statusId = status.serverId,
+                        statusId = status.statusId,
                     ),
                 ),
             )
@@ -125,12 +125,12 @@ class TimelineDaoTest {
     fun cleanup() = runTest {
         val initialStatuses = listOf(
             makeStatus(statusId = 100),
-            makeStatus(statusId = 10, authorServerId = "3"),
-            makeStatus(statusId = 8, reblog = true, authorServerId = "10"),
+            makeStatus(statusId = 10, accountId = "3"),
+            makeStatus(statusId = 8, reblog = true, accountId = "10"),
             makeStatus(statusId = 5),
-            makeStatus(statusId = 3, authorServerId = "4"),
-            makeStatus(statusId = 2, accountId = 2, authorServerId = "5"),
-            makeStatus(statusId = 1, authorServerId = "5"),
+            makeStatus(statusId = 3, accountId = "4"),
+            makeStatus(statusId = 2, accountId = 2, accountId = "5"),
+            makeStatus(statusId = 1, accountId = "5"),
         )
 
         for ((status, author, reblogAuthor) in initialStatuses) {
@@ -144,7 +144,7 @@ class TimelineDaoTest {
                     TimelineStatusEntity(
                         pachliAccountId = status.pachliAccountId,
                         kind = TimelineStatusEntity.Kind.Home,
-                        statusId = status.serverId,
+                        statusId = status.statusId,
                     ),
                 ),
             )
@@ -166,12 +166,12 @@ class TimelineDaoTest {
 
         val wantAccount1StatusesAfterCleanup = listOf(
             makeStatus(statusId = 100),
-            makeStatus(statusId = 10, authorServerId = "3"),
-            makeStatus(statusId = 8, reblog = true, authorServerId = "10"),
+            makeStatus(statusId = 10, accountId = "3"),
+            makeStatus(statusId = 8, reblog = true, accountId = "10"),
         )
 
         val wantAccount2StatusesAfterCleanup = listOf(
-            makeStatus(statusId = 2, accountId = 2, authorServerId = "5"),
+            makeStatus(statusId = 2, accountId = 2, accountId = "5"),
         )
 
         val loadParams: PagingSource.LoadParams<Int> = PagingSource.LoadParams.Refresh(null, 100, true)
@@ -183,11 +183,11 @@ class TimelineDaoTest {
         assertStatuses(wantAccount2StatusesAfterCleanup, gotAccount2StatusesAfterCleanup)
 
         val loadedAccounts: MutableList<Pair<Long, String>> = mutableListOf()
-        val accountCursor = db.getSupportWrapper().query("SELECT pachliAccountId, serverId FROM TimelineAccountEntity ORDER BY pachliAccountId, serverId")
+        val accountCursor = db.getSupportWrapper().query("SELECT pachliAccountId, accountId FROM TimelineAccountEntity ORDER BY pachliAccountId, accountId")
         accountCursor.moveToFirst()
         while (!accountCursor.isAfterLast) {
             val accountId: Long = accountCursor.getLong(accountCursor.getColumnIndex("pachliAccountId"))
-            val serverId: String = accountCursor.getString(accountCursor.getColumnIndex("serverId"))
+            val serverId: String = accountCursor.getString(accountCursor.getColumnIndex("accountId"))
             loadedAccounts.add(accountId to serverId)
             accountCursor.moveToNext()
         }
@@ -226,7 +226,7 @@ class TimelineDaoTest {
             makeStatus(statusId = 1),
         )
 
-        val deletedCount = timelineDao.deleteRange(1, newStatuses.last().first.serverId, newStatuses.first().first.serverId)
+        val deletedCount = timelineDao.deleteRange(1, newStatuses.last().first.statusId, newStatuses.first().first.statusId)
         assertEquals(3, deletedCount)
 
         for ((status, author, reblogAuthor) in newStatuses) {
@@ -303,37 +303,37 @@ class TimelineDaoTest {
             statusId = 15,
             accountId = 1,
             domain = "mastodon.red",
-            authorServerId = "1",
+            accountId = "1",
         )
         val statusWithRedDomain2 = makeStatus(
             statusId = 14,
             accountId = 1,
             domain = "mastodon.red",
-            authorServerId = "2",
+            accountId = "2",
         )
         val statusWithRedDomainOtherAccount = makeStatus(
             statusId = 12,
             accountId = 2,
             domain = "mastodon.red",
-            authorServerId = "2",
+            accountId = "2",
         )
         val statusWithBlueDomain = makeStatus(
             statusId = 10,
             accountId = 1,
             domain = "mastodon.blue",
-            authorServerId = "4",
+            accountId = "4",
         )
         val statusWithBlueDomainOtherAccount = makeStatus(
             statusId = 10,
             accountId = 2,
             domain = "mastodon.blue",
-            authorServerId = "5",
+            accountId = "5",
         )
         val statusWithGreenDomain = makeStatus(
             statusId = 8,
             accountId = 1,
             domain = "mastodon.green",
-            authorServerId = "6",
+            accountId = "6",
         )
 
         for ((status, author, reblogAuthor) in listOf(statusWithRedDomain1, statusWithRedDomain2, statusWithRedDomainOtherAccount, statusWithBlueDomain, statusWithBlueDomainOtherAccount, statusWithGreenDomain)) {
@@ -372,7 +372,7 @@ class TimelineDaoTest {
                     TimelineStatusEntity(
                         pachliAccountId = status.pachliAccountId,
                         kind = TimelineStatusEntity.Kind.Home,
-                        statusId = status.serverId,
+                        statusId = status.statusId,
                     ),
                 ),
             )
@@ -393,12 +393,12 @@ class TimelineDaoTest {
         statusId: Long = 10,
         reblog: Boolean = false,
         createdAt: Long = statusId,
-        authorServerId: String = "20",
+        accountId: String = "20",
         domain: String = "mastodon.example",
         cardUrl: String? = null,
     ): Triple<StatusEntity, TimelineAccountEntity, TimelineAccountEntity?> {
         val author = TimelineAccountEntity(
-            serverId = authorServerId,
+            accountId = accountId,
             pachliAccountId = accountId,
             localUsername = "localUsername@$domain",
             username = "username@$domain",
@@ -414,7 +414,7 @@ class TimelineDaoTest {
 
         val reblogAuthor = if (reblog) {
             TimelineAccountEntity(
-                serverId = "R$authorServerId",
+                accountId = "R$accountId",
                 pachliAccountId = accountId,
                 localUsername = "RlocalUsername",
                 username = "Rusername",
@@ -437,10 +437,10 @@ class TimelineDaoTest {
         }
         val even = accountId % 2 == 0L
         val status = StatusEntity(
-            serverId = statusId.toString(),
+            statusId = statusId.toString(),
             url = "https://$domain/whatever/$statusId",
             pachliAccountId = accountId,
-            authorServerId = authorServerId,
+            accountId = accountId,
             inReplyToId = "inReplyToId$statusId",
             inReplyToAccountId = "inReplyToAccountId$statusId",
             content = "Content!$statusId",
@@ -460,8 +460,8 @@ class TimelineDaoTest {
             mentions = null,
             tags = null,
             application = null,
-            reblogServerId = if (reblog) (statusId * 100).toString() else null,
-            reblogAccountId = reblogAuthor?.serverId,
+            reblogStatusId = if (reblog) (statusId * 100).toString() else null,
+            reblogAccountId = reblogAuthor?.accountId,
             poll = null,
             muted = false,
             pinned = false,
@@ -470,7 +470,7 @@ class TimelineDaoTest {
             filtered = null,
             quotesCount = 0,
             quoteState = null,
-            quoteServerId = null,
+            quoteStatusId = null,
             quoteApproval = Status.QuoteApproval(),
         )
         return Triple(status, author, reblogAuthor)

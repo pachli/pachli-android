@@ -454,8 +454,8 @@ internal class AccountInCollectionViewHolder(
 
     init {
         with(binding) {
-            accountNote.setOnClickListener { accept(NavigationAction.ViewAccount(viewData.account.serverId)) }
-            root.setOnClickListener { accept(NavigationAction.ViewAccount(viewData.account.serverId)) }
+            accountNote.setOnClickListener { accept(NavigationAction.ViewAccount(viewData.account.accountId)) }
+            root.setOnClickListener { accept(NavigationAction.ViewAccount(viewData.account.accountId)) }
 
             avatarRadius = avatar.context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
 
@@ -655,7 +655,7 @@ internal class AccountInCollectionViewHolder(
 }
 
 private object AccountInCollectionViewDataDiffer : DiffUtil.ItemCallback<AccountViewData>() {
-    override fun areItemsTheSame(oldItem: AccountViewData, newItem: AccountViewData) = oldItem.account.serverId == newItem.account.serverId
+    override fun areItemsTheSame(oldItem: AccountViewData, newItem: AccountViewData) = oldItem.account.accountId == newItem.account.accountId
     override fun areContentsTheSame(oldItem: AccountViewData, newItem: AccountViewData) = oldItem == newItem
 
     override fun getChangePayload(oldItem: AccountViewData, newItem: AccountViewData): Any? {

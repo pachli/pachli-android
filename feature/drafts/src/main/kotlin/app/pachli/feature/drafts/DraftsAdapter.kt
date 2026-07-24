@@ -48,7 +48,7 @@ internal class DraftsAdapter(
 ) : PagingDataAdapter<DraftViewData, DraftViewHolder>(
     object : DiffUtil.ItemCallback<DraftViewData>() {
         override fun areItemsTheSame(oldItem: DraftViewData, newItem: DraftViewData): Boolean {
-            return oldItem.draft.id == newItem.draft.id
+            return oldItem.draft.draftId == newItem.draft.draftId
         }
 
         override fun areContentsTheSame(oldItem: DraftViewData, newItem: DraftViewData): Boolean {

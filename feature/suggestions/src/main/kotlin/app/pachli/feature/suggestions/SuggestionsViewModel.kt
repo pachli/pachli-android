@@ -168,7 +168,7 @@ internal class SuggestionsViewModel @Inject constructor(
                         SuggestionViewData(
                             pachliAccountId = pachliAccountId,
                             suggestion = it,
-                            isEnabled = !disabled.contains(it.account.serverId),
+                            isEnabled = !disabled.contains(it.account.accountId),
                         )
                     }
                 }
@@ -216,7 +216,7 @@ internal class SuggestionsViewModel @Inject constructor(
      */
     private suspend fun onSuggestionAction(suggestionAction: SuggestionAction) {
         // Mark this suggestion as disabled for the duration of the operation.
-        disabledSuggestions.update { it.plus(suggestionAction.suggestion.account.serverId) }
+        disabledSuggestions.update { it.plus(suggestionAction.suggestion.account.accountId) }
 
         // Process the suggestion, and handle the success/failure
         val result = when (suggestionAction) {
@@ -228,7 +228,7 @@ internal class SuggestionsViewModel @Inject constructor(
                 suggestions.map { loadable ->
                     loadable.mapLoaded { suggestions ->
                         suggestions.filterNot { suggestion ->
-                            suggestion.account.serverId == suggestionAction.suggestion.account.serverId
+                            suggestion.account.accountId == suggestionAction.suggestion.account.accountId
                         }
                     }
                 }
@@ -239,13 +239,13 @@ internal class SuggestionsViewModel @Inject constructor(
         )
 
         // Re-enable the suggestion.
-        disabledSuggestions.update { it.minus(suggestionAction.suggestion.account.serverId) }
+        disabledSuggestions.update { it.minus(suggestionAction.suggestion.account.accountId) }
         _uiResult.send(result)
     }
 
     /** Delete a suggestion from the repository. */
     private suspend fun deleteSuggestion(action: DeleteSuggestion): Result<Unit, DeleteSuggestionError> = operationCounter {
-        suggestionsRepository.deleteSuggestion(action.suggestion.account.serverId)
+        suggestionsRepository.deleteSuggestion(action.suggestion.account.accountId)
     }
 
     /**

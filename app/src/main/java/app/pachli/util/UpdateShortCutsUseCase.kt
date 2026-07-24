@@ -90,9 +90,9 @@ class UpdateShortCutsUseCase @Inject constructor(
                     .build()
 
                 // This intent will be sent when the user clicks on one of the launcher shortcuts.
-                val intent = IntentRouterActivityIntent.fromShortcut(context, account.id)
+                val intent = IntentRouterActivityIntent.fromShortcut(context, account.pachliAccountId)
 
-                ShortcutInfoCompat.Builder(context, account.id.toString())
+                ShortcutInfoCompat.Builder(context, account.pachliAccountId.toString())
                     .setIntent(intent)
                     .setCategories(setOf("app.pachli.Share"))
                     .setShortLabel(account.displayName.ifBlank { account.fullName })

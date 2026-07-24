@@ -18,17 +18,16 @@
 package app.pachli.core.database
 
 import android.annotation.SuppressLint
-import androidx.room.AutoMigration
-import androidx.room.Database
-import androidx.room.DeleteColumn
-import androidx.room.DeleteTable
-import androidx.room.RenameColumn
-import androidx.room.RenameTable
-import androidx.room.RoomDatabase
-import androidx.room.migration.AutoMigrationSpec
-import androidx.room.migration.Migration
+import androidx.room3.AutoMigration
+import androidx.room3.Database
+import androidx.room3.DeleteColumn
+import androidx.room3.DeleteTable
+import androidx.room3.RenameColumn
+import androidx.room3.RenameTable
+import androidx.room3.RoomDatabase
+import androidx.room3.migration.AutoMigrationSpec
+import androidx.room3.migration.Migration
 import androidx.sqlite.SQLiteConnection
-import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.execSQL
 import app.pachli.core.database.dao.AccountDao
 import app.pachli.core.database.dao.AnnouncementsDao
@@ -68,6 +67,7 @@ import app.pachli.core.database.model.ReferencedStatusId
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.ServerEntity
 import app.pachli.core.database.model.StatusEntity
+import app.pachli.core.database.model.StatusToTimelineCollectionEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineCollectionEntity
@@ -102,6 +102,7 @@ import java.util.TimeZone
         FollowingAccountEntity::class,
         NotificationEntity::class,
         NotificationViewDataEntity::class,
+        StatusToTimelineCollectionEntity::class,
         TimelineStatusEntity::class,
         ConversationViewDataEntity::class,
         HashtagEntity::class,
@@ -110,7 +111,7 @@ import java.util.TimeZone
         TimelineStatusWithAccount::class,
         ReferencedStatusId::class,
     ],
-    version = 45,
+    version = 48,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -177,6 +178,11 @@ import java.util.TimeZone
         AutoMigration(from = 43, to = 44),
         // Support Mastodon Collections.
         AutoMigration(from = 44, to = 45),
+        // Make some Status(Entity) properties non-null
+        AutoMigration(from = 45, to = 46),
+        AutoMigration(from = 46, to = 47, spec = AppDatabase.MIGRATE_46_47::class),
+        // Status.taggedCollection property
+        AutoMigration(from = 47, to = 48),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -217,7 +223,7 @@ abstract class AppDatabase : RoomDatabase() {
             timeZone = TimeZone.getTimeZone("UTC")
         }
 
-        override fun onPostMigrate(connection: SQLiteConnection) {
+        override suspend fun onPostMigrate(connection: SQLiteConnection) {
             connection.prepare("SELECT id, scheduledAt FROM draftEntity").use { stmt ->
                 while (stmt.step()) {
                     if (stmt.isNull(1)) continue
@@ -299,7 +305,7 @@ abstract class AppDatabase : RoomDatabase() {
      * to core.model.
      */
     class MIGRATE_25_26 : AutoMigrationSpec {
-        override fun onPostMigrate(connection: SQLiteConnection) {
+        override suspend fun onPostMigrate(connection: SQLiteConnection) {
             connection.execSQL("DELETE FROM AnnouncementEntity")
             connection.execSQL("DELETE FROM ContentFiltersEntity")
             connection.execSQL("DELETE FROM ConversationViewDataEntity")
@@ -317,7 +323,7 @@ abstract class AppDatabase : RoomDatabase() {
      *   be recreated on login.
      */
     class MIGRATE_26_27 : AutoMigrationSpec {
-        override fun onPostMigrate(connection: SQLiteConnection) {
+        override suspend fun onPostMigrate(connection: SQLiteConnection) {
             connection.execSQL("DELETE FROM InstanceInfoEntity")
             connection.execSQL("UPDATE AccountEntity SET emojis = '[]'")
         }
@@ -341,15 +347,14 @@ abstract class AppDatabase : RoomDatabase() {
      * the cache completely rather than wait for the next scheduled pruning/
      */
     class MIGRATE_32_33 : AutoMigrationSpec {
-        override fun onPostMigrate(db: SupportSQLiteDatabase) {
-            super.onPostMigrate(db)
-            db.execSQL("DELETE FROM TimelineStatusEntity")
-            db.execSQL("DELETE FROM StatusEntity")
-            db.execSQL("DELETE FROM TimelineAccountEntity")
-            db.execSQL("DELETE FROM ConversationEntity")
-            db.execSQL("DELETE FROM NotificationEntity")
-            db.execSQL("DELETE FROM StatusViewDataEntity")
-            db.execSQL("DELETE FROM TranslatedStatusEntity")
+        override suspend fun onPostMigrate(connection: SQLiteConnection) {
+            connection.execSQL("DELETE FROM TimelineStatusEntity")
+            connection.execSQL("DELETE FROM StatusEntity")
+            connection.execSQL("DELETE FROM TimelineAccountEntity")
+            connection.execSQL("DELETE FROM ConversationEntity")
+            connection.execSQL("DELETE FROM NotificationEntity")
+            connection.execSQL("DELETE FROM StatusViewDataEntity")
+            connection.execSQL("DELETE FROM TranslatedStatusEntity")
         }
     }
 
@@ -361,8 +366,7 @@ abstract class AppDatabase : RoomDatabase() {
      * Room is configured with a custom driver.
      */
     class MIGRATE_36_37 : AutoMigrationSpec {
-        override fun onPostMigrate(connection: SQLiteConnection) {
-            super.onPostMigrate(connection)
+        override suspend fun onPostMigrate(connection: SQLiteConnection) {
             connection.execSQL("DELETE FROM TimelineStatusEntity")
             connection.execSQL("DELETE FROM StatusEntity")
             connection.execSQL("DELETE FROM TimelineAccountEntity")
@@ -396,8 +400,7 @@ abstract class AppDatabase : RoomDatabase() {
     @DeleteTable("NotificationRelationshipSeveranceEventEntity")
     @DeleteTable("NotificationAccountWarningEntity")
     class MIGRATE_42_43 : AutoMigrationSpec {
-        override fun onPostMigrate(connection: SQLiteConnection) {
-            super.onPostMigrate(connection)
+        override suspend fun onPostMigrate(connection: SQLiteConnection) {
             // Delete notifications, the schema changes cause things like
             // NotificationReportEntity to have invalid values, which breaks the
             // first load from the database. Clearing the notifications forces
@@ -412,10 +415,44 @@ abstract class AppDatabase : RoomDatabase() {
             connection.execSQL("UPDATE StatusEntity SET card = NULL")
         }
     }
+
+    @RenameColumn(tableName = "NotificationViewDataEntity", fromColumnName = "serverId", toColumnName = "notificationId")
+    @RenameColumn(tableName = "ConversationViewDataEntity", fromColumnName = "serverId", toColumnName = "conversationId")
+    @RenameColumn(tableName = "NotificationEntity", fromColumnName = "report_target_serverId", toColumnName = "report_target_accountId")
+    @RenameColumn(tableName = "NotificationEntity", fromColumnName = "collectionServerId", toColumnName = "collectionId")
+    @RenameColumn(tableName = "NotificationEntity", fromColumnName = "statusServerId", toColumnName = "statusId")
+    @RenameColumn(tableName = "NotificationEntity", fromColumnName = "accountServerId", toColumnName = "accountId")
+    @RenameColumn(tableName = "NotificationEntity", fromColumnName = "serverId", toColumnName = "notificationId")
+    @RenameColumn(tableName = "FollowingAccountEntity", fromColumnName = "serverId", toColumnName = "accountId")
+    @RenameColumn(tableName = "AnnouncementEntity", fromColumnName = "accountId", toColumnName = "pachliAccountId")
+    @RenameColumn(tableName = "AccountEntity", fromColumnName = "serverId", toColumnName = "accountId")
+    @RenameColumn(tableName = "CollectionEntity", fromColumnName = "serverId", toColumnName = "collectionId")
+    @RenameColumn(tableName = "CollectionItemEntity", fromColumnName = "collectionServerId", toColumnName = "collectionId")
+    @RenameColumn(tableName = "CollectionItemEntity", fromColumnName = "serverId", toColumnName = "collectionItemId")
+    @RenameColumn(tableName = "CollectionViewDataEntity", fromColumnName = "serverId", toColumnName = "collectionId")
+    @RenameColumn(tableName = "ConversationEntity", fromColumnName = "id", toColumnName = "conversationId")
+    @RenameColumn(tableName = "ConversationEntity", fromColumnName = "lastStatusServerId", toColumnName = "lastStatusId")
+    @RenameColumn(tableName = "ContentFiltersEntity", fromColumnName = "accountId", toColumnName = "pachliAccountId")
+    @RenameColumn(tableName = "DraftEntity", fromColumnName = "id", toColumnName = "draftId")
+    @RenameColumn(tableName = "MastodonListEntity", fromColumnName = "accountId", toColumnName = "pachliAccountId")
+    @RenameColumn(tableName = "PachliAccountEntity", fromColumnName = "id", toColumnName = "pachliAccountId")
+    @RenameColumn(tableName = "RemoteKeyEntity", fromColumnName = "accountId", toColumnName = "pachliAccountId")
+    @RenameColumn(tableName = "ServerEntity", fromColumnName = "accountId", toColumnName = "pachliAccountId")
+    @RenameColumn(tableName = "StatusEntity", fromColumnName = "authorServerId", toColumnName = "accountId")
+    @RenameColumn(tableName = "StatusEntity", fromColumnName = "reblogServerId", toColumnName = "reblogStatusId")
+    @RenameColumn(tableName = "StatusEntity", fromColumnName = "serverId", toColumnName = "statusId")
+    @RenameColumn(tableName = "StatusEntity", fromColumnName = "quoteServerId", toColumnName = "quoteStatusId")
+    @RenameColumn(tableName = "StatusViewDataEntity", fromColumnName = "serverId", toColumnName = "statusId")
+    @RenameColumn(tableName = "TimelineAccountEntity", fromColumnName = "serverId", toColumnName = "accountId")
+    @RenameColumn(tableName = "TimelineCollectionEntity", fromColumnName = "serverId", toColumnName = "collectionId")
+    @RenameColumn(tableName = "TimelineCollectionEntity", fromColumnName = "owner_serverId", toColumnName = "accountId")
+    @RenameColumn(tableName = "TimelineStatusEntity", fromColumnName = "accountId", toColumnName = "pachliAccountId")
+    @RenameColumn(tableName = "TranslatedStatusEntity", fromColumnName = "serverId", toColumnName = "statusId")
+    class MIGRATE_46_47 : AutoMigrationSpec
 }
 
 val MIGRATE_8_9 = object : Migration(8, 9) {
-    override fun migrate(connection: SQLiteConnection) {
+    override suspend fun migrate(connection: SQLiteConnection) {
         // clientId and clientSecret were made non-nullable. Before migrating data convert
         // any existing NULL values to the empty string.
         connection.execSQL("UPDATE `AccountEntity` SET `clientId` = '' WHERE `clientId` IS NULL")
@@ -498,7 +535,7 @@ val MIGRATE_8_9 = object : Migration(8, 9) {
  * logged out.
  */
 val MIGRATE_10_11 = object : Migration(10, 11) {
-    override fun migrate(connection: SQLiteConnection) {
+    override suspend fun migrate(connection: SQLiteConnection) {
         // Delete the data that would break the FK relationship.
         connection.execSQL("DELETE FROM DraftEntity WHERE accountId NOT IN (SELECT id FROM AccountEntity)")
         connection.execSQL("DELETE FROM TimelineAccountEntity WHERE timelineUserId NOT IN (SELECT id FROM AccountEntity)")
@@ -554,7 +591,7 @@ val MIGRATE_10_11 = object : Migration(10, 11) {
  * data. It's a cache, so the app will refetch notifications on launch.
  */
 val MIGRATE_12_13 = object : Migration(12, 13) {
-    override fun migrate(connection: SQLiteConnection) {
+    override suspend fun migrate(connection: SQLiteConnection) {
         connection.execSQL("CREATE TABLE IF NOT EXISTS `_new_NotificationEntity` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `type` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `accountServerId` TEXT NOT NULL, `statusServerId` TEXT, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED, FOREIGN KEY(`accountServerId`, `pachliAccountId`) REFERENCES `TimelineAccountEntity`(`serverId`, `timelineUserId`) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED)")
         connection.execSQL("DROP TABLE `NotificationEntity`")
         connection.execSQL("ALTER TABLE `_new_NotificationEntity` RENAME TO `NotificationEntity`")
@@ -562,19 +599,19 @@ val MIGRATE_12_13 = object : Migration(12, 13) {
 }
 
 /**
- * Removes any StatusEntity that reference a non-existent [PachliAccountEntity.id] in
+ * Removes any StatusEntity that reference a non-existent [PachliAccountEntity.pachliAccountId] in
  * [StatusEntity.timelineUserId].
  *
  * Version 20 introduces that as an FK constraint, this ensures that any statuses
  * in the cache that break that constraint are removed.
  */
 val MIGRATE_18_19 = object : Migration(18, 19) {
-    override fun migrate(connection: SQLiteConnection) {
+    override suspend fun migrate(connection: SQLiteConnection) {
         connection.execSQL(
             """
 DELETE
 FROM StatusEntity
-WHERE timelineUserId NOT IN (SELECT id FROM AccountEntity)
+WHERE timelineUserId NOT IN (MessagePattern.ArgType.SELECT id FROM AccountEntity)
             """.trimIndent(),
         )
     }
@@ -586,7 +623,7 @@ WHERE timelineUserId NOT IN (SELECT id FROM AccountEntity)
  * as the data will be refreshed when the user logs in.
  */
 val MIGRATE_22_23 = object : Migration(22, 23) {
-    override fun migrate(connection: SQLiteConnection) {
+    override suspend fun migrate(connection: SQLiteConnection) {
         connection.execSQL("CREATE TABLE IF NOT EXISTS `_new_InstanceInfoEntity` (`instance` TEXT NOT NULL, `maxPostCharacters` INTEGER NOT NULL, `maxPollOptions` INTEGER NOT NULL, `maxPollOptionLength` INTEGER NOT NULL, `minPollDuration` INTEGER NOT NULL, `maxPollDuration` INTEGER NOT NULL, `charactersReservedPerUrl` INTEGER NOT NULL, `version` TEXT NOT NULL, `videoSizeLimit` INTEGER NOT NULL, `imageSizeLimit` INTEGER NOT NULL, `imageMatrixLimit` INTEGER NOT NULL, `maxMediaAttachments` INTEGER NOT NULL, `maxFields` INTEGER NOT NULL, `maxFieldNameLength` INTEGER, `maxFieldValueLength` INTEGER, `enabledTranslation` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`instance`))")
         connection.execSQL("DROP TABLE `InstanceInfoEntity`")
         connection.execSQL("ALTER TABLE `_new_InstanceInfoEntity` RENAME TO `InstanceInfoEntity`")

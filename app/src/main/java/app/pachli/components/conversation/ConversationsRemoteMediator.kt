@@ -5,6 +5,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
@@ -18,6 +19,7 @@ import app.pachli.core.network.model.HttpHeaderLink
 import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.getOrElse
+import com.github.michaelbull.result.map
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import timber.log.Timber
@@ -31,6 +33,7 @@ class ConversationsRemoteMediator(
     private val conversationsDao: ConversationsDao,
     private val statusDao: StatusDao,
     private val timelineDao: TimelineDao,
+    private val collectionsRepository: CollectionsRepository,
 ) : RemoteMediator<Int, ConversationData>() {
 
     private var nextKey: String? = null
@@ -42,7 +45,6 @@ class ConversationsRemoteMediator(
         if (loadType == LoadType.PREPEND) {
             return MediatorResult.Success(endOfPaginationReached = true)
         }
-
         if (loadType == LoadType.REFRESH) {
             nextKey = null
         }
@@ -52,49 +54,60 @@ class ConversationsRemoteMediator(
 
         val conversations = conversationsResponse.body.filterNot { it.lastStatus == null }.asModel()
 
+        val linkHeader = conversationsResponse.headers["Link"]
+        val links = HttpHeaderLink.parse(linkHeader)
+        nextKey = HttpHeaderLink.findByRelationType(links, "next")?.uri?.getQueryParameter("max_id")
+
+        val accounts = mutableSetOf<TimelineAccount>()
+        val conversationEntities = mutableSetOf<ConversationEntity>()
+        val statuses = mutableSetOf<Status>()
+        val collectionIds = mutableSetOf<String>()
+
+        val conversationStarter = isConversationStarter(conversations.map { it.lastStatus!! })
+
+        conversations.forEach {
+            val lastStatus = it.lastStatus!!
+            accounts.add(lastStatus.account)
+            lastStatus.reblog?.account?.let { accounts.add(it) }
+
+            statuses.add(lastStatus)
+
+            (lastStatus.quote as? Status.Quote.FullQuote)?.status?.let { quote ->
+                accounts.add(quote.account)
+                quote.reblog?.let {
+                    accounts.add(it.account)
+                    statuses.add(it)
+                }
+                statuses.add(quote)
+            }
+
+            conversationEntities.add(
+                ConversationEntity.from(
+                    it,
+                    pachliAccountId,
+                    conversationStarter[it.lastStatus!!.statusId] == true,
+                )!!,
+            )
+
+            collectionIds.addAll(lastStatus.taggedCollections.map { it.collectionId })
+            (lastStatus.quote as? Status.Quote.FullQuote)?.let {
+                collectionIds.addAll(it.status.taggedCollections.map { it.collectionId })
+            }
+        }
+
         transactionProvider {
             if (loadType == LoadType.REFRESH) {
                 conversationsDao.deleteForAccount(pachliAccountId)
             }
 
-            val linkHeader = conversationsResponse.headers["Link"]
-            val links = HttpHeaderLink.parse(linkHeader)
-            nextKey = HttpHeaderLink.findByRelationType(links, "next")?.uri?.getQueryParameter("max_id")
-
-            val accounts = mutableSetOf<TimelineAccount>()
-            val conversationEntities = mutableSetOf<ConversationEntity>()
-            val statuses = mutableSetOf<Status>()
-
-            val conversationStarter = isConversationStarter(conversations.map { it.lastStatus!! })
-
-            conversations.forEach {
-                val lastStatus = it.lastStatus!!
-                accounts.add(lastStatus.account)
-                lastStatus.reblog?.account?.let { accounts.add(it) }
-
-                statuses.add(lastStatus)
-
-                (lastStatus.quote as? Status.Quote.FullQuote)?.status?.let { quote ->
-                    accounts.add(quote.account)
-                    quote.reblog?.let {
-                        accounts.add(it.account)
-                        statuses.add(it)
-                    }
-                    statuses.add(quote)
-                }
-
-                conversationEntities.add(
-                    ConversationEntity.from(
-                        it,
-                        pachliAccountId,
-                        conversationStarter[it.lastStatus!!.statusId] == true,
-                    )!!,
-                )
-            }
-
             timelineDao.upsertTimelineAccounts(accounts.asEntity(pachliAccountId))
             statusDao.upsertStatuses(statuses.map { it.actionableStatus.asEntity(pachliAccountId) })
             conversationsDao.upsert(conversationEntities)
+
+            // Cache all the collections mentioned in this page, so they're readable
+            // by ResolveCollectionCardsPagingSource.
+            Timber.d("reloading collections: $collectionIds")
+            collectionsRepository.reloadCollections(pachliAccountId, collectionIds)
         }
 
         return MediatorResult.Success(endOfPaginationReached = nextKey == null)
@@ -142,11 +155,11 @@ class ConversationsRemoteMediator(
             }
 
             // If the account posting this status is also the account that posted
-            // the parent status hen this is part of chain of statuses that started
+            // the parent status then this is part of chain of statuses that started
             // the thread, all posted by the same account.  It doesn't matter that
             // it's multiple statuses, the whole chain is considered to have started
             // the thread.
-            if (status.account.serverId == status.inReplyToAccountId) {
+            if (status.account.accountId == status.inReplyToAccountId) {
                 result[status.statusId] = true
                 continue
             }
@@ -158,14 +171,16 @@ class ConversationsRemoteMediator(
 
         val statusIdsToCheck = statusesToCheck.keys.toList()
         if (statusIdsToCheck.isNotEmpty()) {
-            api.statuses(statusIdsToCheck).onSuccess {
-                it.body.forEach { parentStatus ->
-                    val childStatusId = statusesToCheck[parentStatus.id]
-                    result[childStatusId!!] = parentStatus.visibility.asModel() != Status.Visibility.DIRECT
+            api.statuses(statusIdsToCheck)
+                .map { it.body.asModel() }
+                .onSuccess {
+                    it.forEach { parentStatus ->
+                        statusesToCheck[parentStatus.statusId]?.let { childStatusId ->
+                            result[childStatusId] = parentStatus.visibility != Status.Visibility.DIRECT
+                        }
+                    }
                 }
-            }.onFailure {
-                Timber.e("Failed: $it")
-            }
+                .onFailure { Timber.e("Failed: $it") }
         }
 
         return result

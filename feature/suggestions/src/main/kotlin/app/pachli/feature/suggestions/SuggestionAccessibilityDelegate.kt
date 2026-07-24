@@ -106,7 +106,7 @@ internal class SuggestionAccessibilityDelegate(
             return when (action) {
                 app.pachli.core.ui.R.id.action_open_profile -> {
                     interrupt()
-                    accept(UiAction.NavigationAction.ViewAccount(viewData.suggestion.account.serverId))
+                    accept(UiAction.NavigationAction.ViewAccount(viewData.suggestion.account.accountId))
                     true
                 }
 

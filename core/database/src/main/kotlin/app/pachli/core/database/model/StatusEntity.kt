@@ -17,17 +17,18 @@
 
 package app.pachli.core.database.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Ignore
-import androidx.room.Index
-import androidx.room.TypeConverters
+import androidx.room3.ColumnInfo
+import androidx.room3.ColumnTypeConverters
+import androidx.room3.Embedded
+import androidx.room3.Entity
+import androidx.room3.ForeignKey
+import androidx.room3.Ignore
+import androidx.room3.Index
 import app.pachli.core.database.Converters
 import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.Card
+import app.pachli.core.model.Collection
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.FilterResult
 import app.pachli.core.model.Hashtag
@@ -43,58 +44,57 @@ import java.util.Date
  * *reblogged* status and we embed "reblog status" into reblogged status. This reversed
  * relationship takes much less space and is much faster to fetch (no N+1 type queries or JSON
  * serialization).
- * "Reblog status", if present, is marked by [reblogServerId], and [reblogAccountId]
+ * "Reblog status", if present, is marked by [reblogStatusId], and [reblogAccountId]
  * fields.
  *
- * @property serverId Status ID (see [reblogServerId])
- * @property reblogServerId If this is a reblog, the ID of the status being reblogged (*not
- * the ID of the reblog status*, that is still [serverId]). Also referred to as the
+ * @property statusId Status ID (see [reblogStatusId])
+ * @property reblogStatusId If this is a reblog, the ID of the status being reblogged (*not
+ * the ID of the reblog status*, that is still [statusId]). Also referred to as the
  * *actionable* ID.
  * @property reblogAccountId If this is a reblog, the ID of the account doing the reblogging.
  * @property reblogged True if [pachliAccountId] reblogged this status.
  * @property isReblog True if this status is a reblog of another status (see
- * [reblogServerId] and [reblogAccountId])
+ * [reblogStatusId] and [reblogAccountId])
  * @property isReply True if this status is a reply to another status (see
  * [inReplyToId] and [inReplyToAccountId])
  */
 @Entity(
-    primaryKeys = ["serverId", "pachliAccountId"],
+    primaryKeys = ["pachliAccountId", "statusId"],
     foreignKeys = (
         [
             ForeignKey(
                 entity = PachliAccountEntity::class,
-                parentColumns = ["id"],
+                parentColumns = ["pachliAccountId"],
                 childColumns = ["pachliAccountId"],
                 onDelete = ForeignKey.CASCADE,
                 deferred = true,
             ),
             ForeignKey(
                 entity = TimelineAccountEntity::class,
-                parentColumns = ["serverId", "pachliAccountId"],
-                childColumns = ["authorServerId", "pachliAccountId"],
+                parentColumns = ["pachliAccountId", "accountId"],
+                childColumns = ["pachliAccountId", "accountId"],
                 deferred = true,
             ),
         ]
         ),
     // Avoiding rescanning status table when accounts table changes. Recommended by Room(c).
     indices = [
-        Index("authorServerId", "pachliAccountId"),
+        Index("pachliAccountId", "accountId"),
         Index("pachliAccountId"),
     ],
 )
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 data class StatusEntity(
-    // id never flips: we need it for sorting so it's a real id
-    val serverId: String,
-    val url: String?,
     val pachliAccountId: Long,
-    val authorServerId: String,
+    val statusId: String,
+    val url: String?,
+    val accountId: String,
     val inReplyToId: String?,
     val inReplyToAccountId: String?,
     val content: String?,
     val createdAt: Long,
     val editedAt: Long?,
-    val emojis: List<Emoji>?,
+    val emojis: List<Emoji>,
     val reblogsCount: Int,
     val favouritesCount: Int,
     val repliesCount: Int,
@@ -108,34 +108,39 @@ data class StatusEntity(
     val visibility: Status.Visibility,
     val attachments: List<Attachment>?,
     val mentions: List<Status.Mention>?,
-    val tags: List<Hashtag>?,
+    val tags: List<Hashtag>,
     val application: Status.Application?,
     // if it has a reblogged status, it's id is stored here
-    val reblogServerId: String?,
+    val reblogStatusId: String?,
     val reblogAccountId: String?,
     val poll: Poll?,
-    val muted: Boolean?,
+    val muted: Boolean,
     val pinned: Boolean,
     val card: Card?,
     val quoteState: Status.QuoteState?,
-    val quoteServerId: String?,
+    val quoteStatusId: String?,
     @ColumnInfo(defaultValue = "{\"automatic\":[], \"manual\":[], \"currentUser\":\"UNKNOWN\"}")
     val quoteApproval: Status.QuoteApproval,
     val language: String?,
-    val filtered: List<FilterResult>?,
+    val filtered: List<FilterResult>,
+    @ColumnInfo(defaultValue = "[]")
+    val taggedCollections: List<Collection>,
 ) {
     @Ignore
-    val isReblog = reblogServerId != null
+    val actionableId = reblogStatusId ?: statusId
+
+    @Ignore
+    val isReblog = reblogStatusId != null
 
     @Ignore
     val isReply = inReplyToId != null
 }
 
 fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
-    serverId = statusId,
-    url = actionableStatus.url,
     pachliAccountId = pachliAccountId,
-    authorServerId = actionableStatus.account.serverId,
+    statusId = statusId,
+    url = actionableStatus.url,
+    accountId = actionableStatus.account.accountId,
     inReplyToId = actionableStatus.inReplyToId,
     inReplyToAccountId = actionableStatus.inReplyToAccountId,
     content = actionableStatus.content,
@@ -155,14 +160,14 @@ fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
     mentions = actionableStatus.mentions,
     tags = actionableStatus.tags,
     application = actionableStatus.application,
-    reblogServerId = reblog?.statusId,
-    reblogAccountId = reblog?.let { account.serverId },
+    reblogStatusId = reblog?.statusId,
+    reblogAccountId = reblog?.let { account.accountId },
     poll = actionableStatus.poll,
     muted = actionableStatus.muted,
-    pinned = actionableStatus.pinned == true,
+    pinned = actionableStatus.pinned,
     card = actionableStatus.card,
     quoteState = actionableStatus.quote?.state,
-    quoteServerId = when (actionableStatus.quote) {
+    quoteStatusId = when (actionableStatus.quote) {
         is Status.Quote.FullQuote -> (actionableStatus.quote as Status.Quote.FullQuote).statusId
         is Status.Quote.ShallowQuote -> (actionableStatus.quote as Status.Quote.ShallowQuote).statusId
         is Status.Quote.HiddenQuote -> null
@@ -172,10 +177,48 @@ fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
     repliesCount = actionableStatus.repliesCount,
     language = actionableStatus.language,
     filtered = actionableStatus.filtered,
+    taggedCollections = actionableStatus.taggedCollections,
 )
 
 @JvmName("IterableStatus")
 fun Iterable<Status>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }
+
+/**
+ * M:N association between [StatusEntity] and [TimelineCollectionEntity].
+ */
+@Entity(
+    primaryKeys = ["pachliAccountId", "statusId", "collectionId"],
+    foreignKeys = (
+        [
+            ForeignKey(
+                entity = PachliAccountEntity::class,
+                parentColumns = ["pachliAccountId"],
+                childColumns = ["pachliAccountId"],
+                onDelete = ForeignKey.CASCADE,
+                deferred = true,
+            ),
+            ForeignKey(
+                entity = StatusEntity::class,
+                parentColumns = ["pachliAccountId", "statusId"],
+                childColumns = ["pachliAccountId", "statusId"],
+                onDelete = ForeignKey.CASCADE,
+                deferred = true,
+            ),
+            ForeignKey(
+                entity = TimelineCollectionEntity::class,
+                parentColumns = ["pachliAccountId", "collectionId"],
+                childColumns = ["pachliAccountId", "collectionId"],
+                onDelete = ForeignKey.CASCADE,
+                deferred = true,
+            ),
+        ]
+        ),
+)
+data class StatusToTimelineCollectionEntity(
+    val pachliAccountId: Long,
+    val statusId: String,
+    val collectionId: String,
+)
 
 /**
  * A complete [TimelineStatusWithAccount], and the (optional) status it quotes.
@@ -197,16 +240,16 @@ data class TimelineStatusWithQuote(
 
         val attachments: List<Attachment> = status.attachments.orEmpty()
         val mentions: List<Status.Mention> = status.mentions.orEmpty()
-        val tags: List<Hashtag>? = status.tags
+        val tags: List<Hashtag> = status.tags
         val application = status.application
-        val emojis: List<Emoji> = status.emojis.orEmpty()
+        val emojis: List<Emoji> = status.emojis
         val poll: Poll? = status.poll
         val card: Card? = status.card
 
         /**
          * If [this] is a reblog, this is the status being reblogged.
          */
-        val reblog = status.reblogServerId?.let { id ->
+        val reblog = status.reblogStatusId?.let { id ->
             Status(
                 statusId = id,
                 url = status.url,
@@ -245,13 +288,14 @@ data class TimelineStatusWithQuote(
                 repliesCount = status.repliesCount,
                 language = status.language,
                 filtered = status.filtered,
+                taggedCollections = status.taggedCollections,
             )
         }
         return if (reblog != null) {
             val status = timelineStatus.status
 
             Status(
-                statusId = status.serverId,
+                statusId = status.statusId,
                 // no url for reblogs
                 url = null,
                 account = reblogAccount!!.asModel(),
@@ -290,10 +334,11 @@ data class TimelineStatusWithQuote(
                 repliesCount = status.repliesCount,
                 language = status.language,
                 filtered = status.filtered,
+                taggedCollections = status.taggedCollections,
             )
         } else {
             Status(
-                statusId = status.serverId,
+                statusId = status.statusId,
                 url = status.url,
                 account = account.asModel(),
                 inReplyToId = status.inReplyToId,
@@ -330,6 +375,7 @@ data class TimelineStatusWithQuote(
                 repliesCount = status.repliesCount,
                 language = status.language,
                 filtered = status.filtered,
+                taggedCollections = status.taggedCollections,
             )
         }
     }

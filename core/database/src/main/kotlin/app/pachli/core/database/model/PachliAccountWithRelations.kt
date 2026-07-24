@@ -17,8 +17,8 @@
 
 package app.pachli.core.database.model
 
-import androidx.room.Embedded
-import androidx.room.Relation
+import androidx.room3.Embedded
+import androidx.room3.Relation
 
 /**
  * Represents a complete Pachli account.
@@ -29,38 +29,38 @@ data class PachliAccountWithRelations(
     @Embedded val pachliAccountEntity: PachliAccountEntity,
 
     @Relation(
-        parentColumn = "id",
-        entityColumn = "accountId",
+        parentColumns = ["pachliAccountId"],
+        entityColumns = ["pachliAccountId"],
     )
     val lists: List<MastodonListEntity>?,
 
     @Relation(
-        parentColumn = "id",
-        entityColumn = "accountId",
+        parentColumns = ["pachliAccountId"],
+        entityColumns = ["pachliAccountId"],
     )
     val server: ServerEntity?,
 
     @Relation(
-        parentColumn = "id",
-        entityColumn = "accountId",
+        parentColumns = ["pachliAccountId"],
+        entityColumns = ["pachliAccountId"],
     )
     val contentFilters: ContentFiltersEntity?,
 
     @Relation(
-        parentColumn = "id",
-        entityColumn = "accountId",
+        parentColumns = ["pachliAccountId"],
+        entityColumns = ["pachliAccountId"],
     )
     val announcements: List<AnnouncementEntity>?,
 
     @Relation(
-        parentColumn = "id",
-        entityColumn = "pachliAccountId",
+        parentColumns = ["pachliAccountId"],
+        entityColumns = ["pachliAccountId"],
     )
     val following: List<FollowingAccountEntity>,
 
     @Relation(
-        parentColumn = "id",
-        entityColumn = "pachliAccountId",
+        parentColumns = ["pachliAccountId"],
+        entityColumns = ["pachliAccountId"],
     )
     val followedHashtags: List<HashtagEntity>,
 )

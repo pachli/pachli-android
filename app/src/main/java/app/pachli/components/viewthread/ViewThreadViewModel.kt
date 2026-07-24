@@ -25,6 +25,7 @@ import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.dao.TimelineDao
@@ -50,6 +51,8 @@ import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
+import app.pachli.core.model.collection.CollectionCardViewData
+import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
@@ -87,6 +90,7 @@ class ViewThreadViewModel @Inject constructor(
     private val repository: CachedTimelineRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val timelineCases: TimelineCases,
+    private val collectionsRepository: CollectionsRepository,
 ) : ViewModel() {
     // TODO: For consistency with other fragments the UiState should not include
     // the list of statuses. Look at SuggestionsViewModel for ideas.
@@ -143,29 +147,48 @@ class ViewThreadViewModel @Inject constructor(
 
             Timber.d("Finding status with: %s", id)
             val contextCall = async { api.statusContext(id) }
-            val timelineStatusWithQuote = timelineDao.getActionableStatusQ(account.id, id)
+            val timelineStatusWithQuote = timelineDao.getActionableStatusQ(account.pachliAccountId, id)
+            val collectionCardViewData = buildSet {
+                timelineStatusWithQuote?.timelineStatus?.status?.taggedCollections?.forEach { add(it.collectionId) }
+                timelineStatusWithQuote?.quotedStatus?.status?.taggedCollections?.forEach { add(it.collectionId) }
+            }.run {
+                collectionsRepository.getCollectionCardViewData(account.pachliAccountId, this)
+                    .associateBy { it.timelineCollection.collectionId }
+            }
+            val timelineStatus = if (collectionCardViewData.isEmpty()) {
+                timelineStatusWithQuote
+            } else {
+                timelineStatusWithQuote?.copy(
+                    timelineStatus = timelineStatusWithQuote.timelineStatus.copy(
+                        collectionCards = timelineStatusWithQuote.timelineStatus.status.taggedCollections.mapNotNull { collectionCardViewData[it.collectionId] },
+                    ),
+                    quotedStatus = timelineStatusWithQuote.quotedStatus?.copy(
+                        collectionCards = timelineStatusWithQuote.quotedStatus?.status?.taggedCollections?.mapNotNull { collectionCardViewData[it.collectionId] },
+                    ),
+                )
+            }
 
-            var detailedStatus = if (timelineStatusWithQuote != null) {
+            var detailedStatus = if (timelineStatus != null) {
                 Timber.d("Loading status from local timeline")
-                val status = timelineStatusWithQuote.toStatus()
+                val status = timelineStatus.toStatus()
 
                 StatusItemViewData.from(
                     pachliAccount = account,
-                    timelineStatusWithQuote = timelineStatusWithQuote,
+                    timelineStatusWithQuote = timelineStatus,
                     isExpanded = account.alwaysOpenSpoiler,
                     showSensitiveMedia = account.alwaysShowSensitiveMedia,
                     isDetailed = true,
                     contentFilterAction = contentFilterModel?.filterActionFor(status.actionableStatus)
                         ?: FilterAction.NONE,
-                    quoteContentFilterAction = timelineStatusWithQuote.quotedStatus?.status?.let { contentFilterModel?.filterActionFor(it) },
+                    quoteContentFilterAction = timelineStatus.quotedStatus?.status?.let { contentFilterModel?.filterActionFor(it) },
                     translationState = TranslationState.SHOW_ORIGINAL,
                     filterContext = FilterContext.CONVERSATIONS,
                 )
             } else {
                 Timber.d("Loading status from network")
                 val statusCall = async { api.status(id) }
-                val existingViewData = repository.getStatusViewData(account.id, id)
-                val existingTranslation = repository.getTranslation(account.id, id)
+                val existingViewData = repository.getStatusViewData(account.pachliAccountId, id)
+                val existingTranslation = repository.getTranslation(account.pachliAccountId, id)
 
                 val status = statusCall.await()
                     .map { api.resolveShallowQuotes(it.body) }
@@ -201,7 +224,7 @@ class ViewThreadViewModel @Inject constructor(
                     detailedStatus = detailedStatus.copy(
                         statusViewData = detailedStatus.statusViewData.copy(
                             status = status.copy(
-                                tags = status.tags?.map {
+                                tags = status.tags.map {
                                     it.copy(following = account.followedHashtags.contains(it.name))
                                 },
                             ),
@@ -209,7 +232,7 @@ class ViewThreadViewModel @Inject constructor(
                         quotedViewData = (status.quote as? Status.Quote.FullQuote)?.status?.let {
                             detailedStatus.quotedViewData?.copy(
                                 status = it.copy(
-                                    tags = it.tags?.map {
+                                    tags = it.tags.map {
                                         it.copy(following = account.followedHashtags.contains(it.name))
                                     },
                                 ),
@@ -227,8 +250,8 @@ class ViewThreadViewModel @Inject constructor(
                     addAll(statusContext.ancestors.flatMap { listOf(it.id, it.quote?.quotedStatusId) }.filterNotNull())
                     addAll(statusContext.descendants.flatMap { listOf(it.id, it.quote?.quotedStatusId) }.filterNotNull())
                 }
-                val cachedViewData = repository.getStatusViewData(account.id, ids)
-                val cachedTranslations = repository.getStatusTranslations(account.id, ids)
+                val cachedViewData = repository.getStatusViewData(account.pachliAccountId, ids)
+                val cachedTranslations = repository.getStatusTranslations(account.pachliAccountId, ids)
                 val ancestors = api.resolveShallowQuotes(statusContext.ancestors).asModel()
                     .map { Pair(it, shouldFilterStatus(it)) }
                     .filter { it.second != FilterAction.HIDE }
@@ -293,6 +316,7 @@ class ViewThreadViewModel @Inject constructor(
             is ThreadUiState.Loaded -> uiState.statusViewData.find { status ->
                 status.isDetailed
             }
+
             is ThreadUiState.LoadingThread -> uiState.statusViewDatum
             else -> null
         }
@@ -423,7 +447,7 @@ class ViewThreadViewModel @Inject constructor(
         updateSuccess { uiState ->
             uiState.copy(
                 statusViewData = uiState.statusViewData.filter { viewData ->
-                    viewData.status.account.serverId != accountId
+                    viewData.status.account.accountId != accountId
                 },
             )
         }
@@ -490,16 +514,16 @@ class ViewThreadViewModel @Inject constructor(
             pachliAccount = pachliAccount,
             timelineStatusWithQuote = TimelineStatusWithQuote(
                 timelineStatus = TimelineStatusWithAccount(
-                    status = asEntity(pachliAccount.id),
-                    account = reblog?.account?.asEntity(pachliAccount.id) ?: account.asEntity(pachliAccount.id),
-                    reblogAccount = reblog?.let { account.asEntity(pachliAccount.id) },
+                    status = asEntity(pachliAccount.pachliAccountId),
+                    account = reblog?.account?.asEntity(pachliAccount.pachliAccountId) ?: account.asEntity(pachliAccount.pachliAccountId),
+                    reblogAccount = reblog?.let { account.asEntity(pachliAccount.pachliAccountId) },
                     viewData = viewDataCache[actionableId],
                     translatedStatus = translationCache[actionableId],
                 ),
                 quotedStatus = quote?.let { q ->
                     TimelineStatusWithAccount(
-                        status = q.asEntity(pachliAccount.id),
-                        account = q.account.asEntity(pachliAccount.id),
+                        status = q.asEntity(pachliAccount.pachliAccountId),
+                        account = q.account.asEntity(pachliAccount.pachliAccountId),
                         reblogAccount = null,
                         viewData = viewDataCache[actionableId],
                         translatedStatus = translationCache[actionableId],
@@ -540,6 +564,7 @@ class ViewThreadViewModel @Inject constructor(
                     },
                     revealButton = RevealButtonState.REVEAL,
                 )
+
                 RevealButtonState.REVEAL -> uiState.copy(
                     statusViewData = uiState.statusViewData.map { viewData ->
                         viewData.copy(
@@ -550,6 +575,7 @@ class ViewThreadViewModel @Inject constructor(
                     },
                     revealButton = RevealButtonState.HIDE,
                 )
+
                 else -> uiState
             }
         }
@@ -726,6 +752,72 @@ class ViewThreadViewModel @Inject constructor(
     fun clearWarning(viewData: IStatusViewData) {
         updateStatusViewData(viewData.statusId) {
             it.copy(contentFilterAction = FilterAction.NONE)
+        }
+    }
+
+    fun onOverrideCollectionDisplayAction(
+        pachliAccountId: Long,
+        collectionId: String,
+        collectionDisplayAction: CollectionDisplayAction,
+    ) {
+        viewModelScope.launch {
+            repository.setCollectionDisplayAction(
+                pachliAccountId,
+                collectionId,
+                collectionDisplayAction,
+            )
+
+            // Update the cached copy of the collection display action for all
+            // loaded statuses that reference this collection.
+            updateCollectionCardViewData(collectionId) { collectionCardViewData ->
+                collectionCardViewData.copy(displayAction = collectionDisplayAction)
+            }
+        }
+    }
+
+    fun onRevokeUserFromCollection(pachliAccountId: Long, collectionId: String, accountId: String) {
+        viewModelScope.launch {
+            collectionsRepository.revokeFromCollection(pachliAccountId, collectionId, accountId).onSuccess {
+                collectionsRepository.getCollectionCardViewData(pachliAccountId, listOf(collectionId))
+                    .firstOrNull()?.let {
+                        updateCollectionCardViewData(collectionId) { it }
+                    }
+            }
+        }
+    }
+
+    /**
+     * Updates the [CollectionCardViewData] on all statuses that contain [collectionId].
+     *
+     * @param collectionId ID of the collection with updated [CollectionCardViewData].
+     * @param updater Function that takes the existing [CollectionCardViewData] and returns
+     * the replacement.
+     */
+    private fun updateCollectionCardViewData(collectionId: String, updater: (CollectionCardViewData) -> CollectionCardViewData) {
+        updateSuccess { uiState ->
+            uiState.copy(
+                statusViewData = uiState.statusViewData.map { viewData ->
+                    val statusViewData = viewData.statusViewData
+                    val quotedViewData = viewData.quotedViewData
+
+                    if (statusViewData.collectionCardViewData.isEmpty() && quotedViewData?.collectionCardViewData.isNullOrEmpty()) {
+                        return@map viewData
+                    }
+
+                    viewData.copy(
+                        statusViewData = statusViewData.copy(
+                            collectionCardViewData = statusViewData.collectionCardViewData.map {
+                                if (it.collectionId == collectionId) updater(it) else it
+                            },
+                        ),
+                        quotedViewData = quotedViewData?.copy(
+                            collectionCardViewData = quotedViewData.collectionCardViewData.map {
+                                if (it.collectionId == collectionId) updater(it) else it
+                            },
+                        ),
+                    )
+                },
+            )
         }
     }
 }

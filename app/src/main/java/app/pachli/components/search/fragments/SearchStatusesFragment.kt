@@ -51,12 +51,16 @@ import app.pachli.core.domain.DownloadUrlUseCase
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Draft
+import app.pachli.core.model.ICollection
 import app.pachli.core.model.IStatus
 import app.pachli.core.model.PachliAccount
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Status.Mention
+import app.pachli.core.model.collection.CollectionCardViewData
+import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.navigation.AttachmentViewData
+import app.pachli.core.navigation.CollectionActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ReferencingStatus
@@ -67,6 +71,7 @@ import app.pachli.core.ui.ClipboardUseCase
 import app.pachli.core.ui.SetContentAsMarkdown
 import app.pachli.core.ui.SetContentAsMastodonHtml
 import app.pachli.core.ui.StatusActionListener
+import app.pachli.feature.collections.newConfirmRevokeDialogFragment
 import app.pachli.usecase.TimelineCases
 import app.pachli.view.showMuteAccountDialog
 import com.bumptech.glide.Glide
@@ -192,7 +197,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
     }
 
     override fun onOpenReblog(status: IStatus) {
-        viewUrlActivity?.viewAccount(pachliAccountId, status.account.serverId)
+        viewUrlActivity?.viewAccount(pachliAccountId, status.account.accountId)
     }
 
     override fun onExpandedChange(viewData: IStatusViewData, expanded: Boolean) {
@@ -267,7 +272,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
     override fun onMore(view: View, statusViewData: IStatusViewData) {
         val id = statusViewData.actionableId
         val status = statusViewData.actionable
-        val accountId = status.account.serverId
+        val accountId = status.account.accountId
         val accountUsername = status.account.username
         val statusUrl = status.url
         val loggedInAccountId = viewModel.pachliAccount.value!!.accountId
@@ -281,7 +286,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
             menu.findItem(R.id.status_open_as).isVisible = !statusUrl.isNullOrBlank()
             when (status.visibility) {
                 Status.Visibility.PUBLIC, Status.Visibility.UNLISTED -> {
-                    val textId = getString(if (status.isPinned()) R.string.unpin_action else R.string.pin_action)
+                    val textId = getString(if (status.pinned) R.string.unpin_action else R.string.pin_action)
                     menu.add(0, R.id.pin, 1, textId)
                 }
                 Status.Visibility.PRIVATE -> {
@@ -313,7 +318,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         }
         if (mutable) {
             muteConversationItem.setTitle(
-                if (status.muted == true) {
+                if (status.muted) {
                     R.string.action_unmute_conversation
                 } else {
                     R.string.action_mute_conversation
@@ -358,7 +363,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_mute_conversation -> {
-                    viewModel.muteConversation(statusViewData, status.muted != true)
+                    viewModel.muteConversation(statusViewData, !status.muted)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_mute -> {
@@ -394,7 +399,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
                     return@setOnMenuItemClickListener true
                 }
                 R.id.pin -> {
-                    viewModel.pinStatus(statusViewData, !status.isPinned())
+                    viewModel.pinStatus(statusViewData, !status.pinned)
                     return@setOnMenuItemClickListener true
                 }
             }
@@ -574,6 +579,34 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
             }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
+    }
+
+    override fun onViewCollection(collection: ICollection) {
+        startActivityWithTransition(
+            CollectionActivityIntent(requireContext(), pachliAccountId, collection.collectionId),
+            TransitionKind.SLIDE_FROM_END,
+        )
+    }
+
+    override fun onRevokeUserFromCollection(collection: ICollection) {
+        lifecycleScope.launch {
+            val button = requireContext().newConfirmRevokeDialogFragment().await(parentFragmentManager)
+            if (button == AlertDialog.BUTTON_POSITIVE) {
+                viewModel.onRevokeUserFromCollection(
+                    pachliAccountId,
+                    collection.collectionId,
+                    viewModel.pachliAccount.replayCache.last()!!.accountId,
+                )
+            }
+        }
+    }
+
+    override fun onCollectionDisplayActionChange(viewData: CollectionCardViewData, collectionDisplayAction: CollectionDisplayAction) {
+        viewModel.onOverrideCollectionDisplayAction(
+            pachliAccountId,
+            viewData.timelineCollection.collectionId,
+            collectionDisplayAction,
+        )
     }
 
     companion object {

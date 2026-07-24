@@ -56,6 +56,7 @@ class QuotedStatusView @JvmOverloads constructor(
     override val contentWarningButton = binding.quotedStatusContainer.quoteStatusContentWarningButton
     override val content = binding.quotedStatusContainer.quoteStatusContent
     override val buttonToggleContent = binding.quotedStatusContainer.quoteButtonToggleContent
+    override val collectionsContainer = null
     override val attachmentsView = binding.quotedStatusContainer.quoteAttachmentGrid
     override val pollView = binding.quotedStatusContainer.quoteStatusPoll
     override val cardView = binding.quotedStatusContainer.quoteStatusCardView
@@ -128,7 +129,7 @@ class QuotedStatusView @JvmOverloads constructor(
             }
 
             FilterAction.WARN -> {
-                val filterResults = viewData.actionable.filtered.orEmpty().groupBy { (filter, _, _) -> filter.filterAction }
+                val filterResults = viewData.actionable.filtered.groupBy { (filter, _, _) -> filter.filterAction }
                 filterResults[FilterAction.WARN]?.let { filters ->
                     binding.quotedStatusContainer.root.hide()
                     binding.quotedStatusHidden.hide()

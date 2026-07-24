@@ -93,7 +93,7 @@ class NotificationFetcher @Inject constructor(
                             val decision = filterNotificationByAccount(pachliAccount, it)
                             decision is AccountFilterDecision.None
                         }
-                        .sortedWith(compareBy({ it.id.length }, { it.id })) // oldest notifications first
+                        .sortedWith(compareBy({ it.notificationId.length }, { it.notificationId })) // oldest notifications first
                         .toMutableList()
 
                     // There's a maximum limit on the number of notifications an Android app
@@ -132,7 +132,7 @@ class NotificationFetcher @Inject constructor(
                             pachliAccount,
                             index == 0,
                         )
-                        notificationManager.notify(notification.id, pachliAccount.id.toInt(), androidNotification)
+                        notificationManager.notify(notification.notificationId, pachliAccount.pachliAccountId.toInt(), androidNotification)
                         // Android will rate limit / drop notifications if they're posted too
                         // quickly. There is no indication to the user that this happened.
                         // See https://github.com/tuskyapp/Tusky/pull/3626#discussion_r1192963664
@@ -178,7 +178,7 @@ class NotificationFetcher @Inject constructor(
         val remoteMarkerId = fetchMarker(account)?.lastReadId ?: "0"
         val localMarkerId = account.notificationMarkerId
         val markerId = if (remoteMarkerId.isLessThan(localMarkerId)) localMarkerId else remoteMarkerId
-        val readingPosition = notificationsRepository.getRefreshKey(account.id) ?: "0"
+        val readingPosition = notificationsRepository.getRefreshKey(account.pachliAccountId) ?: "0"
 
         var minId: String? = if (readingPosition.isLessThan(markerId)) markerId else readingPosition
         Timber.d("  remoteMarkerId: %s", remoteMarkerId)
@@ -233,7 +233,7 @@ class NotificationFetcher @Inject constructor(
                 domain = account.domain,
                 notificationsLastReadId = newMarkerId,
             )
-            accountManager.setNotificationMarkerId(account.id, newMarkerId)
+            accountManager.setNotificationMarkerId(account.pachliAccountId, newMarkerId)
             Timber.d("Updated notification marker for %s to: %s", account.fullName, newMarkerId)
         }
 

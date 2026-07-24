@@ -77,7 +77,7 @@ class AnnouncementsViewModel @Inject constructor(
                         .forEach { announcement ->
                             mastodonApi.dismissAnnouncement(announcement.id)
                                 .onSuccess {
-                                    accountManager.deleteAnnouncement(accountManager.activeAccount!!.id, announcement.id)
+                                    accountManager.deleteAnnouncement(accountManager.activeAccount!!.pachliAccountId, announcement.id)
                                 }
                                 .onFailure { throwable ->
                                     Timber.d("Failed to mark announcement as read: %s", throwable)

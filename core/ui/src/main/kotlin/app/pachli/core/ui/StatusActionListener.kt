@@ -24,7 +24,7 @@ import app.pachli.core.model.IStatus
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 
-interface StatusActionListener : LinkListener {
+interface StatusActionListener : LinkListener, CollectionCardActionListener {
     fun onReply(viewData: IStatusViewData)
     fun onReblog(viewData: IStatusViewData, reblog: Boolean)
     fun onQuote(viewData: IStatusViewData)

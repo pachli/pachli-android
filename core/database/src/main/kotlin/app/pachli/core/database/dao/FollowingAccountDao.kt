@@ -17,16 +17,16 @@
 
 package app.pachli.core.database.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Query
-import androidx.room.TypeConverters
-import androidx.room.Upsert
+import androidx.room3.ColumnTypeConverters
+import androidx.room3.Dao
+import androidx.room3.Delete
+import androidx.room3.Query
+import androidx.room3.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.FollowingAccountEntity
 
 @Dao
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 interface FollowingAccountDao {
     @Query(
         """
@@ -50,7 +50,7 @@ WHERE pachliAccountId = :accountId
         """
 DELETE
 FROM FollowingAccountEntity
-WHERE pachliAccountId = :pachliAccountId AND serverId = :accountId
+WHERE pachliAccountId = :pachliAccountId AND accountId = :accountId
     """,
     )
     suspend fun delete(pachliAccountId: Long, accountId: String)

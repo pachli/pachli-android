@@ -29,6 +29,7 @@ import app.pachli.core.model.FilterContext
 import app.pachli.core.model.IStatus
 import app.pachli.core.model.Status
 import app.pachli.core.model.TimelineAccount
+import app.pachli.core.model.collection.CollectionCardViewData
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.network.replaceCrashingCharacters
 
@@ -148,6 +149,11 @@ sealed interface IStatusViewData : IStatus {
      * has not clicked through.
      */
     val isShowingContent: Boolean
+
+    /**
+     * Details for any collection cards to be displayed in this status.
+     */
+    val collectionCardViewData: List<CollectionCardViewData>
 }
 
 /**
@@ -206,22 +212,23 @@ data class StatusItemViewData(
                     ),
                     translationState = timelineStatusWithQuote.timelineStatus.viewData?.translationState ?: translationState,
                     replyToAccount = timelineStatusWithQuote.timelineStatus.replyAccount?.asModel(),
+                    timelineCollections = timelineStatusWithQuote.timelineStatus.collectionCards.orEmpty(),
                 ),
                 quotedViewData = timelineStatusWithQuote.quotedStatus?.let { status ->
                     StatusViewData.from(
                         pachliAccount,
                         status.toStatus(),
-                        translation = status.translatedStatus,
                         isExpanded = status.viewData?.expanded ?: isExpanded,
                         isCollapsed = status.viewData?.contentCollapsed ?: true,
-                        isDetailed = false,
                         contentFilterAction = quoteContentFilterAction ?: FilterAction.NONE,
                         attachmentDisplayAction = status.getAttachmentDisplayAction(
                             filterContext,
                             showSensitiveMedia,
                         ),
                         translationState = status.viewData?.translationState ?: translationState,
+                        translation = status.translatedStatus,
                         replyToAccount = status.replyAccount?.asModel(),
+                        timelineCollections = status.collectionCards.orEmpty(),
                     )
                 },
             )
@@ -250,6 +257,7 @@ data class StatusViewData(
     override val isDetailed: Boolean = false,
 
     override val isUsersStatus: Boolean,
+    override val collectionCardViewData: List<CollectionCardViewData>,
 ) : IStatusViewData, IStatus by status {
     override val isCollapsible: Boolean
 
@@ -321,6 +329,7 @@ data class StatusViewData(
             translationState: TranslationState = TranslationState.SHOW_ORIGINAL,
             translation: TranslatedStatusEntity? = null,
             replyToAccount: TimelineAccount?,
+            timelineCollections: List<CollectionCardViewData>,
         ): StatusViewData {
             if (BuildConfig.DEBUG) {
                 // TODO: Ensure that invalid state is not representable.
@@ -334,11 +343,11 @@ data class StatusViewData(
             }
 
             return StatusViewData(
-                pachliAccountId = pachliAccount.id,
+                pachliAccountId = pachliAccount.pachliAccountId,
                 status = status.copy(
                     // Ensure the tags have the `following` property set correctly,
                     // the property is typically null/missing from the server.
-                    tags = status.tags?.map {
+                    tags = status.tags.map {
                         it.copy(following = pachliAccount.followedHashtags.contains(it.name))
                     },
                 ),
@@ -350,7 +359,8 @@ data class StatusViewData(
                 attachmentDisplayAction = attachmentDisplayAction,
                 replyToAccount = replyToAccount,
                 isDetailed = isDetailed,
-                isUsersStatus = pachliAccount.accountId == status.actionableStatus.account.serverId,
+                isUsersStatus = pachliAccount.accountId == status.actionableStatus.account.accountId,
+                collectionCardViewData = timelineCollections,
             )
         }
     }

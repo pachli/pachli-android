@@ -224,7 +224,7 @@ class ExportedPreferencesRepositoryTest {
             val origAlwaysOpenSpoiler = account.alwaysOpenSpoiler
             val newAlwaysOpenSpoiler = !origAlwaysOpenSpoiler
 
-            accountManager.setAlwaysOpenSpoiler(account.id, newAlwaysOpenSpoiler)
+            accountManager.setAlwaysOpenSpoiler(account.pachliAccountId, newAlwaysOpenSpoiler)
             account = awaitItem().first()
             assertThat(account.alwaysOpenSpoiler).isEqualTo(newAlwaysOpenSpoiler)
 

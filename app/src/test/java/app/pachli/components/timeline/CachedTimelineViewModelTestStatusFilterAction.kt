@@ -64,6 +64,7 @@ class CachedTimelineViewModelTestStatusFilterAction : CachedTimelineViewModelTes
         attachmentDisplayAction = AttachmentDisplayAction.Show(),
         replyToAccount = null,
         isUsersStatus = false,
+        collectionCardViewData = emptyList(),
     )
 
     /** Action to bookmark a status */
