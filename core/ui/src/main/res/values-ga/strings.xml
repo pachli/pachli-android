@@ -227,4 +227,43 @@
     <string name="action_follow">Lean</string>
     <string name="dialog_unfollow_warning">An cuntas seo a dhíleanúint?</string>
     <string name="ui_error_follow_account_fmt">Theip ar %1$s a leanúint: %2$s</string>
+    <plurals name="collection_item_n_more">
+        <item quantity="one">+ %1$d eile</item>
+        <item quantity="two">+ %1$d eile</item>
+        <item quantity="few">+ %1$d eile</item>
+        <item quantity="many">+ %1$d eile</item>
+        <item quantity="other">+ %1$d eile</item>
+    </plurals>
+    <string name="action_collection_remove_self">Bain mé</string>
+    <string name="ui_error_unfollow_account_fmt">Theip ar dhíleanúint %1$s: %2$s</string>
+    <string name="ui_error_cancel_follow_request_fmt">Theip ar iarratas leanúna %1$s a chealú: %2$s</string>
+    <string name="ui_error_unblock_account_fmt">Theip ar dhíbhlocáil %1$s: %2$s</string>
+    <string name="ui_error_unblock_domain_fmt">Theip ar dhíbhlocáil %1$s: %2$s</string>
+    <string name="ui_error_unmute_account_fmt">Theip ar %1$s a dhí-bholgadh: %2$s</string>
+    <string name="collection_discoverable_true_label">Infheicthe i dtorthaí cuardaigh agus i réimsí eile ina bhfuil moltaí le feiceáil.</string>
+    <string name="collection_discoverable_false_label">Infheicthe ag aon duine a bhfuil nasc aige. I bhfolach ó thorthaí cuardaigh agus ó mholtaí.</string>
+    <string name="collection_sensitive_label">Áirítear ábhar íogair</string>
+    <string name="collection_hidden_sensitive_title">Ábhar íogair. Tapáil le taispeáint.</string>
+    <string name="collection_hidden_user_action_title">Chuir tú seo i bhfolach. Tapáil le taispeáint.</string>
+    <string name="action_collection_show">Taispeáin bailiúchán</string>
+    <string name="action_collection_hide">Folaigh bailiúchán</string>
+    <string name="action_collection_view">Féach ar bhailiúchán</string>
+    <string name="action_collection_revoke">Bain mé</string>
+    <string name="action_collection_view_tag">Féach ar an gclib</string>
+    <string name="collection_content_description_name_and_owner">Bailiúchán %1$s, le %2$s.</string>
+    <string name="collection_content_description_name">Bailiúchán %1$s.</string>
+    <plurals name="collection_content_description_accounts_is_member">
+        <item quantity="one">Tá %1$d cuntas ann, leatsa.</item>
+        <item quantity="two">Tá %1$d cuntas ann, lena n-áirítear do chuntas féin.</item>
+        <item quantity="few">Tá %1$d cuntas ann, lena n-áirítear do chuntas féin.</item>
+        <item quantity="many">Tá %1$d cuntas ann, lena n-áirítear do chuntas féin.</item>
+        <item quantity="other">Tá %1$d cuntas ann, lena n-áirítear do chuntas féin.</item>
+    </plurals>
+    <plurals name="collection_content_description_accounts_is_not_member">
+        <item quantity="one">Tá %1$d cuntas ann.</item>
+        <item quantity="two">Tá %1$d cuntas ann.</item>
+        <item quantity="few">Tá %1$d cuntas ann.</item>
+        <item quantity="many">Tá %1$d cuntas ann.</item>
+        <item quantity="other">Tá %1$d cuntas ann.</item>
+    </plurals>
 </resources>
