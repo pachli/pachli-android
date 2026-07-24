@@ -745,4 +745,12 @@
     <string name="ui_error_saving_post_fmt">Níorbh fhéidir an post a shábháil: %1$s</string>
     <string name="action_mute_hashtag">Balbhaigh #%1$s</string>
     <string name="action_unmute_hashtag">Díbhalbhaigh #%1$s</string>
+    <string name="notification_collection_add_body_format">%1$s. %2$s</string>
+    <string name="notification_collection_update_body_format">%1$s. %2$s</string>
+    <string name="notification_collection_add_name">Curtha leis an mbailiúchán</string>
+    <string name="notification_collection_add_description">Fógraí nuair a chuirtear le bailiúchán duine eile iad</string>
+    <string name="notification_collection_update_name">Tá an bailiúchán nuashonraithe</string>
+    <string name="notification_collection_update_description">Fógraí nuair a dhéantar bailiúchán ina bhfuil tú a nuashonrú</string>
+    <string name="notification_collection_add_format">Chuir &lt;b&gt;%1$s&lt;/b&gt; le bailiúchán thú</string>
+    <string name="notification_collection_update_format">Nuashonraigh &lt;b&gt;%1$s&lt;/b&gt; bailiúchán ina bhfuil tú</string>
 </resources>
