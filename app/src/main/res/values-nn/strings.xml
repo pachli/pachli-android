@@ -700,4 +700,10 @@
     <string name="action_delete_scheduled_statuses">Slett valde innlegg</string>
     <string name="action_mute_hashtag">Demp #%1$s</string>
     <string name="err_draft_error_io_fmt">kunne ikkje lagre: %1$s</string>
+    <string name="notification_collection_add_name">Lagt til i samling</string>
+    <string name="notification_collection_update_name">Samling oppdatert</string>
+    <string name="notification_collection_update_description">Varsel når ei samling du er i vert oppdatert</string>
+    <string name="notification_collection_add_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; la deg til i ei samling</string>
+    <string name="notification_collection_update_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; oppdaterte ei samling du er i</string>
+    <string name="err_draft_error_no_external_files_dir">delt lagring er ikkje tilgjengeleg</string>
 </resources>
