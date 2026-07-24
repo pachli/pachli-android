@@ -303,6 +303,13 @@ class PreferencesFragment : PreferenceFragmentCompat() {
 
                 switchPreference {
                     setDefaultValue(false)
+                    key = PrefKeys.WARN_UNCAPTIONED_MEDIA
+                    setTitle(R.string.warn_when_boosting_media_without_alt_text)
+                    isSingleLineTitle = false
+                }
+
+                switchPreference {
+                    setDefaultValue(false)
                     key = PrefKeys.SHOW_STATS_INLINE
                     setTitle(R.string.pref_title_show_stat_inline)
                     isSingleLineTitle = false

@@ -800,4 +800,8 @@
     <string name="compose_task_description_writing_post">Writing post</string>
     <string name="compose_task_description_replying_fmt">Replying to %1$s</string>
     <string name="compose_task_description_quoting_fmt">Quoting %1$s</string>
+    <string name="action_reblog_anyway">Boost anyway</string>
+    <string name="warning_missing_alt_text_title">Missing media description</string>
+    <string name="warning_missing_alt_text_message">One or more attached media files lack a description. This makes them inaccessible to users with visual impairments. Are you sure you want to boost this?</string>
+    <string name="warn_when_boosting_media_without_alt_text">Warn when boosting media without alt text</string>
 </resources>
