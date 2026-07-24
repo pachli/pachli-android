@@ -151,7 +151,7 @@ data class Server(
                 // the server operator has changed them. Try looking for a matching
                 // <major>.<minor>.<patch> somewhere in the version string and hope
                 // it's correct
-                AKKOMA, FEDIBIRD, GLITCH, HOMETOWN, MASTODON, PIXELFED, UNKNOWN -> {
+                AKKOMA, FEDIBIRD, GLITCH, HOMETOWN, ICESHRIMP_DOTNET, MASTODON, PIXELFED, UNKNOWN -> {
                     val rx = """(?<major>\d+)\.(?<minor>\d+).(?<patch>\d+)""".toRegex()
                     rx.find(version)
                         .toResultOr { UnparseableVersion(version, ParseException("unexpected null", 0)) }
@@ -223,11 +223,9 @@ data class Server(
                         .recover { "0.0.0".toVersion() }
                 }
 
-                // IceShrimp and its .net rewrite both use "yyyy.mm.dd" with leading zeros
-                // in the month and day components, similar to Friendica.
-                // https://iceshrimp.dev/iceshrimp/iceshrimp/issues/502 and
-                // https://iceshrimp.dev/iceshrimp/iceshrimp-rewrite/issues/1
-                ICESHRIMP, ICESHRIMP_DOTNET -> {
+                // IceShrimp uses "yyyy.mm.dd" with leading zeros in the month and day
+                // components, similar to Friendica.
+                ICESHRIMP -> {
                     val rx = """^0*(?<major>\d+)\.0*(?<minor>\d+)\.0*(?<patch>\d+)""".toRegex()
                     rx.find(version).toResultOr { UnparseableVersion(version, ParseException("unexpected null", 0)) }
                         .andThen {

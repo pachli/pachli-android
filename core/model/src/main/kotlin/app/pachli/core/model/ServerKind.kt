@@ -51,7 +51,11 @@ enum class ServerKind {
             "gotosocial" -> GOTOSOCIAL
             "hometown" -> HOMETOWN
             "iceshrimp" -> ICESHRIMP
-            "iceshrimp.net" -> ICESHRIMP_DOTNET
+            // Iceshrimp.NET had an invalid software name in the nodeinfo,
+            // corrected with https://issues.iceshrimp.dev/issue/ISH-888.
+            "iceshrimp.net",
+            "iceshrimpnet",
+            -> ICESHRIMP_DOTNET
             "mastodon" -> {
                 // Glitch doesn't report a different software name it stuffs it
                 // in the version (https://github.com/glitch-soc/mastodon/issues/2582).
