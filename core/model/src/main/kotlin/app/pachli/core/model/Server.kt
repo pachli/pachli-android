@@ -150,13 +150,32 @@ data class Server(
                 // the server operator has changed them. Try looking for a matching
                 // <major>.<minor>.<patch> somewhere in the version string and hope
                 // it's correct
-                AKKOMA, FEDIBIRD, FIREFISH, GLITCH, HOMETOWN, MASTODON, PIXELFED, UNKNOWN -> {
+                AKKOMA, FEDIBIRD, GLITCH, HOMETOWN, MASTODON, PIXELFED, UNKNOWN -> {
                     val rx = """(?<major>\d+)\.(?<minor>\d+).(?<patch>\d+)""".toRegex()
                     rx.find(version)
                         .toResultOr { UnparseableVersion(version, ParseException("unexpected null", 0)) }
                         .andThen {
                             // Fetching groups by name instead of index requires API >= 26
                             val adjusted = "${it.groups[1]?.value}.${it.groups[2]?.value}.${it.groups[3]?.value}"
+                            runSuspendCatching { Version.parse(adjusted, strict = false) }
+                                .mapError { UnparseableVersion(version, it) }
+                        }
+                }
+
+                // In the wild Firefish has both semver-like and "yyyymmdd" versions.  Try
+                // semver-like first, fallback to "yyyymmdd", ignoring any leading zeros on the
+                //  month and day parts.
+                FIREFISH -> {
+                    val rxSemver = """(?<major>\d+)\.(?<minor>\d+).(?<patch>\d+)""".toRegex()
+                    val rxYyyyMmDd = """(?<major>\d\d\d\d)(?<minor>\d\d)(?<patch>\d\d)""".toRegex()
+                    (rxSemver.find(version) ?: rxYyyyMmDd.find(version))
+                        .toResultOr { UnparseableVersion(version, ParseException("unexpected null", 0)) }
+                        .andThen {
+                            // Fetching groups by name instead of index requires API >= 26
+                            val major = it.groups[1]?.value
+                            val minor = it.groups[2]?.value?.removePrefix("0") ?: "0"
+                            val patch = it.groups[3]?.value?.removePrefix("0") ?: "0"
+                            val adjusted = "$major.$minor.$patch"
                             runSuspendCatching { Version.parse(adjusted, strict = false) }
                                 .mapError { UnparseableVersion(version, it) }
                         }
