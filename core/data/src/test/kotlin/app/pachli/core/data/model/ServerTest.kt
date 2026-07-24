@@ -409,6 +409,36 @@ class ServerTest(
                         ),
                     ),
                 ),
+                arrayOf(
+                    Triple(
+                        "Iceshrimp.net can filter, some search, scheduled, and quote",
+                        NodeInfo.Software("Iceshrimp.NET", "2025.1-beta5.patch3.security4+cdc88c2ec9"),
+                        defaultInstance.copy(version = "2025.1-beta5.patch3.security4+cdc88c2ec9"),
+                    ),
+                    Ok(
+                        Server(
+                            kind = ServerKind.ICESHRIMP_DOTNET,
+                            version = "2025.1-beta5.patch3.security4+cdc88c2ec9".toVersion(strict = false),
+                            rawVersion = "2025.1-beta5.patch3.security4+cdc88c2ec9",
+                            capabilities = mapOf(
+                                ORG_JOINMASTODON_FILTERS_CLIENT to "1.1.0".toVersion(),
+                                ORG_JOINMASTODON_FILTERS_SERVER to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_FROM to "1.1.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_HAS_MEDIA to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_HAS_IMAGE to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_HAS_VIDEO to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_HAS_AUDIO to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_HAS_POLL to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_STATUSES_GET to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_STATUSES_SCHEDULED to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_STATUSES_QUOTE to "1.0.0".toVersion(),
+                            ),
+                            limits = ServerLimits(),
+                            emojis = emptyList(),
+                        ),
+                    ),
+                ),
             )
         }
     }
