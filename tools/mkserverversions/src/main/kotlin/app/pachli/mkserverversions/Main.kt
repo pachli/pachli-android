@@ -42,7 +42,7 @@ import kotlinx.coroutines.runBlocking
 
 private val log = KotlinLogging.logger {}
 
-const val DEST_DIR = "core/network/src/test/resources"
+const val DEST_DIR = "core/data/src/test/resources"
 
 class App : CliktCommand() {
     private val verbose by option("-n", "--verbose", help = "show additional information").flag()
