@@ -225,6 +225,8 @@ data class Server(
 
                 // IceShrimp uses "yyyy.mm.dd" with leading zeros in the month and day
                 // components, similar to Friendica.
+                // https://iceshrimp.dev/iceshrimp/iceshrimp/issues/502 and
+                // https://iceshrimp.dev/iceshrimp/iceshrimp-rewrite/issues/1
                 ICESHRIMP -> {
                     val rx = """^0*(?<major>\d+)\.0*(?<minor>\d+)\.0*(?<patch>\d+)""".toRegex()
                     rx.find(version).toResultOr { UnparseableVersion(version, ParseException("unexpected null", 0)) }
