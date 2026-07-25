@@ -64,7 +64,8 @@ class ConversationViewHolder internal constructor(
                 onFavouriteClick = { favourite -> listener.onFavourite(viewData, favourite) },
                 onBookmarkClick = { bookmark -> listener.onBookmark(viewData, bookmark) },
                 onMoreClick = { view -> listener.onMore(view, viewData) },
-                onShowReblogWarning = { reblog -> listener.onReblogWarning(viewData, reblog) },            )
+                onShowReblogWarning = { reblog -> listener.onReblogWarning(viewData, reblog) },
+            )
             setConversationName(viewData.accounts)
         } else {
             payloads.flatten().forEach { item ->

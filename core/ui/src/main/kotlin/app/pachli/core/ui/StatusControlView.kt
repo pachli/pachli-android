@@ -409,13 +409,14 @@ class StatusControlView @JvmOverloads constructor(
      * @param onReblogClick Called if the user wants to reblog the status.
      * @param onQuoteClick Called if the user wants to quote the status.
      */
-    private fun showReblogMenu(status: Status,
-       reblog: Boolean,
-       warnUncaptionedMedia: Boolean,
-       onReblogClick: OnReblogClick?,
-       onShowReblogWarning: ((reblog: Boolean) -> Unit)? = null,
-       onQuoteClick: OnQuoteClick?)
-    {
+    private fun showReblogMenu(
+        status: Status,
+        reblog: Boolean,
+        warnUncaptionedMedia: Boolean,
+        onReblogClick: OnReblogClick?,
+        onShowReblogWarning: ((reblog: Boolean) -> Unit)? = null,
+        onQuoteClick: OnQuoteClick?,
+    ) {
         val canQuote = status.quoteApproval.currentUser.canQuote()
         val quoteLabel = status.quoteApproval.currentUser.labelRes()
 
