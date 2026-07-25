@@ -82,5 +82,5 @@ data class StatusDisplayOptions(
 
     val linksToUnderline: Set<LinksToUnderline> = emptySet(),
 
-    val warnUncaptionedMedia: Boolean = false,
+    val confirmReblogUncaptionedMedia: Boolean = false,
 )

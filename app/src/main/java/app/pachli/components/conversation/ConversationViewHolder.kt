@@ -47,7 +47,7 @@ class ConversationViewHolder internal constructor(
                 showCounts = statusDisplayOptions.showStatsInline,
                 confirmReblog = statusDisplayOptions.confirmReblogs,
                 confirmFavourite = statusDisplayOptions.confirmFavourites,
-                warnUncaptionedMedia = statusDisplayOptions.warnUncaptionedMedia,
+                confirmReblogUncaptionedMedia = statusDisplayOptions.confirmReblogUncaptionedMedia,
                 isReply = actionable.inReplyToId != null,
                 isReblogged = actionable.reblogged,
                 isFavourited = actionable.favourited,

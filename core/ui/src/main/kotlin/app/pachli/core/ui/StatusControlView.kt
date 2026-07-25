@@ -236,7 +236,7 @@ class StatusControlView @JvmOverloads constructor(
         status: Status,
         showCounts: Boolean,
         confirmReblog: Boolean,
-        warnUncaptionedMedia: Boolean,
+        confirmReblogUncaptionedMedia: Boolean,
         confirmFavourite: Boolean,
         isReply: Boolean,
         isReblogged: Boolean,
@@ -266,7 +266,7 @@ class StatusControlView @JvmOverloads constructor(
         // Reblogs. Not every status allows reblogs (e.g., direct messages). On those
         // onReblogClick will be null. They may still be quotable, so onQuoteClick may
         // not be null.
-        bindReblog(status, showCounts, confirmReblog, warnUncaptionedMedia, isReblogged, onReblogClick, onShowReblogWarning, onQuoteClick)
+        bindReblog(status, showCounts, confirmReblog, confirmReblogUncaptionedMedia, isReblogged, onReblogClick, onShowReblogWarning, onQuoteClick)
 
         // Favourite
         bindFavourite(showCounts, confirmFavourite, isFavourited, onFavouriteClick)
@@ -310,7 +310,7 @@ class StatusControlView @JvmOverloads constructor(
         status: Status,
         showCounts: Boolean,
         confirmReblog: Boolean,
-        warnUncaptionedMedia: Boolean,
+        confirmReblogUncaptionedMedia: Boolean,
         isReblogged: Boolean,
         onReblogClick: OnReblogClick?,
         onShowReblogWarning: ((reblog: Boolean) -> Unit)? = null,
@@ -339,10 +339,10 @@ class StatusControlView @JvmOverloads constructor(
         val eventListener = { _: SparkButton, checked: Boolean ->
             val reblog = !checked
             if (confirmReblog || canQuote) {
-                showReblogMenu(status, reblog, warnUncaptionedMedia, onReblogClick, onShowReblogWarning, onQuoteClick)
+                showReblogMenu(status, reblog, confirmReblogUncaptionedMedia, onReblogClick, onShowReblogWarning, onQuoteClick)
                 false
             } else {
-                attemptReblog(status, reblog, warnUncaptionedMedia, onReblogClick, onShowReblogWarning)
+                attemptReblog(status, reblog, confirmReblogUncaptionedMedia, onReblogClick, onShowReblogWarning)
                 true
             }
         }
@@ -351,7 +351,7 @@ class StatusControlView @JvmOverloads constructor(
             binding.reblog.setEventListener(eventListener)
             binding.reblog.setOnLongClickListener { view ->
                 val reblog = !(view as SparkButton).isChecked
-                showReblogMenu(status, reblog, warnUncaptionedMedia, onReblogClick, onShowReblogWarning, onQuoteClick)
+                showReblogMenu(status, reblog, confirmReblogUncaptionedMedia, onReblogClick, onShowReblogWarning, onQuoteClick)
                 true
             }
             binding.reblog.isLongClickable = true
@@ -412,7 +412,7 @@ class StatusControlView @JvmOverloads constructor(
     private fun showReblogMenu(
         status: Status,
         reblog: Boolean,
-        warnUncaptionedMedia: Boolean,
+        confirmReblogUncaptionedMedia: Boolean,
         onReblogClick: OnReblogClick?,
         onShowReblogWarning: ((reblog: Boolean) -> Unit)? = null,
         onQuoteClick: OnQuoteClick?,
@@ -442,7 +442,7 @@ class StatusControlView @JvmOverloads constructor(
                     R.id.menu_action_reblog,
                     R.id.menu_action_unreblog,
                     -> {
-                        attemptReblog(status, reblog, warnUncaptionedMedia, onReblogClick, onShowReblogWarning)
+                        attemptReblog(status, reblog, confirmReblogUncaptionedMedia, onReblogClick, onShowReblogWarning)
                         true
                     }
 
@@ -457,11 +457,11 @@ class StatusControlView @JvmOverloads constructor(
     private fun attemptReblog(
         status: Status,
         reblog: Boolean,
-        warnUncaptionedMedia: Boolean,
+        confirmReblogUncaptionedMedia: Boolean,
         onReblogClick: OnReblogClick?,
         onShowReblogWarning: ((reblog: Boolean) -> Unit)? = null,
     ) {
-        if (reblog && warnUncaptionedMedia) {
+        if (reblog && confirmReblogUncaptionedMedia) {
             val hasUncaptionedMedia = status.attachments.any {
                 it.description.isNullOrBlank()
             }

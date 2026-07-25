@@ -303,7 +303,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
 
                 switchPreference {
                     setDefaultValue(false)
-                    key = PrefKeys.WARN_UNCAPTIONED_MEDIA
+                    key = PrefKeys.CONFIRM_REBLOG_UNCAPTIONED_MEDIA
                     setTitle(R.string.warn_when_boosting_media_without_alt_text)
                     isSingleLineTitle = false
                 }
