@@ -271,9 +271,9 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 
-    override fun onMore(view: View, viewData: IStatusViewData) {
-        val id = viewData.actionableId
-        val status = viewData.actionable
+    override fun onMore(view: View, statusViewData: IStatusViewData) {
+        val id = statusViewData.actionableId
+        val status = statusViewData.actionable
         val accountId = status.account.serverId
         val accountUsername = status.account.username
         val statusUrl = status.url
@@ -365,7 +365,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_mute_conversation -> {
-                    viewModel.muteConversation(viewData, status.muted != true)
+                    viewModel.muteConversation(statusViewData, status.muted != true)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_mute -> {
@@ -381,19 +381,19 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_unreblog_private -> {
-                    onReblog(viewData, false)
+                    onReblog(statusViewData, false)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_reblog_private -> {
-                    onReblog(viewData, true)
+                    onReblog(statusViewData, true)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_delete -> {
-                    showConfirmDeleteDialog(viewData)
+                    showConfirmDeleteDialog(statusViewData)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_delete_and_redraft -> {
-                    showConfirmEditDialog(pachliAccountId, viewData)
+                    showConfirmEditDialog(pachliAccountId, statusViewData)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_edit -> {
@@ -401,7 +401,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
                     return@setOnMenuItemClickListener true
                 }
                 R.id.pin -> {
-                    viewModel.pinStatus(viewData, !status.isPinned())
+                    viewModel.pinStatus(statusViewData, !status.isPinned())
                     return@setOnMenuItemClickListener true
                 }
             }
