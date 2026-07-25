@@ -112,7 +112,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
                             confirmReblogs = sharedPreferencesRepository.confirmReblogs,
                         )
                         PrefKeys.WARN_UNCAPTIONED_MEDIA -> prev.copy(
-                            warnUncaptionedMedia = sharedPreferencesRepository.warnUncaptionedMedia
+                            warnUncaptionedMedia = sharedPreferencesRepository.warnUncaptionedMedia,
                         )
                         PrefKeys.WELLBEING_HIDE_STATS_POSTS -> prev.copy(
                             hideStatsInDetailedView = sharedPreferencesRepository.hideStatsInDetailedView,

@@ -15,4 +15,3 @@ fun Context.showUncaptionedMediaWarningDialog(onConfirm: () -> Unit) {
         .setNegativeButton(android.R.string.cancel, null)
         .show()
 }
-

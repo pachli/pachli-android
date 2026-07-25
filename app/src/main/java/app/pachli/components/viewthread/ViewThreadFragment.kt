@@ -429,9 +429,9 @@ class ViewThreadFragment :
     }
 
     override fun onReblogWarning(viewData: IStatusViewData, reblog: Boolean) {
-            requireContext().showUncaptionedMediaWarningDialog{
-                onReblog(viewData, reblog)
-            }
+        requireContext().showUncaptionedMediaWarningDialog {
+            onReblog(viewData, reblog)
+        }
     }
 
     override fun onContentCollapsedChange(viewData: IStatusViewData, isCollapsed: Boolean) {

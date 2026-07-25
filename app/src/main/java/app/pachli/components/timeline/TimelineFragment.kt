@@ -674,7 +674,7 @@ class TimelineFragment :
     }
 
     override fun onReblogWarning(viewData: IStatusViewData, reblog: Boolean) {
-        requireContext().showUncaptionedMediaWarningDialog{
+        requireContext().showUncaptionedMediaWarningDialog {
             onReblog(viewData, reblog)
         }
     }
