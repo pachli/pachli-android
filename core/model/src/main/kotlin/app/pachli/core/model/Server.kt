@@ -167,7 +167,7 @@ data class Server(
                 // semver-like first, fallback to "yyyymmdd", ignoring any leading zeros on the
                 //  month and day parts.
                 FIREFISH -> {
-                    val rxSemver = """(?<major>\d+)\.(?<minor>\d+).(?<patch>\d+)""".toRegex()
+                    val rxSemver = """(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)""".toRegex()
                     val rxYyyyMmDd = """(?<major>\d\d\d\d)(?<minor>\d\d)(?<patch>\d\d)""".toRegex()
                     (rxSemver.find(version) ?: rxYyyyMmDd.find(version))
                         .toResultOr { UnparseableVersion(version, ParseException("unexpected null", 0)) }
