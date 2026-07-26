@@ -31,7 +31,6 @@ import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
-import app.pachli.core.database.model.StatusToTimelineCollectionEntity
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.database.model.asEntity
@@ -276,18 +275,6 @@ class CachedTimelineRemoteMediator(
             collections.map { it.asTimelineCollection(accountsInCollections) }.asEntity(pachliAccountId),
         )
         // -- End same
-
-        // Update StatusToTimelineCollectionEntity association table
-        val statusToTimelineCollectionEntities = statuses.flatMap { status ->
-            status.taggedCollections.orEmpty().map { collection ->
-                StatusToTimelineCollectionEntity(
-                    pachliAccountId,
-                    status.actionableStatus.id,
-                    collection.id,
-                )
-            }
-        }
-        collectionsDao.saveStatusToCollectionAssociation(statusToTimelineCollectionEntities)
     }
 
     /**

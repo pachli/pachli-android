@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 48,
-    "identityHash": "7429ff8b2866b0c54a59f1bf48b8bfed",
+    "identityHash": "c86bbc90d54c6e0d535896cb32a21c18",
     "entities": [
       {
         "tableName": "AccountEntity",
@@ -2334,77 +2334,6 @@
         ]
       },
       {
-        "tableName": "StatusToTimelineCollectionEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `statusId` TEXT NOT NULL, `collectionId` TEXT NOT NULL, PRIMARY KEY(`pachliAccountId`, `statusId`, `collectionId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `PachliAccountEntity`(`pachliAccountId`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED, FOREIGN KEY(`pachliAccountId`, `statusId`) REFERENCES `StatusEntity`(`pachliAccountId`, `statusId`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED, FOREIGN KEY(`pachliAccountId`, `collectionId`) REFERENCES `TimelineCollectionEntity`(`pachliAccountId`, `collectionId`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
-        "fields": [
-          {
-            "fieldPath": "pachliAccountId",
-            "columnName": "pachliAccountId",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "statusId",
-            "columnName": "statusId",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "collectionId",
-            "columnName": "collectionId",
-            "affinity": "TEXT",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "autoGenerate": false,
-          "columnNames": [
-            "pachliAccountId",
-            "statusId",
-            "collectionId"
-          ]
-        },
-        "foreignKeys": [
-          {
-            "table": "PachliAccountEntity",
-            "onDelete": "CASCADE",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "pachliAccountId"
-            ],
-            "referencedColumns": [
-              "pachliAccountId"
-            ]
-          },
-          {
-            "table": "StatusEntity",
-            "onDelete": "CASCADE",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "pachliAccountId",
-              "statusId"
-            ],
-            "referencedColumns": [
-              "pachliAccountId",
-              "statusId"
-            ]
-          },
-          {
-            "table": "TimelineCollectionEntity",
-            "onDelete": "CASCADE",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "pachliAccountId",
-              "collectionId"
-            ],
-            "referencedColumns": [
-              "pachliAccountId",
-              "collectionId"
-            ]
-          }
-        ]
-      },
-      {
         "tableName": "TimelineStatusEntity",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`kind` TEXT NOT NULL, `pachliAccountId` INTEGER NOT NULL, `statusId` TEXT NOT NULL, PRIMARY KEY(`kind`, `pachliAccountId`, `statusId`))",
         "fields": [
@@ -2553,7 +2482,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7429ff8b2866b0c54a59f1bf48b8bfed')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c86bbc90d54c6e0d535896cb32a21c18')"
     ]
   }
 }
