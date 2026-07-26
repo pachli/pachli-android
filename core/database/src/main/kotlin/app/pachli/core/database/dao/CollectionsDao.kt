@@ -28,7 +28,6 @@ import app.pachli.core.database.model.CollectionCardViewData
 import app.pachli.core.database.model.CollectionEntity
 import app.pachli.core.database.model.CollectionItemEntity
 import app.pachli.core.database.model.CollectionViewDataEntity
-import app.pachli.core.database.model.StatusToTimelineCollectionEntity
 import app.pachli.core.database.model.TimelineCollectionEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -99,9 +98,6 @@ WHERE collection.pachliAccountId = :pachliAccountId AND collection.collectionId 
         """,
     )
     fun getCollectionFlow(pachliAccountId: Long, collectionId: String): Flow<Map<CollectionAndOwnerEntities, List<AccountEntity>>>
-
-    @Upsert
-    suspend fun saveStatusToCollectionAssociation(statusToTimelineCollectionEntities: List<StatusToTimelineCollectionEntity>)
 
     @Query(
         """

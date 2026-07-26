@@ -184,43 +184,6 @@ fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
 fun Iterable<Status>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }
 
 /**
- * M:N association between [StatusEntity] and [TimelineCollectionEntity].
- */
-@Entity(
-    primaryKeys = ["pachliAccountId", "statusId", "collectionId"],
-    foreignKeys = (
-        [
-            ForeignKey(
-                entity = PachliAccountEntity::class,
-                parentColumns = ["pachliAccountId"],
-                childColumns = ["pachliAccountId"],
-                onDelete = ForeignKey.CASCADE,
-                deferred = true,
-            ),
-            ForeignKey(
-                entity = StatusEntity::class,
-                parentColumns = ["pachliAccountId", "statusId"],
-                childColumns = ["pachliAccountId", "statusId"],
-                onDelete = ForeignKey.CASCADE,
-                deferred = true,
-            ),
-            ForeignKey(
-                entity = TimelineCollectionEntity::class,
-                parentColumns = ["pachliAccountId", "collectionId"],
-                childColumns = ["pachliAccountId", "collectionId"],
-                onDelete = ForeignKey.CASCADE,
-                deferred = true,
-            ),
-        ]
-        ),
-)
-data class StatusToTimelineCollectionEntity(
-    val pachliAccountId: Long,
-    val statusId: String,
-    val collectionId: String,
-)
-
-/**
  * A complete [TimelineStatusWithAccount], and the (optional) status it quotes.
  *
  * @property timelineStatus The [TimelineStatusWithAccount].

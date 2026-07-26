@@ -67,7 +67,6 @@ import app.pachli.core.database.model.ReferencedStatusId
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.ServerEntity
 import app.pachli.core.database.model.StatusEntity
-import app.pachli.core.database.model.StatusToTimelineCollectionEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineCollectionEntity
@@ -102,7 +101,6 @@ import java.util.TimeZone
         FollowingAccountEntity::class,
         NotificationEntity::class,
         NotificationViewDataEntity::class,
-        StatusToTimelineCollectionEntity::class,
         TimelineStatusEntity::class,
         ConversationViewDataEntity::class,
         HashtagEntity::class,
