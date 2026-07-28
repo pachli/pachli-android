@@ -191,10 +191,40 @@
     <string name="state_follow_requested">Folgeanfrage gesendet</string>
     <string name="action_block">Blockieren</string>
     <string name="action_mute_domain">%1$s stummschalten</string>
-    <string name="action_unmute_domain">%1$s nicht mehr stummschalten</string>
+    <string name="action_unmute_domain">Stummschaltung von %1$s aufheben</string>
     <string name="action_mute">Stummschalten</string>
     <string name="action_unmute">Stummschaltung aufheben</string>
     <string name="action_follow">Folgen</string>
     <string name="dialog_unfollow_warning">Diesem Konto entfolgen?</string>
     <string name="ui_error_follow_account_fmt">Fehler beim Folgen von %1$s: %2$s</string>
+    <plurals name="collection_item_n_more">
+        <item quantity="one">+ %1$d weitere</item>
+        <item quantity="other">+ %1$d weitere</item>
+    </plurals>
+    <string name="action_collection_remove_self">Entferne mich</string>
+    <string name="ui_error_unfollow_account_fmt">Entfolgen von %1$s fehlgeschlagen: %2$s</string>
+    <string name="ui_error_cancel_follow_request_fmt">Abbrechen der Folgeanfrage von %1$s ist fehlgeschlagen: %2$s</string>
+    <string name="ui_error_unblock_account_fmt">Entblocken von %1$s fehlgeschlagen: %2$s</string>
+    <string name="ui_error_unblock_domain_fmt">Entblocken von %1$s fehlgeschlagen: %2$s</string>
+    <string name="ui_error_unmute_account_fmt">Aufheben der Stummschaltung von %1$s fehlgeschlagen: %2$s</string>
+    <string name="collection_discoverable_true_label">Auffindbar in Suchergebnissen und anderen Bereichen, in denen Empfehlungen erscheinen.</string>
+    <string name="collection_discoverable_false_label">Sichtbar für jeden mit einem Link. Aus Suchergebnissen und Empfehlungen ausgeblendet.</string>
+    <string name="collection_sensitive_label">Enthält sensible Inhalte</string>
+    <string name="collection_hidden_sensitive_title">Sensibler Inhalt. Zum Anzeigen antippen.</string>
+    <string name="collection_hidden_user_action_title">Du hast das versteckt. Zum Anzeigen antippen.</string>
+    <string name="action_collection_show">Sammlung anzeigen</string>
+    <string name="action_collection_hide">Sammlung ausblenden</string>
+    <string name="action_collection_view">Sammlung ansehen</string>
+    <string name="action_collection_revoke">Entferne mich</string>
+    <string name="action_collection_view_tag">Tag ansehen</string>
+    <string name="collection_content_description_name_and_owner">Sammlung %1$s, von %2$s.</string>
+    <string name="collection_content_description_name">Sammlung %1$s.</string>
+    <plurals name="collection_content_description_accounts_is_member">
+        <item quantity="one">Enthält %1$d Konto, dein. Konto.</item>
+        <item quantity="other">Enthält %1$d Konten, einschließlich deines.</item>
+    </plurals>
+    <plurals name="collection_content_description_accounts_is_not_member">
+        <item quantity="one">Enthält %1$d Konto.</item>
+        <item quantity="other">Enthält %1$d Konten.</item>
+    </plurals>
 </resources>
