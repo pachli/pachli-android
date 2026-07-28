@@ -730,4 +730,12 @@
     <string name="ui_error_delete_scheduled_status_fmt">konnte den geplanten Beitrag nicht löschen, um ihn zu ersetzen: %1$s</string>
     <string name="ui_error_sending_post_fmt">Beitrag konnte nicht gesendet werden: %1$s</string>
     <string name="ui_error_saving_post_fmt">Beitrag konnte nicht gespeichert werden: %1$s</string>
+    <string name="notification_collection_add_body_format">%1$s. %2$s</string>
+    <string name="notification_collection_update_body_format">%1$s. %2$s</string>
+    <string name="notification_collection_add_name">Zur Sammlung hinzugefügt</string>
+    <string name="notification_collection_add_description">Benachrichtigungen, wenn du zur Sammlung einer anderen Person hinzugefügt wirst</string>
+    <string name="notification_collection_update_name">Sammlung wird aktualisiert</string>
+    <string name="notification_collection_update_description">Benachrichtigungen, wenn eine Sammlung, in der du dich befindest, aktualisiert wird</string>
+    <string name="notification_collection_add_format">&lt;b&gt;%1$s&lt;/b&gt; hat dich zu einer Sammlung hinzugefügt</string>
+    <string name="notification_collection_update_format">&lt;b&gt;%1$s&lt;/b&gt; hat eine Sammlung aktualisiert, in der du dich befindest</string>
 </resources>
