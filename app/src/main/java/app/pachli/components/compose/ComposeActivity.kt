@@ -473,7 +473,7 @@ class ComposeActivity :
                         setStatusVisibility(this)
                     }
 
-                    (it.getSerializable(KEY_QUOTE_POLICY) as AccountSource.QuotePolicy).apply {
+                    (it.getSerializable(KEY_QUOTE_POLICY) as AccountSource.QuotePolicy?)?.apply {
                         bindQuotePolicy(this)
                     }
 
