@@ -734,4 +734,12 @@
     <string name="ui_error_delete_scheduled_status_fmt">impossible de supprimer le message programmé pour le remplacer : %1$s</string>
     <string name="ui_error_sending_post_fmt">Impossible d\'envoyer le message : %1$s</string>
     <string name="ui_error_saving_post_fmt">Impossible de sauvegarder le message : %1$s</string>
+    <string name="notification_collection_add_body_format">%1$s. %2$s</string>
+    <string name="notification_collection_update_body_format">%1$s. %2$s</string>
+    <string name="notification_collection_add_name">Ajouté à la collection</string>
+    <string name="notification_collection_add_description">Notifications lors de l\'ajout à la collection d\'une autre personne</string>
+    <string name="notification_collection_update_name">Collection mise à jour</string>
+    <string name="notification_collection_update_description">Notifications lorsqu\'une collection où vous êtes est mise à jour</string>
+    <string name="notification_collection_add_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; vous a ajouté à une collection</string>
+    <string name="notification_collection_update_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; a mis à jour une collection dans laquelle vous êtes</string>
 </resources>
