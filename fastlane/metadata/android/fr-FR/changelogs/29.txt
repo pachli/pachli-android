@@ -1,0 +1,20 @@
+Pachli 2.11.0
+
+Nouveautés :
+
+- Traductions dans toute l'appli
+- Filtres appliqués à tous les contextes par défaut
+- Support expérimental du Markdown
+
+Corrections :
+
+- Interface de rapport bloquée
+- Description sur le bouton de Pouet
+- Evite des crash
+- Crée des filtres avec le bon content-type
+- Filtre correctement les fils et messages privés
+- Modification des légendes d'images envoyées
+
+Traductions :
+
+- Finnois, Indonésien, Irlandais, Letton, Norvégien Nyorsk, Polonais, Slovaque, Espagnol
