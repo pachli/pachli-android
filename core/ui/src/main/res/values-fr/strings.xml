@@ -208,4 +208,22 @@
     <string name="action_follow">Suivre</string>
     <string name="dialog_unfollow_warning">Ne plus suivre ce compte ?</string>
     <string name="ui_error_follow_account_fmt">Le suivi de %1$s a échoué : %2$s</string>
+    <string name="action_collection_remove_self">Me retirer</string>
+    <string name="ui_error_unfollow_account_fmt">Le désabonnement de %1$s a échoué : %2$s</string>
+    <string name="ui_error_cancel_follow_request_fmt">L\'annulation de la demande de suivi de %1$s a échoué :%2$s</string>
+    <string name="ui_error_unblock_account_fmt">Le déblocage de %1$s a échoué : %2$s</string>
+    <string name="ui_error_unblock_domain_fmt">Le déblocage de %1$s a échoué : %2$s</string>
+    <string name="ui_error_unmute_account_fmt">Le démasquage de %1$s a échoué : %2$s</string>
+    <string name="collection_discoverable_true_label">Découvrable dans les résultats de recherche et les autres endroits où se trouvent des recommandations.</string>
+    <string name="collection_discoverable_false_label">Visible à qui en connaît le lien. Caché des résultats de recherche et recommandations.</string>
+    <string name="collection_sensitive_label">Inclut du contenu sensible</string>
+    <string name="collection_hidden_sensitive_title">Contenu sensible. Appuyez pour voir.</string>
+    <string name="collection_hidden_user_action_title">Vous avez caché ceci. Appuyez pour voir.</string>
+    <string name="action_collection_show">Montrer la collection</string>
+    <string name="action_collection_hide">Masquer la collection</string>
+    <string name="action_collection_view">Voir la collection</string>
+    <string name="action_collection_revoke">Me retirer</string>
+    <string name="action_collection_view_tag">Voir le tag</string>
+    <string name="collection_content_description_name_and_owner">Collection %1$s, par %2$s.</string>
+    <string name="collection_content_description_name">Collection %1$s.</string>
 </resources>
