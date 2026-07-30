@@ -1,5 +1,31 @@
 # Pachli changelog
 
+## v3.8.0
+
+See https://pachli.app/pachli/2026/07/30/3.8.0-release.html for full details and credits.
+
+### New features and other improvements
+
+- Show collection-related notifications, and collection details (#[2383](https://github.com/pachli/pachli-android/pull/2383), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Add support for filters, search operators, quoting, on iceshrimp.net servers (#[2387](https://github.com/pachli/pachli-android/pull/2387), [cpf](https://github.com/pachli/pachli-android/commits?author=git@cpf.sh))
+- Recognise more types of Firefish server version (#[2391](https://github.com/pachli/pachli-android/pull/2391), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Don't crash if quote policy is missing (#[2393](https://github.com/pachli/pachli-android/pull/2393), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Remove cached following relationships when blocking a domain (#[2381](https://github.com/pachli/pachli-android/pull/2381), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Estonian translations ([Priit Jõerüüt](https://github.com/pachli/pachli-android/commits?author=jrthwlate@users.noreply.hosted.weblate.org))
+- Update French translations ([Terry L](https://github.com/pachli/pachli-android/commits?author=terrylaire@gmail.com))
+- Update German translations ([Kachelkaiser](https://github.com/pachli/pachli-android/commits?author=kachelkaiser@htpst.de))
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+- Update Latvian translations ([Edgars Andersons](https://github.com/pachli/pachli-android/commits?author=Edgars+Weblate@gaitenis.id.lv))
+- Update Norwegian Nynorsk translations ([Kraksen](https://github.com/pachli/pachli-android/commits?author=kraks@users.noreply.hosted.weblate.org))
+- Update Slovak translations ([Russssty](https://github.com/pachli/pachli-android/commits?author=russssty@users.noreply.hosted.weblate.org))
+- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+
 ## v3.7.2
 
 See https://pachli.app/pachli/2026/07/02/3.7.2-release.html for full details and credits.
