@@ -207,4 +207,37 @@
     <string name="action_follow">Seguir</string>
     <string name="dialog_unfollow_warning">¿Dejar de seguir a esta cuenta?</string>
     <string name="ui_error_follow_account_fmt">Fallo al seguir a %1$s: %2$s</string>
+    <plurals name="collection_item_n_more">
+        <item quantity="one">+ %1$d más</item>
+        <item quantity="many">+ %1$d más</item>
+        <item quantity="other">+ %1$d más</item>
+    </plurals>
+    <string name="action_collection_remove_self">Eliminarme</string>
+    <string name="ui_error_unfollow_account_fmt">Fallo al dejar de seguir a %1$s: %2$s</string>
+    <string name="ui_error_cancel_follow_request_fmt">Fallo al cancelar la solicitud de seguimiento de %1$s: %2$s</string>
+    <string name="ui_error_unblock_account_fmt">Fallo al desbloquear a %1$s: %2$s</string>
+    <string name="ui_error_unblock_domain_fmt">Fallo al desbloquear %1$s: %2$s</string>
+    <string name="ui_error_unmute_account_fmt">Fallo al dejar de silenciar a %1$s: %2$s</string>
+    <string name="collection_discoverable_true_label">Puede ser encontrada en resultados de búsqueda y otros lugares donde aparecen recomendaciones.</string>
+    <string name="collection_discoverable_false_label">Visible para cualquiera con un enlace. Oculta en resultados de búsqueda y recomendaciones.</string>
+    <string name="collection_sensitive_label">Incluye contenido sensible</string>
+    <string name="collection_hidden_sensitive_title">Contenido sensible. Toca para mostrar.</string>
+    <string name="collection_hidden_user_action_title">Ocultaste esto. Toca para mostrar.</string>
+    <string name="action_collection_show">Mostrar colección</string>
+    <string name="action_collection_hide">Ocultar colección</string>
+    <string name="action_collection_view">Ver colección</string>
+    <string name="action_collection_revoke">Eliminarme</string>
+    <string name="action_collection_view_tag">Ver etiqueta</string>
+    <string name="collection_content_description_name_and_owner">Colección %1$s, por %2$s.</string>
+    <string name="collection_content_description_name">Colección %1$s.</string>
+    <plurals name="collection_content_description_accounts_is_member">
+        <item quantity="one">Contiene %1$d sola cuenta: la tuya.</item>
+        <item quantity="many">Contiene %1$d cuentas, incluyendo la tuya.</item>
+        <item quantity="other">Contiene %1$d cuentas, incluyendo la tuya.</item>
+    </plurals>
+    <plurals name="collection_content_description_accounts_is_not_member">
+        <item quantity="one">Contiene %1$d cuenta.</item>
+        <item quantity="many">Contiene %1$d cuentas.</item>
+        <item quantity="other">Contiene %1$d cuentas.</item>
+    </plurals>
 </resources>
