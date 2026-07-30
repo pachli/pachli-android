@@ -725,4 +725,12 @@
     <string name="action_delete_scheduled_statuses">Poista valitut julkaisut</string>
     <string name="delete_scheduled_statuses_msg">Tämä poistaa valitut ajastetut julkaisut pysyvästi.</string>
     <string name="title_delete_scheduled_statuses">Poista valitut ajastetut julkaisut?</string>
+    <string name="notification_collection_add_name">Lisätty kokoelmaan</string>
+    <string name="notification_collection_add_description">Ilmoitukset kun lisätty jonkun muun kokoelmaan</string>
+    <string name="notification_collection_update_name">Kokoelma on päivitetty</string>
+    <string name="notification_collection_update_description">Ilmoitukset kun kokoelma jossa olet päivitetään</string>
+    <string name="notification_collection_add_format">&lt;b&gt;%1$s&lt;/b&gt; lisäsi sinut kokoelmaan</string>
+    <string name="notification_collection_update_format">&lt;b&gt;%1$s&lt;/b&gt; päivitti kokoelman jossa olet</string>
+    <string name="notification_collection_add_body_format">%1$s, %2$s</string>
+    <string name="notification_collection_update_body_format">%1$s, %2$s</string>
 </resources>
