@@ -72,7 +72,7 @@
     <string name="send_post_content_to">Compartir contenido…</string>
     <string name="send_media_to">Compartir multimedia con…</string>
     <string name="confirmation_reported">¡Enviado!</string>
-    <string name="confirmation_unblocked">El usuario ya no está bloqueado</string>
+    <string name="confirmation_unblocked">Usuario desbloqueado</string>
     <string name="confirmation_unmuted">El usuario ya no está silenciado</string>
     <string name="hint_compose">¿En qué estás pensando?</string>
     <string name="hint_content_warning">Aviso de contenido</string>
@@ -160,7 +160,7 @@
     <string name="post_share_link">Compartir enlace</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Te sigue</string>
-    <string name="pref_title_alway_show_sensitive_media">Mostrar contenido sensible</string>
+    <string name="pref_title_alway_show_sensitive_media">Mostrar siempre contenido sensible</string>
     <string name="title_media">Multimedia</string>
     <string name="add_account_description">Añadir nueva Cuenta de Mastodon</string>
     <string name="compose_active_account_description">Publicar como %1$s</string>
@@ -738,4 +738,12 @@
     <string name="action_delete_scheduled_statuses">Eliminar publicaciones seleccionadas</string>
     <string name="action_mute_hashtag">Silenciar #%1$s</string>
     <string name="action_unmute_hashtag">Dejar de silenciar #%1$s</string>
+    <string name="notification_collection_add_body_format">%1$s. %2$s</string>
+    <string name="notification_collection_add_name">Añadido a la colección</string>
+    <string name="notification_collection_update_body_format">%1$s. %2$s</string>
+    <string name="notification_collection_add_description">Notificaciones cuando alguien te añade a su colección</string>
+    <string name="notification_collection_update_name">Colección actualizada</string>
+    <string name="notification_collection_update_description">Notificaciones cuando una colección en la cual estás es actualizada</string>
+    <string name="notification_collection_add_format">&lt;b&gt;%1$s&lt;/b&gt; te añadió a una colección</string>
+    <string name="notification_collection_update_format">&lt;b&gt;%1$s&lt;/b&gt; actualizó una colección en la cual te encuentras</string>
 </resources>
