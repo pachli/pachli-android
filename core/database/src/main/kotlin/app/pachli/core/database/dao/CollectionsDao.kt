@@ -60,6 +60,10 @@ WHERE pachliAccountId = :pachliAccountId AND collectionId = :collectionId AND ac
     )
     suspend fun removeAccountFromCollection(pachliAccountId: Long, collectionId: String, accountId: String)
 
+    /**
+     * Returns flow, each emission is a [Map] from a [CollectionAndOwnerEntities]
+     * to the list of [AccountEntity] in the collection.
+     */
     @Query(
         """
 WITH CollectionWithAccount AS (
@@ -108,18 +112,13 @@ WHERE pachliAccountId = :pachliAccountId AND collectionId = :collectionId
     )
     suspend fun getTimelineCollection(pachliAccountId: Long, collectionId: String): TimelineCollectionEntity?
 
-    @Query(
-        """
-SELECT *
-FROM TimelineCollectionEntity
-WHERE pachliAccountId = :pachliAccountId AND collectionId IN (:collectionIds)
-    """,
-    )
-    suspend fun getTimelineCollections(
-        pachliAccountId: Long,
-        collectionIds: List<String>,
-    ): List<TimelineCollectionEntity>
-
+    /**
+     * Returns [CollectionCardViewData] for [collectionIds]. If no
+     * [CollectionCardViewData] exists for a given collection ID a
+     * default [CollectionCardViewData] is returned derived from the
+     * [app.pachli.core.database.model.PachliAccountEntity.alwaysShowSensitiveMedia]
+     * property.
+     */
     @Query(
         """
 WITH MemberOf AS (

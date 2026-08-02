@@ -55,8 +55,7 @@ internal class OfflineFirstCollectionsRepository @Inject constructor(
 ) : CollectionsRepository {
     /**
      * Returns a flow of the local cached copy of [collectionId] as a
-     * [app.pachli.core.model.CollectionWithAccounts]. Returns null if there is no local cached copy
-     * of [collectionId].
+     * [app.pachli.core.model.CollectionWithAccounts]
      */
     override fun getCollectionFlow(pachliAccountId: Long, collectionId: String): Flow<CollectionWithAccounts> =
         localDataSource.getCollectionFlow(pachliAccountId, collectionId)
@@ -140,6 +139,10 @@ internal class CollectionsLocalDataSource @Inject constructor(
             }
     }
 
+    /**
+     * Returns the [CollectionCardViewData] for the collections identified by
+     * [collectionIds].
+     */
     suspend fun getCollectionCardViewData(pachliAccountId: Long, collectionIds: Collection<String>): List<CollectionCardViewData> {
         return collectionsDao.getCollectionCardViewData(pachliAccountId, collectionIds).map { it.asModel() }
     }
@@ -235,6 +238,13 @@ internal class CollectionsRemoteDataSource @Inject constructor(
             .bind()
     }
 
+    /**
+     * Returns the [CollectionWithAccounts] identified by [collectionIds].
+     *
+     * Each [CollectionWithAccounts] has to be fetched with individual API calls,
+     * any of which might fail, so return type is a `List<Result<...,...>>` to
+     * store the success/failure state of each call.
+     */
     suspend fun getCollections(pachliAccountId: Long, collectionIds: Collection<String>): List<Result<CollectionWithAccounts, CollectionsRepository.Error.GetCollection>> {
         // Note: There's no API call that can fetch multiple collections at once,
         // so make async fetches and wait for the result.
@@ -246,6 +256,7 @@ internal class CollectionsRemoteDataSource @Inject constructor(
         }
     }
 
+    /** Revokes [accountId] from [collectionId]. */
     suspend fun revokeFromCollection(pachliAccountId: Long, collectionId: String, accountId: String): ApiResult<Unit> {
         return mastodonApi.revokeItemInCollection(collectionId, accountId)
     }

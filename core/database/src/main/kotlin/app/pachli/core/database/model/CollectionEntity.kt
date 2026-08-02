@@ -307,6 +307,10 @@ data class CollectionViewDataEntity(
     val displayAction: CollectionDisplayAction? = null,
 )
 
+/**
+ * Joins [TimelineCollectionEntity] with its
+ * [CollectionViewDataEntity].
+ */
 data class CollectionCardViewData(
     @Embedded
     val timelineCollectionEntity: TimelineCollectionEntity,
