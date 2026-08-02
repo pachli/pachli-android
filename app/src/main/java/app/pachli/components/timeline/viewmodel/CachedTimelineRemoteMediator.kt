@@ -22,9 +22,10 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import app.pachli.core.data.repository.AccountRepository
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.notifications.asEntities
 import app.pachli.core.data.repository.notifications.asEntity
-import app.pachli.core.database.dao.CollectionsDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
@@ -33,13 +34,10 @@ import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithQuote
-import app.pachli.core.database.model.asEntity
-import app.pachli.core.model.Account
+import app.pachli.core.model.CollectionWithAccounts
 import app.pachli.core.model.Timeline
-import app.pachli.core.model.asTimelineCollection
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Status
-import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiResponse
 import app.pachli.core.network.retrofit.apiresult.ApiResult
@@ -63,7 +61,8 @@ class CachedTimelineRemoteMediator(
     private val timelineDao: TimelineDao,
     private val remoteKeyDao: RemoteKeyDao,
     private val statusDao: StatusDao,
-    private val collectionsDao: CollectionsDao,
+    private val collectionsRepository: CollectionsRepository,
+    private val accountRepository: AccountRepository,
 ) : RemoteMediator<Int, TimelineStatusWithQuote>() {
     override suspend fun load(
         loadType: LoadType,
@@ -251,10 +250,11 @@ class CachedTimelineRemoteMediator(
             }
         }
 
-        val accountsInCollections = resolveAccounts(accountIdsInCollections)
+        val accountsInCollections = accountRepository.getAccounts(pachliAccountId, accountIdsInCollections)
+            .map { it.associateBy { it.accountId } }
+            .getOrElse { emptyMap() }
 
         timelineDao.upsertTimelineAccounts(accounts.map { it.asEntity(pachliAccountId) })
-        timelineDao.upsertAccounts(accountsInCollections.values.asEntity(pachliAccountId))
         statusDao.upsertStatuses(statuses.flatMap { it.asEntities(pachliAccountId) })
         timelineDao.upsertStatuses(
             statuses.map {
@@ -266,28 +266,13 @@ class CachedTimelineRemoteMediator(
             },
         )
 
-        // -- Same as NotificationsRemoteMediator
-        collectionsDao.upsertCollections(collections.asEntity(pachliAccountId))
-        collectionsDao.upsertCollectionItems(
-            collections.flatMap { it.items.asEntity(pachliAccountId, it.collectionId) },
-        )
-        collectionsDao.upsertTimelineCollections(
-            collections.map { it.asTimelineCollection(accountsInCollections) }.asEntity(pachliAccountId),
-        )
-        // -- End same
-    }
-
-    /**
-     * Calls the server to convert all [accountIds] to the full [Account] details.
-     *
-     * @return Map between the server's ID for the account and the [Account].
-     */
-    // TODO: Copied from NotificationsRemoteMediator -- put in CollectionsRepository?
-    private suspend fun resolveAccounts(accountIds: Collection<String>): Map<String, Account> {
-        if (accountIds.isEmpty()) return emptyMap()
-
-        return mastodonApi.accounts(accountIds)
-            .map { it.body.asModel().associateBy { it.accountId } }
-            .getOrElse { emptyMap() }
+        val collectionsWithAccounts = collections.map { collection ->
+            CollectionWithAccounts(
+                collection = collection,
+                owner = accountsInCollections[collection.accountId],
+                accounts = collection.items.mapNotNull { item -> accountsInCollections[item.accountId] },
+            )
+        }
+        collectionsRepository.saveCollections(pachliAccountId, collectionsWithAccounts)
     }
 }

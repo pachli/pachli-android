@@ -24,6 +24,7 @@ import app.pachli.components.timeline.viewmodel.NetworkTimelinePagingSource
 import app.pachli.components.timeline.viewmodel.Page
 import app.pachli.components.timeline.viewmodel.PageCache
 import app.pachli.components.timeline.viewmodel.asTimelineStatusWithQuote
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.asModel
@@ -44,11 +45,15 @@ class NetworkTimelinePagingSourceTest {
         on { getTranslations(any(), any()) } doReturn emptyMap()
     }
 
+    private val collectionsRepository: CollectionsRepository = mock {
+        on { getCollectionCardViewData(any<Long>(), any<Collection<String>>()) } doReturn emptyList()
+    }
+
     @Test
     fun `load() with empty pages returns empty list`() = runTest {
         // Given
         val pages = PageCache()
-        val pagingSource = NetworkTimelinePagingSource(1L, mock(), pages)
+        val pagingSource = NetworkTimelinePagingSource(1L, statusRepository, collectionsRepository, pages)
 
         // When
         val loadResult = pagingSource.load(PagingSource.LoadParams.Refresh("0", 2, false))
@@ -78,7 +83,7 @@ class NetworkTimelinePagingSourceTest {
                 append(page3)
             }
         }
-        val pagingSource = NetworkTimelinePagingSource(1L, statusRepository, pages)
+        val pagingSource = NetworkTimelinePagingSource(1L, statusRepository, collectionsRepository, pages)
 
         // When
         val loadResult = pagingSource.load(PagingSource.LoadParams.Refresh("1", 2, false)) as? LoadResult.Page
@@ -91,7 +96,7 @@ class NetworkTimelinePagingSourceTest {
                 addAll(page1.data)
                 addAll(page2.data)
                 addAll(page3.data)
-            }.asTimelineStatusWithQuote(1, statusRepository).toMutableList(),
+            }.asTimelineStatusWithQuote(1, statusRepository, collectionsRepository).toMutableList(),
             prevKey = page1.prevKey,
             nextKey = page3.nextKey,
         )
@@ -109,7 +114,7 @@ class NetworkTimelinePagingSourceTest {
                 append(Page(data = listOf(fakeStatus(id = "0")).asModel().toMutableList(), prevKey = "1"))
             }
         }
-        val pagingSource = NetworkTimelinePagingSource(1L, statusRepository, pages)
+        val pagingSource = NetworkTimelinePagingSource(1L, statusRepository, collectionsRepository, pages)
 
         // When
         val loadResult = pagingSource.load(PagingSource.LoadParams.Append("1", 2, false))
@@ -119,7 +124,7 @@ class NetworkTimelinePagingSourceTest {
         assertThat((loadResult as? LoadResult.Page))
             .isEqualTo(
                 LoadResult.Page(
-                    data = listOf(fakeStatus(id = "1")).asModel().asTimelineStatusWithQuote(1, statusRepository),
+                    data = listOf(fakeStatus(id = "1")).asModel().asTimelineStatusWithQuote(1, statusRepository, collectionsRepository),
                     prevKey = "2",
                     nextKey = "0",
                 ),
@@ -136,7 +141,7 @@ class NetworkTimelinePagingSourceTest {
                 append(Page(data = listOf(fakeStatus(id = "0")).asModel().toMutableList(), prevKey = "1"))
             }
         }
-        val pagingSource = NetworkTimelinePagingSource(1L, statusRepository, pages)
+        val pagingSource = NetworkTimelinePagingSource(1L, statusRepository, collectionsRepository, pages)
 
         // When
         val loadResult = pagingSource.load(PagingSource.LoadParams.Prepend("1", 2, false))
@@ -146,7 +151,7 @@ class NetworkTimelinePagingSourceTest {
         assertThat((loadResult as? LoadResult.Page))
             .isEqualTo(
                 LoadResult.Page(
-                    data = listOf(fakeStatus(id = "1")).asModel().asTimelineStatusWithQuote(1, statusRepository),
+                    data = listOf(fakeStatus(id = "1")).asModel().asTimelineStatusWithQuote(1, statusRepository, collectionsRepository),
                     prevKey = "2",
                     nextKey = "0",
                 ),
@@ -163,7 +168,7 @@ class NetworkTimelinePagingSourceTest {
                 append(Page(data = listOf(fakeStatus(id = "0")).asModel().toMutableList(), prevKey = "1"))
             }
         }
-        val pagingSource = NetworkTimelinePagingSource(1L, statusRepository, pages)
+        val pagingSource = NetworkTimelinePagingSource(1L, statusRepository, collectionsRepository, pages)
 
         // When
         val loadResult = pagingSource.load(PagingSource.LoadParams.Refresh(null, 2, false))
@@ -173,7 +178,7 @@ class NetworkTimelinePagingSourceTest {
         assertThat((loadResult as? LoadResult.Page))
             .isEqualTo(
                 LoadResult.Page(
-                    data = listOf(fakeStatus(id = "2")).asModel().asTimelineStatusWithQuote(1, statusRepository),
+                    data = listOf(fakeStatus(id = "2")).asModel().asTimelineStatusWithQuote(1, statusRepository, collectionsRepository),
                     prevKey = null,
                     nextKey = "1",
                 ),
@@ -189,7 +194,7 @@ class NetworkTimelinePagingSourceTest {
                 append(Page(data = listOf(fakeStatus(id = "10")).asModel().toMutableList(), prevKey = "20"))
             }
         }
-        val pagingSource = NetworkTimelinePagingSource(1L, statusRepository, pages)
+        val pagingSource = NetworkTimelinePagingSource(1L, statusRepository, collectionsRepository, pages)
 
         // When
         val loadResult = pagingSource.load(PagingSource.LoadParams.Append("9", 2, false))
@@ -216,7 +221,7 @@ class NetworkTimelinePagingSourceTest {
                 append(Page(data = listOf(fakeStatus(id = "10")).asModel().toMutableList(), prevKey = "20"))
             }
         }
-        val pagingSource = NetworkTimelinePagingSource(1L, statusRepository, pages)
+        val pagingSource = NetworkTimelinePagingSource(1L, statusRepository, collectionsRepository, pages)
 
         // When
         val loadResult = pagingSource.load(PagingSource.LoadParams.Prepend("21", 2, false))

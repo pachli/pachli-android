@@ -22,7 +22,8 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import app.pachli.core.database.dao.CollectionsDao
+import app.pachli.core.data.repository.AccountRepository
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
@@ -37,12 +38,12 @@ import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.Account
 import app.pachli.core.model.AccountWarning
+import app.pachli.core.model.CollectionWithAccounts
 import app.pachli.core.model.RelationshipSeveranceEvent
 import app.pachli.core.model.Report
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
 import app.pachli.core.model.TimelineAccount
-import app.pachli.core.model.asTimelineCollection
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.asModel
@@ -82,7 +83,8 @@ class NotificationsRemoteMediator(
     private val remoteKeyDao: RemoteKeyDao,
     private val notificationDao: NotificationDao,
     private val statusDao: StatusDao,
-    private val collectionsDao: CollectionsDao,
+    private val collectionsRepository: CollectionsRepository,
+    private val accountRepository: AccountRepository,
     private val excludeTypes: Iterable<Notification.Type>,
 ) : RemoteMediator<Int, NotificationData>() {
     private val remoteKeyTimelineId = Timeline.Notifications.remoteKeyTimelineId
@@ -271,34 +273,25 @@ class NotificationsRemoteMediator(
         // so:
         // 1. The accounts can be saved.
         // 2. The accounts can be used to create TimelineCollectionEntity objects.
-        val accountsInCollections = resolveAccounts(accountIdsInCollections)
+        val accountsInCollections = accountRepository.getAccounts(pachliAccountId, accountIdsInCollections)
+            .map { it.associateBy { it.accountId } }
+            .getOrElse { emptyMap() }
 
         // Bulk upsert the discovered items.
         timelineDao.upsertTimelineAccounts(timelineAccounts.asEntity(pachliAccountId))
-        timelineDao.upsertAccounts(accountsInCollections.values.asEntity(pachliAccountId))
         statusDao.upsertStatuses(statuses.map { it.asEntity(pachliAccountId) })
         notificationDao.upsertNotifications(notifications.asModel(accountId).asEntity(pachliAccountId))
 
-        collectionsDao.upsertCollections(collections.asEntity(pachliAccountId))
-        collectionsDao.upsertCollectionItems(
-            collections.flatMap { it.items.asEntity(pachliAccountId, it.collectionId) },
-        )
-        collectionsDao.upsertTimelineCollections(
-            collections.map { it.asTimelineCollection(accountsInCollections) }.asEntity(pachliAccountId),
-        )
-    }
-
-    /**
-     * Calls the server to convert all [accountIds] to the full [Account] details.
-     *
-     * @return Map between the server's ID for the account and the [Account].
-     */
-    private suspend fun resolveAccounts(accountIds: Collection<String>): Map<String, Account> {
-        if (accountIds.isEmpty()) return emptyMap()
-
-        return mastodonApi.accounts(accountIds)
-            .map { it.body.asModel().associateBy { it.accountId } }
-            .getOrElse { emptyMap() }
+        // WIP: Convert the collections to a List<CollectionWithAccounts>, so CollectionsRepository
+        // can work with it.
+        val collectionsWithAccounts = collections.map { collection ->
+            CollectionWithAccounts(
+                collection = collection,
+                owner = accountsInCollections[collection.accountId],
+                accounts = collection.items.mapNotNull { item -> accountsInCollections[item.accountId] },
+            )
+        }
+        collectionsRepository.saveCollections(pachliAccountId, collectionsWithAccounts)
     }
 }
 

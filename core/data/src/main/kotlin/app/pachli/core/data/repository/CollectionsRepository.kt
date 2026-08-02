@@ -59,4 +59,6 @@ interface CollectionsRepository {
 
     /** Sets [collectionDisplayAction] for [collectionId]. */
     fun setCollectionDisplayAction(pachliAccountId: Long, collectionId: String, collectionDisplayAction: CollectionDisplayAction)
+
+    fun saveCollections(pachliAccountId: Long, collectionsWithAccounts: List<CollectionWithAccounts>)
 }

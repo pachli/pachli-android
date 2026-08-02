@@ -143,6 +143,10 @@ class ConversationsRepository @Inject constructor(
     }
 }
 
+/**
+ * Variant of [app.pachli.components.timeline.ResolveCollectionCardsPagingSource]
+ * specialised for processing [ConversationData].
+ */
 private class ResolveCollectionCardsPagingSource(
     private val pachliAccountId: Long,
     private val conversationsDao: ConversationsDao,
@@ -178,12 +182,10 @@ private class ResolveCollectionCardsPagingSource(
         // Return early if there are no collections.
         if (statusIdToCollectionIds.isEmpty()) return result
 
-        val collectionIds = statusIdToCollectionIds.values.flatten().distinct()
-
         // Fetch the missing collections. Map from collectionId to collection.
         val collectionCardViewData = collectionsDao.getCollectionCardViewData(
             pachliAccountId,
-            collectionIds, // statusIdToCollectionIds.values.flatten().distinct(),
+            statusIdToCollectionIds.values.flatten().distinct(),
         ).map { it.asModel() }.associateBy { it.collectionId }
 
         // Build the modified data for this page.

@@ -187,7 +187,8 @@ fun fakeStatusViewData(
         },
         replyToAccount = null,
         isDetailed = isDetailed,
-        isUsersStatus = false,,
+        isUsersStatus = false,
+        collectionCardViewData = emptyList(),
     ),
 )
 

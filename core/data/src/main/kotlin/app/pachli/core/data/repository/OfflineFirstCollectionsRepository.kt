@@ -19,8 +19,13 @@ package app.pachli.core.data.repository
 
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.database.dao.CollectionsDao
+import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider
+import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.CollectionEntity
+import app.pachli.core.database.model.CollectionItemEntity
 import app.pachli.core.database.model.CollectionViewDataEntity
+import app.pachli.core.database.model.TimelineCollectionEntity
 import app.pachli.core.database.model.asEntity
 import app.pachli.core.database.model.asModel
 import app.pachli.core.model.CollectionWithAccounts
@@ -114,6 +119,12 @@ internal class OfflineFirstCollectionsRepository @Inject constructor(
             localDataSource.setCollectionDisplayAction(pachliAccountId, collectionId, collectionDisplayAction)
         }
     }
+
+    override fun saveCollections(pachliAccountId: Long, collectionsWithAccounts: List<CollectionWithAccounts>) {
+        externalScope.launch {
+            localDataSource.saveCollections(pachliAccountId, collectionsWithAccounts)
+        }
+    }
 }
 
 /** Data source for locally cached [Collection] data. */
@@ -122,6 +133,7 @@ internal class CollectionsLocalDataSource @Inject constructor(
     private val transactionProvider: TransactionProvider,
     private val collectionsDao: CollectionsDao,
     private val accountRepository: AccountRepository,
+    private val timelineDao: TimelineDao,
 ) {
     /**
      * @return Flow of [CollectionWithAccounts] for [collectionId].
@@ -177,6 +189,37 @@ internal class CollectionsLocalDataSource @Inject constructor(
             collectionsDao.upsertTimelineCollections(
                 listOf(collectionWithAccounts.asTimelineCollection().asEntity(pachliAccountId)),
             )
+        }
+    }
+
+    suspend fun saveCollections(pachliAccountId: Long, collectionsWithAccounts: List<CollectionWithAccounts>) {
+        val collectionEntities = mutableSetOf<CollectionEntity>()
+        val collectionItemEntities = mutableSetOf<CollectionItemEntity>()
+        val timelineCollectionEntities = mutableSetOf<TimelineCollectionEntity>()
+        val accountEntities = mutableSetOf<AccountEntity>()
+
+        collectionsWithAccounts.forEach { collectionWithAccounts ->
+            val collection = collectionWithAccounts.collection
+
+            collectionEntities.add(collection.asEntity(pachliAccountId))
+
+            collectionItemEntities.addAll(
+                collectionWithAccounts.collection.items.asEntity(pachliAccountId, collectionWithAccounts.collection.collectionId),
+            )
+
+            collectionWithAccounts.owner?.let { accountEntities.add(it.asEntity(pachliAccountId)) }
+            accountEntities.addAll(collectionWithAccounts.accounts.asEntity(pachliAccountId))
+
+            timelineCollectionEntities.add(
+                collectionWithAccounts.asTimelineCollection().asEntity(pachliAccountId),
+            )
+        }
+
+        transactionProvider {
+            collectionsDao.upsertCollections(collectionEntities)
+            collectionsDao.upsertCollectionItems(collectionItemEntities)
+            collectionsDao.upsertTimelineCollections(timelineCollectionEntities)
+            timelineDao.upsertAccounts(accountEntities)
         }
     }
 

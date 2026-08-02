@@ -95,6 +95,9 @@ class StatusRepositoryTest {
     lateinit var eventHub: EventHub
 
     @Inject
+    lateinit var collectionsRepository: CollectionsRepository
+
+    @Inject
     lateinit var appDatabase: AppDatabase
 
     @Inject
@@ -177,6 +180,7 @@ class StatusRepositoryTest {
             statusDao,
             translatedStatusDao,
             eventHub,
+            collectionsRepository,
         )
     }
 
