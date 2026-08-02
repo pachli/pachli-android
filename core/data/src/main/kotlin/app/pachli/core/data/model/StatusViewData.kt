@@ -79,6 +79,7 @@ import app.pachli.core.network.replaceCrashingCharacters
  * status has no spoiler warning, or because the user has clicked through the spoiler warning).
  * False if the content is not shown because the status has a warning and the user has not clicked
  * through.
+ * @property collectionCardViewData Details for any collections cards displayed in this status.
  */
 sealed interface IStatusViewData : IStatus {
     val pachliAccountId: Long
@@ -117,10 +118,6 @@ sealed interface IStatusViewData : IStatus {
     val isDetailed: Boolean
     val isUsersStatus: Boolean
     val isShowingContent: Boolean
-
-    /**
-     * Details for any collection cards to be displayed in this status.
-     */
     val collectionCardViewData: List<CollectionCardViewData>
 }
 

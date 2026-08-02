@@ -21,8 +21,10 @@ import app.pachli.core.model.ICollection
 import app.pachli.core.model.TimelineCollection
 
 /**
+ * Viewdata for a [TimelineCollection].
+ *
  * @property timelineCollection
- * @property displayAction How to display the collection.
+ * @property displayAction How to display the collection (show, hide, etc).
  * @property isMember True if [timelineCollection] contains the current user.
  */
 data class CollectionCardViewData(

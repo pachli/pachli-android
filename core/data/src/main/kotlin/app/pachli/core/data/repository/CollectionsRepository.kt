@@ -42,6 +42,10 @@ interface CollectionsRepository {
      */
     fun getCollectionFlow(pachliAccountId: Long, collectionId: String): Flow<CollectionWithAccounts>
 
+    /**
+     * Returns the [CollectionCardViewData] for the collections identified by
+     * [collectionIds].
+     */
     suspend fun getCollectionCardViewData(pachliAccountId: Long, collectionIds: Collection<String>): List<CollectionCardViewData>
 
     /** Reloads [collectionId] from the server. */

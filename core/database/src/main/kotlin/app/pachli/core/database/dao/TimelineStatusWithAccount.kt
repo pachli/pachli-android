@@ -132,7 +132,6 @@ SELECT
     reply.limited AS 'reply_limited',
     reply.roles AS 'reply_roles',
     reply.pronouns AS 'reply_pronouns'
-
 FROM StatusEntity AS s
 LEFT JOIN TimelineAccountEntity AS a ON (s.pachliAccountId = a.pachliAccountId AND s.accountId = a.accountId)
 LEFT JOIN TimelineAccountEntity AS rb ON (s.pachliAccountId = rb.pachliAccountId AND s.reblogAccountId = rb.accountId)
