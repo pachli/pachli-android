@@ -52,10 +52,12 @@ import app.pachli.core.domain.accounts.BlockAccountUseCase
 import app.pachli.core.domain.accounts.MuteAccountUseCase
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.Draft
+import app.pachli.core.model.ICollection
 import app.pachli.core.model.IStatus
 import app.pachli.core.model.Status
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
+import app.pachli.core.navigation.CollectionActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ReferencingStatus
@@ -123,7 +125,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
     }
 
     protected fun openReblog(status: IStatus) {
-        val intent = AccountActivityIntent(requireActivity(), pachliAccountId, status.account.serverId)
+        val intent = AccountActivityIntent(requireActivity(), pachliAccountId, status.account.accountId)
         startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 
@@ -139,6 +141,13 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
 
     override fun onViewUrl(url: String) {
         (requireActivity() as? ViewUrlActivity)?.viewUrl(pachliAccountId, url)
+    }
+
+    override fun onViewCollection(collection: ICollection) {
+        startActivityWithTransition(
+            CollectionActivityIntent(requireContext(), pachliAccountId, collection.collectionId),
+            TransitionKind.SLIDE_FROM_END,
+        )
     }
 
     protected fun reply(pachliAccountId: Long, status: Status) {
@@ -170,7 +179,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
      */
     override fun onMore(view: View, viewData: IStatusViewData) {
         val status = viewData.status
-        val accountId = viewData.actionable.account.serverId
+        val accountId = viewData.actionable.account.accountId
         var loggedInAccountId: String? = null
         val activeAccount = accountManager.activeAccount
         if (activeAccount != null) {
@@ -184,7 +193,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
             val menu = popup.menu
             when (status.visibility) {
                 Status.Visibility.PUBLIC, Status.Visibility.UNLISTED -> {
-                    menu.add(0, R.id.pin, 1, getString(if (status.isPinned()) R.string.unpin_action else R.string.pin_action))
+                    menu.add(0, R.id.pin, 1, getString(if (status.pinned) R.string.unpin_action else R.string.pin_action))
                 }
 
                 Status.Visibility.PRIVATE -> {
@@ -236,8 +245,8 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
             openAsItem.isVisible = false
         }
 
-        menu.findItem(R.id.status_mute_conversation)?.isVisible = status.muted == false && (statusIsByCurrentUser || accountIsInMentions(activeAccount, status.mentions))
-        menu.findItem(R.id.status_unmute_conversation)?.isVisible = status.muted == true && (statusIsByCurrentUser || accountIsInMentions(activeAccount, status.mentions))
+        menu.findItem(R.id.status_mute_conversation)?.isVisible = !status.muted && (statusIsByCurrentUser || accountIsInMentions(activeAccount, status.mentions))
+        menu.findItem(R.id.status_unmute_conversation)?.isVisible = status.muted && (statusIsByCurrentUser || accountIsInMentions(activeAccount, status.mentions))
 
         onPrepareMoreMenu(menu, viewData)
 
@@ -275,7 +284,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
     protected open fun onMoreMenuItemClick(item: MenuItem, viewData: IStatusViewData): Boolean {
         val status = viewData.status
         val actionableId = viewData.actionableId
-        val accountId = viewData.actionable.account.serverId
+        val accountId = viewData.actionable.account.accountId
         val accountUsername = viewData.actionable.account.username
         val statusUrl = viewData.actionable.url
 
@@ -372,7 +381,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
 
             R.id.pin -> {
                 lifecycleScope.launch {
-                    statusRepository.pin(pachliAccountId, status.actionableId, !status.isPinned()).onFailure { e ->
+                    statusRepository.pin(pachliAccountId, status.actionableId, !status.pinned).onFailure { e ->
                         val message = e.fmt(requireContext())
                         Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG).show()
                     }

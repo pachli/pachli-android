@@ -20,7 +20,7 @@ package app.pachli.feature.intentrouter
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.room.support.getSupportWrapper
+import androidx.room3.support.getSupportWrapper
 import app.pachli.core.common.PachliError
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
@@ -151,7 +151,7 @@ internal class IntentRouterViewModel @Inject constructor(
     }
 
     private suspend fun onRefreshAccount(action: FallibleUiAction.RefreshAccount): Result<UiSuccess.RefreshAccount, UiError.RefreshAccount> {
-        return accountManager.refresh(action.pachliAccount.id)
+        return accountManager.refresh(action.pachliAccount.pachliAccountId)
             .mapEither(
                 { UiSuccess.RefreshAccount(action) },
                 { UiError.RefreshAccount(action, it) },
@@ -178,7 +178,7 @@ internal class IntentRouterViewModel @Inject constructor(
 
         Timber.d("pruneCacheIfNeeded: pruning")
         val marker = TimeSource.Monotonic.markNow()
-        accountManager.accounts.forEach { timelineDao.cleanup(it.id) }
+        accountManager.accounts.forEach { timelineDao.cleanup(it.pachliAccountId) }
         logEntryDao.prune(Instant.now().minusMillis(48.hours.inWholeMilliseconds))
 
         Timber.d("pruneCacheIfNeeded: pruned, took ${marker.elapsedNow().inWholeMilliseconds} ms")

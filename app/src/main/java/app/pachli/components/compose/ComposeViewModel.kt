@@ -634,7 +634,7 @@ class ComposeViewModel @AssistedInject constructor(
         }
 
         val draftToSave = Draft(
-            id = composeOptions.draft.id,
+            draftId = composeOptions.draft.draftId,
             contentWarning = if (showContentWarning.value) contentWarning else "",
             content = content.toString(),
             sensitive = draftAttachments.isNotEmpty() && (markMediaAsSensitive.value || showContentWarning.value),
@@ -664,7 +664,7 @@ class ComposeViewModel @AssistedInject constructor(
 
     internal fun closeDraft() {
         viewModelScope.launch {
-            draftsRepository.updateDraftState(composeOptions.draft.id, Draft.State.DEFAULT)
+            draftsRepository.updateDraftState(composeOptions.draft.draftId, Draft.State.DEFAULT)
         }
     }
 
@@ -751,7 +751,7 @@ class ComposeViewModel @AssistedInject constructor(
                 Ok(draft)
             }
         }.getOrElse {
-            draftsRepository.updateDraftState(composeOptions.draft.id, Draft.State.DEFAULT)
+            draftsRepository.updateDraftState(composeOptions.draft.draftId, Draft.State.DEFAULT)
             return Err(it)
         }
 
@@ -850,7 +850,7 @@ class ComposeViewModel @AssistedInject constructor(
         pachliAccount = account
 
         draftsRepository.updateDraftState(
-            composeOptions.draft.id,
+            composeOptions.draft.draftId,
             Draft.State.EDITING,
         )
 

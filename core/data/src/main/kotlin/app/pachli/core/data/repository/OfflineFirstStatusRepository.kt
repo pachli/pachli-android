@@ -37,6 +37,7 @@ import app.pachli.core.eventhub.ReblogEvent
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
+import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.map
@@ -70,6 +71,7 @@ class OfflineFirstStatusRepository @Inject constructor(
     private val statusDao: StatusDao,
     private val translatedStatusDao: TranslatedStatusDao,
     private val eventHub: EventHub,
+    private val collectionsRepository: CollectionsRepository,
 ) : StatusRepository {
     override suspend fun bookmark(
         pachliAccountId: Long,
@@ -193,7 +195,7 @@ class OfflineFirstStatusRepository @Inject constructor(
         statusDao.setExpanded(
             StatusViewDataExpanded(
                 pachliAccountId = pachliAccountId,
-                serverId = statusId,
+                statusId = statusId,
                 expanded = expanded,
             ),
         )
@@ -203,7 +205,7 @@ class OfflineFirstStatusRepository @Inject constructor(
         statusDao.setAttachmentDisplayAction(
             StatusViewDataAttachmentDisplayAction(
                 pachliAccountId = pachliAccountId,
-                serverId = statusId,
+                statusId = statusId,
                 attachmentDisplayAction = attachmentDisplayAction,
             ),
         )
@@ -213,7 +215,7 @@ class OfflineFirstStatusRepository @Inject constructor(
         statusDao.setContentCollapsed(
             StatusViewDataContentCollapsed(
                 pachliAccountId = pachliAccountId,
-                serverId = statusId,
+                statusId = statusId,
                 contentCollapsed = contentCollapsed,
             ),
         )
@@ -223,7 +225,7 @@ class OfflineFirstStatusRepository @Inject constructor(
         statusDao.setTranslationState(
             StatusViewDataTranslationState(
                 pachliAccountId = pachliAccountId,
-                serverId = statusId,
+                statusId = statusId,
                 translationState = translationState,
             ),
         )
@@ -242,4 +244,8 @@ class OfflineFirstStatusRepository @Inject constructor(
             .onSuccess { statusDao.updateStatus(it.body.asEntity(pachliAccountId)) }
             .mapEither({ it.body.asModel() }, { StatusActionError.RevokeQuote(it) })
     }.await()
+
+    override suspend fun setCollectionDisplayAction(pachliAccountId: Long, collectionId: String, collectionDisplayAction: CollectionDisplayAction) {
+        return collectionsRepository.setCollectionDisplayAction(pachliAccountId, collectionId, collectionDisplayAction)
+    }
 }

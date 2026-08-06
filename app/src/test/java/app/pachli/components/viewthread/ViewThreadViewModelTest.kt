@@ -6,6 +6,7 @@ import app.pachli.PachliApplication
 import app.pachli.components.compose.HiltTestApplication_Application
 import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.dao.TimelineDao
@@ -96,6 +97,9 @@ class ViewThreadViewModelTest {
     @Inject
     lateinit var statusRepository: OfflineFirstStatusRepository
 
+    @Inject
+    lateinit var collectionsRepository: CollectionsRepository
+
     private lateinit var viewModel: ViewThreadViewModel
 
     private val threadId = "1234"
@@ -169,6 +173,7 @@ class ViewThreadViewModelTest {
             cachedTimelineRepository,
             statusDisplayOptionsRepository,
             timelineCases,
+            collectionsRepository,
         )
     }
 

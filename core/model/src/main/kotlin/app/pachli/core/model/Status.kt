@@ -26,6 +26,10 @@ import app.pachli.core.model.Status.Visibility
 import com.squareup.moshi.JsonClass
 import java.util.Date
 
+/**
+ * @property taggedCollections Possibly empty list of [Collection] linked
+ * to in this status.
+ */
 interface IStatus {
     val statusId: String
 
@@ -51,16 +55,17 @@ interface IStatus {
     val visibility: Visibility
     val attachments: List<Attachment>
     val mentions: List<Mention>
-    val tags: List<Hashtag>?
+    val tags: List<Hashtag>
     val application: Application?
-    val pinned: Boolean?
-    val muted: Boolean?
+    val pinned: Boolean
+    val muted: Boolean
     val poll: Poll?
     val card: Card?
     val quote: Quote?
     val quoteApproval: QuoteApproval
     val language: String?
-    val filtered: List<FilterResult>?
+    val filtered: List<FilterResult>
+    val taggedCollections: List<Collection>
 }
 
 /**
@@ -90,16 +95,17 @@ data class Status(
     override val visibility: Visibility,
     override val attachments: List<Attachment>,
     override val mentions: List<Mention>,
-    override val tags: List<Hashtag>?,
+    override val tags: List<Hashtag>,
     override val application: Application?,
-    override val pinned: Boolean?,
-    override val muted: Boolean?,
+    override val pinned: Boolean,
+    override val muted: Boolean,
     override val poll: Poll?,
     override val card: Card?,
     override val quote: Quote?,
     override val quoteApproval: QuoteApproval,
     override val language: String?,
-    override val filtered: List<FilterResult>?,
+    override val filtered: List<FilterResult>,
+    override val taggedCollections: List<Collection>,
 ) : IStatus {
     val actionableId: String
         get() = reblog?.statusId ?: statusId
@@ -108,7 +114,7 @@ data class Status(
         get() = reblog ?: this
 
     val isSelfReply: Boolean
-        get() = inReplyToAccountId != null && inReplyToAccountId == account.serverId
+        get() = inReplyToAccountId != null && inReplyToAccountId == account.accountId
 
     // Note: These are deliberately listed in order, most public to least public.
     // These are currently serialised to the database by the ordinal value, and
@@ -186,10 +192,6 @@ data class Status(
      * @see [Status.Visibility.allowsReblog]
      */
     fun rebloggingAllowed() = visibility.allowsReblog
-
-    fun isPinned(): Boolean {
-        return pinned ?: false
-    }
 
     @JsonClass(generateAdapter = true)
     data class Mention(

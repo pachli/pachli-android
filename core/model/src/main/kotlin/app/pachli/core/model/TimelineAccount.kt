@@ -24,7 +24,7 @@ import java.time.Instant
  * Interface for anything that implements the minimum subset of [Account]
  * information that [TimelineAccount] does.
  *
- * @property serverId
+ * @property accountId
  * @property localUsername The username of the account, without the domain.
  * @property username The webfinger account URI. Equal to [localUsername] for local users, or
  * [localUsername]@domain for remote users.
@@ -45,7 +45,7 @@ import java.time.Instant
  * the account is local.
  */
 interface ITimelineAccount {
-    val serverId: String
+    val accountId: String
     val localUsername: String
     val username: String
 
@@ -85,7 +85,7 @@ interface ITimelineAccount {
  */
 @JsonClass(generateAdapter = true)
 data class TimelineAccount(
-    override val serverId: String,
+    override val accountId: String,
     override val localUsername: String,
     override val username: String,
 
@@ -102,7 +102,7 @@ data class TimelineAccount(
 ) : ITimelineAccount
 
 fun Account.asTimelineAccount() = TimelineAccount(
-    serverId = serverId,
+    accountId = accountId,
     localUsername = localUsername,
     username = username,
     displayName = displayName,

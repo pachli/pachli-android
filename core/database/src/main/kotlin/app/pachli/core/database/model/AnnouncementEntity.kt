@@ -17,9 +17,9 @@
 
 package app.pachli.core.database.model
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.TypeConverters
+import androidx.room3.ColumnTypeConverters
+import androidx.room3.Entity
+import androidx.room3.ForeignKey
 import app.pachli.core.database.Converters
 import app.pachli.core.model.Announcement
 
@@ -29,23 +29,23 @@ import app.pachli.core.model.Announcement
  * Although announcements are also associated with a server, the user may have
  * multiple accounts on the same server with announcements that are in different
  * "read" states. So each announcement is associated with exactly one
- * [PachliAccountEntity] through the [accountId] property.
+ * [PachliAccountEntity] through the [pachliAccountId] property.
  */
 @Entity(
-    primaryKeys = ["accountId"],
+    primaryKeys = ["pachliAccountId"],
     foreignKeys = [
         ForeignKey(
             entity = PachliAccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("accountId"),
+            parentColumns = ["pachliAccountId"],
+            childColumns = ["pachliAccountId"],
             onDelete = ForeignKey.CASCADE,
             deferred = true,
         ),
     ],
 )
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 data class AnnouncementEntity(
-    val accountId: Long,
+    val pachliAccountId: Long,
     val announcementId: String,
     val announcement: Announcement,
 )

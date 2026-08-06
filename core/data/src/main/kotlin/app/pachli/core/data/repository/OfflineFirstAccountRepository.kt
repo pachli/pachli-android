@@ -81,7 +81,7 @@ class OfflineFirstAccountRepository @Inject internal constructor(
     override suspend fun getAccounts(pachliAccountId: Long, accountIds: Collection<String>): Result<List<Account>, GetAccountsError> {
         val accounts = localDataSource.getAccounts(pachliAccountId, accountIds)
 
-        val gotIds = accounts.map { it.serverId }
+        val gotIds = accounts.map { it.accountId }
         val missingIds = accountIds.filter { !gotIds.contains(it) }
 
         if (missingIds.isEmpty()) return Ok(accounts)

@@ -18,7 +18,7 @@
 package app.pachli.core.testing.di
 
 import android.os.Build
-import androidx.room.Room
+import androidx.room3.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.core.database.AppDatabase
@@ -44,7 +44,7 @@ object FakeDatabaseModule {
     fun providesDatabase(moshi: Moshi): AppDatabase {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val roomBuilder = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java)
-            .addTypeConverter(Converters(moshi))
+            .addColumnTypeConverter(Converters(moshi))
             .allowMainThreadQueries()
 
         // Tests run on the device should use the BundledSQLiteDriver, like the app.

@@ -17,22 +17,22 @@
 
 package app.pachli.core.database.dao
 
-import androidx.room.Dao
-import androidx.room.Query
-import androidx.room.TypeConverters
-import androidx.room.Upsert
+import androidx.room3.ColumnTypeConverters
+import androidx.room3.Dao
+import androidx.room3.Query
+import androidx.room3.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.MastodonListEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 interface ListsDao {
     @Query(
         """
 DELETE
 FROM MastodonListEntity
-WHERE accountId = :pachliAccountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
     suspend fun deleteAllForAccount(pachliAccountId: Long)
@@ -41,7 +41,7 @@ WHERE accountId = :pachliAccountId
         """
 SELECT *
 FROM MastodonListEntity
-WHERE accountId = :pachliAccountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
     fun flowByAccount(pachliAccountId: Long): Flow<List<MastodonListEntity>>
@@ -50,7 +50,7 @@ WHERE accountId = :pachliAccountId
         """
 SELECT *
 FROM MastodonListEntity
-WHERE accountId = :pachliAccountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
     suspend fun get(pachliAccountId: Long): List<MastodonListEntity>
@@ -73,7 +73,7 @@ FROM MastodonListEntity
         """
 DELETE
 FROM MastodonListEntity
-WHERE accountId = :pachliAccountId AND listId = :listId
+WHERE pachliAccountId = :pachliAccountId AND listId = :listId
 """,
     )
     suspend fun deleteForAccount(pachliAccountId: Long, listId: String)

@@ -17,7 +17,6 @@
 
 package app.pachli.core.ui.extensions
 
-import app.pachli.core.data.CollectionCardViewData
 import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.data.model.NotificationViewData.FollowNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.FollowRequestNotificationViewData
@@ -41,6 +40,7 @@ import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
+import app.pachli.core.model.collection.CollectionCardViewData
 import app.pachli.core.model.collection.make
 
 /**
@@ -71,9 +71,9 @@ fun NotificationViewData.Companion.make(
     isAboutSelf: Boolean,
 ) = when (data.notification.type) {
     NotificationEntity.Type.UNKNOWN -> UnknownNotificationViewData(
-        pachliAccountId = pachliAccount.id,
+        pachliAccountId = pachliAccount.pachliAccountId,
         localDomain = pachliAccount.domain,
-        notificationId = data.notification.serverId,
+        notificationId = data.notification.notificationId,
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision,
@@ -81,9 +81,9 @@ fun NotificationViewData.Companion.make(
 
     NotificationEntity.Type.MENTION -> data.status?.let { status ->
         MentionNotificationViewData(
-            pachliAccountId = pachliAccount.id,
+            pachliAccountId = pachliAccount.pachliAccountId,
             localDomain = pachliAccount.domain,
-            notificationId = data.notification.serverId,
+            notificationId = data.notification.notificationId,
             account = data.account.asModel(),
             isAboutSelf = isAboutSelf,
             accountFilterDecision = accountFilterDecision,
@@ -102,9 +102,9 @@ fun NotificationViewData.Companion.make(
 
     NotificationEntity.Type.REBLOG -> data.status?.let { status ->
         ReblogNotificationViewData(
-            pachliAccountId = pachliAccount.id,
+            pachliAccountId = pachliAccount.pachliAccountId,
             localDomain = pachliAccount.domain,
-            notificationId = data.notification.serverId,
+            notificationId = data.notification.notificationId,
             account = data.account.asModel(),
             isAboutSelf = isAboutSelf,
             accountFilterDecision = accountFilterDecision,
@@ -123,9 +123,9 @@ fun NotificationViewData.Companion.make(
 
     NotificationEntity.Type.FAVOURITE -> data.status?.let { status ->
         FavouriteNotificationViewData(
-            pachliAccountId = pachliAccount.id,
+            pachliAccountId = pachliAccount.pachliAccountId,
             localDomain = pachliAccount.domain,
-            notificationId = data.notification.serverId,
+            notificationId = data.notification.notificationId,
             account = data.account.asModel(),
             isAboutSelf = isAboutSelf,
             accountFilterDecision = accountFilterDecision,
@@ -143,9 +143,9 @@ fun NotificationViewData.Companion.make(
     }
 
     NotificationEntity.Type.FOLLOW -> FollowNotificationViewData(
-        pachliAccountId = pachliAccount.id,
+        pachliAccountId = pachliAccount.pachliAccountId,
         localDomain = pachliAccount.domain,
-        notificationId = data.notification.serverId,
+        notificationId = data.notification.notificationId,
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision,
         account = data.account.asModel(),
@@ -153,9 +153,9 @@ fun NotificationViewData.Companion.make(
     )
 
     NotificationEntity.Type.FOLLOW_REQUEST -> FollowRequestNotificationViewData(
-        pachliAccountId = pachliAccount.id,
+        pachliAccountId = pachliAccount.pachliAccountId,
         localDomain = pachliAccount.domain,
-        notificationId = data.notification.serverId,
+        notificationId = data.notification.notificationId,
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision,
         account = data.account.asModel(),
@@ -164,9 +164,9 @@ fun NotificationViewData.Companion.make(
 
     NotificationEntity.Type.POLL -> data.status?.let { status ->
         PollNotificationViewData(
-            pachliAccountId = pachliAccount.id,
+            pachliAccountId = pachliAccount.pachliAccountId,
             localDomain = pachliAccount.domain,
-            notificationId = data.notification.serverId,
+            notificationId = data.notification.notificationId,
             account = data.account.asModel(),
             isAboutSelf = isAboutSelf,
             accountFilterDecision = accountFilterDecision,
@@ -185,9 +185,9 @@ fun NotificationViewData.Companion.make(
 
     NotificationEntity.Type.STATUS -> data.status?.let { status ->
         StatusNotificationViewData(
-            pachliAccountId = pachliAccount.id,
+            pachliAccountId = pachliAccount.pachliAccountId,
             localDomain = pachliAccount.domain,
-            notificationId = data.notification.serverId,
+            notificationId = data.notification.notificationId,
             account = data.account.asModel(),
             isAboutSelf = isAboutSelf,
             accountFilterDecision = accountFilterDecision,
@@ -205,9 +205,9 @@ fun NotificationViewData.Companion.make(
     }
 
     NotificationEntity.Type.SIGN_UP -> SignupNotificationViewData(
-        pachliAccountId = pachliAccount.id,
+        pachliAccountId = pachliAccount.pachliAccountId,
         localDomain = pachliAccount.domain,
-        notificationId = data.notification.serverId,
+        notificationId = data.notification.notificationId,
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision,
         account = data.account.asModel(),
@@ -215,9 +215,9 @@ fun NotificationViewData.Companion.make(
 
     NotificationEntity.Type.UPDATE -> data.status?.let { status ->
         UpdateNotificationViewData(
-            pachliAccountId = pachliAccount.id,
+            pachliAccountId = pachliAccount.pachliAccountId,
             localDomain = pachliAccount.domain,
-            notificationId = data.notification.serverId,
+            notificationId = data.notification.notificationId,
             account = data.account.asModel(),
             isAboutSelf = isAboutSelf,
             accountFilterDecision = accountFilterDecision,
@@ -236,9 +236,9 @@ fun NotificationViewData.Companion.make(
 
     NotificationEntity.Type.REPORT -> data.notification.report?.let {
         ReportNotificationViewData(
-            pachliAccountId = pachliAccount.id,
+            pachliAccountId = pachliAccount.pachliAccountId,
             localDomain = pachliAccount.domain,
-            notificationId = data.notification.serverId,
+            notificationId = data.notification.notificationId,
             account = data.account.asModel(),
             isAboutSelf = isAboutSelf,
             accountFilterDecision = accountFilterDecision,
@@ -248,9 +248,9 @@ fun NotificationViewData.Companion.make(
 
     NotificationEntity.Type.SEVERED_RELATIONSHIPS -> data.notification.relationshipSeveranceEvent?.let {
         SeveredRelationshipsNotificationViewData(
-            pachliAccountId = pachliAccount.id,
+            pachliAccountId = pachliAccount.pachliAccountId,
             localDomain = pachliAccount.domain,
-            notificationId = data.notification.serverId,
+            notificationId = data.notification.notificationId,
             account = data.account.asModel(),
             isAboutSelf = isAboutSelf,
             accountFilterDecision = accountFilterDecision,
@@ -260,9 +260,9 @@ fun NotificationViewData.Companion.make(
 
     NotificationEntity.Type.MODERATION_WARNING -> data.notification.accountWarning?.let {
         ModerationWarningNotificationViewData(
-            pachliAccountId = pachliAccount.id,
+            pachliAccountId = pachliAccount.pachliAccountId,
             localDomain = pachliAccount.domain,
-            notificationId = data.notification.serverId,
+            notificationId = data.notification.notificationId,
             account = data.account.asModel(),
             isAboutSelf = isAboutSelf,
             accountFilterDecision = accountFilterDecision,
@@ -272,9 +272,9 @@ fun NotificationViewData.Companion.make(
 
     NotificationEntity.Type.QUOTE -> data.status?.let { status ->
         QuoteNotificationViewData(
-            pachliAccountId = pachliAccount.id,
+            pachliAccountId = pachliAccount.pachliAccountId,
             localDomain = pachliAccount.domain,
-            notificationId = data.notification.serverId,
+            notificationId = data.notification.notificationId,
             account = data.account.asModel(),
             isAboutSelf = isAboutSelf,
             accountFilterDecision = accountFilterDecision,
@@ -293,9 +293,9 @@ fun NotificationViewData.Companion.make(
 
     NotificationEntity.Type.QUOTED_UPDATE -> data.status?.let { status ->
         QuotedUpdateNotificationViewData(
-            pachliAccountId = pachliAccount.id,
+            pachliAccountId = pachliAccount.pachliAccountId,
             localDomain = pachliAccount.domain,
-            notificationId = data.notification.serverId,
+            notificationId = data.notification.notificationId,
             account = data.account.asModel(),
             isAboutSelf = isAboutSelf,
             accountFilterDecision = accountFilterDecision,
@@ -314,9 +314,9 @@ fun NotificationViewData.Companion.make(
 
     NotificationEntity.Type.COLLECTION_ADD -> data.timelineCollection?.let { timelineCollection ->
         NotificationViewData.WithCollection.CollectionAddNotificationViewData(
-            pachliAccountId = pachliAccount.id,
+            pachliAccountId = pachliAccount.pachliAccountId,
             localDomain = pachliAccount.domain,
-            notificationId = data.notification.serverId,
+            notificationId = data.notification.notificationId,
             account = data.account.asModel(),
             isAboutSelf = isAboutSelf,
             accountFilterDecision = accountFilterDecision,
@@ -330,9 +330,9 @@ fun NotificationViewData.Companion.make(
 
     NotificationEntity.Type.COLLECTION_UPDATE -> data.timelineCollection?.let { timelineCollection ->
         NotificationViewData.WithCollection.CollectionUpdateNotificationViewData(
-            pachliAccountId = pachliAccount.id,
+            pachliAccountId = pachliAccount.pachliAccountId,
             localDomain = pachliAccount.domain,
-            notificationId = data.notification.serverId,
+            notificationId = data.notification.notificationId,
             account = data.account.asModel(),
             isAboutSelf = isAboutSelf,
             accountFilterDecision = accountFilterDecision,

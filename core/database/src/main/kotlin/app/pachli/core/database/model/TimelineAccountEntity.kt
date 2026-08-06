@@ -17,11 +17,11 @@
 
 package app.pachli.core.database.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Index
-import androidx.room.TypeConverters
+import androidx.room3.ColumnInfo
+import androidx.room3.ColumnTypeConverters
+import androidx.room3.Entity
+import androidx.room3.ForeignKey
+import androidx.room3.Index
 import app.pachli.core.database.Converters
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.Role
@@ -37,7 +37,7 @@ import java.time.Instant
  *
  * Areas that need more data should use [AccountEntity] instead.
  *
- * @property serverId
+ * @property accountId
  * @property pachliAccountId The pachliAccountId for the logged-in account related
  * to this account.
  * @property localUsername
@@ -50,22 +50,22 @@ import java.time.Instant
  * @property createdAt
  */
 @Entity(
-    primaryKeys = ["serverId", "pachliAccountId"],
+    primaryKeys = ["pachliAccountId", "accountId"],
     foreignKeys = [
         ForeignKey(
             entity = PachliAccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("pachliAccountId"),
+            parentColumns = ["pachliAccountId"],
+            childColumns = ["pachliAccountId"],
             onDelete = ForeignKey.CASCADE,
             deferred = true,
         ),
     ],
     indices = [Index(value = ["pachliAccountId"])],
 )
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 data class TimelineAccountEntity(
-    val serverId: String,
     val pachliAccountId: Long,
+    val accountId: String,
     val localUsername: String,
     val username: String,
     val displayName: String,
@@ -82,7 +82,7 @@ data class TimelineAccountEntity(
     val pronouns: String?,
 ) {
     fun asModel() = TimelineAccount(
-        serverId = serverId,
+        accountId = accountId,
         localUsername = localUsername,
         username = username,
         displayName = displayName,
@@ -98,7 +98,7 @@ data class TimelineAccountEntity(
 }
 
 fun TimelineAccount.asEntity(pachliAccountId: Long) = TimelineAccountEntity(
-    serverId = serverId,
+    accountId = accountId,
     pachliAccountId = pachliAccountId,
     localUsername = localUsername,
     username = username,

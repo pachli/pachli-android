@@ -299,7 +299,7 @@ class AccountManager @Inject constructor(
                 clientSecret = clientSecret,
                 oauthScopes = oauthScopes,
             ) ?: PachliAccountEntity(
-                id = 0L,
+                pachliAccountId = 0L,
                 domain = domain.lowercase(Locale.ROOT),
                 accessToken = accessToken,
                 clientId = clientId,
@@ -310,7 +310,7 @@ class AccountManager @Inject constructor(
                 isBot = networkAccount.bot,
             )
 
-            Timber.d("addAccount: upsert account id: %d, isActive: %s", newAccount.id, newAccount.isActive)
+            Timber.d("addAccount: upsert account id: %d, isActive: %s", newAccount.pachliAccountId, newAccount.isActive)
             val newId = accountDao.upsert(newAccount)
             return@transactionProvider Ok(newId)
         }
@@ -320,7 +320,7 @@ class AccountManager @Inject constructor(
         setPushNotificationData(accountId, "", "", "", "", "")
     }
 
-    suspend fun deleteAccount(account: app.pachli.core.model.PachliAccount) = accountDao.deleteAccountById(account.id)
+    suspend fun deleteAccount(account: app.pachli.core.model.PachliAccount) = accountDao.deleteAccountById(account.pachliAccountId)
 
     /**
      * Changes the active account.
@@ -386,7 +386,7 @@ class AccountManager @Inject constructor(
                     isBot = account.bot,
                 )
 
-                Timber.d("setActiveAccount: saving id: %d, isActive: %s", finalPachliAccountEntity.id, finalPachliAccountEntity.isActive)
+                Timber.d("setActiveAccount: saving id: %d, isActive: %s", finalPachliAccountEntity.pachliAccountId, finalPachliAccountEntity.isActive)
                 accountDao.update(finalPachliAccountEntity)
 
                 // Now safe to update InstanceSwitchAuthInterceptor.
@@ -397,7 +397,7 @@ class AccountManager @Inject constructor(
                         domain = newActiveAccountEntity.domain,
                     )
 
-                val finalPachliAccount = accountDao.getPachliAccount(finalPachliAccountEntity.id)!!
+                val finalPachliAccount = accountDao.getPachliAccount(finalPachliAccountEntity.pachliAccountId)!!
 
                 return@transactionProvider Ok(finalPachliAccount.asModel())
             }
@@ -427,7 +427,7 @@ class AccountManager @Inject constructor(
         // depend on one another.
         val deferServer = externalScope.async {
             serverRepository.getServer()
-                .onSuccess { serverDao.upsert(it.asEntity(account.id)) }
+                .onSuccess { serverDao.upsert(it.asEntity(account.pachliAccountId)) }
                 .mapError { RefreshAccountError.General(account, it) }
         }
 
@@ -437,7 +437,7 @@ class AccountManager @Inject constructor(
                 .map {
                     it.body.map {
                         AnnouncementEntity(
-                            accountId = account.id,
+                            pachliAccountId = account.pachliAccountId,
                             announcementId = it.id,
                             announcement = it.asModel(),
                         )
@@ -445,7 +445,7 @@ class AccountManager @Inject constructor(
                 }
                 .onSuccess {
                     transactionProvider {
-                        announcementsDao.deleteAllForAccount(account.id)
+                        announcementsDao.deleteAllForAccount(account.pachliAccountId)
                         announcementsDao.upsert(it)
                     }
                 }
@@ -458,7 +458,7 @@ class AccountManager @Inject constructor(
                     val response = mastodonApi.accountFollowing(account.accountId, maxId)
                         .getOrElse { return@async Err(RefreshAccountError.General(account, it)) }
 
-                    addAll(response.body.map { FollowingAccountEntity.from(account.id, it.asModel()) })
+                    addAll(response.body.map { FollowingAccountEntity.from(account.pachliAccountId, it.asModel()) })
                     val links = HttpHeaderLink.parse(response.headers["Link"])
                     val next = HttpHeaderLink.findByRelationType(links, "next")
                     maxId = next?.uri?.getQueryParameter("max_id")
@@ -466,7 +466,7 @@ class AccountManager @Inject constructor(
             }
 
             transactionProvider {
-                followingAccountDao.deleteAllForAccount(account.id)
+                followingAccountDao.deleteAllForAccount(account.pachliAccountId)
                 followingAccountDao.upsert(following)
             }
 
@@ -477,12 +477,12 @@ class AccountManager @Inject constructor(
         // success/failure. Worst thing that can happen is the UI is out of date
         // for followed hashtags for a few seconds if the user followed/unfollowed
         // hashtags outside Pachli.
-        externalScope.launch { hashtagsRepository.refreshFollowedHashtags(account.id) }
+        externalScope.launch { hashtagsRepository.refreshFollowedHashtags(account.pachliAccountId) }
 
         // Create the server info so it can used for both server capabilities and filters.
         deferServer.await().bind()
 
-        externalScope.async { contentFiltersRepository.refresh(account.id) }.await()
+        externalScope.async { contentFiltersRepository.refresh(account.pachliAccountId) }.await()
             .orElse {
                 when (it) {
                     ContentFiltersError.ServerDoesNotFilter -> Ok(Unit)
@@ -490,7 +490,7 @@ class AccountManager @Inject constructor(
                 }
             }.bind()
 
-        externalScope.async { listsRepository.refresh(account.id) }.await()
+        externalScope.async { listsRepository.refresh(account.pachliAccountId) }.await()
             .mapError { RefreshAccountError.General(account, it) }.bind()
 
         // Ignore errors when fetching announcements, they're non-fatal.

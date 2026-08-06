@@ -55,7 +55,7 @@ import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.data.CollectionCardViewData
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.model.AttachmentDisplayAction
@@ -64,9 +64,9 @@ import app.pachli.core.model.IStatus
 import app.pachli.core.model.Notification
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
+import app.pachli.core.model.collection.CollectionCardViewData
 import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.navigation.AttachmentViewData.Companion.list
-import app.pachli.core.navigation.CollectionActivityIntent
 import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.preferences.TabTapBehaviour
 import app.pachli.core.ui.ActionButtonScrollListener
@@ -91,7 +91,6 @@ import com.mikepenz.iconics.IconicsSize
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
-import kotlin.properties.Delegates
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -114,10 +113,12 @@ class NotificationsFragment :
     MenuProvider,
     ReselectableFragment {
 
+    override val pachliAccountId by unsafeLazy { requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID) }
+
     private val viewModel: NotificationsViewModel by viewModels(
         extrasProducer = {
             defaultViewModelCreationExtras.withCreationCallback<NotificationsViewModel.Factory> { factory ->
-                factory.create(requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID))
+                factory.create(pachliAccountId)
             }
         },
     )
@@ -129,8 +130,6 @@ class NotificationsFragment :
     private lateinit var layoutManager: LinearLayoutManager
 
     private var talkBackWasEnabled = false
-
-    override var pachliAccountId by Delegates.notNull<Long>()
 
     // Update post timestamps
     private val updateTimestampFlow = flow {
@@ -144,12 +143,6 @@ class NotificationsFragment :
             adapter.itemCount,
             listOf(StatusViewDataDiffCallback.Payload.CREATED),
         )
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
     }
 
     override fun onCreateView(
@@ -566,7 +559,7 @@ class NotificationsFragment :
     }
 
     override fun onOpenReblog(status: IStatus) {
-        onViewAccount(status.account.serverId)
+        onViewAccount(status.account.accountId)
     }
 
     override fun onExpandedChange(viewData: IStatusViewData, expanded: Boolean) {
@@ -682,13 +675,6 @@ class NotificationsFragment :
         }
     }
 
-    override fun onViewCollection(collection: ICollection) {
-        startActivityWithTransition(
-            CollectionActivityIntent(requireContext(), pachliAccountId, collection.serverId),
-            TransitionKind.SLIDE_FROM_END,
-        )
-    }
-
     override fun onRevokeUserFromCollection(collection: ICollection) {
         lifecycleScope.launch {
             val button = requireContext().newConfirmRevokeDialogFragment().await(parentFragmentManager)
@@ -696,7 +682,7 @@ class NotificationsFragment :
                 viewModel.accept(
                     FallibleCollectionAction.Revoke(
                         pachliAccountId = pachliAccountId,
-                        collectionId = collection.serverId,
+                        collectionId = collection.collectionId,
                         accountId = viewModel.pachliAccount.accountId,
                     ),
                 )
@@ -704,12 +690,12 @@ class NotificationsFragment :
         }
     }
 
-    override fun onCollectionDisplayActionChange(viewData: CollectionCardViewData, action: CollectionDisplayAction) {
+    override fun onCollectionDisplayActionChange(viewData: CollectionCardViewData, collectionDisplayAction: CollectionDisplayAction) {
         viewModel.accept(
             InfallibleUiAction.OverrideCollectionDisplayAction(
                 pachliAccountId,
-                viewData.timelineCollection.serverId,
-                action,
+                viewData.timelineCollection.collectionId,
+                collectionDisplayAction,
             ),
         )
     }

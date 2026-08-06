@@ -67,7 +67,7 @@ data class Report(
     }
 
     fun asModel() = app.pachli.core.model.Report(
-        serverId = id,
+        reportId = id,
         category = category.asModel(),
         actionTaken = actionTaken,
         actionTakenAt = actionTakenAt,

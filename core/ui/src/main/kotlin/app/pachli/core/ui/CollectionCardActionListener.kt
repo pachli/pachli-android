@@ -17,8 +17,8 @@
 
 package app.pachli.core.ui
 
-import app.pachli.core.data.CollectionCardViewData
 import app.pachli.core.model.ICollection
+import app.pachli.core.model.collection.CollectionCardViewData
 import app.pachli.core.model.collection.CollectionDisplayAction
 
 /**
@@ -65,7 +65,7 @@ fun interface OnCollectionDisplayActionChange {
      * is displayed.
      *
      * @param viewData
-     * @param action The new [CollectionDisplayAction]
+     * @param collectionDisplayAction The new [CollectionDisplayAction]
      */
-    fun onCollectionDisplayActionChange(viewData: CollectionCardViewData, action: CollectionDisplayAction)
+    fun onCollectionDisplayActionChange(viewData: CollectionCardViewData, collectionDisplayAction: CollectionDisplayAction)
 }

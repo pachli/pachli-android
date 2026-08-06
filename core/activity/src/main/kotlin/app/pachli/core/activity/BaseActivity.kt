@@ -288,7 +288,7 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
         }
 
     fun openAsAccount(url: String, account: PachliAccount) {
-        startActivity(IntentRouterActivityIntent.openAs(this, account.id, url))
+        startActivity(IntentRouterActivityIntent.openAs(this, account.pachliAccountId, url))
         finish()
     }
 

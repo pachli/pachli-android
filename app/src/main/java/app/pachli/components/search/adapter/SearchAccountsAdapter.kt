@@ -58,7 +58,7 @@ class SearchAccountsAdapter(
         val ACCOUNT_COMPARATOR = object : DiffUtil.ItemCallback<TimelineAccount>() {
             override fun areContentsTheSame(oldItem: TimelineAccount, newItem: TimelineAccount): Boolean = oldItem == newItem
 
-            override fun areItemsTheSame(oldItem: TimelineAccount, newItem: TimelineAccount): Boolean = oldItem.serverId == newItem.serverId
+            override fun areItemsTheSame(oldItem: TimelineAccount, newItem: TimelineAccount): Boolean = oldItem.accountId == newItem.accountId
         }
     }
 }

@@ -57,9 +57,9 @@ class FollowAccountUseCase @Inject constructor(
      */
     @OptIn(UseCaseOnly::class)
     suspend operator fun invoke(pachliAccountId: Long, account: ITimelineAccount, showReblogs: Boolean? = null, notify: Boolean? = null): Result<Relationship, ApiError> = externalScope.async {
-        mastodonApi.followAccount(account.serverId, showReblogs, notify).map { it.body.asModel() }
+        mastodonApi.followAccount(account.accountId, showReblogs, notify).map { it.body.asModel() }
             .onSuccess {
-                followingAccountDao.upsert(FollowingAccountEntity(pachliAccountId, account.serverId, account.domain))
+                followingAccountDao.upsert(FollowingAccountEntity(pachliAccountId, account.accountId, account.domain))
             }
     }.await()
 }

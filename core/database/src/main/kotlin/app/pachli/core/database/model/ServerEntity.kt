@@ -17,10 +17,10 @@
 
 package app.pachli.core.database.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.TypeConverters
+import androidx.room3.ColumnInfo
+import androidx.room3.ColumnTypeConverters
+import androidx.room3.Entity
+import androidx.room3.ForeignKey
 import app.pachli.core.database.Converters
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.Server
@@ -32,10 +32,10 @@ import io.github.z4kn4fein.semver.Version
 /**
  * Represents a Mastodon server's capabilities.
  *
- * Each server is associated with exactly one [PachliAccountEntity] through the [accountId]
+ * Each server is associated with exactly one [PachliAccountEntity] through the [pachliAccountId]
  * property.
  *
- * @property accountId
+ * @property pachliAccountId
  * @property serverKind Server's [ServerKind].
  * @property version Server's version, parsed to a [Version].
  * @property rawVersion Raw server version string, as reported by the server.
@@ -44,20 +44,20 @@ import io.github.z4kn4fein.semver.Version
  * @property emojis Server's [Emoji].
  */
 @Entity(
-    primaryKeys = ["accountId"],
+    primaryKeys = ["pachliAccountId"],
     foreignKeys = [
         ForeignKey(
             entity = PachliAccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("accountId"),
+            parentColumns = ["pachliAccountId"],
+            childColumns = ["pachliAccountId"],
             onDelete = ForeignKey.CASCADE,
             deferred = true,
         ),
     ],
 )
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 data class ServerEntity(
-    val accountId: Long,
+    val pachliAccountId: Long,
     val serverKind: ServerKind,
     val version: Version,
     @ColumnInfo(defaultValue = "")
@@ -81,7 +81,7 @@ data class ServerEntity(
 }
 
 fun Server.asEntity(pachliAccountId: Long) = ServerEntity(
-    accountId = pachliAccountId,
+    pachliAccountId = pachliAccountId,
     serverKind = kind,
     version = version,
     rawVersion = rawVersion,

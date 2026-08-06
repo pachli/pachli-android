@@ -183,6 +183,19 @@
         app:layout_constraintTop_toBottomOf="@+id/status_content_warning_button"
         tools:text="Status content. Can be pretty long. " />
 
+    <LinearLayout
+        android:id="@+id/collectionsContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:importantForAccessibility="no"
+        android:orientation="vertical"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/status_content"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <app.pachli.core.ui.PreviewCardView
         android:id="@+id/status_card_view"
         android:layout_width="match_parent"
@@ -193,7 +206,7 @@
         android:minHeight="80dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/status_content"
+        app:layout_constraintTop_toBottomOf="@+id/collectionsContainer"
         tools:visibility="gone" />
 
     <app.pachli.core.ui.AttachmentsView

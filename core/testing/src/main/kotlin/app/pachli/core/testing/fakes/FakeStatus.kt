@@ -179,7 +179,6 @@ fun fakeStatusViewData(
         ).asModel(),
         isExpanded = isExpanded,
         isCollapsed = isCollapsed,
-        isDetailed = isDetailed,
         translationState = TranslationState.SHOW_ORIGINAL,
         attachmentDisplayAction = if (isShowingContent) {
             AttachmentDisplayAction.Show(originalAction = AttachmentDisplayAction.Hide(AttachmentDisplayReason.Sensitive))
@@ -187,7 +186,9 @@ fun fakeStatusViewData(
             AttachmentDisplayAction.Hide(reason = AttachmentDisplayReason.Sensitive)
         },
         replyToAccount = null,
+        isDetailed = isDetailed,
         isUsersStatus = false,
+        collectionCardViewData = emptyList(),
     ),
 )
 
@@ -204,7 +205,7 @@ fun fakeStatusEntityWithAccount(
             status = status.asEntity(pachliAccountId),
             account = status.account.asEntity(pachliAccountId),
             viewData = StatusViewDataEntity(
-                serverId = status.id,
+                statusId = status.id,
                 pachliAccountId = pachliAccountId,
                 expanded = expanded,
                 contentCollapsed = true,

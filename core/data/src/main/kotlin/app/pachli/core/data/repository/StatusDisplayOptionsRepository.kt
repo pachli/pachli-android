@@ -141,7 +141,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
         }
 
         externalScope.launch {
-            accountManager.activePachliAccountFlow.distinctUntilChangedBy { it.id }.collect {
+            accountManager.activePachliAccountFlow.distinctUntilChangedBy { it.pachliAccountId }.collect {
                 _flow.emit(initialStatusDisplayOptions(it))
             }
         }

@@ -22,6 +22,8 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import app.pachli.core.data.repository.AccountRepository
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.notifications.asEntities
 import app.pachli.core.data.repository.notifications.asEntity
 import app.pachli.core.database.dao.RemoteKeyDao
@@ -32,6 +34,7 @@ import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithQuote
+import app.pachli.core.model.CollectionWithAccounts
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Status
@@ -58,6 +61,8 @@ class CachedTimelineRemoteMediator(
     private val timelineDao: TimelineDao,
     private val remoteKeyDao: RemoteKeyDao,
     private val statusDao: StatusDao,
+    private val collectionsRepository: CollectionsRepository,
+    private val accountRepository: AccountRepository,
 ) : RemoteMediator<Int, TimelineStatusWithQuote>() {
     override suspend fun load(
         loadType: LoadType,
@@ -218,6 +223,9 @@ class CachedTimelineRemoteMediator(
     private suspend fun insertStatuses(pachliAccountId: Long, statuses: List<Status>) {
         check(transactionProvider.inTransaction())
 
+        val collections = mutableSetOf<app.pachli.core.model.Collection>()
+        val accountIdsInCollections = mutableSetOf<String>()
+
         /** Unique accounts referenced in this batch of statuses. */
         val accounts = buildSet {
             statuses.forEach { status ->
@@ -233,8 +241,18 @@ class CachedTimelineRemoteMediator(
                     add(quote.account)
                     quote.reblog?.let { add(it.account) }
                 }
+
+                status.taggedCollections?.forEach {
+                    val collection = it.asModel()
+                    collections.add(collection)
+                    accountIdsInCollections.addAll(collection.allAccountIds())
+                }
             }
         }
+
+        val accountsInCollections = accountRepository.getAccounts(pachliAccountId, accountIdsInCollections)
+            .map { it.associateBy { it.accountId } }
+            .getOrElse { emptyMap() }
 
         timelineDao.upsertTimelineAccounts(accounts.map { it.asEntity(pachliAccountId) })
         statusDao.upsertStatuses(statuses.flatMap { it.asEntities(pachliAccountId) })
@@ -247,5 +265,14 @@ class CachedTimelineRemoteMediator(
                 )
             },
         )
+
+        val collectionsWithAccounts = collections.map { collection ->
+            CollectionWithAccounts(
+                collection = collection,
+                owner = accountsInCollections[collection.accountId],
+                accounts = collection.items.mapNotNull { item -> accountsInCollections[item.accountId] },
+            )
+        }
+        collectionsRepository.saveCollections(pachliAccountId, collectionsWithAccounts)
     }
 }

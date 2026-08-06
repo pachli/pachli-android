@@ -38,7 +38,7 @@ interface RelationshipsRepository {
      * Fetches the relationships between the user and [accountIds].
      *
      * @param pachliAccountId
-     * @param accountIds List of [account IDs][app.pachli.core.model.ITimelineAccount.serverId]
+     * @param accountIds List of [account IDs][app.pachli.core.model.ITimelineAccount.accountId]
      */
     suspend fun getRelationships(
         pachliAccountId: Long,

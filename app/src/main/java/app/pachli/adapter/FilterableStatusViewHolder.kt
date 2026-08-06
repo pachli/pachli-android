@@ -57,7 +57,7 @@ open class FilterableStatusViewHolder<T : IStatusViewData>(
             return
         }
 
-        viewData.actionable.filtered?.find { it.filter.filterAction === FilterAction.WARN }?.let { result ->
+        viewData.actionable.filtered.find { it.filter.filterAction === FilterAction.WARN }?.let { result ->
             this.matchedFilter = result.filter
             setPlaceholderVisibility(true)
 

@@ -17,19 +17,19 @@
 
 package app.pachli.core.database.model
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
+import androidx.room3.Entity
+import androidx.room3.ForeignKey
 
 /**
  * The remote keys for the given timeline, see [RemoteKeyKind].
  */
 @Entity(
-    primaryKeys = ["accountId", "timelineId", "kind"],
+    primaryKeys = ["pachliAccountId", "timelineId", "kind"],
     foreignKeys = [
         ForeignKey(
             entity = PachliAccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("accountId"),
+            parentColumns = ["pachliAccountId"],
+            childColumns = ["pachliAccountId"],
             onDelete = ForeignKey.CASCADE,
             deferred = true,
         ),
@@ -37,7 +37,7 @@ import androidx.room.ForeignKey
 )
 data class RemoteKeyEntity(
     /** User account these keys relate to. */
-    val accountId: Long,
+    val pachliAccountId: Long,
     /**
      * Identifier for the timeline these keys relate to.
      *

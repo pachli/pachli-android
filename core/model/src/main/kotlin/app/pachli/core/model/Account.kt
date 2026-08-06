@@ -27,7 +27,7 @@ import java.util.Date
  * to [movedAccount].
  */
 data class Account(
-    override val serverId: String,
+    override val accountId: String,
     override val localUsername: String,
     override val username: String,
     @Deprecated("prefer the `name` property, which is not empty")
@@ -59,7 +59,7 @@ data class Account(
  */
 @JsonClass(generateAdapter = true)
 data class MovedAccount(
-    val serverId: String,
+    val accountId: String,
     val localUsername: String,
     val username: String,
     val displayName: String,

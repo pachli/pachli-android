@@ -17,12 +17,12 @@
 
 package app.pachli.core.database.dao
 
-import androidx.room.Dao
-import androidx.room.MapColumn
-import androidx.room.Query
-import androidx.room.TypeConverters
-import androidx.room.Update
-import androidx.room.Upsert
+import androidx.room3.ColumnTypeConverters
+import androidx.room3.Dao
+import androidx.room3.MapColumn
+import androidx.room3.Query
+import androidx.room3.Update
+import androidx.room3.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.StatusViewDataAttachmentDisplayAction
@@ -37,7 +37,7 @@ import app.pachli.core.model.Poll
  * part of.
  */
 @Dao
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 abstract class StatusDao {
     @Upsert
     abstract suspend fun upsertStatuses(statuses: Collection<StatusEntity>)
@@ -56,7 +56,7 @@ abstract class StatusDao {
         """
 SELECT *
 FROM StatusEntity
-WHERE pachliAccountId = :pachliAccountId AND (serverId = :statusId)
+WHERE pachliAccountId = :pachliAccountId AND (statusId = :statusId)
         """,
     )
     abstract suspend fun getStatus(pachliAccountId: Long, statusId: String): StatusEntity?
@@ -67,7 +67,7 @@ UPDATE StatusEntity
 SET
     favourited = :favourited,
     favouritesCount = favouritesCount + CASE WHEN :favourited THEN 1 ELSE -1 END
-WHERE pachliAccountId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
+WHERE pachliAccountId = :pachliAccountId AND (statusId = :statusId OR reblogStatusId = :statusId)
 """,
     )
     abstract suspend fun setFavourited(pachliAccountId: Long, statusId: String, favourited: Boolean)
@@ -77,7 +77,7 @@ WHERE pachliAccountId = :pachliAccountId AND (serverId = :statusId OR reblogServ
 UPDATE StatusEntity
 SET
     bookmarked = :bookmarked
-WHERE pachliAccountId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
+WHERE pachliAccountId = :pachliAccountId AND (statusId = :statusId OR reblogstatusId = :statusId)
 """,
     )
     abstract suspend fun setBookmarked(pachliAccountId: Long, statusId: String, bookmarked: Boolean)
@@ -88,7 +88,7 @@ UPDATE StatusEntity
 SET
     reblogged = :reblogged,
     reblogsCount = reblogsCount + CASE WHEN :reblogged THEN 1 ELSE -1 END
-WHERE pachliAccountId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
+WHERE pachliAccountId = :pachliAccountId AND (statusId = :statusId OR reblogstatusId = :statusId)
 """,
     )
     abstract suspend fun setReblogged(pachliAccountId: Long, statusId: String, reblogged: Boolean)
@@ -98,7 +98,7 @@ WHERE pachliAccountId = :pachliAccountId AND (serverId = :statusId OR reblogServ
 UPDATE StatusEntity
 SET
     muted = :muted
-WHERE pachliAccountId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
+WHERE pachliAccountId = :pachliAccountId AND (statusId = :statusId OR reblogstatusId = :statusId)
         """,
     )
     abstract suspend fun setMuted(pachliAccountId: Long, statusId: String, muted: Boolean)
@@ -108,41 +108,41 @@ WHERE pachliAccountId = :pachliAccountId AND (serverId = :statusId OR reblogServ
 DELETE
 FROM StatusEntity
 WHERE
-    pachliAccountId = :accountId
-    AND serverId = :statusId
+    pachliAccountId = :pachliAccountId
+    AND statusId = :statusId
 """,
     )
-    abstract suspend fun delete(accountId: Long, statusId: String)
+    abstract suspend fun delete(pachliAccountId: Long, statusId: String)
 
     @Query(
         """
 UPDATE StatusEntity
 SET
     poll = :poll
-WHERE pachliAccountId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)
+WHERE pachliAccountId = :pachliAccountId AND (statusId = :statusId OR reblogstatusId = :statusId)
 """,
     )
-    abstract suspend fun setPoll(accountId: Long, statusId: String, poll: Poll)
+    abstract suspend fun setPoll(pachliAccountId: Long, statusId: String, poll: Poll)
 
     @Query(
         """
 UPDATE StatusEntity
 SET
     pinned = :pinned
-WHERE pachliAccountId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)
+WHERE pachliAccountId = :pachliAccountId AND (statusId = :statusId OR reblogstatusId = :statusId)
 """,
     )
-    abstract suspend fun setPinned(accountId: Long, statusId: String, pinned: Boolean)
+    abstract suspend fun setPinned(pachliAccountId: Long, statusId: String, pinned: Boolean)
 
     @Query(
         """
 UPDATE StatusEntity
 SET
     filtered = NULL
-WHERE pachliAccountId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)
+WHERE pachliAccountId = :pachliAccountId AND (statusId = :statusId OR reblogstatusId = :statusId)
 """,
     )
-    abstract suspend fun clearWarning(accountId: Long, statusId: String): Int
+    abstract suspend fun clearWarning(pachliAccountId: Long, statusId: String): Int
 
     // StatusViewData methods
 
@@ -150,45 +150,45 @@ WHERE pachliAccountId = :accountId AND (serverId = :statusId OR reblogServerId =
     abstract suspend fun upsertStatusViewData(svd: StatusViewDataEntity)
 
     /**
-     * @param accountId the accountId to query
-     * @param serverIds the IDs of the statuses to check
-     * @return Map between serverIds and any cached viewdata for those statuses
+     * @param pachliAccountId the pachliAccountId to query
+     * @param statusIds the IDs of the statuses to check
+     * @return Map between statusIds and any cached viewdata for those statuses
      */
     @Query(
         """
 SELECT *
 FROM StatusViewDataEntity
 WHERE
-    pachliAccountId = :accountId
-    AND serverId IN (:serverIds)
+    pachliAccountId = :pachliAccountId
+    AND statusId IN (:statusIds)
 """,
     )
     abstract suspend fun getStatusViewData(
-        accountId: Long,
-        serverIds: Collection<String>,
+        pachliAccountId: Long,
+        statusIds: Collection<String>,
     ): Map<
-        @MapColumn(columnName = "serverId")
+        @MapColumn(columnName = "statusId")
         String,
         StatusViewDataEntity,
         >
 
     /**
-     * @param accountId the accountId to query.
-     * @param serverId the IDs of the status to check.
-     * @return [StatusViewDataEntity] for [serverId], null if none exists.
+     * @param pachliAccountId the pachliAccountId to query.
+     * @param statusId the IDs of the status to check.
+     * @return [StatusViewDataEntity] for [statusId], null if none exists.
      */
     @Query(
         """
 SELECT *
 FROM StatusViewDataEntity
 WHERE
-    pachliAccountId = :accountId
-    AND serverId = :serverId
+    pachliAccountId = :pachliAccountId
+    AND statusId = :statusId
 """,
     )
     abstract suspend fun getStatusViewData(
-        accountId: Long,
-        serverId: String,
+        pachliAccountId: Long,
+        statusId: String,
     ): StatusViewDataEntity?
 
     /** Upserts [partial], setting the [expanded][StatusViewDataEntity.expanded] property. */
