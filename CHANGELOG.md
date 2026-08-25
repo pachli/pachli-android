@@ -1,5 +1,14 @@
 # Pachli changelog
 
+## v3.8.1
+
+See https://pachli.app/pachli/2026/08/25/3.8.1-release.html for full details and credits.
+
+### Translations
+
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update Indonesian translations ([Arif Budiman](https://github.com/pachli/pachli-android/commits?author=arifpedia@gmail.com))
+
 ## v3.8.0
 
 See https://pachli.app/pachli/2026/07/30/3.8.0-release.html for full details and credits.
