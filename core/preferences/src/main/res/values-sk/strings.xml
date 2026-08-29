@@ -10,7 +10,7 @@
     <string name="app_theme_auto">Automaticky pri západe slnka</string>
     <string name="app_theme_system">Použiť systémovú tému</string>
     <string name="download_location_per_sender">Priečinky pre každého odosielateľa, v priečinku pre sťahované súbory</string>
-    <string name="pref_title_tab_tap">Akcia pri klepnutí na panel</string>
+    <string name="pref_title_tab_tap">Akcia pri kliknutí na panel</string>
     <string name="tab_tap_behaviour_jump_to_next_page">Prejsť na ďalšiu stránku</string>
     <string name="tab_tap_behaviour_jump_to_newest">Prejsť na najnovší obsah</string>
     <string name="pref_category_tabs">Panely</string>
@@ -32,8 +32,8 @@
     <string name="pref_update_notification_frequency_never">Nikdy</string>
     <string name="pref_update_notification_frequency_once_per_version">Raz za verziu</string>
     <string name="pref_update_notification_frequency_always">Vždy</string>
-    <string name="pref_summary_export_settings">Klepnutím uložíš nastavenia aplikácie a účtu do lokálneho súboru</string>
-    <string name="pref_summary_import_settings">Klepnutím obnovíš nastavenia zo súboru vytvoreného pomocou funkcie „Exportovať nastavenia“</string>
+    <string name="pref_summary_export_settings">Kliknutím uložíš nastavenia aplikácie a účtu do lokálneho súboru</string>
+    <string name="pref_summary_import_settings">Kliknutím obnovíš nastavenia zo súboru vytvoreného pomocou funkcie „Exportovať nastavenia“</string>
     <string name="pref_title_export_settings">Exportovať nastavenia</string>
     <string name="pref_title_import_settings">Importovať nastavenia</string>
     <string name="pref_default_audio_playback_option_unmuted">Stlmenie zrušené</string>
