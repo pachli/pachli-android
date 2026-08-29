@@ -68,6 +68,7 @@ import app.pachli.core.ui.SetContentAsMarkdown
 import app.pachli.core.ui.SetContentAsMastodonHtml
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.usecase.TimelineCases
+import app.pachli.util.showUncaptionedMediaWarningDialog
 import app.pachli.view.showMuteAccountDialog
 import com.bumptech.glide.Glide
 import com.github.michaelbull.result.onFailure
@@ -201,6 +202,12 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
 
     override fun onContentCollapsedChange(viewData: IStatusViewData, isCollapsed: Boolean) {
         viewModel.collapsedChange(viewData, isCollapsed)
+    }
+
+    override fun onReblogWarning(viewData: IStatusViewData, reblog: Boolean) {
+        requireContext().showUncaptionedMediaWarningDialog {
+            onReblog(viewData, reblog)
+        }
     }
 
     override fun onVoteInPoll(viewData: IStatusViewData, poll: Poll, choices: List<Int>) {
