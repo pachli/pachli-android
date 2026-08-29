@@ -2,7 +2,7 @@ Pachli 2.8.2
 
 Nové funkcie:
 
-- Možnosť prispôsobiť si akciu po klepnutí na záložku/kartu
+- Možnosť prispôsobiť si akciu po kliknutí na záložku/kartu
 - Možnosť sťahovať médiá do priečinkov pre každého odosielateľa zvlášť 
 - Možnosť ukladať prílohy do priečinkov pre každý účet zvlášť 
 
