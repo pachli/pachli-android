@@ -89,7 +89,7 @@
     <string name="description_visibility_unlisted">Tiché verejné</string>
     <string name="description_visibility_private">Sledujúci</string>
     <string name="description_visibility_direct">Priame</string>
-    <string name="post_sensitive_media_title">Citlivý obsah. Zobraziť klepnutím.</string>
+    <string name="post_sensitive_media_title">Citlivý obsah. Zobraziť kliknutím.</string>
     <string name="post_media_images">Obrázky</string>
     <string name="post_media_audio">Audio</string>
     <string name="post_media_video">Video</string>
@@ -99,10 +99,10 @@
         <item quantity="few">s rolami:</item>
         <item quantity="other">s rolami:</item>
     </plurals>
-    <string name="attachment_matches_filter_one_fmt">Zodpovedá filtru: „%1$s“. Zobraziť klepnutím.</string>
-    <string name="attachment_matches_filter_two_fmt">Zodpovedá filtrom: \"%1$s\" a \"%2$s\". Zobraziť klepnutím.</string>
-    <string name="attachment_matches_filter_other_fmt">Zodpovedá filtrom: \"%1$s\", \"%2$s\" a ďalšie. Zobraziť klepnutím.</string>
-    <string name="attachment_hidden_user_action">Skryté. Zobraziť klepnutím.</string>
+    <string name="attachment_matches_filter_one_fmt">Zodpovedá filtru: „%1$s“. Zobraziť kliknutím.</string>
+    <string name="attachment_matches_filter_two_fmt">Zodpovedá filtrom: \"%1$s\" a \"%2$s\". Zobraziť kliknutím.</string>
+    <string name="attachment_matches_filter_other_fmt">Zodpovedá filtrom: \"%1$s\", \"%2$s\" a ďalšie. Zobraziť kliknutím.</string>
+    <string name="attachment_hidden_user_action">Skryté. Zobraziť kliknutím.</string>
     <string name="action_show_attachments">Zobraziť prílohy</string>
     <string name="action_hide_attachments">Skryť prílohy</string>
     <string name="dot_in_name">bodka</string>
@@ -206,6 +206,42 @@
     <string name="action_mute">Stlmiť</string>
     <string name="action_unmute">Zrušiť stlmenie</string>
     <string name="action_follow">Sledovať</string>
-    <string name="dialog_unfollow_warning">Prestať sledovať tento účet?</string>
+    <string name="dialog_unfollow_warning">Zrušiť sledovanie tohto účtu?</string>
     <string name="ui_error_follow_account_fmt">Sledovanie účtu %1$s zlyhalo: %2$s</string>
+    <plurals name="collection_item_n_more">
+        <item quantity="one">+ %1$d ďalší</item>
+        <item quantity="few">+ %1$d ďalšie</item>
+        <item quantity="many">+ %1$d ďalších</item>
+        <item quantity="other">+ %1$d ďalších</item>
+    </plurals>
+    <string name="action_collection_remove_self">Odstrániť ma</string>
+    <string name="ui_error_unfollow_account_fmt">Zrušenie sledovania %1$s zlyhalo:%2$s</string>
+    <string name="ui_error_cancel_follow_request_fmt">Zrušenie žiadosti o sledovanie %1$s zlyhalo:%2$s</string>
+    <string name="ui_error_unblock_account_fmt">Odblokovanie účtu %1$s zlyhalo :%2$s</string>
+    <string name="ui_error_unblock_domain_fmt">Odblokovanie účtu %1$s zlyhalo :%2$s</string>
+    <string name="ui_error_unmute_account_fmt">Zrušenie stlmenia účtu %1$s zlyhalo :%2$s</string>
+    <string name="collection_discoverable_true_label">Viditeľné vo výsledkoch vyhľadávania a ďalších sekciách s odporúčaniami.</string>
+    <string name="collection_discoverable_false_label">Viditeľné pre kohokoľvek s odkazom. Skryté z výsledkov vyhľadávania a odporúčaní.</string>
+    <string name="collection_sensitive_label">Obsahuje citlivý obsah</string>
+    <string name="collection_hidden_sensitive_title">Citlivý obsah. Klikni pre otvorenie.</string>
+    <string name="collection_hidden_user_action_title">Skryl/a si to. Kliknutím zobrazíš.</string>
+    <string name="action_collection_show">Ukázať kolekciu</string>
+    <string name="action_collection_hide">Skryť kolekciu</string>
+    <string name="action_collection_view">Pozrieť kolekciu</string>
+    <string name="action_collection_revoke">Odstráň ma</string>
+    <string name="action_collection_view_tag">Pozrieť značku</string>
+    <string name="collection_content_description_name_and_owner">Kolekcia %1$s, od %2$s.</string>
+    <string name="collection_content_description_name">Kolekcia %1$s.</string>
+    <plurals name="collection_content_description_accounts_is_member">
+        <item quantity="one">Obsahuje %1$d účet, tvoj.</item>
+        <item quantity="few">Obsahuje %1$d účty, vrátane tvojho.</item>
+        <item quantity="many">Obsahuje %1$d účtov, vrátane tvojho.</item>
+        <item quantity="other">Obsahuje %1$d účtov, vrátane tvojho.</item>
+    </plurals>
+    <plurals name="collection_content_description_accounts_is_not_member">
+        <item quantity="one">Obsahuje %1$d účet.</item>
+        <item quantity="few">Obsahuje %1$d účty.</item>
+        <item quantity="many">Obsahuje %1$d účtov.</item>
+        <item quantity="other">Obsahuje %1$d účtov.</item>
+    </plurals>
 </resources>
