@@ -309,11 +309,11 @@
     <string name="reaction_name_and_count">%1$s %2$d</string>
     <string name="label_filter_action">Akcia filtra</string>
     <string name="pref_title_update_settings">Aktualizácie softvéru</string>
-    <string name="pref_notification_up_distributor_name_fmt">%1$s. Klepni pre otvorenie</string>
+    <string name="pref_notification_up_distributor_name_fmt">%1$s. Klikni pre otvorenie</string>
     <string name="pref_title_notification_method">Spôsob upozornenia</string>
     <string name="filter_edit_keyword_title">Upraviť kľúčové slovo</string>
-    <string name="pref_notification_method_all_pull">Stiahunuté približne každých 15 minút. Klepni pre viac informácií.</string>
-    <string name="pref_notification_method_all_push">Všetky účty používajú UnifiedPush. Klepni pre viac informácií.</string>
+    <string name="pref_notification_method_all_pull">Stiahunuté približne každých 15 minút. Klikni pre viac informácií.</string>
+    <string name="pref_notification_method_all_push">Všetky účty používajú UnifiedPush. Klikni pre viac informácií.</string>
     <string name="pref_title_notification_battery_optimisation">Optimalizácia batérie</string>
     <plurals name="notification_title_summary">
         <item quantity="one">%d nová interakcia</item>
@@ -442,8 +442,8 @@
     <string name="dialog_delete_filter_positive_action">Vymazať</string>
     <string name="update_dialog_title">Je dostupná aktualizácia</string>
     <string name="update_dialog_negative">Neupozorňovať</string>
-    <string name="pref_notification_method_mixed">Niektoré účty používajú UnifiedPush, iné sťahujú oznámenia každých 15 minút. Klepni pre viac informácií</string>
-    <string name="pref_notification_battery_optimisation_should_ignore">Optimalizácia batérie by mala byť vypnutá. Klepni pre otvorenie.</string>
+    <string name="pref_notification_method_mixed">Niektoré účty používajú UnifiedPush, iné sťahujú oznámenia každých 15 minút. Klikni pre viac informácií</string>
+    <string name="pref_notification_battery_optimisation_should_ignore">Optimalizácia batérie by mala byť vypnutá. Klikni pre otvorenie.</string>
     <string name="pref_title_wellbeing_mode">Pohoda</string>
     <string name="pref_title_notification_up_distributor">UnifiedPush distribútor</string>
     <string name="pref_title_hide_top_toolbar">Skryť názov hornej lišty</string>
@@ -473,7 +473,7 @@
     <string name="pref_labs_warning">Toto sú experimentálne funkcie. Ich funkčnosť nie je zaručená a nemusia byť zahrnuté v budúcich verziách. Používaj ich výhradne na vlastné riziko.</string>
     <string name="pref_labs_reverse_home_timeline_title">Obrátiť poradie časovej osi</string>
     <string name="description_post_language">Jazyk príspevku</string>
-    <string name="set_focus_description">Klepnutím alebo potiahnutím kruhu urči bod, ktorý bude v náhľadoch vždy zobrazený.</string>
+    <string name="set_focus_description">Kliknutím alebo potiahnutím kruhu urči bod, ktorý bude v náhľadoch vždy zobrazený.</string>
     <string name="manage_lists">Spravovať zoznamy</string>
     <string name="compose_active_account_description">Uverejniť ako %1$s</string>
     <string name="label_remote_account">Nižšie zobrazené informácie o profile môžu byť neúplné. Klikni pre zobrazenie celého profilu v prehliadači.</string>
@@ -669,7 +669,7 @@
     <string name="notification_moderation_warning_body_silence_fmt">Tvoj účet bol obmedzený: %1$s</string>
     <string name="notification_moderation_warning_body_suspend_fmt">Tvoj účet bol pozastavený: %1$s</string>
     <string name="notification_moderation_warning_body_unknown_fmt">Dostal/a si upozornenie moderovania: %1$s</string>
-    <string name="notification_moderation_warning_tap_for_more">Klepnutím zobrazíš ďalšie podrobnosti na tvojom serveri.</string>
+    <string name="notification_moderation_warning_tap_for_more">Kliknutím zobrazíš ďalšie podrobnosti na tvojom serveri.</string>
     <string name="pref_title_notification_filter_moderation_warning">Moderátor posiela správu</string>
     <string name="notification_moderation_warnings_name">Upozornenia moderácie</string>
     <string name="notification_moderation_warnings_description">Upozornenia o moderátorských varovaniach</string>
@@ -723,4 +723,12 @@
     <string name="action_delete_scheduled_statuses">Vymazať vybrané príspevky</string>
     <string name="action_mute_hashtag">Stlmiť #%1$s</string>
     <string name="action_unmute_hashtag">Zrušiť stlmenie #%1$s</string>
+    <string name="notification_collection_add_body_format">%1$s. %2$s</string>
+    <string name="notification_collection_update_body_format">%1$s. %2$s</string>
+    <string name="notification_collection_add_name">Pridané do kolekcie</string>
+    <string name="notification_collection_add_description">Upozornenia, keď ťa niekto pridá do svojej kolekcie</string>
+    <string name="notification_collection_update_name">Kolekcia aktualizovaná</string>
+    <string name="notification_collection_update_description">Notifikácie pri aktualizácii kolekcie, ktorej si súčasťou</string>
+    <string name="notification_collection_add_format">&lt;b&gt;%1$s&lt;/b&gt; ťa pridal/a do kolekcie</string>
+    <string name="notification_collection_update_format">&lt;b&gt;%1$s&lt;/b&gt; aktualizoval/a kolekciu, ktorej si súčasťou</string>
 </resources>
