@@ -12,7 +12,7 @@
     <string name="translation_model_manager_fragment_title">Jazykové balíky</string>
     <string name="translation_model_manager_fragment_info">Jazyky, medzi ktorými vie Pachli prekladať pomocou prekladača Google. Stiahnutie jazykových balíkov vopred urýchli preklad.</string>
     <string name="translation_model_manager_fragment_downloaded_heading">Stiahnuté</string>
-    <string name="translation_model_manager_fragment_remote_heading">Klepnutím stiahni</string>
+    <string name="translation_model_manager_fragment_remote_heading">Kliknutím stiahni</string>
     <string name="fragment_confirm_download_language_dialog_title_fmt">Stiahnuť %1$s cez mobilné dáta?</string>
     <string name="fragment_confirm_download_language_dialog_msg">Stiahnutie si vyžiada 30–60 MB mobilných dát.</string>
     <string name="fragment_confirm_delete_language_dialog_title_fmt">Vymazať %1$s?</string>
