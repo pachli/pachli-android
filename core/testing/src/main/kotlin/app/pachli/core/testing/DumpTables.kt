@@ -18,6 +18,7 @@
 package app.pachli.core.testing
 
 import androidx.core.database.getStringOrNull
+import androidx.room3.support.getSupportWrapper
 import app.pachli.core.database.AppDatabase
 
 val SCHEMA_QUERY = """
@@ -60,11 +61,13 @@ WHERE
  * constraint exception is raised.
  */
 fun dumpTables(db: AppDatabase) {
-    db.query(SCHEMA_QUERY, null).use { sc ->
+    val wrapper = db.getSupportWrapper()
+
+    wrapper.query(SCHEMA_QUERY).use { sc ->
         while (sc.moveToNext()) {
             val tableName = sc.getStringOrNull(0)
 
-            val tableCursor = db.query("SELECT * FROM $tableName", null)
+            val tableCursor = wrapper.query("SELECT * FROM $tableName")
             if (tableCursor.count < 1) continue
 
             println("Table: $tableName")

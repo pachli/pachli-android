@@ -15,15 +15,16 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.core.data
+package app.pachli.core.model.collection
 
 import app.pachli.core.model.ICollection
 import app.pachli.core.model.TimelineCollection
-import app.pachli.core.model.collection.CollectionDisplayAction
 
 /**
+ * Viewdata for a [TimelineCollection].
+ *
  * @property timelineCollection
- * @property displayAction How to display the collection.
+ * @property displayAction How to display the collection (show, hide, etc).
  * @property isMember True if [timelineCollection] contains the current user.
  */
 data class CollectionCardViewData(

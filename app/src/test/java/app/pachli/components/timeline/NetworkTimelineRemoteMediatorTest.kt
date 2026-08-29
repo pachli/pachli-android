@@ -32,6 +32,8 @@ import app.pachli.components.timeline.viewmodel.PageCache
 import app.pachli.components.timeline.viewmodel.asTimelineStatusWithQuote
 import app.pachli.core.common.PachliThrowable
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.AccountRepository
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.model.TimelineStatusWithQuote
@@ -100,6 +102,12 @@ class NetworkTimelineRemoteMediatorTest {
 
     @Inject
     lateinit var statusRepository: OfflineFirstStatusRepository
+
+    @Inject
+    lateinit var collectionsRepository: CollectionsRepository
+
+    @Inject
+    lateinit var accountRepository: AccountRepository
 
     val account = CredentialAccount(
         id = "1",
@@ -178,11 +186,12 @@ class NetworkTimelineRemoteMediatorTest {
         val remoteMediator = NetworkTimelineRemoteMediator(
             context = context,
             api = mock(defaultAnswer = { failure<Unit>(code = 500) }),
-            pachliAccountId = activeAccount.id,
+            pachliAccountId = activeAccount.pachliAccountId,
             factory = pagingSourceFactory,
             pageCache = PageCache(),
             timeline = Timeline.Home,
             remoteKeyDao = remoteKeyDao,
+            collectionsRepository = collectionsRepository,
         )
 
         // When
@@ -217,11 +226,12 @@ class NetworkTimelineRemoteMediatorTest {
         val remoteMediator = NetworkTimelineRemoteMediator(
             context = context,
             api = mastodonApi,
-            pachliAccountId = activeAccount.id,
+            pachliAccountId = activeAccount.pachliAccountId,
             factory = pagingSourceFactory,
             pageCache = pages,
             timeline = Timeline.Home,
             remoteKeyDao = remoteKeyDao,
+            collectionsRepository = collectionsRepository,
         )
 
         val state = state(
@@ -287,18 +297,23 @@ class NetworkTimelineRemoteMediatorTest {
         val remoteMediator = NetworkTimelineRemoteMediator(
             context = context,
             api = mastodonApi,
-            pachliAccountId = activeAccount.id,
+            pachliAccountId = activeAccount.pachliAccountId,
             factory = pagingSourceFactory,
             pageCache = pages,
             timeline = Timeline.Home,
             remoteKeyDao = remoteKeyDao,
+            collectionsRepository = collectionsRepository,
         )
 
         val state = state(
             listOf(
                 PagingSource.LoadResult.Page(
-                    data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel()
-                        .asTimelineStatusWithQuote(activeAccount.id, statusRepository),
+                    data = listOf(
+                        fakeStatus("7"),
+                        fakeStatus("6"),
+                        fakeStatus("5"),
+                    ).asModel()
+                        .asTimelineStatusWithQuote(activeAccount.pachliAccountId, statusRepository, collectionsRepository),
                     prevKey = "7",
                     nextKey = "5",
                 ),
@@ -313,14 +328,22 @@ class NetworkTimelineRemoteMediatorTest {
             withLock {
                 add(
                     Page(
-                        data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel().toMutableList(),
+                        data = listOf(
+                            fakeStatus("7"),
+                            fakeStatus("6"),
+                            fakeStatus("5"),
+                        ).asModel().toMutableList(),
                         prevKey = "7",
                         nextKey = "5",
                     ),
                 )
                 prepend(
                     Page(
-                        data = listOf(fakeStatus("10"), fakeStatus("9"), fakeStatus("8")).asModel().toMutableList(),
+                        data = listOf(
+                            fakeStatus("10"),
+                            fakeStatus("9"),
+                            fakeStatus("8"),
+                        ).asModel().toMutableList(),
                         prevKey = "10",
                         nextKey = "8",
                     ),
@@ -344,7 +367,11 @@ class NetworkTimelineRemoteMediatorTest {
             withLock {
                 add(
                     Page(
-                        data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel().toMutableList(),
+                        data = listOf(
+                            fakeStatus("7"),
+                            fakeStatus("6"),
+                            fakeStatus("5"),
+                        ).asModel().toMutableList(),
                         prevKey = "7",
                         nextKey = "5",
                     ),
@@ -365,17 +392,22 @@ class NetworkTimelineRemoteMediatorTest {
         val remoteMediator = NetworkTimelineRemoteMediator(
             context = context,
             api = mastodonApi,
-            pachliAccountId = activeAccount.id,
+            pachliAccountId = activeAccount.pachliAccountId,
             factory = pagingSourceFactory,
             pageCache = pages,
             timeline = Timeline.Home,
             remoteKeyDao = remoteKeyDao,
+            collectionsRepository = collectionsRepository,
         )
 
         val state = state(
             listOf(
                 PagingSource.LoadResult.Page(
-                    data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel().asTimelineStatusWithQuote(activeAccount.id, statusRepository).toMutableList(),
+                    data = listOf(
+                        fakeStatus("7"),
+                        fakeStatus("6"),
+                        fakeStatus("5"),
+                    ).asModel().asTimelineStatusWithQuote(activeAccount.pachliAccountId, statusRepository, collectionsRepository).toMutableList(),
                     prevKey = "7",
                     nextKey = "5",
                 ),
@@ -390,14 +422,22 @@ class NetworkTimelineRemoteMediatorTest {
             withLock {
                 add(
                     Page(
-                        data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel().toMutableList(),
+                        data = listOf(
+                            fakeStatus("7"),
+                            fakeStatus("6"),
+                            fakeStatus("5"),
+                        ).asModel().toMutableList(),
                         prevKey = "7",
                         nextKey = "5",
                     ),
                 )
                 append(
                     Page(
-                        data = listOf(fakeStatus("4"), fakeStatus("3"), fakeStatus("2")).asModel().toMutableList(),
+                        data = listOf(
+                            fakeStatus("4"),
+                            fakeStatus("3"),
+                            fakeStatus("2"),
+                        ).asModel().toMutableList(),
                         prevKey = "4",
                         nextKey = "2",
                     ),

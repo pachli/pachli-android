@@ -24,6 +24,7 @@ import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
+import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Result
 
@@ -192,4 +193,7 @@ interface StatusRepository {
     suspend fun getTranslation(pachliAccountId: Long, statusId: String): TranslatedStatusEntity?
 
     suspend fun detachQuote(pachliAccountId: Long, quoteId: String, parentId: String): Result<Status, StatusActionError.RevokeQuote>
+
+    /** Sets [collectionDisplayAction] for [collectionId]. */
+    suspend fun setCollectionDisplayAction(pachliAccountId: Long, collectionId: String, collectionDisplayAction: CollectionDisplayAction)
 }

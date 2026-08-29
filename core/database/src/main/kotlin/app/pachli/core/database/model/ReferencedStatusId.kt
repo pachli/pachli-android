@@ -17,7 +17,7 @@
 
 package app.pachli.core.database.model
 
-import androidx.room.DatabaseView
+import androidx.room3.DatabaseView
 
 /**
  * StatusIDs that are actively referenced by other entities.
@@ -47,17 +47,17 @@ timelineStatusId(pachliAccountId, statusId) AS (
 notificationStatusId(pachliAccountId, statusId) AS (
     SELECT
         pachliAccountId,
-        statusServerId AS statusId
+        statusId
     FROM NotificationEntity
-    WHERE statusServerId IS NOT NULL
+    WHERE statusId IS NOT NULL
 ),
 
 conversationStatusId(pachliAccountId, statusId) AS (
     SELECT
         pachliAccountId,
-        lastStatusServerId AS statusId
+        lastStatusId AS statusId
     FROM ConversationEntity
-    WHERE lastStatusServerId IS NOT NULL
+    WHERE lastStatusId IS NOT NULL
 ),
 
 draftStatusId(pachliAccountId, statusId) AS (
@@ -100,17 +100,17 @@ refId(pachliAccountId, statusId) AS (
     FROM draftStatusId
 
     -- Recursively chase down all the references to replies, reblogs, and
-    -- quotes, emitting the `inReblogId`, `inReplyToId`, or `quoteServerId`
+    -- quotes, emitting the `reblogStatusId`, `inReplyToId`, or `quoteStatusId`
     -- columns renamed to `statusId` as extra rows.
     UNION
     SELECT
         s.pachliAccountId AS pachliAccountId,
-        s.reblogServerId AS statusId
+        s.reblogStatusId AS statusId
     FROM StatusEntity AS s, refId AS r
     WHERE
-        s.reblogServerId IS NOT NULL
+        s.reblogStatusId IS NOT NULL
         AND s.pachliAccountId = r.pachliAccountId
-        AND s.serverId = r.statusID
+        AND s.statusId = r.statusId
 
     UNION
     SELECT
@@ -120,17 +120,17 @@ refId(pachliAccountId, statusId) AS (
     WHERE
         s.inReplyToId IS NOT NULL
         AND s.pachliAccountId = r.pachliAccountId
-        AND s.serverId = r.statusID
+        AND s.statusId = r.statusId
 
     UNION
     SELECT
         s.pachliAccountId AS pachliAccountId,
-        s.quoteServerId AS statusId
+        s.quoteStatusId AS statusId
     FROM StatusEntity AS s, refId AS r
     WHERE
-        s.quoteServerId IS NOT NULL
+        s.quoteStatusId IS NOT NULL
         AND s.pachliAccountId = r.pachliAccountId
-        AND s.serverId = r.statusID
+        AND s.statusId = r.statusId
 )
 
 SELECT

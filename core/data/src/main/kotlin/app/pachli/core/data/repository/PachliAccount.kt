@@ -30,7 +30,7 @@ import io.github.z4kn4fein.semver.Version
 /**
  * A single Pachli account with all the information associated with it.
  *
- * @property id Account's unique local database ID.
+ * @property pachliAccountId Account's unique local database ID.
  * @property entity [PachliAccountEntity] from the local database.
  * @property lists Account's lists.
  * @property server Details about the account's server.

@@ -21,6 +21,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.PachliApplication
 import app.pachli.components.timeline.viewmodel.CachedTimelineViewModel
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.eventhub.EventHub
@@ -88,6 +89,9 @@ abstract class CachedTimelineViewModelTestBase {
 
     @Inject
     lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
+
+    @Inject
+    lateinit var collectionsRepository: CollectionsRepository
 
     @Inject
     lateinit var appDatabase: AppDatabase
@@ -164,6 +168,7 @@ abstract class CachedTimelineViewModelTestBase {
             accountManager,
             statusDisplayOptionsRepository,
             sharedPreferencesRepository,
+            collectionsRepository,
         )
     }
 }

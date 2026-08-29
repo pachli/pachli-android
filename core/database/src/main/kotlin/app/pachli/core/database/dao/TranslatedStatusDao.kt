@@ -17,10 +17,10 @@
 
 package app.pachli.core.database.dao
 
-import androidx.room.Dao
-import androidx.room.MapColumn
-import androidx.room.Query
-import androidx.room.Upsert
+import androidx.room3.Dao
+import androidx.room3.MapColumn
+import androidx.room3.Query
+import androidx.room3.Upsert
 import app.pachli.core.database.model.TranslatedStatusEntity
 
 @Dao
@@ -36,33 +36,33 @@ interface TranslatedStatusDao {
 SELECT *
 FROM TranslatedStatusEntity
 WHERE
-    pachliAccountId = :accountId
-    AND serverId IN (:serverIds)
+    pachliAccountId = :pachliAccountId
+    AND statusId IN (:statusIds)
 """,
     )
     suspend fun getTranslations(
-        accountId: Long,
-        serverIds: Collection<String>,
+        pachliAccountId: Long,
+        statusIds: Collection<String>,
     ): Map<
-        @MapColumn(columnName = "serverId")
+        @MapColumn(columnName = "statusId")
         String,
         TranslatedStatusEntity,
         >
 
     /**
-     * @return [TranslatedStatusEntity] for [serverId], null if none exists.
+     * @return [TranslatedStatusEntity] for [statusId], null if none exists.
      */
     @Query(
         """
 SELECT *
 FROM TranslatedStatusEntity
 WHERE
-    pachliAccountId = :accountId
-    AND serverId = :serverId
+    pachliAccountId = :pachliAccountId
+    AND statusId = :statusId
 """,
     )
     suspend fun getTranslation(
-        accountId: Long,
-        serverId: String,
+        pachliAccountId: Long,
+        statusId: String,
     ): TranslatedStatusEntity?
 }

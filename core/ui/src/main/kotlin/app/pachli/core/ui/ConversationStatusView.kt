@@ -63,6 +63,7 @@ class ConversationStatusView @JvmOverloads constructor(
     override val contentWarningButton: Button = binding.statusContentWarningButton
     override val content = binding.statusContent
     override val buttonToggleContent = binding.buttonToggleContent
+    override val collectionsContainer = binding.collectionsContainer
     override val attachmentsView = binding.attachmentGrid
     override val pollView = binding.statusPoll
     override val cardView = binding.statusCardView

@@ -123,7 +123,7 @@ class ManageAccountsFragment :
         when (uiAction) {
             UiAction.AddAccount -> addAccount()
             is UiAction.Logout -> logout(uiAction.pachliAccount)
-            is UiAction.Switch -> switchAccount(uiAction.pachliAccount.id)
+            is UiAction.Switch -> switchAccount(uiAction.pachliAccount.pachliAccountId)
         }
     }
 
@@ -156,7 +156,7 @@ class ManageAccountsFragment :
             ).await(parentFragmentManager)
 
             if (button == AlertDialog.BUTTON_POSITIVE) {
-                val intent = IntentRouterActivityIntent.logout(requireContext(), pachliAccount.id)
+                val intent = IntentRouterActivityIntent.logout(requireContext(), pachliAccount.pachliAccountId)
                 val options = Bundle().apply { putInt("android.activity.splashScreenStyle", 1) }
                 startActivity(intent, options)
                 requireActivity().finish()

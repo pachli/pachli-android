@@ -17,9 +17,9 @@
 
 package app.pachli.core.database.model
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.TypeConverters
+import androidx.room3.ColumnTypeConverters
+import androidx.room3.Entity
+import androidx.room3.ForeignKey
 import app.pachli.core.database.Converters
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.ContentFilterVersion
@@ -27,20 +27,20 @@ import app.pachli.core.model.ContentFilterVersion
 // TODO: Redo this. Would be better as one ContentFilter per row,
 
 @Entity(
-    primaryKeys = ["accountId"],
+    primaryKeys = ["pachliAccountId"],
     foreignKeys = [
         ForeignKey(
             entity = PachliAccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("accountId"),
+            parentColumns = ["pachliAccountId"],
+            childColumns = ["pachliAccountId"],
             onDelete = ForeignKey.CASCADE,
             deferred = true,
         ),
     ],
 )
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 data class ContentFiltersEntity(
-    val accountId: Long,
+    val pachliAccountId: Long,
     val version: ContentFilterVersion,
     val contentFilters: List<ContentFilter>,
 )

@@ -17,11 +17,11 @@
 
 package app.pachli.core.database.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Index
-import androidx.room.TypeConverters
+import androidx.room3.ColumnInfo
+import androidx.room3.ColumnTypeConverters
+import androidx.room3.Entity
+import androidx.room3.ForeignKey
+import androidx.room3.Index
 import app.pachli.core.database.Converters
 import app.pachli.core.model.AttachmentDisplayAction
 
@@ -33,22 +33,22 @@ import app.pachli.core.model.AttachmentDisplayAction
  * operation).
  */
 @Entity(
-    primaryKeys = ["serverId", "pachliAccountId"],
+    primaryKeys = ["pachliAccountId", "statusId"],
     foreignKeys = [
         ForeignKey(
             entity = PachliAccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("pachliAccountId"),
+            parentColumns = ["pachliAccountId"],
+            childColumns = ["pachliAccountId"],
             onDelete = ForeignKey.CASCADE,
             deferred = true,
         ),
     ],
     indices = [Index(value = ["pachliAccountId"])],
 )
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 data class StatusViewDataEntity(
     val pachliAccountId: Long,
-    val serverId: String,
+    val statusId: String,
     /** Corresponds to [app.pachli.viewdata.IStatusViewData.isExpanded] */
     val expanded: Boolean?,
     /** Corresponds to [app.pachli.viewdata.IStatusViewData.isCollapsed] */
@@ -78,7 +78,7 @@ enum class TranslationState {
  */
 data class StatusViewDataExpanded(
     val pachliAccountId: Long,
-    val serverId: String,
+    val statusId: String,
     val expanded: Boolean,
 )
 
@@ -90,7 +90,7 @@ data class StatusViewDataExpanded(
  */
 data class StatusViewDataContentCollapsed(
     val pachliAccountId: Long,
-    val serverId: String,
+    val statusId: String,
     val contentCollapsed: Boolean,
 )
 
@@ -102,7 +102,7 @@ data class StatusViewDataContentCollapsed(
  */
 data class StatusViewDataTranslationState(
     val pachliAccountId: Long,
-    val serverId: String,
+    val statusId: String,
     val translationState: TranslationState,
 )
 
@@ -114,6 +114,6 @@ data class StatusViewDataTranslationState(
  */
 data class StatusViewDataAttachmentDisplayAction(
     val pachliAccountId: Long,
-    val serverId: String,
+    val statusId: String,
     val attachmentDisplayAction: AttachmentDisplayAction,
 )

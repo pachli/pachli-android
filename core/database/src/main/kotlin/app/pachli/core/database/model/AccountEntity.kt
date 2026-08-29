@@ -17,10 +17,10 @@
 
 package app.pachli.core.database.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.TypeConverters
+import androidx.room3.ColumnInfo
+import androidx.room3.ColumnTypeConverters
+import androidx.room3.Entity
+import androidx.room3.ForeignKey
 import app.pachli.core.database.Converters
 import app.pachli.core.model.Account
 import app.pachli.core.model.Emoji
@@ -36,7 +36,7 @@ import java.util.Date
  *
  * @property pachliAccountId The pachliAccountId for the logged-in account related
  * to this account.
- * @property serverId
+ * @property accountId
  * @property localUsername
  * @property username
  * @property displayName
@@ -48,21 +48,21 @@ import java.util.Date
  * @property note (HTML) The profile’s bio or description.
  */
 @Entity(
-    primaryKeys = ["pachliAccountId", "serverId"],
+    primaryKeys = ["pachliAccountId", "accountId"],
     foreignKeys = [
         ForeignKey(
             entity = PachliAccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("pachliAccountId"),
+            parentColumns = ["pachliAccountId"],
+            childColumns = ["pachliAccountId"],
             onDelete = ForeignKey.CASCADE,
             deferred = true,
         ),
     ],
 )
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 data class AccountEntity(
     val pachliAccountId: Long,
-    val serverId: String,
+    val accountId: String,
     val localUsername: String,
     val username: String,
     val displayName: String,
@@ -91,7 +91,7 @@ data class AccountEntity(
     val pronouns: String?,
 ) {
     fun asModel() = Account(
-        serverId = serverId,
+        accountId = accountId,
         localUsername = localUsername,
         username = username,
         displayName = displayName,
@@ -117,7 +117,7 @@ data class AccountEntity(
 
 fun Account.asEntity(pachliAccountId: Long) = AccountEntity(
     pachliAccountId = pachliAccountId,
-    serverId = serverId,
+    accountId = accountId,
     localUsername = localUsername,
     username = username,
     displayName = displayName,

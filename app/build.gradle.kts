@@ -139,8 +139,8 @@ configurations.configureEach {
 
 dependencies {
     // CachedTimelineRemoteMediator needs the @Transaction annotation from Room
-    compileOnly(libs.bundles.room)
-    testCompileOnly(libs.bundles.room)
+    compileOnly(libs.bundles.room3)
+    testCompileOnly(libs.bundles.room3)
 
     // @HiltWorker annotation
     implementation(libs.androidx.hilt.common)
@@ -231,7 +231,7 @@ dependencies {
     testImplementation(libs.androidx.test.core.ktx)
 
     androidTestImplementation(libs.espresso.core)
-    androidTestImplementation(libs.androidx.room.testing)
+    androidTestImplementation(libs.androidx.room3.testing)
     androidTestImplementation(libs.androidx.test.junit)
     androidTestImplementation(libs.androidx.test.core.ktx)
 

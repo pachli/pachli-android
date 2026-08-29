@@ -162,7 +162,7 @@ data class Notification(
 
         return when (type) {
             Type.UNKNOWN -> app.pachli.core.model.Notification.Unknown(
-                id = id,
+                notificationId = id,
                 createdAt = createdAt.toInstant(),
                 account = account.asModel(),
                 // Note: This collapses everything to "unknown" because the
@@ -173,7 +173,7 @@ data class Notification(
 
             Type.MENTION -> status?.let {
                 app.pachli.core.model.Notification.Mention(
-                    id = id,
+                    notificationId = id,
                     createdAt = createdAt.toInstant(),
                     account = account.asModel(),
                     status = status.asModel(),
@@ -182,7 +182,7 @@ data class Notification(
 
             Type.REBLOG -> status?.let {
                 app.pachli.core.model.Notification.Reblog(
-                    id = id,
+                    notificationId = id,
                     createdAt = createdAt.toInstant(),
                     account = account.asModel(),
                     status = status.asModel(),
@@ -191,7 +191,7 @@ data class Notification(
 
             Type.FAVOURITE -> status?.let {
                 app.pachli.core.model.Notification.Favourite(
-                    id = id,
+                    notificationId = id,
                     createdAt = createdAt.toInstant(),
                     account = account.asModel(),
                     status = status.asModel(),
@@ -199,14 +199,14 @@ data class Notification(
             }
 
             Type.FOLLOW -> app.pachli.core.model.Notification.Follow(
-                id = id,
+                notificationId = id,
                 createdAt = createdAt.toInstant(),
                 account = account.asModel(),
                 note = account.note,
             )
 
             Type.FOLLOW_REQUEST -> app.pachli.core.model.Notification.FollowRequest(
-                id = id,
+                notificationId = id,
                 createdAt = createdAt.toInstant(),
                 account = account.asModel(),
                 note = account.note,
@@ -214,7 +214,7 @@ data class Notification(
 
             Type.POLL -> status?.let {
                 app.pachli.core.model.Notification.Poll(
-                    id = id,
+                    notificationId = id,
                     createdAt = createdAt.toInstant(),
                     account = account.asModel(),
                     status = status.asModel(),
@@ -223,7 +223,7 @@ data class Notification(
 
             Type.STATUS -> status?.let {
                 app.pachli.core.model.Notification.Status(
-                    id = id,
+                    notificationId = id,
                     createdAt = createdAt.toInstant(),
                     account = account.asModel(),
                     status = status.asModel(),
@@ -231,14 +231,14 @@ data class Notification(
             }
 
             Type.SIGN_UP -> app.pachli.core.model.Notification.SignUp(
-                id = id,
+                notificationId = id,
                 createdAt = createdAt.toInstant(),
                 account = account.asModel(),
             )
 
             Type.UPDATE -> status?.let {
                 app.pachli.core.model.Notification.Update(
-                    id = id,
+                    notificationId = id,
                     createdAt = createdAt.toInstant(),
                     account = account.asModel(),
                     status = status.asModel(),
@@ -247,7 +247,7 @@ data class Notification(
 
             Type.REPORT -> report?.let {
                 app.pachli.core.model.Notification.Report(
-                    id = id,
+                    notificationId = id,
                     createdAt = createdAt.toInstant(),
                     account = account.asModel(),
                     report = report.asModel(),
@@ -256,7 +256,7 @@ data class Notification(
 
             Type.SEVERED_RELATIONSHIPS -> relationshipSeveranceEvent?.let {
                 app.pachli.core.model.Notification.SeveredRelationships(
-                    id = id,
+                    notificationId = id,
                     createdAt = createdAt.toInstant(),
                     account = account.asModel(),
                     relationshipSeveranceEvent = relationshipSeveranceEvent.asModel(),
@@ -265,7 +265,7 @@ data class Notification(
 
             Type.MODERATION_WARNING -> accountWarning?.let {
                 app.pachli.core.model.Notification.ModerationWarning(
-                    id = id,
+                    notificationId = id,
                     createdAt = createdAt.toInstant(),
                     account = account.asModel(),
                     accountWarning = accountWarning.asModel(),
@@ -274,7 +274,7 @@ data class Notification(
 
             Type.QUOTE -> status?.let {
                 app.pachli.core.model.Notification.Quote(
-                    id = id,
+                    notificationId = id,
                     createdAt = createdAt.toInstant(),
                     account = account.asModel(),
                     status = status.asModel(),
@@ -283,7 +283,7 @@ data class Notification(
 
             Type.QUOTED_UPDATE -> status?.let {
                 app.pachli.core.model.Notification.QuotedUpdate(
-                    id = id,
+                    notificationId = id,
                     createdAt = createdAt.toInstant(),
                     account = account.asModel(),
                     status = status.asModel(),
@@ -292,7 +292,7 @@ data class Notification(
 
             Type.COLLECTION_ADD -> collection?.let {
                 app.pachli.core.model.Notification.CollectionAdd(
-                    id = id,
+                    notificationId = id,
                     createdAt = createdAt.toInstant(),
                     account = account.asModel(),
                     collection = collection.asModel(),
@@ -301,7 +301,7 @@ data class Notification(
 
             Type.COLLECTION_UPDATE -> collection?.let {
                 app.pachli.core.model.Notification.CollectionUpdate(
-                    id = id,
+                    notificationId = id,
                     createdAt = createdAt.toInstant(),
                     account = account.asModel(),
                     collection = collection.asModel(),

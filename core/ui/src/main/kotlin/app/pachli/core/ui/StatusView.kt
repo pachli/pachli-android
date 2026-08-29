@@ -23,6 +23,7 @@ import android.text.TextUtils
 import android.text.format.DateUtils
 import android.util.AttributeSet
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -44,6 +45,7 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.PreviewCardKind
+import app.pachli.core.model.collection.CollectionCardViewData
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.network.removeQuoteInline
 import app.pachli.core.preferences.CardViewMode
@@ -75,7 +77,7 @@ private val TIME_FORMATTER = AbsoluteTimeFormatter()
 
 /**
  * Compound view and default behaviour for all classes that show a
- * [app.pachli.core.model.Status].
+ * [IStatusViewData].
  *
  * Derived classes should:
  *
@@ -144,6 +146,8 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
      */
     abstract val buttonToggleContent: Button?
 
+    abstract val collectionsContainer: ViewGroup?
+
     /**
      * [AttachmentsView] that encompasses and lays out all the attachment
      * previews.
@@ -162,6 +166,8 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
     protected val avatarRadius48dp = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
     private val avatarRadius36dp = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_36dp)
     private val avatarRadius24dp = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_24dp)
+
+    private val collectionCardViewTopMargin = context.resources.getDimensionPixelSize(DR.dimen.collection_card_top_margin)
 
     fun setDisplayName(
         glide: RequestManager,
@@ -460,6 +466,50 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         }
     }
 
+    private fun setCollectionCards(
+        glide: RequestManager,
+        collections: List<CollectionCardViewData>,
+        statusDisplayOptions: StatusDisplayOptions,
+        listener: CollectionCardActionListener,
+    ) {
+        // View doesn't support displaying collections? Bail early.
+        val collectionsContainer = this.collectionsContainer ?: return
+
+        // Remove any existing views.
+        collectionsContainer.removeAllViews()
+
+        // No collections to display? Hide and bail.
+        if (collections.isEmpty()) {
+            collectionsContainer.hide()
+            return
+        }
+
+        // Add all the collections. All but the first get a top
+        // margin to separate them (setting android:divider and related
+        // attributes on the layout do nothing).
+        collections.forEachIndexed { index, collectionCardViewData ->
+            val collectionCardView = CollectionCardView(context)
+
+            collectionsContainer.addView(collectionCardView)
+            (collectionCardView.layoutParams as? MarginLayoutParams)?.apply {
+                if (index != 0) {
+                    topMargin = collectionCardViewTopMargin
+                    collectionCardView.layoutParams = this
+                }
+            }
+
+            collectionCardView.bind(
+                glide = glide,
+                viewData = collectionCardViewData,
+                statusDisplayOptions = statusDisplayOptions,
+                showOwner = true,
+                listener = listener,
+            )
+        }
+
+        collectionsContainer.show()
+    }
+
     /**
      * Shows/hides the media previews based on the attachments, and wires
      * up click listeners.
@@ -587,6 +637,9 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
             actionable.account.bot,
             statusDisplayOptions,
         )
+
+        setCollectionCards(glide, viewData.collectionCardViewData, statusDisplayOptions, listener)
+
         setMediaPreviews(
             glide,
             viewData,
@@ -605,7 +658,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         setupButtons(
             viewData,
             listener,
-            actionable.account.serverId,
+            actionable.account.accountId,
         )
         val sensitive = !TextUtils.isEmpty(viewData.actionable.spoilerText)
         setupCollapsedState(viewData, sensitive, listener)
@@ -778,7 +831,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
 
         cardView.bind(glide, card, sensitive, statusDisplayOptions, false) { card, target ->
             if (target == PreviewCardView.Target.BYLINE) {
-                card.authors?.firstOrNull()?.account?.serverId?.let { listener.onViewAccount(it) }
+                card.authors?.firstOrNull()?.account?.accountId?.let { listener.onViewAccount(it) }
                 return@bind
             }
 

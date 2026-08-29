@@ -24,9 +24,10 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import app.pachli.core.common.di.ApplicationScope
+import app.pachli.core.data.repository.AccountRepository
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusRepository
-import app.pachli.core.database.dao.CollectionsDao
 import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
@@ -74,7 +75,8 @@ class NotificationsRepository @Inject constructor(
     private val notificationDao: NotificationDao,
     private val remoteKeyDao: RemoteKeyDao,
     private val statusDao: StatusDao,
-    private val collectionsDao: CollectionsDao,
+    private val collectionsRepository: CollectionsRepository,
+    private val accountRepository: AccountRepository,
     statusRepository: OfflineFirstStatusRepository,
 ) : StatusRepository by statusRepository {
     private var factory: InvalidatingPagingSourceFactory<Int, NotificationData>? = null
@@ -113,7 +115,8 @@ class NotificationsRepository @Inject constructor(
                 remoteKeyDao,
                 notificationDao,
                 statusDao,
-                collectionsDao,
+                collectionsRepository,
+                accountRepository,
                 excludeTypes.asNetworkModel(),
             ),
             pagingSourceFactory = factory!!,
@@ -200,16 +203,16 @@ class NotificationsRepository @Inject constructor(
  */
 fun Notification.asEntity(pachliAccountId: Long) = NotificationEntity(
     pachliAccountId = pachliAccountId,
-    serverId = id,
+    notificationId = notificationId,
     type = type.asEntity(),
     createdAt = createdAt,
-    accountServerId = account.serverId,
-    statusServerId = (this as? Notification.WithStatus)?.status?.statusId,
+    accountId = account.accountId,
+    statusId = (this as? Notification.WithStatus)?.status?.statusId,
     note = (this as? Notification.Follow)?.note,
     report = (this as? Notification.Report)?.report?.asEntity(pachliAccountId),
     relationshipSeveranceEvent = (this as? Notification.SeveredRelationships)?.relationshipSeveranceEvent?.asEntity(),
     accountWarning = (this as? Notification.ModerationWarning)?.accountWarning?.asEntity(),
-    collectionServerId = (this as? Notification.WithCollection)?.collection?.serverId,
+    collectionId = (this as? Notification.WithCollection)?.collection?.collectionId,
 )
 
 fun Iterable<Notification>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }
@@ -238,7 +241,7 @@ fun Notification.Type.asEntity() = when (this) {
  * Converts a timeline Account to an entity, associated with [pachliAccountId].
  */
 fun TimelineAccount.asEntity(pachliAccountId: Long) = TimelineAccountEntity(
-    serverId = id,
+    accountId = id,
     pachliAccountId = pachliAccountId,
     localUsername = localUsername,
     username = username,

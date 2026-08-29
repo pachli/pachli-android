@@ -17,33 +17,33 @@
 
 package app.pachli.core.database.model
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
+import androidx.room3.Entity
+import androidx.room3.ForeignKey
 import app.pachli.core.model.MastodonList
 import app.pachli.core.model.UserListRepliesPolicy
 
 /**
  * Represents a Mastodon list definition.
  *
- * Does not include details about the lists's membership.
+ * Does not include details about the list's membership.
  *
- * Each list is associated with exactly one [PachliAccountEntity] through the [accountId]
+ * Each list is associated with exactly one [PachliAccountEntity] through the [pachliAccountId]
  * property.
  */
 @Entity(
-    primaryKeys = ["accountId", "listId"],
+    primaryKeys = ["pachliAccountId", "listId"],
     foreignKeys = [
         ForeignKey(
             entity = PachliAccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("accountId"),
+            parentColumns = ["pachliAccountId"],
+            childColumns = ["pachliAccountId"],
             onDelete = ForeignKey.CASCADE,
             deferred = true,
         ),
     ],
 )
 data class MastodonListEntity(
-    val accountId: Long,
+    val pachliAccountId: Long,
     val listId: String,
     val title: String,
     val repliesPolicy: UserListRepliesPolicy,
@@ -60,7 +60,7 @@ data class MastodonListEntity(
 fun Iterable<MastodonListEntity>.asModel() = map { it.asModel() }
 
 fun MastodonList.asEntity(pachliAccountId: Long) = MastodonListEntity(
-    accountId = pachliAccountId,
+    pachliAccountId = pachliAccountId,
     listId = listId,
     title = title,
     repliesPolicy = repliesPolicy,

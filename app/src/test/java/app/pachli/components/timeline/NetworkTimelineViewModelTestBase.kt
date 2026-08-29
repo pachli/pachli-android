@@ -20,6 +20,7 @@ package app.pachli.components.timeline
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.components.timeline.viewmodel.NetworkTimelineViewModel
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.eventhub.EventHub
@@ -82,6 +83,9 @@ abstract class NetworkTimelineViewModelTestBase {
 
     @Inject
     lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
+
+    @Inject
+    lateinit var collectionsRepository: CollectionsRepository
 
     @Inject
     lateinit var appDatabase: AppDatabase
@@ -156,6 +160,7 @@ abstract class NetworkTimelineViewModelTestBase {
             accountManager,
             statusDisplayOptionsRepository,
             sharedPreferencesRepository,
+            collectionsRepository,
         )
     }
 }

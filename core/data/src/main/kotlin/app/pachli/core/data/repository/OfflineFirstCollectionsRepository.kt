@@ -19,41 +19,58 @@ package app.pachli.core.data.repository
 
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.database.dao.CollectionsDao
+import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider
+import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.CollectionEntity
+import app.pachli.core.database.model.CollectionItemEntity
 import app.pachli.core.database.model.CollectionViewDataEntity
+import app.pachli.core.database.model.TimelineCollectionEntity
 import app.pachli.core.database.model.asEntity
 import app.pachli.core.database.model.asModel
 import app.pachli.core.model.CollectionWithAccounts
 import app.pachli.core.model.asTimelineAccount
+import app.pachli.core.model.collection.CollectionCardViewData
 import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiResult
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.coroutines.binding.binding
 import com.github.michaelbull.result.mapEither
+import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /** [CollectionsRepository] that caches collection data locally. */
 @Singleton
 internal class OfflineFirstCollectionsRepository @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
+    private val transactionProvider: TransactionProvider,
     private val localDataSource: CollectionsLocalDataSource,
     private val remoteDataSource: CollectionsRemoteDataSource,
 ) : CollectionsRepository {
     /**
      * Returns a flow of the local cached copy of [collectionId] as a
-     * [app.pachli.core.model.CollectionWithAccounts]. Returns null if there is no local cached copy
-     * of [collectionId].
+     * [app.pachli.core.model.CollectionWithAccounts]
      */
-    override fun getCollection(pachliAccountId: Long, collectionId: String): Flow<CollectionWithAccounts?> =
-        localDataSource.getCollection(pachliAccountId, collectionId)
+    override fun getCollectionFlow(pachliAccountId: Long, collectionId: String): Flow<CollectionWithAccounts> =
+        localDataSource.getCollectionFlow(pachliAccountId, collectionId)
+
+    /**
+     * Returns the available [CollectionCardViewData] for [collectionIds].
+     */
+    override suspend fun getCollectionCardViewData(pachliAccountId: Long, collectionIds: Collection<String>): List<CollectionCardViewData> {
+        return localDataSource.getCollectionCardViewData(pachliAccountId, collectionIds)
+    }
 
     /**
      * Fetches [collectionId] from the server and if successful, updates the local copy
@@ -62,13 +79,23 @@ internal class OfflineFirstCollectionsRepository @Inject constructor(
      * @return The reloaded [CollectionWithAccounts], or the error that occurred
      * performing the reload.
      */
-    override suspend fun reloadCollection(pachliAccountId: Long, collectionId: String) = binding {
-        externalScope.async {
-            remoteDataSource.getCollection(pachliAccountId, collectionId)
-                .onSuccess {
-                    localDataSource.saveCollection(pachliAccountId, it)
-                }
-        }.await().bind()
+    override suspend fun reloadCollection(pachliAccountId: Long, collectionId: String) = remoteDataSource.getCollection(pachliAccountId, collectionId)
+        .onSuccess { localDataSource.saveCollection(pachliAccountId, it) }
+        .onFailure { Timber.e("Couldn't fetch $collectionId: $it") }
+
+    /**
+     * Fetches [collectionIds] from the server. If a collection is fetched successfully
+     * the local copy is updated.
+     *
+     * @return A list of the results of loading each collection.
+     */
+    override suspend fun reloadCollections(pachliAccountId: Long, collectionIds: Collection<String>): List<Result<CollectionWithAccounts, CollectionsRepository.Error.GetCollection>> {
+        val results = remoteDataSource.getCollections(pachliAccountId, collectionIds)
+        results.forEach {
+            it.onSuccess { localDataSource.saveCollection(pachliAccountId, it) }
+                .onFailure { Timber.e("Couldn't fetch: $it") }
+        }
+        return results
     }
 
     /**
@@ -77,17 +104,25 @@ internal class OfflineFirstCollectionsRepository @Inject constructor(
      * error.
      */
     override suspend fun revokeFromCollection(pachliAccountId: Long, collectionId: String, accountId: String): Result<Unit, CollectionsRepository.Error.RevokeFromCollection> {
-        return remoteDataSource.revokeFromCollection(pachliAccountId, collectionId, accountId).mapEither(
-            { },
-            { CollectionsRepository.Error.RevokeFromCollection(it) },
-        ).onSuccess {
-            localDataSource.removeAccountFromCollection(pachliAccountId, collectionId, accountId)
-        }
+        return externalScope.async {
+            remoteDataSource.revokeFromCollection(pachliAccountId, collectionId, accountId).mapEither(
+                { },
+                { CollectionsRepository.Error.RevokeFromCollection(it) },
+            ).onSuccess {
+                localDataSource.removeAccountFromCollection(pachliAccountId, collectionId, accountId)
+            }
+        }.await()
     }
 
     override fun setCollectionDisplayAction(pachliAccountId: Long, collectionId: String, collectionDisplayAction: CollectionDisplayAction) {
         externalScope.launch {
             localDataSource.setCollectionDisplayAction(pachliAccountId, collectionId, collectionDisplayAction)
+        }
+    }
+
+    override fun saveCollections(pachliAccountId: Long, collectionsWithAccounts: List<CollectionWithAccounts>) {
+        externalScope.launch {
+            localDataSource.saveCollections(pachliAccountId, collectionsWithAccounts)
         }
     }
 }
@@ -98,13 +133,14 @@ internal class CollectionsLocalDataSource @Inject constructor(
     private val transactionProvider: TransactionProvider,
     private val collectionsDao: CollectionsDao,
     private val accountRepository: AccountRepository,
+    private val timelineDao: TimelineDao,
 ) {
     /**
      * @return Flow of [CollectionWithAccounts] for [collectionId].
      */
-    fun getCollection(pachliAccountId: Long, collectionId: String): Flow<CollectionWithAccounts?> {
-        return collectionsDao.getCollection(pachliAccountId, collectionId)
-            .map {
+    fun getCollectionFlow(pachliAccountId: Long, collectionId: String): Flow<CollectionWithAccounts> {
+        return collectionsDao.getCollectionFlow(pachliAccountId, collectionId)
+            .mapNotNull {
                 it.firstNotNullOfOrNull { (collectionAndOwner, accounts) ->
                     CollectionWithAccounts(
                         collection = collectionAndOwner.collection.asModel(),
@@ -113,6 +149,14 @@ internal class CollectionsLocalDataSource @Inject constructor(
                     )
                 }
             }
+    }
+
+    /**
+     * Returns the [CollectionCardViewData] for the collections identified by
+     * [collectionIds].
+     */
+    suspend fun getCollectionCardViewData(pachliAccountId: Long, collectionIds: Collection<String>): List<CollectionCardViewData> {
+        return collectionsDao.getCollectionCardViewData(pachliAccountId, collectionIds).map { it.asModel() }
     }
 
     /**
@@ -127,7 +171,7 @@ internal class CollectionsLocalDataSource @Inject constructor(
             collectionsDao.upsertCollectionItems(
                 collectionWithAccounts.collection.items.asEntity(
                     pachliAccountId,
-                    collectionWithAccounts.collection.serverId,
+                    collectionWithAccounts.collection.collectionId,
                 ),
             )
             accountRepository.saveAccounts(
@@ -142,6 +186,40 @@ internal class CollectionsLocalDataSource @Inject constructor(
             collectionWithAccounts.owner?.let {
                 accountRepository.saveTimelineAccount(pachliAccountId, it.asTimelineAccount())
             }
+            collectionsDao.upsertTimelineCollections(
+                listOf(collectionWithAccounts.asTimelineCollection().asEntity(pachliAccountId)),
+            )
+        }
+    }
+
+    suspend fun saveCollections(pachliAccountId: Long, collectionsWithAccounts: List<CollectionWithAccounts>) {
+        val collectionEntities = mutableSetOf<CollectionEntity>()
+        val collectionItemEntities = mutableSetOf<CollectionItemEntity>()
+        val timelineCollectionEntities = mutableSetOf<TimelineCollectionEntity>()
+        val accountEntities = mutableSetOf<AccountEntity>()
+
+        collectionsWithAccounts.forEach { collectionWithAccounts ->
+            val collection = collectionWithAccounts.collection
+
+            collectionEntities.add(collection.asEntity(pachliAccountId))
+
+            collectionItemEntities.addAll(
+                collectionWithAccounts.collection.items.asEntity(pachliAccountId, collectionWithAccounts.collection.collectionId),
+            )
+
+            collectionWithAccounts.owner?.let { accountEntities.add(it.asEntity(pachliAccountId)) }
+            accountEntities.addAll(collectionWithAccounts.accounts.asEntity(pachliAccountId))
+
+            timelineCollectionEntities.add(
+                collectionWithAccounts.asTimelineCollection().asEntity(pachliAccountId),
+            )
+        }
+
+        transactionProvider {
+            collectionsDao.upsertCollections(collectionEntities)
+            collectionsDao.upsertCollectionItems(collectionItemEntities)
+            collectionsDao.upsertTimelineCollections(timelineCollectionEntities)
+            timelineDao.upsertAccounts(accountEntities)
         }
     }
 
@@ -159,10 +237,29 @@ internal class CollectionsLocalDataSource @Inject constructor(
     }
 
     /**
-     * Removes [accountId] from the cached copy of [collectionId].
+     * Removes [accountId] from the cached copy of [collectionId] in
+     * [CollectionEntity][app.pachli.core.database.model.CollectionEntity] and
+     * [TimelineCollectionEntity][app.pachli.core.database.model.TimelineCollectionEntity].
      */
     suspend fun removeAccountFromCollection(pachliAccountId: Long, collectionId: String, accountId: String) {
-        collectionsDao.removeAccountFromCollection(pachliAccountId, collectionId, accountId)
+        transactionProvider {
+            collectionsDao.removeAccountFromCollection(pachliAccountId, collectionId, accountId)
+
+            // Rewrite the TimelineCollectionEntity, if it exists.
+            collectionsDao.getTimelineCollection(pachliAccountId, collectionId)?.let { timelineCollectionEntity ->
+                val indexToRemove = timelineCollectionEntity.items.indexOfFirst { it.accountId == accountId }
+                if (indexToRemove == -1) return@transactionProvider
+
+                val items = timelineCollectionEntity.items.toMutableList().apply { removeAt(indexToRemove) }
+                val itemIconUrls = timelineCollectionEntity.itemIconUrls.toMutableList().apply { removeAt(indexToRemove) }
+
+                val newEntity = timelineCollectionEntity.copy(
+                    items = items,
+                    itemIconUrls = itemIconUrls,
+                )
+                collectionsDao.upsertTimelineCollection(newEntity)
+            }
+        }
     }
 }
 
@@ -184,6 +281,25 @@ internal class CollectionsRemoteDataSource @Inject constructor(
             .bind()
     }
 
+    /**
+     * Returns the [CollectionWithAccounts] identified by [collectionIds].
+     *
+     * Each [CollectionWithAccounts] has to be fetched with individual API calls,
+     * any of which might fail, so return type is a `List<Result<...,...>>` to
+     * store the success/failure state of each call.
+     */
+    suspend fun getCollections(pachliAccountId: Long, collectionIds: Collection<String>): List<Result<CollectionWithAccounts, CollectionsRepository.Error.GetCollection>> {
+        // Note: There's no API call that can fetch multiple collections at once,
+        // so make async fetches and wait for the result.
+        return coroutineScope {
+            val jobs = collectionIds.map {
+                async { getCollection(pachliAccountId, it) }
+            }
+            return@coroutineScope jobs.awaitAll()
+        }
+    }
+
+    /** Revokes [accountId] from [collectionId]. */
     suspend fun revokeFromCollection(pachliAccountId: Long, collectionId: String, accountId: String): ApiResult<Unit> {
         return mastodonApi.revokeItemInCollection(collectionId, accountId)
     }

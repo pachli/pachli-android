@@ -429,7 +429,7 @@ class ComposeActivity :
 
                 setupLanguageSpinner(getInitialLanguages(composeOptions.draft.language, account))
 
-                setupButtons(account.id)
+                setupButtons(account.pachliAccountId)
 
                 if (savedInstanceState != null) {
                     setupComposeField(null, composeOptions)
@@ -1829,7 +1829,7 @@ class ComposeActivity :
             }
             viewModel.saveDraft(binding.composeEditField.selectionStart)
                 .onSuccess {
-                    viewModel.closeDraft(it.id)
+                    viewModel.closeDraft(it.draftId)
                     finish()
                 }
                 .onFailure {

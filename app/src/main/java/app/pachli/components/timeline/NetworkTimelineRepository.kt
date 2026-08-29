@@ -28,6 +28,7 @@ import app.pachli.components.timeline.TimelineRepository.Companion.PAGE_SIZE
 import app.pachli.components.timeline.viewmodel.NetworkTimelinePagingSource
 import app.pachli.components.timeline.viewmodel.NetworkTimelineRemoteMediator
 import app.pachli.components.timeline.viewmodel.PageCache
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusActionError
 import app.pachli.core.data.repository.StatusRepository
@@ -36,9 +37,6 @@ import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.di.InvalidationTracker
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.TimelineStatusWithQuote
-import app.pachli.core.database.model.TranslationState
-import app.pachli.core.model.AttachmentDisplayAction
-import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.retrofit.MastodonApi
@@ -48,8 +46,8 @@ import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
-import kotlin.coroutines.coroutineContext
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -95,7 +93,8 @@ class NetworkTimelineRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val remoteKeyDao: RemoteKeyDao,
     private val statusRepository: OfflineFirstStatusRepository,
-) : TimelineRepository<TimelineStatusWithQuote>, StatusRepository {
+    private val collectionsRepository: CollectionsRepository,
+) : TimelineRepository<TimelineStatusWithQuote>, StatusRepository by statusRepository {
     private val pageCache = PageCache()
 
     private var factory: InvalidatingPagingSourceFactory<String, TimelineStatusWithQuote>? = null
@@ -141,15 +140,19 @@ class NetworkTimelineRepository @Inject constructor(
 
         Timber.d("timeline: $timeline, initialKey: $initialKey")
         factory = InvalidatingPagingSourceFactory {
-            NetworkTimelinePagingSource(pachliAccountId, statusRepository, pageCache, initialKey)
+            NetworkTimelinePagingSource(pachliAccountId, statusRepository, collectionsRepository, pageCache, initialKey)
         }
 
         // Track changes to tables that might be changed by user actions. Changes to
         // these tables have to invalidate the paging source so the `map` that runs
         // on the `Pager.flow` below can re-run and reflect the changes in the data.
         // This shouldn't outlive the viewmodel scope that called `getStatusStream()`.
-        CoroutineScope(coroutineContext).launch {
-            invalidationTracker.createFlow("StatusViewDataEntity", emitInitialState = false)
+        CoroutineScope(currentCoroutineContext()).launch {
+            invalidationTracker.createFlow(
+                "CollectionViewDataEntity",
+                "StatusViewDataEntity",
+                emitInitialState = false,
+            )
                 .collect {
                     Timber.d("timeline: $timeline, tables changed: $it")
                     factory?.invalidate()
@@ -171,14 +174,15 @@ class NetworkTimelineRepository @Inject constructor(
                 pageCache,
                 timeline,
                 remoteKeyDao,
+                collectionsRepository,
             ),
             pagingSourceFactory = factory!!,
         ).flow
             .map { pagingData ->
                 pagingData.filter { status ->
-                    !hiddenStatuses.contains(status.timelineStatus.status.serverId) &&
-                        !hiddenStatuses.contains(status.timelineStatus.status.reblogServerId) &&
-                        !hiddenAccounts.contains(status.timelineStatus.status.authorServerId) &&
+                    !hiddenStatuses.contains(status.timelineStatus.status.statusId) &&
+                        !hiddenStatuses.contains(status.timelineStatus.status.reblogStatusId) &&
+                        !hiddenAccounts.contains(status.timelineStatus.status.accountId) &&
                         !hiddenAccounts.contains(status.timelineStatus.status.reblogAccountId) &&
                         !hiddenDomains.contains(getDomain(status.timelineStatus.account.url)) &&
                         !hiddenDomains.contains(getDomain(status.timelineStatus.reblogAccount?.url))
@@ -191,7 +195,7 @@ class NetworkTimelineRepository @Inject constructor(
     fun invalidate() = factory?.invalidate()
 
     // Can't update the local cache here, as there's no guarantee the server has
-    // propogated the removal to all timelines, so reloading (via invalidate())
+    // propagated the removal to all timelines, so reloading (via invalidate())
     // risks loading a timeline where the account hasn't yet been removed.
     fun removeAllByAccountId(accountId: String) {
         hiddenAccounts.add(accountId)
@@ -199,7 +203,7 @@ class NetworkTimelineRepository @Inject constructor(
     }
 
     // Can't update the local cache here, as there's no guarantee the server has
-    // propogated the removal to all timelines, so reloading (via invalidate())
+    // propagated the removal to all timelines, so reloading (via invalidate())
     // risks loading a timeline where the domain hasn't yet been removed.
     fun removeAllByInstance(instance: String) {
         hiddenDomains.add(instance)
@@ -207,7 +211,7 @@ class NetworkTimelineRepository @Inject constructor(
     }
 
     // Can't update the local cache here, as there's no guarantee the server has
-    // propogated the removal to all timelines, so reloading (via invalidate())
+    // propagated the removal to all timelines, so reloading (via invalidate())
     // risks loading a timeline where the status hasn't yet been removed.
     fun removeStatusWithId(statusId: String) {
         hiddenStatuses.add(statusId)
@@ -294,24 +298,6 @@ class NetworkTimelineRepository @Inject constructor(
             updateActionableStatusById(statusId) { it }
         }
     }
-
-    override suspend fun voteInPoll(pachliAccountId: Long, statusId: String, pollId: String, choices: List<Int>): Result<Poll, StatusActionError.VoteInPoll> = statusRepository.voteInPoll(pachliAccountId, statusId, pollId, choices)
-
-    override suspend fun setExpanded(pachliAccountId: Long, statusId: String, expanded: Boolean) = statusRepository.setExpanded(pachliAccountId, statusId, expanded)
-
-    override suspend fun setAttachmentDisplayAction(pachliAccountId: Long, statusId: String, attachmentDisplayAction: AttachmentDisplayAction) = statusRepository.setAttachmentDisplayAction(pachliAccountId, statusId, attachmentDisplayAction)
-
-    override suspend fun setContentCollapsed(pachliAccountId: Long, statusId: String, contentCollapsed: Boolean) = statusRepository.setContentCollapsed(pachliAccountId, statusId, contentCollapsed)
-
-    override suspend fun setTranslationState(pachliAccountId: Long, statusId: String, translationState: TranslationState) = statusRepository.setTranslationState(pachliAccountId, statusId, translationState)
-
-    override suspend fun getStatusViewData(pachliAccountId: Long, statusId: String) = statusRepository.getStatusViewData(pachliAccountId, statusId)
-
-    override suspend fun getStatusViewData(pachliAccountId: Long, statusIds: Collection<String>) = statusRepository.getStatusViewData(pachliAccountId, statusIds)
-
-    override suspend fun getTranslations(pachliAccountId: Long, statusIds: Collection<String>) = statusRepository.getTranslations(pachliAccountId, statusIds)
-
-    override suspend fun getTranslation(pachliAccountId: Long, statusId: String) = statusRepository.getTranslation(pachliAccountId, statusId)
 
     override suspend fun detachQuote(pachliAccountId: Long, quoteId: String, parentId: String): Result<Status, StatusActionError.RevokeQuote> {
         return statusRepository.detachQuote(pachliAccountId, quoteId, parentId)

@@ -12,6 +12,8 @@ import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator
 import app.pachli.core.common.PachliThrowable
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.AccountRepository
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.di.TransactionProvider
@@ -87,6 +89,12 @@ class CachedTimelineRemoteMediatorTest {
 
     @Inject
     lateinit var transactionProvider: TransactionProvider
+
+    @Inject
+    lateinit var collectionsRepository: CollectionsRepository
+
+    @Inject
+    lateinit var accountRepository: AccountRepository
 
     private lateinit var activeAccount: PachliAccount
 
@@ -164,11 +172,13 @@ class CachedTimelineRemoteMediatorTest {
             mastodonApi = mock {
                 on { homeTimeline(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn failure(code = 500)
             },
-            pachliAccountId = activeAccount.id,
+            pachliAccountId = activeAccount.pachliAccountId,
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
             statusDao = db.statusDao(),
+            collectionsRepository = collectionsRepository,
+            accountRepository = accountRepository,
         )
 
         val result = runBlocking { remoteMediator.load(LoadType.REFRESH, state()) }
@@ -190,11 +200,13 @@ class CachedTimelineRemoteMediatorTest {
             mastodonApi = mock {
                 on { homeTimeline(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn failure()
             },
-            pachliAccountId = activeAccount.id,
+            pachliAccountId = activeAccount.pachliAccountId,
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
             statusDao = db.statusDao(),
+            collectionsRepository = collectionsRepository,
+            accountRepository = accountRepository,
         )
 
         val result = runBlocking { remoteMediator.load(LoadType.REFRESH, state()) }
@@ -213,11 +225,13 @@ class CachedTimelineRemoteMediatorTest {
         val remoteMediator = CachedTimelineRemoteMediator(
             context = context,
             mastodonApi = mock(),
-            pachliAccountId = activeAccount.id,
+            pachliAccountId = activeAccount.pachliAccountId,
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
             statusDao = db.statusDao(),
+            collectionsRepository = collectionsRepository,
+            accountRepository = accountRepository,
         )
 
         val state = state(
@@ -254,11 +268,13 @@ class CachedTimelineRemoteMediatorTest {
         val remoteMediator = CachedTimelineRemoteMediator(
             context = context,
             mastodonApi = mastodonApi,
-            pachliAccountId = activeAccount.id,
+            pachliAccountId = activeAccount.pachliAccountId,
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
             statusDao = db.statusDao(),
+            collectionsRepository = collectionsRepository,
+            accountRepository = accountRepository,
         )
 
         val state = state(
@@ -309,11 +325,13 @@ class CachedTimelineRemoteMediatorTest {
         val remoteMediator = CachedTimelineRemoteMediator(
             context = context,
             mastodonApi = mastodonApi,
-            pachliAccountId = activeAccount.id,
+            pachliAccountId = activeAccount.pachliAccountId,
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
             statusDao = db.statusDao(),
+            collectionsRepository = collectionsRepository,
+            accountRepository = accountRepository,
         )
 
         val state = state(
@@ -369,11 +387,13 @@ class CachedTimelineRemoteMediatorTest {
         val remoteMediator = CachedTimelineRemoteMediator(
             context = context,
             mastodonApi = mastodonApi,
-            pachliAccountId = activeAccount.id,
+            pachliAccountId = activeAccount.pachliAccountId,
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
             statusDao = db.statusDao(),
+            collectionsRepository = collectionsRepository,
+            accountRepository = accountRepository,
         )
 
         val state = state(

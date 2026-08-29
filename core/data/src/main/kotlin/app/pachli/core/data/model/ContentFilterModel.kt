@@ -66,11 +66,11 @@ class ContentFilterModel(private val filterContext: FilterContext, v1ContentFilt
             }
         }
 
-        val matchingKind = status.filtered?.filter { result ->
+        val matchingKind = status.filtered.filter { result ->
             result.filter.contexts.contains(filterContext)
         }
 
-        return if (matchingKind.isNullOrEmpty()) {
+        return if (matchingKind.isEmpty()) {
             FilterAction.NONE
         } else {
             matchingKind.maxOf { it.filter.filterAction }
@@ -101,11 +101,11 @@ class ContentFilterModel(private val filterContext: FilterContext, v1ContentFilt
             }
         }
 
-        val matchingKind = status.filtered?.filter { result ->
+        val matchingKind = status.filtered.filter { result ->
             result.filter.contexts.contains(filterContext)
         }
 
-        return if (matchingKind.isNullOrEmpty()) {
+        return if (matchingKind.isEmpty()) {
             FilterAction.NONE
         } else {
             matchingKind.maxOf { it.filter.filterAction }

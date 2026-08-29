@@ -66,7 +66,7 @@ class NotificationEntityForeignKeyTest {
      * entity under test.
      */
     private val activeAccount = PachliAccountEntity(
-        id = pachliAccountId,
+        pachliAccountId = pachliAccountId,
         domain = "mastodon.example",
         accessToken = "token",
         clientId = "id",
@@ -79,7 +79,7 @@ class NotificationEntityForeignKeyTest {
      * referenced in these tests.
      */
     private val timelineAccount = TimelineAccountEntity(
-        serverId = "1",
+        accountId = "1",
         pachliAccountId = pachliAccountId,
         localUsername = "example",
         username = "example",
@@ -119,16 +119,16 @@ class NotificationEntityForeignKeyTest {
     fun `deleting notification does not delete notification view data`() = runTest {
         val notification = NotificationEntity(
             pachliAccountId = pachliAccountId,
-            serverId = "1",
+            notificationId = "1",
             type = NotificationEntity.Type.FAVOURITE,
             createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
-            accountServerId = "1",
-            statusServerId = "1",
+            accountId = "1",
+            statusId = "1",
             note = "",
             report = null,
             relationshipSeveranceEvent = null,
             accountWarning = null,
-            collectionServerId = null,
+            collectionId = null,
         )
         notificationDao.upsertNotifications(listOf(notification))
 
@@ -139,7 +139,7 @@ class NotificationEntityForeignKeyTest {
 
         val accountFilterAction = NotificationAccountFilterDecisionUpdate(
             pachliAccountId = pachliAccountId,
-            serverId = "1",
+            notificationId = "1",
             accountFilterDecision = accountFilterDecision,
         )
         notificationDao.upsert(accountFilterAction)
@@ -147,7 +147,7 @@ class NotificationEntityForeignKeyTest {
         // Check everything is as expected.
         val notificationViewData = NotificationViewDataEntity(
             pachliAccountId = pachliAccountId,
-            serverId = "1",
+            notificationId = "1",
             accountFilterDecision = accountFilterDecision,
         )
 

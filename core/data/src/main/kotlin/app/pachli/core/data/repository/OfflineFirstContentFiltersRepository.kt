@@ -114,7 +114,7 @@ class OfflineFirstContentFiltersRepository @Inject constructor(
         remoteDataSource.getContentFilters(pachliAccountId, server)
             .onSuccess {
                 val entity = ContentFiltersEntity(
-                    accountId = pachliAccountId,
+                    pachliAccountId = pachliAccountId,
                     contentFilters = it.contentFilters,
                     version = it.version,
                 )

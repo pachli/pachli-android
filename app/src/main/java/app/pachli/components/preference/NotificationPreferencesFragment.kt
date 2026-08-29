@@ -53,7 +53,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                 isIconSpaceReserved = false
                 isChecked = activeAccount.notificationsEnabled
                 setOnPreferenceChangeListener { _, newValue ->
-                    viewModel.setNotificationsEnabled(activeAccount.id, newValue as Boolean)
+                    viewModel.setNotificationsEnabled(activeAccount.pachliAccountId, newValue as Boolean)
                     if (androidNotificationsAreEnabled(context)) {
                         enablePullNotifications(context)
                     } else {
@@ -74,7 +74,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                     isChecked = activeAccount.notificationsMentioned
                     isSingleLineTitle = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        viewModel.setNotificationsMentioned(activeAccount.id, newValue as Boolean)
+                        viewModel.setNotificationsMentioned(activeAccount.pachliAccountId, newValue as Boolean)
                         true
                     }
                 }
@@ -86,7 +86,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                     isChecked = activeAccount.notificationsFollowed
                     isSingleLineTitle = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        viewModel.setNotificationsFollowed(activeAccount.id, newValue as Boolean)
+                        viewModel.setNotificationsFollowed(activeAccount.pachliAccountId, newValue as Boolean)
                         true
                     }
                 }
@@ -98,7 +98,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                     isChecked = activeAccount.notificationsFollowRequested
                     isSingleLineTitle = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        viewModel.setNotificationsFollowRequested(activeAccount.id, newValue as Boolean)
+                        viewModel.setNotificationsFollowRequested(activeAccount.pachliAccountId, newValue as Boolean)
                         true
                     }
                 }
@@ -110,7 +110,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                     isChecked = activeAccount.notificationsReblogged
                     isSingleLineTitle = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        viewModel.setNotificationsReblogged(activeAccount.id, newValue as Boolean)
+                        viewModel.setNotificationsReblogged(activeAccount.pachliAccountId, newValue as Boolean)
                         true
                     }
                 }
@@ -122,7 +122,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                     isChecked = activeAccount.notificationsFavorited
                     isSingleLineTitle = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        viewModel.setNotificationsFavorited(activeAccount.id, newValue as Boolean)
+                        viewModel.setNotificationsFavorited(activeAccount.pachliAccountId, newValue as Boolean)
                         true
                     }
                 }
@@ -134,7 +134,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                     isChecked = activeAccount.notificationsQuotes
                     isSingleLineTitle = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        viewModel.setNotificationsQuotes(activeAccount.id, newValue as Boolean)
+                        viewModel.setNotificationsQuotes(activeAccount.pachliAccountId, newValue as Boolean)
                         true
                     }
                 }
@@ -146,7 +146,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                     isChecked = activeAccount.notificationsQuotedUpdates
                     isSingleLineTitle = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        viewModel.setNotificationsQuotedUpdates(activeAccount.id, newValue as Boolean)
+                        viewModel.setNotificationsQuotedUpdates(activeAccount.pachliAccountId, newValue as Boolean)
                         true
                     }
                 }
@@ -158,7 +158,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                     isChecked = activeAccount.notificationsPolls
                     isSingleLineTitle = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        viewModel.setNotificationsPolls(activeAccount.id, newValue as Boolean)
+                        viewModel.setNotificationsPolls(activeAccount.pachliAccountId, newValue as Boolean)
                         true
                     }
                 }
@@ -170,7 +170,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                     isChecked = activeAccount.notificationsSubscriptions
                     isSingleLineTitle = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        viewModel.setNotificationsSubscriptions(activeAccount.id, newValue as Boolean)
+                        viewModel.setNotificationsSubscriptions(activeAccount.pachliAccountId, newValue as Boolean)
                         true
                     }
                 }
@@ -182,7 +182,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                     isChecked = activeAccount.notificationsSignUps
                     isSingleLineTitle = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        viewModel.setNotificationsSignUps(activeAccount.id, newValue as Boolean)
+                        viewModel.setNotificationsSignUps(activeAccount.pachliAccountId, newValue as Boolean)
                         true
                     }
                 }
@@ -194,7 +194,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                     isChecked = activeAccount.notificationsUpdates
                     isSingleLineTitle = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        viewModel.setNotificationsUpdates(activeAccount.id, newValue as Boolean)
+                        viewModel.setNotificationsUpdates(activeAccount.pachliAccountId, newValue as Boolean)
                         true
                     }
                 }
@@ -206,7 +206,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                     isChecked = activeAccount.notificationsReports
                     isSingleLineTitle = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        viewModel.setNotificationsReports(activeAccount.id, newValue as Boolean)
+                        viewModel.setNotificationsReports(activeAccount.pachliAccountId, newValue as Boolean)
                         true
                     }
                 }
@@ -218,7 +218,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                     isChecked = activeAccount.notificationsSeveredRelationships
                     isSingleLineTitle = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        viewModel.setNotificationsSeveredRelationships(activeAccount.id, newValue as Boolean)
+                        viewModel.setNotificationsSeveredRelationships(activeAccount.pachliAccountId, newValue as Boolean)
                         true
                     }
                 }
@@ -230,7 +230,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                     isChecked = activeAccount.notificationsModerationWarnings
                     isSingleLineTitle = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        viewModel.setNotificationsModerationWarnings(activeAccount.id, newValue as Boolean)
+                        viewModel.setNotificationsModerationWarnings(activeAccount.pachliAccountId, newValue as Boolean)
                         true
                     }
                 }
@@ -246,7 +246,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                     isIconSpaceReserved = false
                     isChecked = activeAccount.notificationSound
                     setOnPreferenceChangeListener { _, newValue ->
-                        viewModel.setNotificationSound(activeAccount.id, newValue as Boolean)
+                        viewModel.setNotificationSound(activeAccount.pachliAccountId, newValue as Boolean)
                         true
                     }
                 }
@@ -257,7 +257,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                     isIconSpaceReserved = false
                     isChecked = activeAccount.notificationVibration
                     setOnPreferenceChangeListener { _, newValue ->
-                        viewModel.setNotificationVibration(activeAccount.id, newValue as Boolean)
+                        viewModel.setNotificationVibration(activeAccount.pachliAccountId, newValue as Boolean)
                         true
                     }
                 }
@@ -268,7 +268,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                     isIconSpaceReserved = false
                     isChecked = activeAccount.notificationLight
                     setOnPreferenceChangeListener { _, newValue ->
-                        viewModel.setNotificationLight(activeAccount.id, newValue as Boolean)
+                        viewModel.setNotificationLight(activeAccount.pachliAccountId, newValue as Boolean)
                         true
                     }
                 }

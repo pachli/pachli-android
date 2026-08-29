@@ -27,9 +27,9 @@ import kotlinx.parcelize.Parcelize
 /**
  * A draft status.
  *
- * The status may or may not be saved to local storage, depending on [id].
+ * The status may or may not be saved to local storage, depending on [draftId].
  *
- * @property id Unique identifier for the draft. `0` means the draft has not
+ * @property draftId Unique identifier for the draft. `0` means the draft has not
  * yet been saved. Anything else means the draft has been saved at least once
  * (but the current content of the class may be dirty).
  * @property contentWarning The content warning (spoiler text).
@@ -58,7 +58,7 @@ import kotlinx.parcelize.Parcelize
  */
 @Parcelize
 data class Draft(
-    val id: Long = 0,
+    val draftId: Long = 0,
     val contentWarning: String?,
     val content: String?,
     val sensitive: Boolean,

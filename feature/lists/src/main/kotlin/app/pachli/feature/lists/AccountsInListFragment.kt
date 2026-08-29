@@ -58,7 +58,6 @@ import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
 import javax.inject.Inject
-import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
@@ -73,19 +72,19 @@ private typealias AccountInfo = Pair<TimelineAccount, Boolean>
  */
 @AndroidEntryPoint
 class AccountsInListFragment : AppCompatDialogFragment() {
+    private val pachliAccountId by unsafeLazy { requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID) }
+
+    private val listName by unsafeLazy { requireArguments().getString(ARG_LIST_NAME)!! }
+
     private val viewModel: AccountsInListViewModel by viewModels(
         extrasProducer = {
             defaultViewModelCreationExtras.withCreationCallback<AccountsInListViewModel.Factory> { factory ->
-                factory.create(
-                    requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID),
-                    requireArguments().getString(ARG_LIST_ID)!!,
-                )
+                factory.create(pachliAccountId, listName)
             }
         },
     )
     private val binding by viewBinding(FragmentAccountsInListBinding::bind)
 
-    private lateinit var listName: String
     private val adapter = Adapter()
     private val searchAdapter = SearchAdapter()
 
@@ -97,14 +96,9 @@ class AccountsInListFragment : AppCompatDialogFragment() {
     private val animateAvatar by unsafeLazy { sharedPreferencesRepository.animateAvatars }
     private val animateEmojis by unsafeLazy { sharedPreferencesRepository.animateEmojis }
 
-    private var pachliAccountId by Delegates.notNull<Long>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, DR.style.AppDialogFragmentStyle)
-        val args = requireArguments()
-        pachliAccountId = args.getLong(ARG_PACHLI_ACCOUNT_ID)
-        listName = args.getString(ARG_LIST_NAME)!!
     }
 
     override fun onStart() {
@@ -223,7 +217,7 @@ class AccountsInListFragment : AppCompatDialogFragment() {
 
     private object AccountDiffer : DiffUtil.ItemCallback<TimelineAccount>() {
         override fun areItemsTheSame(oldItem: TimelineAccount, newItem: TimelineAccount): Boolean {
-            return oldItem.serverId == newItem.serverId
+            return oldItem.accountId == newItem.accountId
         }
 
         override fun areContentsTheSame(oldItem: TimelineAccount, newItem: TimelineAccount): Boolean {
@@ -240,7 +234,7 @@ class AccountsInListFragment : AppCompatDialogFragment() {
 
             binding.checkBox.setOnCheckedChangeListener { _, isChecked ->
                 if (!isChecked) {
-                    onRemoveFromList(getItem(holder.bindingAdapterPosition).serverId)
+                    onRemoveFromList(getItem(holder.bindingAdapterPosition).accountId)
                 }
             }
             binding.checkBox.contentDescription =
@@ -270,7 +264,7 @@ class AccountsInListFragment : AppCompatDialogFragment() {
 
     private object SearchDiffer : DiffUtil.ItemCallback<AccountInfo>() {
         override fun areItemsTheSame(oldItem: AccountInfo, newItem: AccountInfo): Boolean {
-            return oldItem.first.serverId == newItem.first.serverId
+            return oldItem.first.accountId == newItem.first.accountId
         }
 
         override fun areContentsTheSame(oldItem: AccountInfo, newItem: AccountInfo): Boolean {
@@ -291,7 +285,7 @@ class AccountsInListFragment : AppCompatDialogFragment() {
                 if (isChecked) {
                     onAddToList(account)
                 } else {
-                    onRemoveFromList(account.serverId)
+                    onRemoveFromList(account.accountId)
                 }
             }
 

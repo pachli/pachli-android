@@ -47,6 +47,7 @@ import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.PreviewCard
@@ -74,7 +75,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
 import io.github.z4kn4fein.semver.constraints.toConstraint
 import javax.inject.Inject
-import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.launch
@@ -106,12 +106,7 @@ class TrendingLinksFragment :
 
     private var talkBackWasEnabled = false
 
-    private var pachliAccountId by Delegates.notNull<Long>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
-    }
+    private val pachliAccountId by unsafeLazy { requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID) }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
@@ -296,7 +291,7 @@ class TrendingLinksFragment :
         when (target) {
             Target.CARD -> openUrl(card.url)
             Target.IMAGE -> openUrl(card.url)
-            Target.BYLINE -> card.authors?.firstOrNull()?.account?.serverId?.let {
+            Target.BYLINE -> card.authors?.firstOrNull()?.account?.accountId?.let {
                 startActivityWithTransition(
                     AccountActivityIntent(requireContext(), pachliAccountId, it),
                     TransitionKind.SLIDE_FROM_END,

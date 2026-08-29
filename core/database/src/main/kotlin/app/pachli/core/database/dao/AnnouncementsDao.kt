@@ -17,24 +17,24 @@
 
 package app.pachli.core.database.dao
 
-import androidx.room.Dao
-import androidx.room.Query
-import androidx.room.TypeConverters
-import androidx.room.Upsert
+import androidx.room3.ColumnTypeConverters
+import androidx.room3.Dao
+import androidx.room3.Query
+import androidx.room3.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.AnnouncementEntity
 
 @Dao
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 interface AnnouncementsDao {
     @Query(
         """
 DELETE
 FROM AnnouncementEntity
-WHERE accountId = :accountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun deleteAllForAccount(accountId: Long)
+    suspend fun deleteAllForAccount(pachliAccountId: Long)
 
     @Upsert
     suspend fun upsert(announcement: AnnouncementEntity)
@@ -46,7 +46,7 @@ WHERE accountId = :accountId
         """
 DELETE
 FROM AnnouncementEntity
-WHERE accountId = :pachliAccountId AND announcementId = :announcementId
+WHERE pachliAccountId = :pachliAccountId AND announcementId = :announcementId
 """,
     )
     suspend fun deleteForAccount(pachliAccountId: Long, announcementId: String)
@@ -55,7 +55,7 @@ WHERE accountId = :pachliAccountId AND announcementId = :announcementId
         """
 SELECT *
 FROM AnnouncementEntity
-WHERE accountId = :pachliAccountId
+WHERE pachliAccountId = :pachliAccountId
 """,
     )
     suspend fun loadAllForAccount(pachliAccountId: Long): List<AnnouncementEntity>

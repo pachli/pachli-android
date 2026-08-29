@@ -17,8 +17,9 @@
 
 package app.pachli.core.database.dao
 
-import androidx.room.DatabaseView
-import androidx.room.Embedded
+import androidx.room3.DatabaseView
+import androidx.room3.Embedded
+import androidx.room3.Ignore
 import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
@@ -31,15 +32,22 @@ import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Status.Quote.HiddenQuote
 import app.pachli.core.model.Status.Quote.ShallowQuote
+import app.pachli.core.model.collection.CollectionCardViewData
 import java.util.Date
 
+/**
+ * @property collectionCards Any collection cards associated with this
+ * status. **Not** returned by this query, has to be resolved by the
+ * caller, normally using [ResolveCollectionCardsPagingSource]. See
+ * documentation in that class for more details.
+ */
 @DatabaseView(
     """
 SELECT
-    s.serverId,
+    s.statusId,
     s.url,
     s.pachliAccountId,
-    s.authorServerId,
+    s.accountId,
     s.inReplyToId,
     s.inReplyToAccountId,
     s.createdAt,
@@ -58,7 +66,7 @@ SELECT
     s.mentions,
     s.tags,
     s.application,
-    s.reblogServerId,
+    s.reblogStatusId,
     s.reblogAccountId,
     s.content,
     s.attachments,
@@ -69,9 +77,10 @@ SELECT
     s.language,
     s.filtered,
     s.quoteState,
-    s.quoteServerId,
+    s.quoteStatusId,
     s.quoteApproval,
-    a.serverId AS 'a_serverId',
+    s.taggedCollections,
+    a.accountId AS 'a_accountId',
     a.pachliAccountId AS 'a_pachliAccountId',
     a.localUsername AS 'a_localUsername',
     a.username AS 'a_username',
@@ -84,7 +93,7 @@ SELECT
     a.limited AS 'a_limited',
     a.roles AS 'a_roles',
     a.pronouns AS 'a_pronouns',
-    rb.serverId AS 'rb_serverId',
+    rb.accountId AS 'rb_accountId',
     rb.pachliAccountId AS 'rb_pachliAccountId',
     rb.localUsername AS 'rb_localUsername',
     rb.username AS 'rb_username',
@@ -97,20 +106,20 @@ SELECT
     rb.limited AS 'rb_limited',
     rb.roles AS 'rb_roles',
     rb.pronouns AS 'rb_pronouns',
-    svd.serverId AS 'svd_serverId',
+    svd.statusId AS 'svd_statusId',
     svd.pachliAccountId AS 'svd_pachliAccountId',
     svd.expanded AS 'svd_expanded',
     svd.contentCollapsed AS 'svd_contentCollapsed',
     svd.translationState AS 'svd_translationState',
     svd.attachmentDisplayAction AS 'svd_attachmentDisplayAction',
-    tr.serverId AS 't_serverId',
+    tr.statusId AS 't_statusId',
     tr.pachliAccountId AS 't_pachliAccountId',
     tr.content AS 't_content',
     tr.spoilerText AS 't_spoilerText',
     tr.poll AS 't_poll',
     tr.attachments AS 't_attachments',
     tr.provider AS 't_provider',
-    reply.serverId AS 'reply_serverId',
+    reply.accountId AS 'reply_accountId',
     reply.pachliAccountId AS 'reply_pachliAccountId',
     reply.localUsername AS 'reply_localUsername',
     reply.username AS 'reply_username',
@@ -123,16 +132,17 @@ SELECT
     reply.limited AS 'reply_limited',
     reply.roles AS 'reply_roles',
     reply.pronouns AS 'reply_pronouns'
+
 FROM StatusEntity AS s
-LEFT JOIN TimelineAccountEntity AS a ON (s.pachliAccountId = a.pachliAccountId AND s.authorServerId = a.serverId)
-LEFT JOIN TimelineAccountEntity AS rb ON (s.pachliAccountId = rb.pachliAccountId AND s.reblogAccountId = rb.serverId)
+LEFT JOIN TimelineAccountEntity AS a ON (s.pachliAccountId = a.pachliAccountId AND s.accountId = a.accountId)
+LEFT JOIN TimelineAccountEntity AS rb ON (s.pachliAccountId = rb.pachliAccountId AND s.reblogAccountId = rb.accountId)
 LEFT JOIN
     StatusViewDataEntity AS svd
-    ON (s.pachliAccountId = svd.pachliAccountId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
+    ON (s.pachliAccountId = svd.pachliAccountId AND (s.statusId = svd.statusId OR s.reblogStatusId = svd.statusId))
 LEFT JOIN
     TranslatedStatusEntity AS tr
-    ON (s.pachliAccountId = tr.pachliAccountId AND (s.serverId = tr.serverId OR s.reblogServerId = tr.serverId))
-LEFT JOIN TimelineAccountEntity AS reply ON (s.pachliAccountId = reply.pachliAccountId AND s.inReplyToAccountId = reply.serverId)
+    ON (s.pachliAccountId = tr.pachliAccountId AND (s.statusId = tr.statusId OR s.reblogStatusId = tr.statusId))
+LEFT JOIN TimelineAccountEntity AS reply ON (s.pachliAccountId = reply.pachliAccountId AND s.inReplyToAccountId = reply.accountId)
 """,
 )
 data class TimelineStatusWithAccount(
@@ -148,23 +158,25 @@ data class TimelineStatusWithAccount(
     val translatedStatus: TranslatedStatusEntity? = null,
     @Embedded(prefix = "reply_")
     val replyAccount: TimelineAccountEntity? = null,
+    @Ignore
+    val collectionCards: List<CollectionCardViewData>? = null,
 ) {
     /**
-     * Returns a [app.pachli.core.model.Status] from [this].
+     * Returns a [Status] from [this].
      *
-     * Any embedded quotes are returned as a [app.pachli.core.model.Status.Quote.ShallowQuote]. Use
+     * Any embedded quotes are returned as a [ShallowQuote]. Use
      * [app.pachli.core.database.model.TimelineStatusWithQuote] to retain quotes.
      */
     fun toStatus(): Status {
         val attachments: List<Attachment> = status.attachments.orEmpty()
         val mentions: List<Status.Mention> = status.mentions.orEmpty()
-        val tags: List<Hashtag>? = status.tags
+        val tags: List<Hashtag> = status.tags
         val application = status.application
-        val emojis: List<Emoji> = status.emojis.orEmpty()
+        val emojis: List<Emoji> = status.emojis
         val poll: Poll? = status.poll
         val card: Card? = status.card
 
-        val reblog = status.reblogServerId?.let { actionableId ->
+        val reblog = status.reblogStatusId?.let { actionableId ->
             Status(
                 statusId = actionableId,
                 url = status.url,
@@ -198,11 +210,12 @@ data class TimelineStatusWithAccount(
                 repliesCount = status.repliesCount,
                 language = status.language,
                 filtered = status.filtered,
+                taggedCollections = status.taggedCollections,
             )
         }
         return if (reblog != null) {
             Status(
-                statusId = status.serverId,
+                statusId = status.statusId,
                 // no url for reblogs
                 url = null,
                 account = reblogAccount!!.asModel(),
@@ -236,10 +249,11 @@ data class TimelineStatusWithAccount(
                 repliesCount = status.repliesCount,
                 language = status.language,
                 filtered = status.filtered,
+                taggedCollections = status.taggedCollections,
             )
         } else {
             Status(
-                statusId = status.serverId,
+                statusId = status.statusId,
                 url = status.url,
                 account = account.asModel(),
                 inReplyToId = status.inReplyToId,
@@ -271,13 +285,14 @@ data class TimelineStatusWithAccount(
                 repliesCount = status.repliesCount,
                 language = status.language,
                 filtered = status.filtered,
+                taggedCollections = status.taggedCollections,
             )
         }
     }
 
     /**
      * Reconstruct the quote from [status.quoteState][StatusEntity.quoteState] and
-     * [status.quoteServerId][StatusEntity.quoteServerId].
+     * [status.quoteStatusId][StatusEntity.quoteStatusId].
      *
      * @return The quote, or null if no status was quoted.
      */
@@ -287,8 +302,8 @@ data class TimelineStatusWithAccount(
         return when (status.quoteState) {
             // (Assumed) accepted quotes must have a server ID. If they don't (server bug
             // or incompatibility) fall back to the UNKNOWN.
-            Status.QuoteState.ACCEPTED if status.quoteServerId != null -> ShallowQuote(status.quoteState, status.quoteServerId)
-            Status.QuoteState.ASSUMED_ACCEPTED if status.quoteServerId != null -> ShallowQuote(Status.QuoteState.ACCEPTED, status.quoteServerId)
+            Status.QuoteState.ACCEPTED if status.quoteStatusId != null -> ShallowQuote(status.quoteState, status.quoteStatusId)
+            Status.QuoteState.ASSUMED_ACCEPTED if status.quoteStatusId != null -> ShallowQuote(Status.QuoteState.ACCEPTED, status.quoteStatusId)
             Status.QuoteState.ACCEPTED,
             Status.QuoteState.ASSUMED_ACCEPTED,
             -> HiddenQuote(state = Status.QuoteState.UNKNOWN)

@@ -95,7 +95,7 @@ internal class AccountInCollectionAccessibilityDelegate(
             return when (action) {
                 app.pachli.core.ui.R.id.action_open_profile -> {
                     interrupt()
-                    accept(NavigationAction.ViewAccount(viewData.account.serverId))
+                    accept(NavigationAction.ViewAccount(viewData.account.accountId))
                     true
                 }
 
