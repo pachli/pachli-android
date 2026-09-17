@@ -17,9 +17,9 @@
 
 package app.pachli.core.database.model
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.TypeConverters
+import androidx.room3.ColumnTypeConverters
+import androidx.room3.Entity
+import androidx.room3.ForeignKey
 import app.pachli.core.database.Converters
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.ContentFilterVersion
@@ -38,7 +38,7 @@ import app.pachli.core.model.ContentFilterVersion
         ),
     ],
 )
-@TypeConverters(Converters::class)
+@ColumnTypeConverters(Converters::class)
 data class ContentFiltersEntity(
     val accountId: Long,
     val version: ContentFilterVersion,
