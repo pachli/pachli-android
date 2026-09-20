@@ -36,9 +36,6 @@ import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.di.InvalidationTracker
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.TimelineStatusWithQuote
-import app.pachli.core.database.model.TranslationState
-import app.pachli.core.model.AttachmentDisplayAction
-import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.retrofit.MastodonApi
@@ -95,7 +92,7 @@ class NetworkTimelineRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val remoteKeyDao: RemoteKeyDao,
     private val statusRepository: OfflineFirstStatusRepository,
-) : TimelineRepository<TimelineStatusWithQuote>, StatusRepository {
+) : TimelineRepository<TimelineStatusWithQuote>, StatusRepository by statusRepository {
     private val pageCache = PageCache()
 
     private var factory: InvalidatingPagingSourceFactory<String, TimelineStatusWithQuote>? = null
@@ -294,24 +291,6 @@ class NetworkTimelineRepository @Inject constructor(
             updateActionableStatusById(statusId) { it }
         }
     }
-
-    override suspend fun voteInPoll(pachliAccountId: Long, statusId: String, pollId: String, choices: List<Int>): Result<Poll, StatusActionError.VoteInPoll> = statusRepository.voteInPoll(pachliAccountId, statusId, pollId, choices)
-
-    override suspend fun setExpanded(pachliAccountId: Long, statusId: String, expanded: Boolean) = statusRepository.setExpanded(pachliAccountId, statusId, expanded)
-
-    override suspend fun setAttachmentDisplayAction(pachliAccountId: Long, statusId: String, attachmentDisplayAction: AttachmentDisplayAction) = statusRepository.setAttachmentDisplayAction(pachliAccountId, statusId, attachmentDisplayAction)
-
-    override suspend fun setContentCollapsed(pachliAccountId: Long, statusId: String, contentCollapsed: Boolean) = statusRepository.setContentCollapsed(pachliAccountId, statusId, contentCollapsed)
-
-    override suspend fun setTranslationState(pachliAccountId: Long, statusId: String, translationState: TranslationState) = statusRepository.setTranslationState(pachliAccountId, statusId, translationState)
-
-    override suspend fun getStatusViewData(pachliAccountId: Long, statusId: String) = statusRepository.getStatusViewData(pachliAccountId, statusId)
-
-    override suspend fun getStatusViewData(pachliAccountId: Long, statusIds: Collection<String>) = statusRepository.getStatusViewData(pachliAccountId, statusIds)
-
-    override suspend fun getTranslations(pachliAccountId: Long, statusIds: Collection<String>) = statusRepository.getTranslations(pachliAccountId, statusIds)
-
-    override suspend fun getTranslation(pachliAccountId: Long, statusId: String) = statusRepository.getTranslation(pachliAccountId, statusId)
 
     override suspend fun detachQuote(pachliAccountId: Long, quoteId: String, parentId: String): Result<Status, StatusActionError.RevokeQuote> {
         return statusRepository.detachQuote(pachliAccountId, quoteId, parentId)
