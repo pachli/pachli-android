@@ -15,3 +15,6 @@ app-release.apk
 .weblate
 
 feature/about/src/main/assets/PRIVACY.md
+
+# Environment managers
+mise.local.toml
