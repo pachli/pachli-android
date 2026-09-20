@@ -52,44 +52,44 @@ class ConversationsRemoteMediator(
 
         val conversations = conversationsResponse.body.filterNot { it.lastStatus == null }.asModel()
 
+        val linkHeader = conversationsResponse.headers["Link"]
+        val links = HttpHeaderLink.parse(linkHeader)
+        nextKey = HttpHeaderLink.findByRelationType(links, "next")?.uri?.getQueryParameter("max_id")
+
+        val accounts = mutableSetOf<TimelineAccount>()
+        val conversationEntities = mutableSetOf<ConversationEntity>()
+        val statuses = mutableSetOf<Status>()
+
+        val conversationStarter = isConversationStarter(conversations.map { it.lastStatus!! })
+
+        conversations.forEach {
+            val lastStatus = it.lastStatus!!
+            accounts.add(lastStatus.account)
+            lastStatus.reblog?.account?.let { accounts.add(it) }
+
+            statuses.add(lastStatus)
+
+            (lastStatus.quote as? Status.Quote.FullQuote)?.status?.let { quote ->
+                accounts.add(quote.account)
+                quote.reblog?.let {
+                    accounts.add(it.account)
+                    statuses.add(it)
+                }
+                statuses.add(quote)
+            }
+
+            conversationEntities.add(
+                ConversationEntity.from(
+                    it,
+                    pachliAccountId,
+                    conversationStarter[it.lastStatus!!.statusId] == true,
+                )!!,
+            )
+        }
+
         transactionProvider {
             if (loadType == LoadType.REFRESH) {
                 conversationsDao.deleteForAccount(pachliAccountId)
-            }
-
-            val linkHeader = conversationsResponse.headers["Link"]
-            val links = HttpHeaderLink.parse(linkHeader)
-            nextKey = HttpHeaderLink.findByRelationType(links, "next")?.uri?.getQueryParameter("max_id")
-
-            val accounts = mutableSetOf<TimelineAccount>()
-            val conversationEntities = mutableSetOf<ConversationEntity>()
-            val statuses = mutableSetOf<Status>()
-
-            val conversationStarter = isConversationStarter(conversations.map { it.lastStatus!! })
-
-            conversations.forEach {
-                val lastStatus = it.lastStatus!!
-                accounts.add(lastStatus.account)
-                lastStatus.reblog?.account?.let { accounts.add(it) }
-
-                statuses.add(lastStatus)
-
-                (lastStatus.quote as? Status.Quote.FullQuote)?.status?.let { quote ->
-                    accounts.add(quote.account)
-                    quote.reblog?.let {
-                        accounts.add(it.account)
-                        statuses.add(it)
-                    }
-                    statuses.add(quote)
-                }
-
-                conversationEntities.add(
-                    ConversationEntity.from(
-                        it,
-                        pachliAccountId,
-                        conversationStarter[it.lastStatus!!.statusId] == true,
-                    )!!,
-                )
             }
 
             timelineDao.upsertTimelineAccounts(accounts.asEntity(pachliAccountId))
