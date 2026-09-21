@@ -185,7 +185,7 @@ class CachedTimelineViewModel @AssistedInject constructor(
     }
 
     override suspend fun onOverrideCollectionDisplayAction(action: InfallibleUiAction.OverrideCollectionDisplayAction) {
-        collectionsRepository.setCollectionDisplayAction(
+        repository.setCollectionDisplayAction(
             action.pachliAccountId,
             action.collectionId,
             action.collectionDisplayAction,

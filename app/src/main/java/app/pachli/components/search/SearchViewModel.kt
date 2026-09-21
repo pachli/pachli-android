@@ -465,7 +465,7 @@ class SearchViewModel @Inject constructor(
     // TODO: No visible effect, as collection card data is not shown in search results yet.
     fun onOverrideCollectionDisplayAction(pachliAccountId: Long, collectionId: String, collectionDisplayAction: CollectionDisplayAction) {
         viewModelScope.launch {
-            collectionsRepository.setCollectionDisplayAction(
+            statusRepository.setCollectionDisplayAction(
                 pachliAccountId,
                 collectionId,
                 collectionDisplayAction,
