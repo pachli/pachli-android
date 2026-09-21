@@ -37,9 +37,49 @@ import app.pachli.core.network.replaceCrashingCharacters
  * a status, like [NotificationViewData] or [ConversationViewData].
  *
  * See [IStatusItemViewData].
+ *
+ * @property pachliAccountId ID of the Pachli account that loaded this status.
+ * @property id
+ * @property username
+ * @property rebloggedAvatar The avatar to show inset in the main avatar view. When viewing a
+ * boosted status in a timeline this is avatar that boosted it, but when viewing a notification
+ * about a boost or favourite this is the avatar that boosted/favourited it.
+ * @property translation
+ * @property isExpanded If the status includes a non-empty content warning ([spoilerText]),
+ * specifies whether just the content warning is showing (false), or the whole status
+ * content is showing (true). Ignored if there is no content warning.
+ * @property isCollapsible True if the content of this status is long enough to be collapsed
+ * (revealed with a "Show more" button).
+ * @property isCollapsed True if [isCollapsible] is true and the additional content is hidden.
+ * Ignored if [isCollapsible] is false.
+ * @property status The underlying status.
+ * @property actionable The "actionable" status; the one on which the user can perform actions
+ * (reblog, favourite, reply, etc).
+ *
+ * For example, if this is status `B`, and `B` is a reblog of status `A`, then `A` is the
+ * "actionable" status.
+ *
+ * If this is a top-level status (e.g., it's not a reblog, etc) then `status`
+ * and `actionable` are the same.
+ * @property actionableId The ID of the [actionable] status.
+ * @property rebloggingStatus
+ * @property contentFilterAction The [FilterAction] to apply, based on the [actionable] content.
+ * @property translationState The current [TranslationState]
+ * @property attachmentDisplayAction The [AttachmentDisplayAction] to use for the [actionable]
+ * attachments.
+ * @property replyToAccount If [actionable] is a reply, the account being replied to.
+ *
+ * Null if [actionable] is not a reply, or [actionable] is a reply but there is no local copy of
+ * the account details to show (a generic "reply" indicator should be shown).
+ * @property isDetailed True if [actionable] should be shown with the "detailed" layout, making
+ * it the status that has focus when viewing a thread.
+ * @property isUsersStatus True if this status was posted by the user with [pachliAccountId].
+ * @property isShowingContent True if this status' content is being shown (either because the
+ * status has no spoiler warning, or because the user has clicked through the spoiler warning).
+ * False if the content is not shown because the status has a warning and the user has not clicked
+ * through.
  */
 sealed interface IStatusViewData : IStatus {
-    /** ID of the Pachli account that loaded this status. */
     val pachliAccountId: Long
 
     val id: String
@@ -47,10 +87,8 @@ sealed interface IStatusViewData : IStatus {
 
     val username: String
 
-    // TODO: rebloggedAvatar is the wrong name for this property. This is the avatar to show
-    // inset in the main avatar view. When viewing a boosted status in a timeline this is
-    // avatar that boosted it, but when viewing a notification about a boost or favourite
-    // this is the avatar that boosted/favourited it
+    // TODO: rebloggedAvatar is the wrong name for this property. Rename, maybe to
+    // insetAvatar.
     val rebloggedAvatar: String?
         get() = if (status.reblog != null) {
             status.account.avatar
@@ -59,94 +97,24 @@ sealed interface IStatusViewData : IStatus {
         }
 
     var translation: TranslatedStatusEntity?
-
-    /**
-     * If the status includes a non-empty content warning ([spoilerText]), specifies whether
-     * just the content warning is showing (false), or the whole status content is showing (true).
-     *
-     * Ignored if there is no content warning.
-     */
     val isExpanded: Boolean
-
-    /**
-     * Specifies whether the content of this status is long enough to be automatically
-     * collapsed or if it should show all content regardless.
-     *
-     * @return Whether the status is collapsible or never collapsed.
-     */
     val isCollapsible: Boolean
-
-    /**
-     * Specifies whether the content of this status is currently limited in visibility to the first
-     * 500 characters or not.
-     *
-     * @return Whether the status is collapsed or fully expanded.
-     */
     val isCollapsed: Boolean
-
-    /** The underlying status */
     val status: Status
-
-    /**
-     * The "actionable" status; the one on which the user can perform actions
-     * (reblog, favourite, reply, etc).
-     *
-     * A status may refer to another status. For example, if this is status `B`,
-     * and `B` is a reblog of status `A`, then `A` is the "actionable" status.
-     *
-     * If this is a top-level status (e.g., it's not a reblog, etc) then `status`
-     * and `actionable` are the same.
-     */
     val actionable: Status
         get() = status.actionableStatus
-
-    /**
-     * The ID of the [actionable] status.
-     */
     val actionableId: String
         get() = status.actionableStatus.statusId
 
     val rebloggingStatus: Status?
         get() = if (status.reblog != null) status else null
 
-    /** The [FilterAction] to apply, based on the status' content. */
     var contentFilterAction: FilterAction
-
-    /** The current translation state */
     val translationState: TranslationState
-
-    /** How to display attachments on this status. */
     val attachmentDisplayAction: AttachmentDisplayAction
-
-    /**
-     * If this is a reply, the account being replied to.
-     *
-     * Null in two cases:
-     *
-     * 1. The status is not a reply.
-     * 2. The status is a reply, and we do not have a local copy of the account
-     * details to show, and a generic "Reply" indicator should be shown.
-     */
     val replyToAccount: TimelineAccount?
-
-    /**
-     * Specifies whether this status should be shown with the "detailed" layout, meaning it is
-     * the status that has a focus when viewing a thread.
-     */
     val isDetailed: Boolean
-
-    /**
-     * True if this status was posted by the user with [pachliAccountId],
-     * otherwise false.
-     */
     val isUsersStatus: Boolean
-
-    /**
-     * True if this status' content is being shown (either because the status has no
-     * spoiler warning, or because the user has clicked through the spoiler warning).
-     * False if the content is not shown because the status has a warning and the user
-     * has not clicked through.
-     */
     val isShowingContent: Boolean
 }
 
