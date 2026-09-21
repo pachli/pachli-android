@@ -100,6 +100,9 @@ class StatusRepositoryTest {
     @Inject
     lateinit var accountManager: AccountManager
 
+    @Inject
+    lateinit var collectionsRepository: CollectionsRepository
+
     private val account = CredentialAccount(
         id = "1",
         localUsername = "username",
@@ -177,6 +180,7 @@ class StatusRepositoryTest {
             statusDao,
             translatedStatusDao,
             eventHub,
+            collectionsRepository = collectionsRepository,
         )
     }
 

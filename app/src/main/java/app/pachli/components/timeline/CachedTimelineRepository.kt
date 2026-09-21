@@ -30,6 +30,7 @@ import app.pachli.components.timeline.TimelineRepository.Companion.PAGE_SIZE
 import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.common.util.unsafeLazy
+import app.pachli.core.data.repository.OfflineFirstAccountRepository
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.dao.CollectionsDao
@@ -75,6 +76,7 @@ class CachedTimelineRepository @Inject constructor(
     private val translatedStatusDao: TranslatedStatusDao,
     private val statusDao: StatusDao,
     private val collectionsDao: CollectionsDao,
+    private val accountRepository: OfflineFirstAccountRepository,
     @ApplicationScope private val externalScope: CoroutineScope,
     statusRepository: OfflineFirstStatusRepository,
 ) : TimelineRepository<TimelineStatusWithQuote>, StatusRepository by statusRepository {
@@ -158,6 +160,7 @@ class CachedTimelineRepository @Inject constructor(
                 mastodonApi,
                 pachliAccountId,
                 transactionProvider,
+                accountRepository,
                 timelineDao,
                 remoteKeyDao,
                 statusDao,
