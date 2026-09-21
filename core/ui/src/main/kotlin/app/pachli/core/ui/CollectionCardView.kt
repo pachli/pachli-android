@@ -30,10 +30,10 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.unicodeWrap
-import app.pachli.core.data.CollectionCardViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Collection
+import app.pachli.core.model.collection.CollectionCardViewData
 import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.model.collection.CollectionDisplayReason
 import app.pachli.core.preferences.LinksToUnderline

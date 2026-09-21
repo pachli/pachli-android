@@ -17,13 +17,13 @@
 
 package app.pachli.core.data.model
 
-import app.pachli.core.data.CollectionCardViewData
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountWarning
 import app.pachli.core.model.RelationshipSeveranceEvent
 import app.pachli.core.model.Report
 import app.pachli.core.model.Status
 import app.pachli.core.model.TimelineAccount
+import app.pachli.core.model.collection.CollectionCardViewData
 
 /**
  * Data necessary to show a single notification.
