@@ -28,7 +28,6 @@ import app.pachli.core.model.asTimelineAccount
 import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiResult
-import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.coroutines.binding.binding
 import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.onSuccess
@@ -75,15 +74,20 @@ internal class OfflineFirstCollectionsRepository @Inject constructor(
      * Calls the server to revoke [accountId] from [collectionId]. On success removes
      * [accountId] from the cached copy of [collectionId], on failure returns the
      * error.
+     *
+     * @return [Unit] on success, or the error that occurred revoking permission.
      */
-    override suspend fun revokeFromCollection(pachliAccountId: Long, collectionId: String, accountId: String): Result<Unit, CollectionsRepository.Error.RevokeFromCollection> {
-        return remoteDataSource.revokeFromCollection(pachliAccountId, collectionId, accountId).mapEither(
-            { },
-            { CollectionsRepository.Error.RevokeFromCollection(it) },
-        ).onSuccess {
-            localDataSource.removeAccountFromCollection(pachliAccountId, collectionId, accountId)
+    override suspend fun revokeFromCollection(pachliAccountId: Long, collectionId: String, accountId: String) =
+        binding {
+            externalScope.async {
+                remoteDataSource.revokeFromCollection(pachliAccountId, collectionId, accountId).mapEither(
+                    { },
+                    { CollectionsRepository.Error.RevokeFromCollection(it) },
+                ).onSuccess {
+                    localDataSource.removeAccountFromCollection(pachliAccountId, collectionId, accountId)
+                }
+            }.await().bind()
         }
-    }
 
     override fun setCollectionDisplayAction(pachliAccountId: Long, collectionId: String, collectionDisplayAction: CollectionDisplayAction) {
         externalScope.launch {
