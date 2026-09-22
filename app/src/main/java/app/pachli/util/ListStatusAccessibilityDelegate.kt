@@ -276,7 +276,7 @@ class ListStatusAccessibilityDelegate<T : IStatusItemViewData>(
                     // b. Hiding media that wasn't originally hidden.
                     //
                     // If (a) then the new decision is `Show.originalDecision`. If (b) then
-                    // then the new decision is UserAction.
+                    // the new decision is UserAction.
                     val newAction = (status.attachmentDisplayAction as? AttachmentDisplayAction.Show)?.originalAction
                         ?: AttachmentDisplayAction.Hide(AttachmentDisplayReason.UserAction)
                     statusActionListener.onAttachmentDisplayActionChange(status, newAction)
