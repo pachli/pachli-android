@@ -198,12 +198,20 @@ class ViewThreadViewModel @Inject constructor(
                     }
                     .asModel()
 
+                val collectionCardViewData = buildSet {
+                    status.actionableStatus.taggedCollections.forEach { add(it.collectionId) }
+                }.run {
+                    collectionsRepository.getCollectionCardViewData(account.pachliAccountId, this)
+                        .associateBy { it.timelineCollection.collectionId }
+                }
+
                 status.asStatusViewDataQ(
                     account,
                     account.alwaysOpenSpoiler,
                     account.alwaysShowSensitiveMedia,
                     mapOf(status.actionableId to existingViewData),
                     mapOf(status.actionableId to existingTranslation),
+                    collectionCardViewData,
                     isDetailed = true,
                 )
             }
@@ -246,12 +254,26 @@ class ViewThreadViewModel @Inject constructor(
 
             contextResult.onSuccess {
                 val statusContext = it.body
-                val ids = buildList {
+                val statusIds = buildList {
                     addAll(statusContext.ancestors.flatMap { listOf(it.id, it.quote?.quotedStatusId) }.filterNotNull())
                     addAll(statusContext.descendants.flatMap { listOf(it.id, it.quote?.quotedStatusId) }.filterNotNull())
                 }
-                val cachedViewData = repository.getStatusViewData(account.pachliAccountId, ids)
-                val cachedTranslations = repository.getStatusTranslations(account.pachliAccountId, ids)
+                val cachedViewData = repository.getStatusViewData(account.pachliAccountId, statusIds)
+                val cachedTranslations = repository.getStatusTranslations(account.pachliAccountId, statusIds)
+                val cachedCollectionCardViewData = buildSet {
+                    statusContext.ancestors.forEach { status ->
+                        status.taggedCollections?.forEach { add(it.id) }
+                        status.quote?.quotedStatus?.taggedCollections?.forEach { add(it.id) }
+                    }
+                    statusContext.descendants.forEach { status ->
+                        status.taggedCollections?.forEach { add(it.id) }
+                        status.quote?.quotedStatus?.taggedCollections?.forEach { add(it.id) }
+                    }
+                }.run {
+                    collectionsRepository.getCollectionCardViewData(account.pachliAccountId, this)
+                        .associateBy { it.timelineCollection.collectionId }
+                }
+
                 val ancestors = api.resolveShallowQuotes(statusContext.ancestors).asModel()
                     .map { Pair(it, shouldFilterStatus(it)) }
                     .filter { it.second != FilterAction.HIDE }
@@ -262,6 +284,7 @@ class ViewThreadViewModel @Inject constructor(
                             account.alwaysShowSensitiveMedia,
                             cachedViewData,
                             cachedTranslations,
+                            cachedCollectionCardViewData,
                             contentFilterAction,
                         )
                     }
@@ -275,6 +298,7 @@ class ViewThreadViewModel @Inject constructor(
                             account.alwaysShowSensitiveMedia,
                             cachedViewData,
                             cachedTranslations,
+                            cachedCollectionCardViewData,
                             contentFilterAction,
                         )
                     }
@@ -488,13 +512,14 @@ class ViewThreadViewModel @Inject constructor(
     /**
      * Returns a [StatusItemViewData] from [Status].
      *
-     * @param pachliAccountId
+     * @param pachliAccount
      * @param alwaysOpenSpoiler Default value for [StatusViewData.isExpanded]
      * @param alwaysShowSensitiveMedia Default when computing [AttachmentDisplayAction].
      * @param viewDataCache Map from status ID to [StatusViewDataEntity], used to
      * pre-populate the viewdata for the status and quote.
      * @param translationCache Map from status ID to [TranslatedStatusEntity], used to
      * pre-populate the translation for the status and quote.
+     * @param collectionCardViewData
      * @param contentFilterAction Default content filter action for the primary
      * status. If nulll [contentFilterModel] is queried to determine the correct
      * action.
@@ -506,10 +531,15 @@ class ViewThreadViewModel @Inject constructor(
         alwaysShowSensitiveMedia: Boolean,
         viewDataCache: Map<String, StatusViewDataEntity?> = emptyMap(),
         translationCache: Map<String, TranslatedStatusEntity?> = emptyMap(),
+        collectionCardViewData: Map<String, CollectionCardViewData> = emptyMap(),
         contentFilterAction: FilterAction? = null,
         isDetailed: Boolean = false,
     ): StatusItemViewData {
         val quote = (this.actionableStatus.quote as? Status.Quote.FullQuote)?.status
+
+        val statusCollectionIds = taggedCollections.map { it.collectionId }
+        val quoteCollectionIds = quote?.taggedCollections?.map { it.collectionId }.orEmpty()
+
         return StatusItemViewData.from(
             pachliAccount = pachliAccount,
             timelineStatusWithQuote = TimelineStatusWithQuote(
@@ -519,6 +549,7 @@ class ViewThreadViewModel @Inject constructor(
                     reblogAccount = reblog?.let { account.asEntity(pachliAccount.pachliAccountId) },
                     viewData = viewDataCache[actionableId],
                     translatedStatus = translationCache[actionableId],
+                    collectionCards = collectionCardViewData.filterKeys { it in statusCollectionIds }.values.toList(),
                 ),
                 quotedStatus = quote?.let { q ->
                     TimelineStatusWithAccount(
@@ -527,6 +558,7 @@ class ViewThreadViewModel @Inject constructor(
                         reblogAccount = null,
                         viewData = viewDataCache[actionableId],
                         translatedStatus = translationCache[actionableId],
+                        collectionCards = collectionCardViewData.filterKeys { it in quoteCollectionIds }.values.toList(),
                     )
                 },
             ),

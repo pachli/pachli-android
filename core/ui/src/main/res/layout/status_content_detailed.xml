@@ -187,7 +187,7 @@
         android:id="@+id/collectionsContainer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:importantForAccessibility="no"
+        android:importantForAccessibility="noHideDescendants"
         android:orientation="vertical"
         android:layout_marginTop="8dp"
         android:layout_marginStart="14dp"

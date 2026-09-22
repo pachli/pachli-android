@@ -102,4 +102,9 @@
     <item name="action_collection_revoke" type="id" />
     <!-- View the timeline of a collection's tag. -->
     <item name="action_collection_view_tag" type="id" />
+
+    <!-- Show a dialog listing all collections on a status. -->
+    <item name="action_show_dialog_with_all_collections" type="id" />
+    <!-- Show a dialog with options for a specific collection. -->
+    <item name="action_collection_show_action_dialog" type="id" />
 </resources>
