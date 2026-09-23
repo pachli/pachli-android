@@ -198,7 +198,7 @@ class ViewThreadViewModel @Inject constructor(
                     }
                     .asModel()
 
-                val collectionCardViewData = buildSet {
+                val collectionCardViewDataCache = buildSet {
                     status.actionableStatus.taggedCollections.forEach { add(it.collectionId) }
                 }.run {
                     collectionsRepository.getCollectionCardViewData(account.pachliAccountId, this)
@@ -211,7 +211,7 @@ class ViewThreadViewModel @Inject constructor(
                     account.alwaysShowSensitiveMedia,
                     mapOf(status.actionableId to existingViewData),
                     mapOf(status.actionableId to existingTranslation),
-                    collectionCardViewData,
+                    collectionCardViewDataCache,
                     isDetailed = true,
                 )
             }
@@ -260,7 +260,7 @@ class ViewThreadViewModel @Inject constructor(
                 }
                 val cachedViewData = repository.getStatusViewData(account.pachliAccountId, statusIds)
                 val cachedTranslations = repository.getStatusTranslations(account.pachliAccountId, statusIds)
-                val cachedCollectionCardViewData = buildSet {
+                val collectionCardViewDataCache = buildSet {
                     statusContext.ancestors.forEach { status ->
                         status.taggedCollections?.forEach { add(it.id) }
                         status.quote?.quotedStatus?.taggedCollections?.forEach { add(it.id) }
@@ -284,7 +284,7 @@ class ViewThreadViewModel @Inject constructor(
                             account.alwaysShowSensitiveMedia,
                             cachedViewData,
                             cachedTranslations,
-                            cachedCollectionCardViewData,
+                            collectionCardViewDataCache,
                             contentFilterAction,
                         )
                     }
@@ -298,7 +298,7 @@ class ViewThreadViewModel @Inject constructor(
                             account.alwaysShowSensitiveMedia,
                             cachedViewData,
                             cachedTranslations,
-                            cachedCollectionCardViewData,
+                            collectionCardViewDataCache,
                             contentFilterAction,
                         )
                     }
@@ -519,7 +519,7 @@ class ViewThreadViewModel @Inject constructor(
      * pre-populate the viewdata for the status and quote.
      * @param translationCache Map from status ID to [TranslatedStatusEntity], used to
      * pre-populate the translation for the status and quote.
-     * @param collectionCardViewData
+     * @param collectionCardViewDataCache Map from collection ID to [CollectionCardViewData].
      * @param contentFilterAction Default content filter action for the primary
      * status. If nulll [contentFilterModel] is queried to determine the correct
      * action.
@@ -531,7 +531,7 @@ class ViewThreadViewModel @Inject constructor(
         alwaysShowSensitiveMedia: Boolean,
         viewDataCache: Map<String, StatusViewDataEntity?> = emptyMap(),
         translationCache: Map<String, TranslatedStatusEntity?> = emptyMap(),
-        collectionCardViewData: Map<String, CollectionCardViewData> = emptyMap(),
+        collectionCardViewDataCache: Map<String, CollectionCardViewData> = emptyMap(),
         contentFilterAction: FilterAction? = null,
         isDetailed: Boolean = false,
     ): StatusItemViewData {
@@ -549,7 +549,7 @@ class ViewThreadViewModel @Inject constructor(
                     reblogAccount = reblog?.let { account.asEntity(pachliAccount.pachliAccountId) },
                     viewData = viewDataCache[actionableId],
                     translatedStatus = translationCache[actionableId],
-                    collectionCards = collectionCardViewData.filterKeys { it in statusCollectionIds }.values.toList(),
+                    collectionCards = collectionCardViewDataCache.filterKeys { it in statusCollectionIds }.values.toList(),
                 ),
                 quotedStatus = quote?.let { q ->
                     TimelineStatusWithAccount(
@@ -558,7 +558,7 @@ class ViewThreadViewModel @Inject constructor(
                         reblogAccount = null,
                         viewData = viewDataCache[actionableId],
                         translatedStatus = translationCache[actionableId],
-                        collectionCards = collectionCardViewData.filterKeys { it in quoteCollectionIds }.values.toList(),
+                        collectionCards = collectionCardViewDataCache.filterKeys { it in quoteCollectionIds }.values.toList(),
                     )
                 },
             ),
