@@ -95,7 +95,8 @@ SELECT
  JOIN AccountEntity owner
   ON collection.accountId = owner.accountId
 )
-SELECT * FROM CollectionWithAccount AS collection
+SELECT collection.*, account.*
+FROM CollectionWithAccount AS collection
 LEFT JOIN CollectionItemEntity AS item ON item.pachliAccountId = :pachliAccountId AND item.collectionId = :collectionId
 LEFT JOIN AccountEntity AS account ON account.pachliAccountId = :pachliAccountId AND item.accountId = account.accountId
 WHERE collection.pachliAccountId = :pachliAccountId AND collection.collectionId = :collectionId

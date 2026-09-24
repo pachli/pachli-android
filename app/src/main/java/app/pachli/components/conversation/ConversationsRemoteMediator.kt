@@ -106,7 +106,6 @@ class ConversationsRemoteMediator(
 
             // Cache all the collections mentioned in this page, so they're readable
             // by ResolveCollectionCardsPagingSource.
-            Timber.d("reloading collections: $collectionIds")
             collectionsRepository.reloadCollections(pachliAccountId, collectionIds)
         }
 
