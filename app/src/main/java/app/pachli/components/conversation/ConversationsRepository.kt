@@ -79,8 +79,7 @@ class ConversationsRepository @Inject constructor(
                 "CollectionViewDataEntity",
                 "StatusViewDataEntity",
                 emitInitialState = false,
-            )
-                .collect { factory?.invalidate() }
+            ).collect { factory?.invalidate() }
         }
 
         // The Mastodon conversations API does not support fetching a specific conversation
@@ -143,6 +142,11 @@ class ConversationsRepository @Inject constructor(
     }
 }
 
+// Very similar to CachedTimelineRepository.ResolveCollectionCardPagingSource.
+// Changes are to make it work with ConversationData instead of TimelineStatusWithQuote.
+//
+// If there were more than two of these it might be worth factoring out the common
+// code, but that's a future problem.
 private class ResolveCollectionCardsPagingSource(
     private val pachliAccountId: Long,
     private val conversationsDao: ConversationsDao,
@@ -178,12 +182,10 @@ private class ResolveCollectionCardsPagingSource(
         // Return early if there are no collections.
         if (statusIdToCollectionIds.isEmpty()) return result
 
-        val collectionIds = statusIdToCollectionIds.values.flatten().distinct()
-
         // Fetch the missing collections. Map from collectionId to collection.
         val collectionCardViewData = collectionsDao.getCollectionCardViewData(
             pachliAccountId,
-            collectionIds, // statusIdToCollectionIds.values.flatten().distinct(),
+            statusIdToCollectionIds.values.flatten().distinct(),
         ).map { it.asModel() }.associateBy { it.collectionId }
 
         // Build the modified data for this page.
