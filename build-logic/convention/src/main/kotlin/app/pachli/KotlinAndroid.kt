@@ -23,7 +23,6 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.invoke
-import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
@@ -100,7 +99,7 @@ private inline fun <reified T : KotlinBaseExtension> Project.configureKotlin() =
             jvmTarget.set(JvmTarget.JVM_21)
             // Treat all Kotlin warnings as errors (disabled by default)
             // Override by setting warningsAsErrors=true in your ~/.gradle/gradle.properties
-            val warningsAsErrors: String? by project
+            val warningsAsErrors: String = providers.gradleProperty("warningsAsErrors").getOrElse("false")
             allWarningsAsErrors.set(warningsAsErrors.toBoolean())
             optIn.addAll(
                 "kotlin.RequiresOptIn",
@@ -110,7 +109,6 @@ private inline fun <reified T : KotlinBaseExtension> Project.configureKotlin() =
             )
             freeCompilerArgs.addAll(
                 "-Xjspecify-annotations=strict",
-                "-Xannotation-default-target=param-property",
             )
         }
     }

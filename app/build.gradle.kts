@@ -24,8 +24,12 @@ plugins {
 }
 
 apply(from = "gitTools.gradle")
-val getGitSha: groovy.lang.Closure<String> by extra
-val getGitRevCount: groovy.lang.Closure<Int> by extra
+
+@Suppress("UNCHECKED_CAST")
+val getGitSha = extra["getGitSha"] as groovy.lang.Closure<String>
+
+@Suppress("UNCHECKED_CAST")
+val getGitRevCount = extra["getGitRevCount"] as groovy.lang.Closure<Int>
 
 moshi {
     enableSealed.set(true)
