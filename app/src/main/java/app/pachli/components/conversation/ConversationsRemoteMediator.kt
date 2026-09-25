@@ -45,6 +45,7 @@ class ConversationsRemoteMediator(
         if (loadType == LoadType.PREPEND) {
             return MediatorResult.Success(endOfPaginationReached = true)
         }
+
         if (loadType == LoadType.REFRESH) {
             nextKey = null
         }
