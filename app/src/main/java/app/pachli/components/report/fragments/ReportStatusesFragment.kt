@@ -218,7 +218,7 @@ class ReportStatusesFragment :
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.statuses.collectLatest { pagingData ->
                     adapter.submitData(pagingData)
                 }
