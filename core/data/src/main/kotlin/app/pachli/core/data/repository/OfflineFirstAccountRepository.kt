@@ -79,6 +79,8 @@ class OfflineFirstAccountRepository @Inject internal constructor(
     // TODO: Maybe the return should be a List<Result<Account, Error>>, to report
     // the errors on a per-account basis?
     override suspend fun getAccounts(pachliAccountId: Long, accountIds: Collection<String>): Result<List<Account>, GetAccountsError> {
+        if (accountIds.isEmpty()) return Ok(emptyList())
+
         val accounts = localDataSource.getAccounts(pachliAccountId, accountIds)
 
         val gotIds = accounts.map { it.accountId }
