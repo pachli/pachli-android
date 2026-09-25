@@ -106,6 +106,7 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ktlint = "org.jlleitschuh.gradle.ktlint:14.2.0"
+legacy-kapt = { id = "com.android.legacy-kapt", version.ref = "agp" }
 moshixir = { id = "dev.zacsweers.moshix", version.ref = "moshix" }
 apollographql = { id = "com.apollographql.apollo", version.ref = "apollographql" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
