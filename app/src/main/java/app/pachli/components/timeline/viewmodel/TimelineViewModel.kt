@@ -753,8 +753,10 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
         }
     }
 
+    /** Set a new [CollectionDisplayAction]. */
     abstract suspend fun onOverrideCollectionDisplayAction(action: InfallibleUiAction.OverrideCollectionDisplayAction)
 
+    /** Revoke user's permission to appear in a collection. */
     abstract suspend fun onRevokeCollection(action: FallibleCollectionAction.Revoke): Result<Unit, CollectionsRepository.Error.RevokeFromCollection>
 
     companion object {

@@ -178,8 +178,7 @@ class ConversationsRemoteMediator(
                             result[childStatusId] = parentStatus.visibility != Status.Visibility.DIRECT
                         }
                     }
-                }
-                .onFailure { Timber.e("Failed: $it") }
+                }.onFailure { Timber.e("Failed: $it") }
         }
 
         return result
