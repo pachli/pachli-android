@@ -18,6 +18,7 @@ import app.pachli.core.network.model.HttpHeaderLink
 import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.getOrElse
+import com.github.michaelbull.result.map
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import timber.log.Timber
@@ -158,14 +159,14 @@ class ConversationsRemoteMediator(
 
         val statusIdsToCheck = statusesToCheck.keys.toList()
         if (statusIdsToCheck.isNotEmpty()) {
-            api.statuses(statusIdsToCheck).onSuccess {
-                it.body.forEach { parentStatus ->
-                    val childStatusId = statusesToCheck[parentStatus.id]
-                    result[childStatusId!!] = parentStatus.visibility.asModel() != Status.Visibility.DIRECT
-                }
-            }.onFailure {
-                Timber.e("Failed: $it")
-            }
+            api.statuses(statusIdsToCheck)
+                .map { it.body.asModel() }
+                .onSuccess {
+                    it.forEach { parentStatus ->
+                        val childStatusId = statusesToCheck[parentStatus.statusId]
+                        result[childStatusId!!] = parentStatus.visibility != Status.Visibility.DIRECT
+                    }
+                }.onFailure { Timber.e("Failed: $it") }
         }
 
         return result
