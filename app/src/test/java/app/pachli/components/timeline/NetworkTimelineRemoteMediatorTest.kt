@@ -32,6 +32,7 @@ import app.pachli.components.timeline.viewmodel.PageCache
 import app.pachli.components.timeline.viewmodel.asTimelineStatusWithQuote
 import app.pachli.core.common.PachliThrowable
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.model.TimelineStatusWithQuote
@@ -100,6 +101,9 @@ class NetworkTimelineRemoteMediatorTest {
 
     @Inject
     lateinit var statusRepository: OfflineFirstStatusRepository
+
+    @Inject
+    lateinit var collectionsRepository: CollectionsRepository
 
     val account = CredentialAccount(
         id = "1",
@@ -183,6 +187,7 @@ class NetworkTimelineRemoteMediatorTest {
             pageCache = PageCache(),
             timeline = Timeline.Home,
             remoteKeyDao = remoteKeyDao,
+            collectionsRepository = collectionsRepository,
         )
 
         // When
@@ -222,6 +227,7 @@ class NetworkTimelineRemoteMediatorTest {
             pageCache = pages,
             timeline = Timeline.Home,
             remoteKeyDao = remoteKeyDao,
+            collectionsRepository = collectionsRepository,
         )
 
         val state = state(
@@ -292,13 +298,14 @@ class NetworkTimelineRemoteMediatorTest {
             pageCache = pages,
             timeline = Timeline.Home,
             remoteKeyDao = remoteKeyDao,
+            collectionsRepository = collectionsRepository,
         )
 
         val state = state(
             listOf(
                 PagingSource.LoadResult.Page(
                     data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel()
-                        .asTimelineStatusWithQuote(activeAccount.pachliAccountId, statusRepository),
+                        .asTimelineStatusWithQuote(activeAccount.pachliAccountId, statusRepository, collectionsRepository),
                     prevKey = "7",
                     nextKey = "5",
                 ),
@@ -370,12 +377,13 @@ class NetworkTimelineRemoteMediatorTest {
             pageCache = pages,
             timeline = Timeline.Home,
             remoteKeyDao = remoteKeyDao,
+            collectionsRepository = collectionsRepository,
         )
 
         val state = state(
             listOf(
                 PagingSource.LoadResult.Page(
-                    data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel().asTimelineStatusWithQuote(activeAccount.pachliAccountId, statusRepository).toMutableList(),
+                    data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel().asTimelineStatusWithQuote(activeAccount.pachliAccountId, statusRepository, collectionsRepository).toMutableList(),
                     prevKey = "7",
                     nextKey = "5",
                 ),

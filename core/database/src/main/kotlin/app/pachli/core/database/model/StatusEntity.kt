@@ -28,6 +28,7 @@ import app.pachli.core.database.Converters
 import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.Card
+import app.pachli.core.model.Collection
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.FilterResult
 import app.pachli.core.model.Hashtag
@@ -122,7 +123,12 @@ data class StatusEntity(
     val quoteApproval: Status.QuoteApproval,
     val language: String?,
     val filtered: List<FilterResult>,
+    @ColumnInfo(defaultValue = "[]")
+    val taggedCollections: List<Collection>,
 ) {
+    @Ignore
+    val actionableId = reblogStatusId ?: statusId
+
     @Ignore
     val isReblog = reblogStatusId != null
 
@@ -171,6 +177,7 @@ fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
     repliesCount = actionableStatus.repliesCount,
     language = actionableStatus.language,
     filtered = actionableStatus.filtered,
+    taggedCollections = actionableStatus.taggedCollections,
 )
 
 @JvmName("IterableStatus")
@@ -244,6 +251,7 @@ data class TimelineStatusWithQuote(
                 repliesCount = status.repliesCount,
                 language = status.language,
                 filtered = status.filtered,
+                taggedCollections = status.taggedCollections,
             )
         }
         return if (reblog != null) {
@@ -289,6 +297,7 @@ data class TimelineStatusWithQuote(
                 repliesCount = status.repliesCount,
                 language = status.language,
                 filtered = status.filtered,
+                taggedCollections = status.taggedCollections,
             )
         } else {
             Status(
@@ -329,6 +338,7 @@ data class TimelineStatusWithQuote(
                 repliesCount = status.repliesCount,
                 language = status.language,
                 filtered = status.filtered,
+                taggedCollections = status.taggedCollections,
             )
         }
     }

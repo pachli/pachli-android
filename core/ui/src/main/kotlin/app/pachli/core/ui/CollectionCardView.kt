@@ -132,14 +132,12 @@ class CollectionCardView @JvmOverloads constructor(
                 setTextColor(it.getColor(DR.styleable.CollectionCardView_collectionCardSensitiveTextColor, 0))
 
                 // Update the size of the drawable in binding.sensitive to match the text size.
-                post {
-                    compoundDrawablesRelative.getOrNull(0)?.let { drawable ->
-                        val textSize = textSize.roundToInt()
-                        val aspectRatio = drawable.intrinsicWidth.toFloat() / drawable.intrinsicHeight.toFloat()
-                        val targetWidth = (textSize * aspectRatio).roundToInt()
-                        drawable.setBounds(0, 0, targetWidth, textSize)
-                        setCompoundDrawablesRelative(drawable, null, null, null)
-                    }
+                compoundDrawablesRelative.getOrNull(0)?.let { drawable ->
+                    val textSize = textSize.roundToInt()
+                    val aspectRatio = drawable.intrinsicWidth.toFloat() / drawable.intrinsicHeight.toFloat()
+                    val targetWidth = (textSize * aspectRatio).roundToInt()
+                    drawable.setBounds(0, 0, targetWidth, textSize)
+                    setCompoundDrawablesRelative(drawable, null, null, null)
                 }
             }
         }
@@ -263,6 +261,7 @@ class CollectionCardView @JvmOverloads constructor(
             // display, where clicking anywhere on the blurred image will show it. Might
             // change this based on user feedback.
             blurView.setOnClickListener { /* Capture all other clicks */ }
+            binding.root.setOnClickListener(null)
             blurView.show()
 
             // Need to invalidate otherwise the blur is not calculated for some reason.
@@ -271,6 +270,7 @@ class CollectionCardView @JvmOverloads constructor(
             blurView.hide()
             blurView.setOnClickListener(null)
             collectionHidden.setOnClickListener(null)
+            binding.root.setOnClickListener { listener.onViewCollection(viewData) }
         }
 
         contentDescription = when (displayAction) {

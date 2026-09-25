@@ -22,6 +22,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import app.pachli.core.data.repository.AccountRepository
 import app.pachli.core.database.dao.CollectionsDao
 import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.RemoteKeyDao
@@ -78,6 +79,7 @@ class NotificationsRemoteMediator(
     private val accountId: String,
     private val mastodonApi: MastodonApi,
     private val transactionProvider: TransactionProvider,
+    private val accountRepository: AccountRepository,
     private val timelineDao: TimelineDao,
     private val remoteKeyDao: RemoteKeyDao,
     private val notificationDao: NotificationDao,
@@ -271,11 +273,12 @@ class NotificationsRemoteMediator(
         // so:
         // 1. The accounts can be saved.
         // 2. The accounts can be used to create TimelineCollectionEntity objects.
-        val accountsInCollections = resolveAccounts(accountIdsInCollections)
+        val accountsInCollections = accountRepository.getAccounts(pachliAccountId, accountIdsInCollections)
+            .map { it.associateBy { it.accountId } }
+            .getOrElse { emptyMap() }
 
         // Bulk upsert the discovered items.
         timelineDao.upsertTimelineAccounts(timelineAccounts.asEntity(pachliAccountId))
-        timelineDao.upsertAccounts(accountsInCollections.values.asEntity(pachliAccountId))
         statusDao.upsertStatuses(statuses.map { it.asEntity(pachliAccountId) })
         notificationDao.upsertNotifications(notifications.asModel(accountId).asEntity(pachliAccountId))
 
@@ -286,27 +289,6 @@ class NotificationsRemoteMediator(
         collectionsDao.upsertTimelineCollections(
             collections.map { it.asTimelineCollection(accountsInCollections) }.asEntity(pachliAccountId),
         )
-    }
-
-    /**
-     * @return All the account IDs referenced in [Collection]. The account ID of the owner
-     * and of all items in the collection.
-     */
-    private fun app.pachli.core.model.Collection.allAccountIds(): List<String> {
-        return items.mapNotNull { it.accountId } + accountId
-    }
-
-    /**
-     * Calls the server to convert all [accountIds] to the full [Account] details.
-     *
-     * @return Map between the server's ID for the account and the [Account].
-     */
-    private suspend fun resolveAccounts(accountIds: Collection<String>): Map<String, Account> {
-        if (accountIds.isEmpty()) return emptyMap()
-
-        return mastodonApi.accounts(accountIds)
-            .map { it.body.asModel().associateBy { it.accountId } }
-            .getOrElse { emptyMap() }
     }
 }
 

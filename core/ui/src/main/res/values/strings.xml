@@ -262,4 +262,10 @@
         <item quantity="one">Contains %1$d account.</item>
         <item quantity="other">Contains %1$d accounts.</item>
     </plurals>
+
+    <string name="action_collection_show_action_dialog_fmt">Actions for collection "%1$s"</string>
+    <string name="action_show_dialog_with_all_collections">Collection actions</string>
+
+    <string name="title_show_all_collections_dialog">Choose collection</string>
+    <string name="title_collection_show_action_dialog_fmt">Collection "%1$s"</string>
 </resources>

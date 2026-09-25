@@ -49,6 +49,7 @@ interface ICollection {
 /**
  * @property items Items in this collection (may be empty).
  */
+@JsonClass(generateAdapter = true)
 data class Collection(
     override val collectionId: String,
     override val accountId: String,
@@ -61,7 +62,15 @@ data class Collection(
     override val createdAt: Instant,
     override val updatedAt: Instant,
     val items: List<CollectionItem> = emptyList(),
-) : ICollection
+) : ICollection {
+    /**
+     * @return All the account IDs referenced in [Collection]. The account ID of the owner
+     * and of all items in the collection.
+     */
+    fun allAccountIds(): List<String> {
+        return items.mapNotNull { it.accountId } + accountId
+    }
+}
 
 /**
  * @property collectionItemId Server ID for this item.
@@ -157,4 +166,11 @@ data class CollectionWithAccounts(
     val collection: Collection,
     val owner: Account?,
     val accounts: List<Account>,
-)
+) {
+    fun asTimelineCollection() = collection.asTimelineCollection(
+        buildMap {
+            putAll(accounts.associateBy { it.accountId })
+            owner?.let { put(it.accountId, it) }
+        },
+    )
+}

@@ -24,6 +24,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import app.pachli.core.common.di.ApplicationScope
+import app.pachli.core.data.repository.OfflineFirstAccountRepository
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.dao.CollectionsDao
@@ -75,6 +76,7 @@ class NotificationsRepository @Inject constructor(
     private val remoteKeyDao: RemoteKeyDao,
     private val statusDao: StatusDao,
     private val collectionsDao: CollectionsDao,
+    private val accountRepository: OfflineFirstAccountRepository,
     statusRepository: OfflineFirstStatusRepository,
 ) : StatusRepository by statusRepository {
     private var factory: InvalidatingPagingSourceFactory<Int, NotificationData>? = null
@@ -109,6 +111,7 @@ class NotificationsRepository @Inject constructor(
                 accountId,
                 mastodonApi,
                 transactionProvider,
+                accountRepository,
                 timelineDao,
                 remoteKeyDao,
                 notificationDao,

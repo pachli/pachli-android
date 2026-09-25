@@ -24,6 +24,7 @@ import androidx.paging.map
 import app.pachli.core.data.model.ConversationViewData
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.dao.ConversationsDao
@@ -32,6 +33,7 @@ import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountFilterReason
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.FilterAction
+import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
@@ -63,6 +65,7 @@ class ConversationsViewModel @AssistedInject constructor(
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
     private val timelineCases: TimelineCases,
+    private val collectionsRepository: CollectionsRepository,
     @Assisted val pachliAccountId: Long,
 ) : ViewModel() {
     private val accountFlow = accountManager.getPachliAccountFlow(pachliAccountId)
@@ -275,6 +278,23 @@ class ConversationsViewModel @AssistedInject constructor(
     fun translateUndo(conversationViewData: IStatusViewData) {
         viewModelScope.launch {
             timelineCases.translateUndo(conversationViewData)
+        }
+    }
+
+    fun onOverrideCollectionDisplayAction(pachliAccountId: Long, collectionId: String, collectionDisplayAction: CollectionDisplayAction) {
+        viewModelScope.launch {
+            repository.setCollectionDisplayAction(
+                pachliAccountId,
+                collectionId,
+                collectionDisplayAction,
+            )
+        }
+    }
+
+    fun onRevokeUserFromCollection(pachliAccountId: Long, collectionId: String, accountId: String) {
+        viewModelScope.launch {
+            collectionsRepository.revokeFromCollection(pachliAccountId, collectionId, accountId)
+                .onSuccess { repository.invalidate() }
         }
     }
 

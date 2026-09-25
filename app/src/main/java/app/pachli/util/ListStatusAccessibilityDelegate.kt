@@ -22,11 +22,14 @@ import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.AttachmentDisplayReason
 import app.pachli.core.model.Status.Companion.MAX_MEDIA_ATTACHMENTS
+import app.pachli.core.model.collection.CollectionDisplayAction
+import app.pachli.core.model.collection.CollectionDisplayReason
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.core.ui.StatusControlView
 import app.pachli.core.ui.accessibility.PachliRecyclerViewAccessibilityDelegate
 import kotlin.math.min
+import timber.log.Timber
 
 // Not using lambdas because there's boxing of int then
 fun interface StatusProvider<T : IStatusViewData> {
@@ -111,6 +114,34 @@ class ListStatusAccessibilityDelegate<T : IStatusItemViewData>(
 
                     is AttachmentDisplayAction.Hide -> info.addAction(showAttachmentsAction)
                 }
+            }
+
+            // A status may reference multiple collections. To avoid spamming the
+            // Talkback list with N collections, show dialogs if there are 1 or more
+            // collections.
+            //
+            // If there's a single collection then use an action that shows the dialog
+            // for that action.
+            //
+            // If there are multiple collections then use an action that shows a dialog
+            // listing all the collections. The user chooses the collection, which shows
+            // the dialog for that collection.
+            when (status.collectionCardViewData.size) {
+                0 -> {
+                    /* nothing to do */
+                }
+
+                1 -> info.addAction(
+                    AccessibilityActionCompat(
+                        app.pachli.core.ui.R.id.action_collection_show_action_dialog,
+                        context.getString(
+                            app.pachli.core.ui.R.string.action_collection_show_action_dialog_fmt,
+                            status.collectionCardViewData[0].timelineCollection.name,
+                        ),
+                    ),
+                )
+
+                else -> info.addAction(showDialogWithAllCollectionsAction)
             }
 
             val parsedContent = status.content.parseAsMastodonHtml()
@@ -309,6 +340,118 @@ class ListStatusAccessibilityDelegate<T : IStatusItemViewData>(
                     statusActionListener.onQuote(status)
                 }
 
+                // Status contains multiple collections, show the dialog that allows
+                // the user to choose the collection to operate on. Once chosen, save
+                // the index of the chosen collection and trigger action_collection_show_dialog.
+                showDialogWithAllCollectionsAction.id -> {
+                    if (status.collectionCardViewData.isEmpty()) return false
+                    val items = status.collectionCardViewData.map { it.name }
+                    showA11yPickerDialog(app.pachli.core.ui.R.string.title_show_all_collections_dialog, items) {
+                        performAccessibilityAction(
+                            host,
+                            app.pachli.core.ui.R.id.action_collection_show_action_dialog,
+                            (args ?: Bundle(1)).apply {
+                                putInt(ARG_COLLECTION_VIEWDATA_INDEX, it)
+                            },
+                        )
+                    }
+                }
+
+                // Status contains a single collection.
+                //
+                // Show the action dialog for that collection, listing all the actions the
+                // user can perform. If the user makes a choice store the index of the
+                // collection in ARG_COLLECTION_VIEWDATA_INDEX and call
+                // performAccessibilityAction again with the chosen action.
+                app.pachli.core.ui.R.id.action_collection_show_action_dialog -> {
+                    val index = args?.getInt(ARG_COLLECTION_VIEWDATA_INDEX, 0) ?: 0
+                    val viewData = status.collectionCardViewData.getOrNull(index)
+                    if (viewData == null) {
+                        Timber.e("action_collection_show_dialog with index $index is null")
+                        return false
+                    }
+
+                    val title = context.getString(app.pachli.core.ui.R.string.title_collection_show_action_dialog_fmt, viewData.timelineCollection.name)
+
+                    // List of pairs, first item is the action ID, second is the label.
+                    val itemPairs = buildList {
+                        if (viewData.displayAction is CollectionDisplayAction.Hide) {
+                            add(showCollectionAction.id to showCollectionAction.label)
+                        } else {
+                            add(viewCollectionAction.id to viewCollectionAction.label)
+                            viewData.hashtag?.let {
+                                add(viewCollectionHashtagAction.id to viewCollectionHashtagAction.label)
+                            }
+                            add(hideCollectionAction.id to hideCollectionAction.label)
+                            if (viewData.isMember) {
+                                add(revokeCollectionPermissionAction.id to revokeCollectionPermissionAction.label)
+                            }
+                        }
+                    }
+
+                    showA11yPickerDialog(title, itemPairs.map { it.second }) {
+                        performAccessibilityAction(
+                            host,
+                            itemPairs[it].first,
+                            (args ?: Bundle(1)).apply {
+                                putInt(ARG_COLLECTION_VIEWDATA_INDEX, index)
+                            },
+                        )
+                    }
+                }
+
+                // Individual collection actions the user chose from the dialog launched
+                // from action_collection_show_dialog. `args` now contains the index of the
+                // user's choice.
+
+                showCollectionAction.id -> {
+                    val index = args?.getInt(ARG_COLLECTION_VIEWDATA_INDEX, 0) ?: 0
+                    val viewData = status.collectionCardViewData.getOrNull(index) ?: return false
+                    interrupt()
+                    val displayAction = viewData.displayAction
+                    statusActionListener.onCollectionDisplayActionChange(
+                        viewData,
+                        CollectionDisplayAction.Show(displayAction as? CollectionDisplayAction.Hide),
+                    )
+                }
+
+                hideCollectionAction.id -> {
+                    val index = args?.getInt(ARG_COLLECTION_VIEWDATA_INDEX, 0) ?: 0
+                    val viewData = status.collectionCardViewData.getOrNull(index) ?: return false
+                    interrupt()
+                    val displayAction = viewData.displayAction
+                    statusActionListener.onCollectionDisplayActionChange(
+                        viewData,
+                        CollectionDisplayAction.Hide(
+                            (displayAction as? CollectionDisplayAction.Show)?.originalAction?.reason
+                                ?: CollectionDisplayReason.UserAction,
+                        ),
+                    )
+                }
+
+                viewCollectionAction.id -> {
+                    val index = args?.getInt(ARG_COLLECTION_VIEWDATA_INDEX, 0) ?: 0
+                    val viewData = status.collectionCardViewData.getOrNull(index) ?: return false
+                    interrupt()
+                    statusActionListener.onViewCollection(viewData)
+                }
+
+                viewCollectionHashtagAction.id -> {
+                    val index = args?.getInt(ARG_COLLECTION_VIEWDATA_INDEX, 0) ?: 0
+                    val viewData = status.collectionCardViewData.getOrNull(index) ?: return false
+                    viewData.hashtag?.name?.let {
+                        interrupt()
+                        statusActionListener.onViewTag(it)
+                    }
+                }
+
+                revokeCollectionPermissionAction.id -> {
+                    val index = args?.getInt(ARG_COLLECTION_VIEWDATA_INDEX, 0) ?: 0
+                    val viewData = status.collectionCardViewData.getOrNull(index) ?: return false
+                    interrupt()
+                    statusActionListener.onRevokeUserFromCollection(viewData)
+                }
+
                 else -> return super.performAccessibilityAction(host, action, args)
             }
             return true
@@ -449,4 +592,44 @@ class ListStatusAccessibilityDelegate<T : IStatusItemViewData>(
         app.pachli.core.ui.R.id.action_open_quoted_post,
         context.getString(app.pachli.core.ui.R.string.action_open_quoted_post),
     )
+
+    /** Show a dialog listing actions for this collection. */
+    private val showDialogWithAllCollectionsAction = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_show_dialog_with_all_collections,
+        context.getString(app.pachli.core.ui.R.string.action_show_dialog_with_all_collections),
+    )
+
+    /** Show a hidden collection. */
+    private val showCollectionAction = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_collection_show,
+        context.getString(app.pachli.core.ui.R.string.action_collection_show),
+    )
+
+    /** Hide a visible collection. */
+    private val hideCollectionAction = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_collection_hide,
+        context.getString(app.pachli.core.ui.R.string.action_collection_hide),
+    )
+
+    /** View a collection's members. */
+    private val viewCollectionAction = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_collection_view,
+        context.getString(app.pachli.core.ui.R.string.action_collection_view),
+    )
+
+    /** Revoke permission for the user's account in a collection. */
+    private val revokeCollectionPermissionAction = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_collection_revoke,
+        context.getString(app.pachli.core.ui.R.string.action_collection_revoke),
+    )
+
+    /* View the hashtag associated with a collection. */
+    private val viewCollectionHashtagAction = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_collection_view_tag,
+        context.getString(app.pachli.core.ui.R.string.action_collection_view_tag),
+    )
+
+    companion object {
+        private const val ARG_COLLECTION_VIEWDATA_INDEX = "app.pachli.ARG_COLLECTION_VIEWDATA_INDEX"
+    }
 }

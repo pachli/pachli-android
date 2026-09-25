@@ -50,7 +50,7 @@ abstract class PachliRecyclerViewAccessibilityDelegate(
      *
      * @param title String resource to use as the dialog's title.
      * @param items Items to show in the dialog.
-     * @param listener Callback, called with the position of the clicked item.
+     * @param listener Callback, called with the index of the clicked item in [items]
      */
     fun showA11yDialogWithCopyButton(@StringRes title: Int, items: List<CharSequence>, listener: ArrayAdapterWithCopyButton.OnClickListener) {
         AlertDialog.Builder(context)
@@ -58,6 +58,35 @@ abstract class PachliRecyclerViewAccessibilityDelegate(
             .setAdapter(ArrayAdapterWithCopyButton(context, items, listener), null)
             .show()
             .let { forceFocus(it.listView) }
+    }
+
+    /**
+     * Shows a dialog with [title] displaying a list of [items].
+     *
+     * @param title CharSequence to use as the dialog's title.
+     * @param items Items to show in the dialog.
+     * @param listener Callback, called with the index of the clicked item in [items]
+     */
+    fun showA11yPickerDialog(title: CharSequence, items: List<CharSequence>, listener: (Int) -> Unit) {
+        AlertDialog.Builder(context)
+            .setTitle(title)
+            .setItems(items.toTypedArray()) { dialog, which ->
+                listener(which)
+                dialog.dismiss()
+            }
+            .setNegativeButton(android.R.string.cancel) { dialog, _ -> dialog.dismiss() }
+            .show()
+    }
+
+    /**
+     * Shows a dialog with [title] displaying a list of [items].
+     *
+     * @param title String resource to use as the dialog's title.
+     * @param items Items to show in the dialog.
+     * @param listener Callback, called with the index of the clicked item in [items]
+     */
+    fun showA11yPickerDialog(@StringRes title: Int, items: List<CharSequence>, listener: (Int) -> Unit) {
+        showA11yPickerDialog(context.getString(title), items, listener)
     }
 
     /** Interrupts the accessibility service and sets focus to [view]. */

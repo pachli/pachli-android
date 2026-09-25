@@ -80,6 +80,8 @@ data class Collection(
     )
 }
 
+fun Iterable<Collection>.asModel() = map { it.asModel() }
+
 /**
  * CollectionItem.
  *
@@ -106,6 +108,7 @@ data class CollectionItem(
     )
 }
 
+@JvmName("iterableCollectionItemAsModel")
 fun Iterable<CollectionItem>.asModel() = map { it.asModel() }
 
 /**

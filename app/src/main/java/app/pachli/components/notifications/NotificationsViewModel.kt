@@ -772,7 +772,7 @@ class NotificationsViewModel @AssistedInject constructor(
     }
 
     private suspend fun onOverrideCollectionDisplayAction(action: InfallibleUiAction.OverrideCollectionDisplayAction) {
-        collectionsRepository.setCollectionDisplayAction(
+        repository.setCollectionDisplayAction(
             action.pachliAccountId,
             action.collectionId,
             action.collectionDisplayAction,
