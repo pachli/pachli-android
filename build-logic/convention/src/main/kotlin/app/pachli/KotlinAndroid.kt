@@ -112,8 +112,6 @@ private fun Project.configureKotlin() {
                 "kotlinx.coroutines.FlowPreview",
             )
             freeCompilerArgs.addAll(
-                // https://kotlinlang.org/docs/whatsnew1520.html#support-for-jspecify-nullness-annotations
-                "-Xtype-enhancement-improvements-strict-mode",
                 "-Xjspecify-annotations=strict",
                 "-Xannotation-default-target=param-property",
             )
