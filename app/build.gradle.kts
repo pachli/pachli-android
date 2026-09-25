@@ -15,8 +15,6 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-import com.android.build.gradle.internal.api.ApkVariantOutputImpl
-
 plugins {
     alias(libs.plugins.pachli.android.application)
     alias(libs.plugins.pachli.android.compose)
@@ -92,28 +90,57 @@ android {
         }
     }
 
-    applicationVariants.configureEach {
-        tasks.register("printVersionInfo${name.replaceFirstChar { it.uppercaseChar() }}") {
-            notCompatibleWithConfigurationCache("Should always print the version info")
-            doLast {
-                println("$versionCode $versionName")
-            }
-        }
-        outputs.configureEach {
-            this as ApkVariantOutputImpl
-            // Set the "orange" release versionCode to the number of commits on the
-            // branch, to ensure the versionCode updates on every release. Include the
-            // SHA of the current commit to help with troubleshooting bug reports
-            if (flavorName.startsWith("orange")) {
-                versionNameOverride = "$versionName+${getGitSha()}"
-            }
-            if (buildType.name == "release" && flavorName.startsWith("orange")) {
-                versionCodeOverride = getGitRevCount()
-            }
-            outputFileName = "Pachli_${versionName}_${versionCode}_${getGitSha()}_${flavorName}_${buildType.name}.apk"
-        }
-    }
+//    applicationVariants.configureEach {
+//        tasks.register("printVersionInfo${name.replaceFirstChar { it.uppercaseChar() }}") {
+//            notCompatibleWithConfigurationCache("Should always print the version info")
+//            doLast {
+//                println("$versionCode $versionName")
+//            }
+//        }
+//        outputs.configureEach {
+//            this as ApkVariantOutputImpl
+//            // Set the "orange" release versionCode to the number of commits on the
+//            // branch, to ensure the versionCode updates on every release. Include the
+//            // SHA of the current commit to help with troubleshooting bug reports
+//            if (flavorName.startsWith("orange")) {
+//                versionNameOverride = "$versionName+${getGitSha()}"
+//            }
+//            if (buildType.name == "release" && flavorName.startsWith("orange")) {
+//                versionCodeOverride = getGitRevCount()
+//            }
+//            outputFileName = "Pachli_${versionName}_${versionCode}_${getGitSha()}_${flavorName}_${buildType.name}.apk"
+//        }
+//    }
 }
+
+//androidComponents {
+//    onVariants { variant ->
+//        val variantNameCapitalized = variant.name.replaceFirstChar { it.uppercaseChar() }
+//        tasks.register("printVersionInfo$variantNameCapitalized") {
+//            notCompatibleWithConfigurationCache("Should always print the version info")
+//            doLast {
+//                println("${variant.versionCode.get()} ${variant.versionName.get()}")
+//            }
+//        }
+//
+//        val flavorName = variant.flavorName ?: ""
+//        val buildTypeName = variant.buildType ?: ""
+//
+//        // Set the "orange" release versionCode to the number of commits on the
+//        // branch, to ensure the versionCode updates on every release. Include the
+//        // SHA of the current commit to help with troubleshooting bug reports
+//        if (flavorName.startsWith("orange")) {
+//            variant.versionName.set(variant.versionName.map { "$it+${getGitSha()}" })
+//        }
+//        if (buildTypeName == "release" && flavorName.startsWith("orange")) {
+//            variant.versionCode.set(getGitRevCount())
+//        }
+//
+//        variant.outputs.forEach { output ->
+//            output.outputFileName.set("Pachli_${variant.versionName.get()}_${variant.versionCode.get()}_${getGitSha()}_${flavorName}_${buildTypeName}.apk")
+//        }
+//    }
+//}
 
 configurations {
     // JNI-only libraries don't play nicely with Robolectric
