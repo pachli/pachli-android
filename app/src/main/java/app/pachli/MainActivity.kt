@@ -643,12 +643,12 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
 
         // If it's showing state and desired showing state are the same there's nothing
         // to do.
-        if (showing == showSearchItem) return
+        if (showing == showSearchItem) return@withLock
 
         // Showing and not wanted, remove it.
         if (!showSearchItem) {
             binding.mainDrawer.removeItemByPosition(searchItemPosition)
-            return
+            return@withLock
         }
 
         // Add a "Search" menu item.
@@ -684,11 +684,11 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         val existingPosition = binding.mainDrawer.itemAdapter.getAdapterPosition(DRAWER_ITEM_SCHEDULED_POSTS)
 
         val showing = existingPosition != -1
-        if (showing == showSchedulePosts) return
+        if (showing == showSchedulePosts) return@withLock
 
         if (!showSchedulePosts) {
             binding.mainDrawer.itemAdapter.removeByIdentifier(DRAWER_ITEM_SCHEDULED_POSTS)
-            return
+            return@withLock
         }
 
         // Add the "Scheduled posts" item immediately after "Drafts"
