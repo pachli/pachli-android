@@ -86,7 +86,7 @@ internal sealed class UiError(
     @StringRes override val resourceId: Int,
     open val action: SuggestionAction,
     override val cause: SuggestionsError,
-    override val formatArgs: Array<out String>? = action.suggestion.account.displayName?.let { arrayOf(it) },
+    override val formatArgs: Array<out String>? = arrayOf(action.suggestion.account.name),
 ) : PachliError {
 
     /** A failed [SuggestionAction.DeleteSuggestion]. */
