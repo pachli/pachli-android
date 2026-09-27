@@ -57,7 +57,7 @@ class AccountMediaGridAdapter(
     }
 
     override fun onBindViewHolder(holder: BindingHolder<ItemAccountMediaBinding>, position: Int) = with(holder.binding) {
-        val item = getItem(position) ?: return
+        val item = getItem(position) ?: return@with
 
         val context = root.context
         val size = item.attachment.previewSize()

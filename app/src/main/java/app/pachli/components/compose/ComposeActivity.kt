@@ -1010,7 +1010,7 @@ class ComposeActivity :
         if (start == end) {
             editorText.insert(start, text)
             setSelection(start + text.length)
-            return
+            return@with
         }
 
         var wasWord: Boolean
