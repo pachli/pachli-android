@@ -464,7 +464,7 @@ private fun getStatusComposeIntent(
     )
 }
 
-fun createNotificationChannelsForAccount(account: app.pachli.core.model.PachliAccount, context: Context) {
+fun createNotificationChannelsForAccount(account: PachliAccount, context: Context) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

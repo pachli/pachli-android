@@ -124,7 +124,7 @@ class CollectionFragment :
 
     private var talkBackWasEnabled = false
 
-    private val iconSize by unsafeLazy { resources.getDimensionPixelSize(app.pachli.core.designsystem.R.dimen.preference_icon_size) }
+    private val iconSize by unsafeLazy { resources.getDimensionPixelSize(DR.dimen.preference_icon_size) }
 
     /** Flow of actions the user has taken in the UI */
     private val uiAction = MutableSharedFlow<UiAction>()
