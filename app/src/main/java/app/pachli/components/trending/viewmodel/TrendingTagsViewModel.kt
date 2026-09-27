@@ -36,7 +36,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.shareIn
@@ -66,7 +65,7 @@ class TrendingTagsViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(TrendingTagsUiState(listOf(), LoadingState.INITIAL))
 
     private val contentFilters = flow {
-        accountManager.activePachliAccountFlow.filterNotNull()
+        accountManager.activePachliAccountFlow
             .distinctUntilChangedBy { it.contentFilters }
             .map { it.contentFilters }
             .collect(::emit)

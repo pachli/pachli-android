@@ -177,7 +177,6 @@ import kotlin.math.max
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
@@ -347,7 +346,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         binding.viewPager.offscreenPageLimit = 2
 
         // Process different parts of the account flow depending on what's changed
-        val account = viewModel.pachliAccountFlow.filterNotNull()
+        val account = viewModel.pachliAccountFlow
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
