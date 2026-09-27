@@ -103,7 +103,7 @@ private fun Project.configureKotlin() {
             // Treat all Kotlin warnings as errors (disabled by default)
             // Override by setting warningsAsErrors=true in your ~/.gradle/gradle.properties
             val warningsAsErrors: String? by project
-            allWarningsAsErrors = warningsAsErrors.toBoolean()
+            allWarningsAsErrors.set(warningsAsErrors.toBoolean())
             optIn.addAll(
                 "kotlin.RequiresOptIn",
                 // Enable experimental coroutines APIs, including Flow
