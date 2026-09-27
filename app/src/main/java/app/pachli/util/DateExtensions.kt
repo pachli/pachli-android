@@ -1,5 +1,6 @@
 package app.pachli.util
 
+import java.util.Calendar
 import java.util.Date
 
 /**
@@ -10,9 +11,15 @@ import java.util.Date
  * of each other".
  */
 fun Date.equalByMinute(other: Date): Boolean {
-    return this.minutes == other.minutes &&
-        this.hours == other.hours &&
-        this.date == other.date &&
-        this.month == other.month &&
-        this.year == other.year
+    val c1 = Calendar.getInstance()
+    c1.setTime(this)
+    c1.set(Calendar.SECOND, 0)
+    c1.set(Calendar.MILLISECOND, 0)
+
+    val c2 = Calendar.getInstance()
+    c2.setTime(other)
+    c2.set(Calendar.SECOND, 0)
+    c2.set(Calendar.MILLISECOND, 0)
+
+    return c1.timeInMillis == c2.timeInMillis
 }
