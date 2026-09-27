@@ -34,7 +34,6 @@ class UpdateCheck @Inject constructor(
         setPackage("com.android.vending")
     }
 
-    @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
     override suspend fun remoteFetchLatestVersionCode(): Int? {
         return suspendCancellableCoroutine { cont ->
             appUpdateManager.appUpdateInfo.addOnSuccessListener { info ->
