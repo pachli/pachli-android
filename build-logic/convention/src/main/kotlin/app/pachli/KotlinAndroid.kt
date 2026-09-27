@@ -15,7 +15,8 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-import app.pachli.libs
+package app.pachli
+
 import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
