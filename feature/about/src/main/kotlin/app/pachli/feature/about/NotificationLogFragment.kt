@@ -199,6 +199,7 @@ class NotificationLogFragment :
             .await(android.R.string.ok, android.R.string.cancel)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode != CREATE_FILE) return
         if (resultCode != Activity.RESULT_OK) return
