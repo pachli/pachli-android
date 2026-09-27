@@ -160,7 +160,7 @@ class App : CliktCommand() {
 
                 if (state !is State.Moving) throw RuntimeException("invalid state, $state")
 
-                if (srcLine.contains((state as State.Moving).etag)) {
+                if (srcLine.contains(state.etag)) {
                     if (!dstFile.exists()) createResourceFile(dstFile)
                     dstFile.useLines { dstLines ->
                         for (dstLine in dstLines) {
