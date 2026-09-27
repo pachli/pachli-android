@@ -227,4 +227,8 @@
     <string name="ui_error_unmute_account_fmt">„%1$s“ kasutaja summutamise lõpetamine ei õnnestunud: %2$s</string>
     <string name="collection_discoverable_true_label">Leitav otsingutulemustes ja muudes kohtades, kus kuvatakse soovitusi.</string>
     <string name="collection_discoverable_false_label">Nähtav kõigile, kes teab linki. Peidetud otsingutulemustest ja soovitustest.</string>
+    <string name="action_collection_show_action_dialog_fmt">„%1$s“ kogumiku tegevused</string>
+    <string name="action_show_dialog_with_all_collections">Kogumiku tegevused</string>
+    <string name="title_show_all_collections_dialog">Vali kogumik</string>
+    <string name="title_collection_show_action_dialog_fmt">„%1$s“ kogumik</string>
 </resources>
