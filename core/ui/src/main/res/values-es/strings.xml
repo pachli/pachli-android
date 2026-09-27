@@ -240,4 +240,8 @@
         <item quantity="many">Contiene %1$d cuentas.</item>
         <item quantity="other">Contiene %1$d cuentas.</item>
     </plurals>
+    <string name="action_collection_show_action_dialog_fmt">Acciones para la colección %1$s</string>
+    <string name="title_collection_show_action_dialog_fmt">Colección %1$s</string>
+    <string name="title_show_all_collections_dialog">Elegir colección</string>
+    <string name="action_show_dialog_with_all_collections">Acciones para colecciones</string>
 </resources>
