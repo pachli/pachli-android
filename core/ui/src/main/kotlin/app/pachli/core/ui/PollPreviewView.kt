@@ -24,7 +24,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.core.model.NewPoll
 import app.pachli.core.ui.databinding.ViewPollPreviewBinding
@@ -97,7 +96,7 @@ class PreviewPollOptionsAdapter : RecyclerView.Adapter<PreviewViewHolder>() {
             R.drawable.ic_radio_button_unchecked_18dp
         }
 
-        TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds(textView, iconId, 0, 0, 0)
+        textView.setCompoundDrawablesRelativeWithIntrinsicBounds(iconId, 0, 0, 0)
 
         textView.text = options[position]
 
