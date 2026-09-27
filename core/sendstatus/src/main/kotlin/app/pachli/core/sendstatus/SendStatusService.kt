@@ -74,6 +74,10 @@ internal class SendStatusService : Service() {
     private val supervisorJob = SupervisorJob()
     private val serviceScope = CoroutineScope(Dispatchers.Main + supervisorJob)
 
+    /**
+     * Map from the ID of the "sending" notification for this status and the
+     * status being sent.
+     */
     private val statusesToSend = ConcurrentHashMap<Int, StatusToSend>()
     private val sendJobs = ConcurrentHashMap<Int, Job>()
 
@@ -320,14 +324,14 @@ internal class SendStatusService : Service() {
         // and shut down. See https://developer.android.com/about/versions/14/changes/fgs-types-required
         runBlocking {
             // Will stop the service when there are no more statuses
-            statusesToSend.forEach { (i, _) ->
-                failSending(i, getString(R.string.send_post_failure_message_timeout))
+            statusesToSend.forEach { (sendingNotificationId, _) ->
+                failSending(sendingNotificationId, getString(R.string.send_post_failure_message_timeout))
             }
         }
     }
 
-    private suspend fun failSending(statusId: Int, failureMessage: String) {
-        val failedStatus = statusesToSend.remove(statusId)
+    private suspend fun failSending(sendingNotificationId: Int, failureMessage: String) {
+        val failedStatus = statusesToSend.remove(sendingNotificationId)
         if (failedStatus != null) {
             mediaUploader.cancelUploadScope(*failedStatus.media.map { it.localId }.toIntArray())
 
@@ -337,10 +341,10 @@ internal class SendStatusService : Service() {
                 R.string.send_post_notification_error_title,
                 R.string.send_post_notification_saved_content,
                 failedStatus.pachliAccountId,
-                statusId,
+                sendingNotificationId,
             )
 
-            notificationManager.cancel(statusId)
+            notificationManager.cancel(sendingNotificationId)
             notificationManager.notify(TAG_SAVED_TO_DRAFTS, errorNotificationId++, notification)
         }
 
@@ -348,12 +352,12 @@ internal class SendStatusService : Service() {
         stopSelfWhenDone()
     }
 
-    private fun cancelSending(statusId: Int) = serviceScope.launch {
-        val statusToCancel = statusesToSend.remove(statusId)
+    private fun cancelSending(sendingNotificationId: Int) = serviceScope.launch {
+        val statusToCancel = statusesToSend.remove(sendingNotificationId)
         if (statusToCancel != null) {
             mediaUploader.cancelUploadScope(*statusToCancel.media.map { it.localId }.toIntArray())
 
-            val sendJob = sendJobs.remove(statusId)
+            val sendJob = sendJobs.remove(sendingNotificationId)
             sendJob?.cancel()
 
             saveStatusToDrafts(statusToCancel, failureMessage = getString(R.string.send_post_failure_message_cancel))
@@ -362,11 +366,11 @@ internal class SendStatusService : Service() {
                 R.string.send_post_notification_cancel_title,
                 R.string.send_post_notification_saved_content,
                 statusToCancel.pachliAccountId,
-                statusId,
+                sendingNotificationId,
             )
 
-            notificationManager.cancel(statusId)
-            notificationManager.notify(TAG_SAVED_TO_DRAFTS, statusId, notification)
+            notificationManager.cancel(sendingNotificationId)
+            notificationManager.notify(TAG_SAVED_TO_DRAFTS, sendingNotificationId, notification)
 
             delay(5000)
 
@@ -399,13 +403,13 @@ internal class SendStatusService : Service() {
         @StringRes title: Int,
         @StringRes content: Int,
         pachliAccountId: Long,
-        statusId: Int,
+        sendingNotificationId: Int,
     ): Notification {
         val intent = IntentRouterActivityIntent.fromDraftsNotification(this, pachliAccountId)
 
         val pendingIntent = PendingIntent.getActivity(
             this,
-            statusId,
+            sendingNotificationId,
             intent,
             pendingIntentFlags(false),
         )
