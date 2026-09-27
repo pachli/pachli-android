@@ -18,6 +18,7 @@
  */
 
 import app.pachli.configureFlavors
+import app.pachli.configureKotlinAndroid
 import app.pachli.disableUnnecessaryAndroidTests
 import app.pachli.libs
 import com.android.build.api.variant.LibraryAndroidComponentsExtension

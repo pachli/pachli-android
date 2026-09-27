@@ -16,6 +16,7 @@
  */
 
 import app.pachli.configureFlavors
+import app.pachli.configureKotlinAndroid
 import app.pachli.libs
 import com.android.build.api.dsl.ApplicationExtension
 import org.gradle.api.Plugin
