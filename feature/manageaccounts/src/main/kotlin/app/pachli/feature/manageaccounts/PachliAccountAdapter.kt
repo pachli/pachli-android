@@ -178,7 +178,7 @@ internal class PachliAccountViewHolder(
     ) = with(binding) {
         this@PachliAccountViewHolder.account = account
 
-        if (payloads.isNullOrEmpty()) {
+        if (payloads.isEmpty()) {
             bindAll(account, animateEmojis, animateAvatars, showBotOverlay)
             return@with
         }
