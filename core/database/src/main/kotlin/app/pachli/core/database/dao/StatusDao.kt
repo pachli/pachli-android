@@ -138,7 +138,7 @@ WHERE pachliAccountId = :pachliAccountId AND (statusId = :statusId OR reblogstat
         """
 UPDATE StatusEntity
 SET
-    filtered = NULL
+    filtered = "[]"
 WHERE pachliAccountId = :pachliAccountId AND (statusId = :statusId OR reblogstatusId = :statusId)
 """,
     )

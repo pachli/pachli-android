@@ -25,6 +25,11 @@ import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.PinEvent
+import app.pachli.core.model.ContentFilter
+import app.pachli.core.model.FilterAction
+import app.pachli.core.model.FilterContext
+import app.pachli.core.model.FilterKeyword
+import app.pachli.core.model.FilterResult
 import app.pachli.core.network.extensions.getServerErrorMessage
 import app.pachli.core.network.model.AccountSource
 import app.pachli.core.network.model.CredentialAccount
@@ -221,6 +226,54 @@ class StatusRepositoryTest {
             assertThat(result.getError()!!.error.throwable.getServerErrorMessage()).isEqualTo(
                 "Validation Failed: You have already pinned the maximum number of toots",
             )
+        }
+    }
+
+    @Test
+    fun `clearStatusWarning clears the warning`() = runTest {
+        // Given: A status that has a non-empty Status.filtered property.
+        val fakeStatus = fakeStatus()
+        val statusId = fakeStatus.id
+        val filterResult = FilterResult(
+            filter = ContentFilter(
+                id = "1",
+                title = "Test filter",
+                contexts = setOf(FilterContext.HOME),
+                expiresAt = null,
+                filterAction = FilterAction.WARN,
+                keywords = listOf(
+                    FilterKeyword(
+                        id = "1",
+                        keyword = "foo",
+                        wholeWord = false,
+                    ),
+                ),
+            ),
+            keywordMatches = listOf("foo"),
+            statusMatches = listOf(statusId),
+        )
+        val fakeStatusEntityWithAccount = fakeStatusEntityWithAccount(makeFakeStatus = { fakeStatus }).run {
+            return@run this.copy(
+                timelineStatus = this.timelineStatus.copy(
+                    status = this.timelineStatus.status.copy(
+                        filtered = listOf(filterResult),
+                    ),
+                ),
+            )
+        }
+
+        appDatabase.insertTimelineStatusWithQuote(listOf(fakeStatusEntityWithAccount))
+
+        statusDao.getStatus(1L, statusId)!!.also {
+            assertThat(it.filtered).isEqualTo(listOf(filterResult))
+        }
+
+        // When: Clearing the filtered property
+        statusRepository.clearStatusWarning(1L, statusId)
+
+        // Then: The filtered property should be an empty list.
+        statusDao.getStatus(1L, statusId)!!.also {
+            assertThat(it.filtered).isEmpty()
         }
     }
 }

@@ -39,6 +39,9 @@ suspend fun AppDatabase.insertStatuses(statuses: Iterable<TimelineStatusWithAcco
             timelineDao().insertAccount(account)
         }
         statusDao().insertStatus(statusWithAccount.status)
+        statusWithAccount.viewData?.let {
+            statusDao().upsertStatusViewData(it)
+        }
     }
     timelineDao().upsertStatuses(
         statuses.map {
@@ -54,6 +57,5 @@ suspend fun AppDatabase.insertStatuses(statuses: Iterable<TimelineStatusWithAcco
 suspend fun AppDatabase.insertTimelineStatusWithQuote(statuses: Iterable<TimelineStatusWithQuote>) {
     val quoted = statuses.mapNotNull { it.quotedStatus }
     insertStatuses(quoted)
-
     insertStatuses(statuses.map { it.timelineStatus })
 }
