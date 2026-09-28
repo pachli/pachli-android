@@ -248,4 +248,8 @@ class OfflineFirstStatusRepository @Inject constructor(
     override suspend fun setCollectionDisplayAction(pachliAccountId: Long, collectionId: String, collectionDisplayAction: CollectionDisplayAction) {
         return collectionsRepository.setCollectionDisplayAction(pachliAccountId, collectionId, collectionDisplayAction)
     }
+
+    override suspend fun clearStatusWarning(pachliAccountId: Long, statusId: String) {
+        statusDao.clearWarning(pachliAccountId, statusId)
+    }
 }

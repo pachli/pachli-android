@@ -196,4 +196,10 @@ interface StatusRepository {
 
     /** Sets [collectionDisplayAction] for [collectionId]. */
     suspend fun setCollectionDisplayAction(pachliAccountId: Long, collectionId: String, collectionDisplayAction: CollectionDisplayAction)
+
+    /**
+     * Clear the warning (remove the "filtered" setting) for the given [statusId],
+     * for [pachliAccountId]
+     */
+    suspend fun clearStatusWarning(pachliAccountId: Long, statusId: String)
 }

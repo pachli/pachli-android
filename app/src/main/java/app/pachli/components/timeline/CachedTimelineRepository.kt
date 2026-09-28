@@ -37,13 +37,10 @@ import app.pachli.core.database.dao.CollectionsDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
-import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.di.InvalidationTracker
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
-import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineStatusWithQuote
-import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.getDomain
@@ -73,7 +70,6 @@ class CachedTimelineRepository @Inject constructor(
     private val transactionProvider: TransactionProvider,
     private val timelineDao: TimelineDao,
     private val remoteKeyDao: RemoteKeyDao,
-    private val translatedStatusDao: TranslatedStatusDao,
     private val statusDao: StatusDao,
     private val collectionsDao: CollectionsDao,
     private val accountRepository: OfflineFirstAccountRepository,
@@ -190,20 +186,6 @@ class CachedTimelineRepository @Inject constructor(
         factory?.invalidate()
     }
 
-    /**
-     * @return Map between statusIDs and any viewdata for them cached in the repository.
-     */
-    suspend fun getStatusViewData(pachliAccountId: Long, statusId: List<String>): Map<String, StatusViewDataEntity> {
-        return statusDao.getStatusViewData(pachliAccountId, statusId)
-    }
-
-    /**
-     * @return Map between statusIDs and any translations for them cached in the repository.
-     */
-    suspend fun getStatusTranslations(pachliAccountId: Long, statusIds: List<String>): Map<String, TranslatedStatusEntity> {
-        return translatedStatusDao.getTranslations(pachliAccountId, statusIds)
-    }
-
     /** Remove all statuses authored/boosted by the given account, for the active account */
     suspend fun removeAllByAccountId(pachliAccountId: Long, accountId: String) = externalScope.launch {
         hiddenAccounts.add(accountId)
@@ -220,11 +202,6 @@ class CachedTimelineRepository @Inject constructor(
         hiddenStatuses.add(statusId)
         factory?.invalidate()
     }
-
-    /** Clear the warning (remove the "filtered" setting) for the given status, for the active account */
-    suspend fun clearStatusWarning(pachliAccountId: Long, statusId: String) = externalScope.launch {
-        statusDao.clearWarning(pachliAccountId, statusId)
-    }.join()
 }
 
 /**
