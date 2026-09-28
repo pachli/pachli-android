@@ -244,4 +244,8 @@
         <item quantity="many">Obsahuje %1$d účtov.</item>
         <item quantity="other">Obsahuje %1$d účtov.</item>
     </plurals>
+    <string name="action_collection_show_action_dialog_fmt">Akcie pre kolekciu %1$s</string>
+    <string name="action_show_dialog_with_all_collections">Akcie kolekcie</string>
+    <string name="title_show_all_collections_dialog">Vybrať kolekciu</string>
+    <string name="title_collection_show_action_dialog_fmt">Kolekcia %1$s</string>
 </resources>
