@@ -227,4 +227,8 @@
         <item quantity="one">Enthält %1$d Konto.</item>
         <item quantity="other">Enthält %1$d Konten.</item>
     </plurals>
+    <string name="action_collection_show_action_dialog_fmt">Aktionen für Sammlung %1$s</string>
+    <string name="action_show_dialog_with_all_collections">Sammlungsaktionen</string>
+    <string name="title_show_all_collections_dialog">Sammlung wählen</string>
+    <string name="title_collection_show_action_dialog_fmt">Sammlung %1$s</string>
 </resources>
