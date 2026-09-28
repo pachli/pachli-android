@@ -259,7 +259,7 @@ class ViewThreadViewModel @Inject constructor(
                     addAll(statusContext.descendants.flatMap { listOf(it.id, it.quote?.quotedStatusId) }.filterNotNull())
                 }
                 val cachedViewData = repository.getStatusViewData(account.pachliAccountId, statusIds)
-                val cachedTranslations = repository.getStatusTranslations(account.pachliAccountId, statusIds)
+                val cachedTranslations = repository.getTranslations(account.pachliAccountId, statusIds)
                 val collectionCardViewDataCache = buildSet {
                     statusContext.ancestors.forEach { status ->
                         status.taggedCollections?.forEach { add(it.id) }

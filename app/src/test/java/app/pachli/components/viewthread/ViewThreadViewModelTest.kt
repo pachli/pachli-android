@@ -162,7 +162,7 @@ class ViewThreadViewModelTest {
 
         val cachedTimelineRepository: CachedTimelineRepository = mock {
             on { getStatusViewData(anyLong(), any<List<String>>()) } doReturn emptyMap()
-            on { getStatusTranslations(anyLong(), any()) } doReturn emptyMap()
+            on { getTranslations(anyLong(), any()) } doReturn emptyMap()
         }
 
         viewModel = ViewThreadViewModel(
