@@ -1,5 +1,20 @@
 # Pachli changelog
 
+## v3.9.0
+
+See https://pachli.app/pachli/2026/09/30/3.9.0-release.html for full details and credits.
+
+### New features and other improvements
+
+- Display collection cards in timelines (#[2389](https://github.com/pachli/pachli-android/pull/2389), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Estonian translations ([Priit Jõerüüt](https://github.com/pachli/pachli-android/commits?author=jrthwlate@users.noreply.hosted.weblate.org))
+- Update German translations ([Kachelkaiser](https://github.com/pachli/pachli-android/commits?author=kachelkaiser@htpst.de))
+- Update Slovak translations ([Russssty](https://github.com/pachli/pachli-android/commits?author=russssty@users.noreply.hosted.weblate.org))
+- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+
 ## v3.8.1
 
 See https://pachli.app/pachli/2026/08/25/3.8.1-release.html for full details and credits.
