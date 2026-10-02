@@ -92,7 +92,7 @@ class TimelineDaoTest {
         val setOne = makeStatus(statusId = 3)
         val setTwo = makeStatus(statusId = 20, reblog = true)
         val ignoredOne = makeStatus(statusId = 1)
-        val ignoredTwo = makeStatus(accountId = 2)
+        val ignoredTwo = makeStatus(pachliAccountId = 2)
 
         for ((status, author, reblogger) in listOf(setOne, setTwo, ignoredOne, ignoredTwo)) {
             timelineDao.insertAccount(author)
@@ -129,7 +129,7 @@ class TimelineDaoTest {
             makeStatus(statusId = 8, reblog = true, accountId = "10"),
             makeStatus(statusId = 5),
             makeStatus(statusId = 3, accountId = "4"),
-            makeStatus(statusId = 2, accountId = 2, accountId = "5"),
+            makeStatus(statusId = 2, pachliAccountId = 2, accountId = "5"),
             makeStatus(statusId = 1, accountId = "5"),
         )
 
@@ -162,7 +162,7 @@ class TimelineDaoTest {
             )
         }
 
-        timelineDao.cleanup(accountId = 1)
+        timelineDao.cleanup(pachliAccountId = 1)
 
         val wantAccount1StatusesAfterCleanup = listOf(
             makeStatus(statusId = 100),
@@ -171,7 +171,7 @@ class TimelineDaoTest {
         )
 
         val wantAccount2StatusesAfterCleanup = listOf(
-            makeStatus(statusId = 2, accountId = 2, accountId = "5"),
+            makeStatus(statusId = 2, pachliAccountId = 2, accountId = "5"),
         )
 
         val loadParams: PagingSource.LoadParams<Int> = PagingSource.LoadParams.Refresh(null, 100, true)
@@ -256,7 +256,7 @@ class TimelineDaoTest {
             makeStatus(statusId = 15),
             makeStatus(statusId = 14),
             makeStatus(statusId = 13),
-            makeStatus(statusId = 13, accountId = 2),
+            makeStatus(statusId = 13, pachliAccountId = 2),
             makeStatus(statusId = 12),
             makeStatus(statusId = 11),
             makeStatus(statusId = 9),
@@ -290,7 +290,7 @@ class TimelineDaoTest {
         )
 
         val remainingStatusesAccount2 = listOf(
-            makeStatus(statusId = 13, accountId = 2),
+            makeStatus(statusId = 13, pachliAccountId = 2),
         )
 
         assertStatuses(remainingStatusesAccount1, statusesAccount1)
@@ -301,37 +301,37 @@ class TimelineDaoTest {
     fun deleteAllForInstance() = runTest {
         val statusWithRedDomain1 = makeStatus(
             statusId = 15,
-            accountId = 1,
+            pachliAccountId = 1,
             domain = "mastodon.red",
             accountId = "1",
         )
         val statusWithRedDomain2 = makeStatus(
             statusId = 14,
-            accountId = 1,
+            pachliAccountId = 1,
             domain = "mastodon.red",
             accountId = "2",
         )
         val statusWithRedDomainOtherAccount = makeStatus(
             statusId = 12,
-            accountId = 2,
+            pachliAccountId = 2,
             domain = "mastodon.red",
             accountId = "2",
         )
         val statusWithBlueDomain = makeStatus(
             statusId = 10,
-            accountId = 1,
+            pachliAccountId = 1,
             domain = "mastodon.blue",
             accountId = "4",
         )
         val statusWithBlueDomainOtherAccount = makeStatus(
             statusId = 10,
-            accountId = 2,
+            pachliAccountId = 2,
             domain = "mastodon.blue",
             accountId = "5",
         )
         val statusWithGreenDomain = makeStatus(
             statusId = 8,
-            accountId = 1,
+            pachliAccountId = 1,
             domain = "mastodon.green",
             accountId = "6",
         )
@@ -389,7 +389,7 @@ class TimelineDaoTest {
     }
 
     private fun makeStatus(
-        accountId: Long = 1,
+        pachliAccountId: Long = 1,
         statusId: Long = 10,
         reblog: Boolean = false,
         createdAt: Long = statusId,
@@ -399,7 +399,7 @@ class TimelineDaoTest {
     ): Triple<StatusEntity, TimelineAccountEntity, TimelineAccountEntity?> {
         val author = TimelineAccountEntity(
             accountId = accountId,
-            pachliAccountId = accountId,
+            pachliAccountId = pachliAccountId,
             localUsername = "localUsername@$domain",
             username = "username@$domain",
             displayName = "displayName",
@@ -415,7 +415,7 @@ class TimelineDaoTest {
         val reblogAuthor = if (reblog) {
             TimelineAccountEntity(
                 accountId = "R$accountId",
-                pachliAccountId = accountId,
+                pachliAccountId = pachliAccountId,
                 localUsername = "RlocalUsername",
                 username = "Rusername",
                 displayName = "RdisplayName",
@@ -435,11 +435,11 @@ class TimelineDaoTest {
             null -> null
             else -> Card(cardUrl, "", "", PreviewCardKind.LINK, providerName = "", providerUrl = "")
         }
-        val even = accountId % 2 == 0L
+        val even = pachliAccountId % 2 == 0L
         val status = StatusEntity(
             statusId = statusId.toString(),
             url = "https://$domain/whatever/$statusId",
-            pachliAccountId = accountId,
+            pachliAccountId = pachliAccountId,
             accountId = accountId,
             inReplyToId = "inReplyToId$statusId",
             inReplyToAccountId = "inReplyToAccountId$statusId",
@@ -458,7 +458,7 @@ class TimelineDaoTest {
             visibility = Status.Visibility.PRIVATE,
             attachments = null,
             mentions = null,
-            tags = null,
+            tags = emptyList(),
             application = null,
             reblogStatusId = if (reblog) (statusId * 100).toString() else null,
             reblogAccountId = reblogAuthor?.accountId,
@@ -467,11 +467,12 @@ class TimelineDaoTest {
             pinned = false,
             card = card,
             language = null,
-            filtered = null,
+            filtered = emptyList(),
             quotesCount = 0,
             quoteState = null,
             quoteStatusId = null,
             quoteApproval = Status.QuoteApproval(),
+            taggedCollections = emptyList(),
         )
         return Triple(status, author, reblogAuthor)
     }
