@@ -1,6 +1,6 @@
 [versions]
 aboutlibraries = "13.2.1"
-acra = "5.13.1"
+acra = "5.14.2"
 agp = "8.13.2"
 androidx-appcompat = "1.7.1"
 androidx-browser = "1.9.0"
