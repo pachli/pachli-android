@@ -226,4 +226,8 @@
     <string name="action_collection_view_tag">Voir le tag</string>
     <string name="collection_content_description_name_and_owner">Collection %1$s, par %2$s.</string>
     <string name="collection_content_description_name">Collection %1$s.</string>
+    <string name="action_collection_show_action_dialog_fmt">Actions pour la collection %1$s</string>
+    <string name="action_show_dialog_with_all_collections">Actions sur les collections</string>
+    <string name="title_show_all_collections_dialog">Choisissez une collection</string>
+    <string name="title_collection_show_action_dialog_fmt">Collection %1$s</string>
 </resources>
