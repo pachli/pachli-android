@@ -90,7 +90,7 @@ xmlwriter = "1.0.4"
 # Tool dependencies
 betterparse = "0.4.4"
 clikt = "5.1.0"
-icu4j = "78.2"
+icu4j = "78.3"
 junit-jupiter = "6.1.3"
 kotlin-logging-jvm = "8.0.4"
 logback = "1.5.32"
