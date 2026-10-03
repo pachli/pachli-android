@@ -79,7 +79,7 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_KEY }}
           packageName: app.pachli
           releaseFiles: ${{steps.sign_app_aab.outputs.signedReleaseFile}}
-          track: internal
+          tracks: internal
           whatsNewDirectory: googleplay/whatsnew
           status: completed
           mappingFile: app/build/outputs/mapping/blueGoogleRelease/mapping.txt

@@ -92,7 +92,7 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_KEY }}
           packageName: app.pachli.current
           releaseFiles: ${{steps.sign_app_aab.outputs.signedReleaseFile}}
-          track: production
+          tracks: production
           whatsNewDirectory: googleplay/whatsnew
           status: completed
           mappingFile: app/build/outputs/mapping/orangeGoogleRelease/mapping.txt
