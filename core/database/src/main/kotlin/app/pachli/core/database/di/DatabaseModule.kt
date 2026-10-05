@@ -30,6 +30,7 @@ import app.pachli.core.database.MIGRATE_10_11
 import app.pachli.core.database.MIGRATE_12_13
 import app.pachli.core.database.MIGRATE_18_19
 import app.pachli.core.database.MIGRATE_22_23
+import app.pachli.core.database.MIGRATE_45_46
 import app.pachli.core.database.MIGRATE_8_9
 import dagger.Module
 import dagger.Provides
@@ -56,6 +57,7 @@ object DatabaseModule {
             .addMigrations(MIGRATE_12_13)
             .addMigrations(MIGRATE_18_19)
             .addMigrations(MIGRATE_22_23)
+            .addMigrations(MIGRATE_45_46)
             .apply {
                 if (!BuildConfig.DEBUG) allowMainThreadQueries()
             }
