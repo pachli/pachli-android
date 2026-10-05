@@ -74,12 +74,12 @@ private typealias AccountInfo = Pair<TimelineAccount, Boolean>
 class AccountsInListFragment : AppCompatDialogFragment() {
     private val pachliAccountId by unsafeLazy { requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID) }
 
-    private val listName by unsafeLazy { requireArguments().getString(ARG_LIST_NAME)!! }
+    private val listId by unsafeLazy { requireArguments().getString(ARG_LIST_ID)!! }
 
     private val viewModel: AccountsInListViewModel by viewModels(
         extrasProducer = {
             defaultViewModelCreationExtras.withCreationCallback<AccountsInListViewModel.Factory> { factory ->
-                factory.create(pachliAccountId, listName)
+                factory.create(pachliAccountId, listId)
             }
         },
     )
