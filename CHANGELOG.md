@@ -1,5 +1,14 @@
 # Pachli changelog
 
+## v3.9.1
+
+See https://pachli.app/pachli/2026/10/05/3.9.1-release.html for full details and credits.
+
+### Significant bug fixes
+
+- Unbreak list user management ([Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't crash if database contains null StatusEntity.filtered columns ([Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
 ## v3.9.0
 
 See https://pachli.app/pachli/2026/09/30/3.9.0-release.html for full details and credits.
