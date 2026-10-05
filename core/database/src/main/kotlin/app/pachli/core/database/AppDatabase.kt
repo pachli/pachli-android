@@ -176,8 +176,8 @@ import java.util.TimeZone
         AutoMigration(from = 43, to = 44),
         // Support Mastodon Collections.
         AutoMigration(from = 44, to = 45),
-        // Make some Status(Entity) properties non-null
-        AutoMigration(from = 45, to = 46),
+        // Make some Status(Entity) properties non-null,
+        // done as a custom migration (45 -> 46)
         AutoMigration(from = 46, to = 47, spec = AppDatabase.MIGRATE_46_47::class),
         // Status.taggedCollection property
         AutoMigration(from = 47, to = 48),
@@ -625,5 +625,235 @@ val MIGRATE_22_23 = object : Migration(22, 23) {
         connection.execSQL("CREATE TABLE IF NOT EXISTS `_new_InstanceInfoEntity` (`instance` TEXT NOT NULL, `maxPostCharacters` INTEGER NOT NULL, `maxPollOptions` INTEGER NOT NULL, `maxPollOptionLength` INTEGER NOT NULL, `minPollDuration` INTEGER NOT NULL, `maxPollDuration` INTEGER NOT NULL, `charactersReservedPerUrl` INTEGER NOT NULL, `version` TEXT NOT NULL, `videoSizeLimit` INTEGER NOT NULL, `imageSizeLimit` INTEGER NOT NULL, `imageMatrixLimit` INTEGER NOT NULL, `maxMediaAttachments` INTEGER NOT NULL, `maxFields` INTEGER NOT NULL, `maxFieldNameLength` INTEGER, `maxFieldValueLength` INTEGER, `enabledTranslation` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`instance`))")
         connection.execSQL("DROP TABLE `InstanceInfoEntity`")
         connection.execSQL("ALTER TABLE `_new_InstanceInfoEntity` RENAME TO `InstanceInfoEntity`")
+    }
+}
+
+/**
+ * Ensures the `StatusEntity.filtered` property is non-NULL by setting it to
+ * `[]` (JSON representation of an empty list) if it is currently NULL.
+ */
+val MIGRATE_45_46 = object : Migration(45, 46) {
+    override suspend fun migrate(connection: SQLiteConnection) {
+        // Update StatusEntity.filtered
+        connection.execSQL("UPDATE StatusEntity SET filtered = '[]' WHERE filtered IS NULL")
+
+        // This is copied from the auto migration.
+        connection.execSQL("DROP VIEW TimelineStatusWithAccount")
+        connection.execSQL("DROP VIEW ReferencedStatusId")
+        connection.execSQL("CREATE TABLE IF NOT EXISTS `_new_StatusEntity` (`serverId` TEXT NOT NULL, `url` TEXT, `pachliAccountId` INTEGER NOT NULL, `authorServerId` TEXT NOT NULL, `inReplyToId` TEXT, `inReplyToAccountId` TEXT, `content` TEXT, `createdAt` INTEGER NOT NULL, `editedAt` INTEGER, `emojis` TEXT NOT NULL, `reblogsCount` INTEGER NOT NULL, `favouritesCount` INTEGER NOT NULL, `repliesCount` INTEGER NOT NULL, `quotesCount` INTEGER NOT NULL DEFAULT 0, `reblogged` INTEGER NOT NULL, `bookmarked` INTEGER NOT NULL, `favourited` INTEGER NOT NULL, `sensitive` INTEGER NOT NULL, `spoilerText` TEXT NOT NULL, `visibility` INTEGER NOT NULL, `attachments` TEXT, `mentions` TEXT, `tags` TEXT NOT NULL, `application` TEXT, `reblogServerId` TEXT, `reblogAccountId` TEXT, `poll` TEXT, `muted` INTEGER NOT NULL, `pinned` INTEGER NOT NULL, `card` TEXT, `quoteState` TEXT, `quoteServerId` TEXT, `quoteApproval` TEXT NOT NULL DEFAULT '{\"automatic\":[], \"manual\":[], \"currentUser\":\"UNKNOWN\"}', `language` TEXT, `filtered` TEXT NOT NULL, PRIMARY KEY(`serverId`, `pachliAccountId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `PachliAccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED, FOREIGN KEY(`authorServerId`, `pachliAccountId`) REFERENCES `TimelineAccountEntity`(`serverId`, `pachliAccountId`) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED)")
+        connection.execSQL("INSERT INTO `_new_StatusEntity` (`serverId`,`url`,`pachliAccountId`,`authorServerId`,`inReplyToId`,`inReplyToAccountId`,`content`,`createdAt`,`editedAt`,`emojis`,`reblogsCount`,`favouritesCount`,`repliesCount`,`quotesCount`,`reblogged`,`bookmarked`,`favourited`,`sensitive`,`spoilerText`,`visibility`,`attachments`,`mentions`,`tags`,`application`,`reblogServerId`,`reblogAccountId`,`poll`,`muted`,`pinned`,`card`,`quoteState`,`quoteServerId`,`quoteApproval`,`language`,`filtered`) SELECT `serverId`,`url`,`pachliAccountId`,`authorServerId`,`inReplyToId`,`inReplyToAccountId`,`content`,`createdAt`,`editedAt`,`emojis`,`reblogsCount`,`favouritesCount`,`repliesCount`,`quotesCount`,`reblogged`,`bookmarked`,`favourited`,`sensitive`,`spoilerText`,`visibility`,`attachments`,`mentions`,`tags`,`application`,`reblogServerId`,`reblogAccountId`,`poll`,`muted`,`pinned`,`card`,`quoteState`,`quoteServerId`,`quoteApproval`,`language`,`filtered` FROM `StatusEntity`")
+        connection.execSQL("DROP TABLE `StatusEntity`")
+        connection.execSQL("ALTER TABLE `_new_StatusEntity` RENAME TO `StatusEntity`")
+        connection.execSQL("CREATE INDEX IF NOT EXISTS `index_StatusEntity_authorServerId_pachliAccountId` ON `StatusEntity` (`authorServerId`, `pachliAccountId`)")
+        connection.execSQL("CREATE INDEX IF NOT EXISTS `index_StatusEntity_pachliAccountId` ON `StatusEntity` (`pachliAccountId`)")
+        connection.execSQL(
+            """
+        |CREATE VIEW `TimelineStatusWithAccount` AS SELECT
+        |    s.serverId,
+        |    s.url,
+        |    s.pachliAccountId,
+        |    s.authorServerId,
+        |    s.inReplyToId,
+        |    s.inReplyToAccountId,
+        |    s.createdAt,
+        |    s.editedAt,
+        |    s.emojis,
+        |    s.reblogsCount,
+        |    s.favouritesCount,
+        |    s.repliesCount,
+        |    s.quotesCount,
+        |    s.reblogged,
+        |    s.favourited,
+        |    s.bookmarked,
+        |    s.sensitive,
+        |    s.spoilerText,
+        |    s.visibility,
+        |    s.mentions,
+        |    s.tags,
+        |    s.application,
+        |    s.reblogServerId,
+        |    s.reblogAccountId,
+        |    s.content,
+        |    s.attachments,
+        |    s.poll,
+        |    s.card,
+        |    s.muted,
+        |    s.pinned,
+        |    s.language,
+        |    s.filtered,
+        |    s.quoteState,
+        |    s.quoteServerId,
+        |    s.quoteApproval,
+        |    a.serverId AS 'a_serverId',
+        |    a.pachliAccountId AS 'a_pachliAccountId',
+        |    a.localUsername AS 'a_localUsername',
+        |    a.username AS 'a_username',
+        |    a.displayName AS 'a_displayName',
+        |    a.url AS 'a_url',
+        |    a.avatar AS 'a_avatar',
+        |    a.emojis AS 'a_emojis',
+        |    a.bot AS 'a_bot',
+        |    a.createdAt AS 'a_createdAt',
+        |    a.limited AS 'a_limited',
+        |    a.roles AS 'a_roles',
+        |    a.pronouns AS 'a_pronouns',
+        |    rb.serverId AS 'rb_serverId',
+        |    rb.pachliAccountId AS 'rb_pachliAccountId',
+        |    rb.localUsername AS 'rb_localUsername',
+        |    rb.username AS 'rb_username',
+        |    rb.displayName AS 'rb_displayName',
+        |    rb.url AS 'rb_url',
+        |    rb.avatar AS 'rb_avatar',
+        |    rb.emojis AS 'rb_emojis',
+        |    rb.bot AS 'rb_bot',
+        |    rb.createdAt AS 'rb_createdAt',
+        |    rb.limited AS 'rb_limited',
+        |    rb.roles AS 'rb_roles',
+        |    rb.pronouns AS 'rb_pronouns',
+        |    svd.serverId AS 'svd_serverId',
+        |    svd.pachliAccountId AS 'svd_pachliAccountId',
+        |    svd.expanded AS 'svd_expanded',
+        |    svd.contentCollapsed AS 'svd_contentCollapsed',
+        |    svd.translationState AS 'svd_translationState',
+        |    svd.attachmentDisplayAction AS 'svd_attachmentDisplayAction',
+        |    tr.serverId AS 't_serverId',
+        |    tr.pachliAccountId AS 't_pachliAccountId',
+        |    tr.content AS 't_content',
+        |    tr.spoilerText AS 't_spoilerText',
+        |    tr.poll AS 't_poll',
+        |    tr.attachments AS 't_attachments',
+        |    tr.provider AS 't_provider',
+        |    reply.serverId AS 'reply_serverId',
+        |    reply.pachliAccountId AS 'reply_pachliAccountId',
+        |    reply.localUsername AS 'reply_localUsername',
+        |    reply.username AS 'reply_username',
+        |    reply.displayName AS 'reply_displayName',
+        |    reply.url AS 'reply_url',
+        |    reply.avatar AS 'reply_avatar',
+        |    reply.emojis AS 'reply_emojis',
+        |    reply.bot AS 'reply_bot',
+        |    reply.createdAt AS 'reply_createdAt',
+        |    reply.limited AS 'reply_limited',
+        |    reply.roles AS 'reply_roles',
+        |    reply.pronouns AS 'reply_pronouns'
+        |FROM StatusEntity AS s
+        |LEFT JOIN TimelineAccountEntity AS a ON (s.pachliAccountId = a.pachliAccountId AND s.authorServerId = a.serverId)
+        |LEFT JOIN TimelineAccountEntity AS rb ON (s.pachliAccountId = rb.pachliAccountId AND s.reblogAccountId = rb.serverId)
+        |LEFT JOIN
+        |    StatusViewDataEntity AS svd
+        |    ON (s.pachliAccountId = svd.pachliAccountId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
+        |LEFT JOIN
+        |    TranslatedStatusEntity AS tr
+        |    ON (s.pachliAccountId = tr.pachliAccountId AND (s.serverId = tr.serverId OR s.reblogServerId = tr.serverId))
+        |LEFT JOIN TimelineAccountEntity AS reply ON (s.pachliAccountId = reply.pachliAccountId AND s.inReplyToAccountId = reply.serverId)
+            """.trimMargin(),
+        )
+        connection.execSQL(
+            """
+        |CREATE VIEW `ReferencedStatusId` AS WITH RECURSIVE
+        |-- CTEs to normalise the column names and restrict to just rows with
+        |-- non-null references to status IDs, for use in the refId CTE.
+        |timelineStatusId(pachliAccountId, statusId) AS (
+        |    SELECT
+        |        pachliAccountId,
+        |        statusId
+        |    FROM TimelineStatusEntity
+        |),
+        |
+        |notificationStatusId(pachliAccountId, statusId) AS (
+        |    SELECT
+        |        pachliAccountId,
+        |        statusServerId AS statusId
+        |    FROM NotificationEntity
+        |    WHERE statusServerId IS NOT NULL
+        |),
+        |
+        |conversationStatusId(pachliAccountId, statusId) AS (
+        |    SELECT
+        |        pachliAccountId,
+        |        lastStatusServerId AS statusId
+        |    FROM ConversationEntity
+        |    WHERE lastStatusServerId IS NOT NULL
+        |),
+        |
+        |draftStatusId(pachliAccountId, statusId) AS (
+        |    SELECT
+        |        pachliAccountId AS pachliAccountId,
+        |        inReplyToId AS statusId
+        |    FROM DraftEntity
+        |    WHERE inReplyToId IS NOT NULL
+        |),
+        |
+        |--
+        |-- refId is a table of all referenced statusIds. A statusId is referenced
+        |-- if it is either (a) directly referenced by one of the CTEs above, or
+        |-- (b) referenced by a reply, reblog, or quote in any of the statuses
+        |-- from "a".
+        |--
+        |refId(pachliAccountId, statusId) AS (
+        |    --
+        |    -- Find all the "root" statusId. These are the IDs that
+        |    -- are referenced by tables containing "live" data.
+        |    --
+        |    SELECT
+        |        pachliAccountId,
+        |        statusId
+        |    FROM timelineStatusId
+        |    UNION
+        |    SELECT
+        |        pachliAccountId,
+        |        statusId
+        |    FROM notificationStatusId
+        |    UNION
+        |    SELECT
+        |        pachliAccountId,
+        |        statusId
+        |    FROM conversationStatusId
+        |    UNION
+        |    SELECT
+        |        pachliAccountId,
+        |        statusId
+        |    FROM draftStatusId
+        |
+        |    -- Recursively chase down all the references to replies, reblogs, and
+        |    -- quotes, emitting the `inReblogId`, `inReplyToId`, or `quoteServerId`
+        |    -- columns renamed to `statusId` as extra rows.
+        |    UNION
+        |    SELECT
+        |        s.pachliAccountId AS pachliAccountId,
+        |        s.reblogServerId AS statusId
+        |    FROM StatusEntity AS s, refId AS r
+        |    WHERE
+        |        s.reblogServerId IS NOT NULL
+        |        AND s.pachliAccountId = r.pachliAccountId
+        |        AND s.serverId = r.statusID
+        |
+        |    UNION
+        |    SELECT
+        |        s.pachliAccountId AS pachliAccountId,
+        |        s.inReplyToId AS statusId
+        |    FROM StatusEntity AS s, refId AS r
+        |    WHERE
+        |        s.inReplyToId IS NOT NULL
+        |        AND s.pachliAccountId = r.pachliAccountId
+        |        AND s.serverId = r.statusID
+        |
+        |    UNION
+        |    SELECT
+        |        s.pachliAccountId AS pachliAccountId,
+        |        s.quoteServerId AS statusId
+        |    FROM StatusEntity AS s, refId AS r
+        |    WHERE
+        |        s.quoteServerId IS NOT NULL
+        |        AND s.pachliAccountId = r.pachliAccountId
+        |        AND s.serverId = r.statusID
+        |)
+        |
+        |SELECT
+        |    pachliAccountId,
+        |    statusId
+        |FROM refId
+            """.trimMargin(),
+        )
     }
 }
