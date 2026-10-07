@@ -266,4 +266,8 @@
         <item quantity="many">Tá %1$d cuntas ann.</item>
         <item quantity="other">Tá %1$d cuntas ann.</item>
     </plurals>
+    <string name="action_collection_show_action_dialog_fmt">Gníomhartha don bhailiúchán %1$s</string>
+    <string name="action_show_dialog_with_all_collections">Gníomhartha bailiúcháin</string>
+    <string name="title_show_all_collections_dialog">Roghnaigh bailiúchán</string>
+    <string name="title_collection_show_action_dialog_fmt">Bailiúchán %1$s</string>
 </resources>
