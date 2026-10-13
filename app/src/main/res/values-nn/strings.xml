@@ -706,4 +706,11 @@
     <string name="notification_collection_add_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; la deg til i ei samling</string>
     <string name="notification_collection_update_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; oppdaterte ei samling du er i</string>
     <string name="err_draft_error_no_external_files_dir">delt lagring er ikkje tilgjengeleg</string>
+    <string name="err_draft_error_unknown_mime_type">vedlegget er av ukjend type: %1$s</string>
+    <string name="err_draft_error_content_provider_crash">innhaldsleverandøren har nyleg hatt eit problem</string>
+    <string name="search_operator_quote_all">Hermingar ▾</string>
+    <string name="search_operator_quote_only">Berre hermingar</string>
+    <string name="search_operator_quote_no_quotes">Utan hermingar</string>
+    <string name="search_operator_quote_dialog_title">Vis innlegg som hermar andre?</string>
+    <string name="search_operator_quote_dialog_all">Med eller utan hermingar</string>
 </resources>
