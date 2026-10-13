@@ -713,4 +713,6 @@
     <string name="search_operator_quote_no_quotes">Utan hermingar</string>
     <string name="search_operator_quote_dialog_title">Vis innlegg som hermar andre?</string>
     <string name="search_operator_quote_dialog_all">Med eller utan hermingar</string>
+    <string name="search_operator_quote_dialog_only">Berre innlegg med hermingar</string>
+    <string name="search_operator_quote_dialog_no_quotes">Berre innlegg utan hermingar</string>
 </resources>
