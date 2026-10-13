@@ -190,4 +190,22 @@
     <string name="action_follow">Fylg</string>
     <string name="dialog_unfollow_warning">Avfylg denne kontoen?</string>
     <string name="ui_error_follow_account_fmt">Mislukkast i å fylgje %1$s: %2$s</string>
+    <string name="collection_sensitive_label">Inneheld ømtoleg innhald</string>
+    <string name="collection_hidden_sensitive_title">Ømtoleg innhald. Trykk for å vise.</string>
+    <string name="collection_hidden_user_action_title">Du har skjult dette. Trykk for å vise.</string>
+    <string name="action_collection_show">Vis samling</string>
+    <string name="action_collection_hide">Skjul samling</string>
+    <string name="action_collection_view">Sjå samling</string>
+    <string name="action_collection_revoke">Fjern meg</string>
+    <string name="action_collection_view_tag">Sjå emneknagg</string>
+    <string name="collection_content_description_name_and_owner">Samling %1$s av %2$s.</string>
+    <string name="collection_content_description_name">Samling %1$s.</string>
+    <string name="action_collection_show_action_dialog_fmt">Handlingar for samling %1$s</string>
+    <plurals name="collection_content_description_accounts_is_not_member">
+        <item quantity="one">Inneheld %1$d konto.</item>
+        <item quantity="other">Inneheld %1$d kontoar.</item>
+    </plurals>
+    <string name="title_show_all_collections_dialog">Vel samling</string>
+    <string name="title_collection_show_action_dialog_fmt">Samling %1$s</string>
+    <string name="action_collection_remove_self">Fjern meg</string>
 </resources>
