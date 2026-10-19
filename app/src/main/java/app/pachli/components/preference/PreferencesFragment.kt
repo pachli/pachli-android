@@ -52,6 +52,7 @@ import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.model.AccountNotificationMethod
 import app.pachli.core.model.PachliAccount
 import app.pachli.core.preferences.AppTheme
+import app.pachli.core.preferences.ConfirmReblogs
 import app.pachli.core.preferences.DefaultAudioPlayback
 import app.pachli.core.preferences.DownloadLocation
 import app.pachli.core.preferences.LinksToUnderline
@@ -287,11 +288,10 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     isSingleLineTitle = false
                 }
 
-                switchPreference {
-                    setDefaultValue(true)
-                    key = PrefKeys.CONFIRM_REBLOGS
+                enumListPreference<ConfirmReblogs> {
+                    setDefaultValue(ConfirmReblogs.ALWAYS)
                     setTitle(R.string.pref_title_confirm_reblogs)
-                    isSingleLineTitle = false
+                    key = PrefKeys.CONFIRM_REBLOGS
                 }
 
                 switchPreference {

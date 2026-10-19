@@ -18,6 +18,7 @@
 package app.pachli.core.data.model
 
 import app.pachli.core.preferences.CardViewMode
+import app.pachli.core.preferences.ConfirmReblogs
 import app.pachli.core.preferences.LinksToUnderline
 import app.pachli.core.preferences.PronounDisplay
 
@@ -46,7 +47,7 @@ data class StatusDisplayOptions(
     @get:JvmName("cardViewMode")
     val cardViewMode: CardViewMode = CardViewMode.NONE,
     @get:JvmName("confirmReblogs")
-    val confirmReblogs: Boolean = true,
+    val confirmReblogs: ConfirmReblogs = ConfirmReblogs.ALWAYS,
     @get:JvmName("confirmFavourites")
     val confirmFavourites: Boolean = false,
     @get:JvmName("hideStats")

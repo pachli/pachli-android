@@ -27,6 +27,7 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.util.formatNumber
 import app.pachli.core.model.Status
+import app.pachli.core.preferences.ConfirmReblogs
 import app.pachli.core.ui.databinding.StatusControlsBinding
 import app.pachli.core.ui.extensions.expandTouchSizeToFillRow
 import at.connyduck.sparkbutton.SparkButton
@@ -235,7 +236,7 @@ class StatusControlView @JvmOverloads constructor(
     fun bind(
         status: Status,
         showCounts: Boolean,
-        confirmReblog: Boolean,
+        confirmReblog: ConfirmReblogs,
         confirmFavourite: Boolean,
         isReply: Boolean,
         isReblogged: Boolean,
@@ -297,8 +298,7 @@ class StatusControlView @JvmOverloads constructor(
      * @param status Actionable status
      * @param showCounts True if interaction counts should be shown.
      * @param isReblogged True if the user has reblogged the status.
-     * @param confirmReblog True if the user should be prompted to confirm
-     * the click.
+     * @param confirmReblog When the user should be prompted to confirm the click.
      * @param onReblogClick Called when the user wants to reblog the status. If
      * null reblogging is disabled.
      * @param onQuoteClick Called when the user wants to quote the status. If
@@ -307,7 +307,7 @@ class StatusControlView @JvmOverloads constructor(
     private fun bindReblog(
         status: Status,
         showCounts: Boolean,
-        confirmReblog: Boolean,
+        confirmReblog: ConfirmReblogs,
         isReblogged: Boolean,
         onReblogClick: OnReblogClick?,
         onQuoteClick: OnQuoteClick?,
@@ -334,7 +334,7 @@ class StatusControlView @JvmOverloads constructor(
 
         val eventListener = { _: SparkButton, checked: Boolean ->
             val reblog = !checked
-            if (confirmReblog || canQuote) {
+            if (confirmReblog != ConfirmReblogs.NEVER || canQuote) {
                 showReblogMenu(status, reblog, onReblogClick, onQuoteClick)
                 false
             } else {
@@ -415,6 +415,12 @@ class StatusControlView @JvmOverloads constructor(
 
         val canReblog = status.visibility.allowsReblog && onReblogClick != null
 
+        // Set the title of the reblog action based on whether or not the post has uncaptioned
+        // media, irrespective of the user's preference. This gives the user additional contextual
+        // information.
+        val hasUncaptionedMedia = status.actionableStatus.attachments.any { it.description.isNullOrBlank() }
+        val reblogActionTitleRes = if (hasUncaptionedMedia) R.string.action_reblog_uncaptioned else R.string.action_reblog
+
         PopupMenu(context, binding.reblog).apply {
             inflate(R.menu.status_reblog)
             setForceShowIcon(true)
@@ -423,7 +429,10 @@ class StatusControlView @JvmOverloads constructor(
                 isEnabled = canQuote
                 setTitle(quoteLabel)
             }
-            menu.findItem(R.id.menu_action_reblog).isVisible = reblog && canReblog
+            menu.findItem(R.id.menu_action_reblog).apply {
+                isVisible = reblog && canReblog
+                setTitle(reblogActionTitleRes)
+            }
             menu.findItem(R.id.menu_action_unreblog).isVisible = !reblog && canReblog
             setOnMenuItemClickListener { item ->
                 return@setOnMenuItemClickListener when (item.itemId) {

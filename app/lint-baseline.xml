@@ -154,7 +154,7 @@
         errorLine2="                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/feature/collections/CollectionFragment.kt"
-            line="195"
+            line="194"
             column="38"/>
     </issue>
 
@@ -165,7 +165,7 @@
         errorLine2="                                                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/feature/collections/CollectionFragment.kt"
-            line="195"
+            line="194"
             column="76"/>
     </issue>
 
@@ -231,7 +231,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/conversation/ConversationsFragment.kt"
-            line="244"
+            line="242"
             column="17"/>
     </issue>
 
@@ -286,7 +286,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="1192"
+            line="1191"
             column="17"/>
     </issue>
 
@@ -297,7 +297,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/notifications/NotificationsFragment.kt"
-            line="203"
+            line="196"
             column="13"/>
     </issue>
 
@@ -308,7 +308,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/notifications/NotificationsFragment.kt"
-            line="389"
+            line="382"
             column="13"/>
     </issue>
 
@@ -319,7 +319,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/notifications/NotificationsFragment.kt"
-            line="406"
+            line="399"
             column="17"/>
     </issue>
 
@@ -330,7 +330,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/notifications/NotificationsFragment.kt"
-            line="413"
+            line="406"
             column="21"/>
     </issue>
 
@@ -363,7 +363,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/core/ui/StatusView.kt"
-            line="324"
+            line="330"
             column="13"/>
     </issue>
 
@@ -407,7 +407,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/timeline/TimelineFragment.kt"
-            line="219"
+            line="225"
             column="13"/>
     </issue>
 
@@ -418,7 +418,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/timeline/TimelineFragment.kt"
-            line="428"
+            line="434"
             column="13"/>
     </issue>
 
@@ -429,7 +429,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/timeline/TimelineFragment.kt"
-            line="445"
+            line="451"
             column="17"/>
     </issue>
 
@@ -440,7 +440,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/timeline/TimelineFragment.kt"
-            line="452"
+            line="458"
             column="21"/>
     </issue>
 
@@ -451,7 +451,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/trending/TrendingLinksFragment.kt"
-            line="127"
+            line="122"
             column="13"/>
     </issue>
 
@@ -462,7 +462,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/trending/TrendingTagsFragment.kt"
-            line="123"
+            line="118"
             column="9"/>
     </issue>
 
@@ -473,7 +473,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/trending/TrendingTagsFragment.kt"
-            line="272"
+            line="267"
             column="13"/>
     </issue>
 
@@ -484,7 +484,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/viewthread/ViewThreadFragment.kt"
-            line="194"
+            line="197"
             column="13"/>
     </issue>
 
@@ -495,7 +495,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/viewthread/ViewThreadFragment.kt"
-            line="224"
+            line="227"
             column="21"/>
     </issue>
 
@@ -506,7 +506,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/viewthread/ViewThreadFragment.kt"
-            line="246"
+            line="249"
             column="21"/>
     </issue>
 
@@ -517,7 +517,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/viewthread/ViewThreadFragment.kt"
-            line="268"
+            line="271"
             column="21"/>
     </issue>
 
@@ -2039,7 +2039,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/core/ui/PollPreviewView.kt"
-            line="78"
+            line="77"
             column="9"/>
     </issue>
 
