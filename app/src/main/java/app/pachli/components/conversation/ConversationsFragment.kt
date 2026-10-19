@@ -425,10 +425,6 @@ class ConversationsFragment :
         viewModel.collapseLongStatus(viewData.pachliAccountId, isCollapsed, viewData.actionableId)
     }
 
-    override fun onReblogWarning(viewData: IStatusViewData, reblog: Boolean) {
-        // there are no reblogs in conversations
-    }
-
     override fun onViewAccount(accountId: String) {
         val intent = AccountActivityIntent(requireContext(), pachliAccountId, accountId)
         startActivityWithDefaultTransition(intent)

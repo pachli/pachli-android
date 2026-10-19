@@ -128,6 +128,7 @@
     <string name="handle_contentdescription_fmt">Handle, @%1$s</string>
     <string name="action_reply">Reply</string>
     <string name="action_reblog">Boost</string>
+    <string name="action_reblog_uncaptioned">Boost (with missing captions)</string>
     <string name="action_quote">Quote</string>
     <string name="action_request_quote">Request to quote</string>
     <string name="label_author_denied_quote">Quoting disabled by author</string>

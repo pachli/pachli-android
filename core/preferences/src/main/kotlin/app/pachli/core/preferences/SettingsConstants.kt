@@ -7,8 +7,7 @@ package app.pachli.core.preferences
  * If you make an incompatible change to the preferences schema you must:
  *
  * - Update this value
- * - Update the code in
- *   [PachliApplication.upgradeSharedPreferences][app.pachli.PachliApplication.upgradeSharedPreferences]
+ * - Update the code in [SharedPreferencesRepository.upgradeSharedPreferences]
  *   to migrate from the old schema version to the new schema version.
  *
  * An incompatible change is:
@@ -30,7 +29,7 @@ package app.pachli.core.preferences
  *
  * - Adding a new preference that does not change the interpretation of an existing preference
  */
-const val SCHEMA_VERSION = 2025033001
+const val SCHEMA_VERSION = 2026101901
 
 /** The schema version for fresh installs */
 const val NEW_INSTALL_SCHEMA_VERSION = 0
@@ -58,8 +57,7 @@ object PrefKeys {
     const val USE_BLURHASH = "useBlurhash"
     const val SHOW_SELF_USERNAME = "showSelfUsername"
     const val SHOW_CARDS_IN_TIMELINES = "showCardsInTimelines"
-    const val CONFIRM_REBLOGS = "confirmReblogs"
-    const val CONFIRM_REBLOG_UNCAPTIONED_MEDIA = "confirmReblogUncaptionedMedia"
+    const val CONFIRM_REBLOGS = "confirmReblogsEnum"
     const val CONFIRM_FAVOURITES = "confirmFavourites"
     const val ENABLE_SWIPE_FOR_TABS = "enableSwipeForTabs"
     const val ANIMATE_CUSTOM_EMOJIS = "animateCustomEmojis"
@@ -207,5 +205,8 @@ object PrefKeys {
     /** Keys that are no longer used (e.g., the preference has been removed */
     object Deprecated {
         const val WELLBEING_LIMITED_NOTIFICATIONS = "wellbeingModeLimitedNotifications"
+
+        /** Deprecated in favour of [PrefKeys.CONFIRM_REBLOGS]. */
+        const val CONFIRM_REBLOGS = "confirmReblogs"
     }
 }

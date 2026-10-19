@@ -69,13 +69,9 @@ class SharedPreferencesRepository @Inject constructor(
     val confirmFavourites: Boolean
         get() = getBoolean(PrefKeys.CONFIRM_FAVOURITES, false)
 
-    /** True to prompt the user to confirm after tapping the reblog button. */
-    val confirmReblogs: Boolean
-        get() = getBoolean(PrefKeys.CONFIRM_REBLOGS, true)
-
-    /** True to warn the user if the media is uncaptioned/no description. */
-    val confirmReblogUncaptionedMedia: Boolean
-        get() = getBoolean(PrefKeys.CONFIRM_REBLOG_UNCAPTIONED_MEDIA, false)
+    /** See [ConfirmReblogs]. */
+    val confirmReblogs: ConfirmReblogs
+        get() = getEnum(PrefKeys.CONFIRM_REBLOGS, ConfirmReblogs.ALWAYS)
 
     /** True if the status' language should be checked before sending. */
     var confirmStatusLanguage: Boolean
@@ -322,6 +318,16 @@ class SharedPreferencesRepository @Inject constructor(
                 val fontPref = getString(FONT_FAMILY, "default")
                 if (fontPref == "atkinson_hyperlegible") {
                     putString(FONT_FAMILY, "atkinson_hyperlegible_next")
+                }
+            }
+
+            // Migrated from Boolean CONFIRM_REBLOGS to enum ConfirmReblogs.
+            if (oldVersion < 2026101901) {
+                val confirmReblogs = getBoolean(PrefKeys.Deprecated.CONFIRM_REBLOGS, true)
+                if (confirmReblogs) {
+                    putEnum(PrefKeys.CONFIRM_REBLOGS, ConfirmReblogs.ALWAYS)
+                } else {
+                    putEnum(PrefKeys.CONFIRM_REBLOGS, ConfirmReblogs.NEVER)
                 }
             }
 

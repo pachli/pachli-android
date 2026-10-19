@@ -73,7 +73,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                 showCounts = statusDisplayOptions.showStatsInline,
                 confirmReblog = statusDisplayOptions.confirmReblogs,
                 confirmFavourite = statusDisplayOptions.confirmFavourites,
-                confirmReblogUncaptionedMedia = statusDisplayOptions.confirmReblogUncaptionedMedia,
                 isReply = actionable.inReplyToId != null,
                 isReblogged = actionable.reblogged,
                 isFavourited = actionable.favourited,
@@ -83,7 +82,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                 favouriteCount = actionable.favouritesCount,
                 onReplyClick = { listener.onReply(viewData) },
                 onReblogClick = { reblog -> listener.onReblog(viewData, reblog) },
-                onShowReblogWarning = { reblog -> listener.onReblogWarning(viewData, reblog) },
                 onQuoteClick = if (statusDisplayOptions.canQuote) {
                     { listener.onQuote(viewData) }
                 } else {
@@ -124,7 +122,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                         showCounts = statusDisplayOptions.showStatsInline,
                         confirmReblog = statusDisplayOptions.confirmReblogs,
                         confirmFavourite = statusDisplayOptions.confirmFavourites,
-                        confirmReblogUncaptionedMedia = statusDisplayOptions.confirmReblogUncaptionedMedia,
                         isReply = actionable.inReplyToId != null,
                         isReblogged = actionable.reblogged,
                         isFavourited = actionable.favourited,
@@ -134,7 +131,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                         favouriteCount = actionable.favouritesCount,
                         onReplyClick = { listener.onReply(viewData) },
                         onReblogClick = { reblog -> listener.onReblog(viewData, reblog) },
-                        onShowReblogWarning = { reblog -> listener.onReblogWarning(viewData, reblog) },
                         onQuoteClick = if (statusDisplayOptions.canQuote) {
                             { listener.onQuote(viewData) }
                         } else {

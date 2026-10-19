@@ -68,12 +68,6 @@ interface StatusActionListener : LinkListener, CollectionCardActionListener {
     fun onShowQuotes(statusId: String) {}
 
     /**
-     * Called when the user attempts to reblog a status containing media without
-     * a description, and their preferences require a warning.
-     */
-    fun onReblogWarning(viewData: IStatusViewData, reblog: Boolean)
-
-    /**
      * Called when voting on a poll.
      *
      * @param viewData

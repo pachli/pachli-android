@@ -80,7 +80,6 @@ import app.pachli.feature.collections.newConfirmRevokeDialogFragment
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.ActionButtonActivity
-import app.pachli.util.showUncaptionedMediaWarningDialog
 import com.bumptech.glide.Glide
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
@@ -591,12 +590,6 @@ class NotificationsFragment :
                 isCollapsed,
             ),
         )
-    }
-
-    override fun onReblogWarning(viewData: IStatusViewData, reblog: Boolean) {
-        requireContext().showUncaptionedMediaWarningDialog {
-            onReblog(viewData, reblog)
-        }
     }
 
     override fun onEditFilterById(pachliAccountId: Long, filterId: String) {

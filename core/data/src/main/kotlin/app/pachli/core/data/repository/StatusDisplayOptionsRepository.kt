@@ -68,7 +68,6 @@ class StatusDisplayOptionsRepository @Inject constructor(
         PrefKeys.ANIMATE_GIF_AVATARS,
         PrefKeys.CONFIRM_FAVOURITES,
         PrefKeys.CONFIRM_REBLOGS,
-        PrefKeys.CONFIRM_REBLOG_UNCAPTIONED_MEDIA,
         PrefKeys.MEDIA_PREVIEW_ENABLED,
         PrefKeys.SHOW_BOT_OVERLAY,
         PrefKeys.SHOW_CARDS_IN_TIMELINES,
@@ -110,9 +109,6 @@ class StatusDisplayOptionsRepository @Inject constructor(
                         )
                         PrefKeys.CONFIRM_REBLOGS -> prev.copy(
                             confirmReblogs = sharedPreferencesRepository.confirmReblogs,
-                        )
-                        PrefKeys.CONFIRM_REBLOG_UNCAPTIONED_MEDIA -> prev.copy(
-                            confirmReblogUncaptionedMedia = sharedPreferencesRepository.confirmReblogUncaptionedMedia,
                         )
                         PrefKeys.WELLBEING_HIDE_STATS_POSTS -> prev.copy(
                             hideStatsInDetailedView = sharedPreferencesRepository.hideStatsInDetailedView,
@@ -183,7 +179,6 @@ class StatusDisplayOptionsRepository @Inject constructor(
             },
             confirmReblogs = sharedPreferencesRepository.confirmReblogs,
             confirmFavourites = sharedPreferencesRepository.confirmFavourites,
-            confirmReblogUncaptionedMedia = sharedPreferencesRepository.confirmReblogUncaptionedMedia,
             hideStatsInDetailedView = sharedPreferencesRepository.hideStatsInDetailedView,
             showStatsInline = sharedPreferencesRepository.showInlineStats,
             showSensitiveMedia = account?.alwaysShowSensitiveMedia ?: default.showSensitiveMedia,

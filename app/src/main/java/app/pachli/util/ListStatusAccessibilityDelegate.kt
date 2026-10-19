@@ -83,7 +83,12 @@ class ListStatusAccessibilityDelegate<T : IStatusItemViewData>(
             if (controlActions.contains(replyAction.id)) info.addAction(replyAction)
 
             if (actionable.rebloggingAllowed() && controlActions.contains(reblogAction.id)) {
-                info.addAction(if (actionable.reblogged) unreblogAction else reblogAction)
+                val action = when {
+                    actionable.reblogged -> unreblogAction
+                    actionable.attachments.any { it.description.isNullOrBlank() } -> reblogUncaptionedAction
+                    else -> reblogAction
+                }
+                info.addAction(action)
             }
 
             if (controlActions.contains(quoteAction.id)) info.addAction(quoteAction)
@@ -481,6 +486,11 @@ class ListStatusAccessibilityDelegate<T : IStatusItemViewData>(
     private val reblogAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_reblog,
         context.getString(app.pachli.core.ui.R.string.action_reblog),
+    )
+
+    private val reblogUncaptionedAction = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_reblog,
+        context.getString(app.pachli.core.ui.R.string.action_reblog_uncaptioned),
     )
 
     private val quoteAction = AccessibilityActionCompat(
