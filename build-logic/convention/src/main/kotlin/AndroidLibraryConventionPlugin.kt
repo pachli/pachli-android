@@ -18,8 +18,8 @@
 import app.pachli.configureFlavors
 import app.pachli.configureKotlinAndroid
 import app.pachli.disableUnnecessaryAndroidTests
-import com.android.build.api.dsl.LibraryExtension
 import app.pachli.libs
+import com.android.build.api.dsl.LibraryExtension
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project

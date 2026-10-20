@@ -34,7 +34,7 @@ class AndroidComposeConventionPlugin : Plugin<Project> {
             when {
                 pluginManager.hasPlugin("com.android.application") -> {
                     configure<ApplicationExtension> {
-                        buildFeatures {
+                        buildFeatures.apply {
                             compose = true
                         }
                         composeOptions {
