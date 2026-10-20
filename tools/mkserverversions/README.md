@@ -1,5 +1,12 @@
 # mkserverversions
 
+Note: Doesn't work any more, as fediverse.observer has been shut down, per
+https://cake.kobel.fyi/c/fediverse@lemmy.world/p/225784/fediverse-observer-is-offline-and-no-longer-being-developed
+and https://gitlab.com/diasporg/poduptime/-/commit/0e6daf433046c397b7cf2265e24b730fef8cc28d.
+
+Should be updated to use the https://fedidb.com/datasets#software-versions
+datasets.
+
 ## Synopsis
 
 `mkserverversions` creates a JSON5 file that maps different Fediverse server
