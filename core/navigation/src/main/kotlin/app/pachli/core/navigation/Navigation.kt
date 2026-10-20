@@ -35,7 +35,6 @@ import app.pachli.core.model.Notification
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.network.parseAsMastodonHtml
-import com.gaelmarhic.quadrant.QuadrantConstants
 import kotlinx.parcelize.Parcelize
 
 private const val EXTRA_PACHLI_ACCOUNT_ID = "app.pachli.EXTRA_PACHLI_ACCOUNT_ID"
@@ -57,6 +56,38 @@ var Intent.pachliAccountId: Long
         return
     }
 
+data object Navigation {
+    const val ABOUT_ACTIVITY = "app.pachli.feature.about.AboutActivity"
+    const val ACCOUNT_ACTIVITY = "app.pachli.components.account.AccountActivity"
+    const val ACCOUNT_LIST_ACTIVITY = "app.pachli.components.accountlist.AccountListActivity"
+    const val ANNOUNCEMENTS_ACTIVITY = "app.pachli.components.announcements.AnnouncementsActivity"
+    const val COLLECTION_ACTIVITY = "app.pachli.feature.collections.CollectionActivity"
+    const val COMPOSE_ACTIVITY = "app.pachli.components.compose.ComposeActivity"
+    const val CONTENT_FILTERS_ACTIVITY = "app.pachli.components.filters.ContentFiltersActivity"
+    const val CROP_IMAGE_ACTIVITY = "com.canhub.cropper.CropImageActivity"
+    const val DRAFTS_ACTIVITY = "app.pachli.feature.drafts.DraftsActivity"
+    const val EDIT_CONTENT_FILTER_ACTIVITY = "app.pachli.components.filters.EditContentFilterActivity"
+    const val EDIT_PROFILE_ACTIVITY = "app.pachli.EditProfileActivity"
+    const val FOLLOWED_TAGS_ACTIVITY = "app.pachli.components.followedtags.FollowedTagsActivity"
+    const val INSTANCE_LIST_ACTIVITY = "app.pachli.components.instancemute.InstanceListActivity"
+    const val INTENT_ROUTER_ACTIVITY = "app.pachli.feature.intentrouter.IntentRouterActivity"
+    const val LISTS_ACTIVITY = "app.pachli.feature.lists.ListsActivity"
+    const val LOGIN_ACTIVITY = "app.pachli.feature.login.LoginActivity"
+    const val LOGIN_WEB_VIEW_ACTIVITY = "app.pachli.feature.login.LoginWebViewActivity"
+    const val MAIN_ACTIVITY = "app.pachli.MainActivity"
+    const val MANAGE_ACCOUNTS_ACTIVITY = "app.pachli.feature.manageaccounts.ManageAccountsActivity"
+    const val PREFERENCES_ACTIVITY = "app.pachli.components.preference.PreferencesActivity"
+    const val REPORT_ACTIVITY = "app.pachli.components.report.ReportActivity"
+    const val SCHEDULED_STATUS_ACTIVITY = "app.pachli.components.scheduled.ScheduledStatusActivity"
+    const val SEARCH_ACTIVITY = "app.pachli.components.search.SearchActivity"
+    const val SUGGESTIONS_ACTIVITY = "app.pachli.feature.suggestions.SuggestionsActivity"
+    const val TAB_PREFERENCE_ACTIVITY = "app.pachli.TabPreferenceActivity"
+    const val TIMELINE_ACTIVITY = "app.pachli.TimelineActivity"
+    const val TRENDING_ACTIVITY = "app.pachli.components.trending.TrendingActivity"
+    const val VIEW_MEDIA_ACTIVITY = "app.pachli.ViewMediaActivity"
+    const val VIEW_THREAD_ACTIVITY = "app.pachli.components.viewthread.ViewThreadActivity"
+}
+
 /**
  * @param context
  * @param pachliAccountId See [pachliAccountId][Intent.pachliAccountId].
@@ -65,7 +96,7 @@ var Intent.pachliAccountId: Long
  */
 class AccountActivityIntent(context: Context, pachliAccountId: Long, accountId: String) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.ACCOUNT_ACTIVITY)
+        setClassName(context, Navigation.ACCOUNT_ACTIVITY)
         this.pachliAccountId = pachliAccountId
         putExtra(EXTRA_ACCOUNT_ID, accountId)
     }
@@ -111,7 +142,7 @@ class AccountListActivityIntent(context: Context, pachliAccountId: Long, kind: K
     }
 
     init {
-        setClassName(context, QuadrantConstants.ACCOUNT_LIST_ACTIVITY)
+        setClassName(context, Navigation.ACCOUNT_LIST_ACTIVITY)
         this.pachliAccountId = pachliAccountId
         putExtra(EXTRA_KIND, kind)
         putExtra(EXTRA_ID, id)
@@ -131,7 +162,7 @@ class AccountListActivityIntent(context: Context, pachliAccountId: Long, kind: K
 
 class IntentRouterActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.INTENT_ROUTER_ACTIVITY)
+        setClassName(context, Navigation.INTENT_ROUTER_ACTIVITY)
         this.pachliAccountId = pachliAccountId
     }
 
@@ -445,7 +476,7 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
                 override val contentWarning: String,
                 override val content: String,
                 override val pronouns: String?,
-            ) : ReferencingStatus.Status {
+            ) : Status {
                 companion object {
                     fun from(status: app.pachli.core.model.Status) = ReplyingTo(
                         statusId = status.statusId,
@@ -475,7 +506,7 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
                 override val contentWarning: String,
                 override val content: String,
                 override val pronouns: String?,
-            ) : ReferencingStatus.Status {
+            ) : Status {
                 companion object {
                     fun from(status: app.pachli.core.model.Status) = Quoting(
                         statusId = status.statusId,
@@ -494,7 +525,7 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
     }
 
     init {
-        setClassName(context, QuadrantConstants.COMPOSE_ACTIVITY)
+        setClassName(context, Navigation.COMPOSE_ACTIVITY)
         this.pachliAccountId = pachliAccountId
 
         putExtra(EXTRA_COMPOSE_OPTIONS, composeOptions)
@@ -533,7 +564,7 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
  */
 class EditContentFilterActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.EDIT_CONTENT_FILTER_ACTIVITY)
+        setClassName(context, Navigation.EDIT_CONTENT_FILTER_ACTIVITY)
         this.pachliAccountId = pachliAccountId
     }
 
@@ -597,7 +628,7 @@ class LoginActivityIntent(context: Context, loginMode: LoginMode = LoginMode.Def
     }
 
     init {
-        setClassName(context, QuadrantConstants.LOGIN_ACTIVITY)
+        setClassName(context, Navigation.LOGIN_ACTIVITY)
         putExtra(EXTRA_LOGIN_MODE, loginMode)
     }
 
@@ -615,7 +646,7 @@ class MainActivityIntent(
     openNotificationTab: Boolean = false,
 ) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.MAIN_ACTIVITY)
+        setClassName(context, Navigation.MAIN_ACTIVITY)
         this.pachliAccountId = pachliAccountId
         putExtra(EXTRA_OPEN_NOTIFICATION_TAB, openNotificationTab)
     }
@@ -691,7 +722,7 @@ class PreferencesActivityIntent(context: Context, pachliAccountId: Long, screen:
     }
 
     init {
-        setClassName(context, QuadrantConstants.PREFERENCES_ACTIVITY)
+        setClassName(context, Navigation.PREFERENCES_ACTIVITY)
         this.pachliAccountId = pachliAccountId
         putExtra(EXTRA_PREFERENCE_SCREEN, screen)
     }
@@ -713,7 +744,7 @@ class PreferencesActivityIntent(context: Context, pachliAccountId: Long, screen:
  */
 class ReportActivityIntent(context: Context, pachliAccountId: Long, accountId: String, userName: String, statusId: String? = null) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.REPORT_ACTIVITY)
+        setClassName(context, Navigation.REPORT_ACTIVITY)
         this.pachliAccountId = pachliAccountId
         putExtra(EXTRA_ACCOUNT_ID, accountId)
         putExtra(EXTRA_ACCOUNT_USERNAME, userName)
@@ -742,7 +773,7 @@ class ReportActivityIntent(context: Context, pachliAccountId: Long, accountId: S
  */
 class TimelineActivityIntent private constructor(context: Context, pachliAccountId: Long) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.TIMELINE_ACTIVITY)
+        setClassName(context, Navigation.TIMELINE_ACTIVITY)
         this.pachliAccountId = pachliAccountId
     }
 
@@ -849,7 +880,7 @@ class TimelineActivityIntent private constructor(context: Context, pachliAccount
 
 class ViewMediaActivityIntent private constructor(context: Context, pachliAccountId: Long) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.VIEW_MEDIA_ACTIVITY)
+        setClassName(context, Navigation.VIEW_MEDIA_ACTIVITY)
         this.pachliAccountId = pachliAccountId
     }
 
@@ -942,7 +973,7 @@ class ViewMediaActivityIntent private constructor(context: Context, pachliAccoun
  */
 class ViewThreadActivityIntent(context: Context, pachliAccountId: Long, statusId: String, statusUrl: String? = null) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.VIEW_THREAD_ACTIVITY)
+        setClassName(context, Navigation.VIEW_THREAD_ACTIVITY)
         this.pachliAccountId = pachliAccountId
         putExtra(EXTRA_STATUS_ID, statusId)
         putExtra(EXTRA_STATUS_URL, statusUrl)
@@ -962,110 +993,110 @@ class ViewThreadActivityIntent(context: Context, pachliAccountId: Long, statusId
 
 class AboutActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.ABOUT_ACTIVITY)
+        setClassName(context, Navigation.ABOUT_ACTIVITY)
         this.pachliAccountId = pachliAccountId
     }
 }
 
 class AnnouncementsActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.ANNOUNCEMENTS_ACTIVITY)
+        setClassName(context, Navigation.ANNOUNCEMENTS_ACTIVITY)
         this.pachliAccountId = pachliAccountId
     }
 }
 
 class DraftsActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.DRAFTS_ACTIVITY)
+        setClassName(context, Navigation.DRAFTS_ACTIVITY)
         this.pachliAccountId = pachliAccountId
     }
 }
 
 class EditProfileActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.EDIT_PROFILE_ACTIVITY)
+        setClassName(context, Navigation.EDIT_PROFILE_ACTIVITY)
         this.pachliAccountId = pachliAccountId
     }
 }
 
 class ContentFiltersActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.CONTENT_FILTERS_ACTIVITY)
+        setClassName(context, Navigation.CONTENT_FILTERS_ACTIVITY)
         this.pachliAccountId = pachliAccountId
     }
 }
 
 class FollowedTagsActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.FOLLOWED_TAGS_ACTIVITY)
+        setClassName(context, Navigation.FOLLOWED_TAGS_ACTIVITY)
         this.pachliAccountId = pachliAccountId
     }
 }
 
 class InstanceListActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.INSTANCE_LIST_ACTIVITY)
+        setClassName(context, Navigation.INSTANCE_LIST_ACTIVITY)
         this.pachliAccountId = pachliAccountId
     }
 }
 
 class ListsActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.LISTS_ACTIVITY)
+        setClassName(context, Navigation.LISTS_ACTIVITY)
         this.pachliAccountId = pachliAccountId
     }
 }
 
 class LoginWebViewActivityIntent(context: Context) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.LOGIN_WEB_VIEW_ACTIVITY)
+        setClassName(context, Navigation.LOGIN_WEB_VIEW_ACTIVITY)
     }
 }
 
 class ManageAccountsActivityIntent(context: Context) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.MANAGE_ACCOUNTS_ACTIVITY)
+        setClassName(context, Navigation.MANAGE_ACCOUNTS_ACTIVITY)
     }
 }
 
 class ScheduledStatusActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.SCHEDULED_STATUS_ACTIVITY)
+        setClassName(context, Navigation.SCHEDULED_STATUS_ACTIVITY)
         this.pachliAccountId = pachliAccountId
     }
 }
 
 class SearchActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.SEARCH_ACTIVITY)
+        setClassName(context, Navigation.SEARCH_ACTIVITY)
         this.pachliAccountId = pachliAccountId
     }
 }
 
 class SuggestionsActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.SUGGESTIONS_ACTIVITY)
+        setClassName(context, Navigation.SUGGESTIONS_ACTIVITY)
         this.pachliAccountId = pachliAccountId
     }
 }
 
 class TabPreferenceActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.TAB_PREFERENCE_ACTIVITY)
+        setClassName(context, Navigation.TAB_PREFERENCE_ACTIVITY)
         this.pachliAccountId = pachliAccountId
     }
 }
 
 class TrendingActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.TRENDING_ACTIVITY)
+        setClassName(context, Navigation.TRENDING_ACTIVITY)
         this.pachliAccountId = pachliAccountId
     }
 }
 
 class CollectionActivityIntent(context: Context, pachliAccountId: Long, collectionId: String) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.COLLECTION_ACTIVITY)
+        setClassName(context, Navigation.COLLECTION_ACTIVITY)
         this.pachliAccountId = pachliAccountId
         putExtra(EXTRA_COLLECTION_ID, collectionId)
     }

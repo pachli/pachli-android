@@ -43,6 +43,7 @@ import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.model.Draft
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
+import app.pachli.core.navigation.Navigation
 import app.pachli.core.network.retrofit.apiresult.ClientError
 import app.pachli.core.sendstatus.SendStatusUseCase
 import app.pachli.core.ui.AlertSuspendDialogFragment
@@ -50,7 +51,6 @@ import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.feature.drafts.databinding.FragmentDraftsBinding
 import com.bumptech.glide.Glide
-import com.gaelmarhic.quadrant.QuadrantConstants
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -311,7 +311,7 @@ class DraftsFragment :
 
         ContextCompat.getSystemService(requireContext(), ActivityManager::class.java)?.appTasks?.forEach {
             // No point in looking at anything except ComposeActivity
-            if (it.taskInfo.baseActivity?.className != QuadrantConstants.COMPOSE_ACTIVITY) return@forEach
+            if (it.taskInfo.baseActivity?.className != Navigation.COMPOSE_ACTIVITY) return@forEach
 
             val launchedComposeOptions = ComposeActivityIntent.getComposeOptionsOrNull(it.taskInfo.baseIntent) ?: return@forEach
             if (launchedComposeOptions.draft.draftId == draftId) {
