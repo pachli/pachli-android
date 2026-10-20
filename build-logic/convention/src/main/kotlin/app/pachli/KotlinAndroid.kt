@@ -46,7 +46,7 @@ internal fun Project.configureKotlinAndroid(
             targetCompatibility = JavaVersion.VERSION_21
         }
 
-        testOptions {
+        testOptions.apply {
             unitTests {
                 // Without this Robolectric skips some tests with "doesn't support legacy
                 // resources mode after P" message
@@ -69,7 +69,7 @@ internal fun Project.configureKotlinAndroid(
             }
         }
 
-        buildFeatures {
+        buildFeatures.apply {
             buildConfig = true
             resValues = true
             viewBinding = true
@@ -84,13 +84,6 @@ internal fun Project.configureKotlinAndroid(
     dependencies {
         add("coreLibraryDesugaring", libs.findLibrary("desugar.jdk.libs").get())
     }
-}
-
-/**
- * Configure base Kotlin options for JVM (non-Android)
- */
-internal fun Project.configureKotlinJvm() {
-    configureKotlin()
 }
 
 /**
