@@ -37,6 +37,15 @@ subprojects {
         }
     }
 
+    // AGP 9 defaults to failing if a `src/test` directory exists with no tests.
+    // Disable this. For details see:
+    // - https://github.com/gradle/gradle/issues/33619
+    // - https://github.com/react-native-device-info/react-native-device-info/issues/1743
+    // - https://issuetracker.google.com/issues/411739086
+    tasks.withType<Test> {
+        failOnNoDiscoveredTests = false
+    }
+
     // Work around compiler error:
     // AbstractMethodError: Receiver class FieldBundle$$serializer does not define or inherit an implementation of the resolved method KSerializer[]
     // See https://issuetracker.google.com/issues/447154195
