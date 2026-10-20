@@ -20,7 +20,7 @@ package app.pachli.mkserverversions
 import app.pachli.mkserverversions.fediverseobserver.ServerVersionsQuery
 import ch.qos.logback.classic.Level
 import ch.qos.logback.classic.Logger
-import com.apollographql.apollo3.ApolloClient
+import com.apollographql.apollo.ApolloClient
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.Context
 import com.github.ajalt.clikt.core.UsageError
@@ -85,6 +85,11 @@ class App : CliktCommand() {
             .build()
 
         val response = apolloClient.query(ServerVersionsQuery()).execute()
+
+        response.exception?.let {
+            log.error { it }
+            return@runBlocking
+        }
 
         if (response.hasErrors()) {
             response.errors?.forEach {
