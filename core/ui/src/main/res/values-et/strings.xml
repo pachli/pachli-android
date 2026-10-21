@@ -231,4 +231,5 @@
     <string name="action_show_dialog_with_all_collections">Kogumiku tegevused</string>
     <string name="title_show_all_collections_dialog">Vali kogumik</string>
     <string name="title_collection_show_action_dialog_fmt">„%1$s“ kogumik</string>
+    <string name="action_reblog_uncaptioned">Anna hoogu (kirjeldused on puudu)</string>
 </resources>
