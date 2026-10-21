@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.android.lint) apply false
     alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.google.ksp) apply false
-    alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.kotlin.parcelize) apply false
     alias(libs.plugins.ktlint) apply false
@@ -36,6 +35,15 @@ subprojects {
                 failOnPassedAfterRetry = false
             }
         }
+    }
+
+    // AGP 9 defaults to failing if a `src/test` directory exists with no tests.
+    // Disable this. For details see:
+    // - https://github.com/gradle/gradle/issues/33619
+    // - https://github.com/react-native-device-info/react-native-device-info/issues/1743
+    // - https://issuetracker.google.com/issues/411739086
+    tasks.withType<Test> {
+        failOnNoDiscoveredTests = false
     }
 
     // Work around compiler error:

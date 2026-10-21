@@ -17,7 +17,7 @@
 
 import app.pachli.libs
 import com.android.build.api.dsl.ApplicationExtension
-import com.android.build.gradle.LibraryExtension
+import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -34,7 +34,7 @@ class AndroidComposeConventionPlugin : Plugin<Project> {
             when {
                 pluginManager.hasPlugin("com.android.application") -> {
                     configure<ApplicationExtension> {
-                        buildFeatures {
+                        buildFeatures.apply {
                             compose = true
                         }
                         composeOptions {

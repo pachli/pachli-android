@@ -17,7 +17,7 @@
 
 plugins {
     alias(libs.plugins.pachli.android.library)
-    kotlin("kapt")
+    alias(libs.plugins.legacy.kapt)
 }
 
 android {

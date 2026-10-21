@@ -15,8 +15,6 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-import com.android.build.gradle.internal.api.ApkVariantOutputImpl
-
 plugins {
     alias(libs.plugins.pachli.android.application)
     alias(libs.plugins.pachli.android.compose)
@@ -91,26 +89,40 @@ android {
             it.systemProperty("robolectric.lazyload", "ON")
         }
     }
+}
 
-    applicationVariants.configureEach {
-        tasks.register("printVersionInfo${name.replaceFirstChar { it.uppercaseChar() }}") {
+androidComponents {
+    onVariants { variant ->
+        val variantNameCapitalized = variant.name.replaceFirstChar { it.uppercaseChar() }
+        val mainOutput = variant.outputs.single()
+        tasks.register("printVersionInfo$variantNameCapitalized") {
             notCompatibleWithConfigurationCache("Should always print the version info")
             doLast {
-                println("$versionCode $versionName")
+                println("${mainOutput.versionCode.get()} ${mainOutput.versionName.get()}")
             }
         }
-        outputs.configureEach {
-            this as ApkVariantOutputImpl
-            // Set the "orange" release versionCode to the number of commits on the
-            // branch, to ensure the versionCode updates on every release. Include the
-            // SHA of the current commit to help with troubleshooting bug reports
+
+        val flavorName = variant.flavorName ?: ""
+        val buildTypeName = variant.buildType ?: ""
+
+        variant.outputs.forEach { output ->
+            // Ensure the output filename is distinct across different git revisions.
+            output.outputFileName.set(
+                "Pachli_${output.versionName.get()}_${output.versionCode.get()}_${getGitSha()}_${flavorName}_$buildTypeName.apk",
+            )
+
+            // Set the "orange" release versionName to include the SHA of the current
+            // commit to help with troubleshooting bug reports.
             if (flavorName.startsWith("orange")) {
-                versionNameOverride = "$versionName+${getGitSha()}"
+                val versionName = output.versionName.get()
+                output.versionName.set("$versionName+${getGitSha()}")
             }
-            if (buildType.name == "release" && flavorName.startsWith("orange")) {
-                versionCodeOverride = getGitRevCount()
+
+            // Set the "orange" release versionCode to the number of commits on the
+            // branch, to ensure the versionCode updates on every release.
+            if (buildTypeName == "release" && flavorName.startsWith("orange")) {
+                output.versionCode.set(getGitRevCount())
             }
-            outputFileName = "Pachli_${versionName}_${versionCode}_${getGitSha()}_${flavorName}_${buildType.name}.apk"
         }
     }
 }

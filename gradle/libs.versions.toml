@@ -1,7 +1,7 @@
 [versions]
-aboutlibraries = "13.2.1"
+aboutlibraries = "14.2.1"
 acra = "5.13.1"
-agp = "8.13.2"
+agp = "9.4.1"
 androidx-appcompat = "1.7.1"
 androidx-browser = "1.9.0"
 androidx-cardview = "1.0.0"
@@ -45,7 +45,7 @@ espresso = "3.7.0"
 filemoji-compat = "3.2.7"
 glide = "5.0.5"
 glide-animation-plugin = "3.0.5"
-hilt = "2.58"
+hilt = "2.59.2"
 ktlint-compose-rules = "0.5.6"
 org-json = "20250517"
 jlatexmath-android = "0.2.0"
@@ -58,7 +58,7 @@ ksoup = "0.6.0"
 ksp = "2.3.6"
 image-cropper = "4.7.0"
 leakcanary = "2.14"
-lint = "31.13.2" # = agp + 23.0.0 (= 8.13.2), see https://github.com/googlesamples/android-custom-lint-rules#lint-version
+lint = "32.4.1" # = agp + 23.0.0 (= 8.13.2), see https://github.com/googlesamples/android-custom-lint-rules#lint-version
 markwon = "4.6.2"
 material = "1.12.0"
 material-drawer = "9.0.2"
@@ -101,11 +101,11 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 android-lint = { id = "com.android.lint", version.ref = "agp" }
 google-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ktlint = "org.jlleitschuh.gradle.ktlint:14.2.0"
+legacy-kapt = { id = "com.android.legacy-kapt", version.ref = "agp" }
 moshixir = { id = "dev.zacsweers.moshix", version.ref = "moshix" }
 apollographql = { id = "com.apollographql.apollo", version.ref = "apollographql" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

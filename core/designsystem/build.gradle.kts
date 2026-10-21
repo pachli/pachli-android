@@ -45,6 +45,6 @@ dependencies {
     // Styling the swipe-refresh layout spinner
     implementation(libs.androidx.swiperefreshlayout)
 
-    api("androidx.compose.material3:material3")
+    api("androidx.compose.material3:material3:1.4.0")
         ?.because("Material 3 themes, make available to other modules")
 }

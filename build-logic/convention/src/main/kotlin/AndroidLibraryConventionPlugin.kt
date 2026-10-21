@@ -1,5 +1,3 @@
-
-
 /*
  * Copyright 2023 Pachli Association
  *
@@ -21,8 +19,8 @@ import app.pachli.configureFlavors
 import app.pachli.configureKotlinAndroid
 import app.pachli.disableUnnecessaryAndroidTests
 import app.pachli.libs
+import com.android.build.api.dsl.LibraryExtension
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
-import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -34,13 +32,11 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
         with(target) {
             with(pluginManager) {
                 apply("com.android.library")
-                apply("org.jetbrains.kotlin.android")
                 apply("pachli.android.lint")
             }
 
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
-                defaultConfig.targetSdk = 36
                 configureFlavors(this)
             }
 

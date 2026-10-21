@@ -20,33 +20,36 @@ package app.pachli
 import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinBaseExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 /**
  * Configure base Kotlin with Android options
  */
 internal fun Project.configureKotlinAndroid(
-    commonExtension: CommonExtension<*, *, *, *, *, *>,
+    commonExtension: CommonExtension,
 ) {
     commonExtension.apply {
         compileSdk = 36
 
-        defaultConfig {
+        defaultConfig.apply {
             minSdk = 23
         }
 
-        compileOptions {
+        compileOptions.apply {
             isCoreLibraryDesugaringEnabled = true
             sourceCompatibility = JavaVersion.VERSION_21
             targetCompatibility = JavaVersion.VERSION_21
         }
 
-        testOptions {
+        testOptions.apply {
             unitTests {
                 // Without this Robolectric skips some tests with "doesn't support legacy
                 // resources mode after P" message
@@ -64,22 +67,23 @@ internal fun Project.configureKotlinAndroid(
                         device = "Pixel 9 Pro XL"
                         apiLevel = 31
                         systemImageSource = "aosp-atd"
+                        testedAbi = "x86_64"
                     }
                 }
             }
         }
 
-        buildFeatures {
+        buildFeatures.apply {
             buildConfig = true
             resValues = true
             viewBinding = true
-            dataBinding {
+            dataBinding.apply {
                 enable = true
             }
         }
     }
 
-    configureKotlin()
+    configureKotlin<KotlinAndroidProjectExtension>()
 
     dependencies {
         add("coreLibraryDesugaring", libs.findLibrary("desugar.jdk.libs").get())
@@ -87,16 +91,9 @@ internal fun Project.configureKotlinAndroid(
 }
 
 /**
- * Configure base Kotlin options for JVM (non-Android)
- */
-internal fun Project.configureKotlinJvm() {
-    configureKotlin()
-}
-
-/**
  * Configure base Kotlin options
  */
-private fun Project.configureKotlin() {
+private inline fun <reified T : KotlinBaseExtension> Project.configureKotlin() = configure<T> {
     // Use withType to workaround https://youtrack.jetbrains.com/issue/KT-55947
     tasks.withType<KotlinCompile>().configureEach {
         compilerOptions {

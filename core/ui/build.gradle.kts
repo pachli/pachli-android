@@ -19,7 +19,8 @@ plugins {
     alias(libs.plugins.pachli.android.library)
     alias(libs.plugins.pachli.android.compose)
     alias(libs.plugins.pachli.android.hilt)
-    kotlin("kapt")
+    // KAPT is required for the @BindingAdapter annotations.
+    alias(libs.plugins.legacy.kapt)
 }
 
 android {
