@@ -59,7 +59,7 @@ fun configureFlavors(
         flavorDimensions += FlavorDimension.color.name
         flavorDimensions += FlavorDimension.store.name
         productFlavors {
-            PachliFlavor.values().forEach { flavor ->
+            PachliFlavor.entries.forEach { flavor ->
                 create(flavor.name) {
                     dimension = flavor.dimension.name
                     flavorConfigurationBlock(this, flavor)
