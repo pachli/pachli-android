@@ -45,5 +45,4 @@ class AndroidLintConventionPlugin : Plugin<Project> {
 private fun Lint.configure(project: Project) {
     lintConfig = File(project.findProject(":app")?.projectDir, "lint.xml")
     baseline = File("lint-baseline.xml")
-    sarifReport = true
 }
