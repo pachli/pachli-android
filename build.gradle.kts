@@ -10,7 +10,6 @@ plugins {
     alias(libs.plugins.ktlint) apply false
     alias(libs.plugins.aboutlibraries) apply false
     alias(libs.plugins.hilt) apply false
-    alias(libs.plugins.quadrant) apply false
     alias(libs.plugins.compose.screenshot) apply false
 }
 

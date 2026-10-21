@@ -31,8 +31,8 @@ import app.pachli.core.eventhub.StatusScheduledEvent
 import app.pachli.core.model.ScheduledStatus
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ComposeKind
+import app.pachli.core.navigation.Navigation
 import app.pachli.core.network.retrofit.MastodonApi
-import com.gaelmarhic.quadrant.QuadrantConstants
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -109,7 +109,7 @@ internal class ScheduledStatusViewModel @Inject constructor(
     private val activeEdits = reloadUi.map {
         activityManager.appTasks
             .asSequence()
-            .filter { it.taskInfo.baseActivity?.className == QuadrantConstants.COMPOSE_ACTIVITY }
+            .filter { it.taskInfo.baseActivity?.className == Navigation.COMPOSE_ACTIVITY }
             .mapNotNull { ComposeActivityIntent.getComposeOptionsOrNull(it.taskInfo.baseIntent) }
             .filter { it.kind == ComposeKind.EDIT_SCHEDULED }
             .mapNotNull { it.draft.statusId }

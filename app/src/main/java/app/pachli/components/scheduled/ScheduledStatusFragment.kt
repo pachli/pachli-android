@@ -49,12 +49,12 @@ import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ComposeKind
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ReferencingStatus
+import app.pachli.core.navigation.Navigation
 import app.pachli.core.ui.AlertSuspendDialogFragment
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentScheduledStatusBinding
 import com.bumptech.glide.Glide
-import com.gaelmarhic.quadrant.QuadrantConstants
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
@@ -277,7 +277,7 @@ class ScheduledStatusFragment :
 
         ContextCompat.getSystemService(requireContext(), ActivityManager::class.java)?.appTasks?.forEach {
             // No point in looking at anything except ComposeActivity
-            if (it.taskInfo.baseActivity?.className != QuadrantConstants.COMPOSE_ACTIVITY) return@forEach
+            if (it.taskInfo.baseActivity?.className != Navigation.COMPOSE_ACTIVITY) return@forEach
 
             val launchedComposeOptions = ComposeActivityIntent.getComposeOptionsOrNull(it.taskInfo.baseIntent) ?: return@forEach
             if (launchedComposeOptions.kind != ComposeKind.EDIT_SCHEDULED) return@forEach
