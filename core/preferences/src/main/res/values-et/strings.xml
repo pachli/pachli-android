@@ -60,4 +60,7 @@
     <string name="pref_underline_links_hashtags">Teemaviited</string>
     <string name="pref_title_underline_links">Allajoonitud lingid</string>
     <string name="pref_underline_links_mentions">\@-mainimised</string>
+    <string name="pref_confirm_reblog_never">Ära iialgi kinnita</string>
+    <string name="pref_confirm_reblog_uncaptioned">Kinnita, kui mõnel manusel on kirjeldus puudu</string>
+    <string name="pref_confirm_reblog_always">Kinnita alati</string>
 </resources>
