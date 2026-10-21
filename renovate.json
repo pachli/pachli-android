@@ -12,5 +12,6 @@
                 "/org.jetbrains.kotlin.*/"
             ]
         }
-    ]
+    ],
+    "prConcurrentLimit": 1
 }
