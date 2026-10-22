@@ -30,6 +30,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             with(pluginManager) {
                 apply("com.android.application")
                 apply("pachli.android.lint")
+                apply("org.jlleitschuh.gradle.ktlint")
             }
 
             extensions.configure<ApplicationExtension> {

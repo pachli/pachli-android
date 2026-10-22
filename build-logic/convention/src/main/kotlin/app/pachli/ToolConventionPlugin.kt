@@ -18,11 +18,19 @@
 import app.pachli.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.tasks.testing.Test
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 class ToolConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
+            with(pluginManager) {
+                apply("kotlin")
+                apply("application")
+            }
+
             dependencies {
                 add("implementation", libs.findLibrary("kotlin-logging-jvm").get())
                 add("implementation", libs.findLibrary("logback").get())
@@ -32,6 +40,16 @@ class ToolConventionPlugin : Plugin<Project> {
                 add("testImplementation", libs.findLibrary("junit-jupiter").get())
                 add("testImplementation", libs.findLibrary("junit-jupiter-params").get())
                 add("testRuntimeOnly", "org.junit.platform:junit-platform-launcher")
+            }
+
+            tasks.withType<KotlinCompile>().configureEach {
+                compilerOptions {
+                    optIn.addAll("kotlin.RequiresOptIn")
+                }
+            }
+
+            tasks.withType<Test>().configureEach {
+                useJUnitPlatform()
             }
         }
     }
