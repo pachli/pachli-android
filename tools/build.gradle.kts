@@ -15,24 +15,6 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
-
 plugins {
     alias(libs.plugins.kotlin.jvm)
-}
-
-subprojects {
-    apply(plugin = "kotlin")
-    apply(plugin = "application")
-
-    tasks.named<KotlinCompilationTask<*>>("compileKotlin").configure {
-        compilerOptions {
-            optIn.addAll("kotlin.RequiresOptIn")
-            freeCompilerArgs.addAll("-Xannotation-default-target=param-property")
-        }
-    }
-
-    tasks.withType<Test>().configureEach {
-        useJUnitPlatform()
-    }
 }

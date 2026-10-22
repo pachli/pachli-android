@@ -12,61 +12,6 @@ plugins {
     alias(libs.plugins.compose.screenshot) apply false
 }
 
-allprojects {
-    apply(
-        plugin =
-            rootProject.libs.plugins.ktlint
-                .get()
-                .pluginId,
-    )
-}
-
-// GitHub action runners can timeout resulting in occasional test flakiness.
-// Re-run tests on CI to work around this, while disallowing failing tests
-// when developing locally.
-subprojects {
-    val isCiBuild = providers.environmentVariable("CI").isPresent
-
-    if (isCiBuild) {
-        tasks.withType<Test>().configureEach {
-            develocity.testRetry {
-                maxRetries = 4
-                maxFailures = 5
-                failOnPassedAfterRetry = false
-            }
-        }
-    }
-
-    // AGP 9 defaults to failing if a `src/test` directory exists with no tests.
-    // Disable this. For details see:
-    // - https://github.com/gradle/gradle/issues/33619
-    // - https://github.com/react-native-device-info/react-native-device-info/issues/1743
-    // - https://issuetracker.google.com/issues/411739086
-    tasks.withType<Test> {
-        failOnNoDiscoveredTests = false
-    }
-
-    // Work around compiler error:
-    // AbstractMethodError: Receiver class FieldBundle$$serializer does not define or inherit an implementation of the resolved method KSerializer[]
-    // See https://issuetracker.google.com/issues/447154195
-    //
-    // Triggered by update to androidx.room 2.8.x.
-    configurations.all {
-        resolutionStrategy {
-            eachDependency {
-                if (requested.group == "org.jetbrains.kotlinx" &&
-                    requested.name.startsWith("kotlinx-serialization-")
-                ) {
-                    useVersion(
-                        libs.versions.kotlin.serialization
-                            .get(),
-                    )
-                }
-            }
-        }
-    }
-}
-
 tasks.register<Delete>("clean") {
     delete(layout.buildDirectory)
 }
