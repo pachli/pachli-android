@@ -60,4 +60,7 @@
     <string name="pref_underline_links_hashtags">Hastagy</string>
     <string name="pref_title_underline_links">Podčiarknuté odkazy</string>
     <string name="pref_underline_links_mentions">\@-zmienky</string>
+    <string name="pref_confirm_reblog_never">Nikdy nepotvrdzovať</string>
+    <string name="pref_confirm_reblog_uncaptioned">Potvrdiť, ak chýba popis prílohy</string>
+    <string name="pref_confirm_reblog_always">Vždy potvrdiť</string>
 </resources>
