@@ -1538,7 +1538,7 @@ class ComposeActivity :
         } else if (statusLength <= maximumTootCharacters) {
             lifecycleScope.launch {
                 viewModel.sendStatus(pachliAccountId, binding.composeEditField.selectionStart)
-                    .onSuccess { finish() }
+                    .onSuccess { finishAndReturnToAppTask() }
                     .onFailure {
                         // Nothing useful to do here except show the error and allow the user to
                         // bail out.
@@ -1548,7 +1548,7 @@ class ComposeActivity :
                             getString(R.string.ui_error_sending_post_fmt, it.fmt(this@ComposeActivity)),
                             Snackbar.LENGTH_INDEFINITE,
                         ).apply {
-                            setAction(android.R.string.ok) { finish() }
+                            setAction(android.R.string.ok) { finishAndReturnToAppTask() }
                             // necessary so snackbar is shown over everything
                             view.elevation = resources.getDimension(DR.dimen.compose_activity_snackbar_elevation)
                             show()
@@ -1719,7 +1719,7 @@ class ComposeActivity :
             ConfirmationKind.NONE -> {
                 viewModel.stopUploads()
                 viewModel.closeDraft()
-                finish()
+                finishAndReturnToAppTask()
             }
             ConfirmationKind.SAVE_OR_DISCARD ->
                 getSaveAsDraftOrDiscardDialog().show()
@@ -1746,7 +1746,7 @@ class ComposeActivity :
             .setNegativeButton(R.string.action_delete) { _, _ ->
                 viewModel.stopUploads()
                 viewModel.deleteDraft()
-                finish()
+                finishAndReturnToAppTask()
             }
 
         if (viewModel.media.value.isNotEmpty()) {
@@ -1770,7 +1770,7 @@ class ComposeActivity :
             .setNegativeButton(R.string.action_discard) { _, _ ->
                 viewModel.stopUploads()
                 viewModel.closeDraft()
-                finish()
+                finishAndReturnToAppTask()
             }
 
         if (viewModel.media.value.isNotEmpty()) {
@@ -1793,7 +1793,7 @@ class ComposeActivity :
             .setNegativeButton(R.string.action_discard) { _, _ ->
                 viewModel.stopUploads()
                 viewModel.closeDraft()
-                finish()
+                finishAndReturnToAppTask()
             }
     }
 
@@ -1807,7 +1807,7 @@ class ComposeActivity :
             .setPositiveButton(R.string.action_delete) { _, _ ->
                 viewModel.stopUploads()
                 viewModel.deleteDraft()
-                finish()
+                finishAndReturnToAppTask()
             }
             .setNegativeButton(R.string.action_continue_edit) { _, _ ->
                 // Do nothing, dialog will dismiss, user can continue editing
@@ -1830,7 +1830,7 @@ class ComposeActivity :
             viewModel.saveDraft(binding.composeEditField.selectionStart)
                 .onSuccess {
                     viewModel.closeDraft(it.draftId)
-                    finish()
+                    finishAndReturnToAppTask()
                 }
                 .onFailure {
                     // Nothing useful to do here except show the error and allow the user to
@@ -1841,7 +1841,7 @@ class ComposeActivity :
                         getString(R.string.ui_error_saving_post_fmt, it.fmt(this@ComposeActivity)),
                         Snackbar.LENGTH_INDEFINITE,
                     ).apply {
-                        setAction(android.R.string.ok) { finish() }
+                        setAction(android.R.string.ok) { finishAndReturnToAppTask() }
                         // necessary so snackbar is shown over everything
                         view.elevation = resources.getDimension(DR.dimen.compose_activity_snackbar_elevation)
                         show()
@@ -1849,6 +1849,26 @@ class ComposeActivity :
                 }
             dialog?.cancel()
         }
+    }
+
+    /** Finish this activity and return to Pachli. */
+    fun finishAndReturnToAppTask() {
+        // ComposeActivity launches with `FLAG_ACTIVITY_NEW_DOCUMENT` and
+        // `FLAG_ACTIVITY_MULTIPLE_TASK`. If the user navigates away from the activity while
+        // composing (e.g., to look up information to include in their post) the activity
+        // that launched ComposeActivity will no longer be at the top of the back stack, and
+        // the user is returned to their launcher when ComposeActivity finishes.
+        //
+        // This is jarring behaviour -- the user may think Pachli has crashed. To fix this
+        // relaunch Pachli with flags that will bring the existing activity to the top.
+        packageManager.getLaunchIntentForPackage(packageName)?.let { intent ->
+            intent.apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            }
+            startActivity(intent)
+        }
+        finishAndRemoveTask()
     }
 
     override suspend fun search(token: String): List<ComposeAutoCompleteAdapter.AutocompleteResult> {
