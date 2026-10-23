@@ -1,0 +1,17 @@
+Pachli 2.14.0
+
+Nouveautés :
+
+- Retrouve la position dans la liste
+- Changement de compte rapide sans filtres
+- Interface de gestion de comptes
+
+Corrections :
+
+- Supprime les notifications en cache du serveur
+- Notifications de relations abimées sans crash
+- Annulation de chargement d'images sans crash
+
+Traductions :
+
+- Chinois, Estonien, Finnois, Indonésien, Irlandais, Italien, Letton, Norvégien Nynorsk, Polonais, Russe, Slovaque, Tamoul
