@@ -60,4 +60,7 @@
     <string name="pref_underline_links_hashtags">Hashtags</string>
     <string name="pref_title_underline_links">Liens soulignés</string>
     <string name="pref_underline_links_mentions">\@-mentions</string>
+    <string name="pref_confirm_reblog_never">Ne jamais confirmer</string>
+    <string name="pref_confirm_reblog_uncaptioned">Confirmer si une pièce jointe n\'a pas de description</string>
+    <string name="pref_confirm_reblog_always">Toujours confirmer</string>
 </resources>
