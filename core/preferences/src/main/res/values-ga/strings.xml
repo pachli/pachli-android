@@ -60,4 +60,7 @@
     <string name="pref_title_underline_links">Naisc faoi líne</string>
     <string name="pref_underline_links_links">Naisc sheachtracha</string>
     <string name="pref_underline_links_mentions">\@-luaitear</string>
+    <string name="pref_confirm_reblog_never">Ná deimhnigh riamh</string>
+    <string name="pref_confirm_reblog_uncaptioned">Deimhnigh an bhfuil ceannscríbhinn ar iarraidh ar aon cheangaltán</string>
+    <string name="pref_confirm_reblog_always">Deimhnigh i gcónaí</string>
 </resources>
