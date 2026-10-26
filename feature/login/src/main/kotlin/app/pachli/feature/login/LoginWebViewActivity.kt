@@ -150,15 +150,34 @@ class LoginWebViewActivity : BaseActivity() {
         setTitle(R.string.title_login)
 
         val webView = binding.loginWebView
-        webView.settings.allowContentAccess = false
-        webView.settings.allowFileAccess = false
-        webView.settings.databaseEnabled = false
-        webView.settings.displayZoomControls = false
-        webView.settings.javaScriptCanOpenWindowsAutomatically = false
-        // JavaScript needs to be enabled because otherwise 2FA does not work in some instances
-        @SuppressLint("SetJavaScriptEnabled")
-        webView.settings.javaScriptEnabled = true
-        webView.settings.userAgentString += " Pachli/${versionName(this)}"
+
+        webView.settings.apply {
+            allowContentAccess = false
+            displayZoomControls = false
+            javaScriptCanOpenWindowsAutomatically = false
+
+            userAgentString += " Pachli/${versionName(this@LoginWebViewActivity)}"
+
+            // JavaScript needs to be enabled because otherwise 2FA does not work in some instances
+            @SuppressLint("SetJavaScriptEnabled")
+            javaScriptEnabled = true
+
+            // Settings required for Cloudflare's challenge to work.
+            // (also requires javaScriptEnabled = true, set earlier)
+            // https://developers.cloudflare.com/turnstile/get-started/mobile-implementation/
+            domStorageEnabled = true
+            loadWithOverviewMode = true
+            useWideViewPort = true
+            allowFileAccess = true
+            allowContentAccess = true
+        }
+
+        // Cloudflare needs to set 3P cookies
+        // https://developers.cloudflare.com/turnstile/get-started/mobile-implementation/
+        CookieManager.getInstance().apply {
+            setAcceptCookie(true)
+            setAcceptThirdPartyCookies(webView, true)
+        }
 
         val oauthUrl = data.oauthRedirectUrl
 
