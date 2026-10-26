@@ -60,4 +60,7 @@
     <string name="pref_underline_links_hashtags">#etiquetas</string>
     <string name="pref_title_underline_links">Subrayar enlaces</string>
     <string name="pref_underline_links_mentions">\@menciones</string>
+    <string name="pref_confirm_reblog_never">Nunca confirmar</string>
+    <string name="pref_confirm_reblog_uncaptioned">Confirmar si algún adjunto no tiene descripción</string>
+    <string name="pref_confirm_reblog_always">Confirmar siempre</string>
 </resources>
