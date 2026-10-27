@@ -158,21 +158,23 @@ jobs:
         run: ./gradlew assemble${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
 
   # Screenshots are taken and validated on orangeGoogleDebug.
-  screenshots:
-    name: Validate screenshots
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-        with:
-          lfs: true
-
-      - uses: ./.github/actions/setup-build-env
-        with:
-          gradle-cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
-
-      - name: Validate screenshots
-        run: ./gradlew validateOrangeGoogleDebugScreenshotTest
+  # Currently disabled because it doesn't work with isolated projects, and the
+  # new "fixtures" implementation requires an alpha version of AGP.
+#  screenshots:
+#    name: Validate screenshots
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+#        with:
+#          lfs: true
+#
+#      - uses: ./.github/actions/setup-build-env
+#        with:
+#          gradle-cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+#
+#      - name: Validate screenshots
+#        run: ./gradlew validateOrangeGoogleDebugScreenshotTest
 
   # Connected tests are per-store-variant, debug builds only.
   #
