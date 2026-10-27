@@ -85,22 +85,22 @@ tasks.register<Delete>("clean") {
 // - *:testOrangeGoogleDebugUnitTest
 // - *:validateOrangeGoogleDebugScreenshotTest
 // - app:updateLintBaselineBlueFdroidDebug
-tasks.register("precommit") {
-    group = "Verification"
-    description = "Runs the precommit tests."
-    dependsOn("clean")
-    dependsOn(":app:assembleOrangeGoogleDebug")
-    dependsOn(":app:updateLintBaselineBlueFdroidDebug")
-    val perModuleDeps =
-        listOf(
-            "testOrangeGoogleDebugUnitTest",
-            "pixel9api31OrangeGoogleDebugAndroidTest",
-            "validateOrangeGoogleDebugScreenshotTest",
-        )
-    allprojects
-        .flatMap { it.tasks }
-        .filter { task -> perModuleDeps.any { task.name.equals(it, ignoreCase = true) } }
-        .forEach {
-            dependsOn(it.path)
-        }
-}
+// tasks.register("precommit") {
+//    group = "Verification"
+//    description = "Runs the precommit tests."
+//    dependsOn("clean")
+//    dependsOn(":app:assembleOrangeGoogleDebug")
+//    dependsOn(":app:updateLintBaselineBlueFdroidDebug")
+//    val perModuleDeps =
+//        listOf(
+//            "testOrangeGoogleDebugUnitTest",
+//            "pixel9api31OrangeGoogleDebugAndroidTest",
+//            "validateOrangeGoogleDebugScreenshotTest",
+//        )
+//    allprojects
+//        .flatMap { it.tasks }
+//        .filter { task -> perModuleDeps.any { task.name.equals(it, ignoreCase = true) } }
+//        .forEach {
+//            dependsOn(it.path)
+//        }
+// }
