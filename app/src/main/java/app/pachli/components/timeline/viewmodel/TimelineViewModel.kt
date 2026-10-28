@@ -18,8 +18,6 @@
 package app.pachli.components.timeline.viewmodel
 
 import androidx.annotation.StringRes
-import androidx.annotation.VisibleForTesting
-import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -758,15 +756,4 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
 
     /** Revoke user's permission to appear in a collection. */
     abstract suspend fun onRevokeCollection(action: FallibleCollectionAction.Revoke): Result<Unit, CollectionsRepository.Error.RevokeFromCollection>
-
-    companion object {
-        /** Tag for the timelineKind in `savedStateHandle` */
-        @VisibleForTesting(VisibleForTesting.PRIVATE)
-        const val TIMELINE_TAG = "timeline"
-
-        /** Create extras for this view model */
-        fun creationExtras(timeline: Timeline) = bundleOf(
-            TIMELINE_TAG to timeline,
-        )
-    }
 }
