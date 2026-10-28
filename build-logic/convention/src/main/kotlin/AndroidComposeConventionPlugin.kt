@@ -28,7 +28,8 @@ class AndroidComposeConventionPlugin : Plugin<Project> {
         with(target) {
             with(pluginManager) {
                 apply("org.jetbrains.kotlin.plugin.compose")
-                apply("com.android.compose.screenshot")
+                // Temporarily disable screenshot tests until support improves.
+                // apply("com.android.compose.screenshot")
             }
 
             when {
@@ -40,13 +41,15 @@ class AndroidComposeConventionPlugin : Plugin<Project> {
                         composeOptions {
                             kotlinCompilerExtensionVersion = "1.5.15"
                         }
-                        experimentalProperties["android.experimental.enableScreenshotTest"] = true
+                        // Temporarily disable screenshot tests until support improves.
+                        // experimentalProperties["android.experimental.enableScreenshotTest"] = true
                     }
                 }
 
                 pluginManager.hasPlugin("com.android.library") -> {
                     configure<LibraryExtension> {
-                        experimentalProperties["android.experimental.enableScreenshotTest"] = true
+                        // Temporarily disable screenshot tests until support improves.
+                        // experimentalProperties["android.experimental.enableScreenshotTest"] = true
                     }
                 }
             }
@@ -70,8 +73,9 @@ class AndroidComposeConventionPlugin : Plugin<Project> {
                 add("androidTestImplementation", libs.findLibrary("androidx.test.junit").get())
                 add("androidTestImplementation", libs.findLibrary("truth").get())
 
-                add("screenshotTestImplementation", libs.findLibrary("screenshot.validation.api").get())
-                add("screenshotTestImplementation", libs.findLibrary("androidx.compose.ui.tooling").get())
+                // Temporarily disable screenshot tests until support improves.
+                // add("screenshotTestImplementation", libs.findLibrary("screenshot.validation.api").get())
+                // add("screenshotTestImplementation", libs.findLibrary("androidx.compose.ui.tooling").get())
             }
         }
     }

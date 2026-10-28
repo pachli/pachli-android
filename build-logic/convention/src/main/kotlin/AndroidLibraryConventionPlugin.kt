@@ -33,6 +33,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             with(pluginManager) {
                 apply("com.android.library")
                 apply("pachli.android.lint")
+                apply("org.jlleitschuh.gradle.ktlint")
             }
 
             extensions.configure<LibraryExtension> {
@@ -51,6 +52,12 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 add("androidTestImplementation", kotlin("test"))
                 add("androidTestImplementation", project(":core:testing"))
                 add("lintChecks", project(":checks"))
+            }
+
+            tasks.register("precommit") {
+                group = "Verification"
+                description = "Runs the precommit tests."
+                dependsOn("testOrangeGoogleDebugUnitTest")
             }
         }
     }
