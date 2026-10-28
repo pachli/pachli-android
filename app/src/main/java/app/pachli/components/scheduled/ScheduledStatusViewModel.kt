@@ -109,8 +109,9 @@ internal class ScheduledStatusViewModel @Inject constructor(
     private val activeEdits = reloadUi.map {
         activityManager.appTasks
             .asSequence()
-            .filter { it.taskInfo.baseActivity?.className == Navigation.COMPOSE_ACTIVITY }
-            .mapNotNull { ComposeActivityIntent.getComposeOptionsOrNull(it.taskInfo.baseIntent) }
+            .mapNotNull { it.taskInfo }
+            .filter { it.baseActivity?.className == Navigation.COMPOSE_ACTIVITY }
+            .mapNotNull { ComposeActivityIntent.getComposeOptionsOrNull(it.baseIntent) }
             .filter { it.kind == ComposeKind.EDIT_SCHEDULED }
             .mapNotNull { it.draft.statusId }
             .toSet()

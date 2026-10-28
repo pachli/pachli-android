@@ -38,7 +38,7 @@ configurations {
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)?.because("LinkMovementMethodCompat")
+    implementation(libs.androidx.core)?.because("LinkMovementMethodCompat")
     implementation(libs.android.material)?.because("Use Material Theme colours")
 
     // Markdown support

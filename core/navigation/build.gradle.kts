@@ -34,5 +34,5 @@ dependencies {
     implementation(projects.core.model)
     implementation(projects.core.network) // For Attachment, used in AttachmentViewData
 
-    implementation(libs.androidx.core.ktx) // IntentCompat
+    implementation(libs.androidx.core) // IntentCompat
 }

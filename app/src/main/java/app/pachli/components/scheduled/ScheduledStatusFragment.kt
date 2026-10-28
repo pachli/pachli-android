@@ -277,9 +277,11 @@ class ScheduledStatusFragment :
 
         ContextCompat.getSystemService(requireContext(), ActivityManager::class.java)?.appTasks?.forEach {
             // No point in looking at anything except ComposeActivity
-            if (it.taskInfo.baseActivity?.className != Navigation.COMPOSE_ACTIVITY) return@forEach
+            val taskInfo = it.taskInfo ?: return@forEach
+            if (taskInfo.baseActivity?.className != Navigation.COMPOSE_ACTIVITY) return@forEach
 
-            val launchedComposeOptions = ComposeActivityIntent.getComposeOptionsOrNull(it.taskInfo.baseIntent) ?: return@forEach
+            val launchedComposeOptions = ComposeActivityIntent.getComposeOptionsOrNull(taskInfo.baseIntent)
+                ?: return@forEach
             if (launchedComposeOptions.kind != ComposeKind.EDIT_SCHEDULED) return@forEach
             if (launchedComposeOptions.draft.statusId == scheduledStatusId) {
                 it.moveToFront()
