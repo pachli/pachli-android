@@ -53,6 +53,12 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 add("androidTestImplementation", project(":core:testing"))
                 add("lintChecks", project(":checks"))
             }
+
+            tasks.register("precommit") {
+                group = "Verification"
+                description = "Runs the precommit tests."
+                dependsOn("testOrangeGoogleDebugUnitTest")
+            }
         }
     }
 }

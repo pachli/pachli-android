@@ -42,6 +42,13 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             dependencies {
                 add("implementation", libs.findLibrary("timber").get())
             }
+
+            tasks.register("precommit") {
+                group = "Verification"
+                description = "Runs the precommit tests."
+                dependsOn("testOrangeGoogleDebugUnitTest")
+                dependsOn("pixel9api31OrangeGoogleDebugAndroidTest")
+            }
         }
     }
 }

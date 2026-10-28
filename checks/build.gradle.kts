@@ -42,3 +42,8 @@ dependencies {
     testImplementation(libs.bundles.lint.tests)
     implementation(libs.kotlinx.serialization.json)
 }
+
+tasks.register("precommit") {
+    group = "Verification"
+    description = "Runs the precommit tests."
+}

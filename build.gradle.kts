@@ -22,30 +22,28 @@ tasks.register<Delete>("clean") {
 // might affect other combinations (and CI will check all of them), this
 // combination passing gives high confidence for the amount of time it
 // takes to run.
-//
-// - clean
-// - :app:lintOrangeGoogleDebug
-// - :app:assembleOrangeDebug
-// - *:pixel9api31orangegoogledebugAndroidTest
-// - *:testOrangeGoogleDebugUnitTest
-// - *:validateOrangeGoogleDebugScreenshotTest
-// - app:updateLintBaselineBlueFdroidDebug
-// tasks.register("precommit") {
-//    group = "Verification"
-//    description = "Runs the precommit tests."
-//    dependsOn("clean")
-//    dependsOn(":app:assembleOrangeGoogleDebug")
-//    dependsOn(":app:updateLintBaselineBlueFdroidDebug")
-//    val perModuleDeps =
-//        listOf(
-//            "testOrangeGoogleDebugUnitTest",
-//            "pixel9api31OrangeGoogleDebugAndroidTest",
-//            "validateOrangeGoogleDebugScreenshotTest",
-//        )
-//    allprojects
-//        .flatMap { it.tasks }
-//        .filter { task -> perModuleDeps.any { task.name.equals(it, ignoreCase = true) } }
-//        .forEach {
-//            dependsOn(it.path)
-//        }
-// }
+tasks.register("precommit") {
+    group = "Verification"
+    description = "Runs the precommit tests."
+    dependsOn("clean")
+    dependsOn(":app:assembleOrangeGoogleDebug")
+    dependsOn(":app:updateLintBaselineBlueFdroidDebug")
+
+    // Depend on all the "precommit" tasks in each project.
+    subprojects.forEach { project ->
+        // Gradle creates intermediate projects for directories that
+        // exist for organisation only (e.g., "core" and "feature").
+        // These projects don't have a build file, so don't have a
+        // "precommit" task. Skip them.
+        val projectDir = project.isolated.projectDirectory.asFile
+        val hasBuildScript =
+            projectDir.resolve("build.gradle.kts").exists() ||
+                projectDir.resolve("build.gradle").exists()
+
+        if (!hasBuildScript) {
+            return@forEach
+        }
+
+        dependsOn("${project.isolated.path}:precommit")
+    }
+}

@@ -18,3 +18,8 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
 }
+
+tasks.register("precommit") {
+    group = "Verification"
+    description = "Runs the precommit tests."
+}

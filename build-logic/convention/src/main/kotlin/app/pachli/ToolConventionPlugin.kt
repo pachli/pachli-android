@@ -51,6 +51,11 @@ class ToolConventionPlugin : Plugin<Project> {
             tasks.withType<Test>().configureEach {
                 useJUnitPlatform()
             }
+
+            tasks.register("precommit") {
+                group = "Verification"
+                description = "Runs the precommit tests."
+            }
         }
     }
 }
