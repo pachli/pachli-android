@@ -63,7 +63,7 @@ typealias InsetsListener = (WindowInsetsCompat) -> WindowInsetsCompat
  * edges of the view.
  *
  * The parameters control how each inset is applied. If null the inset is not
- * applied to the that edge. Otherwise the inset is applied by either extending
+ * applied to that edge. Otherwise the inset is applied by either extending
  * the [padding][InsetType.PADDING] or [margin][InsetType.MARGIN] of the view.
  *
  * By default, insets are consumed if this view is **not** a [ViewPager2] to
