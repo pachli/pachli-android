@@ -1,5 +1,29 @@
 # Pachli changelog
 
+## v3.10.0
+
+See https://pachli.app/pachli/2026/10/29/3.10.0-release.html for full details and credits.
+
+### New features and other improvements
+
+- Add preference to warn before boosting posts missing captions (#[2473](https://github.com/pachli/pachli-android/pull/2473), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Return to Pachli after navigating away when writing a post (#[2483](https://github.com/pachli/pachli-android/pull/2483), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Support Cloudflare bot detection when logging in (#[2490](https://github.com/pachli/pachli-android/pull/2490), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Allow compose UI to take full display height on large devices (#[2482](https://github.com/pachli/pachli-android/pull/2482), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Estonian translations ([Priit Jõerüüt](https://github.com/pachli/pachli-android/commits?author=jrthwlate@users.noreply.hosted.weblate.org))
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update French translations ([Terry L](https://github.com/pachli/pachli-android/commits?author=terrylaire@gmail.com))
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+- Update Norwegian Nynorsk translations ([Kraksen](https://github.com/pachli/pachli-android/commits?author=kraks@users.noreply.hosted.weblate.org))
+- Update Slovak translations ([Russssty](https://github.com/pachli/pachli-android/commits?author=russssty@users.noreply.hosted.weblate.org))
+- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@users.noreply.hosted.weblate.org))
+
 ## v3.9.1
 
 See https://pachli.app/pachli/2026/10/05/3.9.1-release.html for full details and credits.
