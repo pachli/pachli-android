@@ -23,9 +23,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType
 import okhttp3.RequestBody
-import okio.Buffer
 import okio.BufferedSink
 import okio.FileNotFoundException
+import okio.Source
 import okio.source
 
 // Aligned with okio.Segment.SIZE (internal) for better performance
@@ -47,23 +47,42 @@ suspend fun Uri.asRequestBody(
         override fun contentLength(): Long = contentLength
 
         override fun writeTo(sink: BufferedSink) {
-            val buffer = Buffer()
-            var uploaded: Long = 0
             val inputStream = contentResolver.openInputStream(this@asRequestBody)
                 ?: throw FileNotFoundException("Unavailable ContentProvider")
 
             inputStream.source().use { source ->
-                while (true) {
-                    val read = source.read(buffer, DEFAULT_CHUNK_SIZE)
-                    if (read == -1L) {
-                        break
-                    }
-                    sink.write(buffer, read)
-                    uploaded += read
-                    uploadListener?.let { if (contentLength > 0L) it.onProgressUpdate((100L * uploaded / contentLength).toInt()) }
+                if (uploadListener == null) {
+                    sink.writeAll(source)
+                    return@use
                 }
-                uploadListener?.onProgressUpdate(100)
+
+                if (contentLength == -1L) {
+                    sink.writeAll(source)
+                    uploadListener.onProgressUpdate(100)
+                    return@use
+                }
+
+                sink.writeAll(source) { totalWritten ->
+                    uploadListener.onProgressUpdate((100L * totalWritten / contentLength).toInt())
+                }
+                uploadListener.onProgressUpdate(100)
             }
         }
     }
+}
+
+/**
+ * Write all bytes from [source] to [this], periodically calling [listener] with
+ * a count of the total bytes written.
+ */
+fun BufferedSink.writeAll(source: Source, listener: (Long) -> Unit): Long {
+    var totalBytesWritten = 0L
+    while (true) {
+        val readCount = source.read(buffer, DEFAULT_CHUNK_SIZE)
+        if (readCount == -1L) break
+        totalBytesWritten += readCount
+        emitCompleteSegments()
+        listener(totalBytesWritten)
+    }
+    return totalBytesWritten
 }
