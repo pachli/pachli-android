@@ -60,4 +60,7 @@
     <string name="pref_underline_links_hashtags">Hashtags</string>
     <string name="pref_title_underline_links">Unterstrichene Links</string>
     <string name="pref_underline_links_mentions">\@-Erwähnungen</string>
+    <string name="pref_confirm_reblog_never">Niemals bestätigen</string>
+    <string name="pref_confirm_reblog_always">Immer bestätigen</string>
+    <string name="pref_confirm_reblog_uncaptioned">Bestätigen, wenn ein Anhang keine Bildunterschrift besitzt</string>
 </resources>
