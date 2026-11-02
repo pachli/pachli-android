@@ -24,7 +24,6 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.RectF
 import android.util.AttributeSet
-import androidx.annotation.OptIn
 import androidx.core.util.TypedValueCompat.dpToPx
 import app.pachli.core.sendstatus.MediaUploaderError
 import app.pachli.core.sendstatus.UploadState
@@ -34,10 +33,20 @@ import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
-import com.google.android.material.badge.ExperimentalBadgeUtils
 import com.google.android.material.color.MaterialColors
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 
+/**
+ * Displays an image in one of three states:
+ *
+ * 1. Upload in progress. The image is tinted, with a circular progress overlay indicating
+ * progress.
+ * 2. Upload complete. The image is shown normally.
+ * 3. Upload failed. The image is shown tinted, with a badge indicating a failure occurred.
+ * Other parts of the UI should show the error details.
+ *
+ * Set the state with [setResult].
+ */
 class ProgressImageView
 @JvmOverloads constructor(
     context: Context,
@@ -62,7 +71,9 @@ class ProgressImageView
         setTint(Color.WHITE)
     }
 
-    @OptIn(ExperimentalBadgeUtils::class)
+    /**
+     * Sets the current state for this view to [result] and redraws the view.
+     */
     fun setResult(result: Result<UploadState, MediaUploaderError>) {
         this.result = result
         invalidate()
