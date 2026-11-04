@@ -77,6 +77,15 @@ play-services-base = "18.10.0"
 prism4j = "2.0.0"
 retrofit = "3.0.0"
 robolectric = "4.17"
+# Value is "$androidVersion-robolectric-$frameworkSdkBuildVersion-i7"
+#
+# To determine the correct value:
+#
+# 1. Find the sdk= line in the robolectric.properties files (e.g., "35").
+# 2. Look up $frameworkSdkBuildVersion in https://github.com/robolectric/robolectric/blob/master/robolectric/src/main/java/org/robolectric/plugins/DefaultSdkProvider.java
+# by matching on the SDK value.
+# 3. Verify the final name in Maven, https://central.sonatype.com/artifact/org.robolectric/android-all-instrumented/versions
+robolectric-android-all = "15-robolectric-13954326-i7"
 semver = "3.1.0"
 sparkbutton = "4.2.0"
 sqlite-bundled = "2.7.1"
@@ -245,6 +254,7 @@ prism4j = { module = "io.noties:prism4j-bundler", version.ref = "prism4j" }
 retrofit-converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
 retrofit-core = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+robolectric-android-all = { group = "org.robolectric", name = "android-all-instrumented", version.ref = "robolectric-android-all" }
 semver = { module = "io.github.z4kn4fein:semver", version.ref = "semver" }
 sparkbutton = { module = "at.connyduck.sparkbutton:sparkbutton", version.ref = "sparkbutton" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
