@@ -44,7 +44,7 @@ diffx = "1.3.1"
 emoji2 = "1.6.0"
 espresso = "3.7.0"
 filemoji-compat = "3.2.7"
-glide = "5.0.5"
+glide = "5.0.9"
 glide-animation-plugin = "3.0.5"
 hilt = "2.60.1"
 ktlint-compose-rules = "0.6.8"
@@ -75,6 +75,7 @@ okhttp = "5.5.1"
 okio = "3.18.2"
 play-services-base = "18.10.0"
 prism4j = "2.0.0"
+process-phoenix = "3.0.0"
 retrofit = "3.0.0"
 robolectric = "4.17"
 # Value is "$androidVersion-robolectric-$frameworkSdkBuildVersion-i7"
@@ -251,6 +252,7 @@ okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
 org-json = { module = "org.json:json", version.ref = "org-json"}
 play-services-base = { module = "com.google.android.gms:play-services-base", version.ref = "play-services-base" }
 prism4j = { module = "io.noties:prism4j-bundler", version.ref = "prism4j" }
+process-phoenix = { module = "com.jakewharton:process-phoenix", version.ref = "process-phoenix" }
 retrofit-converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
 retrofit-core = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }

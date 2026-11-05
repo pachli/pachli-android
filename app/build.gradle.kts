@@ -236,6 +236,9 @@ dependencies {
 
     implementation(libs.timber)
 
+    implementation(libs.process.phoenix)
+        ?.because("Need to fully restart after some pref changes")
+
     googleImplementation(libs.app.update)
     googleImplementation(libs.app.update.ktx)
 

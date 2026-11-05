@@ -202,6 +202,9 @@ object PrefKeys {
     /** True if experimental support for rendering markdown is enabled. */
     const val LAB_RENDER_MARKDOWN = "labRenderMarkdown"
 
+    /** True if Glide should use ImageDecoder to decode images. */
+    const val LAB_GLIDE_USE_IMAGE_DECODER = "labGlideUseImageDecoder"
+
     /** Keys that are no longer used (e.g., the preference has been removed */
     object Deprecated {
         const val WELLBEING_LIMITED_NOTIFICATIONS = "wellbeingModeLimitedNotifications"

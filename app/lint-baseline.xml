@@ -4762,17 +4762,6 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.string.restart_required` appears to be unused"
-        errorLine1="    &lt;string name=&quot;restart_required&quot;>App restart required&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/strings.xml"
-            line="414"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.string.restart_emoji` appears to be unused"
         errorLine1="    &lt;string name=&quot;restart_emoji&quot;>You\&apos;ll need to restart Pachli in order to apply these changes&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
