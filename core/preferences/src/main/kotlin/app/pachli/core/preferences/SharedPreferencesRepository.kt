@@ -18,6 +18,7 @@
 package app.pachli.core.preferences
 
 import android.content.SharedPreferences
+import android.os.Build
 import androidx.annotation.Keep
 import androidx.core.content.edit
 import app.pachli.core.common.di.ApplicationScope
@@ -288,6 +289,21 @@ class SharedPreferencesRepository @Inject constructor(
      */
     val linksToUnderline: Set<LinksToUnderline>
         get() = getEnumSet(PrefKeys.LINKS_TO_UNDERLINE, emptySet())
+
+    /**
+     * True if Glide should use [android.graphics.ImageDecoder] when decoding
+     * [android.graphics.Bitmap] images. See [app.pachli.util.GlideModule] for more.
+     *
+     * Default is `true` on Android Q and above so users exercise this functionality
+     * by default.
+     */
+    var glideUseImageDecoder: Boolean
+        get() = getBoolean(PrefKeys.LAB_GLIDE_USE_IMAGE_DECODER, Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+        set(value) {
+            // Commit to ensure the value is persisted before the app restarts in
+            // LabPreferencesFragment.
+            edit(commit = true) { putBoolean(PrefKeys.LAB_GLIDE_USE_IMAGE_DECODER, value) }
+        }
 
     // Ensure the listener is retained during minification. If you do not do this the
     // field is removed and eventually garbage collected (because registering it as a

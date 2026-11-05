@@ -88,6 +88,7 @@ import app.pachli.util.LocaleManager
 import app.pachli.view.FontFamilyDialogFragment
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
+import com.jakewharton.processphoenix.ProcessPhoenix
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import dagger.hilt.android.AndroidEntryPoint
@@ -427,13 +428,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                                 // in MainActivity and passed to chooseUnifiedPushDistributor.
                                 sharedPreferencesRepository.usePreviousUnifiedPushDistributor = false
 
-                                val packageManager = context.packageManager
-                                val intent = packageManager.getLaunchIntentForPackage(context.packageName)!!
-                                val componentName = intent.component
-                                val mainIntent = Intent.makeRestartActivityTask(componentName)
-                                mainIntent.setPackage(context.packageName)
-                                context.startActivity(mainIntent)
-                                Runtime.getRuntime().exit(0)
+                                ProcessPhoenix.triggerRebirth(requireContext())
                             }
                             return@setOnPreferenceClickListener true
                         }

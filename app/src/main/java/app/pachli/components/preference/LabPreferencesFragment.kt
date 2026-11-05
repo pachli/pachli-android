@@ -19,12 +19,14 @@ package app.pachli.components.preference
 
 import android.content.ContentResolver
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.OpenableColumns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
@@ -32,6 +34,7 @@ import app.pachli.R
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.data.repository.ExportedPreferencesRepository
 import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.extensions.InsetType
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.extensions.applyWindowInsets
@@ -42,6 +45,7 @@ import app.pachli.settings.switchPreference
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.google.android.material.snackbar.Snackbar
+import com.jakewharton.processphoenix.ProcessPhoenix
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -57,6 +61,9 @@ private const val PREFERENCES_MIME_TYPE = "application/json"
 class LabPreferencesFragment : PreferenceFragmentCompat() {
     @Inject
     lateinit var contentResolver: ContentResolver
+
+    @Inject
+    lateinit var sharedPreferencesRepository: SharedPreferencesRepository
 
     @Inject
     lateinit var exportedPreferencesRepository: ExportedPreferencesRepository
@@ -145,6 +152,39 @@ class LabPreferencesFragment : PreferenceFragmentCompat() {
                 key = PrefKeys.LAB_RENDER_MARKDOWN
                 setTitle(app.pachli.core.preferences.R.string.pref_title_render_markdown)
                 isIconSpaceReserved = false
+            }
+
+            switchPreference {
+                // Special behaviour:
+                // - Disable on < Q, as Glide does nothing on < Q.
+                // - Enabling/disabling requires a restart, prompt the user to confirm.
+                key = PrefKeys.LAB_GLIDE_USE_IMAGE_DECODER
+                setTitle(R.string.pref_labs_glide_use_image_decoder_title)
+                isSingleLineTitle = false
+                isEnabled = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+                setSummaryProvider {
+                    val summaryRes = when {
+                        isEnabled && ((it as SwitchPreferenceCompat).isChecked) -> R.string.pref_labs_glide_user_image_decoder_on_summary
+                        isEnabled && !((it as SwitchPreferenceCompat).isChecked) -> R.string.pref_labs_glide_user_image_decoder_off_summary
+                        else -> R.string.pref_labs_glide_user_image_decoder_disabled_summary
+                    }
+                    context.getString(summaryRes)
+                }
+                setDefaultValue(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+                isIconSpaceReserved = false
+
+                setOnPreferenceChangeListener { _, newValue ->
+                    AlertDialog.Builder(context)
+                        .setMessage(R.string.restart_required)
+                        .setCancelable(true)
+                        .setPositiveButton(R.string.restart) { _, _ ->
+                            sharedPreferencesRepository.glideUseImageDecoder = newValue as Boolean
+                            ProcessPhoenix.triggerRebirth(requireContext())
+                        }
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .show()
+                    false
+                }
             }
 
             preference {
