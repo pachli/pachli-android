@@ -420,7 +420,7 @@
     <string name="filter_keyword_addition_title">Añadir palabra</string>
     <string name="pref_ui_text_size">Tamaño de fuente de la interfaz</string>
     <string name="notification_notification_worker">Obteniendo notificaciones…</string>
-    <string name="load_newest_notifications">Cargar notificaciones más nuevas</string>
+    <string name="load_newest_notifications">Cargar notificaciones más recientes</string>
     <string name="compose_delete_draft">¿Eliminar borrador\?</string>
     <string name="ui_error_translate_status_fmt">La traducción falló: %1$s</string>
     <string name="update_dialog_negative">Nunca me lo recuerdes</string>
@@ -468,8 +468,8 @@
     <string name="notification_severed_relationships_name">Relaciones rotas</string>
     <string name="notification_severed_relationships_description">Notificaciones sobre relaciones rotas</string>
     <string name="manage_lists">Gestionar listas</string>
-    <string name="error_filter_missing_keyword">Por lo menos se necesita una palabra clave o frase</string>
-    <string name="error_filter_missing_context">Por lo menos se necesita un contexto para el filtro</string>
+    <string name="error_filter_missing_keyword">Se necesita al menos una palabra clave o frase</string>
+    <string name="error_filter_missing_context">Se necesita al menos un contexto para el filtro</string>
     <string name="error_filter_missing_title">Se necesita el título</string>
     <string name="action_suggestions">Cuentas sugeridas</string>
     <string name="compose_schedule_date_time_fmt">%1$s %2$s</string>
@@ -478,7 +478,7 @@
     <string name="action_open_byline_account">Mostrar el perfil del autor del artículo</string>
     <string name="action_open_link">Abrir enlace</string>
     <string name="compose_warn_language_dialog_title">Comprueba el idioma de la publicación</string>
-    <string name="compose_warn_language_dialog_fmt">El idioma de la publicación está configurado en %1$s, pero es posible que la hayas escrito en %2$s.</string>
+    <string name="compose_warn_language_dialog_fmt">El idioma de la publicación está configurado en %1$s, pero es posible que lo hayas escrito en %2$s.</string>
     <string name="error_pick_media_fmt">No se pudo adjuntar el archivo a la publicación: %1$s</string>
     <string name="search_operator_attachment_dialog_any_label">Cualquier tipo</string>
     <string name="search_operator_attachment_kind_video_label">vídeo</string>
