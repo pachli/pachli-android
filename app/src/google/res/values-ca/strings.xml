@@ -1,2 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="action_delete_remote_model_fmt">Eliminar %1$s</string>
+    <string name="action_download_remote_model_fmt">Descarregar %1$s</string>
+    <string name="content_description_loading_fmt">%1$s, descarregant</string>
+    <string name="content_description_loaded_fmt">%1$s, descarregat</string>
+    <string name="content_description_available_fmt">%1$s, disponible per descarregar</string>
+    <string name="update_dialog_message">Obrir Google Play per veure\'n els detalls?</string>
+    <string name="update_dialog_positive">Obrir Google Play</string>
+    <string name="pref_translation_require_wifi">Requerir Wi‑Fi per descarregar paquets d\'idioma</string>
+    <string name="pref_translation_manage_languages">Gestionar paquets d\'idioma</string>
+    <string name="translation_model_manager_fragment_title">Paquets d\'idioma</string>
+    <string name="translation_model_manager_fragment_info">Idiomes que Pachli pot traduir usant el Traductor de Google. Descarregar els paquets d\'idioma anticipadament farà més ràpida la traducció.</string>
+    <string name="translation_model_manager_fragment_downloaded_heading">Descarregats</string>
+    <string name="translation_model_manager_fragment_remote_heading">Toca per descarregar</string>
+    <string name="fragment_confirm_download_language_dialog_title_fmt">Descarregar %1$s amb dades mòbils?</string>
+    <string name="fragment_confirm_download_language_dialog_msg">Això normalment utilitzarà entre 30 i 60 MB de dades mòbils.</string>
+    <string name="fragment_confirm_delete_language_dialog_title_fmt">Eliminar %1$s?</string>
+    <string name="fragment_confirm_delete_language_dialog_msg">Si elimines aquest idioma, es descarregarà la propera vegada que sigui necessari.</string>
+    <string name="fragment_google_disclaimer_dialog_title">Avís legal de traducció</string>
+    <string name="action_translate_mlkit">Traduir amb Google</string>
+    <string name="label_translated_mlkit">Traduït per Google</string>
+</resources>
