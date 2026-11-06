@@ -747,4 +747,7 @@
     <string name="notification_collection_add_format">&lt;b&gt;%1$s&lt;/b&gt; te añadió a una colección</string>
     <string name="notification_collection_update_format">&lt;b&gt;%1$s&lt;/b&gt; actualizó una colección en la cual te encuentras</string>
     <string name="pref_labs_glide_user_image_decoder_on_summary">Puede mejorar el rendimiento y uso de la memoria</string>
+    <string name="pref_labs_glide_user_image_decoder_off_summary">Comportamiento hasta Pachli 3.10.0</string>
+    <string name="pref_labs_glide_user_image_decoder_disabled_summary">Desactivado en versiones de Android &lt; 10</string>
+    <string name="pref_labs_glide_use_image_decoder_title">Usar ImageDecoder al cargar imágenes</string>
 </resources>
