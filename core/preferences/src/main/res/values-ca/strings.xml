@@ -39,4 +39,26 @@
     <string name="pref_pronoun_display_everywhere">A tot arreu</string>
     <string name="pref_underline_links_links">Enllaços externs</string>
     <string name="pref_underline_links_hashtags">Etiquetes</string>
+    <string name="pref_update_notification_frequency_once_per_version">Un cop per versió</string>
+    <string name="pref_summary_export_settings">Toca per desar les preferències de l\'aplicació i del compte en un fitxer local</string>
+    <string name="pref_summary_import_settings">Toca per restaurar les preferències des d\'un fitxer creat usant \"Exportar preferències\"</string>
+    <string name="pref_translation_backend_option_server_only">Només servidor</string>
+    <string name="pref_translation_backend_option_server_only_help">Traduir publicacions usant el vostre servidor. No funcionarà si el vostre servidor no admet traduccions o si l\'idioma de la publicació és incorrecte.</string>
+    <string name="pref_translation_backend_option_server_first_help">Tradueix publicacions usant el teu servidor. Si aquest mètode falla, llavors tradueix al dispositiu utilitzant el Traductor de Google.</string>
+    <string name="pref_translation_backend_option_local_only">Només dispositiu</string>
+    <string name="pref_translation_backend_option_local_only_help">Tradueix publicacions al dispositiu utilitzant el Traductor de Google.</string>
+    <string name="pref_translation_backend_requires_play_label">Instal·la des de Google Play per tenir compatibilitat amb la traducció al dispositiu</string>
+    <string name="pref_title_pronoun_display">Mostra els pronoms del compte</string>
+    <string name="pref_pronoun_display_when_composing">En escriure una publicació</string>
+    <string name="pref_pronoun_display_hide">Enlloc</string>
+    <string name="pref_title_quote_policy">Qui pot citar les teves publicacions?</string>
+    <string name="pref_quote_policy_public">Qualsevol (excepte comptes bloquejats)</string>
+    <string name="pref_quote_policy_followers">Només els teus seguidors</string>
+    <string name="pref_quote_policy_nobody">Només tu</string>
+    <string name="pref_summary_quote_policy_disabled">El teu servidor no admet regles de cita</string>
+    <string name="pref_title_underline_links">Subratllar enllaços</string>
+    <string name="pref_underline_links_mentions">\@-mencions</string>
+    <string name="pref_confirm_reblog_never">Mai confirmar</string>
+    <string name="pref_confirm_reblog_uncaptioned">Confirmar si algun adjunt no té descripció</string>
+    <string name="pref_confirm_reblog_always">Confirmar sempre</string>
 </resources>
