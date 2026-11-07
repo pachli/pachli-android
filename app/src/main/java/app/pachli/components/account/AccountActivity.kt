@@ -777,6 +777,10 @@ class AccountActivity :
             binding.accountFollowButton.setText(R.string.action_edit_own_profile)
             return
         }
+
+        val isButtonEnabled = !(blockingDomain && followState == FollowState.NOT_FOLLOWING && !blocking)
+        binding.accountFollowButton.isEnabled = isButtonEnabled
+
         if (blocking) {
             binding.accountFollowButton.setText(app.pachli.core.ui.R.string.action_unblock)
             return
@@ -805,6 +809,12 @@ class AccountActivity :
     private fun updateSubscribeButton() {
         if (followState != FollowState.FOLLOWING) {
             binding.accountSubscribeButton.hide()
+        }
+
+        if (blockingDomain) {
+            binding.accountSubscribeButton.isEnabled = false
+        } else {
+            binding.accountSubscribeButton.isEnabled = true
         }
 
         if (subscribing) {
