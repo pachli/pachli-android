@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="node_info_error_no_software">no hi ha bloc sobre el programa</string>
+    <string name="node_info_error_no_software_name">nom del programa faltant, buit o en blanc</string>
+    <string name="node_info_error_no_software_version">versió del programa faltant, buida o en blanc</string>
+    <string name="error_generic_fmt">%1$s</string>
+    <string name="error_404_not_found_fmt">el vostre servidor no és compatible amb aquesta característica: %1$s</string>
+    <string name="error_429_rate_limit_fmt">el vostre servidor està limitant la quantitat de sol·licituds: %1$s</string>
+    <string name="error_json_data_fmt">el vostre servidor ha tornat una resposta invàlida: %1$s</string>
+    <string name="error_network_fmt">S\'ha produït un error de xarxa: %1$s</string>
+    <string name="error_missing_content_type_fmt">el vostre servidor està mal configurat, la resposta no té tipus de contingut: %1$s</string>
+    <string name="error_wrong_content_type_fmt">el vostre servidor està mal configurat i ha tornat \'%2$s\' amb el tipus de contingut incorrecte, \'%1$s\'</string>
+</resources>
