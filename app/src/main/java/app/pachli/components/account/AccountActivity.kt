@@ -506,6 +506,10 @@ class AccountActivity :
             }
         }
 
+        viewModel.isRefreshing.observe(this) {
+            binding.swipeRefreshLayout.isRefreshing = it
+        }
+
         viewModel.relationshipData.observe(this) {
             val relation = it?.data
             val account = viewModel.accountData.value.get()?.getOrNull()
