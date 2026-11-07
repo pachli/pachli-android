@@ -1,8 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="send_post_notification_channel_name">S\'esatan enviant les publicacions</string>
     <string name="send_post_notification_title">S\'està publicant…</string>
     <string name="send_post_notification_error_title">Error en publicar</string>
     <string name="send_post_notification_saved_content">S\'ha guardat una còpia de la publicació als esborranys</string>
     <string name="send_post_notification_cancel_title">Envio anul·lat</string>
+    <string name="error_prepare_media_content_resolver_missing_path_fmt">a l\'agent de resolució de contingut li va faltar una ruta: %1$s</string>
+    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">l\'agent de resolució de contingut té un esquema no compatible: %1$s</string>
+    <string name="error_prepare_media_io_fmt">%1$s</string>
+    <string name="error_prepare_media_file_is_too_large_fmt">la mida del fitxer és %1$s, el màxim permès és %2$s</string>
+    <string name="error_prepare_media_unknown_file_size">no s\'ha pogut determinar la mida del fitxer</string>
+    <string name="error_prepare_media_unsupported_mime_type_fmt">el servidor no és compatible amb el tipus de fitxer: %1$s</string>
+    <string name="error_prepare_media_unknown_mime_type">es desconeix el tipus de fitxer</string>
+    <string name="error_media_uploader_upload_not_found_fmt">no s\'ha trobat la pujada de multimèdia amb ID %1$s</string>
+    <string name="send_post_failure_message_timeout">S\'ha esgotat el temps d\'espera d\'Android per enviar aquesta publicació</string>
+    <string name="send_post_failure_message_cancel">Heu cancel·lat l\'enviament d\'aquesta publicació</string>
 </resources>
