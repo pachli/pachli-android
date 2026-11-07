@@ -1,0 +1,11 @@
+Pachli és un client amb totes les funcions per a Mastodon i servidors similars.
+
+- Llegeix, respon, filtra, publica, dóna favorit i impulsa publicacions
+- Tradueix publicacions en altres idiomes
+- La teva cronologia s'emmagatzema localment, per la qual cosa la pots llegir sense connexió
+- Guarda publicacions com a esborranys per finalitzar-les després
+- També les pots programar per enviar-les més endavant
+- Llegeix i publica des de múltiples comptes
+- Múltiples temes per triar
+- Enfocat a oferir totes les funcionalitats per a persones amb necessitats d'accessibilitat
+- De codi obert, https://github.com/pachli
