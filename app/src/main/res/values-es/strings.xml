@@ -530,7 +530,7 @@
     <string name="search_operator_language_all">Cualquier idioma ▾</string>
     <string name="search_operator_language_checked_fmt">%1$s</string>
     <string name="search_operator_date_dialog_title">Limitar a publicaciones enviadas…</string>
-    <string name="search_operator_language_dialog_all">cualquier idioma</string>
+    <string name="search_operator_language_dialog_all">Cualquier idioma</string>
     <string name="search_operator_replies_dialog_replies_only">Sólo mostrar respuestas</string>
     <string name="search_operator_replies_dialog_no_replies">Sin respuestas</string>
     <string name="search_operator_where_all">Todas las publicaciones ▾</string>
@@ -620,12 +620,12 @@
     <string name="pref_account_notification_filters_label_younger_30d">… creadas en los últimos 30 días</string>
     <string name="pref_account_notification_filters_label_limited_by_server">… limitadas por tus moderadores</string>
     <string name="account_filter_placeholder_type_favourite_fmt">Un usuario de &lt;b&gt;%1$s&lt;/b&gt; marcó como favorita tu publicación</string>
-    <string name="account_filter_placeholder_type_follow_request_fmt">Solicitud de seguimiento de un usuario de &lt;b&gt;%1$s&lt;/b&gt;</string>
-    <string name="account_filter_placeholder_type_mention_fmt">Un usuario de &lt;b&gt;%1$s&lt;/b&gt; te mencionó</string>
-    <string name="account_filter_placeholder_type_reblog_fmt">Un usuario de &lt;b&gt;%1$s&lt;/b&gt; impulsó tu publicación</string>
-    <string name="account_filter_placeholder_label_domain">De un usuario de &lt;b&gt;%1$s&lt;/b&gt;</string>
-    <string name="account_filter_placeholder_type_follow_fmt">Un usuario de &lt;b&gt;%1$s&lt;/b&gt; te siguió</string>
-    <string name="account_filter_placeholder_label_not_following">Filtrado porque: &lt;b&gt;no le sigues&lt;/b&gt;</string>
+    <string name="account_filter_placeholder_type_follow_request_fmt">Solicitud de seguimiento de un usuario de @&lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="account_filter_placeholder_type_mention_fmt">Un usuario de @&lt;b&gt;%1$s&lt;/b&gt; te mencionó</string>
+    <string name="account_filter_placeholder_type_reblog_fmt">Un usuario de @&lt;b&gt;%1$s&lt;/b&gt; impulsó tu publicación</string>
+    <string name="account_filter_placeholder_label_domain">De un usuario de @&lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="account_filter_placeholder_type_follow_fmt">Un usuario de @&lt;b&gt;%1$s&lt;/b&gt; te siguió</string>
+    <string name="account_filter_placeholder_label_not_following">Filtrado porque: &lt;b&gt;no les sigues&lt;/b&gt;</string>
     <string name="notification_unknown">Tipo de notificación desconocido</string>
     <string name="pref_account_notification_filters_subtitle">Qué debería ocurrir con las notificaciones de cuentas…</string>
     <string name="pref_title_account_notification_filters">Filtros de notificaciones</string>
@@ -640,7 +640,7 @@
     <string name="pref_account_conversation_filters_label_younger_30d">… creadas en los últimos 30 días</string>
     <string name="ui_error_reload_reply_fmt">No se pudo cargar la publicación: %1$s</string>
     <string name="pref_account_conversation_filters_subtitle">Qué debería ocurrir con las conversaciones iniciadas por cuentas…</string>
-    <string name="account_filter_placeholder_type_conversation">Un usuario de &lt;b&gt;%1$s&lt;/b&gt; inició una conversación</string>
+    <string name="account_filter_placeholder_type_conversation">Un usuario de @&lt;b&gt;%1$s&lt;/b&gt; inició una conversación</string>
     <string name="pref_account_conversation_filters_label_limited_by_server">… limitadas por tus moderadores</string>
     <string name="action_send_unlisted_content_description">Enviar como no listado</string>
     <string name="action_send_public_content_description">Enviar como público</string>
