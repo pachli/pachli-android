@@ -29,9 +29,9 @@
     <string name="title_edit_profile">Modifier votre profil</string>
     <string name="post_sensitive_media_directions">Appuyer pour voir</string>
     <string name="footer_empty">Il n’y a aucun pouet ici pour l’instant. Glissez vers le bas pour actualiser !</string>
-    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; a partagé votre message</string>
-    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; a ajouté votre message à ses favoris</string>
-    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; vous suit</string>
+    <string name="notification_reblog_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; a partagé votre message</string>
+    <string name="notification_favourite_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; a ajouté votre message à ses favoris</string>
+    <string name="notification_follow_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; vous suit</string>
     <string name="report_username_format">Signaler @%1$s</string>
     <string name="report_comment_hint">Commentaires additionnels \?</string>
     <string name="action_quick_reply">Réponse rapide</string>
@@ -262,13 +262,13 @@
     <string name="no_scheduled_posts">Vous n’avez aucun message planifié.</string>
     <string name="warning_scheduling_interval">L’intervalle minimum de planification sur Mastodon est de 5 minutes.</string>
     <string name="notification_follow_request_name">Demandes d\'abonnement</string>
-    <string name="dialog_block_warning">Bloquer @%1$s \?</string>
+    <string name="dialog_block_warning">Bloquer @%1$s ?</string>
     <string name="pref_title_confirm_reblogs">Demander confirmation avant de partager</string>
     <string name="pref_title_show_cards_in_timelines">Afficher les aperçus des liens dans les fils</string>
-    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; vous a envoyé une demande d’abonnement</string>
+    <string name="notification_follow_request_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; vous a envoyé une demande d’abonnement</string>
     <string name="notification_follow_request_description">Notifications à propos des demandes d’abonnement</string>
     <string name="pref_title_notification_filter_follow_requests">On demande à me suivre</string>
-    <string name="dialog_mute_warning">Mettre en sourdine @%1$s \?</string>
+    <string name="dialog_mute_warning">Mettre en sourdine @%1$s ?</string>
     <string name="action_unmute_conversation">Enlever la sourdine à la conversation</string>
     <string name="action_mute_conversation">Masquer la conversation</string>
     <string name="pref_title_enable_swipe_for_tabs">Activer le glissement pour changer d’onglet</string>
@@ -291,7 +291,7 @@
 \n
 \n Les notifications « push » ne seront pas affectées, mais vous pouvez revoir vos préférences de notification manuellement.</string>
     <string name="pref_title_notification_filter_subscriptions">Un compte auquel je suis abonné·e a publié un nouveau message</string>
-    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; vient de publier</string>
+    <string name="notification_subscription_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; vient de publier</string>
     <string name="review_notifications">Examiner les notifications</string>
     <string name="notification_subscription_name">Nouveaux messages</string>
     <plurals name="error_upload_max_media_reached">
@@ -314,11 +314,11 @@
     <string name="pref_title_confirm_favourites">Demander confirmation avant de mettre en favoris</string>
     <string name="follow_requests_info">Bien que votre compte ne soit pas verrouillé, l’équipe de %1$s a pensé que vous voudriez valider manuellement les demandes de d’abonnement provenant de ces comptes.</string>
     <string name="pachli_compose_post_quicksetting_label">Rédiger un message</string>
-    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; a créé un compte</string>
+    <string name="notification_sign_up_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; a créé un compte</string>
     <string name="notification_sign_up_name">Nouveaux comptes</string>
     <string name="notification_sign_up_description">Notifications quand quelqu’un crée un nouveau compte</string>
     <string name="pref_title_notification_filter_sign_ups">Un nouveau compte a été créé</string>
-    <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; a modifié son message</string>
+    <string name="notification_update_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; a modifié son message</string>
     <string name="pref_title_notification_filter_updates">Un message avec lequel j’ai interagi est modifié</string>
     <string name="notification_update_name">Messages modifiés</string>
     <string name="notification_update_description">Notifications quand un message avec lequel vous avez interagi est modifié</string>
@@ -485,8 +485,8 @@
     <string name="notification_moderation_warning_body_suspend_fmt">Votre compte a été suspendu : %1$s</string>
     <string name="notification_moderation_warning_body_unknown_fmt">Vous avez reçu un avertissement de modération : %1$s</string>
     <string name="notification_moderation_warning_tap_for_more">Appuyez pour voir plus de détails sur votre serveur.</string>
-    <string name="notification_quote_format">&lt;b&gt;%1$s&lt;/b&gt; a cité votre message</string>
-    <string name="notification_quoted_update_format">&lt;b&gt;%1$s&lt;/b&gt; a modifié le message que vous avez cité</string>
+    <string name="notification_quote_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; a cité votre message</string>
+    <string name="notification_quoted_update_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; a modifié le message que vous avez cité</string>
     <string name="notification_unknown">Type de notification inconnu</string>
     <string name="pref_title_show_self_boosts">Montrer les auto-partages</string>
     <string name="pref_title_show_self_boosts_description">Quelqu\'un qui partage son propre message</string>
@@ -695,11 +695,11 @@
     <string name="compose_quote_policy_dialog_title">Changer les paramètres de citation ?</string>
     <string name="compose_quote_policy_dialog_body_fmt">Les messages marqués « %1$s » ou « %2$s » doivent avoir le paramètre de citation « %3$s ».\n\nModifier le paramètre de citation en ce sens ?</string>
     <string name="compose_task_description_writing_post">Écrire un message</string>
-    <string name="notification_severed_relationships_format">Relation avec &lt;b&gt;%1$s&lt;/b&gt; endommagée</string>
-    <string name="notification_severed_relationships_domain_block_fmt">L\'administration de %1$s a bloqué &lt;b&gt;%2$s&lt;/b&gt;</string>
-    <string name="notification_severed_relationships_user_domain_block_fmt">Vous avez bloqué &lt;b&gt;%1$s&lt;/b&gt;</string>
-    <string name="notification_severed_relationships_account_suspension_fmt">L\'administration de %1$s a bloqué &lt;b&gt;%2$s&lt;/b&gt;</string>
-    <string name="notification_severed_relationships_unknown_fmt">&lt;b&gt;%1$s&lt;/b&gt; est bloqué·e (raison inconnue)</string>
+    <string name="notification_severed_relationships_format">Relation avec &amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; endommagée</string>
+    <string name="notification_severed_relationships_domain_block_fmt">L\'administration de %1$s a bloqué &amp;lt;b&amp;gt;%2$s&amp;lt;/b&amp;gt;</string>
+    <string name="notification_severed_relationships_user_domain_block_fmt">Vous avez bloqué &amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt;</string>
+    <string name="notification_severed_relationships_account_suspension_fmt">L\'administration de %1$s a bloqué &amp;lt;b&amp;gt;%2$s&amp;lt;/b&amp;gt;</string>
+    <string name="notification_severed_relationships_unknown_fmt">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; est bloqué·e (raison inconnue)</string>
     <string name="error_missing_edits">Votre serveur sait que ce message a été édité, mais n\'a pas de copie des modifications, donc elles ne peuvent pas vous être montrées.\n\nC\'est un &lt;a href=\"https://github.com/mastodon/mastodon/issues/25398\"&gt;Problème connu de Mastodon #25398&lt;/a&gt;.</string>
     <string name="filter_description_none">Montrer comme le reste</string>
     <string name="account_filter_placeholder_type_favourite_fmt">Une personne @&lt;b&gt;%1$s&lt;/b&gt; a mis votre message en signet</string>
@@ -742,4 +742,8 @@
     <string name="notification_collection_update_description">Notifications lorsqu\'une collection où vous êtes est mise à jour</string>
     <string name="notification_collection_add_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; vous a ajouté à une collection</string>
     <string name="notification_collection_update_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; a mis à jour une collection dans laquelle vous êtes</string>
+    <string name="pref_labs_glide_use_image_decoder_title">Utiliser ImageDecoder au chargement d\'images</string>
+    <string name="pref_labs_glide_user_image_decoder_on_summary">Peut améliorer les performances et l\'efficacité de la mémoire</string>
+    <string name="pref_labs_glide_user_image_decoder_off_summary">Comportement jusqu\'à Pachli 3.10.0</string>
+    <string name="pref_labs_glide_user_image_decoder_disabled_summary">Désactivé sur les version d\'Android avant la 10</string>
 </resources>
