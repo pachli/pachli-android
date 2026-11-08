@@ -1,0 +1,15 @@
+Pachli 1.4.0
+
+Nouveautés :
+
+- Vérifie régulièrement les mises à jour et prévient 
+
+Corrections :
+
+- Montre les changements de préférences immédiatement 
+- Respecte la préférence FAB_HIDE 
+- S'assure que les paramètres systèmes sont visibles sur d'anciens appareils 
+- Retire la barre de progression de la timeline 
+- Redonne le ratio de l'image à la fin du déplacement 
+- Evite un crash lors du chargement des filtres 
+- Met à jour la traduction en italien
