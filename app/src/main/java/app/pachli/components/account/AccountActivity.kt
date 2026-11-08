@@ -811,11 +811,9 @@ class AccountActivity :
             binding.accountSubscribeButton.hide()
         }
 
-        if (blockingDomain) {
-            binding.accountSubscribeButton.isEnabled = false
-        } else {
-            binding.accountSubscribeButton.isEnabled = true
-        }
+        // Can't update subscription state for followed accounts on blocked domains
+        // (this might be a Mastodon bug).
+        binding.accountSubscribeButton.isEnabled = !blockingDomain
 
         if (subscribing) {
             binding.accountSubscribeButton.setIconResource(R.drawable.ic_notifications_active_24dp)
