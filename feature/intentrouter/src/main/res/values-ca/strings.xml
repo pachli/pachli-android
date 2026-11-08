@@ -1,4 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_share_as">Comparteix com a…</string>
+    <string name="error_set_active_account">L\'inici de sessió ha fallat amb l\'error següent: %1$s</string>
+    <string name="error_refresh_account">L\'actualització del compte ha fallat amb l\'error següent: %1$s\n\nPots continuar, però les llistes i els filtres poden estar incomplets.</string>
+    <string name="action_relogin">Tornar a iniciar sessió</string>
+    <string name="title_choose_account_dialog">Triar compte</string>
+    <string name="title_error_dialog">L\'inici de sessió va fallar</string>
+    <string name="error_login_failed_hint">Toca sobre el compte per tornar-ho a provar.</string>
+    <string name="error_login_failed_hint_multiple">Toca el mateix compte per tornar-ho a provar o fes clic sobre un altre compte per iniciar sessió.</string>
+    <string name="client_error_unauthorized_multiple_fmt">%1$s\n\nToca \"%2$s\" per tornar-ho a provar o \"%3$s\" per triar un altre compte.</string>
+    <string name="client_error_unauthorized_fmt">%1$s\n\nToca \"%2$s\" per tornar-ho a provar.</string>
+    <string name="error_refresh_account_fmt">Fallada en obtenir alguns detalls del compte:\n\n%1$s\n\nToca \"%2$s\" per continuar, però algunes dades poden ser incorrectes (per exemple, filtres i llistes).\n\nPremeu \"%3$s\" per tornar-ho a provar.\n\nClica \"%4$s\" per triar un altre compte.</string>
+    <string name="action_choose_another_account">Escollir un altre compte</string>
+    <string name="title_error_mime_type">Tipus no reconegut</string>
+    <string name="error_mime_type_fmt">Pachli va ser obert per compartir contingut del tipus \"%1$s\", però Pachli no maneja aquest tipus.</string>
 </resources>
