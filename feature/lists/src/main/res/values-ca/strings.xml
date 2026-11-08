@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hint_list_name">Nom de la llista</string>
     <string name="title_lists">Llistes</string>
@@ -16,4 +16,9 @@
     <string name="no_lists">No tens cap llista.</string>
     <string name="hint_search_people_list">Cercar persones que segueixes</string>
     <string name="action_add_or_remove_from_list">Afegeix o elimina de la llista</string>
+    <string name="list_exclusive_label">Amagar a la cronologia d\'inici</string>
+    <string name="replies_policy_title">Mostra respostes a:</string>
+    <string name="replies_policy_name_followed">Qualsevol usuari seguit</string>
+    <string name="replies_policy_name_list">Membres de la llista</string>
+    <string name="replies_policy_name_none">Ningú</string>
 </resources>
