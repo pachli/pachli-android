@@ -57,4 +57,35 @@
     <string name="notification_log_filter_content_description">Filtrar registres per etiqueta</string>
     <string name="notification_log_filter">Filtre</string>
     <string name="notification_log_download_content_description">Descarregar registres</string>
+    <string name="notification_log_download">Descarregar</string>
+    <string name="notification_log_sort">Ordenar més recents primer</string>
+    <string name="notification_log_previous_attempts">Intents d\'execució: %1$d</string>
+    <string name="notification_log_scheduled_in">Programat a %1$s @ %2$s</string>
+    <string name="notification_log_method_push">Les notificacions són obtingudes mitjançant UnifiedPush i haurien de ser immediates</string>
+    <string name="notification_log_method_pull">Les notificacions són obtingudes periòdicament, cada 15 minuts aproximadament</string>
+    <string name="notification_log_method_unknown">El mecanisme de notificació no ha estat determinat</string>
+    <string name="notification_log_method_pusherror">UnifiedPush està habilitat, però s\'ha produït un error: %1$s</string>
+    <string name="notification_log_download_failed">No s\'ha pogut baixar: %1$s</string>
+    <string name="notitication_log_filter_dialog_title">Mostra prioritats del registre</string>
+    <string name="about_nivenly_foundation">Pachli és un projecte de la <a href="https://nivenly.org">Fundació Nivenly</a>.</string>
+    <string name="about_notifications">Notificacions</string>
+    <string name="about_database">Base de dades</string>
+    <string name="about_workers">Treballadors</string>
+    <string name="database_table_sizes">Grandàries de taules</string>
+    <string name="database_integrity_check">Revisió d\'integritat</string>
+    <string name="database_query_timings">Temps de consultes</string>
+    <string name="database_prune_cache">Reduir memòria cau</string>
+    <string name="database_vacuum">Buidar</string>
+    <string name="database_clear_cache">Netejar memòria cau</string>
+    <string name="action_run_integrity_check">Comprovar integritat</string>
+    <string name="action_run_query_timings">Comprovar temps de consultes</string>
+    <string name="action_prune_cache">Reduir memòria cau</string>
+    <string name="action_vacuum">Buidar</string>
+    <string name="action_clear_cache">Netejar memòria cau</string>
+    <string name="database_prune_cache_complete">Es va completar la reducció de la memòria cau</string>
+    <string name="database_vacuum_complete">Es va completar el buidatge</string>
+    <string name="database_clear_cache_complete">Es va completar la neteja de la memòria cau</string>
+    <string name="workers_prune_cached_media_help">Aquesta és la llista dels treballadors que redueixen la memòria cau multimèdia. N\'hi hauria d\'haver un de sol i el seu estat hauria de ser o RUNNING (corrent) o ENQUEUED (en cua), cas en què hauria d\'estar programat per executar-se en menys de 12 hores.</string>
+    <string name="workers_prune_cache_help">Aquesta és la llista dels treballadors que redueixen la informació sobre publicacions i autors a la memòria cau. N\'hi hauria d\'haver un de sol i el seu estat hauria de ser o RUNNING (corrent) o ENQUEUED (en cua), cas en què hauria d\'estar programat per executar-se en menys de 12 hores.</string>
+    <string name="workers_prune_log_entry_entity_help">Aquesta és la llista dels treballadors que depuren les entrades del registre. N\'hi hauria d\'haver un de sol i el seu estat hauria de ser o RUNNING (corrent) o ENQUEUED (en cua), cas en què hauria d\'estar programat per executar-se en menys de 12 hores.</string>
 </resources>
