@@ -110,7 +110,7 @@ import timber.log.Timber
         TimelineStatusWithAccount::class,
         ReferencedStatusId::class,
     ],
-    version = 49,
+    version = 50,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -184,6 +184,8 @@ import timber.log.Timber
         AutoMigration(from = 47, to = 48),
         // Ensure an AccountEntity exists for each row in PachliAccountEntity.
         AutoMigration(from = 48, to = 49, spec = AppDatabase.MIGRATE_48_49::class),
+        // Relationship between PachliAccount and AccountEntity
+        AutoMigration(from = 49, to = 50, spec = AppDatabase.MIGRATE_49_50::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -508,6 +510,19 @@ WHERE a.accountId IS NULL
             }
         }
     }
+
+    /**
+     * Adds a 1:1 relationship between [PachliAccountEntity] and the [AccountEntity] for
+     * the user's account. Columns that were duplicated in [PachliAccountEntity] are
+     * deleted in favour of the equivalents in [AccountEntity].
+     */
+    @DeleteColumn(tableName = "PachliAccountEntity", columnName = "displayName")
+    @DeleteColumn(tableName = "PachliAccountEntity", columnName = "profilePictureUrl")
+    @DeleteColumn(tableName = "PachliAccountEntity", columnName = "profileHeaderPictureUrl")
+    @DeleteColumn(tableName = "PachliAccountEntity", columnName = "emojis")
+    @DeleteColumn(tableName = "PachliAccountEntity", columnName = "locked")
+    @DeleteColumn(tableName = "PachliAccountEntity", columnName = "isBot")
+    class MIGRATE_49_50 : AutoMigrationSpec
 }
 
 val MIGRATE_8_9 = object : Migration(8, 9) {

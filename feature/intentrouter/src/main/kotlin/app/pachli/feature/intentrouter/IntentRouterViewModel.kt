@@ -24,12 +24,12 @@ import androidx.room3.support.getSupportWrapper
 import app.pachli.core.common.PachliError
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
+import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.RefreshAccountError
 import app.pachli.core.data.repository.SetActiveAccountError
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.dao.LogEntryDao
 import app.pachli.core.database.dao.TimelineDao
-import app.pachli.core.model.PachliAccount
 import app.pachli.core.navigation.IntentRouterActivityIntent.Payload
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.coroutines.runSuspendCatching
@@ -178,7 +178,7 @@ internal class IntentRouterViewModel @Inject constructor(
 
         Timber.d("pruneCacheIfNeeded: pruning")
         val marker = TimeSource.Monotonic.markNow()
-        accountManager.accounts.forEach { timelineDao.cleanup(it.pachliAccountId) }
+        accountManager.pachliAccounts.forEach { timelineDao.cleanup(it.pachliAccountId) }
         logEntryDao.prune(Instant.now().minusMillis(48.hours.inWholeMilliseconds))
 
         Timber.d("pruneCacheIfNeeded: pruned, took ${marker.elapsedNow().inWholeMilliseconds} ms")

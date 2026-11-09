@@ -383,8 +383,8 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
 
                 // Process changes to the account's header picture.
                 launch {
-                    account.distinctUntilChangedBy { it.profileHeaderPictureUrl }.collectLatest {
-                        header.headerBackground = ImageHolder(it.profileHeaderPictureUrl)
+                    account.distinctUntilChangedBy { it.account.header }.collectLatest {
+                        header.headerBackground = ImageHolder(it.account.header)
                     }
                 }
             }
@@ -401,8 +401,8 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
 
                 // Process changes to the account's profile picture.
                 launch {
-                    account.distinctUntilChangedBy { it.profilePictureUrl }.collectLatest {
-                        bindDrawerAvatar(it.profilePictureUrl, true)
+                    account.distinctUntilChangedBy { it.account.avatar }.collectLatest {
+                        bindDrawerAvatar(it.account.avatar, true)
                     }
                 }
 
@@ -1300,8 +1300,8 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         val profiles: MutableList<IProfile> = uiState.pachliAccounts.map { pachliAccount ->
             ProfileDrawerItem().apply {
                 isSelected = pachliAccount.isActive
-                nameText = pachliAccount.displayName.emojify(glide, pachliAccount.emojis, header, animateEmojis)
-                iconUrl = pachliAccount.profilePictureUrl
+                nameText = pachliAccount.account.displayName.emojify(glide, pachliAccount.account.emojis, header, animateEmojis)
+                iconUrl = pachliAccount.account.avatar
                 isNameShown = true
                 identifier = pachliAccount.pachliAccountId
                 descriptionText = pachliAccount.fullName

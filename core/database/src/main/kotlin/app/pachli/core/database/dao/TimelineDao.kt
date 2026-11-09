@@ -946,6 +946,11 @@ WHERE
     pachliAccountId = :pachliAccountId
     AND accountId NOT IN (
         SELECT accountId
+        FROM PachliAccountEntity
+        WHERE pachliAccountId = :pachliAccountId
+    )
+    AND accountId NOT IN (
+        SELECT accountId
         FROM StatusEntity
         WHERE pachliAccountId = :pachliAccountId
     )

@@ -89,10 +89,10 @@ import app.pachli.core.common.string.mastodonLength
 import app.pachli.core.common.util.getMediaSize
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.Loadable
+import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.AccountSource
 import app.pachli.core.model.Emoji
-import app.pachli.core.model.PachliAccount
 import app.pachli.core.model.ServerLimits.Companion.DEFAULT_CHARACTER_LIMIT
 import app.pachli.core.model.ServerLimits.Companion.DEFAULT_MAX_MEDIA_ATTACHMENTS
 import app.pachli.core.model.Status
@@ -960,7 +960,7 @@ class ComposeActivity :
 
         loadAvatar(
             glide,
-            account.profilePictureUrl,
+            account.account.avatar,
             binding.composeUsernameView,
             avatarDimen.toInt(),
             (avatarDimen / 8).toInt(),

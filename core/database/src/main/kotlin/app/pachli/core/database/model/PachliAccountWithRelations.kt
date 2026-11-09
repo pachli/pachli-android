@@ -29,6 +29,12 @@ data class PachliAccountWithRelations(
     @Embedded val pachliAccountEntity: PachliAccountEntity,
 
     @Relation(
+        parentColumns = ["pachliAccountId", "accountId"],
+        entityColumns = ["pachliAccountId", "accountId"],
+    )
+    val account: AccountEntity,
+
+    @Relation(
         parentColumns = ["pachliAccountId"],
         entityColumns = ["pachliAccountId"],
     )

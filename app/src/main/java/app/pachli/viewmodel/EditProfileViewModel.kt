@@ -168,8 +168,7 @@ class EditProfileViewModel @Inject constructor(
                 diff.field4?.second?.toRequestBody(MultipartBody.FORM),
             ).onSuccess {
                 val newAccountData = it.body.asModel()
-                accountManager.updateAccount(pachliAccountId, newAccountData)
-                accountRepository.saveAccounts(pachliAccountId, listOf(newAccountData))
+                accountRepository.saveAccount(pachliAccountId, newAccountData)
                 saveData.postValue(Success())
             }.onFailure {
                 saveData.postValue(Error(cause = it.throwable))

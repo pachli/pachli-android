@@ -61,6 +61,16 @@ WHERE pachliAccountId = :pachliAccountId
         """
 SELECT *
 FROM PachliAccountEntity
+ORDER BY isActive DESC, pachliAccountId ASC
+""",
+    )
+    fun getPachliAccountsOrderedByActiveFlow(): Flow<List<PachliAccountWithRelations>>
+
+    @Transaction
+    @Query(
+        """
+SELECT *
+FROM PachliAccountEntity
 WHERE isActive = 1
 """,
     )

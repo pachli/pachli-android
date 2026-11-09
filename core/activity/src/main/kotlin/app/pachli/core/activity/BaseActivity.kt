@@ -279,7 +279,7 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
 
     val openAsText: String?
         get() {
-            val accounts = accountManager.accountsOrderedByActive
+            val accounts = accountManager.pachliAccountsOrderedByActive
             return when (accounts.size) {
                 0, 1 -> null
                 2 -> getString(R.string.action_open_as, accounts.last().fullName)

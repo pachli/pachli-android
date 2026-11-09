@@ -21,7 +21,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.DraftsRepository
-import app.pachli.core.database.model.PachliAccountEntity
+import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.model.Server
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Timeline
@@ -76,13 +76,13 @@ data class UiState(
     val hideTopToolbar: Boolean,
     val mainNavigationPosition: MainNavigationPosition,
     val displaySelfUsername: Boolean,
-    val pachliAccounts: List<PachliAccountEntity>,
+    val pachliAccounts: List<PachliAccount>,
     val canSchedulePost: Boolean,
     val tabAlignment: TabAlignment,
     val tabContents: TabContents,
 ) {
     companion object {
-        fun make(prefs: SharedPreferencesRepository, pachliAccounts: List<PachliAccountEntity>, server: Server?) =
+        fun make(prefs: SharedPreferencesRepository, pachliAccounts: List<PachliAccount>, server: Server?) =
             UiState(
                 animateAvatars = prefs.animateAvatars,
                 animateEmojis = prefs.animateEmojis,
@@ -141,7 +141,7 @@ internal class MainViewModel @Inject constructor(
     val uiState =
         combine(
             prefChangesFlow,
-            accountManager.accountsFlow,
+            accountManager.pachliAccountsFlow,
             pachliAccountFlow,
         ) { _, accounts, pachliAccount ->
             UiState.make(
@@ -153,7 +153,7 @@ internal class MainViewModel @Inject constructor(
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5000),
-                initialValue = UiState.make(sharedPreferencesRepository, accountManager.accounts, null),
+                initialValue = UiState.make(sharedPreferencesRepository, accountManager.pachliAccounts, null),
             )
 
     init {

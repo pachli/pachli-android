@@ -31,6 +31,7 @@ import app.pachli.core.database.model.asModel
 import app.pachli.core.model.AccountSource
 import app.pachli.core.model.DeletedStatus
 import app.pachli.core.model.Draft
+import app.pachli.core.model.PachliAccount
 import app.pachli.core.model.ScheduledStatus
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
@@ -229,7 +230,7 @@ fun DeletedStatus.asDraft() = Draft(
  * The cursor is placed at the start of the content, so the inserted hashtag defaults
  * to appearing at the end of the content when the user starts typing.
  */
-fun Draft.Companion.createDraft(context: Context, pachliAccount: app.pachli.core.model.PachliAccount, timeline: Timeline): Draft {
+fun Draft.Companion.createDraft(context: Context, pachliAccount: PachliAccount, timeline: Timeline): Draft {
     val visibility = when (timeline) {
         Timeline.Conversations -> Status.Visibility.DIRECT
         else -> pachliAccount.defaultPostPrivacy
@@ -283,7 +284,7 @@ fun Draft.Companion.createDraft(context: Context, pachliAccount: app.pachli.core
  *
  * @param status Status being replied to.
  */
-fun Draft.Companion.createDraftReply(pachliAccount: app.pachli.core.model.PachliAccount, status: Status): Draft {
+fun Draft.Companion.createDraftReply(pachliAccount: PachliAccount, status: Status): Draft {
     val actionable = status.actionableStatus
     val account = actionable.account
 
@@ -335,7 +336,7 @@ fun Draft.Companion.createDraftReply(pachliAccount: app.pachli.core.model.Pachli
  *
  * @param status Status to quote.
  */
-fun Draft.Companion.createDraftQuote(pachliAccount: app.pachli.core.model.PachliAccount, status: Status): Draft {
+fun Draft.Companion.createDraftQuote(pachliAccount: PachliAccount, status: Status): Draft {
     val actionable = status.actionableStatus
 
     val visibility = actionable.visibility.coerceAtLeast(pachliAccount.defaultPostPrivacy)

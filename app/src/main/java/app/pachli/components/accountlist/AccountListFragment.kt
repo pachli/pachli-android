@@ -151,7 +151,7 @@ class AccountListFragment :
         }
         val linksToUnderline = sharedPreferencesRepository.linksToUnderline
 
-        val activeAccount = accountManager.activeAccount!!
+        val activeAccount = accountManager.activePachliAccount!!
 
         viewLifecycleOwner.lifecycleScope.launch {
             val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
@@ -168,7 +168,7 @@ class AccountListFragment :
                 FOLLOW_REQUESTS -> {
                     val headerAdapter = FollowRequestsHeaderAdapter(
                         instanceName = activeAccount.domain,
-                        accountLocked = activeAccount.locked,
+                        accountLocked = activeAccount.account.locked,
                     )
                     val followRequestsAdapter = FollowRequestsAdapter(
                         glide,

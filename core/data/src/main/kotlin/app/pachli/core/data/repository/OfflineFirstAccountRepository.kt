@@ -121,6 +121,10 @@ class OfflineFirstAccountRepository @Inject internal constructor(
             .map { it + accounts }
     }
 
+    override suspend fun saveAccount(pachliAccountId: Long, account: Account) {
+        localDataSource.saveAccount(pachliAccountId, account)
+    }
+
     override suspend fun saveAccounts(pachliAccountId: Long, accounts: Collection<Account>) {
         localDataSource.saveAccounts(pachliAccountId, accounts)
     }

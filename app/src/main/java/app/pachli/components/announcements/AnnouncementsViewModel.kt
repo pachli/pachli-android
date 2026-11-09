@@ -58,7 +58,7 @@ class AnnouncementsViewModel @Inject constructor(
     val emojis = pachliAccountId.flatMapLatest { pachliAccountId ->
         accountManager.getPachliAccountFlow(pachliAccountId)
     }.filterNotNull()
-        .map { it.emojis }
+        .map { it.account.emojis }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     val animateEmojis: Boolean
