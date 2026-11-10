@@ -1,6 +1,5 @@
 package app.pachli.core.eventhub
 
-import app.pachli.core.model.Account
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 
@@ -18,7 +17,6 @@ data class StatusDeletedEvent(val statusId: String) : Event
 data class StatusComposedEvent(val status: Status) : Event
 data object StatusScheduledEvent : Event
 data class StatusEditedEvent(val originalId: String, val status: Status) : Event
-data class ProfileEditedEvent(val newProfileData: Account) : Event
 data class PollVoteEvent(val statusId: String, val poll: Poll) : Event
 data class DomainMuteEvent(val pachliAccountId: Long, val instance: String) : Event
 data class PinEvent(val statusId: String, val pinned: Boolean) : Event

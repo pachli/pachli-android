@@ -18,7 +18,6 @@
 package app.pachli.core.data.repository
 
 import app.pachli.core.common.di.ApplicationScope
-import app.pachli.core.data.repository.AccountRepository.AccountError
 import app.pachli.core.data.repository.AccountRepository.AccountError.GetAccountError
 import app.pachli.core.data.repository.AccountRepository.AccountError.GetAccountsError
 import app.pachli.core.database.dao.TimelineDao
@@ -37,10 +36,11 @@ import com.github.michaelbull.result.onSuccess
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 /**
- * Repository for managing data about Mastodon accounts (not the user's account,
- * accounts that can appear in statuses, notifications, etc).
+ * Repository for managing data about Mastodon accounts.
  *
  * Data is cached locally, and fetched as necessary.
  */
@@ -56,12 +56,40 @@ class OfflineFirstAccountRepository @Inject internal constructor(
      *
      * @param pachliAccountId
      * @param accountId ID of the account to fetch.
-     * @return The account, or [AccountError.GetAccountError].
+     * @return The account, or [GetAccountError].
      */
     override suspend fun getAccount(pachliAccountId: Long, accountId: String): Result<Account, GetAccountError> {
         val account = localDataSource.getAccount(pachliAccountId, accountId)
         if (account != null) return Ok(account)
 
+        return remoteDataSource.getAccount(pachliAccountId, accountId)
+            .onSuccess { localDataSource.saveAccount(pachliAccountId, it) }
+    }
+
+    /**
+     * Returns a [Flow] of [Account], updating whenever the local data about
+     * the account changes. If the account is not in the local cache then makes
+     * a network request for the account (which may fail), and saves the
+     * account.
+     *
+     * @param pachliAccountId
+     * @param accountId Server ID of the account to fetch
+     * @return A [Flow] of either the [Account], or [GetAccountError]
+     * if the account was not cached and could not be fetched.
+     */
+    override fun getAccountFlow(pachliAccountId: Long, accountId: String): Flow<Result<Account, GetAccountError>> {
+        return localDataSource.getAccountFlow(pachliAccountId, accountId)
+            .map { account ->
+                if (account != null) {
+                    Ok(account)
+                } else {
+                    remoteDataSource.getAccount(pachliAccountId, accountId)
+                        .onSuccess { localDataSource.saveAccount(pachliAccountId, it) }
+                }
+            }
+    }
+
+    override suspend fun reloadAccount(pachliAccountId: Long, accountId: String): Result<Account, GetAccountError> {
         return remoteDataSource.getAccount(pachliAccountId, accountId)
             .onSuccess { localDataSource.saveAccount(pachliAccountId, it) }
     }
@@ -107,6 +135,9 @@ internal class AccountLocalDataSource @Inject constructor(
     private val timelineDao: TimelineDao,
 ) {
     suspend fun getAccount(pachliAccountId: Long, accountId: String) = timelineDao.getAccount(pachliAccountId, accountId)?.asModel()
+
+    fun getAccountFlow(pachliAccountId: Long, accountId: String) =
+        timelineDao.getAccountFlow(pachliAccountId, accountId).map { it?.asModel() }
 
     suspend fun saveAccount(pachliAccountId: Long, account: Account) = timelineDao.upsertAccounts(listOf(account.asEntity(pachliAccountId)))
 

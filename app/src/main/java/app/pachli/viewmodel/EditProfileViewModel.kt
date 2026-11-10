@@ -25,8 +25,7 @@ import androidx.lifecycle.viewModelScope
 import app.pachli.BuildConfig
 import app.pachli.core.common.string.randomAlphanumericString
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.eventhub.EventHub
-import app.pachli.core.eventhub.ProfileEditedEvent
+import app.pachli.core.data.repository.AccountRepository
 import app.pachli.core.model.CredentialAccount
 import app.pachli.core.model.ServerLimits
 import app.pachli.core.model.StringField
@@ -68,9 +67,9 @@ internal data class ProfileDataInUi(
 @HiltViewModel
 class EditProfileViewModel @Inject constructor(
     private val mastodonApi: MastodonApi,
-    private val eventHub: EventHub,
     private val application: Application,
     private val accountManager: AccountManager,
+    private val accountRepository: AccountRepository,
 ) : ViewModel() {
     private val pachliAccountId = MutableSharedFlow<Long>(replay = 1)
 
@@ -170,8 +169,8 @@ class EditProfileViewModel @Inject constructor(
             ).onSuccess {
                 val newAccountData = it.body.asModel()
                 accountManager.updateAccount(pachliAccountId, newAccountData)
+                accountRepository.saveAccounts(pachliAccountId, listOf(newAccountData))
                 saveData.postValue(Success())
-                eventHub.dispatch(ProfileEditedEvent(newAccountData))
             }.onFailure {
                 saveData.postValue(Error(cause = it.throwable))
             }

@@ -34,6 +34,7 @@ import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithQuote
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 @ColumnTypeConverters(Converters::class)
@@ -56,6 +57,15 @@ WHERE pachliAccountId = :pachliAccountId AND accountId = :accountId
     """,
     )
     abstract suspend fun getAccount(pachliAccountId: Long, accountId: String): AccountEntity?
+
+    @Query(
+        """
+SELECT *
+FROM AccountEntity
+WHERE pachliAccountId = :pachliAccountId AND accountId = :accountId
+    """,
+    )
+    abstract fun getAccountFlow(pachliAccountId: Long, accountId: String): Flow<AccountEntity?>
 
     @Query(
         """

@@ -24,6 +24,7 @@ import app.pachli.core.model.Account
 import app.pachli.core.model.TimelineAccount
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Result
+import kotlinx.coroutines.flow.Flow
 
 interface AccountRepository {
     sealed interface AccountError : PachliError {
@@ -43,6 +44,23 @@ interface AccountRepository {
      * @param accountId Server ID of the account to fetch.
      */
     suspend fun getAccount(pachliAccountId: Long, accountId: String): Result<Account, GetAccountError>
+
+    /**
+     * Gets a [Flow] of the data for [accountId].
+     *
+     * @param pachliAccountId
+     * @param accountId Server ID of the account to fetch.
+     */
+    fun getAccountFlow(pachliAccountId: Long, accountId: String): Flow<Result<Account, GetAccountError>>
+
+    /**
+     * Reloads the data about [accountId] from the server and updates the
+     * repository.
+     *
+     * @param pachliAccountId
+     * @param accountId Server ID of the account to reload.
+     */
+    suspend fun reloadAccount(pachliAccountId: Long, accountId: String): Result<Account, GetAccountError>
 
     /**
      * Get the data for multiple [accountIds].
