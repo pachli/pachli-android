@@ -68,11 +68,11 @@ class UnifiedPushService : PushService() {
 
     override fun onNewEndpoint(endpoint: PushEndpoint, instance: String) {
         Timber.d("onNewEndpoint for instance $instance")
-        accountManager.getAccountById(instance.toLong())?.let { account ->
-            Timber.d("Endpoint available for account %s: %s", account, instance)
+        accountManager.getAccountById(instance.toLong())?.let { pachliAccount ->
+            Timber.d("Endpoint available for account %s: %s", pachliAccount, instance)
             // Launch the coroutine in global scope -- it is short and we don't want to lose the registration event
             // and there is no saner way to use structured concurrency in a receiver
-            GlobalScope.launch { registerUnifiedPushEndpoint(account, endpoint) }
+            GlobalScope.launch { registerUnifiedPushEndpoint(pachliAccount, endpoint) }
         }
     }
 

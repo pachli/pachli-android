@@ -252,31 +252,33 @@ internal class PachliAccountViewHolder(
     }
 
     /** Loads the account's avatar, respecting [animateAvatars]. */
-    private fun bindAvatar(account: PachliAccount, animateAvatars: Boolean) = with(binding) {
-        loadAvatar(glide, account.profilePictureUrl, avatar, avatarRadius, animateAvatars)
+    private fun bindAvatar(pachliAccount: PachliAccount, animateAvatars: Boolean) = with(binding) {
+        loadAvatar(glide, pachliAccount.profilePictureUrl, avatar, avatarRadius, animateAvatars)
     }
 
     /**
      * Display's the bot overlay on the avatar image (if appropriate), respecting
      * [showBotOverlay].
      */
-    private fun bindShowBotOverlay(account: PachliAccount, showBotOverlay: Boolean) = with(binding) {
-        avatarBadge.isVisible = account.isBot && showBotOverlay
-    }
+    private fun bindShowBotOverlay(pachliAccount: PachliAccount, showBotOverlay: Boolean) =
+        with(binding) {
+            avatarBadge.isVisible = pachliAccount.isBot && showBotOverlay
+        }
 
     /** Displays the account's name/username respecting [animateEmojis]. */
-    private fun bindAnimateEmojis(account: PachliAccount, animateEmojis: Boolean) = with(binding) {
-        displayName.text = account.displayName.unicodeWrap().emojify(
-            glide,
-            // Use the server's emojis here, not the account's, as the account's
-            // emojis might have changed (e.g., the user edited their display
-            // name to use a new emoji and the account has not been refreshed).
-            account.emojis,
-            displayName,
-            animateEmojis,
-        )
-        username.text = account.fullName
-    }
+    private fun bindAnimateEmojis(pachliAccount: PachliAccount, animateEmojis: Boolean) =
+        with(binding) {
+            displayName.text = pachliAccount.displayName.unicodeWrap().emojify(
+                glide,
+                // Use the server's emojis here, not the account's, as the account's
+                // emojis might have changed (e.g., the user edited their display
+                // name to use a new emoji and the account has not been refreshed).
+                pachliAccount.emojis,
+                displayName,
+                animateEmojis,
+            )
+            username.text = pachliAccount.fullName
+        }
 }
 
 private object PachliAccountDiffer : DiffUtil.ItemCallback<PachliAccount>() {
