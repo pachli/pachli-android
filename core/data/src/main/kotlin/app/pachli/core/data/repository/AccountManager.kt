@@ -38,7 +38,6 @@ import app.pachli.core.model.MastodonList
 import app.pachli.core.model.Status.Visibility
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.HttpHeaderLink
-import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
@@ -285,11 +284,11 @@ class AccountManager @Inject constructor(
         val networkAccount = mastodonApi.accountVerifyCredentials(
             domain = domain,
             auth = "Bearer $accessToken",
-        ).getOrElse { return Err(it) }.body
+        ).getOrElse { return Err(it) }.body.asModel()
 
         return transactionProvider {
             val existingAccount = accountDao.getAccountByIdAndDomain(
-                networkAccount.id,
+                networkAccount.accountId,
                 domain,
             )
 
@@ -306,7 +305,7 @@ class AccountManager @Inject constructor(
                 clientSecret = clientSecret,
                 oauthScopes = oauthScopes,
                 isActive = true,
-                accountId = networkAccount.id,
+                accountId = networkAccount.accountId,
                 isBot = networkAccount.bot,
             )
 
@@ -366,22 +365,22 @@ class AccountManager @Inject constructor(
                 val account = mastodonApi.accountVerifyCredentials(
                     domain = newActiveAccountEntity.domain,
                     auth = newActiveAccountEntity.authHeader,
-                ).getOrElse { throw ApiErrorException(it) }.body
+                ).getOrElse { throw ApiErrorException(it) }.body.asModel()
 
                 accountDao.clearActiveAccount()
 
                 val finalPachliAccountEntity = newActiveAccountEntity.copy(
                     isActive = true,
-                    accountId = account.id,
+                    accountId = account.accountId,
                     username = account.username,
                     displayName = account.name,
                     profilePictureUrl = account.avatar,
                     profileHeaderPictureUrl = account.header,
-                    defaultPostPrivacy = account.source.privacy?.asModel() ?: Visibility.PUBLIC,
+                    defaultPostPrivacy = account.source.privacy ?: Visibility.PUBLIC,
                     defaultPostLanguage = account.source.language.orEmpty(),
                     defaultMediaSensitivity = account.source.sensitive == true,
-                    defaultQuotePolicy = account.source.quotePolicy?.asModel() ?: AccountSource.QuotePolicy.NOBODY,
-                    emojis = account.emojis.asModel(),
+                    defaultQuotePolicy = account.source.quotePolicy,
+                    emojis = account.emojis,
                     locked = account.locked,
                     isBot = account.bot,
                 )
