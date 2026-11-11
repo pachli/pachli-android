@@ -781,6 +781,10 @@ class AccountActivity :
             binding.accountFollowButton.setText(R.string.action_edit_own_profile)
             return
         }
+
+        val isButtonEnabled = !(blockingDomain && followState == FollowState.NOT_FOLLOWING && !blocking)
+        binding.accountFollowButton.isEnabled = isButtonEnabled
+
         if (blocking) {
             binding.accountFollowButton.setText(app.pachli.core.ui.R.string.action_unblock)
             return
@@ -810,6 +814,10 @@ class AccountActivity :
         if (followState != FollowState.FOLLOWING) {
             binding.accountSubscribeButton.hide()
         }
+
+        // Can't update subscription state for followed accounts on blocked domains
+        // (this might be a Mastodon bug).
+        binding.accountSubscribeButton.isEnabled = !blockingDomain
 
         if (subscribing) {
             binding.accountSubscribeButton.setIconResource(R.drawable.ic_notifications_active_24dp)
