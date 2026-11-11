@@ -630,11 +630,11 @@ class PreferencesFragment : PreferenceFragmentCompat() {
  * - If pull, an explanation for why it's not push.
  * - The last time notifications were fetched for the account, and the result.
  */
-class AccountNotificationDetailsAdapter(context: Context, accounts: List<PachliAccountEntity>) : ArrayAdapter<PachliAccountEntity>(
+class AccountNotificationDetailsAdapter(context: Context, pachliAccounts: List<PachliAccountEntity>) : ArrayAdapter<PachliAccountEntity>(
     context,
     R.layout.account_notification_details_list_item,
     R.id.accountName,
-    accounts,
+    pachliAccounts,
 ) {
 
     /** String resource for the account's notification method. */
@@ -672,18 +672,18 @@ class AccountNotificationDetailsAdapter(context: Context, accounts: List<PachliA
             AccountNotificationDetailsListItemBinding.bind(convertView)
         }
 
-        val account = getItem(position) ?: return binding.root
+        val pachliAccount = getItem(position) ?: return binding.root
 
         with(binding) {
-            accountName.text = account.fullName
-            notificationMethod.text = context.getString(account.notificationMethod.stringRes)
-            notificationMethodExtra.text = account.notificationMethodExtra()
+            accountName.text = pachliAccount.fullName
+            notificationMethod.text = context.getString(pachliAccount.notificationMethod.stringRes)
+            notificationMethodExtra.text = pachliAccount.notificationMethodExtra()
 
             accountName.show()
             notificationMethod.show()
             notificationMethodExtra.show()
 
-            val lastFetch = NotificationConfig.lastFetchNewNotifications[account.fullName]
+            val lastFetch = NotificationConfig.lastFetchNewNotifications[pachliAccount.fullName]
             if (lastFetch == null) {
                 lastFetchTime.hide()
                 lastFetchError.hide()

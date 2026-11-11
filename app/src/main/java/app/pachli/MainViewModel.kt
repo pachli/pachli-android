@@ -66,7 +66,7 @@ internal sealed interface InfallibleUiAction : UiAction {
  * @property hideTopToolbar See [SharedPreferencesRepository.hideTopToolbar].
  * @property mainNavigationPosition See [SharedPreferencesRepository.mainNavigationPosition].
  * @property displaySelfUsername See [ShowSelfUsername].
- * @property accounts Unordered list of available accounts.
+ * @property pachliAccounts Unordered list of available accounts.
  * @property canSchedulePost True if the account can schedule posts
  */
 data class UiState(
@@ -76,28 +76,29 @@ data class UiState(
     val hideTopToolbar: Boolean,
     val mainNavigationPosition: MainNavigationPosition,
     val displaySelfUsername: Boolean,
-    val accounts: List<PachliAccountEntity>,
+    val pachliAccounts: List<PachliAccountEntity>,
     val canSchedulePost: Boolean,
     val tabAlignment: TabAlignment,
     val tabContents: TabContents,
 ) {
     companion object {
-        fun make(prefs: SharedPreferencesRepository, accounts: List<PachliAccountEntity>, server: Server?) = UiState(
-            animateAvatars = prefs.animateAvatars,
-            animateEmojis = prefs.animateEmojis,
-            enableTabSwipe = prefs.enableTabSwipe,
-            hideTopToolbar = prefs.hideTopToolbar,
-            mainNavigationPosition = prefs.mainNavigationPosition,
-            displaySelfUsername = when (prefs.showSelfUsername) {
-                ShowSelfUsername.ALWAYS -> true
-                ShowSelfUsername.DISAMBIGUATE -> accounts.size > 1
-                ShowSelfUsername.NEVER -> false
-            },
-            accounts = accounts,
-            canSchedulePost = server?.can(ServerOperation.ORG_JOINMASTODON_STATUSES_SCHEDULED, ">= 1.0.0".toConstraint()) == true,
-            tabAlignment = prefs.tabAlignment,
-            tabContents = prefs.tabContents,
-        )
+        fun make(prefs: SharedPreferencesRepository, pachliAccounts: List<PachliAccountEntity>, server: Server?) =
+            UiState(
+                animateAvatars = prefs.animateAvatars,
+                animateEmojis = prefs.animateEmojis,
+                enableTabSwipe = prefs.enableTabSwipe,
+                hideTopToolbar = prefs.hideTopToolbar,
+                mainNavigationPosition = prefs.mainNavigationPosition,
+                displaySelfUsername = when (prefs.showSelfUsername) {
+                    ShowSelfUsername.ALWAYS -> true
+                    ShowSelfUsername.DISAMBIGUATE -> pachliAccounts.size > 1
+                    ShowSelfUsername.NEVER -> false
+                },
+                pachliAccounts = pachliAccounts,
+                canSchedulePost = server?.can(ServerOperation.ORG_JOINMASTODON_STATUSES_SCHEDULED, ">= 1.0.0".toConstraint()) == true,
+                tabAlignment = prefs.tabAlignment,
+                tabContents = prefs.tabContents,
+            )
     }
 }
 

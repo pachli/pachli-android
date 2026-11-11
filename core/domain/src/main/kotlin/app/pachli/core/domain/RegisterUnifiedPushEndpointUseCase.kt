@@ -57,7 +57,7 @@ class RegisterUnifiedPushEndpointUseCase @Inject constructor(
      * the distributor has set the endpoint.
      */
     suspend operator fun invoke(
-        account: app.pachli.core.model.PachliAccount,
+        pachliAccount: app.pachli.core.model.PachliAccount,
         endpoint: PushEndpoint,
     ) = withContext(Dispatchers.IO) {
         // Generate a prime256v1 key pair for WebPush
@@ -69,21 +69,21 @@ class RegisterUnifiedPushEndpointUseCase @Inject constructor(
         val auth = CryptoUtil.secureRandomBytesEncoded(16)
 
         api.subscribePushNotifications(
-            account.authHeader,
-            account.domain,
+            pachliAccount.authHeader,
+            pachliAccount.domain,
             endpoint.url,
             keyPair.pubkey,
             auth,
             subscriptionData,
         ).onFailure { error ->
-            Timber.w("Error setting push endpoint for account %s %d: %s", account, account.pachliAccountId, error.fmt(context))
-            NotificationConfig.notificationMethodAccount[account.fullName] = NotificationConfig.Method.PushError(error.throwable)
-            disablePushNotificationsForAccount(account)
+            Timber.w("Error setting push endpoint for account %s %d: %s", pachliAccount, pachliAccount.pachliAccountId, error.fmt(context))
+            NotificationConfig.notificationMethodAccount[pachliAccount.fullName] = NotificationConfig.Method.PushError(error.throwable)
+            disablePushNotificationsForAccount(pachliAccount)
         }.onSuccess {
-            Timber.d("UnifiedPush registration succeeded for account %d", account.pachliAccountId)
+            Timber.d("UnifiedPush registration succeeded for account %d", pachliAccount.pachliAccountId)
 
             accountManager.setPushNotificationData(
-                account.pachliAccountId,
+                pachliAccount.pachliAccountId,
                 unifiedPushUrl = endpoint.url,
                 pushServerKey = it.body.serverKey,
                 pushAuth = auth,
@@ -91,7 +91,7 @@ class RegisterUnifiedPushEndpointUseCase @Inject constructor(
                 pushPubKey = keyPair.pubkey,
             )
 
-            NotificationConfig.notificationMethodAccount[account.fullName] = NotificationConfig.Method.Push
+            NotificationConfig.notificationMethodAccount[pachliAccount.fullName] = NotificationConfig.Method.Push
         }
     }
 }

@@ -39,30 +39,30 @@ class UpdateShortCutsUseCase @Inject constructor(
     @ApplicationContext val context: Context,
 ) {
     /**
-     * Updates shortcuts to reflect [accounts].
+     * Updates shortcuts to reflect [pachliAccounts].
      *
      * The first [N][ShortcutManagerCompat.getMaxShortcutCountPerActivity] accounts
      * are converted to shortcuts which launch [app.pachli.feature.intentrouter.IntentRouterActivity]. The
      * active account is always included.
      */
-    suspend operator fun invoke(accounts: List<PachliAccountEntity>) {
+    suspend operator fun invoke(pachliAccounts: List<PachliAccountEntity>) {
         withContext(Dispatchers.IO) {
             val innerSize = context.resources.getDimensionPixelSize(DR.dimen.adaptive_bitmap_inner_size)
             val outerSize = context.resources.getDimensionPixelSize(DR.dimen.adaptive_bitmap_outer_size)
 
             val maxShortcuts = ShortcutManagerCompat.getMaxShortcutCountPerActivity(context)
 
-            val shortcuts = accounts
+            val shortcuts = pachliAccounts
                 .sortedBy { it.isActive }
                 .take(maxShortcuts)
-                .mapNotNull { account ->
+                .mapNotNull { pachliAccount ->
                     val drawable = try {
-                        if (TextUtils.isEmpty(account.profilePictureUrl)) {
+                        if (TextUtils.isEmpty(pachliAccount.profilePictureUrl)) {
                             AppCompatResources.getDrawable(context, DR.drawable.avatar_default)
                         } else {
                             Glide.with(context)
                                 .asDrawable()
-                                .load(account.profilePictureUrl)
+                                .load(pachliAccount.profilePictureUrl)
                                 .error(DR.drawable.avatar_default)
                                 .submit(innerSize, innerSize)
                                 .get()
@@ -86,17 +86,17 @@ class UpdateShortCutsUseCase @Inject constructor(
 
                     val person = Person.Builder()
                         .setIcon(icon)
-                        .setName(account.displayName)
-                        .setKey(account.identifier.value)
+                        .setName(pachliAccount.displayName)
+                        .setKey(pachliAccount.identifier.value)
                         .build()
 
                     // This intent will be sent when the user clicks on one of the launcher shortcuts.
-                    val intent = IntentRouterActivityIntent.fromShortcut(context, account.pachliAccountId)
+                    val intent = IntentRouterActivityIntent.fromShortcut(context, pachliAccount.pachliAccountId)
 
-                    ShortcutInfoCompat.Builder(context, account.pachliAccountId.toString())
+                    ShortcutInfoCompat.Builder(context, pachliAccount.pachliAccountId.toString())
                         .setIntent(intent)
                         .setCategories(setOf("app.pachli.Share"))
-                        .setShortLabel(account.displayName.ifBlank { account.fullName })
+                        .setShortLabel(pachliAccount.displayName.ifBlank { pachliAccount.fullName })
                         .setPerson(person)
                         .setLongLived(true)
                         .setIcon(icon)
