@@ -22,36 +22,63 @@ import java.util.Date
 
 /** Like [Account], but with the additional [source] and [role] properties. */
 data class CredentialAccount(
-    val id: String,
-    val localUsername: String,
-    val username: String,
+    override val accountId: String,
+    override val localUsername: String,
+    override val username: String,
     // should never be null per API definition, but some servers break the contract
-    val displayName: String?,
+    @Deprecated("prefer the `name` property, which is not empty")
+    override val displayName: String,
     val note: String,
     val source: AccountSource,
-    val url: String,
-    val avatar: String,
+    override val url: String,
+    override val avatar: String,
     val avatarStatic: String? = null,
     val header: String = "",
     val headerStatic: String? = null,
     val locked: Boolean = false,
-    val emojis: List<Emoji> = emptyList(),
+    override val emojis: List<Emoji> = emptyList(),
     val fields: List<Field> = emptyList(),
-    val bot: Boolean = false,
+    override val bot: Boolean = false,
     val discoverable: Boolean? = false,
     val noIndex: Boolean = true,
     val moved: Account? = null,
     val suspended: Boolean = false,
-    val limited: Boolean = false,
+    override val limited: Boolean = false,
     // Should never be null, but some servers break the contract.
-    val createdAt: Instant?,
+    override val createdAt: Instant?,
     val lastStatusAt: Date? = null,
     val followersCount: Int = 0,
     val followingCount: Int = 0,
     val statusesCount: Int = 0,
     val role: CredentialedRole? = null,
-    val roles: List<Role>? = emptyList(),
-)
+    override val roles: List<Role> = emptyList(),
+    override val pronouns: String?,
+) : ITimelineAccount {
+
+    fun asAccount() = Account(
+        accountId = accountId,
+        localUsername = localUsername,
+        username = username,
+        displayName = displayName,
+        createdAt = createdAt,
+        url = url,
+        avatar = avatar,
+        note = note,
+        header = header,
+        locked = locked,
+        lastStatusAt = lastStatusAt,
+        followersCount = followersCount,
+        followingCount = followingCount,
+        statusesCount = statusesCount,
+        bot = bot,
+        emojis = emojis,
+        fields = fields,
+        movedAccount = null,
+        limited = limited,
+        roles = roles,
+        pronouns = pronouns,
+    )
+}
 
 /**
  * @property quotePolicy The default [QuotePolicy] for the user's
