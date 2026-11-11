@@ -151,7 +151,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
     }
 
     protected fun reply(pachliAccountId: Long, status: Status) {
-        val draft = Draft.createDraftReply(accountManager.activeAccount!!, status.actionableStatus)
+        val draft = Draft.createDraftReply(accountManager.activePachliAccount!!, status.actionableStatus)
         val composeOptions = ComposeOptions(
             draft = draft,
             referencingStatus = ReferencingStatus.ReplyingTo.from(status.actionableStatus),
@@ -605,7 +605,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
             lifecycleScope.launch {
                 downloadUrlUseCase(
                     it.url,
-                    accountManager.activeAccount!!.fullName,
+                    accountManager.activePachliAccount!!.fullName,
                     status.actionableStatus.account.username,
                 )
             }

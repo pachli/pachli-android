@@ -20,6 +20,7 @@ package app.pachli.core.domain
 import android.content.Context
 import app.pachli.core.common.util.CryptoUtil
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.domain.notifications.DisablePushNotificationsForAccountUseCase
 import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.model.Notification
@@ -57,7 +58,7 @@ class RegisterUnifiedPushEndpointUseCase @Inject constructor(
      * the distributor has set the endpoint.
      */
     suspend operator fun invoke(
-        pachliAccount: app.pachli.core.model.PachliAccount,
+        pachliAccount: PachliAccount,
         endpoint: PushEndpoint,
     ) = withContext(Dispatchers.IO) {
         // Generate a prime256v1 key pair for WebPush

@@ -72,6 +72,9 @@ interface AccountRepository {
      */
     suspend fun getAccounts(pachliAccountId: Long, accountIds: Collection<String>): Result<List<Account>, GetAccountsError>
 
+    /** Saves [account] to the local cache. */
+    suspend fun saveAccount(pachliAccountId: Long, account: Account)
+
     /** Saves [accounts] to the local cache. */
     suspend fun saveAccounts(pachliAccountId: Long, accounts: Collection<Account>)
 

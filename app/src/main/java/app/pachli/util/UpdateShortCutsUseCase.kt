@@ -25,7 +25,7 @@ import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.IconCompat
-import app.pachli.core.database.model.PachliAccountEntity
+import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.IntentRouterActivityIntent
 import com.bumptech.glide.Glide
@@ -45,7 +45,7 @@ class UpdateShortCutsUseCase @Inject constructor(
      * are converted to shortcuts which launch [app.pachli.feature.intentrouter.IntentRouterActivity]. The
      * active account is always included.
      */
-    suspend operator fun invoke(pachliAccounts: List<PachliAccountEntity>) {
+    suspend operator fun invoke(pachliAccounts: List<PachliAccount>) {
         withContext(Dispatchers.IO) {
             val innerSize = context.resources.getDimensionPixelSize(DR.dimen.adaptive_bitmap_inner_size)
             val outerSize = context.resources.getDimensionPixelSize(DR.dimen.adaptive_bitmap_outer_size)
@@ -57,12 +57,12 @@ class UpdateShortCutsUseCase @Inject constructor(
                 .take(maxShortcuts)
                 .mapNotNull { pachliAccount ->
                     val drawable = try {
-                        if (TextUtils.isEmpty(pachliAccount.profilePictureUrl)) {
+                        if (TextUtils.isEmpty(pachliAccount.account.avatar)) {
                             AppCompatResources.getDrawable(context, DR.drawable.avatar_default)
                         } else {
                             Glide.with(context)
                                 .asDrawable()
-                                .load(pachliAccount.profilePictureUrl)
+                                .load(pachliAccount.account.avatar)
                                 .error(DR.drawable.avatar_default)
                                 .submit(innerSize, innerSize)
                                 .get()
@@ -86,7 +86,7 @@ class UpdateShortCutsUseCase @Inject constructor(
 
                     val person = Person.Builder()
                         .setIcon(icon)
-                        .setName(pachliAccount.displayName)
+                        .setName(pachliAccount.account.name)
                         .setKey(pachliAccount.identifier.value)
                         .build()
 
@@ -96,7 +96,7 @@ class UpdateShortCutsUseCase @Inject constructor(
                     ShortcutInfoCompat.Builder(context, pachliAccount.pachliAccountId.toString())
                         .setIntent(intent)
                         .setCategories(setOf("app.pachli.Share"))
-                        .setShortLabel(pachliAccount.displayName.ifBlank { pachliAccount.fullName })
+                        .setShortLabel(pachliAccount.account.displayName.ifBlank { pachliAccount.fullName })
                         .setPerson(person)
                         .setLongLived(true)
                         .setIcon(icon)

@@ -253,7 +253,7 @@ internal class PachliAccountViewHolder(
 
     /** Loads the account's avatar, respecting [animateAvatars]. */
     private fun bindAvatar(pachliAccount: PachliAccount, animateAvatars: Boolean) = with(binding) {
-        loadAvatar(glide, pachliAccount.profilePictureUrl, avatar, avatarRadius, animateAvatars)
+        loadAvatar(glide, pachliAccount.account.avatar, avatar, avatarRadius, animateAvatars)
     }
 
     /**
@@ -262,18 +262,18 @@ internal class PachliAccountViewHolder(
      */
     private fun bindShowBotOverlay(pachliAccount: PachliAccount, showBotOverlay: Boolean) =
         with(binding) {
-            avatarBadge.isVisible = pachliAccount.isBot && showBotOverlay
+            avatarBadge.isVisible = pachliAccount.account.bot && showBotOverlay
         }
 
     /** Displays the account's name/username respecting [animateEmojis]. */
     private fun bindAnimateEmojis(pachliAccount: PachliAccount, animateEmojis: Boolean) =
         with(binding) {
-            displayName.text = pachliAccount.displayName.unicodeWrap().emojify(
+            displayName.text = pachliAccount.account.name.unicodeWrap().emojify(
                 glide,
                 // Use the server's emojis here, not the account's, as the account's
                 // emojis might have changed (e.g., the user edited their display
                 // name to use a new emoji and the account has not been refreshed).
-                pachliAccount.emojis,
+                pachliAccount.server.emojis,
                 displayName,
                 animateEmojis,
             )

@@ -23,8 +23,8 @@ import android.os.Build
 import androidx.core.content.pm.ShortcutManagerCompat
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.LogoutError
+import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.domain.notifications.DisablePushNotificationsForAccountUseCase
-import app.pachli.core.model.PachliAccount
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok

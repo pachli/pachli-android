@@ -38,12 +38,12 @@ import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
+import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.SetActiveAccountError
 import app.pachli.core.data.repository.createDraft
 import app.pachli.core.data.repository.getOrNull
 import app.pachli.core.domain.LogoutUseCase
 import app.pachli.core.model.Draft
-import app.pachli.core.model.PachliAccount
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
@@ -381,7 +381,7 @@ class IntentRouterActivity : BaseActivity() {
                             }
 
                             val button = AlertSuspendDialogFragment.newInstance(
-                                uiError.cause.wantedAccount.fullName,
+                                uiError.cause.wantedAccount.username,
                                 message = message,
                                 positiveText = getString(R.string.action_relogin),
                                 negativeText = getString(android.R.string.cancel),
@@ -421,7 +421,7 @@ class IntentRouterActivity : BaseActivity() {
                         // Other API errors are retryable.
                         else -> {
                             ChooseAccountWithErrorSuspendDialogFragment.newInstance(
-                                uiError.cause.wantedAccount.fullName,
+                                uiError.cause.wantedAccount.username,
                                 uiError.fmt(this),
                             ).await(supportFragmentManager)?.let { account ->
                                 viewModel.accept(uiError.action.copy(pachliAccountId = account.pachliAccountId))
@@ -435,7 +435,8 @@ class IntentRouterActivity : BaseActivity() {
                     // get to a bad state.
                     is SetActiveAccountError.Dao -> {
                         ChooseAccountWithErrorSuspendDialogFragment.newInstance(
-                            uiError.cause.wantedAccount?.fullName ?: getString(R.string.title_error_dialog),
+                            uiError.cause.wantedAccount?.username
+                                ?: getString(R.string.title_error_dialog),
                             uiError.fmt(this),
                         ).await(supportFragmentManager)?.let { account ->
                             viewModel.accept(uiError.action.copy(pachliAccountId = account.pachliAccountId))
@@ -445,7 +446,7 @@ class IntentRouterActivity : BaseActivity() {
                     // Other errors are retryable.
                     is SetActiveAccountError.Unexpected -> {
                         ChooseAccountWithErrorSuspendDialogFragment.newInstance(
-                            uiError.cause.wantedAccount.fullName,
+                            uiError.cause.wantedAccount.username,
                             uiError.fmt(this),
                         ).await(supportFragmentManager)?.let { account ->
                             viewModel.accept(uiError.action.copy(pachliAccountId = account.pachliAccountId))
@@ -460,7 +461,7 @@ class IntentRouterActivity : BaseActivity() {
                 val accountCount = viewModel.accounts.value.getOrNull().orEmpty().size
 
                 val button = AlertSuspendDialogFragment.newInstance(
-                    uiError.cause.wantedAccount.fullName,
+                    uiError.cause.wantedAccount.username,
                     message = uiError.fmt(this),
                     positiveText = getString(app.pachli.core.ui.R.string.button_continue),
                     negativeText = getString(if (accountCount > 1) R.string.action_choose_another_account else android.R.string.cancel),

@@ -45,12 +45,12 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.domain.notifications.AppNotificationMethod
 import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.model.AccountNotificationMethod
-import app.pachli.core.model.PachliAccount
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.ConfirmReblogs
 import app.pachli.core.preferences.DefaultAudioPlayback
@@ -447,7 +447,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     }
 
                     setOnPreferenceClickListener {
-                        val adapter = AccountNotificationDetailsAdapter(context, accountManager.accounts.sortedBy { it.fullName })
+                        val adapter = AccountNotificationDetailsAdapter(context, accountManager.pachliAccounts.sortedBy { it.fullName })
 
                         viewLifecycleOwner.lifecycleScope.launch {
                             val dialog = AlertDialog.Builder(requireContext())
@@ -630,7 +630,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
  * - If pull, an explanation for why it's not push.
  * - The last time notifications were fetched for the account, and the result.
  */
-class AccountNotificationDetailsAdapter(context: Context, pachliAccounts: List<PachliAccountEntity>) : ArrayAdapter<PachliAccountEntity>(
+class AccountNotificationDetailsAdapter(context: Context, pachliAccounts: List<PachliAccount>) : ArrayAdapter<PachliAccount>(
     context,
     R.layout.account_notification_details_list_item,
     R.id.accountName,

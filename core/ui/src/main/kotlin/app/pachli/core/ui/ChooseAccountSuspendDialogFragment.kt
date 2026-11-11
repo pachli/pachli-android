@@ -180,11 +180,11 @@ class ChooseAccountAdapter(
         val pachliAccount = getItem(position) ?: return binding.root
 
         binding.username.text = pachliAccount.fullName
-        binding.displayName.text = pachliAccount.displayName.emojify(glide, pachliAccount.emojis, binding.displayName, animateEmojis)
+        binding.displayName.text = pachliAccount.account.name.emojify(glide, pachliAccount.account.emojis, binding.displayName, animateEmojis)
         binding.avatarBadge.visibility = View.GONE // We never want to display the bot badge here
 
         val avatarRadius = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_42dp)
-        loadAvatar(glide, pachliAccount.profilePictureUrl, binding.avatar, avatarRadius, animateAvatars)
+        loadAvatar(glide, pachliAccount.account.avatar, binding.avatar, avatarRadius, animateAvatars)
 
         return binding.root
     }

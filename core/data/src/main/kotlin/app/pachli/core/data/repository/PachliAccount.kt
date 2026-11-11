@@ -20,6 +20,7 @@ package app.pachli.core.data.repository
 import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.database.model.asModel
+import app.pachli.core.model.Account
 import app.pachli.core.model.Announcement
 import app.pachli.core.model.Hashtag
 import app.pachli.core.model.MastodonList
@@ -32,6 +33,7 @@ import io.github.z4kn4fein.semver.Version
  *
  * @property pachliAccountId Account's unique local database ID.
  * @property entity [PachliAccountEntity] from the local database.
+ * @property account [Account] data for this account.
  * @property lists Account's lists.
  * @property server Details about the account's server.
  * @property contentFilters Account's content filters.
@@ -46,6 +48,7 @@ import io.github.z4kn4fein.semver.Version
 data class PachliAccount(
     // TODO: Should be a core.data type
     private val entity: PachliAccountEntity,
+    val account: Account,
     val lists: List<MastodonList>,
     val server: Server,
     val contentFilters: ContentFilters,
@@ -56,6 +59,7 @@ data class PachliAccount(
 
 fun app.pachli.core.database.model.PachliAccountWithRelations.asModel() = PachliAccount(
     entity = pachliAccountEntity,
+    account = account.asModel(),
     lists = lists.orEmpty().map { it.asModel() },
     server = server?.asModel() ?: Server(ServerKind.MASTODON, Version(4, 0, 0), rawVersion = "4.0.0", emojis = emptyList()),
     contentFilters = contentFilters?.let { ContentFilters.from(it) } ?: ContentFilters.EMPTY,
