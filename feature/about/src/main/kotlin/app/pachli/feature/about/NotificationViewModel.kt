@@ -97,20 +97,20 @@ data class UiState(
             now = now,
 
             androidNotificationsEnabled = notificationConfig.androidNotificationsEnabled,
-            notificationEnabledAccounts = accountManager.accounts.joinToString("\n") {
+            notificationEnabledAccounts = accountManager.pachliAccounts.joinToString("\n") {
                 "%s %s".format(if (it.notificationsEnabled) "✔" else "✖", it.fullName)
             },
             notificationMethod = notificationConfig.notificationMethod,
 
             unifiedPushAvailable = notificationConfig.unifiedPushAvailable,
             anyAccountNeedsMigration = notificationConfig.anyAccountNeedsMigration,
-            anyAccountNeedsMigrationAccounts = accountManager.accounts.joinToString("\n") {
+            anyAccountNeedsMigrationAccounts = accountManager.pachliAccounts.joinToString("\n") {
                 // Duplicate of accountNeedsMigration from PushNotificationHelper
                 "%s %s".format(if (it.oauthScopes.contains("push")) "✔" else "✖", it.fullName)
             },
 
-            allAccountsHaveUnifiedPushUrl = accountManager.accounts.all { it.unifiedPushUrl.isNotEmpty() },
-            allAccountsUnifiedPushUrlAccounts = accountManager.accounts.joinToString("\n") {
+            allAccountsHaveUnifiedPushUrl = accountManager.pachliAccounts.all { it.unifiedPushUrl.isNotEmpty() },
+            allAccountsUnifiedPushUrlAccounts = accountManager.pachliAccounts.joinToString("\n") {
                 if (it.unifiedPushUrl.isNotEmpty()) {
                     "✔ %s %s".format(it.fullName, it.unifiedPushUrl)
                 } else {

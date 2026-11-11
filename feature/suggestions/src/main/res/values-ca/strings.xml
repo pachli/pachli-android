@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="title_suggestions">Comptes suggerits</string>
+    <string name="source_unknown">(el servidor va tornar una font no reconeguda)</string>
+    <string name="sources_featured">Triada per l\'equip del vostre servidor</string>
+    <string name="sources_most_followed">Una de les més seguides al teu servidor</string>
+    <string name="sources_most_interactions">Amb gran repercussió al teu servidor</string>
+    <string name="sources_similar_to_recently_followed">Similar als darrers comptes que has seguit</string>
+    <string name="sources_friends_of_friends">Popular entre la gent que segueixes</string>
+    <string name="sources_unknown">(el servidor va tornar fonts no reconegudes)</string>
+    <string name="action_dismiss_follow_suggestion">Descartar</string>
+    <string name="ui_error_delete_suggestion_fmt">Fallada en descartar el suggeriment per a %1$s: %2$s</string>
+</resources>

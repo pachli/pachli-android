@@ -1,0 +1,17 @@
+Pachli 2.2.0
+
+Noves característiques:
+
+- Deshabilitar filtres si el servidor no els suporta 
+
+Correccions:
+
+- Assegureu-vos que les accions s'efectuïn a l'estat correcte 
+- No desvetllar MainActivity a DrawerImageLoader 
+- Mostrar els valors correctes de les tendències 
+- Traducció al suec actualitzada 
+- Traducció a l'indonesi actualitzada 
+- Traducció a l'holandès actualitzada 
+- Traducció al portuguès actualitzada 
+- Traducció al finès actualitzada 
+- Traducció a l'àrab actualitzada

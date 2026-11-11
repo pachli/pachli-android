@@ -1,0 +1,15 @@
+Pachli 2.3.0
+
+Nou:
+
+- Mostrar mitjans sense retallar a la secció multimèdia 
+- Habilitar les comprovacions d'actualitzacions manuals 
+- Mostrar previsualitzacions per a àudios 
+- Mostrar informació sobre lobtenció de notificacions
+
+Correccions:
+
+- Mantenir pantalla encesa en reproduir mitjans 
+-Millorar la llegibilitat de les etiquetes d'estadístiques
+- Mostrar el compte o línia de temps correcte en compondre des de notificacions 
+- Traduccions actualitzades: àrab, espanyol, finès, francès, holandès, indonesi i suec

@@ -76,6 +76,7 @@ import app.pachli.core.model.ContentFilterVersion
 import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.TimeZone
+import timber.log.Timber
 
 @Suppress("ClassName")
 @Database(
@@ -109,7 +110,7 @@ import java.util.TimeZone
         TimelineStatusWithAccount::class,
         ReferencedStatusId::class,
     ],
-    version = 48,
+    version = 50,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -181,6 +182,10 @@ import java.util.TimeZone
         AutoMigration(from = 46, to = 47, spec = AppDatabase.MIGRATE_46_47::class),
         // Status.taggedCollection property
         AutoMigration(from = 47, to = 48),
+        // Ensure an AccountEntity exists for each row in PachliAccountEntity.
+        AutoMigration(from = 48, to = 49, spec = AppDatabase.MIGRATE_48_49::class),
+        // Relationship between PachliAccount and AccountEntity
+        AutoMigration(from = 49, to = 50, spec = AppDatabase.MIGRATE_49_50::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -447,6 +452,77 @@ abstract class AppDatabase : RoomDatabase() {
     @RenameColumn(tableName = "TimelineStatusEntity", fromColumnName = "accountId", toColumnName = "pachliAccountId")
     @RenameColumn(tableName = "TranslatedStatusEntity", fromColumnName = "serverId", toColumnName = "statusId")
     class MIGRATE_46_47 : AutoMigrationSpec
+
+    /**
+     * Ensure an [AccountEntity] exists for each row in [PachliAccountEntity].
+     *
+     * Version 50 introduces a non-null FK relationship between
+     * [PachliAccountEntity] and [AccountEntity], which will fail if there
+     * isn't an [AccountEntity] to associate it with.
+     */
+    class MIGRATE_48_49 : AutoMigrationSpec {
+        override suspend fun onPostMigrate(connection: SQLiteConnection) {
+            /**
+             * SQL to return the [pachliAccountId][PachliAccountEntity.pachliAccountId]
+             * and  [accountId][PachliAccountEntity.accountId] for any
+             * [PachliAccountEntity]that does not have a corresponding row
+             * in the [AccountEntity] table.
+             */
+            val qPachliAccountEntity = """
+SELECT
+  p.pachliAccountId, p.accountId
+FROM
+  PachliAccountEntity AS p
+LEFT JOIN
+  AccountEntity AS a ON (a.pachliAccountId == p.pachliAccountId AND a.accountId == p.accountId)
+WHERE a.accountId IS NULL            
+            """.trimIndent()
+
+            /**
+             * SQL to insert a new [AccountEntity] by copying values from the
+             * associated [PachliAccountEntity] and populating the rest of the
+             * columns with defaults.
+             */
+            val qInsertAccountEntity =
+                """
+ INSERT INTO `AccountEntity`
+    (`pachliAccountId`,`accountId`,`localUsername`,`username`,`displayName`,`createdAt`,`url`,
+     `avatar`,`note`,`header`,`locked`,`lastStatusAt`,`followersCount`,`followingCount`,
+     `statusesCount`,`bot`,`emojis`,`fields`,`movedAccount`,`limited`,`roles`,`pronouns`)
+ SELECT pachliAccountId, accountId, userName, userName, displayName, null, "",
+     profilePictureUrl, "", profileHeaderPictureUrl, locked, null, 0, 0,
+     0, isBot, emojis, "[]", null, false, "[]", null
+     FROM PachliAccountEntity WHERE pachliAccountId = ? AND accountId = ?
+                """.trimIndent()
+
+            connection.prepare(qPachliAccountEntity).use { stmt ->
+                while (stmt.step()) {
+                    val pachliAccountId = stmt.getLong(0)
+                    val accountId = stmt.getText(1)
+
+                    Timber.d("No AccountEntity for pachliAccountID = $pachliAccountId, accountId = $accountId")
+                    connection.prepare(qInsertAccountEntity).use { stmt ->
+                        stmt.bindLong(1, pachliAccountId)
+                        stmt.bindText(2, accountId)
+                        stmt.step()
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Adds a 1:1 relationship between [PachliAccountEntity] and the [AccountEntity] for
+     * the user's account. Columns that were duplicated in [PachliAccountEntity] are
+     * deleted in favour of the equivalents in [AccountEntity].
+     */
+    @DeleteColumn(tableName = "PachliAccountEntity", columnName = "displayName")
+    @DeleteColumn(tableName = "PachliAccountEntity", columnName = "profilePictureUrl")
+    @DeleteColumn(tableName = "PachliAccountEntity", columnName = "profileHeaderPictureUrl")
+    @DeleteColumn(tableName = "PachliAccountEntity", columnName = "emojis")
+    @DeleteColumn(tableName = "PachliAccountEntity", columnName = "locked")
+    @DeleteColumn(tableName = "PachliAccountEntity", columnName = "isBot")
+    class MIGRATE_49_50 : AutoMigrationSpec
 }
 
 val MIGRATE_8_9 = object : Migration(8, 9) {

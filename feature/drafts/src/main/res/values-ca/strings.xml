@@ -1,8 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_edit">Edita</string>
     <string name="title_drafts">Esborranys</string>
     <string name="drafts_post_reply_removed">S\'ha eliminat la publicació a la qual vau fer un esborrany de resposta</string>
     <string name="drafts_post_failed_to_send">No s\'ha pogut publicar!</string>
     <string name="no_drafts">No teniu cap esborrany.</string>
+    <string name="drafts_load_reply_failed_fmt">No s\'ha pogut carregar la publicació a la qual esteu responent: %1$s</string>
+    <string name="drafts_post_quote_removed">La publicació que vas citar ha estat eliminada</string>
+    <string name="drafts_load_quote_failed_fmt">No s\'ha pogut carregar la publicació que esteu citant: %1$s</string>
+    <string name="title_delete_drafts">Esborra els esborranys seleccionats?</string>
+    <string name="delete_drafts_msg">Això eliminarà permanentment els esborranys seleccionats.</string>
+    <string name="action_delete_drafts">Eliminar esborranys seleccionats</string>
+    <string name="send_post_failure_message_prefix">No s\'ha pogut enviar: %1$s</string>
 </resources>

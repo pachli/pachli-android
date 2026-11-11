@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="acra_dialog_title">Report d\'error %1$s</string>
+    <string name="acra_dialog_text">Clic a OK per redactar un email als desenvolupadors amb els detalls</string>
+    <string name="acra_email_body">Aquesta informació s\'enviarà als desenvolupadors.\n\n Assegura\'t que no inclogui res que no vulguis compartir i, si us plau, descriu el que estaves fent quan va passar la fallada.\n\n ‐‐‐‐ \n La teva descripció aquí: \n\n ----</string>
+</resources>

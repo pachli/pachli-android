@@ -1,0 +1,5 @@
+Pachli 1.2.2
+
+Noves característiques:
+
+-  Incrustar la política de privadesa a l'app

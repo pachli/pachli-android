@@ -19,8 +19,8 @@ package app.pachli.core.domain.notifications
 
 import android.content.Context
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.model.AccountNotificationMethod
-import app.pachli.core.model.PachliAccount
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Ok

@@ -376,15 +376,15 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                 }
 
                 launch {
-                    viewModel.uiState.distinctUntilChangedBy { it.accounts }.collect {
-                        updateShortCuts(it.accounts)
+                    viewModel.uiState.distinctUntilChangedBy { it.pachliAccounts }.collect {
+                        updateShortCuts(it.pachliAccounts)
                     }
                 }
 
                 // Process changes to the account's header picture.
                 launch {
-                    account.distinctUntilChangedBy { it.profileHeaderPictureUrl }.collectLatest {
-                        header.headerBackground = ImageHolder(it.profileHeaderPictureUrl)
+                    account.distinctUntilChangedBy { it.account.header }.collectLatest {
+                        header.headerBackground = ImageHolder(it.account.header)
                     }
                 }
             }
@@ -401,8 +401,8 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
 
                 // Process changes to the account's profile picture.
                 launch {
-                    account.distinctUntilChangedBy { it.profilePictureUrl }.collectLatest {
-                        bindDrawerAvatar(it.profilePictureUrl, true)
+                    account.distinctUntilChangedBy { it.account.avatar }.collectLatest {
+                        bindDrawerAvatar(it.account.avatar, true)
                     }
                 }
 
@@ -1297,14 +1297,14 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
      */
     private fun bindMainDrawerProfileHeader(uiState: UiState) {
         val animateEmojis = uiState.animateEmojis
-        val profiles: MutableList<IProfile> = uiState.accounts.map { acc ->
+        val profiles: MutableList<IProfile> = uiState.pachliAccounts.map { pachliAccount ->
             ProfileDrawerItem().apply {
-                isSelected = acc.isActive
-                nameText = acc.displayName.emojify(glide, acc.emojis, header, animateEmojis)
-                iconUrl = acc.profilePictureUrl
+                isSelected = pachliAccount.isActive
+                nameText = pachliAccount.account.displayName.emojify(glide, pachliAccount.account.emojis, header, animateEmojis)
+                iconUrl = pachliAccount.account.avatar
                 isNameShown = true
-                identifier = acc.pachliAccountId
-                descriptionText = acc.fullName
+                identifier = pachliAccount.pachliAccountId
+                descriptionText = pachliAccount.fullName
             }
         }.toMutableList()
 
@@ -1319,7 +1319,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         }
         header.clear()
         header.profiles = profiles
-        val activeAccount = uiState.accounts.firstOrNull { it.isActive } ?: return
+        val activeAccount = uiState.pachliAccounts.firstOrNull { it.isActive } ?: return
         header.setActiveProfile(activeAccount.pachliAccountId)
         binding.mainToolbar.subtitle = if (uiState.displaySelfUsername) {
             activeAccount.fullName

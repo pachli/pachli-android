@@ -25,7 +25,7 @@ import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.IconCompat
-import app.pachli.core.database.model.PachliAccountEntity
+import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.IntentRouterActivityIntent
 import com.bumptech.glide.Glide
@@ -39,69 +39,71 @@ class UpdateShortCutsUseCase @Inject constructor(
     @ApplicationContext val context: Context,
 ) {
     /**
-     * Updates shortcuts to reflect [accounts].
+     * Updates shortcuts to reflect [pachliAccounts].
      *
      * The first [N][ShortcutManagerCompat.getMaxShortcutCountPerActivity] accounts
      * are converted to shortcuts which launch [app.pachli.feature.intentrouter.IntentRouterActivity]. The
      * active account is always included.
      */
-    suspend operator fun invoke(accounts: List<PachliAccountEntity>) = withContext(Dispatchers.IO) {
-        val innerSize = context.resources.getDimensionPixelSize(DR.dimen.adaptive_bitmap_inner_size)
-        val outerSize = context.resources.getDimensionPixelSize(DR.dimen.adaptive_bitmap_outer_size)
+    suspend operator fun invoke(pachliAccounts: List<PachliAccount>) {
+        withContext(Dispatchers.IO) {
+            val innerSize = context.resources.getDimensionPixelSize(DR.dimen.adaptive_bitmap_inner_size)
+            val outerSize = context.resources.getDimensionPixelSize(DR.dimen.adaptive_bitmap_outer_size)
 
-        val maxShortcuts = ShortcutManagerCompat.getMaxShortcutCountPerActivity(context)
+            val maxShortcuts = ShortcutManagerCompat.getMaxShortcutCountPerActivity(context)
 
-        val shortcuts = accounts
-            .sortedBy { it.isActive }
-            .take(maxShortcuts)
-            .mapNotNull { account ->
-                val drawable = try {
-                    if (TextUtils.isEmpty(account.profilePictureUrl)) {
+            val shortcuts = pachliAccounts
+                .sortedBy { it.isActive }
+                .take(maxShortcuts)
+                .mapNotNull { pachliAccount ->
+                    val drawable = try {
+                        if (TextUtils.isEmpty(pachliAccount.account.avatar)) {
+                            AppCompatResources.getDrawable(context, DR.drawable.avatar_default)
+                        } else {
+                            Glide.with(context)
+                                .asDrawable()
+                                .load(pachliAccount.account.avatar)
+                                .error(DR.drawable.avatar_default)
+                                .submit(innerSize, innerSize)
+                                .get()
+                        }
+                    } catch (e: ExecutionException) {
+                        // The `.error` handler isn't always used. For example, Glide throws
+                        // ExecutionException if the URL does not point at an image. Fallback to
+                        // the default avatar (https://github.com/bumptech/glide/issues/4672).
                         AppCompatResources.getDrawable(context, DR.drawable.avatar_default)
-                    } else {
-                        Glide.with(context)
-                            .asDrawable()
-                            .load(account.profilePictureUrl)
-                            .error(DR.drawable.avatar_default)
-                            .submit(innerSize, innerSize)
-                            .get()
-                    }
-                } catch (e: ExecutionException) {
-                    // The `.error` handler isn't always used. For example, Glide throws
-                    // ExecutionException if the URL does not point at an image. Fallback to
-                    // the default avatar (https://github.com/bumptech/glide/issues/4672).
-                    AppCompatResources.getDrawable(context, DR.drawable.avatar_default)
-                } ?: return@mapNotNull null
+                    } ?: return@mapNotNull null
 
-                // inset the loaded bitmap inside a 108dp transparent canvas so it looks good as adaptive icon
-                val outBmp = createBitmap(outerSize, outerSize)
+                    // inset the loaded bitmap inside a 108dp transparent canvas so it looks good as adaptive icon
+                    val outBmp = createBitmap(outerSize, outerSize)
 
-                val canvas = Canvas(outBmp)
-                val border = (outerSize - innerSize) / 2
-                drawable.setBounds(border, border, border + innerSize, border + innerSize)
-                drawable.draw(canvas)
+                    val canvas = Canvas(outBmp)
+                    val border = (outerSize - innerSize) / 2
+                    drawable.setBounds(border, border, border + innerSize, border + innerSize)
+                    drawable.draw(canvas)
 
-                val icon = IconCompat.createWithAdaptiveBitmap(outBmp)
+                    val icon = IconCompat.createWithAdaptiveBitmap(outBmp)
 
-                val person = Person.Builder()
-                    .setIcon(icon)
-                    .setName(account.displayName)
-                    .setKey(account.identifier.value)
-                    .build()
+                    val person = Person.Builder()
+                        .setIcon(icon)
+                        .setName(pachliAccount.account.name)
+                        .setKey(pachliAccount.identifier.value)
+                        .build()
 
-                // This intent will be sent when the user clicks on one of the launcher shortcuts.
-                val intent = IntentRouterActivityIntent.fromShortcut(context, account.pachliAccountId)
+                    // This intent will be sent when the user clicks on one of the launcher shortcuts.
+                    val intent = IntentRouterActivityIntent.fromShortcut(context, pachliAccount.pachliAccountId)
 
-                ShortcutInfoCompat.Builder(context, account.pachliAccountId.toString())
-                    .setIntent(intent)
-                    .setCategories(setOf("app.pachli.Share"))
-                    .setShortLabel(account.displayName.ifBlank { account.fullName })
-                    .setPerson(person)
-                    .setLongLived(true)
-                    .setIcon(icon)
-                    .build()
-            }
+                    ShortcutInfoCompat.Builder(context, pachliAccount.pachliAccountId.toString())
+                        .setIntent(intent)
+                        .setCategories(setOf("app.pachli.Share"))
+                        .setShortLabel(pachliAccount.account.displayName.ifBlank { pachliAccount.fullName })
+                        .setPerson(person)
+                        .setLongLived(true)
+                        .setIcon(icon)
+                        .build()
+                }
 
-        ShortcutManagerCompat.setDynamicShortcuts(context, shortcuts)
+            ShortcutManagerCompat.setDynamicShortcuts(context, shortcuts)
+        }
     }
 }

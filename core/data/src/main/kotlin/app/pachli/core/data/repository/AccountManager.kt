@@ -31,14 +31,12 @@ import app.pachli.core.database.model.AnnouncementEntity
 import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.database.model.asEntity
-import app.pachli.core.model.Account
 import app.pachli.core.model.AccountSource
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.MastodonList
 import app.pachli.core.model.Status.Visibility
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.HttpHeaderLink
-import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
@@ -168,6 +166,7 @@ class AccountManager @Inject constructor(
     private val followingAccountDao: FollowingAccountDao,
     private val hashtagsRepository: HashtagsRepository,
     private val instanceSwitchAuthInterceptor: InstanceSwitchAuthInterceptor,
+    private val accountRepository: AccountRepository,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
     @Deprecated("Caller should use getPachliAccountFlow with a specific account ID")
@@ -190,14 +189,27 @@ class AccountManager @Inject constructor(
         .map { it.map { it.asModel() } }
         .shareIn(externalScope, SharingStarted.Eagerly, replay = 1)
 
+    @Deprecated("Caller should use pachliAccounts")
     val accounts: List<PachliAccountEntity>
         get() = accountsFlow.value
 
+    val pachliAccounts: List<PachliAccount>
+        get() = pachliAccountsFlow.replayCache.last()
+
+    @Deprecated("Caller should use pachliAccountsOrderedByActiveFlow")
     val accountsOrderedByActiveFlow = accountDao.getAccountsOrderedByActive()
         .shareIn(externalScope, SharingStarted.Eagerly, replay = 1)
 
+    @Deprecated("Called should use pachliAccountsOrderedByActive")
     val accountsOrderedByActive: List<PachliAccountEntity>
         get() = accountsOrderedByActiveFlow.replayCache.first()
+
+    val pachliAccountsOrderedByActiveFlow = accountDao.getPachliAccountsOrderedByActiveFlow()
+        .map { it.map { it.asModel() } }
+        .shareIn(externalScope, SharingStarted.Eagerly, replay = 1)
+
+    val pachliAccountsOrderedByActive: List<PachliAccount>
+        get() = pachliAccountsOrderedByActiveFlow.replayCache.first()
 
     @Deprecated("Caller should use getPachliAccountFlow with a specific account ID")
     val activePachliAccountFlow = accountDao.getActivePachliAccountFlow()
@@ -206,8 +218,8 @@ class AccountManager @Inject constructor(
         .shareIn(externalScope, SharingStarted.Eagerly, replay = 1)
 
     @Deprecated("Caller should use getPachliAccountFlow with a specific account ID")
-    val activePachliAccount: PachliAccount
-        get() = activePachliAccountFlow.replayCache.first()
+    val activePachliAccount: PachliAccount?
+        get() = activePachliAccountFlow.replayCache.firstOrNull()
 
     init {
         // Ensure InstanceSwitchAuthInterceptor is initially set with the credentials of
@@ -263,6 +275,10 @@ class AccountManager @Inject constructor(
         }
     }
 
+    fun getPachliAccountById(pachliAccountId: Long): PachliAccount? {
+        return pachliAccounts.find { it.pachliAccountId == pachliAccountId }
+    }
+
     /**
      * Verifies the account has valid credentials according to the remote server
      * and adds it to the local database if it does.
@@ -285,11 +301,11 @@ class AccountManager @Inject constructor(
         val networkAccount = mastodonApi.accountVerifyCredentials(
             domain = domain,
             auth = "Bearer $accessToken",
-        ).getOrElse { return Err(it) }.body
+        ).getOrElse { return Err(it) }.body.asModel()
 
         return transactionProvider {
             val existingAccount = accountDao.getAccountByIdAndDomain(
-                networkAccount.id,
+                networkAccount.accountId,
                 domain,
             )
 
@@ -306,13 +322,13 @@ class AccountManager @Inject constructor(
                 clientSecret = clientSecret,
                 oauthScopes = oauthScopes,
                 isActive = true,
-                accountId = networkAccount.id,
-                isBot = networkAccount.bot,
+                accountId = networkAccount.accountId,
             )
 
             Timber.d("addAccount: upsert account id: %d, isActive: %s", newAccount.pachliAccountId, newAccount.isActive)
-            val newId = accountDao.upsert(newAccount)
-            return@transactionProvider Ok(newId)
+            val pachliAccountId = accountDao.upsert(newAccount)
+            accountRepository.saveAccount(pachliAccountId, networkAccount.asAccount())
+            return@transactionProvider Ok(pachliAccountId)
         }
     }
 
@@ -341,10 +357,9 @@ class AccountManager @Inject constructor(
             transactionProvider {
                 Timber.d("setActiveAccount(%d)", accountId)
 
-                // Handle "-1" as the accountId.
-                val previousActiveAccountEntity = accountDao.getActivePachliAccountEntity()
+                // Handle "-1" as the accountId, use the current active account.
                 val newActiveAccountEntity = if (accountId == -1L) {
-                    previousActiveAccountEntity
+                    accountDao.getActivePachliAccountEntity()
                 } else {
                     accountDao.getPachliAccountEntityById(accountId)
                 }
@@ -366,31 +381,28 @@ class AccountManager @Inject constructor(
                 val account = mastodonApi.accountVerifyCredentials(
                     domain = newActiveAccountEntity.domain,
                     auth = newActiveAccountEntity.authHeader,
-                ).getOrElse { throw ApiErrorException(it) }.body
+                ).getOrElse { throw ApiErrorException(it) }.body.asModel()
 
                 accountDao.clearActiveAccount()
 
+                // Save the account as AccountEntity so the relation between it and
+                // PachliAccountEntity works.
+                accountRepository.saveAccount(accountId, account.asAccount())
+
                 val finalPachliAccountEntity = newActiveAccountEntity.copy(
                     isActive = true,
-                    accountId = account.id,
-                    username = account.username,
-                    displayName = account.name,
-                    profilePictureUrl = account.avatar,
-                    profileHeaderPictureUrl = account.header,
-                    defaultPostPrivacy = account.source.privacy?.asModel() ?: Visibility.PUBLIC,
+                    accountId = account.accountId,
+                    defaultPostPrivacy = account.source.privacy ?: Visibility.PUBLIC,
                     defaultPostLanguage = account.source.language.orEmpty(),
                     defaultMediaSensitivity = account.source.sensitive == true,
-                    defaultQuotePolicy = account.source.quotePolicy?.asModel() ?: AccountSource.QuotePolicy.NOBODY,
-                    emojis = account.emojis.asModel(),
-                    locked = account.locked,
-                    isBot = account.bot,
+                    defaultQuotePolicy = account.source.quotePolicy,
                 )
 
                 Timber.d("setActiveAccount: saving id: %d, isActive: %s", finalPachliAccountEntity.pachliAccountId, finalPachliAccountEntity.isActive)
                 accountDao.update(finalPachliAccountEntity)
 
                 // Now safe to update InstanceSwitchAuthInterceptor.
-                Timber.d("Updating instanceSwitchAuthInterceptor with credentials for %s", newActiveAccountEntity.fullName)
+                Timber.d("Updating instanceSwitchAuthInterceptor with credentials for %s", account.name)
                 instanceSwitchAuthInterceptor.credentials =
                     InstanceSwitchAuthInterceptor.Credentials(
                         accessToken = newActiveAccountEntity.accessToken,
@@ -508,29 +520,6 @@ class AccountManager @Inject constructor(
             account.conversationAccountFilterNotFollowed != FilterAction.NONE
         ) {
             deferFollowing.await().bind()
-        }
-    }
-
-    /**
-     * Updates [pachliAccountId] with data from [newAccount].
-     *
-     * Updates the values:
-     *
-     * - [displayName][PachliAccountEntity.displayName]
-     * - [profilePictureUrl][PachliAccountEntity.profilePictureUrl]
-     * - [profileHeaderPictureUrl][PachliAccountEntity.profileHeaderPictureUrl]
-     * - [locked][PachliAccountEntity.locked]
-     */
-    suspend fun updateAccount(pachliAccountId: Long, newAccount: Account) {
-        transactionProvider {
-            val existingAccount = accountDao.getPachliAccountEntityById(pachliAccountId) ?: return@transactionProvider
-            val updatedAccount = existingAccount.copy(
-                displayName = newAccount.displayName.ifEmpty { existingAccount.displayName },
-                profilePictureUrl = newAccount.avatar,
-                profileHeaderPictureUrl = newAccount.header,
-                locked = newAccount.locked,
-            )
-            accountDao.upsert(updatedAccount)
         }
     }
 

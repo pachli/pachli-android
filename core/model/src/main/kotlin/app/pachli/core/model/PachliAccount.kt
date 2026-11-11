@@ -26,9 +26,6 @@ package app.pachli.core.model
  * @property isActive True if this is the "active" account.
  * @property accountId Account's remote (server) ID.
  * @property username User's local name without the leading `@` or the `@domain` portion
- * @property displayName
- * @property profilePictureUrl
- * @property profileHeaderPictureUrl
  * @property notificationsEnabled User wants Android notifications enabled for this account
  * @property notificationsMentioned
  * @property notificationsFollowed
@@ -62,7 +59,6 @@ package app.pachli.core.model
  * is true. This implies that media previews are shown as well as downloaded.
  * @property notificationMarkerId ID of the most recent Mastodon notification
  * that Pachli has fetched to show as an Android notification
- * @property emojis Custom emojis used in the account's profile.
  * @property tabPreferences
  * @property notificationsFilter
  * @property oauthScopes
@@ -71,8 +67,6 @@ package app.pachli.core.model
  * @property pushPrivKey
  * @property pushAuth
  * @property pushServerKey
- * @property locked True if the account is locked (has to manually approve all
- * follow requests)
  * @property notificationAccountFilterNotFollowed [FilterAction] for
  * notifications from accounts this account does not follow.
  * @property notificationAccountFilterYounger30d [FilterAction] for
@@ -85,7 +79,6 @@ package app.pachli.core.model
  * conversations from accounts younger than 30d.
  * @property conversationAccountFilterLimitedByServer [FilterAction] for
  * conversations from accounts limited by the server.
- * @property isBot True if the account is a bot.
  * @property identifier Unique identifier for the account.
  * @property fullName Full account name, of the form `@username@domain`
  * @property authHeader Value of the "Authorization" header for this account
@@ -103,9 +96,6 @@ interface PachliAccount {
     val isActive: Boolean
     val accountId: String
     val username: String
-    val displayName: String
-    val profilePictureUrl: String
-    val profileHeaderPictureUrl: String
     val notificationsEnabled: Boolean
     val notificationsMentioned: Boolean
     val notificationsFollowed: Boolean
@@ -134,7 +124,6 @@ interface PachliAccount {
     val alwaysOpenSpoiler: Boolean
     val mediaPreviewEnabled: Boolean
     val notificationMarkerId: String
-    val emojis: List<Emoji>
     val tabPreferences: List<Timeline>
     val notificationsFilter: String
     val oauthScopes: String
@@ -143,15 +132,12 @@ interface PachliAccount {
     val pushPrivKey: String
     val pushAuth: String
     val pushServerKey: String
-    val locked: Boolean
     var notificationAccountFilterNotFollowed: FilterAction
     var notificationAccountFilterYounger30d: FilterAction
     var notificationAccountFilterLimitedByServer: FilterAction
     var conversationAccountFilterNotFollowed: FilterAction
     var conversationAccountFilterYounger30d: FilterAction
     var conversationAccountFilterLimitedByServer: FilterAction
-
-    val isBot: Boolean
 
     val identifier: AccountIdentifier
         get() = AccountIdentifier(this)

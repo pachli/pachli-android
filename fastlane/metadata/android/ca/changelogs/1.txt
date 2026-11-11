@@ -1,0 +1,20 @@
+Noves característiques:
+
+- "Carregar més" no apareix més, les publicacions es carreguen mentre desplaces
+- Enllaços i publicacions de tendències
+- Més de 5 pestanyes
+- Triar entre diverses fonts accessibles
+- Nou reproductor multimèdia
+- Filtres en notificacions
+- Marcar llistes com a "exclusives"
+- Afegir "marcadors" a pestanyes
+
+Correccions:
+
+- Les imatges ja no s'"enganxen" quan ampliïs o llisquis entre elles
+
+Canvis a la interfície d'usuari:
+
+- Una actualització visual i nova combinació de colors
+- Trieu el tema predeterminat en funció dels paràmetres d'Android
+- "Esborrar notificacions" és una opció del menú

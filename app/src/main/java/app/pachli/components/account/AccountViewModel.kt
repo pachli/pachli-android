@@ -18,8 +18,6 @@ import app.pachli.core.domain.accounts.UnblockAccountUseCase
 import app.pachli.core.domain.accounts.UnfollowAccountUseCase
 import app.pachli.core.domain.accounts.UnmuteAccountUseCase
 import app.pachli.core.domain.accounts.UnsubscribeAccountUseCase
-import app.pachli.core.eventhub.EventHub
-import app.pachli.core.eventhub.ProfileEditedEvent
 import app.pachli.core.model.Account
 import app.pachli.core.model.Relationship
 import app.pachli.core.network.model.asModel
@@ -42,11 +40,13 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.merge
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -56,7 +56,6 @@ import timber.log.Timber
 class AccountViewModel @AssistedInject constructor(
     @Assisted private val pachliAccountId: Long,
     private val mastodonApi: MastodonApi,
-    private val eventHub: EventHub,
     accountManager: AccountManager,
     private val followAccountUseCase: FollowAccountUseCase,
     private val unfollowAccountUseCase: UnfollowAccountUseCase,
@@ -89,51 +88,37 @@ class AccountViewModel @AssistedInject constructor(
         .shareIn(viewModelScope, SharingStarted.Eagerly, replay = 1)
 
     /** Emit into this to trigger a reload. */
-    private val reload = MutableSharedFlow<Unit>(replay = 1).apply { tryEmit(Unit) }
+    private val reload = MutableSharedFlow<Unit>(replay = 1)
 
-    /** Flow that triggers a reload when `Unit` is emitted into it. */
+    /** Flow of the [Account.accountId] to display. */
     private val accountId = MutableSharedFlow<String>(replay = 1)
 
     /** Flow of changes to statusDisplayOptions, for use by the UI */
     val statusDisplayOptions = statusDisplayOptionsRepository.flow
 
-    /**
-     * Flow of [Account]. Starts with the account data from the API, and updates on
-     * receiving a matching [ProfileEditedEvent].
-     */
+    /** Flow of [Account]. */
     val accountData = stateFlow(viewModelScope, Ok(Loadable.Loading)) {
-        // Take any ProfileEditedEvents that match accountId...
-        val profileUpdates = combine(
-            accountId,
-            eventHub.events.filterIsInstance<ProfileEditedEvent>(),
-        ) { accountId, event ->
-            if (event.newProfileData.accountId == accountId) {
-                Ok(Loadable.Loaded(event.newProfileData))
-            } else {
-                null
+        combine(pachliAccount, accountId) { pachliAccount, accountId ->
+            pachliAccount to accountId
+        }.flatMapLatest { (pachliAccount, accountId) ->
+            flow {
+                emit(Ok(Loadable.Loading))
+
+                accountRepository.getAccountFlow(pachliAccount.pachliAccountId, accountId)
+                    .onEach {
+                        it.onSuccess { account ->
+                            domain = getDomain(account.url)
+                            isFromOwnDomain = domain == pachliAccount.domain
+                            val isSelf = pachliAccount.accountId == accountId
+                            if (!isSelf) obtainRelationship(accountId)
+                        }.onFailure {
+                            Timber.w("failed obtaining account: %s", it)
+                        }
+                    }
+                    .map { it.map { Loadable.Loaded(it) } }
+                    .collect { emit(it) }
             }
-        }.filterNotNull()
-
-        // ... with the result from the API...
-        val remoteAccount = combine(reload, pachliAccount, accountId) { _, pachliAccount, accountId ->
-            accountRepository.getAccount(pachliAccount.pachliAccountId, accountId)
-                .onSuccess { account ->
-                    domain = getDomain(account.url)
-                    isFromOwnDomain = domain == pachliAccount.domain
-                    val isSelf = pachliAccount.accountId == accountId
-                    if (!isSelf) obtainRelationship(accountId)
-                }
-                .onFailure {
-                    Timber.w("failed obtaining account: %s", it)
-                }
-                .map { Loadable.Loaded(it) }
-        }
-
-        // ... and merge them together. Include the `reload` flow, to ensure the
-        // content transitions to a `Loadable.Loading` state before each load.
-        // Practically, the first emission will be the data from the API, subsequent
-        // emissions will be from profileUpdates
-        merge(reload.map { Ok(Loadable.Loading) }, profileUpdates, remoteAccount).flowWhileShared(SharingStarted.WhileSubscribed(5000))
+        }.flowWhileShared(SharingStarted.WhileSubscribed(5000))
     }
 
     /** True if the loaded account in [accountData] is the user's account. */
@@ -155,6 +140,18 @@ class AccountViewModel @AssistedInject constructor(
                         Timber.w("failed obtaining relationships: %s", it)
                         relationshipData.postValue(Error(cause = it.throwable))
                     }
+            }
+        }
+    }
+
+    init {
+        viewModelScope.launch {
+            combine(reload, pachliAccount, accountId) { _, pachliAccount, accountId ->
+                pachliAccount to accountId
+            }.collectLatest { (pachliAccount, accountId) ->
+                isRefreshing.value = true
+                accountRepository.reloadAccount(pachliAccount.pachliAccountId, accountId)
+                isRefreshing.value = false
             }
         }
     }

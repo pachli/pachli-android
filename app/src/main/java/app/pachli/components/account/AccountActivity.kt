@@ -506,6 +506,10 @@ class AccountActivity :
             }
         }
 
+        viewModel.isRefreshing.observe(this) {
+            binding.swipeRefreshLayout.isRefreshing = it
+        }
+
         viewModel.relationshipData.observe(this) {
             val relation = it?.data
             val account = viewModel.accountData.value.get()?.getOrNull()
@@ -1004,7 +1008,7 @@ class AccountActivity :
     }
 
     private fun mention(account: Account) {
-        val activePachliAccount = accountManager.activePachliAccount
+        val activePachliAccount = accountManager.activePachliAccount!!
         // Create a draft that mentions the user. Uses `Timeline.Home` to get
         // generic draft creation behaviour.
         val draft = if (viewModel.isSelf.value) {

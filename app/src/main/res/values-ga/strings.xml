@@ -91,7 +91,7 @@
     <string name="action_reject">Diúltaigh</string>
     <string name="action_accept">Glac</string>
     <string name="action_undo">Cealaigh</string>
-    <string name="action_edit_own_profile">Cuir in Eagar</string>
+    <string name="action_edit_own_profile">Cuir in eagar</string>
     <string name="action_save">Sábháil</string>
     <string name="action_open_drawer">Tarraiceán a oscailt</string>
     <string name="action_hide_media">Folaigh na meáin</string>
@@ -289,7 +289,7 @@
     <string name="action_unbookmark">Bain leabharmharc</string>
     <string name="action_delete_conversation">Scrios comhrá</string>
     <string name="dialog_delete_conversation_warning">Scrios an comhrá seo\?</string>
-    <string name="title_edits">Cuir in Eagar</string>
+    <string name="title_edits">Leasuithe</string>
     <string name="action_translate_undo">Cealaigh an t-aistriú</string>
     <string name="pref_title_notification_filter_subscriptions">D\'fhoilsigh duine éigin a bhfuil mé suibscríofa dó postáil nua</string>
     <string name="pref_title_http_proxy_port_message">Ba chóir go mbeadh an calafort idir %1$d agus %2$d</string>
@@ -753,4 +753,8 @@
     <string name="notification_collection_update_description">Fógraí nuair a dhéantar bailiúchán ina bhfuil tú a nuashonrú</string>
     <string name="notification_collection_add_format">Chuir &lt;b&gt;%1$s&lt;/b&gt; le bailiúchán thú</string>
     <string name="notification_collection_update_format">Nuashonraigh &lt;b&gt;%1$s&lt;/b&gt; bailiúchán ina bhfuil tú</string>
+    <string name="pref_labs_glide_use_image_decoder_title">Úsáid ImageDecoder agus íomhánna á luchtú</string>
+    <string name="pref_labs_glide_user_image_decoder_on_summary">D’fhéadfadh sé feidhmíocht agus úsáid cuimhne a fheabhsú</string>
+    <string name="pref_labs_glide_user_image_decoder_off_summary">Iompar suas go dtí Pachli 3.10.0</string>
+    <string name="pref_labs_glide_user_image_decoder_disabled_summary">Díchumasaithe ar leaganacha Android &lt; 10</string>
 </resources>

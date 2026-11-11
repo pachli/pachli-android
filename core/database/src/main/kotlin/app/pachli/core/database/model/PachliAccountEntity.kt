@@ -24,7 +24,6 @@ import androidx.room3.Index
 import androidx.room3.PrimaryKey
 import app.pachli.core.database.Converters
 import app.pachli.core.model.AccountSource
-import app.pachli.core.model.Emoji
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
@@ -47,10 +46,6 @@ data class PachliAccountEntity(
     override val isActive: Boolean,
     override val accountId: String = "",
     override val username: String = "",
-    override val displayName: String = "",
-    override val profilePictureUrl: String = "",
-    @ColumnInfo(defaultValue = "")
-    override val profileHeaderPictureUrl: String = "",
     override val notificationsEnabled: Boolean = true,
     override val notificationsMentioned: Boolean = true,
     override val notificationsFollowed: Boolean = true,
@@ -87,7 +82,6 @@ data class PachliAccountEntity(
     override val mediaPreviewEnabled: Boolean = true,
     @ColumnInfo(defaultValue = "0")
     override val notificationMarkerId: String = "0",
-    override val emojis: List<Emoji> = emptyList(),
     override val tabPreferences: List<Timeline> = defaultTabs(),
     override val notificationsFilter: String = "[\"follow_request\"]",
     override val oauthScopes: String = "",
@@ -96,8 +90,6 @@ data class PachliAccountEntity(
     override val pushPrivKey: String = "",
     override val pushAuth: String = "",
     override val pushServerKey: String = "",
-    @ColumnInfo(defaultValue = "0")
-    override val locked: Boolean = false,
     @ColumnInfo(defaultValue = "NONE")
     override var notificationAccountFilterNotFollowed: FilterAction = FilterAction.NONE,
     @ColumnInfo(defaultValue = "NONE")
@@ -110,8 +102,6 @@ data class PachliAccountEntity(
     override var conversationAccountFilterYounger30d: FilterAction = FilterAction.NONE,
     @ColumnInfo(defaultValue = "NONE")
     override var conversationAccountFilterLimitedByServer: FilterAction = FilterAction.NONE,
-    @ColumnInfo(defaultValue = "0")
-    override val isBot: Boolean = false,
 ) : app.pachli.core.model.PachliAccount
 
 fun defaultTabs() = listOf(

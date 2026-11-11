@@ -73,10 +73,10 @@ data class CredentialAccount(
         }
 
     fun asModel() = app.pachli.core.model.CredentialAccount(
-        id = id,
+        accountId = id,
         localUsername = localUsername,
         username = username,
-        displayName = displayName,
+        displayName = displayName.orEmpty(),
         note = note,
         source = source.asModel(),
         url = url,
@@ -99,7 +99,8 @@ data class CredentialAccount(
         followingCount = followingCount,
         statusesCount = statusesCount,
         role = role?.asModel(),
-        roles = roles?.asModel(),
+        roles = roles.orEmpty().asModel(),
+        pronouns = fields.pronouns(),
     )
 }
 

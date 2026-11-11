@@ -38,7 +38,6 @@ import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.core.ui.ChooseAccountSuspendDialogFragment.Companion.newInstance
 import app.pachli.core.ui.databinding.ItemAutocompleteAccountBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
@@ -178,14 +177,14 @@ class ChooseAccountAdapter(
             ItemAutocompleteAccountBinding.bind(convertView)
         }
 
-        val account = getItem(position) ?: return binding.root
+        val pachliAccount = getItem(position) ?: return binding.root
 
-        binding.username.text = account.fullName
-        binding.displayName.text = account.displayName.emojify(glide, account.emojis, binding.displayName, animateEmojis)
+        binding.username.text = pachliAccount.fullName
+        binding.displayName.text = pachliAccount.account.name.emojify(glide, pachliAccount.account.emojis, binding.displayName, animateEmojis)
         binding.avatarBadge.visibility = View.GONE // We never want to display the bot badge here
 
         val avatarRadius = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_42dp)
-        loadAvatar(glide, account.profilePictureUrl, binding.avatar, avatarRadius, animateAvatars)
+        loadAvatar(glide, pachliAccount.account.avatar, binding.avatar, avatarRadius, animateAvatars)
 
         return binding.root
     }

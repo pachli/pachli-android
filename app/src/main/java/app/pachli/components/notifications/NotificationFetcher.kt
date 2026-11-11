@@ -22,10 +22,10 @@ import android.content.Context
 import androidx.annotation.WorkerThread
 import app.pachli.core.common.string.isLessThan
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.notifications.NotificationsRepository
 import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.model.AccountFilterDecision
-import app.pachli.core.model.PachliAccount
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Marker
 import app.pachli.core.network.model.Notification
