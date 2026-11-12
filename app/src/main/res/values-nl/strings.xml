@@ -279,7 +279,7 @@
     <string name="duration_indefinite">Oneindig</string>
     <string name="label_duration">Looptijd</string>
     <string name="pref_title_enable_swipe_for_tabs">Swipebewegingen om tussen tabs te schakelen inschakelen</string>
-    <string name="add_hashtag_title">Hashtag toevoegen</string>
+    <string name="add_hashtags_title">Hashtag toevoegen</string>
     <string name="notification_subscription_description">Meldingen wanneer iemand waar je op bent geabonneerd een nieuw bericht plaatst</string>
     <string name="notification_subscription_name">Nieuwe berichten</string>
     <string name="notification_follow_request_description">Meldingen over volgverzoeken</string>

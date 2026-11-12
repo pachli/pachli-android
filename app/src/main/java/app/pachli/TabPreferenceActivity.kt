@@ -268,7 +268,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         frameLayout.addView(editText)
 
         val dialog = AlertDialog.Builder(this)
-            .setTitle(R.string.add_hashtag_title)
+            .setTitle(R.string.add_hashtags_title)
             .setView(frameLayout)
             .setNegativeButton(android.R.string.cancel, null)
             .setPositiveButton(R.string.action_save) { _, _ ->

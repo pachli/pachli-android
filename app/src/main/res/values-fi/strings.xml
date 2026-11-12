@@ -9,7 +9,7 @@
     <string name="poll_new_choice_hint">Vaihtoehto %1$d</string>
     <string name="poll_allow_multiple_choices">Monivalinta</string>
     <string name="add_poll_choice">Lisää vaihtoehto</string>
-    <string name="add_hashtag_title">Lisää aihetunniste</string>
+    <string name="add_hashtags_title">Lisää aihetunniste</string>
     <string name="download_failed">Lataus epäonnistui</string>
     <string name="action_open_post">Avaa tuuttaus</string>
     <string name="system_default">Järjestelmän oletus</string>

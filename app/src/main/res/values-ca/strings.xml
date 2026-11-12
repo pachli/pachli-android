@@ -260,7 +260,7 @@
     <string name="pref_title_show_cards_in_timelines">Mostra les previsualitzacions dels enllaços en els fils</string>
     <string name="pref_title_enable_swipe_for_tabs">Habilita el gest de desplaçament per despleçar-te entre pestanyes</string>
     <string name="hashtags">Hashtags</string>
-    <string name="add_hashtag_title">Afegir hashtag</string>
+    <string name="add_hashtags_title">Afegir hashtag</string>
     <string name="notification_follow_request_description">Notificacions sobre sol·licituds de seguiment</string>
     <string name="pref_title_notification_filter_follow_requests">sol·licitació de seguiment</string>
     <string name="dialog_mute_warning">Silenciar @%1$s\?</string>

@@ -271,7 +271,7 @@
     <string name="dialog_block_warning">Blockera @%1$s\?</string>
     <string name="action_unmute_conversation">Aktivera ljud på konversation</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; vill följa dig</string>
-    <string name="add_hashtag_title">Lägg till hashtag</string>
+    <string name="add_hashtags_title">Lägg till hashtag</string>
     <string name="hashtags">Hashtaggar</string>
     <string name="pref_main_nav_position">Standard navigationsposition</string>
     <string name="pref_title_gradient_for_media">Visa färgglada gradienter för gömd media</string>

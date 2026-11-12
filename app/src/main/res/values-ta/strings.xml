@@ -203,7 +203,7 @@
     <string name="pref_title_account_filter_keywords">சுயவிவரங்கள்</string>
     <string name="filter_dialog_update_button">புதுப்பிப்பு</string>
     <string name="title_favourited_by">விரும்பியவர்</string>
-    <string name="add_hashtag_title">ஏச்டேக்கைச் சேர்க்கவும்</string>
+    <string name="add_hashtags_title">ஏச்டேக்கைச் சேர்க்கவும்</string>
     <string name="hashtags">ஏச்டேக்குகள்</string>
     <string name="select_list_title">பட்டியலைத் தேர்ந்தெடு</string>
     <string name="notifications_apply_filter">அறிவிப்புகளை வடிகட்டவும்</string>

@@ -27,7 +27,7 @@
     <string name="select_list_title">Избиране на списък</string>
     <string name="hashtags">Хаштагове</string>
     <string name="edit_hashtag_hint">Хаштаг без #</string>
-    <string name="add_hashtag_title">Добавяне на хаштаг</string>
+    <string name="add_hashtags_title">Добавяне на хаштаг</string>
     <string name="conversation_more_recipients">%1$s, %2$s и %3$d други</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s и %2$s</string>

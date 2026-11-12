@@ -282,7 +282,7 @@
     <string name="button_back">返回</string>
     <string name="list">列表</string>
     <string name="select_list_title">選擇列表</string>
-    <string name="add_hashtag_title">加上話題標籤</string>
+    <string name="add_hashtags_title">加上話題標籤</string>
     <string name="pref_title_alway_open_spoiler">總是顯示被標注為內容警告的嘟文</string>
     <string name="notification_subscription_description">當你關注的人發布新嘟文時通知</string>
     <string name="notification_subscription_name">新嘟文</string>

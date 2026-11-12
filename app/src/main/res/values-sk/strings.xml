@@ -374,7 +374,7 @@
     <string name="conversation_0_recipients">Žiadni ďalší účastníci</string>
     <string name="description_login">Funguje vo väčšine prípadov. Nedochádza k úniku dát do iných aplikácií.</string>
     <string name="description_browser_login">Môže podporovať dodatočné metódy overenia, ale vyžaduje kompatibilný prehliadač.</string>
-    <string name="add_hashtag_title">Pridať hashtag</string>
+    <string name="add_hashtags_title">Pridať hashtag</string>
     <string name="report_sent_success">\@%1$s bol/a úspešne nahlásený/nahlásená</string>
     <string name="poll_ended_voted">Anketa, v ktorej si hlasoval/a, sa skončila</string>
     <string name="pref_title_show_stat_inline">Zobraziť štatistiky príspevkov v časovej osi</string>

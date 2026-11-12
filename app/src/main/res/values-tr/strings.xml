@@ -263,7 +263,7 @@
     <string name="pref_title_confirm_reblogs">Yeniden paylaşmadan önce onay kutusunu göster</string>
     <string name="pref_title_show_cards_in_timelines">Bağlantı önizlemelerini zaman tünelinde göster</string>
     <string name="pref_title_enable_swipe_for_tabs">Sekmeler arasında geçiş yapmak için kaydırma hareketini etkinleştir</string>
-    <string name="add_hashtag_title">Etiket ekle</string>
+    <string name="add_hashtags_title">Etiket ekle</string>
     <string name="notification_follow_request_description">Takip istekleri ile ilgili bildirimler</string>
     <string name="notification_follow_request_name">Takip istekleri</string>
     <string name="dialog_mute_hide_notifications">Bildirimleri gizle</string>

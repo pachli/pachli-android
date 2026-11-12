@@ -266,7 +266,7 @@
     <string name="select_list_title">सूचिरवचीयताम्</string>
     <string name="hashtags">निश्रेणिचिह्नशीर्षकाः</string>
     <string name="edit_hashtag_hint"># चिह्नं विना प्रचलितम्</string>
-    <string name="add_hashtag_title">प्रचलितं युज्यताम्</string>
+    <string name="add_hashtags_title">प्रचलितं युज्यताम्</string>
     <string name="conversation_more_recipients">%1$s, %2$s तथा %3$d अन्येऽपि</string>
     <string name="conversation_2_recipients">%1$s तथैव %2$s</string>
     <string name="title_favourited_by">निम्नमित्रस्य प्रीतिः</string>

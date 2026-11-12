@@ -269,7 +269,7 @@
     <string name="list">তালিকা</string>
     <string name="select_list_title">তালিকা নির্বাচন করো</string>
     <string name="hashtags">হ্যাশট্যাগ</string>
-    <string name="add_hashtag_title">হ্যাশট্যাগ যোগ করো</string>
+    <string name="add_hashtags_title">হ্যাশট্যাগ যোগ করো</string>
     <string name="notification_follow_request_description">অনুসরণ রিকোয়েস্টের বিজ্ঞপ্তি</string>
     <string name="pref_main_nav_position">মূল ন্যাভিগেশন জায়গা</string>
     <string name="pref_title_enable_swipe_for_tabs">ট্যাবের মাঝে সোয়াইপ সংকেত চালু করো</string>

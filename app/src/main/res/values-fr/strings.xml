@@ -273,7 +273,7 @@
     <string name="action_mute_conversation">Masquer la conversation</string>
     <string name="pref_title_enable_swipe_for_tabs">Activer le glissement pour changer d’onglet</string>
     <string name="hashtags">Hashtags</string>
-    <string name="add_hashtag_title">Ajouter un hashtag</string>
+    <string name="add_hashtags_title">Ajouter un hashtag</string>
     <string name="pref_title_gradient_for_media">Afficher des dégradés en couleur pour les médias cachés</string>
     <string name="pref_main_nav_position">Position de navigation principale</string>
     <string name="dialog_mute_hide_notifications">Cacher les notifications</string>

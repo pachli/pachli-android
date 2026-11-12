@@ -261,7 +261,7 @@
     <string name="no_scheduled_posts">Vi havas neniun planitan mesaĝon.</string>
     <string name="notification_follow_request_name">Petoj de sekvado</string>
     <string name="hashtags">Kradvortoj</string>
-    <string name="add_hashtag_title">Aldoni kradvorton</string>
+    <string name="add_hashtags_title">Aldoni kradvorton</string>
     <string name="notification_follow_request_description">Sciigoj pri petoj de sekvado</string>
     <string name="pref_title_gradient_for_media">Montri buntajn transirojn por kaŝitaj aŭdovidaĵoj</string>
     <string name="dialog_mute_hide_notifications">Kaŝi la sciigojn</string>

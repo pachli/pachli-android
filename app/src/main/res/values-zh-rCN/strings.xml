@@ -264,7 +264,7 @@
     <string name="pref_title_show_cards_in_timelines">在时间轴上显示链接预览</string>
     <string name="pref_title_enable_swipe_for_tabs">滑动切换标签页</string>
     <string name="compose_preview_image_description">处理图片 %1$s</string>
-    <string name="add_hashtag_title">添加话题名</string>
+    <string name="add_hashtags_title">添加话题名</string>
     <string name="notification_follow_request_description">关注请求的通知</string>
     <string name="pref_title_gradient_for_media">为隐藏的媒体文件显示彩色模糊预览</string>
     <string name="pref_title_notification_filter_follow_requests">有关注申请</string>

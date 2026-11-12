@@ -287,7 +287,7 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s і %2$s</string>
     <string name="hashtags">Хэштэгі</string>
-    <string name="add_hashtag_title">Дадаць хэштэг</string>
+    <string name="add_hashtags_title">Дадаць хэштэг</string>
     <string name="edit_hashtag_hint">Хэштэг без #</string>
     <string name="description_post_language">Мова допісу</string>
     <string name="select_list_title">Выбраць спіс</string>

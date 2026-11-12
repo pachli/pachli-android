@@ -273,7 +273,7 @@
     <string name="pref_title_show_cards_in_timelines">Mostrar prévias de conteúdo nas linhas</string>
     <string name="pref_title_confirm_reblogs">Solicitar confirmação antes de dar Boost</string>
     <string name="hashtags">Hashtags</string>
-    <string name="add_hashtag_title">Adicionar hashtag</string>
+    <string name="add_hashtags_title">Adicionar hashtag</string>
     <string name="pref_title_gradient_for_media">Desfocar mídia sensível</string>
     <string name="pref_main_nav_position">Posição do menu</string>
     <string name="dialog_mute_hide_notifications">Ocultar notificações</string>
