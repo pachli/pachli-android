@@ -97,6 +97,10 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
     private val hashtagRegex by unsafeLazy { Pattern.compile("([\\w_]*[\\p{Alpha}_][\\w_]*)", Pattern.CASE_INSENSITIVE) }
     private val blankSpaceRegex = Regex("\\s+")
 
+    private fun String.splitHashtags(): List<String> {
+        return this.trim().split(blankSpaceRegex)
+    }
+
     private val onFabDismissedCallback = object : OnBackPressedCallback(false) {
         override fun handleOnBackPressed() {
             toggleFab(false)
@@ -268,7 +272,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
             .setView(frameLayout)
             .setNegativeButton(android.R.string.cancel, null)
             .setPositiveButton(R.string.action_save) { _, _ ->
-                val input = editText.text.toString().trim().split(blankSpaceRegex)
+                val input = editText.text.toString().splitHashtags()
                 if (timeline == null) {
                     val newTab = TabViewData.from(
                         intent.pachliAccountId,
@@ -353,7 +357,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
 
     private fun validateHashtag(input: CharSequence?): Boolean {
         if (input.isNullOrBlank()) return false
-        val splitInput: List<CharSequence> = input.trim().split(blankSpaceRegex)
+        val splitInput = input.toString().splitHashtags()
         return splitInput.all { hashtagRegex.matcher(it).matches() }
     }
 
