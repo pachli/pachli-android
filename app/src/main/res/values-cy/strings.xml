@@ -264,7 +264,7 @@
     <string name="warning_scheduling_interval">Mae gan Mastodon egwyl amserlennu o o leiaf 5 munud.</string>
     <string name="follow_requests_info">Er nad ydych wedi cloi\'ch cyfrif, roedd staff %1$s yn meddwl efallai yr hoffech adolygu\'r ceisiadau i\'ch dilyn o\'r cyfrifon hyn â llaw.</string>
     <string name="delete_scheduled_post_warning">Hoffech chi ddileu\'r neges a amserlennwyd hon\?</string>
-    <string name="edit_hashtags_hint">Hashnod heb #</string>
+
     <string name="report_remote_instance">Anfon ymlaen at %1$s</string>
     <string name="report_description_remote_instance">Daw\'r cyfrif o weinydd arall. Hoffech chi anfon copi dienw o\'r adroddiad i\'r gweinydd hwnnw hefyd\?</string>
     <string name="unpin_action">Dadbinio</string>
@@ -296,7 +296,7 @@
     <string name="pref_title_animate_gif_avatars">Animeiddio lluniau proffil GIF</string>
     <string name="pref_default_media_sensitivity">Nodi cyfryngau yn sensitif bob tro</string>
     <string name="title_accounts">Cyfrifon</string>
-    <string name="add_hashtags_title">Ychwanegu hashnod</string>
+
     <string name="compose_shortcut_long_label">Ysgrifennu neges</string>
     <string name="pachli_compose_post_quicksetting_label">Ysgrifennu Neges</string>
     <string name="mute_domain_warning">Ydych chi\'n siŵr yr hoffech chi flocio %1$s gyfan\? Fyddwch chi ddim yn gweld dim cynnwys o\'r parth hwnnw mewn unrhyw ffrwd gyhoeddus na chwaith yn eich hysbysiadau. Bydd eich dilynwyr o\'r parth hwnnw yn cael eu dileu.</string>

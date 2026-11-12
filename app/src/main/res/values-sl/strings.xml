@@ -194,7 +194,7 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s in %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s in %3$d več</string>
-    <string name="edit_hashtags_hint">Ključnik brez #</string>
+
     <string name="notifications_clear">Počisti</string>
     <string name="notifications_apply_filter">Filter</string>
     <string name="filter_apply">Uporabi</string>

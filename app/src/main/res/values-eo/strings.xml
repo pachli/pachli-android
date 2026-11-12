@@ -217,7 +217,7 @@
     <string name="pref_title_animate_gif_avatars">Ebligi GIF-profilbildojn</string>
     <string name="notification_poll_name">Enketoj</string>
     <string name="notification_poll_description">Sciigoj pri enketoj, kiuj finiĝis</string>
-    <string name="edit_hashtags_hint">Kradvorto sen #</string>
+
     <string name="notifications_clear">Viŝi</string>
     <string name="notifications_apply_filter">Filtri</string>
     <string name="filter_apply">Apliki</string>
@@ -261,7 +261,7 @@
     <string name="no_scheduled_posts">Vi havas neniun planitan mesaĝon.</string>
     <string name="notification_follow_request_name">Petoj de sekvado</string>
     <string name="hashtags">Kradvortoj</string>
-    <string name="add_hashtags_title">Aldoni kradvorton</string>
+
     <string name="notification_follow_request_description">Sciigoj pri petoj de sekvado</string>
     <string name="pref_title_gradient_for_media">Montri buntajn transirojn por kaŝitaj aŭdovidaĵoj</string>
     <string name="dialog_mute_hide_notifications">Kaŝi la sciigojn</string>

@@ -228,7 +228,7 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s eta %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s eta %3$d gehiago</string>
-    <string name="edit_hashtags_hint">Traola # gabe</string>
+
     <string name="notifications_clear">Garbitu</string>
     <string name="notifications_apply_filter">Iragazi</string>
     <string name="filter_apply">Aplikatu</string>
@@ -273,7 +273,7 @@
     <string name="pref_title_confirm_reblogs">Tuta bultzatu aurretik berresteko galdetu</string>
     <string name="pref_title_show_cards_in_timelines">Esteken aurrebista denbora-lerroetan erakutsi</string>
     <string name="pref_title_enable_swipe_for_tabs">Irristatzeko keinua gaitu fitxetan zehar mugitzeko</string>
-    <string name="add_hashtags_title">Traola gehitu</string>
+
     <string name="pref_main_nav_position">Nabigazio nagusiaren posizioa</string>
     <string name="pref_title_gradient_for_media">Gradiente koloretsuak erakutsi ezkutuko mediaren lekuan</string>
     <string name="pref_title_notification_filter_follow_requests">jarraitzeko eskaera jasotzean</string>

@@ -177,7 +177,7 @@
     <string name="pref_main_nav_position">মূল ন্যাভিগেশন জায়গা</string>
     <string name="pref_title_gradient_for_media">লুকানো মিডিয়ার জন্য রঙিন গ্রেডিয়েন্ট ব্যবহার করি</string>
     <string name="hashtags">হ্যাশট্যাগ</string>
-    <string name="add_hashtags_title">হ্যাশট্যাগ যোগ করো</string>
+
     <string name="pref_title_confirm_reblogs">বুস্ট করার আগে নিশ্চিত করো</string>
     <string name="pref_title_show_cards_in_timelines">টাইমলাইনে লিঙ্ক প্রিভিউ দেখাও</string>
     <string name="pref_title_enable_swipe_for_tabs">ট্যাবের মাঝে সোয়াইপ সংকেত চালু করো</string>
@@ -230,7 +230,7 @@
     <string name="filter_apply">প্রয়োগ</string>
     <string name="notifications_apply_filter">ফিল্টার</string>
     <string name="notifications_clear">পরিষ্কার</string>
-    <string name="edit_hashtags_hint"># ছাড়া হ্যাশট্যাগ</string>
+
     <string name="title_favourites">প্রিয়গুলো</string>
     <string name="title_followers">অনুগামিবৃন্দ</string>
     <string name="title_follows">অনুসরণ</string>

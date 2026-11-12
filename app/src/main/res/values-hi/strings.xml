@@ -164,7 +164,7 @@
     <string name="notifications_apply_filter">फ़िल्टर</string>
     <string name="notifications_clear">साफ करें</string>
     <string name="select_list_title">सूची का चयन करें</string>
-    <string name="add_hashtags_title">हैशटैग जोड़ें</string>
+
     <string name="conversation_more_recipients">%1$s, %2$s तथा %3$d अन्य लोग</string>
     <string name="conversation_2_recipients">%1$s तथा %2$s</string>
     <string name="conversation_1_recipients">%1$s</string>

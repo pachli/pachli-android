@@ -216,7 +216,7 @@
     <string name="download_media">نزّل الوسائط</string>
     <string name="downloading_media">جارٍ تنزيل الوسائط</string>
     <string name="dialog_redraft_post_warning">هل تريد حذف وإعادة صياغة هذا التبويق؟</string>
-    <string name="edit_hashtags_hint">وسم بدون #</string>
+
     <string name="notifications_clear">مسح</string>
     <string name="notifications_apply_filter">عامل تصفية</string>
     <string name="filter_apply">طَبِّق</string>
@@ -276,7 +276,7 @@
     <string name="action_mute_conversation">اكتم المحادثة</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; طلبَ متابعتك</string>
     <string name="hashtags">الوسوم</string>
-    <string name="add_hashtags_title">إضافة وسم</string>
+
     <string name="pref_title_gradient_for_media">اظهر ألوانا متدرّجة للوسائط المخفية</string>
     <string name="pref_main_nav_position">موضع شريط التنقل الرئيسي</string>
     <string name="dialog_mute_hide_notifications">أخفِ الإشعارات</string>

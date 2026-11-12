@@ -216,7 +216,7 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s এবং %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s এবং %3$d আরো অন্য জন</string>
-    <string name="edit_hashtags_hint"># ছাড়া হ্যাশট্যাগ</string>
+
     <string name="notifications_clear">পরিষ্কার</string>
     <string name="notifications_apply_filter">ফিল্টার</string>
     <string name="filter_apply">প্রয়োগ</string>
@@ -269,7 +269,7 @@
     <string name="list">তালিকা</string>
     <string name="select_list_title">তালিকা নির্বাচন করো</string>
     <string name="hashtags">হ্যাশট্যাগ</string>
-    <string name="add_hashtags_title">হ্যাশট্যাগ যোগ করো</string>
+
     <string name="notification_follow_request_description">অনুসরণ রিকোয়েস্টের বিজ্ঞপ্তি</string>
     <string name="pref_main_nav_position">মূল ন্যাভিগেশন জায়গা</string>
     <string name="pref_title_enable_swipe_for_tabs">ট্যাবের মাঝে সোয়াইপ সংকেত চালু করো</string>

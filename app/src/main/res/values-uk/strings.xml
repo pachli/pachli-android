@@ -290,8 +290,8 @@
     <string name="notifications_clear">Очистити</string>
     <string name="list">Список</string>
     <string name="select_list_title">Вибрати список</string>
-    <string name="edit_hashtags_hint">Хештег без #</string>
-    <string name="add_hashtags_title">Додати хештег</string>
+
+
     <string name="pin_action">Прикріпити</string>
     <string name="unpin_action">Відкріпити</string>
     <string name="label_remote_account">Наведені далі відомості можуть відбивати не повний профіль користувача. Натисніть, щоб відкрити повний профіль у браузері.</string>

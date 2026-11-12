@@ -24,8 +24,8 @@
     <string name="list">รายการ</string>
     <string name="select_list_title">เลือกรายการ</string>
     <string name="hashtags">แฮชแท็ก</string>
-    <string name="edit_hashtags_hint">แฮชแท็กโดยไม่มี #</string>
-    <string name="add_hashtags_title">เพิ่มแฮชแท็ก</string>
+
+
     <string name="conversation_more_recipients">%1$s, %2$s และอีก %3$d</string>
     <string name="conversation_2_recipients">%1$s และ %2$s</string>
     <string name="conversation_1_recipients">%1$s</string>

@@ -95,8 +95,8 @@
     <string name="notifications_clear">Falamhaich</string>
     <string name="list">Liosta</string>
     <string name="select_list_title">Tagh liosta</string>
-    <string name="edit_hashtags_hint">Taga hais gun #</string>
-    <string name="add_hashtags_title">Cuir taga hais ris</string>
+
+
     <string name="conversation_more_recipients">%1$s, %2$s ’s %3$d eile</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="title_favourited_by">’Na annsachd aig</string>

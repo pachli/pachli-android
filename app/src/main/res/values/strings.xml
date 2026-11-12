@@ -438,8 +438,8 @@
     <string name="description_post_language">Post language</string>
     <string name="description_login">Works in most cases. No data is leaked to other apps.</string>
     <string name="description_browser_login">May support additional authentication methods, but requires a supported browser.</string>
-    <string name="add_hashtags_title">Add hashtags</string>
-    <string name="edit_hashtags_hint">Hashtags without #, separated by spaces</string>
+
+
     <string name="hashtags">Hashtags</string>
     <string name="select_list_title">Select list</string>
     <string name="select_list_empty">You have no lists, yet</string>
@@ -803,4 +803,6 @@
     <string name="compose_task_description_writing_post">Writing post</string>
     <string name="compose_task_description_replying_fmt">Replying to %1$s</string>
     <string name="compose_task_description_quoting_fmt">Quoting %1$s</string>
+    <string name="edit_hashtags_hint">Hashtags without #, separated by spaces</string>
+    <string name="add_hashtags_title">Add hashtags</string>
 </resources>

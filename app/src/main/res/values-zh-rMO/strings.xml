@@ -214,7 +214,7 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s 和 %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s 和 %3$d 等人</string>
-    <string name="edit_hashtags_hint">話題名（不含前面的 # 號）</string>
+
     <string name="notifications_clear">清空</string>
     <string name="notifications_apply_filter">分類</string>
     <string name="filter_apply">應用</string>

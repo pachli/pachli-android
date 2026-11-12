@@ -252,8 +252,8 @@
     <string name="title_favourited_by">Adicionado aos favoritos por</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s e %3$d mais</string>
-    <string name="add_hashtags_title">Adicionar hashtag</string>
-    <string name="edit_hashtags_hint">Hashtag sem #</string>
+
+
     <string name="hashtags">Hashtags</string>
     <string name="select_list_title">Selecionar lista</string>
     <string name="list">Lista</string>

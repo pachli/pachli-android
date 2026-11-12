@@ -432,8 +432,8 @@
     <string name="description_post_language">Bahasa postingan</string>
     <string name="description_login">Berfungsi di sebagian besar kasus. Tidak ada data yang bocor ke aplikasi lain.</string>
     <string name="description_browser_login">Mungkin mendukung metode autentikasi tambahan, tetapi memerlukan browser yang didukung.</string>
-    <string name="add_hashtags_title">Tambah tagar</string>
-    <string name="edit_hashtags_hint">Tagar tanpa #</string>
+
+
     <string name="hashtags">Tagar</string>
     <string name="select_list_title">Pilih daftar</string>
     <string name="select_list_empty">Anda belum memiliki daftar</string>

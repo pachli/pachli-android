@@ -215,7 +215,7 @@
     <string name="filter_addition_title">Añadir filtro</string>
     <string name="filter_dialog_update_button">Actualizar</string>
     <string name="filter_add_description">Frase para filtrar</string>
-    <string name="edit_hashtags_hint">Etiqueta sin #</string>
+
     <string name="notifications_clear">Eliminar notificaciones</string>
     <string name="notifications_apply_filter">Filtro</string>
     <string name="compose_shortcut_long_label">Escribir publicación</string>
@@ -271,7 +271,7 @@
     <string name="pref_title_show_cards_in_timelines">Mostrar previsualizaciones de enlaces en las cronologías</string>
     <string name="pref_title_enable_swipe_for_tabs">Habilitar gesto de deslizar para alternar entre pestañas</string>
     <string name="hashtags">Etiquetas</string>
-    <string name="add_hashtags_title">Añadir etiqueta</string>
+
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; solicita seguirte</string>
     <string name="pref_main_nav_position">Posición de navegación principal</string>
     <string name="pref_title_gradient_for_media">Mostrar difuminados coloridos para la multimedia oculta</string>

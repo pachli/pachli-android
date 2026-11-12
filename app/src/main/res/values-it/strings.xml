@@ -225,7 +225,7 @@
     <string name="downloading_media">Scaricando media</string>
     <string name="compose_shortcut_long_label">Componi messaggio</string>
     <string name="compose_shortcut_short_label">Componi</string>
-    <string name="edit_hashtags_hint">Hashtag senza #</string>
+
     <string name="notifications_clear">Svuota</string>
     <string name="notifications_apply_filter">Filtra</string>
     <string name="filter_apply">Applica</string>
@@ -272,7 +272,7 @@
     <string name="action_schedule_post">Programma un messaggio</string>
     <string name="action_reset_schedule">Ripristina</string>
     <string name="hashtags">Hashtag</string>
-    <string name="add_hashtags_title">Aggiungi hashtag</string>
+
     <string name="dialog_mute_warning">Silenziare @%1$s?</string>
     <string name="dialog_block_warning">Bloccare @%1$s?</string>
     <string name="action_unmute_conversation">Smetti di silenziare la conversazione</string>

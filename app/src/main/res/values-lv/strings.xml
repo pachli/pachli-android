@@ -150,7 +150,7 @@
     <string name="action_access_scheduled_posts">Ieplānotie ieraksti</string>
     <string name="error_following_hashtags_unsupported">Šis serveris neatbalsta sekošanu tēmturiem.</string>
     <string name="emoji_style">Emocijzīmju stils</string>
-    <string name="add_hashtags_title">Pievienot tēmturi</string>
+
     <string name="pref_title_show_cards_in_timelines">Rādīt saišu priekšskatījumus laika līnijās</string>
     <string name="title_blocks">Liegtie lietotāji</string>
     <string name="pref_title_http_proxy_enable">Iespējot HTTP starpniekserveri</string>
@@ -333,7 +333,7 @@
     <string name="report_category_spam">Mēstule</string>
     <string name="action_set_focus">Iestatīt fokālo punktu</string>
     <string name="status_created_info">%1$s izveidoja</string>
-    <string name="edit_hashtags_hint">Tēmturis bez #</string>
+
     <string name="status_edit_info">%1$s laboja</string>
     <string name="description_login">Darbojas vairumā gadījumu. Dati netiek nopludināti citām lietotnēm.</string>
     <string name="pref_title_confirm_favourites">Pirms pievienošanas izlasei rādīt apstiprināšanas dialogu</string>

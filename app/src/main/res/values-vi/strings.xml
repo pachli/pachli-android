@@ -230,8 +230,8 @@
     <string name="list">Danh sách</string>
     <string name="select_list_title">Chọn danh sách</string>
     <string name="hashtags">Hashtag</string>
-    <string name="edit_hashtags_hint">Không cần dấu #</string>
-    <string name="add_hashtags_title">Thêm hashtag</string>
+
+
     <string name="conversation_more_recipients">%1$s, %2$s và %3$d người nữa</string>
     <string name="conversation_2_recipients">%1$s và %2$s</string>
     <string name="conversation_1_recipients">%1$s</string>
