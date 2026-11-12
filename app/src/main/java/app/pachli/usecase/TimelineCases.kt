@@ -21,6 +21,7 @@ import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusActionError
 import app.pachli.core.database.dao.RemoteKeyDao
+import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
@@ -53,6 +54,7 @@ class TimelineCases @Inject constructor(
     private val statusRepository: OfflineFirstStatusRepository,
     private val translatedStatusDao: TranslatedStatusDao,
     private val translationService: TranslationService,
+    private val timelineDao: TimelineDao,
     private val remoteKeyDao: RemoteKeyDao,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
@@ -60,7 +62,7 @@ class TimelineCases @Inject constructor(
         return statusRepository.mute(pachliAccountId, statusId, mute)
     }
 
-    suspend fun delete(statusId: String): ApiResult<DeletedStatus> {
+    suspend fun delete(pachliAccountId: Long, statusId: String): ApiResult<DeletedStatus> {
         // Some servers (Pleroma?, see https://github.com/tuskyapp/Tusky/pull/1461) don't
         // return the text of the status when deleting. Work around that by fetching
         // the status source first, and using content from that if necessary.
@@ -68,7 +70,16 @@ class TimelineCases @Inject constructor(
             .getOrElse { return Err(it) }.body
 
         return mastodonApi.deleteStatus(statusId)
-            .onSuccess { eventHub.dispatch(StatusDeletedEvent(statusId)) }
+            .onSuccess {
+                eventHub.dispatch(StatusDeletedEvent(statusId))
+
+                // Decrement the status count, but only if the deleted status was not
+                // Visibility.DIRECT (as they are not included in the status count, see
+                // https://github.com/mastodon/documentation/pull/1976).
+                if (it.body.visibility.asModel() != Status.Visibility.DIRECT) {
+                    timelineDao.decrementStatusesCount(pachliAccountId)
+                }
+            }
             .onFailure { Timber.w("Failed to delete status: %s", it) }
             .map {
                 if (it.body.isEmpty()) {

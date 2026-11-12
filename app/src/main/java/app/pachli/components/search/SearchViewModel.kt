@@ -325,7 +325,7 @@ class SearchViewModel @Inject constructor(
 
     fun removeItem(statusViewData: IStatusViewData) {
         viewModelScope.launch {
-            timelineCases.delete(statusViewData.statusId)
+            timelineCases.delete(statusViewData.pachliAccountId, statusViewData.statusId)
                 .onSuccess {
                     if (loadedStatuses.remove(statusViewData)) {
                         statusesPagingSourceFactory.invalidate()
@@ -417,9 +417,9 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun deleteStatusAsync(id: String): Deferred<Result<DeletedStatus, ApiError>> {
+    fun deleteStatusAsync(pachliAccountId: Long, statusId: String): Deferred<Result<DeletedStatus, ApiError>> {
         return viewModelScope.async {
-            timelineCases.delete(id).map { it.body.asModel() }
+            timelineCases.delete(pachliAccountId, statusId).map { it.body.asModel() }
         }
     }
 

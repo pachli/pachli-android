@@ -85,6 +85,84 @@ WHERE pachliAccountId = :pachliAccountId AND accountId IN (:accountIds)
     @Upsert
     abstract suspend fun upsertAccounts(accounts: Collection<AccountEntity>)
 
+    /**
+     * Adds [count] to [AccountEntity.followingCount] for the [AccountEntity]
+     * associated with [pachliAccountId].
+     */
+    @Query(
+        """
+UPDATE AccountEntity
+SET followingCount = followingCount + :count
+WHERE pachliAccountId = :pachliAccountId AND accountId = (SELECT accountId FROM PachliAccountEntity WHERE pachliAccountId = :pachliAccountId)
+        """,
+    )
+    abstract suspend fun incrementFollowingCount(pachliAccountId: Long, count: Int = 1)
+
+    /**
+     * Subtracts [count] from [AccountEntity.followingCount] for the [AccountEntity]
+     * associated with [pachliAccountId].
+     */
+    @Query(
+        """
+UPDATE AccountEntity
+SET followingCount = followingCount - :count
+WHERE pachliAccountId = :pachliAccountId AND accountId = (SELECT accountId FROM PachliAccountEntity WHERE pachliAccountId = :pachliAccountId)
+        """,
+    )
+    abstract suspend fun decrementFollowingCount(pachliAccountId: Long, count: Int = 1)
+
+    /**
+     * Adds [count] to [AccountEntity.followersCount] for the [AccountEntity]
+     * identified with [pachliAccountId] and [accountId].
+     */
+    @Query(
+        """
+UPDATE AccountEntity
+SET followersCount = followersCount + :count
+WHERE pachliAccountId = :pachliAccountId AND accountId = :accountId
+        """,
+    )
+    abstract suspend fun incrementFollowerCount(pachliAccountId: Long, accountId: String, count: Int = 1)
+
+    /**
+     * Subtracts [count] from [AccountEntity.followersCount] for the [AccountEntity]
+     * identified with [pachliAccountId] and [accountId].
+     */
+    @Query(
+        """
+UPDATE AccountEntity
+SET followersCount = followersCount - :count
+WHERE pachliAccountId = :pachliAccountId AND accountId = :accountId
+        """,
+    )
+    abstract suspend fun decrementFollowersCount(pachliAccountId: Long, accountId: String, count: Int = 1)
+
+    /**
+     * Adds [count] to [AccountEntity.statusesCount] for the [AccountEntity]
+     * associated with [pachliAccountId].
+     */
+    @Query(
+        """
+ UPDATE AccountEntity
+ SET statusesCount = statusesCount + :count
+ WHERE pachliAccountId = :pachliAccountId AND accountId = (SELECT accountId FROM PachliAccountEntity WHERE pachliAccountId = :pachliAccountId)
+        """,
+    )
+    abstract suspend fun incrementStatusesCount(pachliAccountId: Long, count: Int = 1)
+
+    /**
+     * Subtracts [count] from [AccountEntity.statusesCount] for the [AccountEntity]
+     * associated with [pachliAccountId].
+     */
+    @Query(
+        """
+ UPDATE AccountEntity
+ SET statusesCount = statusesCount - :count
+ WHERE pachliAccountId = :pachliAccountId AND accountId = (SELECT accountId FROM PachliAccountEntity WHERE pachliAccountId = :pachliAccountId)
+        """,
+    )
+    abstract suspend fun decrementStatusesCount(pachliAccountId: Long, count: Int = 1)
+
     @Upsert
     abstract suspend fun upsertTimelineAccounts(timelineAccounts: Collection<TimelineAccountEntity>)
 

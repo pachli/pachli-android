@@ -494,7 +494,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
             .setMessage(R.string.dialog_delete_post_warning)
             .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
                 lifecycleScope.launch {
-                    timelineCases.delete(viewData.status.actionableId).onFailure {
+                    timelineCases.delete(viewData.pachliAccountId, viewData.status.actionableId).onFailure {
                         Timber.w("error deleting status: %s", it)
                         Toast.makeText(context, app.pachli.core.ui.R.string.error_generic, Toast.LENGTH_SHORT).show()
                     }
@@ -516,7 +516,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
             .setMessage(R.string.dialog_redraft_post_warning)
             .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
                 lifecycleScope.launch {
-                    timelineCases.delete(statusViewData.status.actionableId).onSuccess {
+                    timelineCases.delete(statusViewData.pachliAccountId, statusViewData.status.actionableId).onSuccess {
                         val sourceStatus = it.body.asModel()
                         val draft = sourceStatus.asDraft()
                         val composeOptions = ComposeOptions(
