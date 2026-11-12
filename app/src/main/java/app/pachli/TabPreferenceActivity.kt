@@ -268,11 +268,11 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
             .setView(frameLayout)
             .setNegativeButton(android.R.string.cancel, null)
             .setPositiveButton(R.string.action_save) { _, _ ->
-                val input = editText.text.toString().trim()
+                val input = editText.text.toString().trim().split(blankSpaceRegex)
                 if (timeline == null) {
                     val newTab = TabViewData.from(
                         intent.pachliAccountId,
-                        Timeline.Hashtags(listOf(input)),
+                        Timeline.Hashtags(input),
                     )
                     currentTabs.add(newTab)
                     currentTabsAdapter.notifyItemInserted(currentTabs.size - 1)
