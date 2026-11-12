@@ -76,7 +76,7 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
         val senderFullName = intent.getStringExtra(KEY_SENDER_ACCOUNT_FULL_NAME)
         val draft = intent.getParcelableExtra<Draft>(KEY_DRAFT)
 
-        val account = accountManager.getAccountById(senderId)
+        val account = accountManager.getPachliAccountById(senderId)
 
         val notificationManager = NotificationManagerCompat.from(context)
 

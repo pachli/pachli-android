@@ -138,7 +138,7 @@ internal class SendStatusService : Service() {
         }
 
         // when account == null, user has logged out, cancel sending
-        val account = accountManager.getAccountById(statusToSend.pachliAccountId)
+        val account = accountManager.getPachliAccountById(statusToSend.pachliAccountId)
 
         if (account == null) {
             statusesToSend.remove(statusId)
