@@ -25,7 +25,6 @@ import app.pachli.core.common.PachliError
 import app.pachli.core.data.R
 import app.pachli.core.data.repository.Error.ExportError
 import app.pachli.core.data.repository.Error.ImportError
-import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.model.AccountIdentifier
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.Timeline
@@ -146,7 +145,7 @@ class ExportedPreferencesRepository @Inject constructor(
     @OptIn(ExperimentalStdlibApi::class)
     suspend fun export(uri: Uri) = withContext(Dispatchers.IO) {
         return@withContext runSuspendCatching {
-            val redactedAccounts = accountManager.accounts.map { it.toRedactedAccount() }
+            val redactedAccounts = accountManager.pachliAccounts.map { it.toRedactedAccount() }
 
             val data = ExportedPreferences(
                 version = 1,
@@ -185,7 +184,7 @@ class ExportedPreferencesRepository @Inject constructor(
                 // pachliAccountId will be the same. Instead, match accounts by the
                 // "identifier" property. A local account and a redacted account with
                 // the same identifier are the same.
-                val existingAccounts = accountManager.accounts.associateBy { it.identifier }
+                val existingAccounts = accountManager.pachliAccounts.associateBy { it.identifier }
 
                 // Update any existing accounts from the exported data.
                 importedPrefs.v1.accounts.forEach { redactedAccount ->
@@ -291,7 +290,7 @@ class TaggedNumberAdapter private constructor(private val delegate: JsonAdapter<
 }
 
 /**
- * Redacted version of [PachliAccountEntity] that can be saved to local storage without
+ * Redacted version of [PachliAccount] that can be saved to local storage without
  * exposing sensitive data or needlessly replicating data that is stored on the
  * server.
  *
@@ -356,8 +355,8 @@ data class RedactedAccount(
         get() = AccountIdentifier.unsafe("$domain:$accountId")
 }
 
-/** Converts [PachliAccountEntity] to [RedactedAccount]. */
-fun PachliAccountEntity.toRedactedAccount() = RedactedAccount(
+/** Converts [PachliAccount] to [RedactedAccount]. */
+fun PachliAccount.toRedactedAccount() = RedactedAccount(
     domain = this.domain,
     accountId = this.accountId,
     notificationsEnabled = this.notificationsEnabled,

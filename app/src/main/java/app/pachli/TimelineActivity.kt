@@ -135,7 +135,7 @@ class TimelineActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
 
         binding.composeButton.setOnClickListener {
             lifecycleScope.launch {
-                val account = accountManager.getAccountById(pachliAccountId)!!
+                val account = accountManager.getPachliAccountById(pachliAccountId)!!
                 val draft = Draft.createDraft(this@TimelineActivity, account, timeline)
                 val composeOptions = ComposeOptions(draft = draft)
                 val intent = ComposeActivityIntent(this@TimelineActivity, pachliAccountId, composeOptions)

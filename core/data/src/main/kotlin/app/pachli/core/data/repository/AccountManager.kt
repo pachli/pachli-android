@@ -189,10 +189,6 @@ class AccountManager @Inject constructor(
         .map { it.map { it.asModel() } }
         .shareIn(externalScope, SharingStarted.Eagerly, replay = 1)
 
-    @Deprecated("Caller should use pachliAccounts")
-    val accounts: List<PachliAccountEntity>
-        get() = accountsFlow.value
-
     val pachliAccounts: List<PachliAccount>
         get() = pachliAccountsFlow.replayCache.lastOrNull().orEmpty()
 
@@ -264,17 +260,9 @@ class AccountManager @Inject constructor(
 
     /**
      * Finds an account by its database id
-     * @param accountId the id of the account
+     * @param pachliAccountId the id of the account
      * @return the requested account or null if it was not found
      */
-    // TODO: Should be `suspend`, accessed through a ViewModel, but not all the
-    // calling code has been converted yet.
-    fun getAccountById(accountId: Long): PachliAccountEntity? {
-        return accounts.find { (id) ->
-            id == accountId
-        }
-    }
-
     fun getPachliAccountById(pachliAccountId: Long): PachliAccount? {
         return pachliAccounts.find { it.pachliAccountId == pachliAccountId }
     }
@@ -577,7 +565,7 @@ class AccountManager @Inject constructor(
     // TODO: Should be `suspend`, accessed through a ViewModel, but not all the
     // calling code has been converted yet.
     fun areAndroidNotificationsEnabled(): Boolean {
-        return accounts.any { it.notificationsEnabled }
+        return pachliAccounts.any { it.notificationsEnabled }
     }
 
     suspend fun setAlwaysShowSensitiveMedia(accountId: Long, value: Boolean) {

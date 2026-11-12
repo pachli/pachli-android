@@ -31,7 +31,7 @@ import timber.log.Timber
 fun notificationMethod(context: Context, accountManager: AccountManager): AppNotificationMethod {
     UnifiedPush.getAckDistributor(context) ?: return AppNotificationMethod.ALL_PULL
 
-    val notificationMethods = accountManager.accounts.map { it.notificationMethod }
+    val notificationMethods = accountManager.pachliAccounts.map { it.notificationMethod }
 
     // All pull?
     if (notificationMethods.all { it == AccountNotificationMethod.PULL }) return AppNotificationMethod.ALL_PULL
