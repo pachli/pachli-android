@@ -95,6 +95,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
     private lateinit var addTabAdapter: TabAdapter
 
     private val hashtagRegex by unsafeLazy { Pattern.compile("([\\w_]*[\\p{Alpha}_][\\w_]*)", Pattern.CASE_INSENSITIVE) }
+    private val blankSpaceRegex = Regex("\\s+")
 
     private val onFabDismissedCallback = object : OnBackPressedCallback(false) {
         override fun handleOnBackPressed() {
@@ -351,8 +352,9 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
     }
 
     private fun validateHashtag(input: CharSequence?): Boolean {
-        val trimmedInput = input?.trim() ?: ""
-        return trimmedInput.isNotEmpty() && hashtagRegex.matcher(trimmedInput).matches()
+        if (input.isNullOrBlank()) return false
+        val splitInput: List<CharSequence> = input.trim().split(blankSpaceRegex)
+        return splitInput.all { hashtagRegex.matcher(it).matches() }
     }
 
     private fun updateAvailableTabs() {
