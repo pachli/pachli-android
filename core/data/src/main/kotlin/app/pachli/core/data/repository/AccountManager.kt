@@ -194,7 +194,7 @@ class AccountManager @Inject constructor(
         get() = accountsFlow.value
 
     val pachliAccounts: List<PachliAccount>
-        get() = pachliAccountsFlow.replayCache.last()
+        get() = pachliAccountsFlow.replayCache.lastOrNull().orEmpty()
 
     @Deprecated("Caller should use pachliAccountsOrderedByActiveFlow")
     val accountsOrderedByActiveFlow = accountDao.getAccountsOrderedByActive()
@@ -202,14 +202,14 @@ class AccountManager @Inject constructor(
 
     @Deprecated("Called should use pachliAccountsOrderedByActive")
     val accountsOrderedByActive: List<PachliAccountEntity>
-        get() = accountsOrderedByActiveFlow.replayCache.first()
+        get() = accountsOrderedByActiveFlow.replayCache.lastOrNull().orEmpty()
 
     val pachliAccountsOrderedByActiveFlow = accountDao.getPachliAccountsOrderedByActiveFlow()
         .map { it.map { it.asModel() } }
         .shareIn(externalScope, SharingStarted.Eagerly, replay = 1)
 
     val pachliAccountsOrderedByActive: List<PachliAccount>
-        get() = pachliAccountsOrderedByActiveFlow.replayCache.first()
+        get() = pachliAccountsOrderedByActiveFlow.replayCache.lastOrNull().orEmpty()
 
     @Deprecated("Caller should use getPachliAccountFlow with a specific account ID")
     val activePachliAccountFlow = accountDao.getActivePachliAccountFlow()
