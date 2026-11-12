@@ -22,11 +22,11 @@ import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.model.NotificationAccountFilterDecisionUpdate
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.NotificationViewDataEntity
-import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountFilterReason
 import app.pachli.core.model.FilterAction
+import app.pachli.core.testing.fakes.fakePachliAccountEntity
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -65,14 +65,7 @@ class NotificationEntityForeignKeyTest {
      * Deleting this account should trigger a cascading delete of each
      * entity under test.
      */
-    private val activeAccount = PachliAccountEntity(
-        pachliAccountId = pachliAccountId,
-        domain = "mastodon.example",
-        accessToken = "token",
-        clientId = "id",
-        clientSecret = "secret",
-        isActive = true,
-    )
+    private val activeAccount = fakePachliAccountEntity()
 
     /**
      * Example remote account that sends the statuses and notifications

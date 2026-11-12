@@ -46,6 +46,7 @@ import app.pachli.core.model.ServerLimits
 import app.pachli.core.model.Status
 import app.pachli.core.model.UserListRepliesPolicy
 import app.pachli.core.testing.extensions.insertTimelineStatusWithQuote
+import app.pachli.core.testing.fakes.fakePachliAccountEntity
 import app.pachli.core.testing.fakes.fakeStatusEntityWithAccount
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -108,14 +109,7 @@ class PachliAccountEntityForeignKeyTest {
      * Deleting this account should trigger a cascading delete of each
      * entity under test.
      */
-    private val activeAccount = PachliAccountEntity(
-        pachliAccountId = pachliAccountId,
-        domain = "mastodon.example",
-        accessToken = "token",
-        clientId = "id",
-        clientSecret = "secret",
-        isActive = true,
-    )
+    private val activeAccount = fakePachliAccountEntity()
 
     /**
      * Example remote account that sends the statuses and notifications

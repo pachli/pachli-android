@@ -30,7 +30,6 @@ import app.pachli.components.compose.HiltTestApplication_Application
 import app.pachli.components.notifications.createNotificationChannelsForAccount
 import app.pachli.components.notifications.makeNotification
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.database.model.defaultTabs
 import app.pachli.core.model.Notification
 import app.pachli.core.model.Timeline
@@ -38,6 +37,7 @@ import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.network.model.AccountSource
 import app.pachli.core.network.model.CredentialAccount
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.testing.fakes.fakePachliAccountEntity
 import app.pachli.core.testing.fakes.fakeTimelineAccount
 import app.pachli.core.testing.rules.lazyActivityScenarioRule
 import app.pachli.core.testing.success
@@ -78,14 +78,7 @@ class MainActivityTest {
         launchActivity = false,
     )
 
-    private val pachliAccountEntity = PachliAccountEntity(
-        pachliAccountId = 1,
-        domain = "test.domain",
-        accessToken = "fakeToken",
-        clientId = "fakeId",
-        clientSecret = "fakeSecret",
-        isActive = true,
-    )
+    private val pachliAccountEntity = fakePachliAccountEntity()
 
     @Inject
     lateinit var mastodonApi: MastodonApi

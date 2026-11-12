@@ -24,11 +24,11 @@ package app.pachli.core.data.repository
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.model.AccountSource
 import app.pachli.core.model.Draft
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
+import app.pachli.core.testing.fakes.fakePachliAccountEntity
 import app.pachli.core.testing.fakes.fakeStatus
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -38,14 +38,7 @@ import org.robolectric.ParameterizedRobolectricTestRunner
 abstract class BaseDraftCompanionTest {
     protected val context: Context = ApplicationProvider.getApplicationContext()
 
-    protected val account = PachliAccountEntity(
-        pachliAccountId = 0L,
-        domain = "mastodon.example",
-        accessToken = "token",
-        clientId = "id",
-        clientSecret = "secret",
-        isActive = true,
-    )
+    protected val account = fakePachliAccountEntity()
 }
 
 @RunWith(AndroidJUnit4::class)
