@@ -210,7 +210,7 @@
     <string name="description_login">Üldjuhul toimib. Mitte mingeid andmeid ei leki teistele rakendustele.</string>
     <string name="description_browser_login">Võib toetada täiendavaid autentimismeetodeid, aga eeldab toetatud veebibrauserit.</string>
     <string name="add_hashtags_title">Lisa teemaviide</string>
-    <string name="edit_hashtag_hint">Teemaviide ilma #-märgita</string>
+    <string name="edit_hashtags_hint">Teemaviide ilma #-märgita</string>
     <string name="hashtags">Teemaviited</string>
     <string name="select_list_title">Vali loend</string>
     <string name="select_list_empty">Sul pole veel loendeid</string>

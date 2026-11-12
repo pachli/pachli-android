@@ -210,7 +210,7 @@
     <string name="filter_dialog_remove_button">Verwijderen</string>
     <string name="filter_dialog_update_button">Bijwerken</string>
     <string name="filter_add_description">Zinsdeel om te filteren</string>
-    <string name="edit_hashtag_hint">Hashtag zonder #</string>
+    <string name="edit_hashtags_hint">Hashtag zonder #</string>
     <string name="action_delete_and_redraft">Verwijderen en herschrijven</string>
     <string name="dialog_redraft_post_warning">Dit bericht verwijderen en herschrijven\?</string>
     <string name="notifications_clear">Leegmaken</string>

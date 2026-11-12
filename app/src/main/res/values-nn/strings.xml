@@ -364,7 +364,7 @@
     <string name="description_login">Funkar i dei fleste tilfella. Ingen informasjon vert delt med andre appar.</string>
     <string name="description_browser_login">Kan stø andre autentiseringsmetodar, men treng ein stødd nettlesar.</string>
     <string name="add_hashtags_title">Legg til emneknagg</string>
-    <string name="edit_hashtag_hint">Emneknagg utan #-teiknet</string>
+    <string name="edit_hashtags_hint">Emneknagg utan #-teiknet</string>
     <string name="hashtags">Emneknaggar</string>
     <string name="select_list_title">Vel liste</string>
     <string name="select_list_empty">Du har ingen lister enno</string>

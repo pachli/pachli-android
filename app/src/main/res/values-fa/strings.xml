@@ -223,7 +223,7 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s و %2$s</string>
     <string name="conversation_more_recipients">%1$s، %2$s و %3$d بیش‌تر</string>
-    <string name="edit_hashtag_hint">برچسب بدون #</string>
+    <string name="edit_hashtags_hint">برچسب بدون #</string>
     <string name="notifications_clear">پاک‌سازی</string>
     <string name="notifications_apply_filter">پالایش</string>
     <string name="filter_apply">اعمال</string>

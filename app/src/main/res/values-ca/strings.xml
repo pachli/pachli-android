@@ -207,7 +207,7 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s i %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s i %3$d més</string>
-    <string name="edit_hashtag_hint">Hashtag sense #</string>
+    <string name="edit_hashtags_hint">Hashtag sense #</string>
     <string name="notifications_clear">Netejar</string>
     <string name="notifications_apply_filter">Filtrar</string>
     <string name="filter_apply">Aplicar</string>

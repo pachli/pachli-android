@@ -439,7 +439,7 @@
     <string name="description_login">Works in most cases. No data is leaked to other apps.</string>
     <string name="description_browser_login">May support additional authentication methods, but requires a supported browser.</string>
     <string name="add_hashtags_title">Add hashtags</string>
-    <string name="edit_hashtag_hint">Hashtag without #</string>
+    <string name="edit_hashtags_hint">Hashtags without #, separated by spaces</string>
     <string name="hashtags">Hashtags</string>
     <string name="select_list_title">Select list</string>
     <string name="select_list_empty">You have no lists, yet</string>

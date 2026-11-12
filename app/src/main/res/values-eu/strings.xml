@@ -228,7 +228,7 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s eta %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s eta %3$d gehiago</string>
-    <string name="edit_hashtag_hint">Traola # gabe</string>
+    <string name="edit_hashtags_hint">Traola # gabe</string>
     <string name="notifications_clear">Garbitu</string>
     <string name="notifications_apply_filter">Iragazi</string>
     <string name="filter_apply">Aplikatu</string>

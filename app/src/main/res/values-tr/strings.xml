@@ -215,7 +215,7 @@
     <string name="filter_dialog_whole_word">Tüm dünya</string>
     <string name="filter_dialog_whole_word_description">Bir anahtar kelime veya kelime öbeği sadece alfanümerik olduğunda, yalnızca tüm kelimeyle eşleşirse uygulanır</string>
     <string name="filter_add_description">Süzgeçlenecek ifade</string>
-    <string name="edit_hashtag_hint"># Etiket olmadan</string>
+    <string name="edit_hashtags_hint"># Etiket olmadan</string>
     <string name="notifications_clear">Temizle</string>
     <string name="notifications_apply_filter">Süzgeçle</string>
     <string name="filter_apply">Uygula</string>

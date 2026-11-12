@@ -215,7 +215,7 @@
     <string name="filter_addition_title">Añadir filtro</string>
     <string name="filter_dialog_update_button">Actualizar</string>
     <string name="filter_add_description">Frase para filtrar</string>
-    <string name="edit_hashtag_hint">Etiqueta sin #</string>
+    <string name="edit_hashtags_hint">Etiqueta sin #</string>
     <string name="notifications_clear">Eliminar notificaciones</string>
     <string name="notifications_apply_filter">Filtro</string>
     <string name="compose_shortcut_long_label">Escribir publicación</string>

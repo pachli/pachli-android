@@ -210,7 +210,7 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s e %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s e %3$d mai</string>
-    <string name="edit_hashtag_hint">Etiquetas sens #</string>
+    <string name="edit_hashtags_hint">Etiquetas sens #</string>
     <string name="compose_shortcut_long_label">Escriure una publicacion</string>
     <string name="compose_shortcut_short_label">Redactar</string>
     <string name="action_delete_and_redraft">Suprimir e reformular</string>

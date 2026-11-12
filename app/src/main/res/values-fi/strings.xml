@@ -136,7 +136,7 @@
     <string name="action_open_reblogged_by">Näytä jaot</string>
     <string name="action_show_reblogs">Näytä jaetut julkaisut</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s ja %4$d muuta</string>
-    <string name="edit_hashtag_hint">Aihetunniste ilman #-merkkiä</string>
+    <string name="edit_hashtags_hint">Aihetunniste ilman #-merkkiä</string>
     <string name="title_domain_mutes">Piilotetut verkkotunnukset</string>
     <string name="error_no_web_browser_found">Verkkoselainta ei löytynyt.</string>
     <string name="action_delete_conversation">Poista keskustelu</string>

@@ -107,7 +107,7 @@
     <string name="list">Listaxe</string>
     <string name="select_list_title">Elexir listaxe</string>
     <string name="hashtags">Cancelos</string>
-    <string name="edit_hashtag_hint">Cancelo sen #</string>
+    <string name="edit_hashtags_hint">Cancelo sen #</string>
     <string name="add_hashtags_title">Engadir cancelo</string>
     <string name="conversation_more_recipients">%1$s, %2$s e %3$d máis</string>
     <string name="conversation_2_recipients">%1$s e %2$s</string>

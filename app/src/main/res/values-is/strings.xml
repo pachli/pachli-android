@@ -225,7 +225,7 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s og %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s og %3$d til viðbótar</string>
-    <string name="edit_hashtag_hint">Myllumerki án #</string>
+    <string name="edit_hashtags_hint">Myllumerki án #</string>
     <string name="select_list_title">Veldu lista</string>
     <string name="list">Listi</string>
     <string name="notifications_clear">Hreinsa</string>

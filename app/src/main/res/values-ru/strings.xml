@@ -212,7 +212,7 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s и %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s и ещё %3$d</string>
-    <string name="edit_hashtag_hint">Хэштег без #</string>
+    <string name="edit_hashtags_hint">Хэштег без #</string>
     <string name="notifications_clear">Очистить</string>
     <string name="notifications_apply_filter">Фильтр</string>
     <string name="filter_apply">Применить</string>

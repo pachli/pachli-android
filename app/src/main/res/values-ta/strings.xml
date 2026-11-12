@@ -239,7 +239,7 @@
     <string name="unsaved_changes">நீங்கள் சேமிக்கப்படாத மாற்றங்கள் உள்ளன.</string>
     <string name="failed_to_unpin">அவிழ்க்கத் தவறிவிட்டது</string>
     <string name="description_post_language">மொழியை இடுங்கள்</string>
-    <string name="edit_hashtag_hint"># இல்லாமல் ஏச்டேக்</string>
+    <string name="edit_hashtags_hint"># இல்லாமல் ஏச்டேக்</string>
     <string name="select_list_manage">பட்டியல்களை நிர்வகிக்கவும்</string>
     <string name="poll_ended_voted">நீங்கள் வாக்களித்த ஒரு கருத்துக் கணிப்பு முடிந்தது</string>
     <string name="button_back">பின்</string>

@@ -225,7 +225,7 @@
     <string name="downloading_media">Scaricando media</string>
     <string name="compose_shortcut_long_label">Componi messaggio</string>
     <string name="compose_shortcut_short_label">Componi</string>
-    <string name="edit_hashtag_hint">Hashtag senza #</string>
+    <string name="edit_hashtags_hint">Hashtag senza #</string>
     <string name="notifications_clear">Svuota</string>
     <string name="notifications_apply_filter">Filtra</string>
     <string name="filter_apply">Applica</string>

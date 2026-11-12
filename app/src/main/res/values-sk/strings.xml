@@ -460,7 +460,7 @@
     <string name="restart_emoji">Pre uplatnenie týchto zmien je potrebné reštartovať aplikáciu</string>
     <string name="account_moved_description">%1$s sa presunul/a na:</string>
     <string name="conversation_more_recipients">%1$s, %2$s a %3$d ďalší</string>
-    <string name="edit_hashtag_hint">Hashtag bez #</string>
+    <string name="edit_hashtags_hint">Hashtag bez #</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Nemôžeš nahrať viac než %1$d mediálnu prílohu.</item>
         <item quantity="few">Nemôžeš nahrať viac než %1$d mediálne prílohy.</item>

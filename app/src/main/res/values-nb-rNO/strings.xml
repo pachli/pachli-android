@@ -195,7 +195,7 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s og %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s og %3$d fler</string>
-    <string name="edit_hashtag_hint">Emneord uten #</string>
+    <string name="edit_hashtags_hint">Emneord uten #</string>
     <string name="notifications_clear">Fjern</string>
     <string name="notifications_apply_filter">Filter</string>
     <string name="filter_apply">Bruk</string>

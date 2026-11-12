@@ -333,7 +333,7 @@
     <string name="report_category_spam">Mēstule</string>
     <string name="action_set_focus">Iestatīt fokālo punktu</string>
     <string name="status_created_info">%1$s izveidoja</string>
-    <string name="edit_hashtag_hint">Tēmturis bez #</string>
+    <string name="edit_hashtags_hint">Tēmturis bez #</string>
     <string name="status_edit_info">%1$s laboja</string>
     <string name="description_login">Darbojas vairumā gadījumu. Dati netiek nopludināti citām lietotnēm.</string>
     <string name="pref_title_confirm_favourites">Pirms pievienošanas izlasei rādīt apstiprināšanas dialogu</string>

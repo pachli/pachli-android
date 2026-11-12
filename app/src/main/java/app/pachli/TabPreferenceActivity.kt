@@ -263,7 +263,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         frameLayout.updatePadding(left = padding, right = padding)
 
         val editText = AppCompatEditText(this)
-        editText.setHint(R.string.edit_hashtag_hint)
+        editText.setHint(R.string.edit_hashtags_hint)
         editText.text?.clear()
         frameLayout.addView(editText)
 

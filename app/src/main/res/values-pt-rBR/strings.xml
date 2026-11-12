@@ -216,7 +216,7 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s e %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s e %3$d outros</string>
-    <string name="edit_hashtag_hint">Hashtag sem #</string>
+    <string name="edit_hashtags_hint">Hashtag sem #</string>
     <string name="notifications_clear">Limpar notificações</string>
     <string name="notifications_apply_filter">Filtra notificações</string>
     <string name="filter_apply">Salvar</string>
