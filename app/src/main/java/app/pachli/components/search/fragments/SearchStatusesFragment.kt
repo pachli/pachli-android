@@ -473,7 +473,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
             AlertDialog.Builder(it)
                 .setMessage(R.string.dialog_delete_post_warning)
                 .setPositiveButton(android.R.string.ok) { _, _ ->
-                    viewModel.deleteStatusAsync(statusViewData.statusId)
+                    viewModel.deleteStatusAsync(statusViewData.pachliAccountId, statusViewData.statusId)
                     viewModel.removeItem(statusViewData)
                 }
                 .setNegativeButton(android.R.string.cancel, null)
@@ -488,7 +488,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
                 .setMessage(R.string.dialog_redraft_post_warning)
                 .setPositiveButton(android.R.string.ok) { _, _ ->
                     lifecycleScope.launch {
-                        timelineCases.delete(statusViewData.status.actionableId).onSuccess {
+                        timelineCases.delete(pachliAccountId, statusViewData.status.actionableId).onSuccess {
                             val sourceStatus = it.body.asModel()
                             val draft = sourceStatus.asDraft()
                             val composeOptions = ComposeOptions(

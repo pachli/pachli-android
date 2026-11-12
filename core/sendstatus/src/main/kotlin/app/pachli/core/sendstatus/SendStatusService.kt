@@ -20,6 +20,7 @@ import androidx.core.content.IntentCompat
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.DraftsRepository
+import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.StatusComposedEvent
@@ -28,6 +29,7 @@ import app.pachli.core.eventhub.StatusScheduledEvent
 import app.pachli.core.model.Draft
 import app.pachli.core.model.MediaAttribute
 import app.pachli.core.model.NewStatus
+import app.pachli.core.model.Status
 import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.navigation.pendingIntentFlags
 import app.pachli.core.network.model.asNetworkModel
@@ -70,6 +72,9 @@ internal class SendStatusService : Service() {
 
     @Inject
     lateinit var draftsRepository: DraftsRepository
+
+    @Inject
+    lateinit var timelineDao: TimelineDao
 
     private val supervisorJob = SupervisorJob()
     private val serviceScope = CoroutineScope(Dispatchers.Main + supervisorJob)
@@ -251,6 +256,13 @@ internal class SendStatusService : Service() {
                 // If the status was loaded from a draft, delete the draft and associated media files.
                 if (statusToSend.draft.draftId != 0L) {
                     draftsRepository.deleteDraftAndAttachments(statusToSend.draft.draftId)
+                }
+
+                // Increment the account's status count, but only if the new status was not
+                // Visibility.DIRECT (as they are not included in the status count, see
+                // https://github.com/mastodon/documentation/pull/1976).
+                if (statusToSend.draft.visibility != Status.Visibility.DIRECT) {
+                    timelineDao.incrementStatusesCount(statusToSend.pachliAccountId)
                 }
 
                 mediaUploader.cancelUploadScope(*statusToSend.media.map { it.localId }.toIntArray())

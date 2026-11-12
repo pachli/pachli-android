@@ -20,6 +20,7 @@ package app.pachli.core.domain.accounts
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.dao.FollowingAccountDao
+import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.model.ITimelineAccount
 import app.pachli.core.model.Relationship
@@ -35,21 +36,24 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 
 /**
- * Sends a follow request for [accountId] to the server for [pachliAccountId].
+ * Sends a follow request for [account] to the server for [pachliAccountId].
  *
  * On success:
  *
  * - The following relationship is added to [AccountManager].
+ * - The cached copy of the Pachli account's following count is incremented.
+ * - The cached copy of the account's follower count is incremented.
  */
 @Singleton
 class FollowAccountUseCase @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
     private val mastodonApi: MastodonApi,
     private val followingAccountDao: FollowingAccountDao,
+    private val timelineDao: TimelineDao,
 ) {
     /**
      * @param pachliAccountId
-     * @param accountId
+     * @param account Account to follow.
      * @param showReblogs True if the boosts of posts made by the account
      * should be shown.
      * @param notify True if the user should be notified when this account
@@ -60,6 +64,8 @@ class FollowAccountUseCase @Inject constructor(
         mastodonApi.followAccount(account.accountId, showReblogs, notify).map { it.body.asModel() }
             .onSuccess {
                 followingAccountDao.upsert(FollowingAccountEntity(pachliAccountId, account.accountId, account.domain))
+                timelineDao.incrementFollowingCount(pachliAccountId)
+                timelineDao.incrementFollowerCount(pachliAccountId, account.accountId)
             }
     }.await()
 }

@@ -20,6 +20,7 @@ package app.pachli.core.domain.accounts
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.dao.FollowingAccountDao
+import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.UnfollowEvent
 import app.pachli.core.model.Relationship
@@ -40,14 +41,16 @@ import kotlinx.coroutines.async
  * On success:
  *
  * - The following relationship is removed from [AccountManager].
+ * - The cached copy of the Pachli account's following count is decremented.
+ * - The cached copy of the account's follower count is decremented.
  * - [UnfollowEvent] is dispatched.
  */
 @Singleton
 class UnfollowAccountUseCase @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
     private val mastodonApi: MastodonApi,
-    private val accountManager: AccountManager,
     private val followingAccountDao: FollowingAccountDao,
+    private val timelineDao: TimelineDao,
     private val eventHub: EventHub,
 ) {
     /**
@@ -59,6 +62,8 @@ class UnfollowAccountUseCase @Inject constructor(
         mastodonApi.unfollowAccount(accountId).map { it.body.asModel() }
             .onSuccess {
                 followingAccountDao.delete(pachliAccountId, accountId)
+                timelineDao.decrementFollowingCount(pachliAccountId)
+                timelineDao.decrementFollowersCount(pachliAccountId, accountId)
                 eventHub.dispatch(UnfollowEvent(pachliAccountId, accountId))
             }
     }.await()
