@@ -282,7 +282,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
                     currentTabsAdapter.notifyItemInserted(currentTabs.size - 1)
                 } else {
                     currentTabs[tabPosition] = currentTabs[tabPosition].copy(
-                        timeline = timeline.copy(tags = timeline.tags + input),
+                        timeline = timeline.copy(tags = (timeline.tags + input).distinct()),
                     )
 
                     currentTabsAdapter.notifyItemChanged(tabPosition)
