@@ -302,6 +302,8 @@ class AccountManager @Inject constructor(
                 clientId = clientId,
                 clientSecret = clientSecret,
                 oauthScopes = oauthScopes,
+                accountId = networkAccount.accountId,
+                username = networkAccount.username,
             ) ?: PachliAccountEntity(
                 pachliAccountId = 0L,
                 domain = domain.lowercase(Locale.ROOT),
@@ -311,6 +313,7 @@ class AccountManager @Inject constructor(
                 oauthScopes = oauthScopes,
                 isActive = true,
                 accountId = networkAccount.accountId,
+                username = networkAccount.username,
             )
 
             Timber.d("addAccount: upsert account id: %d, isActive: %s", newAccount.pachliAccountId, newAccount.isActive)
@@ -380,6 +383,7 @@ class AccountManager @Inject constructor(
                 val finalPachliAccountEntity = newActiveAccountEntity.copy(
                     isActive = true,
                     accountId = account.accountId,
+                    username = account.username,
                     defaultPostPrivacy = account.source.privacy ?: Visibility.PUBLIC,
                     defaultPostLanguage = account.source.language.orEmpty(),
                     defaultMediaSensitivity = account.source.sensitive == true,
