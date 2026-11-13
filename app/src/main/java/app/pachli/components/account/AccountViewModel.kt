@@ -144,12 +144,8 @@ class AccountViewModel @AssistedInject constructor(
 
     init {
         viewModelScope.launch {
-            combine(reload, pachliAccount, accountId) { _, pachliAccount, accountId ->
-                pachliAccount to accountId
-            }.collectLatest { (pachliAccount, accountId) ->
-                isRefreshing.value = true
-                accountRepository.reloadAccount(pachliAccount.pachliAccountId, accountId)
-                isRefreshing.value = false
+            combine(reload, accountId) { _, accountId -> accountId }.collectLatest { accountId ->
+                accountRepository.reloadAccount(pachliAccountId, accountId)
             }
         }
     }
