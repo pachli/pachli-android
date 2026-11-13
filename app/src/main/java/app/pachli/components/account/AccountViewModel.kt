@@ -73,8 +73,6 @@ class AccountViewModel @AssistedInject constructor(
 
     val noteSaved = MutableLiveData<Boolean>()
 
-    val isRefreshing = MutableLiveData<Boolean>().apply { value = false }
-
     /** The domain of the viewed account **/
     var domain = ""
 
