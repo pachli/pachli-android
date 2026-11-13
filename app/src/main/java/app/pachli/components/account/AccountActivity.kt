@@ -506,10 +506,6 @@ class AccountActivity :
             }
         }
 
-        viewModel.isRefreshing.observe(this) {
-            binding.swipeRefreshLayout.isRefreshing = it
-        }
-
         viewModel.relationshipData.observe(this) {
             val relation = it?.data
             val account = viewModel.accountData.value.get()?.getOrNull()
@@ -526,6 +522,11 @@ class AccountActivity :
         viewModel.noteSaved.observe(this) {
             binding.saveNoteInfo.visible(it, View.INVISIBLE)
         }
+    }
+
+    private fun refreshContent() {
+        binding.swipeRefreshLayout.isRefreshing = true
+        onRefresh()
     }
 
     private fun onRefresh() {
@@ -1107,8 +1108,7 @@ class AccountActivity :
                 return true
             }
             R.id.action_refresh_account -> {
-                binding.swipeRefreshLayout.isRefreshing = true
-                onRefresh()
+                refreshContent()
                 return true
             }
             R.id.action_report -> {
