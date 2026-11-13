@@ -1,7 +1,7 @@
 [versions]
 aboutlibraries = "14.2.1"
 acra = "5.14.2"
-agp = "9.4.1"
+agp = "9.5.1"
 androidx-appcompat = "1.8.0"
 androidx-browser = "1.9.0"
 androidx-cardview = "1.0.0"
@@ -59,7 +59,7 @@ ksoup = "0.6.0"
 ksp = "2.3.12"
 image-cropper = "4.7.0"
 leakcanary = "2.14"
-lint = "32.4.1" # = agp + 23.0.0 (= 8.13.2), see https://github.com/googlesamples/android-custom-lint-rules#lint-version
+lint = "32.5.1" # = agp + 23.0.0 (= 8.13.2), see https://github.com/googlesamples/android-custom-lint-rules#lint-version
 markwon = "4.6.2"
 material = "1.12.0"
 material-drawer = "9.0.2"
