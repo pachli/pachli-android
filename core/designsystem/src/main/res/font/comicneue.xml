@@ -15,7 +15,7 @@
     <font
         app:fontStyle="italic"
         app:fontWeight="400"
-        app:font="@font/comicneue_light" />
+        app:font="@font/comicneue_italic" />
     <font
         app:fontStyle="normal"
         app:fontWeight="700"
