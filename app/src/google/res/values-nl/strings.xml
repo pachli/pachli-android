@@ -2,4 +2,22 @@
 <resources>
     <string name="update_dialog_message">Open Google Play om de details te zien?</string>
     <string name="update_dialog_positive">Open Google Play</string>
+    <string name="action_delete_remote_model_fmt">Verwijderen%1$s</string>
+    <string name="action_download_remote_model_fmt">Downloaden%1$s</string>
+    <string name="content_description_loading_fmt">%1$s downloaden</string>
+    <string name="content_description_loaded_fmt">%1$s gedownload</string>
+    <string name="content_description_available_fmt">%1$s beschikbaar voor downloaden</string>
+    <string name="pref_translation_require_wifi">Vereis Wi-Fi om taalpakketten te downloaden</string>
+    <string name="pref_translation_manage_languages">Taalpakketten beheren</string>
+    <string name="translation_model_manager_fragment_title">Taalpakketten</string>
+    <string name="translation_model_manager_fragment_info">Talen waartussen Pachli kan vertalen met Google Translate. Vertalen gaat sneller als de taalpakketten van tevoren zijn gedownload.</string>
+    <string name="translation_model_manager_fragment_downloaded_heading">Gedownload</string>
+    <string name="translation_model_manager_fragment_remote_heading">Tik om te downloaden</string>
+    <string name="fragment_confirm_download_language_dialog_title_fmt">%1$s downloaden met mobiele data?</string>
+    <string name="fragment_confirm_download_language_dialog_msg">Dit zal normaal 30-60MB aan mobiele data verbruiken.</string>
+    <string name="fragment_confirm_delete_language_dialog_title_fmt">%1$s verwijderen?</string>
+    <string name="fragment_confirm_delete_language_dialog_msg">Als je deze taal verwijdert, zal hij gedownload worden wanneer hij weer nodig is.</string>
+    <string name="fragment_google_disclaimer_dialog_title">Vertaaldisclaimer</string>
+    <string name="action_translate_mlkit">Vertalen met Google</string>
+    <string name="label_translated_mlkit">Vertaald door Google</string>
 </resources>

@@ -29,9 +29,9 @@
     <string name="title_edit_profile">Profiel bewerken</string>
     <string name="post_sensitive_media_directions">Klik om te bekijken</string>
     <string name="footer_empty">Niets te zien. Swipe naar beneden om te verversen!</string>
-    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; boostte jouw bericht</string>
-    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; markeerde jouw bericht als favoriet</string>
-    <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; volgt jou</string>
+    <string name="notification_reblog_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; boostte jouw bericht</string>
+    <string name="notification_favourite_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; markeerde jouw bericht als favoriet</string>
+    <string name="notification_follow_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; volgt jou</string>
     <string name="report_username_format">Rapporteer @%1$s</string>
     <string name="report_comment_hint">Extra opmerkingen\?</string>
     <string name="action_quick_reply">Snelle reactie</string>
@@ -292,8 +292,8 @@
     <string name="action_unmute_conversation">Gesprek niet meer negeren</string>
     <string name="action_mute_conversation">Gesprek negeren</string>
     <string name="action_unmute_desc">%1$s niet meer negeren</string>
-    <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; heeft zojuist een bericht geplaatst</string>
-    <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; verzoekt u te volgen</string>
+    <string name="notification_subscription_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; heeft zojuist een bericht geplaatst</string>
+    <string name="notification_follow_request_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; verzoekt jou te mogen volgen</string>
     <string name="title_announcements">Aankondigingen</string>
     <string name="review_notifications">Meldingen beoordelen</string>
     <string name="wellbeing_hide_stats_posts">Kwantitatieve statistieken voor berichten verbergen</string>
@@ -309,10 +309,10 @@
 \n- Statistieken over het aantal volgers en berichten op profielen
 \n
 \nPushmeldingen worden hierdoor niet beïnvloed, maar je kunt de voorkeuren voor meldingen handmatig wijzigen.</string>
-    <string name="notification_sign_up_format">&lt;b&gt;%1$s&lt;/b&gt; heeft zich geregistreerd</string>
+    <string name="notification_sign_up_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; heeft zich geregistreerd</string>
     <string name="error_image_edit_failed">Deze afbeelding kon niet worden bewerkt.</string>
     <string name="title_migration_relogin">Opnieuw inloggen i.v.m. pushmeldingen</string>
-    <string name="notification_update_format">&lt;b&gt;%1$s&lt;/b&gt; heeft diens bericht bewerkt</string>
+    <string name="notification_update_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; heeft diens bericht bewerkt</string>
     <string name="action_unbookmark">Bladwijzer verwijderen</string>
     <string name="pref_title_notification_filter_sign_ups">iemand heeft zich geregistreerd</string>
     <string name="pref_title_notification_filter_updates">een bericht waarmee ik interactie had is bewerkt</string>
@@ -331,8 +331,8 @@
     <string name="set_focus_description">Tik of sleep de cirkel naar een centraal focuspunt dat op elke thumbnail zichtbaar moet blijven.</string>
     <string name="filter_expiration_format">%1$s (%2$s)</string>
     <string name="action_set_focus">Focuspunt instellen</string>
-    <string name="error_following_hashtag_format">Fout tijdens het volgen van #%1$s</string>
-    <string name="error_unfollowing_hashtag_format">Fout tijdens het ontvolgen van #%1$s</string>
+    <string name="error_following_hashtag_format">Fout tijdens het volgen van #%1$s:%2$s</string>
+    <string name="error_unfollowing_hashtag_format">Fout tijdens het ontvolgen van #%1$s:%2$s</string>
     <string name="delete_scheduled_post_warning">Dit ingeplande bericht verwijderen\?</string>
     <string name="failed_to_pin">Kan niet vastmaken</string>
     <string name="pref_summary_http_proxy_disabled">Uitgeschakeld</string>
@@ -350,7 +350,7 @@
     <string name="language_display_name_format">%1$s (%2$s)</string>
     <string name="report_category_violation">Regelovertreding</string>
     <string name="action_unfollow_hashtag_format">Ontvolg #%1$s\?</string>
-    <string name="error_muting_hashtag_format">Fout bij negeren #%1$s</string>
+    <string name="error_muting_hashtag_format">Fout bij negeren van #%1$s</string>
     <string name="action_continue_edit">Ga door met bewerken</string>
     <string name="pref_title_notification_filter_reports">Er is een nieuw rapport</string>
     <string name="notification_report_format">Nieuw rapport over %1$s</string>
@@ -360,7 +360,7 @@
     <string name="dialog_follow_hashtag_title">Volg hashtag</string>
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
     <string name="hint_description">Beschrijving</string>
-    <string name="error_unmuting_hashtag_format">Fout bij unmuting #%1$s</string>
+    <string name="error_unmuting_hashtag_format">Fout bij unmuting van #%1$s</string>
     <string name="action_add_reaction">reactie toevoegen</string>
     <string name="action_discard">Veranderingen ongedaan maken</string>
     <string name="notification_header_report_format">%1$s gerapporteerd %2$s</string>
@@ -455,4 +455,21 @@
     <string name="pref_update_check_no_updates">Er zijn geen updates beschikbaar</string>
     <string name="pref_update_next_scheduled_check">Volgende geplande controle: %1$s</string>
     <string name="pref_summary_content_filters">Je server ondersteund geen filters</string>
+    <string name="title_quotes">Citaten</string>
+    <string name="title_delete_scheduled_statuses">Ingeplande berichten verwijderen?</string>
+    <string name="delete_scheduled_statuses_msg">Dit zal de geslecteerde ingeplande berichten permanent verwijderen.</string>
+    <string name="action_delete_scheduled_statuses">Geselecteerde berichten verwijderen</string>
+    <plurals name="followed_hashtags_posts_count_fmt">
+        <item quantity="one">%1$d bericht</item>
+        <item quantity="other">%1$d berichten</item>
+    </plurals>
+    <plurals name="followed_hashtags_accounts_count_fmt">
+        <item quantity="one">%1$d account</item>
+        <item quantity="other">%1$d accounts</item>
+    </plurals>
+    <plurals name="followed_hashtags_days_count_fmt">
+        <item quantity="one">%1$d dag</item>
+        <item quantity="other">%1$d dagen</item>
+    </plurals>
+    <string name="followed_hashtags_summary_fmt">%1$s van %2$s (laatste %3$s)</string>
 </resources>
