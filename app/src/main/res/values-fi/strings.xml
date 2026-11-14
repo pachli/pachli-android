@@ -9,7 +9,7 @@
     <string name="poll_new_choice_hint">Vaihtoehto %1$d</string>
     <string name="poll_allow_multiple_choices">Monivalinta</string>
     <string name="add_poll_choice">Lisää vaihtoehto</string>
-    <string name="add_hashtag_title">Lisää aihetunniste</string>
+
     <string name="download_failed">Lataus epäonnistui</string>
     <string name="action_open_post">Avaa tuuttaus</string>
     <string name="system_default">Järjestelmän oletus</string>
@@ -136,7 +136,7 @@
     <string name="action_open_reblogged_by">Näytä jaot</string>
     <string name="action_show_reblogs">Näytä jaetut julkaisut</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s ja %4$d muuta</string>
-    <string name="edit_hashtag_hint">Aihetunniste ilman #-merkkiä</string>
+
     <string name="title_domain_mutes">Piilotetut verkkotunnukset</string>
     <string name="error_no_web_browser_found">Verkkoselainta ei löytynyt.</string>
     <string name="action_delete_conversation">Poista keskustelu</string>

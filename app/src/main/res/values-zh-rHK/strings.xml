@@ -214,7 +214,7 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s 和 %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s 和 %3$d 等人</string>
-    <string name="edit_hashtag_hint">話題名（不含前面的 # 號）</string>
+
     <string name="notifications_clear">清空</string>
     <string name="notifications_apply_filter">分類</string>
     <string name="filter_apply">應用</string>
@@ -282,7 +282,7 @@
     <string name="button_back">返回</string>
     <string name="list">列表</string>
     <string name="select_list_title">選擇列表</string>
-    <string name="add_hashtag_title">加上話題標籤</string>
+
     <string name="pref_title_alway_open_spoiler">總是顯示被標注為內容警告的嘟文</string>
     <string name="notification_subscription_description">當你關注的人發布新嘟文時通知</string>
     <string name="notification_subscription_name">新嘟文</string>

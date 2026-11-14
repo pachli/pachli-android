@@ -209,7 +209,7 @@
     <string name="download_media">Dateien herunterladen</string>
     <string name="downloading_media">Dateien werden heruntergeladen</string>
     <string name="filter_add_description">zu filternder Ausdruck</string>
-    <string name="edit_hashtag_hint">Hashtag ohne #</string>
+
     <string name="action_open_reblogger">Autor*in des geteilten Beitrags öffnen</string>
     <string name="pref_title_public_filter_keywords">Öffentliche Timelines</string>
     <string name="title_reblogged_by">Geteilt von</string>
@@ -273,7 +273,7 @@
     <string name="action_mute_conversation">Unterhaltung stummschalten</string>
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; möchte dir folgen</string>
     <string name="hashtags">Hashtags</string>
-    <string name="add_hashtag_title">Hashtag hinzufügen</string>
+
     <string name="pref_title_confirm_reblogs">Vor dem Teilen bestätigen</string>
     <string name="pref_title_show_cards_in_timelines">Linkvorschau in Timelines anzeigen</string>
     <string name="pref_title_enable_swipe_for_tabs">Wischgeste zum Wechseln zwischen Tabs aktivieren</string>

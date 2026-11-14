@@ -195,7 +195,7 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s og %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s og %3$d fler</string>
-    <string name="edit_hashtag_hint">Emneord uten #</string>
+
     <string name="notifications_clear">Fjern</string>
     <string name="notifications_apply_filter">Filter</string>
     <string name="filter_apply">Bruk</string>
@@ -264,7 +264,7 @@
     <string name="action_unmute_conversation">Fjern demping av samtale</string>
     <string name="action_mute_conversation">Demp samtale</string>
     <string name="hashtags">Stikkord</string>
-    <string name="add_hashtag_title">Legg til stikkord</string>
+
     <string name="notification_follow_request_format">&lt;b&gt;%1$s&lt;/b&gt; ønsker å følge deg</string>
     <string name="pref_title_gradient_for_media">Vis fargerike gradienter for skjult media</string>
     <string name="pref_main_nav_position">Plassering av hovednavigasjon</string>

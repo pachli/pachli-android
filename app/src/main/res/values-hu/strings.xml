@@ -224,7 +224,7 @@
     <string name="pin_action">Kitűzés</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s és még %3$d</string>
-    <string name="edit_hashtag_hint">Hashtag # nélkül</string>
+
     <string name="notifications_clear">Törlés</string>
     <string name="notifications_apply_filter">Szűrés</string>
     <string name="filter_apply">Alkalmaz</string>
@@ -265,7 +265,7 @@
     <string name="pref_title_show_cards_in_timelines">Hivatkozás előnézetének mutatása idővonalakon</string>
     <string name="pref_title_enable_swipe_for_tabs">Lapok közötti váltás engedélyezése csúsztatással</string>
     <string name="hashtags">Hashtagek</string>
-    <string name="add_hashtag_title">Hashtag hozzáadása</string>
+
     <string name="notification_follow_request_description">Értesítések követési kérelmekről</string>
     <string name="pref_main_nav_position">Fő navigálási pozíció</string>
     <string name="pref_title_gradient_for_media">Színes homály mutatása rejtett médiánál</string>

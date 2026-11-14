@@ -438,8 +438,8 @@
     <string name="description_post_language">Post language</string>
     <string name="description_login">Works in most cases. No data is leaked to other apps.</string>
     <string name="description_browser_login">May support additional authentication methods, but requires a supported browser.</string>
-    <string name="add_hashtag_title">Add hashtag</string>
-    <string name="edit_hashtag_hint">Hashtag without #</string>
+
+
     <string name="hashtags">Hashtags</string>
     <string name="select_list_title">Select list</string>
     <string name="select_list_empty">You have no lists, yet</string>
@@ -590,7 +590,7 @@
     <string name="pref_labs_glide_user_image_decoder_on_summary">May improve performance and memory use</string>
     <string name="pref_labs_glide_user_image_decoder_off_summary">Behaviour up to Pachli 3.10.0</string>
     <string name="pref_labs_glide_user_image_decoder_disabled_summary">Disabled on Android versions &lt; 10</string>
-    
+
     <string name="pref_title_notification_up_distributor">Unified push distributor</string>
     <string name="pref_notification_up_distributor_name_fmt">%1$s. Tap to open</string>
     <string name="pref_notification_up_distributor_none">None</string>
@@ -803,4 +803,7 @@
     <string name="compose_task_description_writing_post">Writing post</string>
     <string name="compose_task_description_replying_fmt">Replying to %1$s</string>
     <string name="compose_task_description_quoting_fmt">Quoting %1$s</string>
+    <string name="edit_hashtags_hint">Hashtags separated by spaces</string>
+    <string name="add_hashtags_title">Add hashtags</string>
+    <string name="warning_duplicate_hashtags_fmt">Duplicates will be ignored: %1$s</string>
 </resources>

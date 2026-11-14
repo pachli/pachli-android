@@ -208,8 +208,8 @@
     <string name="list">لیست</string>
     <string name="select_list_title">دیاریکردنی لیست</string>
     <string name="hashtags">هاشتاگی</string>
-    <string name="edit_hashtag_hint">هاشتاگی بێ #</string>
-    <string name="add_hashtag_title">هاشتاگی زیاد بکە</string>
+
+
     <string name="conversation_more_recipients">%1$s, %2$s و %3$d زیاتر</string>
     <string name="conversation_2_recipients">%1$s و %2$s</string>
     <string name="conversation_1_recipients">%1$s</string>

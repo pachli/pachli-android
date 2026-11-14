@@ -228,7 +228,7 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s i %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s i %3$d innych</string>
-    <string name="edit_hashtag_hint">Hasztag bez #</string>
+
     <string name="notifications_clear">Wyczyść powiadomienia</string>
     <string name="notifications_apply_filter">Filtruj powiadomienia</string>
     <string name="filter_apply">Zastosuj</string>
@@ -264,7 +264,7 @@
     <string name="warning_scheduling_interval">Mastodon umożliwia wysłanie minimalnie 5 minut od zaplanowania.</string>
     <string name="notification_follow_request_name">Prośby o obserwację</string>
     <string name="pref_title_confirm_reblogs">Pytaj o potwierdzenie przed podbiciem</string>
-    <string name="add_hashtag_title">Dodaj hasztag</string>
+
     <string name="dialog_mute_warning">Wyciszyć @%1$s\?</string>
     <string name="dialog_block_warning">Zablokować @%1$s\?</string>
     <string name="action_unmute_conversation">Cofnij wyciszenie rozmowy</string>

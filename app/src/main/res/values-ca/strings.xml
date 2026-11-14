@@ -207,7 +207,7 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s i %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s i %3$d més</string>
-    <string name="edit_hashtag_hint">Hashtag sense #</string>
+
     <string name="notifications_clear">Netejar</string>
     <string name="notifications_apply_filter">Filtrar</string>
     <string name="filter_apply">Aplicar</string>
@@ -260,7 +260,7 @@
     <string name="pref_title_show_cards_in_timelines">Mostra les previsualitzacions dels enllaços en els fils</string>
     <string name="pref_title_enable_swipe_for_tabs">Habilita el gest de desplaçament per despleçar-te entre pestanyes</string>
     <string name="hashtags">Hashtags</string>
-    <string name="add_hashtag_title">Afegir hashtag</string>
+
     <string name="notification_follow_request_description">Notificacions sobre sol·licituds de seguiment</string>
     <string name="pref_title_notification_filter_follow_requests">sol·licitació de seguiment</string>
     <string name="dialog_mute_warning">Silenciar @%1$s\?</string>

@@ -225,7 +225,7 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s og %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s og %3$d til viðbótar</string>
-    <string name="edit_hashtag_hint">Myllumerki án #</string>
+
     <string name="select_list_title">Veldu lista</string>
     <string name="list">Listi</string>
     <string name="notifications_clear">Hreinsa</string>
@@ -262,7 +262,7 @@
     <string name="pref_title_show_cards_in_timelines">Birta forskoðun tengla á tímalínum</string>
     <string name="no_announcements">Það eru engar tilkynningar.</string>
     <string name="pref_title_enable_swipe_for_tabs">Virkja strokuhreyfingu til að skipta milli flipa</string>
-    <string name="add_hashtag_title">Bæta við myllumerki</string>
+
     <string name="notification_follow_request_description">Tilkynningar um fylgjendabeiðnir</string>
     <string name="pref_main_nav_position">Aðalstaða leiðsagnar</string>
     <string name="pref_title_gradient_for_media">Birta litstigla í stað falins myndefnis</string>

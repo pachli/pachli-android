@@ -223,7 +223,7 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s و %2$s</string>
     <string name="conversation_more_recipients">%1$s، %2$s و %3$d بیش‌تر</string>
-    <string name="edit_hashtag_hint">برچسب بدون #</string>
+
     <string name="notifications_clear">پاک‌سازی</string>
     <string name="notifications_apply_filter">پالایش</string>
     <string name="filter_apply">اعمال</string>
@@ -263,7 +263,7 @@
     <string name="pref_title_show_cards_in_timelines">پیش‌نمایش پیوندها در خط‌زمانی‌ها</string>
     <string name="pref_title_enable_swipe_for_tabs">به کار انداختن اشارهٔ کشیدنی برای تعویض بین زبانه‌ها</string>
     <string name="hashtags">برچسب‌ها</string>
-    <string name="add_hashtag_title">افزودن برچسب</string>
+
     <string name="notification_follow_request_description">آگاهی‌ها دربارهٔ درخواست‌های پی‌گیری</string>
     <string name="notification_follow_request_name">درخواست‌های پی‌گیری</string>
     <string name="pref_title_notification_filter_follow_requests">درخواست پی‌گیری</string>

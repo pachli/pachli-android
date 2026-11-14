@@ -214,7 +214,7 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s 和 %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s 和 %3$d 等人</string>
-    <string name="edit_hashtag_hint">話題名（不含前面的 # 號）</string>
+
     <string name="notifications_clear">清空</string>
     <string name="notifications_apply_filter">分類</string>
     <string name="filter_apply">應用</string>
@@ -277,7 +277,7 @@
     <string name="action_unmute_desc">取消靜音 %1$s</string>
     <string name="pref_main_nav_position">主要導覽列的位置</string>
     <string name="pref_title_gradient_for_media">在隱藏的媒體上使用漸變色彩</string>
-    <string name="add_hashtag_title">加上話題標籤</string>
+
     <string name="pref_title_confirm_reblogs">在轉嘟時提示確認</string>
     <string name="pref_title_show_cards_in_timelines">在時間軸中顯示連結預覽</string>
     <string name="pref_title_enable_swipe_for_tabs">啟用在分頁間切換的滑動手勢</string>

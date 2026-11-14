@@ -244,7 +244,7 @@
     <string name="compose_shortcut_long_label">投稿する</string>
     <string name="list">リスト</string>
     <string name="hashtags">ハッシュタグ</string>
-    <string name="add_hashtag_title">ハッシュタグを追加</string>
+
     <string name="conversation_more_recipients">%1$sさん、%2$sさんと他%3$d人</string>
     <string name="conversation_1_recipients">%1$sさん</string>
     <string name="filter_add_description">フィルターする語句</string>
@@ -265,7 +265,7 @@
     <string name="pref_title_enable_swipe_for_tabs">タブ間の切り替えにスワイプのジェスチャーを有効化</string>
     <string name="pref_title_show_cards_in_timelines">リンクのプレビューをタイムラインに表示</string>
     <string name="pref_title_confirm_reblogs">ブーストする前に確認を表示</string>
-    <string name="edit_hashtag_hint">ハッシュタグ (#をつけない)</string>
+
     <string name="select_list_title">リストを選択</string>
     <string name="hint_additional_info">追加コメント</string>
     <string name="report_remote_instance">%1$sに転送</string>

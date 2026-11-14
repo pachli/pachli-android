@@ -212,7 +212,7 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s и %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s и ещё %3$d</string>
-    <string name="edit_hashtag_hint">Хэштег без #</string>
+
     <string name="notifications_clear">Очистить</string>
     <string name="notifications_apply_filter">Фильтр</string>
     <string name="filter_apply">Применить</string>
@@ -270,7 +270,7 @@
     <string name="action_mute_conversation">Заглушить обсуждение</string>
     <string name="notification_follow_request_format">запрос на подписку от &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="hashtags">Хэштеги</string>
-    <string name="add_hashtag_title">Добавить хэштэг</string>
+
     <string name="pref_title_gradient_for_media">Отображать цветные градиенты для скрытых изображений</string>
     <string name="pref_main_nav_position">Расположение панели навигации</string>
     <string name="dialog_mute_hide_notifications">Скрыть уведомления</string>
