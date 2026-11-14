@@ -1690,23 +1690,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-ca/strings.xml"
-            line="334"
-            column="5"/>
-        <location
-            file="src/main/res/values/strings.xml"
-            line="31"
-            column="5"
-            message="Conflicting number of arguments (2) here"/>
-    </issue>
-
-    <issue
-        id="StringFormatCount"
-        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml"
-        errorLine1="    &lt;string name=&quot;error_following_hashtag_format&quot;>Fout tijdens het volgen van #%1$s&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-nl/strings.xml"
-            line="334"
+            line="332"
             column="5"/>
         <location
             file="src/main/res/values/strings.xml"
@@ -1754,23 +1738,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-ca/strings.xml"
-            line="335"
-            column="5"/>
-        <location
-            file="src/main/res/values/strings.xml"
-            line="32"
-            column="5"
-            message="Conflicting number of arguments (2) here"/>
-    </issue>
-
-    <issue
-        id="StringFormatCount"
-        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml"
-        errorLine1="    &lt;string name=&quot;error_unfollowing_hashtag_format&quot;>Fout tijdens het ontvolgen van #%1$s&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-nl/strings.xml"
-            line="335"
+            line="333"
             column="5"/>
         <location
             file="src/main/res/values/strings.xml"
