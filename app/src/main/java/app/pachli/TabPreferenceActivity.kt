@@ -333,7 +333,10 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
                 return@doOnTextChanged
             }
 
-            editText.setError("Duplicates will be ignored: ${duplicatedTags.joinToString(", ")}", warningIcon)
+            editText.setError(
+                getString(R.string.warning_duplicate_hashtags_fmt, duplicatedTags.joinToString(", ")),
+                warningIcon,
+            )
         }
 
         dialog.show()

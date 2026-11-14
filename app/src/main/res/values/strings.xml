@@ -805,4 +805,5 @@
     <string name="compose_task_description_quoting_fmt">Quoting %1$s</string>
     <string name="edit_hashtags_hint">Hashtags separated by spaces</string>
     <string name="add_hashtags_title">Add hashtags</string>
+    <string name="warning_duplicate_hashtags_fmt">Duplicates will be ignored: %1$s</string>
 </resources>
