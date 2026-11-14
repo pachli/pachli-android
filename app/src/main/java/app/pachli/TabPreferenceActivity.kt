@@ -64,6 +64,7 @@ import app.pachli.core.ui.startDragAnimator
 import app.pachli.databinding.ActivityTabPreferenceBinding
 import app.pachli.databinding.DialogSelectListBinding
 import com.google.android.material.divider.MaterialDividerItemDecoration
+import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
@@ -270,20 +271,19 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         val padding = dpToPx(8f, resources.displayMetrics).toInt()
         frameLayout.updatePadding(left = padding, right = padding)
 
+        val textInputLayout = TextInputLayout(this)
+        textInputLayout.isHintEnabled = false
+
         val editText = AppCompatEditText(this)
         editText.setHint(R.string.edit_hashtags_hint)
         editText.text?.clear()
 
-        val warningIcon = AppCompatResources.getDrawable(this, app.pachli.feature.drafts.R.drawable.ic_alert_circle)?.apply {
-            setBounds(0, 0, intrinsicWidth, intrinsicHeight)
-            setTint(editText.resources.getColor(DR.color.pachli_orange))
-        }
+        textInputLayout.addView(editText)
+        frameLayout.addView(textInputLayout)
 
         val collator = Collator.getInstance(Locale.getDefault())
 
         val existingTags = timeline?.tags.orEmpty().map { it.normaliseHashtag() }.toSet()
-
-        frameLayout.addView(editText)
 
         val dialog = AlertDialog.Builder(this)
             .setTitle(R.string.add_hashtags_title)
@@ -315,13 +315,13 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = validateHashtags(text)
 
             if (text == null) {
-                editText.error = null
+                textInputLayout.error = null
                 return@doOnTextChanged
             }
 
             val newTags = text.toString().splitHashtags().map { it.normaliseHashtag() }
             if (newTags.isEmpty()) {
-                editText.error = null
+                textInputLayout.error = null
                 return@doOnTextChanged
             }
 
@@ -329,14 +329,11 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
             val duplicatedExistingTags = existingTags.intersect(newTags.toSet())
             val duplicatedTags = (duplicatedNewTags + duplicatedExistingTags).sortedWith(collator)
             if (duplicatedTags.isEmpty()) {
-                editText.error = null
+                textInputLayout.error = null
                 return@doOnTextChanged
             }
 
-            editText.setError(
-                getString(R.string.warning_duplicate_hashtags_fmt, duplicatedTags.joinToString(", ")),
-                warningIcon,
-            )
+            textInputLayout.error = getString(R.string.warning_duplicate_hashtags_fmt, duplicatedTags.joinToString(", "))
         }
 
         dialog.show()
