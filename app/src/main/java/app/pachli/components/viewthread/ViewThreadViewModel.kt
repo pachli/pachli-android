@@ -72,6 +72,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChangedBy
@@ -139,7 +140,7 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun loadThread(statusId: String) {
+    fun loadThread(pachliAccountId: Long, statusId: String) {
         viewModelScope.launch {
             _uiResult.value = Ok(ThreadUiState.Loading)
 
@@ -147,12 +148,12 @@ class ViewThreadViewModel @Inject constructor(
 
             Timber.d("Finding status with: %s", statusId)
             val contextCall = async { api.statusContext(statusId) }
-            val timelineStatusWithQuote = timelineDao.getActionableStatusQ(account.pachliAccountId, statusId)
+            val timelineStatusWithQuote = timelineDao.getActionableStatusQ(pachliAccountId, statusId)
             val collectionCardViewData = buildSet {
                 timelineStatusWithQuote?.timelineStatus?.status?.taggedCollections?.forEach { add(it.collectionId) }
                 timelineStatusWithQuote?.quotedStatus?.status?.taggedCollections?.forEach { add(it.collectionId) }
             }.run {
-                collectionsRepository.getCollectionCardViewData(account.pachliAccountId, this)
+                collectionsRepository.getCollectionCardViewData(pachliAccountId, this)
                     .associateBy { it.timelineCollection.collectionId }
             }
             val timelineStatus = if (collectionCardViewData.isEmpty()) {
@@ -187,8 +188,8 @@ class ViewThreadViewModel @Inject constructor(
             } else {
                 Timber.d("Loading status from network")
                 val statusCall = async { api.status(statusId) }
-                val existingViewData = repository.getStatusViewData(account.pachliAccountId, statusId)
-                val existingTranslation = repository.getTranslation(account.pachliAccountId, statusId)
+                val existingViewData = repository.getStatusViewData(pachliAccountId, statusId)
+                val existingTranslation = repository.getTranslation(pachliAccountId, statusId)
 
                 val status = statusCall.await()
                     .map { api.resolveShallowQuotes(it.body) }
@@ -201,7 +202,7 @@ class ViewThreadViewModel @Inject constructor(
                 val collectionCardViewDataCache = buildSet {
                     status.actionableStatus.taggedCollections.forEach { add(it.collectionId) }
                 }.run {
-                    collectionsRepository.getCollectionCardViewData(account.pachliAccountId, this)
+                    collectionsRepository.getCollectionCardViewData(pachliAccountId, this)
                         .associateBy { it.timelineCollection.collectionId }
                 }
 
@@ -258,8 +259,8 @@ class ViewThreadViewModel @Inject constructor(
                     addAll(statusContext.ancestors.flatMap { listOf(it.id, it.quote?.quotedStatusId) }.filterNotNull())
                     addAll(statusContext.descendants.flatMap { listOf(it.id, it.quote?.quotedStatusId) }.filterNotNull())
                 }
-                val cachedViewData = repository.getStatusViewData(account.pachliAccountId, statusIds)
-                val cachedTranslations = repository.getTranslations(account.pachliAccountId, statusIds)
+                val cachedViewData = repository.getStatusViewData(pachliAccountId, statusIds)
+                val cachedTranslations = repository.getTranslations(pachliAccountId, statusIds)
                 val collectionCardViewDataCache = buildSet {
                     statusContext.ancestors.forEach { status ->
                         status.taggedCollections?.forEach { add(it.id) }
@@ -270,7 +271,7 @@ class ViewThreadViewModel @Inject constructor(
                         status.quote?.quotedStatus?.taggedCollections?.forEach { add(it.id) }
                     }
                 }.run {
-                    collectionsRepository.getCollectionCardViewData(account.pachliAccountId, this)
+                    collectionsRepository.getCollectionCardViewData(pachliAccountId, this)
                         .associateBy { it.timelineCollection.collectionId }
                 }
 
@@ -325,14 +326,14 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun retry(statusId: String) {
+    fun retry(pachliAccountId: Long, statusId: String) {
         _uiResult.value = Ok(ThreadUiState.Loading)
-        loadThread(statusId)
+        loadThread(pachliAccountId, statusId)
     }
 
-    fun refresh(statusId: String) {
+    fun refresh(pachliAccountId: Long, statusId: String) {
         _uiResult.value = Ok(ThreadUiState.Refreshing)
-        loadThread(statusId)
+        loadThread(pachliAccountId, statusId)
     }
 
     fun detailedStatus(): StatusItemViewData? {

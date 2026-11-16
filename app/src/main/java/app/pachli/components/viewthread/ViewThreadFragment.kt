@@ -188,7 +188,7 @@ class ViewThreadFragment :
             }
         }
 
-        viewModel.loadThread(thisThreadsStatusId)
+        viewModel.loadThread(pachliAccountId, thisThreadsStatusId)
     }
 
     private fun bindUiResult(uiState: Result<ThreadUiState, ThreadError>) {
@@ -202,7 +202,7 @@ class ViewThreadFragment :
             binding.recyclerView.hide()
             binding.statusView.show()
 
-            binding.statusView.setup(error) { viewModel.retry(thisThreadsStatusId) }
+            binding.statusView.setup(error) { viewModel.retry(pachliAccountId, thisThreadsStatusId) }
         }
 
         uiState.onSuccess { uiState ->
@@ -280,7 +280,7 @@ class ViewThreadFragment :
             val msg = error.fmt(context)
             Snackbar.make(binding.root, msg, Snackbar.LENGTH_INDEFINITE)
                 .setAction(app.pachli.core.ui.R.string.action_retry) {
-                    viewModel.retry(thisThreadsStatusId)
+                    viewModel.retry(pachliAccountId, thisThreadsStatusId)
                 }
                 .show()
         } catch (_: IllegalArgumentException) {
@@ -338,7 +338,7 @@ class ViewThreadFragment :
     }
 
     override fun onRefresh() {
-        viewModel.refresh(thisThreadsStatusId)
+        viewModel.refresh(pachliAccountId, thisThreadsStatusId)
     }
 
     override fun onReply(viewData: IStatusViewData) {

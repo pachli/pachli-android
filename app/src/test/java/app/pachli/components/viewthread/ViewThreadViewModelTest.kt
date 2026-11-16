@@ -102,6 +102,8 @@ class ViewThreadViewModelTest {
 
     private lateinit var viewModel: ViewThreadViewModel
 
+    private val pachliAccountId = 0L
+
     private val threadId = "1234"
 
     private val account = CredentialAccount(
@@ -182,7 +184,7 @@ class ViewThreadViewModelTest {
         mockSuccessResponses()
 
         viewModel.uiResult.test {
-            viewModel.loadThread(threadId)
+            viewModel.loadThread(pachliAccountId, threadId)
             var item: ThreadUiState?
 
             do {
@@ -223,7 +225,7 @@ class ViewThreadViewModelTest {
         }
 
         viewModel.uiResult.test {
-            viewModel.loadThread(threadId)
+            viewModel.loadThread(pachliAccountId, threadId)
             var item: ThreadUiState?
 
             do {
@@ -256,7 +258,7 @@ class ViewThreadViewModelTest {
         }
 
         viewModel.uiResult.test {
-            viewModel.loadThread(threadId)
+            viewModel.loadThread(pachliAccountId, threadId)
             var item: ThreadError?
 
             do {
@@ -283,7 +285,7 @@ class ViewThreadViewModelTest {
         }
 
         viewModel.uiResult.test {
-            viewModel.loadThread(threadId)
+            viewModel.loadThread(pachliAccountId, threadId)
             var item: ThreadError?
 
             do {
@@ -302,7 +304,7 @@ class ViewThreadViewModelTest {
         viewModel.uiResult.test {
             mockSuccessResponses()
 
-            viewModel.loadThread(threadId)
+            viewModel.loadThread(pachliAccountId, threadId)
             while (awaitItem().get() !is ThreadUiState.Loaded) {
             }
             viewModel.toggleRevealButton()
@@ -340,7 +342,7 @@ class ViewThreadViewModelTest {
         viewModel.uiResult.test {
             mockSuccessResponses()
 
-            viewModel.loadThread(threadId)
+            viewModel.loadThread(pachliAccountId, threadId)
             while (awaitItem().get() !is ThreadUiState.Loaded) {
             }
 
@@ -376,7 +378,7 @@ class ViewThreadViewModelTest {
         viewModel.uiResult.test {
             mockSuccessResponses()
 
-            viewModel.loadThread(threadId)
+            viewModel.loadThread(pachliAccountId, threadId)
             while (awaitItem().get() !is ThreadUiState.Loaded) {
             }
             eventHub.dispatch(ReblogEvent(statusId = "2", true))
@@ -413,7 +415,7 @@ class ViewThreadViewModelTest {
         viewModel.uiResult.test {
             mockSuccessResponses()
 
-            viewModel.loadThread(threadId)
+            viewModel.loadThread(pachliAccountId, threadId)
             while (awaitItem().get() !is ThreadUiState.Loaded) {
             }
             eventHub.dispatch(BookmarkEvent(statusId = "3", false))
@@ -450,7 +452,7 @@ class ViewThreadViewModelTest {
         viewModel.uiResult.test {
             mockSuccessResponses()
 
-            viewModel.loadThread(threadId)
+            viewModel.loadThread(pachliAccountId, threadId)
             while (awaitItem().get() !is ThreadUiState.Loaded) {
             }
             viewModel.removeStatus(fakeStatusViewData(id = "3", inReplyToId = "2", inReplyToAccountId = "1", spoilerText = "Test"))
@@ -480,7 +482,7 @@ class ViewThreadViewModelTest {
         viewModel.uiResult.test {
             mockSuccessResponses()
 
-            viewModel.loadThread(threadId)
+            viewModel.loadThread(pachliAccountId, threadId)
             while (awaitItem().get() !is ThreadUiState.Loaded) {
             }
             viewModel.changeExpanded(
@@ -520,7 +522,7 @@ class ViewThreadViewModelTest {
         viewModel.uiResult.test {
             mockSuccessResponses()
 
-            viewModel.loadThread(threadId)
+            viewModel.loadThread(pachliAccountId, threadId)
             while (awaitItem().get() !is ThreadUiState.Loaded) {
             }
             viewModel.changeContentCollapsed(
@@ -560,7 +562,7 @@ class ViewThreadViewModelTest {
         viewModel.uiResult.test {
             mockSuccessResponses()
 
-            viewModel.loadThread(threadId)
+            viewModel.loadThread(pachliAccountId, threadId)
             while (awaitItem().get() !is ThreadUiState.Loaded) {
             }
             viewModel.changeAttachmentDisplayAction(
