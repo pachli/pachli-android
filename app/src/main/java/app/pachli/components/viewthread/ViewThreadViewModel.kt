@@ -139,15 +139,15 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun loadThread(id: String) {
+    fun loadThread(statusId: String) {
         viewModelScope.launch {
             _uiResult.value = Ok(ThreadUiState.Loading)
 
             val account = accountManager.activePachliAccountFlow.first()
 
-            Timber.d("Finding status with: %s", id)
-            val contextCall = async { api.statusContext(id) }
-            val timelineStatusWithQuote = timelineDao.getActionableStatusQ(account.pachliAccountId, id)
+            Timber.d("Finding status with: %s", statusId)
+            val contextCall = async { api.statusContext(statusId) }
+            val timelineStatusWithQuote = timelineDao.getActionableStatusQ(account.pachliAccountId, statusId)
             val collectionCardViewData = buildSet {
                 timelineStatusWithQuote?.timelineStatus?.status?.taggedCollections?.forEach { add(it.collectionId) }
                 timelineStatusWithQuote?.quotedStatus?.status?.taggedCollections?.forEach { add(it.collectionId) }
@@ -186,9 +186,9 @@ class ViewThreadViewModel @Inject constructor(
                 )
             } else {
                 Timber.d("Loading status from network")
-                val statusCall = async { api.status(id) }
-                val existingViewData = repository.getStatusViewData(account.pachliAccountId, id)
-                val existingTranslation = repository.getTranslation(account.pachliAccountId, id)
+                val statusCall = async { api.status(statusId) }
+                val existingViewData = repository.getStatusViewData(account.pachliAccountId, statusId)
+                val existingTranslation = repository.getTranslation(account.pachliAccountId, statusId)
 
                 val status = statusCall.await()
                     .map { api.resolveShallowQuotes(it.body) }
@@ -228,7 +228,7 @@ class ViewThreadViewModel @Inject constructor(
             // for the status. Ignore errors, the user still has a functioning UI if the fetch
             // failed.
             if (timelineStatusWithQuote != null) {
-                api.status(id).get()?.body?.asModel()?.let { status ->
+                api.status(statusId).get()?.body?.asModel()?.let { status ->
                     detailedStatus = detailedStatus.copy(
                         statusViewData = detailedStatus.statusViewData.copy(
                             status = status.copy(
@@ -325,14 +325,14 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun retry(id: String) {
+    fun retry(statusId: String) {
         _uiResult.value = Ok(ThreadUiState.Loading)
-        loadThread(id)
+        loadThread(statusId)
     }
 
-    fun refresh(id: String) {
+    fun refresh(statusId: String) {
         _uiResult.value = Ok(ThreadUiState.Refreshing)
-        loadThread(id)
+        loadThread(statusId)
     }
 
     fun detailedStatus(): StatusItemViewData? {
