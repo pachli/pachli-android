@@ -238,8 +238,8 @@ fun Draft.Companion.createDraft(context: Context, pachliAccount: PachliAccount, 
 
     val content = when (timeline) {
         is Timeline.Hashtags -> {
-            timeline.tags.joinToString(separator = " ") { tag ->
-                getString(context, R.string.title_tag_with_initial_position).format(tag)
+            timeline.tags.joinToString(separator = "") { tag ->
+                context.getString(R.string.title_tag_with_initial_position, tag)
             }
         }
 
