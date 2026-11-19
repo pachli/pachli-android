@@ -101,7 +101,14 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
     private val hashtagRegex by unsafeLazy { Pattern.compile("([\\w_]*[\\p{Alpha}_][\\w_]*)", Pattern.CASE_INSENSITIVE) }
     private val hashtagsSeparatorRegex = Regex("[\\s#]+")
 
-    private fun CharSequence?.splitHashtags(): List<String> {
+    /**
+     * Splits this char sequence to a list of strings around matches of
+     * [hashtagsSeparatorRegex]. Filters empty elements from the list before
+     * returning. Returns an empty list if this char sequence is null.
+     *
+     * Does **not** [normalise][normaliseHashtag] the hashtag names.
+     */
+    private fun CharSequence?.splitAsHashtags(): List<String> {
         if (this == null) return emptyList()
         return this.trim().split(hashtagsSeparatorRegex).filter { it.isNotBlank() }
     }
@@ -304,7 +311,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
             .setView(frameLayout)
             .setNegativeButton(android.R.string.cancel, null)
             .setPositiveButton(R.string.action_save) { _, _ ->
-                val input = editText.text.splitHashtags()
+                val input = editText.text.splitAsHashtags()
                 if (timeline == null) {
                     val newTab = TabViewData.from(
                         intent.pachliAccountId,
@@ -326,7 +333,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
             .create()
 
         editText.doOnTextChanged { text, _, _, _ ->
-            val tags = text.splitHashtags()
+            val tags = text.splitAsHashtags()
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = tags.areValidHashtags()
 
             if (text == null) {
@@ -352,7 +359,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         }
 
         dialog.show()
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = editText.text.splitHashtags().areValidHashtags()
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = editText.text.splitAsHashtags().areValidHashtags()
         editText.requestFocus()
     }
 
