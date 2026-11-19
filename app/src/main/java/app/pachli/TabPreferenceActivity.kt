@@ -127,9 +127,11 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
      */
     private fun List<CharSequence?>.areValidHashtags() = isNotEmpty() && all { it.isValidHashtag() }
 
-    private fun List<String>.dedupedHashtags(): List<String> {
-        return this.distinctBy { it.normaliseHashtag() }
-    }
+    /**
+     * Treats this list as list of [isValidHashtag], and returns the distinct hashtag
+     * names after [normalisation][normaliseHashtag].
+     */
+    private fun List<String>.distinctByNormalisedHashtag() = distinctBy { it.normaliseHashtag() }
 
     private val onFabDismissedCallback = object : OnBackPressedCallback(false) {
         override fun handleOnBackPressed() {
@@ -315,13 +317,13 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
                 if (timeline == null) {
                     val newTab = TabViewData.from(
                         intent.pachliAccountId,
-                        Timeline.Hashtags(input.dedupedHashtags()),
+                        Timeline.Hashtags(input.distinctByNormalisedHashtag()),
                     )
                     currentTabs.add(newTab)
                     currentTabsAdapter.notifyItemInserted(currentTabs.size - 1)
                 } else {
                     currentTabs[tabPosition] = currentTabs[tabPosition].copy(
-                        timeline = timeline.copy(tags = (timeline.tags + input).dedupedHashtags()),
+                        timeline = timeline.copy(tags = (timeline.tags + input).distinctByNormalisedHashtag()),
                     )
 
                     currentTabsAdapter.notifyItemChanged(tabPosition)
