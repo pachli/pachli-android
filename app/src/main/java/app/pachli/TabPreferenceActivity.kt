@@ -106,6 +106,20 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         return this.trim().split(hashtagsSeparatorRegex).filter { it.isNotBlank() }
     }
 
+    /**
+     * @return True if this is non-null, [isNotBlank], and the contents match
+     * [hashtagRegex].
+     */
+    private fun CharSequence?.isValidHashtag(): Boolean {
+        return !this.isNullOrBlank() && hashtagRegex.matcher(this).matches()
+    }
+
+    /**
+     * @return True if this [isNotEmpty] and all the elements are
+     * valid hashtags, per [isValidHashtag]
+     */
+    private fun List<CharSequence?>.areValidHashtags() = isNotEmpty() && all { it.isValidHashtag() }
+
     private fun List<String>.dedupedHashtags(): List<String> {
         return this.distinctBy { it.normaliseHashtag() }
     }
@@ -312,14 +326,15 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
             .create()
 
         editText.doOnTextChanged { text, _, _, _ ->
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = validateHashtags(text)
+            val tags = text.splitHashtags()
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = tags.areValidHashtags()
 
             if (text == null) {
                 textInputLayout.error = null
                 return@doOnTextChanged
             }
 
-            val newTags = text.splitHashtags().map { it.normaliseHashtag() }
+            val newTags = tags.map { it.normaliseHashtag() }
             if (newTags.isEmpty()) {
                 textInputLayout.error = null
                 return@doOnTextChanged
@@ -337,7 +352,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         }
 
         dialog.show()
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = validateHashtags(editText.text)
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = editText.text.splitHashtags().areValidHashtags()
         editText.requestFocus()
     }
 
@@ -392,12 +407,6 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
                 if (lists.isEmpty()) selectListBinding.noLists.show()
             }
         }
-    }
-
-    private fun validateHashtags(input: CharSequence?): Boolean {
-        if (input.isNullOrBlank()) return false
-        val splitInput = input.splitHashtags()
-        return splitInput.isNotEmpty() && splitInput.all { hashtagRegex.matcher(it).matches() }
     }
 
     private fun updateAvailableTabs() {
