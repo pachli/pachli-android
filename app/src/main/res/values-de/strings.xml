@@ -293,7 +293,7 @@
     <string name="duration_indefinite">Für immer</string>
     <string name="notification_subscription_description">Benachrichtigungen, wenn jemand, den ich abonniert habe, eine neue Nachricht veröffentlicht</string>
     <string name="notification_subscription_name">Neue Beiträge</string>
-    <string name="pref_title_animate_custom_emojis">GIF-Emojis animieren</string>
+    <string name="pref_title_animate_custom_emojis">Benutzerdefinierte Emojis animieren</string>
     <string name="pref_title_notification_filter_subscriptions">jemand, den ich abonniert habe, etwas Neues veröffentlicht</string>
     <string name="notification_subscription_format">&lt;b&gt;%1$s&lt;/b&gt; hat gerade etwas veröffentlicht</string>
     <string name="review_notifications">Benachrichtigungen überprüfen</string>
@@ -736,4 +736,8 @@
     <string name="notification_collection_update_description">Benachrichtigungen, wenn eine Sammlung, in der du dich befindest, aktualisiert wird</string>
     <string name="notification_collection_add_format">&lt;b&gt;%1$s&lt;/b&gt; hat dich zu einer Sammlung hinzugefügt</string>
     <string name="notification_collection_update_format">&lt;b&gt;%1$s&lt;/b&gt; hat eine Sammlung aktualisiert, in der du dich befindest</string>
+    <string name="pref_labs_glide_use_image_decoder_title">ImageDecoder beim Laden von Bildern verwenden</string>
+    <string name="pref_labs_glide_user_image_decoder_on_summary">Kann die Leistung und die Speichernutzung verbessern</string>
+    <string name="pref_labs_glide_user_image_decoder_off_summary">Verhalten bis einschließlich Pachli 3.10.0</string>
+    <string name="pref_labs_glide_user_image_decoder_disabled_summary">Deaktiviert bei Android-Versionen &lt; 10</string>
 </resources>
