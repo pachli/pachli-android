@@ -58,14 +58,18 @@ import app.pachli.core.ui.extensions.InsetType
 import app.pachli.core.ui.extensions.addScrollEffect
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.extensions.applyWindowInsets
+import app.pachli.core.ui.normaliseHashtag
 import app.pachli.core.ui.startDragAnimator
 import app.pachli.databinding.ActivityTabPreferenceBinding
 import app.pachli.databinding.DialogSelectListBinding
 import com.google.android.material.divider.MaterialDividerItemDecoration
+import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.Collator
 import java.util.Collections
+import java.util.Locale
 import java.util.regex.Pattern
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -95,6 +99,39 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
     private lateinit var addTabAdapter: TabAdapter
 
     private val hashtagRegex by unsafeLazy { Pattern.compile("([\\w_]*[\\p{Alpha}_][\\w_]*)", Pattern.CASE_INSENSITIVE) }
+    private val hashtagsSeparatorRegex = Regex("[\\s#]+")
+
+    /**
+     * Splits this char sequence to a list of strings around matches of
+     * [hashtagsSeparatorRegex]. Filters empty elements from the list before
+     * returning. Returns an empty list if this char sequence is null.
+     *
+     * Does **not** [normalise][normaliseHashtag] the hashtag names.
+     */
+    private fun CharSequence?.splitAsHashtags(): List<String> {
+        if (this == null) return emptyList()
+        return this.trim().split(hashtagsSeparatorRegex).filter { it.isNotBlank() }
+    }
+
+    /**
+     * @return True if this is non-null, [isNotBlank], and the contents match
+     * [hashtagRegex].
+     */
+    private fun CharSequence?.isValidHashtag(): Boolean {
+        return !this.isNullOrBlank() && hashtagRegex.matcher(this).matches()
+    }
+
+    /**
+     * @return True if this [isNotEmpty] and all the elements are
+     * valid hashtags, per [isValidHashtag]
+     */
+    private fun List<CharSequence?>.areValidHashtags() = isNotEmpty() && all { it.isValidHashtag() }
+
+    /**
+     * Treats this list as list of [isValidHashtag], and returns the distinct hashtag
+     * names after [normalisation][normaliseHashtag].
+     */
+    private fun List<String>.distinctByNormalisedHashtag() = distinctBy { it.normaliseHashtag() }
 
     private val onFabDismissedCallback = object : OnBackPressedCallback(false) {
         override fun handleOnBackPressed() {
@@ -257,27 +294,36 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         val padding = dpToPx(8f, resources.displayMetrics).toInt()
         frameLayout.updatePadding(left = padding, right = padding)
 
+        val textInputLayout = TextInputLayout(this)
+        textInputLayout.isHintEnabled = false
+
         val editText = AppCompatEditText(this)
-        editText.setHint(R.string.edit_hashtag_hint)
+        editText.setHint(R.string.edit_hashtags_hint)
         editText.text?.clear()
-        frameLayout.addView(editText)
+
+        textInputLayout.addView(editText)
+        frameLayout.addView(textInputLayout)
+
+        val collator = Collator.getInstance(Locale.getDefault())
+
+        val existingTags = timeline?.tags.orEmpty().map { it.normaliseHashtag() }.toSet()
 
         val dialog = AlertDialog.Builder(this)
-            .setTitle(R.string.add_hashtag_title)
+            .setTitle(R.string.add_hashtags_title)
             .setView(frameLayout)
             .setNegativeButton(android.R.string.cancel, null)
             .setPositiveButton(R.string.action_save) { _, _ ->
-                val input = editText.text.toString().trim()
+                val input = editText.text.splitAsHashtags()
                 if (timeline == null) {
                     val newTab = TabViewData.from(
                         intent.pachliAccountId,
-                        Timeline.Hashtags(listOf(input)),
+                        Timeline.Hashtags(input.distinctByNormalisedHashtag()),
                     )
                     currentTabs.add(newTab)
                     currentTabsAdapter.notifyItemInserted(currentTabs.size - 1)
                 } else {
                     currentTabs[tabPosition] = currentTabs[tabPosition].copy(
-                        timeline = timeline.copy(tags = timeline.tags + input),
+                        timeline = timeline.copy(tags = (timeline.tags + input).distinctByNormalisedHashtag()),
                     )
 
                     currentTabsAdapter.notifyItemChanged(tabPosition)
@@ -288,12 +334,34 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
             }
             .create()
 
-        editText.doOnTextChanged { s, _, _, _ ->
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = validateHashtag(s)
+        editText.doOnTextChanged { text, _, _, _ ->
+            val tags = text.splitAsHashtags()
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = tags.areValidHashtags()
+
+            if (text == null) {
+                textInputLayout.error = null
+                return@doOnTextChanged
+            }
+
+            val newTags = tags.map { it.normaliseHashtag() }
+            if (newTags.isEmpty()) {
+                textInputLayout.error = null
+                return@doOnTextChanged
+            }
+
+            val duplicatedNewTags = newTags.groupingBy { it }.eachCount().filterValues { it > 1 }.keys
+            val duplicatedExistingTags = existingTags.intersect(newTags.toSet())
+            val duplicatedTags = (duplicatedNewTags + duplicatedExistingTags).sortedWith(collator)
+            if (duplicatedTags.isEmpty()) {
+                textInputLayout.error = null
+                return@doOnTextChanged
+            }
+
+            textInputLayout.error = getString(R.string.warning_duplicate_hashtags_fmt, duplicatedTags.joinToString(", "))
         }
 
         dialog.show()
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = validateHashtag(editText.text)
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = editText.text.splitAsHashtags().areValidHashtags()
         editText.requestFocus()
     }
 
@@ -348,11 +416,6 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
                 if (lists.isEmpty()) selectListBinding.noLists.show()
             }
         }
-    }
-
-    private fun validateHashtag(input: CharSequence?): Boolean {
-        val trimmedInput = input?.trim() ?: ""
-        return trimmedInput.isNotEmpty() && hashtagRegex.matcher(trimmedInput).matches()
     }
 
     private fun updateAvailableTabs() {
