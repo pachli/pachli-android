@@ -101,7 +101,8 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
     private val hashtagRegex by unsafeLazy { Pattern.compile("([\\w_]*[\\p{Alpha}_][\\w_]*)", Pattern.CASE_INSENSITIVE) }
     private val hashtagsSeparatorRegex = Regex("[\\s#]+")
 
-    private fun String.splitHashtags(): List<String> {
+    private fun CharSequence?.splitHashtags(): List<String> {
+        if (this == null) return emptyList()
         return this.trim().split(hashtagsSeparatorRegex).filter { it.isNotBlank() }
     }
 
@@ -289,7 +290,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
             .setView(frameLayout)
             .setNegativeButton(android.R.string.cancel, null)
             .setPositiveButton(R.string.action_save) { _, _ ->
-                val input = editText.text.toString().splitHashtags()
+                val input = editText.text.splitHashtags()
                 if (timeline == null) {
                     val newTab = TabViewData.from(
                         intent.pachliAccountId,
@@ -318,7 +319,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
                 return@doOnTextChanged
             }
 
-            val newTags = text.toString().splitHashtags().map { it.normaliseHashtag() }
+            val newTags = text.splitHashtags().map { it.normaliseHashtag() }
             if (newTags.isEmpty()) {
                 textInputLayout.error = null
                 return@doOnTextChanged
@@ -395,7 +396,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
 
     private fun validateHashtags(input: CharSequence?): Boolean {
         if (input.isNullOrBlank()) return false
-        val splitInput = input.toString().splitHashtags()
+        val splitInput = input.splitHashtags()
         return splitInput.isNotEmpty() && splitInput.all { hashtagRegex.matcher(it).matches() }
     }
 
