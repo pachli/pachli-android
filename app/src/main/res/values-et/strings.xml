@@ -725,4 +725,7 @@
     <string name="pref_labs_glide_user_image_decoder_on_summary">Võib parandada jõudlust ning mälukasutust</string>
     <string name="pref_labs_glide_user_image_decoder_off_summary">Toimimine kuni Pachli versioonini 3.10.0</string>
     <string name="pref_labs_glide_user_image_decoder_disabled_summary">Väljalülitatud Androidi vanemates versioonides (&lt; 10)</string>
+    <string name="edit_hashtags_hint">Komadega eraldatud teemaviited, # kui tahad lisada</string>
+    <string name="add_hashtags_title">Lisa teemaviiteid</string>
+    <string name="warning_duplicate_hashtags_fmt">Topelt teemaviited jäävad vahale: %1$s</string>
 </resources>
