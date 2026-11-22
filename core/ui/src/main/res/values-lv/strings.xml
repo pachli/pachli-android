@@ -207,4 +207,42 @@
     <string name="action_follow">Sekot</string>
     <string name="dialog_unfollow_warning">Pārtraukt sekot šim kontam?</string>
     <string name="ui_error_follow_account_fmt">Sekošana %1$s neizdevās: %2$s</string>
+    <string name="action_reblog_uncaptioned">Pastiprināt (ar trūkstošiem parakstiem)</string>
+    <plurals name="collection_item_n_more">
+        <item quantity="zero">+ vēl %1$d</item>
+        <item quantity="one">+ vēl %1$d</item>
+        <item quantity="other">+ vēl %1$d</item>
+    </plurals>
+    <string name="action_collection_remove_self">Noņemt mani</string>
+    <string name="ui_error_unfollow_account_fmt">Sekošanas %1$s pārtraukšana neizdevās: %2$s</string>
+    <string name="ui_error_cancel_follow_request_fmt">%1$s sekošanas pieprasījuma atcelšana neizdevās: %2$s</string>
+    <string name="ui_error_unblock_account_fmt">%1$s liegšanas atcelšana neizdevās: %2$s</string>
+    <string name="ui_error_unblock_domain_fmt">%1$s liegšanas atcelšana neizdevās: %2$s</string>
+    <string name="ui_error_unmute_account_fmt">%1$s apklusināšanas pārtraukšana neizdevās: %2$s</string>
+    <string name="collection_discoverable_true_label">Atklājams meklēšanas iznākumos un citās vietās, kur parādās ieteikumi.</string>
+    <string name="collection_discoverable_false_label">Redzams ikvienam, kuram ir saite. Paslēpts no meklēšanas iznākumiem un ieteikumiem.</string>
+    <string name="collection_sensitive_label">Iekļauj jūtīgu saturu</string>
+    <string name="collection_hidden_sensitive_title">Jūtīgs saturs. Piesist, lai parādītu.</string>
+    <string name="collection_hidden_user_action_title">Tu to paslēpi. Piesist, lai parādītu.</string>
+    <string name="action_collection_show">Parādīt krājumu</string>
+    <string name="action_collection_hide">Paslēpt krājumu</string>
+    <string name="action_collection_view">Apskatīt krājumu</string>
+    <string name="action_collection_revoke">Noņemt mani</string>
+    <string name="action_collection_view_tag">Apskatīt birku</string>
+    <string name="collection_content_description_name_and_owner">%2$s krājums “%1$s”.</string>
+    <string name="collection_content_description_name">Krājums “%1$s”.</string>
+    <plurals name="collection_content_description_accounts_is_member">
+        <item quantity="zero">Satur %1$d kontu, tajā skaitā Tavu.</item>
+        <item quantity="one">Satur %1$d kontu, tajā skaitā Tavu.</item>
+        <item quantity="other">Satur %1$d kontus, tajā skaitā Tavu.</item>
+    </plurals>
+    <plurals name="collection_content_description_accounts_is_not_member">
+        <item quantity="zero">Satur %1$d kontu.</item>
+        <item quantity="one">Satur %1$d kontu.</item>
+        <item quantity="other">Satur %1$d kontus.</item>
+    </plurals>
+    <string name="action_collection_show_action_dialog_fmt">Krājuma “%1$s” darbības</string>
+    <string name="action_show_dialog_with_all_collections">Krājuma darbības</string>
+    <string name="title_show_all_collections_dialog">Izvēlēties krājumu</string>
+    <string name="title_collection_show_action_dialog_fmt">Krājums “%1$s”</string>
 </resources>
