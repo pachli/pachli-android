@@ -76,4 +76,8 @@
     <string name="database_prune_cache_complete">Kešatmiņas iztukšošana pabeigta</string>
     <string name="database_vacuum_complete">VACUUM pabeigta</string>
     <string name="database_clear_cache_complete">Kešatmiņas iztīšana pabeigta</string>
+    <string name="about_workers">Strādņi</string>
+    <string name="workers_prune_cached_media_help">Šis ir strādņu, kas tīra kešotos informācijas nesējus, saraksts. Tajā vajadzētu būt vienam, stāvoklim vajadzētu būt “DARBOJAS”, un tam vajadzētu būt paredzētam izpildīties mazāk kā 12 stundu laikā.</string>
+    <string name="workers_prune_cache_help">Šis ir strādņu, kas tīra kešotos informāciju par ierakstiem un autoriem, saraksts. Tajā vajadzētu būt vienam, stāvoklim vajadzētu būt “DARBOJAS”, un tam vajadzētu būt paredzētam izpildīties mazāk kā 12 stundu laikā.</string>
+    <string name="workers_prune_log_entry_entity_help">Šis ir strādņu, kas atkļūdo žurnāla ierakstus, saraksts. Tajā vajadzētu būt vienam, stāvoklim vajadzētu būt “DARBOJAS”, un tam vajadzētu būt paredzētam izpildīties mazāk kā 12 stundu laikā.</string>
 </resources>
