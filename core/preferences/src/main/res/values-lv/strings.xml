@@ -60,4 +60,7 @@
     <string name="pref_title_underline_links">Pasvītrotas saites</string>
     <string name="pref_underline_links_links">Ārējas saites</string>
     <string name="pref_underline_links_mentions">\@ pieminēšanas</string>
+    <string name="pref_confirm_reblog_never">Nekad neapstiprināt</string>
+    <string name="pref_confirm_reblog_uncaptioned">Apstiprināt, ja pielikumam trūkst paraksta</string>
+    <string name="pref_confirm_reblog_always">Vienmēr apstiprināt</string>
 </resources>
