@@ -721,4 +721,19 @@
     <string name="ui_error_sending_post_fmt">Ierakstu nevarēja nosūtīt: %1$s</string>
     <string name="ui_error_saving_post_fmt">Ierakstu evarēja saglabāt: %1$s</string>
     <string name="ui_error_delete_scheduled_status_fmt">nevarēja izdzēst ierindoto ierakstu, lai to aizstātu: %1$s</string>
+    <string name="notification_collection_add_body_format">%1$s. %2$s</string>
+    <string name="notification_collection_update_body_format">%1$s. %2$s</string>
+    <string name="notification_collection_add_name">Pievienots krājumam</string>
+    <string name="notification_collection_add_description">Paziņojumi par pievienošanu kāda cita krājumam</string>
+    <string name="notification_collection_update_name">Krājums ir atjaunināts</string>
+    <string name="notification_collection_update_description">Paziņojumi par krājuma, kurā esi, atjaunināšanu</string>
+    <string name="notification_collection_add_format">&lt;b&gt;%1$s&lt;/b&gt; pievienoja Tevi krājumam</string>
+    <string name="notification_collection_update_format">&lt;b&gt;%1$s&lt;/b&gt; atjaunināja krājumu, kurā esi</string>
+    <string name="pref_labs_glide_use_image_decoder_title">Attēlu ielādēšanai izmantot ImageDecoder</string>
+    <string name="pref_labs_glide_user_image_decoder_on_summary">Var uzlabot veiktspēju un atmiņas lietojumu</string>
+    <string name="pref_labs_glide_user_image_decoder_off_summary">Uzvedība līdz Pachli 3.10.0</string>
+    <string name="pref_labs_glide_user_image_decoder_disabled_summary">Atspējots par Android 10 vecākās versijās</string>
+    <string name="edit_hashtags_hint">Ar atstarpēm atdalīti tēmturi, # var nebūt</string>
+    <string name="add_hashtags_title">Pievienot tēmturus</string>
+    <string name="warning_duplicate_hashtags_fmt">Atkārtotie netiks ņemti vērā: %1$s</string>
 </resources>
