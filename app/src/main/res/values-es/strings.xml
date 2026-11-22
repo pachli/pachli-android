@@ -748,4 +748,7 @@
     <string name="pref_labs_glide_user_image_decoder_off_summary">Comportamiento hasta Pachli 3.10.0</string>
     <string name="pref_labs_glide_user_image_decoder_disabled_summary">Desactivado en versiones de Android &lt; 10</string>
     <string name="pref_labs_glide_use_image_decoder_title">Usar ImageDecoder al cargar imágenes</string>
+    <string name="edit_hashtags_hint">Etiquetas separadas por espacios, # opcional</string>
+    <string name="add_hashtags_title">Añadir etiquetas</string>
+    <string name="warning_duplicate_hashtags_fmt">Duplicados serán ignorados: %1$s</string>
 </resources>
