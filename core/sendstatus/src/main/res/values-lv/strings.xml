@@ -10,7 +10,9 @@
     <string name="error_media_uploader_upload_not_found_fmt">informācijas nesēju augšupielāde ar Id %1$s nav atrasta</string>
     <string name="send_post_notification_channel_name">Sūta ierakstus</string>
     <string name="send_post_notification_title">Sūta ierakstu…</string>
-    <string name="send_post_notification_error_title">Sūtot ziņu, radās kļūda</string>
+    <string name="send_post_notification_error_title">Kļūda ieraksta nosūtīšanā</string>
     <string name="send_post_notification_saved_content">Ieraksta kopija tika saglabāta Tavos melnrakstos</string>
-    <string name="send_post_notification_cancel_title">Sūtīšana atcelta</string>
+    <string name="send_post_notification_cancel_title">Nosūtīšana atcelta</string>
+    <string name="send_post_failure_message_timeout">Šī ieraksta nosūtīšanas laikā Android iestājās noildze</string>
+    <string name="send_post_failure_message_cancel">Tu atcēli šī ieraksta nosūtīšanu</string>
 </resources>
