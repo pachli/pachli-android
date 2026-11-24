@@ -24,6 +24,7 @@ import androidx.room3.ForeignKey
 import androidx.room3.Index
 import app.pachli.core.database.Converters
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.TranslationState
 
 /**
  * The local view data for a status.
@@ -58,17 +59,6 @@ data class StatusViewDataEntity(
     val translationState: TranslationState,
     val attachmentDisplayAction: AttachmentDisplayAction?,
 )
-
-enum class TranslationState {
-    /** Show the original, untranslated status */
-    SHOW_ORIGINAL,
-
-    /** Show the original, untranslated status, but translation is happening */
-    TRANSLATING,
-
-    /** Show the translated status */
-    SHOW_TRANSLATION,
-}
 
 /**
  * Partial class for setting [StatusViewDataEntity.expanded] to [expanded].

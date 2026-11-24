@@ -50,7 +50,7 @@ data class Translation(
     /** The service that provided the machine translation */
     val provider: String,
 ) {
-    fun toModel() = app.pachli.core.model.translation.TranslatedStatus(
+    fun toModel() = app.pachli.core.model.TranslatedStatus(
         content = content,
         detectedSourceLanguage = detectedSourceLanguage,
         spoilerText = spoilerText,
@@ -69,7 +69,7 @@ data class TranslatedPoll(
     val id: String,
     val options: List<TranslatedPollOption>,
 ) {
-    fun toModel() = app.pachli.core.model.translation.TranslatedPoll(
+    fun toModel() = app.pachli.core.model.TranslatedPoll(
         id = this.id,
         options = this.options.map { it.toModel() },
     )
@@ -80,7 +80,7 @@ data class TranslatedPoll(
 data class TranslatedPollOption(
     val title: String,
 ) {
-    fun toModel() = app.pachli.core.model.translation.TranslatedPollOption(title)
+    fun toModel() = app.pachli.core.model.TranslatedPollOption(title)
 }
 
 /** A translated attachment. Only the description is translated */
@@ -89,7 +89,7 @@ data class TranslatedAttachment(
     val id: String,
     val description: String?,
 ) {
-    fun toModel() = app.pachli.core.model.translation.TranslatedAttachment(
+    fun toModel() = app.pachli.core.model.TranslatedAttachment(
         id = id,
         description = description,
     )

@@ -26,7 +26,6 @@ import app.pachli.core.database.model.StatusViewDataAttachmentDisplayAction
 import app.pachli.core.database.model.StatusViewDataContentCollapsed
 import app.pachli.core.database.model.StatusViewDataExpanded
 import app.pachli.core.database.model.StatusViewDataTranslationState
-import app.pachli.core.database.model.TranslationState
 import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.FavoriteEvent
@@ -37,6 +36,7 @@ import app.pachli.core.eventhub.ReblogEvent
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
+import app.pachli.core.model.TranslationState
 import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.Result

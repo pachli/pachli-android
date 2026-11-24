@@ -47,13 +47,13 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusItemViewData
-import app.pachli.core.database.model.TranslationState
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.ICollection
 import app.pachli.core.model.IStatus
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
+import app.pachli.core.model.TranslationState
 import app.pachli.core.model.collection.CollectionCardViewData
 import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.navigation.AccountListActivityIntent

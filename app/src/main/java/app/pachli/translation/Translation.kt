@@ -24,7 +24,7 @@ import app.pachli.core.common.PachliError
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.model.Status
-import app.pachli.core.model.translation.TranslatedStatus
+import app.pachli.core.model.TranslatedStatus
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.TranslationBackend

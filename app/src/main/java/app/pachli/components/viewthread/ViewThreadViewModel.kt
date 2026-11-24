@@ -33,9 +33,7 @@ import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.database.model.TranslatedStatusEntity
-import app.pachli.core.database.model.TranslationState
 import app.pachli.core.database.model.asEntity
-import app.pachli.core.database.model.toEntity
 import app.pachli.core.eventhub.BlockEvent
 import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.EventHub
@@ -51,6 +49,7 @@ import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
+import app.pachli.core.model.TranslationState
 import app.pachli.core.model.collection.CollectionCardViewData
 import app.pachli.core.model.collection.CollectionDisplayAction
 import app.pachli.core.network.model.asModel
@@ -623,9 +622,8 @@ class ViewThreadViewModel @Inject constructor(
 
             timelineCases.translate(statusViewData)
                 .onSuccess {
-                    val translatedEntity = it.toEntity(statusViewData.pachliAccountId, statusViewData.actionableId)
                     updateStatusViewData(statusViewData.statusId) { viewData ->
-                        viewData.copy(translation = translatedEntity, translationState = TranslationState.SHOW_TRANSLATION)
+                        viewData.copy(translation = it, translationState = TranslationState.SHOW_TRANSLATION)
                     }
                 }
                 .onFailure {

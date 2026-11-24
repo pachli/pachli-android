@@ -138,6 +138,7 @@ SELECT
     -- Translation
     s.t_statusId AS 's_s_t_statusId',
     s.t_pachliAccountId AS 's_s_t_pachliAccountId',
+    s.t_detectedSourceLanguage AS 's_s_t_detectedSourceLanguage',
     s.t_content AS 's_s_t_content',
     s.t_spoilerText AS 's_s_t_spoilerText',
     s.t_poll AS 's_s_t_poll',
@@ -239,6 +240,7 @@ SELECT
     -- Translation
     q.t_statusId AS 's_q_t_statusId',
     q.t_pachliAccountId AS 's_q_t_pachliAccountId',
+    q.t_detectedSourceLanguage AS 's_q_t_detectedSourceLanguage',
     q.t_content AS 's_q_t_content',
     q.t_spoilerText AS 's_q_t_spoilerText',
     q.t_poll AS 's_q_t_poll',
@@ -494,6 +496,7 @@ SELECT
     -- Translation
     s.t_statusId AS 's_s_t_statusId',
     s.t_pachliAccountId AS 's_s_t_pachliAccountId',
+    s.t_detectedSourceLanguage AS 's_s_t_detectedSourceLanguage',
     s.t_content AS 's_s_t_content',
     s.t_spoilerText AS 's_s_t_spoilerText',
     s.t_poll AS 's_s_t_poll',
@@ -595,6 +598,7 @@ SELECT
     -- Translation
     q.t_statusId AS 's_q_t_statusId',
     q.t_pachliAccountId AS 's_q_t_pachliAccountId',
+    q.t_detectedSourceLanguage AS 's_q_t_detectedSourceLanguage',
     q.t_content AS 's_q_t_content',
     q.t_spoilerText AS 's_q_t_spoilerText',
     q.t_poll AS 's_q_t_poll',

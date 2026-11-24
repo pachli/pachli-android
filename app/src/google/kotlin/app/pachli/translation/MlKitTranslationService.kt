@@ -28,10 +28,10 @@ import androidx.fragment.app.FragmentManager
 import app.pachli.R
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.model.translation.TranslatedAttachment
-import app.pachli.core.model.translation.TranslatedPoll
-import app.pachli.core.model.translation.TranslatedPollOption
-import app.pachli.core.model.translation.TranslatedStatus
+import app.pachli.core.model.TranslatedAttachment
+import app.pachli.core.model.TranslatedPoll
+import app.pachli.core.model.TranslatedPollOption
+import app.pachli.core.model.TranslatedStatus
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
