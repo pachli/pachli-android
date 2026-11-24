@@ -263,7 +263,7 @@ class ComposeViewModel @AssistedInject constructor(
 
     private val _markMediaAsSensitive: MutableStateFlow<Boolean?> = MutableStateFlow(composeOptions.draft.sensitive)
     val markMediaAsSensitive = accountFlow.combine(_markMediaAsSensitive) { account, sens ->
-        sens ?: account.defaultMediaSensitivity
+        sens ?: account.config.defaultMediaSensitivity
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
 
     /** Flow of changes to statusDisplayOptions, for use by the UI */
@@ -272,7 +272,7 @@ class ComposeViewModel @AssistedInject constructor(
     private val _statusVisibility: MutableStateFlow<Status.Visibility> = MutableStateFlow(Status.Visibility.UNKNOWN)
     val statusVisibility = accountFlow.combine(_statusVisibility) { account, vis ->
         if (vis == Status.Visibility.UNKNOWN) {
-            account.defaultPostPrivacy
+            account.config.defaultPostPrivacy
         } else {
             vis
         }
@@ -377,7 +377,7 @@ class ComposeViewModel @AssistedInject constructor(
             qp != null -> qp
             composeOptions.draft.quotePolicy != null -> composeOptions.draft.quotePolicy
             composeOptions.draft.visibility == Status.Visibility.DIRECT || composeOptions.draft.visibility == Status.Visibility.PRIVATE -> AccountSource.QuotePolicy.NOBODY
-            else -> account.defaultQuotePolicy
+            else -> account.config.defaultQuotePolicy
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
@@ -430,7 +430,7 @@ class ComposeViewModel @AssistedInject constructor(
 
         _media.update { mediaList ->
             val mediaItem = QueuedMedia(
-                account = pachliAccount,
+                pachliAccountConfig = pachliAccount.config,
                 localId = mediaUploader.getNewLocalMediaId(),
                 uri = uri,
                 type = type,
@@ -467,7 +467,7 @@ class ComposeViewModel @AssistedInject constructor(
     private fun addUploadedMedia(account: PachliAccount, id: String, type: QueuedMedia.Type, uri: Uri, description: String?, focus: Attachment.Focus?) {
         _media.update { mediaList ->
             val mediaItem = QueuedMedia(
-                account = account,
+                pachliAccountConfig = account.config,
                 localId = mediaUploader.getNewLocalMediaId(),
                 uri = uri,
                 type = type,

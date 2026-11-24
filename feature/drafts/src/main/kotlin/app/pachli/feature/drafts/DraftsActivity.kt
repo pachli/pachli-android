@@ -79,7 +79,7 @@ class DraftsActivity : BaseActivity() {
     }
 
     override fun onPrepareMenu(menu: Menu) {
-        val currentTabs = accountManager.activeAccount?.tabPreferences.orEmpty()
+        val currentTabs = accountManager.activeAccountConfig?.tabPreferences.orEmpty()
         val hideMenu = currentTabs.contains(Timeline.Drafts)
         menu.findItem(app.pachli.core.ui.R.id.action_add_to_tab)?.isVisible = !hideMenu
     }
@@ -98,7 +98,7 @@ class DraftsActivity : BaseActivity() {
     }
 
     private fun addToTab() {
-        accountManager.activeAccount?.let {
+        accountManager.activeAccountConfig?.let {
             lifecycleScope.launch(Dispatchers.IO) {
                 accountManager.setTabPreferences(it.pachliAccountId, it.tabPreferences + Timeline.Drafts)
             }

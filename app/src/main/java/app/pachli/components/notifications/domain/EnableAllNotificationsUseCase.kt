@@ -53,7 +53,7 @@ class EnableAllNotificationsUseCase @Inject constructor(
         enablePullNotifications(context)
 
         // If no accounts have push scope there's nothing to do.
-        val accountsWithPushScope = accountManager.pachliAccounts.filter { it.hasPushScope }
+        val accountsWithPushScope = accountManager.pachliAccounts.filter { it.config.hasPushScope }
         if (accountsWithPushScope.isEmpty()) {
             Timber.d("No accounts have push scope, skipping UnifiedPush reconfiguration")
             return@withContext
@@ -80,8 +80,8 @@ class EnableAllNotificationsUseCase @Inject constructor(
 
         UnifiedPush.saveDistributor(context, distributor)
         accountsWithPushScope.forEach {
-            Timber.d("Registering instance %s, %s with %s", it.unifiedPushInstance, it.fullName, distributor)
-            UnifiedPush.register(context, it.unifiedPushInstance, messageForDistributor = it.fullName)
+            Timber.d("Registering instance %s, %s with %s", it.config.unifiedPushInstance, it.config.fullName, distributor)
+            UnifiedPush.register(context, it.config.unifiedPushInstance, messageForDistributor = it.config.fullName)
         }
     }
 
@@ -101,6 +101,6 @@ class EnableAllNotificationsUseCase @Inject constructor(
      * Disables push notifications for each account.
      */
     private suspend fun disablePushNotifications() {
-        accountManager.pachliAccounts.forEach { disablePushNotificationsForAccount(it) }
+        accountManager.pachliAccounts.forEach { disablePushNotificationsForAccount(it.config) }
     }
 }

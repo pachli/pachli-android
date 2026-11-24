@@ -660,7 +660,7 @@ class NotificationsFragment :
     }
 
     override fun onViewReport(reportId: String) {
-        openUrl("https://${viewModel.pachliAccount.domain}/admin/reports/$reportId")
+        openUrl("https://${viewModel.pachliAccount.config.domain}/admin/reports/$reportId")
     }
 
     // Empty -- this fragment doesn't remove items
@@ -683,7 +683,7 @@ class NotificationsFragment :
                     FallibleCollectionAction.Revoke(
                         pachliAccountId = pachliAccountId,
                         collectionId = collection.collectionId,
-                        accountId = viewModel.pachliAccount.accountId,
+                        accountId = viewModel.pachliAccount.config.accountId,
                     ),
                 )
             }

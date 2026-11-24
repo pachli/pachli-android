@@ -94,7 +94,7 @@ sealed interface SetActiveAccountError : PachliError {
      * @property wantedAccount The account that could not be made active.
      */
     data class Api(
-        val wantedAccount: app.pachli.core.model.IPachliAccountConfig,
+        val wantedAccount: PachliAccountConfig,
         val apiError: ApiError,
     ) : SetActiveAccountError, PachliError by apiError
 
@@ -105,7 +105,7 @@ sealed interface SetActiveAccountError : PachliError {
      * (if known)
      */
     data class Dao(
-        val wantedAccount: app.pachli.core.model.IPachliAccountConfig?,
+        val wantedAccount: PachliAccountConfig?,
         val sqlException: SQLiteException,
     ) : SetActiveAccountError {
         override val resourceId = R.string.account_manager_error_dao
@@ -120,7 +120,7 @@ sealed interface SetActiveAccountError : PachliError {
      * @property throwable Throwable that caused the error
      */
     data class Unexpected(
-        val wantedAccount: app.pachli.core.model.IPachliAccountConfig,
+        val wantedAccount: PachliAccountConfig,
         val throwable: Throwable,
     ) : SetActiveAccountError {
         override val resourceId = R.string.account_manager_error_unexpected
@@ -130,9 +130,9 @@ sealed interface SetActiveAccountError : PachliError {
 }
 
 sealed interface RefreshAccountError : PachliError {
-    val wantedAccount: app.pachli.core.model.IPachliAccountConfig
+    val wantedAccount: PachliAccountConfig
 
-    data class General(override val wantedAccount: PachliAccount, override val cause: PachliError) : RefreshAccountError {
+    data class General(override val wantedAccount: PachliAccountConfig, override val cause: PachliError) : RefreshAccountError {
         override val resourceId = app.pachli.core.network.R.string.error_generic_fmt
         override val formatArgs: Array<String>? = null
     }
@@ -179,7 +179,7 @@ class AccountManager @Inject constructor(
 
     /** The active account, or null if there is no active account. */
     @Deprecated("Caller should use getPachliAccountFlow with a specific account ID")
-    val activeAccount: PachliAccountConfig?
+    val activeAccountConfig: PachliAccountConfig?
         get() = activeAccountFlow.value.getOrNull()?.asModel()
 
     /** All logged in accounts. */
@@ -265,7 +265,7 @@ class AccountManager @Inject constructor(
      * @return the requested account or null if it was not found
      */
     fun getPachliAccountById(pachliAccountId: Long): PachliAccount? {
-        return pachliAccounts.find { it.pachliAccountId == pachliAccountId }
+        return pachliAccounts.find { it.config.pachliAccountId == pachliAccountId }
     }
 
     /**
@@ -328,7 +328,7 @@ class AccountManager @Inject constructor(
         setPushNotificationData(accountId, "", "", "", "", "")
     }
 
-    suspend fun deleteAccount(account: app.pachli.core.model.IPachliAccountConfig) = accountDao.deleteAccountById(account.pachliAccountId)
+    suspend fun deleteAccount(pachliAccountId: Long) = accountDao.deleteAccountById(pachliAccountId)
 
     /**
      * Changes the active account.
@@ -432,17 +432,17 @@ class AccountManager @Inject constructor(
         // depend on one another.
         val deferServer = externalScope.async {
             serverRepository.getServer()
-                .onSuccess { serverDao.upsert(it.asEntity(account.pachliAccountId)) }
-                .mapError { RefreshAccountError.General(account, it) }
+                .onSuccess { serverDao.upsert(it.asEntity(account.config.pachliAccountId)) }
+                .mapError { RefreshAccountError.General(account.config, it) }
         }
 
         val deferAnnouncements = externalScope.async {
             mastodonApi.listAnnouncements(false)
-                .mapError { RefreshAccountError.General(account, it) }
+                .mapError { RefreshAccountError.General(account.config, it) }
                 .map {
                     it.body.map {
                         AnnouncementEntity(
-                            pachliAccountId = account.pachliAccountId,
+                            pachliAccountId = account.config.pachliAccountId,
                             announcementId = it.id,
                             announcement = it.asModel(),
                         )
@@ -450,7 +450,7 @@ class AccountManager @Inject constructor(
                 }
                 .onSuccess {
                     transactionProvider {
-                        announcementsDao.deleteAllForAccount(account.pachliAccountId)
+                        announcementsDao.deleteAllForAccount(account.config.pachliAccountId)
                         announcementsDao.upsert(it)
                     }
                 }
@@ -460,10 +460,10 @@ class AccountManager @Inject constructor(
             var maxId: String? = null
             val following = buildList {
                 do {
-                    val response = mastodonApi.accountFollowing(account.accountId, maxId)
-                        .getOrElse { return@async Err(RefreshAccountError.General(account, it)) }
+                    val response = mastodonApi.accountFollowing(account.config.accountId, maxId)
+                        .getOrElse { return@async Err(RefreshAccountError.General(account.config, it)) }
 
-                    addAll(response.body.map { FollowingAccountEntity.from(account.pachliAccountId, it.asModel()) })
+                    addAll(response.body.map { FollowingAccountEntity.from(account.config.pachliAccountId, it.asModel()) })
                     val links = HttpHeaderLink.parse(response.headers["Link"])
                     val next = HttpHeaderLink.findByRelationType(links, "next")
                     maxId = next?.uri?.getQueryParameter("max_id")
@@ -471,7 +471,7 @@ class AccountManager @Inject constructor(
             }
 
             transactionProvider {
-                followingAccountDao.deleteAllForAccount(account.pachliAccountId)
+                followingAccountDao.deleteAllForAccount(account.config.pachliAccountId)
                 followingAccountDao.upsert(following)
             }
 
@@ -482,21 +482,21 @@ class AccountManager @Inject constructor(
         // success/failure. Worst thing that can happen is the UI is out of date
         // for followed hashtags for a few seconds if the user followed/unfollowed
         // hashtags outside Pachli.
-        externalScope.launch { hashtagsRepository.refreshFollowedHashtags(account.pachliAccountId) }
+        externalScope.launch { hashtagsRepository.refreshFollowedHashtags(account.config.pachliAccountId) }
 
         // Create the server info so it can used for both server capabilities and filters.
         deferServer.await().bind()
 
-        externalScope.async { contentFiltersRepository.refresh(account.pachliAccountId) }.await()
+        externalScope.async { contentFiltersRepository.refresh(account.config.pachliAccountId) }.await()
             .orElse {
                 when (it) {
                     ContentFiltersError.ServerDoesNotFilter -> Ok(Unit)
-                    else -> Err(RefreshAccountError.General(account, it))
+                    else -> Err(RefreshAccountError.General(account.config, it))
                 }
             }.bind()
 
-        externalScope.async { listsRepository.refresh(account.pachliAccountId) }.await()
-            .mapError { RefreshAccountError.General(account, it) }.bind()
+        externalScope.async { listsRepository.refresh(account.config.pachliAccountId) }.await()
+            .mapError { RefreshAccountError.General(account.config, it) }.bind()
 
         // Ignore errors when fetching announcements, they're non-fatal.
         // TODO: Add a capability for announcements.
@@ -509,8 +509,8 @@ class AccountManager @Inject constructor(
         //
         // If the options are set then wait for the API calls to complete. Otherwise
         // this can happen in the background.
-        if (account.notificationAccountFilterNotFollowed != FilterAction.NONE ||
-            account.conversationAccountFilterNotFollowed != FilterAction.NONE
+        if (account.config.notificationAccountFilterNotFollowed != FilterAction.NONE ||
+            account.config.conversationAccountFilterNotFollowed != FilterAction.NONE
         ) {
             deferFollowing.await().bind()
         }
@@ -570,7 +570,7 @@ class AccountManager @Inject constructor(
     // TODO: Should be `suspend`, accessed through a ViewModel, but not all the
     // calling code has been converted yet.
     fun areAndroidNotificationsEnabled(): Boolean {
-        return pachliAccounts.any { it.notificationsEnabled }
+        return pachliAccounts.any { it.config.notificationsEnabled }
     }
 
     suspend fun setAlwaysShowSensitiveMedia(accountId: Long, value: Boolean) {

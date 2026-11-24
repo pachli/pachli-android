@@ -47,9 +47,9 @@ class PruneCacheWorker @AssistedInject constructor(
         Timber.d("Started")
 
         for (pachliAccount in accountManager.pachliAccounts) {
-            Timber.d("Pruning cache for account %d, %s", pachliAccount.pachliAccountId, pachliAccount.account.username)
-            val countRemoved = timelineDao.cleanup(pachliAccount.pachliAccountId)
-            Timber.d("Pruned cache for account %d, %s, deleted %d", pachliAccount.pachliAccountId, pachliAccount.account.username, countRemoved)
+            Timber.d("Pruning cache for account %d, %s", pachliAccount.config.pachliAccountId, pachliAccount.account.username)
+            val countRemoved = timelineDao.cleanup(pachliAccount.config.pachliAccountId)
+            Timber.d("Pruned cache for account %d, %s, deleted %d", pachliAccount.config.pachliAccountId, pachliAccount.account.username, countRemoved)
         }
 
         return Result.success()

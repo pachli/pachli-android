@@ -152,7 +152,7 @@ class SearchViewModel @Inject constructor(
     val operatorViewData = _operatorViewData.asStateFlow()
 
     val locales = pachliAccount.filterNotNull()
-        .map { getLocaleList(getInitialLanguages(activeAccount = it)) }
+        .map { getLocaleList(getInitialLanguages(pachliAccountConfig = it.config)) }
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000),
@@ -241,19 +241,20 @@ class SearchViewModel @Inject constructor(
             .map { status ->
                 TimelineStatusWithQuote(
                     timelineStatus = TimelineStatusWithAccount(
-                        status = status.asEntity(pachliAccount.pachliAccountId),
-                        account = status.reblog?.account?.asEntity(pachliAccount.pachliAccountId) ?: status.account.asEntity(pachliAccount.pachliAccountId),
-                        reblogAccount = status.reblog?.let { status.account.asEntity(pachliAccount.pachliAccountId) },
-                        viewData = statusRepository.getStatusViewData(pachliAccount.pachliAccountId, status.actionableId),
-                        translatedStatus = statusRepository.getTranslation(pachliAccount.pachliAccountId, status.actionableId),
+                        status = status.asEntity(pachliAccount.config.pachliAccountId),
+                        account = status.reblog?.account?.asEntity(pachliAccount.config.pachliAccountId)
+                            ?: status.account.asEntity(pachliAccount.config.pachliAccountId),
+                        reblogAccount = status.reblog?.let { status.account.asEntity(pachliAccount.config.pachliAccountId) },
+                        viewData = statusRepository.getStatusViewData(pachliAccount.config.pachliAccountId, status.actionableId),
+                        translatedStatus = statusRepository.getTranslation(pachliAccount.config.pachliAccountId, status.actionableId),
                     ),
                     quotedStatus = (status.actionableStatus.quote as? Status.Quote.FullQuote)?.status?.let { q ->
                         TimelineStatusWithAccount(
-                            status = q.asEntity(pachliAccount.pachliAccountId),
-                            account = q.account.asEntity(pachliAccount.pachliAccountId),
+                            status = q.asEntity(pachliAccount.config.pachliAccountId),
+                            account = q.account.asEntity(pachliAccount.config.pachliAccountId),
                             reblogAccount = null,
-                            viewData = statusRepository.getStatusViewData(pachliAccount.pachliAccountId, q.actionableId),
-                            translatedStatus = statusRepository.getTranslation(pachliAccount.pachliAccountId, q.actionableId),
+                            viewData = statusRepository.getStatusViewData(pachliAccount.config.pachliAccountId, q.actionableId),
+                            translatedStatus = statusRepository.getTranslation(pachliAccount.config.pachliAccountId, q.actionableId),
                         )
                     },
                 )
@@ -264,11 +265,11 @@ class SearchViewModel @Inject constructor(
                 StatusItemViewData.from(
                     pachliAccount = pachliAccount,
                     status,
-                    isExpanded = pachliAccount.alwaysOpenSpoiler,
+                    isExpanded = pachliAccount.config.alwaysOpenSpoiler,
                     contentFilterAction = contentFilterAction,
                     quoteContentFilterAction = status.quotedStatus?.let { contentFilterModel.filterActionFor(it.status) },
                     filterContext = null,
-                    showSensitiveMedia = pachliAccount.alwaysShowSensitiveMedia,
+                    showSensitiveMedia = pachliAccount.config.alwaysShowSensitiveMedia,
                 )
             }.apply {
                 loadedStatuses.addAll(this)

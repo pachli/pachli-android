@@ -31,7 +31,6 @@ import io.github.z4kn4fein.semver.Version
 /**
  * A single Pachli account with all the information associated with it.
  *
- * @property pachliAccountId Account's unique local database ID.
  * @property config [PachliAccountConfig] for this account.
  * @property account [Account] data for this account.
  * @property lists Account's lists.
@@ -54,7 +53,7 @@ data class PachliAccount(
     val announcements: List<Announcement>,
     val following: List<FollowingAccountEntity>,
     val followedHashtags: Map<String, Hashtag>,
-) : app.pachli.core.model.IPachliAccountConfig by config
+)
 
 fun app.pachli.core.database.model.PachliAccountWithRelations.asModel() = PachliAccount(
     config = pachliAccountEntity.asModel(),

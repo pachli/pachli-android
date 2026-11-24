@@ -37,6 +37,7 @@ import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.PachliAccountConfig
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.databinding.ItemAutocompleteAccountBinding
 import com.bumptech.glide.Glide
@@ -57,13 +58,13 @@ import kotlinx.coroutines.launch
  * @see [ChooseAccountSuspendDialogFragment.Companion].
  */
 @AndroidEntryPoint
-open class ChooseAccountSuspendDialogFragment : AppCompatDialogFragment(), SuspendDialogResult<PachliAccount?> {
+open class ChooseAccountSuspendDialogFragment : AppCompatDialogFragment(), SuspendDialogResult<PachliAccountConfig?> {
     /**
      * The account the user chose.
      *
      * If the user pressed Back this is null.
      */
-    override var result: PachliAccount? = null
+    override var result: PachliAccountConfig? = null
 
     private val viewModel: ChooseAccountViewModel by viewModels()
 
@@ -88,7 +89,7 @@ open class ChooseAccountSuspendDialogFragment : AppCompatDialogFragment(), Suspe
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.accounts
-                    .map { if (includeActive) it else it.filter { !it.isActive } }
+                    .map { if (includeActive) it else it.filter { !it.config.isActive } }
                     .filter { it.isNotEmpty() }
                     .collect { accounts ->
                         adapter.clear()
@@ -103,7 +104,7 @@ open class ChooseAccountSuspendDialogFragment : AppCompatDialogFragment(), Suspe
         return AlertDialog.Builder(requireActivity())
             .setTitle(title)
             .setAdapter(adapter) { _: DialogInterface?, index: Int ->
-                result = adapter.getItem(index)
+                result = adapter.getItem(index)?.config
                 dismiss()
             }.create()
     }
@@ -179,7 +180,7 @@ class ChooseAccountAdapter(
 
         val pachliAccount = getItem(position) ?: return binding.root
 
-        binding.username.text = pachliAccount.fullName
+        binding.username.text = pachliAccount.config.fullName
         binding.displayName.text = pachliAccount.account.name.emojify(glide, pachliAccount.account.emojis, binding.displayName, animateEmojis)
         binding.avatarBadge.visibility = View.GONE // We never want to display the bot badge here
 

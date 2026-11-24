@@ -98,7 +98,7 @@ data class UiState(
 
             androidNotificationsEnabled = notificationConfig.androidNotificationsEnabled,
             notificationEnabledAccounts = accountManager.pachliAccounts.joinToString("\n") {
-                "%s %s".format(if (it.notificationsEnabled) "✔" else "✖", it.fullName)
+                "%s %s".format(if (it.config.notificationsEnabled) "✔" else "✖", it.config.fullName)
             },
             notificationMethod = notificationConfig.notificationMethod,
 
@@ -106,15 +106,15 @@ data class UiState(
             anyAccountNeedsMigration = notificationConfig.anyAccountNeedsMigration,
             anyAccountNeedsMigrationAccounts = accountManager.pachliAccounts.joinToString("\n") {
                 // Duplicate of accountNeedsMigration from PushNotificationHelper
-                "%s %s".format(if (it.oauthScopes.contains("push")) "✔" else "✖", it.fullName)
+                "%s %s".format(if (it.config.oauthScopes.contains("push")) "✔" else "✖", it.config.fullName)
             },
 
-            allAccountsHaveUnifiedPushUrl = accountManager.pachliAccounts.all { it.unifiedPushUrl.isNotEmpty() },
+            allAccountsHaveUnifiedPushUrl = accountManager.pachliAccounts.all { it.config.unifiedPushUrl.isNotEmpty() },
             allAccountsUnifiedPushUrlAccounts = accountManager.pachliAccounts.joinToString("\n") {
-                if (it.unifiedPushUrl.isNotEmpty()) {
-                    "✔ %s %s".format(it.fullName, it.unifiedPushUrl)
+                if (it.config.unifiedPushUrl.isNotEmpty()) {
+                    "✔ %s %s".format(it.config.fullName, it.config.unifiedPushUrl)
                 } else {
-                    "✖  %s".format(it.fullName)
+                    "✖  %s".format(it.config.fullName)
                 }
             },
             allAccountsHaveUnifiedPushSubscription = notificationConfig.notificationMethodAccount.all { it.value is NotificationConfig.Method.Push },

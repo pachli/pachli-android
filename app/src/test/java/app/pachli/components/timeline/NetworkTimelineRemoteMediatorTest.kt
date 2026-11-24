@@ -36,7 +36,7 @@ import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.model.TimelineStatusWithQuote
-import app.pachli.core.model.IPachliAccountConfig
+import app.pachli.core.model.PachliAccountConfig
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.di.test.DEFAULT_INSTANCE_V2
 import app.pachli.core.network.model.AccountSource
@@ -118,7 +118,7 @@ class NetworkTimelineRemoteMediatorTest {
         source = AccountSource(),
     )
 
-    private lateinit var activeAccount: IPachliAccountConfig
+    private lateinit var activeAccountConfig: PachliAccountConfig
 
     private lateinit var pagingSourceFactory: InvalidatingPagingSourceFactory<String, TimelineStatusWithQuote>
 
@@ -168,7 +168,7 @@ class NetworkTimelineRemoteMediatorTest {
             .andThen {
                 accountManager.setActiveAccount(it).onSuccess {
                     accountManager.refresh(it)
-                    activeAccount = it
+                    activeAccountConfig = it.config
                 }
             }
 
@@ -182,7 +182,7 @@ class NetworkTimelineRemoteMediatorTest {
         val remoteMediator = NetworkTimelineRemoteMediator(
             context = context,
             api = mock(defaultAnswer = { failure<Unit>(code = 500) }),
-            pachliAccountId = activeAccount.pachliAccountId,
+            pachliAccountId = activeAccountConfig.pachliAccountId,
             factory = pagingSourceFactory,
             pageCache = PageCache(),
             timeline = Timeline.Home,
@@ -222,7 +222,7 @@ class NetworkTimelineRemoteMediatorTest {
         val remoteMediator = NetworkTimelineRemoteMediator(
             context = context,
             api = mastodonApi,
-            pachliAccountId = activeAccount.pachliAccountId,
+            pachliAccountId = activeAccountConfig.pachliAccountId,
             factory = pagingSourceFactory,
             pageCache = pages,
             timeline = Timeline.Home,
@@ -293,7 +293,7 @@ class NetworkTimelineRemoteMediatorTest {
         val remoteMediator = NetworkTimelineRemoteMediator(
             context = context,
             api = mastodonApi,
-            pachliAccountId = activeAccount.pachliAccountId,
+            pachliAccountId = activeAccountConfig.pachliAccountId,
             factory = pagingSourceFactory,
             pageCache = pages,
             timeline = Timeline.Home,
@@ -305,7 +305,7 @@ class NetworkTimelineRemoteMediatorTest {
             listOf(
                 PagingSource.LoadResult.Page(
                     data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel()
-                        .asTimelineStatusWithQuote(activeAccount.pachliAccountId, statusRepository, collectionsRepository),
+                        .asTimelineStatusWithQuote(activeAccountConfig.pachliAccountId, statusRepository, collectionsRepository),
                     prevKey = "7",
                     nextKey = "5",
                 ),
@@ -372,7 +372,7 @@ class NetworkTimelineRemoteMediatorTest {
         val remoteMediator = NetworkTimelineRemoteMediator(
             context = context,
             api = mastodonApi,
-            pachliAccountId = activeAccount.pachliAccountId,
+            pachliAccountId = activeAccountConfig.pachliAccountId,
             factory = pagingSourceFactory,
             pageCache = pages,
             timeline = Timeline.Home,
@@ -383,7 +383,7 @@ class NetworkTimelineRemoteMediatorTest {
         val state = state(
             listOf(
                 PagingSource.LoadResult.Page(
-                    data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel().asTimelineStatusWithQuote(activeAccount.pachliAccountId, statusRepository, collectionsRepository).toMutableList(),
+                    data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel().asTimelineStatusWithQuote(activeAccountConfig.pachliAccountId, statusRepository, collectionsRepository).toMutableList(),
                     prevKey = "7",
                     nextKey = "5",
                 ),

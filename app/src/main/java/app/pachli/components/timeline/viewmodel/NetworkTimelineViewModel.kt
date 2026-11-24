@@ -81,9 +81,9 @@ open class NetworkTimelineViewModel @AssistedInject constructor(
     sharedPreferencesRepository,
 ) {
     override val statuses = pachliAccountFlow.distinctUntilChanged { old, new ->
-        old.pachliAccountId == new.pachliAccountId && old.followedHashtags == new.followedHashtags
+        old.config.pachliAccountId == new.config.pachliAccountId && old.followedHashtags == new.followedHashtags
     }.flatMapLatest { pachliAccount ->
-        repository.getStatusStream(pachliAccount.pachliAccountId, timeline = timeline).map { pagingData ->
+        repository.getStatusStream(pachliAccount.config.pachliAccountId, timeline = timeline).map { pagingData ->
             pagingData
                 .map { Pair(it, shouldFilterStatus(it.timelineStatus)) }
                 .filter { it.second != FilterAction.HIDE }
@@ -96,7 +96,7 @@ open class NetworkTimelineViewModel @AssistedInject constructor(
                         // Not using shouldFilterStatus here as that also checks to see if things like
                         // "Hide boosts" or "Hide replies" are enabled.
                         quoteContentFilterAction = timelineStatusWithQuote.quotedStatus?.let { contentFilterModel?.filterActionFor(it.status) },
-                        showSensitiveMedia = pachliAccount.alwaysShowSensitiveMedia,
+                        showSensitiveMedia = pachliAccount.config.alwaysShowSensitiveMedia,
                         filterContext = filterContext,
                     )
                 }

@@ -51,6 +51,7 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.domain.notifications.AppNotificationMethod
 import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.model.AccountNotificationMethod
+import app.pachli.core.model.PachliAccountConfig
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.ConfirmReblogs
 import app.pachli.core.preferences.DefaultAudioPlayback
@@ -447,7 +448,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     }
 
                     setOnPreferenceClickListener {
-                        val adapter = AccountNotificationDetailsAdapter(context, accountManager.pachliAccounts.sortedBy { it.fullName })
+                        val adapter = AccountNotificationDetailsAdapter(context, accountManager.pachliAccounts.sortedBy { it.config.fullName })
 
                         viewLifecycleOwner.lifecycleScope.launch {
                             val dialog = AlertDialog.Builder(requireContext())
@@ -654,7 +655,7 @@ class AccountNotificationDetailsAdapter(context: Context, pachliAccounts: List<P
      * Otherwise this should explain why the method is [PULL][AccountNotificationMethod.PULL]
      * (either the error when registering, or the lack of the `push` oauth scope).
      */
-    private fun PachliAccount.notificationMethodExtra(): String {
+    private fun PachliAccountConfig.notificationMethodExtra(): String {
         return when (notificationMethod) {
             AccountNotificationMethod.PUSH -> unifiedPushUrl
             AccountNotificationMethod.PULL -> if (hasPushScope) {
@@ -675,15 +676,15 @@ class AccountNotificationDetailsAdapter(context: Context, pachliAccounts: List<P
         val pachliAccount = getItem(position) ?: return binding.root
 
         with(binding) {
-            accountName.text = pachliAccount.fullName
-            notificationMethod.text = context.getString(pachliAccount.notificationMethod.stringRes)
-            notificationMethodExtra.text = pachliAccount.notificationMethodExtra()
+            accountName.text = pachliAccount.config.fullName
+            notificationMethod.text = context.getString(pachliAccount.config.notificationMethod.stringRes)
+            notificationMethodExtra.text = pachliAccount.config.notificationMethodExtra()
 
             accountName.show()
             notificationMethod.show()
             notificationMethodExtra.show()
 
-            val lastFetch = NotificationConfig.lastFetchNewNotifications[pachliAccount.fullName]
+            val lastFetch = NotificationConfig.lastFetchNewNotifications[pachliAccount.config.fullName]
             if (lastFetch == null) {
                 lastFetchTime.hide()
                 lastFetchError.hide()

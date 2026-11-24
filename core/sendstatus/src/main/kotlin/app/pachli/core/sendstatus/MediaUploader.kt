@@ -438,8 +438,8 @@ class MediaUploader @Inject constructor(
             }
 
             val uploadResult = mediaUploadApi.uploadMediaWithAuth(
-                media.account.authHeader,
-                media.account.domain,
+                media.pachliAccountConfig.authHeader,
+                media.pachliAccountConfig.domain,
                 body,
                 description,
                 focus,

@@ -90,7 +90,8 @@ class StatusDisplayOptionsRepository @Inject constructor(
                             animateAvatars = sharedPreferencesRepository.animateAvatars,
                         )
                         PrefKeys.MEDIA_PREVIEW_ENABLED -> prev.copy(
-                            mediaPreviewEnabled = accountManager.activeAccount?.mediaPreviewEnabled ?: default.mediaPreviewEnabled,
+                            mediaPreviewEnabled = accountManager.activeAccountConfig?.mediaPreviewEnabled
+                                ?: default.mediaPreviewEnabled,
                         )
                         PrefKeys.ABSOLUTE_TIME_VIEW -> prev.copy(
                             useAbsoluteTime = sharedPreferencesRepository.useAbsoluteTime,
@@ -117,10 +118,12 @@ class StatusDisplayOptionsRepository @Inject constructor(
                             animateEmojis = sharedPreferencesRepository.animateEmojis,
                         )
                         PrefKeys.ALWAYS_SHOW_SENSITIVE_MEDIA -> prev.copy(
-                            showSensitiveMedia = accountManager.activeAccount?.alwaysShowSensitiveMedia ?: default.showSensitiveMedia,
+                            showSensitiveMedia = accountManager.activeAccountConfig?.alwaysShowSensitiveMedia
+                                ?: default.showSensitiveMedia,
                         )
                         PrefKeys.ALWAYS_OPEN_SPOILER -> prev.copy(
-                            openSpoiler = accountManager.activeAccount?.alwaysOpenSpoiler ?: default.openSpoiler,
+                            openSpoiler = accountManager.activeAccountConfig?.alwaysOpenSpoiler
+                                ?: default.openSpoiler,
                         )
                         PrefKeys.SHOW_STATS_INLINE -> prev.copy(
                             showStatsInline = sharedPreferencesRepository.showInlineStats,
@@ -141,7 +144,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
         }
 
         externalScope.launch {
-            accountManager.activePachliAccountFlow.distinctUntilChangedBy { it.pachliAccountId }.collect {
+            accountManager.activePachliAccountFlow.distinctUntilChangedBy { it.config.pachliAccountId }.collect {
                 _flow.emit(initialStatusDisplayOptions(it))
             }
         }
@@ -168,7 +171,8 @@ class StatusDisplayOptionsRepository @Inject constructor(
         return StatusDisplayOptions(
             animateAvatars = sharedPreferencesRepository.animateAvatars,
             animateEmojis = sharedPreferencesRepository.animateEmojis,
-            mediaPreviewEnabled = account?.mediaPreviewEnabled ?: default.mediaPreviewEnabled,
+            mediaPreviewEnabled = account?.config?.mediaPreviewEnabled
+                ?: default.mediaPreviewEnabled,
             useAbsoluteTime = sharedPreferencesRepository.useAbsoluteTime,
             showBotOverlay = sharedPreferencesRepository.showBotOverlay,
             useBlurhash = sharedPreferencesRepository.useBlurHash,
@@ -181,8 +185,9 @@ class StatusDisplayOptionsRepository @Inject constructor(
             confirmFavourites = sharedPreferencesRepository.confirmFavourites,
             hideStatsInDetailedView = sharedPreferencesRepository.hideStatsInDetailedView,
             showStatsInline = sharedPreferencesRepository.showInlineStats,
-            showSensitiveMedia = account?.alwaysShowSensitiveMedia ?: default.showSensitiveMedia,
-            openSpoiler = account?.alwaysOpenSpoiler ?: default.openSpoiler,
+            showSensitiveMedia = account?.config?.alwaysShowSensitiveMedia
+                ?: default.showSensitiveMedia,
+            openSpoiler = account?.config?.alwaysOpenSpoiler ?: default.openSpoiler,
             canTranslate = account?.server?.can(ORG_JOINMASTODON_STATUSES_TRANSLATE, ">=1.0".toConstraint()) ?: default.canTranslate,
             canQuote = account?.server?.can(ServerOperation.ORG_JOINMASTODON_STATUSES_QUOTE, ">=1.0.0".toConstraint()) ?: default.canQuote,
             renderMarkdown = sharedPreferencesRepository.renderMarkdown,

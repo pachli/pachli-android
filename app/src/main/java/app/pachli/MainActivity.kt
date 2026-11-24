@@ -81,6 +81,7 @@ import app.pachli.core.model.Announcement
 import app.pachli.core.model.Draft
 import app.pachli.core.model.MastodonList
 import app.pachli.core.model.Notification
+import app.pachli.core.model.PachliAccountConfig
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.AboutActivityIntent
 import app.pachli.core.navigation.AccountActivityIntent
@@ -360,18 +361,18 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 // One-off setup independent of the UI state.
                 val initialAccount = account.first()
-                createNotificationChannelsForAccount(initialAccount, this@MainActivity)
+                createNotificationChannelsForAccount(initialAccount.config, this@MainActivity)
 
-                bindMainDrawer(initialAccount)
+                bindMainDrawer(initialAccount.config)
                 bindMainDrawerItems(initialAccount, savedInstanceState)
 
                 // Process the UI state. This has to happen *after* the main drawer has
                 // been configured.
                 launch {
                     viewModel.uiState.collect { uiState ->
-                        bindMainDrawerSearch(this@MainActivity, initialAccount.pachliAccountId, uiState.hideTopToolbar)
+                        bindMainDrawerSearch(this@MainActivity, initialAccount.config.pachliAccountId, uiState.hideTopToolbar)
                         bindMainDrawerProfileHeader(uiState)
-                        bindMainDrawerScheduledPosts(this@MainActivity, initialAccount.pachliAccountId, uiState.canSchedulePost)
+                        bindMainDrawerScheduledPosts(this@MainActivity, initialAccount.config.pachliAccountId, uiState.canSchedulePost)
                     }
                 }
 
@@ -395,7 +396,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                 // Process changes to the account's lists.
                 launch {
                     account.distinctUntilChangedBy { it.lists }.collectLatest { account ->
-                        bindMainDrawerLists(account.pachliAccountId, account.lists)
+                        bindMainDrawerLists(account.config.pachliAccountId, account.lists)
                     }
                 }
 
@@ -408,8 +409,8 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
 
                 // Process changes to the account's tab preferences.
                 launch {
-                    account.distinctUntilChangedBy { it.tabPreferences }.collectLatest {
-                        bindTabs(it, showNotificationTab)
+                    account.distinctUntilChangedBy { it.config.tabPreferences }.collectLatest {
+                        bindTabs(it.config, showNotificationTab)
                         showNotificationTab = false
                     }
                 }
@@ -430,7 +431,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                     account.collect { account ->
                         binding.composeButton.setOnClickListener {
                             val timeline = tabAdapter.tabs.getOrNull(binding.viewPager.currentItem)?.timeline ?: return@setOnClickListener
-                            val draft = Draft.createDraft(this@MainActivity, account, timeline)
+                            val draft = Draft.createDraft(this@MainActivity, account.config, timeline)
                             val composeOptions = ComposeOptions(draft = draft)
                             val intent = ComposeActivityIntent(this@MainActivity, pachliAccountId, composeOptions)
                             startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
@@ -543,7 +544,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                         ComposeOptions(
                             draft = Draft.createDraft(
                                 this@MainActivity,
-                                viewModel.pachliAccountFlow.replayCache.first(),
+                                viewModel.pachliAccountFlow.replayCache.first().config,
                                 timeline,
                             ),
                         ),
@@ -561,7 +562,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
      *
      * See [bindMainDrawerProfileHeader] for setting the header contents.
      */
-    private fun bindMainDrawer(pachliAccount: PachliAccount) {
+    private fun bindMainDrawer(pachliAccountConfig: PachliAccountConfig) {
         // Clicking on navigation elements opens the drawer.
         val drawerOpenClickListener = View.OnClickListener { binding.mainDrawerLayout.open() }
         binding.mainToolbar.setNavigationOnClickListener(drawerOpenClickListener)
@@ -573,7 +574,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
             headerBackgroundScaleType = ImageView.ScaleType.CENTER_CROP
             currentHiddenInList = true
             onAccountHeaderListener = { _: View?, profile: IProfile, current: Boolean ->
-                onAccountHeaderClick(pachliAccount, profile, current)
+                onAccountHeaderClick(pachliAccountConfig, profile, current)
                 false
             }
             addProfile(
@@ -754,7 +755,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
      * See [bindMainDrawerLists] and [bindMainDrawerSearch].
      */
     private suspend fun bindMainDrawerItems(pachliAccount: PachliAccount, savedInstanceState: Bundle?) = drawerMutex.withLock {
-        val pachliAccountId = pachliAccount.pachliAccountId
+        val pachliAccountId = pachliAccount.config.pachliAccountId
 
         binding.mainDrawer.apply {
             itemAdapter.clear()
@@ -932,7 +933,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                 secondaryDrawerItem {
                     nameRes = app.pachli.core.ui.R.string.action_logout
                     iconRes = R.drawable.ic_logout
-                    onClick = { logout(pachliAccount) }
+                    onClick = { logout(pachliAccount.config) }
                 },
             )
 
@@ -1015,14 +1016,14 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
     }
 
     /**
-     * Binds the [account]'s tab preferences to the UI.
+     * Binds the [pachliAccountConfig]'s tab preferences to the UI.
      *
      * Chooses the active tab based on the previously active tab and [selectNotificationTab].
      *
-     * @param account
+     * @param pachliAccountConfig
      * @param selectNotificationTab True if the "Notification" tab should be made active.
      */
-    private fun bindTabs(account: PachliAccount, selectNotificationTab: Boolean) {
+    private fun bindTabs(pachliAccountConfig: PachliAccountConfig, selectNotificationTab: Boolean) {
         val activeTabLayout = when (sharedPreferencesRepository.mainNavigationPosition) {
             MainNavigationPosition.TOP -> {
                 binding.bottomNav.hide()
@@ -1053,7 +1054,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         val previousTabIndex = binding.viewPager.currentItem
         val previousTab = tabAdapter.tabs.getOrNull(previousTabIndex)
 
-        val tabs = account.tabPreferences.map { TabViewData.from(account.pachliAccountId, it) }
+        val tabs = pachliAccountConfig.tabPreferences.map { TabViewData.from(pachliAccountConfig.pachliAccountId, it) }
 
         // Detach any existing mediator before changing tab contents and attaching a new mediator
         tabLayoutMediator?.detach()
@@ -1141,14 +1142,14 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
      * - Starts LoginActivity to add a new account.
      * - Switch account.
      *
-     * @param pachliAccount
+     * @param pachliAccountConfig
      * @param profile
      * @param current True if the clicked avatar is the currently logged in account
      */
-    private fun onAccountHeaderClick(pachliAccount: PachliAccount, profile: IProfile, current: Boolean) {
+    private fun onAccountHeaderClick(pachliAccountConfig: PachliAccountConfig, profile: IProfile, current: Boolean) {
         when {
             current -> startActivityWithDefaultTransition(
-                AccountActivityIntent(this, pachliAccount.pachliAccountId, pachliAccount.accountId),
+                AccountActivityIntent(this, pachliAccountConfig.pachliAccountId, pachliAccountConfig.accountId),
             )
 
             profile.identifier == DRAWER_ITEM_ADD_ACCOUNT -> startActivityWithDefaultTransition(
@@ -1174,11 +1175,11 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         finish()
     }
 
-    private fun logout(pachliAccount: PachliAccount) {
+    private fun logout(pachliAccountConfig: PachliAccountConfig) {
         lifecycleScope.launch {
             val button = AlertDialog.Builder(this@MainActivity)
-                .setTitle(getString(app.pachli.core.ui.R.string.title_logout_fmt, pachliAccount.fullName))
-                .setMessage(getString(app.pachli.core.ui.R.string.action_logout_confirm, pachliAccount.fullName))
+                .setTitle(getString(app.pachli.core.ui.R.string.title_logout_fmt, pachliAccountConfig.fullName))
+                .setMessage(getString(app.pachli.core.ui.R.string.action_logout_confirm, pachliAccountConfig.fullName))
                 .create()
                 .await(android.R.string.ok, android.R.string.cancel)
 
@@ -1193,7 +1194,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                 // Don't logout in MainActivity as that will change the active account and
                 // trigger operations (e.g., saveVisibleId) in running fragments. Instead,
                 // logging out happens in the IntentRouter.
-                val intent = IntentRouterActivityIntent.logout(this@MainActivity, pachliAccount.pachliAccountId)
+                val intent = IntentRouterActivityIntent.logout(this@MainActivity, pachliAccountConfig.pachliAccountId)
                 val options = Bundle().apply { putInt("android.activity.splashScreenStyle", 1) }
                 startActivity(intent, options)
                 finish()
@@ -1299,12 +1300,12 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         val animateEmojis = uiState.animateEmojis
         val profiles: MutableList<IProfile> = uiState.pachliAccounts.map { pachliAccount ->
             ProfileDrawerItem().apply {
-                isSelected = pachliAccount.isActive
+                isSelected = pachliAccount.config.isActive
                 nameText = pachliAccount.account.displayName.emojify(glide, pachliAccount.account.emojis, header, animateEmojis)
                 iconUrl = pachliAccount.account.avatar
                 isNameShown = true
-                identifier = pachliAccount.pachliAccountId
-                descriptionText = pachliAccount.fullName
+                identifier = pachliAccount.config.pachliAccountId
+                descriptionText = pachliAccount.config.fullName
             }
         }.toMutableList()
 
@@ -1319,10 +1320,10 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         }
         header.clear()
         header.profiles = profiles
-        val activeAccount = uiState.pachliAccounts.firstOrNull { it.isActive } ?: return
-        header.setActiveProfile(activeAccount.pachliAccountId)
+        val activeAccount = uiState.pachliAccounts.firstOrNull { it.config.isActive } ?: return
+        header.setActiveProfile(activeAccount.config.pachliAccountId)
         binding.mainToolbar.subtitle = if (uiState.displaySelfUsername) {
-            activeAccount.fullName
+            activeAccount.config.fullName
         } else {
             null
         }

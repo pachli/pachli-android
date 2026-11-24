@@ -418,7 +418,7 @@ class ComposeActivity :
                 if (viewModel.displaySelfUsername) {
                     binding.composeUsernameView.text = getString(
                         R.string.compose_active_account_description,
-                        account.fullName,
+                        account.config.fullName,
                     )
                     binding.composeUsernameView.show()
                 } else {
@@ -427,9 +427,9 @@ class ComposeActivity :
 
                 viewModel.setup(account)
 
-                setupLanguageSpinner(getInitialLanguages(composeOptions.draft.language, account))
+                setupLanguageSpinner(getInitialLanguages(composeOptions.draft.language, account.config))
 
-                setupButtons(account.pachliAccountId)
+                setupButtons(account.config.pachliAccountId)
 
                 if (savedInstanceState != null) {
                     setupComposeField(null, composeOptions)

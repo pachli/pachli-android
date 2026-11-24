@@ -159,7 +159,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
             setDisplayShowHomeEnabled(true)
         }
 
-        currentTabs = accountManager.activeAccount?.tabPreferences.orEmpty().map { TabViewData.from(accountManager.activeAccount!!.pachliAccountId, it) }.toMutableList()
+        currentTabs = accountManager.activeAccountConfig?.tabPreferences.orEmpty().map { TabViewData.from(accountManager.activeAccountConfig!!.pachliAccountId, it) }.toMutableList()
         currentTabsAdapter = TabAdapter(currentTabs, false, this)
         binding.currentTabsRecyclerView.adapter = currentTabsAdapter
         binding.currentTabsRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -486,7 +486,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
     }
 
     private fun saveTabs() {
-        accountManager.activeAccount?.let {
+        accountManager.activeAccountConfig?.let {
             lifecycleScope.launch(Dispatchers.IO) {
                 accountManager.setTabPreferences(it.pachliAccountId, currentTabs.map { it.timeline })
             }

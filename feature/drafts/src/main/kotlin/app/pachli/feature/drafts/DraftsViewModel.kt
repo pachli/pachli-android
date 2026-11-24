@@ -48,7 +48,7 @@ internal class DraftsViewModel @Inject constructor(
     private val api: MastodonApi,
     private val draftsRepository: DraftsRepository,
 ) : ViewModel() {
-    val drafts = draftsRepository.getDrafts(accountManager.activeAccount?.pachliAccountId!!)
+    val drafts = draftsRepository.getDrafts(accountManager.activeAccountConfig?.pachliAccountId!!)
         .cachedIn(viewModelScope)
 
     private val checkedDrafts = MutableStateFlow<Set<Long>>(emptySet())

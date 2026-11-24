@@ -197,16 +197,16 @@ class IntentRouterActivity : BaseActivity() {
         accounts: List<PachliAccount>,
         pachliAccountId: Long,
     ) {
-        val accountToLogout = accounts.find { it.pachliAccountId == pachliAccountId }
+        val accountToLogout = accounts.find { it.config.pachliAccountId == pachliAccountId }
         if (accountToLogout == null) {
             // can't happen
             return
         }
-        val nextAccount = accounts.firstOrNull { it.pachliAccountId != pachliAccountId }
+        val nextAccount = accounts.firstOrNull { it.config.pachliAccountId != pachliAccountId }
 
         // No next account? Prompt the user to log in.
         if (nextAccount == null) {
-            logout(accountToLogout)
+            logout(accountToLogout.config)
                 .onSuccess {
                     val intent = LoginActivityIntent(this, LoginMode.Default).apply {
                         addFlags(FLAG_ACTIVITY_CLEAR_TOP or FLAG_ACTIVITY_NEW_TASK)
@@ -225,7 +225,7 @@ class IntentRouterActivity : BaseActivity() {
         // is processed in bindUiSuccess.
         viewModel.accept(
             SetActiveAccount(
-                nextAccount.pachliAccountId,
+                nextAccount.config.pachliAccountId,
                 Payload.MainActivity.start(),
                 logoutAccount = accountToLogout,
             ),
@@ -242,20 +242,20 @@ class IntentRouterActivity : BaseActivity() {
      */
     private suspend fun routeQuickTile(accounts: List<PachliAccount>) {
         dismissSplashScreen = true
-        val account = if (accounts.size == 1) {
-            accounts.first()
+        val pachliAccountConfig = if (accounts.size == 1) {
+            accounts.first().config
         } else {
             ChooseAccountSuspendDialogFragment
                 .newInstance(getString(R.string.action_share_as), true)
                 .await(supportFragmentManager)
         }
-        if (account == null) {
+        if (pachliAccountConfig == null) {
             finish()
             return
         }
         launchComposeActivityAndExit(
-            account.pachliAccountId,
-            ComposeOptions(Draft.createDraft(this, account, Timeline.Home)),
+            pachliAccountConfig.pachliAccountId,
+            ComposeOptions(Draft.createDraft(this, pachliAccountConfig, Timeline.Home)),
         )
     }
 
@@ -284,16 +284,16 @@ class IntentRouterActivity : BaseActivity() {
             return
         }
 
-        val account = if (accounts.size == 1) {
-            accounts.first()
+        val pachliAccountConfig = if (accounts.size == 1) {
+            accounts.first().config
         } else {
             ChooseAccountSuspendDialogFragment
                 .newInstance(getString(R.string.action_share_as), true)
                 .await(supportFragmentManager)
         }
-        account?.let {
+        pachliAccountConfig?.let {
             forwardToComposeActivityAndExit(
-                account.pachliAccountId,
+                it.pachliAccountId,
                 intent,
                 ComposeOptions(Draft.createDraft(this, it, Timeline.Home)),
             )
@@ -310,7 +310,7 @@ class IntentRouterActivity : BaseActivity() {
             // (if necessary), and refresh the new active account.
             is UiSuccess.SetActiveAccount -> {
                 success.action.logoutAccount?.let { accountToLogout ->
-                    logout(accountToLogout)
+                    logout(accountToLogout.config)
                         .onFailure {
                             // TODO: Show an error dialog
                             // Maybe -- there's nothing useful the user can do here. The logout
@@ -330,7 +330,7 @@ class IntentRouterActivity : BaseActivity() {
             // and finish this activity.
             is UiSuccess.RefreshAccount -> {
                 val payload = success.action.payload
-                val intent = MainActivityIntent(this, success.action.pachliAccount.pachliAccountId).apply {
+                val intent = MainActivityIntent(this, success.action.pachliAccount.config.pachliAccountId).apply {
                     putExtra(MainActivityIntent.EXTRA_PAYLOAD, payload.mainActivityPayload)
                     flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
                 }
@@ -523,10 +523,10 @@ class IntentRouterActivity : BaseActivity() {
      */
     private fun resolvePachliAccountId(pachliAccountId: Long?, accounts: List<PachliAccount>): Long? {
         if (pachliAccountId == null || pachliAccountId == PACHLI_ACCOUNT_ID_ACTIVE) {
-            return accounts.find { it.isActive }?.pachliAccountId
+            return accounts.find { it.config.isActive }?.config?.pachliAccountId
         }
 
-        return accounts.find { it.pachliAccountId == pachliAccountId }?.pachliAccountId
+        return accounts.find { it.config.pachliAccountId == pachliAccountId }?.config?.pachliAccountId
     }
 
     /**
@@ -586,7 +586,7 @@ class ChooseAccountWithErrorSuspendDialogFragment : ChooseAccountSuspendDialogFr
         return AlertDialog.Builder(requireActivity())
             .setTitle(title)
             .setAdapter(adapter) { _: DialogInterface?, index: Int ->
-                result = adapter.getItem(index)
+                result = adapter.getItem(index)?.config
                 dismiss()
             }
             .setView(binding.root)

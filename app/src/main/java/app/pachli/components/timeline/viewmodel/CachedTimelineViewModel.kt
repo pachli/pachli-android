@@ -73,9 +73,9 @@ class CachedTimelineViewModel @AssistedInject constructor(
     sharedPreferencesRepository = sharedPreferencesRepository,
 ) {
     override val statuses = pachliAccountFlow.distinctUntilChanged { old, new ->
-        old.pachliAccountId == new.pachliAccountId && old.followedHashtags == new.followedHashtags
+        old.config.pachliAccountId == new.config.pachliAccountId && old.followedHashtags == new.followedHashtags
     }.flatMapLatest { pachliAccount ->
-        repository.getStatusStream(pachliAccount.pachliAccountId, timeline).map { pagingData ->
+        repository.getStatusStream(pachliAccount.config.pachliAccountId, timeline).map { pagingData ->
             pagingData
                 .map { Pair(it, shouldFilterStatus(it.timelineStatus)) }
                 .filter { it.second != FilterAction.HIDE }
@@ -83,10 +83,10 @@ class CachedTimelineViewModel @AssistedInject constructor(
                     StatusItemViewData.from(
                         pachliAccount = pachliAccount,
                         timelineStatusWithQuote,
-                        isExpanded = pachliAccount.alwaysOpenSpoiler,
+                        isExpanded = pachliAccount.config.alwaysOpenSpoiler,
                         contentFilterAction = contentFilterAction,
                         quoteContentFilterAction = timelineStatusWithQuote.quotedStatus?.let { contentFilterModel?.filterActionFor(it.status) },
-                        showSensitiveMedia = pachliAccount.alwaysShowSensitiveMedia,
+                        showSensitiveMedia = pachliAccount.config.alwaysShowSensitiveMedia,
                         filterContext = filterContext,
                     )
                 }

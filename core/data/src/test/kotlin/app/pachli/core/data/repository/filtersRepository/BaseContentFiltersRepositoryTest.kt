@@ -172,7 +172,7 @@ abstract class V2Test : BaseContentFiltersRepositoryTest() {
         )
             .andThen { accountManager.setActiveAccount(it) }
             .onSuccess {
-                pachliAccountId = it.pachliAccountId
+                pachliAccountId = it.config.pachliAccountId
                 accountManager.refresh(it)
             }
 
@@ -235,7 +235,7 @@ abstract class V1Test : BaseContentFiltersRepositoryTest() {
         )
             .andThen { accountManager.setActiveAccount(it) }
             .onSuccess {
-                pachliAccountId = it.pachliAccountId
+                pachliAccountId = it.config.pachliAccountId
                 accountManager.refresh(it)
             }
 

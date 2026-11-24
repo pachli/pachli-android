@@ -320,7 +320,7 @@ class ReportStatusesFragment :
                     FallibleCollectionAction.Revoke(
                         pachliAccountId = pachliAccountId,
                         collectionId = collection.collectionId,
-                        accountId = viewModel.pachliAccount.accountId,
+                        accountId = viewModel.pachliAccount.config.accountId,
                     ),
                 )
             }

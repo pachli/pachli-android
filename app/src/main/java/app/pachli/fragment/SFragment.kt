@@ -151,7 +151,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
     }
 
     protected fun reply(pachliAccountId: Long, status: Status) {
-        val draft = Draft.createDraftReply(accountManager.activePachliAccount!!, status.actionableStatus)
+        val draft = Draft.createDraftReply(accountManager.activePachliAccount!!.config, status.actionableStatus)
         val composeOptions = ComposeOptions(
             draft = draft,
             referencingStatus = ReferencingStatus.ReplyingTo.from(status.actionableStatus),
@@ -164,7 +164,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
      * Launches ComposeActivity to quote [status].
      */
     protected fun quote(pachliAccountId: Long, status: Status) {
-        val draft = Draft.createDraftQuote(accountManager.activeAccount!!, status)
+        val draft = Draft.createDraftQuote(accountManager.activeAccountConfig!!, status)
         val composeOptions = ComposeOptions(
             draft = draft,
             referencingStatus = ReferencingStatus.Quoting.from(status.actionableStatus),
@@ -181,7 +181,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         val status = viewData.status
         val accountId = viewData.actionable.account.accountId
         var loggedInAccountId: String? = null
-        val activeAccount = accountManager.activeAccount
+        val activeAccount = accountManager.activeAccountConfig
         if (activeAccount != null) {
             loggedInAccountId = activeAccount.accountId
         }
@@ -605,7 +605,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
             lifecycleScope.launch {
                 downloadUrlUseCase(
                     it.url,
-                    accountManager.activePachliAccount!!.fullName,
+                    accountManager.activePachliAccount!!.config.fullName,
                     status.actionableStatus.account.username,
                 )
             }
@@ -664,9 +664,9 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
     }
 
     companion object {
-        private fun accountIsInMentions(account: PachliAccountConfig?, mentions: List<Status.Mention>): Boolean {
+        private fun accountIsInMentions(pachliAccountConfig: PachliAccountConfig?, mentions: List<Status.Mention>): Boolean {
             return mentions.any { mention ->
-                account?.username == mention.username && account.domain == mention.url.toUri().host
+                pachliAccountConfig?.username == mention.username && pachliAccountConfig.domain == mention.url.toUri().host
             }
         }
     }

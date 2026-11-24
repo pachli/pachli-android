@@ -286,7 +286,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="1191"
+            line="1192"
             column="17"/>
     </issue>
 

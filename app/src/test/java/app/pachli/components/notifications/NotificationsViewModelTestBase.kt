@@ -179,7 +179,7 @@ abstract class NotificationsViewModelTestBase {
                 accountManager.setActiveAccount(it)
             }
             .onSuccess { accountManager.refresh(it) }
-            .get()!!.pachliAccountId
+            .get()!!.config.pachliAccountId
 
         accountPreferenceDataStore = AccountPreferenceDataStore(
             accountManager,

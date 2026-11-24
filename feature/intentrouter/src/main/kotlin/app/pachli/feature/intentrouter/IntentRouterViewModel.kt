@@ -151,7 +151,7 @@ internal class IntentRouterViewModel @Inject constructor(
     }
 
     private suspend fun onRefreshAccount(action: FallibleUiAction.RefreshAccount): Result<UiSuccess.RefreshAccount, UiError.RefreshAccount> {
-        return accountManager.refresh(action.pachliAccount.pachliAccountId)
+        return accountManager.refresh(action.pachliAccount.config.pachliAccountId)
             .mapEither(
                 { UiSuccess.RefreshAccount(action) },
                 { UiError.RefreshAccount(action, it) },
@@ -178,7 +178,7 @@ internal class IntentRouterViewModel @Inject constructor(
 
         Timber.d("pruneCacheIfNeeded: pruning")
         val marker = TimeSource.Monotonic.markNow()
-        accountManager.pachliAccounts.forEach { timelineDao.cleanup(it.pachliAccountId) }
+        accountManager.pachliAccounts.forEach { timelineDao.cleanup(it.config.pachliAccountId) }
         logEntryDao.prune(Instant.now().minusMillis(48.hours.inWholeMilliseconds))
 
         Timber.d("pruneCacheIfNeeded: pruned, took ${marker.elapsedNow().inWholeMilliseconds} ms")
