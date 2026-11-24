@@ -17,7 +17,6 @@
 
 package app.pachli.core.database.model
 
-import androidx.room3.ColumnInfo
 import androidx.room3.ColumnTypeConverters
 import androidx.room3.Entity
 import androidx.room3.Index
@@ -47,62 +46,48 @@ data class PachliAccountEntity(
     val isActive: Boolean,
     val accountId: String,
     val username: String,
-    val notificationsEnabled: Boolean = true,
-    val notificationsMentioned: Boolean = true,
-    val notificationsFollowed: Boolean = true,
-    val notificationsFollowRequested: Boolean = false,
-    val notificationsReblogged: Boolean = true,
-    val notificationsFavorited: Boolean = true,
-    val notificationsPolls: Boolean = true,
-    val notificationsSubscriptions: Boolean = true,
-    val notificationsSignUps: Boolean = true,
-    val notificationsUpdates: Boolean = true,
-    val notificationsReports: Boolean = true,
-    @ColumnInfo(defaultValue = "true")
-    val notificationsSeveredRelationships: Boolean = true,
-    @ColumnInfo(defaultValue = "true")
-    val notificationsModerationWarnings: Boolean = true,
-    @ColumnInfo(defaultValue = "true")
-    val notificationsQuotes: Boolean = true,
-    @ColumnInfo(defaultValue = "true")
-    val notificationsQuotedUpdates: Boolean = true,
-    @ColumnInfo(defaultValue = "true")
-    val notificationsCollectionAdd: Boolean = true,
-    @ColumnInfo(defaultValue = "true")
-    val notificationsCollectionUpdate: Boolean = true,
-    val notificationSound: Boolean = true,
-    val notificationVibration: Boolean = true,
-    val notificationLight: Boolean = true,
-    val defaultPostPrivacy: Status.Visibility = Status.Visibility.PUBLIC,
+    val notificationsEnabled: Boolean,
+    val notificationsMentioned: Boolean,
+    val notificationsFollowed: Boolean,
+    val notificationsFollowRequested: Boolean,
+    val notificationsReblogged: Boolean,
+    val notificationsFavorited: Boolean,
+    val notificationsPolls: Boolean,
+    val notificationsSubscriptions: Boolean,
+    val notificationsSignUps: Boolean,
+    val notificationsUpdates: Boolean,
+    val notificationsReports: Boolean,
+    val notificationsSeveredRelationships: Boolean,
+    val notificationsModerationWarnings: Boolean,
+    val notificationsQuotes: Boolean,
+    val notificationsQuotedUpdates: Boolean,
+    val notificationsCollectionAdd: Boolean,
+    val notificationsCollectionUpdate: Boolean,
+    val notificationSound: Boolean,
+    val notificationVibration: Boolean,
+    val notificationLight: Boolean,
+    val defaultPostPrivacy: Status.Visibility,
     val defaultMediaSensitivity: Boolean = false,
     val defaultPostLanguage: String = "",
-    @ColumnInfo(defaultValue = "NOBODY")
-    val defaultQuotePolicy: AccountSource.QuotePolicy = AccountSource.QuotePolicy.NOBODY,
+    val defaultQuotePolicy: AccountSource.QuotePolicy,
     val alwaysShowSensitiveMedia: Boolean = false,
     val alwaysOpenSpoiler: Boolean = false,
-    val mediaPreviewEnabled: Boolean = true,
-    @ColumnInfo(defaultValue = "0")
-    val notificationMarkerId: String = "0",
-    val tabPreferences: List<Timeline> = defaultTabs(),
-    val notificationsFilter: String = "[\"follow_request\"]",
+    val mediaPreviewEnabled: Boolean,
+    val notificationMarkerId: String,
+    val tabPreferences: List<Timeline>,
+    val notificationsFilter: String,
     val oauthScopes: String = "",
     val unifiedPushUrl: String = "",
     val pushPubKey: String = "",
     val pushPrivKey: String = "",
     val pushAuth: String = "",
     val pushServerKey: String = "",
-    @ColumnInfo(defaultValue = "NONE")
-    var notificationAccountFilterNotFollowed: FilterAction = FilterAction.NONE,
-    @ColumnInfo(defaultValue = "NONE")
-    var notificationAccountFilterYounger30d: FilterAction = FilterAction.NONE,
-    @ColumnInfo(defaultValue = "NONE")
-    var notificationAccountFilterLimitedByServer: FilterAction = FilterAction.NONE,
-    @ColumnInfo(defaultValue = "NONE")
-    var conversationAccountFilterNotFollowed: FilterAction = FilterAction.NONE,
-    @ColumnInfo(defaultValue = "NONE")
-    var conversationAccountFilterYounger30d: FilterAction = FilterAction.NONE,
-    @ColumnInfo(defaultValue = "NONE")
-    var conversationAccountFilterLimitedByServer: FilterAction = FilterAction.NONE,
+    var notificationAccountFilterNotFollowed: FilterAction,
+    var notificationAccountFilterYounger30d: FilterAction,
+    var notificationAccountFilterLimitedByServer: FilterAction,
+    var conversationAccountFilterNotFollowed: FilterAction,
+    var conversationAccountFilterYounger30d: FilterAction,
+    var conversationAccountFilterLimitedByServer: FilterAction,
 ) {
     fun asModel() = PachliAccountConfig(
         pachliAccountId = pachliAccountId,
@@ -209,11 +194,4 @@ fun PachliAccountConfig.asEntity() = PachliAccountEntity(
     conversationAccountFilterNotFollowed = conversationAccountFilterNotFollowed,
     conversationAccountFilterYounger30d = conversationAccountFilterYounger30d,
     conversationAccountFilterLimitedByServer = conversationAccountFilterLimitedByServer,
-)
-
-fun defaultTabs() = listOf(
-    Timeline.Home,
-    Timeline.Notifications,
-    Timeline.TrendingStatuses,
-    Timeline.Conversations,
 )
