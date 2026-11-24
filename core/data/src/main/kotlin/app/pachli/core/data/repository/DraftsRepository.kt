@@ -229,10 +229,10 @@ fun DeletedStatus.asDraft() = Draft(
  * The cursor is placed at the start of the content, so the inserted hashtag defaults
  * to appearing at the end of the content when the user starts typing.
  */
-fun Draft.Companion.createDraft(context: Context, pachliAccount: IPachliAccountConfig, timeline: Timeline): Draft {
+fun Draft.Companion.createDraft(context: Context, pachliAccountConfig: IPachliAccountConfig, timeline: Timeline): Draft {
     val visibility = when (timeline) {
         Timeline.Conversations -> Status.Visibility.DIRECT
-        else -> pachliAccount.defaultPostPrivacy
+        else -> pachliAccountConfig.defaultPostPrivacy
     }
 
     val content = when (timeline) {
@@ -249,13 +249,13 @@ fun Draft.Companion.createDraft(context: Context, pachliAccount: IPachliAccountC
         draftId = 0,
         contentWarning = "",
         content = content,
-        sensitive = pachliAccount.defaultMediaSensitivity,
+        sensitive = pachliAccountConfig.defaultMediaSensitivity,
         attachments = emptyList(),
         poll = null,
         failureMessage = null,
         visibility = visibility,
-        language = pachliAccount.defaultPostLanguage,
-        quotePolicy = pachliAccount.defaultQuotePolicy.clampToVisibility(visibility),
+        language = pachliAccountConfig.defaultPostLanguage,
+        quotePolicy = pachliAccountConfig.defaultQuotePolicy.clampToVisibility(visibility),
         scheduledAt = null,
         statusId = null,
         inReplyToId = null,

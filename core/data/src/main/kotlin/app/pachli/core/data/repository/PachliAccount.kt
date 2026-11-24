@@ -18,12 +18,12 @@
 package app.pachli.core.data.repository
 
 import app.pachli.core.database.model.FollowingAccountEntity
-import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.database.model.asModel
 import app.pachli.core.model.Account
 import app.pachli.core.model.Announcement
 import app.pachli.core.model.Hashtag
 import app.pachli.core.model.MastodonList
+import app.pachli.core.model.PachliAccountConfig
 import app.pachli.core.model.Server
 import app.pachli.core.model.ServerKind
 import io.github.z4kn4fein.semver.Version
@@ -32,7 +32,7 @@ import io.github.z4kn4fein.semver.Version
  * A single Pachli account with all the information associated with it.
  *
  * @property pachliAccountId Account's unique local database ID.
- * @property entity [PachliAccountEntity] from the local database.
+ * @property config [PachliAccountConfig] for this account.
  * @property account [Account] data for this account.
  * @property lists Account's lists.
  * @property server Details about the account's server.
@@ -46,8 +46,7 @@ import io.github.z4kn4fein.semver.Version
 // or provide dedicated functions that return specific flows for the different
 // things, parameterised by the account ID.
 data class PachliAccount(
-    // TODO: Should be a core.data type
-    private val entity: PachliAccountEntity,
+    val config: PachliAccountConfig,
     val account: Account,
     val lists: List<MastodonList>,
     val server: Server,
@@ -55,10 +54,10 @@ data class PachliAccount(
     val announcements: List<Announcement>,
     val following: List<FollowingAccountEntity>,
     val followedHashtags: Map<String, Hashtag>,
-) : app.pachli.core.model.IPachliAccountConfig by entity
+) : app.pachli.core.model.IPachliAccountConfig by config
 
 fun app.pachli.core.database.model.PachliAccountWithRelations.asModel() = PachliAccount(
-    entity = pachliAccountEntity,
+    config = pachliAccountEntity.asModel(),
     account = account.asModel(),
     lists = lists.orEmpty().map { it.asModel() },
     server = server?.asModel() ?: Server(ServerKind.MASTODON, Version(4, 0, 0), rawVersion = "4.0.0", emojis = emptyList()),
