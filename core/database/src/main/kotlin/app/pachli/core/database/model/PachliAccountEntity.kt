@@ -24,6 +24,7 @@ import androidx.room3.PrimaryKey
 import app.pachli.core.database.Converters
 import app.pachli.core.model.AccountSource
 import app.pachli.core.model.FilterAction
+import app.pachli.core.model.Notification
 import app.pachli.core.model.PachliAccountConfig
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
@@ -75,7 +76,7 @@ data class PachliAccountEntity(
     val mediaPreviewEnabled: Boolean,
     val notificationMarkerId: String,
     val tabPreferences: List<Timeline>,
-    val notificationsFilter: String,
+    val notificationsFilter: Set<Notification.Type>,
     val oauthScopes: String = "",
     val unifiedPushUrl: String = "",
     val pushPubKey: String = "",

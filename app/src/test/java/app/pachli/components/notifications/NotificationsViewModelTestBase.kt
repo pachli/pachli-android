@@ -29,6 +29,7 @@ import app.pachli.core.data.repository.notifications.NotificationsRepository
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.dao.AccountDao
 import app.pachli.core.eventhub.EventHub
+import app.pachli.core.model.Notification
 import app.pachli.core.network.di.test.DEFAULT_INSTANCE_V2
 import app.pachli.core.network.model.AccountSource
 import app.pachli.core.network.model.CredentialAccount
@@ -175,7 +176,7 @@ abstract class NotificationsViewModelTestBase {
             oauthScopes = "scopes",
         )
             .andThen {
-                accountManager.setNotificationsFilter(it, "['follow']")
+                accountManager.setNotificationsFilter(it, setOf(Notification.Type.FOLLOW))
                 accountManager.setActiveAccount(it)
             }
             .onSuccess { accountManager.refresh(it) }

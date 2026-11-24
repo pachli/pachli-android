@@ -36,6 +36,7 @@ import app.pachli.core.model.Hashtag
 import app.pachli.core.model.HashtagHistory
 import app.pachli.core.model.MovedAccount
 import app.pachli.core.model.NewPoll
+import app.pachli.core.model.Notification
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Role
 import app.pachli.core.model.ServerLimits
@@ -375,4 +376,10 @@ class Converters @Inject constructor(
 
     @ColumnTypeConverter
     fun jsonToListCollection(s: String?) = fromJson<List<Collection>>(s)
+
+    @ColumnTypeConverter
+    fun notificationTypesToJson(types: Set<Notification.Type>) = toJson(types)
+
+    @ColumnTypeConverter
+    fun jsonToNotificationTypes(s: String?) = fromJson<Set<Notification.Type>>(s)
 }
