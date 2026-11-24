@@ -53,8 +53,6 @@ import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.TabTapBehaviour
 import app.pachli.core.ui.extensions.make
 import app.pachli.usecase.TimelineCases
-import app.pachli.util.deserialize
-import app.pachli.util.serialize
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
@@ -645,14 +643,14 @@ class NotificationsViewModel @AssistedInject constructor(
             .flatMapLatest { account ->
                 getNotifications(
                     account,
-                    excludeTypes = deserialize(account.config.notificationsFilter),
+                    excludeTypes = account.config.notificationsFilter,
                 )
             }.cachedIn(viewModelScope)
 
         uiState =
             combine(accountFlow.distinctUntilChangedBy { it.config.notificationsFilter }, getUiPrefs()) { account, _ ->
                 UiState(
-                    activeFilter = deserialize(account.config.notificationsFilter),
+                    activeFilter = account.config.notificationsFilter,
                     showFabWhileScrolling = !sharedPreferencesRepository.hideFabWhenScrolling,
                     tabTapBehaviour = sharedPreferencesRepository.tabTapBehaviour,
                 )
@@ -664,7 +662,7 @@ class NotificationsViewModel @AssistedInject constructor(
     }
 
     private suspend fun onApplyFilter(action: InfallibleUiAction.ApplyFilter) {
-        accountManager.setNotificationsFilter(action.pachliAccountId, serialize(action.filter))
+        accountManager.setNotificationsFilter(action.pachliAccountId, action.filter)
     }
 
     /**

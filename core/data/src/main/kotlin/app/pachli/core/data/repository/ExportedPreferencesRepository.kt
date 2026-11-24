@@ -27,6 +27,7 @@ import app.pachli.core.data.repository.Error.ExportError
 import app.pachli.core.data.repository.Error.ImportError
 import app.pachli.core.model.AccountIdentifier
 import app.pachli.core.model.FilterAction
+import app.pachli.core.model.Notification
 import app.pachli.core.model.PachliAccountConfig
 import app.pachli.core.model.Timeline
 import app.pachli.core.preferences.PrefKeys
@@ -342,7 +343,7 @@ data class RedactedAccount(
     val mediaPreviewEnabled: Boolean,
     val notificationMarkerId: String,
     val tabPreferences: List<Timeline>,
-    val notificationsFilter: String,
+    val notificationsFilter: Set<Notification.Type>,
     val notificationAccountFilterNotFollowed: FilterAction,
     val notificationAccountFilterYounger30d: FilterAction,
     val notificationAccountFilterLimitedByServer: FilterAction,

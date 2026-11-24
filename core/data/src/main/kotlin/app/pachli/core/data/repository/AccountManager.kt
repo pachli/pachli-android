@@ -34,6 +34,7 @@ import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.AccountSource
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.MastodonList
+import app.pachli.core.model.Notification
 import app.pachli.core.model.PachliAccountConfig
 import app.pachli.core.model.Status.Visibility
 import app.pachli.core.model.Timeline
@@ -594,7 +595,7 @@ class AccountManager @Inject constructor(
         accountDao.setNotificationMarkerId(accountId, value)
     }
 
-    suspend fun setNotificationsFilter(accountId: Long, value: String) {
+    suspend fun setNotificationsFilter(accountId: Long, value: Set<Notification.Type>) {
         accountDao.setNotificationsFilter(accountId, value)
     }
 

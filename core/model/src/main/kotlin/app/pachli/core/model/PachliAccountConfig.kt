@@ -125,9 +125,7 @@ data class PachliAccountConfig(
     val mediaPreviewEnabled: Boolean = true,
     val notificationMarkerId: String = "0",
     val tabPreferences: List<Timeline> = defaultTabs(),
-    // TODO: This is being serialized/deserialized at the wrong level (see NotificationsViewModel)
-    // for calls.
-    val notificationsFilter: String = "[\"follow_request\"]",
+    val notificationsFilter: Set<Notification.Type> = setOf(Notification.Type.FOLLOW_REQUEST),
     val oauthScopes: String = "",
     val unifiedPushUrl: String = "",
     val pushPubKey: String = "",

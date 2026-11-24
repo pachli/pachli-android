@@ -29,6 +29,7 @@ import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.database.model.PachliAccountWithRelations
 import app.pachli.core.model.AccountSource
 import app.pachli.core.model.FilterAction
+import app.pachli.core.model.Notification
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
 import kotlinx.coroutines.flow.Flow
@@ -288,7 +289,7 @@ SET
 WHERE pachliAccountId = :pachliAccountId
 """,
     )
-    suspend fun setNotificationsFilter(pachliAccountId: Long, value: String)
+    suspend fun setNotificationsFilter(pachliAccountId: Long, value: Set<Notification.Type>)
 
     @Query(
         """

@@ -17,6 +17,7 @@
 
 package app.pachli.core.model
 
+import com.squareup.moshi.Json
 import java.time.Instant
 
 /**
@@ -192,68 +193,78 @@ sealed interface Notification {
      * Order of the enums determines the order in the "Filter notifications"
      * dialog.
      */
-    enum class Type(val presentation: String) {
-        UNKNOWN("unknown"),
+    enum class Type {
+        @Json(name = "unknown")
+        UNKNOWN,
 
         /** Someone mentioned you */
-        MENTION("mention"),
+        @Json(name = "mention")
+        MENTION,
 
         /** Someone boosted one of your statuses */
-        REBLOG("reblog"),
+        @Json(name = "reblog")
+        REBLOG,
 
         /** Someone favourited one of your statuses */
-        FAVOURITE("favourite"),
+        @Json(name = "favourite")
+        FAVOURITE,
 
         /** Someone followed you */
-        FOLLOW("follow"),
+        @Json(name = "follow")
+        FOLLOW,
 
         /** Someone requested to follow you */
-        FOLLOW_REQUEST("follow_request"),
+        @Json(name = "follow_request")
+        FOLLOW_REQUEST,
 
         /** Someone quoted one of your posts. */
-        QUOTE("quote"),
+        @Json(name = "quote")
+        QUOTE,
 
         /** A post you quoted has been updated. */
-        QUOTED_UPDATE("quoted_updated"),
+        @Json(name = "quoted_updated")
+        QUOTED_UPDATE,
 
         /** A poll you have voted in or created has ended */
-        POLL("poll"),
+        @Json(name = "poll")
+        POLL,
 
         /** Someone you enabled notifications for has posted a status */
-        STATUS("status"),
+        @Json(name = "status")
+        STATUS,
 
         /** Someone signed up (optionally sent to admins) */
-        SIGN_UP("admin.sign_up"),
+        @Json(name = "admin.sign_up")
+        SIGN_UP,
 
         /** A status you reblogged has been updated */
-        UPDATE("update"),
+        @Json(name = "update")
+        UPDATE,
 
         /** A new report has been filed */
-        REPORT("admin.report"),
+        @Json(name = "admin.report")
+        REPORT,
 
         /** Some of your follow relationships have been severed as a result of a moderation or block event */
-        SEVERED_RELATIONSHIPS("severed_relationships"),
+        @Json(name = "severed_relationships")
+        SEVERED_RELATIONSHIPS,
 
         /** A moderator has taken action against your account or has sent you a warning. */
-        MODERATION_WARNING("moderation_warning"),
+        @Json(name = "moderation_warning")
+        MODERATION_WARNING,
 
         /** Added to a collection. */
-        COLLECTION_ADD("collection_add"),
+        @Json(name = "collection_add")
+        COLLECTION_ADD,
 
         /** Collection was updated. */
-        COLLECTION_UPDATE("collection_update"),
+        @Json(name = "collection_update")
+        COLLECTION_UPDATE,
         ;
 
         companion object {
-            @JvmStatic
-            fun byString(s: String) = entries.firstOrNull { s == it.presentation } ?: UNKNOWN
-
             /** Notification types for UI display (omits UNKNOWN) */
             val visibleTypes = entries.filter { it != UNKNOWN }
-        }
-
-        override fun toString(): String {
-            return presentation
         }
     }
 
