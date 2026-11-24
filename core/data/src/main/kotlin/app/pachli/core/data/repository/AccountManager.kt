@@ -305,7 +305,7 @@ class AccountManager @Inject constructor(
                 oauthScopes = oauthScopes,
                 accountId = networkAccount.accountId,
                 username = networkAccount.username,
-            ) ?: PachliAccountEntity(
+            ) ?: PachliAccountConfig(
                 pachliAccountId = 0L,
                 domain = domain.lowercase(Locale.ROOT),
                 accessToken = accessToken,
@@ -315,7 +315,7 @@ class AccountManager @Inject constructor(
                 isActive = true,
                 accountId = networkAccount.accountId,
                 username = networkAccount.username,
-            )
+            ).asEntity()
 
             Timber.d("addAccount: upsert account id: %d, isActive: %s", newAccount.pachliAccountId, newAccount.isActive)
             val pachliAccountId = accountDao.upsert(newAccount)

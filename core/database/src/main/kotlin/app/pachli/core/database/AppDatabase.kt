@@ -110,7 +110,7 @@ import timber.log.Timber
         TimelineStatusWithAccount::class,
         ReferencedStatusId::class,
     ],
-    version = 50,
+    version = 51,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -186,6 +186,8 @@ import timber.log.Timber
         AutoMigration(from = 48, to = 49, spec = AppDatabase.MIGRATE_48_49::class),
         // Relationship between PachliAccount and AccountEntity
         AutoMigration(from = 49, to = 50, spec = AppDatabase.MIGRATE_49_50::class),
+        // Moving default values out of PachliAccountEntity
+        AutoMigration(from = 50, to = 51),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {

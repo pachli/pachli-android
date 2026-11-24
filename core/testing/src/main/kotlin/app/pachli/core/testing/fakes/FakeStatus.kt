@@ -21,12 +21,13 @@ import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.notifications.asEntity
 import app.pachli.core.database.dao.TimelineStatusWithAccount
-import app.pachli.core.database.model.PachliAccountEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.AttachmentDisplayReason
+import app.pachli.core.model.PachliAccountConfig
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Poll
@@ -37,7 +38,7 @@ import java.util.Date
 
 private val fixedDate = Date(1638889052000)
 
-fun fakePachliAccountEntity() = PachliAccountEntity(
+fun fakePachliAccountEntity() = PachliAccountConfig(
     pachliAccountId = 1,
     accountId = "1234",
     username = "example",
@@ -46,7 +47,7 @@ fun fakePachliAccountEntity() = PachliAccountEntity(
     clientId = "fakeId",
     clientSecret = "fakeSecret",
     isActive = true,
-)
+).asEntity()
 
 /** Canonical fake account for testing. */
 fun fakeAccount() = Account(

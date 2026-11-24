@@ -30,8 +30,8 @@ import app.pachli.components.compose.HiltTestApplication_Application
 import app.pachli.components.notifications.createNotificationChannelsForAccount
 import app.pachli.components.notifications.makeNotification
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.database.model.defaultTabs
 import app.pachli.core.model.Notification
+import app.pachli.core.model.PachliAccountConfig.Companion.defaultTabs
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.network.model.AccountSource
