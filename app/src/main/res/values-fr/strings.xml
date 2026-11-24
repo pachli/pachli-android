@@ -368,7 +368,7 @@
     <string name="pref_title_account_filter_keywords">Profils</string>
     <string name="title_public_trending_hashtags">Hashtags tendance</string>
     <string name="send_account_username_to">Partager le nom du compte avec…</string>
-    <string name="action_unfollow_hashtag_format">Arrêter de suivre #%1$s \?</string>
+    <string name="action_unfollow_hashtag_format">Arrêter de suivre #%1$s ?</string>
     <string name="failed_to_pin">Échec de l\'épinglage</string>
     <string name="status_edit_info">Modification de %1$s</string>
     <string name="status_created_info">Création par %1$s</string>
@@ -424,7 +424,7 @@
     <string name="title_tab_public_trending_links">Liens</string>
     <string name="title_tab_public_trending_statuses">Publications</string>
     <string name="pref_ui_text_size">Taille du texte de IU</string>
-    <string name="dialog_delete_filter_text">Supprimer le filtre « %1$s » ?</string>
+    <string name="dialog_delete_filter_text">Supprimer le filtre « %1$s » ?</string>
     <string name="dialog_delete_filter_positive_action">Supprimer</string>
     <string name="pref_title_update_settings">Mises à jour logicielles</string>
     <string name="pref_title_update_notification_frequency">M\'informer des nouvelles versions de Pachli</string>
@@ -438,7 +438,7 @@
     <string name="load_newest_notifications">Charger les nouvelles notifications</string>
     <string name="ui_error_translate_status_fmt">Traduction échouée : %1$s</string>
     <string name="load_newest_statuses">Charger les publications les plus récentes</string>
-    <string name="error_media_playback">La lecture a échoué : %1$s</string>
+    <string name="error_media_playback">La lecture a échoué : %1$s</string>
     <string name="dialog_save_profile_changes_message">Voulez-vous sauvegarder les changements apportés à votre profil ?</string>
     <string name="reaction_name_and_count">%1$s %2$d</string>
     <string name="notification_notification_worker">Récupération des notifications …</string>
@@ -554,7 +554,7 @@
     <string name="pref_change_unified_push_distributor_msg">Cela effacera le choix du distributeur de notifications push unifié et redémarrera Pachli.\n\nSi plusieurs distributeur de notifications push unifié sont installés, vous devrez en choisir un.</string>
     <string name="pref_title_update_check_now">Vérifier les mises à jour</string>
     <string name="pref_update_check_no_updates">Pachli est à jour</string>
-    <string name="pref_update_next_scheduled_check">Prochaine vérification : %1$s</string>
+    <string name="pref_update_next_scheduled_check">Prochaine vérification  : %1$s</string>
     <string name="error_media_download">Impossible de télécharger %1$s : %2$s</string>
     <string name="action_remove_tab">Supprimer l\'onglet</string>
     <string name="action_manage_tabs">Gérer les onglets</string>
@@ -744,4 +744,7 @@
     <string name="pref_labs_glide_user_image_decoder_on_summary">Peut améliorer les performances et l\'efficacité de la mémoire</string>
     <string name="pref_labs_glide_user_image_decoder_off_summary">Comportement jusqu\'à Pachli 3.10.0</string>
     <string name="pref_labs_glide_user_image_decoder_disabled_summary">Désactivé sur les version d\'Android avant la 10</string>
+    <string name="edit_hashtags_hint">Hashtags séparés par des espaces, # en option</string>
+    <string name="add_hashtags_title">Ajouter des hashtags</string>
+    <string name="warning_duplicate_hashtags_fmt">Les doublons seront ignorés : %1$s</string>
 </resources>
