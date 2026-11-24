@@ -93,7 +93,7 @@ sealed interface SetActiveAccountError : PachliError {
      * @property wantedAccount The account that could not be made active.
      */
     data class Api(
-        val wantedAccount: app.pachli.core.model.PachliAccount,
+        val wantedAccount: app.pachli.core.model.IPachliAccountConfig,
         val apiError: ApiError,
     ) : SetActiveAccountError, PachliError by apiError
 
@@ -104,7 +104,7 @@ sealed interface SetActiveAccountError : PachliError {
      * (if known)
      */
     data class Dao(
-        val wantedAccount: app.pachli.core.model.PachliAccount?,
+        val wantedAccount: app.pachli.core.model.IPachliAccountConfig?,
         val sqlException: SQLiteException,
     ) : SetActiveAccountError {
         override val resourceId = R.string.account_manager_error_dao
@@ -119,7 +119,7 @@ sealed interface SetActiveAccountError : PachliError {
      * @property throwable Throwable that caused the error
      */
     data class Unexpected(
-        val wantedAccount: app.pachli.core.model.PachliAccount,
+        val wantedAccount: app.pachli.core.model.IPachliAccountConfig,
         val throwable: Throwable,
     ) : SetActiveAccountError {
         override val resourceId = R.string.account_manager_error_unexpected
@@ -129,7 +129,7 @@ sealed interface SetActiveAccountError : PachliError {
 }
 
 sealed interface RefreshAccountError : PachliError {
-    val wantedAccount: app.pachli.core.model.PachliAccount
+    val wantedAccount: app.pachli.core.model.IPachliAccountConfig
 
     data class General(override val wantedAccount: PachliAccount, override val cause: PachliError) : RefreshAccountError {
         override val resourceId = app.pachli.core.network.R.string.error_generic_fmt
@@ -327,7 +327,7 @@ class AccountManager @Inject constructor(
         setPushNotificationData(accountId, "", "", "", "", "")
     }
 
-    suspend fun deleteAccount(account: app.pachli.core.model.PachliAccount) = accountDao.deleteAccountById(account.pachliAccountId)
+    suspend fun deleteAccount(account: app.pachli.core.model.IPachliAccountConfig) = accountDao.deleteAccountById(account.pachliAccountId)
 
     /**
      * Changes the active account.

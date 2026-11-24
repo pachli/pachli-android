@@ -18,7 +18,6 @@
 package app.pachli.core.data.repository
 
 import android.content.Context
-import androidx.core.content.ContextCompat.getString
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -31,7 +30,7 @@ import app.pachli.core.database.model.asModel
 import app.pachli.core.model.AccountSource
 import app.pachli.core.model.DeletedStatus
 import app.pachli.core.model.Draft
-import app.pachli.core.model.PachliAccount
+import app.pachli.core.model.IPachliAccountConfig
 import app.pachli.core.model.ScheduledStatus
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
@@ -222,7 +221,7 @@ fun DeletedStatus.asDraft() = Draft(
  * Creates a draft with visibility and content adjusted for [timeline].
  *
  * If [timeline] is [Timeline.Conversations] the visibility is [Status.Visibility.DIRECT],
- * otherwise the user's [defaultPostPrivacy][PachliAccount.defaultPostPrivacy] is used.
+ * otherwise the user's [defaultPostPrivacy][IPachliAccountConfig.defaultPostPrivacy] is used.
  *
  * if [timeline] is [Timeline.Hashtags] the first hashtag in the timeline's definition
  * is inserted as the first content, with a leading space.
@@ -230,7 +229,7 @@ fun DeletedStatus.asDraft() = Draft(
  * The cursor is placed at the start of the content, so the inserted hashtag defaults
  * to appearing at the end of the content when the user starts typing.
  */
-fun Draft.Companion.createDraft(context: Context, pachliAccount: PachliAccount, timeline: Timeline): Draft {
+fun Draft.Companion.createDraft(context: Context, pachliAccount: IPachliAccountConfig, timeline: Timeline): Draft {
     val visibility = when (timeline) {
         Timeline.Conversations -> Status.Visibility.DIRECT
         else -> pachliAccount.defaultPostPrivacy
@@ -274,9 +273,9 @@ fun Draft.Companion.createDraft(context: Context, pachliAccount: PachliAccount, 
  * The reply inherits some initial values from [status], specifically:
  *
  * - [spoilerText][Status.spoilerText]
- * - [sensitive][Status.sensitive], falling back to the user's [defaultMediaSensitivity][PachliAccount.defaultMediaSensitivity]
+ * - [sensitive][Status.sensitive], falling back to the user's [defaultMediaSensitivity][IPachliAccountConfig.defaultMediaSensitivity]
  * - [visibility][Status.visibility], or the user's default visibility if that is more private.
- * - [language][Status.language], falling back to the user's [defaultPostLanguage][PachliAccount.defaultPostLanguage]
+ * - [language][Status.language], falling back to the user's [defaultPostLanguage][IPachliAccountConfig.defaultPostLanguage]
  *
  * The initial content is set to @-mention all the accounts @-mentioned in
  * [status] (except for the user's own account).
@@ -285,7 +284,7 @@ fun Draft.Companion.createDraft(context: Context, pachliAccount: PachliAccount, 
  *
  * @param status Status being replied to.
  */
-fun Draft.Companion.createDraftReply(pachliAccount: PachliAccount, status: Status): Draft {
+fun Draft.Companion.createDraftReply(pachliAccount: IPachliAccountConfig, status: Status): Draft {
     val actionable = status.actionableStatus
     val account = actionable.account
 
@@ -331,13 +330,13 @@ fun Draft.Companion.createDraftReply(pachliAccount: PachliAccount, status: Statu
  * The quote inherits some initial values from [status], specifically:
  *
  * - [spoilerText][Status.spoilerText]
- * - [sensitive][Status.sensitive], falling back to the user's [defaultMediaSensitivity][PachliAccount.defaultMediaSensitivity]
+ * - [sensitive][Status.sensitive], falling back to the user's [defaultMediaSensitivity][IPachliAccountConfig.defaultMediaSensitivity]
  * - [visibility][Status.visibility], or the user's default visibility if that is more private.
- * - [language][Status.language], falling back to the user's [defaultPostLanguage][PachliAccount.defaultPostLanguage]
+ * - [language][Status.language], falling back to the user's [defaultPostLanguage][IPachliAccountConfig.defaultPostLanguage]
  *
  * @param status Status to quote.
  */
-fun Draft.Companion.createDraftQuote(pachliAccount: PachliAccount, status: Status): Draft {
+fun Draft.Companion.createDraftQuote(pachliAccount: IPachliAccountConfig, status: Status): Draft {
     val actionable = status.actionableStatus
 
     val visibility = actionable.visibility.coerceAtLeast(pachliAccount.defaultPostPrivacy)
@@ -369,7 +368,7 @@ fun Draft.Companion.createDraftQuote(pachliAccount: PachliAccount, status: Statu
  *
  * The draft takes the default visibility from [timeline], using [createDraft],
  */
-fun Draft.Companion.createDraftMention(context: Context, pachliAccount: PachliAccount, timeline: Timeline, username: String): Draft {
+fun Draft.Companion.createDraftMention(context: Context, pachliAccount: IPachliAccountConfig, timeline: Timeline, username: String): Draft {
     val content = "@$username "
 
     return Draft.createDraft(context, pachliAccount, timeline).copy(

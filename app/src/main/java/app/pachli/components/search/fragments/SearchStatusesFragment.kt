@@ -52,8 +52,8 @@ import app.pachli.core.model.Attachment
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Draft
 import app.pachli.core.model.ICollection
+import app.pachli.core.model.IPachliAccountConfig
 import app.pachli.core.model.IStatus
-import app.pachli.core.model.PachliAccount
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Status.Mention
@@ -425,7 +425,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         }
     }
 
-    private fun accountIsInMentions(account: PachliAccount?, mentions: List<Mention>): Boolean {
+    private fun accountIsInMentions(account: IPachliAccountConfig?, mentions: List<Mention>): Boolean {
         return mentions.firstOrNull {
             account?.username == it.username && account.domain == it.url.toUri().host
         } != null

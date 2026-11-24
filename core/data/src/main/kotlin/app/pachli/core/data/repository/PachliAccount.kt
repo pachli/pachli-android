@@ -55,7 +55,7 @@ data class PachliAccount(
     val announcements: List<Announcement>,
     val following: List<FollowingAccountEntity>,
     val followedHashtags: Map<String, Hashtag>,
-) : app.pachli.core.model.PachliAccount by entity
+) : app.pachli.core.model.IPachliAccountConfig by entity
 
 fun app.pachli.core.database.model.PachliAccountWithRelations.asModel() = PachliAccount(
     entity = pachliAccountEntity,

@@ -27,7 +27,7 @@ import kotlinx.parcelize.Parcelize
  *
  * @property value Underlying string value for the identifier.
  * @constructor Creates a new [AccountIdentifier] from a string. Should not
- * normally be used, use the constructor that takes an [PachliAccount].
+ * normally be used, use the constructor that takes an [IPachliAccountConfig].
  */
 // @Parcelize so this can be passed directly in an intent, instead of round
 // tripping as a String.
@@ -37,11 +37,11 @@ value class AccountIdentifier internal constructor(val value: String) :
     CharSequence by value,
     Parcelable {
     /**
-     * Creates a new [AccountIdentifier] from an [PachliAccount]. The
+     * Creates a new [AccountIdentifier] from an [IPachliAccountConfig]. The
      * preferred way to construct an [AccountIdentifier], as it ensures the
      * value is constructed correctly.
      */
-    constructor(pachliAccount: PachliAccount) : this("${pachliAccount.domain}:${pachliAccount.accountId}")
+    constructor(pachliAccount: IPachliAccountConfig) : this("${pachliAccount.domain}:${pachliAccount.accountId}")
 
     override fun chars(): IntStream {
         return super.chars()

@@ -19,7 +19,7 @@ import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.TimelineStatusWithQuote
-import app.pachli.core.model.PachliAccount
+import app.pachli.core.model.IPachliAccountConfig
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.di.test.DEFAULT_INSTANCE_V2
 import app.pachli.core.network.model.AccountSource
@@ -92,7 +92,7 @@ class CachedTimelineRemoteMediatorTest {
     @Inject
     lateinit var accountRepository: AccountRepository
 
-    private lateinit var activeAccount: PachliAccount
+    private lateinit var activeAccount: IPachliAccountConfig
 
     private val account = CredentialAccount(
         id = "1",

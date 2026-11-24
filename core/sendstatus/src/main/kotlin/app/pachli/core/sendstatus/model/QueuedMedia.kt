@@ -19,7 +19,7 @@ package app.pachli.core.sendstatus.model
 
 import android.net.Uri
 import app.pachli.core.model.Attachment
-import app.pachli.core.model.PachliAccount
+import app.pachli.core.model.IPachliAccountConfig
 import app.pachli.core.sendstatus.MediaUploaderError
 import app.pachli.core.sendstatus.UploadState
 import com.github.michaelbull.result.Result
@@ -38,7 +38,7 @@ import com.github.michaelbull.result.mapBoth
  * @property uploadState
  */
 data class QueuedMedia(
-    val account: PachliAccount,
+    val account: IPachliAccountConfig,
     val localId: Int,
     val uri: Uri,
     val type: Type,
