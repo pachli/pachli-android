@@ -22,8 +22,8 @@ import app.pachli.components.timeline.viewmodel.FallibleStatusAction
 import app.pachli.components.timeline.viewmodel.StatusActionSuccess
 import app.pachli.components.timeline.viewmodel.UiError
 import app.pachli.core.data.model.StatusViewData
-import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.TranslationState
 import app.pachli.core.testing.extensions.insertTimelineStatusWithQuote
 import app.pachli.core.testing.failure
 import app.pachli.core.testing.fakes.fakeStatus

@@ -21,13 +21,13 @@ import com.squareup.moshi.JsonClass
 
 /** https://docs.joinmastodon.org/entities/Translation/ */
 @JsonClass(generateAdapter = true)
-data class Translation(
+data class TranslatedStatus(
     /** The translated text of the status (HTML), equivalent to [Status.content] */
     val content: String,
 
     /**
      * The language of the source text, as auto-detected by the machine translation
-     * (ISO 639 language code)
+     * (ISO 639 language code). May be empty.
      */
     val detectedSourceLanguage: String,
 
@@ -76,14 +76,25 @@ data class TranslatedAttachment(
     val description: String?,
 )
 
-fun app.pachli.core.model.translation.TranslatedPoll.asNetworkModel() = TranslatedPoll(
+fun TranslatedPoll.asNetworkModel() = TranslatedPoll(
     id = this.id,
     options = this.options.map { it.asNetworkModel() },
 )
 
-fun app.pachli.core.model.translation.TranslatedPollOption.asNetworkModel() = TranslatedPollOption(this.title)
+fun TranslatedPollOption.asNetworkModel() = TranslatedPollOption(this.title)
 
-fun app.pachli.core.model.translation.TranslatedAttachment.asNetworkModel() = TranslatedAttachment(
+fun TranslatedAttachment.asNetworkModel() = TranslatedAttachment(
     id = this.id,
     description = this.description,
 )
+
+enum class TranslationState {
+    /** Show the original, untranslated status */
+    SHOW_ORIGINAL,
+
+    /** Show the original, untranslated status, but translation is happening */
+    TRANSLATING,
+
+    /** Show the translated status */
+    SHOW_TRANSLATION,
+}

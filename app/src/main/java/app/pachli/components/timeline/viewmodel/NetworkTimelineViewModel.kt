@@ -29,7 +29,6 @@ import app.pachli.core.data.repository.CollectionsRepository
 import app.pachli.core.data.repository.StatusActionError
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.TimelineStatusWithQuote
-import app.pachli.core.database.model.TranslationState
 import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.FavoriteEvent
@@ -40,7 +39,8 @@ import app.pachli.core.model.FilterAction
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
-import app.pachli.core.model.translation.TranslatedStatus
+import app.pachli.core.model.TranslatedStatus
+import app.pachli.core.model.TranslationState
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.translation.TranslatorError
 import app.pachli.usecase.TimelineCases

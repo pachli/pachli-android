@@ -57,8 +57,8 @@ import app.pachli.core.model.FilterContext
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
+import app.pachli.core.model.TranslatedStatus
 import app.pachli.core.model.collection.CollectionDisplayAction
-import app.pachli.core.model.translation.TranslatedStatus
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.TabTapBehaviour

@@ -114,6 +114,7 @@ SELECT
     svd.attachmentDisplayAction AS 'svd_attachmentDisplayAction',
     tr.statusId AS 't_statusId',
     tr.pachliAccountId AS 't_pachliAccountId',
+    tr.detectedSourceLanguage AS 't_detectedSourceLanguage',
     tr.content AS 't_content',
     tr.spoilerText AS 't_spoilerText',
     tr.poll AS 't_poll',

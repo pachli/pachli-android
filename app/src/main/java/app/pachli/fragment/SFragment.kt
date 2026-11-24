@@ -45,7 +45,6 @@ import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.asDraft
 import app.pachli.core.data.repository.createDraftQuote
 import app.pachli.core.data.repository.createDraftReply
-import app.pachli.core.database.model.TranslationState
 import app.pachli.core.domain.DownloadUrlUseCase
 import app.pachli.core.domain.accounts.BlockAccountUseCase
 import app.pachli.core.domain.accounts.MuteAccountUseCase
@@ -55,6 +54,7 @@ import app.pachli.core.model.ICollection
 import app.pachli.core.model.IStatus
 import app.pachli.core.model.PachliAccountConfig
 import app.pachli.core.model.Status
+import app.pachli.core.model.TranslationState
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.CollectionActivityIntent

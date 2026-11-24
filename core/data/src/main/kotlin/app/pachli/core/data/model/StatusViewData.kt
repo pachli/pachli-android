@@ -21,14 +21,14 @@ import app.pachli.core.data.BuildConfig
 import app.pachli.core.data.extensions.getAttachmentDisplayAction
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.database.model.TimelineStatusWithQuote
-import app.pachli.core.database.model.TranslatedStatusEntity
-import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
 import app.pachli.core.model.IStatus
 import app.pachli.core.model.Status
 import app.pachli.core.model.TimelineAccount
+import app.pachli.core.model.TranslatedStatus
+import app.pachli.core.model.TranslationState
 import app.pachli.core.model.collection.CollectionCardViewData
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.network.replaceCrashingCharacters
@@ -98,7 +98,7 @@ sealed interface IStatusViewData : IStatus {
             null
         }
 
-    var translation: TranslatedStatusEntity?
+    var translation: TranslatedStatus?
     val isExpanded: Boolean
     val isCollapsible: Boolean
     val isCollapsed: Boolean
@@ -166,7 +166,7 @@ data class StatusItemViewData(
                 statusViewData = StatusViewData.from(
                     pachliAccount,
                     timelineStatusWithQuote.timelineStatus.toStatus(),
-                    translation = timelineStatusWithQuote.timelineStatus.translatedStatus,
+                    translation = timelineStatusWithQuote.timelineStatus.translatedStatus?.asModel(),
                     isExpanded = timelineStatusWithQuote.timelineStatus.viewData?.expanded ?: isExpanded,
                     isCollapsed = timelineStatusWithQuote.timelineStatus.viewData?.contentCollapsed ?: true,
                     isDetailed = isDetailed,
@@ -191,7 +191,7 @@ data class StatusItemViewData(
                             showSensitiveMedia,
                         ),
                         translationState = status.viewData?.translationState ?: translationState,
-                        translation = status.translatedStatus,
+                        translation = status.translatedStatus?.asModel(),
                         replyToAccount = status.replyAccount?.asModel(),
                         timelineCollections = status.collectionCards.orEmpty(),
                     )
@@ -207,7 +207,7 @@ data class StatusItemViewData(
 data class StatusViewData(
     override val pachliAccountId: Long,
     override val status: Status,
-    override var translation: TranslatedStatusEntity? = null,
+    override var translation: TranslatedStatus? = null,
     override val isExpanded: Boolean,
     override val isCollapsed: Boolean,
     override var contentFilterAction: FilterAction = FilterAction.NONE,
@@ -292,7 +292,7 @@ data class StatusViewData(
             contentFilterAction: FilterAction = FilterAction.NONE,
             attachmentDisplayAction: AttachmentDisplayAction = AttachmentDisplayAction.Show(),
             translationState: TranslationState = TranslationState.SHOW_ORIGINAL,
-            translation: TranslatedStatusEntity? = null,
+            translation: TranslatedStatus? = null,
             replyToAccount: TimelineAccount?,
             timelineCollections: List<CollectionCardViewData>,
         ): StatusViewData {

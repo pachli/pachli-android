@@ -17,13 +17,14 @@
 
 package app.pachli.core.database.model
 
+import androidx.room3.ColumnInfo
 import androidx.room3.ColumnTypeConverters
 import androidx.room3.Entity
 import app.pachli.core.database.Converters
 import app.pachli.core.model.TranslatedAttachment
 import app.pachli.core.model.TranslatedPoll
+import app.pachli.core.model.TranslatedStatus
 import app.pachli.core.model.asNetworkModel
-import app.pachli.core.model.translation.TranslatedStatus
 
 /**
  * Translated version of a status, see https://docs.joinmastodon.org/entities/Translation/.
@@ -43,13 +44,20 @@ data class TranslatedStatusEntity(
     /** Pachli ID for the logged in user, in case there are multiple accounts per instance */
     val pachliAccountId: Long,
 
+    /**
+     * The language of the source text, as auto-detected by the machine translation
+     * (ISO 639 language code). May be empty.
+     */
+    @ColumnInfo(defaultValue = "")
+    val detectedSourceLanguage: String,
+
     /** The translated text of the status (HTML), equivalent to [Status.content] */
     val content: String,
 
     // Not documented, see https://github.com/mastodon/documentation/issues/1248
     /**
      * The translated spoiler text of the status (text), if it exists, equivalent to
-     * [app.pachli.core.network.model.Status.spoilerText]
+     * [app.pachli.core.model.Status.spoilerText]
      */
     val spoilerText: String,
 
@@ -70,11 +78,21 @@ data class TranslatedStatusEntity(
 
     /** The service that provided the machine translation */
     val provider: String,
-)
+) {
+    fun asModel() = TranslatedStatus(
+        content = content,
+        detectedSourceLanguage = detectedSourceLanguage ?: "",
+        spoilerText = spoilerText,
+        poll = poll,
+        attachments = attachments,
+        provider = provider,
+    )
+}
 
 fun TranslatedStatus.toEntity(pachliAccountId: Long, serverId: String) = TranslatedStatusEntity(
     statusId = serverId,
     pachliAccountId = pachliAccountId,
+    detectedSourceLanguage = detectedSourceLanguage,
     content = content,
     spoilerText = spoilerText,
     poll = poll?.asNetworkModel(),

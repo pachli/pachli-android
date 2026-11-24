@@ -263,6 +263,7 @@ ORDER BY LENGTH(s.statusId) DESC, s.statusId DESC
     -- Translation
     s.t_statusId AS 's_t_statusId',
     s.t_pachliAccountId AS 's_t_pachliAccountId',
+    s.t_detectedSourceLanguage AS 's_t_detectedSourceLanguage',
     s.t_content AS 's_t_content',
     s.t_spoilerText AS 's_t_spoilerText',
     s.t_poll AS 's_t_poll',
@@ -364,6 +365,7 @@ ORDER BY LENGTH(s.statusId) DESC, s.statusId DESC
     -- Translation
     q.t_statusId AS 'q_t_statusId',
     q.t_pachliAccountId AS 'q_t_pachliAccountId',
+    q.t_detectedSourceLanguage AS 'q_t_detectedSourceLanguage',
     q.t_content AS 'q_t_content',
     q.t_spoilerText AS 'q_t_spoilerText',
     q.t_poll AS 'q_t_poll',
@@ -524,6 +526,7 @@ SELECT
     -- Translation
     s.t_statusId AS 's_t_statusId',
     s.t_pachliAccountId AS 's_t_pachliAccountId',
+    s.t_detectedSourceLanguage AS 's_t_detectedSourceLanguage',
     s.t_content AS 's_t_content',
     s.t_spoilerText AS 's_t_spoilerText',
     s.t_poll AS 's_t_poll',
@@ -625,6 +628,7 @@ SELECT
     -- Translation
     q.t_statusId AS 'q_t_statusId',
     q.t_pachliAccountId AS 'q_t_pachliAccountId',
+    q.t_detectedSourceLanguage AS 'q_t_detectedSourceLanguage',
     q.t_content AS 'q_t_content',
     q.t_spoilerText AS 'q_t_spoilerText',
     q.t_poll AS 'q_t_poll',
@@ -742,6 +746,7 @@ SELECT
     -- Translation
     s.t_statusId AS 's_t_statusId',
     s.t_pachliAccountId AS 's_t_pachliAccountId',
+    s.t_detectedSourceLanguage AS 's_t_detectedSourceLanguage',
     s.t_content AS 's_t_content',
     s.t_spoilerText AS 's_t_spoilerText',
     s.t_poll AS 's_t_poll',
@@ -843,6 +848,7 @@ SELECT
     -- Translation
     q.t_statusId AS 'q_t_statusId',
     q.t_pachliAccountId AS 'q_t_pachliAccountId',
+    q.t_detectedSourceLanguage AS 'q_t_detectedSourceLanguage',
     q.t_content AS 'q_t_content',
     q.t_spoilerText AS 'q_t_spoilerText',
     q.t_poll AS 'q_t_poll',
@@ -1256,6 +1262,7 @@ WHERE pachliAccountId = :pachliAccountId
     -- Translation
     s.t_statusId AS 's_t_statusId',
     s.t_pachliAccountId AS 's_t_pachliAccountId',
+    s.t_detectedSourceLanguage AS 's_t_detectedSourceLanguage',
     s.t_content AS 's_t_content',
     s.t_spoilerText AS 's_t_spoilerText',
     s.t_poll AS 's_t_poll',
@@ -1357,6 +1364,7 @@ WHERE pachliAccountId = :pachliAccountId
     -- Translation
     q.t_statusId AS 'q_t_statusId',
     q.t_pachliAccountId AS 'q_t_pachliAccountId',
+    q.t_detectedSourceLanguage AS 'q_t_detectedSourceLanguage',
     q.t_content AS 'q_t_content',
     q.t_spoilerText AS 'q_t_spoilerText',
     q.t_poll AS 'q_t_poll',

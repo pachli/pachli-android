@@ -34,7 +34,6 @@ import app.pachli.core.database.model.ServerEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
-import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountFilterReason
 import app.pachli.core.model.Announcement
@@ -44,6 +43,7 @@ import app.pachli.core.model.FilterAction
 import app.pachli.core.model.ServerKind
 import app.pachli.core.model.ServerLimits
 import app.pachli.core.model.Status
+import app.pachli.core.model.TranslationState
 import app.pachli.core.model.UserListRepliesPolicy
 import app.pachli.core.testing.extensions.insertTimelineStatusWithQuote
 import app.pachli.core.testing.fakes.fakePachliAccountEntity
@@ -456,6 +456,7 @@ class PachliAccountEntityForeignKeyTest {
         val translatedStatus = TranslatedStatusEntity(
             statusId = "1",
             pachliAccountId = pachliAccountId,
+            detectedSourceLanguage = "de",
             content = "",
             spoilerText = "",
             poll = null,

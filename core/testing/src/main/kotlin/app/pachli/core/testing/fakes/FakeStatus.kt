@@ -23,11 +23,11 @@ import app.pachli.core.data.repository.notifications.asEntity
 import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineStatusWithQuote
-import app.pachli.core.database.model.TranslationState
 import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.AttachmentDisplayReason
 import app.pachli.core.model.PachliAccountConfig
+import app.pachli.core.model.TranslationState
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Poll

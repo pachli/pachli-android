@@ -25,12 +25,12 @@ import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
-import app.pachli.core.database.model.TranslationState
 import app.pachli.core.database.model.toEntity
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.StatusDeletedEvent
 import app.pachli.core.model.Status
-import app.pachli.core.model.translation.TranslatedStatus
+import app.pachli.core.model.TranslatedStatus
+import app.pachli.core.model.TranslationState
 import app.pachli.core.network.model.DeletedStatus
 import app.pachli.core.network.model.Relationship
 import app.pachli.core.network.retrofit.MastodonApi

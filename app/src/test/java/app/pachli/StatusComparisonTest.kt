@@ -2,8 +2,8 @@ package app.pachli
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.core.data.model.StatusViewData
-import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.TranslationState
 import app.pachli.core.model.VersionAdapter
 import app.pachli.core.network.json.BooleanIfNull
 import app.pachli.core.network.json.DefaultIfNull
