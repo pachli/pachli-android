@@ -282,7 +282,7 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
             val accounts = accountManager.pachliAccountsOrderedByActive
             return when (accounts.size) {
                 0, 1 -> null
-                2 -> getString(R.string.action_open_as, accounts.last().config.fullName)
+                2 -> getString(R.string.action_open_as, accounts.last().config.handle)
                 else -> getString(R.string.action_open_as_ellipsis)
             }
         }

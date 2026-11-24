@@ -300,7 +300,7 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
         lifecycleScope.launch {
             downloadUrlUseCase(
                 url,
-                accountManager.activePachliAccount!!.config.fullName,
+                accountManager.activePachliAccount!!.config.handle,
                 owningUsername,
             )
         }

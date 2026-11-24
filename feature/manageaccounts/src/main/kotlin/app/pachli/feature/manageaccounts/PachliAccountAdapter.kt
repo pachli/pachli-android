@@ -209,10 +209,10 @@ internal class PachliAccountViewHolder(
         root.contentDescription = if (account.config.isActive) {
             context.getString(
                 R.string.pachli_account_content_description_fmt,
-                account.config.fullName,
+                account.config.handle,
             )
         } else {
-            account.config.fullName
+            account.config.handle
         }
 
         bindAvatar(account, animateAvatars)
@@ -222,7 +222,7 @@ internal class PachliAccountViewHolder(
         notificationMethod.text = context.getString(account.config.notificationMethod.stringRes)
         notificationMethodExtra.text = account.config.notificationMethodExtra(context)
 
-        val lastFetch = NotificationConfig.lastFetchNewNotifications[account.config.fullName]
+        val lastFetch = NotificationConfig.lastFetchNewNotifications[account.config.handle]
         if (lastFetch == null) {
             lastFetchTime.hide()
             lastFetchError.hide()
@@ -278,7 +278,7 @@ internal class PachliAccountViewHolder(
                 displayName,
                 animateEmojis,
             )
-            username.text = pachliAccount.config.fullName
+            username.text = pachliAccount.config.handle
         }
 }
 

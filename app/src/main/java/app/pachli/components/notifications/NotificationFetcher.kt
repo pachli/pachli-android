@@ -77,7 +77,7 @@ class NotificationFetcher @Inject constructor(
         for (pachliAccount in pachliAccounts) {
             Timber.d(
                 "Checking %s, notificationsEnabled = %s",
-                pachliAccount.config.fullName,
+                pachliAccount.config.handle,
                 pachliAccount.config.notificationsEnabled,
             )
             if (pachliAccount.config.notificationsEnabled) {
@@ -171,10 +171,10 @@ class NotificationFetcher @Inject constructor(
      * than the marker.
      */
     private suspend fun fetchNewNotifications(pachliAccountConfig: PachliAccountConfig): List<Notification> {
-        Timber.d("fetchNewNotifications(%s)", pachliAccountConfig.fullName)
+        Timber.d("fetchNewNotifications(%s)", pachliAccountConfig.handle)
 
         // Figure out which water mark to use.
-        Timber.d("getting notification marker for %s", pachliAccountConfig.fullName)
+        Timber.d("getting notification marker for %s", pachliAccountConfig.handle)
         val remoteMarkerId = fetchMarker(pachliAccountConfig)?.lastReadId ?: "0"
         val localMarkerId = pachliAccountConfig.notificationMarkerId
         val markerId = if (remoteMarkerId.isLessThan(localMarkerId)) localMarkerId else remoteMarkerId
@@ -186,7 +186,7 @@ class NotificationFetcher @Inject constructor(
         Timber.d("  localMarkerId: %s", localMarkerId)
         Timber.d("  readingPosition: %s", readingPosition)
 
-        Timber.d("getting Notifications for %s, min_id: %s", pachliAccountConfig.fullName, minId)
+        Timber.d("getting Notifications for %s, min_id: %s", pachliAccountConfig.handle, minId)
 
         // Fetch all outstanding notifications
         val notifications = buildList {
@@ -199,7 +199,7 @@ class NotificationFetcher @Inject constructor(
                     minId = minId,
                 ).onSuccess { response ->
                     val notifications = response.body
-                    NotificationConfig.lastFetchNewNotifications[pachliAccountConfig.fullName] = Pair(now, Ok(Unit))
+                    NotificationConfig.lastFetchNewNotifications[pachliAccountConfig.handle] = Pair(now, Ok(Unit))
                     Timber.i(
                         "Fetching notifications from server succeeded, returned %d notifications",
                         notifications.size,
@@ -219,7 +219,7 @@ class NotificationFetcher @Inject constructor(
                     .onFailure {
                         val error = it.fmt(context)
                         Timber.e("Fetching notifications from server failed: %s", error)
-                        NotificationConfig.lastFetchNewNotifications[pachliAccountConfig.fullName] = Pair(now, Err(error))
+                        NotificationConfig.lastFetchNewNotifications[pachliAccountConfig.handle] = Pair(now, Err(error))
                         return@buildList
                     }
             }
@@ -228,14 +228,14 @@ class NotificationFetcher @Inject constructor(
         // Save the newest notification ID in the marker.
         notifications.firstOrNull()?.let {
             val newMarkerId = notifications.first().id
-            Timber.d("updating notification marker for %s to: %s", pachliAccountConfig.fullName, newMarkerId)
+            Timber.d("updating notification marker for %s to: %s", pachliAccountConfig.handle, newMarkerId)
             mastodonApi.updateMarkersWithAuth(
                 auth = pachliAccountConfig.authHeader,
                 domain = pachliAccountConfig.domain,
                 notificationsLastReadId = newMarkerId,
             )
             accountManager.setNotificationMarkerId(pachliAccountConfig.pachliAccountId, newMarkerId)
-            Timber.d("Updated notification marker for %s to: %s", pachliAccountConfig.fullName, newMarkerId)
+            Timber.d("Updated notification marker for %s to: %s", pachliAccountConfig.handle, newMarkerId)
         }
 
         return notifications
@@ -249,7 +249,7 @@ class NotificationFetcher @Inject constructor(
         ).mapBoth(
             {
                 val notificationMarker = it.body["notifications"]
-                Timber.d("Fetched marker for %s: %s", pachliAccountConfig.fullName, notificationMarker)
+                Timber.d("Fetched marker for %s: %s", pachliAccountConfig.handle, notificationMarker)
                 notificationMarker
             },
             {

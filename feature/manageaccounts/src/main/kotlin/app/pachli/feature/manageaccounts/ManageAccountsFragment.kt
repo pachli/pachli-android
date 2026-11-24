@@ -146,11 +146,11 @@ class ManageAccountsFragment :
             val button = AlertSuspendDialogFragment.newInstance(
                 title = getString(
                     app.pachli.core.ui.R.string.title_logout_fmt,
-                    pachliAccountConfig.fullName,
+                    pachliAccountConfig.handle,
                 ),
                 message = getString(
                     app.pachli.core.ui.R.string.action_logout_confirm,
-                    pachliAccountConfig.fullName,
+                    pachliAccountConfig.handle,
                 ),
                 positiveText = getString(android.R.string.ok),
                 negativeText = getString(android.R.string.cancel),

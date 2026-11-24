@@ -96,7 +96,7 @@ class UpdateShortCutsUseCase @Inject constructor(
                     ShortcutInfoCompat.Builder(context, pachliAccount.config.pachliAccountId.toString())
                         .setIntent(intent)
                         .setCategories(setOf("app.pachli.Share"))
-                        .setShortLabel(pachliAccount.account.displayName.ifBlank { pachliAccount.config.fullName })
+                        .setShortLabel(pachliAccount.account.displayName.ifBlank { pachliAccount.config.handle })
                         .setPerson(person)
                         .setLongLived(true)
                         .setIcon(icon)

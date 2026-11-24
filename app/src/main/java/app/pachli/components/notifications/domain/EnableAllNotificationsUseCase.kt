@@ -80,8 +80,8 @@ class EnableAllNotificationsUseCase @Inject constructor(
 
         UnifiedPush.saveDistributor(context, distributor)
         accountsWithPushScope.forEach {
-            Timber.d("Registering instance %s, %s with %s", it.config.unifiedPushInstance, it.config.fullName, distributor)
-            UnifiedPush.register(context, it.config.unifiedPushInstance, messageForDistributor = it.config.fullName)
+            Timber.d("Registering instance %s, %s with %s", it.config.unifiedPushInstance, it.config.handle, distributor)
+            UnifiedPush.register(context, it.config.unifiedPushInstance, messageForDistributor = it.config.handle)
         }
     }
 

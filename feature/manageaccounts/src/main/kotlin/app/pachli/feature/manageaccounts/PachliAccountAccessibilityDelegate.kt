@@ -47,14 +47,14 @@ internal class PachliAccountAccessibilityDelegate(
             info.addAction(
                 AccessibilityNodeInfoCompat.AccessibilityActionCompat(
                     R.id.action_logout_account,
-                    context.getString(R.string.action_logout_account_fmt, viewHolder.account.config.fullName),
+                    context.getString(R.string.action_logout_account_fmt, viewHolder.account.config.handle),
                 ),
             )
             if (!viewHolder.account.config.isActive) {
                 info.addAction(
                     AccessibilityNodeInfoCompat.AccessibilityActionCompat(
                         R.id.action_switch_account,
-                        context.getString(R.string.action_switch_account_fmt, viewHolder.account.config.fullName),
+                        context.getString(R.string.action_switch_account_fmt, viewHolder.account.config.handle),
                     ),
                 )
             }
