@@ -180,7 +180,7 @@ class ChooseAccountAdapter(
 
         val pachliAccount = getItem(position) ?: return binding.root
 
-        binding.username.text = pachliAccount.config.fullName
+        binding.username.text = pachliAccount.config.handle
         binding.displayName.text = pachliAccount.account.name.emojify(glide, pachliAccount.account.emojis, binding.displayName, animateEmojis)
         binding.avatarBadge.visibility = View.GONE // We never want to display the bot badge here
 

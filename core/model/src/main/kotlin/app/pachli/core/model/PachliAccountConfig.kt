@@ -80,7 +80,7 @@ package app.pachli.core.model
  * @property conversationAccountFilterLimitedByServer [FilterAction] for
  * conversations from accounts limited by the server.
  * @property identifier Unique identifier for the account.
- * @property fullName Full account name, of the form `@username@domain`
+ * @property handle Full account name, of the form `@username@domain`
  * @property authHeader Value of the "Authorization" header for this account
  * ("Bearer $accessToken").
  * @property unifiedPushInstance UnifiedPush "instance" identifier for this account.
@@ -144,7 +144,8 @@ data class PachliAccountConfig(
     val identifier: AccountIdentifier
         get() = AccountIdentifier(this)
 
-    val fullName: String
+    /** The account's handle, `@$username@$domain`. */
+    val handle: String
         get() = "@$username@$domain"
 
     val authHeader: String

@@ -238,7 +238,7 @@ fun makeNotification(
         androidNotificationBuilder.addAction(composeAction)
     }
 
-    androidNotificationBuilder.setSubText(pachliAccountConfig.fullName)
+    androidNotificationBuilder.setSubText(pachliAccountConfig.handle)
     androidNotificationBuilder.setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
     androidNotificationBuilder.setCategory(NotificationCompat.CATEGORY_SOCIAL)
     androidNotificationBuilder.setOnlyAlertOnce(true)
@@ -355,7 +355,7 @@ fun updateSummaryNotifications(
             .setDefaults(0) // So it doesn't ring twice, notify only in Target callback
             .setContentTitle(title)
             .setContentText(text)
-            .setSubText(pachliAccountConfig.fullName)
+            .setSubText(pachliAccountConfig.handle)
             .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
             .setCategory(NotificationCompat.CATEGORY_SOCIAL)
             .setOnlyAlertOnce(true)
@@ -428,7 +428,7 @@ private fun getStatusReplyIntent(
         .putExtra(KEY_SENDER_ACCOUNT_ID, pachliAccountConfig.pachliAccountId)
         // Required
         .putExtra(KEY_SENDER_ACCOUNT_IDENTIFIER, pachliAccountConfig.identifier as Parcelable)
-        .putExtra(KEY_SENDER_ACCOUNT_FULL_NAME, pachliAccountConfig.fullName)
+        .putExtra(KEY_SENDER_ACCOUNT_FULL_NAME, pachliAccountConfig.handle)
         .putExtra(KEY_SERVER_NOTIFICATION_ID, body.notificationId)
     return PendingIntent.getBroadcast(
         context.applicationContext,
@@ -470,7 +470,7 @@ fun createNotificationChannelsForAccount(pachliAccountConfig: PachliAccountConfi
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        val channelGroup = NotificationChannelGroup(pachliAccountConfig.identifier.value, pachliAccountConfig.fullName)
+        val channelGroup = NotificationChannelGroup(pachliAccountConfig.identifier.value, pachliAccountConfig.handle)
         notificationManager.createNotificationChannelGroup(channelGroup)
 
         val channels = PachliNotificationChannels.entries.map {

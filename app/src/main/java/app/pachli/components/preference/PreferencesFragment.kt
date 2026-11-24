@@ -448,7 +448,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     }
 
                     setOnPreferenceClickListener {
-                        val adapter = AccountNotificationDetailsAdapter(context, accountManager.pachliAccounts.sortedBy { it.config.fullName })
+                        val adapter = AccountNotificationDetailsAdapter(context, accountManager.pachliAccounts.sortedBy { it.config.handle })
 
                         viewLifecycleOwner.lifecycleScope.launch {
                             val dialog = AlertDialog.Builder(requireContext())
@@ -676,7 +676,7 @@ class AccountNotificationDetailsAdapter(context: Context, pachliAccounts: List<P
         val pachliAccount = getItem(position) ?: return binding.root
 
         with(binding) {
-            accountName.text = pachliAccount.config.fullName
+            accountName.text = pachliAccount.config.handle
             notificationMethod.text = context.getString(pachliAccount.config.notificationMethod.stringRes)
             notificationMethodExtra.text = pachliAccount.config.notificationMethodExtra()
 
@@ -684,7 +684,7 @@ class AccountNotificationDetailsAdapter(context: Context, pachliAccounts: List<P
             notificationMethod.show()
             notificationMethodExtra.show()
 
-            val lastFetch = NotificationConfig.lastFetchNewNotifications[pachliAccount.config.fullName]
+            val lastFetch = NotificationConfig.lastFetchNewNotifications[pachliAccount.config.handle]
             if (lastFetch == null) {
                 lastFetchTime.hide()
                 lastFetchError.hide()

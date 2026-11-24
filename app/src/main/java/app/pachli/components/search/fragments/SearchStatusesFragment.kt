@@ -443,7 +443,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         Toast.makeText(context, R.string.downloading_media, Toast.LENGTH_SHORT).show()
         for ((_, url) in status.attachments) {
             lifecycleScope.launch {
-                downloadUrlUseCase(url, viewModel.pachliAccount.value!!.config.fullName, status.actionableStatus.account.username)
+                downloadUrlUseCase(url, viewModel.pachliAccount.value!!.config.handle, status.actionableStatus.account.username)
             }
         }
     }

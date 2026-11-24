@@ -1178,8 +1178,8 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
     private fun logout(pachliAccountConfig: PachliAccountConfig) {
         lifecycleScope.launch {
             val button = AlertDialog.Builder(this@MainActivity)
-                .setTitle(getString(app.pachli.core.ui.R.string.title_logout_fmt, pachliAccountConfig.fullName))
-                .setMessage(getString(app.pachli.core.ui.R.string.action_logout_confirm, pachliAccountConfig.fullName))
+                .setTitle(getString(app.pachli.core.ui.R.string.title_logout_fmt, pachliAccountConfig.handle))
+                .setMessage(getString(app.pachli.core.ui.R.string.action_logout_confirm, pachliAccountConfig.handle))
                 .create()
                 .await(android.R.string.ok, android.R.string.cancel)
 
@@ -1305,7 +1305,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                 iconUrl = pachliAccount.account.avatar
                 isNameShown = true
                 identifier = pachliAccount.config.pachliAccountId
-                descriptionText = pachliAccount.config.fullName
+                descriptionText = pachliAccount.config.handle
             }
         }.toMutableList()
 
@@ -1323,7 +1323,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         val activeAccount = uiState.pachliAccounts.firstOrNull { it.config.isActive } ?: return
         header.setActiveProfile(activeAccount.config.pachliAccountId)
         binding.mainToolbar.subtitle = if (uiState.displaySelfUsername) {
-            activeAccount.config.fullName
+            activeAccount.config.handle
         } else {
             null
         }

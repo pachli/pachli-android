@@ -605,7 +605,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
             lifecycleScope.launch {
                 downloadUrlUseCase(
                     it.url,
-                    accountManager.activePachliAccount!!.config.fullName,
+                    accountManager.activePachliAccount!!.config.handle,
                     status.actionableStatus.account.username,
                 )
             }

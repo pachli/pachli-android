@@ -418,7 +418,7 @@ class ComposeActivity :
                 if (viewModel.displaySelfUsername) {
                     binding.composeUsernameView.text = getString(
                         R.string.compose_active_account_description,
-                        account.config.fullName,
+                        account.config.handle,
                     )
                     binding.composeUsernameView.show()
                 } else {
