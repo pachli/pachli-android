@@ -69,8 +69,8 @@ data class ConversationViewData(
             quoteContentFilterAction: FilterAction?,
             accountFilterDecision: AccountFilterDecision?,
         ) = ConversationViewData(
-            pachliAccountId = pachliAccount.pachliAccountId,
-            localDomain = pachliAccount.domain,
+            pachliAccountId = pachliAccount.config.pachliAccountId,
+            localDomain = pachliAccount.config.domain,
             conversationId = conversationData.conversationId,
             accounts = conversationData.accounts,
             unread = conversationData.unread,

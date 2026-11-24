@@ -66,7 +66,7 @@ class AccountMediaViewModel @Inject constructor(
                 remoteMediator = AccountMediaRemoteMediator(
                     context,
                     api,
-                    activeAccount.alwaysShowSensitiveMedia,
+                    activeAccount.config.alwaysShowSensitiveMedia,
                     accountId,
                     this,
                 ),

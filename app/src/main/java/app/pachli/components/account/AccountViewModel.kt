@@ -102,12 +102,12 @@ class AccountViewModel @AssistedInject constructor(
             flow {
                 emit(Ok(Loadable.Loading))
 
-                accountRepository.getAccountFlow(pachliAccount.pachliAccountId, accountId)
+                accountRepository.getAccountFlow(pachliAccount.config.pachliAccountId, accountId)
                     .onEach {
                         it.onSuccess { account ->
                             domain = getDomain(account.url)
-                            isFromOwnDomain = domain == pachliAccount.domain
-                            val isSelf = pachliAccount.accountId == accountId
+                            isFromOwnDomain = domain == pachliAccount.config.domain
+                            val isSelf = pachliAccount.config.accountId == accountId
                             if (!isSelf) obtainRelationship(accountId)
                         }.onFailure {
                             Timber.w("failed obtaining account: %s", it)
@@ -121,7 +121,7 @@ class AccountViewModel @AssistedInject constructor(
 
     /** True if the loaded account in [accountData] is the user's account. */
     val isSelf = combine(accountData, pachliAccount) { accountData, pachliAccount ->
-        pachliAccount.accountId == accountData.get()?.getOrNull()?.accountId
+        pachliAccount.config.accountId == accountData.get()?.getOrNull()?.accountId
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
 
     private fun obtainRelationship(accountId: String, reload: Boolean = false) {

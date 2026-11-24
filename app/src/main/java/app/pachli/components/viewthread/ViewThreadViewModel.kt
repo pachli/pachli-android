@@ -176,8 +176,8 @@ class ViewThreadViewModel @Inject constructor(
                 StatusItemViewData.from(
                     pachliAccount = account,
                     timelineStatusWithQuote = timelineStatus,
-                    isExpanded = account.alwaysOpenSpoiler,
-                    showSensitiveMedia = account.alwaysShowSensitiveMedia,
+                    isExpanded = account.config.alwaysOpenSpoiler,
+                    showSensitiveMedia = account.config.alwaysShowSensitiveMedia,
                     isDetailed = true,
                     contentFilterAction = contentFilterModel?.filterActionFor(status.actionableStatus)
                         ?: FilterAction.NONE,
@@ -208,8 +208,8 @@ class ViewThreadViewModel @Inject constructor(
 
                 status.asStatusViewDataQ(
                     account,
-                    account.alwaysOpenSpoiler,
-                    account.alwaysShowSensitiveMedia,
+                    account.config.alwaysOpenSpoiler,
+                    account.config.alwaysShowSensitiveMedia,
                     mapOf(status.actionableId to existingViewData),
                     mapOf(status.actionableId to existingTranslation),
                     collectionCardViewDataCache,
@@ -281,8 +281,8 @@ class ViewThreadViewModel @Inject constructor(
                     .map { (status, contentFilterAction) ->
                         status.asStatusViewDataQ(
                             account,
-                            account.alwaysOpenSpoiler,
-                            account.alwaysShowSensitiveMedia,
+                            account.config.alwaysOpenSpoiler,
+                            account.config.alwaysShowSensitiveMedia,
                             cachedViewData,
                             cachedTranslations,
                             collectionCardViewDataCache,
@@ -295,8 +295,8 @@ class ViewThreadViewModel @Inject constructor(
                     .map { (status, contentFilterAction) ->
                         status.asStatusViewDataQ(
                             account,
-                            account.alwaysOpenSpoiler,
-                            account.alwaysShowSensitiveMedia,
+                            account.config.alwaysOpenSpoiler,
+                            account.config.alwaysShowSensitiveMedia,
                             cachedViewData,
                             cachedTranslations,
                             collectionCardViewDataCache,
@@ -545,17 +545,18 @@ class ViewThreadViewModel @Inject constructor(
             pachliAccount = pachliAccount,
             timelineStatusWithQuote = TimelineStatusWithQuote(
                 timelineStatus = TimelineStatusWithAccount(
-                    status = asEntity(pachliAccount.pachliAccountId),
-                    account = reblog?.account?.asEntity(pachliAccount.pachliAccountId) ?: account.asEntity(pachliAccount.pachliAccountId),
-                    reblogAccount = reblog?.let { account.asEntity(pachliAccount.pachliAccountId) },
+                    status = asEntity(pachliAccount.config.pachliAccountId),
+                    account = reblog?.account?.asEntity(pachliAccount.config.pachliAccountId)
+                        ?: account.asEntity(pachliAccount.config.pachliAccountId),
+                    reblogAccount = reblog?.let { account.asEntity(pachliAccount.config.pachliAccountId) },
                     viewData = viewDataCache[actionableId],
                     translatedStatus = translationCache[actionableId],
                     collectionCards = collectionCardViewDataCache.filterKeys { it in statusCollectionIds }.values.toList(),
                 ),
                 quotedStatus = quote?.let { q ->
                     TimelineStatusWithAccount(
-                        status = q.asEntity(pachliAccount.pachliAccountId),
-                        account = q.account.asEntity(pachliAccount.pachliAccountId),
+                        status = q.asEntity(pachliAccount.config.pachliAccountId),
+                        account = q.account.asEntity(pachliAccount.config.pachliAccountId),
                         reblogAccount = null,
                         viewData = viewDataCache[actionableId],
                         translatedStatus = translationCache[actionableId],
@@ -718,8 +719,8 @@ class ViewThreadViewModel @Inject constructor(
     ): StatusItemViewData {
         val q = status.asStatusViewDataQ(
             account,
-            account.alwaysOpenSpoiler,
-            account.alwaysShowSensitiveMedia,
+            account.config.alwaysOpenSpoiler,
+            account.config.alwaysShowSensitiveMedia,
             isDetailed = isDetailed,
         )
 

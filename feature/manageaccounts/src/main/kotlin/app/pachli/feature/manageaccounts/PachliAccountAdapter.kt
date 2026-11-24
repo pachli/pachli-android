@@ -34,6 +34,7 @@ import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.model.AccountNotificationMethod
+import app.pachli.core.model.PachliAccountConfig
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.asDdHhMmSs
 import app.pachli.core.ui.extensions.instantFormatter
@@ -193,9 +194,9 @@ internal class PachliAccountViewHolder(
     }
 
     private fun bindAll(account: PachliAccount, animateEmojis: Boolean, animateAvatars: Boolean, showBotOverlay: Boolean) = with(binding) {
-        root.isActivated = account.isActive
-        suggestionReason.visible(account.isActive)
-        switchAccount.isEnabled = !account.isActive
+        root.isActivated = account.config.isActive
+        suggestionReason.visible(account.config.isActive)
+        switchAccount.isEnabled = !account.config.isActive
 
         // Set the content description to the account's fullname, and indicate if it's the
         // active account.
@@ -205,23 +206,23 @@ internal class PachliAccountViewHolder(
         //
         // The notification information is not included -- it's a lot to read out, and if
         // remote debugging then screenshots are more useful.
-        root.contentDescription = if (account.isActive) {
+        root.contentDescription = if (account.config.isActive) {
             context.getString(
                 R.string.pachli_account_content_description_fmt,
-                account.fullName,
+                account.config.fullName,
             )
         } else {
-            account.fullName
+            account.config.fullName
         }
 
         bindAvatar(account, animateAvatars)
         bindShowBotOverlay(account, showBotOverlay)
         bindAnimateEmojis(account, animateEmojis)
 
-        notificationMethod.text = context.getString(account.notificationMethod.stringRes)
-        notificationMethodExtra.text = account.notificationMethodExtra(context)
+        notificationMethod.text = context.getString(account.config.notificationMethod.stringRes)
+        notificationMethodExtra.text = account.config.notificationMethodExtra(context)
 
-        val lastFetch = NotificationConfig.lastFetchNewNotifications[account.fullName]
+        val lastFetch = NotificationConfig.lastFetchNewNotifications[account.config.fullName]
         if (lastFetch == null) {
             lastFetchTime.hide()
             lastFetchError.hide()
@@ -277,12 +278,13 @@ internal class PachliAccountViewHolder(
                 displayName,
                 animateEmojis,
             )
-            username.text = pachliAccount.fullName
+            username.text = pachliAccount.config.fullName
         }
 }
 
 private object PachliAccountDiffer : DiffUtil.ItemCallback<PachliAccount>() {
-    override fun areItemsTheSame(oldItem: PachliAccount, newItem: PachliAccount) = oldItem.pachliAccountId == newItem.pachliAccountId
+    override fun areItemsTheSame(oldItem: PachliAccount, newItem: PachliAccount) =
+        oldItem.config.pachliAccountId == newItem.config.pachliAccountId
     override fun areContentsTheSame(oldItem: PachliAccount, newItem: PachliAccount) = oldItem == newItem
 }
 
@@ -303,7 +305,7 @@ private val AccountNotificationMethod.stringRes: Int
  * Otherwise this should explain why the method is [PULL][AccountNotificationMethod.PULL]
  * (either the error when registering, or the lack of the `push` oauth scope).
  */
-private fun PachliAccount.notificationMethodExtra(context: Context): String {
+private fun PachliAccountConfig.notificationMethodExtra(context: Context): String {
     return when (notificationMethod) {
         AccountNotificationMethod.PUSH -> unifiedPushUrl
         AccountNotificationMethod.PULL -> if (hasPushScope) {

@@ -171,7 +171,7 @@ internal class MainViewModel @Inject constructor(
 
     private suspend fun onTabRemoveTimeline(action: InfallibleUiAction.TabRemoveTimeline) {
         accountManager.getPachliAccountById(action.pachliAccountId)
-            ?.tabPreferences
+            ?.config?.tabPreferences
             ?.filter { it != action.timeline }
             ?.let { accountManager.setTabPreferences(action.pachliAccountId, it) }
     }

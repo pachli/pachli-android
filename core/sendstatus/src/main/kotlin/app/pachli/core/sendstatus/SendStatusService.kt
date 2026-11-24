@@ -147,6 +147,8 @@ internal class SendStatusService : Service() {
             return
         }
 
+        val pachliAccountConfig = account.config
+
         statusToSend.retries++
 
         sendJobs[statusId] = serviceScope.launch {
@@ -227,15 +229,15 @@ internal class SendStatusService : Service() {
             val sendResult = if (isNew) {
                 if (newStatus.scheduledAt == null) {
                     mastodonApi.createStatus(
-                        account.authHeader,
-                        account.domain,
+                        pachliAccountConfig.authHeader,
+                        pachliAccountConfig.domain,
                         statusToSend.idempotencyKey,
                         newStatus.asNetworkModel(),
                     )
                 } else {
                     mastodonApi.createScheduledStatus(
-                        account.authHeader,
-                        account.domain,
+                        pachliAccountConfig.authHeader,
+                        pachliAccountConfig.domain,
                         statusToSend.idempotencyKey,
                         newStatus.asNetworkModel(),
                     )
@@ -243,8 +245,8 @@ internal class SendStatusService : Service() {
             } else {
                 mastodonApi.editStatus(
                     statusToSend.draft.statusId!!,
-                    account.authHeader,
-                    account.domain,
+                    pachliAccountConfig.authHeader,
+                    pachliAccountConfig.domain,
                     statusToSend.idempotencyKey,
                     newStatus.asNetworkModel(),
                 )

@@ -167,7 +167,7 @@ class AccountListFragment :
                 MUTES -> MutesAdapter(glide, this@AccountListFragment, animateAvatar, animateEmojis, showBotOverlay, showPronouns, linksToUnderline)
                 FOLLOW_REQUESTS -> {
                     val headerAdapter = FollowRequestsHeaderAdapter(
-                        instanceName = activeAccount.domain,
+                        instanceName = activeAccount.config.domain,
                         accountLocked = activeAccount.account.locked,
                     )
                     val followRequestsAdapter = FollowRequestsAdapter(

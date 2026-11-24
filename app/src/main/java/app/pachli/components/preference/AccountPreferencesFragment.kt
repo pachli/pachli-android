@@ -225,7 +225,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     setTitle(R.string.title_migration_relogin)
                     setIcon(R.drawable.ic_logout)
                     setOnPreferenceClickListener {
-                        val intent = LoginActivityIntent(context, LoginMode.Reauthenticate(accountManager.activeAccount!!.domain))
+                        val intent = LoginActivityIntent(context, LoginMode.Reauthenticate(accountManager.activeAccountConfig!!.domain))
                         startActivityWithTransition(intent, TransitionKind.EXPLODE)
                         true
                     }
@@ -277,7 +277,8 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     setEntryValues(R.array.post_privacy_values)
                     key = PrefKeys.DEFAULT_POST_PRIVACY
                     setSummaryProvider { entry }
-                    val visibility = accountManager.activeAccount?.defaultPostPrivacy ?: Status.Visibility.PUBLIC
+                    val visibility = accountManager.activeAccountConfig?.defaultPostPrivacy
+                        ?: Status.Visibility.PUBLIC
                     value = visibility.serverString()
                     visibility.iconRes()?.let { setIcon(it) }
                     setOnPreferenceChangeListener { _, newValue ->
@@ -288,7 +289,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 }
 
                 listPreference {
-                    val locales = getLocaleList(getInitialLanguages(null, accountManager.activeAccount))
+                    val locales = getLocaleList(getInitialLanguages(null, accountManager.activeAccountConfig))
                     setTitle(R.string.pref_default_post_language)
                     setDialogTitle(R.string.pref_default_post_language)
                     // Explicitly add "System default" to the start of the list
@@ -300,7 +301,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     entryValues = (listOf("") + locales.map { it.language }).toTypedArray()
                     key = PrefKeys.DEFAULT_POST_LANGUAGE
                     icon = makeIcon(GoogleMaterial.Icon.gmd_translate)
-                    value = accountManager.activeAccount?.defaultPostLanguage.orEmpty()
+                    value = accountManager.activeAccountConfig?.defaultPostLanguage.orEmpty()
                     isPersistent = false // This will be entirely server-driven
                     setSummaryProvider { entry }
 
@@ -315,7 +316,8 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     setIcon(app.pachli.core.ui.R.drawable.ic_eye_24dp)
                     key = PrefKeys.DEFAULT_MEDIA_SENSITIVITY
                     isSingleLineTitle = false
-                    val sensitivity = accountManager.activeAccount?.defaultMediaSensitivity ?: false
+                    val sensitivity = accountManager.activeAccountConfig?.defaultMediaSensitivity
+                        ?: false
                     setDefaultValue(sensitivity)
                     setIcon(getIconForSensitivity(sensitivity))
                     setOnPreferenceChangeListener { _, newValue ->
@@ -329,7 +331,10 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     setTitle(app.pachli.core.preferences.R.string.pref_title_quote_policy)
                     key = PrefKeys.DEFAULT_QUOTE_POLICY
                     isSingleLineTitle = false
-                    val quotePolicy = (accountManager.activeAccount?.defaultQuotePolicy ?: AccountSource.QuotePolicy.PUBLIC).asPreference()
+                    val quotePolicy = (
+                        accountManager.activeAccountConfig?.defaultQuotePolicy
+                            ?: AccountSource.QuotePolicy.PUBLIC
+                        ).asPreference()
                     setDefaultValue(quotePolicy)
                     setIcon(quotePolicy.iconRes())
                     setOnPreferenceChangeListener { _, newValue ->
@@ -410,7 +415,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
             )
                 .map { it.body }
                 .onSuccess { account ->
-                    accountManager.activeAccount?.let {
+                    accountManager.activeAccountConfig?.let {
                         accountManager.setDefaultPostPrivacy(
                             it.pachliAccountId,
                             account.source.privacy?.asModel()

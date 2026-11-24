@@ -130,7 +130,7 @@ class TrendingActivity : ViewUrlActivity(), MenuProvider {
     override fun onPrepareMenu(menu: Menu) {
         val timeline = adapter.tabs[binding.pager.currentItem].timeline
         // Check if this timeline is in a tab; if not, enable the add_to_tab menu item
-        val currentTabs = accountManager.activeAccount?.tabPreferences.orEmpty()
+        val currentTabs = accountManager.activeAccountConfig?.tabPreferences.orEmpty()
         val hideMenu = currentTabs.contains(timeline)
         menu.findItem(app.pachli.core.ui.R.id.action_add_to_tab)?.isVisible = !hideMenu
     }
@@ -139,7 +139,7 @@ class TrendingActivity : ViewUrlActivity(), MenuProvider {
         app.pachli.core.ui.R.id.action_add_to_tab -> {
             val tabViewData = adapter.tabs[binding.pager.currentItem]
             val timeline = tabViewData.timeline
-            accountManager.activeAccount?.let {
+            accountManager.activeAccountConfig?.let {
                 lifecycleScope.launch(Dispatchers.IO) {
                     accountManager.setTabPreferences(it.pachliAccountId, it.tabPreferences + timeline)
                 }

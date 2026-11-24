@@ -1013,9 +1013,9 @@ class AccountActivity :
         // Create a draft that mentions the user. Uses `Timeline.Home` to get
         // generic draft creation behaviour.
         val draft = if (viewModel.isSelf.value) {
-            Draft.createDraft(this@AccountActivity, activePachliAccount, Timeline.Home)
+            Draft.createDraft(this@AccountActivity, activePachliAccount.config, Timeline.Home)
         } else {
-            Draft.createDraftMention(this@AccountActivity, activePachliAccount, Timeline.Home, account.username)
+            Draft.createDraftMention(this@AccountActivity, activePachliAccount.config, Timeline.Home, account.username)
         }
         val intent = ComposeActivityIntent(
             this@AccountActivity,
@@ -1127,7 +1127,7 @@ class AccountActivity :
         } else {
             val localUsername = account.localUsername
             // Note: !! here will crash if this pane is ever shown to a logged-out user. With AccountActivity this is believed to be impossible.
-            val domain = accountManager.activeAccount!!.domain
+            val domain = accountManager.activeAccountConfig!!.domain
             "@$localUsername@$domain"
         }
     }

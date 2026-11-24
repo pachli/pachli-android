@@ -485,7 +485,7 @@ class ViewThreadFragment :
                 viewModel.onRevokeUserFromCollection(
                     pachliAccountId,
                     collection.collectionId,
-                    accountManager.activeAccount!!.accountId,
+                    accountManager.activeAccountConfig!!.accountId,
                 )
             }
         }

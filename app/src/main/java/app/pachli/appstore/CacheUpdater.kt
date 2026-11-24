@@ -27,7 +27,8 @@ class CacheUpdater @Inject constructor(
     init {
         scope.launch {
             eventHub.events.collect { event ->
-                val accountId = accountManager.activeAccount?.pachliAccountId ?: return@collect
+                val accountId = accountManager.activeAccountConfig?.pachliAccountId
+                    ?: return@collect
                 when (event) {
                     is BookmarkEvent ->
                         statusDao.setBookmarked(accountId, event.statusId, event.bookmark)

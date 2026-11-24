@@ -23,8 +23,8 @@ import android.os.Build
 import androidx.core.content.pm.ShortcutManagerCompat
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.LogoutError
-import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.domain.notifications.DisablePushNotificationsForAccountUseCase
+import app.pachli.core.model.PachliAccountConfig
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
@@ -42,43 +42,43 @@ class LogoutUseCase @Inject constructor(
     private val disablePushNotificationsForAccount: DisablePushNotificationsForAccountUseCase,
 ) {
     /**
-     * Logs [account] out and clears all caches associated with it.
+     * Logs [pachliAccountConfig] out and clears all caches associated with it.
      *
      * @return [com.github.michaelbull.result.Result] with any error that occurred during
      * logout. The errors are ignored (local data is still deleted), but this allows the
      * caller to inform the user.
      */
-    suspend operator fun invoke(account: PachliAccount): Result<Unit, LogoutError> {
+    suspend operator fun invoke(pachliAccountConfig: PachliAccountConfig): Result<Unit, LogoutError> {
         var result: Result<Unit, LogoutError> = Ok(Unit)
 
-        disablePushNotificationsForAccount(account)
+        disablePushNotificationsForAccount(pachliAccountConfig)
             .andThen {
                 api.revokeOAuthToken(
-                    auth = "Bearer ${account.accessToken}",
-                    domain = account.domain,
-                    clientId = account.clientId,
-                    clientSecret = account.clientSecret,
-                    token = account.accessToken,
+                    auth = "Bearer ${pachliAccountConfig.accessToken}",
+                    domain = pachliAccountConfig.domain,
+                    clientId = pachliAccountConfig.clientId,
+                    clientSecret = pachliAccountConfig.clientSecret,
+                    token = pachliAccountConfig.accessToken,
                 )
             }
             .onFailure { result = Err(LogoutError.Api(it)) }
 
         // Clear notification channels
-        deleteNotificationChannelsForAccount(account)
+        deleteNotificationChannelsForAccount(pachliAccountConfig)
 
         // Remove shortcut associated with the account
-        ShortcutManagerCompat.disableShortcuts(context, listOf(account.pachliAccountId.toString()), null)
-        ShortcutManagerCompat.removeDynamicShortcuts(context, listOf(account.pachliAccountId.toString()))
+        ShortcutManagerCompat.disableShortcuts(context, listOf(pachliAccountConfig.pachliAccountId.toString()), null)
+        ShortcutManagerCompat.removeDynamicShortcuts(context, listOf(pachliAccountConfig.pachliAccountId.toString()))
 
-        accountManager.deleteAccount(account)
+        accountManager.deleteAccount(pachliAccountConfig.pachliAccountId)
         return result
     }
 
-    private fun deleteNotificationChannelsForAccount(account: PachliAccount) {
+    private fun deleteNotificationChannelsForAccount(config: PachliAccountConfig) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationManager =
                 context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.deleteNotificationChannelGroup(account.identifier.value)
+            notificationManager.deleteNotificationChannelGroup(config.identifier.value)
         }
     }
 }

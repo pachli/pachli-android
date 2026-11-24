@@ -37,6 +37,7 @@ import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.PachliAccount
+import app.pachli.core.model.PachliAccountConfig
 import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent.LoginMode
@@ -122,8 +123,8 @@ class ManageAccountsFragment :
     private fun bindUiAction(uiAction: UiAction) {
         when (uiAction) {
             UiAction.AddAccount -> addAccount()
-            is UiAction.Logout -> logout(uiAction.pachliAccount)
-            is UiAction.Switch -> switchAccount(uiAction.pachliAccount.pachliAccountId)
+            is UiAction.Logout -> logout(uiAction.pachliAccount.config)
+            is UiAction.Switch -> switchAccount(uiAction.pachliAccount.config.pachliAccountId)
         }
     }
 
@@ -140,23 +141,23 @@ class ManageAccountsFragment :
      * Confirms the user wants to log out [pachliAccount], then routes to
      * [IntentRouterActivity] to log out.
      */
-    private fun logout(pachliAccount: PachliAccount) {
+    private fun logout(pachliAccountConfig: PachliAccountConfig) {
         lifecycleScope.launch {
             val button = AlertSuspendDialogFragment.newInstance(
                 title = getString(
                     app.pachli.core.ui.R.string.title_logout_fmt,
-                    pachliAccount.fullName,
+                    pachliAccountConfig.fullName,
                 ),
                 message = getString(
                     app.pachli.core.ui.R.string.action_logout_confirm,
-                    pachliAccount.fullName,
+                    pachliAccountConfig.fullName,
                 ),
                 positiveText = getString(android.R.string.ok),
                 negativeText = getString(android.R.string.cancel),
             ).await(parentFragmentManager)
 
             if (button == AlertDialog.BUTTON_POSITIVE) {
-                val intent = IntentRouterActivityIntent.logout(requireContext(), pachliAccount.pachliAccountId)
+                val intent = IntentRouterActivityIntent.logout(requireContext(), pachliAccountConfig.pachliAccountId)
                 val options = Bundle().apply { putInt("android.activity.splashScreenStyle", 1) }
                 startActivity(intent, options)
                 requireActivity().finish()

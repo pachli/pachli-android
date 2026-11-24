@@ -205,7 +205,7 @@ class ComposeActivityTest {
         )
             .andThen { accountManager.setActiveAccount(it) }
             .onSuccess { accountManager.refresh(it) }
-            .get()!!.pachliAccountId
+            .get()!!.config.pachliAccountId
     }
 
     /**

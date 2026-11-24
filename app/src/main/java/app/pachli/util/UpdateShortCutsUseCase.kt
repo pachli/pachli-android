@@ -53,7 +53,7 @@ class UpdateShortCutsUseCase @Inject constructor(
             val maxShortcuts = ShortcutManagerCompat.getMaxShortcutCountPerActivity(context)
 
             val shortcuts = pachliAccounts
-                .sortedBy { it.isActive }
+                .sortedBy { it.config.isActive }
                 .take(maxShortcuts)
                 .mapNotNull { pachliAccount ->
                     val drawable = try {
@@ -87,16 +87,16 @@ class UpdateShortCutsUseCase @Inject constructor(
                     val person = Person.Builder()
                         .setIcon(icon)
                         .setName(pachliAccount.account.name)
-                        .setKey(pachliAccount.identifier.value)
+                        .setKey(pachliAccount.config.identifier.value)
                         .build()
 
                     // This intent will be sent when the user clicks on one of the launcher shortcuts.
-                    val intent = IntentRouterActivityIntent.fromShortcut(context, pachliAccount.pachliAccountId)
+                    val intent = IntentRouterActivityIntent.fromShortcut(context, pachliAccount.config.pachliAccountId)
 
-                    ShortcutInfoCompat.Builder(context, pachliAccount.pachliAccountId.toString())
+                    ShortcutInfoCompat.Builder(context, pachliAccount.config.pachliAccountId.toString())
                         .setIntent(intent)
                         .setCategories(setOf("app.pachli.Share"))
-                        .setShortLabel(pachliAccount.account.displayName.ifBlank { pachliAccount.fullName })
+                        .setShortLabel(pachliAccount.account.displayName.ifBlank { pachliAccount.config.fullName })
                         .setPerson(person)
                         .setLongLived(true)
                         .setIcon(icon)

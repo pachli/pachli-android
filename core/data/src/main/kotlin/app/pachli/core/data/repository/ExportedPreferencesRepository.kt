@@ -27,6 +27,7 @@ import app.pachli.core.data.repository.Error.ExportError
 import app.pachli.core.data.repository.Error.ImportError
 import app.pachli.core.model.AccountIdentifier
 import app.pachli.core.model.FilterAction
+import app.pachli.core.model.PachliAccountConfig
 import app.pachli.core.model.Timeline
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SCHEMA_VERSION
@@ -145,7 +146,7 @@ class ExportedPreferencesRepository @Inject constructor(
     @OptIn(ExperimentalStdlibApi::class)
     suspend fun export(uri: Uri) = withContext(Dispatchers.IO) {
         return@withContext runSuspendCatching {
-            val redactedAccounts = accountManager.pachliAccounts.map { it.toRedactedAccount() }
+            val redactedAccounts = accountManager.pachliAccounts.map { it.config.toRedactedAccount() }
 
             val data = ExportedPreferences(
                 version = 1,
@@ -184,12 +185,12 @@ class ExportedPreferencesRepository @Inject constructor(
                 // pachliAccountId will be the same. Instead, match accounts by the
                 // "identifier" property. A local account and a redacted account with
                 // the same identifier are the same.
-                val existingAccounts = accountManager.pachliAccounts.associateBy { it.identifier }
+                val existingAccounts = accountManager.pachliAccounts.associateBy { it.config.identifier }
 
                 // Update any existing accounts from the exported data.
                 importedPrefs.v1.accounts.forEach { redactedAccount ->
                     existingAccounts[redactedAccount.identifier]?.let { existingAccount ->
-                        accountManager.updateFromRedactedAccount(existingAccount.pachliAccountId, redactedAccount)
+                        accountManager.updateFromRedactedAccount(existingAccount.config.pachliAccountId, redactedAccount)
                     }
                 }
 
@@ -290,7 +291,7 @@ class TaggedNumberAdapter private constructor(private val delegate: JsonAdapter<
 }
 
 /**
- * Redacted version of [PachliAccount] that can be saved to local storage without
+ * Redacted version of [PachliAccountConfig] that can be saved to local storage without
  * exposing sensitive data or needlessly replicating data that is stored on the
  * server.
  *
@@ -355,8 +356,8 @@ data class RedactedAccount(
         get() = AccountIdentifier.unsafe("$domain:$accountId")
 }
 
-/** Converts [PachliAccount] to [RedactedAccount]. */
-fun PachliAccount.toRedactedAccount() = RedactedAccount(
+/** Converts [PachliAccountConfig] to [RedactedAccount]. */
+fun PachliAccountConfig.toRedactedAccount() = RedactedAccount(
     domain = this.domain,
     accountId = this.accountId,
     notificationsEnabled = this.notificationsEnabled,

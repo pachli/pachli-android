@@ -308,7 +308,7 @@ data class StatusViewData(
             }
 
             return StatusViewData(
-                pachliAccountId = pachliAccount.pachliAccountId,
+                pachliAccountId = pachliAccount.config.pachliAccountId,
                 status = status.copy(
                     // Ensure the tags have the `following` property set correctly,
                     // the property is typically null/missing from the server.
@@ -324,7 +324,7 @@ data class StatusViewData(
                 attachmentDisplayAction = attachmentDisplayAction,
                 replyToAccount = replyToAccount,
                 isDetailed = isDetailed,
-                isUsersStatus = pachliAccount.accountId == status.actionableStatus.account.accountId,
+                isUsersStatus = pachliAccount.config.accountId == status.actionableStatus.account.accountId,
                 collectionCardViewData = timelineCollections,
             )
         }

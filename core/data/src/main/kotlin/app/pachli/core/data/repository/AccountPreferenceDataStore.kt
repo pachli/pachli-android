@@ -38,7 +38,7 @@ class AccountPreferenceDataStore @Inject constructor(
     val changes = _changes.asSharedFlow()
 
     override fun getBoolean(key: String, defValue: Boolean): Boolean {
-        val account = accountManager.activeAccount ?: return defValue
+        val account = accountManager.activeAccountConfig ?: return defValue
 
         return when (key) {
             PrefKeys.ALWAYS_SHOW_SENSITIVE_MEDIA -> account.alwaysShowSensitiveMedia
@@ -49,7 +49,7 @@ class AccountPreferenceDataStore @Inject constructor(
     }
 
     override fun putBoolean(key: String, value: Boolean) {
-        val account = accountManager.activeAccount!!
+        val account = accountManager.activeAccountConfig!!
 
         externalScope.launch {
             when (key) {

@@ -44,7 +44,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
     private val viewModel: NotificationPreferencesViewModel by viewModels()
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        val activeAccount = accountManager.activeAccount ?: return
+        val activeAccount = accountManager.activeAccountConfig ?: return
         val context = requireContext()
         makePreferenceScreen {
             switchPreference {

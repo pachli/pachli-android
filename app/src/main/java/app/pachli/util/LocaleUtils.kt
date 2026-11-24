@@ -18,7 +18,7 @@ package app.pachli.util
 
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
-import app.pachli.core.model.IPachliAccountConfig
+import app.pachli.core.model.PachliAccountConfig
 import java.util.Locale
 import timber.log.Timber
 
@@ -58,8 +58,8 @@ private fun ensureLanguagesAreFirst(locales: MutableList<Locale>, languages: Lis
     }
 }
 
-fun getInitialLanguages(language: String? = null, activeAccount: IPachliAccountConfig? = null): List<String> {
-    val selected = listOfNotNull(language, activeAccount?.defaultPostLanguage)
+fun getInitialLanguages(language: String? = null, pachliAccountConfig: PachliAccountConfig? = null): List<String> {
+    val selected = listOfNotNull(language, pachliAccountConfig?.defaultPostLanguage)
     val system = AppCompatDelegate.getApplicationLocales().toList() +
         LocaleListCompat.getDefault().toList()
 

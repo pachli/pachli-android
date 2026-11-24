@@ -72,7 +72,7 @@ class UnifiedPushService : PushService() {
             Timber.d("Endpoint available for account %s: %s", pachliAccount, instance)
             // Launch the coroutine in global scope -- it is short and we don't want to lose the registration event
             // and there is no saner way to use structured concurrency in a receiver
-            GlobalScope.launch { registerUnifiedPushEndpoint(pachliAccount, endpoint) }
+            GlobalScope.launch { registerUnifiedPushEndpoint(pachliAccount.config, endpoint) }
         }
     }
 
@@ -87,7 +87,7 @@ class UnifiedPushService : PushService() {
         Timber.d("onUnregistered with instance $instance")
         accountManager.getPachliAccountById(instance.toLong())?.let { pachliAccount ->
             GlobalScope.launch {
-                disablePushNotificationsForAccount(pachliAccount)
+                disablePushNotificationsForAccount(pachliAccount.config)
             }
         }
     }

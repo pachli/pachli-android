@@ -495,7 +495,7 @@ class ConversationsFragment :
     private fun onPreferenceChanged(key: String) {
         when (key) {
             PrefKeys.MEDIA_PREVIEW_ENABLED -> {
-                val enabled = accountManager.activeAccount!!.mediaPreviewEnabled
+                val enabled = accountManager.activeAccountConfig!!.mediaPreviewEnabled
                 val oldMediaPreviewEnabled = adapter.mediaPreviewEnabled
                 if (enabled != oldMediaPreviewEnabled) {
                     adapter.mediaPreviewEnabled = enabled
@@ -512,7 +512,7 @@ class ConversationsFragment :
                 viewModel.onRevokeUserFromCollection(
                     pachliAccountId,
                     collection.collectionId,
-                    accountManager.activeAccount!!.accountId,
+                    accountManager.activeAccountConfig!!.accountId,
                 )
             }
         }

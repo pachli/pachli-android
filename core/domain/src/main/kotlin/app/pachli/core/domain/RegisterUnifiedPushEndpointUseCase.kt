@@ -20,10 +20,10 @@ package app.pachli.core.domain
 import android.content.Context
 import app.pachli.core.common.util.CryptoUtil
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.domain.notifications.DisablePushNotificationsForAccountUseCase
 import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.model.Notification
+import app.pachli.core.model.PachliAccountConfig
 import app.pachli.core.network.model.asNetworkModel
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.onFailure
@@ -58,7 +58,7 @@ class RegisterUnifiedPushEndpointUseCase @Inject constructor(
      * the distributor has set the endpoint.
      */
     suspend operator fun invoke(
-        pachliAccount: PachliAccount,
+        pachliAccountConfig: PachliAccountConfig,
         endpoint: PushEndpoint,
     ) = withContext(Dispatchers.IO) {
         // Generate a prime256v1 key pair for WebPush
@@ -70,21 +70,21 @@ class RegisterUnifiedPushEndpointUseCase @Inject constructor(
         val auth = CryptoUtil.secureRandomBytesEncoded(16)
 
         api.subscribePushNotifications(
-            pachliAccount.authHeader,
-            pachliAccount.domain,
+            pachliAccountConfig.authHeader,
+            pachliAccountConfig.domain,
             endpoint.url,
             keyPair.pubkey,
             auth,
             subscriptionData,
         ).onFailure { error ->
-            Timber.w("Error setting push endpoint for account %s %d: %s", pachliAccount, pachliAccount.pachliAccountId, error.fmt(context))
-            NotificationConfig.notificationMethodAccount[pachliAccount.fullName] = NotificationConfig.Method.PushError(error.throwable)
-            disablePushNotificationsForAccount(pachliAccount)
+            Timber.w("Error setting push endpoint for account %s %d: %s", pachliAccountConfig, pachliAccountConfig.pachliAccountId, error.fmt(context))
+            NotificationConfig.notificationMethodAccount[pachliAccountConfig.fullName] = NotificationConfig.Method.PushError(error.throwable)
+            disablePushNotificationsForAccount(pachliAccountConfig)
         }.onSuccess {
-            Timber.d("UnifiedPush registration succeeded for account %d", pachliAccount.pachliAccountId)
+            Timber.d("UnifiedPush registration succeeded for account %d", pachliAccountConfig.pachliAccountId)
 
             accountManager.setPushNotificationData(
-                pachliAccount.pachliAccountId,
+                pachliAccountConfig.pachliAccountId,
                 unifiedPushUrl = endpoint.url,
                 pushServerKey = it.body.serverKey,
                 pushAuth = auth,
@@ -92,7 +92,7 @@ class RegisterUnifiedPushEndpointUseCase @Inject constructor(
                 pushPubKey = keyPair.pubkey,
             )
 
-            NotificationConfig.notificationMethodAccount[pachliAccount.fullName] = NotificationConfig.Method.Push
+            NotificationConfig.notificationMethodAccount[pachliAccountConfig.fullName] = NotificationConfig.Method.Push
         }
     }
 }

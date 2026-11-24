@@ -427,7 +427,7 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
                             ContentFilterVersion.V2 -> ContentFilterModel(filterContext)
                             ContentFilterVersion.V1 -> ContentFilterModel(filterContext, account.contentFilters.contentFilters)
                         }
-                        if (reload) repository.invalidate(account.pachliAccountId)
+                        if (reload) repository.invalidate(account.config.pachliAccountId)
                         true
                     }
             }

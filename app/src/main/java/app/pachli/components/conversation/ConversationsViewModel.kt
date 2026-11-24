@@ -79,7 +79,7 @@ class ConversationsViewModel @AssistedInject constructor(
     val accept: (UiAction) -> Unit = { action -> viewModelScope.launch { uiAction.emit(action) } }
 
     val conversationFlow = accountFlow.flatMapLatest { pachliAccount ->
-        repository.conversations(pachliAccount.pachliAccountId).map { pagingData ->
+        repository.conversations(pachliAccount.config.pachliAccountId).map { pagingData ->
             pagingData
                 .map { conversation ->
                     val accountFilterDecision = if (conversation.isConversationStarter) {
@@ -96,7 +96,7 @@ class ConversationsViewModel @AssistedInject constructor(
                         pachliAccount,
                         conversation,
                         showSensitiveMedia = statusDisplayOptions.value.showSensitiveMedia,
-                        defaultIsExpanded = pachliAccount.alwaysOpenSpoiler,
+                        defaultIsExpanded = pachliAccount.config.alwaysOpenSpoiler,
                         // Mastodon filters don't apply to direct messages, so this
                         // is always FilterAction.NONE.
                         contentFilterAction = FilterAction.NONE,
@@ -159,15 +159,15 @@ class ConversationsViewModel @AssistedInject constructor(
         val accountToTest = conversationData.lastStatus.timelineStatus.account
 
         // Any conversations where we wrote the last status are not filtered.
-        if (accountWithFilters.accountId == accountToTest.accountId) return AccountFilterDecision.None
+        if (accountWithFilters.config.accountId == accountToTest.accountId) return AccountFilterDecision.None
 
         val decisions = buildList {
             // Check the following relationship.
-            if (accountWithFilters.conversationAccountFilterNotFollowed != FilterAction.NONE) {
+            if (accountWithFilters.config.conversationAccountFilterNotFollowed != FilterAction.NONE) {
                 if (accountWithFilters.following.none { it.accountId == accountToTest.accountId }) {
                     add(
                         AccountFilterDecision.make(
-                            accountWithFilters.conversationAccountFilterNotFollowed,
+                            accountWithFilters.config.conversationAccountFilterNotFollowed,
                             AccountFilterReason.NOT_FOLLOWING,
                         ),
                     )
@@ -176,11 +176,11 @@ class ConversationsViewModel @AssistedInject constructor(
 
             // Check the age of the account relative to the status.
             accountToTest.createdAt?.let { createdAt ->
-                if (accountWithFilters.conversationAccountFilterYounger30d != FilterAction.NONE) {
+                if (accountWithFilters.config.conversationAccountFilterYounger30d != FilterAction.NONE) {
                     if (Duration.between(createdAt, Instant.ofEpochMilli(status.status.createdAt)) < Duration.ofDays(30)) {
                         add(
                             AccountFilterDecision.make(
-                                accountWithFilters.conversationAccountFilterYounger30d,
+                                accountWithFilters.config.conversationAccountFilterYounger30d,
                                 AccountFilterReason.YOUNGER_30D,
                             ),
                         )
@@ -189,10 +189,10 @@ class ConversationsViewModel @AssistedInject constructor(
             }
 
             // Check limited status
-            if (accountToTest.limited && accountWithFilters.conversationAccountFilterLimitedByServer != FilterAction.NONE) {
+            if (accountToTest.limited && accountWithFilters.config.conversationAccountFilterLimitedByServer != FilterAction.NONE) {
                 add(
                     AccountFilterDecision.make(
-                        accountWithFilters.notificationAccountFilterLimitedByServer,
+                        accountWithFilters.config.notificationAccountFilterLimitedByServer,
                         AccountFilterReason.LIMITED_BY_SERVER,
                     ),
                 )

@@ -136,7 +136,7 @@ class TimelineActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         binding.composeButton.setOnClickListener {
             lifecycleScope.launch {
                 val account = accountManager.getPachliAccountById(pachliAccountId)!!
-                val draft = Draft.createDraft(this@TimelineActivity, account, timeline)
+                val draft = Draft.createDraft(this@TimelineActivity, account.config, timeline)
                 val composeOptions = ComposeOptions(draft = draft)
                 val intent = ComposeActivityIntent(this@TimelineActivity, pachliAccountId, composeOptions)
                 startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
@@ -171,7 +171,7 @@ class TimelineActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         // Check if this timeline is in a tab; if not, enable the add_to_tab menu item
         // Timeline.Link (all posts about a specific link) and Timeline.Quote are
         // special-cased to not be addable to a tab).
-        val currentTabs = accountManager.activeAccount?.tabPreferences.orEmpty()
+        val currentTabs = accountManager.activeAccountConfig?.tabPreferences.orEmpty()
         val hideMenu = timeline is Timeline.Link || timeline is Timeline.Quote || currentTabs.contains(timeline)
         menu.findItem(app.pachli.core.ui.R.id.action_add_to_tab)?.isVisible = !hideMenu
     }
@@ -205,7 +205,7 @@ class TimelineActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
     }
 
     private fun addToTab() {
-        accountManager.activeAccount?.let {
+        accountManager.activeAccountConfig?.let {
             lifecycleScope.launch(Dispatchers.IO) {
                 accountManager.setTabPreferences(it.pachliAccountId, it.tabPreferences + timeline)
             }

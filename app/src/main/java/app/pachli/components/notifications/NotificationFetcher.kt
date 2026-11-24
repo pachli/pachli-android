@@ -22,10 +22,10 @@ import android.content.Context
 import androidx.annotation.WorkerThread
 import app.pachli.core.common.string.isLessThan
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.notifications.NotificationsRepository
 import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.model.AccountFilterDecision
+import app.pachli.core.model.PachliAccountConfig
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Marker
 import app.pachli.core.network.model.Notification
@@ -77,18 +77,18 @@ class NotificationFetcher @Inject constructor(
         for (pachliAccount in pachliAccounts) {
             Timber.d(
                 "Checking %s, notificationsEnabled = %s",
-                pachliAccount.fullName,
-                pachliAccount.notificationsEnabled,
+                pachliAccount.config.fullName,
+                pachliAccount.config.notificationsEnabled,
             )
-            if (pachliAccount.notificationsEnabled) {
+            if (pachliAccount.config.notificationsEnabled) {
                 try {
                     val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
                     // Create sorted list of new notifications
-                    val notifications = fetchNewNotifications(pachliAccount)
+                    val notifications = fetchNewNotifications(pachliAccount.config)
                         .asSequence()
-                        .mapNotNull { it.asModel(pachliAccount.accountId) }
-                        .filter { filterNotification(notificationManager, pachliAccount, it) }
+                        .mapNotNull { it.asModel(pachliAccount.config.accountId) }
+                        .filter { filterNotification(notificationManager, pachliAccount.config, it) }
                         .filter {
                             val decision = filterNotificationByAccount(pachliAccount, it)
                             decision is AccountFilterDecision.None
@@ -129,10 +129,10 @@ class NotificationFetcher @Inject constructor(
                             context,
                             notificationManager,
                             notification,
-                            pachliAccount,
+                            pachliAccount.config,
                             index == 0,
                         )
-                        notificationManager.notify(notification.notificationId, pachliAccount.pachliAccountId.toInt(), androidNotification)
+                        notificationManager.notify(notification.notificationId, pachliAccount.config.pachliAccountId.toInt(), androidNotification)
                         // Android will rate limit / drop notifications if they're posted too
                         // quickly. There is no indication to the user that this happened.
                         // See https://github.com/tuskyapp/Tusky/pull/3626#discussion_r1192963664
@@ -142,7 +142,7 @@ class NotificationFetcher @Inject constructor(
                     updateSummaryNotifications(
                         context,
                         notificationManager,
-                        pachliAccount,
+                        pachliAccount.config,
                     )
                 } catch (e: Exception) {
                     currentCoroutineContext().ensureActive()
@@ -170,22 +170,23 @@ class NotificationFetcher @Inject constructor(
      * ones that were last fetched here. So the refresh key takes precedence if it is greater
      * than the marker.
      */
-    private suspend fun fetchNewNotifications(account: PachliAccount): List<Notification> {
-        Timber.d("fetchNewNotifications(%s)", account.fullName)
+    private suspend fun fetchNewNotifications(pachliAccountConfig: PachliAccountConfig): List<Notification> {
+        Timber.d("fetchNewNotifications(%s)", pachliAccountConfig.fullName)
 
         // Figure out which water mark to use.
-        Timber.d("getting notification marker for %s", account.fullName)
-        val remoteMarkerId = fetchMarker(account)?.lastReadId ?: "0"
-        val localMarkerId = account.notificationMarkerId
+        Timber.d("getting notification marker for %s", pachliAccountConfig.fullName)
+        val remoteMarkerId = fetchMarker(pachliAccountConfig)?.lastReadId ?: "0"
+        val localMarkerId = pachliAccountConfig.notificationMarkerId
         val markerId = if (remoteMarkerId.isLessThan(localMarkerId)) localMarkerId else remoteMarkerId
-        val readingPosition = notificationsRepository.getRefreshKey(account.pachliAccountId) ?: "0"
+        val readingPosition = notificationsRepository.getRefreshKey(pachliAccountConfig.pachliAccountId)
+            ?: "0"
 
         var minId: String? = if (readingPosition.isLessThan(markerId)) markerId else readingPosition
         Timber.d("  remoteMarkerId: %s", remoteMarkerId)
         Timber.d("  localMarkerId: %s", localMarkerId)
         Timber.d("  readingPosition: %s", readingPosition)
 
-        Timber.d("getting Notifications for %s, min_id: %s", account.fullName, minId)
+        Timber.d("getting Notifications for %s, min_id: %s", pachliAccountConfig.fullName, minId)
 
         // Fetch all outstanding notifications
         val notifications = buildList {
@@ -193,12 +194,12 @@ class NotificationFetcher @Inject constructor(
                 val now = Instant.now()
                 Timber.d("Fetching notifications from server")
                 mastodonApi.notificationsWithAuth(
-                    account.authHeader,
-                    account.domain,
+                    pachliAccountConfig.authHeader,
+                    pachliAccountConfig.domain,
                     minId = minId,
                 ).onSuccess { response ->
                     val notifications = response.body
-                    NotificationConfig.lastFetchNewNotifications[account.fullName] = Pair(now, Ok(Unit))
+                    NotificationConfig.lastFetchNewNotifications[pachliAccountConfig.fullName] = Pair(now, Ok(Unit))
                     Timber.i(
                         "Fetching notifications from server succeeded, returned %d notifications",
                         notifications.size,
@@ -218,7 +219,7 @@ class NotificationFetcher @Inject constructor(
                     .onFailure {
                         val error = it.fmt(context)
                         Timber.e("Fetching notifications from server failed: %s", error)
-                        NotificationConfig.lastFetchNewNotifications[account.fullName] = Pair(now, Err(error))
+                        NotificationConfig.lastFetchNewNotifications[pachliAccountConfig.fullName] = Pair(now, Err(error))
                         return@buildList
                     }
             }
@@ -227,28 +228,28 @@ class NotificationFetcher @Inject constructor(
         // Save the newest notification ID in the marker.
         notifications.firstOrNull()?.let {
             val newMarkerId = notifications.first().id
-            Timber.d("updating notification marker for %s to: %s", account.fullName, newMarkerId)
+            Timber.d("updating notification marker for %s to: %s", pachliAccountConfig.fullName, newMarkerId)
             mastodonApi.updateMarkersWithAuth(
-                auth = account.authHeader,
-                domain = account.domain,
+                auth = pachliAccountConfig.authHeader,
+                domain = pachliAccountConfig.domain,
                 notificationsLastReadId = newMarkerId,
             )
-            accountManager.setNotificationMarkerId(account.pachliAccountId, newMarkerId)
-            Timber.d("Updated notification marker for %s to: %s", account.fullName, newMarkerId)
+            accountManager.setNotificationMarkerId(pachliAccountConfig.pachliAccountId, newMarkerId)
+            Timber.d("Updated notification marker for %s to: %s", pachliAccountConfig.fullName, newMarkerId)
         }
 
         return notifications
     }
 
-    private suspend fun fetchMarker(account: PachliAccount): Marker? {
+    private suspend fun fetchMarker(pachliAccountConfig: PachliAccountConfig): Marker? {
         return mastodonApi.markersWithAuth(
-            account.authHeader,
-            account.domain,
+            pachliAccountConfig.authHeader,
+            pachliAccountConfig.domain,
             listOf("notifications"),
         ).mapBoth(
             {
                 val notificationMarker = it.body["notifications"]
-                Timber.d("Fetched marker for %s: %s", account.fullName, notificationMarker)
+                Timber.d("Fetched marker for %s: %s", pachliAccountConfig.fullName, notificationMarker)
                 notificationMarker
             },
             {

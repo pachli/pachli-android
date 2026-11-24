@@ -157,39 +157,39 @@ internal class CollectionViewModel @Inject constructor(
                         collection = collection,
                         owner = owner?.let {
                             AccountViewData(
-                                pachliAccountId = pachliAccount.pachliAccountId,
+                                pachliAccountId = pachliAccount.config.pachliAccountId,
                                 collectionId = collection.collectionId,
                                 account = owner,
                                 relationship = relationships[owner.accountId],
                                 isEnabled = !disabledAccountIds.contains(it.accountId),
-                                isSelf = owner.accountId == pachliAccount.accountId,
+                                isSelf = owner.accountId == pachliAccount.config.accountId,
                                 primaryAction = makePrimaryAction(
-                                    pachliAccountId = pachliAccount.pachliAccountId,
+                                    pachliAccountId = pachliAccount.config.pachliAccountId,
                                     collection = collection,
                                     account = owner,
-                                    isSelf = owner.accountId == pachliAccount.accountId,
+                                    isSelf = owner.accountId == pachliAccount.config.accountId,
                                     relationship = relationships[it.accountId],
                                 ),
                             )
                         },
                         accounts = accounts.map { account ->
                             AccountViewData(
-                                pachliAccountId = pachliAccount.pachliAccountId,
+                                pachliAccountId = pachliAccount.config.pachliAccountId,
                                 collectionId = collection.collectionId,
                                 account = account,
                                 relationship = relationships[account.accountId],
                                 isEnabled = !disabledAccountIds.contains(account.accountId),
-                                isSelf = account.accountId == pachliAccount.accountId,
+                                isSelf = account.accountId == pachliAccount.config.accountId,
                                 primaryAction = makePrimaryAction(
-                                    pachliAccountId = pachliAccount.pachliAccountId,
+                                    pachliAccountId = pachliAccount.config.pachliAccountId,
                                     collection = collection,
                                     account = account,
-                                    isSelf = account.accountId == pachliAccount.accountId,
+                                    isSelf = account.accountId == pachliAccount.config.accountId,
                                     relationship = relationships[account.accountId],
                                 ),
                             )
                         },
-                        isMember = accounts.firstOrNull { it.accountId == pachliAccount.accountId },
+                        isMember = accounts.firstOrNull { it.accountId == pachliAccount.config.accountId },
                     )
                 }
             }

@@ -19,8 +19,8 @@ package app.pachli.core.domain.notifications
 
 import android.content.Context
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.model.AccountNotificationMethod
+import app.pachli.core.model.PachliAccountConfig
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Ok
@@ -36,7 +36,7 @@ class DisablePushNotificationsForAccountUseCase @Inject constructor(
     private val accountManager: AccountManager,
 ) {
     /**
-     * Disables UnifiedPush notifications for [account].
+     * Disables UnifiedPush notifications for [pachliAccountConfig].
      *
      * - Calls the server to disable push notifications.
      * - Clears UnifiedPush related data from the account's data.
@@ -45,18 +45,18 @@ class DisablePushNotificationsForAccountUseCase @Inject constructor(
      * API errors that occur during the process are ignored, but are returned,
      * so the caller can inform the user of any problems.
      *
-     * @param account
+     * @param pachliAccountConfig
      */
-    suspend operator fun invoke(account: PachliAccount): Result<Unit, ApiError> {
-        if (account.notificationMethod != AccountNotificationMethod.PUSH) return Ok(Unit)
+    suspend operator fun invoke(pachliAccountConfig: PachliAccountConfig): Result<Unit, ApiError> {
+        if (pachliAccountConfig.notificationMethod != AccountNotificationMethod.PUSH) return Ok(Unit)
 
         // Try and unregister the endpoint from the server.
-        val result = api.unsubscribePushNotifications("Bearer ${account.accessToken}", account.domain)
+        val result = api.unsubscribePushNotifications("Bearer ${pachliAccountConfig.accessToken}", pachliAccountConfig.domain)
             .map { }
 
         // Clear the push notification from the account.
-        accountManager.clearPushNotificationData(account.pachliAccountId)
-        NotificationConfig.notificationMethodAccount[account.fullName] = NotificationConfig.Method.Pull
+        accountManager.clearPushNotificationData(pachliAccountConfig.pachliAccountId)
+        NotificationConfig.notificationMethodAccount[pachliAccountConfig.fullName] = NotificationConfig.Method.Pull
 
         // Unregister from the UnifiedPush provider.
         //
@@ -64,7 +64,7 @@ class DisablePushNotificationsForAccountUseCase @Inject constructor(
         // whether or not instances had acked it). Work around this bug by saving the values, and
         // restoring them afterwards.
         val savedDistributor = UnifiedPush.getSavedDistributor(context)
-        UnifiedPush.unregister(context, account.unifiedPushInstance)
+        UnifiedPush.unregister(context, pachliAccountConfig.unifiedPushInstance)
         savedDistributor?.let { UnifiedPush.saveDistributor(context, savedDistributor) }
 
         return result
