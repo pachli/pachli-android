@@ -1,0 +1,15 @@
+Pachli 2.0.0
+
+Nouveautés :
+
+- Statut de la traduction sur timeline en cache 
+- Bouton de composition en vue de hashtags et favoris
+- Quantité d'information des prévisualisations de liens 
+- Alerte d'erreur d'animation Android 
+
+Corrections :
+
+- Evite ClassCastException lors d'erreurs de timeline 
+- Mise à jour des couleurs du thème
+- Rétention des données liées aux mises à jour 
+- Traductions allemande, italienne et japonaise mises à jour
