@@ -58,8 +58,8 @@ import app.pachli.core.model.AccountIdentifier
 import app.pachli.core.model.AccountWarning
 import app.pachli.core.model.Draft
 import app.pachli.core.model.FilterAction
+import app.pachli.core.model.IPachliAccountConfig
 import app.pachli.core.model.Notification
-import app.pachli.core.model.PachliAccount
 import app.pachli.core.model.RelationshipSeveranceEvent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.IntentRouterActivityIntent
@@ -164,7 +164,7 @@ fun makeNotification(
     context: Context,
     notificationManager: NotificationManager,
     mastodonNotification: Notification,
-    pachliAccount: PachliAccount,
+    pachliAccount: IPachliAccountConfig,
     isFirstOfBatch: Boolean,
 ): android.app.Notification {
     val mastodonNotificationId = mastodonNotification.notificationId
@@ -279,7 +279,7 @@ fun makeNotification(
 fun updateSummaryNotifications(
     context: Context,
     notificationManager: NotificationManager,
-    pachliAccount: PachliAccount,
+    pachliAccount: IPachliAccountConfig,
 ) {
     // Map from the channel ID to a list of notifications in that channel. Those are the
     // notifications that will be summarised.
@@ -381,7 +381,7 @@ private fun newAndroidNotification(
     context: Context,
     notificationId: Int,
     notification: Notification,
-    pachliAccount: PachliAccount,
+    pachliAccount: IPachliAccountConfig,
 ): NotificationCompat.Builder {
     val eventResultIntent = IntentRouterActivityIntent.fromNotification(
         context,
@@ -413,7 +413,7 @@ private fun newAndroidNotification(
 private fun getStatusReplyIntent(
     context: Context,
     body: Notification.WithStatus,
-    pachliAccount: PachliAccount,
+    pachliAccount: IPachliAccountConfig,
 ): PendingIntent {
     val status = body.status
 
@@ -440,7 +440,7 @@ private fun getStatusReplyIntent(
 private fun getStatusComposeIntent(
     context: Context,
     body: Notification.WithStatus,
-    pachliAccount: PachliAccount,
+    pachliAccount: IPachliAccountConfig,
 ): PendingIntent {
     val status = body.status
 
@@ -464,7 +464,7 @@ private fun getStatusComposeIntent(
     )
 }
 
-fun createNotificationChannelsForAccount(account: PachliAccount, context: Context) {
+fun createNotificationChannelsForAccount(account: IPachliAccountConfig, context: Context) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -546,7 +546,7 @@ fun clearNotificationsForAccount(context: Context, pachliAccountId: Long) {
  */
 fun filterNotification(
     notificationManager: NotificationManager,
-    account: PachliAccount,
+    account: IPachliAccountConfig,
     notification: Notification,
 ): Boolean {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -657,7 +657,7 @@ fun filterNotificationByAccount(accountWithFilters: app.pachli.core.data.reposit
         ?: AccountFilterDecision.None
 }
 
-private fun getChannelId(account: PachliAccount, notification: Notification): String? {
+private fun getChannelId(account: IPachliAccountConfig, notification: Notification): String? {
     return when (notification) {
         is Notification.Mention -> PachliNotificationChannels.MENTION.channelId(account.identifier)
         is Notification.Status -> PachliNotificationChannels.SUBSCRIPTIONS.channelId(account.identifier)
@@ -680,7 +680,7 @@ private fun getChannelId(account: PachliAccount, notification: Notification): St
 }
 
 private fun setSoundVibrationLight(
-    account: PachliAccount,
+    account: IPachliAccountConfig,
     builder: NotificationCompat.Builder,
 ) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -732,7 +732,7 @@ private fun joinNames(context: Context, notifications: List<StatusBarNotificatio
 private fun titleForType(
     context: Context,
     notification: Notification,
-    account: PachliAccount,
+    account: IPachliAccountConfig,
 ): Spanned {
     val accountName = notification.account.name.htmlEncode().unicodeWrap()
     val htmlTitle = when (notification) {

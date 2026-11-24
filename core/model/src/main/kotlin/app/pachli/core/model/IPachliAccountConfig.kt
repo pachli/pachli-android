@@ -87,7 +87,7 @@ package app.pachli.core.model
  * @property hasPushScope True if the account has the `push` OAuth scope.
  * @property notificationMethod The account's [AccountNotificationMethod].
  */
-interface PachliAccount {
+interface IPachliAccountConfig {
     val pachliAccountId: Long
     val domain: String
     val accessToken: String

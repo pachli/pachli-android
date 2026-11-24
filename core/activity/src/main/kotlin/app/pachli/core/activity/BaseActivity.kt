@@ -43,7 +43,7 @@ import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.designsystem.EmbeddedFontFamily
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.model.PachliAccount
+import app.pachli.core.model.IPachliAccountConfig
 import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.preferences.AppTheme
@@ -265,7 +265,7 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
     suspend fun chooseAccount(
         dialogTitle: CharSequence?,
         showActiveAccount: Boolean,
-    ): PachliAccount? {
+    ): IPachliAccountConfig? {
         val accounts = accountManager.accountsOrderedByActive
         when (accounts.size) {
             1 -> return accounts.first()
@@ -287,7 +287,7 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
             }
         }
 
-    fun openAsAccount(url: String, account: PachliAccount) {
+    fun openAsAccount(url: String, account: IPachliAccountConfig) {
         startActivity(IntentRouterActivityIntent.openAs(this, account.pachliAccountId, url))
         finish()
     }

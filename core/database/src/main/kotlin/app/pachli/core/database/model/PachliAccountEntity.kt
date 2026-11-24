@@ -102,7 +102,7 @@ data class PachliAccountEntity(
     override var conversationAccountFilterYounger30d: FilterAction = FilterAction.NONE,
     @ColumnInfo(defaultValue = "NONE")
     override var conversationAccountFilterLimitedByServer: FilterAction = FilterAction.NONE,
-) : app.pachli.core.model.PachliAccount
+) : app.pachli.core.model.IPachliAccountConfig
 
 fun defaultTabs() = listOf(
     Timeline.Home,
