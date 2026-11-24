@@ -78,7 +78,7 @@ class MainActivityTest {
         launchActivity = false,
     )
 
-    private val pachliAccountEntity = fakePachliAccountEntity()
+    private val pachliAccountConfig = fakePachliAccountEntity().asModel()
 
     @Inject
     lateinit var mastodonApi: MastodonApi
@@ -184,14 +184,14 @@ class MainActivityTest {
         val notificationManager = context.getSystemService(NotificationManager::class.java)
         val shadowNotificationManager = shadowOf(notificationManager)
 
-        createNotificationChannelsForAccount(pachliAccountEntity, context)
+        createNotificationChannelsForAccount(pachliAccountConfig, context)
 
         runInBackground {
             val notification = makeNotification(
                 context,
                 notificationManager,
                 notification,
-                pachliAccountEntity,
+                pachliAccountConfig,
                 true,
             )
             notificationManager.notify("id", 1, notification)

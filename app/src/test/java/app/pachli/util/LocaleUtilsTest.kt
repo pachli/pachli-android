@@ -64,7 +64,7 @@ class LocaleUtilsTest {
 
                 return getInitialLanguages(
                     configuredLanguages[0],
-                    fakePachliAccountEntity().copy(
+                    fakePachliAccountEntity().asModel().copy(
                         defaultPostLanguage = configuredLanguages[1].orEmpty(),
                     ),
                 )

@@ -38,7 +38,7 @@ import org.robolectric.ParameterizedRobolectricTestRunner
 abstract class BaseDraftCompanionTest {
     protected val context: Context = ApplicationProvider.getApplicationContext()
 
-    protected val account = fakePachliAccountEntity()
+    protected val pachliAccountConfig = fakePachliAccountEntity().asModel()
 }
 
 @RunWith(AndroidJUnit4::class)
@@ -46,13 +46,13 @@ class DraftCompanionTest : BaseDraftCompanionTest() {
     @Test
     fun `Draft․createDraft() for Timeline․Home uses account defaults (1)`() {
         // When
-        val draft = Draft.createDraft(context, account, Timeline.Home)
+        val draft = Draft.createDraft(context, pachliAccountConfig, Timeline.Home)
 
         // Then
-        assertThat(draft.sensitive).isEqualTo(account.defaultMediaSensitivity)
-        assertThat(draft.visibility).isEqualTo(account.defaultPostPrivacy)
-        assertThat(draft.language).isEqualTo(account.defaultPostLanguage)
-        assertThat(draft.quotePolicy).isEqualTo(account.defaultQuotePolicy)
+        assertThat(draft.sensitive).isEqualTo(pachliAccountConfig.defaultMediaSensitivity)
+        assertThat(draft.visibility).isEqualTo(pachliAccountConfig.defaultPostPrivacy)
+        assertThat(draft.language).isEqualTo(pachliAccountConfig.defaultPostLanguage)
+        assertThat(draft.quotePolicy).isEqualTo(pachliAccountConfig.defaultQuotePolicy)
 
         assertThat(draft.content).isEqualTo("")
         assertThat(draft.cursorPosition).isEqualTo(0)
@@ -61,7 +61,7 @@ class DraftCompanionTest : BaseDraftCompanionTest() {
     @Test
     fun `Draft․createDraft() for Timeline․Home uses account defaults (2)`() {
         // Given
-        val account = this.account.copy(
+        val pachliAccountConfig = this.pachliAccountConfig.copy(
             defaultMediaSensitivity = true,
             defaultPostPrivacy = Status.Visibility.UNLISTED,
             defaultPostLanguage = "un",
@@ -69,13 +69,13 @@ class DraftCompanionTest : BaseDraftCompanionTest() {
         )
 
         // When
-        val draft = Draft.createDraft(context, account, Timeline.Home)
+        val draft = Draft.createDraft(context, pachliAccountConfig, Timeline.Home)
 
         // Then
-        assertThat(draft.sensitive).isEqualTo(account.defaultMediaSensitivity)
-        assertThat(draft.visibility).isEqualTo(account.defaultPostPrivacy)
-        assertThat(draft.language).isEqualTo(account.defaultPostLanguage)
-        assertThat(draft.quotePolicy).isEqualTo(account.defaultQuotePolicy)
+        assertThat(draft.sensitive).isEqualTo(pachliAccountConfig.defaultMediaSensitivity)
+        assertThat(draft.visibility).isEqualTo(pachliAccountConfig.defaultPostPrivacy)
+        assertThat(draft.language).isEqualTo(pachliAccountConfig.defaultPostLanguage)
+        assertThat(draft.quotePolicy).isEqualTo(pachliAccountConfig.defaultQuotePolicy)
 
         assertThat(draft.content).isEqualTo("")
         assertThat(draft.cursorPosition).isEqualTo(0)
@@ -84,7 +84,7 @@ class DraftCompanionTest : BaseDraftCompanionTest() {
     @Test
     fun `Draft․createDraft() for Timeline․Conversations sets Visibility․DIRECT`() {
         // When
-        val draft = Draft.createDraft(context, account, Timeline.Conversations)
+        val draft = Draft.createDraft(context, pachliAccountConfig, Timeline.Conversations)
 
         // Then
         assertThat(draft.visibility).isEqualTo(Status.Visibility.DIRECT)
@@ -95,7 +95,7 @@ class DraftCompanionTest : BaseDraftCompanionTest() {
         // When
         val draft = Draft.createDraft(
             context,
-            account,
+            pachliAccountConfig,
             Timeline.Hashtags(listOf("one")),
         )
 
@@ -110,7 +110,7 @@ class DraftCompanionTest : BaseDraftCompanionTest() {
         val status = fakeStatus().asModel().copy(spoilerText = "content-warning")
 
         // When
-        val draft = Draft.createDraftReply(account, status)
+        val draft = Draft.createDraftReply(pachliAccountConfig, status)
 
         // Then
         assertThat(draft.contentWarning).isEqualTo(status.spoilerText)
@@ -119,7 +119,7 @@ class DraftCompanionTest : BaseDraftCompanionTest() {
     @Test
     fun `Draft․createDraftReply() inherits status language`() {
         // Given
-        val account = this.account.copy(defaultPostLanguage = "en")
+        val account = this.pachliAccountConfig.copy(defaultPostLanguage = "en")
         val status = fakeStatus().asModel().copy(language = "fr")
 
         // When
@@ -135,7 +135,7 @@ class DraftCompanionTest : BaseDraftCompanionTest() {
         val status = fakeStatus().asModel()
 
         // When
-        val draft = Draft.createDraftReply(account, status)
+        val draft = Draft.createDraftReply(pachliAccountConfig, status)
 
         // Then
         assertThat(draft.content).isEqualTo("@connyduck@mastodon.example ")
@@ -154,7 +154,7 @@ class DraftCreateReplySensitivityTest(
     @Test
     fun `Draft․createDraftReply() uses stricter sensitive property`() {
         // Given
-        val account = this.account.copy(defaultMediaSensitivity = testData.accountMediaSensitivity)
+        val account = this.pachliAccountConfig.copy(defaultMediaSensitivity = testData.accountMediaSensitivity)
         val status = fakeStatus().asModel().copy(sensitive = testData.statusSensitivity)
 
         // When
@@ -197,7 +197,7 @@ class DraftCreateReplyVisibilityTest(
     @Test
     fun `Draft․createDraftReply() uses stricter visibility property`() {
         // Given
-        val account = this.account.copy(defaultPostPrivacy = testData.accountVisibility)
+        val account = this.pachliAccountConfig.copy(defaultPostPrivacy = testData.accountVisibility)
         val status = fakeStatus().asModel().copy(visibility = testData.statusVisibility)
 
         // When
