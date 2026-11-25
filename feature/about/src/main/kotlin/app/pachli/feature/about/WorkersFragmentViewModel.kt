@@ -33,7 +33,7 @@ import kotlinx.coroutines.flow.stateIn
 @HiltViewModel
 class WorkersFragmentViewModel @Inject constructor(
     application: Application,
-    private val logEntryDao: LogEntryDao,
+    logEntryDao: LogEntryDao,
 ) : AndroidViewModel(application) {
     private val workManager = WorkManager.getInstance(application)
 
