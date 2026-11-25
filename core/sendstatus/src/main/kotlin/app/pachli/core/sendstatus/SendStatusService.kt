@@ -45,6 +45,8 @@ import java.io.IOException
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -173,7 +175,7 @@ internal class SendStatusService : Service() {
             // then wait until server finished processing the media
             var mediaCheckRetries = 0
             while (media.any { mediaItem -> !mediaItem.processed }) {
-                delay(1000L * mediaCheckRetries)
+                delay(mediaCheckRetries.seconds)
                 media.forEach { mediaItem ->
                     if (!mediaItem.processed) {
                         mastodonApi.getMedia(mediaItem.id!!)
@@ -321,7 +323,7 @@ internal class SendStatusService : Service() {
             MAX_RETRY_INTERVAL,
         )
 
-        delay(backoff)
+        delay(backoff.milliseconds)
         sendStatus(statusId)
     }
 
@@ -386,7 +388,7 @@ internal class SendStatusService : Service() {
             notificationManager.cancel(sendingNotificationId)
             notificationManager.notify(TAG_SAVED_TO_DRAFTS, sendingNotificationId, notification)
 
-            delay(5000)
+            delay(5.seconds)
 
             stopSelfWhenDone()
         }
