@@ -1,0 +1,5184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="5" by="lint Stingray 1 | 2026.3.1 Canary 2">
+
+    <issue
+        id="NewApi"
+        message="Field requires API level 31 (current min is 23): `getStopReason`">
+        <location
+            file="src/main/kotlin/app/pachli/feature/about/NotificationLogFragment.kt"
+            line="360"/>
+    </issue>
+
+    <issue
+        id="PrivateApi"
+        message="Accessing internal APIs via reflection is not supported and may not work on all devices or in the future">
+        <location
+            file="src/main/kotlin/app/pachli/feature/login/LoginWebViewActivity.kt"
+            line="240"/>
+    </issue>
+
+    <issue
+        id="PrivateApi"
+        message="Accessing internal APIs via reflection is not supported and may not work on all devices or in the future">
+        <location
+            file="src/main/kotlin/app/pachli/feature/login/LoginWebViewActivity.kt"
+            line="240"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `appCategory` is only used in API level 26 and higher (current min is 23)">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="18"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `localeConfig` is only used in API level 33 and higher (current min is 23)">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="27"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `networkSecurityConfig` is only used in API level 24 and higher (current min is 23)">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="28"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `enableOnBackInvokedCallback` is only used in API level 33 and higher (current min is 23)">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="29"/>
+    </issue>
+
+    <issue
+        id="QueryPermissionsNeeded"
+        message="Consider adding a `&lt;queries>` declaration to your manifest when calling this method; see https://g.co/dev/packagevisibility for details">
+        <location
+            file="src/main/java/app/pachli/components/compose/ComposeActivity.kt"
+            line="922"/>
+    </issue>
+
+    <issue
+        id="SelectedPhotoAccess"
+        message="Your app is currently not handling Selected Photos Access introduced in Android 14+">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="9"/>
+    </issue>
+
+    <issue
+        id="SelectedPhotoAccess"
+        message="Your app is currently not handling Selected Photos Access introduced in Android 14+">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="10"/>
+    </issue>
+
+    <issue
+        id="AndroidGradlePluginVersion"
+        message="A newer version of com.android.application than 9.5.1 is available: 9.5.2">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="4"/>
+    </issue>
+
+    <issue
+        id="AndroidGradlePluginVersion"
+        message="A newer version of com.android.application than 9.5.1 is available: 9.5.2">
+        <location
+            file="gradle/libs.versions.toml"
+            line="4"/>
+    </issue>
+
+    <issue
+        id="AndroidGradlePluginVersion"
+        message="A newer version of com.android.library than 9.5.1 is available: 9.5.2">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="4"/>
+    </issue>
+
+    <issue
+        id="AndroidGradlePluginVersion"
+        message="A newer version of com.android.library than 9.5.1 is available: 9.5.2">
+        <location
+            file="gradle/libs.versions.toml"
+            line="4"/>
+    </issue>
+
+    <issue
+        id="AndroidGradlePluginVersion"
+        message="A newer version of com.android.lint than 9.5.1 is available: 9.5.2">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="4"/>
+    </issue>
+
+    <issue
+        id="AndroidGradlePluginVersion"
+        message="A newer version of com.android.lint than 9.5.1 is available: 9.5.2">
+        <location
+            file="gradle/libs.versions.toml"
+            line="4"/>
+    </issue>
+
+    <issue
+        id="AndroidGradlePluginVersion"
+        message="A newer version of com.android.tools.build:gradle than 9.5.1 is available: 9.5.2">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="4"/>
+    </issue>
+
+    <issue
+        id="AndroidGradlePluginVersion"
+        message="A newer version of com.android.tools.build:gradle than 9.5.1 is available: 9.5.2">
+        <location
+            file="gradle/libs.versions.toml"
+            line="4"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.android.legacy-kapt than 9.5.1 is available: 9.5.2">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="4"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.android.legacy-kapt than 9.5.1 is available: 9.5.2">
+        <location
+            file="gradle/libs.versions.toml"
+            line="4"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.browser:browser than 1.9.0 is available: 1.10.0">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="6"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.browser:browser than 1.9.0 is available: 1.10.0">
+        <location
+            file="gradle/libs.versions.toml"
+            line="6"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.compose:compose-bom than 2026.02.01 is available: 2026.11.01">
+        <location
+            file="gradle/libs.versions.toml"
+            line="8"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.constraintlayout:constraintlayout than 2.2.1 is available: 2.2.2">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="9"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.constraintlayout:constraintlayout than 2.2.1 is available: 2.2.2">
+        <location
+            file="gradle/libs.versions.toml"
+            line="9"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.lifecycle:lifecycle-common-java8 than 2.10.0 is available: 2.11.1">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="16"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.lifecycle:lifecycle-common-java8 than 2.10.0 is available: 2.11.1">
+        <location
+            file="gradle/libs.versions.toml"
+            line="16"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.lifecycle:lifecycle-viewmodel-compose than 2.10.0 is available: 2.11.1">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="16"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.lifecycle:lifecycle-viewmodel-compose than 2.10.0 is available: 2.11.1">
+        <location
+            file="gradle/libs.versions.toml"
+            line="16"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.media3:media3-datasource-okhttp than 1.9.1 is available: 1.11.1">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="17"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.media3:media3-datasource-okhttp than 1.9.1 is available: 1.11.1">
+        <location
+            file="gradle/libs.versions.toml"
+            line="17"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.media3:media3-exoplayer than 1.9.1 is available: 1.11.1">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="17"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.media3:media3-exoplayer than 1.9.1 is available: 1.11.1">
+        <location
+            file="gradle/libs.versions.toml"
+            line="17"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.media3:media3-exoplayer-dash than 1.9.1 is available: 1.11.1">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="17"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.media3:media3-exoplayer-dash than 1.9.1 is available: 1.11.1">
+        <location
+            file="gradle/libs.versions.toml"
+            line="17"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.media3:media3-exoplayer-hls than 1.9.1 is available: 1.11.1">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="17"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.media3:media3-exoplayer-hls than 1.9.1 is available: 1.11.1">
+        <location
+            file="gradle/libs.versions.toml"
+            line="17"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.media3:media3-exoplayer-rtsp than 1.9.1 is available: 1.11.1">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="17"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.media3:media3-exoplayer-rtsp than 1.9.1 is available: 1.11.1">
+        <location
+            file="gradle/libs.versions.toml"
+            line="17"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.media3:media3-ui than 1.9.1 is available: 1.11.1">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="17"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.media3:media3-ui than 1.9.1 is available: 1.11.1">
+        <location
+            file="gradle/libs.versions.toml"
+            line="17"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.webkit:webkit than 1.15.0 is available: 1.18.0">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="29"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.webkit:webkit than 1.15.0 is available: 1.18.0">
+        <location
+            file="gradle/libs.versions.toml"
+            line="29"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.work:work-runtime than 2.11.1 is available: 2.12.0">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="30"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.work:work-runtime than 2.11.1 is available: 2.12.0">
+        <location
+            file="gradle/libs.versions.toml"
+            line="30"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.work:work-testing than 2.11.1 is available: 2.12.0">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="30"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.work:work-testing than 2.11.1 is available: 2.12.0">
+        <location
+            file="gradle/libs.versions.toml"
+            line="30"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.android.compose.screenshot than 0.0.1-alpha13 is available: 0.0.1-alpha16">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="35"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.android.compose.screenshot than 0.0.1-alpha13 is available: 0.0.1-alpha16">
+        <location
+            file="gradle/libs.versions.toml"
+            line="35"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.android.tools.screenshot:screenshot-validation-api than 0.0.1-alpha13 is available: 0.0.1-alpha17">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="35"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.android.tools.screenshot:screenshot-validation-api than 0.0.1-alpha13 is available: 0.0.1-alpha17">
+        <location
+            file="gradle/libs.versions.toml"
+            line="35"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.constraintlayout:constraintlayout-compose than 1.1.1 is available: 1.1.2">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="38"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.constraintlayout:constraintlayout-compose than 1.1.1 is available: 1.1.2">
+        <location
+            file="gradle/libs.versions.toml"
+            line="38"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.emoji2:emoji2 than 1.6.0 is available: 1.7.0">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="44"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.emoji2:emoji2 than 1.6.0 is available: 1.7.0">
+        <location
+            file="gradle/libs.versions.toml"
+            line="44"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.emoji2:emoji2-views than 1.6.0 is available: 1.7.0">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="44"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.emoji2:emoji2-views than 1.6.0 is available: 1.7.0">
+        <location
+            file="gradle/libs.versions.toml"
+            line="44"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.emoji2:emoji2-views-helper than 1.6.0 is available: 1.7.0">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="44"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.emoji2:emoji2-views-helper than 1.6.0 is available: 1.7.0">
+        <location
+            file="gradle/libs.versions.toml"
+            line="44"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.devtools.ksp than 2.3.12 is available: 2.3.13">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="59"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.devtools.ksp than 2.3.12 is available: 2.3.13">
+        <location
+            file="gradle/libs.versions.toml"
+            line="59"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.android.tools.lint:lint than 32.5.1 is available: 32.5.2">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="62"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.android.tools.lint:lint than 32.5.1 is available: 32.5.2">
+        <location
+            file="gradle/libs.versions.toml"
+            line="62"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.android.tools.lint:lint-api than 32.5.1 is available: 32.5.2">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="62"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.android.tools.lint:lint-api than 32.5.1 is available: 32.5.2">
+        <location
+            file="gradle/libs.versions.toml"
+            line="62"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.android.tools.lint:lint-checks than 32.5.1 is available: 32.5.2">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="62"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.android.tools.lint:lint-checks than 32.5.1 is available: 32.5.2">
+        <location
+            file="gradle/libs.versions.toml"
+            line="62"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.android.tools.lint:lint-tests than 32.5.1 is available: 32.5.2">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="62"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.android.tools.lint:lint-tests than 32.5.1 is available: 32.5.2">
+        <location
+            file="gradle/libs.versions.toml"
+            line="62"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.android.material:material than 1.12.0 is available: 1.14.0">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="64"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.android.material:material than 1.12.0 is available: 1.14.0">
+        <location
+            file="gradle/libs.versions.toml"
+            line="64"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.android.gms:play-services-base than 18.10.0 is available: 18.11.1">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="76"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.android.gms:play-services-base than 18.10.0 is available: 18.11.1">
+        <location
+            file="gradle/libs.versions.toml"
+            line="76"/>
+    </issue>
+
+    <issue
+        id="GradleVersion"
+        message="A newer version of Gradle than 9.8.2 is available: 9.9.2">
+        <location
+            file="$HOME/projects/pachli-android/gradle/wrapper/gradle-wrapper.properties"
+            line="5"/>
+    </issue>
+
+    <issue
+        id="GradleVersion"
+        message="A newer version of Gradle than 9.8.2 is available: 9.9.2">
+        <location
+            file="gradle/wrapper/gradle-wrapper.properties"
+            line="5"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.mikepenz.aboutlibraries.plugin.android than 14.2.1 is available: 15.3.0">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="2"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.mikepenz.aboutlibraries.plugin.android than 14.2.1 is available: 15.3.0">
+        <location
+            file="gradle/libs.versions.toml"
+            line="2"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.mikepenz:aboutlibraries-core than 14.2.1 is available: 15.3.0">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="2"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.mikepenz:aboutlibraries-core than 14.2.1 is available: 15.3.0">
+        <location
+            file="gradle/libs.versions.toml"
+            line="2"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.composables:composeunstyled than 1.49.6 is available: 2.10.2">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="36"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.composables:composeunstyled than 1.49.6 is available: 2.10.2">
+        <location
+            file="gradle/libs.versions.toml"
+            line="36"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.conscrypt:conscrypt-android than 2.9.0 is available: 2.10.0">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="37"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.conscrypt:conscrypt-android than 2.9.0 is available: 2.10.0">
+        <location
+            file="gradle/libs.versions.toml"
+            line="37"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.pageseeder.diffx:pso-diffx than 1.3.1 is available: 1.3.4">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="43"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.pageseeder.diffx:pso-diffx than 1.3.1 is available: 1.3.4">
+        <location
+            file="gradle/libs.versions.toml"
+            line="43"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of de.c1710:filemojicompat than 3.2.7 is available: 3.3.1">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="46"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of de.c1710:filemojicompat than 3.2.7 is available: 3.3.1">
+        <location
+            file="gradle/libs.versions.toml"
+            line="46"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of de.c1710:filemojicompat-defaults than 3.2.7 is available: 3.3.1">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="46"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of de.c1710:filemojicompat-defaults than 3.2.7 is available: 3.3.1">
+        <location
+            file="gradle/libs.versions.toml"
+            line="46"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of de.c1710:filemojicompat-ui than 3.2.7 is available: 3.3.1">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="46"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of de.c1710:filemojicompat-ui than 3.2.7 is available: 3.3.1">
+        <location
+            file="gradle/libs.versions.toml"
+            line="46"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.github.bumptech.glide:glide than 5.0.9 is available: 5.0.10">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="47"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.github.bumptech.glide:glide than 5.0.9 is available: 5.0.10">
+        <location
+            file="gradle/libs.versions.toml"
+            line="47"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.github.bumptech.glide:ksp than 5.0.9 is available: 5.0.10">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="47"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.github.bumptech.glide:ksp than 5.0.9 is available: 5.0.10">
+        <location
+            file="gradle/libs.versions.toml"
+            line="47"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.github.bumptech.glide:okhttp3-integration than 5.0.9 is available: 5.0.10">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="47"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.github.bumptech.glide:okhttp3-integration than 5.0.9 is available: 5.0.10">
+        <location
+            file="gradle/libs.versions.toml"
+            line="47"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.json:json than 20250517 is available: 20260814">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="51"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.json:json than 20250517 is available: 20260814">
+        <location
+            file="gradle/libs.versions.toml"
+            line="51"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.michael-bull.kotlin-result:kotlin-result than 1.1.20 is available: 2.3.1">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="55"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.michael-bull.kotlin-result:kotlin-result than 1.1.20 is available: 2.3.1">
+        <location
+            file="gradle/libs.versions.toml"
+            line="55"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.michael-bull.kotlin-result:kotlin-result-coroutines than 1.1.20 is available: 2.3.1">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="55"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.michael-bull.kotlin-result:kotlin-result-coroutines than 1.1.20 is available: 2.3.1">
+        <location
+            file="gradle/libs.versions.toml"
+            line="55"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.jetbrains.kotlinx:kotlinx-serialization-json than 1.12.0 is available: 1.13.0">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="56"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.jetbrains.kotlinx:kotlinx-serialization-json than 1.12.0 is available: 1.13.0">
+        <location
+            file="gradle/libs.versions.toml"
+            line="56"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.mikepenz:iconics-core than 5.5.0-compose01 is available: 5.6.0">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="66"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.mikepenz:iconics-core than 5.5.0-compose01 is available: 5.6.0">
+        <location
+            file="gradle/libs.versions.toml"
+            line="66"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of dev.zacsweers.moshix than 0.36.0 is available: 0.38.0">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="73"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of dev.zacsweers.moshix than 0.36.0 is available: 0.38.0">
+        <location
+            file="gradle/libs.versions.toml"
+            line="73"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of dev.zacsweers.moshix:moshi-sealed-codegen than 0.36.0 is available: 0.38.0">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="73"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of dev.zacsweers.moshix:moshi-sealed-codegen than 0.36.0 is available: 0.38.0">
+        <location
+            file="gradle/libs.versions.toml"
+            line="73"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of dev.zacsweers.moshix:moshi-sealed-runtime than 0.36.0 is available: 0.38.0">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="73"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of dev.zacsweers.moshix:moshi-sealed-runtime than 0.36.0 is available: 0.38.0">
+        <location
+            file="gradle/libs.versions.toml"
+            line="73"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.robolectric:robolectric than 4.17 is available: 4.18.1">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="80"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.robolectric:robolectric than 4.17 is available: 4.18.1">
+        <location
+            file="gradle/libs.versions.toml"
+            line="80"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.robolectric:android-all-instrumented than 15-robolectric-13954326-i7 is available: 15-robolectric-14663667-2-i7">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="89"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.robolectric:android-all-instrumented than 15-robolectric-13954326-i7 is available: 15-robolectric-14663667-2-i7">
+        <location
+            file="gradle/libs.versions.toml"
+            line="89"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.pageseeder.xmlwriter:pso-xmlwriter than 1.0.4 is available: 1.1.1">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="98"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.pageseeder.xmlwriter:pso-xmlwriter than 1.0.4 is available: 1.1.1">
+        <location
+            file="gradle/libs.versions.toml"
+            line="98"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.github.ajalt.clikt:clikt than 5.1.0 is available: 5.2.1">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="102"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.github.ajalt.clikt:clikt than 5.1.0 is available: 5.2.1">
+        <location
+            file="gradle/libs.versions.toml"
+            line="102"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.ibm.icu:icu4j than 78.3 is available: 79.1">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="103"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.ibm.icu:icu4j than 78.3 is available: 79.1">
+        <location
+            file="gradle/libs.versions.toml"
+            line="103"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of io.github.oshai:kotlin-logging-jvm than 8.0.4 is available: 8.0.7">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="105"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of io.github.oshai:kotlin-logging-jvm than 8.0.4 is available: 8.0.7">
+        <location
+            file="gradle/libs.versions.toml"
+            line="105"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of ch.qos.logback:logback-classic than 1.6.5 is available: 1.6.8">
+        <location
+            file="$HOME/projects/pachli-android/gradle/libs.versions.toml"
+            line="106"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of ch.qos.logback:logback-classic than 1.6.5 is available: 1.6.8">
+        <location
+            file="gradle/libs.versions.toml"
+            line="106"/>
+    </issue>
+
+    <issue
+        id="PrivateResource"
+        message="The resource `@string/clear_text_end_icon_content_description` is marked as private in com.google.android.material:material:1.12.0">
+        <location
+            file="src/main/res/layout/emoji_picker.xml"
+            line="29"/>
+    </issue>
+
+    <issue
+        id="PrivateResource"
+        message="The resource `@dimen/m3_btn_icon_btn_padding_left` is marked as private in com.google.android.material:material:1.12.0">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="159"/>
+    </issue>
+
+    <issue
+        id="PrivateResource"
+        message="The resource `@dimen/m3_btn_icon_btn_padding_left` is marked as private in com.google.android.material:material:1.12.0">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="159"/>
+    </issue>
+
+    <issue
+        id="PrivateResource"
+        message="The resource `@dimen/m3_btn_icon_btn_padding_left` is marked as private in com.google.android.material:material:1.12.0">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="159"/>
+    </issue>
+
+    <issue
+        id="PrivateResource"
+        message="The resource `@dimen/m3_btn_icon_btn_padding_right` is marked as private in com.google.android.material:material:1.12.0">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="160"/>
+    </issue>
+
+    <issue
+        id="PrivateResource"
+        message="The resource `@dimen/m3_btn_icon_btn_padding_right` is marked as private in com.google.android.material:material:1.12.0">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="160"/>
+    </issue>
+
+    <issue
+        id="PrivateResource"
+        message="The resource `@dimen/m3_btn_icon_btn_padding_right` is marked as private in com.google.android.material:material:1.12.0">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="160"/>
+    </issue>
+
+    <issue
+        id="StringFormatInvalid"
+        message="Format string &apos;`error_authorization_denied`&apos; is not a valid format string so it should not be passed to `String.format`">
+        <location
+            file="src/main/kotlin/app/pachli/feature/login/LoginActivity.kt"
+            line="326"/>
+        <location
+            file="src/main/res/values/strings.xml"/>
+    </issue>
+
+    <issue
+        id="StringFormatInvalid"
+        message="Format string &apos;`error_authorization_denied`&apos; is not a valid format string so it should not be passed to `String.format`">
+        <location
+            file="src/main/kotlin/app/pachli/feature/login/LoginActivity.kt"
+            line="326"/>
+        <location
+            file="src/main/res/values/strings.xml"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;Eines des&quot; is a common misspelling; did you mean &quot;Eines der&quot;?">
+        <location
+            file="src/main/res/values-de/strings.xml"
+            line="6"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?">
+        <location
+            file="src/main/res/values-nb-rNO/strings.xml"
+            line="8"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?">
+        <location
+            file="src/main/res/values-nb-rNO/strings.xml"
+            line="9"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;birşey&quot; is a common misspelling; did you mean &quot;bir şey&quot;?">
+        <location
+            file="src/main/res/values-tr/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;hiç birşey&quot; is a common misspelling; did you mean &quot;hiçbir şey&quot;?">
+        <location
+            file="src/main/res/values-tr/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?">
+        <location
+            file="src/main/res/values-nb-rNO/strings.xml"
+            line="52"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?">
+        <location
+            file="src/main/res/values-nb-rNO/strings.xml"
+            line="56"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?">
+        <location
+            file="src/main/res/values-nb-rNO/strings.xml"
+            line="73"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?">
+        <location
+            file="src/main/res/values-nb-rNO/strings.xml"
+            line="76"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?">
+        <location
+            file="src/main/res/values-nb-rNO/strings.xml"
+            line="77"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?">
+        <location
+            file="src/main/res/values-nb-rNO/strings.xml"
+            line="80"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?">
+        <location
+            file="src/main/res/values-nb-rNO/strings.xml"
+            line="93"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;Media&quot; is a common misspelling; did you mean &quot;Medier&quot;?">
+        <location
+            file="src/main/res/values-nb-rNO/strings.xml"
+            line="101"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?">
+        <location
+            file="src/main/res/values-nb-rNO/strings.xml"
+            line="125"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="Repeated word &quot;til&quot; in message: possible typo">
+        <location
+            file="src/main/res/values-nb-rNO/strings.xml"
+            line="130"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?">
+        <location
+            file="src/main/res/values-nb-rNO/strings.xml"
+            line="131"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;Media&quot; is a common misspelling; did you mean &quot;Medier&quot;?">
+        <location
+            file="src/main/res/values-nb-rNO/strings.xml"
+            line="154"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?">
+        <location
+            file="src/main/res/values-nb-rNO/strings.xml"
+            line="267"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;Media&quot; is a common misspelling; did you mean &quot;Medier&quot;?">
+        <location
+            file="src/main/res/values-nb-rNO/strings.xml"
+            line="365"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;Media&quot; is a common misspelling; did you mean &quot;Medier&quot;?">
+        <location
+            file="src/main/res/values-nb-rNO/strings.xml"
+            line="540"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?">
+        <location
+            file="src/main/res/values-nb-rNO/strings.xml"
+            line="564"/>
+    </issue>
+
+    <issue
+        id="ImpliedQuantity"
+        message="The quantity `&apos;one&apos;` matches more than one specific number in this locale (0, 1), but the message did not include a formatting argument (such as `%d`). This is usually an internationalization error. See full issue explanation for more.">
+        <location
+            file="src/main/res/values-fr/strings.xml"
+            line="144"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;and&quot;): This should probably be a plural rather than a string">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="301"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;people&quot;): This should probably be a plural rather than a string">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="529"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-lt/strings.xml"
+            line="7"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-my/strings.xml"
+            line="11"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-be/strings.xml"
+            line="11"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-lt/strings.xml"
+            line="12"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-be/strings.xml"
+            line="17"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-my/strings.xml"
+            line="50"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-en-rGB/strings.xml"
+            line="56"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-en-rGB/strings.xml"
+            line="57"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-el/strings.xml"
+            line="70"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-el/strings.xml"
+            line="71"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-cy/strings.xml"
+            line="210"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-cy/strings.xml"
+            line="211"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-fi/strings.xml"
+            line="247"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-fi/strings.xml"
+            line="250"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-tr/strings.xml"
+            line="282"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-sv/strings.xml"
+            line="303"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-oc/strings.xml"
+            line="308"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-oc/strings.xml"
+            line="309"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-eu/strings.xml"
+            line="316"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-vi/strings.xml"
+            line="317"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-eu/strings.xml"
+            line="317"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-eo/strings.xml"
+            line="318"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-ru/strings.xml"
+            line="318"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-vi/strings.xml"
+            line="318"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-nb-rNO/strings.xml"
+            line="319"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-eo/strings.xml"
+            line="319"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-ru/strings.xml"
+            line="319"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-nb-rNO/strings.xml"
+            line="320"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-is/strings.xml"
+            line="321"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-gd/strings.xml"
+            line="322"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-pt-rBR/strings.xml"
+            line="322"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-is/strings.xml"
+            line="322"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-sa/strings.xml"
+            line="323"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-uk/strings.xml"
+            line="323"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-gd/strings.xml"
+            line="323"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-pt-rBR/strings.xml"
+            line="323"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-gl/strings.xml"
+            line="324"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-sa/strings.xml"
+            line="324"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-uk/strings.xml"
+            line="324"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-fa/strings.xml"
+            line="325"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-zh-rCN/strings.xml"
+            line="325"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-gl/strings.xml"
+            line="325"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-sv/strings.xml"
+            line="326"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-fa/strings.xml"
+            line="326"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-zh-rCN/strings.xml"
+            line="326"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-pt-rPT/strings.xml"
+            line="328"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-pt-rPT/strings.xml"
+            line="329"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-zh-rTW/strings.xml"
+            line="330"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-zh-rTW/strings.xml"
+            line="331"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-ca/strings.xml"
+            line="332"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-cs/strings.xml"
+            line="333"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-hu/strings.xml"
+            line="333"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-ca/strings.xml"
+            line="333"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-cs/strings.xml"
+            line="334"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-hu/strings.xml"
+            line="334"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-ja/strings.xml"
+            line="341"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-ta/strings.xml"
+            line="342"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-ta/strings.xml"
+            line="343"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-ja/strings.xml"
+            line="343"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-it/strings.xml"
+            line="344"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-it/strings.xml"
+            line="345"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-tr/strings.xml"
+            line="357"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_following_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-ar/strings.xml"
+            line="373"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `error_unfollowing_hashtag_format`; found both 1 here and 2 in values/strings.xml">
+        <location
+            file="src/main/res/values-ar/strings.xml"
+            line="374"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;pt&quot; (Portuguese) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-pt-rPT/strings.xml"
+            line="22"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;fr&quot; (French) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-fr/strings.xml"
+            line="23"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;pt&quot; (Portuguese) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-pt-rBR/strings.xml"
+            line="23"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;pt&quot; (Portuguese) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-pt-rPT/strings.xml"
+            line="27"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;fr&quot; (French) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-fr/strings.xml"
+            line="28"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;pt&quot; (Portuguese) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-pt-rBR/strings.xml"
+            line="28"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;pt&quot; (Portuguese) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-pt-rPT/strings.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;fr&quot; (French) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-fr/strings.xml"
+            line="33"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;pt&quot; (Portuguese) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-pt-rBR/strings.xml"
+            line="33"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;it&quot; (Italian) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-it/strings.xml"
+            line="37"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;pt&quot; (Portuguese) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-pt-rPT/strings.xml"
+            line="37"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;fr&quot; (French) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-fr/strings.xml"
+            line="38"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;pt&quot; (Portuguese) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-pt-rBR/strings.xml"
+            line="38"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;es&quot; (Spanish) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-es/strings.xml"
+            line="41"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;it&quot; (Italian) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-it/strings.xml"
+            line="42"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;pt&quot; (Portuguese) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-pt-rPT/strings.xml"
+            line="42"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;fr&quot; (French) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-fr/strings.xml"
+            line="43"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;pt&quot; (Portuguese) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-pt-rBR/strings.xml"
+            line="43"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;es&quot; (Spanish) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-es/strings.xml"
+            line="46"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;it&quot; (Italian) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-it/strings.xml"
+            line="47"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;pt&quot; (Portuguese) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-pt-rPT/strings.xml"
+            line="47"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;fr&quot; (French) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-fr/strings.xml"
+            line="48"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;pt&quot; (Portuguese) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-pt-rBR/strings.xml"
+            line="48"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;es&quot; (Spanish) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-es/strings.xml"
+            line="51"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;it&quot; (Italian) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-it/strings.xml"
+            line="52"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;es&quot; (Spanish) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-es/strings.xml"
+            line="56"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;it&quot; (Italian) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-it/strings.xml"
+            line="57"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;es&quot; (Spanish) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-es/strings.xml"
+            line="61"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;it&quot; (Italian) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-it/strings.xml"
+            line="62"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;es&quot; (Spanish) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-es/strings.xml"
+            line="66"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;pt&quot; (Portuguese) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-pt-rPT/strings.xml"
+            line="92"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;pt&quot; (Portuguese) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-pt-rBR/strings.xml"
+            line="97"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;pt&quot; (Portuguese) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-pt-rPT/strings.xml"
+            line="97"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;fr&quot; (French) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-fr/strings.xml"
+            line="98"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;es&quot; (Spanish) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-es/strings.xml"
+            line="101"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;pt&quot; (Portuguese) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-pt-rBR/strings.xml"
+            line="102"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;fr&quot; (French) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-fr/strings.xml"
+            line="103"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;it&quot; (Italian) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-it/strings.xml"
+            line="113"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;it&quot; (Italian) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-it/strings.xml"
+            line="118"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;es&quot; (Spanish) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-es/strings.xml"
+            line="129"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;es&quot; (Spanish) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-es/strings.xml"
+            line="134"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;fr&quot; (French) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-fr/strings.xml"
+            line="143"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;fr&quot; (French) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-fr/strings.xml"
+            line="152"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;es&quot; (Spanish) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-es/strings.xml"
+            line="155"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;es&quot; (Spanish) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-es/strings.xml"
+            line="210"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;es&quot; (Spanish) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-es/strings.xml"
+            line="233"/>
+    </issue>
+
+    <issue
+        id="UnusedQuantity"
+        message="For language &quot;es&quot; (Spanish) the following quantities are not relevant: `many`">
+        <location
+            file="src/main/res/values-es/strings.xml"
+            line="238"/>
+    </issue>
+
+    <issue
+        id="UnusedTranslation"
+        message="The language `ber (Berber languages)` is present in this project, but not declared in the `localeConfig` resource">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="27"/>
+    </issue>
+
+    <issue
+        id="ForegroundServicesPolicy"
+        message="Android 14+ requires Foreground Service types declaration and justification. ">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="13"/>
+    </issue>
+
+    <issue
+        id="ForegroundServicesPolicy"
+        message="Android 14+ requires Foreground Service types declaration and justification. ">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="13"/>
+    </issue>
+
+    <issue
+        id="PhotoAndVideoPolicy"
+        message="To get broad access to photos and videos, apps must have core use case that requires persistent or frequent photo/video access of files located in shared storage">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="9"/>
+    </issue>
+
+    <issue
+        id="PhotoAndVideoPolicy"
+        message="To get broad access to photos and videos, apps must have core use case that requires persistent or frequent photo/video access of files located in shared storage">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="9"/>
+    </issue>
+
+    <issue
+        id="PhotoAndVideoPolicy"
+        message="To get broad access to photos and videos, apps must have core use case that requires persistent or frequent photo/video access of files located in shared storage">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="10"/>
+    </issue>
+
+    <issue
+        id="PhotoAndVideoPolicy"
+        message="To get broad access to photos and videos, apps must have core use case that requires persistent or frequent photo/video access of files located in shared storage">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="10"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort.">
+        <location
+            file="src/main/java/app/pachli/components/account/AccountActivity.kt"
+            line="576"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort.">
+        <location
+            file="src/main/java/app/pachli/components/accountlist/adapter/AccountAdapter.kt"
+            line="84"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort.">
+        <location
+            file="src/main/java/app/pachli/adapter/AccountFieldEditAdapter.kt"
+            line="49"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort.">
+        <location
+            file="src/main/java/app/pachli/adapter/AccountFieldEditAdapter.kt"
+            line="55"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort.">
+        <location
+            file="src/main/java/app/pachli/components/announcements/AnnouncementAdapter.kt"
+            line="192"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort.">
+        <location
+            file="src/main/java/app/pachli/components/accountlist/adapter/MutesAdapter.kt"
+            line="119"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort.">
+        <location
+            file="src/main/kotlin/app/pachli/core/ui/PollPreviewView.kt"
+            line="77"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort.">
+        <location
+            file="src/main/java/app/pachli/adapter/TabAdapter.kt"
+            line="53"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; `SDK_INT` is always >= 24">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="186"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; `SDK_INT` is always >= 29">
+        <location
+            file="src/main/java/app/pachli/languageidentification/LanguageIdentification.kt"
+            line="93"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; `SDK_INT` is always >= 30">
+        <location
+            file="src/main/kotlin/app/pachli/feature/about/NotificationDetailsFragment.kt"
+            line="178"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; `SDK_INT` is always >= 24">
+        <location
+            file="src/main/java/app/pachli/service/PachliTileService.kt"
+            line="29"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; `SDK_INT` is always >= 24">
+        <location
+            file="src/main/kotlin/app/pachli/core/sendstatus/SendStatusService.kt"
+            line="335"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; `SDK_INT` is always >= 33">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="61"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; `SDK_INT` is always >= 33">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="61"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; `SDK_INT` is always >= 33">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="61"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (5207 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/elephant_friend.xml"
+            line="15"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (4815 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/elephant_friend_empty.xml"
+            line="20"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (5305 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/errorphant_error.xml"
+            line="20"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (4131 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location
+            file="src/main/res/drawable/errorphant_offline.xml"
+            line="34"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `?attr/selectableItemBackgroundBorderless` with a theme that also paints a background (inferred theme is `@style/AppTheme`)">
+        <location
+            file="$HOME/projects/pachli-android/core/ui/src/main/res/layout/item_emoji_button.xml"
+            line="4"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_scrim` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="33"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_inverseSurface` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="34"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_inverseOnSurface` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="35"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_inversePrimary` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="36"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_primary_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="56"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onPrimary_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="57"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_primaryContainer_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="58"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onPrimaryContainer_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="59"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_secondary_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="60"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onSecondary_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="61"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_secondaryContainer_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="62"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onSecondaryContainer_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="63"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_tertiary_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="64"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onTertiary_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="65"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_tertiaryContainer_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="66"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onTertiaryContainer_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="67"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_error_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="68"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onError_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="69"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_errorContainer_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="70"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onErrorContainer_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="71"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_background_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="72"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onBackground_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="73"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_surface_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="74"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onSurface_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="75"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_surfaceVariant_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="76"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onSurfaceVariant_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="77"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_outline_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="78"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_outlineVariant_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="79"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_scrim_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="80"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_inverseSurface_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="81"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_inverseOnSurface_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="82"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_inversePrimary_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="83"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_primaryFixed_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="84"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onPrimaryFixed_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="85"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_primaryFixedDim_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="86"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onPrimaryFixedVariant_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="87"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_secondaryFixed_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="88"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onSecondaryFixed_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="89"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_secondaryFixedDim_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="90"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onSecondaryFixedVariant_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="91"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_tertiaryFixed_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="92"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onTertiaryFixed_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="93"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_tertiaryFixedDim_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="94"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onTertiaryFixedVariant_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="95"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_surfaceDim_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="96"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_surfaceBright_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="97"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_surfaceContainerLowest_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="98"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_surfaceContainerLow_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="99"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_surfaceContainer_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="100"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_surfaceContainerHigh_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="101"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_surfaceContainerHighest_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="102"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_primary_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="103"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onPrimary_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="104"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_primaryContainer_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="105"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onPrimaryContainer_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="106"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_secondary_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="107"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onSecondary_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="108"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_secondaryContainer_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="109"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onSecondaryContainer_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="110"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_tertiary_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="111"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onTertiary_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="112"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_tertiaryContainer_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="113"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onTertiaryContainer_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="114"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_error_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="115"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onError_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="116"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_errorContainer_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="117"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onErrorContainer_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="118"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_background_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="119"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onBackground_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="120"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_surface_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="121"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onSurface_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="122"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_surfaceVariant_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="123"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onSurfaceVariant_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="124"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_outline_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="125"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_outlineVariant_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="126"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_scrim_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="127"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_inverseSurface_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="128"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_inverseOnSurface_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="129"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_inversePrimary_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="130"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_primaryFixed_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="131"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onPrimaryFixed_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="132"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_primaryFixedDim_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="133"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onPrimaryFixedVariant_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="134"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_secondaryFixed_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="135"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onSecondaryFixed_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="136"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_secondaryFixedDim_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="137"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onSecondaryFixedVariant_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="138"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_tertiaryFixed_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="139"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onTertiaryFixed_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="140"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_tertiaryFixedDim_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="141"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_onTertiaryFixedVariant_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="142"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_surfaceDim_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="143"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_surfaceBright_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="144"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_surfaceContainerLowest_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="145"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_surfaceContainerLow_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="146"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_surfaceContainer_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="147"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_surfaceContainerHigh_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="148"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_light_surfaceContainerHighest_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="149"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_scrim` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="175"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_inverseSurface` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="176"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_inverseOnSurface` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="177"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_inversePrimary` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="178"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_primary_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="198"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onPrimary_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="199"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_primaryContainer_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="200"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onPrimaryContainer_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="201"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_secondary_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="202"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onSecondary_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="203"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_secondaryContainer_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="204"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onSecondaryContainer_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="205"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_tertiary_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="206"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onTertiary_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="207"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_tertiaryContainer_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="208"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onTertiaryContainer_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="209"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_error_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="210"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onError_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="211"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_errorContainer_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="212"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onErrorContainer_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="213"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_background_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="214"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onBackground_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="215"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_surface_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="216"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onSurface_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="217"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_surfaceVariant_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="218"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onSurfaceVariant_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="219"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_outline_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="220"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_outlineVariant_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="221"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_scrim_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="222"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_inverseSurface_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="223"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_inverseOnSurface_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="224"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_inversePrimary_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="225"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_primaryFixed_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="226"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onPrimaryFixed_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="227"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_primaryFixedDim_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="228"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onPrimaryFixedVariant_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="229"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_secondaryFixed_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="230"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onSecondaryFixed_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="231"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_secondaryFixedDim_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="232"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onSecondaryFixedVariant_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="233"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_tertiaryFixed_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="234"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onTertiaryFixed_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="235"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_tertiaryFixedDim_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="236"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onTertiaryFixedVariant_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="237"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_surfaceDim_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="238"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_surfaceBright_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="239"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_surfaceContainerLowest_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="240"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_surfaceContainerLow_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="241"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_surfaceContainer_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="242"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_surfaceContainerHigh_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="243"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_surfaceContainerHighest_mediumContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="244"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_primary_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="245"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onPrimary_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="246"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_primaryContainer_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="247"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onPrimaryContainer_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="248"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_secondary_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="249"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onSecondary_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="250"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_secondaryContainer_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="251"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onSecondaryContainer_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="252"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_tertiary_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="253"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onTertiary_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="254"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_tertiaryContainer_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="255"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onTertiaryContainer_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="256"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_error_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="257"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onError_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="258"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_errorContainer_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="259"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onErrorContainer_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="260"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_background_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="261"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onBackground_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="262"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_surface_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="263"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onSurface_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="264"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_surfaceVariant_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="265"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onSurfaceVariant_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="266"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_outline_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="267"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_outlineVariant_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="268"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_scrim_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="269"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_inverseSurface_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="270"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_inverseOnSurface_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="271"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_inversePrimary_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="272"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_primaryFixed_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="273"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onPrimaryFixed_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="274"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_primaryFixedDim_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="275"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onPrimaryFixedVariant_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="276"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_secondaryFixed_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="277"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onSecondaryFixed_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="278"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_secondaryFixedDim_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="279"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onSecondaryFixedVariant_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="280"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_tertiaryFixed_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="281"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onTertiaryFixed_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="282"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_tertiaryFixedDim_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="283"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_onTertiaryFixedVariant_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="284"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_surfaceDim_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="285"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_surfaceBright_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="286"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_surfaceContainerLowest_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="287"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_surfaceContainerLow_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="288"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_surfaceContainer_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="289"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_surfaceContainerHigh_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="290"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.md_theme_dark_surfaceContainerHighest_highContrast` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="291"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.transparent_tusky_blue` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="318"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.account_header_scrim` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="321"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.icon_background` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="324"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.icon_highlight` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/colors.xml"
+            line="325"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.status_detail_media_preview_height` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/dimens.xml"
+            line="7"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.array.app_theme_values` appears to be unused">
+        <location
+            file="src/main/res/values/donottranslate.xml"
+            line="42"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.array.filter_action_values` appears to be unused">
+        <location
+            file="src/main/res/values/donottranslate.xml"
+            line="232"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.array.filter_context_values` appears to be unused">
+        <location
+            file="src/main/res/values/donottranslate.xml"
+            line="237"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.elephant_friend` appears to be unused">
+        <location
+            file="src/main/res/drawable/elephant_friend.xml"
+            line="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.menu.fragment_search` appears to be unused">
+        <location
+            file="src/main/res/menu/fragment_search.xml"
+            line="19"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_drag_indicator_horiz_24dp` appears to be unused">
+        <location
+            file="src/main/res/drawable/ic_drag_indicator_horiz_24dp.xml"
+            line="2"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_notifications_off_24dp` appears to be unused">
+        <location
+            file="src/main/res/drawable/ic_notifications_off_24dp.xml"
+            line="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_notoemoji` appears to be unused">
+        <location
+            file="src/main/res/drawable-v24/ic_notoemoji.xml"
+            line="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.launcher_shadow_gradient` appears to be unused">
+        <location
+            file="src/main/res/color-v24/launcher_shadow_gradient.xml"
+            line="2"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.layout.material_drawer_header` appears to be unused">
+        <location
+            file="src/main/res/layout/material_drawer_header.xml"
+            line="2"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.materialdrawer_shape_large` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/drawable/materialdrawer_shape_large.xml"
+            line="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.materialdrawer_shape_small` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/drawable/materialdrawer_shape_small.xml"
+            line="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.error_refresh_account_fmt` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/feature/intentrouter/src/main/res/values/strings.xml"
+            line="15"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.license_description` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/feature/about/src/main/res/values/strings.xml"
+            line="19"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.source_unknown` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/feature/suggestions/src/main/res/values/strings.xml"
+            line="20"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.error_no_web_browser_found` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="21"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.error_media_upload_type` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="24"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.error_following_hashtags_unsupported` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="33"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.post_sensitive_media_directions` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="87"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.footer_empty` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="88"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_report_format` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="96"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_severed_relationships_format` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="97"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_severed_relationships_domain_block_body` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="98"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_severed_relationships_user_domain_block_body` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="99"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_severed_relationships_account_suspension_body` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="100"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_severed_relationships_unknown_body` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="101"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_collection_add_body_format` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="125"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_collection_update_body_format` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="126"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.report_comment_hint` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="134"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.action_unbookmark` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="136"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.action_view_domain_mutes` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="162"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.confirmation_reported` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="218"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.dialog_title_finishing_media_upload` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="237"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.dialog_message_uploading_media` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="238"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.pref_title_post_filter` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="291"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_collection_add_description` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="323"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_collection_update_description` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="325"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_mention_descriptions` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="327"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_follow_description` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="329"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_follow_request_description` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="331"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_boost_description` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="333"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_favourite_description` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="335"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_poll_description` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="337"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_subscription_description` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="339"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_sign_up_description` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="341"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_update_description` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="343"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_report_description` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="345"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_severed_relationships_description` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="347"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_moderation_warnings_description` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="349"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_quote_description` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="351"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_quoted_update_description` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="353"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_summary_large` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="358"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_summary_medium` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="359"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.notification_summary_small` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="360"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.filter_dialog_remove_button` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="385"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.error_no_custom_emojis` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="408"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.download_fonts` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="411"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.restart_emoji` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="415"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.later` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="416"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.download_failed` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="418"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.failed_to_pin` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="430"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.failed_to_unpin` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="431"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.description_login` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="439"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.description_browser_login` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="440"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.filter_apply` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="448"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.compose_shortcut_long_label` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="449"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.compose_shortcut_short_label` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="450"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.compose_preview_image_description` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="453"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.failed_report` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="461"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.wellbeing_mode_notice` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="488"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.review_notifications` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="494"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.action_unfollow_hashtag_format` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="521"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.hint_filter_title` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="547"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.pref_update_next_scheduled_check` appears to be unused">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="611"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.AppButton_TextButton_Icon` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/styles.xml"
+            line="157"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.BezelImageView` appears to be unused">
+        <location
+            file="$HOME/projects/pachli-android/core/designsystem/src/main/res/values/styles.xml"
+            line="299"/>
+    </issue>
+
+    <issue
+        id="ReportShortcutUsage"
+        message="Calling this method indicates use of dynamic shortcuts, but there are no calls to methods that track shortcut usage, such as `pushDynamicShortcut` or `reportShortcutUsed`. Calling these methods is recommended, as they track shortcut usage and allow launchers to adjust which shortcuts appear based on activation history. Please see https://developer.android.com/develop/ui/views/launch/shortcuts/managing-shortcuts#track-usage">
+        <location
+            file="src/main/java/app/pachli/util/UpdateShortCutsUseCase.kt"
+            line="106"/>
+    </issue>
+
+    <issue
+        id="ReportShortcutUsage"
+        message="Calling this method indicates use of dynamic shortcuts, but there are no calls to methods that track shortcut usage, such as `pushDynamicShortcut` or `reportShortcutUsed`. Calling these methods is recommended, as they track shortcut usage and allow launchers to adjust which shortcuts appear based on activation history. Please see https://developer.android.com/develop/ui/views/launch/shortcuts/managing-shortcuts#track-usage">
+        <location
+            file="$HOME/projects/pachli-android/app/src/main/java/app/pachli/util/UpdateShortCutsUseCase.kt"
+            line="106"/>
+    </issue>
+
+    <issue
+        id="ReportShortcutUsage"
+        message="Calling this method indicates use of dynamic shortcuts, but there are no calls to methods that track shortcut usage, such as `pushDynamicShortcut` or `reportShortcutUsed`. Calling these methods is recommended, as they track shortcut usage and allow launchers to adjust which shortcuts appear based on activation history. Please see https://developer.android.com/develop/ui/views/launch/shortcuts/managing-shortcuts#track-usage">
+        <location
+            file="app/src/main/java/app/pachli/util/UpdateShortCutsUseCase.kt"
+            line="106"/>
+    </issue>
+
+    <issue
+        id="ReportShortcutUsage"
+        message="Calling this method indicates use of dynamic shortcuts, but there are no calls to methods that track shortcut usage, such as `pushDynamicShortcut` or `reportShortcutUsed`. Calling these methods is recommended, as they track shortcut usage and allow launchers to adjust which shortcuts appear based on activation history. Please see https://developer.android.com/develop/ui/views/launch/shortcuts/managing-shortcuts#track-usage">
+        <location
+            file="$HOME/projects/pachli-android/app/src/main/java/app/pachli/util/UpdateShortCutsUseCase.kt"
+            line="106"/>
+    </issue>
+
+    <issue
+        id="ReportShortcutUsage"
+        message="Calling this method indicates use of dynamic shortcuts, but there are no calls to methods that track shortcut usage, such as `pushDynamicShortcut` or `reportShortcutUsed`. Calling these methods is recommended, as they track shortcut usage and allow launchers to adjust which shortcuts appear based on activation history. Please see https://developer.android.com/develop/ui/views/launch/shortcuts/managing-shortcuts#track-usage">
+        <location
+            file="$HOME/projects/pachli-android/app/src/main/java/app/pachli/util/UpdateShortCutsUseCase.kt"
+            line="106"/>
+    </issue>
+
+    <issue
+        id="KeyboardInaccessibleWidget"
+        message="&apos;clickable&apos; attribute found, please also add &apos;focusable&apos;">
+        <location
+            file="src/main/res/layout/material_drawer_header.xml"
+            line="8"/>
+    </issue>
+
+    <issue
+        id="KeyboardInaccessibleWidget"
+        message="&apos;clickable&apos; attribute found, please also add &apos;focusable&apos;">
+        <location
+            file="src/main/res/layout/material_drawer_header.xml"
+            line="8"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/activity_edit_profile.xml"
+            line="118"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/activity_edit_profile.xml"
+            line="118"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/activity_edit_profile.xml"
+            line="129"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/activity_edit_profile.xml"
+            line="129"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/collection_card.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/collection_card.xml"
+            line="32"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/fragment_notification_details.xml"
+            line="42"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/fragment_notification_details.xml"
+            line="42"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/fragment_notification_details.xml"
+            line="91"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/fragment_notification_details.xml"
+            line="91"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/fragment_notification_details.xml"
+            line="104"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/fragment_notification_details.xml"
+            line="104"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/fragment_notification_details.xml"
+            line="111"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/fragment_notification_details.xml"
+            line="111"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/fragment_notification_details.xml"
+            line="124"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/fragment_notification_details.xml"
+            line="124"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/fragment_notification_details.xml"
+            line="131"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/fragment_notification_details.xml"
+            line="131"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/fragment_notification_details.xml"
+            line="144"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/fragment_notification_details.xml"
+            line="144"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/fragment_notification_details.xml"
+            line="151"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/fragment_notification_details.xml"
+            line="151"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/fragment_notification_details.xml"
+            line="165"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/fragment_notification_details.xml"
+            line="165"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/fragment_notification_details.xml"
+            line="198"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/fragment_notification_details.xml"
+            line="198"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/item_follow.xml"
+            line="22"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/item_follow.xml"
+            line="22"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingEnd` you should probably also define `paddingStart` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/item_poll.xml"
+            line="35"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingEnd` you should probably also define `paddingStart` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/item_poll.xml"
+            line="35"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/item_report_notification.xml"
+            line="23"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/item_report_notification.xml"
+            line="23"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingEnd` you should probably also define `paddingStart` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/status_content.xml"
+            line="75"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingEnd` you should probably also define `paddingStart` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/status_content.xml"
+            line="75"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingEnd` you should probably also define `paddingStart` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/status_content_conversation.xml"
+            line="119"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingEnd` you should probably also define `paddingStart` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/status_content_conversation.xml"
+            line="119"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/view_compose_schedule.xml"
+            line="21"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/view_compose_schedule.xml"
+            line="21"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/view_compose_schedule.xml"
+            line="38"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
+        <location
+            file="src/main/res/layout/view_compose_schedule.xml"
+            line="38"/>
+    </issue>
+
+</issues>
