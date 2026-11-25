@@ -291,8 +291,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
 
         // check for savedInstanceState in order to not handle intent events more than once
         if (intent != null && savedInstanceState == null) {
-            val payload = MainActivityIntent.payload(intent)
-            when (payload) {
+            when (val payload = MainActivityIntent.payload(intent)) {
                 is Payload.Notification -> {
                     val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
                     notificationManager.cancel(payload.notificationTag, payload.notificationId)

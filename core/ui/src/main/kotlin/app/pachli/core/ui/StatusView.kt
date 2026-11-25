@@ -860,8 +860,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         private fun getMediaDescription(context: Context, status: IStatusViewData): String? {
             if (status.actionable.attachments.isEmpty()) return null
 
-            val attachmentDisplayAction = status.attachmentDisplayAction
-            return when (attachmentDisplayAction) {
+            return when (val attachmentDisplayAction = status.attachmentDisplayAction) {
                 is AttachmentDisplayAction.Show -> {
                     val descriptions = status.actionable.attachments.map { it.getContentDescription(context) }
                     context.getString(R.string.description_post_media, descriptions.joinToString(", "))
