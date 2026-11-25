@@ -86,6 +86,7 @@ import app.pachli.core.ui.BackgroundMessage.Empty
 import app.pachli.core.ui.SetContentAsMarkdown
 import app.pachli.core.ui.SetContentAsMastodonHtml
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
+import app.pachli.core.ui.extensions.postPrepend
 import app.pachli.databinding.FragmentTimelineBinding
 import app.pachli.feature.collections.newConfirmRevokeDialogFragment
 import app.pachli.fragment.SFragment
@@ -116,7 +117,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
-import postPrepend
 import timber.log.Timber
 
 @AndroidEntryPoint

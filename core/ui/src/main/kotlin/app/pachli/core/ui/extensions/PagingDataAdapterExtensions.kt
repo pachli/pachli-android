@@ -15,6 +15,8 @@
  * see <http://www.gnu.org/licenses>.
  */
 
+package app.pachli.core.ui.extensions
+
 import androidx.paging.LoadState
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
