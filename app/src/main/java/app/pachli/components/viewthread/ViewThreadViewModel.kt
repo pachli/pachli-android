@@ -71,7 +71,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChangedBy
@@ -110,7 +109,7 @@ class ViewThreadViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            accountManager.activePachliAccountFlow
+            accountManager.activePachliAccountFlow.distinctUntilChangedBy { it.config }
                 .combine(eventHub.events) { account, event -> Pair(account, event) }
                 .collect { (account, event) ->
                     when (event) {
