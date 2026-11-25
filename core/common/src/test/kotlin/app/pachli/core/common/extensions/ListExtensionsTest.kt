@@ -30,7 +30,7 @@ data class TestData(
 @RunWith(Parameterized::class)
 class ListExtensionsTest(private val testData: TestData) {
     companion object {
-        @Parameterized.Parameters()
+        @Parameterized.Parameters
         @JvmStatic
         fun data(): Iterable<Any> {
             return listOf(
