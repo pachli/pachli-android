@@ -46,7 +46,6 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import java.io.ByteArrayOutputStream
 import java.time.Instant
 import javax.inject.Inject
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
@@ -61,7 +60,7 @@ import org.mockito.kotlin.reset
 import org.mockito.kotlin.stub
 import org.robolectric.annotation.Config
 
-@OptIn(ExperimentalCoroutinesApi::class, ExperimentalStdlibApi::class)
+@OptIn(ExperimentalStdlibApi::class)
 @HiltAndroidTest
 @Config(application = HiltTestApplication_Application::class)
 @RunWith(AndroidJUnit4::class)

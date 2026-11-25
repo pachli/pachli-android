@@ -63,7 +63,6 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -422,7 +421,6 @@ sealed interface UiError {
     }
 }
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel(assistedFactory = NotificationsViewModel.Factory::class)
 class NotificationsViewModel @AssistedInject constructor(
     private val repository: NotificationsRepository,

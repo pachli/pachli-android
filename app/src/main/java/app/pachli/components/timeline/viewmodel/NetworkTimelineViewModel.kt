@@ -51,7 +51,6 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
@@ -60,7 +59,6 @@ import kotlinx.coroutines.launch
 /**
  * TimelineViewModel that caches all statuses in an in-memory list
  */
-@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel(assistedFactory = NetworkTimelineViewModel.Factory::class)
 open class NetworkTimelineViewModel @AssistedInject constructor(
     @Assisted("timeline") timeline: Timeline,
