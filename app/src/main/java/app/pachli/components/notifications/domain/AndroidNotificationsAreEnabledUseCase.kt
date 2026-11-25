@@ -77,7 +77,7 @@ class AndroidNotificationsAreEnabledUseCase @Inject constructor(
             val result = accountManager.areAndroidNotificationsEnabled()
             Timber.d("Did any accounts have notifications enabled?: %s", result)
             NotificationConfig.androidNotificationsEnabled = result
-            return result
+            result
         }
     }
 }

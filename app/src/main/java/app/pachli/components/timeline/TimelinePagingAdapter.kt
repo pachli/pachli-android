@@ -56,7 +56,7 @@ class TimelinePagingAdapter(
                     setContent,
                 )
             }
-            else -> return object : RecyclerView.ViewHolder(inflater.inflate(R.layout.item_placeholder, viewGroup, false)) {}
+            else -> object : RecyclerView.ViewHolder(inflater.inflate(R.layout.item_placeholder, viewGroup, false)) {}
         }
     }
 

@@ -72,7 +72,7 @@ class LocaleManager @Inject constructor(
 
                 val availableLanguages = context.resources.getStringArray(R.array.language_values)
 
-                return availableLanguages.find { it == selectedLanguage[0]!!.toLanguageTag() }
+                availableLanguages.find { it == selectedLanguage[0]!!.toLanguageTag() }
                     ?: availableLanguages.find { language ->
                         language.startsWith(selectedLanguage[0]!!.language)
                     }
