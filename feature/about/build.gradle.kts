@@ -49,6 +49,7 @@ val privacyPolicySpec = copySpec { from("../../PRIVACY.md") }
 
 val copyPrivacyPolicy =
     tasks.register<Copy>("copyPrivacyPolicy") {
+        description = "Copies the privacy policy into assets"
         into("src/main/assets")
         with(privacyPolicySpec)
     }
