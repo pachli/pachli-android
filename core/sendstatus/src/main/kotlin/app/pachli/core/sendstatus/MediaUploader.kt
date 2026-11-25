@@ -53,7 +53,6 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -254,8 +253,7 @@ class MediaUploader @Inject constructor(
      * @return A Flow emitting upload events.
      * The Flow is hot, in order to cancel upload or clear resources call [cancelUploadScope].
      */
-    @OptIn(ExperimentalCoroutinesApi::class)
-    suspend fun uploadMedia(media: QueuedMedia, serverLimits: ServerLimits): Flow<Result<UploadState, MediaUploaderError>> {
+    fun uploadMedia(media: QueuedMedia, serverLimits: ServerLimits): Flow<Result<UploadState, MediaUploaderError>> {
         val uploadScope = CoroutineScope(Dispatchers.IO)
         val uploadFlow: Flow<Result<UploadState, MediaUploaderError>> = flow {
             if (shouldResizeMedia(media, serverLimits)) {
