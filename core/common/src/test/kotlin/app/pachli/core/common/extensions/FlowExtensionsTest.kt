@@ -20,15 +20,12 @@ package app.pachli.core.common.extensions
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
 import kotlin.time.Duration.Companion.milliseconds
-import kotlin.time.ExperimentalTime
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
-@OptIn(ExperimentalCoroutinesApi::class, ExperimentalTime::class)
 class FlowExtensionsTest {
     @Test
     fun `throttleFirst throttles first`() = runTest {

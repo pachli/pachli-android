@@ -22,7 +22,6 @@ import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.TimeMark
 import kotlin.time.TimeSource
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
@@ -111,7 +110,6 @@ value class SharedFlowContext(private val subscriptionCount: StateFlow<Int>) {
      * A shared flow that does not cancel collecting the upstream flow after
      * a state (lifecycle) change.
      */
-    @OptIn(ExperimentalCoroutinesApi::class)
     fun <T> Flow<T>.flowWhileShared(started: SharingStarted): Flow<T> {
         return started.command(subscriptionCount)
             .distinctUntilChanged()
@@ -157,7 +155,6 @@ fun <T> Flow<T>.countSubscriptionsTo(subscriptionCount: MutableStateFlow<Int>): 
     }
 }
 
-@OptIn(ExperimentalCoroutinesApi::class)
 fun <T> SharedFlowContext.versionedResourceFlow(
     version: Flow<Int>,
     producer: suspend (version: Int) -> T,
