@@ -61,8 +61,8 @@ class TrendingTagsViewModel @Inject constructor(
         val loadingState: LoadingState,
     )
 
-    val uiState: Flow<TrendingTagsUiState> get() = _uiState
-    private val _uiState = MutableStateFlow(TrendingTagsUiState(listOf(), LoadingState.INITIAL))
+    val uiState: Flow<TrendingTagsUiState>
+        field = MutableStateFlow(TrendingTagsUiState(listOf(), LoadingState.INITIAL))
 
     private val contentFilters = flow {
         accountManager.activePachliAccountFlow
@@ -85,9 +85,9 @@ class TrendingTagsViewModel @Inject constructor(
      */
     fun invalidate(refresh: Boolean = false) = viewModelScope.launch {
         if (refresh) {
-            _uiState.value = TrendingTagsUiState(emptyList(), LoadingState.REFRESHING)
+            uiState.value = TrendingTagsUiState(emptyList(), LoadingState.REFRESHING)
         } else {
-            _uiState.value = TrendingTagsUiState(emptyList(), LoadingState.LOADING)
+            uiState.value = TrendingTagsUiState(emptyList(), LoadingState.LOADING)
         }
 
         val contentFilters = contentFilters.replayCache.last()
@@ -96,7 +96,7 @@ class TrendingTagsViewModel @Inject constructor(
             .map { it.body.asModel() }
             .onSuccess { tagResponse ->
                 val firstTag = tagResponse.firstOrNull()
-                _uiState.value = if (firstTag == null) {
+                uiState.value = if (firstTag == null) {
                     TrendingTagsUiState(emptyList(), LoadingState.LOADED)
                 } else {
                     val homeFilters = contentFilters.contentFilters.filter { filter ->
@@ -118,9 +118,9 @@ class TrendingTagsViewModel @Inject constructor(
             .onFailure { error ->
                 Timber.w("failed loading trending tags: %s", error)
                 if (error.throwable is IOException) {
-                    _uiState.value = TrendingTagsUiState(emptyList(), LoadingState.ERROR_NETWORK)
+                    uiState.value = TrendingTagsUiState(emptyList(), LoadingState.ERROR_NETWORK)
                 } else {
-                    _uiState.value = TrendingTagsUiState(emptyList(), LoadingState.ERROR_OTHER)
+                    uiState.value = TrendingTagsUiState(emptyList(), LoadingState.ERROR_OTHER)
                 }
             }
     }
