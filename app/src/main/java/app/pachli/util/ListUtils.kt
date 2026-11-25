@@ -17,13 +17,6 @@
 package app.pachli.util
 
 /**
- * @return true if list is null or else return list.isEmpty()
- */
-fun isEmpty(list: List<*>?): Boolean {
-    return list == null || list.isEmpty()
-}
-
-/**
  * Copies elements to destination, removing duplicates and preserving original order.
  */
 fun <T, C : MutableCollection<in T>> Iterable<T>.removeDuplicatesTo(destination: C): C {
