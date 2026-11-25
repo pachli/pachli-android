@@ -93,10 +93,8 @@ class ViewThreadViewModel @Inject constructor(
 ) : ViewModel() {
     // TODO: For consistency with other fragments the UiState should not include
     // the list of statuses. Look at SuggestionsViewModel for ideas.
-    private val _uiResult: MutableStateFlow<Result<ThreadUiState, ThreadError>> =
-        MutableStateFlow(Ok(ThreadUiState.Loading))
     val uiResult: Flow<Result<ThreadUiState, ThreadError>>
-        get() = _uiResult
+        field: MutableStateFlow<Result<ThreadUiState, ThreadError>> = MutableStateFlow(Ok(ThreadUiState.Loading))
 
     private val _errors = Channel<PachliError>()
     val errors = _errors.receiveAsFlow()
@@ -140,7 +138,7 @@ class ViewThreadViewModel @Inject constructor(
 
     fun loadThread(pachliAccountId: Long, statusId: String) {
         viewModelScope.launch {
-            _uiResult.value = Ok(ThreadUiState.Loading)
+            uiResult.value = Ok(ThreadUiState.Loading)
 
             val account = accountManager.activePachliAccountFlow.first()
 
@@ -192,7 +190,7 @@ class ViewThreadViewModel @Inject constructor(
                 val status = statusCall.await()
                     .map { api.resolveShallowQuotes(it.body) }
                     .getOrElse { error ->
-                        _uiResult.value = Err(ThreadError.Api(error))
+                        uiResult.value = Err(ThreadError.Api(error))
                         return@launch
                     }
                     .asModel()
@@ -215,7 +213,7 @@ class ViewThreadViewModel @Inject constructor(
                 )
             }
 
-            _uiResult.value = Ok(
+            uiResult.value = Ok(
                 ThreadUiState.LoadingThread(
                     statusViewDatum = detailedStatus,
                     revealButton = detailedStatus.getRevealButtonState(),
@@ -303,7 +301,7 @@ class ViewThreadViewModel @Inject constructor(
                     }
                 val statuses = ancestors + detailedStatus + descendants
 
-                _uiResult.value = Ok(
+                uiResult.value = Ok(
                     ThreadUiState.Loaded(
                         statusViewData = statuses,
                         detailedStatusPosition = ancestors.size,
@@ -312,7 +310,7 @@ class ViewThreadViewModel @Inject constructor(
                 )
             }
                 .onFailure { error ->
-                    _uiResult.value = Ok(
+                    uiResult.value = Ok(
                         ThreadUiState.Loaded(
                             statusViewData = listOf(detailedStatus),
                             detailedStatusPosition = 0,
@@ -325,17 +323,17 @@ class ViewThreadViewModel @Inject constructor(
     }
 
     fun retry(pachliAccountId: Long, statusId: String) {
-        _uiResult.value = Ok(ThreadUiState.Loading)
+        uiResult.value = Ok(ThreadUiState.Loading)
         loadThread(pachliAccountId, statusId)
     }
 
     fun refresh(pachliAccountId: Long, statusId: String) {
-        _uiResult.value = Ok(ThreadUiState.Refreshing)
+        uiResult.value = Ok(ThreadUiState.Refreshing)
         loadThread(pachliAccountId, statusId)
     }
 
     fun detailedStatus(): StatusItemViewData? {
-        return when (val uiState = _uiResult.value.get()) {
+        return when (val uiState = uiResult.value.get()) {
             is ThreadUiState.Loaded -> uiState.statusViewData.find { status ->
                 status.isDetailed
             }
@@ -721,7 +719,7 @@ class ViewThreadViewModel @Inject constructor(
             isDetailed = isDetailed,
         )
 
-        val priorViewData = (_uiResult.value.get() as? ThreadUiState.Loaded)?.statusViewData
+        val priorViewData = (uiResult.value.get() as? ThreadUiState.Loaded)?.statusViewData
             ?.find { it.statusId == status.statusId }
 
         if (priorViewData == null) return q
@@ -751,7 +749,7 @@ class ViewThreadViewModel @Inject constructor(
      * Updates [_uiResult] using [updater] if [_uiResult] is already [ThreadUiState.Loaded].
      */
     private inline fun updateSuccess(updater: (ThreadUiState.Loaded) -> ThreadUiState.Loaded) {
-        _uiResult.getAndUpdate { v ->
+        uiResult.getAndUpdate { v ->
             if (v.get() is ThreadUiState.Loaded) {
                 Ok(updater(v.get() as ThreadUiState.Loaded))
             } else {
