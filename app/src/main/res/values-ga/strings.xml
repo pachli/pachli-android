@@ -755,4 +755,7 @@
     <string name="pref_labs_glide_user_image_decoder_on_summary">D’fhéadfadh sé feidhmíocht agus úsáid cuimhne a fheabhsú</string>
     <string name="pref_labs_glide_user_image_decoder_off_summary">Iompar suas go dtí Pachli 3.10.0</string>
     <string name="pref_labs_glide_user_image_decoder_disabled_summary">Díchumasaithe ar leaganacha Android &lt; 10</string>
+    <string name="edit_hashtags_hint">Haischlibeanna scartha le spásanna, # roghnach</string>
+    <string name="add_hashtags_title">Cuir haischlibo leis</string>
+    <string name="warning_duplicate_hashtags_fmt">Déanfar neamhaird ar dhúblaigh: %1$s</string>
 </resources>
