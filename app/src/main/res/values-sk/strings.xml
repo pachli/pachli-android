@@ -459,7 +459,6 @@
     <string name="restart_emoji">Pre uplatnenie týchto zmien je potrebné reštartovať aplikáciu</string>
     <string name="account_moved_description">%1$s sa presunul/a na:</string>
     <string name="conversation_more_recipients">%1$s, %2$s a %3$d ďalší</string>
-
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Nemôžeš nahrať viac než %1$d mediálnu prílohu.</item>
         <item quantity="few">Nemôžeš nahrať viac než %1$d mediálne prílohy.</item>
@@ -730,4 +729,11 @@
     <string name="notification_collection_update_description">Notifikácie pri aktualizácii kolekcie, ktorej si súčasťou</string>
     <string name="notification_collection_add_format">&lt;b&gt;%1$s&lt;/b&gt; ťa pridal/a do kolekcie</string>
     <string name="notification_collection_update_format">&lt;b&gt;%1$s&lt;/b&gt; aktualizoval/a kolekciu, ktorej si súčasťou</string>
+    <string name="pref_labs_glide_use_image_decoder_title">Použiť ImageDecoder pri načítaní obrázkov</string>
+    <string name="pref_labs_glide_user_image_decoder_on_summary">Môže zlepšiť výkon a využitie pamäte</string>
+    <string name="pref_labs_glide_user_image_decoder_off_summary">Správanie až po verziu Pachli 3.10.0</string>
+    <string name="pref_labs_glide_user_image_decoder_disabled_summary">Deaktivované vo verziách Androidu &lt; 10</string>
+    <string name="edit_hashtags_hint">Hashtagy oddelené medzerami, # je voliteľný</string>
+    <string name="add_hashtags_title">Pridať hashtag</string>
+    <string name="warning_duplicate_hashtags_fmt">Duplikáty budú ignorované: %1$s</string>
 </resources>
