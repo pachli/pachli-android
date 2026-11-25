@@ -8,7 +8,7 @@ class SpannableString(private val text: CharSequence) : Spannable {
         throw NotImplementedError()
     }
 
-    override fun <T : Any?> getSpans(start: Int, end: Int, type: Class<T>?): Array<T> {
+    override fun <T> getSpans(start: Int, end: Int, type: Class<T>?): Array<T> {
         throw NotImplementedError()
     }
 
