@@ -356,7 +356,7 @@ class NotificationLogFragment :
             } else {
                 ""
             },
-            if (runAttemptCount > 0 && state == ENQUEUED) {
+            if (runAttemptCount > 0 && state == ENQUEUED && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 stopReason
             } else {
                 ""
