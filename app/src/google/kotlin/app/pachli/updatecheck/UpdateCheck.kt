@@ -37,7 +37,7 @@ class UpdateCheck @Inject constructor(
     override suspend fun remoteFetchLatestVersionCode(): Int? {
         return suspendCancellableCoroutine { cont ->
             appUpdateManager.appUpdateInfo.addOnSuccessListener { info ->
-                cont.resume(info.availableVersionCode()) {}
+                cont.resume(info.availableVersionCode()) { _, _, _ -> }
             }
         }
     }
