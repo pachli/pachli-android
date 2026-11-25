@@ -20,7 +20,6 @@ package app.pachli.core.markwon
 import android.content.Context
 import android.graphics.Color
 import androidx.core.text.method.LinkMovementMethodCompat
-import app.pachli.core.markwon.PreProcessMastodonHtml.processMarkdown
 import com.google.android.material.color.MaterialColors
 import com.mohamedrejeb.ksoup.entities.KsoupEntities
 import io.noties.markwon.AbstractMarkwonPlugin
