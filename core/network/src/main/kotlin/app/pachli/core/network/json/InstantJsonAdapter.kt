@@ -49,8 +49,7 @@ class InstantJsonAdapter : JsonAdapter<Instant?>() {
             return reader.nextNull()
         }
         val string = reader.nextString()
-        val parsed = fmt.parseBest(string, Instant::from, LocalDateTime::from)
-        return when (parsed) {
+        return when (val parsed = fmt.parseBest(string, Instant::from, LocalDateTime::from)) {
             is Instant -> parsed
             is LocalDateTime -> Instant.from(parsed)
             else -> {
