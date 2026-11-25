@@ -53,7 +53,7 @@ class IntentDetector : Detector(), Detector.UastScanner {
             context.report(
                 issue = ISSUE,
                 scope = node,
-                location = context.getCallLocation(node, true, true),
+                location = context.getCallLocation(node, includeReceiver = true, includeArguments = true),
                 message = "Use functions from `core.navigation`",
             )
         }
