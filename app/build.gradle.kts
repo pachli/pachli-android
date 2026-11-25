@@ -118,6 +118,7 @@ androidComponents {
         val variantNameCapitalized = variant.name.replaceFirstChar { it.uppercaseChar() }
         val mainOutput = variant.outputs.single()
         tasks.register("printVersionInfo$variantNameCapitalized") {
+            description = "Prints the current versionCode and versionName"
             notCompatibleWithConfigurationCache("Should always print the version info")
             doLast {
                 println("${mainOutput.versionCode.get()} ${mainOutput.versionName.get()}")
