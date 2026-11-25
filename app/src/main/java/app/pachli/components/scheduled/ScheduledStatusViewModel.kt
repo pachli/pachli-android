@@ -163,7 +163,8 @@ internal class ScheduledStatusViewModel @Inject constructor(
     }
 
     /** @return True if [scheduledStatus] is checked. */
-    fun isScheduledStatusChecked(scheduledStatus: ScheduledStatus) = states.value.get(scheduledStatus.id) == State.CHECKED
+    fun isScheduledStatusChecked(scheduledStatus: ScheduledStatus) =
+        states.value[scheduledStatus.id] == State.CHECKED
 
     /** @return The number of checked scheduled statuses. */
     fun countChecked() = states.value.values.filter { it == State.CHECKED }.size
