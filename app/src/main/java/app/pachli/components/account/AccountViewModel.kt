@@ -36,6 +36,8 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -321,11 +323,11 @@ class AccountViewModel @AssistedInject constructor(
         noteSaved.postValue(false)
         noteUpdateJob?.cancel()
         noteUpdateJob = viewModelScope.launch {
-            delay(1500)
+            delay(1500.milliseconds)
             mastodonApi.updateAccountNote(accountId, newNote)
                 .onSuccess {
                     noteSaved.postValue(true)
-                    delay(4000)
+                    delay(4.seconds)
                     noteSaved.postValue(false)
                 }
                 .onFailure { e ->

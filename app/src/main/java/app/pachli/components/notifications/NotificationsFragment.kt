@@ -91,6 +91,7 @@ import com.mikepenz.iconics.IconicsSize
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -134,7 +135,7 @@ class NotificationsFragment :
     // Update post timestamps
     private val updateTimestampFlow = flow {
         while (true) {
-            delay(60000)
+            delay(60.seconds)
             emit(Unit)
         }
     }.onEach {
