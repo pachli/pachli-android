@@ -27,7 +27,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import app.pachli.core.common.util.unsafeLazy
-import app.pachli.core.ui.AlertSuspendDialogFragment.Companion.newInstance
 import kotlin.coroutines.resume
 import kotlinx.coroutines.suspendCancellableCoroutine
 
@@ -54,7 +53,7 @@ interface SuspendDialogResult<T> {
     suspend fun await(
         fragmentManager: FragmentManager,
         tag: String? = this::class.java.canonicalName,
-    ) = suspendCancellableCoroutine<T> {
+    ) = suspendCancellableCoroutine {
         if (this !is DialogFragment) {
             throw IllegalArgumentException("${SuspendDialogResult::class} only works on ${DialogFragment::class}")
         }
