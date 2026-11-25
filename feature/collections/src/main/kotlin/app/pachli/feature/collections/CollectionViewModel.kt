@@ -219,7 +219,7 @@ internal class CollectionViewModel @Inject constructor(
         viewModelScope.launch {
             // Wait for a reloadRelationships trigger, then reload relationships from
             // the server.
-            combine(reloadRelationships, pachliAccountId, localCollectionWithAccounts.filterNotNull()) { _, pachliAccountId, collectionWithAccounts ->
+            combine(reloadRelationships, pachliAccountId, localCollectionWithAccounts) { _, pachliAccountId, collectionWithAccounts ->
                 Triple(pachliAccountId, collectionWithAccounts.collection.collectionId, collectionWithAccounts.accounts.map { it.accountId } + collectionWithAccounts.owner?.accountId)
             }.collect { (pachliAccountId, collectionId, accountIds) ->
                 relationshipsRepository.getRelationships(pachliAccountId, accountIds.filterNotNull())
