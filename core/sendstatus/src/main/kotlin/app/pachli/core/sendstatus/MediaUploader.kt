@@ -59,7 +59,6 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
@@ -241,9 +240,9 @@ class MediaUploader @Inject constructor(
      * [Uploaded][UploadState.Uploaded] types), or return an error.
      */
     suspend fun waitForUploadToFinish(localId: Int): Result<Uploaded, MediaUploaderError> {
-        return uploads[localId]?.flow?.filter {
+        return uploads[localId]?.flow?.first {
             it.get() is Uploaded || it.get() == null
-        }?.first() as? Result<Uploaded, MediaUploaderError>
+        } as? Result<Uploaded, MediaUploaderError>
             ?: Err(MediaUploaderError.UploadIdNotFoundError(localId))
     }
 
