@@ -56,7 +56,7 @@ sealed interface InfallibleUiAction : UiAction {
 
 @HiltViewModel(assistedFactory = TrendingLinksViewModel.Factory::class)
 class TrendingLinksViewModel @AssistedInject constructor(
-    @Assisted private val pachliAccountId: Long,
+    @Assisted pachliAccountId: Long,
     private val repository: TrendingLinksRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,

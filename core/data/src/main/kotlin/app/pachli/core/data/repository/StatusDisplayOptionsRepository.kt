@@ -49,7 +49,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     private val accountManager: AccountManager,
     private val accountPreferenceDataStore: AccountPreferenceDataStore,
-    @ApplicationScope private val externalScope: CoroutineScope,
+    @ApplicationScope externalScope: CoroutineScope,
 ) {
     /** Default status display options */
     private val default = StatusDisplayOptions()
