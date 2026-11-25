@@ -18,8 +18,6 @@
 package app.pachli.core.ui.appbar
 
 import android.view.View
-import app.pachli.core.ui.appbar.FadeChildScrollEffect.END_DEAD_ZONE
-import app.pachli.core.ui.appbar.FadeChildScrollEffect.START_DEAD_ZONE
 import com.google.android.material.appbar.AppBarLayout
 import kotlin.math.abs
 

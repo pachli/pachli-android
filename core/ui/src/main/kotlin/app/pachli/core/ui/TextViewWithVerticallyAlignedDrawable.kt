@@ -17,8 +17,6 @@
 
 package app.pachli.core.ui
 
-import android.R.attr.height
-import android.R.attr.lineSpacingExtra
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Rect
