@@ -48,7 +48,7 @@ suspend fun AlertDialog.await(
 ) = withContext(Dispatchers.Main) {
     suspendCancellableCoroutine { cont ->
         val listener = DialogInterface.OnClickListener { _, which ->
-            cont.resume(which) { dismiss() }
+            cont.resume(which) { _, _, _ -> dismiss() }
         }
 
         positiveText?.let { setButton(BUTTON_POSITIVE, positiveText, listener) }
@@ -114,15 +114,15 @@ suspend inline fun <reified T : CharSequence> AlertDialog.Builder.awaitSingleCho
         }
 
         val buttonListener = DialogInterface.OnClickListener { _, which ->
-            cont.resume(SingleChoiceItemResult(which, selectedIndex)) { }
+            cont.resume(SingleChoiceItemResult(which, selectedIndex)) { _, _, _ -> }
         }
 
         setSingleChoiceItems(items.toTypedArray(), selectedIndex, itemListener)
         setPositiveButton(positiveTextResource, buttonListener)
         negativeTextResource?.let { setNegativeButton(it, buttonListener) }
         neutralTextResource?.let { setNeutralButton(it, buttonListener) }
-        setOnCancelListener { cont.resume(SingleChoiceItemResult(BUTTON_NEGATIVE, selectedIndex)) {} }
-        setOnDismissListener { if (!cont.isCompleted) cont.resume(SingleChoiceItemResult(BUTTON_NEGATIVE, selectedIndex)) {} }
+        setOnCancelListener { cont.resume(SingleChoiceItemResult(BUTTON_NEGATIVE, selectedIndex)) { _, _, _ -> } }
+        setOnDismissListener { if (!cont.isCompleted) cont.resume(SingleChoiceItemResult(BUTTON_NEGATIVE, selectedIndex)) { _, _, _ -> } }
         val dialog = create()
 
         cont.invokeOnCancellation { dialog.dismiss() }
@@ -146,13 +146,13 @@ suspend fun <S> MaterialDatePicker<S>.await(
 ) = withContext(Dispatchers.Main) {
     suspendCancellableCoroutine { cont ->
         val listener = MaterialPickerOnPositiveButtonClickListener<S> { selection ->
-            cont.resume(selection) { dismiss() }
+            cont.resume(selection) { _, _, _ -> dismiss() }
         }
 
         addOnPositiveButtonClickListener(listener)
-        addOnNegativeButtonClickListener { cont.resume(null) { dismiss() } }
-        addOnCancelListener { cont.resume(null) { dismiss() } }
-        addOnDismissListener { if (!cont.isCompleted) cont.resume(null) { dismiss() } }
+        addOnNegativeButtonClickListener { cont.resume(null) { _, _, _ -> dismiss() } }
+        addOnCancelListener { cont.resume(null) { _, _, _ -> dismiss() } }
+        addOnDismissListener { if (!cont.isCompleted) cont.resume(null) { _, _, _ -> dismiss() } }
         cont.invokeOnCancellation { dismiss() }
 
         show(fragmentManager, tag)
