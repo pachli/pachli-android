@@ -62,7 +62,7 @@ class MastodonTagHandlerTest(private val testData: TestData) {
     }
 
     companion object {
-        @Parameterized.Parameters()
+        @Parameterized.Parameters
         @JvmStatic
         fun data(): Iterable<TestData> {
             return listOf(

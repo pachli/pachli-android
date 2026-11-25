@@ -165,7 +165,7 @@ abstract class ViewUrlActivity : BaseActivity() {
      * Replaces any existing snackbar.
      */
     // Visible so tests can override this with a mock.
-    @VisibleForTesting()
+    @VisibleForTesting
     open fun showSnackbar() {
         // Show snackbar
         snackbar?.dismiss()
