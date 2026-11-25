@@ -46,13 +46,7 @@
     public *;
 }
 
--keepclassmembers class app.pachli.core.database.model.ConversationAccountEntity { *; }
 -keepclassmembers class app.pachli.core.model.DraftAttachment { *; }
--keep class app.pachli.core.model.TimelineJsonAdapter { *; }
-
--keep enum app.pachli.core.model.DraftAttachment$Type {
-    public *;
-}
 
 # Keep class names. Obfuscating them serves no purpose in an open source
 # project and adds an additional step to de-obfuscate them when managing user
