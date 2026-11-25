@@ -68,6 +68,7 @@ class EmojiPickerView @JvmOverloads constructor(
     var emojis: List<Emoji> = emptyList()
         set(value) {
             adapter.emojis = value
+            field = value
         }
 
     var animate: Boolean = false
