@@ -35,19 +35,6 @@ moshi {
     enableSealed.set(true)
 }
 
-/** Adds a dependency to the "robolectricSdk" configuration. */
-val robolectricSdk =
-    configurations.create("robolectricSdk") {
-        isTransitive = false
-    }
-
-/** Adds the path to [jars] as the `-Drobolectric.dependency.dir` argument. */
-class RobolectricSdk(
-    @get:InputFiles @get:PathSensitive(PathSensitivity.NAME_ONLY) private val jars: FileCollection,
-) : CommandLineArgumentProvider {
-    override fun asArguments() = listOf("-Drobolectric.dependency.dir=${jars.singleFile.parentFile.absolutePath}")
-}
-
 android {
     namespace = "app.pachli"
 
@@ -98,18 +85,6 @@ android {
         // Disable lint for release builds, it's already checked as part of
         // CI, and checking again unnecessarily slows down release builds.
         checkReleaseBuilds = false
-    }
-
-    testOptions {
-        unitTests.all {
-            it.systemProperty("robolectric.logging.enabled", "true")
-            it.systemProperty("robolectric.lazyload", "ON")
-
-            // Run Robolectric in offline mode so it doesn't try and download
-            // dependencies itself. Dependencies are specified through `robolectricSdk`.
-            it.systemProperty("robolectric.offline", "true")
-            it.jvmArgumentProviders.add(RobolectricSdk(robolectricSdk))
-        }
     }
 }
 
@@ -275,6 +250,4 @@ dependencies {
 
     lintChecks(projects.checks)
     ktlintRuleset(libs.ktlint.compose.rules)
-
-    robolectricSdk(libs.robolectric.android.all)
 }
