@@ -22,16 +22,30 @@ import com.gradle.develocity.agent.gradle.test.DevelocityTestConfiguration
 import com.gradle.develocity.agent.gradle.test.TestRetryConfiguration
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
+import org.gradle.api.artifacts.Configuration
+import org.gradle.api.file.FileCollection
+import org.gradle.api.tasks.InputFiles
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.testing.Test
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByName
 import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.withType
+import org.gradle.process.CommandLineArgumentProvider
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinBaseExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+/** Adds the path to [jars] as the `-Drobolectric.dependency.dir` argument. */
+class RobolectricSdk(
+    @get:InputFiles @get:PathSensitive(PathSensitivity.NAME_ONLY) private val jars: FileCollection,
+) : CommandLineArgumentProvider {
+    override fun asArguments() =
+        listOf("-Drobolectric.dependency.dir=${jars.singleFile.parentFile.absolutePath}")
+}
 
 /**
  * Configure base Kotlin with Android options
@@ -39,6 +53,13 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 internal fun Project.configureKotlinAndroid(
     commonExtension: CommonExtension,
 ) {
+    /** Adds a "robolectricSdk" dependency configuration. */
+    val robolectricSdk: Configuration = configurations.create("robolectricSdk") {
+        isCanBeConsumed = false
+        isCanBeResolved = true
+        isTransitive = false
+    }
+
     commonExtension.apply {
         compileSdk = 37
 
@@ -53,6 +74,16 @@ internal fun Project.configureKotlinAndroid(
         }
 
         testOptions.apply {
+            unitTests.all {
+                it.systemProperty("robolectric.logging.enabled", "true")
+                it.systemProperty("robolectric.lazyload", "ON")
+
+                // Run Robolectric in offline mode so it doesn't try and download
+                // dependencies itself. Dependencies are specified through `robolectricSdk`.
+                it.systemProperty("robolectric.offline", "true")
+                it.jvmArgumentProviders.add(RobolectricSdk(robolectricSdk))
+            }
+
             unitTests {
                 // Without this Robolectric skips some tests with "doesn't support legacy
                 // resources mode after P" message
@@ -90,6 +121,7 @@ internal fun Project.configureKotlinAndroid(
 
     dependencies {
         add("coreLibraryDesugaring", libs.findLibrary("desugar.jdk.libs").get())
+        add("robolectricSdk", libs.findLibrary("robolectric.android.all").get())
     }
 }
 
