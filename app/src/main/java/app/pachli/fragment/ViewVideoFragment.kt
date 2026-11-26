@@ -161,7 +161,7 @@ class ViewVideoFragment : ViewMediaFragment() {
         )
 
         toggleMuteButton.setOnClickListener {
-            player?.let { viewModel.setAudioPlaybackState(audioPlaybackState.toggle(it.volume)) }
+            viewModel.setAudioPlaybackState(audioPlaybackState.toggle())
         }
 
         /** Handle single taps, flings, and dragging */
@@ -307,8 +307,8 @@ class ViewVideoFragment : ViewMediaFragment() {
                 launch {
                     viewModel.audioPlaybackState.collect { playbackState ->
                         when (playbackState) {
-                            is AudioPlaybackState.Muted -> player?.volume = 0f
-                            is AudioPlaybackState.Unmuted -> player?.volume = playbackState.volume
+                            is AudioPlaybackState.Muted -> player?.mute()
+                            is AudioPlaybackState.Unmuted -> player?.unmute()
                         }
                         setToggleMuteButtonContent(toggleMuteButton, playbackState)
                     }
