@@ -23,33 +23,21 @@ import kotlinx.coroutines.launch
  * @see Unmuted
  */
 internal sealed interface AudioPlaybackState {
-    /**
-     * Playback is muted.
-     *
-     * @property previous The volume before muting.
-     */
-    data class Muted(val previous: Float) : AudioPlaybackState
+    /** Playback is muted. */
+    data object Muted : AudioPlaybackState
 
-    /**
-     * Playback is unmuted.
-     *
-     * @property volume The current volume.
-     */
-    data class Unmuted(val volume: Float) : AudioPlaybackState
+    /** Playback is unmuted. */
+    data object Unmuted : AudioPlaybackState
 
     /**
      * Toggle's the [AudioPlaybackState] from [muted][AudioPlaybackState.Muted]
      * to [unmuted][AudioPlaybackState.Unmuted], and vice-versa.
      *
-     * @param currentVolume The current volume, saved when muting, restored when unmuting.
      * @return The new [AudioPlaybackState].
      */
-    fun toggle(currentVolume: Float): AudioPlaybackState {
-        val newAudioPlaybackState = when (this) {
-            is Muted -> Unmuted(previous)
-            is Unmuted -> Muted(previous = currentVolume)
-        }
-        return newAudioPlaybackState
+    fun toggle(): AudioPlaybackState = when (this) {
+        is Muted -> Unmuted
+        is Unmuted -> Muted
     }
 }
 
@@ -91,8 +79,8 @@ class ViewMediaViewModel @Inject constructor(
     /** @see audioPlaybackState */
     private val _audioPlaybackState = MutableStateFlow(
         when (sharedPreferencesRepository.defaultAudioPlayback) {
-            DefaultAudioPlayback.UNMUTED -> AudioPlaybackState.Unmuted(1f)
-            DefaultAudioPlayback.MUTED -> AudioPlaybackState.Muted(1f)
+            DefaultAudioPlayback.UNMUTED -> AudioPlaybackState.Unmuted
+            DefaultAudioPlayback.MUTED -> AudioPlaybackState.Muted
         },
     )
 
