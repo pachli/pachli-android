@@ -29,8 +29,8 @@
     <string name="title_edit_profile">Profiel bewerken</string>
     <string name="post_sensitive_media_directions">Klik om te bekijken</string>
     <string name="footer_empty">Niets te zien. Swipe naar beneden om te verversen!</string>
-    <string name="notification_reblog_format">&lt;b&gt;%1$s&lt;/b&gt; boostte jouw bericht</string>
-    <string name="notification_favourite_format">&lt;b&gt;%1$s&lt;/b&gt; markeerde jouw bericht als favoriet</string>
+    <string name="notification_reblog_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; boostte jouw bericht</string>
+    <string name="notification_favourite_format">&amp;lt;b&amp;gt;%1$s&amp;lt;/b&amp;gt; markeerde jouw bericht als favoriet</string>
     <string name="notification_follow_format">&lt;b&gt;%1$s&lt;/b&gt; volgt jou</string>
     <string name="report_username_format">Rapporteer @%1$s</string>
     <string name="report_comment_hint">Extra opmerkingen\?</string>
