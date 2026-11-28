@@ -14,7 +14,7 @@
     <string name="translation_model_manager_fragment_downloaded_heading">Gedownload</string>
     <string name="translation_model_manager_fragment_remote_heading">Tik om te downloaden</string>
     <string name="fragment_confirm_download_language_dialog_title_fmt">%1$s downloaden met mobiele data?</string>
-    <string name="fragment_confirm_download_language_dialog_msg">Dit zal normaal 30–60MB aan mobiele data verbruiken.</string>
+    <string name="fragment_confirm_download_language_dialog_msg">Dit zal normaal 30-60MB aan mobiele data verbruiken.</string>
     <string name="fragment_confirm_delete_language_dialog_title_fmt">%1$s verwijderen?</string>
     <string name="fragment_confirm_delete_language_dialog_msg">Als je deze taal verwijdert, zal hij gedownload worden wanneer hij weer nodig is.</string>
     <string name="fragment_google_disclaimer_dialog_title">Vertaaldisclaimer</string>
